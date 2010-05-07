@@ -1,0 +1,441 @@
+% -*- mode: Noweb; noweb-code-mode: text-mode -*-%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% HOPF Project Source File
+% DESCRIPTION: This file contains the declarations and implementations
+%              for Hopf algebras in Hopf.
+%
+% Copyright, 1998 Virginia Polytechnic Institute and State University.
+% Copyright, 1998 Virginia Tech Hopf Project. All rights reserved.
+%
+% This file may be distributed in accordance with the stipulations existing
+% in the LICENSE file accompanying this software.
+%
+% $Id: hopfalg.nw,v 1.1 2010/05/07 13:30:14 sunnyquiver Exp $
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Hopf Algebras}
+\label{chapter:HopfAlgebras}
+
+\section{Overview}
+\label{section:HopfAlgebrasOverview}
+
+\section{Source Files}
+\label{section:HopfAlgebrasSourceFiles}
+
+<<[[hopfalg.gd]]>>=
+# GAP Declarations
+# This file was generated from
+# $Id: hopfalg.nw,v 1.1 2010/05/07 13:30:14 sunnyquiver Exp $
+<<Hopf Algebra Declarations>>
+<<Algebra Antihomomorphism Declarations>>
+@
+
+<<[[hopfalg.gi]]>>=
+# GAP Implementation
+# This file was generated from 
+# $Id: hopfalg.nw,v 1.1 2010/05/07 13:30:14 sunnyquiver Exp $
+<<Hopf Algebra Implementations>>
+<<Algebra Antihomomorphism Implementations>>
+@
+
+<<Algebra Antihomomorphism Declarations>>=
+DeclareCategory("IsAlgebraAntihomomorphism",IsAlgebraGeneralMapping);
+DeclareCategory("IsAlgebraWithOneAntihomomorphism",IsAlgebraWithOneGeneralMapping and IsAlgebraAntihomomorphism);
+DeclareOperation("AlgebraAntihomomorphismByImages", [IsAlgebra,IsAlgebra,IsDenseList,IsDenseList]);
+DeclareOperation("AlgebraAntihomomorphismByImagesNC", [IsAlgebra,IsAlgebra,IsDenseList,IsDenseList]);
+DeclareOperation("AlgebraWithOneAntihomomorphismByImages", [IsAlgebraWithOne,IsAlgebraWithOne,IsDenseList,IsDenseList]);
+DeclareOperation("AlgebraWithOneAntihomomorphismByImagesNC", [IsAlgebraWithOne,IsAlgebraWithOne,IsDenseList,IsDenseList]);
+@
+
+<<Hopf Algebra Declarations>>=
+DeclareCategory("IsHopfAlgebra", IsAlgebra);
+DeclareCategory("IsHopfAlgebraElement", IsRingElement);
+DeclareCategoryCollections("IsHopfAlgebraElement");
+DeclareCategoryFamily("IsHopfAlgebraElement");
+DeclareRepresentation("IsHopfAlgebraBasisDefaultRep",IsComponentObjectRep,["underlyingBasis"]);
+DeclareCategory("IsHopfAlgebraBasis",IsBasis and IsHopfAlgebraBasisDefaultRep);
+DeclareAttribute("UnderlyingAlgebra", IsHopfAlgebra);
+DeclareAttribute("ComultiplicationMap", IsHopfAlgebra);
+DeclareAttribute("CounitMap", IsHopfAlgebra);
+DeclareAttribute("AntipodeMap", IsHopfAlgebra);
+DeclareOperation("Comultiply", [IsRingElement]);
+DeclareOperation("Counit", [IsRingElement]);
+DeclareOperation("Antipode", [IsRingElement]);
+DeclareOperation("HopfAlgebra", [IsGroupRing]);
+DeclareOperation("HopfAlgebraNC", [IsGroupRing]);
+DeclareOperation("HopfAlgebraNC", [IsAlgebra,IsAlgebraGeneralMapping,IsAlgebraGeneralMapping,IsAlgebraGeneralMapping]);
+@
+
+<<Algebra Antihomomorphism Implementations>>=
+<<AlgebraAntihomomorphismByImages>>
+<<AlgebraAntihomomorphismByImagesNC>>
+<<AlgebraWithOneAntihomomorphismByImages>>
+<<AlgebraWithOneAntihomomorphismByImagesNC>>
+@
+
+<<Hopf Algebra Implementations>>=
+<<Comultiply>>
+<<Counit>>
+<<Antipode>>
+<<HopfAlgebraFromGroupRing>>
+<<HopfAlgebraFromGroupRingNC>>
+<<HopfAlgebraNC>>
+<<HopfAlgebraWrappedOperations>>
+<<HopfAlgebraElementWrappedOperations>>
+@
+
+<<AlgebraAntihomomorphismVars>>=
+local hom,opB,opElemFamily,opImgs,map;
+
+# treat as homomorphism with opposite algebra
+opB:=OppositeAlgebra(B);
+opElemFamily:=ElementsFamily(FamilyObj(opB));
+opImgs:=List(imgs,x->Objectify(opElemFamily!.packedType,[x]));
+@
+
+<<AlgebraAntihomomorphismMap>>=
+if hom=fail then
+   Error("Unable to construct underlying homomorphism");
+fi;
+# take map to be unwrapped version of opposite element
+map:=function(e)
+   local opImg;
+
+   opImg:=Image(hom,e);
+   return opImg![1];
+end;
+map:=MappingByFunction(A,B,map);
+@
+
+<<AlgebraAntihomomorphismByImages>>=
+InstallMethod(AlgebraAntihomomorphismByImages,
+   "for an algebra, an algebra, a list of generators, and list of images",
+   [IsAlgebra,IsAlgebra,IsDenseList,IsDenseList],
+   0,
+   function(A,B,gens,imgs)
+
+   <<AlgebraAntihomomorphismVars>>
+   hom:=AlgebraHomomorphismByImages(A,opB,gens,opImgs);
+   <<AlgebraAntihomomorphismMap>>
+   SetFilterObj(map,IsAlgebraAntihomomorphism);
+   return map;
+end);
+@
+
+<<AlgebraAntihomomorphismByImagesNC>>=
+InstallMethod(AlgebraAntihomomorphismByImagesNC,
+   "for an algebra, an algebra, a list of generators, and list of images",
+   [IsAlgebra,IsAlgebra,IsDenseList,IsDenseList],
+   0,
+   function(A,B,gens,imgs)
+
+   <<AlgebraAntihomomorphismVars>>
+   hom:=AlgebraHomomorphismByImagesNC(A,opB,gens,opImgs);
+   <<AlgebraAntihomomorphismMap>>
+   SetFilterObj(map,IsAlgebraAntihomomorphism);
+   return map;
+end);
+@
+
+<<AlgebraWithOneAntihomomorphismByImages>>=
+InstallMethod(AlgebraWithOneAntihomomorphismByImages,
+   "for an algebra-with-one, an algebra-with-one, a list of generators, and list of images",
+   [IsAlgebraWithOne,IsAlgebraWithOne,IsDenseList,IsDenseList],
+   0,
+   function(A,B,gens,imgs)
+
+   <<AlgebraAntihomomorphismVars>>
+   hom:=AlgebraWithOneHomomorphismByImages(A,opB,gens,opImgs);
+   <<AlgebraAntihomomorphismMap>>
+   SetFilterObj(map,IsAlgebraWithOneAntihomomorphism);
+   return map;
+end);
+@
+
+<<AlgebraWithOneAntihomomorphismByImagesNC>>=
+InstallMethod(AlgebraWithOneAntihomomorphismByImagesNC,
+   "for an algebra-with-one, an algebra-with-one, a list of generators, and list of images",
+   [IsAlgebraWithOne,IsAlgebraWithOne,IsDenseList,IsDenseList],
+   0,
+   function(A,B,gens,imgs)
+
+   <<AlgebraAntihomomorphismVars>>
+   hom:=AlgebraWithOneHomomorphismByImages(A,opB,gens,opImgs);
+   <<AlgebraAntihomomorphismMap>>
+   SetFilterObj(map,IsAlgebraWithOneAntihomomorphism);
+   return map;
+end);
+@
+
+<<HopfAlgebraMapHeader>>=
+   "for a Hopf algebra element",
+   true,
+   [IsRingElement],
+   0,
+   function(e)
+@
+
+<<Comultiply>>=
+InstallMethod(Comultiply,
+   <<HopfAlgebraMapHeader>>
+   return e^ComultiplicationMap(FamilyObj(e)!.hopfalgebra);
+end);
+@
+
+<<Counit>>=
+InstallMethod(Counit,
+   <<HopfAlgebraMapHeader>>
+   return e^CounitMap(FamilyObj(e)!.hopfalgebra);
+end);
+@
+
+<<Antipode>>=
+InstallMethod(Antipode,
+   <<HopfAlgebraMapHeader>>
+   return e^AntipodeMap(FamilyObj(e)!.hopfalgebra);
+end);
+@
+
+<<HopfAlgebraFromGroupRing>>=
+InstallMethod(HopfAlgebra,
+   "for a group ring",
+   true,
+   [IsGroupRing],
+   0,
+   function(gr)
+
+   if IsField(LeftActingDomain(gr)) then
+      return HopfAlgebraNC(gr);
+   else
+      Error("Left acting domain of group ring is not a field.");
+   fi;
+end);
+
+<<HopfAlgebraFromGroupRingNC>>=
+InstallMethod(HopfAlgebraNC,
+   "for a group ring",
+   true,
+   [IsGroupRing],
+   0,
+   function(gr)
+
+   local b,d,o,t;
+
+   t:=TensorProductOfAlgebras(gr,gr);
+   b:=BasisVectors(Basis(gr));
+   d:=LeftActingDomain(gr);
+   o:=One(d);
+   # comultiplication: elem goes to elem tensor elem
+   # counit: elem goes to 1
+   # antipode: elem goes to group inverse
+   return HopfAlgebraNC(gr,AlgebraHomomorphismByImagesNC(gr,t,b,List(b,x->TensorElement(t,x,x))),AlgebraHomomorphismByImagesNC(gr,d,b,List(b,x->o)),AlgebraHomomorphismByImagesNC(gr,gr,b,List(b,x->x^-1)));
+end);
+@
+
+<<HopfAlgebraNC>>=
+InstallMethod(HopfAlgebraNC,
+   "for an algebra and algebra maps",
+   true,
+   [IsAlgebra,IsAlgebraGeneralMapping,IsAlgebraGeneralMapping,IsAlgebraGeneralMapping],
+   function(a,comult,counit,antipode)
+
+   local fam,hopf,type;
+
+   type:=NewType(NewFamily("HopfAlgebraElementsFamily",IsHopfAlgebraElement),IsPackedElementDefaultRep);
+   if IsAlgebraWithOne(a) then
+      hopf:=AlgebraWithOneByGenerators(LeftActingDomain(a),List(GeneratorsOfAlgebraWithOne(a),x->Objectify(type,[x])));
+      SetOne(hopf,Objectify(type,[One(a)]));
+   else
+      hopf:=AlgebraByGenerators(LeftActingDomain(a),List(GeneratorsOfAlgebra(a),x->Objectify(type,[x])));
+   fi;
+   SetComultiplicationMap(hopf,comult);
+   SetCounitMap(hopf,counit);
+   SetAntipodeMap(hopf,antipode);
+   SetUnderlyingAlgebra(hopf,a);
+   SetFilterObj(hopf,IsHopfAlgebra);
+   fam:=ElementsFamily(FamilyObj(hopf));
+   fam!.packedType:=type;
+   fam!.underlyingAlgebraEltsFam:=ElementsFamily(FamilyObj(a));
+   fam!.hopfalgebra:=hopf;
+   return hopf;
+end);
+@
+
+<<HopfAlgebraWrappedHeader>>=
+   "for a Hopf algebra",
+   true,
+   [IsHopfAlgebra],
+   function(a)
+@
+
+<<HopfAlgebraBasisOp>>=
+   <<HopfAlgebraWrappedHeader>>
+   local b;
+
+   b:=Objectify(NewType(FamilyObj(a),IsHopfAlgebraBasis and IsAttributeStoringRep),rec());;
+   SetUnderlyingLeftModule(b,a);
+@
+ 
+<<HopfAlgebraWrappedOperations>>=
+InstallMethod(ViewObj,
+   "for a Hopf algebra",
+   true,
+   [IsHopfAlgebra],
+   1000,
+   function(a)
+
+   Print("<Hopf algebra from ");
+   ViewObj(UnderlyingAlgebra(a));
+   Print(">");
+end);
+
+InstallMethod(\in,
+   "for a Hopf algebra element and Hopf algebra",
+   true,
+   [IsHopfAlgebraElement,IsHopfAlgebra],
+   function(e,a)
+
+   return e![1] in UnderlyingAlgebra(a);
+end);
+
+InstallMethod(Dimension,
+   <<HopfAlgebraWrappedHeader>>
+   return Dimension(UnderlyingAlgebra(a));
+end);
+
+InstallMethod(IsFiniteDimensional,
+   <<HopfAlgebraWrappedHeader>>
+   return IsFiniteDimensional(UnderlyingAlgebra(a));
+end);
+
+InstallMethod(Basis,
+   <<HopfAlgebraBasisOp>>
+   b!.underlyingBasis:=Basis(UnderlyingAlgebra(a));
+   return b;
+end);
+
+InstallMethod(CanonicalBasis,
+   <<HopfAlgebraBasisOp>>
+   b!.underlyingBasis:=CanonicalBasis(UnderlyingAlgebra(a));
+   if b!.underlyingBasis=fail then
+      return fail;
+   fi;
+   SetIsCanonicalBasis(b,true);
+   return b;
+end);
+
+InstallMethod(Coefficients,
+   "for a Hopf algebra basis and a Hopf algebra element",
+   true,
+   [IsHopfAlgebraBasis,IsHopfAlgebraElement and IsPackedElementDefaultRep],
+   function(b,e)
+
+   return Coefficients(b!.underlyingBasis,e![1]);
+end);
+
+InstallMethod(BasisVectors,
+   "for a Hopf algebra basis",
+   true,
+   [IsHopfAlgebraBasis],
+   function(b)
+
+   local type,vectors;
+
+   vectors:=BasisVectors(b!.underlyingBasis);
+   type:=ElementsFamily(FamilyObj(b))!.packedType;
+   return List(vectors,x->Objectify(type,[x]));
+end);
+@
+
+<<HopfAlgebraElementBinaryOpHeader>>=
+   "for two Hopf algebra elements",
+   IsIdenticalObj,
+   [IsHopfAlgebraElement and IsPackedElementDefaultRep,IsHopfAlgebraElement and IsPackedElementDefaultRep],
+   function(e1,e2)
+@
+
+<<HopfAlgebraElementUnaryOpHeader>>=
+   "for a Hopf algebra element",
+   true,
+   [IsHopfAlgebraElement],
+   function(e)
+@
+
+<<HopfAlgebraElementWrappedOperations>>=
+InstallMethod(\=,
+   <<HopfAlgebraElementBinaryOpHeader>>
+   return e1![1]=e2![1];
+end);
+
+InstallMethod(\<,
+   <<HopfAlgebraElementBinaryOpHeader>>
+   return e1![1]<e2![1];
+end);
+
+InstallMethod(\+,
+   <<HopfAlgebraElementBinaryOpHeader>>
+   return Objectify(TypeObj(e1),[e1![1]+e2![1]]);
+end);
+
+InstallMethod(\*,
+   <<HopfAlgebraElementBinaryOpHeader>>
+   return Objectify(TypeObj(e1),[e1![1]*e2![1]]);
+end);
+
+InstallMethod(\*,
+   "for a Hopf algebra element and scalar",
+   true,
+   [IsHopfAlgebraElement and IsPackedElementDefaultRep,IsScalar],
+   function(e,s)
+   
+   return Objectify(TypeObj(e),[e![1]*s]);
+end);
+
+InstallMethod(\*,
+   "for a scalar and Hopf algebra element",
+   true,
+   [IsScalar,IsHopfAlgebraElement and IsPackedElementDefaultRep],
+   function(s,e)
+
+   return Objectify(TypeObj(e),[s*e![1]]);
+end);
+
+InstallMethod(AINV,
+   <<HopfAlgebraElementUnaryOpHeader>>
+   return Objectify(TypeObj(e),[-e![1]]);
+end);
+
+InstallMethod(\^,
+   "for a Hopf algebra element and general algebra mapping",
+   true,
+   [IsHopfAlgebraElement,IsAlgebraGeneralMapping],
+   function(e,map)
+
+   return e![1]^map;
+end);
+
+InstallMethod(ZeroOp,
+   <<HopfAlgebraElementUnaryOpHeader>>
+   return Objectify(TypeObj(e),[0*e![1]]);
+end);
+
+InstallMethod(PrintObj,
+   "for a Hopf algebra element",
+   true,
+   [IsHopfAlgebraElement],
+   1000,
+   function(e)
+
+   Print("Hopf(",e![1],")");
+end);
+   
+InstallMethod(ViewObj,
+   "for a Hopf algebra element",
+   true,
+   [IsHopfAlgebraElement],
+   1000,
+   function(e)
+
+   ViewObj(e![1]);
+end);
+@

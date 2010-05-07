@@ -1,0 +1,916 @@
+% -*- mode: Noweb; noweb-code-mode: text-mode -*-%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% HOPF Project Source File
+% DESCRIPTION: This file contains the functions needed to interface Opal
+%              with GAP4 and the Hopf project.
+%
+% Copyright, 1998 Virginia Polytechnic Institute and State University.
+% Copyright, 1998 Virginia Tech Hopf Project. All rights reserved.
+%
+% This file may be distributed in accordance with the stipulations existing
+% in the LICENSE file accompanying this software.
+%
+% $Id: opal.nw,v 1.1 2010/05/07 13:30:14 sunnyquiver Exp $
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Opal Interface}\label{chapter:OpalInterface}
+
+\section{Overview}\label{section:OpalInterfaceOverview}
+
+In this chapter, we build the interface between the Opal \groebner\
+basis package and \hopf. We use Opal to compute the \groebner\ bases
+for quotients of path algebras.
+
+\begin{NOTE}Later we can also include
+finitely presented algebras.
+\end{NOTE}
+
+The implementation of the interface
+makes use of orderings defined in Chapter~\ref{chapter:Orderings} and
+\groebner\ bases defined in Chapter~\ref{chapter:GroebnerBases}.
+
+In the future, capabilities such as projective resolutions will be
+interfaced between \hopf\ and Opal, when these capabilities are
+available in Opal.
+
+
+\section{Source Files}\label{section:OpalInterfaceSourceFiles}
+
+<<[[opal.gd]]>>=
+# GAP Declarations
+# This file was generated from
+# $Id: opal.nw,v 1.1 2010/05/07 13:30:14 sunnyquiver Exp $
+<<Opal interface declarations>>
+@ 
+
+<<[[opal.gi]]>>=
+# GAP Implementation
+# This file was generated from 
+# $Id: opal.nw,v 1.1 2010/05/07 13:30:14 sunnyquiver Exp $
+<<Opal interface implementations>>
+@ 
+
+\section{Interface Variable}\label{section:OpalInterfaceInterfaceVariable}
+
+The [[Opal]] global variable contains information used by the Opal
+interface. In particular, it is used to map from \hopf\ to Opal and
+back again. The [[Opal]] variable also stores information about the
+temporary directory used to store input and output files, and other
+information. The [[Opal]] variable is a record.
+
+<<Opal Variable Declaration and Initialization>>=
+Opal := rec();
+@ %def Opal
+
+\paragraph{Inclusion into Source}
+The [[Opal]] variable is the first thing to appear in the
+implementation portion of the GAP to Opal interface.
+
+<<Opal interface implementations>>=
+<<Opal Variable Declaration and Initialization>>
+@ 
+
+\section{Information Class}\label{section:OpalInterfaceInformationClass}
+
+The [[InfoOpal]] information class is used to obtain debugging
+information about the GAP to Opal interface code. 
+
+<<InfoOpal Declaration>>=
+DeclareInfoClass("InfoOpal");
+@ %def InfoOpal
+
+\paragraph{Inclusion into Source}
+The information class goes into the declaration section.
+
+<<Opal interface declarations>>=
+<<InfoOpal Declaration>>
+@ 
+
+\section{\groebner\ Basis Creation}\label{section:OpalInterfaceGroebnerBasisCreation}
+
+\paragraph{Operation}
+The [[OpalGroebnerBasis]] operation created a \groebner\ basis using
+the Opal non-commutative \groebner\ basis system. Opal expects
+algebras to be described as quotients of path algebras. Initially, we
+will only support using quotients of path algebras for finding
+\groebner\ bases. Later we might include other algebras, so the
+declaration for [[OpalGroebnerBasis]] will apply to all algebras, then
+specific implementations for different algebra types will be created. 
+
+<<OpalGroebnerBasis Declaration>>=
+DeclareOperation( "OpalGroebnerBasis", [IsFLMLOR] );
+@ %def OpalGroebnerBasis
+
+\begin{SLOPPY}
+[[OpalGroebnerBasis]] creates a \groebner\ basis using
+[[GroebnerBasis]], and sets the appropriate attributes based on what
+Opal returns. A separate implementation of [[OpalGroebnerBasis]] is
+required for each kind of algebra supported by \hopf. Currently, only
+path algebras are supported.
+\end{SLOPPY}
+
+<<OpalGroebnerBasis Implementation>>=
+InstallMethod( OpalGroebnerBasis,
+    "for a path algebra",
+    true,
+    [ IsFLMLOR ], 0,
+    function( I )
+        local tempdir, gapFilename, opalFilename, opalFile, GB, A, verts;
+
+        if not IsFamilyElementOfPathRing(ElementsFamily(FamilyObj(I))) then
+            TryNextMethod();
+        fi;
+
+        # Setup the temp directory and input and output files.
+        tempdir := DirectoryTemporary();
+        gapFilename := Filename(tempdir, "opalOutput");
+        opalFilename := Filename(tempdir, "opalInput");
+        Info(InfoOpal, 1, "Opal input file name is: ", opalFilename);
+        Info(InfoOpal, 1, "GAP input file name is: ", gapFilename);
+        opalFile := OutputTextFile(opalFilename, false);
+
+        # Print out the information to an output file
+	A := LeftActingRingOfIdeal(I);
+        verts := [];
+
+        AlgebraToOpal(A, opalFile, verts);
+        AssumePathAlgebra(LeftActingDomain(I), opalFile);
+        WriteRelatorsToOpal(I, opalFile, verts);
+        WriteFinalOpalCommands(I, opalFile);
+
+        # Close the output stream and execute Opal      
+        CloseStream(opalFile);
+        ExecuteOpal(OrderingOfAlgebra(A), opalFilename, gapFilename);
+        Read(gapFilename); # Sets Opal.groebnerBasis
+
+        GB := GroebnerBasis(I, Opal.groebnerBasis);
+        SetIsCompleteGroebnerBasis(GB, Opal.isCompleteGroebnerBasis);
+
+        return GB;
+    end );        
+@ 
+
+\paragraph
+[[OpalGroebnerBasis]] will only compute 20 new basis elements and then stop. 
+So the next function [[OpalBoundedGroebnerBasis]] which works the same way 
+allows the user to choose his own bounds for how many new basis elements should
+be found before ending computation.  The bound must be a positive integer.
+
+<<OpalBoundedGroebnerBasis Declaration>>=
+DeclareOperation( "OpalBoundedGroebnerBasis", [IsFLMLOR,IsPosInt] );
+@ %def OpalBoundedGroebnerBasis
+
+<<OpalBoundedGroebnerBasis Implementation>>=
+InstallMethod( OpalBoundedGroebnerBasis,
+    "for a path algebra and a bound",
+    true,
+    [ IsFLMLOR , IsPosInt], 0,
+    function( I , n )
+        local tempdir, gapFilename, opalFilename, opalFile, GB, A, verts;
+
+        if not IsFamilyElementOfPathRing(ElementsFamily(FamilyObj(I))) then
+            TryNextMethod();
+        fi;
+
+        # Setup the temp directory and input and output files.
+        tempdir := DirectoryTemporary();
+        gapFilename := Filename(tempdir, "opalOutput");
+        opalFilename := Filename(tempdir, "opalInput");
+        Info(InfoOpal, 1, "Opal input file name is: ", opalFilename);
+        Info(InfoOpal, 1, "GAP input file name is: ", gapFilename);
+        opalFile := OutputTextFile(opalFilename, false);
+
+        # Print out the information to an output file
+	A := LeftActingRingOfIdeal(I);
+        verts := [];
+        AlgebraToOpal(A, opalFile, verts);
+        AssumePathAlgebra(LeftActingDomain(I), opalFile);
+        WriteRelatorsToOpal(I, opalFile, verts);
+        WriteFinalOpalCommandsWithBound(I, n, opalFile);
+
+        # Close the output stream and execute Opal      
+        CloseStream(opalFile);
+        ExecuteOpal(OrderingOfAlgebra(A), opalFilename, gapFilename);
+        Read(gapFilename); # Sets Opal.groebnerBasis
+
+        GB := GroebnerBasis(I, Opal.groebnerBasis);
+        SetIsCompleteGroebnerBasis(GB, Opal.isCompleteGroebnerBasis);
+
+        return GB;
+    end );        
+@ 
+
+\paragraph
+Finally the [[OpalFiniteGroebnerBasis]] command has no bounds and will continue
+computations until it has found complete finite \groebner\ basis.  This 
+function should only be used if you know the basis you are looking for is
+finite because there is no stop mechanism for the algorithm.  Thus if you ran
+[[OpalFiniteGroebnerBasis]] on an infinite problem, the command would run until
+it crashed your computer.
+
+<<OpalFiniteGroebnerBasis Declaration>>=
+DeclareOperation( "OpalFiniteGroebnerBasis", [IsFLMLOR] );
+@ %def OpalFiniteGroebnerBasis
+
+<<OpalFiniteGroebnerBasis Implementation>>=
+InstallMethod( OpalFiniteGroebnerBasis,
+    "for a path algebra and a finite basis",
+    true,
+    [ IsFLMLOR ], 0,
+    function( I )
+        local tempdir, gapFilename, opalFilename, opalFile, GB, A, verts;
+
+        if not IsFamilyElementOfPathRing(ElementsFamily(FamilyObj(I))) then
+            TryNextMethod();
+        fi;
+
+        # Setup the temp directory and input and output files.
+        tempdir := DirectoryTemporary();
+        gapFilename := Filename(tempdir, "opalOutput");
+        opalFilename := Filename(tempdir, "opalInput");
+        Info(InfoOpal, 1, "Opal input file name is: ", opalFilename);
+        Info(InfoOpal, 1, "GAP input file name is: ", gapFilename);
+        opalFile := OutputTextFile(opalFilename, false);
+
+        # Print out the information to an output file
+	A := LeftActingRingOfIdeal(I);
+        AlgebraToOpal(A, opalFile, verts);
+        AssumePathAlgebra(LeftActingDomain(I), opalFile);
+        WriteRelatorsToOpal(I, opalFile, verts);
+        WriteFinalOpalCommandsFinite(I, opalFile);
+
+        # Close the output stream and execute Opal      
+        CloseStream(opalFile);
+        ExecuteOpal(OrderingOfAlgebra(A), opalFilename, gapFilename);
+        Read(gapFilename); # Sets Opal.groebnerBasis
+
+        GB := GroebnerBasis(I, Opal.groebnerBasis);
+        SetIsCompleteGroebnerBasis(GB, Opal.isCompleteGroebnerBasis);
+
+        return GB;
+    end );  
+@
+
+\paragraph{Operation}
+The first thing we do is create an Opal version of the algebra for
+which we are finding a \groebner~basis. We define the operation
+[[AlgebraToOpal]] for all algebras but only implement it for supported
+algebras.
+
+<<AlgebraToOpal Declaration>>=
+DeclareOperation("AlgebraToOpal", [IsFLMLOR, IsOutputStream, IsList]);
+@ %def AlgebraToOpal
+
+For path algebras, we convert the quiver used to define the quotient
+of the path algebra to Opal commands in [[AlgebraToOpal]].  The
+[[AlgebraToOpal]] operations takes an algebra $A$ and writes output to
+an Opal input file $opalFile$.
+
+<<AlgebraToOpal Implementation for Quotients of Path Algebras>>=
+InstallMethod( AlgebraToOpal,
+    "for quotients of path algebras and output streams",
+    true,
+    [IsFLMLOR, IsOutputStream, IsList], 0,
+    function(A, opalFile, verts)
+        local Q, ordering, lexTable, vertices, arrows, v, a, first,
+              elementFam, zero, one, nextOrder, weights;
+        
+        Q := QuiverOfPathAlgebra(A);
+        ordering := OrderingOfQuiver(Q);
+        if not IsAdmissibleOrdering(ordering) then
+            Error("The ordering of elements must be admissible.");
+        fi;
+        elementFam := ElementsFamily(FamilyObj(A));
+        zero := Zero(LeftActingDomain(A));
+        one := One(LeftActingDomain(A));
+
+        PrintTo(opalFile, "let g = Graph( [ ");
+        <<Write out vertices and arrows in proper lexicographic order>>
+        <<Write out the arc weights for weight orderings>>
+   end );
+@ 
+
+Opal actually takes input in descending lexicographic order, whereas
+\hopf\ uses ascending order. Hence we go through the lexicographic
+table in reverse order when writing out the quiver.
+
+<<Write out vertices and arrows in proper lexicographic order>>=
+if HasLexicographicTable(ordering) then
+    lexTable := LexicographicTable(ordering);
+else
+    lexTable := GeneratorsOfQuiver(Q);
+fi;
+<<Write out the vertices in reversed lexicographic order>>
+<<Write out the arrows in reversed lexicographic order>>
+@ 
+
+We filter the generators to only be vertices, reverse the list, and
+write out the vertices to the file as well as assigning them to the
+[[Opal]] global record for mapping back and forth between the Opal
+interface and GAP.
+
+<<Write out the vertices in reversed lexicographic order>>=
+# First just the vertices    
+vertices := Reversed(Filtered(lexTable, IsVertex));
+
+first := true;
+for v in vertices do
+    if not first then
+        AppendTo(opalFile, ", ");
+    else
+        first := false;
+    fi;
+    
+    Opal.(String(v!.gen_pos)) := ObjByExtRep(elementFam, 
+                                             [zero, [ExtRepOfObj(v), one]]);
+    AppendTo(opalFile, "(Opal'", v!.gen_pos, ")");
+    Add(verts, v!.gen_pos);
+od;
+AppendTo(opalFile, "],\n");
+@ 
+
+Now we filter the generators to only be arrows and perform the same
+steps as we did for the vertices.
+
+<<Write out the arrows in reversed lexicographic order>>=
+# Now the arrows
+AppendTo(opalFile, "[ ");
+arrows := Reversed(Filtered(lexTable, IsArrow));
+
+first := true;
+for a in arrows do
+    if not first then
+        AppendTo(opalFile, ",\n");
+    else
+        first := false;
+    fi;
+    Opal.(String(a!.gen_pos)) := ObjByExtRep(elementFam, 
+                                             [zero, [ExtRepOfObj(a), one]]);
+    AppendTo(opalFile, "Opal'", a!.gen_pos, " : ");
+    AppendTo(opalFile, "(Opal'", SourceOfPath(a)!.gen_pos, ") -> ");
+    AppendTo(opalFile, "(Opal'", TargetOfPath(a)!.gen_pos, ")");
+od;
+AppendTo(opalFile, " ] );\n");
+@ 
+
+Find out if there exists a weight ordering in the orderings and
+write out the arc weights.
+We will use the arc weights for the first weight ordering
+encountered.
+If more than one weight ordering exists, throw an error.
+
+<<Write out the arc weights for weight orderings>>=
+nextOrder := ordering;
+while not IsWeightOrdering(nextOrder) and HasNextOrdering(nextOrder) do
+    nextOrder := NextOrdering(nextOrder);
+od;
+if IsWeightOrdering(nextOrder) then
+    weights := nextOrder!.weight;
+    AppendTo(opalFile, "let g = ArcWeight(g, [\n");
+
+    first := true;
+    for a in arrows do
+        if not first then
+            AppendTo(opalFile, ",\n");
+        else
+            first := false;
+        fi;
+        AppendTo(opalFile, "Opal'", a!.gen_pos, ":", 
+                 weights[a!.gen_pos - Length(vertices)]);
+    od;
+    AppendTo(opalFile, "]);\n");
+
+    while HasNextOrdering(nextOrder) do
+        nextOrder := NextOrdering(nextOrder);
+        if IsWeightOrdering(nextOrder) then
+            Error("Two weight orderings encountered. Opal only supports one.");
+	fi;
+    od;
+fi;
+@ 
+
+\paragraph{Operation}
+Now we want to assume the proper context. To do this, we must write
+out the field we are working over and use the graph created when
+writing out the quiver. The operation [[AssumePathAlgebra]] writes out
+the Opal statement required to do this. The operation takes a field
+and an output stream as parameters.
+
+<<AssumePathAlgebra Declaration>>=
+DeclareOperation("AssumePathAlgebra", [IsField, IsOutputStream]);
+@ %def AssumePathAlgebra
+
+The default implementation is that the field is not currently
+implemented. A different implementation is implemented for each
+supported field.
+
+<<AssumePathAlgebra Implementation for Fields>>=
+InstallMethod( AssumePathAlgebra,
+    "for arbitrary fields",
+    true,
+    [IsField, IsOutputStream], 0,
+    function( F, outputStream )
+        Error("AssumePathAlgebra is not supported for the field: ", F);
+end );
+@ 
+
+The implementation for finite prime fields.
+
+<<AssumePathAlgebra Implementation for Prime Fields>>=
+InstallMethod( AssumePathAlgebra,
+    "for finite prime fields",
+    true,
+    [IsPrimeField and IsFinite, IsOutputStream], 0,
+    function( F, outputStream)
+        # Make sure this is a prime field for now
+        AppendTo(outputStream,
+                 "assume pathalgebra(integer(", Characteristic(F),"),g);\n");
+end );
+@ 
+
+The implementation for the rationals.
+
+<<AssumePathAlgebra implementation for the rationals>>=
+InstallMethod( AssumePathAlgebra,
+    "for the rationals",
+    true,
+    [IsRationals, IsOutputStream], 0,
+    function( F, outputStream )
+        AppendTo(outputStream,
+                 "assume pathalgebra( Rationals, g );\n");
+    end );
+@ 
+
+\paragraph{Operation}
+We need to output coefficients to Opal. Since this is common to any
+kind of algebra, we define a general operation
+[[WriteCoefficientToOpal]] to perform the necessary conversion and
+implement the operation for each supported field.
+
+<<WriteCoefficientToOpal Declaration>>=
+DeclareOperation("WriteCoefficientToOpal", [IsScalar, IsOutputStream]);
+@ %def WriteCoefficientToOpal
+
+We can output coefficients that are members of finite prime fields
+only. Opal expects the coefficients to be written as integers instead
+of GAP's format. This will change in the future, so we implement the
+function for all finite field elements.
+
+<<WriteCoefficientToOpal Implementation for Elements of Finite Fields>>=
+InstallMethod( WriteCoefficientToOpal,
+    "for finite prime fields",
+    true,
+    [IsFFE, IsOutputStream], 0,
+    function( coeff, opalFile )
+        if DegreeFFE(coeff) <> 1 then
+            TryNextMethod();
+        fi;
+        AppendTo(opalFile, IntFFE(coeff));
+    end);
+@ 
+
+This is the implementation for the rationals, which is straightforward.
+
+<<WriteCoefficientToOpal implementation for the rationals>>=
+InstallMethod( WriteCoefficientToOpal,
+    "for the rationals",
+    true,
+    [IsRat, IsOutputStream], 0,
+    function( coeff, opalFile )
+        AppendTo(opalFile, coeff);
+    end);
+@ 
+
+
+\paragraph{Operation}
+Every relator needs to be output to the Opal input file.
+Relators are the generators of the ideal we are computing the
+\groebner\ basis for.
+
+\begin{NOTE}This may change as
+it seems we have to do some roundabout things to get at the relators.
+\end{NOTE}
+
+Relators are changed into their external representation. The external
+representation consists of a two element list. The first element is
+the zero of the left acting domain, and the second is a list of zipped
+terms, alternating the external representation of paths and the
+coefficients of the paths. The [[WriteRelatorsToOpal]] operation is defined
+for all algebras but only implemented for supported algebras.
+
+<<WriteRelatorsToOpal Declaration>>=
+DeclareOperation("WriteRelatorsToOpal", [IsFLMLOR, IsOutputStream, IsList]);
+@ %def WriteRelatorsToOpal
+
+The implementation for quotients of path algebras follows. Each
+relator in a quotient of a path algebra $A$ is an element in the whole
+path algebra. We view the relators by their external representations,
+which is a two element list containing the zero of the left acting
+domain as the first element and a zipped list of coefficients and
+lists of integers representing a product of generators. We loop over
+every relator, convert it to its external representation, and then
+loop over every term in the zipped list, printing out the coefficients
+and products of generators as the mapped version for Opal.
+
+<<WriteRelatorsToOpal Implementation for Quotients of Path Algebras>>=
+InstallMethod(WriteRelatorsToOpal, 
+    "for quotients of path algebras and output streams",
+    true,
+    [IsFLMLOR, IsOutputStream, IsList], 0,
+    function(I, opalFile, verts)
+        local relators, rel, extRel, coeff, term, generator, 
+              i, firstTerm, firstGen, firstRel, F;
+        AppendTo(opalFile, "let F = {\n");
+
+        relators := GeneratorsOfIdeal(I);
+        firstRel := true;
+        F := LeftActingDomain(I);
+
+        for rel in relators do
+            if not firstRel then
+                AppendTo(opalFile, ",\n");
+            else
+                firstRel := false;
+            fi;
+            extRel := ExtRepOfObj(rel)[2];
+
+            # Make sure the first term is positive
+            # because opal doesn't handle unary -
+            if extRel[2] < Zero(F) then
+                rel := -One(F)*rel;
+                extRel := ExtRepOfObj(rel)[2];
+            fi;
+            
+            firstTerm := true;
+            for i in [1,3..Length(extRel) - 1] do
+                coeff := extRel[i+1];
+                term := extRel[i];
+                if not firstTerm then
+                    if coeff < Zero(F) then
+                        coeff := -coeff;
+                        AppendTo(opalFile, " - ");
+                    else
+                        AppendTo(opalFile, " + ");
+                    fi;
+                else
+                    firstTerm := false;
+                fi;
+                firstGen := true;
+                WriteCoefficientToOpal(coeff, opalFile);
+                AppendTo(opalFile,"*");
+                for generator in term do
+                    if not firstGen then
+                        AppendTo(opalFile, "*");
+                    else
+                        firstGen := false;
+                    fi;
+                    if generator in verts then
+                        AppendTo(opalFile, "(");
+                    fi; 
+                    AppendTo(opalFile, "Opal'", generator);
+                    if generator in verts then
+                        AppendTo(opalFile, ")");
+                    fi; 
+                od;
+            od;
+        od;
+        AppendTo(opalFile, "\n};\n");
+    end);
+@ 
+
+\paragraph{Global Function}
+There are three functions needed to write out the final Opal commands
+to compute a \groebner~basis for an algebra $A$. Each is specific to either
+[[OpalGroebnerBasis]], [[OpalBoundedGroebnerBasis]], or [[OpalFiniteGroebnerBasis]]  
+
+We create the globalfunction [[WriteFinalOpalCommands]] to append the Opal 
+commands to the Opal program file for [[OpalGroebnerBasis]].
+<<WriteFinalOpalCommands Declaration>>=
+DeclareGlobalFunction( "WriteFinalOpalCommands" );
+@ %def WriteFinalOpalCommands
+
+<<WriteFinalOpalCommands Implementation>>=
+InstallGlobalFunction( WriteFinalOpalCommands, function( I, opalFile )
+    AppendTo(opalFile, "let B = Basis(F);\n");
+    AppendTo(opalFile, "B;\n");
+    AppendTo(opalFile, "IsGrobner(B);\n");
+end );
+@
+
+We create the globalfunction [[WriteFinalOpalCommandsWithBound]] to append the Opal commands to the Opal program file for [[OpalBoundedGroebnerBasis]].
+
+<<WriteFinalOpalCommandsWithBound Declaration>>=
+DeclareGlobalFunction( "WriteFinalOpalCommandsWithBound" );
+@ %def WriteFinalOpalCommandsWithBounds
+
+<<WriteFinalOpalCommandsWithBound Implementation>>=
+InstallGlobalFunction( WriteFinalOpalCommandsWithBound, function( I, n, opalFile )
+    AppendTo(opalFile, "let B = Basis(F,",n,");\n");
+    AppendTo(opalFile, "B;\n");
+    AppendTo(opalFile, "IsGrobner(B);\n");
+end );
+@
+
+We create the globalfunction [[WriteFinalOpalCommandsFinite]] to append the
+ Opal commands to the Opal program file for [[OpalFiniteGroebnerBasis]].
+
+<<WriteFinalOpalCommandsFinite Declaration>>=
+DeclareGlobalFunction( "WriteFinalOpalCommandsFinite" );
+@ %def WriteFinalOpalCommandsFinite
+
+<<WriteFinalOpalCommandsFinite Implementation>>=
+InstallGlobalFunction( WriteFinalOpalCommandsFinite, function( I, opalFile )
+    AppendTo(opalFile, "let B = FinBasis(F);\n");
+    AppendTo(opalFile, "B;\n");
+    AppendTo(opalFile, "IsGrobner(B);\n");
+end );
+@
+
+\paragraph{OrderingToOpal}
+The [[OrderingToOpal]] operation converts an ordering to a string used
+to describe to Opal which ordering should be used when constructing a
+\groebner~basis. We declare the operation here and implement it for
+each supported ordering.
+
+<<OrderingToOpal Declaration>>=
+DeclareOperation("OrderingToOpal", [IsQuiverOrdering]);
+@ %def OrderingToOpal
+
+Left lexicographical orderings return the string \texttt{"lex"}
+followed by supplemental orderings, if they exist.
+
+<<OrderingToOpal Implementation for Left Lexicographic Orderings>>=
+InstallMethod( OrderingToOpal,
+    "for left lexicographic orderings",
+    true,
+    [IsLeftLexicographicOrdering], 0,
+    function(ordering)
+        local retval;
+
+        retval := "lex";
+        if HasNextOrdering(ordering) then
+            retval := Concatenation(retval, " ", 
+                      OrderingToOpal(NextOrdering(ordering)));
+        fi;
+        return retval;     
+    end );
+@ 
+
+Right lexicographic orderings return the string \texttt{"rlex"}
+followed by supplemental orderings, if they exist.
+
+<<OrderingToOpal Implementation for Right Lexicographic Orderings>>=
+InstallMethod( OrderingToOpal,
+    "for right lexicographic orderings",
+    true,
+    [IsRightLexicographicOrdering], 0,
+    function(ordering)
+        local retval;
+
+        retval := "rlex";
+        if HasNextOrdering(ordering) then
+            retval := Concatenation(retval, " ", 
+                      OrderingToOpal(NextOrdering(ordering)));
+        fi;
+        return retval;     
+    end );
+@ 
+
+Length orderings return the string \texttt{"length"} followed by
+supplemental orderings, if they exist.
+
+<<OrderingToOpal Implementation for Length Orderings>>=
+InstallMethod( OrderingToOpal,
+    "for length orderings",
+    true,
+    [IsLengthOrdering], 0,
+    function(ordering)
+        local retval;
+
+        retval := "length";
+        if HasNextOrdering(ordering) then
+            retval := Concatenation(retval, " ", 
+                      OrderingToOpal(NextOrdering(ordering)));
+        fi;
+        return retval;     
+    end );
+@ 
+
+Reverse orderings return the string \texttt{"rev"} followed by
+supplemental orderings, if they exist.
+
+<<OrderingToOpal Implementation for Reverse Orderings>>=
+InstallMethod( OrderingToOpal,
+    "for reverse orderings",
+    true,
+    [IsReverseOrdering], 0,
+    function(ordering)
+        local retval;
+
+        retval := "rev";
+        if HasNextOrdering(ordering) then
+            retval := Concatenation(retval, " ", 
+                      OrderingToOpal(NextOrdering(ordering)));
+        fi;
+        return retval;     
+    end );
+@ 
+
+Left vector orderings return the string \texttt{"vector"} followed
+by supplemental orderings, if they exist.
+
+<<OrderingToOpal Implementation for Left Vector Orderings>>=
+InstallMethod( OrderingToOpal,
+    "for left vector ordering",
+    true,
+    [IsLeftVectorOrdering], 0,
+    function(ordering)
+        local retval;
+
+        retval := "vec";
+        if HasNextOrdering(ordering) then
+            retval := Concatenation(retval, " ", 
+                      OrderingToOpal(NextOrdering(ordering)));
+        fi;
+        return retval;     
+    end );
+@ 
+    
+Right vector orderings return the string \texttt{"rvec"} followed
+by supplemental orderings, if they exist.
+
+<<OrderingToOpal Implementation for Right Vector Orderings>>=
+InstallMethod( OrderingToOpal,
+    "for right vector ordering",
+    true,
+    [IsRightVectorOrdering], 0,
+    function(ordering)
+        local retval;
+
+        retval := "rvec";
+        if HasNextOrdering(ordering) then
+            retval := Concatenation(retval, " ", 
+                      OrderingToOpal(NextOrdering(ordering)));
+        fi;
+        return retval;     
+    end );
+@ 
+
+Weight orderings return the string \texttt{"weight"} followed
+by supplemental orderings, if they exist.
+
+<<OrderingToOpal Implementation for Weight Orderings>>=
+InstallMethod( OrderingToOpal,
+    "for weight ordering",
+    true,
+    [IsWeightOrdering], 0,
+    function(ordering)
+        local retval;
+
+        retval := "weight";
+        if HasNextOrdering(ordering) then
+            retval := Concatenation(retval, " ", 
+                      OrderingToOpal(NextOrdering(ordering)));
+        fi;
+        return retval;     
+    end );
+@ 
+
+\paragraph{Global Function}
+There is one function that is called to execute Opal with appropriate
+input and output filenames. We declare the function [[ExecuteOpal]]
+now.
+
+<<ExecuteOpal Declaration>>=
+DeclareGlobalFunction( "ExecuteOpal" );
+@ %def ExecuteOpal
+
+In [[ExecuteOpal]] we do not call Opal directly, but a wrapper script
+called \texttt{gapopal} which is responsible for performing the proper
+syntactic conversion between Opal's output and GAP's input. This
+script is intended to be found in the package's binary directory.
+
+<<ExecuteOpal Implementation>>=
+InstallGlobalFunction( ExecuteOpal,
+function(ordering, opalFilename, gapFilename)
+    local packageDir, gapopal, opal, orderingName;
+
+    packageDir := DirectoriesPackagePrograms("hopf");
+    gapopal := Filename(packageDir, "gapopal");
+    opal := Filename(packageDir, "opal");
+    orderingName := Concatenation("\"", OrderingToOpal(ordering), "\"");
+    if gapopal = fail then
+        Error("The gapopal script does not exist. Cannot execute opal.");
+    fi;
+    Info(InfoOpal, 1, "The gapopal script path is: ", gapopal);
+    Exec(gapopal, opal, orderingName, opalFilename, gapFilename);
+end);
+@  
+
+\paragraph{Inclusion into Source}
+
+<<Opal interface declarations>>=
+<<OpalGroebnerBasis Declaration>>
+<<OpalBoundedGroebnerBasis Declaration>>
+<<OpalFiniteGroebnerBasis Declaration>>
+<<AlgebraToOpal Declaration>>
+<<AssumePathAlgebra Declaration>>
+<<WriteCoefficientToOpal Declaration>>
+<<WriteRelatorsToOpal Declaration>>
+<<WriteFinalOpalCommands Declaration>>
+<<WriteFinalOpalCommandsWithBound Declaration>>
+<<WriteFinalOpalCommandsFinite Declaration>>
+<<OrderingToOpal Declaration>>
+<<ExecuteOpal Declaration>>
+@ 
+
+<<Opal interface implementations>>=
+<<AlgebraToOpal Implementation for Quotients of Path Algebras>>
+<<AssumePathAlgebra Implementation for Fields>>
+<<AssumePathAlgebra Implementation for Prime Fields>>
+<<AssumePathAlgebra implementation for the rationals>>
+<<WriteCoefficientToOpal Implementation for Elements of Finite Fields>>
+<<WriteCoefficientToOpal implementation for the rationals>>
+<<WriteRelatorsToOpal Implementation for Quotients of Path Algebras>>
+<<WriteFinalOpalCommands Implementation>>
+<<WriteFinalOpalCommandsWithBound Implementation>>
+<<WriteFinalOpalCommandsFinite Implementation>>
+<<OrderingToOpal Implementation for Left Lexicographic Orderings>>
+<<OrderingToOpal Implementation for Right Lexicographic Orderings>>
+<<OrderingToOpal Implementation for Length Orderings>>
+<<OrderingToOpal Implementation for Reverse Orderings>>
+<<OrderingToOpal Implementation for Left Vector Orderings>>
+<<OrderingToOpal Implementation for Right Vector Orderings>>
+<<OrderingToOpal Implementation for Weight Orderings>>
+<<ExecuteOpal Implementation>>
+<<OpalGroebnerBasis Implementation>>
+<<OpalBoundedGroebnerBasis Implementation>>
+<<OpalFiniteGroebnerBasis Implementation>>
+@ 
+
+\section{Translation between GAP and OPAL}
+\label{section:OpalInterfaceTranslation}
+
+Opal and GAP use slightly different syntactic notation for lists and
+for acceptable names of variables. The following Bourne shell script,
+executes GAP on the temporary input file and performs the translation
+from OPAL's output to GAP.
+
+<<[[gapopal]]>>=
+#!/bin/sh
+
+##############################################################################
+# HOPF Project Program File
+# DESCRIPTION: This file contains the functions needed to interface Opal
+#              with GAP4 and the Hopf project.
+#
+# Copyright, 1998 Virginia Polytechnic Institute and State University.
+# Copyright, 1998 Virginia Tech Hopf Project. All rights reserved.
+#
+# This file may be distributed in accordance with the stipulations existing
+# in the LICENSE file accompanying this software.
+#
+# Generated from 
+# $Id: opal.nw,v 1.1 2010/05/07 13:30:14 sunnyquiver Exp $
+##############################################################################
+# Get needed variables
+OPAL=$1
+ORDERING=$2
+IN=$3
+OUT=$4
+
+#Debugging only
+#echo ${ORDERING}
+
+# Remove previous file
+rm -f ${IN}.opal ${OUT} ${OUT}.opal
+
+# Change dots to single quotes
+sed -e "s/\./'/g" ${IN} > ${IN}.opal
+
+# Run Opal
+${OPAL} -o ${ORDERING} -b ${IN}.opal > ${OUT}.opal
+
+# Print out where this result should go
+echo "Opal.groebnerBasis := " > ${OUT}
+
+# Insert asterisks for multiplication
+# Change single quotes back to dots and braces to brackets
+# Change true/false to have an assignment
+sed -e "s/\\([0-9]\\)[  ][      ]*O/\\1\\*O/g" -e "s/'/\./g" -e "s/{/[/g" \
+-e "s/}/]/g" -e "s/\\([Tt][Rr][Uu][Ee]\\)/Opal.isCompleteGroebnerBasis := \
+true;; Opal.nontips :=/g" \
+-e "s/\\([Ff][Aa][Ll][Ss][Ee]\\)/Opal.isCompleteGroebnerBasis := \
+false;; Opal.nontips :=/g" ${OUT}.opal >> ${OUT}
+
+# Check to see if the nontips were computed. If not, then add in an
+# empty list to the end of the file to quiet GAP.
+if grep -i nontips ${IN} > /dev/null; then
+  :
+else
+  echo "[];" >> ${OUT}
+fi
+
+#Debugging only
+#cat ${OUT}
+@ 

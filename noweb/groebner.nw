@@ -1,0 +1,1064 @@
+% -*- mode: Noweb; noweb-code-mode: text-mode -*-%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% HOPF Project Source File
+% DESCRIPTION: This file contains declarations and implementations for
+% Gr\"{o}bner bases in Hopf. 
+%
+% Copyright, 1998 Virginia Polytechnic Institute and State University.
+% Copyright, 1998 Virginia Tech Hopf Project. All rights reserved.
+%
+% This file may be distributed in accordance with the stipulations existing
+% in the LICENSE file accompanying this software.
+%
+% $Id: groebner.nw,v 1.1 2010/05/07 13:30:14 sunnyquiver Exp $
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+@
+\chapter{\groebner~Bases}\label{chapter:GroebnerBases}
+
+\section{Overview}\label{section:GroebnerBasesOverview}
+This chapter contains the declarations and implementations needed for
+\groebner~bases in \hopf. Currently, we do not provide algorithms to
+actually compute \groebner~bases. Instead, the declarations and
+implementations are provided here for GAP objects and the actual
+elements of \groebner~bases are expected to be computed by external
+packages such as Opal~\cite{} and Groebner~\cite{}.
+
+\section{Source Files}\label{section:GroebnerBasesSourceFiles}
+
+<<[[groebner.gd]]>>=
+# GAP Declarations
+# This file was generated from
+# $Id: groebner.nw,v 1.1 2010/05/07 13:30:14 sunnyquiver Exp $
+<<Groebner Declarations>>
+@
+
+<<[[groebner.gi]]>>=
+# GAP Implementation
+# This file was generated from 
+# $Id: groebner.nw,v 1.1 2010/05/07 13:30:14 sunnyquiver Exp $
+<<Groebner Implementations>>
+@ 
+
+\section{Categories}\label{section:GroebnerBasesCategories}
+
+\paragraph{Category}
+This [[IsGroebnerBasis]] category consists of \groebner~bases. Every
+\groebner~basis in \hopf\ is a member of this category. 
+\begin{verbatim}
+IsGroebnerBasis(GB)
+\end{verbatim}
+
+The [[IsGroebnerBasis]] category is a type of collection. Collections
+can be unioned or intersected, and these functions need to be
+implemented for \groebner~bases.
+
+<<IsGroebnerBasis Declaration>>=
+DeclareCategory( "IsGroebnerBasis", IsCollection );
+@ %def IsGroebnerBasis
+
+\paragraph{Representation}
+The [[IsGroebnerBasisDefaultRep]] representation is how a
+\groebner~basis is represented internally in \hopf. The representation
+has the components [[algebra]] and [[relations]] containing the
+algebra and relations used to define the \groebner~basis
+respectively. Also, the representation can store attributes.
+
+<<IsGroebnerBasisDefaultRep Declaration>>=
+DeclareRepresentation(
+    "IsGroebnerBasisDefaultRep",
+    IsComponentObjectRep and IsAttributeStoringRep,
+    ["ideal", "relations", "staticDict"]);
+@ %def IsGroebnerBasisDefaultRep
+
+\paragraph{Information Class}
+The [[InfoGroebnerBasis]] information class is declared for printing
+out information messages about \groebner~bases.
+
+<<InfoGroebnerBasis Declaration>>=
+DeclareInfoClass("InfoGroebnerBasis");
+@ %def InfoGroebnerBasis
+
+\paragraph{Inclusion in Source}
+
+<<Groebner Declarations>>=
+<<IsGroebnerBasis Declaration>>
+<<IsGroebnerBasisDefaultRep Declaration>>
+<<InfoGroebnerBasis Declaration>>
+@
+
+\section{Creation}\label{section:GroebnerBasesCreation}
+
+\paragraph{Global Function}
+The [[GroebnerBasis]] global function takes an algebra $A$ and a list
+of relations $rels \in A$ and created an object in the
+[[IsGroebnerBasis]] category. No attributes of the \groebner~basis are
+automatically set, but the [[GroebnerBasisOfIdeal]] attribute for
+$I$ is set to the created object and the object is returned as
+well. There are absolutely no checks for correctness in this function
+right now. Giving a set of relations that does not form a
+\groebner~basis may result in incorrect answers or unexpected errors.
+This function is intended to be used by packages providing access to
+external \groebner~basis programs.
+
+
+<<GroebnerBasis Declaration>>=
+DeclareOperation("GroebnerBasis", [IsFLMLOR, IsCollection]);
+@ %def GroebnerBasis
+
+<<GroebnerBasis Implementation>>=
+InstallMethod( GroebnerBasis, 
+    "for an ideal of a path algebra and a collection of elements",
+    IsIdenticalObj,
+    [ IsFLMLOR, IsElementOfMagmaRingModuloRelationsCollection ], 0,
+    function(I, rels)
+        local GB;
+
+        if not IsFamilyElementOfPathRing(ElementsFamily(FamilyObj(I))) then
+            TryNextMethod();
+        fi;
+
+        GB := Objectify( NewType( FamilyObj(rels),
+                              IsGroebnerBasis and IsGroebnerBasisDefaultRep ),
+                              rec( ideal := I,
+                                   relations := AsSortedList(rels) ) );
+        SetGroebnerBasisOfIdeal(I, GB);
+        return GB;
+    end );
+@ 
+
+
+\begin{SLOPPY}
+\paragraph{Operation}
+The [[CompletelyReduce]] operation reduces an algebra element $a$ by
+the \groebner\ basis $GB$. The reduced element is returned. If $a$ is
+already completely reduced, the original element $a$ is returned.
+\end{SLOPPY}
+
+<<CompletelyReduce Declaration>>=
+DeclareOperation("CompletelyReduce", [IsGroebnerBasis, IsRingElement]);
+@ %def CompletelyReduce
+
+For implementation of this operation, we assume that we have a
+complete tip reduced \groebner~basis. We use the suffix tree stored
+with the \groebner~basis to perform the complete reduction of the
+elements. The reductions are similar to those that are necessary when
+tip reducing the \groebner~basis.
+
+\begin{NOTE}
+This method should check to
+  make sure the family object of the relation being reduced is the
+  same as those relations in the \groebner~basis.
+\end{NOTE}
+
+<<CompletelyReduce Implementation>>=
+InstallMethod( CompletelyReduce,
+    "for complete tip reduced groebner bases",
+    true, # FIXME
+    [IsGroebnerBasis and IsCompleteGroebnerBasis 
+     and IsTipReducedGroebnerBasis, IsRingElement], 0,
+    function( GB, rel )
+        local pats, st, tip, redRel, zero;
+
+        zero := Zero(rel);
+        redRel := zero;
+
+        while rel <> zero do
+            rel := TipReduce(GB, rel);
+            tip := Tip(rel);
+            rel := rel - tip;
+            redRel := redRel + tip;
+        od;
+        return redRel;
+    end );
+@ 
+
+\begin{SLOPPY}
+\paragraph{Operation}
+The [[CompletelyReduceGroebnerBasis]] operation modifies a
+\groebner~basis $GB$ such that each relation in $GB$ is completely
+reduced.  The [[IsCompletelyReducedGroebnerBasis]] and
+[[IsTipReducedGroebnerBasis]] properties are set as a result of this
+operation. The resulting relations will be placed in sorted order
+accordig to the ordering of $GB$.
+\end{SLOPPY}
+
+<<CompletelyReduceGroebnerBasis Declaration>>=
+DeclareOperation("CompletelyReduceGroebnerBasis", 
+                 [IsGroebnerBasis]);
+@ %def CompletelyReduceGroebnerBasis
+
+<<CompletelyReduceGroebnerBasis Implementation>>=
+InstallMethod( CompletelyReduceGroebnerBasis,
+    "for complete groebner bases",
+    true,
+    [IsGroebnerBasis and IsCompleteGroebnerBasis], 0,
+    function( GB )
+        local i, n, tip, rel;
+        # first tip reduce it
+        GB := TipReduceGroebnerBasis(GB);
+
+        # now completely reduce each relation
+        n := Length(GB!.relations);
+
+        for i in [1..n] do
+            rel := GB!.relations[i];
+            tip := Tip(rel);
+            GB!.relations[i] := tip + CompletelyReduce(GB, rel - tip);
+        od;
+
+        SetIsCompletelyReducedGroebnerBasis(GB, true);
+        return GB;
+    end );
+@ 
+
+\begin{SLOPPY}
+\paragraph{Function}
+The [[ReduceRelation]] function is called while tip reducing elements
+and \groebner~bases to reduce one relation by another. We pass in the
+relation to reduce, the relation to reduce by, and the external
+representation of the tip of the relation to reduce, and the
+starting location of the relation to reduce by in the relation to
+reduce, and the ending location.
+\end{SLOPPY}
+
+<<ReduceRelation Implementation>>=
+ReduceRelation := function( rel, redRel, extTip, start, rend )
+    local redCoeff, fam, n, left, right, q, qFam, tipCoeff;
+ 
+    fam := FamilyObj(rel);
+    q := QuiverOfPathAlgebra(fam!.pathRing);
+    qFam := ElementsFamily(FamilyObj(q));
+
+    tipCoeff := TipCoefficient(rel);
+    redCoeff := tipCoeff / TipCoefficient(redRel) ;
+    if start <> 1 then
+        left := extTip{[1..start-1]};
+        left := ElementOfMagmaRing(fam, fam!.zeroRing, 
+                                   [ One(fam!.zeroRing)],
+                                   [ ObjByExtRep(qFam, left) ]);
+    else
+        left := One(rel);
+    fi;
+
+    if  rend < Length(extTip) then
+        right := extTip{[rend+1..Length(extTip)]};
+        right := ElementOfMagmaRing( fam, fam!.zeroRing,
+                                    [ One(fam!.zeroRing)],
+                                    [ ObjByExtRep(qFam, right) ]);
+    else
+        right := One(rel);
+    fi;
+
+    Info(InfoGroebnerBasis, 1, "redCoeff: ", redCoeff);
+    Info(InfoGroebnerBasis, 1, "left: ", left);
+    Info(InfoGroebnerBasis, 1, "right: ", right);
+    Info(InfoGroebnerBasis, 1, "rel: ", rel);
+    Info(InfoGroebnerBasis, 1, "redRel: ", redRel);
+
+    rel := rel - redCoeff * left * redRel * right;
+
+    return rel;
+end;
+@ %def ReduceRelation
+
+\paragraph{Operation}
+The [[TipReduce]] operation returns an algebra element $a$ tip reduced
+by the \groebner\ basis $GB$. If $a$ is already tip reduced, then the
+original $a$ is returned.
+
+<<TipReduce Declaration>>=
+DeclareOperation("TipReduce", [IsGroebnerBasis, IsRingElement]);
+@ %def TipReduce
+
+<<TipReduce Implementation>>=
+InstallMethod( TipReduce,
+    "for complete tip reduced groebner bases",
+    true, # FIXME
+    [IsGroebnerBasis and IsCompleteGroebnerBasis 
+     and IsTipReducedGroebnerBasis, IsRingElement], 0,
+    function( GB, rel )
+        local matches, st, tip, tipMon, extTip, redMatch, redPat, 
+              zero, start, rend, patLen;
+
+        st := GB!.staticDict;
+        zero := Zero(rel);
+
+        repeat
+            tip := Tip(rel);
+            tipMon := TipMonomial(rel);
+            extTip := ExtRepOfObj(tipMon);
+
+            matches := Search(st, tipMon);
+            if not IsEmpty(matches) then
+                redMatch := matches[1];
+                redPat := Patterns(st)[redMatch[2][1]];
+                patLen := Length(WalkOfPath(redPat));
+                start := redMatch[1] - patLen + 1;
+                rend := redMatch[1];
+                
+                rel := ReduceRelation(rel, GB!.relations[redMatch[2][1]],
+                                      extTip, start, rend);
+            fi;
+        until IsEmpty(matches) or rel = zero;
+
+        return rel;
+    end );
+@ 
+
+
+\paragraph{Operation}
+The [[TipReduceGroebnerBasis]] operation creates an equivalent
+\groebner~basis to $GB$ such that each relation generating $GB$ is tip
+reduced. If $GB$ is already tip reduced, this function returns the
+original object $GB$, possibly with the addition of the
+[[IsTipReduced]] property set.
+
+<<TipReduceGroebnerBasis Declaration>>=
+DeclareOperation("TipReduceGroebnerBasis", [IsGroebnerBasis]);
+@ %def TipReduceGroebnerBasis
+
+We use a dynamic dictionary to keep track of relations in the current
+tip reduced \groebner\ basis. See
+Chapter~\ref{chapter:DynamicDictionaryMatching} for more details. Note that 
+this should do some more checking to make sure that in fact we can
+work with the particular family in which the relations lie. For now,
+we will just assume everything is in path algebras.
+
+<<TipReduceGroebnerBasis Implementation>>=
+InstallMethod( TipReduceGroebnerBasis, 
+    "for groebner bases in default representation",
+    true,
+    [IsGroebnerBasis 
+     and IsCompleteGroebnerBasis 
+     and IsGroebnerBasisDefaultRep], 0,
+    function( GB )
+        local gbRels, trgbRels, rel, tip, extTip, pats,
+              st, redPat, n, redCoeff, extras, extra, t, quiver;
+
+        if not (HasIsTipReducedGroebnerBasis(GB)
+                and IsTipReducedGroebnerBasis(GB))
+        then
+            gbRels := Set(GB!.relations);
+            trgbRels := [];
+            st := CreateSuffixTree();
+
+            while not IsEmpty(gbRels) do
+                rel := gbRels[1];
+                RemoveSet(gbRels, rel);
+                Info(InfoGroebnerBasis, 1, "Removed relation: ", rel);
+                if rel <> Zero(rel) then
+                    tip := TipMonomial(rel);
+                    extTip := ExtRepOfObj(tip);
+                    pats := AllPatternsInSequence(st, extTip);
+                    if not IsEmpty(pats) then
+                        <<Reduce the relation>>
+                    else
+                        <<Remove extra relations>>
+                        <<Insert tip into suffix tree>>
+                    fi;
+                fi;
+             od;
+             Sort(trgbRels);
+             GB!.relations := trgbRels;
+        fi;
+        if not IsBound(GB!.staticDict) then
+            quiver := 
+                QuiverOfPathAlgebra(FamilyObj(GB!.relations[1])!.pathRing);
+            # Construct a static dictionary for later reductions
+            GB!.staticDict := QuiverStaticDictionary(quiver,
+                                  List(GB!.relations, TipMonomial));
+        fi;
+
+        SetIsTipReducedGroebnerBasis(GB, true);
+        return GB;
+    end );
+@ 
+
+When we find a pattern in the suffix tree, we need to calculate the
+left and right hand elements to multiply by so we can perform the
+actual reduction. We arbitrarily use the first pattern matched for all 
+reductions. This may not be the best one, but there are not any
+results I know of for selecting good tips to reduce by. When we're
+done with the reduction, we put the relation into [[gbRels]] as a new
+\groebner\ basis relation.
+
+<<Reduce the relation>>=
+redPat := pats[1];
+rel := ReduceRelation(rel, trgbRels[redPat[1]], extTip, redPat[2],
+                      redPat[2] + Length(st[redPat[1]])-1);
+
+if rel <> Zero(rel) then
+    Info(InfoGroebnerBasis,1, "Adding relation: ", rel);
+    AddSet(gbRels, rel);
+fi;
+@ 
+
+If the tip of our relation does not contain any of the patterns in the 
+suffix tree, that means the relation is tip reduced with respect to
+what is already in the tip reduced \groebner\ basis. In this case, it
+may be possible for the new relation to divide some tip in our current 
+tip reduced \groebner\ basis. In that case, we need to remove those
+relations and stick them back into [[gbRels]] before inserting our
+current relation into the tip reduced \groebner\ basis.
+
+\begin{NOTE}
+We could reduce each of these relations before sticking them into gbRels.
+\end{NOTE}
+
+<<Remove extra relations>>=
+extras := SequenceInPatterns(st, extTip);
+if not IsEmpty(extras) then
+    for extra in extras do
+        if IsBound(trgbRels[extra[1]]) then
+            AddSet(gbRels, trgbRels[extra[1]]);
+            Unbind(trgbRels[extra[1]]);
+            DeletePatternFromSuffixTree(st, extra[1]);
+        fi;
+    od;
+fi;
+@ 
+
+Now we can safely insert the relation into the tip reduced \groebner\
+basis and the tip into the suffix tree.
+
+<<Insert tip into suffix tree>>=
+t := InsertPatternIntoSuffixTree(st, extTip);
+trgbRels[t] := rel;
+@ 
+
+\section{Attributes}\label{section:GroebnerBasesAttributes}
+
+\paragraph{Property}
+The [[IsTipReducedGroebnerBasis]] property returns [[true]] if the 
+\groebner~basis is tip reduced and [[false]] otherwise.
+\begin{verbatim}
+IsTipReducedGroebnerBasis(GB)
+\end{verbatim}
+
+<<IsTipReducedGroebnerBasis Declaration>>=
+DeclareProperty("IsTipReducedGroebnerBasis", IsGroebnerBasis);
+@ %def IsTipReducedGroebnerBasis
+
+A \groebner\ basis is tip reduced if it is completely reduced.
+
+<<IsTipReducedGroebnerBasis Implication>>=
+InstallTrueMethod(IsTipReducedGroebnerBasis, 
+    IsGroebnerBasis and IsCompletelyReducedGroebnerBasis);
+@ 
+
+\begin{SLOPPY}
+\paragraph{Property}
+The [[IsCompletelyReducedGroebnerBasis]] property returns [[true]] if the
+\groebner~basis is completely reduced and [[false]] otherwise.
+\begin{verbatim}
+IsCompletelyReducedGroebnerBasis(GB)
+\end{verbatim}
+\end{SLOPPY}
+
+<<IsCompletelyReducedGroebnerBasis Declaration>>=
+DeclareProperty("IsCompletelyReducedGroebnerBasis", IsGroebnerBasis);
+@ %def IsCompletelyReducedGroebnerBasis
+
+\paragraph{Property}
+The [[IsHomogenousGroebnerBasis]] property returns [[true]] if the
+\groebner~basis is homogenous and [[false]] otherwise.
+\begin{verbatim}
+IsHomogenousGroebnerBasis(GB)
+\end{verbatim}
+
+<<IsHomogenousGroebnerBasis Declaration>>=
+DeclareProperty("IsHomogenousGroebnerBasis", IsGroebnerBasis);
+@ %def IsHomogenousGroebnerBasis
+
+\paragraph{Property}
+The [[IsCompleteGroebnerBasis]] property returns [[true]] if the
+\groebner~basis is complete or [[false]] if it is not. While
+philosophically something that isn't a complete \groebner~basis isn't
+a \groebner~basis at all, this property can be used in conjuction with
+other properties to see if the the \groebner~basis contains enough
+information for computations. An example of a system that creates
+incomplete \groebner~bases is Opal.
+\begin{verbatim}
+IsCompleteGroebnerBasis(GB)
+\end{verbatim}
+
+<<IsCompleteGroebnerBasis Declaration>>=
+DeclareProperty("IsCompleteGroebnerBasis", IsGroebnerBasis);
+@ %def IsCompleteGroebnerBasis
+
+\paragraph{Inclusion in Source}
+<<Groebner Declarations>>=
+<<GroebnerBasis Declaration>>
+<<CompletelyReduce Declaration>>
+<<CompletelyReduceGroebnerBasis Declaration>>
+<<IsCompletelyReducedGroebnerBasis Declaration>>
+<<TipReduce Declaration>>
+<<TipReduceGroebnerBasis Declaration>>
+<<IsTipReducedGroebnerBasis Declaration>>
+<<IsHomogenousGroebnerBasis Declaration>>
+<<IsCompleteGroebnerBasis Declaration>>
+@
+
+<<Groebner Implementations>>=
+<<GroebnerBasis Implementation>>
+<<CompletelyReduce Implementation>>
+<<CompletelyReduceGroebnerBasis Implementation>>
+<<ReduceRelation Implementation>>
+<<TipReduce Implementation>>
+<<TipReduceGroebnerBasis Implementation>>
+<<IsTipReducedGroebnerBasis Implication>>
+@
+
+\section{Elements}\label{section:GroebnerBasesElements}
+
+\paragraph{Iterator}
+[[IsGroebnerBasis]] objects have iterators that iterate over the
+relations making up the \groebner~basis. These relations should be
+iterated over in ascending order with respect to the ordering for the
+family the elements are contained in.
+
+In order for an iterator to keep track of where in the \groebner~basis
+it is, we keep the position in the relations that it is iterating over
+as well as the list of relations themselves.
+
+<<IsGroebnerBasisIteratorRep Declaration>>=
+DeclareRepresentation( "IsGroebnerBasisIteratorRep",
+    IsComponentObjectRep,
+    ["relations", "position"] );
+@ %def IsGroebnerBasisIteratorRep
+
+The [[Iterator]] method creates an object using the
+[[IsGroebnerBasisIteratorRep]]. The relations are extracted from the
+\groebner~basis and the position starts at one.
+
+<<Iterator Implementation for Groebner Bases>>=
+InstallMethod( Iterator,
+    "for groebner bases",
+    true,
+    [IsGroebnerBasis and IsGroebnerBasisDefaultRep], 0,
+    function(GB)
+        return Objectify( NewType( IteratorsFamily,
+            IsIterator and IsMutable and IsGroebnerBasisIteratorRep ),
+            rec( relations := GB!.relations, position := 1 ) );
+    end );
+@ 
+
+The [[IsDoneIterator]] returns [[false]] if there are more relations in
+the \groebner~basis to iterate over, or [[true]] if they have all been
+iterated over.
+
+<<IsDoneIterator Implementation for Groebner Bases>>=
+InstallMethod( IsDoneIterator,
+    "for iterators of groebner bases",
+    true,
+    [IsIterator and IsGroebnerBasisIteratorRep], 0,
+    function(iterator)
+        return iterator!.position > Length(iterator!.relations);
+    end );
+@ 
+
+The [[NextIterator]] method returns the next element in the
+\groebner~basis according to the proper ordering for the algebra used
+to create the \groebner~basis.
+
+<<NextIterator Implementation for Groebner Bases>>=
+InstallMethod( NextIterator,
+    "for iterators of groebner bases",
+    true,
+    [IsIterator and IsMutable and IsGroebnerBasisIteratorRep], 0,
+    function(iterator)
+        local elem;
+        elem := iterator!.relations[iterator!.position];
+        iterator!.position := iterator!.position + 1;
+        return elem;
+    end );
+@ 
+
+\paragraph{Enumerator}
+[[IsGroebnerBasis]] objects have enumerators that enumerate the
+relations making up the \groebner~basis. These relations should be
+enumerated in ascending order with respect to the ordering for the
+family the elements are contained in.
+
+The implementation of [[Enumerator]] for \groebner~bases returns an
+immutable copy of list of relations in the \groebner~basis. We always
+assume that the number of relations is finite in \hopf.
+
+<<Enumerator Implementation for Groebner Bases>>=
+InstallMethod( Enumerator,
+    "for groebner bases",
+    true,
+    [IsGroebnerBasis and IsGroebnerBasisDefaultRep], 0,
+    function(GB)
+        return Immutable(GB!.relations);
+    end );
+@ 
+
+\begin{SLOPPY}
+The standard behavior of attribute storing representations is not
+appropriate for \groebner\ bases in \hopf. The relations for a
+\groebner~basis object may change as a result of tip reduction or
+complete reduction of the set of relations. The only time it cannot
+change is when we know the \groebner~basis has been completely
+reduced. We override the system setter for attribute storing
+representations to provide this behavior.
+\end{SLOPPY}
+
+<<Enumerator Setter for Groebner Bases>>=
+InstallOtherMethod( SetEnumerator,
+    "for groebner bases",
+    true,
+    [ IsGroebnerBasisDefaultRep and IsAttributeStoringRep, IsList ],
+    SUM_FLAGS+1,
+    function( GB, relations )
+        if HasIsCompletelyReducedGroebnerBasis( GB ) and
+           IsCompletelyReducedGroebnerBasis( GB )
+        then
+            GB!.Enumerator := relations;
+            SetFilterObj( GB, HasEnumerator );
+        fi;
+    end );
+@
+
+<<AsList Setter for Groebner Bases>>=
+InstallOtherMethod( SetAsList,
+    "for groebner bases",
+    true,
+    [ IsGroebnerBasisDefaultRep, IsList ],
+    SUM_FLAGS+1,
+    function( GB, list )
+        if HasIsCompletelyReducedGroebnerBasis( GB ) and
+           IsCompletelyReducedGroebnerBasis( GB )
+        then
+            GB!.AsList := list;
+            SetFilterObj( GB, HasAsList );
+        fi;
+    end );
+@ 
+
+\paragraph{Operation}
+The [[Nontips]] operation returns a list of nontip elements for a
+\groebner\ basis. In order to compute the nontip elements, the
+\groebner\ basis must be complete and tip reduced, and there must be a 
+finite number of nontips. If there are an infinite number of nontips,
+the operation returns [[fail]].
+
+<<Declaration for Nontips>>=
+DeclareOperation( "Nontips", [IsCompleteGroebnerBasis] );
+@ %def Nontips
+
+The implementation uses the static dictionary for quivers to perform
+the actual computation. The \groebner\ basis will be tip reduced if it
+is not already. Tip reducing the \groebner\ basis creates the static
+dictionary.
+
+<<Implementation of Nontips>>=
+InstallMethod( Nontips,
+    "for complete Groebner bases",
+    true,
+    [IsCompleteGroebnerBasis and IsGroebnerBasisDefaultRep], 0,
+    function( GB )
+        TipReduceGroebnerBasis( GB ); # only does it if not reduced
+        return DifferenceWords(GB!.staticDict);
+    end );
+@ 
+
+\paragraph{Operation}
+The [[AdmitsFinitelyManyNontips]] operation returns [[true]] if the
+\groebner\ basis admits only finitely many nontips and [[false]]
+otherwise. This operation only applies to complete \groebner\ bases.
+
+<<Declaration of AdmitsFinitelyManyNontips>>=
+DeclareOperation( "AdmitsFinitelyManyNontips", [IsCompleteGroebnerBasis] );
+@ %def AdmitsFinitelyManyNontips
+
+The implementation uses a static dictionary for quivers to perform the 
+computation. The \groebner\ basis is tip reduced if not already tip
+reduced to create the static dictionary.
+
+<<Implementation of AdmitsFinitelyManyNontips>>=
+InstallMethod( AdmitsFinitelyManyNontips,
+    "for complete Groebner bases",
+    true,
+    [IsCompleteGroebnerBasis and IsGroebnerBasisDefaultRep], 0,
+    function( GB )
+        TipReduceGroebnerBasis(GB);
+        return IsFiniteDifference(GB!.staticDict);
+    end );
+@ 
+
+\paragraph{Operation}
+The [[NontipSize]] operation returns the number of nontips admitted by 
+the \groebner\ basis $GB$. This operation is available only to
+complete \groebner\ bases.
+
+<<Declaration of NontipSize>>=
+DeclareOperation( "NontipSize", [IsCompleteGroebnerBasis] );
+@ %def NontipSize
+
+The implementation uses a static dictionary for quivers to perform the 
+computation. The \groebner\ basis is tip reduced if not already tip
+reduced to create the static dictionary.
+
+<<Implementation of NontipSize>>=
+InstallMethod( NontipSize,
+    "for complete Groebner bases",
+    true,
+    [ IsCompleteGroebnerBasis and IsGroebnerBasisDefaultRep ], 0,
+    function(GB)
+        TipReduceGroebnerBasis(GB);
+        return DifferenceSize(GB!.staticDict);
+    end );
+@ 
+
+\paragraph{Inclusion in Source}
+
+The declaration for the [[IsGroebnerBasisIteratorRep]] is included in
+the declarations.
+
+<<Groebner Declarations>>=
+<<IsGroebnerBasisIteratorRep Declaration>>
+<<Declaration for Nontips>>
+<<Declaration of AdmitsFinitelyManyNontips>>
+<<Declaration of NontipSize>>
+@ 
+
+The implementations of the iterator methods and of the enumerator
+method are included here.
+
+<<Groebner Implementations>>=
+<<Iterator Implementation for Groebner Bases>>
+<<IsDoneIterator Implementation for Groebner Bases>>
+<<NextIterator Implementation for Groebner Bases>>
+<<Enumerator Implementation for Groebner Bases>>
+<<Enumerator Setter for Groebner Bases>>
+<<AsList Setter for Groebner Bases>>
+<<Implementation of Nontips>>
+<<Implementation of AdmitsFinitelyManyNontips>>
+<<Implementation of NontipSize>>
+@ 
+
+\section{Output}\label{section:GroebnerBasesOutput}
+
+\paragraph{Method}
+The [[ViewObj]] method prints out \groebner~basis object as the
+result of the read-evaluation loop in GAP4. It should print out
+whether or not the \groebner~basis is complete,
+if it is right, left, or two-sided, and how many elements,
+surrounded by angle brackets. For example,
+\begin{verbatim}
+<partial right Groebner basis containing 3 elements>
+<complete two-sided Groebner basis containing 7 elements>
+\end{verbatim}
+
+<<ViewObj for Groebner Bases Implementation>>=
+InstallMethod( ViewObj,
+    "for groebner bases",
+    true,
+    [IsGroebnerBasis and IsGroebnerBasisDefaultRep], 0,
+    function(GB)
+        Print("<");
+        if not HasIsCompleteGroebnerBasis(GB) 
+           or not IsCompleteGroebnerBasis(GB) then
+            Print("partial ");
+        else
+            Print("complete ");
+        fi;
+        if IsRightGroebnerBasis(GB) then
+            Print("right ");
+        else
+            Print("two-sided ");
+        fi;
+        Print("Groebner basis containing ", 
+              Length(GB!.relations), " elements>");
+    end );
+@
+
+\paragraph{Method}
+The [[PrintObj]] method should print out a full description of the
+\groebner~basis. This includes the algebra and the relations that are
+in the \groebner~basis. For example,
+\begin{verbatim}
+GroebnerBasis( Algebra(GF(7), [ Z(7)^0*v1, Z(7)^0*v2, Z(7)^0*v3, Z(7)^0*a1,
+Z(7)^0*a2, Z(7)^0*a3 ] ), [ Z(7)^0*a1*a2 + Z(7)^3*a2*a1 ] )
+\end{verbatim}
+
+<<PrintObj for Groebner Bases Implementation>>=
+InstallMethod( PrintObj,
+    "for groebner bases",
+    true,
+    [IsGroebnerBasis and IsGroebnerBasisDefaultRep], 0,
+    function(GB)
+        if IsRightGroebnerBasis(GB) then
+            Print("Right");
+        fi;
+        Print("GroebnerBasis( ", GB!.algebra, ", ", GB!.relations, " )");
+    end );
+@
+
+\paragraph{Inclusion in Source}
+<<Groebner Implementations>>=
+<<ViewObj for Groebner Bases Implementation>>
+<<PrintObj for Groebner Bases Implementation>>
+@
+
+\section{Containment Operations}
+\label{section:GroebnerBasisContainmentOperations}
+
+\paragraph{Operations}
+The [[IsPrefixOfTipInTipIdeal]] operation is used mainly for the
+construction of right \groebner\ bases, but is made available for
+general use in case there are other unforseen applications. The tip of
+a relation [[R]] is checked to see if it is in the tip ideal generated
+by the tips of [[GB]]. This is implemented by searching the static
+dictionary in [[GB]] and seeing if a tip in [[GB]] is contained in the
+tip of [[R]] as a proper prefix.
+
+<<Declaration of IsPrefixOfTipInTipIdeal>>=
+DeclareOperation( "IsPrefixOfTipInTipIdeal", 
+    [IsCompleteGroebnerBasis, IsRingElement] );
+@ %def IsPrefixOfTipInTipIdeal
+
+<<Implementation of IsPrefixOfTipInTipIdeal>>=
+InstallMethod( IsPrefixOfTipInTipIdeal,
+    "for a groebner basis and path algebra element",
+    IsCollsElms,
+    [ IsCompleteGroebnerBasis, IsElementOfMagmaRingModuloRelations ], 0,
+    function( GB, R )
+        local dict, matches, tip, extTip;
+
+        tip := TipMonomial(R);
+        if IsZeroPath(tip) then
+            return true;
+        else
+            GB := TipReduceGroebnerBasis(GB); # create dictionary
+            dict := GB!.staticDict;
+            matches := Search(dict, tip);
+            if not IsEmpty(matches) 
+               and matches[1][1] < Length(WalkOfPath(tip))
+            then
+                return true;
+            else
+                return false;
+            fi;
+        fi;
+    end );
+@ 
+
+\paragraph{Inclusion In Source}
+
+<<Groebner Declarations>>=
+<<Declaration of IsPrefixOfTipInTipIdeal>>
+@ 
+
+<<Groebner Implementations>>=
+<<Implementation of IsPrefixOfTipInTipIdeal>>
+@ 
+
+\section{Right \groebner\ Basis}
+
+In this section we support right \groebner\ bases for two-sided ideals
+with \groebner\ bases. More general cases may be supported in the future.
+
+\subsection{Categories}
+
+The [[IsRightGroebnerBasis]] category is a specialization of the
+[[IsGroebnerBasis]] category for now.
+In the future, this should be changed so that [[IsGroebnerBasis]]
+has specializations for [[IsRightGroebnerBasis]], [[IsLeftGroebnerBasis]],
+and [[IsTwoSidedGroebnerBasis]] for right, left, and two-sided ideals
+respectively. For now, [[IsGroebnerBasis]] means a two-sided 
+\groebner\ basis.
+
+<<IsRightGroebnerBasis Declaration>>=
+DeclareCategory( "IsRightGroebnerBasis", IsGroebnerBasis );
+@ %def IsRightGroebnerBasis
+
+\paragraph{Attribute}
+
+The [[RightGroebnerBasisOfIdeal]] attribute stores a right Groebner
+basis of a right ideal if one has been computed.
+
+<<RightGroebnerBasisOfIdeal Declaration>>=
+DeclareAttribute( "RightGroebnerBasisOfIdeal", IsRightIdeal );
+@ %def
+
+\paragraph{Inclusion in Source}
+
+<<Groebner Declarations>>=
+<<IsRightGroebnerBasis Declaration>>
+@ 
+
+\subsection{Construction}
+
+The [[RightGroebnerBasis]] operation constructs a right \groebner\ basis
+for right ideals support a right \groebner\ basis theory.
+
+<<RightGroebnerBasis Declaration>>=
+DeclareOperation( "RightGroebnerBasis", [IsRing, IsCollection] );
+@ %def RightGroebnerBasis
+
+This implementation of [[RightGroebnerBasis]] is specialized for ideals
+with a complete two-sided \groebner\ basis already computed.
+
+<<RightGroebnerBasis Implementation>>=
+InstallOtherMethod( RightGroebnerBasis,
+    "for two-sided ideals with a complete Groebner basis",
+    true,
+    [IsRing and HasGroebnerBasisOfIdeal], 0,
+    function( I )
+        local gb, relations, p, g, x, rightgb;
+
+        gb := GroebnerBasisOfIdeal( I );
+        if not IsCompleteGroebnerBasis( gb ) then
+            TryNextMethod();
+        fi;
+
+        CompletelyReduceGroebnerBasis(gb);
+        
+        relations := [];
+        for p in Nontips(gb) do
+            for g in AsList(gb) do
+                x := p * g;
+                if not IsPrefixOfTipInTipIdeal( gb, x ) then
+                    Add(relations, x);
+                fi;
+            od;
+        od;
+        Sort(relations);
+
+        rightgb := Objectify( NewType(FamilyObj(relations), 
+                                      IsRightGroebnerBasis
+                                      and IsGroebnerBasisDefaultRep),
+                              rec( relations := relations ) );
+
+        SetIsCompleteGroebnerBasis(rightgb, true);
+        SetIsTipReducedGroebnerBasis(rightgb, true);
+        return rightgb;
+    end );
+@ 
+
+\paragraph{Operation}
+
+The [[TipReduceGroebnerBasis]] tip reduces the right \groebner\ basis.
+
+\begin{NOTE}
+This is using an inefficient algorithm.
+A more efficient way to accomplish this is to use a dynamic
+dictionary specialized to look only at prefixes.
+\end{NOTE}
+
+<<TipReduceGroebnerBasis Implementation>>=
+InstallMethod( TipReduceGroebnerBasis,
+    "for right groebner bases",
+    true,
+    [IsRightGroebnerBasis and IsGroebnerBasisDefaultRep], 0,
+    function( gb )
+        local gbRels, trgbRels, quiver, i, relTip, relWalk, iWalk,
+              reduced, trel, rel;
+
+
+        if not (HasIsTipReducedGroebnerBasis(gb)
+                and IsTipReducedGroebnerBasis(gb))
+        then
+            gbRels := Set(gb!.relations);
+            trgbRels := [];
+
+            while not IsEmpty(gbRels) do
+                rel := gbRels[1];
+                RemoveSet(gbRels, rel);
+
+                if rel <> Zero(rel) then
+                    reduced := false;
+                    relWalk := WalkOfPath(TipMonomial(rel));
+                    for i in [1..Length(trgbRels)] do
+                        iWalk := WalkOfPath(TipMonomial(trgbRels[i]));
+                        if PositionSublist(iWalk, relWalk) = 1 then
+                            rel := ReduceRelation(rel, trgbRels[i],
+                                       ExtRepOfObj(TipMonomial(rel)),
+                                       1, Length(trgbRels[i]));
+                            reduced := true;
+                            break;
+                        fi;
+                    od;
+                    if not reduced then
+                        for i in [1..Length(trgbRels)] do
+                            trel := trgbRels[i];
+                            iWalk := WalkOfPath(TipMonomial(trel));
+                            if PositionSublist(relWalk, iWalk) = 1 then
+                                trel := ReduceRelation(trel, rel,
+                                            ExtRepOfObj(TipMonomial(trel)),
+                                            1, Length(rel));
+                                AddSet(gbRels, trel);
+                                Unbind(trgbRels[i]);
+                            fi;
+                        od;
+                        trgbRels := Set(trgbRels);
+                        AddSet(trgbRels, rel);
+                    fi;
+                fi;
+            od;
+
+            Sort(trgbRels);
+            gb!.relations := trgbRels;
+            SetIsTipReducedGroebnerBasis(gb, true);        
+        fi;
+        if not IsBound(gb!.staticDict) then
+            quiver := 
+                QuiverOfPathAlgebra(FamilyObj(gb!.relations[1])!.pathRing);
+            # Construct a static dictionary for later reductions
+            gb!.staticDict := QuiverStaticDictionary(quiver,
+                                  List(gb!.relations, TipMonomial));
+        fi;
+        return gb;
+    end );
+@ 
+
+\paragraph{Operation}
+
+The [[TipReduce]] operation for right \groebner\ bases reduces an
+element when the tip of something in the \groebner\ basis is a prefix
+of the tip of the element being reduced.
+This process repeats until the tip of the element cannot be reduced.
+
+<<TipReduce Implementation>>=
+InstallMethod( TipReduce,
+    "for right groebner bases and an element",
+    true, # FIXME
+    [ IsRightGroebnerBasis and IsGroebnerBasisDefaultRep
+      and IsTipReducedGroebnerBasis,
+      IsRingElement ], 0,
+    function( gb, rel )
+        local zero, dict, relations, tip, extTip, matches,
+              redMatch, start, rend;
+
+        zero := Zero(rel);
+        dict := gb!.staticDict;
+        relations := gb!.relations;
+        repeat
+            tip := TipMonomial(rel);
+            extTip := ExtRepOfObj(tip);
+            matches := PrefixSearch(dict, tip);
+            if not IsEmpty(matches) then
+                redMatch := matches[1];
+                start := 1;
+                rend := redMatch[1];
+                rel := ReduceRelation(rel, relations[redMatch[2][1]],
+                                      extTip, start, rend);
+            fi;
+        until IsEmpty(matches) or rel = zero;
+
+        return rel;
+    end );
+@ 
+
+\paragraph{Inclusion in Source}
+
+<<Groebner Declarations>>=
+<<RightGroebnerBasis Declaration>>
+@ 
+
+<<Groebner Implementations>>=
+<<RightGroebnerBasis Implementation>>
+@ 

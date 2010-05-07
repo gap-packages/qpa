@@ -1,0 +1,300 @@
+% -*- mode: noweb; noweb-code-mode: text-mode -*-%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% HOPF Project Source File
+% DESCRIPTION: Contains sources and definitions for package structuring
+%
+% Copyright, 1998 Virginia Polytechnic Institute and State University.
+% Copyright, 1998 Virginia Tech Hopf Project. All rights reserved.
+%
+% This file may be distributed in accordance with the stipulations existing
+% in the LICENSE file accompanying this software.
+%
+% $Id: package.nw,v 1.1 2010/05/07 13:30:14 sunnyquiver Exp $
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+@
+\chapter{Hopf Packaging}\label{chapter:HopfPackaging}
+
+\section{Overview}\label{section:HopfPackagingOverview}
+\hopf\ is distributed as a GAP4 package. GAP4 packages must adhere to
+a particular structure to integrate properly into the GAP4
+system. Each contributing piece to GAP initialization is described in
+its own section, and the contribution to the initialization files is
+given.
+
+\section{Package Sources}\label{section:HopfPackagingSources}
+The [[init.g]] file contains the initialization commands for the
+\hopf\ system. These include reading in declaration and implementation
+files, incorporating online documentation, and other setup functions.
+
+<<[[init.g]]>>=
+# Initialize Hopf package
+# This file was generated from
+# $Id: package.nw,v 1.1 2010/05/07 13:30:14 sunnyquiver Exp $
+DeclareAutoPackage("hopf", "0.4", ReturnTrue);
+DeclarePackageAutoDocumentation("hopf", "doc");
+@
+
+<<[[read.g]]>>=
+# Read in Hopf files
+# This file was generated from
+# $Id: package.nw,v 1.1 2010/05/07 13:30:14 sunnyquiver Exp $
+if BANNER then
+    ReadPkg("hopf", "gap/banner.g");
+fi;
+
+<<Read Declaration Files>>
+<<Read Implementation Files>>
+<<Read Opal Files>>
+@
+
+<<[[gap/banner.g]]>>=
+# Print out a startup banner
+# This file was generated from
+# $Id: package.nw,v 1.1 2010/05/07 13:30:14 sunnyquiver Exp $
+<<Banner statements>>
+@
+
+\section{Dynamic Trees}
+\label{section:HopfPackagingDynamicTrees}
+Read in the \hopf\ implementation of dynamic trees.
+
+<<Read Declaration Files>>=
+ReadPkg( "hopf", "gap/dyntree.gd" );
+@
+
+<<Read Implementation Files>>=
+ReadPkg( "hopf", "gap/dyntree.gi" );
+@
+
+\section{Dynamic Dictionaries}
+\label{section:HopfPackagingDynamicDictionaries}
+Read in the \hopf\ implementation of dynamic dictionaries. This must
+appear after dynamic trees are read.
+
+<<Read Declaration Files>>=
+ReadPkg( "hopf", "gap/dyndict.gd" );
+@
+
+<<Read Implementation Files>>=
+ReadPkg( "hopf", "gap/dyndict.gi" );
+@
+
+\section{Static Dictionaries}
+\label{section:HopfPackagingStaticDictionaries}
+Read in the \hopf\ implementation of static dictionaries.
+
+<<Read Declaration Files>>=
+ReadPkg( "hopf", "gap/stadict.gd" );
+@
+
+<<Read Implementation Files>>=
+ReadPkg( "hopf", "gap/stadict.gi" );
+@
+
+\section{Algebras}\label{section:HopfPackagingAlgebras} \hopf\ has
+included additional attributes and operations for general algebras,
+which are read in here.
+
+<<Read Declaration Files>>=
+ReadPkg("hopf", "gap/algebra.gd");
+@
+
+<<Read Implementation Files>>=
+ReadPkg("hopf", "gap/algebra.gi");
+@
+
+\section{Group Algebras}
+\hopf\ has included additional attributes and operations for group
+algebras which are read in here.
+
+<<Read Declaration Files>>=
+ReadPkg("hopf", "gap/alggrp.gd");
+@
+
+<<Read Implementation Files>>=
+ReadPkg("hopf", "gap/alggrp.gi");
+@
+
+\section{Orderings}\label{section:HopfPackagingOrderings}
+Orderings are used to order elements in quotients of path
+algebras. The inclusion of orderings must precede the inclusion of
+quivers.  The declaration and implementation files are read in
+from the [[gap]] subdirectory.
+
+<<Read Declaration Files>>=
+ReadPkg("hopf", "gap/ordering.gd");
+@
+
+<<Read Implementation Files>>=
+ReadPkg("hopf", "gap/ordering.gi");
+@
+
+\section{Quivers}\label{section:HopfPackagingQuivers}
+Quivers are a basic algebraic structure used by \hopf. The inclusion
+of quivers in the initialization files must precede path algebras
+since path algebras rely on quivers for construction. The declaration
+and implementation files are read in from the [[gap]] subdirectory.
+
+<<Read Declaration Files>>=
+ReadPkg("hopf", "gap/quiver.gd");
+@
+
+<<Read Implementation Files>>=
+ReadPkg("hopf", "gap/quiver.gi");
+@
+
+\section{Path Algebras}\label{section:HopfPackagingPathAlgebras}
+Path algebras are free magma rings over quivers. The inclusion of path
+algebras must follow the include of quivers. The declaration and
+implementation files are read in from the [[gap]] subdirectory.
+
+<<Read Declaration Files>>=
+ReadPkg("hopf", "gap/algpath.gd");
+@
+
+<<Read Implementation Files>>=
+ReadPkg("hopf", "gap/algpath.gi");
+@
+
+\section{\groebner~Bases}\label{section:HopfPackagingGroebnerBases}
+\groebner~bases must follow after path algebras as they use some of
+the declarations in the path algebra domain.
+
+<<Read Declaration Files>>=
+ReadPkg("hopf", "gap/groebner.gd");
+@
+
+<<Read Implementation Files>>=
+ReadPkg("hopf", "gap/groebner.gi");
+@
+
+\section{Right Modules}
+\label{section:HopfPackagingRightModules}
+
+<<Read Declaration Files>>=
+ReadPkg("hopf", "gap/modright.gd");
+@
+
+<<Read Implementation Files>>=
+ReadPkg("hopf", "gap/modright.gi");
+@
+
+\section{Modules over Path Algebras}\label{section:HopfPackagingPAModules}
+
+<<Read Declaration Files>>=
+ReadPkg("hopf", "gap/pamodule.gd");
+@
+
+<<Read Implementation Files>>=
+ReadPkg("hopf", "gap/pamodule.gi");
+@
+
+\section{Presentations of Modules over Path Algebras}
+\label{section:HopfPackagingPresent}
+
+<<Read Declaration Files>>=
+ReadPkg("hopf", "gap/present.gd");
+@
+
+<<Read Implementation Files>>=
+ReadPkg("hopf", "gap/present.gi");
+@
+
+\section{Tensors}\label{section:Tensors}
+
+<<Read Declaration Files>>=
+ReadPkg("hopf", "gap/gaptens.gd");
+ReadPkg("hopf", "gap/algtens.gd");
+@
+
+<<Read Implementation Files>>=
+ReadPkg("hopf", "gap/gaptens.gi");
+ReadPkg("hopf", "gap/algtens.gi");
+@
+
+\section{Hopf Algebras}\label{section:HopfAlgebras}
+
+<<Read Declaration Files>>=
+ReadPkg("hopf", "gap/hopfalg.gd");
+@
+
+<<Read Implementation Files>>=
+ReadPkg("hopf", "gap/hopfalg.gi");
+@
+
+\section{Module Decomposition}
+This reads in the implementation of the module decomposition algorithms
+for decomposing modules over path algebras.
+
+<<Read Declaration Files>>=
+ReadPkg("hopf", "gap/decomp.gd");
+@
+
+<<Read Implementation Files>>=
+ReadPkg("hopf", "gap/decomp.gi");
+@
+
+\section{Primitive Idempotents}
+
+This reads in the implementation of functions needed to calculate
+primitive idempotents in a simple algebra.
+
+<<Read Declaration Files>>=
+ReadPkg("hopf", "gap/idempotent.gd");
+@
+
+<<Read Implementation Files>>=
+ReadPkg("hopf", "gap/idempotent.gi");
+@
+
+\section{Opal Interface}\label{section:HopfPackagingOpalInterface}
+The Opal interface is the last thing to be included in the
+\hopf~system. It depends on many of the previous files. Additionally,
+we check for the availability of Opal before including these files.
+
+<<Read Opal Files>>=
+hopfPath := DirectoriesPackagePrograms("hopf");
+opal := Filename(hopfPath, "opal");
+gapopal := Filename(hopfPath, "gapopal");
+if opal <> fail and gapopal <> fail then
+    ReadPkg("hopf", "gap/opal.gd");
+    ReadPkg("hopf", "gap/opal.gi");
+else
+    Print("#I Opal groebner basis software not found.\n");
+    Print("#I The GAP to Opal interface is not installed.\n");
+fi;
+@
+
+\section{Banner}
+\label{section:HopfPackagingBanner}
+
+Here we print out a cute banner for Hopf. Make sure to change the banner
+when the Hopf version changes.
+
+<<Banner statements>>=
+Print("\n");
+Print("---------------------------------------------------------\n");
+Print("|                                                       |\n");
+Print("|                          Hopf                         |\n");
+Print("|                                                       |\n");
+Print("|           A GAP share package for computations        |\n");
+Print("|           in noncommutative algebra.                  |\n");
+Print("|                                                       |\n");
+Print("|                 http://hal.cs.vt.edu/hopf             |\n");
+Print("|              Contact hopfinfo@hal.cs.vt.edu           |\n");
+Print("|                                                       |\n");
+Print("| Hopf version ", PACKAGES_VERSIONS.hopf);
+Print(", Copyright (C) 2001, Virginia Tech   |\n");
+Print("| Hopf Project. Hopf comes with ABSOLUTELY NO WARRANTY; |\n");
+Print("| see the LICENSE file included with Hopf for details.  |\n");
+Print("|                                                       |\n");
+Print("---------------------------------------------------------\n");
+Print("\n");
+@
+
+
+
+
+
+

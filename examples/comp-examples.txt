@@ -1,0 +1,45 @@
+# Matrix examples:
+
+M := RandomMat(1000,1000,Rationals);;
+N := RandomMat(1000,1000,Rationals);;
+
+# Multiply two small matrices together:
+t0 := Runtime();;
+A := M*N;
+Print("The computation took ",Runtime()-t0," msecs. \n");
+
+
+
+
+# Now a matrix example over Path algebra:
+
+q := Quiver(["u","v","x","y","z"],[["u","v","a"],["v","y","b"],
+                                   ["u","x","c"],["x","y","d"],
+                                   ["y","z","e"],["y","z","f"]]);
+pa := PathAlgebra(Rationals,q);
+
+M := RandomMat(1000,1000,pa);;
+
+exceeded the permitted memory (`-o' command line option) at
+nr := 0;
+ called from
+NrBitsInt( Random( [ 0 .. 2 ^ 20 - 1 ] ) ) called from
+Random( Integers ) called from
+Random( F ) called from
+func( elm ) called from
+List( [ 1 .. Dimension( V ) ], function ( x )
+      return Random( F );
+  end ) called from
+...
+Entering break read-eval-print loop ...
+you can 'quit;' to quit to outer loop, or
+you can 'return;' to continue
+
+
+N := RandomMat(1000,1000,pa);;
+
+# Multiply two small matrices together:
+t0 := Runtime();;
+A := M*N;
+Print("The computation took ",Runtime()-t0," msecs. \n");
+

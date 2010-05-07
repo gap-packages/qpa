@@ -1,0 +1,833 @@
+% -*- mode: Noweb; noweb-code-mode: gap-mode -*-%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% HOPF Project Source File
+% DESCRIPTION: Hopf project enhancements to the GAP4 algebra domain
+%
+% Copyright, 1998 Virginia Polytechnic Institute and State University.
+% Copyright, 1998 Virginia Tech Hopf Project. All rights reserved.
+%
+% This file may be distributed in accordance with the stipulations existing
+% in the LICENSE file accompanying this software.
+%
+% $Id: algebra.nw,v 1.1 2010/05/07 13:30:13 sunnyquiver Exp $
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+@
+
+\chapter{Algebra Enhancements}
+\label{chapter:Algebras}
+
+\section{Overview}\label{section:AlgebraOverview}
+This chapter contains enhancements to the GAP4 standard algebra
+library needed to perform some computations in \hopf. Since these
+computations are applicable to all kinds of algebras, the declaration
+and implementation of the attributes and properties exist here.
+
+\section{Source Files}\label{section:AlgebraSourceFiles}
+This section contains the source file declarations for the algebra
+enhancements.
+
+<<[[algebra.gd]]>>=
+# GAP Declarations
+# This file was generated from
+# $Id: algebra.nw,v 1.1 2010/05/07 13:30:13 sunnyquiver Exp $
+<<Algebra Declarations>>
+@
+
+
+<<[[algebra.gi]]>>=
+# GAP Implementation
+# This file was generated from 
+# $Id: algebra.nw,v 1.1 2010/05/07 13:30:13 sunnyquiver Exp $
+<<Algebra Implementations>>
+@   
+
+\section{Attributes}\label{section:AlgebraAttributes}
+
+\paragraph{Keyed Attribute} The [[PowerSubalgebra]] attribute
+returns a power subalgebra\index{power subalgebra} of a
+commutative algebra $A$ defined over a finite field $F$. Let $q =
+p^m$, and $F = F_q$. Then for each divisor $d$ of $m$, the subalgebra
+consisting of the elements such that $a^r = a$ where $r = p^d$ is a
+power subalgebra. When $A$ is non-commutative we return the
+power subalgebra of its center.
+
+<<PowerSubalgebra Declaration>>=
+KeyDependentOperation("PowerSubalgebra", IsAlgebra, IsPosInt, IsPosInt);
+@ %def PowerSubalgebra
+
+The power subalgebra can be computed for finite dimensional
+algebras using linear algebra techniques. The algorithm,
+\textsc{Power-Subalgebra}, gives the linear algebra approach to
+finding the power subalgebra. Note that $\gamma$ and $\beta$ may
+need to be transposed when this algorithm is implemented in GAP.
+
+    \begin{algorithm}{Power-Subalgebra}{\algebra{A}, d}
+      \fld{K} \= \text{field over which \algebra{A} is defined.}\\
+      p \= char[\fld{K}]\\
+      \algebra{B} \= \CALL{Basis}(\algebra{A})\\
+      d \= dim[\algebra{A}]\\
+      k \= 1\\
+      q \= p^d\\
+      \begin{FOR}{j \= 1 \TO d}
+        \gamma[j] \= \CALL{Coefficients}(\algebra{B},
+          \algebra{B}[j] - (\algebra{B}[j])^{q})
+      \end{FOR}\\
+      \beta \= \CALL{Nullspace-Basis}(\gamma)\\
+      m \= rows[\beta]\\
+      \algebra{P} \= m\times1 \text{matrix of \zero{\algebra{A}}'s}\\
+      \COMMENT~\text{Construct a basis for $d$-potent subalgebra of \algebra{A}}\\
+      \begin{FOR}{i \= 1 \TO m}
+        \begin{FOR}{j \= 1 \TO d}
+          \algebra{P}[i] \= \algebra{P}[i] + \beta[i,j] * \algebra{B}[j]
+        \end{FOR}
+      \end{FOR}\\
+      \RETURN~\algebra{P}
+    \end{algorithm}
+
+<<PowerSubalgebra Implementation>>=
+InstallMethod( PowerSubalgebraOp,
+    "for associative algebras",
+    true,
+    [IsAlgebra and IsCommutative and IsAssociative, IsPosInt], 0,
+    function( A, n )
+        local m, p, F, b, d, i, j, q, v, gamma, beta, fsBasis;
+
+        F := LeftActingDomain(A);
+        p := Characteristic(F);
+        m := DegreeOverPrimeField(F);
+
+        if not IsPosInt(m/n) then
+            Error("<d> must be a factor of field degree");
+        fi;
+
+	q := p^n;
+	d := Dimension(A);
+	b := CanonicalBasis(A);
+	v := BasisVectors(b);
+
+        gamma := [];
+	for j in [1..d] do
+            Add(gamma, Coefficients(b, v[j] - v[j]^q));
+        od;
+        beta := NullspaceMat(gamma);
+
+        fsBasis := [];
+        for i in beta do
+            Add(fsBasis, LinearCombination(b, i));
+        od;
+
+        return SubalgebraNC( A, fsBasis, "basis" );
+    end );
+@
+
+<<PowerSubalgebra Implementation>>=
+InstallMethod( PowerSubalgebraOp,
+    "for associative algebras",
+    true,
+    [IsAlgebra, IsPosInt], 0,
+    function( A, n )
+        local center;
+
+        if not IsAssociative(A) then
+            TryNextMethod();
+        fi;
+
+        center := Center(A);
+        # Below is to work around problems.
+        IsCommutative(center); IsAssociative(center);
+        return PowerSubalgebraOp( center, n );
+    end );
+@
+
+\paragraph{Inclusion in source}
+
+<<Algebra Declarations>>=
+<<PowerSubalgebra Declaration>>
+@
+
+<<Algebra Implementations>>=
+<<PowerSubalgebra Implementation>>
+@
+
+\section{Opposite Algebras}
+
+Opposite algebras are useful tools for creating antihomomorphisms.
+Given an algebra $A$, the opposite algebra $A^{op}$ has the same
+additive structure as $A$, but the multiplication is reversed
+in $A^{op}$; that is, $ab$ in $A^{op}$ is $ba$ in $A$.
+
+\subsection{Categories}
+
+The [[IsOppositeAlgebraElement]] is the category 
+of all elements
+in some opposite algebra.
+
+<<IsOppositeAlgebraElement Declarations>>=
+DeclareCategory( "IsOppositeAlgebraElement", IsRingElement );
+@ %def IsOppositeAlgebraElement
+
+Collections and families of opposite algebra elements are also useful.
+
+<<IsOppositeAlgebraElement Declarations>>=
+DeclareCategoryCollections( "IsOppositeAlgebraElement" );
+DeclareCategoryFamily( "IsOppositeAlgebraElement" );
+@
+
+\subsection{Attributes of Opposite Algebras}
+
+Create a new property on algebra to identify opposite algebras.
+
+<<IsOppositeAlgebra declaration>>=
+DeclareProperty("IsOppositeAlgebra", IsAlgebra);
+@
+
+Opposite algebras keep track of their underlying algebra.
+
+<<UnderlyingAlgebra declaration>>=
+DeclareAttribute("UnderlyingAlgebra", IsOppositeAlgebra);
+@ %def UnderlyingAlgebra
+
+\subsection{Constructing Opposite Algebras}
+
+To construct an opposite algebra,
+one must first have an algebra created.
+The generators
+of the original algebra are converted
+into opposite algebra elements
+and then the opposite algebra is created.
+
+<<OppositeAlgebra declaration>>=
+DeclareOperation("OppositeAlgebra", [IsAlgebra]);
+@ %def OppositeAlgebra
+
+<<OppositeAlgebra implementation>>=
+InstallMethod( OppositeAlgebra,
+    "for algebras",
+    true,
+    [ IsAlgebra ], 0,
+    function(A)
+        local type, K, Aop, gens, fam;
+
+        if HasIsCommutative(A) and IsCommutative(A) then
+            return A;
+        fi;
+
+        type := NewType( NewFamily( "OppositeAlgebraElementsFamily",
+                                    IsOppositeAlgebraElement ),
+                         IsPackedElementDefaultRep );
+        K := LeftActingDomain(A);
+
+        if IsAlgebraWithOne(A) then
+            gens := List( GeneratorsOfAlgebraWithOne(A), 
+                          x -> Objectify( type, [x] ) );
+            Aop := AlgebraWithOneByGenerators(K, gens);
+        else
+            gens := List( GeneratorsOfAlgebra(A),
+                          x -> Objectify( type, [x] ) );
+            Aop := AlgebraByGenerators(K, gens);
+        fi;
+        SetIsOppositeAlgebra(Aop, true);
+        SetUnderlyingAlgebra(Aop, A);
+
+        fam := ElementsFamily( FamilyObj( Aop ) );
+        fam!.packedType := type;
+        fam!.underlyingAlgebraEltsFam := ElementsFamily( FamilyObj( A ) );
+        if IsAlgebraWithOne(Aop) then
+            SetOne(fam, Objectify(type, [One(A)]));
+        fi;
+
+        return Aop;
+    end );
+@
+
+Finally, we need to print out opposite algebras.
+
+<<PrintObj for opposite algebras>>=
+InstallMethod( PrintObj,
+    "for opposite algebras",
+    true,
+    [ IsOppositeAlgebra ], 0,
+    function(A)
+        Print( "OppositeAlgebra( ", A, " )" );
+    end );
+@
+
+\subsection{Operations}
+
+Verify that an element is in the opposite algebra.
+
+<<in operation for opposite algebras>>=
+InstallMethod(\in,
+    "for opposite algebra elements and opposite algebras",
+    IsElmsColls,
+    [IsOppositeAlgebraElement, IsOppositeAlgebra], 0,
+    function( a, A )
+        return a![1] in UnderlyingAlgebra(A);
+    end );
+@
+
+\subsection{Dimension and Bases}
+
+These operations delegate back 
+to the underlying algebra.
+
+<<Dimension for opposite algebras>>=
+InstallMethod(Dimension,
+    "for opposite algebras",
+    true,
+    [ IsOppositeAlgebra ], 0,
+    function(A)
+        return Dimension(UnderlyingAlgebra(A));
+    end );
+@
+
+<<IsFiniteDimensional for opposite algebras>>=
+InstallMethod(IsFiniteDimensional,
+    "for opposite algebras",
+    true,
+    [ IsOppositeAlgebra ], 0,
+    function(A)
+        return IsFiniteDimensional(UnderlyingAlgebra(A));
+    end );
+@
+
+We introduce a basis representation
+that stores a basis
+for the underlying algebra.
+Bases for algebras and opposite algebras contain
+the same elements, so we set up bases that delegate back
+to bases of the original algebra.
+
+<<IsBasisOfOppositeAlgebraDefaultRep declaration>>=
+DeclareRepresentation("IsBasisOfOppositeAlgebraDefaultRep",
+    IsComponentObjectRep, ["underlyingBasis"] );
+@
+
+<<Basis for opposite algebras>>=
+InstallMethod(Basis,
+    "for opposite algebras",
+    true,
+    [ IsOppositeAlgebra ], 0,
+    function(A)
+        local B;
+        
+        B := Objectify( NewType( FamilyObj( A ),
+                                 IsBasis and
+                                 IsBasisOfOppositeAlgebraDefaultRep and 
+                                 IsAttributeStoringRep ),
+                        rec() );
+        SetUnderlyingLeftModule(B, A);
+        B!.underlyingBasis := Basis(UnderlyingAlgebra(A));
+        return B;
+    end);
+@
+
+<<CanonicalBasis for opposite algebras>>=
+InstallMethod(CanonicalBasis,
+    "for opposite algebras",
+    true,
+    [ IsOppositeAlgebra ], 0,
+    function(A)
+        local B;
+        
+        B := Objectify( NewType( FamilyObj( A ),
+                                 IsBasis and
+                                 IsBasisOfOppositeAlgebraDefaultRep and 
+                                 IsAttributeStoringRep ),
+                        rec() );
+        SetUnderlyingLeftModule(B, A);
+        SetIsCanonicalBasis(B, true);
+        B!.underlyingBasis := CanonicalBasis(UnderlyingAlgebra(A));
+        if B!.underlyingBasis = fail then
+            return fail;
+        fi;
+        return B;
+    end);
+@
+
+<<Coefficients for bases of opposite algebras>>=
+InstallMethod(Coefficients,
+    "for bases of opposite algebras and opposite algebra element",
+    true,
+    [ IsBasisOfOppositeAlgebraDefaultRep and IsBasis,
+      IsOppositeAlgebraElement and IsPackedElementDefaultRep ], 0,
+    function(B, a)
+        return Coefficients(B!.underlyingBasis, a![1]);
+    end );
+@
+
+<<BasisVectors for bases of opposite algebras>>=
+InstallMethod(BasisVectors,
+    "for bases of opposite algebras",
+    true,
+    [ IsBasisOfOppositeAlgebraDefaultRep and IsBasis ], 0,
+    function(B)
+        local vectors, type;
+
+        vectors := BasisVectors( B!.underlyingBasis );
+        type := ElementsFamily(FamilyObj(B))!.packedType;
+        return List(vectors, x -> Objectify(type, [x]));
+    end );
+@
+
+\subsection{Record Access}
+
+This delegates back to the original algebra
+and converts the resulting element
+into an opposite algebra element.
+
+<<Opposite Algebra Record Access>>=
+InstallMethod( \.,
+    "for path algebras",
+    true,
+    [IsOppositeAlgebra, IsPosInt], 0,
+    function(A, name)
+        local family;
+ 
+        family := ElementsFamily(FamilyObj(A));
+        return Objectify(family!.packedType, 
+                         [ UnderlyingAlgebra(A).(NameRNam(name)) ] );
+    end );
+@                                                                               
+
+\subsection{Arithmetic Operations}
+
+The arithmetic operations are easily implemented.
+This code structure is similar
+to the operations
+in [[algrep.gi]]
+in the GAP library.
+
+<<Equality of opposite algebra elements>>=
+InstallMethod( \=,
+    "for two elements of an opposite algebra",
+    IsIdenticalObj,
+    [IsOppositeAlgebraElement and IsPackedElementDefaultRep,
+     IsOppositeAlgebraElement and IsPackedElementDefaultRep], 0,
+    function( a, b )
+        return a![1] = b![1];
+    end );
+@
+
+<<Comparison of opposite algebra elements>>=
+InstallMethod( \<,
+    "for two elements of an opposite algebra",
+    IsIdenticalObj,
+    [IsOppositeAlgebraElement and IsPackedElementDefaultRep,
+     IsOppositeAlgebraElement and IsPackedElementDefaultRep], 0,
+    function( a, b )
+        return a![1] < b![1];
+    end );
+@
+
+<<Addition of opposite algebra elements>>=
+InstallMethod( \+,
+    "for two elements of an opposite algebra",
+    IsIdenticalObj,
+    [IsOppositeAlgebraElement and IsPackedElementDefaultRep,
+     IsOppositeAlgebraElement and IsPackedElementDefaultRep], 0,
+    function( a, b )
+        return Objectify(TypeObj(a), [a![1] + b![1]]);
+    end );
+@
+
+This operation is the only one that does anything interesting.
+It switches the multiplication.
+
+<<Multiplication of opposite algebra elements>>=
+InstallMethod( \*,
+    "for two elements of an opposite algebra",
+    IsIdenticalObj,
+    [IsOppositeAlgebraElement and IsPackedElementDefaultRep,
+     IsOppositeAlgebraElement and IsPackedElementDefaultRep], 0,
+    function( a, b )
+        return Objectify(TypeObj(a), [b![1] * a![1]]);
+    end );
+@
+
+<<Multiplication of scalar and opposite algebra element>>=
+InstallMethod( \*,
+    "for scalar and an opposite algebra element",
+    true,
+    [IsScalar,
+     IsOppositeAlgebraElement and IsPackedElementDefaultRep], 0,
+    function( a, b )
+        return Objectify(TypeObj(b), [b![1]*a]);
+    end );
+@
+
+<<Multiplication of opposite algebra element and a scalar>>=
+InstallMethod( \*,
+    "for an opposite algebra element and a scalar",
+    true,
+    [ IsOppositeAlgebraElement and IsPackedElementDefaultRep,
+      IsScalar ], 0,
+    function( a, b )
+        return Objectify(TypeObj(a), [b*a![1]]);
+    end );
+@
+
+<<Additive inverse of opposite algebra elements>>=
+InstallMethod( AINV,
+    "for an opposite algebra element",
+    true,
+    [ IsOppositeAlgebraElement and IsPackedElementDefaultRep ], 0,
+    function(a)
+        return Objectify(TypeObj(a), [-a![1]]);
+    end );
+@
+
+<<ZeroOp for opposite algebra elements>>=
+InstallMethod( ZeroOp,
+    "for an opposite algebra element",
+    true,
+    [ IsOppositeAlgebraElement and IsPackedElementDefaultRep ], 0,
+    function(a)
+        return Objectify(TypeObj(a), [0*a![1]]);
+    end );
+@
+
+\section{Output of Elements}
+
+Opposite algebra elements should look the same as the corresponding algebra
+elements.
+
+<<PrintObj for opposite algebra elements>>=
+InstallMethod(PrintObj,
+    "for an opposite algebra element",
+    true,
+    [ IsOppositeAlgebraElement and IsPackedElementDefaultRep ], 0,
+    function(a)
+        Print( "op( ", a![1], " )" );
+    end );
+@
+
+\section{External Representation Conversions}
+
+These methods are used to work with external representations
+of opposite algebra elements.
+
+<<ExtRepOfObj for opposite algebra elements>>=
+InstallMethod(ExtRepOfObj,
+    "for opposite algebra elements",
+    true,
+    [ IsOppositeAlgebraElement and IsPackedElementDefaultRep ], 0,
+    function(a)
+        return ExtRepOfObj(a![1]);
+    end );
+@
+
+<<ObjByExtRep for opposite algebra elements>>=
+InstallMethod(ObjByExtRep,
+    "for opposite algebra family, object",
+    true,
+    [ IsOppositeAlgebraElementFamily, IsObject ], 0,
+    function(fam, obj)
+        if fam!.underlyingAlgebraEltsFam <> FamilyObj(obj) then
+            TryNextMethod();
+        fi;
+        return Objectify( fam!.packedType, [obj] );
+    end );
+@
+
+\subsection{Inclusion In Source}
+
+Include the opposite algebras into the code.
+
+<<Algebra Declarations>>=
+<<IsOppositeAlgebraElement Declarations>>
+<<IsOppositeAlgebra declaration>>
+<<UnderlyingAlgebra declaration>>
+<<OppositeAlgebra declaration>>
+@
+
+<<Algebra Implementations>>=
+<<OppositeAlgebra implementation>>
+<<in operation for opposite algebras>>
+<<PrintObj for opposite algebras>>
+<<Dimension for opposite algebras>>
+<<IsFiniteDimensional for opposite algebras>>
+<<IsBasisOfOppositeAlgebraDefaultRep declaration>>
+<<Basis for opposite algebras>>
+<<CanonicalBasis for opposite algebras>>
+<<Coefficients for bases of opposite algebras>>
+<<BasisVectors for bases of opposite algebras>>
+<<Opposite Algebra Record Access>>
+<<Equality of opposite algebra elements>>
+<<Comparison of opposite algebra elements>>
+<<Addition of opposite algebra elements>>
+<<Multiplication of opposite algebra elements>>
+<<Multiplication of scalar and opposite algebra element>>
+<<Multiplication of opposite algebra element and a scalar>>
+<<Additive inverse of opposite algebra elements>>
+<<ZeroOp for opposite algebra elements>>
+<<PrintObj for opposite algebra elements>>
+<<ExtRepOfObj for opposite algebra elements>>
+<<ObjByExtRep for opposite algebra elements>>
+@
+
+\section{Bug Workarounds}
+
+The following code is to work around bugs in the GAP library until the
+bugs have been fixed in a GAP release.
+
+\subsection{Algebra Homomorphisms}
+
+The following function for creating a left module
+map from an algebra map
+contains a bug in the GAP4 library.
+The following code seems 
+to fix the bug, although the fix is intuitive only,
+since I do not understand entirely what the code should be doing.
+
+<<Bug Fixes>>=
+#############################################################################
+##
+#M  AsLeftModuleGeneralMappingByImages( <alg_gen_map> )
+##
+##  If necessary then we compute a basis of the preimage,
+##  and images of its basis vectors.
+##
+##  Note that we must prescribe also the products of basis vectors and
+##  their images if <alg_gen_map> is not known to be a mapping.
+##
+InstallMethod( AsLeftModuleGeneralMappingByImages,
+    "for an algebra general mapping by images",
+    true,
+    [     IsAlgebraGeneralMapping
+      and IsAlgebraGeneralMappingByImagesDefaultRep ], 0,
+    function( alg_gen_map )
+
+    local origgenerators,  # list of algebra generators of the preimage
+          origgenimages,   # list of images of `origgenerators'
+          generators,      # list of left module generators of the preimage
+          genimages,       # list of images of `generators'
+          A,               # source of the general mapping
+          left,            # is it necessary to multiply also from the left?
+                           # (not if `A' is associative or a Lie algebra)
+          maxdim,          # upper bound on the dimension
+          MB,              # mutable basis of the preimage
+          dim,             # dimension of the actual left module
+          len,             # number of algebra generators
+          i, j,            # loop variables
+          gen,             # loop over generators
+          prod;            #
+
+    origgenerators := alg_gen_map!.generators;
+    origgenimages  := alg_gen_map!.genimages;
+
+    if IsBasis( origgenerators ) then
+
+      generators := origgenerators;
+      genimages  := origgenimages;
+
+    else
+
+      generators := ShallowCopy( origgenerators );
+      genimages  := ShallowCopy( origgenimages );
+
+      A:= Source( alg_gen_map );
+
+      left:= not (    ( HasIsAssociative( A ) and IsAssociative( A ) )
+                   or ( HasIsLieAlgebra( A ) and IsLieAlgebra( A ) ) );
+
+      if HasDimension( A ) then
+        maxdim:= Dimension( A );
+      else
+        maxdim:= infinity;
+      fi;
+
+      # $A_1$
+      MB:= MutableBasis( LeftActingDomain( A ), generators,
+                                     Zero( A ) );
+      dim:= 0;
+      len:= Length( origgenerators );
+
+      while dim < NrBasisVectors( MB ) and dim < maxdim do
+
+        # `MB' is a mutable basis of $A_i$.
+        dim:= NrBasisVectors( MB );
+
+        # Compute $\bigcup_{g \in S} ( A_i g \cup A_i g )$.
+        for i in [ 1 .. len ] do
+          gen:= origgenerators[i];
+          for j in [ 1 .. Length( generators ) ] do
+            prod:= generators[j] * gen;
+            if not IsContainedInSpan( MB, prod ) then
+              Add( generators, prod );
+              Add( genimages, genimages[j] * origgenimages[i] );
+              CloseMutableBasis( MB, prod );
+            fi;
+          od;
+        od;
+
+        if left then
+
+          # Compute $\bigcup_{g \in S} ( A_i g \cup g A_i )$.
+          for i in [ 1 .. len ] do
+            gen:= origgenerators[i];
+            for j in [ 1 .. Length( generators ) ] do
+              prod:= gen * generators[j];
+              if not IsContainedInSpan( MB, prod ) then
+                Add( generators, prod );
+                Add( genimages, origgenimages[i] * genimages[j] );
+                CloseMutableBasis( MB, prod );
+              fi;
+            od;
+          od;
+
+        fi;
+
+      od;
+
+    fi;
+
+    # Is this the proper fix?
+    len := Length(generators);
+
+    # Add the products of basis vectors to `generators',
+    # and the products of their images to `genimages'.
+    for i in [ 1 .. len ] do
+      for j in [ 1 .. len ] do
+        Add( generators, generators[i] * generators[j] );
+        Add( genimages, genimages[i] * genimages[j] );
+      od;
+    od;
+
+    # Construct and return the left module general mapping.
+    return LeftModuleGeneralMappingByImages( A, Range( alg_gen_map ),
+               generators, genimages );
+    end );
+@
+
+<<Algebra Implementations>>=
+<<Bug Fixes>>
+@
+
+\section{Performance Enhancements}
+
+This chapter incorporates performance enhancements for GAP functionality.
+These enhancements should ultimately be rolled back into the main GAP
+library.
+
+\subsection{Radical of Algebra of Linear Mappings by Matrices}
+
+We introduce an implementation
+of [[RadicalOfAlgebra]]
+for an algebra of linear mappings
+defined by matrices. These mappings
+have the [[IsLinearMappingByMatrixDefaultRep]]
+representation.
+In order to calculate the radical,
+we construct an isomorphic matrix algebra
+from the transpose of each matrix
+for the linear mappings.
+The radical is calculated
+for the matrix algebra, which is much more efficient
+and what GAP does anyway. Then, the resulting basis
+is converted back into linear mappings, again transposing
+to get the mapping back.
+This is an efficient approach when the dimension of the
+algebra is larger than the dimensions of the matrices.
+We could be more efficient in the opposite situation,
+but the cost involved is probably not worth it in most cases,
+as you have to multiply all of the matrices together
+in order to reduce the information.
+
+<<Radical of Algebra of Linear Mappings>>=
+InstallMethod( RadicalOfAlgebra,
+    "for an algebra of l.m.b.m rep.",
+    true,
+    [ IsAlgebraWithOne and IsGeneralMappingCollection ], 0,
+    function( A )
+        local gens, uA, F, Igens, R, S, I;
+
+        gens := GeneratorsOfAlgebraWithOne(A);
+        if not IsLinearMappingByMatrixDefaultRep(gens[1]) then
+            TryNextMethod();
+        fi;
+
+        S := Source(gens[1]);
+        R := Range(gens[1]);
+        F := LeftActingDomain(A);
+        if HasBasis(A) and HasBasisVectors(Basis(A)) then
+            gens := List(BasisVectors(Basis(A)), x -> TransposedMat(x!.matrix));
+            uA := AlgebraWithOneByGenerators(F, gens, "basis");
+        else
+            gens := List(gens, x -> TransposedMat(x!.matrix));
+            uA := AlgebraWithOneByGenerators(F, gens);
+        fi;
+        I := RadicalOfAlgebra(uA);
+
+        Igens := BasisVectors(Basis(I));
+        Igens := List(Igens, x -> TransposedMat(x));
+        Igens := List(Igens, 
+                      x->LeftModuleHomomorphismByMatrix(Basis(S),x,Basis(R)));
+
+        I := TwoSidedIdealNC(A, Igens, "basis");
+        SetNiceFreeLeftModuleInfo( I, NiceFreeLeftModuleInfo(A) ); 
+	return I;
+    end );
+@
+
+This code will eventually construct a proper isomorphism 
+between algebras of linear mappings by matrices
+to a matrix algebra. Right now, it's broken, so don't try
+to use it. The things that remain are to take advantage
+of the relationship between the matrix defining the
+linear map and the transposed matrix in the isomorphic
+algebra.
+
+<<Isomorphism of Algebra of Linear Mappings and Matrix Algebra>>=
+InstallMethod( IsomorphismMatrixFLMLOR,
+    "for an algebra of l.m.b.m rep.",
+    true,
+    [ IsAlgebra and IsGeneralMappingCollection ], 0,
+    function( A )
+        local gens, uA, F, Igens, R, S, I;
+
+        gens := GeneratorsOfAlgebraWithOne(A);
+        if not IsLinearMappingByMatrixDefaultRep(gens[1]) 
+           or not IsFiniteDimensional(A)
+           or not IsAssociative(A)
+        then
+            TryNextMethod();
+        fi;
+
+        B := Basis(A);
+        F := LeftActingDomain(A);
+        if IsEmpty( B ) then
+            TryNextMethod();
+        fi;
+ 
+        if IsAlgebraWithOne(A) then
+            gens := GeneratorsOfAlgebraWithOne(A);
+        else
+            gens := GeneratorsOfAlgebra(A);
+        fi;
+
+	gens := List(gens, x -> TransposedMat(x!.matrix));
+        uA := AlgebraByGenerators(F, gens);
+        UseIsomorphismRelation( A, uA );
+
+        map := Objectify( NewType(GeneralMappingsFamily(
+                                       ElementsFamily( FamilyObj( A ) ),
+                                       ElementsFamily( FamilyObj( uA ) ) ),
+                                  IsSPGeneralMapping
+                              and IsAlgebraHomomorphism
+                              and IsOperationAlgebraHomomorphismDefaultRep ),
+                          rec(
+                                 basis := B;
+                             ) );
+        SetSource( map, A );
+        SetRange( map, I );
+        SetIsSurjective(map, true);
+        SetIsInjective(map, true);
+
+        return map;
+    end );
+@
+
+<<Algebra Implementations>>=
+<<Radical of Algebra of Linear Mappings>>
+@

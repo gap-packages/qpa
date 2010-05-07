@@ -1,0 +1,1524 @@
+% -*- mode: Noweb; noweb-code-mode: text-mode -*-%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% HOPF Project Source File
+% DESCRIPTION: An implementation of the dynamic dictionary matching algorithms
+%              by Amir, et.al.
+%
+% Copyright, 1998 Virginia Polytechnic Institute and State University.
+% Copyright, 1998 Virginia Tech Hopf Project. All rights reserved.
+%
+% This file may be distributed in accordance with the stipulations existing
+% in the LICENSE file accompanying this software.
+%
+% $Id: dyndict.nw,v 1.1 2010/05/07 13:30:13 sunnyquiver Exp $
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Dynamic Dictionary Matching}
+\label{chapter:DynamicDictionaryMatching}
+
+\section{Overview}
+\label{section:DynamicDictionaryMatchingOverview}
+
+In this chapter we implement the dynamic dictionary matching algorithm
+provided by Amir, et.al.~\cite{AmirEtAl}. The dictionary matching
+problem is finding all instances of patterns $p_1,...,p_n$ in a given
+text $T$. When the set of patterns, i.e., our dictionary, does not
+change, the problem is efficiently solved by Aho and
+Corasick~\cite{AhoCorasick}. The algorithm constructs an automata to
+efficiently perform the matching.
+
+In the dynamic dictionary problem, we want to efficiently add and
+remove patterns from the dictionary as well as efficiently perform the
+pattern matching. The Amir, et.al. algorithm uses a combination of
+suffix trees and dynamic trees to efficiently perform searches and
+update the dictionary. Amir, et.al. uses a modified version of
+McCreight's algorithm for constructing the suffix and dynamic trees.
+
+In our implementation, we choose to use a modified version of
+Ukkonen's algorithm since it is easier to describe and
+implement. Dynamic trees have been implemented in
+Chapter~\ref{chapter:DynamicTrees} and are used as is for building our
+dynamic dictionary. We implement the algorithm for patterns being
+arbitrary lists without holes containing comparable elements.
+
+\section{Source Files}
+\label{section:DynamicDictionaryMatchingSourceFiles}
+
+<<[[dyndict.gd]]>>=
+# GAP Declarations
+# This file was generated from
+# $Id: dyndict.nw,v 1.1 2010/05/07 13:30:13 sunnyquiver Exp $
+<<Dynamic Dictionary Declarations>>
+@
+
+<<[[dyndict.gi]]>>=
+# GAP Implementation
+# This file was generated from 
+# $Id: dyndict.nw,v 1.1 2010/05/07 13:30:13 sunnyquiver Exp $
+<<Dynamic Dictionary Implementations>>
+@
+
+\section{Suffix Trees}
+\label{section:SuffixTrees}
+
+In this section we build up the necessary tools for constructing
+suffix trees using Ukkonen's algorithm. 
+
+\subsection{Categories and Representation}
+
+\paragraph{Information Class}
+The [[InfoDynamicDictionary]] information class allows us to print
+information about the progress of the dynamic dictionary construction
+and searching.
+
+<<InfoDynamicDictionary InfoClass>>=
+DeclareInfoClass( "InfoDynamicDictionary" );
+@ %def InfoDynamicDictionary
+
+\paragraph{Category}
+The [[IsSuffixTree]] category contains all suffix trees in
+\hopf. Suffix trees do not inherit any mathematical properties, so we
+inherit only the fact that suffix trees are GAP objects.
+
+<<IsSuffixTree Declaration>>=
+DeclareCategory( "IsSuffixTree", IsObject );
+@ %def IsSuffixTree
+
+\paragraph{Representation}
+The [[IsDefaultSuffixTreeRep]] is the default representation used for
+suffix trees. In this representation, the suffix tree keeps track of
+the patterns it contains, the root of the representation of the tree,
+and the amount of ``dead length'', or the total length of strings that
+have been deleted from the tree. Finally, the family for all suffix
+tree objects is stored as well. We use a component object
+representation to store this information.
+
+<<IsDefaultSuffixTreeRep Declaration>>=
+DeclareRepresentation( "IsDefaultSuffixTreeRep", 
+    IsComponentObjectRep,
+    ["patterns", "root", "deadLength", "family"] );
+@ %def IsDefaultSuffixTreeRep
+
+
+\paragraph{Category}
+The [[IsSuffixTreeElement]] category contains all nodes and edges in a 
+suffix tree. This inherits from [[IsObject]].
+
+<<IsSuffixTreeElement Category>>=
+DeclareCategory( "IsSuffixTreeElement", IsObject );
+@ %def IsSuffixTreeElement
+
+\paragraph{Category}
+The [[IsSuffixTreeNode]] category contains all nodes in a suffix tree;
+i.e., internal and external nodes. This category inherits only from
+[[IsObject]].
+
+<<IsSuffixTreeNode Category>>=
+DeclareCategory( "IsSuffixTreeNode", IsSuffixTreeElement );
+@ %def IsSuffixTreeNode
+
+\paragraph{Representation}
+The [[IsDefaultSuffixTreeNodeRep]] is the default representation for
+suffix tree nodes. Each node has a pointer to its parent edge and to a
+label. The labels for internal nodes have the form [[ [pattern,
+start, end] ]], representing the part of the pattern that matches to
+reach the internal node. External nodes have labels which are lists
+containing elements of the form [[ [pattern, start] ]], one for each
+pattern that has the same suffix represented by the external node.
+
+<<IsDefaultSuffixTreeNodeRep Declaration>>=
+DeclareRepresentation( "IsDefaultSuffixTreeNodeRep", 
+    IsComponentObjectRep,
+    ["parentEdge", "label", "dynTree"] );
+@ %def IsDefaultSuffixTreeNodeRep
+
+\paragraph{Category}
+The [[IsInternalSuffixTreeNode]] category contains all internal nodes
+in suffix trees. Internal nodes have children in the tree (excepting
+the root when the tree is empty). Internal nodes are all in the
+category [[IsSuffixTreeNode]] as well.
+
+<<IsInternalSuffixTreeNode Declaration>>=
+DeclareCategory( "IsInternalSuffixTreeNode", IsSuffixTreeNode );
+@ %def IsInternalSuffixTreeNode
+
+\paragraph{Representation}
+The [[IsDefaultInternalSuffixTreeNodeRep]] is the default
+representation for internal suffix tree nodes. Internal suffix tree
+nodes contain the same fields as suffix tree nodes with the addition
+of contain a field for all outgoing edges. In addition, internal
+suffix tree nodes contain suffix links used to traverse the tree.
+
+<<IsDefaultInternalSuffixTreeNodeRep Declaration>>=
+DeclareRepresentation( "IsDefaultInternalSuffixTreeNodeRep",
+        IsDefaultSuffixTreeNodeRep and IsComponentObjectRep,
+        ["edges", "suffixLink", "marked"] );
+@ %def IsDefaultInternalSuffixTreeNodeRep
+
+\paragraph{Category}
+The [[IsExternalSuffixTreeNode]] contains all external nodes, i.e.,
+leafs in suffix trees. Every external suffix tree node is also a
+suffix tree node. There is no special representation for external
+suffix tree nodes.
+
+<<IsExternalSuffixTreeNode Declaration>>=
+DeclareCategory( "IsExternalSuffixTreeNode", IsSuffixTreeNode );
+@ %def IsExternalSuffixTreeNode
+
+\paragraph{Category}
+The [[IsSuffixTreeEdge]] contains all edges in suffix trees. This
+category inherits directly from [[IsObject]].
+
+<<IsSuffixTreeEdge Declaration>>=
+DeclareCategory( "IsSuffixTreeEdge", IsSuffixTreeElement );
+@ %def IsSuffixTreeEdge
+
+\paragraph{Representation}
+The [[IsDefaultSuffixTreeEdgeRep]] is the default representation for
+edges in suffix trees. It contains pointers to the parent and child
+nodes along the edge. In addition, a label of the form [[ [pattern,
+start, end] ]] is associated with each edge as its label.
+
+<<IsDefaultSuffixTreeEdgeRep Declaration>>=
+DeclareRepresentation( "IsDefaultSuffixTreeEdgeRep",
+    IsComponentObjectRep,
+    [ "label", "parent", "child" ] );
+@ %def IsDefaultSuffixTreeEdgeRep
+
+
+\paragraph{Inclusion In Source}
+We include the categories and representations in the source here.
+
+<<Dynamic Dictionary Declarations>>=
+<<InfoDynamicDictionary InfoClass>>
+<<IsSuffixTree Declaration>>
+<<IsDefaultSuffixTreeRep Declaration>>
+<<IsSuffixTreeElement Category>>
+<<IsSuffixTreeNode Category>>
+<<IsDefaultSuffixTreeNodeRep Declaration>>
+<<IsInternalSuffixTreeNode Declaration>>
+<<IsDefaultInternalSuffixTreeNodeRep Declaration>>
+<<IsExternalSuffixTreeNode Declaration>>
+<<IsSuffixTreeEdge Declaration>>
+<<IsDefaultSuffixTreeEdgeRep Declaration>>
+@ 
+
+\subsection{Operations}
+
+\paragraph{Global Function}
+The [[CreateSuffixTree]] global function creates an empty suffix tree
+into which patterns will be added. The root node constructed will
+contain the family in which all nodes must reside to be a part of the
+suffix tree.
+
+<<CreateSuffixTree Declaration>>=
+DeclareGlobalFunction( "CreateSuffixTree" );
+@ %def CreateSuffixTree
+
+<<CreateSuffixTree Implementation>>=
+InstallGlobalFunction( CreateSuffixTree, function()
+    local tree, family, elementFamily, root;
+
+    family := NewFamily("SuffixTreeFamily", IsSuffixTree);
+    elementFamily := NewFamily("SuffixTreeElementFamily",
+                               IsSuffixTreeElement);
+    root := CreateInternalSuffixTreeNode(elementFamily, [], 0, 0);
+    root!.dynTree := CreateDynamicTree(root);
+    tree := Objectify( NewType(family,
+                               IsSuffixTree and IsDefaultSuffixTreeRep),
+                       rec( family := elementFamily,
+                            patterns := [],
+                            root := root,
+                            deadLength := 0 ) );
+     return tree;
+end );
+@ 
+
+\paragraph{Global Function}
+The [[CreateInternalSuffixTreeNode]] global function creates a new
+internal node for a suffix tree. This function takes four parameters:
+the family for this node, the pattern used to label this node, the
+starting position in the pattern, and the ending position in the
+pattern.
+
+<<CreateInternalSuffixTreeNode Declaration>>=
+DeclareGlobalFunction( "CreateInternalSuffixTreeNode" );
+@ %def CreateInternalSuffixTreeNode
+
+<<CreateInternalSuffixTreeNode Implementation>>=
+InstallGlobalFunction( CreateInternalSuffixTreeNode, 
+function(family, pattern, start, lend)
+    local node;
+    node := Objectify( NewType( family,
+        IsInternalSuffixTreeNode and IsDefaultInternalSuffixTreeNodeRep ),
+        rec( marked := false,
+             parentEdge := 0,
+             label := [pattern, start, lend],
+             suffixLink := 0,
+             edges := [] ) );
+    return node;
+end );
+@ 
+
+\paragraph{Global Function}
+The [[CreateExternalSuffixTreeNode]] global function creates a new external
+node for a suffix tree. This function takes three parameters: the
+family for this node, the pattern, and the starting location in the
+pattern for the node's label.
+
+<<CreateExternalSuffixTreeNode Declaration>>=
+DeclareGlobalFunction( "CreateExternalSuffixTreeNode" );
+@ %def CreateExternalSuffixTreeNode
+
+<<CreateExternalSuffixTreeNode Implementation>>=
+InstallGlobalFunction( CreateExternalSuffixTreeNode,
+function(family, pattern, start)
+    local node;
+    node := Objectify( NewType( family,
+        IsExternalSuffixTreeNode and IsDefaultSuffixTreeNodeRep ),
+        rec( parentEdge := 0,
+             label := [ [pattern,start] ] ) );
+    return node;
+end );
+@ 
+
+\paragraph{Global Function}
+The [[CreateSuffixTreeEdge]] global function creates a new edge in a
+suffix tree. This function takes six parameters: the family for this 
+edge, the parent node, the child node, the pattern for the label, the
+starting location in the pattern and the ending location in the
+pattern. This function creates the edge and updates the parent and
+child nodes accordingly.
+
+<<CreateSuffixTreeEdge Declaration>>=
+DeclareGlobalFunction( "CreateSuffixTreeEdge" );
+@ %def CreateSuffixTreeEdge
+
+<<CreateSuffixTreeEdge Implementation>>=
+InstallGlobalFunction( CreateSuffixTreeEdge,
+function( family, parent, child, pattern, start, lend )
+    local edge;
+
+    edge := Objectify( NewType( family,
+        IsSuffixTreeEdge and IsDefaultSuffixTreeEdgeRep),
+        rec( parent := parent,
+             child := child,
+             label := [pattern, start, lend] ) );
+   
+   # update the parent and child
+   Add(parent!.edges, edge);
+   child!.parentEdge := edge;
+   return edge;
+end );
+@ 
+
+\paragraph{Operation}
+The [[ParentNode]] operation returns the parent of the specified suffix
+tree node. If the suffix tree node is a root, then 0 is returned.
+
+<<ParentNode Declaration>>=
+DeclareOperation( "ParentNode", [IsSuffixTreeNode] );
+@ %def Parent
+
+<<ParentNode Implementation>>=
+InstallMethod( ParentNode,
+    "for suffix tree nodes",
+    true,
+    [ IsSuffixTreeNode and IsDefaultSuffixTreeNodeRep ], 0,
+    function( v )
+        if v!.parentEdge = 0 then
+            return 0;
+        else
+            return v!.parentEdge!.parent;
+        fi;
+    end );
+@ 
+
+\begin{SLOPPY}
+\paragraph{Operation}
+The equality operation for all suffix tree elements is just the
+default [[IsIdenticalObj]] method.
+\end{SLOPPY}
+
+<<Equality for Suffix Tree Elements>>=
+InstallMethod( \=,
+    "for suffix tree elements",
+    IsIdenticalObj,
+    [IsSuffixTreeElement, IsSuffixTreeElement], 0,
+    IsIdenticalObj );
+@ 
+
+\paragraph{Operation}
+The [[ \[\] ]] operation returns the pattern associated with a given
+pattern identifier. The identifier is currently just an integer, so we 
+just access the tree like an array.
+
+<<Array access implementation>>=
+InstallOtherMethod( \[\],
+    "for suffix trees and positive integers",
+    true,
+    [IsSuffixTree and IsDefaultSuffixTreeRep,
+     IsPosInt], 0,
+    function( st, i )
+        local n;
+        n := Length(st!.patterns[i][2]);
+        return st!.patterns[i][2]{[1..n-1]};
+    end );
+@ 
+
+\paragraph{Operation}
+The [[AddInternalSuffixTreeNode]] operation creates a new internal
+node and inserts along the specified edge at the appropriate
+location. This requires updating the specified edge to point to the
+new internal node and have a new label, and creating a new edge
+between the new internal node and the original child of the edge. We
+assume the new internal node has already been created and is passed to 
+the operation.
+
+<<AddInternalSuffixTreeNode Declaration>>=
+DeclareOperation( "AddInternalSuffixTreeNode", 
+    [IsSuffixTreeEdge, IsPosInt, IsInternalSuffixTreeNode] );
+@ %def AddInternalSuffixTreeNode
+
+\begin{NOTE}
+The following should really check to make sure the family of the
+      node and edge are the same, but out of laziness I am not writing
+      the filter to check that right now.
+\end{NOTE}
+
+<<AddInternalSuffixTreeNode Implementation>>=
+InstallMethod( AddInternalSuffixTreeNode,
+    "for suffix tree edges, integers, and internal suffix tree nodes",
+    true,
+    [IsSuffixTreeEdge and IsDefaultSuffixTreeEdgeRep,
+     IsPosInt,
+     IsInternalSuffixTreeNode and IsDefaultInternalSuffixTreeNodeRep], 0,
+    function( edge, location, node )
+        local oldChild, pattern, start, lend;
+
+        # get the information needed to construct the label on the
+        # new edge. This must happen before updating the old edge
+        pattern := edge!.label[1];
+        start := edge!.label[2] + location;
+        lend := edge!.label[3];
+
+        # update the old edge
+        oldChild := edge!.child;
+        edge!.child := node;
+        node!.parentEdge := edge;
+        edge!.label[3] := edge!.label[2] + location - 1;
+
+        # create a new edge
+        CreateSuffixTreeEdge(FamilyObj(edge), node, 
+                             oldChild, pattern, start, lend);
+   end);
+@ 
+
+\paragraph{Operation}
+The [[AddExternalSuffixTreeNode]] creates a new external node as a
+child of the specified internal suffix tree node. One of the
+properties of suffix tree construction is that leaf nodes remain leaf
+nodes, so we will never add an external node whose parent was an
+external node. If such a thing is attempted, and error will occur
+(because no such operation will exist.
+
+<<AddExternalSuffixTreeNode Declaration>>=
+DeclareOperation( "AddExternalSuffixTreeNode",
+    [IsInternalSuffixTreeNode, IsExternalSuffixTreeNode] );
+@ %def AddExternalSuffixTreeNode
+
+<<AddExternalSuffixTreeNode Implemenation>>=
+InstallMethod( AddExternalSuffixTreeNode,
+    "for internal and external suffix tree nodes",
+    IsIdenticalObj,
+    [IsInternalSuffixTreeNode and IsDefaultInternalSuffixTreeNodeRep,
+     IsExternalSuffixTreeNode and IsDefaultSuffixTreeNodeRep], 0,
+    function( parent, child )
+        local pattern, start, lend;
+
+        pattern := child!.label[1][1];
+        start := Length(LabelOfSuffixTreeNode(parent)) + child!.label[1][2];
+        lend := -1;
+
+        CreateSuffixTreeEdge(FamilyObj(parent), parent, child,
+                             pattern, start, lend);
+    end );
+@ 
+
+\paragraph{Operation}
+The [[LabelOfSuffixTreeNode]] operation returns the portion of the
+pattern that labels the specified node. The label is the portion of
+the pattern that is matched to reach the node.
+
+<<LabelOfSuffixTreeNode Declaration>>=
+DeclareOperation( "LabelOfSuffixTreeNode", [IsSuffixTreeNode] );
+@ %def LabelOfSuffixTreeNode
+
+<<LabelOfSuffixTreeNode Implementation>>=
+<<LabelOfSuffixTreeNode Implementation for External Nodes>>
+<<LabelOfSuffixTreeNode Implementation for Internal Nodes>>
+@ 
+
+<<LabelOfSuffixTreeNode Implementation for External Nodes>>=
+InstallMethod( LabelOfSuffixTreeNode,
+    "for external suffix tree nodes",
+    true,
+    [ IsExternalSuffixTreeNode and IsDefaultSuffixTreeNodeRep ], 0,
+    function( node )
+        local pattern, start, lend;
+
+        pattern := node!.label[1][1][2];
+        start := node!.label[1][2];
+        lend := Length(pattern);
+
+        return pattern{[start..lend]};
+    end );
+@ 
+
+<<LabelOfSuffixTreeNode Implementation for Internal Nodes>>=
+InstallMethod( LabelOfSuffixTreeNode,
+    "for internal suffix tree nodes",
+    true,
+    [ IsInternalSuffixTreeNode and IsDefaultInternalSuffixTreeNodeRep ], 0,
+    function( node )
+        local pattern;
+
+        if Length(node!.label[1]) = 0 then
+            # special case for root node
+            return [];
+        fi;
+
+        pattern := node!.label[1][2];
+
+        return pattern{[node!.label[2]..node!.label[3]]};
+    end );
+@ 
+
+\paragraph{Operation}
+The [[LabelOfSuffixTreeEdge]] operation returns the part of the
+pattern labeling the specified edge. If the label is the empty list,
+that means the terminating symbol is the only thing labeling the edge.
+
+<<LabelOfSuffixTreeEdge Declaration>>=
+DeclareOperation( "LabelOfSuffixTreeEdge", [IsSuffixTreeEdge] );
+@ %def LabelOfSuffixTreeEdge
+
+<<LabelOfSuffixTreeEdge Implementation>>=
+InstallMethod( LabelOfSuffixTreeEdge,
+    "for suffix tree edges",
+    true,
+    [ IsSuffixTreeEdge and IsDefaultSuffixTreeEdgeRep ], 0,
+    function(edge)
+        local pattern, start, lend;
+
+        pattern := edge!.label[1][2];
+        start := edge!.label[2];
+        lend := edge!.label[3];
+        if lend < start then
+           # add on the termination symbol
+           lend := Length(pattern);
+        fi;
+        Assert( 1, start <= Length(pattern), 
+                "Start of pattern is longer than pattern" );
+        return pattern{[start..lend]};
+    end );
+@ 
+
+\paragraph{Operation}
+
+The [[SuffixTreeEdgeStartingAt]] returns the suffix tree edge coming
+out of the specified node starting with the specified element. We use
+[[fail]] to specify that no such edge exists.
+
+<<SuffixTreeEdgeStartingAt Declaration>>=
+DeclareOperation( "SuffixTreeEdgeStartingAt", 
+    [IsInternalSuffixTreeNode, IsObject] );
+@ %def SuffixTreeEdgeStartingAt
+
+<<SuffixTreeEdgeStartingAt Implementation>>=
+InstallMethod( SuffixTreeEdgeStartingAt,
+    "for an internal suffix tree node and an object",
+    true,
+    [IsInternalSuffixTreeNode and IsDefaultInternalSuffixTreeNodeRep,
+     IsObject], 0,
+    function( node, object )
+        local edge, label;
+
+        for edge in node!.edges do
+            label := LabelOfSuffixTreeEdge(edge);
+            if Length(label) > 0 and object = label[1] then
+                return edge;
+            fi;
+        od;
+        return fail;
+    end );
+@ 
+
+\paragraph{Function}
+The [[InsertIntoDynamicForest]] inserts new nodes and updates existing
+nodes in the parallel dynamic forest structure used for efficient
+pattern matching. This function maps to the FTI algorithm in Amir,
+et.al.~\cite{AmirEtAl}.
+
+<<InsertIntoDynamicForest Implementation>>=
+InsertIntoDynamicForest := function(u)
+    local v, w;
+
+    v := ParentNode(u);
+
+    if IsExternalSuffixTreeNode(u) then
+        u!.dynTree := CreateDynamicTree(u);
+        LinkDynamicTrees(u!.dynTree, v!.dynTree);
+    elif u!.marked and IsBound(u!.dynTree) then
+        Assert(1, IsInternalSuffixTreeNode(u), 
+               "$u$ is marked and old, should be internal");
+        CutDynamicTree(u!.dynTree);
+    else
+        Assert(1, IsInternalSuffixTreeNode(u) and not IsBound(u!.dynTree),
+               "$u$ should be a new internal node here!");
+
+        u!.dynTree := CreateDynamicTree(u);
+        # NOTE: Major assumption here! The edge containing the child
+        # that was not newly created is the first one. If the order in
+        # which edges are created when a new internal node is put into
+        # the suffix tree, then this will probably fail to be true
+        w := u!.edges[1]!.child;
+
+        if not u!.marked then
+            if RootOfDynamicTree(v!.dynTree) = RootOfDynamicTree(w!.dynTree)
+            then
+                CutDynamicTree(w!.dynTree);
+                LinkDynamicTrees(u!.dynTree, v!.dynTree);
+                LinkDynamicTrees(w!.dynTree, u!.dynTree);
+            else
+                LinkDynamicTrees(u!.dynTree, v!.dynTree);
+            fi;
+        else
+            if RootOfDynamicTree(v!.dynTree) = RootOfDynamicTree(w!.dynTree)
+            then
+                CutDynamicTree(w!.dynTree);
+                LinkDynamicTrees(w!.dynTree, u!.dynTree);
+            fi;
+        fi;
+    fi;
+end;
+@ 
+
+\paragraph{Function}
+
+The [[ApplySuffixTreeExtension]] function applies the extension rules 
+for extending a suffix in the suffix tree. See a description of
+Ukkonen's algorithm for more details. Note that we assume that
+the [[location]] used below is at least one less than the length of
+the label on the [[currentEdge]]. This assumption is safe, since if
+[[location]] were the length of the label, we would be at the end of
+the edge anyway. 
+
+<<ApplySuffixTreeExtension Implementation>>=
+ApplySuffixTreeExtension := function(where, pattern, i, j)
+    local currentNode, currentEdge, location, label, newNode,
+          nextChar, family, retval, termEdge, justMarked;
+
+    justMarked := false;
+    currentNode := 0; currentEdge := 0; location := 0; newNode := 0;
+    nextChar := pattern[2][i+1];
+    retval := rec( internal := false, currentEdge := fail, location := 0 );
+
+    if IsList(where) then
+        <<Apply extension to the middle of an edge>>
+    else
+        <<Apply extension to a node>>
+    fi;
+
+    <<Handle the last extension>>
+
+    retval.currentNode := currentNode;
+    retval.newNode := newNode;
+
+    return retval;
+end;    
+@ ApplySuffixTreeExtension
+
+In the first possible case, we have ended our matching in the middle
+of an edge and we need to extend the suffix from here. We have two
+cases: first, the extension does not continue down the edge; second
+the extension does continue down the edge. We initialize some
+variables and then consider the two cases
+
+<<Apply extension to the middle of an edge>>=
+currentEdge := where[1];
+location := where[2];
+label := LabelOfSuffixTreeEdge(currentEdge);
+if label[location+1] <> nextChar then
+    <<Handle mismatch on edge extension>>
+else
+    <<Handle match on edge extension>>
+fi;
+@ 
+
+When the next character in our pattern does not match during an
+extension on an edge, we create a new internal node and a new leaf
+node since we can no longer follow the path as it stands. At the end
+of this code section [[currentNode]] contains the internal node
+created, [[newNode]] contains the external node created. We update the
+return value information to notify the calling function that an
+internal node was created. Following this code, we need to check nodes
+for marking.
+
+<<Handle mismatch on edge extension>>=
+family := FamilyObj(currentEdge);
+# Have to add a new internal node and external node
+currentNode := CreateInternalSuffixTreeNode(family, pattern, j, i);
+AddInternalSuffixTreeNode(currentEdge, location, currentNode);
+Info( InfoDynamicDictionary, 1, 
+      "Added new internal node with edge label ",
+      LabelOfSuffixTreeEdge(currentEdge) );
+newNode := CreateExternalSuffixTreeNode(family, pattern, j);
+AddExternalSuffixTreeNode(currentNode, newNode);
+Info( InfoDynamicDictionary, 1,
+      "Added new external node with label ",
+      LabelOfSuffixTreeNode(newNode) );
+retval.internal := true;
+<<Mark an internal node normally>>
+InsertIntoDynamicForest(currentNode);
+InsertIntoDynamicForest(newNode);
+@ 
+
+When we continue to match down a path, we must check to see if we have
+in fact matched the entire path. If we have not, we update the
+location and current edge for return to the calling function. Those
+fields are used to prepare for the next extension phase. If we have
+matched the entire path, we set the next node for the following
+extension to be the child of the current edge, and leave location to
+be the default of 0. This notifies the calling function that the next
+extension phase should start at the node in [[retval.nextNode]].
+
+<<Handle match on edge extension>>=
+currentNode := currentEdge!.parent;
+if location+1 < Length(label) then
+    retval.currentEdge := currentEdge;
+    retval.location := location+1;
+    retval.nextNode := currentNode;
+else
+    retval.nextNode := currentEdge!.child;
+fi;
+@ 
+
+Marking nodes takes place after inserting a complete suffix, which
+means that [[nextChar]] is the terminating symbol. If the internal
+node [[currentNode]] has an edge labeled with just the terminator and
+the starting index for the child on that edge is 1, then we need to
+mark the newly created internal node. Note there can be only one edge
+labeled with the terminator symbol.
+
+<<Mark an internal node normally>>=
+if nextChar = [] then
+    termEdge := SuffixTreeEdgeStartingAt(currentNode, []);
+    if ForAny(termEdge!.child!.label, x -> x[2] = 1) then
+        currentNode!.marked := true;
+        Info(InfoDynamicDictionary, 1, "Marked node: ",
+             LabelOfSuffixTreeNode(currentNode));
+        justMarked := true;
+    fi;
+fi;
+@ 
+
+When we extend from a node, we can either follow one of the existing
+paths, or create a new path with a leaf node out of the current
+node. We initialize some variables here and then discuss each case in
+more detail.
+
+<<Apply extension to a node>>=
+currentNode := where;
+currentEdge := SuffixTreeEdgeStartingAt(currentNode, nextChar);
+if currentEdge = fail then
+    <<Handle mismatch for a node>>
+else
+    <<Handle match for a node>>
+fi;
+@ 
+
+When we handle a mismatch, we create a new external node and make it a 
+child of [[currentNode]]. We notify the calling function that
+extensions should continue from the current node. We may need to mark
+an old external node if the label on the edge from the current to the
+new node is the terminating symbol.
+
+<<Handle mismatch for a node>>=
+# Have to add a new external node
+Assert(1, not IsExternalSuffixTreeNode(currentNode),
+       "Trying to extend an external node!");
+family := FamilyObj(currentNode);
+newNode := CreateExternalSuffixTreeNode(family, pattern, j);
+AddExternalSuffixTreeNode(currentNode, newNode);
+Info( InfoDynamicDictionary, 1,
+      "Added new external node with label ",
+      LabelOfSuffixTreeNode(newNode) );
+retval.nextNode := currentNode;
+InsertIntoDynamicForest(newNode);
+@
+
+% CAS: This code was just above the last line in the previous
+% code chunk. However, after reading the Amir paper again,
+% I don't think it should be there.
+%@<<Mark an internal node normally@>>
+%if justMarked then
+%    InsertIntoDynamicForest(currentNode);
+%fi;
+
+On a match, we need to notify the calling function that we are
+currently following a new edge, or made it to a new node if the label
+on the matched edge has only one element. The non-zero location will
+make the next node field be ignored by the calling function.
+
+<<Handle match for a node>>=
+if Length(LabelOfSuffixTreeEdge(currentEdge)) > 1 then
+    retval.currentEdge := currentEdge;
+    retval.location := 1;
+    retval.nextNode := currentNode;
+else
+    retval.nextNode := currentEdge!.child;
+fi;
+@ 
+
+If we are on the last extension and we matched the terminating symbol,
+we need to update the label of the child of the current edge to
+include this pattern. We know the terminating symbol was matched if no 
+new leaf node was created, i.e., when [[newNode = 0]].
+
+<<Handle the last extension>>=
+if nextChar = [] and newNode = 0 then
+    Assert(1, IsExternalSuffixTreeNode(currentEdge!.child),
+           "Match of terminating character not at leaf!");
+    Add(currentEdge!.child!.label, [pattern, j]);
+    # Mark an old node
+    if j = 1 and
+       Length(LabelOfSuffixTreeNode(currentEdge!.parent)) = i then
+        currentEdge!.parent!.marked := true;
+        Info(InfoDynamicDictionary, 1, "Marked node: ",
+             LabelOfSuffixTreeNode(currentEdge!.parent));
+        InsertIntoDynamicForest(currentEdge!.parent);
+    fi;
+    # also, fake as if we added a new leaf so the phase doesn't
+    # prematurely end.
+    newNode := currentEdge!.child;
+fi;
+@ 
+
+\paragraph{Operation}
+
+The [[InsertPatternIntoSuffixTree]] operation takes a list and an
+existing suffix tree and inserts the pattern encoded in the list into
+the suffix tree. 
+
+<<InsertPatternIntoSuffixTree Declaration>>=
+DeclareOperation( "InsertPatternIntoSuffixTree", [IsSuffixTree, IsList] );
+@ %def InsertPatternIntoSuffixTree
+
+In our implementation, we will have an implicit terminator \$ which is
+an element not in the pattern being placed into the tree. Hence, while
+Ukkonen's algorithm only goes through phases $1\ldots m-1$, we go to
+phase $m$, since phase $m+1$ is actually adding the implicit terminator.
+
+<<InsertPatternIntoSuffixTree Implementation>>=
+InstallMethod( InsertPatternIntoSuffixTree,
+    "for suffix trees in default representation and lists",
+    true,
+    [IsSuffixTree and IsDefaultSuffixTreeRep, IsList], 0,
+    function(suffixTree, pattern)
+        local i, j, j_i, m, label, location,
+              phaseDone, extInfo, newPattern,
+              currentEdge, currentNode, nextNode,
+              v, w, x, g, g1, h;
+
+        pattern := Concatenation(pattern, [[]]);
+        m := Length(pattern);
+        newPattern := [Length(suffixTree!.patterns)+1, pattern];
+
+        <<Match the first $i$ characters in the current suffix tree>>
+
+        j_i := 0;
+        while i < m do
+            phaseDone := false;
+            j := j_i+1;
+            Info( InfoDynamicDictionary, 1,
+                  "Begin phase ", i, " extension ", j );
+            Info( InfoDynamicDictionary, 1,
+                  "Current node: ", LabelOfSuffixTreeNode(currentNode) );
+            if currentEdge <> fail then
+                Info( InfoDynamicDictionary, 1,
+                      "Current edge: ", LabelOfSuffixTreeEdge(currentEdge) );
+                Info( InfoDynamicDictionary, 1,
+                      "Location: ", location );
+            fi;
+            <<Perform initial extension in phase $i+1$>>
+            j := j + 1;
+            while j <= i+1 and not phaseDone do
+                Info( InfoDynamicDictionary, 1,
+                      "Begin phase ", i, " extension ", j );
+                Info( InfoDynamicDictionary, 1,
+                     "Current node: ", LabelOfSuffixTreeNode(currentNode) );
+                if currentEdge <> fail then
+                    Info( InfoDynamicDictionary, 1,
+                          "Current edge: ", 
+                          LabelOfSuffixTreeEdge(currentEdge) );
+                    Info( InfoDynamicDictionary, 1,
+                          "Location: ", location );
+                fi;
+                <<Find node with suffix link or root above $v$>>
+                <<Walk down the suffix tree>>
+                <<Extend the suffix>>
+                <<Add suffix link if necessary>>
+                j := j + 1;
+            od;
+            i := i+1;
+        od;
+
+        Add(suffixTree!.patterns, newPattern);
+        return Length(suffixTree!.patterns);
+    end );
+@ 
+
+Gusfield~\cite{Gusfield} explains how to use Ukkonen's algorithm in
+the generalized suffix tree, the one we are creating. The first step
+of inserting any new pattern $S$ into the tree is to match the first
+$i$ characters of $S$ in the existing tree. In that case, every suffix 
+of $S[1..i]$ already exists in the tree, in effect performing the
+first $i$ phases of insertion. We then continue with the $i + 1$ phase 
+of the algorithm.
+
+<<Match the first $i$ characters in the current suffix tree>>=
+i := 0;
+currentNode := suffixTree!.root;
+nextNode := currentNode;
+while i < m-1 do
+    location := 0;
+    currentEdge := SuffixTreeEdgeStartingAt(currentNode, pattern[i+1]);
+    if currentEdge <> fail then
+        label := LabelOfSuffixTreeEdge(currentEdge);
+        nextNode := currentEdge!.child;
+        if i < m then
+            i := i + 1;
+            location := 1;
+        fi;
+    else
+        # failed to match on any of the children, so get out
+        break; 
+    fi;
+
+    # move as far as we can down the edge
+    while location < Length(label) and i < m-1 
+          and pattern[i+1] = label[location+1] do
+        i := i + 1;
+        location := location + 1;
+    od;
+
+    # If we finished matching the current label, move on to the next
+    # node. Note that we do not need to check if this is an internal
+    # or external node since external edges have the terminating
+    # symbol.
+    if location = Length(label) then
+        currentNode := nextNode;
+        location := 0;
+    else
+        # we ended in the middle of an edge so break out.
+        break;
+    fi;
+od;
+
+Info( InfoDynamicDictionary, 1, "Matched ", i, " items.");
+@ 
+
+As one of the initial speedups to Ukkonen's algorithm, Gusfield
+describes that the first extension in every phase takes constant time
+since there exists a leaf representing the entire string. We
+generalize this extension for the the generalized suffix tree. If we
+match the first $i$ characters in the new pattern $S$, we then perform
+the initial extension, creating a new leaf node for $S$.
+
+<<Perform initial extension in phase $i+1$>>=
+if location <> 0 then
+    extInfo := ApplySuffixTreeExtension([currentEdge, location], 
+                                        newPattern, i, j);
+else
+    extInfo := ApplySuffixTreeExtension(currentNode,
+                                        newPattern, i, j);
+fi;
+if extInfo.internal then
+    w := extInfo.currentNode;
+else
+    w := 0;
+fi;
+@ 
+
+We put in variable [[v]] the [[currentNode]] from [[extInfo]] since
+the [[currentNode]] is guaranteed to be either the node representing
+the end of the string we just extended or the node immediately higher
+than the end of the string, which is where we would start looking in
+the case of our search ending in the middle of an edge.
+
+<<Perform initial extension in phase $i+1$>>=
+v := extInfo.currentNode;
+@ 
+
+If we didn't create a new external node, then we are already done with 
+this phase. Set up [[j_i]] and [[phaseDone]] appropriately.
+
+<<Perform initial extension in phase $i+1$>>=
+if extInfo.newNode = 0 then
+    j_i := j - 1;
+    currentNode := extInfo.nextNode;
+    currentEdge := extInfo.currentEdge;
+    location := extInfo.location;
+    phaseDone := true;
+else
+    # increment j_i since we added a new leaf
+    j_i := j_i + 1;
+    currentNode := suffixTree!.root;
+    location := 0;
+fi;
+@ 
+
+The next step in the extension phase is to find the first node at or
+above the node for the subpattern starting at $j-1$ and ending at
+$i$. This node was stored as $v$ from the previous iteration, which
+should never be the root (since the root has an empty label). We also
+keep track of the part of the string that we walked up in the variable 
+[[label]]. This is used when walking down the tree.
+
+<<Find node with suffix link or root above $v$>>=
+# assumption, v is not the root right now
+if v!.suffixLink = 0 and v <> suffixTree!.root then
+    label := LabelOfSuffixTreeEdge(v!.parentEdge);
+    v := v!.parentEdge!.parent;
+else
+    label := [];
+fi;
+if v <> suffixTree!.root then
+    currentNode := v!.suffixLink;
+else
+    label := pattern{[j..i]};
+    currentNode := v;
+fi;
+@ 
+
+The following code implements the skip/count trick for Ukkonen's
+algorithm to walk down the suffix tree. We can assume that the subpattern
+we are looking for has a path in the tree since the suffix must have
+existed in the previous suffix tree. 
+
+<<Walk down the suffix tree>>=
+g := Length(label);
+h := 1;
+location := 0;
+
+while g > 0 do
+    currentEdge := SuffixTreeEdgeStartingAt(currentNode, label[h]);
+    g1 := Length(LabelOfSuffixTreeEdge(currentEdge));
+    if g1 < g then
+        h := h + g1;
+        currentNode := currentEdge!.child;
+    elif g = g1 then
+        currentNode := currentEdge!.child;
+        nextNode := currentNode;
+        location := 0;
+    else
+        nextNode := currentEdge!.child;
+        location := g;
+    fi;
+    g := g - g1;
+od;
+@ 
+
+Now we need to extend the suffix with the $i+1$ object in the
+pattern. If [[location]] is 0, that means we ended at a node, so
+extend from that node. If [[location]] is not 0, then we ended in the
+middle of an edge and need to extend from there.
+
+<<Extend the suffix>>=
+if location <> 0 then
+    extInfo := ApplySuffixTreeExtension([currentEdge, location], 
+                                        newPattern, i, j);
+else
+    extInfo := ApplySuffixTreeExtension(currentNode,
+                                        newPattern, i, j);
+fi;
+@ 
+
+Check [[extInfo]] to see if we created an internal node. If so, then
+temporarily store in [[x]] the new internal node. Also, set [[v]] to
+be the current node returned from [[extInfo]]. This is used when
+adding suffix links and in preparation for the next extension phase.
+
+<<Extend the suffix>>=
+if extInfo.internal then
+    x := extInfo.currentNode;
+else
+    x := 0;
+fi;
+v := extInfo.currentNode;
+@ 
+
+Check to see if a new leaf node was created. If one was not, that
+means we had a rule 3 extension and that this phase is now
+done. Update [[j_i]] and [[phaseDone]] appropriately.
+
+<<Extend the suffix>>=
+if extInfo.newNode = 0 then
+    j_i := j - 1;
+    currentNode := extInfo.nextNode;
+    currentEdge := extInfo.currentEdge;
+    location := extInfo.location;
+    phaseDone := true;
+else
+    # increment j_i since we added a new leaf
+    j_i := j_i + 1;
+    currentNode := suffixTree!.root;
+    location := 0;
+fi;
+@ 
+
+Now we need to update the suffix link. We have [[w]] storing the
+internal node from phase $j-1$, if one exists. We store the internal
+node from phase $j$ in [[x]]. The variable [[v]] contains the node
+ending the subsequence $S[j..i]$. The suffix link for [[w]] is set to
+[[v]]. Then [[w]] is updated to contain the internal node created, if
+any.
+
+<<Add suffix link if necessary>>=
+if w <> 0 then
+    Assert(1, LabelOfSuffixTreeNode(v) = pattern{[j..i]}, 
+           "Incorrectly setting suffix link!");
+    w!.suffixLink := v;
+fi;
+w := x;
+@ 
+
+\paragraph{Function}
+The [[DeleteFromDynamicForest]] function deletes the specified node from 
+the parallel dynamic tree data structure.
+
+<<DeleteFromDynamicForest Implementation>>=
+DeleteFromDynamicForest := function(u, deleted, q)
+    local v;
+
+    v := ParentNode(u);
+
+    if IsExternalSuffixTreeNode(u) then
+        CutDynamicTree(u!.dynTree);
+    elif deleted then
+        CutDynamicTree(u!.dynTree);
+        CutDynamicTree(q!.dynTree);
+        LinkDynamicTrees(q!.dynTree, v!.dynTree); 
+    else
+        LinkDynamicTrees(u!.dynTree, v!.dynTree);
+    fi;
+end;
+@ %def DeleteFromDynamicForest
+
+\paragraph{Operation}
+The [[DeletePatternFromSuffixTree]] operation removes a pattern from
+the suffix tree. This implementation is modeled after the STD
+algorithm from Amir, et.al.~\cite{AmirEtAl}. We delete the suffixes of 
+the pattern in order from longest to shortest.
+
+<<DeletePatternFromSuffixTree Declaration>>=
+DeclareOperation("DeletePatternFromSuffixTree",
+    [IsSuffixTree, IsPosInt]);
+@ %def DeletePatternFromSuffixTree
+
+<<DeletePatternFromSuffixTree Implementation>>=
+InstallMethod( DeletePatternFromSuffixTree,
+    "for suffix trees and positive integers",
+    true,
+    [IsSuffixTree and IsDefaultSuffixTreeRep, IsPosInt], 0,
+    function( st, patternNum )
+        local currentNode, currentEdge, nextNode, location, pos,
+              g, g1, h, pattern, label, i, m, u, v, w, children,
+              parent, n;
+
+        pattern := st!.patterns[patternNum];
+
+        currentNode := st!.root;
+        label := pattern[2];
+        m := Length(label);
+
+        for i in [1..m] do
+            <<Walk down the suffix tree>>
+            u := currentNode;
+            v := ParentNode(u);
+            children := Sum(v!.edges, function(x)
+                if IsExternalSuffixTreeNode(x!.child) then
+                    return Length(x!.child!.label);
+                else
+                    return 1;
+                fi;
+            end );
+            if v = st!.root then
+                <<Delete $u$>>
+            elif children > 2 then
+                <<Delete $u$>>
+            else
+                <<Delete $u$>>
+                <<Delete $v$>>
+            fi;
+            <<Setup to delete the next suffix>>
+       od;
+    end );
+@ 
+
+When we delete $u$, we need to actually check first that it has no
+more than 1 label associated with it. If it has more than one label,
+then we simply delete the label for this pattern.
+
+<<Delete $u$>>=
+Assert(1, IsExternalSuffixTreeNode(u), "$u$ should be an external node!");
+Info(InfoDynamicDictionary, 1, "Deleting node $u$: ", 
+     LabelOfSuffixTreeNode(u));
+Info(InfoDynamicDictionary, 1, "Length of $u$ label: ", Length(u!.label));
+if Length(u!.label) > 1 then
+    u!.label := Filtered(u!.label, x -> x[1][1] <> patternNum);
+else
+    DeleteFromDynamicForest(u, true, 0);
+    v!.edges := Filtered(v!.edges, x -> x <> u!.parentEdge);
+    u!.parentEdge!.parent := 0;
+    u!.parentEdge!.child := 0;
+fi;
+if i = 1 
+   and LabelOfSuffixTreeEdge(u!.parentEdge) = [[]] 
+   and v!.marked
+then
+    Info(InfoDynamicDictionary, 1, "Unmarked: ", LabelOfSuffixTreeNode(v));
+    v!.marked := false;
+    DeleteFromDynamicForest(v, false, 0);
+fi;
+@ 
+
+When we delete $v$, we know that it has exactly one child since we
+deleted $u$ just before deleting $v$. We make the child a child of
+$v$'s parent and update the label on the parent edge from $v$.
+
+<<Delete $v$>>=
+Assert(1, Length(v!.edges) = 1, "$v$ is only supposed to have one child!");
+Info(InfoDynamicDictionary, 1, "Deleting node $v$: ", 
+     LabelOfSuffixTreeNode(v));
+w := v!.edges[1]!.child;
+DeleteFromDynamicForest(v, true, w);
+parent := ParentNode(v);
+@ 
+
+We need to be really careful when updating the label on the edge.
+To do this, we use the label on $w$, then update the starting
+location by subtracting the number of elements in label for $v$'s
+parent edge.
+
+<<Delete $v$>>=
+n := Length(LabelOfSuffixTreeEdge(v!.parentEdge));
+v!.parentEdge!.label := w!.parentEdge!.label;
+v!.parentEdge!.label[2] := v!.parentEdge!.label[2] - n;
+@ 
+
+Now update the links.
+
+<<Delete $v$>>=
+v!.parentEdge!.child := w;
+w!.parentEdge := v!.parentEdge;
+v!.parentEdge := 0;
+Info(InfoDynamicDictionary, 1, "Deleted edge, new label is",
+     LabelOfSuffixTreeEdge(w!.parentEdge) );
+@ 
+
+Now we set up for the next loop. We need to move across the suffix link from
+$v$ to $s(v)$. If $v$ was not the root, we use the edge label from $v$
+to $u$, otherwise we use the previous label minus the first element.
+
+<<Setup to delete the next suffix>>=
+if i < m then
+    if v = st!.root then
+        currentNode := v;
+        label := label{[2..Length(label)]};
+    else
+        currentNode := v!.suffixLink;
+        label := LabelOfSuffixTreeEdge(u!.parentEdge);
+    fi;
+fi;
+@ 
+
+\paragraph{Operation}
+The [[AllPatternsInSequence]] operation returns all occurences of
+patterns stored in our dynamic dictionary that are subsequences of a
+given sequence. We also include the starting location of the pattern
+in the given sequence. The algorithm used is described in Amir,
+et.al.~\cite{AmirEtAl}.
+
+<<AllPatternsInSequence Declaration>>=
+DeclareOperation( "AllPatternsInSequence", [IsSuffixTree, IsList] );
+@ %def AllPatternsInSequence
+
+<<AllPatternsInSequence Implementation>>=
+InstallMethod( AllPatternsInSequence,
+    "for suffix trees and lists",
+    true,
+    [IsSuffixTree and IsDefaultSuffixTreeRep, IsList], 0,
+    function( st, s )
+        local clocus, elocus, alpha, beta, beta_h, j, k, n, x, y, u, v,
+              occ, currentEdge, lastNode, currentLabel, location;
+
+        n := Length(s);
+        occ := [];
+        clocus := st!.root;
+        beta := [];
+        k := 1;
+
+        for j in [1..n] do
+            <<search for next contracted locus>>
+            Info(InfoDynamicDictionary, 1, "Label of clocus: ", 
+                 LabelOfSuffixTreeNode(clocus));
+            Info(InfoDynamicDictionary, 1, "Beta: ", beta);
+            <<find all patterns that are prefixes of clocus>>
+        od;
+
+        return occ;
+    end );
+@ 
+
+Now we search down the tree to find the contracted locus of the
+longest prefix $h_j$ of $s[j..n]$.
+
+<<search for next contracted locus>>=
+if clocus <> st!.root then
+    x := clocus!.suffixLink;
+    beta_h := beta;
+    alpha := [];
+    while Length(alpha) < Length(beta_h) do
+        beta_h := beta_h{[Length(alpha)+1..Length(beta_h)]};
+        currentEdge := SuffixTreeEdgeStartingAt(x, beta_h[1]);
+        Assert(1, currentEdge <> fail, "Failed to find a guaranteed path!");
+        alpha := LabelOfSuffixTreeEdge(currentEdge);
+        if Length(alpha) < Length(beta_h) then
+            x := currentEdge!.child;
+        fi;
+    od;
+    if Length(alpha) > Length(beta_h) then
+        clocus := x;
+        beta := beta_h;
+    else
+        if alpha = [] then
+            y := x;
+        else
+            y := currentEdge!.child;
+        fi;
+        <<Walk down tree until mismatch>>
+    fi;
+else
+    y := st!.root;
+    beta_h := beta{[2..Length(beta)]};
+    <<Walk down tree until mismatch>>
+fi;
+@ 
+
+We need to walk down a character at a time in the suffix tree starting
+at [[y]] until we find a mismatch. The last node visited is the
+contracted locus and [[beta]] is the remainder of the suffix not
+matched.
+
+<<Walk down tree until mismatch>>=
+lastNode := y;
+k := j + Length(LabelOfSuffixTreeNode(y));
+if k <= Length(s) then
+    currentEdge := SuffixTreeEdgeStartingAt(y, s[k]);
+else
+    currentEdge := fail;
+fi;
+while currentEdge <> fail do
+    y := currentEdge!.child;
+    location := 2;
+    k := k + 1;
+    currentLabel := LabelOfSuffixTreeEdge(currentEdge);
+    while location <= Length(currentLabel) and k <= Length(s) do
+        if currentLabel[location] = s[k] then
+            k := k + 1;
+            location := location + 1;
+        else
+            break;
+        fi;
+    od;
+    if location > Length(currentLabel) then
+        lastNode := y;
+        if k <= Length(s) then
+            currentEdge := SuffixTreeEdgeStartingAt(y, s[k]);
+        else
+            currentEdge := fail;
+        fi;
+    else
+        currentEdge := fail;
+    fi;
+od;
+clocus := lastNode;
+if j+Length(LabelOfSuffixTreeNode(clocus)) <= Length(s) then
+    beta := s{[j+Length(LabelOfSuffixTreeNode(clocus))..k-1]};
+else
+    beta := [];
+fi;
+@ 
+
+Now we find all of the patterns that are prefixes of $h_j$ and report
+them. This is also from Amir, et.al.
+
+<<find all patterns that are prefixes of clocus>>=
+if not IsEmpty(beta) then
+    currentEdge := SuffixTreeEdgeStartingAt(clocus, beta[1]);
+    if currentEdge <> fail then
+        elocus := currentEdge!.child;
+        if IsExternalSuffixTreeNode(elocus) 
+           and Length(LabelOfSuffixTreeEdge(currentEdge)) = Length(beta)+1
+        then
+            Append(occ, List(Filtered(elocus!.label, z -> z[2] = 1),
+                             t -> [t[1][1], j]));
+        fi;
+    fi;
+fi;
+u := clocus;
+while u <> st!.root do
+    v := RootOfDynamicTree(u!.dynTree)!.item;
+    if v <> st!.root then
+        currentEdge := SuffixTreeEdgeStartingAt(v, []);
+        elocus := currentEdge!.child;
+        Append(occ, List(Filtered(elocus!.label, z -> z[2] = 1),
+                         t -> [t[1][1], j]));
+        u := ParentNode(v);
+    else
+        u := st!.root;
+    fi;
+od;
+@ 
+
+\paragraph{Operation}
+The [[SequenceInPatterns]] returns a list of pattern identifiers and 
+starting locations in which a specified sequence exists. This is done
+by matching the specified sequence in the suffix tree. If the
+sequence matches in its entirety, then any leafs further down in the
+tree denote patterns containing the sequence. Otherwise, no pattern
+contains the sequence.
+
+<<SequenceInPatterns Declaration>>=
+DeclareOperation( "SequenceInPatterns", [IsSuffixTree, IsList] );
+@ %def SequenceInPatterns
+
+<<SequenceInPatterns Implementation>>=
+InstallMethod( SequenceInPatterns,
+    "for suffix trees and lists",
+    true,
+    [IsSuffixTree and IsDefaultSuffixTreeRep, IsList], 0,
+    function( st, seq )
+        local currentNode, currentEdge, i, m, n, location,
+              currentLabel, occ, InOrder;
+
+        occ := [];
+        <<Walk down the tree a character at a time>>
+
+        if i = m then
+            <<Find all of the leaves>>
+        fi;
+
+        return occ;
+    end );
+@ 
+
+The following loop walks down the suffix tree a character at a
+time. At the end of the loop, [[i]] contains the number of
+characters matched.
+<<Walk down the tree a character at a time>>=
+currentNode := st!.root;
+m := Length(seq);
+i := 0;
+location := 0;
+while i < m do
+    if location = 0 then
+        currentEdge := SuffixTreeEdgeStartingAt(currentNode, seq[i+1]);
+        if currentEdge = fail then
+            break;
+        fi;
+        location := 1;
+        currentLabel := LabelOfSuffixTreeEdge(currentEdge);
+        n := Length(currentLabel);
+    elif seq[i+1] = currentLabel[location+1] then
+        location := location + 1;
+    else
+        break;
+    fi;
+    if location >= n then
+        currentNode := currentEdge!.child;
+        location := 0;
+    fi;
+    i := i + 1;
+od;
+@ 
+
+Now we walk down the tree starting from the node after the last
+matched character (or the current node if that is where we
+ended). This can be done with any kind of tree walk, but we choose
+essentially an in order walk here, using a recursive helper function,
+which modifies [[occ]] as a side effect.
+
+<<Find all of the leaves>>=
+if location <> 0 then
+    currentNode := currentEdge!.child;
+fi;
+
+InOrder := function(node)
+    local edge;
+
+    if IsExternalSuffixTreeNode(node) then
+        Append(occ, List(node!.label, x -> [x[1][1], x[2]]));
+    else
+        for edge in node!.edges do
+            InOrder(edge!.child);
+        od;
+    fi;
+end;
+
+InOrder(currentNode);
+@ 
+
+\paragraph{Inclusion In Source}
+We include the operations into the source here.
+
+<<Dynamic Dictionary Declarations>>=
+<<CreateSuffixTree Declaration>>
+<<CreateInternalSuffixTreeNode Declaration>>
+<<CreateExternalSuffixTreeNode Declaration>>
+<<CreateSuffixTreeEdge Declaration>>
+<<ParentNode Declaration>>
+<<AddInternalSuffixTreeNode Declaration>>
+<<AddExternalSuffixTreeNode Declaration>>
+<<LabelOfSuffixTreeNode Declaration>>
+<<LabelOfSuffixTreeEdge Declaration>>
+<<SuffixTreeEdgeStartingAt Declaration>>
+<<InsertPatternIntoSuffixTree Declaration>>
+<<DeletePatternFromSuffixTree Declaration>>
+<<AllPatternsInSequence Declaration>>
+<<SequenceInPatterns Declaration>>
+@ 
+
+<<Dynamic Dictionary Implementations>>=
+<<CreateSuffixTree Implementation>>
+<<CreateInternalSuffixTreeNode Implementation>>
+<<CreateExternalSuffixTreeNode Implementation>>
+<<CreateSuffixTreeEdge Implementation>>
+<<ParentNode Implementation>>
+<<Equality for Suffix Tree Elements>>
+<<Array access implementation>>
+<<AddInternalSuffixTreeNode Implementation>>
+<<AddExternalSuffixTreeNode Implemenation>>
+<<LabelOfSuffixTreeNode Implementation>>
+<<LabelOfSuffixTreeEdge Implementation>>
+<<SuffixTreeEdgeStartingAt Implementation>>
+<<InsertIntoDynamicForest Implementation>>
+<<ApplySuffixTreeExtension Implementation>>
+<<InsertPatternIntoSuffixTree Implementation>>
+<<DeleteFromDynamicForest Implementation>>
+<<DeletePatternFromSuffixTree Implementation>>
+<<AllPatternsInSequence Implementation>>
+<<SequenceInPatterns Implementation>>
+@ 

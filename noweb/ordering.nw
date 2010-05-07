@@ -1,0 +1,2817 @@
+% -*- mode: Noweb; noweb-code-mode: text-mode -*-%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% HOPF Project Source File
+% DESCRIPTION: This file contains documentation and code for the orderings
+%              used in Hopf.
+%
+% Copyright, 1998 Virginia Polytechnic Institute and State University.
+% Copyright, 1998 Virginia Tech Hopf Project. All rights reserved.
+%
+% This file may be distributed in accordance with the stipulations existing
+% in the LICENSE file accompanying this software.
+%
+% $Id: ordering.nw,v 1.1 2010/05/07 13:30:14 sunnyquiver Exp $
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+@
+\chapter{Orderings}\label{chapter:Orderings}
+
+\section{Overview}\label{section:OrderingOverview}
+\defitem{Orderings}\index{orderings} are functions used to compare and
+order elements in path algebras. They take two elements $p$ and $q$
+and return whether $a < b$. The return value of an ordering is always
+[[true]] or [[false]]. Orderings have many properties: partial, total,
+well, admissible, or inadmissible.
+
+\subsection{Definitions}
+\label{subsection:OrderingsDefinitions}
+
+For the remainder of this section, let $\Gamma$ be a quiver. The set
+of vertices for $\Gamma$ is denoted $\Gamma_0$ and the set of arrows
+for $\Gamma$ is denoted $\Gamma_1$. The empty path is denoted as
+$\lambda$. All paths are assumed to be either a single vertex or some
+acceptable concatenation of arrows; that is, the idempotent relations
+of vertices have already been applied, and the concatenation of a
+compatible vertex and arrow has already yielded the arrow. The element
+0 is always the smallest element, and the vertices must always be
+smaller than all paths of length $\geq 1$.
+
+The \defitem{length ordering} compares two paths $p$ and $q \in
+\Gamma$ by the length of their paths. Under the length ordering, $p <
+q$ if $|p| < |q|$. For all $v \in \Gamma_0$, $|v| = 0$.
+
+The \defitem{left lexicographic} ordering is also commonly known
+dictionary ordering. Assign a total ordering $<_{\mathrm{lex}}$ to all $v \in
+\Gamma_0$ and all $a \in \Gamma_1$ with each $v < a$ for all $v$ and
+$a$. Under left lexicographic ordering, $p < q$ if one of the
+following holds:
+\begin{itemize}
+\item $p = \lambda$ and $q \neq \lambda$,
+\item $p = ap'$ and $q = bq'$ with $a,b \in \Gamma_0 \cup \Gamma_1$ and
+      $a <_{\mathrm{lex}} b$.
+\item $p = ap'$ and $q = aq'$ with $a \in \Gamma_0 \cup \Gamma_1$ and $p' < q'$.
+\end{itemize}
+
+The \defitem{right lexicographic} ordering is similar to the left
+lexicograpic ordering except that the comparison of arrows in a path
+happens from right to left. Assign a total ordering $<_{\mathrm{lex}}$
+to all $v \in \Gamma_0$ and all $a \in \Gamma_1$ with each $v < a$ for
+all $v$ and $a$. Under right lexicographic ordering, $p < q$ if one of
+the following holds:
+\begin{itemize}
+\item $p = \lambda$ and $q \neq \lambda$,
+\item $p = p'a$ and $q = q'b$ with $a,b \in \Gamma_0 \cup \Gamma_1$ and
+      $a <_{\mathrm{lex}} b$.
+\item $p = p'a$ and $q = q'a$ with $a \in \Gamma_0 \cup \Gamma_1$ and $p' < q'$.
+\end{itemize}
+
+For the following orderings, define an ordering $<_{\mathrm{lex}}$ as
+above. Let $a_1 <_{\mathrm{lex}} \cdots <_{\mathrm{lex}} a_n$ for $a_i
+\in \Gamma_1$. Let $|p|_{a_i}$ be the number of arrows $a_i$ appearing
+in $p$. The \defitem{count vector} $\#p$ is $(|p|_{a_1}, \ldots,
+|p|_{a_n})$.
+
+Under \defitem{left vector} ordering, $p < q$ if one of the following
+holds:
+\begin{itemize}
+\item $p$ and $q$ are in $\Gamma_0$ and $p <_{\mathrm{lex}} q$,
+\item $p \in \Gamma_0$ and $q \not\in \Gamma_0$,
+\item the first non-zero entry of $\#q - \#p$ is positive.
+\end{itemize}
+
+Under \defitem{right vector} ordering, $p < q$ if one of the following
+holds:
+\begin{itemize}
+\item $p$ and $q$ are in $\Gamma_0$ and $p <_{\mathrm{lex}} q$,
+\item $p \in \Gamma_0$ and $q \not\in \Gamma_0$,
+\item the last non-zero entry of $\#q - \#p$ is positive.
+\end{itemize}
+
+For \defitem{weight} ordering, assign a non-negative weight $w_a \in
+\Z$ to each $a \in \Gamma_1$. The weight of every $v \in \Gamma_0$ is
+0. The weight of path $p \in \Gamma$ is $w_p = \sum_{a \in \Gamma_1}
+|p|_{a} w_a$. Under weight ordering $p < q$ if $w_p < w_q$.
+
+For \defitem{block} orderings, partition $\Gamma_1$ into two non-empty
+subsets $X$ and $Y$. Let $<_X$ and $<_Y$ be admissible orderings for
+$X$ and $Y$ respectively. Let $p|_X$ be the path $p$
+restricted to elements in $X$; that is, $p$ is rewritten as a string
+containing only the arrows contained in $X$. Under block ordering, $p
+< q$ if
+\begin{itemize}
+    \item $p|_Y <_Y q|_Y$,
+    \item or $p|_Y = q|_Y$ and $p|_X <_X q|_X$.
+\end{itemize}
+Note that $X$ or $Y$ may be ordered with a block ordering, in effect
+providing multiple levels of block ordering instead of just two
+levels. When block orderings are implementing in \hopf, shortcuts for
+creating multi-level block orderings are provided. Block orderings are
+also known as \defitem{product} orderings or \defitem{elimination}
+orderings.
+
+For \defitem{wreath product} orderings, define $X, Y, <_X, <_Y$ as above. Decompose $p$ into
+\begin{displaymath}
+    A_0b_1A_1b_2\ldots A_{r-1}b_rA_r,
+\end{displaymath}
+where $b_i \in Y$ and $A_i$ are in $X^*$. Decompose $q$ in a similar fashion,
+\begin{displaymath}
+    C_0d_1C_1d_2\ldots C_{s-1}d_sC_s.
+\end{displaymath}
+Under wreath product ordering, $p < q$ if
+\begin{itemize}
+    \item $b_1\ldots b_r <_Y d_1\ldots d_s,$
+    \item or $b_1\ldots b_r = d_1\ldots d_s$ and $(A_0, \ldots A_r)$
+comes before $(C_0, \ldots C_s)$ in the left lexicographic ordering on vectors
+defined by $<_X$.
+\end{itemize}
+Again, wreath product orderings may be used to order either $X$ or
+$Y$, providing support for multilevel wreath product orderings. In
+\hopf, shortcuts are provided to create multilevel wreath product
+orderings.
+
+The \defitem{reverse} ordering is not an ordering all by itself. It
+reverses the result of the ordering to which it is applied. Thus if $p
+< q$ under an ordering, then the reverse ordering returns that $p >
+q$. An element that is incomparable or equal in the original ordering
+remains incomparable or equal under the reverse ordering.
+
+\section{Source Files}
+<<[[ordering.gd]]>>=
+# GAP Declarations
+# This file was generated from
+# $Id: ordering.nw,v 1.1 2010/05/07 13:30:14 sunnyquiver Exp $
+<<Ordering Declarations>>
+
+<<[[ordering.gi]]>>=
+# GAP Implementation
+# This file was generated from 
+# $Id: ordering.nw,v 1.1 2010/05/07 13:30:14 sunnyquiver Exp $
+<<Ordering Implementations>>
+@ 
+
+\section{Categories}\label{section:OrderingCategories}
+
+\paragraph{Category}
+The [[IsQuiverOrdering]] category contains all orderings. It does not
+inherit any properties from other categories.
+\begin{verbatim}
+IsQuiverOrdering(O)
+\end{verbatim}
+
+The declaration for [[IsQuiverOrdering]] follows.
+
+<<IsQuiverOrdering Declaration>>=
+DeclareCategory("IsQuiverOrdering", IsObject);
+@ %def IsQuiverOrdering
+  
+\paragraph{Category}
+The [[IsLexicographicOrdering]] category contains all left and right
+lexicographic orderings.
+\begin{verbatim}
+IsLexicographicOrdering(O)
+\end{verbatim}
+
+The declaration for [[IsLexicographicOrdering]] follows.
+
+<<IsLexicographicOrdering Declaration>>=
+DeclareCategory("IsLexicographicOrdering", IsQuiverOrdering);
+@ %def IsLexicographicOrdering
+
+\paragraph{Category}
+The [[IsLeftLexicographicOrdering]] category contains all left
+lexicographic orderings.
+\begin{verbatim}
+IsLeftLexicographicOrdering(O)
+\end{verbatim}
+
+The declaration for [[IsLeftLexicographicOrdering]] follows.
+
+<<IsLeftLexicographicOrdering Declaration>>=
+DeclareCategory("IsLeftLexicographicOrdering", IsLexicographicOrdering);
+@ %def IsLeftLexicographicOrdering
+
+\paragraph{Category}
+The [[IsRightLexicographicOrdering]] category contains all right
+lexicographic orderings.
+\begin{verbatim}
+IsRightLexicographicOrdering(O)
+\end{verbatim}
+
+The declaration for [[IsRightLexicographicOrdering]] follows.
+
+<<IsRightLexicographicOrdering Declaration>>=
+DeclareCategory("IsRightLexicographicOrdering", IsLexicographicOrdering);
+@ %def IsRightLexicographicOrdering
+
+\paragraph{Category}
+The [[IsLengthOrdering]] category contains all length orderings.
+\begin{verbatim}
+IsLengthOrdering(O)
+\end{verbatim}
+
+The declaration for [[IsLengthOrdering]] follows.
+
+<<IsLengthOrdering Declaration>>=
+DeclareCategory("IsLengthOrdering", IsQuiverOrdering);
+@ %def IsLengthOrdering
+
+\paragraph{Category}
+The [[IsReverseOrdering]] category contains all reverse orderings.
+\begin{verbatim}
+IsReverseOrdering(O)
+\end{verbatim}
+
+The declaration for [[IsReverseOrdering]] follows.
+
+<<IsReverseOrdering Declaration>>=
+DeclareCategory("IsReverseOrdering", IsQuiverOrdering);
+@ %def IsReverseOrdering
+
+\paragraph{Category}
+The [[IsVectorOrdering]] category contains all vector orderings.
+\begin{verbatim}
+IsVectorOrdering(O)
+\end{verbatim}
+
+The declaration for [[IsVectorOrdering]] follows.
+
+<<IsVectorOrdering Declaration>>=
+DeclareCategory("IsVectorOrdering", IsQuiverOrdering);
+@ % def IsVectorOrdering
+
+\paragraph{Category}
+The [[IsLeftVectorOrdering]] category contains all left vector orderings.
+\begin{verbatim}
+IsLeftVectorOrdering(O)
+\end{verbatim}
+
+The declaration for [[IsLeftVectorOrdering]] follows.
+
+<<IsLeftVectorOrdering Declaration>>=
+DeclareCategory("IsLeftVectorOrdering", IsVectorOrdering);
+@ % def IsLeftVectorOrdering
+
+\paragraph{Category}
+The [[IsRightVectorOrdering]] category contains all the right vector orderings.
+\begin{verbatim}
+IsRightVectorOrdering(O)
+\end{verbatim}
+
+The declaration for [[IsRightVectorOrdering]] follows.
+
+<<IsRightVectorOrdering Declaration>>=
+DeclareCategory("IsRightVectorOrdering", IsVectorOrdering);
+@ % def IsRightVectorOrdering
+
+\paragraph{Category}
+The [[IsWeightOrdering]] category contains all the weight orderings.
+[[IsLengthOrdering]] is specifically not descended from this type, even
+though it can be thought of as a special case of it.
+\begin{verbatim}
+IsWeightOrdering(O)
+\end{verbatim}
+
+The declaration for [[IsWeightOrdering]] follows.
+
+<<IsWeightOrdering Declaration>>=
+DeclareCategory("IsWeightOrdering",IsQuiverOrdering);
+@ % def IsWeightOrdering
+
+\paragraph{Category}
+The [[IsBlockOrdering]] category contains all the block orderings.
+\begin{verbatim}
+IsBlockCategory(O)
+\end{verbatim}
+
+The declaration for [[IsBlockOrdering]] follows.
+
+<<IsBlockOrdering Declaration>>=
+DeclareCategory("IsBlockOrdering",IsQuiverOrdering);
+@ % def IsBlockOrdering
+
+\paragraph{Category}
+The [[IsWreathOrdering]] catagory contains all the wreath orderings.
+\begin{verbatim}
+IsWreathOrdering(O)
+\end{verbatim}
+
+The declaration for [[IsWreathOrdering]] follows.
+
+<<IsWreathOrdering Declaration>>=
+DeclareCategory("IsWreathOrdering",IsQuiverOrdering);
+@ % def IsWreathOrdering
+
+\paragraph{Inclusion in Source}
+The categories for orderings are included here.
+
+<<Ordering Declarations>>=
+<<IsQuiverOrdering Declaration>>
+<<IsLexicographicOrdering Declaration>>
+<<IsLeftLexicographicOrdering Declaration>>
+<<IsRightLexicographicOrdering Declaration>>
+<<IsLengthOrdering Declaration>>
+<<IsReverseOrdering Declaration>>
+<<IsVectorOrdering Declaration>>
+<<IsLeftVectorOrdering Declaration>>
+<<IsRightVectorOrdering Declaration>>
+<<IsWeightOrdering Declaration>>
+<<IsBlockOrdering Declaration>>
+<<IsWreathOrdering Declaration>>
+@
+
+\section{Attributes}\label{section:OrderingAttributes}
+
+\paragraph{Property}
+The [[IsWellOrdering]] attribute is [[true]] if the ordering is a well ordering of
+the quiver, and [[false]] otherwise.
+\begin{verbatim}
+IsWellOrdering(O,L)
+\end{verbatim}
+
+<<IsWellOrdering Declaration>>=
+DeclareProperty("IsWellOrdering",IsQuiverOrdering);
+@ %def IsWellOrdering
+
+The [[IsWellOrdering]] attribute is generally calculated by just calling
+[[IsWellSubset]] with the entire list of generators for the ordering's
+quiver.
+
+<<IsWellOrdering Implementation>>=
+InstallMethod(IsWellOrdering,
+ "for an ordering",
+ true,
+ [IsQuiverOrdering],0,
+ function(O)
+     return IsWellSubset(O,GeneratorsOfQuiver(O!.quiver));
+ end);
+@
+
+\paragraph{Property}
+The [[IsWellReversedOrdering]] attribute is [[true]] if the ordering is a well
+ordering of the quiver when reversed, and [[false]] otherwise.
+\begin{verbatim}
+IsWellReversedOrdering(0)
+\end{verbatim}
+
+<<IsWellReversedOrdering Declaration>>=
+DeclareProperty("IsWellReversedOrdering",IsQuiverOrdering);
+@ %def IsWellReversedOrdering
+
+The [[IsWellReversedOrdering]] attribute is generally calculated by just calling
+[[IsWellReversedSubset]] with the entire list of generators for the ordering's
+quiver.
+
+<<IsWellReversedOrdering Implementation>>=
+InstallMethod(IsWellReversedOrdering,
+ "for an ordering",
+ true,
+ [IsQuiverOrdering],0,
+ function(O)
+     return IsWellReversedSubset(O,GeneratorsOfQuiver(O!.quiver));
+ end);
+@
+
+\paragraph{Property}
+The [[IsTotalOrdering]] attribute is [[true]] if the ordering is a total
+ordering of the quiver, and [[false]] otherwise.
+\begin{verbatim}
+IsTotalOrdering(O)
+\end{verbatim}
+
+<<IsTotalOrdering Declaration>>=
+DeclareProperty("IsTotalOrdering",IsQuiverOrdering);
+@ %def IsTotalOrdering
+
+The [[IsTotalOrdering]] attribute is generally calculated by just calling
+[[IsTotalSubset]] with the entire list of generators for the ordering's
+quiver.
+
+<<IsTotalOrdering Implementation>>=
+InstallMethod(IsTotalOrdering,
+ "for an ordering",
+ true,
+ [IsQuiverOrdering],0,
+ function(O)
+     return IsTotalSubset(O,GeneratorsOfQuiver(O!.quiver));
+ end);
+@
+
+\paragraph{Property}
+The [[IsAdmissibleOrdering]] attribute is [[true]] if the ordering is an admissible
+ordering of the quiver, and [[false]] otherwise. All orderings in \hopf satisfy
+the two standard properties of admissibility (i.e., vertices are less than any
+non-vertex and $r*p*s < r*q*s$ if $p < q$ and $r*p*s \neq 0 \neq r*q*s$). So
+this property checks to make sure it is a total order and a well order.
+
+\begin{verbatim}
+IsAdmissibleOrdering(O)
+\end{verbatim}
+
+<<IsAdmissibleOrdering Declaration>>=
+DeclareProperty("IsAdmissibleOrdering",IsQuiverOrdering);
+@ %def IsAdmissibleOrdering
+
+<<IsAdmissibleOrdering Implementation>>=
+InstallMethod(IsAdmissibleOrdering,
+ "for an ordering",
+ true,
+ [IsQuiverOrdering],0,
+ function(O)
+     #Check IsTotalOrdering() first, because it is often faster
+     return IsTotalOrdering(O) and IsWellOrdering(O);
+ end);
+@
+
+\paragraph{Attribute}
+The [[ComparisonFunction]] attribute returns a GAP4 function that
+computes the $<$ operation on two elements $a$ and $b$ for the
+ordering.
+\begin{verbatim}
+ComparisonFunction(O)
+\end{verbatim}
+
+<<ComparisonFunction Declaration>>=
+DeclareAttribute("ComparisonFunction", IsQuiverOrdering);
+@ %def ComparisonFunction
+
+\paragraph{Attribute}
+The [[LexicographicTable]] is a list of the generators in their
+lexicographic order. This is used by the Opal interface.
+\begin{verbatim}
+LexicographicTable(O)
+\end{verbatim}
+
+<<LexicographicTable Declaration>>=
+DeclareAttribute("LexicographicTable", IsQuiverOrdering);
+@ %def LexicographicTable
+
+\paragraph{Attribute}
+The [[NextOrdering]] attribute contains the next ordering to try if
+the current ordering says that two elements are equal. Orderings are
+chained together to form very complex orderings.
+\begin{verbatim}
+NextOrdering(O)
+\end{verbatim}
+
+<<NextOrdering Declaration>>=
+DeclareAttribute("NextOrdering",IsQuiverOrdering);
+@ %def NextOrdering
+
+\paragraph{Attribute}
+The [[OrderingName]] attribute stores the name of the ordering. This
+is used by the [[ViewObj]] method.
+\begin{verbatim}
+OrderingName(O)
+\end{verbatim}
+
+<<OrderingName Declaration>>=
+DeclareAttribute( "OrderingName", IsQuiverOrdering );
+@ %def OrderingName
+
+\paragraph{Operation}
+The [[LessThanByOrdering]] operation returns true if element $a$ is
+less than $b$ using the ordering $O$.
+\begin{verbatim}
+LessThanByOrdering(O, a, b)
+\end{verbatim}
+
+<<LessThanByOrdering Declaration>>=
+DeclareOperation("LessThanByOrdering", [IsQuiverOrdering, IsObject, IsObject]);
+@ %def LessThanByOrdering
+
+The implementation looks at the return value of executing the
+comparison function on the two elements. If the result is less than 0,
+then the answer is true. Otherwise, the answer is false.
+
+<<LessThanByOrdering Implementation>>=
+InstallMethod(LessThanByOrdering,
+ "for orderings and two paths",
+ true,
+ [IsQuiverOrdering, IsPath, IsPath], 0,
+ function(O,a,b)
+     return ComparisonFunction(O)(a,b) < 0;
+ end);
+@
+
+\paragraph{Operation}
+The [[IsWellSubset]] operation returns [[true]] if the ordering is a well
+ordering of the given list of generators, and [[false]] otherwise. It is
+used to check properties for block and wreath orderings.
+\begin{verbatim}
+IsWellSubset(O,L)
+\end{verbatim}
+
+<<IsWellSubset Declaration>>=
+DeclareOperation("IsWellSubset",[IsQuiverOrdering,IsHomogeneousList]);
+@ % def IsWellSubset
+
+\paragraph{Operation}
+The [[IsWellReversedSubset]] operation returns [[true]] if the ordering
+is a well ordering of the given list of generators when reversed, and
+[[false]] otherwise.
+\begin{verbatim}
+IsWellReversedSubset(O,L)
+\end{verbatim}
+
+<<IsWellReversedSubset Declaration>>=
+DeclareOperation("IsWellReversedSubset",[IsQuiverOrdering,IsHomogeneousList]);
+@ % def IsWellReversedSubset
+
+
+\paragraph{Operation}
+The [[IsTotalSubset]] operation returns [[true]] if the ordering is a total
+ordering of the given list of generators, and [[false]] otherwise. It is
+used to check properties for block and wreath orderings.
+\begin{verbatim}
+IsTotalSubset(O,L)
+\end{verbatim}
+
+<<IsTotalSubset Declaration>>=
+DeclareOperation("IsTotalSubset",[IsQuiverOrdering,IsHomogeneousList]);
+@ %def IsTotalSubset
+
+\paragraph{Inclusion in Source}
+The attributes for orderings are included in the source here.
+
+\paragraph{Global Function}
+[[CheckQuiverSubsetForCycles]] scans a list of generators of a quiver to
+determine if any arrows in the list belong to a cycle in the quiver. It is
+used to determine if length, vector and weight orderings are well-ordered
+when reversed. This is checked for with a modified depth first search
+algorithm that keeps track of exactly how high in the tree every vertex can
+reach through back edges, and what the lowest arrow in the current branch
+that is actually in the list is. The whole algorithm is $O(v+e)$.
+
+<<CheckQuiverSubsetForCycles Implementation>>=
+DeclareGlobalFunction("CheckQuiverSubsetForCycles");
+InstallGlobalFunction(CheckQuiverSubsetForCycles,
+ function(Q,L)
+     local h,n,a,b,i,r,visit;
+     #Possibly a big shortcut
+     if HasIsAcyclic(Q) and IsAcyclic(Q) then
+         return true;
+     fi;
+     #Identify every arrow in the list, as well as every vertex we
+     #can start from
+     h:=[];
+     for a in L do
+         if IsArrow(a) then
+             i:=ExtRepOfObj(a)[1];
+             h[i]:=a;
+             b:=SourceOfPath(a);
+             h[ExtRepOfObj(b)[1]]:=b;
+         fi;
+     od;
+     #If we have some arrows
+     if Length(h)>0 then
+         n:=[];
+         i:=1;
+         #Visit a vertex
+         #v is the vertex
+         #j is 3 * the generator position of the vertex
+         #c is the label of the source vertex for the last arrow which was in the subset
+         #n[j]   = the depth-first search label of the vertex
+         #n[j-1] = true: the vertex was visited successfully; false: vertex is being visited
+         #n[j-2] = index of the highest vertex reachable from cycles containing this vertex
+         visit:=function(v,j,c)
+             local adj,k,t,p,m;
+             n[j]:=i;      #Label the vertex
+             n[j-1]:=true; #Mark us in the process of being visited
+             i:=i+1;
+             #Check all the arrows 
+             adj:=OutgoingArrowsOfVertex(v);
+             for p in adj do
+                 t:=TargetOfPath(p);
+                 k:=ExtRepOfObj(t)[1]*3;
+                 #Arrow is inside our subset
+                 if IsBound(h[ExtRepOfObj(p)[1]]) then
+                     #Arrow points to an unvisited vertex
+                     if not IsBound(n[k]) then
+                         if not visit(t,k,n[j]) then
+                             return false;
+                         fi;
+                     #The vertex can reach us
+                     #Or the vertex is part of a cycle that reaches us
+                     elif n[k-1] or (IsBound(n[k-2]) and n[n[k-2]-1]) then
+                         return false;
+                     fi;
+                 #Arrow is outside our subset
+                 else
+                     #Arrow points to an unvisited vertex
+                     if not IsBound(n[k]) then
+                         if not visit(t,k,c) then
+                             return false;
+                         #If it's part of a cycle that reaches us, mark us
+                         elif IsBound(n[k-2]) and n[n[k-2]-1] and
+                          ((not IsBound(n[j-2])) or n[n[j-2]]>n[n[k-2]]) then
+                             n[j-2]:=n[k-2];
+                         fi;
+                     #The vertex can reach us
+                     elif n[k-1] or (IsBound(n[k-2]) and n[n[k-2]-1]) then
+                         if IsBound(n[k-2]) then
+                             m:=n[k-2];
+                         else
+                             m:=k;
+                         fi;
+                         #The cycle contains something from our set
+                         if n[m]<=c then
+                             return false;
+                         #Mark us as belonging to the cycle
+                         elif (not IsBound(n[j-2])) or n[n[j-2]]>n[m] then
+                             n[j-2]:=m;
+                         fi;
+                     fi;
+                 fi;
+             od;
+             n[j-1]:=false;
+             return true;
+         end;
+         for b in h do
+             if not IsVertex(b) then
+                 break;
+             fi;
+             r:=ExtRepOfObj(b)[1]*3;
+             if not IsBound(n[r]) then
+                 if not visit(b,r,0) then
+                     return false;
+                 fi;
+             fi;
+         od;
+     fi;
+     return true;
+ end);
+@
+
+<<Ordering Declarations>>=
+<<IsWellOrdering Declaration>>
+<<IsWellReversedOrdering Declaration>>
+<<IsTotalOrdering Declaration>>
+<<IsAdmissibleOrdering Declaration>>
+<<ComparisonFunction Declaration>>
+<<NextOrdering Declaration>>
+<<OrderingName Declaration>>
+<<LessThanByOrdering Declaration>>
+<<IsWellSubset Declaration>>
+<<IsWellReversedSubset Declaration>>
+<<IsTotalSubset Declaration>>
+@
+
+<<Ordering Implementations>>=
+<<LessThanByOrdering Implementation>>
+<<IsWellOrdering Implementation>>
+<<IsWellReversedOrdering Implementation>>
+<<IsTotalOrdering Implementation>>
+<<IsAdmissibleOrdering Implementation>>
+<<CheckQuiverSubsetForCycles Implementation>>
+@
+
+\section{Creation}\label{section:OrderingCreation}
+
+Orderings are constructed by composing a set of basic
+orderings. Table~\ref{table:orderings} shows how composition affects
+whether or not an ordering is admissible or inadmissible. All
+orderings are term orderings in \hopf.
+
+The comparison functions for each ordering need to give an indication
+of when two elements are equal unless the ordering is the outermost
+ordering used. The reason this is important is that
+[[ReverseOrdering]] switches the result of an ordering from [[true]]
+to [[false]] and vice versa, except when the ordering determines
+something is equal.
+
+\paragraph{Global Function}
+The [[LengthOrdering]] function creates an ordering such that $a < b$
+if the length of $a$ is shorter than the length of $b$. If the two
+terms have equal length, the ordering $O$ is used to break ties. If
+there is no ordering $O$ then 0 is returned.
+\begin{verbatim}
+LengthOrdering(O)
+\end{verbatim}
+
+<<LengthOrdering Declaration>>=
+DeclareGlobalFunction("LengthOrdering");
+@ %def LengthOrdering
+
+Since we assume orderings apply only to paths, we compare the lengths
+of the [[WalkOfPath]] attribute of the paths $a$ and $b$. We also
+assume that neither $a$ nor $b$ is the zero path, and currently this
+is checked in the implementation of [[<]] for paths.
+
+<<LengthOrdering Implementation>>=
+InstallGlobalFunction(LengthOrdering,function(arg)
+    local O,fam;
+
+    if not ((Length(arg) = 1 or (Length(arg) = 2 and IsQuiverOrdering(arg[2])))
+        and IsQuiver(arg[1])) then
+        Error("usage: LengthOrdering(Q) or LengthOrdering(Q,O) where Q is a quiver and O is an ordering");
+    fi;
+
+    fam := NewFamily("FamilyLengthOrdering", IsLengthOrdering);
+    O := Objectify( NewType(fam, IsLengthOrdering and IsAttributeStoringRep),
+                 rec() );
+
+    SetOrderingName(O, "length");
+
+    O!.quiver:=arg[1];
+
+    # We already know that the argument is an ordering
+    if Length(arg)=2 then
+        SetNextOrdering(O, arg[2]);
+        if HasLexicographicTable(arg[2]) then
+            SetLexicographicTable(O,LexicographicTable(arg[2]));
+            O!.lex:=arg[2]!.lex;
+        fi;
+    fi;
+
+    SetComparisonFunction(O, <<Length Comparison Function>> );
+
+    return O;
+end);
+
+<<Length IsWellReversedOrdering Implementation>>
+<<Length IsTotalOrdering Implementation>>
+<<Length IsWellSubset Implementation>>
+<<Length IsWellReversedSubset Implementation>>
+<<Length IsTotalSubset Implementation>>
+@
+
+This is the function that actually compares the length of two
+paths. If the lengths are equal and there is an ordering next in the
+chain, the next ordering is tried. Note that [[O]] is created in
+[[LengthOrdering]] but used here as well.
+
+<<Length Comparison Function>>=
+function(a, b)
+    local lena, lenb;
+
+    if HasWalkOfPath(a) then
+        lena := Length(WalkOfPath(a));
+    else
+        lena := 0;
+    fi;
+    if HasWalkOfPath(b) then
+        lenb := Length(WalkOfPath(b));
+    else
+        lenb := 0;
+    fi;
+    if lena < lenb then
+        return -1;
+    elif lena = lenb then
+        if HasNextOrdering(O) then
+            return ComparisonFunction(NextOrdering(O))(a,b);
+        else
+            return 0;
+        fi;
+    else
+        return 1;
+    fi;
+end
+@
+
+\paragraph{Property}
+The [[IsWellReversedOrdering]] attribute for length orderings is [[true]] if the
+quiver is finite, and [[false]] otherwise.
+
+<<Length IsWellReversedOrdering Implementation>>=
+InstallMethod(IsWellReversedOrdering,
+ "for a length ordering",
+ true,
+ [IsLengthOrdering],0,
+ function(O)
+     return IsFinite(O!.quiver);
+ end);
+@
+
+\paragraph{Property}
+The [[IsTotalOrdering]] property for length orderings is [[true]] if the
+quiver is empty. Otherwise the zero path and any vertex would compare the
+same. If the quiver is not empty, it is [[IsTotalOrdering]] for the next
+ordering.
+
+<<Length IsTotalOrdering Implementation>>=
+InstallMethod(IsTotalOrdering,
+ "for a length ordering",
+ true,
+ [IsLengthOrdering],0,
+ function(O)
+     if Length(VerticesOfQuiver(O!.quiver))<1 then
+         return true;
+     elif HasNextOrdering(O) then
+         return IsTotalOrdering(NextOrdering(O));
+     else
+         return false;
+     fi;
+ end);
+@
+
+\paragraph{Operation}
+The [[IsWellSubset]] function for length orderings returns [[true]], since
+length orderings cannot have infinite descending chains.
+
+<<Length IsWellSubset Implementation>>=
+InstallMethod(IsWellSubset,
+ "for a length ordering and a list of generators",
+ true,
+ [IsLengthOrdering,IsHomogeneousList],0,
+ function(O,L)
+     return true;
+ end);
+@
+
+\paragraph{Operation}
+The [[IsWellReversedSubset]] function for length orderings returns [[true]] if
+the arrows in the generator list do not belong to cycles in the quiver, and
+[[false]] otherwise.
+
+<<Length IsWellReversedSubset Implementation>>=
+InstallMethod(IsWellReversedSubset,
+ "for a length ordering",
+ true,
+ [IsLengthOrdering,IsHomogeneousList],0,
+ function(O,L)
+     return CheckQuiverSubsetForCycles(O!.quiver,L);
+ end);
+@
+
+\paragraph{Operation}
+The [[IsTotalSubset]] function for length orderings returns [[true]] if the
+generator list is empty. Otherwise the zero path and any vertex would compare
+the same. If the generator list is not empty, it returns [[IsTotalSubset]] for
+the next ordering.
+
+<<Length IsTotalSubset Implementation>>=
+InstallMethod(IsTotalSubset,
+ "for a length ordering and a list of generators",
+ true,
+ [IsLengthOrdering,IsHomogeneousList],0,
+ function(O,L)
+     if Length(L)<1 then
+         return true;
+     elif HasNextOrdering(O) then
+         return IsTotalSubset(NextOrdering(O),L);
+     else
+         return false;
+     fi;
+ end);
+@
+
+\paragraph{Operation}
+The [[IsWellOrdering]] function for lexicographic orderings returns [[true]] if the
+quiver is finite, or if the last arrow in the lexicographic order is a loop,
+has no incoming arrows (other than itself), and is the only cycle. Otherwise
+it returns [[false]].
+
+<<Lexicographic IsWellOrdering Implementation>>=
+InstallMethod(IsWellOrdering,
+ "for a lexicographic ordering and a quiver",
+ true,
+ [IsLexicographicOrdering],0,
+ function(O)
+     local i,l,a,v,m,ret;
+     if IsFinite(O!.quiver) then
+         return true;
+     else
+         l:=LexicographicTable(O);
+         #This must be an arrow, or we wouldn't be infinite
+         a:=l[Length(l)];
+         v:=SourceOfPath(a);
+         i:=ExtRepOfObj(v)[1];
+         if i<>ExtRepOfObj(TargetOfPath(a))[1] or InDegreeOfVertex(v)>1 then
+             return false;
+         fi;
+         m:=AdjacencyMatrixOfQuiver(O!.quiver);
+         m[i][i]:=0;
+         ret:=IsFinite(Quiver(m));
+         m[i][i]:=1;
+         return ret;
+     fi;
+ end);
+@
+
+\paragraph{Operation}
+The [[IsWellReversedOrdering]] method for lexicographic orderings returns [[true]] if
+the quiver is finite, or if the first arrow in the lexicographic order is a
+loop, has no incoming arrows (other than itself), and is the only cycle.
+Otherwise it returns [[false]].
+
+<<Lexicographic IsWellReversedOrdering Implementation>>=
+InstallMethod(IsWellOrdering,
+ "for a lexicographic ordering and a quiver",
+ true,
+ [IsLexicographicOrdering],0,
+ function(O)
+     local i,l,a,v,m,ret;
+     if IsFinite(O!.quiver) then
+         return true;
+     else
+         l:=LexicographicTable(O);
+         #This must be an arrow, or we wouldn't be infinite
+         a:=l[Length(VerticesOfQuiver(O!.quiver))+1];
+         v:=SourceOfPath(a);
+         i:=ExtRepOfObj(v)[1];
+         if i<>ExtRepOfObj(TargetOfPath(a))[1] or InDegreeOfVertex(v)>1 then
+             return false;
+         fi;
+         m:=AdjacencyMatrixOfQuiver(O!.quiver);
+         m[i][i]:=0;
+         ret:=IsFinite(Quiver(m));
+         m[i][i]:=1;
+         return ret;
+     fi;
+ end);
+@
+
+\paragraph{Operation}
+The [[IsWellSubset]] function for lexicographic orderings returns [[true]] if
+the paths reachable by arrows in the list of generators are finite, or if the
+largest arrow in the generator list is the only member of a cycle in the
+generator list, and contains no incoming arrows in the list. This is
+accomplished by using an enhanced depth first search algorithm that keeps
+track of exactly how high in the tree every vertex can reach through back
+edges, and what the lowest arrow in the current branch that is actually in the
+list (and is not the largest) is. The whole algorithm is $O(v+e\sup{2})$.
+
+<<Lexicographic IsWellSubset Implementation>>=
+InstallMethod(IsWellSubset,
+ "for a lexicographic ordering and a list of generators",
+ true,
+ [IsLexicographicOrdering,IsHomogeneousList],0,
+ function(O,L)
+     local h,n,a,b,i,r,lgst,lgst_lex,visit;
+     #Possibly a big shortcut
+     if HasIsAcyclic(O!.quiver) and IsAcyclic(O!.quiver) then
+         return true;
+     fi;
+     #Identify every arrow in the list, as well as every vertex we
+     #can start from, and the largest arrow
+     h:=[];
+     for a in L do
+         if IsArrow(a) then
+             i:=ExtRepOfObj(a)[1];
+             h[i]:=a;
+             if not IsBound(lgst) or
+              lgst_lex<O!.lex[i] then
+                 lgst:=a;
+                 lgst_lex:=O!.lex[i];
+             fi;
+             b:=SourceOfPath(a);
+             h[ExtRepOfObj(b)[1]]:=b;
+         fi;
+     od;
+     <<Lexicographic IsWellOrdering Search Implementation>>
+ end);
+@
+
+\paragraph{Operation}
+The [[IsWellSubset]] function for lexicographic orderings returns [[true]] if
+the paths reachable by arrows in the list of generators are finite, or if the
+largest arrow in the generator list is the only member of a cycle in the
+generator list, and contains no incoming arrows in the list. This is
+accomplished by using an enhanced depth first search algorithm that keeps
+track of exactly how high in the tree every vertex can reach through back
+edges, and what the lowest arrow in the current branch that is actually in the
+list (and is not the largest) is. The whole algorithm is $O(v+e\sup{2})$.
+
+<<Lexicographic IsWellReversedSubset Implementation>>=
+InstallMethod(IsWellReversedSubset,
+ "for a lexicographic ordering and a list of generators",
+ true,
+ [IsLexicographicOrdering,IsHomogeneousList],0,
+ function(O,L)
+     local h,n,a,b,i,r,lgst,lgst_lex,visit;
+     #Possibly a big shortcut
+     if HasIsAcyclic(O!.quiver) and IsAcyclic(O!.quiver) then
+         return true;
+     fi;
+     #Identify every arrow in the list, as well as every vertex we
+     #can start from, and the largest arrow
+     h:=[];
+     for a in L do
+         if IsArrow(a) then
+             i:=ExtRepOfObj(a)[1];
+             h[i]:=a;
+             if not IsBound(lgst) or
+              lgst_lex>O!.lex[i] then
+                 lgst:=a;
+                 lgst_lex:=O!.lex[i];
+             fi;
+             b:=SourceOfPath(a);
+             h[ExtRepOfObj(b)[1]]:=b;
+         fi;
+     od;
+     <<Lexicographic IsWellOrdering Search Implementation>>
+ end);
+@
+
+This is the function that actually visits each vertex. It is the same for
+both [[IsWellSubset]] and [[IsWellReversedSubset]].
+
+<<Lexicographic IsWellOrdering Visit Implementation>>=
+#Visit a vertex
+#v is the vertex
+#j is 3 * the generator position of the vertex
+#p is the 3 * the generator position of the vertex's parent, or -1
+#c is the label of the source vertex for the last arrow which was a parent
+#n[j]   = the depth-first search label of the vertex
+#n[j-1] = -1: being visited, -2: and has cycle, 1: done being visited, 2: and has cycle
+#n[j-2] = index of the highest vertex reachable from cycles containing this vertex
+function(v,j,c)
+    local adj,k,t,p,m;
+    n[j]:=i;    #Label the vertex
+    n[j-1]:=-1; #Mark us as being visited
+    i:=i+1;
+    #Check all the arrows 
+    adj:=OutgoingArrowsOfVertex(v);
+    for p in adj do
+        t:=TargetOfPath(p);
+        k:=ExtRepOfObj(t)[1]*3;
+        #Arrow is inside our subset, and not the largest
+        if IsBound(h[ExtRepOfObj(p)[1]]) then
+            #Arrow points to an unvisited vertex
+            if not IsBound(n[k]) then
+                if not visit(t,k,n[j]) then
+                    return false;
+                fi;
+            #Arrow points to the largest arrow and largest arrow belongs to a cycle
+            #Or the vertex can reach us
+            #Or the vertex is part of a cycle that reaches us
+            elif (n[k]=1 and n[k-1]=2) or n[k-1]<0 or
+             (IsBound(n[k-2]) and n[n[k-2]-1]<0) then
+                return false;
+            fi;
+        #Arrow is outside our subset, or the largest
+        else
+            #Arrow points to an unvisited vertex
+            if not IsBound(n[k]) then
+                if p=lgst then
+                    if not visit(t,k,-1) then
+                        return false;
+                    fi;
+                else
+                    if not visit(t,k,c) then
+                        return false;
+                    fi;
+                fi;
+                if IsBound(n[k-2]) and (n[n[k-2]-1]<0) and
+                 ((not IsBound(n[j-2])) or n[n[j-2]]>n[n[k-2]]) then
+                    n[j-2]:=n[k-2];
+                fi;
+            #The vertex can possibly reach us
+            elif n[k-1]<0 or
+             (IsBound(n[k-2]) and n[n[k-2]-1]<0) then
+                if IsBound(n[k-2]) then
+                    m:=n[k-2];
+                else
+                    m:=k;
+                fi;
+                #The cycle contains something from our set
+                if n[m]<=c then
+                    return false;
+                #The cycle is outside our set
+                elif (not IsBound(n[j-2])) or n[n[j-2]]>n[m] then
+                    n[j-2]:=m;
+                fi;
+                #The cycle descends directly from the largest arrow
+                if c<0 or p=lgst then
+                    n[m-1]:=-2;
+                fi;
+            fi;
+        fi;
+    od;
+    n[j-1]:=-n[j-1]; #Mark us as done being visited
+    return true;
+end
+@
+
+This is the loop that starts the depth first search and ensures that all the
+arrows in the generator list are covered. It is the same for both
+[[IsWellSubset]] and [[IsWellReversedSubset]].
+
+<<Lexicographic IsWellOrdering Search Implementation>>=
+#If we have some arrows
+if IsBound(lgst) then
+    #The largest arrow may appear in cycles
+    Unbind(h[ExtRepOfObj(lgst)[1]]);
+    n:=[];
+    i:=1;
+    visit:=<<Lexicographic IsWellOrdering Visit Implementation>>;
+    #Visit source of largest arrow first
+    b:=SourceOfPath(lgst);
+    r:=ExtRepOfObj(b)[1]*3;
+    if not visit(b,r,0) then
+        return false;
+    fi;
+    #Visit any unconnected components reachable from our subset
+    for b in h do
+        if not IsVertex(b) then
+            break;
+        fi;
+        r:=ExtRepOfObj(b)[1]*3;
+        if not IsBound(n[r]) then
+            if not visit(b,r,0) then
+                return false;
+            fi;
+        fi;
+    od;
+fi;
+return true;
+@
+
+\paragraph{Operation}
+The [[IsTotalSubset]] method for lexicographic orderings returns [[true]]
+
+<<Lexicographic IsTotalSubset Implementation>>=
+InstallMethod(IsTotalSubset,
+ "for a lexicographic ordering and a list of generators",
+ true,
+ [IsLexicographicOrdering,IsHomogeneousList],0,
+ function(O,L)
+     return true;
+ end);
+@
+
+\paragraph{Inclusion in Source}
+The attribute functions for lexicographic orderings are shared between left and
+right orderings. They are included in the source here.
+
+<<LexicographicOrdering Implementation>>=
+<<Lexicographic IsWellOrdering Implementation>>
+<<Lexicographic IsWellReversedOrdering Implementation>>
+<<Lexicographic IsWellSubset Implementation>>
+<<Lexicographic IsWellReversedSubset Implementation>>
+<<Lexicographic IsTotalSubset Implementation>>
+@
+
+\paragraph{Global Function}
+The [[LeftLexicographicOrdering]] function creates an ordering such that
+$a < b$ if $a$ is lexicographically smaller than $b$. A list $gens$ of
+generators in the proper lexicographic order is passed to
+[[LeftLexicographicOrdering]]. All vertices in the list are moved ahead
+of arrows, and any vertices in the quiver but not present in the list
+are inserted after them, in the order they were entered into the quiver.
+Similarly, any arrows in the quiver but not in the list are inserted after
+the arrows that are in the list, in the order they were entered into the
+quiver.
+\begin{verbatim}
+LeftLexicographicOrdering(Q,gens)
+\end{verbatim}
+
+<<LeftLexicographicOrdering Declaration>>=
+DeclareGlobalFunction("LeftLexicographicOrdering");
+@ %def LeftLexicographicOrdering
+
+When the lexicographical ordering is created, the list of generators
+are expanded to their external representations. Again, we'll assume
+this is for quotient of path algebra elements, and that each element
+in $gens$ would expand out to be the embedding of the quiver
+generators in the algebra. As such, each coefficient should be $1$ and
+each term should be a list of precisely one integer. From there, we
+can create a list of integers $lex$, indexed by generator number,
+where the position in lexicographical order is stored.
+
+Now suppose that $a$ and $b$ are being compared. We find their
+external representations and get the lists of integers representing
+the terms in $a$ and $b$. Each integer is a generator number, so the
+algorithm for the lexicographical comparison becomes
+\begin{algorithm}{LexiOrdering}{a, b}
+  m \= length[a]\\
+  n \= length[b]\\
+  l \= \CALL{Minimum}(m,n)\\
+  \begin{FOR}{i \= 1 \TO l}
+    \begin{IF}{lex[a[i]] < lex[b[i]]}
+      \RETURN \text{true}
+      \ELSE
+      \begin{IF}{lex[a[i]] > lex[b[i]]}
+        \RETURN \text{false}
+      \end{IF}
+    \end{IF}
+  \end{FOR}\\
+  \begin{IF}{m < n}
+    \RETURN \text{true}
+    \ELSE
+    \begin{IF}{m > n}
+      \RETURN \text{false}
+      \ELSE
+      \RETURN \text{equal}
+    \end{IF}
+  \end{IF}
+\end{algorithm}
+
+<<LeftLexicographicOrdering Implementation>>=
+InstallGlobalFunction(LeftLexicographicOrdering,function(arg)
+    local fam,O,Q,lex,i,j,rep,gens,oldgens;
+
+    if not (Length(arg)=1 or (Length(arg)=2 and IsHomogeneousList(arg[2])) and IsQuiver(arg[1])) then
+        Error("usage: LeftLexicographicOrdering(Q,L), Q must be q quiver, L is an optional list of gens");
+    fi;
+
+    fam:=NewFamily("FamilyLeftLexicographicOrderings",
+                   IsLeftLexicographicOrdering);
+    O:=Objectify(NewType(fam,IsLeftLexicographicOrdering and
+                             IsAttributeStoringRep),rec());
+    Q:=arg[1];
+    O!.quiver:=Q;
+
+    oldgens:=GeneratorsOfQuiver(Q);
+    <<Create lexicographic table>>
+
+    SetOrderingName(O,"left lexicographic");
+    SetLexicographicTable(O,gens);
+    O!.lex:=lex;
+    SetComparisonFunction(O,function(a,b)
+        local m,n,l,r,s,j;
+
+        if IsZeroPath(a) then
+            if IsZeroPath(b) then
+                return 0;
+            else
+                return -1;
+            fi;
+        elif IsZeroPath(b) then
+            return 1;
+        fi;
+        <<Left Lexicographic Ordering Loop>>
+        if m<n then
+            return -1;
+        elif m=n then
+            if HasNextOrdering(O) then
+                return ComparisonFunction(NextOrdering(O))(a,b);
+            else
+                return 0;
+            fi;
+        else
+            return 1;
+        fi;
+    end);
+
+    return O;
+end);
+@
+
+To create the lexicographic table, we loop over each generator in the list.
+In order to ensure that vertices come before arrows, we first extract the
+vertices from the generator list. Then to ensure that all vertices are
+included, we check the number extracted against the total number for the
+quiver, and if it is less, we extract all the vertices that were not
+previously extracted, in the order they were defined. The same two-step
+process is then repeated for arrows.
+
+<<Create lexicographic table>>=
+ lex:=[];
+ gens:=[];
+ j:=1;
+ if Length(arg)>=2 then
+     for i in arg[2] do
+         if IsVertex(i) then
+             rep:=ExtRepOfObj(i)[1];
+             if not IsBound(lex[rep]) then
+                 lex[rep]:=j;
+                 j:=j+1;
+                 Add(gens,i);
+             fi;
+         fi;
+     od;
+ fi;
+ if Length(VerticesOfQuiver(Q))>=j then
+     for i in oldgens do
+         if not IsVertex(i) then
+             break;
+         fi;
+         rep:=ExtRepOfObj(i)[1];
+         if not IsBound(lex[rep]) then
+             lex[rep]:=j;
+             j:=j+1;
+             Add(gens,i);
+         fi;
+     od;
+ fi;
+ if Length(arg)>=2 then
+     for i in arg[2] do
+         if IsArrow(i) then
+             rep:=ExtRepOfObj(i)[1];
+             if not IsBound(lex[rep]) then
+                 lex[rep]:=j;
+                 j:=j+1;
+                 Add(gens,i);
+            fi;
+         fi;
+     od;
+ fi;
+ if Length(oldgens)>=j then
+     for i in [Length(VerticesOfQuiver(Q))+1..Length(oldgens)] do
+         rep:=ExtRepOfObj(oldgens[i])[1];
+         if not IsBound(lex[rep]) then
+             lex[rep]:=j;
+             j:=j+1;
+             Add(gens,oldgens[i]);
+         fi;
+     od;
+ fi;
+@
+
+This loop is common to both of the comparison functions. The variables
+$r$ and $s$ hold the external representation of the terms we are
+comparing.
+
+<<Left Lexicographic Ordering Loop>>=
+r:=ExtRepOfObj(a); # remember, these are paths
+s:=ExtRepOfObj(b);
+m:=Length(r);
+n:=Length(s);
+l:=Minimum(m, n);
+for j in [1..l] do
+    if lex[r[j]]<>lex[s[j]] then
+        if lex[r[j]]<lex[s[j]] then
+            return -1;
+        else
+            return 1;
+        fi;
+    fi;
+od;
+@
+
+\paragraph{Global Function}
+The [[RightLexicographicOrdering]] is similar to
+[[LeftLexicographicOrdering]] except that paths are compared from
+right to left instead of left to right.
+
+\begin{verbatim}
+RightLexicographicOrdering(Q,gens)
+\end{verbatim}
+
+<<RightLexicographicOrdering Declaration>>=
+DeclareGlobalFunction( "RightLexicographicOrdering" );
+@ %def RightLexicographicOrdering
+
+<<RightLexicographicOrdering Implementation>>=
+InstallGlobalFunction(RightLexicographicOrdering,function(arg)
+    local fam,O,Q,lex,i,j,rep,gens,oldgens;
+
+    if not (Length(arg)=1 or (Length(arg)=2 and IsHomogeneousList(arg[2])) and IsQuiver(arg[1])) then
+        Error("usage: RightLexicographicOrdering(Q,L), Q must be q quiver, L is an optional list of gens");
+    fi;
+
+    fam:=NewFamily("FamilyRightLexicographicOrderings",
+                   IsRightLexicographicOrdering);
+    O:=Objectify(NewType(fam,IsRightLexicographicOrdering and
+                             IsAttributeStoringRep),rec());
+    Q:=arg[1];
+    O!.quiver:=Q;
+
+    oldgens:=GeneratorsOfQuiver(Q);
+    <<Create lexicographic table>>
+
+    SetOrderingName(O,"right lexicographic");
+    SetLexicographicTable(O,gens);
+    O!.lex:=lex;
+    SetComparisonFunction(O,function(a,b)
+        local m,n,l,r,s,j;
+
+        if IsZeroPath(a) then
+            if IsZeroPath(b) then
+                return 0;
+            else
+                return -1;
+            fi;
+        elif IsZeroPath(b) then
+            return 1;
+        fi;
+        <<Right Lexicographic Ordering Loop>>
+        if m<n then
+            return -1;
+        elif m=n then
+            if HasNextOrdering(O) then
+                return ComparisonFunction(NextOrdering(O))(a,b);
+            else
+                return 0;
+            fi;
+        else
+            return 1;
+        fi;
+    end);
+    SetIsTotal(O,true);
+
+    return O;
+end);
+@
+
+This loop is the main difference between left and right lexicographic
+orderings. Notice now that we use [[m-j]] and [[n-j]] to index into
+the external representations to go from right to left in the path.
+
+<<Right Lexicographic Ordering Loop>>=
+r:=ExtRepOfObj(a); # remember, these are paths
+s:=ExtRepOfObj(b); 
+m:=Length(r);
+n:=Length(s);
+l:=Minimum(m, n);
+for j in [0..l-1] do
+    if lex[r[m-j]]<>lex[s[n-j]] then
+        if lex[r[m-j]]<lex[s[n-j]] then
+            return -1;
+        else
+            return 1;
+        fi;
+    fi;
+od;
+@
+
+\paragraph{Global Function}
+The [[ReverseOrdering]] global function creates and ordering that
+reverses the less than and greater than results of an ordering $O$. An
+ordering must be passed as a parameter to this function.
+\begin{verbatim}
+ReverseOrdering(Q,O)
+\end{verbatim}
+
+<<ReverseOrdering Declaration>>=
+DeclareGlobalFunction("ReverseOrdering");
+@ %def ReverseOrdering
+
+<<ReverseOrdering Implementation>>=
+InstallGlobalFunction(ReverseOrdering,function(arg)
+    local fam,O;
+    if not (Length(arg)=2 and IsQuiverOrdering(arg[2]) and IsQuiver(arg[1])) then
+        Error("Usage: ReverseOrdering(Q,O) where Q is a quiver and O is an ordering");
+    fi;
+
+    fam:=NewFamily("FamilyReverseOrderings",IsReverseOrdering);
+    O:=Objectify(NewType(fam,IsReverseOrdering and IsAttributeStoringRep),
+                 rec());
+
+    O!.quiver:=arg[1];
+    SetOrderingName(O,"reverse");
+    SetNextOrdering(O,arg[2]);
+    if HasLexicographicTable(arg[2]) then
+        SetLexicographicTable(O,LexicographicTable(arg[2]));
+        O!.lex:=arg[2]!.lex;
+    fi;
+
+    SetComparisonFunction(O,function(a,b)
+        local ret;
+        if IsZeroPath(a) then
+            if IsZeroPath(b) then
+                return 0;
+            else
+                return ComparisonFunction(NextOrdering(O))(a,b);
+            fi;
+        elif IsZeroPath(b) then
+            return ComparisonFunction(NextOrdering(O))(a,b);
+        fi;
+        if IsVertex(a) then
+            if not IsVertex(b) then
+                return ComparisonFunction(NextOrdering(O))(a,b);
+            fi;
+        elif IsVertex(b) then
+            return ComparisonFunction(NextOrdering(O))(a,b);
+        fi;
+        return -ComparisonFunction(NextOrdering(O))(a,b);
+    end);
+
+    return O;
+end);
+<<Reverse IsWellOrdering Implementation>>
+<<Reverse IsWellReversedOrdering Implementation>>
+<<Reverse IsTotalOrdering Implementation>>
+<<Reverse IsWellSubset Implementation>>
+<<Reverse IsWellReversedSubset Implementation>>
+<<Reverse IsTotalSubset Implementation>>
+@
+
+\paragraph{Property}
+The [[IsWellOrdering]] attribute for reverse orderings is [[IsWellReversedOrdering]] from
+the next ordering.
+
+<<Reverse IsWellOrdering Implementation>>=
+InstallMethod(IsWellOrdering,
+ "for a reverse ordering and a quiver",
+ true,
+ [IsReverseOrdering],0,
+ function(O)
+     return IsWellReversedOrdering(NextOrdering(O));
+ end);
+@
+
+\paragraph{Property}
+The [[IsWellReversedOrdering]] attribute for reverse orderings is [[IsWellOrdering]] from
+the next ordering.
+
+<<Reverse IsWellReversedOrdering Implementation>>=
+InstallMethod(IsWellReversedOrdering,
+ "for a reverse ordering and a quiver",
+ true,
+ [IsReverseOrdering],0,
+ function(O)
+     return IsWellOrdering(NextOrdering(O));
+ end);
+@
+
+\paragraph{Property}
+The [[IsTotalOrdering]] attribute for reverse orderings is [[IsTotalOrdering]]
+for the next ordering, since it can compare any items the next ordering can
+compare.
+
+<<Reverse IsTotalOrdering Implementation>>=
+InstallMethod(IsTotalOrdering,
+ "for a reverse ordering",
+ true,
+ [IsReverseOrdering],0,
+ function(O)
+     return IsTotalOrdering(NextOrdering(O));
+ end);
+@
+
+\paragraph{Operation}
+The [[IsWellSubset]] function for reverse orderings returns
+[[IsWellReversedSubset]] for the next ordering.
+
+<<Reverse IsWellSubset Implementation>>=
+InstallMethod(IsWellSubset,
+ "for a reverse ordering and a list of generators",
+ true,
+ [IsReverseOrdering,IsHomogeneousList],0,
+ function(O,L)
+     return IsWellReversedSubset(NextOrdering(O),L);
+ end);
+@
+
+\paragraph{Operation}
+The [[IsWellReversedSubset]] function for reverse orderings returns
+[[IsWellSubset]] for the next ordering.
+
+<<Reverse IsWellReversedSubset Implementation>>=
+InstallMethod(IsWellReversedSubset,
+ "for a reverse ordering and a list of generators",
+ true,
+ [IsReverseOrdering,IsHomogeneousList],0,
+ function(O,L)
+     return IsWellSubset(NextOrdering(O),L);
+ end);
+@
+
+\paragraph{Operation}
+The [[IsTotalSubset]] function for reverse orderings returns [[IsTotalSubset]]
+for the next ordering, since it can compare any items the next ordering can
+compare.
+
+<<Reverse IsTotalSubset Implementation>>=
+InstallMethod(IsTotalSubset,
+ "for a reverse ordering and a list of generators",
+ true,
+ [IsReverseOrdering,IsHomogeneousList],0,
+ function(O,L)
+     return IsTotalSubset(NextOrdering(O),L);
+ end);
+@
+
+\paragraph{Property}
+The [[IsWellReversedOrdering]] property for vector orderings is [[true]] if the quiver
+is finite, and [[false]] otherwise.
+
+<<Vector IsWellReversedOrdering Implementation>>=
+InstallMethod(IsWellReversedOrdering,
+ "for a vector ordering",
+ true,
+ [IsVectorOrdering],0,
+ function(O)
+     return IsFinite(O!.quiver);
+ end);
+@
+
+\paragraph{Property}
+The [[IsTotalOrdering]] property for vector orderings is [[true]] if there is
+at most one vertex and at most one arrow in the quiver, otherwise it returns
+[[IsTotalOrdering]] for the next ordering, or [[false]] if there is no next
+ordering.
+
+<<Vector IsTotalOrdering Implementation>>=
+InstallMethod(IsTotalOrdering,
+ "for a vector ordering",
+ true,
+ [IsVectorOrdering],0,
+ function(O)
+     if Length(VerticesOfQuiver(O!.quiver))<1 then
+         return true;
+     elif HasNextOrdering(O) then
+         return IsTotalOrdering(NextOrdering(O));
+     else
+         return false;
+     fi;
+ end);
+@
+
+\paragraph{Operation}
+The [[IsWellSubset]] function for vector orderings returns [[true]], since
+there can only be a finite number of paths with less than a given count of
+each component.
+
+<<Vector IsWellSubset Implementation>>=
+InstallMethod(IsWellSubset,
+ "for a vector ordering and a list of generators",
+ true,
+ [IsVectorOrdering,IsHomogeneousList],0,
+ function(O,L)
+     return true;
+ end);
+@
+
+\paragraph{Operation}
+The [[IsWellReversedSubset]] function for vector orderings returns [[true]] if
+the arrows in the generator list do not belong to cycles in the quiver, and
+[[false]] otherwise. This is checked for with a modified depth first search
+algorithm that keeps track of exactly how high in the tree every vertex can
+reach through back edges, and what the lowest arrow in the current branch
+that is actually in the list is. The whole algorithm is $O(v+e\sup{2})$.
+
+<<Vector IsWellReversedSubset Implementation>>=
+InstallMethod(IsWellReversedSubset,
+ "for a vector ordering and a list of generators",
+ true,
+ [IsVectorOrdering,IsHomogeneousList],0,
+ function(O,L)
+     return CheckQuiverSubsetForCycles(O!.quiver,L);
+ end);
+@
+
+\paragraph{Operation}
+The [[IsTotalSubset]] function for vector orderings returns [[true]] if there
+is at most one vertex and at most one arrow in the list of generators,
+otherwise it returns [[IsTotalSubset]] for the next ordering, or [[false]] if
+there is no next ordering.
+
+<<Vector IsTotalSubset Implementation>>=
+InstallMethod(IsTotalSubset,
+ "for a vector ordering and a list of generators",
+ true,
+ [IsVectorOrdering,IsHomogeneousList],0,
+ function(O,L)
+     if Length(L)<1 then
+         return true;
+     elif HasNextOrdering(O) then
+         return IsTotalSubset(NextOrdering(O),L);
+     else
+         return false;
+     fi;
+ end);
+@
+
+\paragraph{Inclusion In Source}
+The attributes functions for vector orderings are shared between left and right
+orderings. They are included in the source here.
+
+<<VectorOrdering Implementation>>=
+<<Vector IsWellReversedOrdering Implementation>>
+<<Vector IsTotalOrdering Implementation>>
+<<Vector IsWellSubset Implementation>>
+<<Vector IsWellReversedSubset Implementation>>
+<<Vector IsTotalSubset Implementation>>
+@
+
+\paragraph{Global Function}
+The [[LeftVectorOrdering]] function creates an ordering that compares elements
+as described above. The first argument is a list of generators in lexicographic
+order, which arranges the generators of a path element in the vector. The second
+argument is an optional ordering used if the path contains elements which are
+not in the generator list, or the two paths compare equal.
+
+\begin{verbatim}
+LeftVectorOrdering(Q,gens,O)
+\end{verbatim}
+
+<<LeftVectorOrdering Declaration>>=
+DeclareGlobalFunction("LeftVectorOrdering");
+@ %def LeftVectorOrdering
+
+When the vector ordering is created, the list of generators is expanded to
+their external representations. From there, we can create a list of integers
+\defitem{lex}, indexed by generator number, where the position in
+lexicographicl order is stored.
+
+Then, when comparing two elements, $a$ and $b$, we find their external
+representations, and use the lexicographic table to contruct the vector.
+
+<<LeftVectorOrdering Implementation>>=
+InstallGlobalFunction(LeftVectorOrdering,function(arg)
+    local fam,O,Q,lex,i,j,rep,gens,oldgens;
+    if not (Length(arg)=1 or (Length(arg)=2 or (Length(arg)=3 and
+     IsQuiverOrdering(arg[3])) and IsHomogeneousList(arg[2])) and IsQuiver(arg[1]))
+     then
+        Error("usage: LeftVectorOrdering(Q,L,O), the first arg must be a quiver, the second a list of generators, and the optional third argument an ordering");
+    fi;
+    fam:=NewFamily("FamilyLeftVectorOrderings",IsLeftVectorOrdering);
+    O:=Objectify(NewType(fam,IsLeftVectorOrdering and IsAttributeStoringRep),
+                 rec());
+    Q:=arg[1];
+    O!.quiver:=Q;
+
+    if Length(arg)>=3 and HasLexicographicTable(arg[3]) then
+        oldgens:=LexicographicTable(arg[3]);
+    else
+        oldgens:=GeneratorsOfQuiver(Q);
+    fi;
+    <<Create lexicographic table>>
+
+    if Length(arg)>=3 then
+        SetNextOrdering(O,arg[3]);
+        if HasLexicographicTable(arg[3]) then
+            if LexicographicTable(arg[3])<>gens then
+                Error("Must use same lexicographic table");
+            fi;
+            O!.lex:=arg[3]!.lex;
+            SetLexicographicTable(O,LexicographicTable(arg[3]));
+        else
+            O!.lex:=lex;
+            SetLexicographicTable(O,gens);
+        fi;
+    else
+        O!.lex:=lex;
+        SetLexicographicTable(O,gens);
+    fi;
+    SetOrderingName(O,"left vector");
+    SetComparisonFunction(O,function(a,b)
+        local v,w,r,s,i,j,o;
+        if IsVertex(a) or IsZeroPath(a) then
+            if IsVertex(b) or IsZeroPath(b) then
+                if HasNextOrdering(O) then
+                    return ComparisonFunction(NextOrdering(O))(a,b);
+                else
+                    return 0;
+                fi;
+            else
+                return -1;
+            fi;
+        elif IsVertex(b) or IsZeroPath(b) then
+            return 1;
+        fi;
+        # At this point, both items are paths
+        o:=Length(VerticesOfQuiver(O!.quiver));
+        <<Count Vector Loop>>
+        for i in [1..Length(v)] do
+            if v[i]<w[i] then
+                return -1;
+            elif v[i]>w[i] then
+                return 1;
+            fi;
+        od;
+        if HasNextOrdering(O) then
+            return ComparisonFunction(NextOrdering(O))(a,b);
+        else
+            return 0;
+        fi;
+    end);
+    return O;
+end);
+@
+
+This loop is common to both comparison functions. It is used to build the
+count vector.
+
+<<Count Vector Loop>>=
+v:=ListWithIdenticalEntries(Length(gens)-o,0);
+r:=ExtRepOfObj(a);
+for i in [1..Length(r)] do
+    j:=lex[r[i]]-o;
+    v[j]:=v[j]+1;
+od;
+w:=ListWithIdenticalEntries(Length(gens)-o,0);
+s:=ExtRepOfObj(b);
+for i in [1..Length(s)] do
+    j:=lex[s[i]]-o;
+    w[j]:=w[j]+1;
+od;
+@
+
+\paragraph{Global Function}
+The [[RightVectorOrdering]] function creates an ordering that compares elements
+as described above. The first argument is a list of generators in lexicographic
+order, which arranges the generators of a path element in the vector. The second
+argument is an optional ordering used if the two paths compare equal.
+
+\begin{verbatim}
+RightVectorOrdering(Q,gens,O)
+\end{verbatim}
+
+<<RightVectorOrdering Declaration>>=
+DeclareGlobalFunction("RightVectorOrdering");
+@ %def RightVectorOrdering
+
+When the vector ordering is created, the list of generators is expanded to
+their external representations. From there, we can create a list of integers
+\defitem{lex}, indexed by generator number, where the position in
+lexicographicl order is stored.
+
+Then, when comparing two elements, $a$ and $b$, we find their external
+representations, and use the lexicographic table to contruct the vector.
+
+<<RightVectorOrdering Implementation>>=
+InstallGlobalFunction(RightVectorOrdering,function(arg)
+    local fam,O,Q,lex,i,j,rep,gens,oldgens;
+    if not (Length(arg)=1 or (Length(arg)=2 or (Length(arg)=3 and
+     IsQuiverOrdering(arg[3])) and IsHomogeneousList(arg[2])) and IsQuiver(arg[1]))
+     then
+        Error("usage: RightVectorOrdering(Q,L,O), the first arg must be a quiver, the second a list of generators, and the optional third argument an ordering");
+    fi;
+    fam:=NewFamily("FamilyRightVectorOrderings",IsRightVectorOrdering);
+    O:=Objectify(NewType(fam,IsRightVectorOrdering and IsAttributeStoringRep),
+                 rec());
+    Q:=arg[1];
+    O!.quiver:=Q;
+
+    if Length(arg)>=3 and HasLexicographicTable(arg[3]) then
+        oldgens:=LexicographicTable(arg[3]);
+    else
+        oldgens:=GeneratorsOfQuiver(Q);
+    fi;
+    <<Create lexicographic table>>
+
+    if Length(arg)>=3 then
+        SetNextOrdering(O,arg[3]);
+        if HasLexicographicTable(arg[3]) then
+            if LexicographicTable(arg[3])<>gens then
+                Error("Must use same lexicographic table");
+            fi;
+            O!.lex:=arg[3]!.lex;
+            SetLexicographicTable(O,LexicographicTable(arg[3]));
+        else
+            O!.lex:=lex;
+            SetLexicographicTable(O,gens);
+        fi;
+    else
+        O!.lex:=lex;
+        SetLexicographicTable(O,gens);
+    fi;
+    SetOrderingName(O,"right vector");
+    SetComparisonFunction(O,function(a,b)
+        local v,w,r,s,i,j,l,o;
+        if IsVertex(a) or IsZeroPath(a) then
+            if IsVertex(b) or IsZeroPath(b) then
+                if HasNextOrdering(O) then
+                    return ComparisonFunction(NextOrdering(O))(a,b);
+                else
+                    return 0;
+                fi;
+            else
+                return -1;
+            fi;
+        elif IsVertex(b) or IsZeroPath(b) then
+            return 1;
+        fi;
+        # At this point, both items are paths
+        o:=Length(VerticesOfQuiver(O!.quiver));
+        <<Count Vector Loop>>
+        l:=Length(v);
+        for i in [0..l-1] do
+            if v[l-i]<w[l-i] then
+                return -1;
+            elif v[l-i]>w[l-i] then
+                return 1;
+            fi;
+        od;
+        if HasNextOrdering(O) then
+            return ComparisonFunction(NextOrdering(O))(a,b);
+        else
+            return 0;
+        fi;
+    end);
+    return O;
+end);
+@
+
+\paragraph{Global Function}
+The [[WeightOrdering]] function creates an ordering that compares elements
+as described above. The first argument is a list of [arrow, weight] pairs,
+which assigns a weight to every arrow. The second argument is an optional
+ordering used if the two paths compare equal.
+
+\begin{verbatim}
+WeightOrdering(Q,L,O)
+\end{verbatim}
+
+<<WeightOrdering Declaration>>=
+DeclareGlobalFunction("WeightOrdering");
+@ % def WeightOrdering
+
+When the weight ordering is created, the list of generators is expanded to
+their external representations. From there, we can create a list of numbers
+\defitem{weight}, indexed by generator number, where the weight is stored.
+
+Then, when comparing two elements, $a$ and $b$, we find their external
+representations, and use the weight table to calculate their weights.
+
+<<WeightOrdering Implementation>>=
+InstallGlobalFunction(WeightOrdering,function(arg)
+    local fam,O,Q,weight,i,j,rep,gens,p;
+    if not (Length(arg)=1 or (Length(arg)=2 or (Length(arg)=3 and
+     IsQuiverOrdering(arg[3])) and IsHomogeneousList(arg[2])) and IsQuiver(arg[1]))
+     then
+        Error("usage: WeightOrdering(Q,L,O), the first arg must be a quiver, the second a list of weights, one for each arrow in the quiver, and the optional third argument an ordering");
+    fi;
+    fam:=NewFamily("FamilyWeightOrderings",IsWeightOrdering);
+    O:=Objectify(NewType(fam,IsWeightOrdering and IsAttributeStoringRep),
+                 rec());
+    Q:=arg[1];
+    O!.quiver:=Q;
+    weight:=ListWithIdenticalEntries(Length(ArrowsOfQuiver(Q)),0);
+    if Length(arg)>=2 and Length(arg[2])>0 then
+        for p in [1..Length(arg[2])] do
+            weight[p]:=arg[2][p];
+        od;
+    fi;
+    O!.weight:=weight;
+
+    if Length(arg)>=3 then
+        SetNextOrdering(O,arg[3]);
+        if HasLexicographicTable(arg[3]) then
+            SetLexicographicTable(O,LexicographicTable(arg[3]));
+            O!.lex:=arg[3]!.lex;
+        fi;
+    fi;
+    SetOrderingName(O,"weight");
+    SetComparisonFunction(O,function(a,b)
+        local v,w,r,s,i,o;
+        if IsVertex(a) or IsZeroPath(a) then
+            if IsVertex(b) or IsZeroPath(b) then
+                if HasNextOrdering(O) then
+                    return ComparisonFunction(NextOrdering(O))(a,b);
+                else
+                    return 0;
+                fi;
+            else
+                return -1;
+            fi;
+        elif IsVertex(b) or IsZeroPath(b) then
+            return 1;
+        fi;
+        # At this point, both items are paths
+        o:=Length(VerticesOfQuiver(O!.quiver));
+        r:=ExtRepOfObj(a);
+        s:=ExtRepOfObj(b);
+        w:=0;
+        for i in r do
+            w:=w+weight[i-o];
+        od;
+        v:=0;
+        for i in s do
+            v:=v+weight[i-o];
+        od;
+        if w=v then
+            if HasNextOrdering(O) then
+                return ComparisonFunction(NextOrdering(O))(a,b);
+            else
+                return 0;
+            fi;
+        else
+            return w-v;
+        fi;
+    end);
+    return O;
+end);
+<<Weight IsWellReversedOrdering Implementation>>
+<<Weight IsTotalOrdering Implementation>>
+<<Weight IsWellSubset Implementation>>
+<<Weight IsWellReversedSubset Implementation>>
+<<Weight IsTotalSubset Implementation>>
+@
+
+\paragraph{Property}
+The [[IsWellReversedOrdering]] function for weight orderings returns [[true]] if all
+arrows in the quiver do not belong to cycles, or only those with zero
+weights belong to cycles and there is no next ordering, or [[IsWellOrdering]]
+for the next ordering returns [[true]].
+
+<<Weight IsWellReversedOrdering Implementation>>=
+InstallMethod(IsWellReversedOrdering,
+ "for a weight ordering",
+ true,
+ [IsWeightOrdering],0,
+ function(O)
+     local z,o;
+     if IsFinite(O!.quiver) then
+         return true;
+     fi;
+     o:=Length(VerticesOfQuiver(O!.quiver));
+     z:=Filtered(ArrowsOfQuiver(O!.quiver),function(a)
+         return O!.weight[ExtRepOfObj(a)[1]-o]<>0;
+     end);
+     if Length(z)>0 and not CheckQuiverSubsetForCycles(O!.quiver,z) then
+         return false;
+     fi;
+     return not HasNextOrdering(O) or
+      IsWellReversedSubset(NextOrdering(O),z);
+ end);
+@
+
+\paragraph{Property}
+The [[IsTotalOrdering]] attribute for weight orderings is [[true]] if the
+quiver contains at most one vertex and at most one arrow, which since it is
+a cycle cannot have weight 0. Otherwise, it checks [[IsTotalOrdering]] for
+the next ordering, or if there is no next ordering, returns [[false]].
+There are many special ways of arranging the weights and the structure of
+a quiver so that every single path does in fact have a unique weight. If
+you need to construct such a weight ordering, you should manually set this
+property to [[true]], or extend the [[IsWeightOrdering]] category and install
+your own [[IsTotalOrdering]] method.
+
+<<Weight IsTotalOrdering Implementation>>=
+InstallMethod(IsTotalOrdering,
+ "for a weight ordering",
+ true,
+ [IsWeightOrdering],0,
+ function(O)
+     if Length(VerticesOfQuiver(O!.quiver))<1 then
+         return true;
+     elif HasNextOrdering(O) then
+         return IsTotalOrdering(NextOrdering(O));
+     else
+         return true;
+     fi;
+ end);
+@
+
+\paragraph{Operation}
+The [[IsWellSubset]] function for weight orderings returns [[true]], since
+negative weights are not allowed.
+
+<<Weight IsWellSubset Implementation>>=
+InstallMethod(IsWellSubset,
+ "for a weight ordering and a list of generators",
+ true,
+ [IsWeightOrdering,IsHomogeneousList],0,
+ function(O,L)
+     return true;
+ end);
+@
+
+\paragraph{Operation}
+The [[IsWellReversedSubset]] function for weight orderings returns [[true]]
+if all arrows in the set do not belong to cycles, or only those with zero
+weights belong to cycles and there is no next ordering, or [[IsWellReversedOrdering]]
+for the next ordering and the zero-weight arrows returns [[true]].
+
+<<Weight IsWellReversedSubset Implementation>>=
+InstallMethod(IsWellReversedSubset,
+ "for a weight ordering and a list of generators",
+ true,
+ [IsWeightOrdering,IsHomogeneousList],0,
+ function(O,L)
+     local z,o;
+     if HasIsAcyclic(O!.quiver) and IsAcyclic(O!.quiver) then
+         return true;
+     fi;
+     o:=Length(VerticesOfQuiver(O!.quiver));
+     z:=Filtered(L,function(a)
+         return IsArrow(a) and O!.weight[ExtRepOfObj(a)[1]-o]<>0;
+     end);
+     if Length(z)>0 and not CheckQuiverSubsetForCycles(O!.quiver,z) then
+         return false;
+     fi;
+     z:=Filtered(L,function(a)
+         return IsArrow(a) and O!.weight[ExtRepOfObj(a)[1]-o]=0;
+     end);
+     if Length(z)>0 and not CheckQuiverSubsetForCycles(O!.quiver,z) then
+         return not HasNextOrdering(O) or
+          IsWellReversedSubset(NextOrdering(O),z);
+     fi;
+     return true;
+ end);
+@
+
+\paragraph{Operation}
+The [[IsTotalSubset]] function for weight orderings returns [[true]] if the
+generator list contains at most one vertex and at most one arrow which, since
+it must be a cycle, must have a non-zero weight. Otherwise, it checks
+[[IsTotalSubset]] for the next ordering, or if there is no next ordering,
+returns [[false]]. There are many special ways of arranging the weights and
+the structure of a quiver so that every single path does in fact have a
+unique weight. If you need to construct such a weight ordering, you should
+manually set this property to [[true]], or extend the [[IsWeightOrdering]]
+category and install your own [[IsTotalSubset]] method.
+
+<<Weight IsTotalSubset Implementation>>=
+InstallMethod(IsTotalSubset,
+ "for a weight ordering and a list of generators",
+ true,
+ [IsWeightOrdering,IsHomogeneousList],0,
+ function(O,L)
+     if Length(L)<1 or
+      (Length(L)=1 and IsArrow(L[1]) and
+       O!.weight[ExtRepOfObj(L[1])[1]-
+                 Length(VerticesOfQuiver(O!.quiver))]<>0) then
+         return true;
+     elif HasNextOrdering(O) then
+         return IsTotalSubset(NextOrdering(O,L));
+     else
+         return true;
+     fi;
+ end);
+@
+
+\paragraph{Operation}
+The [[PathFromArrowList]] operation is a private operation used by
+[[BlockOrdering]]s and [[WreathOrdering]]s to pass a list of arrows extract
+from a path on to other comparison functions. The constructed path is not
+a path in the normal sense, in that the target of each arrow is not
+necessarily the source of the next. This is generally only true for free
+algebras, which is what block and wreath orderings are most often used with
+anyway. Don't pass these sorts of paths anywhere outside this module, as it
+will probably break things.
+
+<<PathFromArrowList Implementation>>=
+DeclareOperation("PathFromArrowList",[IsQuiver,IsHomogeneousList]);
+InstallMethod(PathFromArrowList,
+ "for a list of arrows",
+ true,
+ [IsQuiver,IsHomogeneousList],0,
+ function(Q,L)
+     local ret;
+     if Length(L)<1 then
+         return Zero(Q);
+     elif Length(L)=1 then
+         return L[1]; #This handles vertices, too
+     else
+         ret:=Objectify(NewType(FamilyObj(Q),
+                                IsPath and IsAttributeStoringRep),
+                        rec());
+         SetSourceOfPath(ret,SourceOfPath(L[1]));
+         SetTargetOfPath(ret,TargetOfPath(L[Length(L)]));
+         SetLengthOfPath(ret,Length(L));
+         SetWalkOfPath(ret,L);
+         SetIsZeroPath(ret,false);
+         return ret;
+     fi;
+ end);
+@
+
+\paragraph{Operation}
+The [[CompareArrowLists]] operation takes an ordering and two lists of arrows,
+constructs paths out of each list using the above function, and compares them
+with the ordering.
+
+<<CompareArrowList Implementation>>=
+DeclareOperation("CompareArrowLists",[IsQuiverOrdering,IsHomogeneousList,IsHomogeneousList]);
+InstallMethod(CompareArrowLists,
+ "for an ordering and two lists of arrows",
+ true,
+ [IsQuiverOrdering,IsHomogeneousList,IsHomogeneousList],0,
+ function(O,a,b)
+     return ComparisonFunction(O)(PathFromArrowList(O!.quiver,a),
+                                  PathFromArrowList(O!.quiver,b));
+ end);
+@
+
+\paragraph{Global Function}
+The [[BlockOrdering]] function creates an ordering that compares elements
+as described above. The first argument is a quiver, the second a list of
+[ordering, generator list] pairs, which assigns an ordering to each subset
+of generators in the quiver. The subsets should be disjoint, but if they
+contain duplicates, the generator will be placed in the last subset it
+occurs in. If some generators are missing, they will be placed in the
+last subset. The third argument is an optional ordering used if the paths
+compare equal.
+
+\begin{verbatim}
+BlockOrdering{Q,L,O}
+\end{verbatim}
+
+<<BlockOrdering Declaration>>=
+DeclareGlobalFunction("BlockOrdering");
+@ % def BlockOrdering
+
+When the block ordering is created, the lists of generators are expanded to
+their external representations. From there, we can create a list of numbers,
+\defitem{block}, indexed by generator number, where the block number of the
+generator is stored.
+
+Then when comparing two elements, $a$ and $b$, we find their external
+representations, and use the block table to identify which block they
+belong to.
+
+<<BlockOrdering Implementation>>=
+InstallGlobalFunction(BlockOrdering,function(arg)
+    local fam,O,Q,L,block,orders,i,j,rep;
+    if not (Length(arg)=1 or (Length(arg)=2 or (Length(arg)=3 and
+     IsQuiverOrdering(arg[3])) and IsHomogeneousList(arg[2])) and IsQuiver(arg[1]))
+     then
+        Error("usage: BlockOrdering(Q,L,O), the first arg must be a quiver, the second a list of [ordering,[generator list]] pairs, and the optional third argument an ordering");
+    fi;
+    L:=arg[2];
+    if Length(L)<1 then
+        Error("BlockOrdering: Subset list cannot be empty");
+    fi;
+
+    fam:=NewFamily("FamilyBlockOrderings",IsBlockOrdering);
+    O:=Objectify(NewType(fam,IsBlockOrdering and IsAttributeStoringRep),
+                 rec());
+    Q:=arg[1];
+    O!.quiver:=Q;
+
+    <<Set up block orderings>>
+
+    SetOrderingName(O,"block");
+    SetComparisonFunction(O,function(a,b)
+        local ret,e,f,p,q,o,i,g;
+        o:=Length(O!.orders);
+        p:=[];
+        for i in [1..o] do
+            Add(p,[]);
+        od;
+        q:=StructuralCopy(p);
+        g:=GeneratorsOfQuiver(O!.quiver);
+        if not IsZeroPath(a) then
+            e:=ExtRepOfObj(a);
+            for i in e do
+                Add(p[block[i]],g[i]);
+            od;
+        fi;
+        if not IsZeroPath(b) then
+            f:=ExtRepOfObj(b);
+            for i in f do
+                Add(q[block[i]],g[i]);
+            od;
+        fi;
+        while o>0 do
+            ret:=CompareArrowLists(O!.orders[o],p[o],q[o]);
+            if ret<>0 then
+                return ret;
+            fi;
+            o:=o-1;
+        od;
+        if HasNextOrdering(O) then
+            return ComparisonFunction(NextOrdering(O))(a,b);
+        fi;
+        return 0;
+    end);
+    return O;
+end);
+<<CheckBlocksForCycles Implementation>>
+<<Block IsTotalOrdering Implementation>>
+<<Block IsWellSubset Implementation>>
+<<Block IsWellReversedSubset Implementation>>
+<<Block IsTotalSubset Implementation>>
+@
+
+This block is shared between block and wreath orderings, and calculates the
+block table for the given subsets. It flattens the list argument, so that
+the [[o1,[g11,g12,...]],[o2,[g21,g22,...]],...] form doesn't have to be
+followed strictly
+
+<<Set up block orderings>>=
+block:=[];
+orders:=[];
+L:=Flat(L);
+i:=1;
+while i<Length(L) do
+    if not IsQuiverOrdering(L[i]) then
+        Error("Second argument must be a list of [ordering,[generator list]] pairs");
+    fi;
+    Add(orders,L[i]);
+    if HasLexicographicTable(L[i]) then
+        if HasLexicographicTable(O) then
+            if LexicographicTable(O)<>LexicographicTable(L[i]) then
+                Error("Conflicting lexicographic tables");
+            fi;
+        else
+            SetLexicographicTable(O,LexicographicTable(L[i]));
+            O!.lex:=L[i]!.lex;
+        fi;
+    fi;
+    i:=i+1;
+    while i<Length(L) do
+        if (not IsArrow(L[i])) and (not IsVertex(L[i])) then
+            break;
+        fi;
+        block[ExtRepOfObj(L[i])[1]]:=Length(orders);
+        i:=i+1;
+    od;
+od;
+L:=Length(GeneratorsOfQuiver(Q));
+if L>0 then
+    for i in [1..L] do
+        if not IsBound(block[i]) then
+            block[i]:=Length(orders);
+        fi;
+    od;
+fi;
+O!.block:=block;
+O!.orders:=orders;
+
+if Length(arg)>=3 then
+    SetNextOrdering(O,arg[3]);
+    if HasLexicographicTable(arg[3]) then
+        if HasLexicographicTable(O) then
+            if LexicographicTable(O)<>LexicographicTable(arg[3]) then
+                Error("Conflicting lexicographic tables");
+            fi;
+        else
+            SetLexicographicTable(O,LexicographicTable(arg[3]));
+            O!.lex:=arg[3]!.lex;
+        fi;
+    fi;
+fi;
+@
+
+\paragraph{Global Function}
+[[CheckBlocksForCycles]] makes sure that all the arrows in every cycle of the
+quiver belong to the same block, as indicated by the block table passed as an
+argument. The special block 0 can be used to exclude arrows from consideration,
+or prevent searching from a given vertex. This is checked with a modified
+depth first search algorithm that keeps track of exactly how high in the tree
+every vertex can reach through back edges, and what the lowest arrow in the
+current branch that changed blocks is, and the block every vertex was entered
+with. The whole algorithm is $O(v+e)$.
+
+<<CheckBlocksForCycles Implementation>>=
+DeclareGlobalFunction("CheckBlocksForCycles");
+InstallGlobalFunction(CheckBlocksForCycles,
+ function(O,block)
+     local i,r,n,visit;
+     #Possibly a big shortcut
+     if HasIsAcyclic(O!.quiver) and IsAcyclic(O!.quiver) then
+         return true;
+     fi;
+     n:=[];
+     i:=1;
+     #Visit a vertex
+     #v is the vertex
+     #j is 4 * the generator position of the vertex
+     #c is the label of the source vertex for the last arrow which transitioned blocks
+     #b is the current block number, or 0
+     #a is the label of the source vertex for highest previous 0 arrow in a row
+     #n[j]   = the depth-first search label of the vertex
+     #n[j-1] = true: the vertex was visited successfully; false: vertex is being visited
+     #n[j-2] = index of the highest vertex reachable from cycles containing this vertex
+     #n[j-3] = the block number of any cycle this vertex belongs to, or 0
+     visit:=function(v,j,c,b,a)
+         local adj,k,t,p,d,e,f,m;
+         n[j]:=i;
+         n[j-1]:=true;
+         n[j-3]:=0;
+         i:=i+1;
+         #Check all the arrows
+         adj:=OutgoingArrowsOfVertex(v);
+         for p in adj do
+             t:=TargetOfPath(p);
+             k:=ExtRepOfObj(t)[1]*4;
+             #Look for block transisition
+             e:=block[ExtRepOfObj(p)[1]];
+             if e>0 then
+                 if b>0 and e<>b then
+                     f:=a;
+                 else
+                     f:=c;
+                 fi;
+                 d:=i;
+             else
+                 e:=b;
+                 f:=c;
+                 d:=a;
+             fi;
+             #Arrow points to an unvisited vertex
+             if not IsBound(n[k]) then
+                 if not visit(t,k,f,e,d) then
+                     return false;
+                 #If it's part of a cycle that reaches us
+                 elif IsBound(n[k-2]) and n[n[k-2]-1] then
+                     #Mark how high we can reach
+                     if (not IsBound(n[j-2])) or n[n[j-2]]>n[n[k-2]] then
+                         n[j-2]:=n[k-2];
+                     fi;
+                     #Mark what block the cycle is in
+                     if n[k-3]<>0 then
+                         n[j-3]:=n[k-3];
+                     fi;
+                 fi;
+             #The vertex can reach us
+             elif n[k-1] or (IsBound(n[k-2]) and n[n[k-2]-1]) then
+                 if IsBound(n[k-2]) then
+                     m:=[k-2];
+                 else
+                     m:=k;
+                 fi;
+                 #The cycle contains something outside our block
+                 if n[m]<f or (n[k-3]>0 and e>0 and n[k-3]<>e) then
+                     return false;
+                 #Mark us a belonging to the cycle
+                 elif (not IsBound(n[j-2])) or n[n[j-2]]>n[m] then
+                     n[j-2]:=m;
+                 fi;
+             fi;
+         od;
+         n[j-1]:=false;
+         return true;
+     end;
+     for i in [1..Length(VerticesOfQuiver(O!.quiver))] do
+         if block[i]>0 then
+             r:=i*4;
+             if not IsBound(n[r]) then
+                 if not visit(VerticesOfQuiver(O!.quiver)[i],r,0,0,0) then
+                     return false;
+                 fi;
+             fi;
+         fi;
+     od;
+     return true;
+ end);
+@
+
+\paragraph{Property}
+The [[IsTotalOrdering]] attribute for block orderings is [[true]] if
+[[IsTotalSubset]] is [[true]] for every block, and there are no cycles
+with arrows in multiple blocks, or [[IsTotalOrdering]] is [[true]] for
+the next ordering, if present. Otherwise it is [[false]].
+
+<<Block IsTotalOrdering Implementation>>=
+InstallMethod(IsTotalOrdering,
+ "for a block ordering",
+ true,
+ [IsBlockOrdering],0,
+ function(O)
+     local l,s,i,block;
+     l:=GeneratorsOfQuiver(O!.quiver);
+     s:=[];
+     block:=O!.block;
+     for i in [1..Length(O!.orders)] do
+         Add(s,[]);
+     od;
+     for i in l do
+         Add(s[block[ExtRepOfObj(i)[1]]],i);
+     od;
+     for i in [1..Length(O!.orders)] do
+         if not IsTotalSubset(O!.orders[i],s[i]) then
+             if HasNextOrdering(O) then
+                 return IsTotalOrdering(NextOrdering(O));
+             else
+                 return false;
+             fi;
+         fi;
+     od;
+     if Length(block)>0 then
+         if not CheckBlocksForCycles(O,block) then
+            if HasNextOrdering(O) then
+                return IsTotalOrdering(NextOrdering(O));
+            else
+                return false;
+            fi;
+         fi;
+     fi;
+     return true;
+ end);
+@
+
+\paragraph{Operation}
+The [[IsWellSubset]] function for block orderings returns [[true]] if
+[[IsWellSubset]] returns [[true]] for every block, and [[false]] otherwise.
+
+
+<<Block IsWellSubset Implementation>>=
+InstallMethod(IsWellSubset,
+ "for a block ordering and a list of generators",
+ true,
+ [IsBlockOrdering,IsHomogeneousList],0,
+ function(O,L)
+     local s,i,block;
+     s:=[];
+     block:=O!.block;
+     for i in [1..Length(O!.orders)] do
+         Add(s,[]);
+     od;
+     for i in L do
+         Add(s[block[ExtRepOfObj(i)[1]]],i);
+     od;
+     for i in [1..Length(O!.orders)] do
+         if not IsWellSubset(O!.orders[i],s[i]) then
+             return false;
+         fi;
+     od;
+     return true;
+ end);
+@
+
+\paragraph{Operation}
+The [[IsWellReversedSubset]] function for block orderings returns [[true]] if
+[[IsWellReversedSubset]] returns [[true]] for every block, and [[false]]
+otherwise.
+
+<<Block IsWellReversedSubset Implementation>>=
+InstallMethod(IsWellReversedSubset,
+ "for a block ordering and a list of generators",
+ true,
+ [IsBlockOrdering,IsHomogeneousList],0,
+ function(O,L)
+     local s,i,block;
+     s:=[];
+     block:=O!.block;
+     for i in [1..Length(O!.orders)] do
+         Add(s,[]);
+     od;
+     for i in L do
+         Add(s[block[ExtRepOfObj(i)[1]]],i);
+     od;
+     for i in [1..Length(O!.orders)] do
+         if not IsWellReversedSubset(O!.orders[i],s[i]) then
+             return false;
+         fi;
+     od;
+     return true;
+ end);
+@
+
+\paragraph{Operation}
+The [[IsTotalSubset]] function for block orderings returns [[true]] if
+[[IsTotalSubset]] returns [[true]] for every block, and there are no cycles
+with arrows in multiple blocks, or [[IsTotalSubset]] is [[true]] for the
+next ordering, and [[false]] otherwise.
+
+<<Block IsTotalSubset Implementation>>=
+InstallMethod(IsTotalSubset,
+ "for a block ordering and a list of generators",
+ true,
+ [IsBlockOrdering,IsHomogeneousList],0,
+ function(O,L)
+     local l,s,i,j,block;
+     s:=[];
+     block:=ListWithIdenticalEntries(Length(O!.block),0);
+     for i in [1..Length(O!.orders)] do
+         Add(s,[]);
+     od;
+     for i in L do
+         if IsArrow(i) then
+             j:=ExtRepOfObj(SourceOfPath(i))[1];
+             block[j]:=O!.block[j];
+         fi;
+         j:=ExtRepOfObj(i)[1];
+         block[j]:=O!.block[j];
+         Add(s[block[j]],i);
+     od;
+     for i in [1..Length(O!.orders)] do
+         if not IsTotalSubset(O!.orders[i],s[i]) then
+             if HasNextOrdering(O) then
+                 return IsTotalSubset(NextOrdering(O),L);
+             else
+                 return false;
+             fi;
+         fi;
+     od;
+     if Length(block)>0 then
+         if not CheckBlocksForCycles(O,block) then
+             if HasNextOrdering(O) then
+                 return IsTotalOrdering(NextOrdering(O));
+             else
+                 return false;
+             fi;
+         fi;
+     fi;
+     return true;
+ end);
+@
+
+\paragraph{Global Function}
+The [[WreathOrdering]] function creates an ordering that compares elements
+as described above. The first argument is a quiver, the second a list of
+[ordering, generator list] pairs, which assigns an ordering to each subset of
+generators in the quiver. The subsets should be disjoint, but if they
+contain duplicates, the generator will be placed in the last subset it
+occurs in. If some generators are missing, they will be placed in the
+last subset. The third argument is an optional ordering used if the paths
+compare equal.
+
+\begin{verbatim}
+WreathOrdering(Q,L,O)
+\end{verbatim}
+
+<<WreathOrdering Declaration>>=
+DeclareGlobalFunction("WreathOrdering");
+@ % def WreathOrdering
+
+When the wreath ordering is created, the lists of generators are expanded to
+their external representations. From there, we can create a list of numbers,
+\defitem{block}, indexed by generator number, where the block number of the
+generator is stored.
+
+Then, when comparing two elements, $a$ and $b$, we find their external
+representations, and use the block table to identify which block they
+belong to.
+
+<<WreathOrdering Implementation>>=
+InstallGlobalFunction(WreathOrdering,function(arg)
+    local fam,O,Q,L,block,orders,i,j,rep;
+    if not (Length(arg)=1 or (Length(arg)=2 or (Length(arg)=3 and
+     IsQuiverOrdering(arg[3])) and IsHomogeneousList(arg[2])) and IsQuiver(arg[1]))
+     then
+        Error("usage: WreathOrdering(Q,L,O), the first arg must be a quiver, the second a list of [ordering,[generator list]] pairs, and the optional third argument an ordering");
+    fi;
+    L:=arg[2];
+    if Length(L)<1 then
+        Error("WreathOrdering: Subset list cannot be empty");
+    fi;
+
+    fam:=NewFamily("FamilyWreathOrderings",IsWreathOrdering);
+    O:=Objectify(NewType(fam,IsWreathOrdering and IsAttributeStoringRep),
+                 rec());
+    Q:=arg[1];
+    O!.quiver:=Q;
+
+    <<Set up block orderings>>
+
+    SetOrderingName(O,"wreath");
+    SetComparisonFunction(O,function(a,b)
+        local ret,e,f,o,s,t,i,j,c,d,p,q,m,n,x,y,g;
+        if IsZeroPath(a) then
+            e:=[];
+        else
+            e:=ExtRepOfObj(a);
+        fi;
+        if IsZeroPath(b) then
+            f:=[];
+        else
+            f:=ExtRepOfObj(b);
+        fi;
+        o:=1;
+        i:=Minimum(Length(e),Length(f));
+        # Skip equal elements
+        while o<=i do
+            if e[o]<>f[o] then
+                break;
+            fi;
+            o:=o+1;
+        od;
+        # If we skipped everything, the paths are identical
+        if o>Length(e) and o>Length(f) then
+            return 0;
+        fi;
+        g:=GeneratorsOfQuiver(O!.quiver);
+        s:=0;
+        m:=0;
+        p:=[];
+        c:=[];
+        x:=[];
+        if o<=Length(e) then
+            for i in [o..Length(e)] do
+                j:=block[e[i]];
+                if j>m then
+                    s:=s+1;
+                    m:=j;
+                    Add(c,m);
+                    Add(p,[g[e[i]]]);
+                elif j=m then
+                    Add(p[s],g[e[i]]);
+                else
+                    Add(x,g[e[i]]);
+                fi;
+            od;
+        fi;
+        t:=0;
+        n:=0;
+        q:=[];
+        d:=[];
+        y:=[];
+        if o<=Length(f) then
+            for i in [o..Length(f)] do
+                j:=block[f[i]];
+                if j>n then
+                    t:=t+1;
+                    n:=j;
+                    Add(d,n);
+                    Add(q,[g[f[i]]]);
+                elif j=n then
+                    Add(q[t],g[f[i]]);
+                else
+                    Add(y,g[f[i]]);
+                fi;
+            od;
+        fi;
+        while s>0 and t>0 do
+            if c[s]=d[t] then
+                ret:=CompareArrowLists(orders[c[s]],p[s],q[t]);
+                s:=s-1;
+                t:=t-1;
+            elif c[s]>d[t] then
+                ret:=CompareArrowLists(orders[c[s]],p[s],[]);
+                s:=s-1;
+            else
+                ret:=CompareArrowLists(orders[d[t]],[],q[t]);
+                t:=t-1;
+            fi;
+            if ret<>0 then
+                return ret;
+            fi;
+        od;
+        while s>0 do
+            ret:=CompareArrowLists(orders[c[s]],p[s],[]);
+            if ret<>0 then
+                return ret;
+            fi;
+            s:=s-1;
+        od;
+        while t>0 do
+            ret:=CompareArrowLists(orders[d[t]],[],q[t]);
+            if ret<>0 then
+                return ret;
+            fi;
+            t:=t-1;
+        od;
+        ret:=CompareArrowLists(O,x,y);
+        if ret=0 and HasNextOrdering(O) then
+            ret:=ComparisonFunction(NextOrdering(O))(a,b);
+        fi;
+        return ret;
+    end);
+    return O;
+end);
+@
+
+\paragraph{Inclusion in Source}
+We include the creation functions for orderings here.
+
+<<Ordering Declarations>>=
+<<LengthOrdering Declaration>>
+<<LexicographicTable Declaration>>
+<<LeftLexicographicOrdering Declaration>>
+<<RightLexicographicOrdering Declaration>>
+<<ReverseOrdering Declaration>>
+<<LeftVectorOrdering Declaration>>
+<<RightVectorOrdering Declaration>>
+<<WeightOrdering Declaration>>
+<<BlockOrdering Declaration>>
+<<WreathOrdering Declaration>>
+@
+
+<<Ordering Implementations>>=
+<<LengthOrdering Implementation>>
+<<LexicographicOrdering Implementation>>
+<<LeftLexicographicOrdering Implementation>>
+<<RightLexicographicOrdering Implementation>>
+<<ReverseOrdering Implementation>>
+<<VectorOrdering Implementation>>
+<<LeftVectorOrdering Implementation>>
+<<RightVectorOrdering Implementation>>
+<<WeightOrdering Implementation>>
+<<PathFromArrowList Implementation>>
+<<CompareArrowList Implementation>>
+<<BlockOrdering Implementation>>
+<<WreathOrdering Implementation>>
+@
+
+\section{Output Functions}\label{section:OrderingOutputFunctions}
+
+\paragraph{Methods}
+The [[ViewObj]] method prints out a version of the ordering as part of
+the read-eval loop in GAP4. This prints out the concatenation of
+names, separated by spaces, of the chain of orderings for the given
+ordering. The names are printed between angle brackets. For example,
+\begin{verbatim}
+<reverse length lexicographic ordering>
+\end{verbatim}
+
+The [[PrintObj]] method prints the same thing as the result of the
+[[Print]] operations, so we first create an auxillary function and
+assign it to both [[ViewObj]] and [[PrintObj]].
+
+<<PrintOrdering Function>>=
+PrintOrdering :=  function(O)
+    local done;
+    
+    done := false;
+    Print("<");
+    while not done do
+        if HasOrderingName(O) then
+            Print(OrderingName(O));
+        else
+            Print("unnamed");
+        fi;
+        Print(" ");
+        if HasNextOrdering(O) then
+            O := NextOrdering(O);
+        else
+            done := true;
+        fi;
+    od;
+    Print("ordering>");
+end;
+@ %def PrintOrdering
+
+<<ViewObj Implementation>>=
+InstallMethod( ViewObj,
+    "for orderings",
+    true,
+    [IsQuiverOrdering], 0,
+    PrintOrdering);
+@
+
+<<PrintObj Implementation>>=
+InstallMethod( PrintObj,
+    "for orderings",
+    true,
+    [IsQuiverOrdering], 0,
+    PrintOrdering);
+@
+
+\paragraph{Inclusion In Source}
+
+We include the output functions in the source here.
+
+<<Ordering Implementations>>=
+<<PrintOrdering Function>>
+<<ViewObj Implementation>>
+<<PrintObj Implementation>>
+@

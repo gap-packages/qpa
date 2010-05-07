@@ -1,0 +1,27 @@
+#!/usr/local/bin/perl
+##########################################################################
+#
+#	extendID
+#
+#		a noweave filter to extend identifiers to be unique
+#
+#		assumes a line that identifies the file matching
+#		the pattern:
+#			^\@text % \$Id: (.+)\.nw
+#
+#		Lenny Heath	9/27/99
+#
+##########################################################################
+while ($line = <STDIN>) {
+    if ($line =~ m/^\@text % \$Id: (.+).nw/) {
+	print $line;
+	$line =~ s/^\@text % \$Id: (.+).nw.*/\1/;	# get file name
+	$filename = $line;
+	chop $filename;
+	$prefix = substr($filename,0,3);
+    }
+    else {
+    $line =~ s/NW($prefix)/NW$filename/g;
+    print $line;
+    }
+}

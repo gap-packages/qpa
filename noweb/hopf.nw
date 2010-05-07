@@ -1,0 +1,99 @@
+% -*- mode: Noweb; noweb-code-mode: latex-mode -*-%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% HOPF Project Source File
+% DESCRIPTION: This is the central noweb source file for the Hopf project.
+%              It is intended to hold common macros, initial document
+%              contents, etc.
+%
+% Copyright, 1998 Virginia Polytechnic Institute and State University.
+% Copyright, 1998 Virginia Tech Hopf Project. All rights reserved.
+%
+% This file may be distributed in accordance with the stipulations existing
+% in the LICENSE file accompanying this software.
+%
+% $Id: hopf.nw,v 1.1 2010/05/07 13:30:14 sunnyquiver Exp $
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Prepare a book
+\documentclass[twoside, 11pt,dvips]{book}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Increase text width and text height to get more on a page and cut down
+%    overfull hbox's
+\addtolength{\textwidth}{1.0in}	% left margin OK, so do not adjust
+\addtolength{\textheight}{1.0in}
+\addtolength{\topmargin}{-0.5in}	% make top and bottom margins equal
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Set up noweb and other packages
+\usepackage{noweb, graphics, amsthm, amsfonts, newalg, xspace}
+\pagestyle{noweb}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Make Uses lists raggedright to avoid overfull hbox's
+%    Just copied definition from noweb.sty and inserted \raggedright
+\makeatletter
+\def\nwidentuses#1{\begin{minipage}{\textwidth}% list of index pairs
+  \raggedright\hbadness=10000
+  \nwcodecomment{Uses \let\\=\nwix@id@defs\commafy{#1}.}%
+  \end{minipage}}
+\makeatother
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Modify \nw@laterfilename to avoid \clearpage when \nwfilename called
+%    Just copied definition from noweb.sty and deleted \clearpage
+\makeatletter
+\def\nw@laterfilename#1{\endgroup\markboth{#1}{#1}}
+\makeatother
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Noweb options: Shift code to the left, and make code in smaller font.
+%    Also, use nodefs and noindex to construct external index.
+\noweboptions{shift,smallcode,externalindex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Commands for the Hopf project
+\newcommand{\hopf}{\textsc{Hopf}\xspace} % The Hopf project logo is in small caps, CAS
+\newcommand{\noweb}{noweb}        % Noweb command, in case we change font, CAS
+% For developer notes, CAS	% Use raggedright to avoid overfull hbox's LSH
+\newenvironment{NOTE}[1]{\raggedright\it NOTE: #1}{\par}
+% Allow really sloppy paragraphs that do not generate overfull or
+%    underfull hbox's
+\newenvironment{SLOPPY}{\begin{sloppypar}\hbadness=10000}{\end{sloppypar}}
+\newcommand{\defitem}[1]{\textit{#1}} % Definition format, CAS
+\newcommand{\groebner}{Gr\"{o}bner} % Obvious I hope, CAS
+\newcommand{\com}[1]{\texttt{#1}} % Command macro, from Opal userref, CAS
+\newcommand{\COMMENT}{\ensuremath{\rhd}} % Comment for algorithms, CAS
+%
+% Theorem-like environments, CAS
+% 
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+%
+% Algebra notation, CAS
+%
+\newcommand{\fld}[1]{\ensuremath{\mathbb{#1}}}
+\newcommand{\algebra}[1]{\ensuremath{\mathcal{#1}}}
+\newcommand{\zero}[1]{\ensuremath{0_{#1}}}
+\newcommand{\tensor}{\ensuremath{\otimes}}
+\newcommand{\Z}{\fld{Z}}
+\newcommand{\K}{\fld{K}}
+%
+% Author names with accents, CAS
+%
+\newcommand{\ronyai}{R\'{o}nyai}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Title and author and such
+\title{\hopf\\A System for Non-commutative Algebra\\Literate Program}
+\author{The \hopf\ Team}
+
+\bibliographystyle{siam}
+
+\begin{document}
+@
+
+\maketitle
+
+\tableofcontents

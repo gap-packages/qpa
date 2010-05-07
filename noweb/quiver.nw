@@ -1,0 +1,2041 @@
+% -*- mode: Noweb; noweb-code-mode: text-mode -*-%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% HOPF Project Source File
+% DESCRIPTION: This file contains the specifications, implementation, and
+%              tests for the quiver domain.
+%
+% Copyright, 1998 Virginia Polytechnic Institute and State University.
+% Copyright, 1998 Virginia Tech Hopf Project. All rights reserved.
+%
+% This file may be distributed in accordance with the stipulations existing
+% in the LICENSE file accompanying this software.
+%
+% $Id: quiver.nw,v 1.1 2010/05/07 13:30:14 sunnyquiver Exp $
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Quiver Domain}\label{chapter:QuiverDomain}
+
+\section{Overview}
+A \defitem{quiver}\index{quiver} $Q$ is defined using a directed
+multi-graph with loops $\Gamma$. Each vertex and arc in $\Gamma$ is
+labeled. The elements of a quiver are \defitem{paths}\index{paths},
+vertices and walks in $\Gamma$, or the \defitem{zero
+path}\index{paths!zero path} denoted $0$. Quivers define a
+multiplication operation that is the concatenation of compatible
+paths. Further discussion of multiplication is in
+Section~\ref{subsection:PathArithmeticOperations}.
+
+\section{Source Files}
+% Maybe this section should be moved later on in the chapter.
+<<[[quiver.gd]]>>= 
+# GAP Declarations
+# This file was generated from
+# $Id: quiver.nw,v 1.1 2010/05/07 13:30:14 sunnyquiver Exp $
+<<Declaration of InfoQuiver>>
+<<Declarations for Path Categories>>
+<<Declarations for Path Attributes>>
+<<Declarations for Path Functions>>
+<<Declarations for Quiver Categories>>
+<<Declarations for Quiver Attributes>>
+<<Declarations for Quiver Functions>> 
+
+<<[[quiver.gi]]>>=
+# GAP Implementation
+# This file was generated from
+# $Id: quiver.nw,v 1.1 2010/05/07 13:30:14 sunnyquiver Exp $
+<<Implementation for Path Functions>>
+<<Implementation for Quiver Functions>>
+@ 
+
+\section{Debugging}
+\label{section:QuiverDebugging}
+
+The [[InfoQuiver]] information class is used to print out debugging
+information and other information for the quiver implementation.
+
+<<Declaration of InfoQuiver>>=
+DeclareInfoClass( "InfoQuiver" );
+@ %def InfoQuiver
+
+\section{Paths}\label{section:Paths}
+
+\subsection{Categories}\label{subsection:PathCategories}
+
+This is the structure for the category declarations.
+<<Declarations for Path Categories>>=
+<<Declaration for Path>>
+<<Declaration for Vertex>>
+<<Declaration for Arrow>>
+@
+
+\paragraph{Category}
+The category [[IsPath]] contains all paths, including arrows and
+vertices. Paths are multiplicative elements, and the category
+[[IsPath]] should be a specialization of the category
+[[IsMultiplicativeElement]]. Every path object created must be in this
+category.
+\begin{verbatim}
+IsPath(P)
+\end{verbatim}
+
+<<Declaration for Path>>=
+DeclareCategory("IsPath", IsMultiplicativeElement);
+@ %def IsPath
+
+\paragraph{Family Category}
+The [[IsPathFamily]] family is the family containing all paths. This
+is used to filter appropriate objects for the [[ObjByExtRep]]
+operation.
+\begin{verbatim}
+IsPathFamily(Fam)
+\end{verbatim}
+
+<<Declarations for Path Categories>>=
+DeclareCategoryFamily( "IsPath" );
+@ %def IsPathFamily
+
+\paragraph{Category}
+The category [[IsVertex]] contains all vertices. Every vertex object
+created must be in this category. Because vertices are also paths,
+[[IsVertex]] should be implemented as a specialized [[IsPath]]
+category.
+\begin{verbatim}
+IsVertex(P)
+\end{verbatim}
+
+The [[gen_pos]] component stores the integer position of the vertex as
+a generator.
+<<Declaration for Vertex>>=
+DeclareCategory("IsVertex", IsPath);
+DeclareRepresentation( "IsVertexRep",
+    IsComponentObjectRep,
+    [ "vertex_name", "gen_pos" ] );
+@
+
+\paragraph{Category}
+The category [[IsArrow]] contains all arrows. Every arrow object
+created must be in this category. Because arrows are also paths,
+[[IsArrow]] should be implemented as a specialized [[IsPath]]
+category.
+\begin{verbatim}
+IsArrow(P)
+\end{verbatim}
+
+The [[gen_pos]] component stores the integer position of the arrow as
+a generator.
+<<Declaration for Arrow>>=
+DeclareCategory("IsArrow", IsPath);
+DeclareRepresentation( "IsArrowRep",
+    IsComponentObjectRep,
+    [ "arrow_name", "gen_pos" ] );
+@
+
+\begin{NOTE}
+We might want to specify path collections and path lists.
+\end{NOTE}
+
+\subsection{Creation of Paths}\label{subsection:PathCreation}
+
+\paragraph{Function}
+The function [[Path]] creates path objects. A [[vertex_name]] is a
+string of printable characters. An [[arrow_name]] is also a string of
+printable characters. Each path is in a family $F$, which is usually
+created by the quiver containing the paths. The [[Path]] function has
+three forms.
+
+\begin{verbatim}
+Path(F, vertex_name)
+Path(F, U,V,arrow_name)
+Path(F, [ A1, A2, ... ] )
+\end{verbatim}
+
+<<Declarations for Path Functions>>=
+DeclareGlobalFunction( "Path" );
+@
+
+<<Implementation for Path Functions>>=
+InstallGlobalFunction( Path, function( arg )
+    local path, vertex_name, u, v, arrow_name, arrow_list;
+
+    # single vertex name
+    if Length( arg ) = 2 and IsFamily( arg[1] ) and IsString( arg[2] ) then
+      vertex_name := arg[2];
+      <<Create Vertex From a Name>>
+
+    # arrow from two vertices
+    elif Length( arg ) = 4 and IsFamily( arg[1]) and IsVertex( arg[2] )
+                           and IsVertex( arg[3] ) and IsString( arg[4] ) then
+      u := arg[2];
+      v := arg[3];
+      arrow_name := arg[4];
+      <<Create Arrow From Two Vertices and a Name>>
+
+    # list of arrows
+    elif Length( arg ) = 2 and IsFamily( arg[1] ) and IsList( arg[2] ) then
+      arrow_list := arg[2];
+      <<Create Path From Arrow List>>
+    fi;
+
+    # no argument given, error
+    Error("usage: Path(<Fam>, <vertex_name>), \
+(<Fam>, <U>, <V>, <arrow_name>), (<Fam>, < [ A1, A2, ... ] >)");
+end );
+@
+
+The first form takes a [[vertex_name]] and returns a vertex with that
+label.
+
+<<Create Vertex From a Name>>=
+    path:= Objectify( NewType( arg[1],
+                      IsVertex and IsVertexRep and IsAttributeStoringRep ),
+                      rec( vertex_name := vertex_name ) );
+    SetSourceOfPath( path, path );
+    SetTargetOfPath( path, path );
+    SetLengthOfPath( path, 0 );
+    SetWalkOfPath( path, [] );
+    SetIsZeroPath( path, false );
+    SetIncomingArrowsOfVertex( path, [] );
+    SetOutgoingArrowsOfVertex( path, [] );
+    SetOutDegreeOfVertex( path, 0 );
+    SetInDegreeOfVertex( path, 0 );
+    SetNeighborsOfVertex( path, [] );
+    return path;
+@
+
+The second form takes two vertices $U$ and $V$ and an [[arrow_name]]
+and returns an arrow from $U$ to $V$ labeled [[arrow_name]].
+
+<<Create Arrow From Two Vertices and a Name>>=
+    path:= Objectify( NewType( arg[1], 
+                      IsArrow and IsArrowRep and IsAttributeStoringRep ),
+                   rec( arrow_name := arrow_name ) );
+    SetSourceOfPath( path, u );
+    SetTargetOfPath( path, v );
+    SetLengthOfPath( path, 1 );
+    SetWalkOfPath( path, [ path ] );
+    SetIsZeroPath( path, false );
+    SetOutgoingArrowsOfVertex( u,
+            Concatenation( OutgoingArrowsOfVertex(u), [ path ] ) );
+    SetIncomingArrowsOfVertex( v,
+            Concatenation( IncomingArrowsOfVertex(v), [ path ] ) );
+    SetOutDegreeOfVertex( u, Length( OutgoingArrowsOfVertex(u) ) );
+    SetInDegreeOfVertex(  v, Length( IncomingArrowsOfVertex(v) ) );
+    # Don't add neighbor more than once.
+    if not (v in NeighborsOfVertex(u)) then
+        SetNeighborsOfVertex( u, Concatenation(NeighborsOfVertex(u), [ v ]) );
+    fi;
+    return path;
+@
+
+The third form takes two or more arrows and returns a path with walk
+$A1 \cdot A2 \cdot A3 \cdots$. If the walk cannot exist, because the
+target vertex of arrow $Ai$ is not the source vertex of arrow $Ai+1$,
+then the zero path is returned.
+
+\begin{NOTE}
+Gerard: Yikes! Actually I think
+the product should make use of the Path function and not the other way
+around. So really the smarts of multiplication goes here. That keeps
+path creation centralized. Make sure to mention this is where
+multiplication is really implemented.
+\end{NOTE}
+
+<<Create Path From Arrow List>>=
+    return Product( arrow_list );
+@
+
+\subsection{Attributes of Paths}\label{subsection:PropertiesOfPaths}
+
+\paragraph{Attribute} 
+The attribute [[SourceOfPath]] returns the starting vertex of a path
+$P$. If $P$ is a vertex, this method should return the vertex itself.
+\begin{verbatim}
+SourceOfPath(P)
+\end{verbatim}
+
+<<Declarations for Path Attributes>>=
+DeclareAttribute("SourceOfPath", IsPath);
+@
+
+\paragraph{Attribute}
+The attribute [[TargetOfPath]] returns the terminating vertex of a path
+$P$. If $P$ is a vertex, this method should return the vertex itself.
+\begin{verbatim}
+TargetOfPath(P)
+\end{verbatim}
+
+<<Declarations for Path Attributes>>=
+DeclareAttribute("TargetOfPath", IsPath);
+@
+
+\paragraph{Attribute}
+The attribute [[LengthOfPath]] returns the number of arrows that compose
+the path $P$. If $P$ is a vertex or the zero path, then this method
+should return 0.
+\begin{verbatim}
+LengthOfPath(P)
+\end{verbatim}
+
+<<Declarations for Path Attributes>>=
+DeclareAttribute("LengthOfPath", IsPath);
+@
+
+\paragraph{Attribute}
+The attribute [[WalkOfPath]] returns a list of arrows consisting of the
+walk used to create path $P$. The list must contain the arrows in the
+order of the walk.
+\begin{verbatim}
+WalkOfPath(P)
+\end{verbatim}
+
+<<Declarations for Path Attributes>>=
+DeclareAttribute("WalkOfPath", IsPath);
+@
+
+\paragraph{Property}
+The property [[IsZeroPath]] returns [[true]] if the path $P$ is the
+zero path and [[false]] otherwise. This can be implemented as an
+immediate method.
+\begin{verbatim}
+IsZeroPath(P)
+\end{verbatim}
+
+<<Declarations for Path Attributes>>=
+DeclareProperty("IsZeroPath", IsPath);
+@
+
+\subsection{Attributes of Vertices}\label{subsection:AttributesOfVertices}
+
+\paragraph{Attribute}
+The attribute [[IncomingArrowsOfVertex]] returns a list of arrows that
+have the target vertex $V$. The order in which the arrows are returned
+is irrelevant.  An error should occur if $V$ is not a vertex.
+\begin{verbatim}
+IncomingArrowsOfVertex(V)
+\end{verbatim}
+
+<<Declarations for Path Attributes>>=
+DeclareAttribute("IncomingArrowsOfVertex", IsVertex, "mutable");
+@
+
+\paragraph{Attribute}
+The attribute [[OutgoingArrowsOfVertex]] returns a list of arrows that
+have the source vertex $V$. The order in which the arrows are returned
+is irrelevant. An error should occur if $V$ is not a vertex.
+\begin{verbatim}
+OutgoingArrowsOfVertex(V)
+\end{verbatim}
+
+<<Declarations for Path Attributes>>=
+DeclareAttribute("OutgoingArrowsOfVertex", IsVertex, "mutable");
+@
+
+\paragraph{Attribute}
+The attribute [[InDegreeOfVertex]] returns the number of arrows that have
+the target vertex $V$. An error should occur if $V$ is not a vertex.
+\begin{verbatim}
+InDegreeOfVertex(V)
+\end{verbatim}
+
+<<Declarations for Path Attributes>>=
+DeclareAttribute("InDegreeOfVertex", IsVertex, "mutable");
+@
+
+\paragraph{Attribute}
+The attribute [[OutDegreeOfVertex]] returns the number of arrows that
+have the source vertex $V$. An error should occur if $V$ is not a vertex.
+\begin{verbatim}
+OutDegreeOfVertex(V)
+\end{verbatim}
+
+<<Declarations for Path Attributes>>=
+DeclareAttribute("OutDegreeOfVertex", IsVertex, "mutable");
+@
+
+\paragraph{Attribute}
+The attribute [[NeighborsOfVertex]] returns a list of vertices which are
+adjacent to $V$; that is, those vertices which are the target vertex
+of some outgoing arrow of $V$. An error should occur if $V$ is not a
+vertex.
+\begin{verbatim}
+NeighborsOfVertex(V)
+\end{verbatim}
+
+<<Declarations for Path Attributes>>=
+DeclareAttribute("NeighborsOfVertex", IsVertex, "mutable" );
+@
+
+\paragraph{Operation}
+The [[ExtRepOfObj]] returns the external representation of an
+object. For paths, this is a list of integers. The integers correspond
+to the generator's position in the quiver's generator list. The list
+corresponds to the generators that make up the walk of the path. Zero
+paths return 0.
+\begin{verbatim}
+ExtRepOfObj(P)
+\end{verbatim}
+
+The implementation for zero paths simply returns a list containing
+just 0.
+
+<<Implementation for Path Functions>>=
+InstallMethod(ExtRepOfObj, 
+    "for zero paths",
+    true, [IsZeroPath], 0,
+    P -> [0] );
+@ 
+
+The implementation for vertices returns just the generator position
+for the vertex.
+
+<<Implementation for Path Functions>>=
+InstallMethod(ExtRepOfObj,
+    "for vertices",
+    true, [IsVertex], 0,
+    V -> [V!.gen_pos] );
+@ 
+
+The implementation for the rest of the paths gets the walk of the path
+and makes a list of the generator positions for the generators
+composing the path.
+
+<<Implementation for Path Functions>>=
+InstallMethod(ExtRepOfObj,
+    "for paths",
+    true, [IsPath], 0,
+    function(P)
+        local g, rep;
+        rep := [];
+        for g in WalkOfPath(P) do
+            Add(rep, g!.gen_pos);
+        od;
+        return rep;
+    end );
+@ 
+
+\paragraph{Operation}
+The [[ObjByExtRep]] operation takes an external representation of a
+path and create a path object in the specified family.
+\begin{verbatim}
+ObjByExtRep( F, rep )
+\end{verbatim}
+
+The method applies to quiver families and lists.
+
+<<Implementation for Path Functions>>=
+InstallMethod( ObjByExtRep,
+    "for quiver elements family and lists",
+    true,
+    [IsPathFamily, IsList], 0,
+    function( Fam, descr )
+      local Q, gens, walk;
+
+      Q := Fam!.quiver;
+      gens := GeneratorsOfQuiver(Q);
+
+      walk := List( descr, function(i)
+        if i <> 0 then
+          return gens[i];
+        else
+          return Zero(Q);
+        fi;
+      end );
+
+      return Product(walk);
+    end );
+@ 
+
+\subsection{Arithmetic Operations}\label{subsection:PathArithmeticOperations}
+
+\paragraph{Operation}
+The [[\*]] operation multiplies two paths and returns a path that is
+the concatenation of the two paths being multiplied. If $p$ and $q$
+are paths, then $p*q = pq$ if the target of $p$ is the source of $q$,
+and $0$ otherwise. If $p$ is the source of $q$, then $pq = q$. If $p$
+is not the source of $q$ but $q$ is the target of $p$, then $pq =
+p$. The implementation of this method must return the original object
+when multiplied by a $p$ or $q$ that is a vertex and properly
+compatible. Also, the implementation must return the unique zero path
+for the quiver containing paths $p$ and $q$. If $p$ and $q$ are not in
+the same quiver, an error should occur.
+\begin{verbatim}
+p * q
+\end{verbatim}
+
+<<Implementation for Path Functions>>=
+InstallMethod( \*,
+    "for vertices",
+    IsIdenticalObj,
+    [ IsVertex, IsVertex ], 0,
+    function( u, v )
+
+    if( IsIdenticalObj(u, v) ) then
+        return u;
+    else
+        return Zero(FamilyObj(u));
+    fi;
+end );
+
+
+InstallMethod( \*,
+    "for a vertex and a path",
+    IsIdenticalObj,
+    [ IsVertex, IsPath ], 0,
+    function( vert, path )
+
+    if( IsIdenticalObj(vert, SourceOfPath(path)) ) then
+        return path;
+    else
+        return Zero(FamilyObj(vert));
+    fi;
+end );
+
+InstallMethod( \*,
+    "for a path and a vertex",
+    IsIdenticalObj,
+    [ IsPath, IsVertex ], 0,
+    function( path, vert )
+
+    if( IsIdenticalObj(TargetOfPath(path), vert) ) then
+        return path;
+    else
+        return Zero(FamilyObj(path));
+    fi;
+end );
+
+InstallMethod( \*,
+    "for the ZeroPath and a path",
+    IsIdenticalObj,
+    [ IsZeroPath, IsPath ], 0,
+    function( zero, path )
+
+    return zero;
+end );
+
+InstallMethod( \*,
+    "for a path and the ZeroPath",
+    IsIdenticalObj,
+    [ IsPath, IsZeroPath ], 0,
+    function( path, zero )
+
+    return zero;
+end );
+
+InstallMethod( \*,
+    "for a path and a path",
+    IsIdenticalObj,
+    [ IsPath, IsPath ], 0,
+    function( path1, path2 )
+
+    local result;
+
+    if( IsIdenticalObj(TargetOfPath(path1), SourceOfPath(path2) ) ) then
+        result:= Objectify( NewType( FamilyObj(path1),
+                                     IsPath and IsAttributeStoringRep ),
+                            rec() );
+        SetSourceOfPath( result, SourceOfPath(path1) );
+        SetTargetOfPath( result, TargetOfPath(path2) );
+        SetLengthOfPath( result, LengthOfPath(path1) + LengthOfPath(path2) );
+        SetWalkOfPath( result,
+                       Concatenation( WalkOfPath(path1), WalkOfPath(path2) ) );
+        SetIsZeroPath( result, false );
+        return result;
+    else
+        return Zero(FamilyObj(path1));
+    fi;
+end );
+@
+
+\paragraph{Operation}
+The [[\=]] operation tests whether two paths $p$ and $q$ are equal. Two
+paths are equal if they have the same source and target vertices and
+they have the same walks.
+\begin{verbatim}
+p = q
+\end{verbatim}
+                   
+<<Implementation for Path Functions>>=
+InstallMethod( \=,
+    "for vertices",
+    IsIdenticalObj,
+    [ IsVertex, IsVertex ], 0,
+    function( u, v )
+
+    return IsIdenticalObj(u, v);
+end );
+
+InstallMethod( \=,
+    "for arrows",
+    IsIdenticalObj,
+    [ IsArrow, IsArrow ], 0,
+    function( a, b )
+
+    return IsIdenticalObj(a, b);
+end );
+
+InstallMethod( \=,
+    "for the ZeroPath and the ZeroPath",
+    IsIdenticalObj,
+    [ IsZeroPath, IsZeroPath ], 0,
+    function( a, b )
+
+    return true;
+end );
+
+InstallMethod( \=,
+    "for the ZeroPath and a path",
+    IsIdenticalObj,
+    [ IsZeroPath, IsPath ], 0,
+    function( a, b )
+
+    return false;
+end );
+
+InstallMethod( \=,
+    "for a path and the ZeroPath",
+    IsIdenticalObj,
+    [ IsPath, IsZeroPath ], 0,
+    function( a, b )
+
+    return false;
+end );
+
+InstallMethod( \=,
+    "for path",
+    IsIdenticalObj,
+    [ IsPath, IsPath ], 0,
+    function( p1, p2 )
+
+    if( not IsIdenticalObj(SourceOfPath(p1) , SourceOfPath(p2)) ) then
+        return false;
+    elif( not IsIdenticalObj(SourceOfPath(p1), SourceOfPath(p2)) ) then
+        return false;
+    elif( LengthOfPath(p1) <> LengthOfPath(p2)) then
+        return false;
+    else
+        return WalkOfPath(p1) = WalkOfPath(p2);
+    fi;
+end );
+@
+
+\paragraph{Operation}
+The [[<]] operation compares two paths $p$ and $q$ and returns $p <
+q$. This is done using length lexicographic ordering.
+\begin{verbatim}
+p < q
+\end{verbatim}
+
+<<Implementation for Path Functions>>=
+InstallMethod( \<, "for paths",
+    IsIdenticalObj,
+    [IsPath, IsPath], 0,
+    function(p, q)
+      local O;
+
+      if IsZeroPath(p) and not IsZeroPath(q) then
+        return true;
+      elif (IsZeroPath(q) and not IsZeroPath(p)) or (p = q) then
+        return false;
+      else
+        O := OrderingOfQuiver(FamilyObj(p)!.quiver);
+        return LessThanByOrdering(O, p, q);
+      fi;
+    end );
+@ 
+
+\subsection{Output}
+
+\paragraph{Method}
+The output for GAP's \texttt{read-eval-view} loop and for printing is
+the same. Only the [[PrintObj]] method need be implemented. The
+[[PrintObj]] method should print out the vertex label or arrow label
+for vertices and arrows respectively. For paths with length $> 1$, the
+[[PrintObj]] method should print out the arrow labels composing the
+walk for the path, concatenated in order, separated by \texttt{*}'s.
+
+\begin{verbatim}
+PrintObj(P)
+\end{verbatim}
+
+<<Implementation for Path Functions>>=
+InstallMethod( PrintObj,
+    "for ZeroPath",
+    true,
+    [ IsZeroPath ], 0,
+    function( obj )
+
+    Print( "0" );;
+end );
+
+InstallMethod( String,
+    "for vertex",
+    true,
+    [ IsVertex and IsVertexRep ], 0,
+    function( obj )
+
+    return obj!.vertex_name;
+end );
+
+InstallMethod( PrintObj,
+    "for vertex",
+    true,
+    [ IsVertex and IsVertexRep ], 0,
+    function( obj )
+
+    Print( obj!.vertex_name );
+end );
+
+InstallMethod( String,
+    "for arrow",
+    true,
+    [ IsArrow and IsArrowRep ], 0,
+    function( obj )
+
+    return obj!.arrow_name;
+end );
+
+InstallMethod( PrintObj,
+    "for arrow",
+    true,
+    [ IsArrow and IsArrowRep ], 0,
+    function( obj )
+
+    Print( obj!.arrow_name );
+end );
+
+InstallMethod( PrintObj,
+    "for paths of length > 1",
+    true,
+    [ IsPath ], 0,
+    function( obj )
+
+    local walk, i, l, exponent;
+
+    walk := WalkOfPath(obj);
+    l := Length(walk);
+
+    Print(walk[1]);
+    exponent := 1;
+
+    for i in [2..l] do
+        if walk[i] <> walk[i-1] then
+            if exponent > 1 then
+                Print("^", exponent);
+            fi;
+            Print("*", walk[i]);
+            exponent := 1;
+        else
+            exponent := exponent + 1;
+        fi;
+    od;
+    if exponent > 1 then
+        Print("^", exponent);
+    fi;
+end );
+@
+
+\section{Quivers}
+
+\subsection{Categories}\label{QuiverCategories}
+
+\paragraph{Category}
+The [[IsQuiver]] category contains all quivers. The [[IsQuiver]]
+category is a specialized semigroup domain, and should be implemented that
+way. Every quiver created must be in this category.
+\begin{verbatim}
+IsQuiver(Q)
+\end{verbatim}
+
+<<Declarations for Quiver Categories>>=
+DeclareCategory("IsQuiver", IsSemigroup and IsRecord);
+DeclareRepresentation( "IsQuiverRep",
+    IsQuiver and IsComponentObjectRep,
+    [ "pieces" ] );
+@
+
+
+\subsection{Creation of Quivers}\label{subsection:QuiverCreation}
+
+\paragraph{Function}
+The function [[Quiver]] is used to create quivers in \hopf. [[Quiver]]
+returns an object representing a quiver.
+
+Defining a quiver requires defining labeled vertices and arrows. A
+[[vertex_number]] is an integer that indexes into the list of vertices
+used to create the quiver.  An [[arrow_spec]] has four forms:
+
+\begin{verbatim}
+[vertex_number, vertex_number]
+[vertex_name, vertex_name]
+[vertex_number, vertex_number, arrow_name]
+[vertex_name, vertex_name, arrow_name]
+\end{verbatim}
+
+The first two forms create an arrow from the first vertex to the
+second vertex with the label ``a$i$'' where the arrow is the
+$i^{\mathrm{th}}$ one created. The second two forms create an arrow
+from the first vertex to the second vertex with the label [[arrow_name]].
+
+An adjacency matrix\index{adjacency matrix} [[adj_matrix]] is a square
+matrix with non-negative integer entries. Entry [[[i][j]]] in the
+matrix contains the number of arrows from vertex number $i$ to vertex
+number $j$.
+When using the adjacency matrix to create a quiver, the vertices are
+labeled ``v$i$'' for the
+$i^{\mathrm{th}}$ vertex, and the arrows are labeled in the order when 
+looping first over $j$ in the matrix, then over $i$; that is, all of
+the arrows starting at vertex 1 are created, then the arrows starting
+at vertex 2, and so on.
+
+There are three forms of the [[Quiver]] function.
+
+\begin{verbatim}
+Quiver(N, [arrow_spec, ...])
+Quiver([vertex_name, ...], [arrow_spec, ...])
+Quiver(adj_matrix)
+\end{verbatim}
+
+<<Declarations for Quiver Functions>>=
+DeclareGlobalFunction( "Quiver" );
+@
+
+<<Implementation for Quiver Functions>>=
+InstallGlobalFunction( Quiver, function( arg )
+
+    local vertices, arrows, vertices_by_name, arrow_spec_size,
+          name, u, v, i, j, k, msg, arrow_count, Q,
+          matrix, record, Fam, zero, frompos, topos;
+
+    vertices := [];
+    arrows := [];
+    
+    <<Create a new quiver family and zero path>>
+
+    # Quiver(N, [arrow_spec])
+    if Length( arg ) = 2 and IsPosInt( arg[1] ) and IsList( arg[2] ) then
+        <<Create Quiver From Vertex Count and Arrows>>
+
+    # Quiver([vertex_name, ...], [arrow_spec, ...])
+    elif Length( arg ) = 2 and IsList( arg[1] ) and IsList( arg[2] ) then
+        <<Create Quiver From Vertex Names and Arrows>>
+
+    # Quiver(adj_matrix)
+    elif Length( arg ) = 1 and IsMatrix( arg[1] ) then
+        matrix := arg[1];
+        <<Create Quiver From Adjacency Matrix>>
+    
+    else
+        # no argument given, error
+        Error("usage: Quiver(<N>, <[arrow_spec, ...]>), \
+(<[vertex_name, ...]>, [arrow_spec, ...]>), (<adj_matrix>)");
+    fi;
+
+    <<Build Quiver From Vertex and Arrow List>>
+end );
+
+@
+
+This creates a new family and zero path for the quiver. Elements in
+the quiver are all in this family.
+
+<<Create a new quiver family and zero path>>=
+# Create a new family for paths in this quiver.
+Fam := NewFamily( Concatenation( "FamilyOfPathsWithin", UniqueQuiverName() ), IsPath ); 
+SetFilterObj( Fam, IsPathFamily );
+zero := Objectify( NewType( Fam, IsPath and IsAttributeStoringRep ), rec() );
+SetIsZeroPath( zero, true );
+SetSourceOfPath( zero, zero );
+SetTargetOfPath( zero, zero );
+SetZero(Fam, zero);
+@ 
+
+This sets the default values for the constructed quiver based on the
+input parameters. The default ordering for quivers is always length
+lexicographic ordering.
+
+<<Build Quiver From Vertex and Arrow List>>=
+    record := rec();
+    for i in vertices do
+      record.( String(i) ) := i;
+    od;
+    for i in arrows do
+      record.( String(i) ) := i;
+    od;
+    Q:= Objectify( NewType( CollectionsFamily(Fam), 
+                            IsQuiverRep and IsAttributeStoringRep ),
+                   rec( pieces := record ) );
+
+    Fam!.quiver := Q;
+
+    SetVerticesOfQuiver( Q, vertices );
+    SetArrowsOfQuiver( Q, arrows );
+    SetOrderOfQuiver( Q, Length( vertices ) );
+    SetSizeOfQuiver( Q, Length( arrows ) );
+    SetGeneratorsOfMagma( Q, Concatenation( vertices, arrows ) );
+    SetAdjacencyMatrixOfQuiver( Q, matrix );
+    SetIsWholeFamily(Q, true);
+    SetIsAssociative(Q, true);
+
+    # This is used to construct the external representations of elements
+    for i in [1..Length(GeneratorsOfMagma(Q))] do
+      GeneratorsOfMagma(Q)[i]!.gen_pos := i;
+    od;
+
+    SetOrderingOfQuiver( Q, 
+        LengthOrdering(Q,LeftLexicographicOrdering(Q,GeneratorsOfMagma( Q ))));
+
+    SetZero(Q, zero);
+    return Q;
+@
+
+The first form takes a positive integer $N$ which represents the
+number of vertices in the quiver. The vertices are labeled ``v$i$'' as 
+described for the adjacency matrix. The second parameter is a list of
+[[arrow_spec]]. The list must be homogenous, containing only arrow
+specifications of the same form. For this first form of [[Quiver]],
+the only allowable arrow specifications are those using
+[[vertex_number]] entries to define the arrows.
+
+<<Create Quiver From Vertex Count and Arrows>>=
+    matrix := [];
+    for i in [ 1 .. arg[1] ] do
+        name := Concatenation( "v", String(i) );
+        vertices[i] := Path( Fam, name );
+        matrix[i] := [];
+        for j in [ 1 .. arg[1] ] do
+            matrix[i][j] := 0;
+        od;
+    od;
+    
+    if( Length( arg[2] ) > 0 ) then
+        arrow_spec_size := Length( arg[2][1] );
+    else
+        arrow_spec_size := -1;
+    fi;
+
+    for i in [ 1 .. Length(arg[2]) ] do
+        if( not Length( arg[2][i] ) = arrow_spec_size ) then
+            Error("All of the entries in the [arrow_spec] list must be of the same size.");
+            return 0;
+        fi;
+        if( not IsPosInt( arg[2][i][1] ) or not IsPosInt( arg[2][i][2]) ) then
+            Error("You must use vertex numbers in arrow_spec \
+when using Quiver( <N>, <Arrow_spec> ).");
+            return 0;
+        fi;
+        frompos := arg[2][i][1];
+        topos := arg[2][i][2];
+        matrix[frompos][topos] := matrix[frompos][topos] + 1;
+        u := vertices[ frompos ];
+        v := vertices[ topos ];
+        if( arrow_spec_size = 3 ) then
+            name := arg[2][i][3];
+        else
+            name := Concatenation( "a", String(i) );
+        fi;
+        arrows[i] := Path( Fam, u, v, name );
+    od;
+@
+
+The second form of [[Quiver]] takes a list of [[vertex_name]] to label 
+the vertices in order. The second parameter is a list of
+[[arrow_spec]]. Again, this list must be homogenous. Any form of the
+arrow specifications may be used, with vertex number $i$ mapping to the
+vertex in the list of names at index $i$.
+
+<<Create Quiver From Vertex Names and Arrows>>=
+    matrix := [];
+    for i in [ 1 .. Length( arg[1] ) ] do
+        vertices[i] := Path( Fam, arg[1][i] );
+        matrix[i] := [];
+        for j in [ 1 .. Length( arg[1] ) ] do
+            matrix[i][j] := 0;
+        od;
+    od;
+    
+    if( Length( arg[2] ) > 0 ) then
+        arrow_spec_size := Length( arg[2][1] );
+        vertices_by_name := not IsPosInt( arg[2][1][1] );
+    fi;
+    for i in [ 1 .. Length(arg[2]) ] do
+        if( not Length( arg[2][i] ) = arrow_spec_size ) then
+            Error("All of the entries in the [arrow_spec] list must be of the same size.");
+            return 0;
+        fi;
+        if( vertices_by_name ) then
+            j := Position( arg[1], arg[2][i][1] );
+            if(j = fail) then
+                msg := "Cannot find vertex: ";
+                Append( msg, arg[2][i][1]);
+                Append( msg, " in the list of vertices:\n");
+                Append( msg, String( arg[1] ) );
+                Error( msg );
+                return 0;
+            fi;
+            frompos := j;
+            u := vertices[ j ];
+            
+            j := Position( arg[1], arg[2][i][2] );
+            if(j = fail) then
+                msg := "Cannot find vertex: ";
+                Append( msg, arg[2][i][2]);
+                Append( msg, " in the list of vertices:\n");
+                Append( msg, String( arg[1] ) );
+                Error( msg );
+                return 0;
+            fi;
+            topos := j;
+            v := vertices[ j ];
+            matrix[frompos][topos] := matrix[frompos][topos] + 1;
+        else
+            frompos := arg[2][i][1];
+            topos := arg[2][i][2];
+            u := vertices[ frompos ];
+            v := vertices[ topos ];
+            matrix[frompos][topos] := matrix[frompos][topos] + 1;
+        fi;
+ 
+        if( arrow_spec_size = 3 ) then
+            name := arg[2][i][3];
+        else
+            name := Concatenation( "a", String(i) );
+        fi;
+        arrows[i] := Path( Fam, u, v, name );
+    od;
+@
+
+The third form uses an adjacency matrix to define the vertices and
+arrows in the quiver. The labels for vertices and arrows are given in
+the definition for the adjacency matrix.
+
+<<Create Quiver From Adjacency Matrix>>=
+    for i in [ 1 .. Length( matrix ) ] do
+        name := Concatenation( "v", String(i) );
+        vertices[i] := Path( Fam, name );
+    od;
+
+    arrow_count := 0;
+
+    for i in [ 1 .. Length( matrix ) ] do
+        if( not Length( matrix ) = Length( matrix[i] ) ) then
+            Error("The adjacency matrix must be square.");
+            return 0;
+        fi;
+        for j in [ 1 .. Length( matrix[i] ) ] do
+          for k in [ 1 .. matrix[i][j] ] do
+            arrow_count := arrow_count + 1;
+            u := vertices[i];
+            v := vertices[j];
+            name := Concatenation( "a", String(arrow_count) );
+            arrows[arrow_count] := Path( Fam, u, v, name );
+          od;
+        od;
+    od;
+@
+
+All forms must expose the vertices and arrows as fields named with the 
+vertex and arrow labels.
+
+<<Implementation for Quiver Functions>>=
+InstallMethod( \.,
+    "for a quiver",
+    true,
+    [ IsQuiver, IsPosInt ], 0,
+    function( Q, nam )
+
+    return Q!.pieces.( NameRNam(nam)  );
+end );
+
+@
+
+\paragraph{Quiver Names}
+The function [[UniqueQuiverName]] is used to generate a unique name for
+a new Quiver.  The name of the quiver is used to generate the name of
+the family which contains all paths within the quiver, so different quivers
+must have different names so that paths within different quivers are also
+within different families.  [[UniqueQuiverName]] returns a string which
+is a unique name for a new quiver.
+
+\begin{verbatim}
+UniqueQuiverName(Q)
+\end{verbatim}
+
+<<Declarations for Quiver Functions>>=
+DeclareGlobalFunction( "UniqueQuiverName" );
+@
+
+<<Implementation for Quiver Functions>>=
+GlobalQuiverCount := 0;
+
+InstallGlobalFunction( UniqueQuiverName, function( arg )
+    GlobalQuiverCount := GlobalQuiverCount + 1;
+    return Concatenation( "Quiver", String(GlobalQuiverCount) );
+end );
+
+@
+
+\paragraph{Reordering Elements}
+The operation [[OrderedBy]] returns a copy of a quiver $Q$ with
+elements ordered by the ordering $O$.
+\begin{verbatim}
+OrderedBy(Q, O);
+\end{verbatim}
+
+We declare the [[OrderedBy]] function as an operation on quivers.
+<<Declarations for Quiver Functions>>=
+DeclareOperation( "OrderedBy", [IsQuiver, IsQuiverOrdering] );
+@ %def OrderedBy
+
+To copy the quiver, we first copy each vertex, then copy the
+arrows. This occurs in the same order in which the vertices and arrows
+exist in the generator list. The adjacency matrix is the same as the
+original quiver.
+
+<<Implementation for Quiver Functions>>=
+InstallMethod( OrderedBy, 
+    "for a quiver and an ordering",
+    true,
+    [IsQuiver, IsQuiverOrdering], 0,
+    function(Q, O)
+      local Fam, new_vertices, new_arrows, new_Q, v, a, new_v, new_a,
+            record, zero;
+    
+      <<Create a new quiver family and zero path>>
+      <<Copy the vertices>>
+      <<Copy the arrows>>
+      <<Create a copy of the quiver from the vertex and arrow list>>
+      return new_Q;
+    end );
+@ 
+
+Copy each of the vertices, assigning each vertex to the new
+family. This code maintains the proper ordering, so we also copy the
+generator position appropriately.
+
+<<Copy the vertices>>=
+new_vertices := [];
+for v in VerticesOfQuiver(Q) do
+    new_v := Path(Fam, v!.vertex_name);
+    new_v!.gen_pos := v!.gen_pos;
+    Add(new_vertices, new_v);
+od;
+@ 
+
+Copy each of the arrows. We use the generator position of the source
+and target vertices to create the arrow between the appropriate
+vertices. Order is preserved by this code.
+
+<<Copy the arrows>>=
+new_arrows := [];
+for a in ArrowsOfQuiver(Q) do
+    new_a := Path(Fam, new_vertices[SourceOfPath(a)!.gen_pos],
+                       new_vertices[TargetOfPath(a)!.gen_pos],
+                       a!.arrow_name);
+    new_a!.gen_pos := a!.gen_pos;
+    Add(new_arrows, new_a);
+od;
+@ 
+
+This is essentially a copy of the code used to create a new quiver
+from a vertex and arrow list. Things that have changed include the
+appropriate changes in variable names and also how the order is
+set. This code really should be factored out into a separate function,
+but I'm too lazy to do that now.
+
+<<Create a copy of the quiver from the vertex and arrow list>>=
+    record := rec();
+    for v in new_vertices do
+      record.( String(v) ) := v;
+    od;
+    for a in new_arrows do
+      record.( String(a) ) := a;
+    od;
+    new_Q:= Objectify( NewType( CollectionsFamily(Fam), 
+                                IsQuiverRep and IsAttributeStoringRep ),
+                   rec( pieces := record ) );
+
+    Fam!.quiver := new_Q;
+
+    SetVerticesOfQuiver( new_Q, new_vertices );
+    SetArrowsOfQuiver( new_Q, new_arrows );
+    SetOrderOfQuiver( new_Q, Length( new_vertices ) );
+    SetSizeOfQuiver( new_Q, Length( new_arrows ) );
+    SetGeneratorsOfMagma( new_Q, Concatenation( new_vertices, new_arrows ) );
+    SetAdjacencyMatrixOfQuiver( new_Q, AdjacencyMatrixOfQuiver(Q) );
+    SetOrderingOfQuiver( new_Q, O ); 
+    SetZero(new_Q, zero);
+    SetIsWholeFamily(new_Q, true);
+
+@ 
+
+\subsection{Generators of Quivers}\label{subsection:QuiverGenerators}
+
+\paragraph{Attribute}
+The attribute [[VerticesOfQuiver]] returns a list of paths corresponding
+to the vertices contained in quiver $Q$. The form is
+\begin{verbatim}
+VerticesOfQuiver(Q)
+\end{verbatim}
+
+<<Declarations for Quiver Attributes>>=
+DeclareAttribute("VerticesOfQuiver", IsQuiver );
+@
+
+\paragraph{Attribute}
+The attribute [[ArrowsOfQuiver]] returns a list of arrows corresponding
+the arrows contained in quiver $Q$. The form is
+\begin{verbatim}
+ArrowsOfQuiver(Q)
+\end{verbatim}
+
+<<Declarations for Quiver Attributes>>=
+DeclareAttribute("ArrowsOfQuiver", IsQuiver );
+@
+
+\paragraph{Attribute}
+The attribute [[AdjacencyMatrixOfQuiver]] returns the adjacency matrix
+for the quiver $Q$. The form is
+\begin{verbatim}
+AdjacencyMatrixOfQuiver(Q)
+\end{verbatim}
+
+<<Declarations for Quiver Attributes>>=
+DeclareAttribute("AdjacencyMatrixOfQuiver", IsQuiver );
+@
+
+\paragraph{Synonym Attribute}
+The attribute [[GeneratorsOfQuiver]] returns a list of the vertices
+and arrows in quiver $Q$. It is a synonym for the more general
+[[GeneratorsOfMagma]]. See [[monoid.gd]] in the GAP4 library for an
+example of the synonym declaration. The list returns must be the same
+as the concatenation of the lists returned by [[VerticesOfQuiver]] and
+[[ArrowsOfQuiver]], with the list of vertices appearing first. The
+form is
+\begin{verbatim}
+GeneratorsOfQuiver(Q)
+\end{verbatim}
+
+<<Declarations for Quiver Attributes>>=
+DeclareSynonymAttr( "GeneratorsOfQuiver", GeneratorsOfMagma );
+@
+
+\subsection{Attributes of Quivers}\label{subsection:AttributesOfQuivers}
+
+\paragraph{Property}
+The property [[IsAcyclic]] returns [[true]] if the quiver $Q$ contains
+no cycles, and [[false]] otherwise. Cormen, Leiserson, and
+Rivest~\cite{CormenEtAl} present an enhanced topological sorting
+algorithm which solves this problem.
+\begin{verbatim}
+IsAcyclic(Q)
+\end{verbatim}
+
+<<Declarations for Quiver Attributes>>=
+DeclareProperty("IsAcyclic", IsQuiver );
+@
+
+<<Implementation for Quiver Functions>>=
+InstallMethod( IsAcyclic,
+    "for quivers",
+    true,
+    [ IsQuiver ], 0,
+    function ( Q )
+    local Visit, color, GRAY, BLACK, WHITE,
+          vert, vertex_list, res, tsorted;
+    
+    WHITE := 0; GRAY := 1; BLACK := -1;
+    
+    tsorted := [];
+
+    Visit := function(v)
+        local adj, uPos, result; # adjacent vertices
+        
+        color[v] := GRAY;
+        
+        adj := List(NeighborsOfVertex(vertex_list[v]),
+                    x -> Position(vertex_list, x));
+	Info(InfoQuiver, 1, "Adjacent vertices are:", adj);        
+
+        if not IsEmpty(adj) and ForAny(adj, x -> color[x] = GRAY) then
+            Info(InfoQuiver, 1, "Found a GRAY vertex.");
+            return false;
+        fi;
+        for uPos in adj do
+            if color[uPos] = WHITE then
+                result := Visit( uPos );
+                if not result then
+                    return false;
+                fi;
+            fi;
+        od;
+        Add(tsorted, vertex_list[v]);
+        color[v] := BLACK;
+        return true;
+    end;
+    
+    color := [];
+    vertex_list := VerticesOfQuiver(Q);
+    for vert in [1 .. Length(vertex_list) ] do
+        color[vert] := WHITE;
+    od;
+    
+    for vert in [1 .. Length(vertex_list) ] do
+        if color[vert] = WHITE then
+            res := Visit(vert);
+            if not res then
+                return false;
+            fi;
+        fi;
+    od;
+    
+    tsorted := Reversed(tsorted);
+    Q!.tsorted := tsorted;
+    return true;
+end );
+
+@
+
+\paragraph{True Method}
+The property [[IsFinite]] is a direct consequence of the quiver being
+acyclic. A GAP ``immediate method'' should be installed for [[IsFinite]],
+using the [[HasIsAcyclic]] property as a filter.  If [[IsFinite]] is
+called directly, it simply returns [[IsAcyclic]].
+\begin{verbatim}
+IsFinite(Q)
+\end{verbatim}
+
+<<Declarations for Quiver Attributes>>=
+InstallImmediateMethod( IsFinite, IsQuiver and HasIsAcyclic, 0, IsAcyclic );
+@ 
+
+<<Implementation for Quiver Functions>>=
+InstallMethod( IsFinite,
+    "for quivers",
+    true,
+    [ IsQuiver ], 0,
+    IsAcyclic
+);
+
+@
+
+\paragraph{Attribute}
+The attribute [[OrderOfQuiver]] returns the number of vertices in quiver
+$Q$. The form is
+\begin{verbatim}
+OrderOfQuiver(Q)
+\end{verbatim}
+
+<<Declarations for Quiver Attributes>>=
+DeclareAttribute("OrderOfQuiver", IsQuiver );
+@
+
+\paragraph{Attribute}
+The attribute [[SizeOfQuiver]] returns the number of arrows in quiver
+$Q$. The form is
+\begin{verbatim}
+SizeOfQuiver(Q)
+\end{verbatim}
+
+<<Declarations for Quiver Attributes>>=
+DeclareAttribute("SizeOfQuiver", IsQuiver );
+@
+
+\paragraph{Attribute}
+The attribute [[OrderingOfQuiver]] returns the ordering used to order
+elements in the quiver. Orderings are described in
+Chapter~\ref{chapter:Orderings}.
+\begin{verbatim}
+OrderingOfQuiver(Q)
+\end{verbatim}
+
+<<Declarations for Quiver Attributes>>=
+DeclareAttribute( "OrderingOfQuiver", IsQuiver );
+@ 
+          
+The [[Size]] attribute calculates the number of elements in the
+quiver. It returns "infinity" if the quiver contains a cycle,
+and the number of elements otherwise. The size includes the zero
+element. In the finite case, we visit each vertex in topologically
+sorted order, which is stored in the [[tsorted]] field of the
+quiver object as a result of calling [[IsFinite]].
+An acyclic quiver is a forest. For the root of each tree
+in the forest, label the root with 1. The number of paths
+entering each non-root node of the tree is the sum of the
+paths entering the source nodes of the incoming arrows.
+Visiting each node in topological order performs a breadth
+first visit of the tree, so each node is labeled with the number
+of paths entering the node. We total the number of paths along the
+way, making sure to add the non-root vertices to the total.
+
+<<Implementation for Quiver Functions>>=
+InstallMethod( Size,
+    "for quivers",
+    true,
+    [IsQuiver], 0,
+    function(Q)
+        local tsorted, node, arrow, count, nodeNum, child, childNum, total;
+
+        if IsFinite(Q) then
+            count := [];
+            total := 1; # for 0 element
+            tsorted := Q!.tsorted;
+            for node in tsorted do
+                count[ExtRepOfObj(node)[1]] := 0;
+            od;
+            for node in tsorted do
+                nodeNum := ExtRepOfObj(node)[1];
+                for arrow in OutgoingArrowsOfVertex(node) do
+                    child := TargetOfPath(arrow);
+                    childNum := ExtRepOfObj(child)[1];
+                    # Add one for the arrow
+                    count[childNum] := count[childNum] + count[nodeNum] + 1;
+                od;
+                total := total + count[nodeNum] + 1; # One for the vertex
+            od;
+            return total;
+        else
+            return infinity;
+        fi;
+   end );
+@
+
+
+\subsection{Elements of Quivers}\label{subsection:ElementsOfQuivers}
+
+Iterators and enumerators are used in GAP4 to access the elements of
+potentially infinite sets of elements. Although iterators and
+enumerators are not guaranteed to generate elements in a particular
+order, we define one for quivers. Elements are generated in ascending
+length lexicographical order. Vertices are ordered with respect to the
+order of their creation; that is, a vertex created last is the largest
+vertex. Similarly, arrows are ordered according to the order in which
+they are created for the quiver.
+
+<<Declarations for Quiver Categories>>=
+DeclareRepresentation( "IsQuiverIteratorRep",
+    IsComponentObjectRep,
+    [ "quiver", "position" ] );
+
+DeclareRepresentation( "IsQuiverEnumerator",
+    IsDomainEnumerator and IsComponentObjectRep,
+    [ "quiver" ] ) ;
+@
+
+<<Declarations for Quiver Functions>>=
+DeclareOperation( "NextPath",
+    [ IsQuiver, IsObject ] );
+@
+
+<<Implementation for Quiver Functions>>=
+InstallMethod( Iterator,
+    "method for quivers",
+    true,
+    [ IsQuiver ], 0,
+    function( Q )
+    local iter;
+    
+    iter := Objectify( NewType( IteratorsFamily, 
+                       IsIterator and IsMutable and IsQuiverIteratorRep ),
+                       rec( quiver := Q, position := 0 ) );
+    return iter;
+end );
+
+InstallMethod( Enumerator,
+    "method for quivers",
+    true,
+    [ IsQuiver ], 0,
+    function( Q )
+    local enum;
+    
+    enum := Objectify( NewType( FamilyObj( Q ), IsQuiverEnumerator ),
+                       rec( quiver := Q, cache := WeakPointerObj( [] ) ) );
+    return enum;
+end );
+
+InstallMethod( IsDoneIterator,
+    "method for iterator of quivers",
+    true,
+    [ IsIterator and IsQuiverIteratorRep ], 0,
+    function( iter )
+      return NextPath( iter!.quiver, iter!.position ) = fail;
+end );
+
+InstallMethod( NextIterator,
+    "method for iterator of quivers",
+    true,
+    [ IsIterator and IsMutable and IsQuiverIteratorRep ], 0,
+    function( iter )
+    local next;
+
+    next := NextPath( iter!.quiver, iter!.position );
+    if( next = fail ) then
+        return fail;
+    else
+        iter!.position := next[1];
+        return next[2];
+    fi;
+end );
+
+InstallMethod( \[\],
+    true, 
+    [ IsQuiverEnumerator, IsPosInt ], 0,
+    function( enum, number )
+    local path_length, paths_of_length, matrix, pos, i, j, result, orig_num;
+
+    result := ElmWPObj( enum!.cache, number);
+    if result <> fail then
+        return result;
+    fi;
+    orig_num := number;
+
+    if( number <= Length(VerticesOfQuiver(enum!.quiver) ) ) then
+        return VerticesOfQuiver(enum!.quiver)[number];
+    else
+        number := number - Length(VerticesOfQuiver(enum!.quiver));
+    fi;
+
+    path_length := 1;
+    while number >= 1 do
+        paths_of_length := 0;
+        matrix := AdjacencyMatrixOfQuiver(enum!.quiver) ^ path_length;
+        if IsZero(matrix) then
+            return fail;
+        fi;
+        for i in [ 1 .. Length(matrix) ] do
+            for j in [ 1 .. Length( matrix[i] ) ] do
+                paths_of_length := paths_of_length + matrix[i][j];
+            od;
+        od;
+        if number <= paths_of_length then
+            if path_length = 1 then
+                pos := Length( VerticesOfQuiver(enum!.quiver) );
+            else
+                pos := [];
+                for i in [ 1 .. path_length - 1 ] do
+                   pos[i] := Length( ArrowsOfQuiver(enum!.quiver) );
+               od;
+           fi;
+           for i in [ 1 .. number ] do
+               result := NextPath( enum!.quiver, pos );
+               if result = fail then
+                    Error("This should never happen!");
+                fi;
+                pos := result[1];
+            od;
+            SetElmWPObj( enum!.cache, orig_num, result[2] );
+            return result[2];
+        else
+            path_length := path_length + 1;
+            number := number - paths_of_length;
+        fi;
+    od;
+end );
+@
+
+<<Implementation for Quiver Functions>>=
+InstallMethod( NextPath,
+    "helper method for iterator and enumerator of quivers",
+    true,
+    [ IsQuiver, IsObject ], 0,
+    function( Q, list )
+    local arrows, word_size, current_position,
+          BuildPath, IncrementPosition;
+    
+    current_position := ShallowCopy( list );
+
+    if( current_position = fail ) then
+      return fail;
+    fi;
+
+    arrows := ArrowsOfQuiver(Q);
+    <<IncrementPosition Function Definition>>
+    <<BuildPath From Position Definition>>
+    
+    # first loop through vertices of quiver
+    if( not IsList( current_position ) ) then
+      current_position := current_position + 1;
+      if( current_position <= Length( VerticesOfQuiver(Q) ) ) then
+        return [current_position, VerticesOfQuiver(Q)[current_position]];
+      else
+        # if you are out of vertices, start building paths
+        current_position := [ 1 ];
+      fi;
+    else
+      current_position := IncrementPosition(current_position);
+    fi;
+    
+    while( BuildPath(current_position) = Zero(Q) ) do
+      if( ForAll( current_position, p -> p = 1 ) ) then
+          if( IsZero(AdjacencyMatrixOfQuiver(Q) ^ Length( current_position)) ) then
+              return fail;
+          fi;
+      fi;
+      current_position := IncrementPosition(current_position);
+    od;
+
+    return [current_position, BuildPath(current_position)];
+end );
+@
+
+<<IncrementPosition Function Definition>>=
+IncrementPosition := function( pos_list )
+      local last_letter;
+
+      last_letter := Length( pos_list );
+      # if you have run out of arrows, increment the at last_letter-1
+      if( pos_list[last_letter] = Length(arrows) ) then
+        pos_list[last_letter] := 1; 
+        if( last_letter > 1 ) then
+          pos_list{[1 .. last_letter - 1]} :=
+                    IncrementPosition( pos_list{[1 .. last_letter - 1]} ){[1 .. last_letter - 1]};
+        fi;
+        # If you have exhausted all paths of this length, add an arrow
+        if( ForAll( pos_list, p -> p = 1 ) ) then
+          Add(pos_list, 1);
+        fi; 
+      else
+        pos_list[last_letter] := pos_list[last_letter] + 1;
+      fi;
+      return pos_list;
+    end;
+@
+
+<<BuildPath From Position Definition>>=
+BuildPath := function( pos_list )
+      local i,  path;  # Used to iterate through position list.
+      
+      path := arrows[ pos_list[1] ];
+      for i in [2 .. Length(pos_list) ] do
+        path := path * arrows[ pos_list[i] ];
+      od;
+      return path;
+    end;
+@
+
+Iterators and enumerators should not generate all previous paths to
+generate the one of interest. Suppose that $M$ is the adjacency matrix
+for a quiver $Q$. Then by summing all of the entries of $M^l$, the
+number of paths of length $l$ where $l \geq 1$ are counted. Let $p_i$
+be the number of paths of length $i$, where $p_0$ is the number of
+vertices and $p_1$ is the number of arrows, and $p_i$ is the sum of
+the entries in $M^i$. Suppose we are looking for the $k^\mathrm{th}$
+path. Then we calculate $p_0 + p_1 + p_2 + p_3 + \cdots$ until the sum
+is greater than $k$ or some $p_i$ is zero. If the sum is greater than
+$k$, then the $k^\mathrm{th}$ path has length $j$ where $p_j$ is the
+last term in the sum. Otherwise, $Q$ is finite and there is no
+$k^\mathrm{th}$ path. Enumerating all of the length $j$ paths is
+straightforward.
+
+When using this method, it is important to keep track of each $p_i$
+computed and the last $M^j$ calculated so recalculation of those
+pieces is unnecessary. Also, iterators and enumerators should share
+already calculated paths so they need not be recalculated.
+
+\subsection{Output}\label{subsection:QuiverOutput}
+
+The [[ViewObj]] function for quivers should print
+\begin{verbatim}
+<quiver with V vertices and A arrows>
+\end{verbatim}
+where $V$ is the number of vertices used to construct the quiver and
+$A$ is the number of arrows used to construct the quiver.
+
+<<Implementation for Quiver Functions>>=
+InstallMethod( ViewObj,
+    "for quiver",
+    true,
+    [ IsQuiver ], 0,
+    function( Q )
+
+    Print( "<quiver with " );
+    Print( OrderOfQuiver(Q) );
+    Print( " vertices and " );
+    Print( SizeOfQuiver(Q) );
+    Print( " arrows>" );
+end );
+@
+
+The [[PrintObj]] function for quivers should print the definition of
+the quiver using the second form of the [[Quiver]] function, where the
+arrow specifications are in the form 
+\begin{verbatim}
+[vertex_name, vertex_name, arrow_name]
+\end{verbatim}
+The order in which vertex and arrow labels are printed should be in
+the same order in which they were created for the quiver. The output
+of [[PrintObj]] should be capable of being used as input to recreate
+the quiver.
+
+<<Implementation for Quiver Functions>>=
+InstallMethod( PrintObj,
+    "for quiver",
+    true,
+    [ IsQuiverRep ], 0,
+    function( Q )
+    local i, first;
+
+    Print( "Quiver( [" );
+    first := true;
+    for i in VerticesOfQuiver(Q) do
+      if( not first ) then
+        Print(",");
+      fi;
+      Print("\"");
+      Print( i );
+      Print( "\"");
+      first := false;
+    od;
+    
+    Print( "], [" );
+    
+    first := true;
+    for i in ArrowsOfQuiver(Q) do
+      if( not first ) then
+        Print(",");
+      fi;
+      Print( "[\"" );
+      Print( SourceOfPath(i) );
+      Print( "\",\"" );
+      Print( TargetOfPath(i) );
+      Print( "\",\"" );
+      Print( i );
+      Print( "\"]" );
+      first := false;
+    od;
+
+    Print( "] )" );
+end );
+@
+
+\section{Tests}\label{section:QuiverTests}
+We provide a number of simple tests to verify the minimal working
+functionality of quivers and related domains. The file [[testquiv.g]]
+is the GAP4 input containing the tests. The file [[testquiv.out]] is
+the expected output of the commands.
+
+<<[[testquiv.g]]>>=
+RequirePackage("hopf");  
+<<Create Paths>>
+<<Path Categories>>
+<<Path Attributes>>
+<<Vertex Attributes>>
+<<Path Operations>>
+<<Quiver Creation>>
+<<Quiver Category>>
+<<Quiver Generators>>
+<<Quiver Attributes>>
+<<Quiver Printing>>
+<<Quiver Elements>>
+@ 
+  
+<<[[testquiv.out]]>>=
+<<Create Paths Output>>
+<<Path Categories Output>>
+<<Path Attributes Output>>  
+<<Vertex Attributes Output>>
+<<Path Operations Output>>
+<<Quiver Creation Output>>
+<<Quiver Category Output>>
+<<Quiver Generators Output>>
+<<Quiver Attributes Output>>
+<<Quiver Printing Output>>
+<<Quiver Elements Output>>
+@ 
+
+\subsection{Path Creation}
+First, we create a number of paths for testing. The output from the
+[[Path]] statements exercises [[PrintObj]] and [[ViewObj]] for paths,
+so no explicit tests for those will be given
+
+<<Create Paths>>=
+v := Path("v");
+w := Path("w");
+a := Path(v, w, "a");
+b := Path(w, v, "b");
+ab := Path(a, b);
+ba := Path(b, a);
+ZeroPath;
+@ 
+
+<<Create Paths Output>>=
+v
+w
+a  
+b
+a*b
+b*a
+0  
+@   
+
+\subsection{Path Categories}
+Check the created paths to make sure they fall into the proper categories.
+
+<<Path Categories>>=
+IsPath(Z(7));  
+IsPath(v);
+IsArrow(v);
+IsVertex(v);
+IsPath(a);
+IsArrow(a);
+IsVertex(a);
+IsPath(ab);
+IsArrow(ab);
+IsVertex(ab);
+@ 
+
+<<Path Categories Output>>=
+false  
+true
+false
+true  
+true  
+true  
+false
+true
+false
+false
+@ 
+  
+\subsection{Path Attributes}
+We continue to use the paths already created to test the attributes of
+paths.
+
+<<Path Attributes>>=
+SourceOfPath(w); 
+SourceOfPath(b);
+SourceOfPath(ba);
+TargetOfPath(w);
+TargetOfPath(b);
+TargetOfPath(ba);
+LengthOfPath(w);
+LengthOfPath(b);
+LengthOfPath(ba);
+WalkOfPath(w);
+WalkOfPath(b);
+WalkOfPath(ba);
+IsZeroPath(w);
+IsZeroPath(b);
+IsZeroPath(ba);
+IsZeroPath(ZeroPath);
+@ 
+
+<<Path Attributes Output>>=
+w
+w
+w
+w
+v
+w
+0
+1
+2
+[]
+[b]
+[b, a]
+false
+false
+false
+true
+@ 
+
+\subsection{Vertex Attributes}
+Test the attributes of vertices.
+
+<<Vertex Attributes>>=
+IncomingArrowsOfVertex(v);
+OutgoingArrowsOfVertex(v);
+InDegreeOfVertex(v);
+OutDegreeOfVertex(v);
+NeighborsOfVertex(v);
+@ 
+
+<<Vertex Attributes Output>>=
+[b]
+[a]
+1
+1
+[w]
+@ 
+
+\subsection{Path Operations}
+Test the operations between paths.
+
+<<Path Operations>>=
+a*b*a;
+va := v*a;
+IsIdenticalObj(va, a);
+ww := w*w;
+IsIdenticalObj(ww, w);
+b*a = ba;
+(a*b)^2;
+@ 
+
+<<Path Operations Output>>=
+a*b*a
+a
+true
+w
+true
+true
+a*b*a*b
+@ 
+
+\subsection{Quiver Creation}
+Now test the creation of quivers. The [[ViewObj]] function is tested
+by these functions so no explicit test is made.
+
+<<Quiver Creation>>=
+Q := Quiver(2, [[1, 2], [2, 1]]);
+R := Quiver(3, [[1, 2, "a"], [2, 3, "b"]]);
+S := Quiver(["v", "w"], [["v", "w"], ["w", "v"]]);
+T := Quiver(["v", "w"], [["v", "w", "a"], ["w", "v", "b"]]);
+U := Quiver([[1, 1], [1, 0]]);
+Q.v1;
+Q.a1;
+T.w;
+T.b;
+U.a3;
+@ 
+
+<<Quiver Creation Output>>=
+<quiver with 2 vertices and 2 arrows>
+<quiver with 3 vertices and 2 arrows>
+<quiver with 2 vertices and 2 arrows>
+<quiver with 2 vertices and 2 arrows>
+<quiver with 2 vertices and 3 arrows>
+v1
+a1
+w
+b
+a3
+@ 
+
+\subsection{Category of Quivers}
+Test to make sure the objects created by [[Quiver]] are in fact quivers.
+
+<<Quiver Category>>=
+IsQuiver(Q);
+IsQuiver(R);
+IsQuiver(S);
+IsQuiver(T);
+IsQuiver(U);
+IsQuiver(CyclicGroup(2));
+@ 
+
+<<Quiver Category Output>>=
+true
+true
+true
+true
+true
+false
+@ 
+
+\subsection{Generators Of Quivers}
+
+Test obtaining the generators of quivers.
+
+<<Quiver Generators>>=
+GeneratorsOfQuiver(Q);
+GeneratorsOfQuiver(R);
+GeneratorsOfQuiver(S);
+GeneratorsOfQuiver(T);
+GeneratorsOfQuiver(U);
+VerticesOfQuiver(Q);
+VerticesOfQuiver(R);
+VerticesOfQuiver(S);
+VerticesOfQuiver(T);
+VerticesOfQuiver(U);
+ArrowsOfQuiver(Q);
+ArrowsOfQuiver(R);
+ArrowsOfQuiver(S);
+ArrowsOfQuiver(T);
+ArrowsOfQuiver(U);
+@ 
+
+<<Quiver Generators Output>>=
+[v1, v2, a1, a2]
+[v1, v2, v3, a, b]
+[v, w, a1, a2]
+[v, w, a, b]
+[v1, v2, a1, a2, a3]
+[v1, v2]
+[v1, v2, v3]
+[v, w]
+[v, w]
+[v1, v2]
+[a1, a2]
+[a, b]
+[a1, a2]
+[a, b]
+[a1, a2, a3]
+@ 
+
+\subsection{Attributes of Quivers}
+
+Test each of the attributes for quivers.
+
+<<Quiver Attributes>>=
+IsAcyclic(Q);
+IsFinite(Q);
+IsAcyclic(R);
+IsFinite(R);
+OrderOfQuiver(Q);
+OrderOfQuiver(U);
+SizeOfQuiver(Q);
+SizeOfQuiver(U);
+@ 
+
+<<Quiver Attributes Output>>=
+false
+false
+true
+true
+2
+2
+2
+3
+@ 
+
+\subsection{Quiver Output}
+This tests [[PrintObj]] to make sure that printing quivers creates
+output that can be read in to regenerate the quiver.
+
+\begin{NOTE}
+The output
+for the last test might need to be cleaned up. GAP4 does something to
+wrap long lines, but I haven't done a lot to verify what is supposed
+to happen.
+\end{NOTE}
+
+<<Quiver Printing>>=
+Print(Q, "\n");
+Print(T, "\n");
+Print(U, "\n");
+@ 
+
+<<Quiver Printing Output>>=
+Quiver(["v1", "v2"], [["v1", "v2", "a1"], ["v2", "v1", "a2"]])
+Quiver(["v", "w"], [["v", "w", "a"], ["w", "v", "b"]])
+Quiver(["v1", "v2"], [["v1", "v1", "a1"], ["v1", "v2", "a2], ["v2", "v1", "a3"]])
+@ 
+
+\subsection{Elements of Quiver}
+Test the iterator and enumerator for quivers.
+
+<<Quiver Elements>>=
+iter := Iterator(Q);
+l := [];;
+for i in iter do; Add(l,i); if LengthOfPath(i)>4 then break;fi;od;l;
+enum := Enumerator(Q);
+p := enum[20];
+Position(enum, p);
+@ 
+
+<<Quiver Elements Output>>=
+<iterator>
+[v1, v2, a1, a2, a1*a2, a2*a1, a1*a2*a1, a2*a1*a2, a1*a2*a1*a2, a2*a1*a2*a1]
+<enumerator>
+a2*a1*a2*a1*a2*a1*a2*a1*a2
+20
+@ 
