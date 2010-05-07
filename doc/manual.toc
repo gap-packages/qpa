@@ -1,0 +1,46 @@
+\chapcontents {\tocstrut }{Copyright Notice}{5}
+\chapcontents {1}{Quick Start}{6}
+\seccontents {1.1}{Example 1} {6}
+\seccontents {1.2}{Example 2} {7}
+\seccontents {1.3}{Example 3} {8}
+\seccontents {1.4}{Example 4} {8}
+\chapcontents {2}{Quivers}{10}
+\seccontents {2.1}{Constructing Quivers} {10}
+\seccontents {2.2}{Categories and Properties of Quivers} {11}
+\seccontents {2.3}{Attributes and Operations for Quivers} {12}
+\seccontents {2.4}{Categories and Properties of Paths} {13}
+\seccontents {2.5}{Attributes and Operations of Paths} {13}
+\seccontents {2.6}{Attributes of Vertices} {14}
+\chapcontents {3}{Path Algebras}{16}
+\seccontents {3.1}{Constructing Path Algebras} {16}
+\seccontents {3.2}{Categories and Properties of Path Algebras} {16}
+\seccontents {3.3}{Attributes and Operations for Path Algebras} {17}
+\seccontents {3.4}{Operations on Path Algebra Elements} {17}
+\seccontents {3.5}{Constructing Quotients of Path Algebras} {18}
+\seccontents {3.6}{Attributes of Ideals} {18}
+\seccontents {3.7}{Categories and Properties of Quotients of Path Algebras} {19}
+\seccontents {3.8}{Attributes and Operations for Quotients of Path Algebras} {19}
+\seccontents {3.9}{Attributes and Operations on Elements of Quotients of Path Algebra} {19}
+\chapcontents {4}{Orderings}{20}
+\seccontents {4.1}{Constructing Orderings} {20}
+\seccontents {4.2}{Categories and Properties of Orderings} {22}
+\seccontents {4.3}{Attributes and Operations for Orderings} {24}
+\chapcontents {5}{Groebner Basis}{25}
+\seccontents {5.1}{Constructing a Groebner Basis} {25}
+\seccontents {5.2}{Categories and Properties of Groebner Basis} {25}
+\seccontents {5.3}{Attributes and Operations for Groebner Basis} {26}
+\seccontents {5.4}{Right Groebner Basis} {27}
+\chapcontents {6}{Using Opal with GAP}{28}
+\seccontents {6.1}{Setting up Opal} {28}
+\seccontents {6.2}{Opal Commands in Hopf} {28}
+\chapcontents {7}{Using GBNP with GAP}{32}
+\seccontents {7.1}{GBNP} {32}
+\seccontents {7.2}{Setting up GBNP} {32}
+\seccontents {7.3}{Relevant GBNP internals} {32}
+\seccontents {7.4}{Communicating with GBNP} {32}
+\chapcontents {8}{Right Modules over Path Algebras}{33}
+\seccontents {8.1}{Matrix Modules} {33}
+\seccontents {8.2}{Categories Of Matrix Modules} {34}
+\seccontents {8.3}{Acting on Module Elements} {34}
+\seccontents {8.4}{Vertex Projective Presentations} {35}
+\seccontents {8.5}{Decompsition of Modules} {37}

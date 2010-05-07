@@ -1,0 +1,315 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% QPA Project User Documentation
+% DESCRIPTION: ordering.tex:  The documentation of the QPA implementation of 
+%              orderings of path algebra elements.
+%
+% Copyright, 1998 Virginia Polytechnic Institute and State University.
+% Copyright, 1998 Virginia Tech QPA Project. All rights reserved.
+%
+% This file may be distributed in accordance with the stipulations existing
+% in the LICENSE file accompanying this software.
+%
+% $Id: ordering.tex,v 1.1 2010/05/07 13:16:24 sunnyquiver Exp $
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\Chapter{Orderings}
+
+NOTE: for the time being, most of the following is irrelevant until we
+move to another Groebner basis package or add orders to GBNP.
+
+Orderings are functions used to compare and order elements in path algebras.
+They take two elements <p> and <q> and return whether `p $\<$ q'.  The return
+value of an ordering is always *true* or *false*.  This chapter describes
+the functionality in {\QPA} of orderings of path algebra elements.  There
+are eight basic orderings currently implemented: length, left lexicographic,
+right lexicographic, left vector, right vector, weight, block, and wreath
+product orderings.  More complicated orderings can be constructed by the
+composition of basic orderings.
+
+\Section{Constructing Orderings}
+
+Note that in all cases, the first argument passed when creating an ordering
+is a quiver <Q> that the elements to be ordered come from.
+
+\>LengthOrdering( <Q>, <O> ) F
+
+The `LengthOrdering' function creates an ordering such that `a $\<$ b' if
+the length of <a> is shorter then the length of <b>.  Vertices are of length
+0 and arrows are of length 1.  If the two terms have equal length, the
+ordering <O> is used to break ties.  If there is no ordering <O> then 0 is
+returned.
+
+\beginexample
+gap> q := Quiver(["u","v"],[["u","u","a"],["u","v","b"],
+> ["v","u","c"],["v","v","d"]]);
+<quiver with 2 vertices and 4 arrows>
+gap> length := LengthOrdering(q);
+<length ordering>
+gap> a := ArrowsOfQuiver(q)[1];
+a
+gap> b := ArrowsOfQuiver(q)[2];
+b
+gap> LessThanByOrdering(length,a,a*a);
+true
+gap> LessThanByOrdering(length,a,b);
+false
+\endexample
+
+\>LeftLexicographicOrdering( <Q>, <gens> ) F
+
+The `LeftLexicographicOrdering' function creates an ordering such that
+`a $\<$ b' if <a> is lexicographically smaller then <b>.  A list <gens> of
+generators in the proper lexicographic order is passed to
+`LeftLexicographicOrdering'.  All vertices in the list are moved ahead of
+arrows, and any vertices in the quiver but not present in the list are
+inserted after them, in the order they were entered into the quiver.
+Similarly, any arrows in the quiver but not in the list are inserted after
+the arrows that are in the list, in the order they were entered into the
+quiver.
+
+\beginexample
+gap> leftlex := LeftLexicographicOrdering(q,[b,a]);
+<left lexicographic ordering>
+gap> LessThanByOrdering(leftlex,a,b);
+false
+gap> LessThanByOrdering(leftlex,b,a);
+true
+\endexample
+
+\>RightLexicographicOrdering( <Q>, <gens> ) F
+
+The `RightLexicographicOrdering' function is similar to
+`LeftLexicographicOrdering' except that paths are compared from right-to-left
+instead of left-to-right.
+
+\>ReverseOrdering( <Q>, <O> ) F
+
+The `ReverseOrdering' function creates an ordering that reverses the
+less-than and greater-than results of an ordering <O>.  The zero path is
+still less then any vertex and any vertex is still less then any arrow.  An
+ordering must be passed as a parameter to this function.
+
+\beginexample
+gap> reverse := ReverseOrdering(q,leftlex);
+<reverse left lexicographic ordering>
+gap> LessThanByOrdering(reverse,a,b);
+true
+gap> LessThanByOrdering(reverse,a,VerticesOfQuiver(q)[1]);
+false
+\endexample
+
+\>LeftVectorOrdering( <Q>, <gens>, <O> ) F
+
+The `LeftVectorOrdering' function creates an ordering that compares elements
+by counting the number of times an arrow appears in an element.  Suppose that
+the arrows of a path alegbra were `e1 $\<$ e2 $\<$ ... $\<$ en'.  Then let
+the count vectors <\#p> and <\#q> be the number of times <e1>, <e2>, ..., <en>
+appear in <p> and <q>, respectively.  Under a left vector ordering,
+`p $\<$ q' if the first non-zero entry of `\#q - \#p' is positive.  The
+second argument is a list of generators in lexicographic order, which
+arranges the generators of a path element in the vector.  The third argument
+is an optional ordering used if the path contains elements which are not in
+the generator list, or the two paths compare equal.
+
+\beginexample
+gap> leftvector := LeftVectorOrdering(q,[a],length);
+gap> LessThanByOrdering(leftvector,a*a*b,a*a);
+false
+gap> LessThanByOrdering(leftvector,a*b,a*a);
+true
+<left vector length ordering>
+
+\endexample
+
+\>RightVectorOrdering( <Q>, <gens>, <O> ) F
+
+The `RightVectorOrdering' function creates an ordering that compares elements
+as described above, except `p $\<$ q' if the last non-zero entry of
+`\#q - \#p' is positive.  The second argument is a list of generators in
+lexicographic order, which arranges the generators of a path element in the
+vector.  The third argument is an optional ordering used if the path contains
+elements which are not in the generator list, or the two paths compare equal.
+
+\>WeightOrdering( <Q>, <L>, <O> ) F
+
+The `WeightOrdering' function creates an ordering that compares elements
+by assigning a non-negative weight to edge edge of the graph.  The weight
+of every vertex is considered to be 0.  The weight <wp> of a path <p> is then
+the sum of the weights of the sequence of edges in <p>.  Under a weight
+ordering, `p $\<$ q' if `wp $\<$ wq'.  The second argument is a list of
+*[arrow, weight]* pairs, which assigns a weight to every arrow.  The third
+argument is an optional ordering used if the two paths compare equal.
+
+\beginexample
+gap> weight := WeightOrdering(q,[[a,2],[b,3]],reverse);
+<weight reverse left lexicographic ordering>
+\endexample
+
+\>BlockOrdering( <Q>, <L>, <O> ) F
+
+The `BlockOrdering' function creates an ordering that compares elements by
+partitioning the edges of a quiver into two non-empty subsets <X> and <Y>.
+Let `$\<$x' and `$\<$y' be admissible orderings for <X> and <Y>,
+respectively.  Let <px> be the path <p> restricted to elements in <X>;
+rewrite <p> so that the string contains only the arrows contained in <X>.
+Then, `p $\<$ q' if `py $\<y$ qy' or `py =y qy' and `px $\<$x qx'.  The
+orderings `$\<$x' and `$\<$y' may also be block orderings, effectively
+partitioning the edges of a quiver into more then two non-empty subsets.
+A shortcut for constructing block orderings in {\QPA} allows you to specify
+all of the partitions at once rather then having to nest multiple block
+orderings.  Block orderings are also known as product orderings or
+elimination orderings.
+
+The second argument is a list of *[ordering, [generators]]* pairs, which
+assigns an ordering to each subset of generators in the quiver.  The subsets
+should be disjoint, but if they contain duplicates the generator will be
+placed in the last subset it occurs in.  If some generators are not specified,
+they will be placed in the last subset.  The third arument is an optional
+ordering used if the two paths compare equal.
+
+\beginexample
+gap> block := BlockOrdering(q,[[leftvector,[a]],
+> [weight,[]]],length);
+<block length ordering>
+\endexample
+
+\>WreathOrdering( <Q>, <L>, <O> ) F
+
+The `WreathOrdering' function creates an ordering that compares elements by
+a similar process to block orderings.  Define <X>, <Y>, `$\<$x', and
+`$\<$y' as above.  Then, you can decompose a path <p> into
+`A_0 b_1 A_1 b_2 ... A_r b_r A_r+1' where each <b_i> is an edge in <Y> and
+each <A_i> is a path in the closure of <X>.  Similarly, decompose a path
+<q> into `C_0 d_1 C_1 d_2 ... C_s d_s C_s+1'.  Then, `p $\<$ q' if
+`b1 b2 ... br $\<$y d1 d2 ... ds' or `b1 b2 ... br =y d1 d2 ... ds' and
+`(A_0, A_1, ..., A_r+1)' comes before `(C_0, C-1, ..., C_s+1)' in the left-
+lexicographic ordering on vectors defined by `$\<$x'.
+
+The second argument is a list of *[ordering, [generators]]* pairs, which
+assigns an ordering to each subset of generators in the quiver.  The subsets
+should be disjoint, but if they contain duplicates the generator will be
+placed in the last subset it occurs in.  If some generators are not specified,
+they will be placed in the last subset.  The third arument is an optional
+ordering used if the two paths compare equal.
+
+\beginexample
+gap> wreath := WreathOrdering(q,[[leftlex,[a]],
+> [weight,[b]],[block,[]]],length);
+<wreath length ordering>
+\endexample
+
+\Section{Categories and Properties of Orderings}
+
+\>IsOrdering( <object> ) C
+
+All ordering objects are in this category.
+
+\>IsLengthOrdering( <O> ) C
+
+All length orderings are in this category.
+
+\>IsLexicographicOrdering( <O> ) C
+
+All left and right lexicographic orderings are in this category.
+
+\>IsLeftLexicographicOrdering( <O> ) C
+
+All left lexicographic orderings are in this category.
+
+\>IsRightLexicographicOrdering( <O> ) C
+
+All right lexicographic orderings are in this category.
+
+\>IsReverseOrdering( <O> ) C
+
+All reverse orderings are in this category.
+
+\>IsVectorOrdering( <O> ) C
+
+All left and right vector orderings are in this category.
+
+\>IsLeftVectorOrdering( <O> ) C
+
+All left vector orderings are in this category.
+
+\>IsRightVectorOrdering( <O> ) C
+
+All right vector orderings are in this category.
+
+\>IsWeightOrdering( <O> ) C
+
+All weight orderings are in this category.  Length orderings are specifically
+not in this category even though they can be considered a special case of
+weight orderings.
+
+\>IsBlockOrdering( <O>) C
+
+All block orderings are in this category.
+
+\>IsWreathOrdering( <O>) C
+
+All wreath orderings are in this category.
+
+\>IsWellOrdering( <O> ) P
+
+Returns *true* if the ordering is a well-ordering of the quiver, and *false*
+otherwise.  If there is not enough information to determine if the ordering
+is a well-ordering of the quiver, *false* is returned.
+
+\>IsWellReversedOrdering( <O> ) P
+
+Returns *true* if the ordering would be a well-ordering of the quiver when
+composed with a reverse ordering, and *false* otherwise.  If there is not
+enough information to determine if the ordering would be a well-ordering of
+the quiver when composed with a reverse ordering, *false* is returned.
+
+\>IsTotalOrdering( <O> ) P
+
+Returns *true* if the ordering is a total-ordering of the quiver, and *false*
+otherwise.  If there is not enough information to determine if the ordering
+would be a total-ordering of the quiver, *false* is returned.
+
+\>IsAdmissibleOrdering( <O> ) P
+
+Returns *true* if the ordering is both a total- and well-ordering of the
+quiver and *false* otherwise.
+
+\Section{Attributes and Operations for Orderings}
+
+\>ComparisonFunction( <O> ) A
+
+Returns a function that computes the `$\<$' operation on two elements <a>
+and <b> for the ordering. 
+The function returned 
+by `ComparisonFunction'
+returns an integer less than 0
+if <a> is less than <b>,
+returns 0 if <a> is equal to <b> (under the ordering),
+and returns a value greater than 0
+if <a> is greater than <b>.
+
+\beginexample
+gap> lt:=ComparisonFunction(leftlex);
+function( a, b ) ... end
+gap> lt(b,a);
+-1
+\endexample
+
+\>NextOrdering( <O> ) A
+
+Returns the next ordering to try if the current ordering says that two
+elements are equal.  The basic orderings can be chained together in this
+manner to construct very complex orderings.
+
+\>LessThanByOrdering( <O>, <a>, <b> ) O
+
+Returns true if `a $\<$ b' using the ordering <O>.
+
+\beginexample
+gap> LessThanByOrdering(length,a,a*b);
+true
+gap> b*a;
+0
+gap> LessThanByOrdering(length,a,b*a);
+false
+\endexample

@@ -1,0 +1,194 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% QPA Project User Documentation
+% DESCRIPTION: opal.tex:  The documentation of the QPA implementation of
+%                         interfacing GAP and Opal.
+%
+% Copyright, 1998 Virginia Polytechnic Institute and State University.
+% Copyright, 1998 Virginia Tech Path Algebra Project. All rights reserved.
+%
+% This file may be distributed in accordance with the stipulations existing
+% in the LICENSE file accompanying this software.
+%
+% $Id: tensor.tex,v 1.1 2010/05/07 13:16:24 sunnyquiver Exp $
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\Chapter{Tensor Products}
+
+\Section{Tensor Product Overview}
+
+Tensors are commonly used in the study of modules and algebras.
+They are an essential element in the theory of Hopf algebras.
+The tensor operation $\otimes$ applies to a variety of different objects.
+In {\QPA}, we have implemented tensor products of vector spaces over a field, algebras over a field, and algebra maps.
+
+Removed:\\
+The implementation of tensor products of vector spaces over a field was taken from a developmental version of {\GAP} and will be removed when version 4.3 of {\GAP} is released.
+
+\Section{Tensoring Vector Spaces}
+
+\>TensorProductOfVectorSpaces( <[list of vector spaces]> ) F
+\>TensorProductOfVectorSpaces( <V> , <W> ) F
+
+This function creates a tensor product from the list of provided vector spaces.
+All of the vector spaces must be over the same field for the operation to succeed.
+The returned tensor is itself a vector space so you can use any of the normal vector space functions with the tensor product.
+In particular, the normal Basis commands can be used with the tensor product.
+The second version is a convenience method for the more general `TensorProductOfVectorSpaces' command.
+
+\beginexample
+gap> v:=VectorSpace(Rationals,[[1,0,1],[0,1,0]]);
+<vector space over Rationals, with 2 generators>
+gap> w:=VectorSpace(Rationals,[[1,0,0],[0,1,1]]);
+<vector space over Rationals, with 2 generators>
+gap> t1:=TensorProduct([v,v,w]);
+<vector space over Rationals, with 8 generators>
+gap> t2:=TensorProduct(v,w);
+<vector space over Rationals, with 4 generators>
+gap> b1:=Basis(t1);
+Basis( <vector space over Rationals, with 8 generators>,
+[ 1*([ 0, 1, 0 ]<x>[ 0, 1, 0 ]<x>[ 0, 1, 1 ]),
+  1*([ 0, 1, 0 ]<x>[ 0, 1, 0 ]<x>[ 1, 0, 0 ]),
+  1*([ 0, 1, 0 ]<x>[ 1, 0, 1 ]<x>[ 0, 1, 1 ]),
+  1*([ 0, 1, 0 ]<x>[ 1, 0, 1 ]<x>[ 1, 0, 0 ]),
+  1*([ 1, 0, 1 ]<x>[ 0, 1, 0 ]<x>[ 0, 1, 1 ]),
+  1*([ 1, 0, 1 ]<x>[ 0, 1, 0 ]<x>[ 1, 0, 0 ]),
+  1*([ 1, 0, 1 ]<x>[ 1, 0, 1 ]<x>[ 0, 1, 1 ]),
+  1*([ 1, 0, 1 ]<x>[ 1, 0, 1 ]<x>[ 1, 0, 0 ]) ] )
+gap> b2:=Basis(t2);
+Basis( <vector space over Rationals, with 4 generators>,
+[ 1*([ 0, 1, 0 ]<x>[ 0, 1, 1 ]), 1*([ 0, 1, 0 ]<x>[ 1, 0, 0 ]),
+  1*([ 1, 0, 1 ]<x>[ 0, 1, 1 ]), 1*([ 1, 0, 1 ]<x>[ 1, 0, 0 ]) ] )
+gap> b1[2]+b1[3];
+1*([ 0, 1, 0 ]<x>[ 0, 1, 0 ]<x>[ 1, 0, 0 ])+1*([ 0, 1, 0 ]<x>[ 1, 0, 1 ]<x>
+[ 0, 1, 1 ])
+gap> 3*b2[1] + 5*b2[4];
+3*([ 0, 1, 0 ]<x>[ 0, 1, 1 ])+5*([ 1, 0, 1 ]<x>[ 1, 0, 0 ])
+\endexample
+
+\Section{Tensoring Algebras}
+
+\>TensorProductOfAlgebras( <[list of algebras]> ) F
+\>TensorProductOfAlgebras( <A>, <B>) F
+
+This function creates an algebra tensor from the list of provided algebras.
+As with vector spaces, all of the algebras must be over the same field and the tensor product is itself an algebra.
+
+We require that all algebras have implemented a correct `IsFiniteDimensional', `One', and `Zero' to construct an algebra 
+tensor.
+If any of the algebras are infinite-dimensional, we also require that all algebras have implemented a correct `HasOne'.
+We only consider algebra tensors with one in this implementation.
+An error is returned if any of the algebras are infinite-dimensional and at least one of the algebras returns $fail$ for `One'.
+If all of the algebras are finite-dimensional and at least one of the algebras returns $fail$ for `One', no error will be reported, 
+but the resulting algebra tensor will have an incorrect $1$.
+In addition to the commands that follow, an algebra tensor also has all of the normal vector space tensor capabilities.
+Of particular note, a finite-dimensional algebra tensor has the standard Basis commands and the ability to compute normal forms.
+
+The second function is a convenience method for the more general `TensorProductOfAlgebras' command.
+
+\beginexample
+gap> a1:=PathAlgebra(Rationals,Quiver(1,[[1,1]]));
+<algebra-with-one over Rationals, with 2 generators>
+gap> a2:=PathAlgebra(Rationals,Quiver(2,[[1,2]]));
+<algebra-with-one over Rationals, with 3 generators>
+gap> t1:=TensorProductOfAlgebras(a2,a2);
+<algebra over Rationals, with 9 generators>
+gap> t2:=TensorProductOfAlgebras([a1,t1,a1]);
+<algebra over Rationals, with 9 generators>
+gap> b:=Basis(t1);
+Basis( <algebra over Rationals, with 9 generators>,
+[ 1*((1)*v1<x>(1)*v1), 1*((1)*v1<x>(1)*v2), 1*((1)*v1<x>(1)*a1),
+  1*((1)*v2<x>(1)*v1), 1*((1)*v2<x>(1)*v2), 1*((1)*v2<x>(1)*a1),
+  1*((1)*a1<x>(1)*v1), 1*((1)*a1<x>(1)*v2), 1*((1)*a1<x>(1)*a1) ] )
+gap> g:=GeneratorsOfAlgebra(t2);
+[ 1*((1)*v1<x>(1)*v1+(1)*v2<x>(1)*v1+(1)*v2<x>(1)*v1),
+  1*((1)*a1<x>(1)*v1+(1)*v2<x>(1)*v1+(1)*v2<x>(1)*v1),
+  1*((1)*v1<x>(1)*v1<x>(1)*v1+(1)*v2<x>(1)*v1),
+  1*((1)*v1<x>(1)*v2<x>(1)*v1+(1)*v2<x>(1)*v1),
+  1*((1)*v1<x>(1)*a1<x>(1)*v1+(1)*v2<x>(1)*v1),
+  1*((1)*v1<x>(1)*v1+(1)*v2<x>(1)*v1<x>(1)*v1),
+  1*((1)*v1<x>(1)*v1+(1)*v2<x>(1)*v2<x>(1)*v1),
+  1*((1)*v1<x>(1)*v1+(1)*v2<x>(1)*a1<x>(1)*v1),
+  1*((1)*v1<x>(1)*v1+(1)*v2<x>(1)*v1+(1)*v2<x>(1)*a1) ]
+gap> b[5]*b[6];
+1*((1)*v2<x><zero> of ...)
+gap> 2*b[2];
+2*((1)*v1<x>(1)*v2)
+gap> x:=(2*b[2]+b[5]*b[6])^2;
+4*(<zero> of ...<x><zero> of ...)+4*((1)*v1<x>(1)*v2)+1*((
+1)*v2<x><zero> of ...)
+gap> ConvertToNormalFormMonomialElement(x);
+4*((1)*v1<x>(1)*v2)
+gap> One(t2);
+1*((1)*v1<x>(1)*v1+(1)*v2<x>(1)*v1+(1)*v2<x>(1)*v1)
+\endexample
+
+\>ConstituentAlgebras( <tensor> ) F
+
+Returns the list of algebras used to construct the algebra tensor.
+This is a shallow copy of the original list and so may be safely modified once returned.
+
+\Section{Tensor Elements}
+
+\>TensorElement( <tensor> , <[list of algebra elements]> ) F
+\>TensorElement( <tensor> , <a1> , <a2> ) F
+
+Computes the tensor element resulting from the tensor product of the provided algebra elements.
+The first argument should be the tensor algebra in which the tensor element will reside.
+
+If one of the tensored algebras is itself an algebra tensor, there are two forms in which you can supply the algebra element.
+The first is to provide a tensor element in that algebra tensor.
+The second is to provide the individual algebra elements that when tensored together would be a tensor element in that algebra tensor.
+This means that the list of algebra elements may be longer then the list of algebras that comprise the algebra tensor.
+These two forms may be arbitrarily mixed in usage across the algebras comprising the algebra tensor and through any level of nesting of algebra tensors.
+
+There are also two forms that the list of algebra elements can take.
+If the argument is a list which has an algebra element in each position, the result will be the tensor products of the members of the list.
+If the argument is a list which has a list of algebra elements in each position, the result with be the sum of the tensor products of each of the lists of algebra elements.
+
+
+This is a convenience method for the more general `TensorElement' command.
+
+\>ConstituentElements( <elem> ) F
+
+Returns a list of lists of algebra elements that when tensored together using TensorElement would give the original element.
+The decomposition of the $0$ tensor is a list containing the $0$ of each algebra.
+It should be noted that the result of DecomposeTensorElement depends on the current form of the tensor element.
+A tensor element that has been normalized will often have a simpler decomposition.
+
+\beginexample
+gap> ga1:=GeneratorsOfAlgebra(a1);
+[ (1)*v1, (1)*a1 ]
+gap> ga2:=GeneratorsOfAlgebra(a2);
+[ (1)*v1, (1)*v2, (1)*a1 ]
+gap> e1:=TensorElement(t1,ga2[3],ga2[3]);
+1*((1)*a1<x>(1)*a1)
+gap> TensorElement(t2,[ga1[1],e1,ga1[2]]);
+1*((1)*v1<x>(1)*a1<x>(1)*a1<x>(1)*a1)
+gap> TensorElement(t2,[ga1[1],ga2[3],ga2[3],ga1[2]]);
+1*((1)*v1<x>(1)*a1<x>(1)*a1<x>(1)*a1)
+gap> TensorElement(t2,[[ga1[1],e1,ga1[2]],[ga1[2],ga2[2],ga2[3],ga1[1]]]);
+1*((1)*v1<x>(1)*a1<x>(1)*a1<x>(1)*a1)+1*((1)*a1<x>(1)*v2<x>(1)*a1<x>(1)*v1)
+\endexample
+
+\Section{Categories of Algebra Tensors}
+
+\>IsAlgebraTensor( <algebra> ) C
+
+All algebra tensors are members of this category.
+
+\>IsAlgebraTensorElement( <elem> ) C
+
+All elements of an algebra tensor are members of this category.
+
+\Section{Tensoring Algebra Maps}
+
+\>TensorProductOfAlgebraMaps( <[list of algebra maps]> ) F
+\>TensorProductOfAlgebraMaps( <V> , <W> ) F
+
+This function creates the tensor product of the provided algebra maps.
+The domain of the resulting map is an algebra tensor over the domains of the algebra maps.
+The range of the resulting map is an algebra tensor over the ranges of the algebra maps.
+Each map must be an algebra general mapping with both range and source being finite-dimensional algebras.
+If every map is an algebra homomorphism, the resulting map will be an algebra homomorphism as well.
+
+This is a convenience method for the more general `TensorProductOfAlgebraMaps' command.

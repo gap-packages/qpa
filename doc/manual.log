@@ -1,0 +1,31 @@
+This is pdfeTeX, Version 3.141592-1.21a-2.2 (Web2C 7.5.4) (format=latex 2005.2.9)  8 MAR 2010 13:01
+entering extended mode
+**manual.tex
+(./manual.tex
+LaTeX2e <2003/12/01>
+Babel <v3.8d> and hyphenation patterns for american, french, german, ngerman, b
+ahasa, basque, bulgarian, catalan, croatian, czech, danish, dutch, esperanto, e
+stonian, finnish, greek, icelandic, irish, italian, latin, magyar, norsk, polis
+h, portuges, romanian, russian, serbian, slovak, slovene, spanish, swedish, tur
+kish, ukrainian, nohyphenation, loaded.
+(./gapmacro.tex (/store/share/texmf-dist/tex/plain/amsfonts/amssym.tex
+(/store/share/texmf-dist/tex/plain/amsfonts/amssym.def
+\msafam=\mathgroup4
+\msbfam=\mathgroup5
+\eufmfam=\mathgroup6
+))
+Running PDFTeX
+pdfTeX error (ext1): \pdfinfo used while \pdfoutput is not set.
+l.86 \pdfinfo
+             {
+
+ 
+Here is how much of TeX's memory you used:
+ 276 strings out of 94501
+ 2757 string characters out of 1174671
+ 48348 words of memory out of 1000000
+ 3526 multiletter control sequences out of 10000+50000
+ 5593 words of font info for 23 fonts, out of 500000 for 2000
+ 580 hyphenation exceptions out of 1000
+ 7i,0n,8p,155b,8s stack positions out of 1500i,500n,5000p,200000b,5000s
+No pages of output.

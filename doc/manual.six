@@ -1,0 +1,174 @@
+C quickstart.tex 1. Quick Start
+S 1.1. Example 1
+S 1.2. Example 2
+S 1.3. Example 3
+S 1.4. Example 4
+C quiver.tex 2. Quivers
+F 2.0. InfoQuiver V
+S 2.1. Constructing Quivers
+F 2.1. Quiver
+F 2.1. Quiver
+F 2.1. Quiver
+F 2.1. Quivers:OrderedBy
+S 2.2. Categories and Properties of Quivers
+F 2.2. IsQuiver
+F 2.2. Quivers:IsAcyclic
+F 2.2. Quivers:IsFinite
+S 2.3. Attributes and Operations for Quivers
+F 2.3. quiver record access
+F 2.3. VerticesOfQuiver
+F 2.3. ArrowsOfQuiver
+F 2.3. AdjacencyMatrixOfQuiver
+F 2.3. GeneratorsOfQuiver
+F 2.3. OrderOfQuiver
+F 2.3. SizeOfQuiver
+F 2.3. OrderingOfQuiver
+S 2.4. Categories and Properties of Paths
+F 2.4. IsPath
+F 2.4. IsVertex
+F 2.4. IsArrow
+F 2.4. IsZeroPath
+S 2.5. Attributes and Operations of Paths
+F 2.5. SourceOfPath
+F 2.5. TargetOfPath
+F 2.5. LengthOfPath
+F 2.5. WalkOfPath
+F 2.5. multiplication
+F 2.5. equality
+F 2.5. lessthan
+S 2.6. Attributes of Vertices
+F 2.6. IncomingArrowsOfVertex
+F 2.6. OutgoingArrowsOfVertex
+F 2.6. InDegreeOfVertex
+F 2.6. OutDegreeOfVertex
+F 2.6. NeighborsOfVertex
+C pathalg.tex 3. Path Algebras
+F 3.0. InfoPathAlgebra V
+S 3.1. Constructing Path Algebras
+F 3.1. PathAlgebra
+F 3.1. Path Algebras:OrderedBy
+S 3.2. Categories and Properties of Path Algebras
+F 3.2. IsPathAlgebra
+S 3.3. Attributes and Operations for Path Algebras
+F 3.3. QuiverOfPathAlgebra
+F 3.3. path algebra record access
+F 3.3. OrderingOfAlgebra
+S 3.4. Operations on Path Algebra Elements
+F 3.4. PathAlgebra:lessthan
+F 3.4. LeadingTerm
+F 3.4. Tip
+F 3.4. LeadingCoefficient
+F 3.4. TipCoefficient
+F 3.4. LeadingMonomial
+F 3.4. TipMonomial
+F 3.4. IsLeftUniform
+F 3.4. IsRightUniform
+F 3.4. IsUniform
+F 3.4. MappedExpression
+S 3.5. Constructing Quotients of Path Algebras
+S 3.6. Attributes of Ideals
+F 3.6. Groebner Basis Of an Ideal
+S 3.7. Categories and Properties of Quotients of Path Algebras
+F 3.7. IsSubalgebraFpPathAlgebra
+S 3.8. Attributes and Operations for Quotients of Path Algebras
+F 3.8. RelatorsOfFpPathAlgebra
+F 3.8. NormalFormFunction
+F 3.8. IsElementOfFpPathAlgebra
+F 3.8. Coefficients
+S 3.9. Attributes and Operations on Elements of Quotients of Path Algebra
+F 3.9. IsNormalForm
+F 3.9. nothing
+F 3.9. ElementOfFpPathAlgebra
+C ordering.tex 4. Orderings
+S 4.1. Constructing Orderings
+F 4.1. LengthOrdering
+F 4.1. LeftLexicographicOrdering
+F 4.1. RightLexicographicOrdering
+F 4.1. ReverseOrdering
+F 4.1. LeftVectorOrdering
+F 4.1. RightVectorOrdering
+F 4.1. WeightOrdering
+F 4.1. BlockOrdering
+F 4.1. WreathOrdering
+S 4.2. Categories and Properties of Orderings
+F 4.2. IsOrdering
+F 4.2. IsLengthOrdering
+F 4.2. IsLexicographicOrdering
+F 4.2. IsLeftLexicographicOrdering
+F 4.2. IsRightLexicographicOrdering
+F 4.2. IsReverseOrdering
+F 4.2. IsVectorOrdering
+F 4.2. IsLeftVectorOrdering
+F 4.2. IsRightVectorOrdering
+F 4.2. IsWeightOrdering
+F 4.2. IsBlockOrdering
+F 4.2. IsWreathOrdering
+F 4.2. IsWellOrdering
+F 4.2. IsWellReversedOrdering
+F 4.2. IsTotalOrdering
+F 4.2. IsAdmissibleOrdering
+S 4.3. Attributes and Operations for Orderings
+F 4.3. ComparisonFunction
+F 4.3. NextOrdering
+F 4.3. LessThanByOrdering
+C groebner.tex 5. Groebner Basis
+F 5.0. InfoGroebnerBasis V
+S 5.1. Constructing a Groebner Basis
+F 5.1. GroebnerBasis
+S 5.2. Categories and Properties of Groebner Basis
+F 5.2. IsGroebnerBasis
+F 5.2. IsTipReducedGroebnerBasis
+F 5.2. IsCompletelyReducedGroebnerBasis
+F 5.2. IsHomogenousGroebnerBasis
+F 5.2. IsCompleteGroebnerBasis
+S 5.3. Attributes and Operations for Groebner Basis
+F 5.3. CompletelyReduce
+F 5.3. CompletelyReduceGroebnerBasis
+F 5.3. TipReduce
+F 5.3. TipReduceGroebnerBasis
+F 5.3. Iterator
+F 5.3. Enumerator
+F 5.3. Nontips
+F 5.3. AdmitsFinitelyManyNontips
+F 5.3. NontipSize
+F 5.3. IsPrefixOfTipInTipIdeal
+S 5.4. Right Groebner Basis
+F 5.4. IsRightGroebnerBasis
+F 5.4. RightGroebnerBasisOfIdeal
+F 5.4. RightGroebnerBasis
+C opal.tex 6. Using Opal with GAP
+S 6.1. Setting up Opal
+F 6.1. Opal
+S 6.2. Opal Commands in Hopf
+F 6.2. Orders
+F 6.2. OpalFiniteGroebnerBasis
+F 6.2. OpalGroebnerBasis
+F 6.2. OpalBoundedGroebnerBasis
+C gbnp.tex 7. Using GBNP with GAP
+S 7.1. GBNP
+F 7.1. GBNP
+S 7.2. Setting up GBNP
+S 7.3. Relevant GBNP internals
+S 7.4. Communicating with GBNP
+C pamodule.tex 8. Right Modules over Path Algebras
+S 8.1. Matrix Modules
+F 8.1. RightModuleOverPathAlgebra
+F 8.1. RightModuleOverPathAlgebra
+S 8.2. Categories Of Matrix Modules
+F 8.2. IsPathAlgebraMatModule
+S 8.3. Acting on Module Elements
+F 8.3. Acting by a path algebra element
+S 8.4. Vertex Projective Presentations
+F 8.4. RightProjectiveModule
+F 8.4. Vectorize
+F 8.4. Acting by a path algebra element
+F 8.4. Less Than
+F 8.4. Factor Module
+F 8.4. VertexProjectivePresentation
+F 8.4. VertexProjectivePresentation
+S 8.5. Decompsition of Modules
+F 8.5. Hom
+F 8.5. End
+F 8.5. Image
+F 8.5. DecomposeModule
+C copyrigh.tex 9. Copyright

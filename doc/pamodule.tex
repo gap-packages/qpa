@@ -1,0 +1,440 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% QPA Project User Documentation
+% DESCRIPTION: quiver.tex:  The documentation of the QPA implementation of a 
+%              right module over a path algebra.
+%
+% Copyright, 1998 Virginia Polytechnic Institute and State University.
+% Copyright, 1998 Virginia Tech QPA Project. All rights reserved.
+%
+% This file may be distributed in accordance with the stipulations existing
+% in the LICENSE file accompanying this software.
+%
+% $Id: pamodule.tex,v 1.1 2010/05/07 13:16:24 sunnyquiver Exp $
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\Chapter{Right Modules over Path Algebras}
+
+There are two implementations of right modules over path algebras.
+The first type are matrix modules that are defined by vector spaces and
+linear transformations.  The second type are presentations defined by
+vertex projective modules.
+
+\Section{Matrix Modules}
+
+The first implementation of right modules over path algebras views 
+them as a collection of vector spaces and linear transformations.  
+Each vertex in the path algebra is associated with a vector space over 
+the field of the algebra.  For each vertex $v$ of the algebra  
+there is a vector space $V$.  Arrows of the algebra are 
+then associated with linear transformations which map the vector space
+of the source vertex to the vector space of the target vertex.  
+For example, if $a$ is an arrow from $v$ to $w$ then 
+there is a transformation from vector space $V$ to $W$.  
+In practice when creating the modules all we need to know is the 
+transformations and we can create the vector spaces of the correct 
+dimension, and check to make sure the dimensions all agree.  
+We can create a module in this way as follows.  
+
+\>RightModuleOverPathAlgebra( <A>, <mats> ) F
+\>RightModuleOverPathAlgebra( <A>, <list of blocks> ) F
+
+In the function call, <A> is the path algebra.  The list of matrices 
+<mats> can take on three different forms.  One is just a list of matrices, 
+and the matrices will be associated to the arrows in the order of 
+arrow creation.  If when creating the quiver, the arrow $a$ was 
+created first, then $a$ would be associated with the first matrix. 
+
+Another way of inputting the matrices to the module is to make the 
+list be a <list of blocks> where each block is of the form, `["name of arrow",matrix]'.  
+So if you named your arrows when you created the quiver, then you can 
+associate a matrix with that arrow explicitly.  A warning though, the 
+function assumes you will do this for all the arrows, so you cannot 
+explicitly do one and do the others any other way.  
+
+The final method is much the same as the second method.  It allows 
+you to explicitly assign matrices as well.  The list is made up of 
+blocks which look like, `[var,matrix]'.  The var is a variable assigned 
+the value of an arrow.  Again you cannot mix this style with any other 
+style.  
+
+If you would like the trivial vector space at any vertex, then for each
+incoming arrow, associate it with a list of the form `[n,0]' where n is the
+dimension of the vector space at the source vertex of the arrow.  Likewise for
+all outgoing arrows, associate them to a block of form `[0,n]' where n is the 
+dimension of the vector space at the target vertex of the arrow.
+
+An assumption made by the function is that each arrow will be 
+given a matrix.  The function verifies that the dimensions 
+of the matrices and vector spaces are correct and match, 
+and that each arrow has only one matrix assigned to it.  
+
+\beginexample
+gap> F:=GF(13);
+GF(13)
+gap> Q:=Quiver(2, [[1, 2, "a"], [2, 1, "b"],[1, 1, "c"]]); 
+<quiver with 2 vertices and 3 arrows>
+gap> P:=PathAlgebra(F, Q);
+<algebra-with-one over GF(13), with 5 generators>
+gap> matrices:=[["a", RandomMat(2,3,F)], ["b", RandomMat(3,2,F)],
+> ["c", RandomMat(2,2,F)]];
+[ [ "a", [ [ 0*Z(13), Z(13)^10, Z(13)^8 ], [ Z(13)^9, Z(13)^0, Z(13)^9 ] ] ],
+  [ "b", [ [ 0*Z(13), 0*Z(13) ], [ Z(13)^3, Z(13) ], [ Z(13)^11, Z(13) ] ] ],
+  [ "c", [ [ Z(13)^5, Z(13)^5 ], [ Z(13)^7, Z(13)^6 ] ] ] ]
+gap> M:=RightModuleOverPathAlgebra(P,matrices);
+<right-module over <algebra-with-one over GF(13), with 5 generators>>
+\endexample
+
+\Section{Categories Of Matrix Modules}
+
+\>IsPathAlgebraMatModule( <object> ) P
+
+These matrix modules fall under the category `IsAlgebraModule'
+with the added filter of `IsPathAlgebraMatModule'.  
+Operations available for algebra modules can be applied
+to path algebra modules.
+See "ref:representations of algebras" for more details.
+
+These modules are also vector spaces over the field of the path algebra.
+So refer to "ref:vector spaces" 
+for descriptions of the basis and elementwise operations available.
+
+\Section{Acting on Module Elements}
+
+\>`m ^ p'{Acting by a path algebra element} O
+
+Action by paths is the main reason to look at modules this 
+way.  When you act on an module element $m$ by an arrow $a$ from $v$ 
+to $w$, the component of $m$ from $V$ is 
+acted on by $L$ the transformation associated to $a$  and placed
+in the component $W$ .  All other components are given the value
+$0$.
+
+\beginexample
+gap> B:=BasisVectors(Basis(M));
+[ [ [ Z(13)^0, 0*Z(13) ], [ 0*Z(13), 0*Z(13), 0*Z(13) ] ], 
+  [ [ 0*Z(13), Z(13)^0 ], [ 0*Z(13), 0*Z(13), 0*Z(13) ] ], 
+  [ [ 0*Z(13), 0*Z(13) ], [ Z(13)^0, 0*Z(13), 0*Z(13) ] ], 
+  [ [ 0*Z(13), 0*Z(13) ], [ 0*Z(13), Z(13)^0, 0*Z(13) ] ], 
+  [ [ 0*Z(13), 0*Z(13) ], [ 0*Z(13), 0*Z(13), Z(13)^0 ] ] ]
+gap> B[1]+B[3];
+[ [ Z(13)^0, 0*Z(13) ], [ Z(13)^0, 0*Z(13), 0*Z(13) ] ]
+gap> 4*B[2];
+[ [ 0*Z(13), Z(13)^2 ], [ 0*Z(13), 0*Z(13), 0*Z(13) ] ]
+gap> m:=5*B[1]+2*B[4]+B[5];
+[ [ Z(13)^9, 0*Z(13) ], [ 0*Z(13), Z(13), Z(13)^0 ] ]
+gap> m^(P.a*P.b-P.c);
+[ [ Z(13)^8, Z(13)^2 ], [ 0*Z(13), 0*Z(13), 0*Z(13) ] ]
+gap> B[1]^P.a;
+[ [ 0*Z(13), 0*Z(13) ], [ 0*Z(13), Z(13)^10, Z(13)^8 ] ]
+gap> B[2]^P.b;
+[ [ 0*Z(13), 0*Z(13) ], [ 0*Z(13), 0*Z(13), 0*Z(13) ] ]
+gap> B[4]^(P.b*P.c);
+[ [ Z(13)^9, Z(13)^11 ], [ 0*Z(13), 0*Z(13), 0*Z(13) ] ]
+\endexample
+
+
+\Section{Vertex Projective Presentations}
+
+In general, if $R$ is a 
+ring and $e$ is an idempotent 
+of $R$ then $eR$ is a projective module of $R$.  
+Then we can form a direct sum 
+of these projective modules together
+to form larger projective module.  
+
+One can construct more general modules
+by providing a <vertex projective presentation>.
+In this case, $M$ is the cokernel as given
+by the following exact sequence:
+
+$$\oplus_{j=1}^{r} w(j)R \rightarrow \oplus_{i=1}^{g} v(i)R \rightarrow{M} \rightarrow 0$$
+
+for some map between $\oplus_{j=1}^{r} w(j)R$ and $\oplus_{i=1}^{g} v(i)R$.
+The maps $w$ and $v$ map the integers to some idempotent in $R$.
+
+\>RightProjectiveModule( <A>, <verts> ) F
+
+This creates the right projective module over <A> which is the
+direct sum of projective modules of the form <vA> where the vertices are
+taken from the list of vertices <verts>.  In this implemenation the algebra can
+be a quotient of a path algebra.  So if the list was $[v,w]$ then the
+module created will be the direct sum $vA \oplus wA$, in that order.
+Elements of the modules are vectors of algebra elements, and in each
+component, each path begins with the vertex in that position in the
+list of vertices.  Right projective modules are implementated as algebra
+modules (see "ref:Representations of Algebras") and all operations for
+algebra modules are applicable to right projective modules.
+In particular, one can construct submodules
+using `SubAlgebraModule'.
+
+Here we create
+the right projective module 
+$P = vA \oplus vA \oplus wA$.
+
+\beginexample
+gap> F:=GF(11);
+GF(11)
+gap> Q:=Quiver(["v","w", "x"],[["v","w","a"],["v","w","b"],["w","x","c"]]);
+<quiver with 3 vertices and 3 arrows>
+gap> A:=PathAlgebra(F,Q);
+<algebra-with-one over GF(11), with 6 generators>
+gap> P:=RightProjectiveModule(A,[A.v,A.v,A.w]);
+<right-module over <algebra-with-one over GF(11), with 6 generators>>
+gap> Dimension(P);
+12
+\endexample
+
+\>Vectorize( <M>, <components> ) F
+
+This creates a vector
+in the module <M>
+from a list
+of path algebra elements <components>,
+which defines the components
+in the resulting vector.
+The returned vector
+is normalized,
+so the vector's components
+may not match
+the input components.
+
+In the following example,
+we create two elements in $P$,
+perform some elementwise operations,
+and then construct
+a submodule using the two elements
+as generators.
+
+\beginexample
+gap> p1:=Vectorize(P,[A.b*A.c,A.a*A.c,A.c]);
+[ (Z(11)^0)*b*c, (Z(11)^0)*a*c, (Z(11)^0)*c ]
+gap> p2:=Vectorize(P,[A.a,A.b,A.w]);
+[ (Z(11)^0)*a, (Z(11)^0)*b, (Z(11)^0)*w ]
+gap> 2*p1 + p2;
+[ (Z(11)^0)*a+(Z(11))*b*c, (Z(11)^0)*b+(Z(11))*a*c, (Z(11)^0)*w+(Z(11))*c ]
+gap> S:=SubAlgebraModule(P,[p1,p2]);
+<right-module over <algebra-with-one of dimension 8 over GF(11)>>
+gap> Dimension(S);
+3
+\endexample
+
+\>`m ^ a'{Acting by a path algebra element} O
+
+The module element <m> is acted on
+by the algebra element <a>.
+This action is defined
+by multiplying each component
+in <m> by <a> on the right.
+
+\beginexample
+gap> p2^(A.c - A.w);
+[ (Z(11)^5)*a+(Z(11)^0)*a*c, (Z(11)^5)*b+(Z(11)^0)*b*c, 
+  (Z(11)^5)*w+(Z(11)^0)*c ]
+\endexample
+
+\>`m1 $\<$ m2'{Less Than} O
+
+The elements <m1> and <m2> are compared.
+The result is `true' if <m1> is less than <m2>
+and false otherwise.
+Elements are compared
+componentwise
+from left
+to right
+using the ordering
+of the underlying algebra.
+The element <m1>
+is less than <m2>
+if the first time components
+are not equal,
+the component of <m1>
+is less than the corresponding component
+of <m2>.
+
+\beginexample
+gap> p1 < p2;
+false
+\endexample
+
+\> `M / N'{Factor Module} O
+
+This constructs the factor module $M/N$
+for finite dimensional $M$ and $N$.
+This module is again a right algebra module,
+and all applicable methods and operations
+are available for the resulting factor module.
+Furthermore,
+the resulting module is
+a vector space,
+so operations for computing bases
+and dimensions are also available.
+
+\beginexample
+gap> PS := P/S;
+<9-dimensional right-module over <algebra-with-one of dimension 8 over GF(
+11)>>
+gap> Basis(PS);
+Basis( <9-dimensional right-module over <algebra-with-one of dimension 
+8 over GF(11)>>, [ [ [ <zero> of ..., <zero> of ..., (Z(11)^0)*w ] ], 
+  [ [ <zero> of ..., <zero> of ..., (Z(11)^0)*c ] ], 
+  [ [ <zero> of ..., (Z(11)^0)*v, <zero> of ... ] ], 
+  [ [ <zero> of ..., (Z(11)^0)*a, <zero> of ... ] ], 
+  [ [ <zero> of ..., (Z(11)^0)*b, <zero> of ... ] ], 
+  [ [ <zero> of ..., (Z(11)^0)*a*c, <zero> of ... ] ], 
+  [ [ <zero> of ..., (Z(11)^0)*b*c, <zero> of ... ] ], 
+  [ [ (Z(11)^0)*v, <zero> of ..., <zero> of ... ] ], 
+  [ [ (Z(11)^0)*b, <zero> of ..., <zero> of ... ] ] ] )
+\endexample
+
+\>VertexProjectivePresentation( <A>, <map> ) O
+\>VertexProjectivePresentation( <A>, <map>, <verts> ) O
+
+This operation constructs a right module
+over a path algebra <A>
+via a vertex projective presentation.
+The map <map>
+is a matrix
+of path algebra elements.
+Each entry
+in the matrix must be left uniform
+(i.e., all terms must have the same starting vertex)
+and the starting vertex must be the same down each
+column.
+
+The starting vertices are used
+to construct an appropriate right projective module $P$
+of <A>. The rows in <map> are generators
+of a submodule $S$ in $P$.
+The module returned by this operation
+is the quotient module $P/S$.
+
+If <map> contains a column
+with all zero elements,
+the starting vertices
+to construct the appropriate
+projective module $P$ must also be specified.
+
+The previous example could have been written as follows
+using VertexProjectivePresentation.
+
+\beginexample
+gap> F:=GF(11);
+GF(11)
+gap> Q:=Quiver(["v","w", "x"],[["v","w","a"],["v","w","b"],["w","x","c"]]);
+<quiver with 3 vertices and 3 arrows>
+gap> A:=PathAlgebra(F,Q);
+<algebra-with-one over GF(11), with 6 generators>
+gap> PS:=VertexProjectivePresentation(A, [[A.b*A.c, A.a*A.c, A.c],
+> [A.a, A.b, A.w]]);
+<9-dimensional right-module over <algebra-with-one of dimension 8 over GF(
+11)>>
+gap> er:=End(A,PS);
+<algebra-with-one of dimension 3 over GF(11)>
+gap> Basis(PS);
+Basis( <9-dimensional right-module over <algebra-with-one of dimension 
+8 over GF(11)>>, [ [ [ <zero> of ..., <zero> of ..., (Z(11)^0)*w ] ], 
+  [ [ <zero> of ..., <zero> of ..., (Z(11)^0)*c ] ], 
+  [ [ <zero> of ..., (Z(11)^0)*v, <zero> of ... ] ], 
+  [ [ <zero> of ..., (Z(11)^0)*a, <zero> of ... ] ], 
+  [ [ <zero> of ..., (Z(11)^0)*b, <zero> of ... ] ], 
+  [ [ <zero> of ..., (Z(11)^0)*a*c, <zero> of ... ] ], 
+  [ [ <zero> of ..., (Z(11)^0)*b*c, <zero> of ... ] ], 
+  [ [ (Z(11)^0)*v, <zero> of ..., <zero> of ... ] ], 
+  [ [ (Z(11)^0)*b, <zero> of ..., <zero> of ... ] ] ] )
+\endexample
+
+\Section{Decompsition of Modules}
+
+The following operations are available
+for matrix modules and modules described
+by vertex projective presentations.
+These are currently not available
+for projective modules
+or submodules of projective modules.
+
+\>Hom(<R>, <M>, <N>) O
+
+returns the vector space of homomorphisms from <M> to <N>, modules
+over the path algebra <R>.  This function takes in matrix modules and
+presentations, but not a mix of the two.  That is <M> and <N> must both
+be matrix modules, or they must both be presentations.
+
+\>End(<R>, <M>) O
+
+returns the algebra of endomorphisms from <M> to <M>.
+
+\beginexample
+gap> F:=GF(11);
+GF(11)
+gap> Q:=Quiver(["v","w", "x"],[["v","w","a"],["v","w","b"],["w","x","c"]]);
+<quiver with 3 vertices and 3 arrows>
+gap> A:=PathAlgebra(F,Q);
+<algebra-with-one over GF(11), with 6 generators>
+gap> PS:=VertexProjectivePresentation(A, [[A.b*A.c, A.a*A.c, A.c],
+> [A.a, A.b, A.w]]);
+<9-dimensional right-module over <algebra-with-one of dimension 8 over GF(
+11)>>
+gap> er:=End(A,PS);
+<algebra-with-one of dimension 3 over GF(11)>
+gap> BasisVectors(Basis(er));              
+[ <linear mapping by matrix, <
+    9-dimensional right-module over AlgebraWithOne( GF(11), 
+    [ (Z(11)^0)*v, (Z(11)^0)*w, (Z(11)^0)*x, (Z(11)^0)*a, (Z(11)^0)*b, 
+      (Z(11)^0)*c ] )> -> <9-dimensional right-module over AlgebraWithOne( GF(
+    11), [ (Z(11)^0)*v, (Z(11)^0)*w, (Z(11)^0)*x, (Z(11)^0)*a, (Z(11)^0)*b, 
+      (Z(11)^0)*c ] )>>, 
+  <linear mapping by matrix, <9-dimensional right-module over AlgebraWithOne( \
+GF(11), [ (Z(11)^0)*v, (Z(11)^0)*w, (Z(11)^0)*x, (Z(11)^0)*a, (Z(11)^0)*b, 
+      (Z(11)^0)*c ] )> -> <9-dimensional right-module over AlgebraWithOne( GF(
+    11), [ (Z(11)^0)*v, (Z(11)^0)*w, (Z(11)^0)*x, (Z(11)^0)*a, (Z(11)^0)*b, 
+      (Z(11)^0)*c ] )>>, 
+  <linear mapping by matrix, <9-dimensional right-module over AlgebraWithOne( \
+GF(11), [ (Z(11)^0)*v, (Z(11)^0)*w, (Z(11)^0)*x, (Z(11)^0)*a, (Z(11)^0)*b, 
+      (Z(11)^0)*c ] )> -> <9-dimensional right-module over AlgebraWithOne( GF(
+    11), [ (Z(11)^0)*v, (Z(11)^0)*w, (Z(11)^0)*x, (Z(11)^0)*a, (Z(11)^0)*b, 
+      (Z(11)^0)*c ] )>> ]
+\endexample
+
+\>Image( <f>, <M> ) O
+
+returns a submodule of the range of <f>, 
+defined by applying <f> to the entire domain <M>.
+
+\>DecomposeModule( <M> ) O
+
+returns a list of indecomposable submodules that when direct summed
+togather are isomorphic to <M>.  The function computes the endomorphism
+ring of <M>, then finds the primitive idempotents of that ring and
+finally applies the idempotents to the module.
+This is implemented only for finite <M>.
+
+\beginexample
+gap> mats;    
+[ [ [ 0*Z(11), 0*Z(11), 0*Z(11) ], [ Z(11)^0, 0*Z(11), 0*Z(11) ], 
+      [ 0*Z(11), Z(11)^0, 0*Z(11) ] ], 
+  [ [ 0*Z(11), 0*Z(11), 0*Z(11) ], [ Z(11)^0, 0*Z(11), 0*Z(11) ], 
+      [ 0*Z(11), Z(11)^0, 0*Z(11) ] ] ]
+gap> q;
+<quiver with 3 vertices and 2 arrows>
+gap> p;
+<algebra-with-one over GF(11), with 5 generators>
+gap> mats;
+[ [ [ 0*Z(11), 0*Z(11), 0*Z(11) ], [ Z(11)^0, 0*Z(11), 0*Z(11) ], 
+      [ 0*Z(11), Z(11)^0, 0*Z(11) ] ], 
+  [ [ 0*Z(11), 0*Z(11), 0*Z(11) ], [ Z(11)^0, 0*Z(11), 0*Z(11) ], 
+      [ 0*Z(11), Z(11)^0, 0*Z(11) ] ] ]
+gap> q:=Quiver(3, [[1,2],[2,3]]);
+<quiver with 3 vertices and 2 arrows>
+gap> p:=PathAlgebra(GF(11), q);
+<algebra-with-one over GF(11), with 5 generators>
+gap> m:=RightModuleOverPathAlgebra(p, mats);
+<right-module over <algebra-with-one over GF(11), with 5 generators>>
+gap> indecomposables:=DecomposeModule(m);
+[ <right-module over <algebra-with-one over GF(11), with 5 generators>>, 
+  <right-module over <algebra-with-one over GF(11), with 5 generators>>, 
+  <right-module over <algebra-with-one over GF(11), with 5 generators>>, 
+  <right-module over <algebra-with-one over GF(11), with 5 generators>>, 
+  <right-module over <algebra-with-one over GF(11), with 5 generators>> ]
+gap> List(indecomposables, x->Dimension(x));
+[ 1, 2, 3, 2, 1 ]
+\endexample

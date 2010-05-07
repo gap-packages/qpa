@@ -1,0 +1,165 @@
+\indexentry {Example 1@Example 1|indexit}{6}
+\indexentry {Example 2@Example 2|indexit}{7}
+\indexentry {Example 3@Example 3|indexit}{8}
+\indexentry {Example 4@Example 4|indexit}{8}
+\indexentry {InfoQuiver V@`InfoQuiver V'}{10}
+\indexentry {Constructing Quivers@Constructing Quivers|indexit}{10}
+\indexentry {Quiver@`Quiver'}{10}
+\indexentry {Quiver@`Quiver'}{10}
+\indexentry {Quiver@`Quiver'}{10}
+\indexentry {Quivers:OrderedBy}{11}
+\indexentry {Categories and Properties of Quivers@Categories and Properties of Quivers|indexit}{11}
+\indexentry {IsQuiver@`IsQuiver'}{11}
+\indexentry {Quivers:IsAcyclic}{11}
+\indexentry {Quivers:IsFinite}{11}
+\indexentry {Attributes and Operations for Quivers@Attributes and Operations for Quivers|indexit}{12}
+\indexentry {quiver record access}{12}
+\indexentry {VerticesOfQuiver@`VerticesOfQuiver'}{12}
+\indexentry {ArrowsOfQuiver@`ArrowsOfQuiver'}{12}
+\indexentry {AdjacencyMatrixOfQuiver@`AdjacencyMatrixOfQuiver'}{12}
+\indexentry {GeneratorsOfQuiver@`GeneratorsOfQuiver'}{12}
+\indexentry {OrderOfQuiver@`OrderOfQuiver'}{12}
+\indexentry {SizeOfQuiver@`SizeOfQuiver'}{12}
+\indexentry {OrderingOfQuiver@`OrderingOfQuiver'}{12}
+\indexentry {Categories and Properties of Paths@Categories and Properties of Paths|indexit}{13}
+\indexentry {IsPath@`IsPath'}{13}
+\indexentry {IsVertex@`IsVertex'}{13}
+\indexentry {IsArrow@`IsArrow'}{13}
+\indexentry {IsZeroPath@`IsZeroPath'}{13}
+\indexentry {Attributes and Operations of Paths@Attributes and Operations of Paths|indexit}{13}
+\indexentry {SourceOfPath@`SourceOfPath'}{13}
+\indexentry {TargetOfPath@`TargetOfPath'}{13}
+\indexentry {LengthOfPath@`LengthOfPath'}{13}
+\indexentry {WalkOfPath@`WalkOfPath'}{13}
+\indexentry {multiplication}{13}
+\indexentry {equality}{14}
+\indexentry {lessthan}{14}
+\indexentry {Attributes of Vertices@Attributes of Vertices|indexit}{14}
+\indexentry {IncomingArrowsOfVertex@`IncomingArrowsOfVertex'}{14}
+\indexentry {OutgoingArrowsOfVertex@`OutgoingArrowsOfVertex'}{14}
+\indexentry {InDegreeOfVertex@`InDegreeOfVertex'}{14}
+\indexentry {OutDegreeOfVertex@`OutDegreeOfVertex'}{14}
+\indexentry {NeighborsOfVertex@`NeighborsOfVertex'}{14}
+\indexentry {InfoPathAlgebra V@`InfoPathAlgebra V'}{16}
+\indexentry {Constructing Path Algebras@Constructing Path Algebras|indexit}{16}
+\indexentry {PathAlgebra@`PathAlgebra'}{16}
+\indexentry {Path Algebras:OrderedBy}{16}
+\indexentry {Categories and Properties of Path Algebras@Categories and Properties of Path Algebras|indexit}{16}
+\indexentry {IsPathAlgebra@`IsPathAlgebra'}{16}
+\indexentry {Attributes and Operations for Path Algebras@Attributes and Operations for Path Algebras|indexit}{17}
+\indexentry {QuiverOfPathAlgebra@`QuiverOfPathAlgebra'}{17}
+\indexentry {path algebra record access}{17}
+\indexentry {OrderingOfAlgebra@`OrderingOfAlgebra'}{17}
+\indexentry {Operations on Path Algebra Elements@Operations on Path Algebra Elements|indexit}{17}
+\indexentry {PathAlgebra:lessthan}{17}
+\indexentry {LeadingTerm@`LeadingTerm'}{17}
+\indexentry {Tip@`Tip'}{17}
+\indexentry {LeadingCoefficient@`LeadingCoefficient'}{17}
+\indexentry {TipCoefficient@`TipCoefficient'}{17}
+\indexentry {LeadingMonomial@`LeadingMonomial'}{17}
+\indexentry {TipMonomial@`TipMonomial'}{17}
+\indexentry {IsLeftUniform@`IsLeftUniform'}{17}
+\indexentry {IsRightUniform@`IsRightUniform'}{17}
+\indexentry {IsUniform@`IsUniform'}{18}
+\indexentry {MappedExpression@`MappedExpression'}{18}
+\indexentry {Constructing Quotients of Path Algebras@Constructing Quotients of Path Algebras|indexit}{18}
+\indexentry {Attributes of Ideals@Attributes of Ideals|indexit}{18}
+\indexentry {Groebner Basis Of an Ideal@`Groebner Basis Of an Ideal'}{18}
+\indexentry {Categories and Properties of Quotients of Path Algebras@Categories and Properties of Quotients of Path Algebras|indexit}{19}
+\indexentry {IsSubalgebraFpPathAlgebra@`IsSubalgebraFpPathAlgebra'}{19}
+\indexentry {Attributes and Operations for Quotients of Path Algebras@Attributes and Operations for Quotients of Path Algebras|indexit}{19}
+\indexentry {RelatorsOfFpPathAlgebra@`RelatorsOfFpPathAlgebra'}{19}
+\indexentry {NormalFormFunction@`NormalFormFunction'}{19}
+\indexentry {IsElementOfFpPathAlgebra@`IsElementOfFpPathAlgebra'}{19}
+\indexentry {Coefficients@`Coefficients'}{19}
+\indexentry {Attributes and Operations on Elements of Quotients of Path Algebra@Attributes and Operations on Elements of Quotients of Path Algebra|indexit}{19}
+\indexentry {IsNormalForm@`IsNormalForm'}{19}
+\indexentry {nothing}{19}
+\indexentry {ElementOfFpPathAlgebra@`ElementOfFpPathAlgebra'}{19}
+\indexentry {Constructing Orderings@Constructing Orderings|indexit}{20}
+\indexentry {LengthOrdering@`LengthOrdering'}{20}
+\indexentry {LeftLexicographicOrdering@`LeftLexicographicOrdering'}{20}
+\indexentry {RightLexicographicOrdering@`RightLexicographicOrdering'}{21}
+\indexentry {ReverseOrdering@`ReverseOrdering'}{21}
+\indexentry {LeftVectorOrdering@`LeftVectorOrdering'}{21}
+\indexentry {RightVectorOrdering@`RightVectorOrdering'}{21}
+\indexentry {WeightOrdering@`WeightOrdering'}{21}
+\indexentry {BlockOrdering@`BlockOrdering'}{22}
+\indexentry {WreathOrdering@`WreathOrdering'}{22}
+\indexentry {Categories and Properties of Orderings@Categories and Properties of Orderings|indexit}{22}
+\indexentry {IsOrdering@`IsOrdering'}{22}
+\indexentry {IsLengthOrdering@`IsLengthOrdering'}{22}
+\indexentry {IsLexicographicOrdering@`IsLexicographicOrdering'}{22}
+\indexentry {IsLeftLexicographicOrdering@`IsLeftLexicographicOrdering'}{22}
+\indexentry {IsRightLexicographicOrdering@`IsRightLexicographicOrdering'}{23}
+\indexentry {IsReverseOrdering@`IsReverseOrdering'}{23}
+\indexentry {IsVectorOrdering@`IsVectorOrdering'}{23}
+\indexentry {IsLeftVectorOrdering@`IsLeftVectorOrdering'}{23}
+\indexentry {IsRightVectorOrdering@`IsRightVectorOrdering'}{23}
+\indexentry {IsWeightOrdering@`IsWeightOrdering'}{23}
+\indexentry {IsBlockOrdering@`IsBlockOrdering'}{23}
+\indexentry {IsWreathOrdering@`IsWreathOrdering'}{23}
+\indexentry {IsWellOrdering@`IsWellOrdering'}{23}
+\indexentry {IsWellReversedOrdering@`IsWellReversedOrdering'}{23}
+\indexentry {IsTotalOrdering@`IsTotalOrdering'}{23}
+\indexentry {IsAdmissibleOrdering@`IsAdmissibleOrdering'}{23}
+\indexentry {Attributes and Operations for Orderings@Attributes and Operations for Orderings|indexit}{24}
+\indexentry {ComparisonFunction@`ComparisonFunction'}{24}
+\indexentry {NextOrdering@`NextOrdering'}{24}
+\indexentry {LessThanByOrdering@`LessThanByOrdering'}{24}
+\indexentry {InfoGroebnerBasis V@`InfoGroebnerBasis V'}{25}
+\indexentry {Constructing a Groebner Basis@Constructing a Groebner Basis|indexit}{25}
+\indexentry {GroebnerBasis@`GroebnerBasis'}{25}
+\indexentry {Categories and Properties of Groebner Basis@Categories and Properties of Groebner Basis|indexit}{25}
+\indexentry {IsGroebnerBasis@`IsGroebnerBasis'}{25}
+\indexentry {IsTipReducedGroebnerBasis@`IsTipReducedGroebnerBasis'}{25}
+\indexentry {IsCompletelyReducedGroebnerBasis@`IsCompletelyReducedGroebnerBasis'}{25}
+\indexentry {IsHomogenousGroebnerBasis@`IsHomogenousGroebnerBasis'}{25}
+\indexentry {IsCompleteGroebnerBasis@`IsCompleteGroebnerBasis'}{25}
+\indexentry {Attributes and Operations for Groebner Basis@Attributes and Operations for Groebner Basis|indexit}{26}
+\indexentry {CompletelyReduce@`CompletelyReduce'}{26}
+\indexentry {CompletelyReduceGroebnerBasis@`CompletelyReduceGroebnerBasis'}{26}
+\indexentry {TipReduce@`TipReduce'}{26}
+\indexentry {TipReduceGroebnerBasis@`TipReduceGroebnerBasis'}{26}
+\indexentry {Iterator@`Iterator'}{26}
+\indexentry {Enumerator@`Enumerator'}{26}
+\indexentry {Nontips@`Nontips'}{26}
+\indexentry {AdmitsFinitelyManyNontips@`AdmitsFinitelyManyNontips'}{26}
+\indexentry {NontipSize@`NontipSize'}{26}
+\indexentry {IsPrefixOfTipInTipIdeal@`IsPrefixOfTipInTipIdeal'}{26}
+\indexentry {Right Groebner Basis@Right Groebner Basis|indexit}{27}
+\indexentry {IsRightGroebnerBasis@`IsRightGroebnerBasis'}{27}
+\indexentry {RightGroebnerBasisOfIdeal@`RightGroebnerBasisOfIdeal'}{27}
+\indexentry {RightGroebnerBasis@`RightGroebnerBasis'}{27}
+\indexentry {Setting up Opal@Setting up Opal|indexit}{28}
+\indexentry {Opal@`Opal'}{28}
+\indexentry {Opal Commands in Hopf@Opal Commands in Hopf|indexit}{28}
+\indexentry {Orders}{28}
+\indexentry {OpalFiniteGroebnerBasis@`OpalFiniteGroebnerBasis'}{28}
+\indexentry {OpalGroebnerBasis@`OpalGroebnerBasis'}{29}
+\indexentry {OpalBoundedGroebnerBasis@`OpalBoundedGroebnerBasis'}{30}
+\indexentry {GBNP@GBNP|indexit}{32}
+\indexentry {GBNP@`GBNP'}{32}
+\indexentry {Setting up GBNP@Setting up GBNP|indexit}{32}
+\indexentry {Relevant GBNP internals@Relevant GBNP internals|indexit}{32}
+\indexentry {Communicating with GBNP@Communicating with GBNP|indexit}{32}
+\indexentry {Matrix Modules@Matrix Modules|indexit}{33}
+\indexentry {RightModuleOverPathAlgebra@`RightModuleOverPathAlgebra'}{33}
+\indexentry {RightModuleOverPathAlgebra@`RightModuleOverPathAlgebra'}{33}
+\indexentry {Categories Of Matrix Modules@Categories Of Matrix Modules|indexit}{34}
+\indexentry {IsPathAlgebraMatModule@`IsPathAlgebraMatModule'}{34}
+\indexentry {Acting on Module Elements@Acting on Module Elements|indexit}{34}
+\indexentry {Acting by a path algebra element}{34}
+\indexentry {Vertex Projective Presentations@Vertex Projective Presentations|indexit}{35}
+\indexentry {RightProjectiveModule@`RightProjectiveModule'}{35}
+\indexentry {Vectorize@`Vectorize'}{35}
+\indexentry {Acting by a path algebra element}{35}
+\indexentry {Less Than}{36}
+\indexentry {Factor Module}{36}
+\indexentry {VertexProjectivePresentation@`VertexProjectivePresentation'}{36}
+\indexentry {VertexProjectivePresentation@`VertexProjectivePresentation'}{36}
+\indexentry {Decompsition of Modules@Decompsition of Modules|indexit}{37}
+\indexentry {Hom@`Hom'}{37}
+\indexentry {End@`End'}{37}
+\indexentry {Image@`Image'}{38}
+\indexentry {DecomposeModule@`DecomposeModule'}{38}

@@ -1,0 +1,111 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%W  manual.tex                QPA documentation        Randall Cone
+%%
+%H  @(#)$Id: manual.tex,v 1.1 2010/05/07 13:16:24 sunnyquiver Exp $
+%%
+%Y  Copyright 1998,  Virginia Polytechnic Institute and State University
+%%
+%
+%
+\input gapmacro.tex
+\input qpamacro.tex
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%F  BeginningOfBook . . . . . . . . . . . . . . . . . . .  start the book
+%%
+\BeginningOfBook{qpa}
+%\UseReferences{../tut}
+%\UseReferences{../prg}
+%\UseReferences{../ext}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%F  TitlePage . . . . . . . . . . . . . . . . . . . . . . nice title page
+%%
+\TitlePage{
+  \centerline{\titlefont QPA}
+  \centerline{\secfont Quivers and Path Algebras}
+  \medskip
+%  \centerline{\titlefont ---}\medskip
+  \centerline{\titlefont Reference Manual}\vfill
+%  \centerline{\secfont by}\vfill
+  \centerline{\secfont The QPA Team}\bigskip
+  \centerline{\secfont Department of Mathematics}
+    \medskip
+  \centerline{\secfont Virginia Polytechnic Institute and State University,
+              Blacksburg, VA  24061}
+}
+%
+%
+\Colophon{
+\input authors
+}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%F  TableOfContents . . . . . . . . . . . .  generate a table of contents
+%%
+\TableOfContents
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%F  FrontMatter . . . . . . . . . . . . . . . . . . . . . copyright, etc.
+%%
+\FrontMatter
+\immediate\write\citeout{\bs bibdata{mrabbrev,manual}}
+\input copyrigh
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%F  Chapters  . . . . . . . . . . . . . . . . . .  QPA Reference Manual
+%%
+\Chapters
+\Input{quickstart}
+\Input{quiver}
+\Input{pathalg}
+\Input{ordering}
+\Input{groebner}
+\Input{opal}
+\Input{gbnp}
+\Input{pamodule}
+%\Input{tensor}
+%\Input{grpalg}
+%\Input{hopfalg}
+%
+% \Input{ctbl}
+% \Input{ctblmono}
+% \Input{ctbllibr}
+%
+
+% create chapter index entry for copyright
+\advance\chapno by1\secno=0\subsecno=0
+\immediate\write\secindout{C copyrigh.tex \thechapter. Copyright}
+
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%F  Appendices  . . . . . . . . . . . .  Extending QPA Reference Manual
+%%
+\Appendices
+%\input glossary
+%\Bibliography
+\Index
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%F  EndOfBook . . . . . . . . . . . . . . . . . . . . . . . . . that's it
+%%
+\EndOfBook
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%E  manual.tex  . . . . . . . . . . . . . . . . . . . . . . . . ends here
