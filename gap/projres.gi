@@ -1,6 +1,6 @@
 # GAP Implementation
 # This file was generated from
-# $Id: projres.gi,v 1.1 2010/05/07 13:30:13 sunnyquiver Exp $
+# $Id: projres.gi,v 1.2 2010/08/05 17:39:37 uid414323 Exp $
 #
 
 InstallMethod( ProjectiveResolutionFpPathAlgebraModule,
@@ -617,11 +617,14 @@ InstallMethod( TipReduce,
   "tip reduce path algebra vector by set of path algebra vectors",
   true, 
   [IsHomogeneousList, IsPathAlgebraVector], 0,
-  function( redset, el )
-    local i, reducible, rlen;
+  function( H, el )
+    local i, reducible, rlen, redset;
 
     # Tip reduce el to by set redset:
     reducible := true;
+
+    # Convert reducing set to pathalgebavectors
+    redset := List(H, ExtRepOfObj );
 
     while reducible and (not IsZero(el)) do
 

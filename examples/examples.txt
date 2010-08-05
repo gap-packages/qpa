@@ -776,6 +776,12 @@ Tip(f3![1]);
 
 N := SubAlgebraModule(P,[f1,f2,f3]);
 rtGBofN := RightGroebnerBasisOfModule(N);
+
+CompletelyReduce(rtGBofN,f1);
+TipReduce([f1,f2,f3]);
+TipReduce(BasisVectors(rtGBofN));
+TipReduce([f1,f2,f3],f4![1]);
+
 #
 ###################################################
 

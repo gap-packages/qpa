@@ -1,6 +1,6 @@
 # Projective Resolutions File
 # This file was generated from
-# $Id: projres.gd,v 1.1 2010/05/07 13:30:13 sunnyquiver Exp $
+# $Id: projres.gd,v 1.2 2010/08/05 17:39:37 uid414323 Exp $
 DeclareInfoClass( "InfoProjectiveResolutionFpPathAlgebraModule" );
 
 DeclareCategory("IsProjectiveResolutionFpPathAlgebraModule",IsObject);
@@ -54,7 +54,7 @@ DeclareOperation("FirstPart",
 );
 
 DeclareOperation("TipReduce",
-  [ IsHomogeneousList, IsObject ]
+  [ IsHomogeneousList, IsPathAlgebraVector ]
 );
 
 DeclareOperation("TipReduce",
