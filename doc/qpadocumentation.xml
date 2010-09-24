@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- $Id: qpadocumentation.xml,v 1.1 2010/09/23 11:12:42 sunnyquiver Exp $ -->
+<!-- $Id: qpadocumentation.xml,v 1.2 2010/09/24 08:59:12 sunnyquiver Exp $ -->
 
 <!DOCTYPE Book SYSTEM "gapdoc.dtd"
  [ <!ENTITY see '<Alt Only="LaTeX">$\to$</Alt><Alt Not="LaTeX">--&gt;</Alt>'>
@@ -1460,61 +1460,89 @@ dimensions all agree.  We can create a module in this way as follows.<P/>
   <ManSection>
    <Func Name="RightModuleOverPathAlgebra" Arg="A, mats" 
 	 Comm=""/>
-   <Func Name="RightModuleOverPathAlgebra" Arg="A, lists of blocks" 
-	 Comm=""/>
    <Returns>a representation over a path algebra.</Returns>
    <Description>
       In the function call, <Arg>A</Arg> is the path algebra.  The
-list of matrices <Arg>mats</Arg> can take on three different forms.
-One is just a list of matrices, and the matrices will be associated to
-the arrows in the order of arrow creation.  If when creating the
-quiver, the arrow <Math>a</Math> was created first,
-then <Math>a</Math> would be associated with the first matrix.<P/>
+      list of matrices <Arg>mats</Arg> can take on three different
+      forms.<P/>
 
-Another way of inputting the matrices to the module is to make the
-list be a <Arg>list of blocks</Arg> where each block is of the form,
-`["name of arrow",matrix]'.  So if you named your arrows when you
-created the quiver, then you can associate a matrix with that arrow
-explicitly.  A warning though, the function assumes you will do this
-for all the arrows, so you cannot explicitly do one and do the others
-any other way.<P/>
+      1) The argument <Arg>mats</Arg> can be a list of blocks of
+      matrices where each block is of the form, `["name of
+      arrow",matrix]'.  So if you named your arrows when you created
+      the quiver, then you can associate a matrix with that arrow
+      explicitly.<P/> 
 
-The final method is much the same as the second method.  It allows
-you to explicitly assign matrices as well.  The list is made up of
-blocks which look like, `[var,matrix]'.  The var is a variable
-assigned the value of an arrow.  Again you cannot mix this style with
-any other style.<P/>
+      2) The argument <Arg>mats</Arg> is just a list of matrices, and
+      the matrices will be associated to the arrows in the order of
+      arrow creation.  If when creating the quiver, the
+      arrow <Math>a</Math> was created first, then <Math>a</Math>
+      would be associated with the first matrix.<P/>
 
-If you would like the trivial vector space at any vertex, then for
-each incoming arrow, associate it with a list of the form `[n,0]'
-where n is the dimension of the vector space at the source vertex of
-the arrow.  Likewise for all outgoing arrows, associate them to a
-block of form `[0,n]' where n is the dimension of the vector space at
-the target vertex of the arrow.<P/>
+      3) The method is very much the same as the second
+      method. If <Arg>arrows</Arg> is a list of the arrows of the
+      quiver (obtained for instance through <C>arrows :=
+      ArrowsOfQuiver(Q);</C>), the argument <Arg>mats</Arg> can have
+      the
+      format <C>[[arrows[1],matrix_1],[arrows[2],matrix_2],.... ].</C><P/>
 
-An assumption made by the function is that each arrow will be given
-a matrix.  The function verifies that the dimensions of the matrices
-and vector spaces are correct and match, and that each arrow has only
-one matrix assigned to it.<P/>
+      If you would like the trivial vector space at any vertex, then
+      for each incoming arrow "a", associate it with a list of the
+      form <C>["a",[n,0]]</C> where n is the dimension of the vector
+      space at the source vertex of the arrow.  Likewise for all
+      outgoing arrows "b", associate them to a block of
+      form <C>["b",[0,n]]</C> where n is the dimension of the vector
+      space at the target vertex of the arrow.<P/>
+
+      A warning though, the function assumes that you do not mix the
+      styles of inputting the matrices/linear transformations
+      associated to the arrows in the quiver. Furthermore, each arrow
+      needs to be assigned a matrix, otherwise an error will be
+      returned. The function verifies that the dimensions of the
+      matrices and vector spaces are correct and match, and that each
+      arrow has only one matrix assigned to it.<P/>
    </Description>
   </ManSection>
 
-
 <Example>
-gap&gt; F:=GF(13);
-GF(13)
-gap&gt; Q:=Quiver(2, [[1, 2, "a"], [2, 1, "b"],[1, 1, "c"]]); 
+gap&gt; Q := Quiver(2, [[1, 2, "a"], [2, 1, "b"],[1, 1, "c"]]); 
 &lt;quiver with 2 vertices and 3 arrows&gt;
-gap&gt; P:=PathAlgebra(F, Q);
-&lt;algebra-with-one over GF(13), with 5 generators&gt;
-gap&gt; matrices:=[["a", RandomMat(2,3,F)], ["b", RandomMat(3,2,F)],
-&gt; ["c", RandomMat(2,2,F)]];
-[ [ "a", [ [ 0*Z(13), Z(13)^10, Z(13)^8 ], [ Z(13)^9, Z(13)^0, Z(13)^9 ] ] ],
-  [ "b", [ [ 0*Z(13), 0*Z(13) ], [ Z(13)^3, Z(13) ], [ Z(13)^11, Z(13) ] ] ],
-  [ "c", [ [ Z(13)^5, Z(13)^5 ], [ Z(13)^7, Z(13)^6 ] ] ] ]
-gap&gt; M:=RightModuleOverPathAlgebra(P,matrices);
-&lt;right-module over &lt;algebra-with-one over GF(13), with 5
+gap&gt; P := PathAlgebra(Rationals, Q);
+&lt;algebra-with-one over Rationals, with 5 generators&gt;
+gap&gt; matrices := [["a", [[1,0,0],[0,1,0]]], ["b", [[0,1],[1,0],[0,1]]],
+&gt; ["c", [[0,0],[1,0]]]];
+[ [ "a", [ [ 1, 0, 0 ], [ 0, 1, 0 ] ] ],
+  [ "b", [ [ 0, 1 ], [ 1, 0 ], [ 0, 1 ] ] ],
+  [ "c", [ [ 0, 0 ], [ 1, 0 ] ] ] ]
+gap&gt; M := RightModuleOverPathAlgebra(P,matrices);
+&lt;right-module over &lt;algebra-with-one over Rationals, with 5
 generators&gt;&gt; 
+gap&gt; mats := [ [[1,0,0], [0,1,0]], [[0,1],[1,0],[0,1]], [[0,0],[1,0]] ];; 
+gap&gt; N := RightModuleOverPathAlgebra(P,mats); 
+&lt;right-module over &lt;algebra-with-one over Rationals, with 5
+generators&gt;&gt; 
+gap&gt; arrows := ArrowsOfQuiver(Q);
+[ a, b, c ]
+gap&gt; mats := [[arrows[1], [[1,0,0],[0,1,0]]], 
+&gt; [arrows[2], [[0,1],[1,0],[0,1]]], [arrows[3], [[0,0],[1,0]]]];;
+gap&gt; N := RightModuleOverPathAlgebra(P,mats); 
+&lt;right-module over &lt;algebra-with-one over Rationals, with 5
+generators&gt;&gt;
+gap&gt; # Next we give the vertex simple associate to vertex 1. 
+gap&gt; M :=
+RightModuleOverPathAlgebra(P,[["a",[1,0]],["b",[0,1]],["c",[[0]]]]);
+&lt;right-module over &lt;algebra-with-one over Rationals, with 5
+					generators&gt;&gt; 
+gap&gt; # Finally, the next defines the zero representation of the quiver.
+gap&gt; M :=
+RightModuleOverPathAlgebra(P,[["a",[0,0]],["b",[0,0]],["c",[0,0]]]);
+&lt;right-module over &lt;algebra-with-one over Rationals, with 5
+					generators&gt;&gt; 
+gap&gt; Dimension(M);
+0
+gap&gt; Basis(M);
+Basis( &lt;
+0-dimensional right-module over &lt;algebra-with-one over Rationals, with 
+5 generators&gt;&gt;, [  ] )
 </Example>
 </Section>
 
@@ -1556,26 +1584,33 @@ basis and elementwise operations available.
   </ManSection>
 
 <Example>
+gap&gt; # Using the path algebra P from the above example. 
+gap&gt; matrices := [["a", [[1,0,0],[0,1,0]]], ["b", [[0,1],[1,0],[0,1]]],
+&gt; ["c", [[0,0],[1,0]]]];
+[ [ "a", [ [ 1, 0, 0 ], [ 0, 1, 0 ] ] ],
+  [ "b", [ [ 0, 1 ], [ 1, 0 ], [ 0, 1 ] ] ],
+  [ "c", [ [ 0, 0 ], [ 1, 0 ] ] ] ]
+gap&gt; M := RightModuleOverPathAlgebra(P,matrices);
+&lt;right-module over &lt;algebra-with-one over Rationals, with 5
+generators&gt;&gt; 
 gap&gt; B:=BasisVectors(Basis(M));
-[ [ [ Z(13)^0, 0*Z(13) ], [ 0*Z(13), 0*Z(13), 0*Z(13) ] ], 
-  [ [ 0*Z(13), Z(13)^0 ], [ 0*Z(13), 0*Z(13), 0*Z(13) ] ], 
-  [ [ 0*Z(13), 0*Z(13) ], [ Z(13)^0, 0*Z(13), 0*Z(13) ] ], 
-  [ [ 0*Z(13), 0*Z(13) ], [ 0*Z(13), Z(13)^0, 0*Z(13) ] ], 
-  [ [ 0*Z(13), 0*Z(13) ], [ 0*Z(13), 0*Z(13), Z(13)^0 ] ] ]
+[ [ [ 1, 0 ], [ 0, 0, 0 ] ], [ [ 0, 1 ], [ 0, 0, 0 ] ], 
+  [ [ 0, 0 ], [ 1, 0, 0 ] ], [ [ 0, 0 ], [ 0, 1, 0 ] ], 
+  [ [ 0, 0 ], [ 0, 0, 1 ] ] ]
 gap&gt; B[1]+B[3];
-[ [ Z(13)^0, 0*Z(13) ], [ Z(13)^0, 0*Z(13), 0*Z(13) ] ]
+[ [ 1, 0 ], [ 1, 0, 0 ] ]
 gap&gt; 4*B[2];
-[ [ 0*Z(13), Z(13)^2 ], [ 0*Z(13), 0*Z(13), 0*Z(13) ] ]
+[ [ 0, 4 ], [ 0, 0, 0 ] ]
 gap&gt; m:=5*B[1]+2*B[4]+B[5];
-[ [ Z(13)^9, 0*Z(13) ], [ 0*Z(13), Z(13), Z(13)^0 ] ]
+[ [ 5, 0 ], [ 0, 2, 1 ] ]
 gap&gt; m^(P.a*P.b-P.c);
-[ [ Z(13)^8, Z(13)^2 ], [ 0*Z(13), 0*Z(13), 0*Z(13) ] ]
+[ [ 0, 5 ], [ 0, 0, 0 ] ]
 gap&gt; B[1]^P.a;
-[ [ 0*Z(13), 0*Z(13) ], [ 0*Z(13), Z(13)^10, Z(13)^8 ] ]
+[ [ 0, 0 ], [ 1, 0, 0 ] ]
 gap&gt; B[2]^P.b;
-[ [ 0*Z(13), 0*Z(13) ], [ 0*Z(13), 0*Z(13), 0*Z(13) ] ]
+[ [ 0, 0 ], [ 0, 0, 0 ] ]
 gap&gt; B[4]^(P.b*P.c);
-[ [ Z(13)^9, Z(13)^11 ], [ 0*Z(13), 0*Z(13), 0*Z(13) ] ]
+[ [ 0, 0 ], [ 0, 0, 0 ] ]
 </Example>
 </Section>
 

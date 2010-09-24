@@ -1,6 +1,6 @@
 # GAP Implementation
 # This file was generated from 
-# $Id: pamodule.gi,v 1.3 2010/08/08 15:18:11 randallcone Exp $
+# $Id: pamodule.gi,v 1.4 2010/09/24 08:59:12 sunnyquiver Exp $
 
 ZeroModElement:=function(fam,zero)
   local result,i;
@@ -171,20 +171,11 @@ InstallMethod(\=,
 
 
 InstallMethod( PrintObj,
-  "for elements of path algebra modules",
+  "for elements of modules",
   true,
   [ IsPathModuleElem ], 0, 
   function( obj ) 
      Print(obj![1]);
-  end
-);
-
-InstallMethod( ExtRepOfObj,
-  "for elements of path algebra modules",
-  true,
-  [ IsPathModuleElem ], 0,
-  function( obj )
-     return obj![1];
   end
 );
 
@@ -354,74 +345,84 @@ InstallMethod(RightModuleOverPathAlgebra,
   [IsPathAlgebra, IsCollection], 0,
   function( R, gens )
     local a, dim, source, target, basis, i, x, Fam, 
-          vertices, matrices, quiver, M, vlist, alist, K;
+          vertices, matrices, quiver, M, vlist, alist, K, dim_M;
     matrices:=[];
     quiver:=QuiverOfPathRing(R);
     vlist:=VerticesOfQuiver(quiver);
     K:=LeftActingDomain(R);
     alist:=ArrowsOfQuiver(quiver);
     vertices:=[];
-          
-    if IsString(gens[1][1]) then
-      for i in [1 .. Length(vlist)] do
-        matrices[i]:= One(K);
-      od;
-      for i in [1 .. Length ( gens )] do
+#    
+#  First checking if all arrows has been assigned some value.
+#
+    if Length(gens) < Length(alist) then 
+       Error("Each arrow has not been assigned a matrix.");
+    fi;
+#
+#  Setting the multiplication by the vertices.
+#          
+    for i in [1 .. Length(vlist)] do
+      matrices[i]:= One(K);
+    od;
+#
+#  Setting, partially, the multiplication by the arrows, taking into account
+#  the possible different formats of the input. 
+#
+#  Input of the form ["a",[[..],...,[..]]], where "a" is the label of 
+#  some arrow in the quiver
+#
+    if IsString(gens[1][1]) then                 
+       for i in [1 .. Length ( gens )] do
           a:=gens[i][1];
           matrices[quiver.(a)!.gen_pos]:=gens[i][2];
        od;
-    elif IsInt(gens[1][1]) then
-       for i in [1 .. Length(vlist)] do
-         matrices[i]:= One(K);
-       od;
-       for i in [1 .. Length ( gens )] do
-         matrices[i + Length(vlist)]:=gens[i];
-       od;
+#
+#  Input of the form [[matrix_1],[matrix_2],...,[matrix_n]]
+#
     elif IsMatrix(gens[1]) then
-      for i in [1 .. Length(vlist)] do
-        matrices[i]:= One(K);
-      od;
-      for i in [1 .. Length ( gens )] do
-        matrices[i + Length(vlist)]:=gens[i];
-      od;
+       for i in [1 .. Length ( gens )] do
+          matrices[i + Length(vlist)]:=gens[i];
+       od;
     else
-      for i in [1 .. Length(vlist)] do
-        matrices[i]:= One(K);
-      od;
-      for i in [1 .. Length ( gens )] do
-        a:=gens[i][1];
-        matrices[a!.gen_pos]:=gens[i][2];
-      od;
+#
+#  Input of the form [[alist[1],[matrix_1]],...,[alist[n],[matrix_n]]] 
+#  where alist is a list of the vertices in the quiver.
+#  
+       for i in [1 .. Length ( gens )] do
+          a:=gens[i][1];
+          matrices[a!.gen_pos]:=gens[i][2];
+       od;
     fi;
 
     for i in [1 .. Length(vlist)] do
       vertices[i]:=-1;
     od; 
-
+#
+#  Setting dimensions and checking the usage of the zero space format.
+#
     dim:=[];
     for x in alist do
       if IsMatrix(matrices[x!.gen_pos]) then
         dim:= DimensionsMat ( matrices[x!.gen_pos] );
       else
         dim:=matrices[x!.gen_pos];
-        if dim[1] > 0 then
-          matrices[x!.gen_pos]:=NullMat(dim[1],1,K);
-        elif dim[1]=0 then
-          if dim[2]=0 then
-            matrices[x!.gen_pos]:=NullMat(1,1,K);
-          elif dim[2] > 0 then
-            matrices[x!.gen_pos]:=NullMat(1,dim[2],K);
-          else
-            Error("A vertex cannot have negative dimension");
-          fi;
+        if ( dim[1] > 0 and dim[2] = 0 ) then
+          matrices[x!.gen_pos]   := NullMat(dim[1],1,K);
+        elif ( dim[1] = 0 and dim[2] > 0 ) then
+            matrices[x!.gen_pos] := NullMat(1,dim[2],K);
+	elif ( dim[1] = 0 and dim[2] = 0 ) then 
+            matrices[x!.gen_pos] := NullMat(1,1,K);
         else
-            Error("A vertex cannot have negative dimension");
+            Error("A vertex cannot have negative dimension or wrong usage of the zero space format.");
         fi;
       fi;
 
       source:=SourceOfPath(x);
       target:=TargetOfPath(x);
-
+#
+#  Checking if all the matrices entered are compatible with respect 
+#  to the dimension of the vectorspaces at each vertex.
+#
       if vertices[source!.gen_pos] = -1 then
         vertices[source!.gen_pos]:= dim[1];
       elif vertices[source!.gen_pos] <> dim[1] then
@@ -435,15 +436,20 @@ InstallMethod(RightModuleOverPathAlgebra,
       fi;
     od;
 
+    dim_M := 0;
+    for i in [1..Length(vlist)] do
+    	dim_M := dim_M + vertices[i];
+    od;
     Fam := NewFamily( "PathAlgModuleElementsFamily", IsPathModuleElem );
     SetFilterObj( Fam, IsPathModuleElemFamily );
     Fam!.vertices:=vertices;
     Fam!.matrices:=matrices;
     Fam!.pathAlgebra:=R;
-    basis:=CreateModuleBasis(Fam);
-
-Print("matrices: ",matrices,"\n");
-
+    if dim_M > 0 then 
+        basis := CreateModuleBasis(Fam);
+    else 
+    	basis := ZeroModElement(Fam, Zero(K));
+    fi;
     M:= RightAlgebraModuleByGenerators(R, \^, basis);
     SetIsPathAlgebraMatModule(M,true);
     SetIsWholeFamily(M,true);
