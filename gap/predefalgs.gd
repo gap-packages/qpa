@@ -1,0 +1,1 @@
+DeclareOperation( "NakayamaAlgebra", [IsList, IsField] );
