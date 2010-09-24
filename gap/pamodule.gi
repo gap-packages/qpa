@@ -1,6 +1,6 @@
 # GAP Implementation
 # This file was generated from 
-# $Id: pamodule.gi,v 1.4 2010/09/24 08:59:12 sunnyquiver Exp $
+# $Id: pamodule.gi,v 1.5 2010/09/24 09:09:08 sunnyquiver Exp $
 
 ZeroModElement:=function(fam,zero)
   local result,i;
@@ -179,6 +179,14 @@ InstallMethod( PrintObj,
   end
 );
 
+InstallMethod( ExtRepOfObj, 	 
+   "for elements of path algebra modules", 	 
+   true, 	 
+   [ IsPathModuleElem ], 0, 	 
+   function( obj ) 	 
+      return obj![1]; 	 
+   end 	 
+);
 
 InstallMethod( NewBasis,
   "for a space of path module elems",
