@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- $Id: qpadocumentation.xml,v 1.2 2010/09/24 08:59:12 sunnyquiver Exp $ -->
+<!-- $Id: qpadocumentation.xml,v 1.3 2010/09/24 11:46:57 sunnyquiver Exp $ -->
 
 <!DOCTYPE Book SYSTEM "gapdoc.dtd"
  [ <!ENTITY see '<Alt Only="LaTeX">$\to$</Alt><Alt Not="LaTeX">--&gt;</Alt>'>
@@ -995,7 +995,7 @@ true
 <Section><Heading>Categories and Properties of Quotients of Path Algebras</Heading>
 
   <ManSection>
-   <Prop Name="IsSubAlgebraFpPathAlgebra" Arg="object" Comm="checks if
+   <Prop Name="IsSubalgebraFpPathAlgebra" Arg="object" Comm="checks if
    object is a quotient of a path algebra"/>
    <Description>
      is true when <Arg>object</Arg> is a quotient of a path algebra.
