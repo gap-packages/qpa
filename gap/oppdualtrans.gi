@@ -208,11 +208,43 @@ InstallMethod ( DualOfPathAlgebraMatModule,
 #   M     = a representation of the quiver Q over K with rels
 #   KQ_op = opposite algebra of KQ
 #
-        local mat_M, mat_M_op, X;
-        
-        mat_M    := MatricesOfPathAlgebraMatModule(M); 
-        mat_M_op := List(mat_M, X -> TransposedMat(X));
+        local num_vert, vertices, basis, dim_vect_M, i, j, count, 
+           mat_M, mat_M_op, X, new_op_mat, arrows, a, vert_in_quiver, 
+	   origin, target;
 
-        return RightModuleOverPathAlgebra(KQ_op,mat_M_op);
-    end
+#
+# The dimension vector for M
+#
+    num_vert := Length(VerticesOfQuiver(QuiverOfPathAlgebra(KQ_op)));
+    vertices := GeneratorsOfAlgebra(RightActingAlgebra(M)){[1..num_vert]};
+    basis    := Basis(M); 
+    dim_vect_M:=[]; 
+    for i in [1.. num_vert] do
+    	count:=0;
+    	for j in [1..Length(basis)] do
+       	    if basis[j]^vertices[i] <> Zero(M) then
+               count := count + 1;   
+       	    fi;
+    	od;
+    	Add(dim_vect_M,count);    
+    od;
+
+    mat_M    := MatricesOfPathAlgebraMatModule(M); 
+    arrows   := ArrowsOfQuiver(QuiverOfPathAlgebra(KQ_op));
+    mat_M_op := List(mat_M, X -> TransposedMat(X));
+    vert_in_quiver := VerticesOfQuiver(QuiverOfPathAlgebra(KQ_op));
+    new_op_mat := [];
+    for a in arrows do
+    	i := Position(arrows,a); 
+	if not ( IsMatrix(mat_M_op[i]) ) then 
+	   origin := Position(vert_in_quiver,SourceOfPath(a));
+	   target := Position(vert_in_quiver,TargetOfPath(a)); 
+	   Add(new_op_mat,[a,[dim_vect_M[origin],dim_vect_M[target]]]); 
+	else 
+	   Add(new_op_mat,[a,mat_M_op[i]]);
+        fi;
+    od;
+
+    return RightModuleOverPathAlgebra(KQ_op,new_op_mat);
+end
 );
