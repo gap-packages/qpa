@@ -1,9 +1,9 @@
 The QPA share package for GAP 4.4
 ==================================
 
-Version 0.4.3; May 3, 2007
-Copyright (C) 2007 Virginia Polytechnic Institute and State University.
-Copyright (C) 2007 Virginia Tech Path Algebra Project. All rights reserved.
+Version 0.4.3; September 30th, 2010
+Copyright (C) 2010 The QPA-team, 	
+                        http://sourceforge.net/projects/quiverspathalg/ 
 
 Introduction
 ------------
@@ -38,7 +38,9 @@ The following should be included with this version of QPA.
 Obtaining
 ---------
 
-QPA can be obtained by request from Randy Cone at: rcone@vt.edu
+QPA can be obtained from 
+
+    	http://sourceforge.net/projects/quiverspathalg/
 
 To use the GBNP Groebner basis system, obtain GBNP from its home at:
 
@@ -73,4 +75,5 @@ the use of QPA.
 Contact
 -------
 
-Send email to rcone@vt.edu with questions or comments.
+The best way to get help with QPA is by using its forum Help on 
+http://sourceforge.net/projects/quiverspathalg/. 
