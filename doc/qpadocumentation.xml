@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- $Id: qpadocumentation.xml,v 1.3 2010/09/24 11:46:57 sunnyquiver Exp $ -->
+<!-- $Id: qpadocumentation.xml,v 1.4 2010/09/30 09:40:25 sunnyquiver Exp $ -->
 
 <!DOCTYPE Book SYSTEM "gapdoc.dtd"
  [ <!ENTITY see '<Alt Only="LaTeX">$\to$</Alt><Alt Not="LaTeX">--&gt;</Alt>'>
@@ -493,8 +493,15 @@ false
    </Description>
   </ManSection>
 
-
-
+  <ManSection>
+   <Oper Name="OppositeOfQuiver" Arg="Q" Comm=""/>
+   <Description>
+     This takes the quiver <Arg>Q</Arg> and produces the opposite
+     quiver, where the vertices are labelled "name in original
+     quiver" + "_op" and the arrows are labelled "name in orginal
+     quiver" + "_op". 
+   </Description>
+  </ManSection>
 
 <Example>
 gap&gt; q1 := Quiver(["u","v"],[["u","u","a"],["u","v","b"],
@@ -518,6 +525,12 @@ gap&gt; SizeOfQuiver(q1);
 4
 gap&gt; OrderingOfQuiver(q1);
 &lt;length left lexicographic ordering&gt;
+gap&gt; q1_op := OppositeOfQuiver(q1);
+&lt;quiver with 2 vertices and 4 arrows&gt;
+gap&gt; VerticesOfQuiver(q1);
+[ u_op, v_op ]
+gap&gt; ArrowsOfQuiver(q1);
+[ a_op, b_op, c_op, d_op ]
 </Example>
 </Section>
 
@@ -1561,8 +1574,6 @@ algebra.  So refer to "ref:vector spaces" for descriptions of the
 basis and elementwise operations available.
    </Description>
   </ManSection> 
-
-
 </Section>
 
 <Section><Heading>Acting on Module Elements</Heading>
@@ -1612,6 +1623,84 @@ gap&gt; B[2]^P.b;
 gap&gt; B[4]^(P.b*P.c);
 [ [ 0, 0 ], [ 0, 0, 0 ] ]
 </Example>
+</Section>
+
+<Section><Heading>Special representations</Heading>
+Here we collect the predefined representations/modules over a finite
+  dimensional quotient of a path algebra. 
+
+  <ManSection>
+   <Oper Name="IndecomposableProjectiveRepresentations" Arg="KQ, rels" Comm=""/>
+   <Returns>a list of all the indecomposable projective
+   representations over a finite dimensional quotient of a path
+   algebra <Arg>KQ</Arg> modulo the relations <Arg>rels</Arg>. 
+   </Returns>
+   <Description>
+     The function checks if the quotient <Arg>KQ/(rels)</Arg> is a
+     finite dimensional algebra, and returns an error message
+     otherwise. A shortcoming of the current implementation is that it
+     only returns the indecomposable projective
+     representations/modules as modules over <Arg>KQ</Arg>, instead
+     of <Arg>KQ/(rels)</Arg>. 
+   </Description>
+  </ManSection>
+
+  <ManSection>
+   <Oper Name="IndecomposableInjectiveRepresentations" Arg="KQ, rels" Comm=""/>
+   <Returns>a list of all the indecomposable injective
+   representations over a finite dimensional quotient of a path
+   algebra <Arg>KQ</Arg> modulo the relations <Arg>rels</Arg>. 
+   </Returns>
+   <Description>
+     The function checks if the quotient <Arg>KQ/(rels)</Arg> is a
+     finite dimensional algebra, and returns an error message
+     otherwise. A shortcoming of the current implementation is that it
+     only returns the indecomposable injective
+     representations/modules as modules over <Arg>KQ</Arg>, instead
+     of <Arg>KQ/(rels)</Arg>. 
+   </Description>
+  </ManSection>
+
+  <ManSection>
+   <Oper Name="VertexSimpleRepresentations" Arg="KQ, rels" Comm=""/>
+   <Returns>a list of all the simple representations over a finite
+   dimensional quotient of a path algebra <Arg>KQ</Arg> modulo the
+   relations <Arg>rels</Arg>.
+   </Returns>
+   <Description>
+     A shortcoming of the current implementation is that it only
+     returns the vertex simple representations/modules as modules
+     over <Arg>KQ</Arg>, instead of <Arg>KQ/(rels)</Arg>.
+   </Description>
+  </ManSection>
+
+  <ManSection>
+   <Oper Name="ZeroRepresentation" Arg="KQ, rels" Comm=""/>
+   <Returns>the zero representation over a quotient of a path
+   algebra <Arg>KQ</Arg> modulo the relations <Arg>rels</Arg>.
+   </Returns>
+   <Description>
+     A shortcoming of the current implementation is that it only
+     returns the zero representation as modules over <Arg>KQ</Arg>,
+     instead of <Arg>KQ/(rels)</Arg>.
+   </Description>
+  </ManSection>
+</Section>
+
+
+<Section><Heading>Functors on representations</Heading>
+
+  <ManSection>
+   <Oper Name="DualOfPathAlgebraMatModule" Arg="M, KQ_op" Comm=""/>
+   <Description>
+     Takes the a representation <Arg>M</Arg> of a path
+     algebra <Arg>KQ</Arg> and produces the dual of this
+     representation over the opposite path algebra <Arg>KQ_op</Arg>,
+     which needs to be constructed before calling this function. A
+     shortcoming of this function is that it cannot have a quotient of
+     a path algebra as an argument. 
+   </Description>
+  </ManSection>
 </Section>
 
 <Section><Heading>Vertex Projective Presentations</Heading> 
@@ -1778,7 +1867,7 @@ Basis( &lt;9-dimensional right-module over &lt;algebra-with-one of dimension
 This is an appendix. 
 </Appendix>
 
-<Bibliography Databases="examplebib.xml" Style="alpha"/>
+<Bibliography Databases="" Style="alpha"/>
 <TheIndex/>
 
 </Book>
