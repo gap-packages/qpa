@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<title>GAP (QPA documentation) - Chapter 6: Right Modules over Path
+Algebras</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="GAPDoc2HTML" />
+<link rel="stylesheet" type="text/css" href="manual.css" />
+</head>
+<body>
+
+
+<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0.html">Top</a>  <a href="chap1.html">1</a>  <a href="chap2.html">2</a>  <a href="chap3.html">3</a>  <a href="chap4.html">4</a>  <a href="chap5.html">5</a>  <a href="chap6.html">6</a>  <a href="chapA.html">A</a>  <a href="chapBib.html">Bib</a>  <a href="chapInd.html">Ind</a>  </div>
+
+<div class="chlinkprevnexttop">&nbsp;<a href="chap0.html">Top of Book</a>&nbsp;  &nbsp;<a href="chap5.html">Previous Chapter</a>&nbsp;  &nbsp;<a href="chapA.html">Next Chapter</a>&nbsp;  </div>
+
+<p><a id="X87EFC38F7BC77B27" name="X87EFC38F7BC77B27"></a></p>
+<div class="ChapSects"><a href="chap6.html#X87EFC38F7BC77B27">6 <span class="Heading">Right Modules over Path
+Algebras</span></a>
+<div class="ContSect"><span class="nocss">&nbsp;</span><a href="chap6.html#X7D4882837C7EE06C">6.1 <span class="Heading">Matrix Modules</span></a>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X82DAF2167E65C4A8">6.1-1 RightModuleOverPathAlgebra</a></span>
+</div>
+<div class="ContSect"><span class="nocss">&nbsp;</span><a href="chap6.html#X869F4DD2877A99BA">6.2 <span class="Heading">Categories Of Matrix Modules</span></a>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X8710CC447F1F7B17">6.2-1 IsPathAlgebraMatModule</a></span>
+</div>
+<div class="ContSect"><span class="nocss">&nbsp;</span><a href="chap6.html#X862F510485ADBC67">6.3 <span class="Heading">Acting on Module Elements</span></a>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X8123456781234567">6.3-1 ^</a></span>
+</div>
+<div class="ContSect"><span class="nocss">&nbsp;</span><a href="chap6.html#X7919F94382D9B38B">6.4 <span class="Heading">Special representations</span></a>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X82637AE885576148">6.4-1 IndecomposableProjectiveRepresentations</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X78829EE8850BCD9F">6.4-2 IndecomposableInjectiveRepresentations</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7B0AD1CB7F3D0D3C">6.4-3 VertexSimpleRepresentations</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X8106F9C681CE5E49">6.4-4 ZeroRepresentation</a></span>
+</div>
+<div class="ContSect"><span class="nocss">&nbsp;</span><a href="chap6.html#X7D99BF5A87DDC099">6.5 <span class="Heading">Functors on representations</span></a>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X807D065C7AD70C6F">6.5-1 DualOfPathAlgebraMatModule</a></span>
+</div>
+<div class="ContSect"><span class="nocss">&nbsp;</span><a href="chap6.html#X8097F19E8228B68C">6.6 <span class="Heading">Vertex Projective Presentations</span></a>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X79175B097A0718FE">6.6-1 RightProjectiveModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X78E05C8F7ADE2BCD">6.6-2 Vectorize</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X8123456781234567">6.6-3 ^</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X871A3B1D871A3B1D">6.6-4 &lt;</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X8123456781234567">6.6-5 /</a></span>
+</div>
+</div>
+
+<h3>6 <span class="Heading">Right Modules over Path
+Algebras</span></h3>
+
+<p>There are two implementations of right modules over path algebras. The first type are matrix modules that are defined by vector spaces and linear transformations. The second type are presentations defined by vertex projective modules.</p>
+
+<p><a id="X7D4882837C7EE06C" name="X7D4882837C7EE06C"></a></p>
+
+<h4>6.1 <span class="Heading">Matrix Modules</span></h4>
+
+<p>The first implementation of right modules over path algebras views them as a collection of vector spaces and linear transformations. Each vertex in the path algebra is associated with a vector space over the field of the algebra. For each vertex $v$ of the algebra there is a vector space $V$. Arrows of the algebra are then associated with linear transformations which map the vector space of the source vertex to the vector space of the target vertex. For example, if $a$ is an arrow from $v$ to $w$ then there is a transformation from vector space $V$ to $W$. In practice when creating the modules all we need to know is the transformations and we can create the vector spaces of the correct dimension, and check to make sure the dimensions all agree. We can create a module in this way as follows.</p>
+
+<p><a id="X82DAF2167E65C4A8" name="X82DAF2167E65C4A8"></a></p>
+
+<h5>6.1-1 RightModuleOverPathAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; RightModuleOverPathAlgebra</code>( <var class="Arg">A, mats</var> )</td><td class="tdright">( function )</td></tr></table></div>
+<p><b>Returns: </b>a representation over a path algebra.</p>
+
+<p>In the function call, <var class="Arg">A</var> is the path algebra. The list of matrices <var class="Arg">mats</var> can take on three different forms.</p>
+
+<p>1) The argument <var class="Arg">mats</var> can be a list of blocks of matrices where each block is of the form, `["name of arrow",matrix]'. So if you named your arrows when you created the quiver, then you can associate a matrix with that arrow explicitly.</p>
+
+<p>2) The argument <var class="Arg">mats</var> is just a list of matrices, and the matrices will be associated to the arrows in the order of arrow creation. If when creating the quiver, the arrow $a$ was created first, then $a$ would be associated with the first matrix.</p>
+
+<p>3) The method is very much the same as the second method. If <var class="Arg">arrows</var> is a list of the arrows of the quiver (obtained for instance through <code class="code">arrows := ArrowsOfQuiver(Q);</code>), the argument <var class="Arg">mats</var> can have the format <code class="code">[[arrows[1],matrix_1],[arrows[2],matrix_2],.... ].</code></p>
+
+<p>If you would like the trivial vector space at any vertex, then for each incoming arrow "a", associate it with a list of the form <code class="code">["a",[n,0]]</code> where n is the dimension of the vector space at the source vertex of the arrow. Likewise for all outgoing arrows "b", associate them to a block of form <code class="code">["b",[0,n]]</code> where n is the dimension of the vector space at the target vertex of the arrow.</p>
+
+<p>A warning though, the function assumes that you do not mix the styles of inputting the matrices/linear transformations associated to the arrows in the quiver. Furthermore, each arrow needs to be assigned a matrix, otherwise an error will be returned. The function verifies that the dimensions of the matrices and vector spaces are correct and match, and that each arrow has only one matrix assigned to it.</p>
+
+
+<table class="example">
+<tr><td><pre>
+gap&gt; Q := Quiver(2, [[1, 2, "a"], [2, 1, "b"],[1, 1, "c"]]); 
+&lt;quiver with 2 vertices and 3 arrows&gt;
+gap&gt; P := PathAlgebra(Rationals, Q);
+&lt;algebra-with-one over Rationals, with 5 generators&gt;
+gap&gt; matrices := [["a", [[1,0,0],[0,1,0]]], ["b", [[0,1],[1,0],[0,1]]],
+&gt; ["c", [[0,0],[1,0]]]];
+[ [ "a", [ [ 1, 0, 0 ], [ 0, 1, 0 ] ] ],
+  [ "b", [ [ 0, 1 ], [ 1, 0 ], [ 0, 1 ] ] ],
+  [ "c", [ [ 0, 0 ], [ 1, 0 ] ] ] ]
+gap&gt; M := RightModuleOverPathAlgebra(P,matrices);
+&lt;right-module over &lt;algebra-with-one over Rationals, with 5
+generators&gt;&gt; 
+gap&gt; mats := [ [[1,0,0], [0,1,0]], [[0,1],[1,0],[0,1]], [[0,0],[1,0]] ];; 
+gap&gt; N := RightModuleOverPathAlgebra(P,mats); 
+&lt;right-module over &lt;algebra-with-one over Rationals, with 5
+generators&gt;&gt; 
+gap&gt; arrows := ArrowsOfQuiver(Q);
+[ a, b, c ]
+gap&gt; mats := [[arrows[1], [[1,0,0],[0,1,0]]], 
+&gt; [arrows[2], [[0,1],[1,0],[0,1]]], [arrows[3], [[0,0],[1,0]]]];;
+gap&gt; N := RightModuleOverPathAlgebra(P,mats); 
+&lt;right-module over &lt;algebra-with-one over Rationals, with 5
+generators&gt;&gt;
+gap&gt; # Next we give the vertex simple associate to vertex 1. 
+gap&gt; M :=
+RightModuleOverPathAlgebra(P,[["a",[1,0]],["b",[0,1]],["c",[[0]]]]);
+&lt;right-module over &lt;algebra-with-one over Rationals, with 5
+					generators&gt;&gt; 
+gap&gt; # Finally, the next defines the zero representation of the quiver.
+gap&gt; M :=
+RightModuleOverPathAlgebra(P,[["a",[0,0]],["b",[0,0]],["c",[0,0]]]);
+&lt;right-module over &lt;algebra-with-one over Rationals, with 5
+					generators&gt;&gt; 
+gap&gt; Dimension(M);
+0
+gap&gt; Basis(M);
+Basis( &lt;
+0-dimensional right-module over &lt;algebra-with-one over Rationals, with 
+5 generators&gt;&gt;, [  ] )
+</pre></td></tr></table>
+
+<p><a id="X869F4DD2877A99BA" name="X869F4DD2877A99BA"></a></p>
+
+<h4>6.2 <span class="Heading">Categories Of Matrix Modules</span></h4>
+
+<p><a id="X8710CC447F1F7B17" name="X8710CC447F1F7B17"></a></p>
+
+<h5>6.2-1 IsPathAlgebraMatModule</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IsPathAlgebraMatModule</code>( <var class="Arg">object</var> )</td><td class="tdright">( filter )</td></tr></table></div>
+<p>These matrix modules fall under the category `IsAlgebraModule' with the added filter of `IsPathAlgebraMatModule'. Operations available for algebra modules can be applied to path algebra modules. See "ref:representations of algebras" for more details. These modules are also vector spaces over the field of the path algebra. So refer to "ref:vector spaces" for descriptions of the basis and elementwise operations available.</p>
+
+<p><a id="X862F510485ADBC67" name="X862F510485ADBC67"></a></p>
+
+<h4>6.3 <span class="Heading">Acting on Module Elements</span></h4>
+
+<p><a id="X8123456781234567" name="X8123456781234567"></a></p>
+
+<h5>6.3-1 ^</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; ^</code>( <var class="Arg">m, p</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>The operation <code class="func">^</code> operates on an element <var class="Arg">m</var> in a module and a path <var class="Arg">p</var> in a path algebra, and it returns the element <var class="Arg">m</var> multiplied with <var class="Arg">p</var>. When you act on an module element $m$ by an arrow $a$ from $v$ to $w$, the component of $m$ from $V$ is acted on by $L$ the transformation associated to $a$ and placed in the component $W$ . All other components are given the value $0$.</p>
+
+
+<table class="example">
+<tr><td><pre>
+gap&gt; # Using the path algebra P from the above example. 
+gap&gt; matrices := [["a", [[1,0,0],[0,1,0]]], ["b", [[0,1],[1,0],[0,1]]],
+&gt; ["c", [[0,0],[1,0]]]];
+[ [ "a", [ [ 1, 0, 0 ], [ 0, 1, 0 ] ] ],
+  [ "b", [ [ 0, 1 ], [ 1, 0 ], [ 0, 1 ] ] ],
+  [ "c", [ [ 0, 0 ], [ 1, 0 ] ] ] ]
+gap&gt; M := RightModuleOverPathAlgebra(P,matrices);
+&lt;right-module over &lt;algebra-with-one over Rationals, with 5
+generators&gt;&gt; 
+gap&gt; B:=BasisVectors(Basis(M));
+[ [ [ 1, 0 ], [ 0, 0, 0 ] ], [ [ 0, 1 ], [ 0, 0, 0 ] ], 
+  [ [ 0, 0 ], [ 1, 0, 0 ] ], [ [ 0, 0 ], [ 0, 1, 0 ] ], 
+  [ [ 0, 0 ], [ 0, 0, 1 ] ] ]
+gap&gt; B[1]+B[3];
+[ [ 1, 0 ], [ 1, 0, 0 ] ]
+gap&gt; 4*B[2];
+[ [ 0, 4 ], [ 0, 0, 0 ] ]
+gap&gt; m:=5*B[1]+2*B[4]+B[5];
+[ [ 5, 0 ], [ 0, 2, 1 ] ]
+gap&gt; m^(P.a*P.b-P.c);
+[ [ 0, 5 ], [ 0, 0, 0 ] ]
+gap&gt; B[1]^P.a;
+[ [ 0, 0 ], [ 1, 0, 0 ] ]
+gap&gt; B[2]^P.b;
+[ [ 0, 0 ], [ 0, 0, 0 ] ]
+gap&gt; B[4]^(P.b*P.c);
+[ [ 0, 0 ], [ 0, 0, 0 ] ]
+</pre></td></tr></table>
+
+<p><a id="X7919F94382D9B38B" name="X7919F94382D9B38B"></a></p>
+
+<h4>6.4 <span class="Heading">Special representations</span></h4>
+
+<p>Here we collect the predefined representations/modules over a finite dimensional quotient of a path algebra.</p>
+
+<p><a id="X82637AE885576148" name="X82637AE885576148"></a></p>
+
+<h5>6.4-1 IndecomposableProjectiveRepresentations</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IndecomposableProjectiveRepresentations</code>( <var class="Arg">KQ, rels</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p><b>Returns: </b>a list of all the indecomposable projective representations over a finite dimensional quotient of a path algebra <var class="Arg">KQ</var> modulo the relations <var class="Arg">rels</var>.</p>
+
+<p>The function checks if the quotient <var class="Arg">KQ/(rels)</var> is a finite dimensional algebra, and returns an error message otherwise. A shortcoming of the current implementation is that it only returns the indecomposable projective representations/modules as modules over <var class="Arg">KQ</var>, instead of <var class="Arg">KQ/(rels)</var>.</p>
+
+<p><a id="X78829EE8850BCD9F" name="X78829EE8850BCD9F"></a></p>
+
+<h5>6.4-2 IndecomposableInjectiveRepresentations</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IndecomposableInjectiveRepresentations</code>( <var class="Arg">KQ, rels</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p><b>Returns: </b>a list of all the indecomposable injective representations over a finite dimensional quotient of a path algebra <var class="Arg">KQ</var> modulo the relations <var class="Arg">rels</var>.</p>
+
+<p>The function checks if the quotient <var class="Arg">KQ/(rels)</var> is a finite dimensional algebra, and returns an error message otherwise. A shortcoming of the current implementation is that it only returns the indecomposable injective representations/modules as modules over <var class="Arg">KQ</var>, instead of <var class="Arg">KQ/(rels)</var>.</p>
+
+<p><a id="X7B0AD1CB7F3D0D3C" name="X7B0AD1CB7F3D0D3C"></a></p>
+
+<h5>6.4-3 VertexSimpleRepresentations</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; VertexSimpleRepresentations</code>( <var class="Arg">KQ, rels</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p><b>Returns: </b>a list of all the simple representations over a finite dimensional quotient of a path algebra <var class="Arg">KQ</var> modulo the relations <var class="Arg">rels</var>.</p>
+
+<p>A shortcoming of the current implementation is that it only returns the vertex simple representations/modules as modules over <var class="Arg">KQ</var>, instead of <var class="Arg">KQ/(rels)</var>.</p>
+
+<p><a id="X8106F9C681CE5E49" name="X8106F9C681CE5E49"></a></p>
+
+<h5>6.4-4 ZeroRepresentation</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; ZeroRepresentation</code>( <var class="Arg">KQ, rels</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p><b>Returns: </b>the zero representation over a quotient of a path algebra <var class="Arg">KQ</var> modulo the relations <var class="Arg">rels</var>.</p>
+
+<p>A shortcoming of the current implementation is that it only returns the zero representation as modules over <var class="Arg">KQ</var>, instead of <var class="Arg">KQ/(rels)</var>.</p>
+
+<p><a id="X7D99BF5A87DDC099" name="X7D99BF5A87DDC099"></a></p>
+
+<h4>6.5 <span class="Heading">Functors on representations</span></h4>
+
+<p><a id="X807D065C7AD70C6F" name="X807D065C7AD70C6F"></a></p>
+
+<h5>6.5-1 DualOfPathAlgebraMatModule</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; DualOfPathAlgebraMatModule</code>( <var class="Arg">M, KQ_op</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>Takes the a representation <var class="Arg">M</var> of a path algebra <var class="Arg">KQ</var> and produces the dual of this representation over the opposite path algebra <var class="Arg">KQ_op</var>, which needs to be constructed before calling this function. A shortcoming of this function is that it cannot have a quotient of a path algebra as an argument.</p>
+
+<p><a id="X8097F19E8228B68C" name="X8097F19E8228B68C"></a></p>
+
+<h4>6.6 <span class="Heading">Vertex Projective Presentations</span></h4>
+
+<p>In general, if $R$ is a ring and $e$ is an idempotent of $R$ then $eR$ is a projective module of $R$. Then we can form a direct sum of these projective modules together to form larger projective module. One can construct more general modules by providing a <var class="Arg">vertex projective presentation</var>. In this case, $M$ is the cokernel as given by the following exact sequence: $\oplus_{j=1}^{r} w(j)R \rightarrow \oplus_{i=1}^{g} v(i)R \rightarrow{M} \rightarrow 0$ for some map between $\oplus_{j=1}^{r} w(j)R$ and $\oplus_{i=1}^{g} v(i)R$. The maps $w$ and $v$ map the integers to some idempotent in $R$.</p>
+
+<p><a id="X79175B097A0718FE" name="X79175B097A0718FE"></a></p>
+
+<h5>6.6-1 RightProjectiveModule</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; RightProjectiveModule</code>( <var class="Arg">A, verts</var> )</td><td class="tdright">( function )</td></tr></table></div>
+<p><b>Returns: </b>the right projective module over <var class="Arg">A</var> which is the direct sum of projective modules of the form <var class="Arg">vA</var> where the vertices are taken from the list of vertices <var class="Arg">verts</var>.</p>
+
+<p>In this implemenation the algebra can be a quotient of a path algebra. So if the list was $[v,w]$ then the module created will be the direct sum $vA \oplus wA$, in that order. Elements of the modules are vectors of algebra elements, and in each component, each path begins with the vertex in that position in the list of vertices. Right projective modules are implementated as algebra modules (see "ref:Representations of Algebras") and all operations for algebra modules are applicable to right projective modules. In particular, one can construct submodules using `SubAlgebraModule'.</p>
+
+<p>Here we create the right projective module $P = vA \oplus vA \oplus wA$.</p>
+
+
+<table class="example">
+<tr><td><pre>
+gap&gt; F:=GF(11);
+GF(11)
+gap&gt; Q:=Quiver(["v","w", "x"],[["v","w","a"],["v","w","b"],["w","x","c"]]);
+&lt;quiver with 3 vertices and 3 arrows&gt;
+gap&gt; A:=PathAlgebra(F,Q);
+&lt;algebra-with-one over GF(11), with 6 generators&gt;
+gap&gt; P:=RightProjectiveModule(A,[A.v,A.v,A.w]);
+&lt;right-module over &lt;algebra-with-one over GF(11), with 6 generators&gt;&gt;
+gap&gt; Dimension(P);
+12
+</pre></td></tr></table>
+
+<p><a id="X78E05C8F7ADE2BCD" name="X78E05C8F7ADE2BCD"></a></p>
+
+<h5>6.6-2 Vectorize</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; Vectorize</code>( <var class="Arg">M, components</var> )</td><td class="tdright">( function )</td></tr></table></div>
+<p><b>Returns: </b>a vector in the module <var class="Arg">M</var> from a list of path algebra elements <var class="Arg">components</var>, which defines the components in the resulting vector.</p>
+
+<p>The returned vector is normalized, so the vector's components may not match the input components.</p>
+
+<p>In the following example, we create two elements in $P$, perform some elementwise operations, and then construct a submodule using the two elements as generators.</p>
+
+
+<table class="example">
+<tr><td><pre>
+gap&gt; p1:=Vectorize(P,[A.b*A.c,A.a*A.c,A.c]);
+[ (Z(11)^0)*b*c, (Z(11)^0)*a*c, (Z(11)^0)*c ]
+gap&gt; p2:=Vectorize(P,[A.a,A.b,A.w]);
+[ (Z(11)^0)*a, (Z(11)^0)*b, (Z(11)^0)*w ]
+gap&gt; 2*p1 + p2;
+[ (Z(11)^0)*a+(Z(11))*b*c, (Z(11)^0)*b+(Z(11))*a*c, (Z(11)^0)*w+(Z(11))*c ]
+gap&gt; S:=SubAlgebraModule(P,[p1,p2]);
+&lt;right-module over &lt;algebra-with-one of dimension 8 over GF(11)&gt;&gt;
+gap&gt; Dimension(S);
+3
+</pre></td></tr></table>
+
+<p><a id="X8123456781234567" name="X8123456781234567"></a></p>
+
+<h5>6.6-3 ^</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; ^</code>( <var class="Arg">m, a</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>The operation <code class="func">^</code> operates on an element <var class="Arg">m</var> in a module and an element <var class="Arg">a</var> in a path algebra, and it returns the element <var class="Arg">m</var> multiplied with <var class="Arg">a</var>. This action is defined by multiplying each component in <var class="Arg">m</var> by <var class="Arg">a</var> on the right.</p>
+
+
+<table class="example">
+<tr><td><pre>
+gap&gt; p2^(A.c - A.w);
+[ (Z(11)^5)*a+(Z(11)^0)*a*c, (Z(11)^5)*b+(Z(11)^0)*b*c, 
+  (Z(11)^5)*w+(Z(11)^0)*c ]
+</pre></td></tr></table>
+
+<p><a id="X871A3B1D871A3B1D" name="X871A3B1D871A3B1D"></a></p>
+
+<h5>6.6-4 &lt;</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; &lt;</code>( <var class="Arg">m1, m2</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>The operation <code class="func">&lt;</code> operates on elements <var class="Arg">m1</var> and <var class="Arg">m2</var> in ????, and it compares them. The result is `true' if <var class="Arg">m1</var> is less than <var class="Arg">m2</var> and false otherwise. Elements are compared componentwise from left to right using the ordering of the underlying algebra. The element <var class="Arg">m1</var> is less than <var class="Arg">m2</var> if the first time components are not equal, the component of <var class="Arg">m1</var> is less than the corresponding component of <var class="Arg">m2</var>.</p>
+
+
+<table class="example">
+<tr><td><pre>
+gap&gt; p1 &lt; p2;
+false
+</pre></td></tr></table>
+
+<p><a id="X8123456781234567" name="X8123456781234567"></a></p>
+
+<h5>6.6-5 /</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; /</code>( <var class="Arg">M, N</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>The operation <code class="func">/</code> operates on two finite dimensional modules <var class="Arg">M</var> and <var class="Arg">N</var> over a path algebra?, and it constructs the factor module $M/N$. This module is again a right algebra module, and all applicable methods and operations are available for the resulting factor module. Furthermore, the resulting module is a vector space, so operations for computing bases and dimensions are also available.</p>
+
+<p>This</p>
+
+
+<table class="example">
+<tr><td><pre>
+gap&gt; PS := P/S;
+&lt;9-dimensional right-module over &lt;algebra-with-one of dimension
+8 over GF(11)&gt;&gt; 
+gap&gt; Basis(PS);
+Basis( &lt;9-dimensional right-module over &lt;algebra-with-one of dimension 
+8 over GF(11)&gt;&gt;, [ [ [ &lt;zero&gt; of ..., &lt;zero&gt; of ...,
+(Z(11)^0)*w ] ],  
+  [ [ &lt;zero&gt; of ..., &lt;zero&gt; of ..., (Z(11)^0)*c ] ], 
+  [ [ &lt;zero&gt; of ..., (Z(11)^0)*v, &lt;zero&gt; of ... ] ], 
+  [ [ &lt;zero&gt; of ..., (Z(11)^0)*a, &lt;zero&gt; of ... ] ], 
+  [ [ &lt;zero&gt; of ..., (Z(11)^0)*b, &lt;zero&gt; of ... ] ], 
+  [ [ &lt;zero&gt; of ..., (Z(11)^0)*a*c, &lt;zero&gt; of ... ] ], 
+  [ [ &lt;zero&gt; of ..., (Z(11)^0)*b*c, &lt;zero&gt; of ... ] ], 
+  [ [ (Z(11)^0)*v, &lt;zero&gt; of ..., &lt;zero&gt; of ... ] ], 
+  [ [ (Z(11)^0)*b, &lt;zero&gt; of ..., &lt;zero&gt; of ... ] ] ] )
+</pre></td></tr></table>
+
+
+<div class="chlinkprevnextbot">&nbsp;<a href="chap0.html">Top of Book</a>&nbsp;  &nbsp;<a href="chap5.html">Previous Chapter</a>&nbsp;  &nbsp;<a href="chapA.html">Next Chapter</a>&nbsp;  </div>
+
+
+<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0.html">Top</a>  <a href="chap1.html">1</a>  <a href="chap2.html">2</a>  <a href="chap3.html">3</a>  <a href="chap4.html">4</a>  <a href="chap5.html">5</a>  <a href="chap6.html">6</a>  <a href="chapA.html">A</a>  <a href="chapBib.html">Bib</a>  <a href="chapInd.html">Ind</a>  </div>
+
+<hr />
+<p class="foot">generated by <a href="http://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc">GAPDoc2HTML</a></p>
+</body>
+</html>

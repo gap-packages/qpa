@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<title>GAP (QPA documentation) - Chapter 3: Path Algebras</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="GAPDoc2HTML" />
+<link rel="stylesheet" type="text/css" href="manual.css" />
+</head>
+<body>
+
+
+<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0.html">Top</a>  <a href="chap1.html">1</a>  <a href="chap2.html">2</a>  <a href="chap3.html">3</a>  <a href="chap4.html">4</a>  <a href="chap5.html">5</a>  <a href="chap6.html">6</a>  <a href="chapA.html">A</a>  <a href="chapBib.html">Bib</a>  <a href="chapInd.html">Ind</a>  </div>
+
+<div class="chlinkprevnexttop">&nbsp;<a href="chap0.html">Top of Book</a>&nbsp;  &nbsp;<a href="chap2.html">Previous Chapter</a>&nbsp;  &nbsp;<a href="chap4.html">Next Chapter</a>&nbsp;  </div>
+
+<p><a id="X7E8A43A484CE0BA8" name="X7E8A43A484CE0BA8"></a></p>
+<div class="ChapSects"><a href="chap3.html#X7E8A43A484CE0BA8">3 <span class="Heading">Path Algebras</span></a>
+<div class="ContSect"><span class="nocss">&nbsp;</span><a href="chap3.html#X7DFB63A97E67C0A1">3.1 <span class="Heading">Introduction</span></a>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7C19179882715B18">3.1-1 InfoPathAlgebra</a></span>
+</div>
+<div class="ContSect"><span class="nocss">&nbsp;</span><a href="chap3.html#X848A225A84A15B1E">3.2 <span class="Heading">Constructing Path Algebras</span></a>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7CA1C87B8202C2E9">3.2-1 PathAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X83E498008233E2DD">3.2-2 OrderedBy</a></span>
+</div>
+<div class="ContSect"><span class="nocss">&nbsp;</span><a href="chap3.html#X85A3A8767E7C11AD">3.3 <span class="Heading">Categories and Properties of Path Algebras</span></a>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X8255FDF78315E1B3">3.3-1 IsPathAlgebra</a></span>
+</div>
+<div class="ContSect"><span class="nocss">&nbsp;</span><a href="chap3.html#X7DE2F2A48492041A">3.4 <span class="Heading">Attributes and Operations for Path Algebras</span></a>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X83FBA499856580B0">3.4-1 QuiverOfPathAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7821AC097821AC09">3.4-2 .</a></span>
+</div>
+<div class="ContSect"><span class="nocss">&nbsp;</span><a href="chap3.html#X7CEF60107CE4616B">3.5 <span class="Heading">Operations on Path Algebra Elements</span></a>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X871A3B1D871A3B1D">3.5-1 &lt;</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X84C98E687A3A84D8">3.5-2 LeadingTerm</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X80710E9B7D8340BD">3.5-3 LeadingCoefficient</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7B3EAE41795598A5">3.5-4 LeadingMonomial</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X853C8B0B8665BFBB">3.5-5 IsLeftUniform</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7C06BE7483992634">3.5-6 IsRightUniform</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X8735FBE180797557">3.5-7 IsUniform</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X796249A682818750">3.5-8 MappedExpression</a></span>
+</div>
+<div class="ContSect"><span class="nocss">&nbsp;</span><a href="chap3.html#X7F0D555379C97A6E">3.6 <span class="Heading">Constructing Quotients of Path Algebras</span></a>
+</div>
+<div class="ContSect"><span class="nocss">&nbsp;</span><a href="chap3.html#X85D4E72B787B1C49">3.7 <span class="Heading">Attributes of Ideals</span></a>
+</div>
+<div class="ContSect"><span class="nocss">&nbsp;</span><a href="chap3.html#X7A3CA333873389AD">3.8 <span class="Heading">Categories and Properties of Quotients of Path Algebras</span></a>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X78476A128036573F">3.8-1 IsSubalgebraFpPathAlgebra</a></span>
+</div>
+<div class="ContSect"><span class="nocss">&nbsp;</span><a href="chap3.html#X86647D317A961513">3.9 <span class="Heading">Attributes and Operations for Quotients of Path
+    Algebras</span></a>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X826641507CFBE943">3.9-1 NormalFormFunction</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X815D8565802928FE">3.9-2 IsElementOfFpPathAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X80B32F667BF6AFD8">3.9-3 Coefficients</a></span>
+</div>
+<div class="ContSect"><span class="nocss">&nbsp;</span><a href="chap3.html#X7BD7DB497917893C">3.10 <span class="Heading">Attributes and Operations on Elements
+of Quotients of Path Algebra</span></a>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X8271E6F27C2C826E">3.10-1 IsNormalForm</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X871A3B1D871A3B1D">3.10-2 &lt;</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X868C9F9981388DAA">3.10-3 ElementOfFpPathAlgebra</a></span>
+</div>
+<div class="ContSect"><span class="nocss">&nbsp;</span><a href="chap3.html#X7E7FA56079CF78D1">3.11 <span class="Heading">Predefined classes
+  of quotient of path algebras</span></a>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7C678A08836F77CC">3.11-1 NakayamaAlgebra</a></span>
+</div>
+</div>
+
+<h3>3 <span class="Heading">Path Algebras</span></h3>
+
+<p><a id="X7DFB63A97E67C0A1" name="X7DFB63A97E67C0A1"></a></p>
+
+<h4>3.1 <span class="Heading">Introduction</span></h4>
+
+<p>A path algebra is an algebra constructed from a field $F$ and a quiver $Q$. The path algebra $FQ$ contains all finite linear combinations of elements of $Q$. This chapter describes the functions in <strong class="pkg">QPA</strong> that deal with path algebras and quotients of path algebras. Path algebras are algebras so see Chapter "ref:algebras" for functionality such as generators, basis functions, and mappings.</p>
+
+<p><a id="X7C19179882715B18" name="X7C19179882715B18"></a></p>
+
+<h5>3.1-1 InfoPathAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; InfoPathAlgebra</code></td><td class="tdright">( info class )</td></tr></table></div>
+<p>is the info class for functions dealing with path algebras.</p>
+
+<p><a id="X848A225A84A15B1E" name="X848A225A84A15B1E"></a></p>
+
+<h4>3.2 <span class="Heading">Constructing Path Algebras</span></h4>
+
+<p><a id="X7CA1C87B8202C2E9" name="X7CA1C87B8202C2E9"></a></p>
+
+<h5>3.2-1 PathAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; PathAlgebra</code>( <var class="Arg">F, Q</var> )</td><td class="tdright">( function )</td></tr></table></div>
+<p><b>Returns: </b>the path algebra $FG$ of <var class="Arg">Q</var> over the field <var class="Arg">F</var>.</p>
+
+
+<table class="example">
+<tr><td><pre> 
+gap&gt; q := Quiver(["u","v"],[["u","u","a"],["u","v","b"],
+&gt; ["v","u","c"],["v","v","d"]]);
+&lt;quiver with 2 vertices and 4 arrows&gt;
+gap&gt; f := FiniteField(23);
+GF(23)
+gap&gt; fq := PathAlgebra(f,q);
+&lt;algebra-with-one over GF(23), with 6 generators&gt;
+</pre></td></tr></table>
+
+<p>\* NO: the FOLLOWING is not true:</p>
+
+<p><a id="X83E498008233E2DD" name="X83E498008233E2DD"></a></p>
+
+<h5>3.2-2 OrderedBy</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; OrderedBy</code>( <var class="Arg">path, algebra, ordering</var> )</td><td class="tdright">( function )</td></tr></table></div>
+<p><b>Returns: </b>a copy of <var class="Arg">path algebra</var> whose elements are ordered by <var class="Arg">ordering</var>. See Section <a href="chap2.html#X78BBB63B828EB9FB"><b>2.4</b></a> for more information on orderings.</p>
+
+<p><a id="X85A3A8767E7C11AD" name="X85A3A8767E7C11AD"></a></p>
+
+<h4>3.3 <span class="Heading">Categories and Properties of Path Algebras</span></h4>
+
+<p><a id="X8255FDF78315E1B3" name="X8255FDF78315E1B3"></a></p>
+
+<h5>3.3-1 IsPathAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IsPathAlgebra</code>( <var class="Arg">object</var> )</td><td class="tdright">( property )</td></tr></table></div>
+<p>is true when <var class="Arg">object</var> is a path algebra.</p>
+
+
+<table class="example">
+<tr><td><pre>
+gap&gt; IsPathAlgebra(fq);
+true
+gap&gt; IsPathAlgebra(q);
+false
+</pre></td></tr></table>
+
+<p><a id="X7DE2F2A48492041A" name="X7DE2F2A48492041A"></a></p>
+
+<h4>3.4 <span class="Heading">Attributes and Operations for Path Algebras</span></h4>
+
+<p><a id="X83FBA499856580B0" name="X83FBA499856580B0"></a></p>
+
+<h5>3.4-1 QuiverOfPathAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; QuiverOfPathAlgebra</code>( <var class="Arg">object</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
+<p>An attribute. Returns the quiver from which <var class="Arg">object</var> was constructed.</p>
+
+
+<table class="example">
+<tr><td><pre>
+gap&gt; QuiverOfPathAlgebra(fq);
+&lt;quiver with 2 vertices and 4 arrows&gt;
+</pre></td></tr></table>
+
+<p><a id="X7821AC097821AC09" name="X7821AC097821AC09"></a></p>
+
+<h5>3.4-2 .</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; .</code>( <var class="Arg">FQ, element</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>The operation <code class="func">.</code> operates on a path algebra <var class="Arg">FQ</var> and an element <var class="Arg">element</var>, which is a vertex or an arrow in the quiver Q. It returns the generator as an element of the path algebra.</p>
+
+
+<table class="example">
+<tr><td><pre>
+gap&gt; fq.v;
+(Z(23)^0)*v
+gap&gt; fq.b;
+(Z(23)^0)*b
+</pre></td></tr></table>
+
+<p>&gt;OrderingOfAlgebra( <var class="Arg">path algebra</var> ) returns the ordering of the quiver of the path algebra.</p>
+
+<p><a id="X7CEF60107CE4616B" name="X7CEF60107CE4616B"></a></p>
+
+<h4>3.5 <span class="Heading">Operations on Path Algebra Elements</span></h4>
+
+<p><a id="X871A3B1D871A3B1D" name="X871A3B1D871A3B1D"></a></p>
+
+<h5>3.5-1 &lt;</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; &lt;</code>( <var class="Arg">a, b</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>The operation <code class="func">&lt;</code> operates on elements <var class="Arg">a</var> and <var class="Arg">b</var> of a path algebra $FQ$, and they are compared using the ordering for the path algebra. See Section <a href="chap2.html#X78BBB63B828EB9FB"><b>2.4</b></a> for more information on orderings.</p>
+
+<p><a id="X84C98E687A3A84D8" name="X84C98E687A3A84D8"></a></p>
+
+<h5>3.5-2 LeadingTerm</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; LeadingTerm</code>( <var class="Arg">element</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; Tip</code>( <var class="Arg">element</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>The operation <code class="func">LeadingTerm</code> or equivalently <code class="func">Tip</code> operates on an <var class="Arg">x</var> in a path algebra, and it returns is the term in <var class="Arg">element</var> whose monomial is largest among those monomials that have nonzero coefficients; this term is known as the *tip* of <var class="Arg">element</var>.</p>
+
+<p><a id="X80710E9B7D8340BD" name="X80710E9B7D8340BD"></a></p>
+
+<h5>3.5-3 LeadingCoefficient</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; LeadingCoefficient</code>( <var class="Arg">element</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; TipCoefficient</code>( <var class="Arg">element</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>The operation <code class="func">LeadingCoefficient</code> or equivalently <code class="func">TipCoefficient</code> operates on an <var class="Arg">element</var> in a path algebra, and it returns the coefficient of the tip of <var class="Arg">element</var>. This is an element of the field.</p>
+
+<p><a id="X7B3EAE41795598A5" name="X7B3EAE41795598A5"></a></p>
+
+<h5>3.5-4 LeadingMonomial</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; LeadingMonomial</code>( <var class="Arg">element</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; TipMonomial</code>( <var class="Arg">element</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>The operation <code class="func">LeadingMonomial</code> or equivalently <code class="func">TipMonomial</code> operates on an <var class="Arg">element</var> in a path algebra, and it returns the monomial of the tip of <var class="Arg">element</var>; it is the largest monomial occurring in <var class="Arg">element</var> with a nonzero coefficient. This is an element of the underlying quiver, not of the path algebra.</p>
+
+
+<table class="example">
+<tr><td><pre>
+gap&gt; elem := fq.a*fq.b*fq.c + fq.b*fq.d*fq.c+fq.d*fq.d;
+(Z(23)^0)*d^2+(Z(23)^0)*a*b*c+(Z(23)^0)*b*d*c
+gap&gt; LeadingTerm(elem);
+(Z(23)^0)*b*d*c
+gap&gt; LeadingCoefficient(elem);
+Z(23)^0
+gap&gt; LeadingMonomial(elem);
+b*d*c
+</pre></td></tr></table>
+
+<p><a id="X853C8B0B8665BFBB" name="X853C8B0B8665BFBB"></a></p>
+
+<h5>3.5-5 IsLeftUniform</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IsLeftUniform</code>( <var class="Arg">element</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>The operation <code class="func">IsLeftUniform</code> operates on an <var class="Arg">element</var> in a path algebra, and it returns true if each monomial in <var class="Arg">element</var> has the same source vertex.</p>
+
+<p><a id="X7C06BE7483992634" name="X7C06BE7483992634"></a></p>
+
+<h5>3.5-6 IsRightUniform</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IsRightUniform</code>( <var class="Arg">element</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>The operation <code class="func">IsRightUniform</code> operates on an <var class="Arg">element</var> in a path algebra, and it returns true if each monomial in <var class="Arg">element</var> has the same target vertex.</p>
+
+<p><a id="X8735FBE180797557" name="X8735FBE180797557"></a></p>
+
+<h5>3.5-7 IsUniform</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IsUniform</code>( <var class="Arg">element</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>The operation <code class="func">IsUniform</code> operates on an <var class="Arg">element</var> in a path algebra, and it returns true if each monomial in <var class="Arg">element</var> has both the same source vertex and the same target vertex.</p>
+
+
+<table class="example">
+<tr><td><pre>
+gap&gt; IsLeftUniform(elem);
+false
+gap&gt; IsRightUniform(elem);
+false
+gap&gt; IsUniform(elem);
+false
+gap&gt; another := fq.a*fq.b + fq.b*fq.d*fq.c*fq.b*fq.d;
+(Z(23)^0)*a*b+(Z(23)^0)*b*d*c*b*d
+gap&gt; IsLeftUniform(another);
+true
+gap&gt; IsRightUniform(another);
+true
+gap&gt; IsUniform(another);
+true
+</pre></td></tr></table>
+
+<p><a id="X796249A682818750" name="X796249A682818750"></a></p>
+
+<h5>3.5-8 MappedExpression</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; MappedExpression</code>( <var class="Arg">expr, gens1, gens2</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>The operation <code class="func">MappedExpression</code> operates on <var class="Arg">expr</var> from a path algebra and and two equal-length lists of generators <var class="Arg">gens1</var> and <var class="Arg">gens2</var> for subalgebras. The <var class="Arg">expr</var> must be in the subalgebra generated by <var class="Arg">gens1</var>. The lists define a mapping of each generator in <var class="Arg">gens1</var> to the corresponding generator in <var class="Arg">gens2</var>. The value returned is the evaluation of the mapping at <var class="Arg">expr</var>.</p>
+
+<p><a id="X7F0D555379C97A6E" name="X7F0D555379C97A6E"></a></p>
+
+<h4>3.6 <span class="Heading">Constructing Quotients of Path Algebras</span></h4>
+
+<p>See Chapter "ref:algebras" on how to construct an ideal and a quotient of an algebra. When the quotient is constructed, it is still a path algebra and thus the same commands may be used with quotients. Also since a quotient is still an algebra, refer to "ref:algebras".</p>
+
+
+<table class="example">
+<tr><td><pre>
+gap&gt; I := Ideal(fq,[fq.a * fq.b, fq.d * fq.d - fq.b * fq.c]);
+&lt;two-sided ideal in &lt;algebra-with-one over GF(23), with 6 generators&gt;,
+  (2 generators)&gt;
+gap&gt; GeneratorsOfIdeal(I);
+[ (Z(23)^0)*a*b, (Z(23)^11)*b*c+(Z(23)^0)*d^2 ]
+gap&gt; quot := fq/I;
+&lt;algebra-with-one over GF(23), with 6 generators&gt;
+</pre></td></tr></table>
+
+<p><a id="X85D4E72B787B1C49" name="X85D4E72B787B1C49"></a></p>
+
+<h4>3.7 <span class="Heading">Attributes of Ideals</span></h4>
+
+<p>Groebner Basis Of an Ideal: For many of the functions related to quotients, you will need to compute a Groebner basis of the ideal. Refer to the chapters "qpa:groebner basis" and "qpa:using opal with gap" to learn more.</p>
+
+
+<table class="example">
+<tr><td><pre>
+gap&gt; J := Ideal(fq,[fq.a*fq.b]);
+&lt;two-sided ideal in &lt;algebra-with-one over GF(23), with 6 generators&gt;,
+  (1 generators)&gt;
+gap&gt; anotherquot := fq/J;
+&lt;algebra-with-one over GF(23), with 6 generators&gt;
+gap&gt; gb := GroebnerBasis(J,[fq.a*fq.b]);
+&lt;complete two-sided Groebner basis containing 1 elements&gt;
+gap&gt; SetIsCompleteGroebnerBasis(gb, true);
+gap&gt; IsCompleteGroebnerBasis(gb);
+true
+gap&gt; gb = GroebnerBasisOfIdeal(J);
+true
+</pre></td></tr></table>
+
+<p><a id="X7A3CA333873389AD" name="X7A3CA333873389AD"></a></p>
+
+<h4>3.8 <span class="Heading">Categories and Properties of Quotients of Path Algebras</span></h4>
+
+<p><a id="X78476A128036573F" name="X78476A128036573F"></a></p>
+
+<h5>3.8-1 IsSubalgebraFpPathAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IsSubalgebraFpPathAlgebra</code>( <var class="Arg">object</var> )</td><td class="tdright">( property )</td></tr></table></div>
+<p>is true when <var class="Arg">object</var> is a quotient of a path algebra.</p>
+
+
+<table class="example">
+<tr><td><pre>
+gap&gt; IsSubalgebraFpPathAlgebra(quot);
+true
+gap&gt; IsSubalgebraFpPathAlgebra(fq);
+false
+</pre></td></tr></table>
+
+<p><a id="X86647D317A961513" name="X86647D317A961513"></a></p>
+
+<h4>3.9 <span class="Heading">Attributes and Operations for Quotients of Path
+    Algebras</span></h4>
+
+<p><a id="X826641507CFBE943" name="X826641507CFBE943"></a></p>
+
+<h5>3.9-1 NormalFormFunction</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; NormalFormFunction</code>( <var class="Arg">object</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
+<p>is a function that can compute normal forms for elements of <var class="Arg">object</var>. It may be supplied by the user.</p>
+
+<p><a id="X815D8565802928FE" name="X815D8565802928FE"></a></p>
+
+<h5>3.9-2 IsElementOfFpPathAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IsElementOfFpPathAlgebra</code>( <var class="Arg">object</var> )</td><td class="tdright">( property )</td></tr></table></div>
+<p>is true if <var class="Arg">object</var> is an element of some quotient of a path algebra.</p>
+
+
+<table class="example">
+<tr><td><pre>
+gap&gt; this := anotherquot.a*anotherquot.b;
+[(Z(23)^0)*a*b]
+gap&gt; IsElementOfFpPathAlgebra(this);
+true
+gap&gt; IsElementOfFpPathAlgebra(fq);
+false
+</pre></td></tr></table>
+
+<p><a id="X80B32F667BF6AFD8" name="X80B32F667BF6AFD8"></a></p>
+
+<h5>3.9-3 Coefficients</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; Coefficients</code>( <var class="Arg">element</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>The operation <code class="func">Coefficients</code> operates on an <var class="Arg">element</var> of a quotient of a path algebra, and it returns the coefficients of the <var class="Arg">element</var> in terms of its canonical basis. Question: Does this only take one argument?</p>
+
+<p><a id="X7BD7DB497917893C" name="X7BD7DB497917893C"></a></p>
+
+<h4>3.10 <span class="Heading">Attributes and Operations on Elements
+of Quotients of Path Algebra</span></h4>
+
+<p><a id="X8271E6F27C2C826E" name="X8271E6F27C2C826E"></a></p>
+
+<h5>3.10-1 IsNormalForm</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IsNormalForm</code>( <var class="Arg">element</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>The operation <code class="func">IsNormalForm</code> operates on an <var class="Arg">element</var> from a path algebra, and it is true if <var class="Arg">element</var> is known to be in normal form.</p>
+
+
+<table class="example">
+<tr><td><pre>
+gap&gt; IsNormalForm(this); 
+false
+</pre></td></tr></table>
+
+<p><a id="X871A3B1D871A3B1D" name="X871A3B1D871A3B1D"></a></p>
+
+<h5>3.10-2 &lt;</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; &lt;</code>( <var class="Arg">a, b</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>The operation <code class="func">&lt;</code> operates on two elements <var class="Arg">a</var> and <var class="Arg">b</var> from a path algebra $FQ$, and it compares them using the ordering for the path algebra.</p>
+
+<p><a id="X868C9F9981388DAA" name="X868C9F9981388DAA"></a></p>
+
+<h5>3.10-3 ElementOfFpPathAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; ElementOfFpPathAlgebra</code>( <var class="Arg">family, element, computenormal</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>The operation <code class="func">ElementOfFpPathAlgebra</code> operates on an <var class="Arg">element</var> in a path algebra, and it projects it into the quotient given by <var class="Arg">family</var>. If <var class="Arg">computenormal</var> is true, then the normal form of the projection of <var class="Arg">element</var> is returned.</p>
+
+<p><a id="X7E7FA56079CF78D1" name="X7E7FA56079CF78D1"></a></p>
+
+<h4>3.11 <span class="Heading">Predefined classes
+  of quotient of path algebras</span></h4>
+
+<p><a id="X7C678A08836F77CC" name="X7C678A08836F77CC"></a></p>
+
+<h5>3.11-1 NakayamaAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; NakayamaAlgebra</code>( <var class="Arg">admiss-seq, field</var> )</td><td class="tdright">( function )</td></tr></table></div>
+<p><b>Returns: </b>the Nakayama algebra corresponding to the addmissible sequence <var class="Arg">admiss-seq</var> over the field <var class="Arg">field</var>, or <code class="keyw">the admissible sequence entered</code> if entered sequence is not an admissible sequence.</p>
+
+<p>This function creates a Nakayama algebra from an admissible sequence over a field.</p>
+
+
+<div class="chlinkprevnextbot">&nbsp;<a href="chap0.html">Top of Book</a>&nbsp;  &nbsp;<a href="chap2.html">Previous Chapter</a>&nbsp;  &nbsp;<a href="chap4.html">Next Chapter</a>&nbsp;  </div>
+
+
+<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0.html">Top</a>  <a href="chap1.html">1</a>  <a href="chap2.html">2</a>  <a href="chap3.html">3</a>  <a href="chap4.html">4</a>  <a href="chap5.html">5</a>  <a href="chap6.html">6</a>  <a href="chapA.html">A</a>  <a href="chapBib.html">Bib</a>  <a href="chapInd.html">Ind</a>  </div>
+
+<hr />
+<p class="foot">generated by <a href="http://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc">GAPDoc2HTML</a></p>
+</body>
+</html>

@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<title>GAP (QPA documentation) - Chapter 1: Quick Start</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="GAPDoc2HTML" />
+<link rel="stylesheet" type="text/css" href="manual.css" />
+</head>
+<body>
+
+
+<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0.html">Top</a>  <a href="chap1.html">1</a>  <a href="chap2.html">2</a>  <a href="chap3.html">3</a>  <a href="chap4.html">4</a>  <a href="chap5.html">5</a>  <a href="chap6.html">6</a>  <a href="chapA.html">A</a>  <a href="chapBib.html">Bib</a>  <a href="chapInd.html">Ind</a>  </div>
+
+<div class="chlinkprevnexttop">&nbsp;<a href="chap0.html">Top of Book</a>&nbsp;  &nbsp;<a href="chap0.html">Previous Chapter</a>&nbsp;  &nbsp;<a href="chap2.html">Next Chapter</a>&nbsp;  </div>
+
+<p><a id="X7EB860EC84DFC71E" name="X7EB860EC84DFC71E"></a></p>
+<div class="ChapSects"><a href="chap1.html#X7EB860EC84DFC71E">1 <span class="Heading">Quick Start</span></a>
+<div class="ContSect"><span class="nocss">&nbsp;</span><a href="chap1.html#X8388E29680F31ABD">1.1 <span class="Heading">Example 1</span></a>
+</div>
+<div class="ContSect"><span class="nocss">&nbsp;</span><a href="chap1.html#X7A18778D836BC971">1.2 <span class="Heading">Example 2</span></a>
+</div>
+<div class="ContSect"><span class="nocss">&nbsp;</span><a href="chap1.html#X7D680484821C7835">1.3 <span class="Heading">Example 3</span></a>
+</div>
+<div class="ContSect"><span class="nocss">&nbsp;</span><a href="chap1.html#X848E4DDE845A6EE9">1.4 <span class="Heading">Example 4</span></a>
+</div>
+</div>
+
+<h3>1 <span class="Heading">Quick Start</span></h3>
+
+<p>This chapter is intended for those who would like to get started with <strong class="pkg">QPA</strong> right away by playing with a few examples. A simple example is presented first:</p>
+
+<p><a id="X8388E29680F31ABD" name="X8388E29680F31ABD"></a></p>
+
+<h4>1.1 <span class="Heading">Example 1</span></h4>
+
+<p>We construct a quiver $q$, i.e. a finite directed graph, with one vertex and two loops:</p>
+
+
+<table class="example">
+<tr><td><pre>
+gap&gt; q := Quiver(["u"],[["u","u","a"],["u","u","b"]]);
+&lt;quiver with 1 vertices and 2 arrows&gt;
+</pre></td></tr></table>
+
+<p>We can request the list of vertices and the list of arrows for $q$:</p>
+
+
+<table class="example">
+<tr><td><pre> 
+gap&gt; VerticesOfQuiver(q);
+[ u ]
+gap&gt; ArrowsOfQuiver(q);
+[ a, b ]
+</pre></td></tr></table>
+
+<p>Next we create the path algebra $pa$ from $q$ over the rational numbers:</p>
+
+
+<table class="example">
+<tr><td><pre> 
+gap&gt; pa := PathAlgebra(Rationals,q);
+&lt;algebra-with-one over Rationals, with 3 generators&gt;
+</pre></td></tr></table>
+
+<p>In this case it is interesting to note that we've created an algebra isomorphic to the free algebra on two generators. We now retrieve and label the generators and multiplicative identity for $pa$:</p>
+
+
+<table class="example">
+<tr><td><pre>
+gap&gt; gens := GeneratorsOfAlgebra(pa);
+[ (1)*u, (1)*a, (1)*b ]
+gap&gt; u := gens[1];
+(1)*u
+gap&gt; a := gens[2];
+(1)*a
+gap&gt; b := gens[3];
+(1)*b
+gap&gt; id := One(pa);
+(1)*u
+</pre></td></tr></table>
+
+<p>As we expect, in this case, the multiplicative identity for $pa$ and the single vertex $u$ are one in the same:</p>
+
+
+<table class="example">
+<tr><td><pre> 
+gap&gt; u = id;
+true
+</pre></td></tr></table>
+
+<p>We now create a list of generators for an ideal and ask for its Groebner basis:</p>
+
+
+<table class="example">
+<tr><td><pre>
+gap&gt; polys := [a*b*a-b,b*a*b-b];
+[ (-1)*b+(1)*a*b*a, (-1)*b+(1)*b*a*b ]
+gap&gt; gb := GBNPGroebnerBasis(polys,pa);
+[ (-1)*a*b+(1)*b*a, (-1)*a*b+(1)*b^2, (-1)*b+(1)*a^2*b ]
+</pre></td></tr></table>
+
+<p>Next, we create an ideal $I$ in {\GAP} using the Groebner basis $gb$ found above, and then the quotient $pa/I$:</p>
+
+
+<table class="example">
+<tr><td><pre>
+gap&gt; I := Ideal(pa,gb);
+&lt;two-sided ideal in &lt;algebra-with-one over Rationals, with 3
+generators&gt;, 
+ (3 generators)&gt;
+</pre></td></tr></table>
+
+<p>Once we have the generators for a Groebner basis, we set the appropriate property for the ideal $I$:</p>
+
+
+<table class="example">
+<tr><td><pre>
+gap&gt; grb := GroebnerBasis(I,gb);    
+&lt;partial two-sided Groebner basis containing 3 elements&gt;
+</pre></td></tr></table>
+
+<p><a id="X7A18778D836BC971" name="X7A18778D836BC971"></a></p>
+
+<h4>1.2 <span class="Heading">Example 2</span></h4>
+
+<p>In this next example we create another path algebra that is essentially the free algebra on six generators. We then find the Groebner basis for a commutative example from (create bibliographic reference here) the book "Some Tapas of Computer Algebra" by A.M. Cohen, H. Cuypers, H. Sterk. We create the underlying quiver, and from it the path algebra over the rational numbers:</p>
+
+
+<table class="example">
+<tr><td><pre> 
+gap&gt; q := Quiver(["u"],[["u","u","a"],["u","u","b"], ["u","u","c"],
+&gt;                    ["u","u","d"],["u","u","e"],["u","u","f"]]);
+&lt;quiver with 1 vertices and 6 arrows&gt;
+gap&gt; fq := PathAlgebra(Rationals,q);
+&lt;algebra-with-one over Rationals, with 7 generators&gt;
+</pre></td></tr></table>
+
+<p>Next, the generators are labeled and the list of polynomials is entered:</p>
+
+
+<table class="example">
+<tr><td><pre>
+gap&gt; gens := GeneratorsOfAlgebra(fq);
+[ (1)*u, (1)*a, (1)*b, (1)*c, (1)*d, (1)*e, (1)*f ]
+gap&gt; u := gens[1];; a := gens[2];; b := gens[3];; c := gens[4];;
+gap&gt; d := gens[5];; e := gens[6];; f := gens[7];;
+gap&gt; polys := [ e*a,
+&gt;            a^3 + f*a,
+&gt;            a^9 + c*a^3,
+&gt;            a^81 + c*a^9 + d*a^3,
+&gt;            a^27 + d*a^81 + e*a^9 + f*a^3,
+&gt;            b + c*a^27 + e*a^81 + f*a^9,
+&gt;            c*b + d*a^27 + f*a^81,
+&gt;            a + d*b + e*a^27,
+&gt;            c*a + e*b + f*a^27,
+&gt;            d*a + f*b,
+&gt;            b^3 - b,
+&gt;            a*b - b*a, a*c - c*a,
+&gt;            a*d - d*a, a*e - e*a,
+&gt;            a*f - f*a, b*c - c*b,
+&gt;            b*d - d*b, b*e - e*b,
+&gt;            b*f - f*b, c*d - d*c,
+&gt;            c*e - e*c, c*f - f*c,
+&gt;            d*e - e*d, d*f - f*d,
+&gt;            e*f - f*e
+&gt; ];;
+</pre></td></tr></table>
+
+<p>Finally, the Groebner basis is found:</p>
+
+
+<table class="example">
+<tr><td><pre>
+gap&gt; gb := GBNPGroebnerBasis(polys,fq);
+[ (1)*a, (1)*b, (-1)*c*d+(1)*d*c, (-1)*c*e+(1)*e*c, (-1)*d*e+(1)*e*d,
+  (-1)*c*f+(1)*f*c, (-1)*d*f+(1)*f*d, (-1)*e*f+(1)*f*e ]
+</pre></td></tr></table>
+
+<p><a id="X7D680484821C7835" name="X7D680484821C7835"></a></p>
+
+<h4>1.3 <span class="Heading">Example 3</span></h4>
+
+<p>The next example is from B. Keller's PhD thesis, p. 26:</p>
+
+
+<table class="example">
+<tr><td><pre>
+gap&gt; q := Quiver(["u","v"],[["u","v","c"],["u","u","b"],["u","u","a"]]);
+&lt;quiver with 2 vertices and 3 arrows&gt;
+gap&gt; pa := PathAlgebra(Rationals,q);
+&lt;algebra-with-one over Rationals, with 5 generators&gt;
+gap&gt; 
+gap&gt; # Get generators of path algebra:
+gap&gt; gens := GeneratorsOfAlgebra(pa);
+[ (1)*u, (1)*v, (1)*c, (1)*b, (1)*a ]
+gap&gt; u := gens[1];; v := gens[2];; c := gens[3];;
+gap&gt; b := gens[4];; a := gens[5];; id := One(pa);;
+gap&gt; 
+gap&gt; polys := [a*b*c+b*a*b+a+c];
+[ (1)*c+(1)*a+(1)*b*a*b+(1)*a*b*c ]
+gap&gt; gb := GBNPGroebnerBasis(polys,pa);
+[ (-1)*b*c+(1)*a*c, (1)*a+(1)*b*a*b, (1)*c+(1)*a*b*c, (-1)*b*a^2+(1)*a^2*b ]
+</pre></td></tr></table>
+
+<p><a id="X848E4DDE845A6EE9" name="X848E4DDE845A6EE9"></a></p>
+
+<h4>1.4 <span class="Heading">Example 4</span></h4>
+
+<p>Here's an example that doesn't meet our necessary criteria that all elements in a generating set have monomials in the arrow ideal. Since the given path algebra is isomorphic to a free algebra, the single vertex is sent to the identity and there are no complications. First, we set up the algebra and generating set:</p>
+
+
+<table class="example">
+<tr><td><pre>
+gap&gt; q := Quiver(["u"],[["u","u","x"],["u","u","y"]]);
+&lt;quiver with 1 vertices and 2 arrows&gt;
+gap&gt; f := Rationals;
+Rationals
+gap&gt; fq := PathAlgebra(f,q);
+&lt;algebra-with-one over Rationals, with 3 generators&gt;
+gap&gt; 
+gap&gt; # Get generators of path algebra:
+gap&gt; gens := GeneratorsOfAlgebra(fq);
+[ (1)*u, (1)*x, (1)*y ]
+gap&gt; u := gens[1];; x := gens[2];; y := gens[3];; id := One(fq);;
+gap&gt; polys := [x*y-y*x,x^2*y-id,x*y^2-id];
+[ (1)*x*y+(-1)*y*x, (-1)*u+(1)*x^2*y, (-1)*u+(1)*x*y^2 ]
+</pre></td></tr></table>
+
+<p>Then we ask GBNP for its Groebner basis:</p>
+
+
+<table class="example">
+<tr><td><pre>
+gap&gt; gb := GBNPGroebnerBasisNC(polys,fq);
+The given path algebra is isomorphic to a free algebra.
+[ (-1)*x+(1)*y, (-1)*u+(1)*x^3 ]
+</pre></td></tr></table>
+
+<p>NOTE: It is important to realize that we've used the routine `GBNPGroebnerBasisNC' which doesn't check that all elements in a given list have non-vertex monomials. So, if we run the standard <strong class="pkg">QPA</strong> Groebner basis routine on this example, we get the following:</p>
+
+
+<table class="example">
+<tr><td><pre>
+gap&gt; GBNPGroebnerBasis(polys,pa);
+Please make sure all elements are in the given path algebra, 
+and each summand of each element is not (only) a vertex.
+false
+</pre></td></tr></table>
+
+
+<div class="chlinkprevnextbot">&nbsp;<a href="chap0.html">Top of Book</a>&nbsp;  &nbsp;<a href="chap0.html">Previous Chapter</a>&nbsp;  &nbsp;<a href="chap2.html">Next Chapter</a>&nbsp;  </div>
+
+
+<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0.html">Top</a>  <a href="chap1.html">1</a>  <a href="chap2.html">2</a>  <a href="chap3.html">3</a>  <a href="chap4.html">4</a>  <a href="chap5.html">5</a>  <a href="chap6.html">6</a>  <a href="chapA.html">A</a>  <a href="chapBib.html">Bib</a>  <a href="chapInd.html">Ind</a>  </div>
+
+<hr />
+<p class="foot">generated by <a href="http://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc">GAPDoc2HTML</a></p>
+</body>
+</html>

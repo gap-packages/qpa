@@ -1,0 +1,193 @@
+  
+  
+                                      [1XQPA[0m
+  
+  
+                           [1XQuivers and Path Algebras[0m
+  
+  
+                              Version version 1.5
+  
+  
+                                 September 2010
+  
+  
+     The QPA-team [7Xhttp://sourceforge.net/projects/quiverspathalg/[0m (See also
+                     [7Xhttp://www.math.ntnu.no/~oyvinso/QPA/[0m)
+  
+  
+  
+            We can add a comment here.
+  
+  
+  
+  
+  
+  Address: Virginia Tech, Blacksburg, USA
+           NTNU, Trondheim, Norway
+  
+  
+  -------------------------------------------------------
+  [1XAbstract[0m
+  
+  -------------------------------------------------------
+  [1XCopyright[0m
+  © 2010-2020 The QPA-team.
+  
+  
+  -------------------------------------------------------
+  [1XAcknowledgements[0m
+  The system design of [5XQPA[0m was initiated by Edward L. Green, Lenwood S. Heath,
+  and  Craig  A.  Struble.  It was continued and completed by Randall Cone and
+  Edward  Green.  We  would  like  to  thank  the  following  people for their
+  contributions:
+  
+        Gerard Brunick   Quivers, path algebras                                              
+        Randall Cone     Code modernization and cleanup, GBNP interface (for Groebner bases),
+                         projective resolutions, user documentation                          
+        George Yuhasz    User documentation, matrix representations of path algebras         
+  
+  
+  -------------------------------------------------------
+  [1XColophon[0m
+  This is the Colophon page.
+  
+  
+  -------------------------------------------------------
+  
+  
+  [1XContents (QPA documentation)[0X
+  
+  1 Quick Start
+    1.1 Example 1
+    1.2 Example 2
+    1.3 Example 3
+    1.4 Example 4
+  2 Quivers
+    2.1 Information class, Quivers
+      2.1-1 InfoQuiver
+    2.2 Constructing Quivers
+      2.2-1 Quiver
+      2.2-2 OrderedBy
+    2.3 Categories and Properties of Quivers
+      2.3-1 IsQuiver
+      2.3-2 IsAcyclic
+      2.3-3 IsFinite
+    2.4 Orderings of paths in a quiver
+    2.5 Attributes and Operations for Quivers
+      2.5-1 .
+      2.5-2 VerticesOfQuiver
+      2.5-3 ArrowsOfQuiver
+      2.5-4 AdjacencyMatrixOfQuiver
+      2.5-5 GeneratorsOfQuiver
+      2.5-6 OrderOfQuiver
+      2.5-7 SizeOfQuiver
+      2.5-8 OrderingOfQuiver
+      2.5-9 OppositeOfQuiver
+    2.6 Categories and Properties of Paths
+      2.6-1 IsPath
+      2.6-2 IsVertex
+      2.6-3 IsArrow
+      2.6-4 IsZeroPath
+    2.7 Attributes and Operations of Paths
+      2.7-1 SourceOfPath
+      2.7-2 TargetOfPath
+      2.7-3 LengthOfPath
+      2.7-4 WalkOfPath
+      2.7-5 *
+      2.7-6 =
+      2.7-7 <
+    2.8 Attributes of Vertices
+      2.8-1 IncomingArrowsOfVertex
+      2.8-2 OutgoingArrowsOfVertex
+      2.8-3 InDegreeOfVertex
+      2.8-4 OutDegreeOfVertex
+      2.8-5 NeighborsOfVertex
+  3 Path Algebras
+    3.1 Introduction
+      3.1-1 InfoPathAlgebra
+    3.2 Constructing Path Algebras
+      3.2-1 PathAlgebra
+      3.2-2 OrderedBy
+    3.3 Categories and Properties of Path Algebras
+      3.3-1 IsPathAlgebra
+    3.4 Attributes and Operations for Path Algebras
+      3.4-1 QuiverOfPathAlgebra
+      3.4-2 .
+    3.5 Operations on Path Algebra Elements
+      3.5-1 <
+      3.5-2 LeadingTerm
+      3.5-3 LeadingCoefficient
+      3.5-4 LeadingMonomial
+      3.5-5 IsLeftUniform
+      3.5-6 IsRightUniform
+      3.5-7 IsUniform
+      3.5-8 MappedExpression
+    3.6 Constructing Quotients of Path Algebras
+    3.7 Attributes of Ideals
+    3.8 Categories and Properties of Quotients of Path Algebras
+      3.8-1 IsSubalgebraFpPathAlgebra
+    3.9 Attributes and Operations for Quotients of Path Algebras
+      3.9-1 NormalFormFunction
+      3.9-2 IsElementOfFpPathAlgebra
+      3.9-3 Coefficients
+    3.10 Attributes and Operations on Elements of Quotients of Path Algebra
+      3.10-1 IsNormalForm
+      3.10-2 <
+      3.10-3 ElementOfFpPathAlgebra
+    3.11 Predefined classes of quotient of path algebras
+      3.11-1 NakayamaAlgebra
+  4 Groebner Basis
+    4.1 Constructing a Groebner Basis
+      4.1-1 InfoGroebnerBasis
+      4.1-2 GroebnerBasis
+    4.2 Categories and Properties of Groebner Basis
+      4.2-1 IsGroebnerBasis
+      4.2-2 IsTipReducedGroebnerBasis
+      4.2-3 IsCompletelyReducedGroebnerBasis
+      4.2-4 IsHomogenousGroebnerBasis
+      4.2-5 IsCompleteGroebnerBasis
+    4.3 Attributes and Operations for Groebner Basis
+      4.3-1 CompletelyReduce
+      4.3-2 CompletelyReduceGroebnerBasis
+      4.3-3 TipReduce
+      4.3-4 TipReduceGroebnerBasis
+      4.3-5 Iterator
+      4.3-6 Enumerator
+      4.3-7 Nontips
+      4.3-8 AdmitsFinitelyManyNontips
+      4.3-9 NontipSize
+      4.3-10 IsPrefixOfTipInTipIdeal
+    4.4 Right Groebner Basis
+      4.4-1 IsRightGroebnerBasis
+      4.4-2 RightGroebnerBasisOfIdeal
+      4.4-3 RightGroebnerBasis
+  5 Using GBNP with Gap
+    5.1 GBNP
+    5.2 Setting up GBNP
+    5.3 Relevant GBNP internals
+    5.4 Communicating with GBNP
+  6 Right Modules over Path Algebras
+    6.1 Matrix Modules
+      6.1-1 RightModuleOverPathAlgebra
+    6.2 Categories Of Matrix Modules
+      6.2-1 IsPathAlgebraMatModule
+    6.3 Acting on Module Elements
+      6.3-1 ^
+    6.4 Special representations
+      6.4-1 IndecomposableProjectiveRepresentations
+      6.4-2 IndecomposableInjectiveRepresentations
+      6.4-3 VertexSimpleRepresentations
+      6.4-4 ZeroRepresentation
+    6.5 Functors on representations
+      6.5-1 DualOfPathAlgebraMatModule
+    6.6 Vertex Projective Presentations
+      6.6-1 RightProjectiveModule
+      6.6-2 Vectorize
+      6.6-3 ^
+      6.6-4 <
+      6.6-5 /
+  A An Appendix
+  
+  
+  -------------------------------------------------------

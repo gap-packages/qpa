@@ -1,0 +1,26 @@
+  
+  [1X5 Using GBNP with Gap[0X
+  
+  
+  [1X5.1 GBNP[0X
+  
+  [5XGBNP[0m  is  a  non-commutative  Groebner  Basis package which assumes that all
+  algebras   involved   will   be  free  algebras  over  a  finite  number  of
+  non-commuting generators. It also assumes that the ordering on the monomials
+  is left length-lexicographic.
+  
+  
+  [1X5.2 Setting up GBNP[0X
+  
+  in progress...
+  
+  
+  [1X5.3 Relevant GBNP internals[0X
+  
+  in progress...
+  
+  
+  [1X5.4 Communicating with GBNP[0X
+  
+  in progress...
+  
