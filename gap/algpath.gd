@@ -1,6 +1,6 @@
 # GAP Declarations
 # This file was generated from
-# $Id: algpath.gd,v 1.1 2010/05/07 13:30:13 sunnyquiver Exp $
+# $Id: algpath.gd,v 1.2 2010/09/30 14:02:22 oysteini Exp $
 DeclareProperty( "IsPathRing", IsMagmaRingModuloSpanOfZero );
 DeclareProperty( "IsPathRing", IsAlgebra );
 DeclareSynonym( "IsPathAlgebra", IsAlgebra and IsPathRing );
@@ -45,3 +45,10 @@ DeclareHandlingByNiceBasis( "IsFpPathAlgebraElementsSpace",
     "for spaces of f.p. path algebras" );  
 
 DeclareOperation( "BasisOfDomain", [IsSubalgebraFpPathAlgebra]);
+
+
+# (This should have been an operation with argument filters
+# [ IsElementOfPathAlgebra ], but that filter does not exist).
+DeclareGlobalFunction( "PathAlgebraContainingElement");
+
+DeclareOperation( "OriginalPathAlgebra", [ IsSubalgebraFpPathAlgebra ] );

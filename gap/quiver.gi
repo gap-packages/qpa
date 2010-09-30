@@ -1,6 +1,6 @@
 # GAP Implementation
 # This file was generated from
-# $Id: quiver.gi,v 1.1 2010/05/07 13:30:13 sunnyquiver Exp $
+# $Id: quiver.gi,v 1.2 2010/09/30 14:02:22 oysteini Exp $
 
 InstallGlobalFunction(
   Path,
@@ -1068,3 +1068,11 @@ InstallMethod( PrintObj,
 
   end
 );
+  
+  
+InstallMethod( QuiverContainingPath,
+        "for a path",
+        [ IsPath ],
+        function( p )
+    return FamilyObj( p )!.quiver;
+end );

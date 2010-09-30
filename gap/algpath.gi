@@ -1,6 +1,6 @@
 # GAP Implementation
 # This file was generated from
-# $Id: algpath.gi,v 1.1 2010/05/07 13:30:13 sunnyquiver Exp $
+# $Id: algpath.gi,v 1.2 2010/09/30 14:02:22 oysteini Exp $
 
 
 InstallMethod( IsPathRing,
@@ -1141,3 +1141,40 @@ InstallHandlingByNiceBasis( "IsFpPathAlgebraElementsSpace",
     end
   )
 );
+    
+    
+InstallGlobalFunction( PathAlgebraContainingElement,
+        function( elem )
+    if IsElementOfFpPathAlgebra( elem ) then
+        return FamilyObj( elem )!.wholeAlgebra;
+    else
+        return FamilyObj( elem )!.pathRing;
+    fi;
+end );
+
+
+# If there was an IsElementOfPathAlgebra filter, it would be
+# better to write PathAlgebraContainingElement as an operation
+# with the following two methods:
+#
+# InstallMethod( PathAlgebraContainingElement,
+#         "for an element of a path algebra",
+#         [ IsElementOfPathAlgebra ],
+#         function( elem )
+#     return FamilyObj( elem )!.pathRing;
+# end );
+#
+# InstallMethod( PathAlgebraContainingElement,
+#         "for an element of a quotient of a path algebra",
+#         [ IsElementOfFpPathAlgebra ],
+#         function( elem )
+#     return FamilyObj( elem )!.wholeAlgebra;
+# end );
+
+
+InstallMethod( OriginalPathAlgebra,
+        "for a quotient of a path algebra",
+        [ IsSubalgebraFpPathAlgebra ],
+        function( quot )
+    return ElementsFamily( FamilyObj( quot ) )!.pathAlgebra;
+end );
