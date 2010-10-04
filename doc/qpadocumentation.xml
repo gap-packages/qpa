@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- $Id: qpadocumentation.xml,v 1.4 2010/09/30 09:40:25 sunnyquiver Exp $ -->
+<!-- $Id: qpadocumentation.xml,v 1.5 2010/10/04 08:50:48 sunnyquiver Exp $ -->
 
 <!DOCTYPE Book SYSTEM "gapdoc.dtd"
  [ <!ENTITY see '<Alt Only="LaTeX">$\to$</Alt><Alt Not="LaTeX">--&gt;</Alt>'>
@@ -1100,6 +1100,18 @@ false
     projection of <Arg>element</Arg> is returned.
    </Description>
   </ManSection>
+
+  <ManSection>
+   <Oper Name="OriginalPathAlgebra" Arg="algebra" Comm="for a quotient
+   of a path algebra"/>
+   <Description>
+    The operation <Ref Oper="OriginalPathAlgebra"/> operates on
+    an <Arg>algebra</Arg>. If it is a quotient of a path algebra or
+    just a path algebra itself, it returns the path algebra it was
+    constructed from. Otherwise it returns an error saying that the
+    algebra entered was not a quotient of a path algebra. 
+   </Description>
+  </ManSection>
 </Section>
 
 <Section Label="qpa:predefinedalgebras"><Heading>Predefined classes
@@ -1625,6 +1637,40 @@ gap&gt; B[4]^(P.b*P.c);
 </Example>
 </Section>
 
+<Section><Heading>Operations on representations</Heading>
+
+  <ManSection>
+   <Oper Name="DimensionVector" Arg="M" Comm="for a
+   PathAlgebraMatModule"/>
+   <Returns>the dimension vector of the representation <Arg>M</Arg>.
+     The argument <Arg>M</Arg> must be a <C>PathAlgebraMatModule</C>.
+   </Returns>
+   <Description> A shortcoming of this that it is not defined for
+     modules of quotients of path algebras.
+   </Description>
+  </ManSection>
+
+  <ManSection>
+   <Oper Name="MatricesOfPathAlgebraMatModule" Arg="M" Comm="for a
+   PathAlgebraMatModule"/>
+   <Returns>a list of the matrices that defines the
+     representation <Arg>M</Arg> as a right module of the acting path
+     algebra. The argument <Arg>M</Arg> must be
+     a <C>PathAlgebraMatModule</C>.
+   </Returns>
+   <Description> 
+     The list of matrices that are returned are not the same identical
+     to the matrices entered to define the representation if there is
+     zero vector space in at least one vertex. Then zero matrices of
+     the appropriate size are returned. A shortcoming of this that it
+     is not defined for modules of quotients of path algebras. 
+   </Description>
+  </ManSection>
+
+
+
+</Section>
+
 <Section><Heading>Special representations</Heading>
 Here we collect the predefined representations/modules over a finite
   dimensional quotient of a path algebra. 
@@ -1691,14 +1737,13 @@ Here we collect the predefined representations/modules over a finite
 <Section><Heading>Functors on representations</Heading>
 
   <ManSection>
-   <Oper Name="DualOfPathAlgebraMatModule" Arg="M, KQ_op" Comm=""/>
+   <Oper Name="DualOfPathAlgebraMatModule" Arg="M" Comm="for a PathAlgebraMatModule"/>
    <Description>
      Takes the a representation <Arg>M</Arg> of a path
-     algebra <Arg>KQ</Arg> and produces the dual of this
-     representation over the opposite path algebra <Arg>KQ_op</Arg>,
-     which needs to be constructed before calling this function. A
-     shortcoming of this function is that it cannot have a quotient of
-     a path algebra as an argument. 
+     algebra <Math>KQ</Math> and produces the dual of this
+     representation over the opposite path algebra <Arg>KQ_op</Arg>. A
+     shortcoming of this function is that it cannot have
+     representation over a quotient of a path algebra as an argument.
    </Description>
   </ManSection>
 </Section>

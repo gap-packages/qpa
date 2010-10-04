@@ -158,12 +158,37 @@
   [4X------------------------------------------------------------------[0X
   
   
-  [1X6.4 Special representations[0X
+  [1X6.4 Operations on representations[0X
+  
+  [1X6.4-1 DimensionVector[0m
+  
+  [2X> DimensionVector( [0X[3XM[0X[2X ) ____________________________________________[0Xoperation
+  [6XReturns:[0X  the  dimension vector of the representation [3XM[0m. The argument [3XM[0m must
+            be a [10XPathAlgebraMatModule[0m.
+  
+  A  shortcoming  of  this  that it is not defined for modules of quotients of
+  path algebras.
+  
+  [1X6.4-2 MatricesOfPathAlgebraMatModule[0m
+  
+  [2X> MatricesOfPathAlgebraMatModule( [0X[3XM[0X[2X ) _____________________________[0Xoperation
+  [6XReturns:[0X  a  list  of  the  matrices  that defines the representation [3XM[0m as a
+            right  module of the acting path algebra. The argument [3XM[0m must be a
+            [10XPathAlgebraMatModule[0m.
+  
+  The  list  of  matrices  that are returned are not the same identical to the
+  matrices  entered to define the representation if there is zero vector space
+  in  at  least  one  vertex.  Then  zero matrices of the appropriate size are
+  returned.  A  shortcoming  of  this  that  it  is not defined for modules of
+  quotients of path algebras.
+  
+  
+  [1X6.5 Special representations[0X
   
   Here  we  collect  the  predefined  representations/modules  over  a  finite
   dimensional quotient of a path algebra.
   
-  [1X6.4-1 IndecomposableProjectiveRepresentations[0m
+  [1X6.5-1 IndecomposableProjectiveRepresentations[0m
   
   [2X> IndecomposableProjectiveRepresentations( [0X[3XKQ, rels[0X[2X ) _____________[0Xoperation
   [6XReturns:[0X  a list of all the indecomposable projective representations over a
@@ -175,7 +200,7 @@
   current implementation is that it only returns the indecomposable projective
   representations/modules as modules over [3XKQ[0m, instead of [3XKQ/(rels)[0m.
   
-  [1X6.4-2 IndecomposableInjectiveRepresentations[0m
+  [1X6.5-2 IndecomposableInjectiveRepresentations[0m
   
   [2X> IndecomposableInjectiveRepresentations( [0X[3XKQ, rels[0X[2X ) ______________[0Xoperation
   [6XReturns:[0X  a  list of all the indecomposable injective representations over a
@@ -187,7 +212,7 @@
   current  implementation is that it only returns the indecomposable injective
   representations/modules as modules over [3XKQ[0m, instead of [3XKQ/(rels)[0m.
   
-  [1X6.4-3 VertexSimpleRepresentations[0m
+  [1X6.5-3 VertexSimpleRepresentations[0m
   
   [2X> VertexSimpleRepresentations( [0X[3XKQ, rels[0X[2X ) _________________________[0Xoperation
   [6XReturns:[0X  a list of all the simple representations over a finite dimensional
@@ -197,7 +222,7 @@
   vertex  simple  representations/modules  as  modules  over  [3XKQ[0m,  instead  of
   [3XKQ/(rels)[0m.
   
-  [1X6.4-4 ZeroRepresentation[0m
+  [1X6.5-4 ZeroRepresentation[0m
   
   [2X> ZeroRepresentation( [0X[3XKQ, rels[0X[2X ) __________________________________[0Xoperation
   [6XReturns:[0X  the  zero  representation  over  a  quotient  of a path algebra [3XKQ[0m
@@ -207,19 +232,19 @@
   representation as modules over [3XKQ[0m, instead of [3XKQ/(rels)[0m.
   
   
-  [1X6.5 Functors on representations[0X
+  [1X6.6 Functors on representations[0X
   
-  [1X6.5-1 DualOfPathAlgebraMatModule[0m
+  [1X6.6-1 DualOfPathAlgebraMatModule[0m
   
-  [2X> DualOfPathAlgebraMatModule( [0X[3XM, KQ_op[0X[2X ) __________________________[0Xoperation
+  [2X> DualOfPathAlgebraMatModule( [0X[3XM[0X[2X ) _________________________________[0Xoperation
   
-  Takes  the  a representation [3XM[0m of a path algebra [3XKQ[0m and produces the dual of
-  this  representation over the opposite path algebra [3XKQ_op[0m, which needs to be
-  constructed  before calling this function. A shortcoming of this function is
-  that it cannot have a quotient of a path algebra as an argument.
+  Takes the a representation [3XM[0m of a path algebra $KQ$ and produces the dual of
+  this  representation  over the opposite path algebra [3XKQ_op[0m. A shortcoming of
+  this  function  is  that  it cannot have representation over a quotient of a
+  path algebra as an argument.
   
   
-  [1X6.6 Vertex Projective Presentations[0X
+  [1X6.7 Vertex Projective Presentations[0X
   
   In  general, if $R$ is a ring and $e$ is an idempotent of $R$ then $eR$ is a
   projective  module of $R$. Then we can form a direct sum of these projective
@@ -231,7 +256,7 @@
   $\oplus_{i=1}^{g}  v(i)R$.  The  maps  $w$  and $v$ map the integers to some
   idempotent in $R$.
   
-  [1X6.6-1 RightProjectiveModule[0m
+  [1X6.7-1 RightProjectiveModule[0m
   
   [2X> RightProjectiveModule( [0X[3XA, verts[0X[2X ) ________________________________[0Xfunction
   [6XReturns:[0X  the  right  projective  module  over  [3XA[0m which is the direct sum of
@@ -262,7 +287,7 @@
     [4X12[0X
   [4X------------------------------------------------------------------[0X
   
-  [1X6.6-2 Vectorize[0m
+  [1X6.7-2 Vectorize[0m
   
   [2X> Vectorize( [0X[3XM, components[0X[2X ) _______________________________________[0Xfunction
   [6XReturns:[0X  a  vector  in  the  module  [3XM[0m from a list of path algebra elements
@@ -288,7 +313,7 @@
     [4X3[0X
   [4X------------------------------------------------------------------[0X
   
-  [1X6.6-3 ^[0m
+  [1X6.7-3 ^[0m
   
   [2X> ^( [0X[3Xm, a[0X[2X ) _______________________________________________________[0Xoperation
   
@@ -302,7 +327,7 @@
     [4X  (Z(11)^5)*w+(Z(11)^0)*c ][0X
   [4X------------------------------------------------------------------[0X
   
-  [1X6.6-4 <[0m
+  [1X6.7-4 <[0m
   
   [2X> <( [0X[3Xm1, m2[0X[2X ) _____________________________________________________[0Xoperation
   
@@ -318,7 +343,7 @@
     [4Xfalse[0X
   [4X------------------------------------------------------------------[0X
   
-  [1X6.6-5 /[0m
+  [1X6.7-5 /[0m
   
   [2X> /( [0X[3XM, N[0X[2X ) _______________________________________________________[0Xoperation
   

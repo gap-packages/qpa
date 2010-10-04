@@ -312,6 +312,15 @@
   [3Xcomputenormal[0m  is true, then the normal form of the projection of [3Xelement[0m is
   returned.
   
+  [1X3.10-4 OriginalPathAlgebra[0m
+  
+  [2X> OriginalPathAlgebra( [0X[3Xalgebra[0X[2X ) __________________________________[0Xoperation
+  
+  The  operation  [2XOriginalPathAlgebra[0m  operates  on  an  [3Xalgebra[0m.  If  it is a
+  quotient  of  a  path  algebra or just a path algebra itself, it returns the
+  path  algebra  it was constructed from. Otherwise it returns an error saying
+  that the algebra entered was not a quotient of a path algebra.
+  
   
   [1X3.11 Predefined classes of quotient of path algebras[0X
   

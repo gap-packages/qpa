@@ -48,7 +48,7 @@
 \hypersetup{pdftitle=QPA}
 \markright{\scriptsize \mbox{}\hfill QPA \hfill\mbox{}}
 {\Large \textbf{Quivers and Path Algebras\mbox{}}}\\[1cm]
-{Version version 1.5\mbox{}}\\[1cm]
+{Version version 1.4\mbox{}}\\[1cm]
 {September 2010\mbox{}}\\[1cm]
 \mbox{}\\[2cm]
 {\large \textbf{The QPA-team\\
@@ -1348,6 +1348,20 @@ you will need to compute a Groebner basis of the ideal. Refer to the chapters
 
  The operation \texttt{ElementOfFpPathAlgebra} operates on an \mbox{\texttt{\slshape element}} in a path algebra, and it projects it into the quotient given by \mbox{\texttt{\slshape family}}. If \mbox{\texttt{\slshape computenormal}} is true, then the normal form of the projection of \mbox{\texttt{\slshape element}} is returned. }
 
+ 
+
+\subsection{\textcolor{Chapter }{OriginalPathAlgebra}}
+\logpage{[ 3, 10, 4 ]}\nobreak
+\hyperdef{L}{X8088721187BA8D82}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{OriginalPathAlgebra({\slshape algebra})\index{OriginalPathAlgebra@\texttt{OriginalPathAlgebra}}
+\label{OriginalPathAlgebra}
+}\hfill{\scriptsize (operation)}}\\
+
+
+ The operation \texttt{OriginalPathAlgebra} operates on an \mbox{\texttt{\slshape algebra}}. If it is a quotient of a path algebra or just a path algebra itself, it
+returns the path algebra it was constructed from. Otherwise it returns an
+error saying that the algebra entered was not a quotient of a path algebra. }
+
  }
 
  
@@ -1952,14 +1966,55 @@ and elementwise operations available. }
  }
 
  
-\section{\textcolor{Chapter }{Special representations}}\logpage{[ 6, 4, 0 ]}
+\section{\textcolor{Chapter }{Operations on representations}}\logpage{[ 6, 4, 0 ]}
+\hyperdef{L}{X7E5B84B1832D839E}{}
+{
+ 
+
+\subsection{\textcolor{Chapter }{DimensionVector}}
+\logpage{[ 6, 4, 1 ]}\nobreak
+\hyperdef{L}{X7B5EA4B0820DE28C}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{DimensionVector({\slshape M})\index{DimensionVector@\texttt{DimensionVector}}
+\label{DimensionVector}
+}\hfill{\scriptsize (operation)}}\\
+\textbf{\indent Returns:\ }
+the dimension vector of the representation \mbox{\texttt{\slshape M}}. The argument \mbox{\texttt{\slshape M}} must be a \texttt{PathAlgebraMatModule}. 
+
+
+
+ A shortcoming of this that it is not defined for modules of quotients of path
+algebras. }
+
+ 
+
+\subsection{\textcolor{Chapter }{MatricesOfPathAlgebraMatModule}}
+\logpage{[ 6, 4, 2 ]}\nobreak
+\hyperdef{L}{X7E676BA9848F4D84}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{MatricesOfPathAlgebraMatModule({\slshape M})\index{MatricesOfPathAlgebraMatModule@\texttt{MatricesOfPathAlgebraMatModule}}
+\label{MatricesOfPathAlgebraMatModule}
+}\hfill{\scriptsize (operation)}}\\
+\textbf{\indent Returns:\ }
+a list of the matrices that defines the representation \mbox{\texttt{\slshape M}} as a right module of the acting path algebra. The argument \mbox{\texttt{\slshape M}} must be a \texttt{PathAlgebraMatModule}. 
+
+
+
+ The list of matrices that are returned are not the same identical to the
+matrices entered to define the representation if there is zero vector space in
+at least one vertex. Then zero matrices of the appropriate size are returned.
+A shortcoming of this that it is not defined for modules of quotients of path
+algebras. }
+
+ }
+
+ 
+\section{\textcolor{Chapter }{Special representations}}\logpage{[ 6, 5, 0 ]}
 \hyperdef{L}{X7919F94382D9B38B}{}
 {
  Here we collect the predefined representations/modules over a finite
 dimensional quotient of a path algebra. 
 
 \subsection{\textcolor{Chapter }{IndecomposableProjectiveRepresentations}}
-\logpage{[ 6, 4, 1 ]}\nobreak
+\logpage{[ 6, 5, 1 ]}\nobreak
 \hyperdef{L}{X82637AE885576148}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IndecomposableProjectiveRepresentations({\slshape KQ, rels})\index{IndecomposableProjectiveRepresentations@\texttt{IndecomposableProjectiveRepresentations}}
 \label{IndecomposableProjectiveRepresentations}
@@ -1977,7 +2032,7 @@ indecomposable projective representations/modules as modules over \mbox{\texttt{
  
 
 \subsection{\textcolor{Chapter }{IndecomposableInjectiveRepresentations}}
-\logpage{[ 6, 4, 2 ]}\nobreak
+\logpage{[ 6, 5, 2 ]}\nobreak
 \hyperdef{L}{X78829EE8850BCD9F}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IndecomposableInjectiveRepresentations({\slshape KQ, rels})\index{IndecomposableInjectiveRepresentations@\texttt{IndecomposableInjectiveRepresentations}}
 \label{IndecomposableInjectiveRepresentations}
@@ -1995,7 +2050,7 @@ indecomposable injective representations/modules as modules over \mbox{\texttt{\
  
 
 \subsection{\textcolor{Chapter }{VertexSimpleRepresentations}}
-\logpage{[ 6, 4, 3 ]}\nobreak
+\logpage{[ 6, 5, 3 ]}\nobreak
 \hyperdef{L}{X7B0AD1CB7F3D0D3C}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{VertexSimpleRepresentations({\slshape KQ, rels})\index{VertexSimpleRepresentations@\texttt{VertexSimpleRepresentations}}
 \label{VertexSimpleRepresentations}
@@ -2012,7 +2067,7 @@ simple representations/modules as modules over \mbox{\texttt{\slshape KQ}}, inst
  
 
 \subsection{\textcolor{Chapter }{ZeroRepresentation}}
-\logpage{[ 6, 4, 4 ]}\nobreak
+\logpage{[ 6, 5, 4 ]}\nobreak
 \hyperdef{L}{X8106F9C681CE5E49}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{ZeroRepresentation({\slshape KQ, rels})\index{ZeroRepresentation@\texttt{ZeroRepresentation}}
 \label{ZeroRepresentation}
@@ -2028,27 +2083,26 @@ representation as modules over \mbox{\texttt{\slshape KQ}}, instead of \mbox{\te
  }
 
  
-\section{\textcolor{Chapter }{Functors on representations}}\logpage{[ 6, 5, 0 ]}
+\section{\textcolor{Chapter }{Functors on representations}}\logpage{[ 6, 6, 0 ]}
 \hyperdef{L}{X7D99BF5A87DDC099}{}
 {
  
 
 \subsection{\textcolor{Chapter }{DualOfPathAlgebraMatModule}}
-\logpage{[ 6, 5, 1 ]}\nobreak
+\logpage{[ 6, 6, 1 ]}\nobreak
 \hyperdef{L}{X807D065C7AD70C6F}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{DualOfPathAlgebraMatModule({\slshape M, KQ{\textunderscore}op})\index{DualOfPathAlgebraMatModule@\texttt{DualOfPathAlgebraMatModule}}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{DualOfPathAlgebraMatModule({\slshape M})\index{DualOfPathAlgebraMatModule@\texttt{DualOfPathAlgebraMatModule}}
 \label{DualOfPathAlgebraMatModule}
 }\hfill{\scriptsize (operation)}}\\
 
 
- Takes the a representation \mbox{\texttt{\slshape M}} of a path algebra \mbox{\texttt{\slshape KQ}} and produces the dual of this representation over the opposite path algebra \mbox{\texttt{\slshape KQ{\textunderscore}op}}, which needs to be constructed before calling this function. A shortcoming of
-this function is that it cannot have a quotient of a path algebra as an
-argument. }
+ Takes the a representation \mbox{\texttt{\slshape M}} of a path algebra $KQ$ and produces the dual of this representation over the opposite path algebra \mbox{\texttt{\slshape KQ{\textunderscore}op}}. A shortcoming of this function is that it cannot have representation over a
+quotient of a path algebra as an argument. }
 
  }
 
  
-\section{\textcolor{Chapter }{Vertex Projective Presentations}}\logpage{[ 6, 6, 0 ]}
+\section{\textcolor{Chapter }{Vertex Projective Presentations}}\logpage{[ 6, 7, 0 ]}
 \hyperdef{L}{X8097F19E8228B68C}{}
 {
  In general, if $R$ is a ring and $e$ is an idempotent of $R$ then $eR$ is a projective module of $R$. Then we can form a direct sum of these projective modules together to form
@@ -2057,7 +2111,7 @@ a \mbox{\texttt{\slshape vertex projective presentation}}. In this case, $M$ is 
 \rightarrow 0$ for some map between $\oplus_{j=1}^{r} w(j)R$ and $\oplus_{i=1}^{g} v(i)R$. The maps $w$ and $v$ map the integers to some idempotent in $R$. 
 
 \subsection{\textcolor{Chapter }{RightProjectiveModule}}
-\logpage{[ 6, 6, 1 ]}\nobreak
+\logpage{[ 6, 7, 1 ]}\nobreak
 \hyperdef{L}{X79175B097A0718FE}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{RightProjectiveModule({\slshape A, verts})\index{RightProjectiveModule@\texttt{RightProjectiveModule}}
 \label{RightProjectiveModule}
@@ -2091,7 +2145,7 @@ construct submodules using `SubAlgebraModule'. }
  
 
 \subsection{\textcolor{Chapter }{Vectorize}}
-\logpage{[ 6, 6, 2 ]}\nobreak
+\logpage{[ 6, 7, 2 ]}\nobreak
 \hyperdef{L}{X78E05C8F7ADE2BCD}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{Vectorize({\slshape M, components})\index{Vectorize@\texttt{Vectorize}}
 \label{Vectorize}
@@ -2123,7 +2177,7 @@ the two elements as generators.
  
 
 \subsection{\textcolor{Chapter }{\texttt{\symbol{94}}}}
-\logpage{[ 6, 6, 3 ]}\nobreak
+\logpage{[ 6, 7, 3 ]}\nobreak
 \hyperdef{L}{X8123456781234567}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{\texttt{\symbol{94}}({\slshape m, a})\index{^@\texttt{\texttt{\symbol{94}}}}
 \label{^}
@@ -2141,7 +2195,7 @@ the two elements as generators.
  
 
 \subsection{\textcolor{Chapter }{{\textless}}}
-\logpage{[ 6, 6, 4 ]}\nobreak
+\logpage{[ 6, 7, 4 ]}\nobreak
 \hyperdef{L}{X871A3B1D871A3B1D}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{{\textless}({\slshape m1, m2})\index{<@\texttt{{\textless}}}
 \label{<}
@@ -2159,7 +2213,7 @@ using the ordering of the underlying algebra. The element \mbox{\texttt{\slshape
  
 
 \subsection{\textcolor{Chapter }{/}}
-\logpage{[ 6, 6, 5 ]}\nobreak
+\logpage{[ 6, 7, 5 ]}\nobreak
 \hyperdef{L}{X8123456781234567}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{/({\slshape M, N})\index{/@\texttt{/}}
 \label{/}

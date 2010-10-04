@@ -55,37 +55,40 @@
 \indexentry{IsNormalForm@\texttt  {IsNormalForm}|hyperpage}{24}
 \indexentry{<@\texttt  {{\textless }}|hyperpage}{24}
 \indexentry{ElementOfFpPathAlgebra@\texttt  {ElementOfFpPathAlgebra}|hyperpage}{24}
-\indexentry{NakayamaAlgebra@\texttt  {NakayamaAlgebra}|hyperpage}{24}
-\indexentry{InfoGroebnerBasis@\texttt  {InfoGroebnerBasis}|hyperpage}{25}
-\indexentry{GroebnerBasis@\texttt  {GroebnerBasis}|hyperpage}{25}
-\indexentry{IsGroebnerBasis@\texttt  {IsGroebnerBasis}|hyperpage}{25}
-\indexentry{IsTipReducedGroebnerBasis@\texttt  {IsTipReducedGroebnerBasis}|hyperpage}{26}
-\indexentry{IsCompletelyReducedGroebnerBasis@\texttt  {IsCompletelyReducedGroebnerBasis}|hyperpage}{26}
-\indexentry{IsHomogenousGroebnerBasis@\texttt  {IsHomogenousGroebnerBasis}|hyperpage}{26}
-\indexentry{IsCompleteGroebnerBasis@\texttt  {IsCompleteGroebnerBasis}|hyperpage}{26}
-\indexentry{CompletelyReduce@\texttt  {CompletelyReduce}|hyperpage}{26}
-\indexentry{CompletelyReduceGroebnerBasis@\texttt  {CompletelyReduceGroebnerBasis}|hyperpage}{27}
-\indexentry{TipReduce@\texttt  {TipReduce}|hyperpage}{27}
-\indexentry{TipReduceGroebnerBasis@\texttt  {TipReduceGroebnerBasis}|hyperpage}{27}
-\indexentry{Iterator@\texttt  {Iterator}|hyperpage}{27}
-\indexentry{Enumerator@\texttt  {Enumerator}|hyperpage}{27}
-\indexentry{Nontips@\texttt  {Nontips}|hyperpage}{28}
-\indexentry{AdmitsFinitelyManyNontips@\texttt  {AdmitsFinitelyManyNontips}|hyperpage}{28}
-\indexentry{NontipSize@\texttt  {NontipSize}|hyperpage}{28}
-\indexentry{IsPrefixOfTipInTipIdeal@\texttt  {IsPrefixOfTipInTipIdeal}|hyperpage}{28}
-\indexentry{IsRightGroebnerBasis@\texttt  {IsRightGroebnerBasis}|hyperpage}{29}
-\indexentry{RightGroebnerBasisOfIdeal@\texttt  {RightGroebnerBasisOfIdeal}|hyperpage}{29}
-\indexentry{RightGroebnerBasis@\texttt  {RightGroebnerBasis}|hyperpage}{29}
-\indexentry{RightModuleOverPathAlgebra@\texttt  {RightModuleOverPathAlgebra}|hyperpage}{31}
-\indexentry{IsPathAlgebraMatModule@\texttt  {IsPathAlgebraMatModule}|hyperpage}{33}
-\indexentry{^@\texttt  {\texttt  {\char 94\relax }}|hyperpage}{33}
-\indexentry{IndecomposableProjectiveRepresentations@\texttt  {IndecomposableProjectiveRepresentations}|hyperpage}{34}
-\indexentry{IndecomposableInjectiveRepresentations@\texttt  {IndecomposableInjectiveRepresentations}|hyperpage}{34}
-\indexentry{VertexSimpleRepresentations@\texttt  {VertexSimpleRepresentations}|hyperpage}{34}
-\indexentry{ZeroRepresentation@\texttt  {ZeroRepresentation}|hyperpage}{34}
-\indexentry{DualOfPathAlgebraMatModule@\texttt  {DualOfPathAlgebraMatModule}|hyperpage}{34}
-\indexentry{RightProjectiveModule@\texttt  {RightProjectiveModule}|hyperpage}{35}
-\indexentry{Vectorize@\texttt  {Vectorize}|hyperpage}{35}
-\indexentry{^@\texttt  {\texttt  {\char 94\relax }}|hyperpage}{36}
-\indexentry{<@\texttt  {{\textless }}|hyperpage}{36}
-\indexentry{/@\texttt  {/}|hyperpage}{36}
+\indexentry{OriginalPathAlgebra@\texttt  {OriginalPathAlgebra}|hyperpage}{24}
+\indexentry{NakayamaAlgebra@\texttt  {NakayamaAlgebra}|hyperpage}{25}
+\indexentry{InfoGroebnerBasis@\texttt  {InfoGroebnerBasis}|hyperpage}{26}
+\indexentry{GroebnerBasis@\texttt  {GroebnerBasis}|hyperpage}{26}
+\indexentry{IsGroebnerBasis@\texttt  {IsGroebnerBasis}|hyperpage}{26}
+\indexentry{IsTipReducedGroebnerBasis@\texttt  {IsTipReducedGroebnerBasis}|hyperpage}{27}
+\indexentry{IsCompletelyReducedGroebnerBasis@\texttt  {IsCompletelyReducedGroebnerBasis}|hyperpage}{27}
+\indexentry{IsHomogenousGroebnerBasis@\texttt  {IsHomogenousGroebnerBasis}|hyperpage}{27}
+\indexentry{IsCompleteGroebnerBasis@\texttt  {IsCompleteGroebnerBasis}|hyperpage}{27}
+\indexentry{CompletelyReduce@\texttt  {CompletelyReduce}|hyperpage}{27}
+\indexentry{CompletelyReduceGroebnerBasis@\texttt  {CompletelyReduceGroebnerBasis}|hyperpage}{28}
+\indexentry{TipReduce@\texttt  {TipReduce}|hyperpage}{28}
+\indexentry{TipReduceGroebnerBasis@\texttt  {TipReduceGroebnerBasis}|hyperpage}{28}
+\indexentry{Iterator@\texttt  {Iterator}|hyperpage}{28}
+\indexentry{Enumerator@\texttt  {Enumerator}|hyperpage}{28}
+\indexentry{Nontips@\texttt  {Nontips}|hyperpage}{29}
+\indexentry{AdmitsFinitelyManyNontips@\texttt  {AdmitsFinitelyManyNontips}|hyperpage}{29}
+\indexentry{NontipSize@\texttt  {NontipSize}|hyperpage}{29}
+\indexentry{IsPrefixOfTipInTipIdeal@\texttt  {IsPrefixOfTipInTipIdeal}|hyperpage}{29}
+\indexentry{IsRightGroebnerBasis@\texttt  {IsRightGroebnerBasis}|hyperpage}{30}
+\indexentry{RightGroebnerBasisOfIdeal@\texttt  {RightGroebnerBasisOfIdeal}|hyperpage}{30}
+\indexentry{RightGroebnerBasis@\texttt  {RightGroebnerBasis}|hyperpage}{30}
+\indexentry{RightModuleOverPathAlgebra@\texttt  {RightModuleOverPathAlgebra}|hyperpage}{32}
+\indexentry{IsPathAlgebraMatModule@\texttt  {IsPathAlgebraMatModule}|hyperpage}{34}
+\indexentry{^@\texttt  {\texttt  {\char 94\relax }}|hyperpage}{34}
+\indexentry{DimensionVector@\texttt  {DimensionVector}|hyperpage}{35}
+\indexentry{MatricesOfPathAlgebraMatModule@\texttt  {MatricesOfPathAlgebraMatModule}|hyperpage}{35}
+\indexentry{IndecomposableProjectiveRepresentations@\texttt  {IndecomposableProjectiveRepresentations}|hyperpage}{35}
+\indexentry{IndecomposableInjectiveRepresentations@\texttt  {IndecomposableInjectiveRepresentations}|hyperpage}{35}
+\indexentry{VertexSimpleRepresentations@\texttt  {VertexSimpleRepresentations}|hyperpage}{35}
+\indexentry{ZeroRepresentation@\texttt  {ZeroRepresentation}|hyperpage}{36}
+\indexentry{DualOfPathAlgebraMatModule@\texttt  {DualOfPathAlgebraMatModule}|hyperpage}{36}
+\indexentry{RightProjectiveModule@\texttt  {RightProjectiveModule}|hyperpage}{36}
+\indexentry{Vectorize@\texttt  {Vectorize}|hyperpage}{37}
+\indexentry{^@\texttt  {\texttt  {\char 94\relax }}|hyperpage}{37}
+\indexentry{<@\texttt  {{\textless }}|hyperpage}{37}
+\indexentry{/@\texttt  {/}|hyperpage}{38}

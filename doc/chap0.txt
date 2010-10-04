@@ -6,7 +6,7 @@
                            [1XQuivers and Path Algebras[0m
   
   
-                              Version version 1.5
+                              Version version 1.4
   
   
                                  September 2010
@@ -135,6 +135,7 @@
       3.10-1 IsNormalForm
       3.10-2 <
       3.10-3 ElementOfFpPathAlgebra
+      3.10-4 OriginalPathAlgebra
     3.11 Predefined classes of quotient of path algebras
       3.11-1 NakayamaAlgebra
   4 Groebner Basis
@@ -174,19 +175,22 @@
       6.2-1 IsPathAlgebraMatModule
     6.3 Acting on Module Elements
       6.3-1 ^
-    6.4 Special representations
-      6.4-1 IndecomposableProjectiveRepresentations
-      6.4-2 IndecomposableInjectiveRepresentations
-      6.4-3 VertexSimpleRepresentations
-      6.4-4 ZeroRepresentation
-    6.5 Functors on representations
-      6.5-1 DualOfPathAlgebraMatModule
-    6.6 Vertex Projective Presentations
-      6.6-1 RightProjectiveModule
-      6.6-2 Vectorize
-      6.6-3 ^
-      6.6-4 <
-      6.6-5 /
+    6.4 Operations on representations
+      6.4-1 DimensionVector
+      6.4-2 MatricesOfPathAlgebraMatModule
+    6.5 Special representations
+      6.5-1 IndecomposableProjectiveRepresentations
+      6.5-2 IndecomposableInjectiveRepresentations
+      6.5-3 VertexSimpleRepresentations
+      6.5-4 ZeroRepresentation
+    6.6 Functors on representations
+      6.6-1 DualOfPathAlgebraMatModule
+    6.7 Vertex Projective Presentations
+      6.7-1 RightProjectiveModule
+      6.7-2 Vectorize
+      6.7-3 ^
+      6.7-4 <
+      6.7-5 /
   A An Appendix
   
   
