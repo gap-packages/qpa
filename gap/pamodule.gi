@@ -1,6 +1,6 @@
 # GAP Implementation
 # This file was generated from 
-# $Id: pamodule.gi,v 1.5 2010/09/24 09:09:08 sunnyquiver Exp $
+# $Id: pamodule.gi,v 1.6 2010/10/04 07:07:35 sunnyquiver Exp $
 
 ZeroModElement:=function(fam,zero)
   local result,i;
@@ -901,4 +901,40 @@ InstallOtherMethod( End,
 
     return AlgebraWithOne(LeftActingDomain(R), basis,"basis");
   end
+);
+
+InstallMethod ( MatricesOfPathAlgebraMatModule,
+    "for a representation of a quiver",
+    [ IsPathAlgebraMatModule ], 0,
+    function( M )
+#
+#   M     = a representation of the quiver Q over K
+#
+        local A, Q, num_vert, num_arrow, m, fam, mat;
+
+    A := RightActingAlgebra(M);
+    Q := QuiverOfPathRing(A);
+    num_vert  := Length(VerticesOfQuiver(Q));
+    num_arrow := Length(ArrowsOfQuiver(Q));
+    m   := ExtRepOfObj(BasisVectors(CanonicalBasis(M))[1]);
+    fam := FamilyObj(m);
+    
+    return fam!.matrices{[num_vert+1..num_arrow+num_vert]};
+end
+);
+
+InstallMethod (DimensionVector,
+    "for a representation of a quiver",
+    [ IsPathAlgebraMatModule ], 0,
+    function( M )
+#
+#   M = a representation of the quiver Q over K
+#
+        local m, fam;
+
+    m   := ExtRepOfObj(BasisVectors(CanonicalBasis(M))[1]);
+    fam := FamilyObj(m);
+    
+    return fam!.vertices;
+end
 );

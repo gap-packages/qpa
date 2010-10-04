@@ -1,6 +1,6 @@
 # Read in QPA files
 # This file was generated from
-# $Id: read.g,v 1.6 2010/09/30 14:02:22 oysteini Exp $
+# $Id: read.g,v 1.7 2010/10/04 07:07:35 sunnyquiver Exp $
 if BANNER then
     ReadPkg("QPA", "gap/banner.g");
 fi;
@@ -24,11 +24,11 @@ ReadPkg("QPA", "gap/decomp.gd");
 ReadPkg("QPA", "gap/idempotent.gd");
 ReadPkg("QPA", "gap/askcohen.gd");
 ReadPkg("QPA", "gap/projres.gd");
-ReadPkg("QPA", "gap/oppdualtrans.gd");
 ReadPkg("QPA", "gap/patensor.gd");
 ReadPkg("QPA", "gap/opposite.gd");
 ReadPkg("QPA", "gap/predefalgs.gd");
 ReadPkg("QPA", "gap/specialreps.gd");
+ReadPkg("QPA", "gap/functors.gd");
 
 ReadPkg("QPA", "gap/dyntree.gi" );
 ReadPkg("QPA", "gap/dyndict.gi" );
@@ -49,8 +49,8 @@ ReadPkg("QPA", "gap/decomp.gi");
 ReadPkg("QPA", "gap/idempotent.gi");
 ReadPkg("QPA", "gap/askcohen.gi");
 ReadPkg("QPA", "gap/projres.gi");
-ReadPkg("QPA", "gap/oppdualtrans.gi");
 ReadPkg("QPA", "gap/patensor.gi");
 ReadPkg("QPA", "gap/opposite.gi");
 ReadPkg("QPA", "gap/predefalgs.gi");
 ReadPkg("QPA", "gap/specialreps.gi");
+ReadPkg("QPA", "gap/functors.gi");

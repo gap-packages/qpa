@@ -1,6 +1,6 @@
 # GAP Declarations
 # This file was generated from
-# $Id: pamodule.gd,v 1.1 2010/05/07 13:30:13 sunnyquiver Exp $
+# $Id: pamodule.gd,v 1.2 2010/10/04 07:07:35 sunnyquiver Exp $
 DeclareCategory("IsPathModuleElem", IsVector);
 DeclareCategoryFamily( "IsPathModuleElem" );
 DeclareCategoryCollections( "IsPathModuleElem" );
@@ -17,5 +17,7 @@ DeclareOperation("BasisOfDomain", [IsFreeLeftModule and IsPathModuleElemCollecti
 
 DeclareOperation("NewBasis", [ IsFreeLeftModule and IsPathModuleElemCollection,
       IsPathModuleElemCollection and IsList ]);
+DeclareOperation( "MatricesOfPathAlgebraMatModule", [IsPathAlgebraMatModule] ); 
+DeclareOperation( "DimensionVector", [IsPathAlgebraMatModule] ); 
 
 DeclareFilter( "IsAlgebraModuleHomomorphism", IsLeftModuleGeneralMapping );

@@ -1,6 +1,6 @@
 # GAP Implementation
 # This file was generated from
-# $Id: algpath.gi,v 1.2 2010/09/30 14:02:22 oysteini Exp $
+# $Id: algpath.gi,v 1.3 2010/10/04 07:07:35 sunnyquiver Exp $
 
 
 InstallMethod( IsPathRing,
@@ -1173,8 +1173,14 @@ end );
 
 
 InstallMethod( OriginalPathAlgebra,
-        "for a quotient of a path algebra",
-        [ IsSubalgebraFpPathAlgebra ],
-        function( quot )
-    return ElementsFamily( FamilyObj( quot ) )!.pathAlgebra;
+   "for a quotient of a path algebra",
+   [ IsAlgebra ],
+   function( quot )
+      if IsPathAlgebra( quot ) then
+         return quot;
+      elif IsSubalgebraFpPathAlgebra( quot ) then
+         return ElementsFamily( FamilyObj( quot ) )!.pathAlgebra;
+      else 
+         Error("the algebra entered was not a quotient of a path algebra.");
+      fi;
 end );
