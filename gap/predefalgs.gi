@@ -1,12 +1,7 @@
+# GAP Implementation
+# This file was generated from 
+# $Id: predefalgs.gi,v 1.2 2010/10/06 05:29:16 sunnyquiver Exp $
 InstallMethod ( NakayamaAlgebra,
-# Written by Oeyvind Solberg, 19.06.2010
-# Creates a Nakayama algebra from an admissible sequence. If a valid
-# admissible sequence has been entered, it returns [KQ/I,KQ,rels] (where
-# I := Ideal(KQ,rels)), otherwise it returns the admissible sequence 
-# that was entered.
-#
-# Dependent on: Quiver, PathAlgebra, GeneratorsOfAlgebra, One(KQ). 
-#               
     "for an admissible sequence and a field",
     [IsList, IsField], 0,
     function( admiss_seq , K)
