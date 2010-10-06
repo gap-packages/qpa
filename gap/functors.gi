@@ -1,3 +1,6 @@
+# GAP Implementation
+# This file was generated from 
+# $Id: functors.gi,v 1.2 2010/10/06 05:25:19 sunnyquiver Exp $
 InstallMethod ( DualOfPathAlgebraMatModule,
     "for a representation of a quiver",
     [ IsPathAlgebraMatModule ], 0,
