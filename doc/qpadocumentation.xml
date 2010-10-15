@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- $Id: qpadocumentation.xml,v 1.5 2010/10/04 08:50:48 sunnyquiver Exp $ -->
+<!-- $Id: qpadocumentation.xml,v 1.6 2010/10/15 11:24:54 oysteini Exp $ -->
 
 <!DOCTYPE Book SYSTEM "gapdoc.dtd"
  [ <!ENTITY see '<Alt Only="LaTeX">$\to$</Alt><Alt Not="LaTeX">--&gt;</Alt>'>
  ]>
+
+<?LaTeX ExtraPreamble="
+\newcommand{\tensor}{\otimes}
+\newcommand{\quiverproduct}{\times}
+"?>
 
 <Book Name="QPA documentation">
 
@@ -1130,6 +1135,198 @@ false
    </Description>
   </ManSection>
 </Section>
+
+
+<Section Label="qpa:patensor">
+  <Heading>Tensor products of path algebras</Heading>
+
+  If <M>\Lambda</M> and <M>\Gamma</M> are quotients of path algebras
+  over the same field <M>F</M>, then their tensor product <M>\Lambda
+  \tensor_F \Gamma</M> is also a quotient of a path algebra
+  over <M>F</M>.<P/>
+
+  The quiver for the tensor product path algebra is the
+  <Ref Oper="QuiverProduct"/> of the quivers of the original
+  algebras.<P/>
+
+  The operation <Ref Oper="TensorProductOfAlgebras"/> computes the
+  tensor products of two quotients of path algebras as a quotient of a
+  path algebra.
+
+  <ManSection>
+    <Oper Name="QuiverProduct" Arg="Q1, Q2"/>
+    <Description>
+      Creates the product quiver <M><Arg>Q1</Arg>
+      \quiverproduct <Arg>Q2</Arg></M>.  A vertex in <M><Arg>Q1</Arg>
+      \quiverproduct <Arg>Q2</Arg></M> which is made by combining a
+      vertex named <C>u</C> in <Arg>Q1</Arg> with a vertex <C>v</C>
+      in <Arg>Q2</Arg> is named <C>u_v</C>.  Arrows are named
+      similarly (they are made by combining an arrow from one quiver
+      with a vertex from the other).
+    </Description>
+  </ManSection>
+
+  <ManSection>
+    <Attr Name="QuiverProductDecomposition" Arg="Q"/>
+    <Description>
+      Contains the original quivers <Arg>Q</Arg> is a product of,
+      if <Arg>Q</Arg> was created by the <Ref Oper="QuiverProduct"/>
+      operation.  The value of this attribute is an object in the
+      category <Ref Filt="IsQuiverProductDecomposition"/>.
+    </Description>
+  </ManSection>
+
+  <ManSection>
+    <Filt Name="IsQuiverProductDecomposition"/>
+    <Description>
+      Category for objects containing information about the relation
+      between a product quiver and the quivers it is a product of.
+      The quiver factors can be extracted from the decomposition
+      object by using the [] notation (like accessing elements of a
+      list).  The decomposition object is also used by the operations
+      <Ref Oper="IncludeInProductQuiver"/> and
+      <Ref Oper="ProjectFromProductQuiver"/>.
+    </Description>
+  </ManSection>
+
+  <ManSection>
+    <Oper Name="IncludeInProductQuiver" Arg="L, Q"/>
+    <Description>
+      Includes paths <M>q_1</M> and <M>q_2</M> from two quivers into
+      the product of these quivers.  If at least one of <M>q_1</M>
+      and <M>q_2</M> is a vertex, there is exactly one possible
+      inclusion.  If they are both non-trivial paths, there are
+      several possibilities.  This operation constructs the path which
+      is the inclusion of <M>q_1</M> at the source of <M>q_2</M>
+      multiplied with the inclusion of <M>q_2</M> at the target
+      of <M>q_1</M>.<P/>
+
+      The argument <Arg>L</Arg> is a list containing the
+      paths <M>q_1</M> and <M>q_2</M> to be included; <M>Q</M> is the
+      product quiver to include them in.
+    </Description>
+  </ManSection>
+
+  <ManSection>
+    <Oper Name="ProjectFromProductQuiver" Arg="i, p"/>
+    <Description>
+      Returns the projection of the product quiver path <Arg>p</Arg>
+      to one of the factors.  Which factor it should be projected to
+      is specified by the argument <Arg>i</Arg>.
+    </Description>
+  </ManSection>
+
+  The following example shows how the operations related to quiver
+  products are used.
+
+  <Example>
+gap&gt; q1 := Quiver( [ "u1", "u2" ], [ [ "u1", "u2", "a" ] ] );
+&lt;quiver with 2 vertices and 1 arrows&gt;
+gap&gt; q2 := Quiver( [ "v1", "v2", "v3" ],
+                      [ [ "v1", "v2", "b" ],
+                        [ "v2", "v3", "c" ] ] );
+&lt;quiver with 3 vertices and 2 arrows&gt;
+gap&gt; q1_q2 := QuiverProduct( q1, q2 );
+&lt;quiver with 6 vertices and 7 arrows&gt;
+gap&gt; q1_q2.u1_b * q1_q2.a_v2;
+u1_b*a_v2
+gap&gt; IncludeInProductQuiver( [ q1.a, q2.b * q2.c ], q1_q2 );
+a_v1*u2_b*u2_c
+gap&gt; ProjectFromProductQuiver( 2, q1_q2.a_v1 * q1_q2.u2_b * q1_q2.u2_c );
+b*c
+gap&gt; q1_q2_dec := QuiverProductDecomposition( q1_q2 );
+&lt;object&gt;
+gap&gt; q1_q2_dec[ 1 ];
+&lt;quiver with 2 vertices and 1 arrows&gt;
+gap&gt; q1_q2_dec[ 1 ] = q1;
+true
+  </Example>
+
+  <ManSection>
+   <Oper Name="TensorProductOfAlgebras" Arg="FQ1, FQ2"/>
+   <Description>
+     The operation <Ref Oper="TensorProductOfAlgebras"/> produces the
+     tensor product of two (quotients of) path algebras <Arg>FQ1</Arg>
+     and <Arg>FQ2</Arg>.  The result is a quotient of a path algebra,
+     whose quiver is the <Ref Oper="QuiverProduct"/> of the quivers of
+     the operands.
+   </Description>
+  </ManSection>
+
+  <ManSection>
+    <Oper Name="SimpleTensor" Arg="L, T"/>
+    <Description>
+      The operation <Ref Oper="SimpleTensor"/> produces a simple
+      tensor <M>x \tensor y</M> in the tensor product of two path
+      algebras.  The argument <Arg>L</Arg> is a list containing the
+      elements <M>x</M> and <M>y</M>.  These should be elements of two
+      (quotients of) path algebras, and <Arg>T</Arg> the tensor
+      product of these algebras (produced by
+      <Ref Oper="TensorProductOfAlgebras"/>).
+    </Description>
+  </ManSection>
+
+  <ManSection>
+    <Attr Name="TensorProductDecomposition" Arg="T"/>
+    <Description>
+      For a tensor product of quotients of path algebras (produced by
+      <Ref Oper="TensorProductOfAlgebras"/>), this attribute contains
+      a list of the factors in the tensor product.
+    </Description>
+  </ManSection>
+
+  The following example shows how the operations for tensor products
+  of quotients of path algebras are used.
+
+  <Example>
+gap&gt; q1 := Quiver( [ "u1", "u2" ], [ [ "u1", "u2", "a" ] ] );
+&lt;quiver with 2 vertices and 1 arrows&gt;
+gap&gt; q2 := Quiver( [ "v1", "v2", "v3", "v4" ],
+                      [ [ "v1", "v2", "b" ],
+                        [ "v1", "v3", "c" ],
+                        [ "v2", "v4", "d" ],
+                        [ "v3", "v4", "e" ] ] );
+&lt;quiver with 4 vertices and 4 arrows&gt;
+gap&gt; fq1 := PathAlgebra( Rationals, q1 );
+&lt;algebra-with-one over Rationals, with 3 generators&gt;
+gap&gt; fq2 := PathAlgebra( Rationals, q2 );
+&lt;algebra-with-one over Rationals, with 8 generators&gt;
+gap&gt; I := Ideal( fq2, [ fq2.b * fq2.d - fq2.c * fq2.e ] );
+&lt;two-sided ideal in &lt;algebra-with-one over Rationals, with 8 generators&gt;,
+ (1 generators)&gt;
+gap&gt; quot := fq2 / I;
+&lt;algebra-with-one over Rationals, with 8 generators&gt;
+gap&gt; t := TensorProductOfAlgebras( fq1, quot );
+&lt;algebra-with-one over Rationals, with 20 generators&gt;
+gap&gt; SimpleTensor( [ fq1.a, quot.b ], t );
+[(1)*a_v1*u2_b]
+gap&gt; t_dec := TensorProductDecomposition( t );
+[ &lt;algebra-with-one over Rationals, with 3 generators&gt;, 
+  &lt;algebra-with-one over Rationals, with 8 generators&gt; ]
+gap&gt; t_dec[ 1 ] = fq1;
+true
+  </Example>
+
+  <ManSection>
+    <Oper Name="EnvelopingAlgebra" Arg="FQ"/>
+    <Description>
+      Produces the enveloping algebra <M><Arg>FQ</Arg>^\text{e}
+      = <Arg>FQ</Arg> \tensor <Arg>FQ</Arg>^\text{op}</M>
+      of <Arg>FQ</Arg>, which should be (a quotient of) a path
+      algebra.
+    </Description>
+  </ManSection>
+
+  <ManSection>
+    <Attr Name="IsEnvelopingAlgebra" Arg="A"/>
+    <Description>
+      True if and only if <Arg>A</Arg> is the result of a call to
+      <Ref Oper="EnvelopingAlgebra"/>.
+    </Description>
+  </ManSection>
+
+</Section>
+
 </Chapter>
 
 <Chapter Label="Groebner-Basis"><Heading>Groebner Basis</Heading>
