@@ -1,6 +1,6 @@
 # GAP Implementation
 # This file was generated from 
-# $Id: pamodule.gi,v 1.6 2010/10/04 07:07:35 sunnyquiver Exp $
+# $Id: pamodule.gi,v 1.7 2010/11/01 08:30:14 sunnyquiver Exp $
 
 ZeroModElement:=function(fam,zero)
   local result,i;
@@ -292,36 +292,47 @@ InstallMethod(CanonicalBasis,
     local basis, vgens, gens, x, i, fam, zero, MB, Vfam;
 
     gens:=BasisVectors(Basis(V));
-    Vfam:=FamilyObj(gens[1]);
-    gens:=List(gens, x->ExtRepOfObj(x));
-    fam:=FamilyObj(gens[1]);
-    vgens:=List(fam!.vertices, x->[]);
+    if Length(gens) = 0 then
+       MB := Objectify( NewType( FamilyObj( V ),
+                             IsBasis and
+                             IsBasisOfPathModuleElemVectorSpace and
+                             IsAttributeStoringRep ),
+                    rec() );
+       SetUnderlyingLeftModule( MB, V );
+       SetBasisVectors( MB, [] );
+       SetIsEmpty(MB,true);
+    else 
+       Vfam:=FamilyObj(gens[1]);
+       gens:=List(gens, x->ExtRepOfObj(x));
+       fam:=FamilyObj(gens[1]);
+       vgens:=List(fam!.vertices, x->[]);
 
-    for x in gens do
-      for i in [1 .. Length(fam!.vertices)] do 
-        if not Zero(x![1][i])=x![1][i] then
-          Add(vgens[i], x![1][i]);
-        fi;
-      od;
-    od;
+       for x in gens do
+          for i in [1 .. Length(fam!.vertices)] do 
+             if not Zero(x![1][i])=x![1][i] then
+                Add(vgens[i], x![1][i]);
+             fi;
+          od;
+       od;
 
-    zero:=ZeroModElement(fam, Zero(gens[1]![1][1][1]));
-    basis:=[];
+       zero:=ZeroModElement(fam, Zero(gens[1]![1][1][1]));
+       basis:=[];
 
-    for x in [1 .. Length(fam!.vertices)] do
-      for i in vgens[x] do
-        zero[x]:=i;
-        Add(basis, PathModuleElem(fam, ShallowCopy(zero)));
-        zero[x]:=Zero(i);
-      od;
-    od;
+       for x in [1 .. Length(fam!.vertices)] do
+          for i in vgens[x] do
+             zero[x]:=i;
+             Add(basis, PathModuleElem(fam, ShallowCopy(zero)));
+             zero[x]:=Zero(i);
+          od;
+       od;
 
-    basis:=List(basis, x->ObjByExtRep(Vfam, x));
-    MB:=BasisNC(V, basis);
+       basis:=List(basis, x->ObjByExtRep(Vfam, x));
+       MB:=BasisNC(V, basis);
+    fi;
+
     SetIsCanonicalBasis(MB,true);
-
     return MB;
-  end
+end
 );
 
 
@@ -917,6 +928,7 @@ InstallMethod ( MatricesOfPathAlgebraMatModule,
     num_vert  := Length(VerticesOfQuiver(Q));
     num_arrow := Length(ArrowsOfQuiver(Q));
     m   := ExtRepOfObj(BasisVectors(CanonicalBasis(M))[1]);
+#    m   := ExtRepOfObj(ZeroModElement(M,Zero(LeftActingDomain(M))));
     fam := FamilyObj(m);
     
     return fam!.matrices{[num_vert+1..num_arrow+num_vert]};
@@ -930,11 +942,20 @@ InstallMethod (DimensionVector,
 #
 #   M = a representation of the quiver Q over K
 #
-        local m, fam;
+        local n, dim, i, m, fam;
 
-    m   := ExtRepOfObj(BasisVectors(CanonicalBasis(M))[1]);
-    fam := FamilyObj(m);
+    if Dimension(M) = 0 then 
+       n := Length(VerticesOfQuiver(QuiverOfPathAlgebra(RightActingAlgebra(M)))); 
+       dim := [];
+       for i in [1..n] do
+          dim[i] := 0;
+       od;
+       return dim;
+    else
+       m   := ExtRepOfObj(BasisVectors(CanonicalBasis(M))[1]);
+       fam := FamilyObj(m);
     
-    return fam!.vertices;
+       return fam!.vertices;
+    fi;
 end
 );
