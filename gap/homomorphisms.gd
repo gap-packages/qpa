@@ -1,5 +1,5 @@
 # GAP Declarations
-# $Id: homomorphisms.gd,v 1.1 2010/11/05 13:37:35 sunnyquiver Exp $
+# $Id: homomorphisms.gd,v 1.2 2010/11/05 14:40:55 sunnyquiver Exp $
 
 DeclareCategory("IsPathAlgebraMatModuleMap", IsAdditiveElementWithZero and IsGeneralMapping and RespectsScalarMultiplication and IsTotal and IsSingleValued ); 
 DeclareCategoryFamily(  "IsPathAlgebraMatModuleMap" );
@@ -28,8 +28,8 @@ DeclareAttribute( "IsOnto", IsPathAlgebraMatModuleMap );
 DeclareAttribute( "IsIsom", IsPathAlgebraMatModuleMap );
 DeclareAttribute( "IsZeroMap", IsPathAlgebraMatModuleMap );
 DeclareOperation( "ZeroMap", [IsPathAlgebraMatModule, IsPathAlgebraMatModule] );
-DeclareOperation( "SubRep", [IsPathAlgebraMatModule, IsCollection]);
-DeclareOperation( "SubRepInclusion", [IsPathAlgebraMatModule, IsCollection]);
+DeclareOperation( "SubRep", [IsPathAlgebraMatModule, IsList]);
+DeclareOperation( "SubRepInclusion", [IsPathAlgebraMatModule, IsList]);
 DeclareOperation( "RadicalOfRep", [IsPathAlgebraMatModule]);
 DeclareOperation( "RadicalOfRepInclusion", [IsPathAlgebraMatModule]);
 DeclareOperation( "TopOfRep", [IsPathAlgebraMatModule]);

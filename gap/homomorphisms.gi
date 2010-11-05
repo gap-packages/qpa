@@ -1,5 +1,5 @@
 # GAP Implementation
-# $Id: homomorphisms.gi,v 1.1 2010/11/05 13:38:57 sunnyquiver Exp $
+# $Id: homomorphisms.gi,v 1.2 2010/11/05 14:40:55 sunnyquiver Exp $
 
 InstallMethod( ImageElm, 
     "for a map between representations and an element in a representation.",
@@ -248,7 +248,7 @@ end
 InstallMethod( SubRepInclusion,
   "for a path algebra module and list of its elements",
   true,
-  [IsPathAlgebraMatModule, IsCollection], 0,
+  [IsPathAlgebraMatModule, IsList], 0,
   function( M, gen )
 
   local A, q, K, num_vert, basis_M, vertices, arrows_as_path, arrows_of_quiver, 
@@ -272,6 +272,9 @@ InstallMethod( SubRepInclusion,
 #
 # Note vertices, arrows_as_path will change if A is a quotient of a path algebra !!!!
 #
+if Length(gen) = 0 then 
+   return ZeroMap(ZeroRepresentation(OriginalPathAlgebra(A)),M);
+else
     vertices := GeneratorsOfAlgebra(A){[1..num_vert]};
     arrows_as_path  := GeneratorsOfAlgebra(A){[1+num_vert..num_vert+Length(ArrowsOfQuiver(q))]};
     arrows_of_quiver := GeneratorsOfQuiver(q){[1+num_vert..num_vert+Length(ArrowsOfQuiver(q))]};
@@ -418,13 +421,14 @@ InstallMethod( SubRepInclusion,
        fi;
     od;
     return RightModuleHomOverPathAlgebra(submodule,M,inclusion);
+fi;
 end
 );
 
 InstallMethod( SubRep,
   "for a path algebra module and list of its elements",
   true,
-  [IsPathAlgebraMatModule, IsCollection], 0,
+  [IsPathAlgebraMatModule, IsList], 0,
   function( M, gen );
 
   return Source(SubRepInclusion(M,gen));
