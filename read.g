@@ -1,6 +1,6 @@
 # Read in QPA files
 # This file was generated from
-# $Id: read.g,v 1.7 2010/10/04 07:07:35 sunnyquiver Exp $
+# $Id: read.g,v 1.8 2010/11/05 13:33:23 sunnyquiver Exp $
 if BANNER then
     ReadPkg("QPA", "gap/banner.g");
 fi;
@@ -29,6 +29,7 @@ ReadPkg("QPA", "gap/opposite.gd");
 ReadPkg("QPA", "gap/predefalgs.gd");
 ReadPkg("QPA", "gap/specialreps.gd");
 ReadPkg("QPA", "gap/functors.gd");
+ReadPkg("QPA", "gap/homomorphisms.gd");
 
 ReadPkg("QPA", "gap/dyntree.gi" );
 ReadPkg("QPA", "gap/dyndict.gi" );
@@ -54,3 +55,4 @@ ReadPkg("QPA", "gap/opposite.gi");
 ReadPkg("QPA", "gap/predefalgs.gi");
 ReadPkg("QPA", "gap/specialreps.gi");
 ReadPkg("QPA", "gap/functors.gi");
+ReadPkg("QPA", "gap/homomorphisms.gi");
