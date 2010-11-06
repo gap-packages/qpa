@@ -334,3 +334,165 @@
   This  function creates a Nakayama algebra from an admissible sequence over a
   field.
   
+  
+  [1X3.12 Tensor products of path algebras[0X
+  
+  If  Lambda  and  Gamma are quotients of path algebras over the same field F,
+  then their tensor product Lambda tensor_F Gamma is also a quotient of a path
+  algebra over F.
+  
+  The quiver for the tensor product path algebra is the [2XQuiverProduct[0m ([14X3.12-1[0m)
+  of the quivers of the original algebras.
+  
+  The  operation [2XTensorProductOfAlgebras[0m ([14X3.12-6[0m) computes the tensor products
+  of two quotients of path algebras as a quotient of a path algebra.
+  
+  [1X3.12-1 QuiverProduct[0m
+  
+  [2X> QuiverProduct( [0X[3XQ1, Q2[0X[2X ) _________________________________________[0Xoperation
+  
+  Creates the product quiver [3XQ1[0m quiverproduct [3XQ2[0m. A vertex in [3XQ1[0m quiverproduct
+  [3XQ2[0m  which  is made by combining a vertex named [10Xu[0m in [3XQ1[0m with a vertex [10Xv[0m in [3XQ2[0m
+  is  named  [10Xu_v[0m.  Arrows  are  named similarly (they are made by combining an
+  arrow from one quiver with a vertex from the other).
+  
+  [1X3.12-2 QuiverProductDecomposition[0m
+  
+  [2X> QuiverProductDecomposition( [0X[3XQ[0X[2X ) _________________________________[0Xattribute
+  
+  Contains  the  original  quivers  [3XQ[0m is a product of, if [3XQ[0m was created by the
+  [2XQuiverProduct[0m  ([14X3.12-1[0m)  operation. The value of this attribute is an object
+  in the category [2XIsQuiverProductDecomposition[0m ([14X3.12-3[0m).
+  
+  [1X3.12-3 IsQuiverProductDecomposition[0m
+  
+  [2X> IsQuiverProductDecomposition________________________________________[0Xfilter
+  
+  Category  for  objects  containing  information about the relation between a
+  product quiver and the quivers it is a product of. The quiver factors can be
+  extracted  from  the  decomposition  object  by  using the [] notation (like
+  accessing  elements of a list). The decomposition object is also used by the
+  operations   [2XIncludeInProductQuiver[0m  ([14X3.12-4[0m)  and  [2XProjectFromProductQuiver[0m
+  ([14X3.12-5[0m).
+  
+  [1X3.12-4 IncludeInProductQuiver[0m
+  
+  [2X> IncludeInProductQuiver( [0X[3XL, Q[0X[2X ) __________________________________[0Xoperation
+  
+  Includes  paths  q_1  and  q_2  from  two  quivers into the product of these
+  quivers.  If  at  least one of q_1 and q_2 is a vertex, there is exactly one
+  possible  inclusion.  If  they are both non-trivial paths, there are several
+  possibilities.  This operation constructs the path which is the inclusion of
+  q_1  at the source of q_2 multiplied with the inclusion of q_2 at the target
+  of q_1.
+  
+  The  argument [3XL[0m is a list containing the paths q_1 and q_2 to be included; Q
+  is the product quiver to include them in.
+  
+  [1X3.12-5 ProjectFromProductQuiver[0m
+  
+  [2X> ProjectFromProductQuiver( [0X[3Xi, p[0X[2X ) ________________________________[0Xoperation
+  
+  Returns  the  projection of the product quiver path [3Xp[0m to one of the factors.
+  Which factor it should be projected to is specified by the argument [3Xi[0m.
+  
+  The  following  example  shows how the operations related to quiver products
+  are used.
+  
+  [4X---------------------------  Example  ----------------------------[0X
+    [4Xgap> q1 := Quiver( [ "u1", "u2" ], [ [ "u1", "u2", "a" ] ] );[0X
+    [4X<quiver with 2 vertices and 1 arrows>[0X
+    [4Xgap> q2 := Quiver( [ "v1", "v2", "v3" ],[0X
+    [4X                      [ [ "v1", "v2", "b" ],[0X
+    [4X                        [ "v2", "v3", "c" ] ] );[0X
+    [4X<quiver with 3 vertices and 2 arrows>[0X
+    [4Xgap> q1_q2 := QuiverProduct( q1, q2 );[0X
+    [4X<quiver with 6 vertices and 7 arrows>[0X
+    [4Xgap> q1_q2.u1_b * q1_q2.a_v2;[0X
+    [4Xu1_b*a_v2[0X
+    [4Xgap> IncludeInProductQuiver( [ q1.a, q2.b * q2.c ], q1_q2 );[0X
+    [4Xa_v1*u2_b*u2_c[0X
+    [4Xgap> ProjectFromProductQuiver( 2, q1_q2.a_v1 * q1_q2.u2_b * q1_q2.u2_c );[0X
+    [4Xb*c[0X
+    [4Xgap> q1_q2_dec := QuiverProductDecomposition( q1_q2 );[0X
+    [4X<object>[0X
+    [4Xgap> q1_q2_dec[ 1 ];[0X
+    [4X<quiver with 2 vertices and 1 arrows>[0X
+    [4Xgap> q1_q2_dec[ 1 ] = q1;[0X
+    [4Xtrue[0X
+    [4X  [0X
+  [4X------------------------------------------------------------------[0X
+  
+  [1X3.12-6 TensorProductOfAlgebras[0m
+  
+  [2X> TensorProductOfAlgebras( [0X[3XFQ1, FQ2[0X[2X ) _____________________________[0Xoperation
+  
+  The  operation  [2XTensorProductOfAlgebras[0m  produces  the tensor product of two
+  (quotients of) path algebras [3XFQ1[0m and [3XFQ2[0m. The result is a quotient of a path
+  algebra,  whose  quiver  is the [2XQuiverProduct[0m ([14X3.12-1[0m) of the quivers of the
+  operands.
+  
+  [1X3.12-7 SimpleTensor[0m
+  
+  [2X> SimpleTensor( [0X[3XL, T[0X[2X ) ____________________________________________[0Xoperation
+  
+  The operation [2XSimpleTensor[0m produces a simple tensor x tensor y in the tensor
+  product  of  two  path  algebras.  The  argument  [3XL[0m is a list containing the
+  elements  x  and  y.  These  should  be  elements of two (quotients of) path
+  algebras,   and  [3XT[0m  the  tensor  product  of  these  algebras  (produced  by
+  [2XTensorProductOfAlgebras[0m ([14X3.12-6[0m)).
+  
+  [1X3.12-8 TensorProductDecomposition[0m
+  
+  [2X> TensorProductDecomposition( [0X[3XT[0X[2X ) _________________________________[0Xattribute
+  
+  For   a   tensor   product  of  quotients  of  path  algebras  (produced  by
+  [2XTensorProductOfAlgebras[0m  ([14X3.12-6[0m)),  this  attribute  contains a list of the
+  factors in the tensor product.
+  
+  The  following  example  shows  how  the  operations  for tensor products of
+  quotients of path algebras are used.
+  
+  [4X---------------------------  Example  ----------------------------[0X
+    [4Xgap> q1 := Quiver( [ "u1", "u2" ], [ [ "u1", "u2", "a" ] ] );[0X
+    [4X<quiver with 2 vertices and 1 arrows>[0X
+    [4Xgap> q2 := Quiver( [ "v1", "v2", "v3", "v4" ],[0X
+    [4X                      [ [ "v1", "v2", "b" ],[0X
+    [4X                        [ "v1", "v3", "c" ],[0X
+    [4X                        [ "v2", "v4", "d" ],[0X
+    [4X                        [ "v3", "v4", "e" ] ] );[0X
+    [4X<quiver with 4 vertices and 4 arrows>[0X
+    [4Xgap> fq1 := PathAlgebra( Rationals, q1 );[0X
+    [4X<algebra-with-one over Rationals, with 3 generators>[0X
+    [4Xgap> fq2 := PathAlgebra( Rationals, q2 );[0X
+    [4X<algebra-with-one over Rationals, with 8 generators>[0X
+    [4Xgap> I := Ideal( fq2, [ fq2.b * fq2.d - fq2.c * fq2.e ] );[0X
+    [4X<two-sided ideal in <algebra-with-one over Rationals, with 8 generators>,[0X
+    [4X (1 generators)>[0X
+    [4Xgap> quot := fq2 / I;[0X
+    [4X<algebra-with-one over Rationals, with 8 generators>[0X
+    [4Xgap> t := TensorProductOfAlgebras( fq1, quot );[0X
+    [4X<algebra-with-one over Rationals, with 20 generators>[0X
+    [4Xgap> SimpleTensor( [ fq1.a, quot.b ], t );[0X
+    [4X[(1)*a_v1*u2_b][0X
+    [4Xgap> t_dec := TensorProductDecomposition( t );[0X
+    [4X[ <algebra-with-one over Rationals, with 3 generators>, [0X
+    [4X  <algebra-with-one over Rationals, with 8 generators> ][0X
+    [4Xgap> t_dec[ 1 ] = fq1;[0X
+    [4Xtrue[0X
+    [4X  [0X
+  [4X------------------------------------------------------------------[0X
+  
+  [1X3.12-9 EnvelopingAlgebra[0m
+  
+  [2X> EnvelopingAlgebra( [0X[3XFQ[0X[2X ) _________________________________________[0Xoperation
+  
+  Produces  the  enveloping algebra [3XFQ[0m^e = [3XFQ[0m tensor [3XFQ[0m^op of [3XFQ[0m, which should
+  be (a quotient of) a path algebra.
+  
+  [1X3.12-10 IsEnvelopingAlgebra[0m
+  
+  [2X> IsEnvelopingAlgebra( [0X[3XA[0X[2X ) ________________________________________[0Xattribute
+  
+  True if and only if [3XA[0m is the result of a call to [2XEnvelopingAlgebra[0m ([14X3.12-9[0m).
+  

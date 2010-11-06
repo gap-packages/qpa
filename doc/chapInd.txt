@@ -11,20 +11,37 @@
   [2X<[0X  3.5-1
   [2X<[0X  6.7-4
   [2X=[0X  2.7-6
+  [2X\* (maps)[0X  7.2-10
+  [2X\+ (maps)[0X  7.2-9
+  [2X\= (maps)[0X  7.2-8
   [2X^[0X  6.3-1
   [2X^[0X  6.7-3
   [2XAdjacencyMatrixOfQuiver[0X  2.5-4
   [2XAdmitsFinitelyManyNontips[0X  4.3-8
   [2XArrowsOfQuiver[0X  2.5-3
   [2XCoefficients[0X  3.9-3
+  [2XCoker[0X  7.3-3
+  [2XCoKernelOfWhat[0X  7.2-17
+  [2XCokerProjection[0X  7.3-3
   [2XCompletelyReduce[0X  4.3-1
   [2XCompletelyReduceGroebnerBasis[0X  4.3-2
   [2XDimensionVector[0X  6.4-1
   [2XDualOfPathAlgebraMatModule[0X  6.6-1
+  [2XDualOfPathAlgebraMatModuleMap[0X  6.6-2
   [2XElementOfFpPathAlgebra[0X  3.10-3
   [2XEnumerator[0X  4.3-6
+  [2XEnvelopingAlgebra[0X  3.12-9
   [2XGeneratorsOfQuiver[0X  2.5-5
+  [2XGeneratorsOfRep[0X  6.4-6
   [2XGroebnerBasis[0X  4.1-2
+  [2XIm[0X  7.3-2
+  [2XImageElm[0X  7.2-4
+  [2XImageOfWhat[0X  7.2-16
+  [2XImagesSet[0X  7.2-5
+  [2XImInclusion[0X  7.3-2
+  [2XImProjection[0X  7.3-2
+  [2XImProjectionInclusion[0X  7.3-2
+  [2XIncludeInProductQuiver[0X  3.12-4
   [2XIncomingArrowsOfVertex[0X  2.8-1
   [2XIndecomposableInjectiveRepresentations[0X  6.5-2
   [2XIndecomposableProjectiveRepresentations[0X  6.5-1
@@ -37,30 +54,40 @@
   [2XIsCompleteGroebnerBasis[0X  4.2-5
   [2XIsCompletelyReducedGroebnerBasis[0X  4.2-3
   [2XIsElementOfFpPathAlgebra[0X  3.9-2
+  [2XIsEnvelopingAlgebra[0X  3.12-10
   [2XIsFinite[0X  2.3-3
   [2XIsGroebnerBasis[0X  4.2-1
   [2XIsHomogenousGroebnerBasis[0X  4.2-4
+  [2XIsIsom[0X  7.2-13
   [2XIsLeftUniform[0X  3.5-5
   [2XIsNormalForm[0X  3.10-1
+  [2XIsOneToOne[0X  7.2-11
+  [2XIsOnto[0X  7.2-12
   [2XIsPath[0X  2.6-1
   [2XIsPathAlgebra[0X  3.3-1
   [2XIsPathAlgebraMatModule[0X  6.2-1
+  [2XIsPathAlgebraMatModuleMap[0X  7.1-1
   [2XIsPrefixOfTipInTipIdeal[0X  4.3-10
   [2XIsQuiver[0X  2.3-1
+  [2XIsQuiverProductDecomposition[0X  3.12-3
   [2XIsRightGroebnerBasis[0X  4.4-1
   [2XIsRightUniform[0X  3.5-6
   [2XIsSubalgebraFpPathAlgebra[0X  3.8-1
   [2XIsTipReducedGroebnerBasis[0X  4.2-2
   [2XIsUniform[0X  3.5-7
   [2XIsVertex[0X  2.6-2
+  [2XIsZeroMap[0X  7.2-14
   [2XIsZeroPath[0X  2.6-4
   [2XIterator[0X  4.3-5
+  [2XKer[0X  7.3-1
+  [2XKerInclusion[0X  7.3-1
+  [2XKernelOfWhat[0X  7.2-15
   [2XLeadingCoefficient[0X  3.5-3
   [2XLeadingMonomial[0X  3.5-4
   [2XLeadingTerm[0X  3.5-2
   [2XLengthOfPath[0X  2.7-3
   [2XMappedExpression[0X  3.5-8
-  [2XMatricesOfPathAlgebraMatModule[0X  6.4-2
+  [2XMatricesOfPathAlgebraMatModule[0X  6.4-7
   [2XNakayamaAlgebra[0X  3.11-1
   [2XNeighborsOfVertex[0X  2.8-5
   [2XNontips[0X  4.3-7
@@ -75,26 +102,46 @@
   [2XOutDegreeOfVertex[0X  2.8-4
   [2XOutgoingArrowsOfVertex[0X  2.8-2
   [2XPathAlgebra[0X  3.2-1
+  [2XPreImageElm[0X  7.2-3
+  [2XProjectFromProductQuiver[0X  3.12-5
   [2XQuiver[0X  2.2-1
   [2XQuiver[0X  2.2-1
   [2XQuiver[0X  2.2-1
   [2XQuiverOfPathAlgebra[0X  3.4-1
+  [2XQuiverProduct[0X  3.12-1
+  [2XQuiverProductDecomposition[0X  3.12-2
+  [2XRadicalOfRep[0X  6.4-2
+  [2XRadicalOfRepInclusion[0X  7.3-5
+  [2XRange[0X  7.2-1
   [2XRightGroebnerBasis[0X  4.4-3
   [2XRightGroebnerBasisOfIdeal[0X  4.4-2
+  [2XRightModuleHomOverPathAlgebra[0X  7.1-2
   [2XRightModuleOverPathAlgebra[0X  6.1-1
   [2XRightProjectiveModule[0X  6.7-1
+  [2XSimpleTensor[0X  3.12-7
   [2XSizeOfQuiver[0X  2.5-7
+  [2XSocleOfPathAlgebraMatModule[0X  6.4-3
+  [2XSocleOfPathAlgebraMatModuleInclusion[0X  7.3-6
+  [2XSource[0X  7.2-2
   [2XSourceOfPath[0X  2.7-1
+  [2XSubRep[0X  6.4-4
+  [2XSubRepInclusion[0X  7.3-4
   [2XTargetOfPath[0X  2.7-2
+  [2XTensorProductDecomposition[0X  3.12-8
+  [2XTensorProductOfAlgebras[0X  3.12-6
   [2XTip[0X  3.5-2
   [2XTipCoefficient[0X  3.5-3
   [2XTipMonomial[0X  3.5-4
   [2XTipReduce[0X  4.3-3
   [2XTipReduceGroebnerBasis[0X  4.3-4
+  [2XTopOfRep[0X  6.4-5
+  [2XTopOfRepProjection[0X  7.3-7
   [2XVectorize[0X  6.7-2
   [2XVertexSimpleRepresentations[0X  6.5-3
   [2XVerticesOfQuiver[0X  2.5-2
   [2XWalkOfPath[0X  2.7-4
+  [2XZero[0X  7.2-6
+  [2XZeroMap[0X  7.2-7
   [2XZeroRepresentation[0X  6.5-4
   
   

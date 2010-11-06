@@ -6,7 +6,7 @@
                            [1XQuivers and Path Algebras[0m
   
   
-                              Version version 1.4
+                              Version version 1.5
   
   
                                  September 2010
@@ -138,6 +138,17 @@
       3.10-4 OriginalPathAlgebra
     3.11 Predefined classes of quotient of path algebras
       3.11-1 NakayamaAlgebra
+    3.12 Tensor products of path algebras
+      3.12-1 QuiverProduct
+      3.12-2 QuiverProductDecomposition
+      3.12-3 IsQuiverProductDecomposition
+      3.12-4 IncludeInProductQuiver
+      3.12-5 ProjectFromProductQuiver
+      3.12-6 TensorProductOfAlgebras
+      3.12-7 SimpleTensor
+      3.12-8 TensorProductDecomposition
+      3.12-9 EnvelopingAlgebra
+      3.12-10 IsEnvelopingAlgebra
   4 Groebner Basis
     4.1 Constructing a Groebner Basis
       4.1-1 InfoGroebnerBasis
@@ -177,7 +188,12 @@
       6.3-1 ^
     6.4 Operations on representations
       6.4-1 DimensionVector
-      6.4-2 MatricesOfPathAlgebraMatModule
+      6.4-2 RadicalOfRep
+      6.4-3 SocleOfPathAlgebraMatModule
+      6.4-4 SubRep
+      6.4-5 TopOfRep
+      6.4-6 GeneratorsOfRep
+      6.4-7 MatricesOfPathAlgebraMatModule
     6.5 Special representations
       6.5-1 IndecomposableProjectiveRepresentations
       6.5-2 IndecomposableInjectiveRepresentations
@@ -185,12 +201,43 @@
       6.5-4 ZeroRepresentation
     6.6 Functors on representations
       6.6-1 DualOfPathAlgebraMatModule
+      6.6-2 DualOfPathAlgebraMatModuleMap
     6.7 Vertex Projective Presentations
       6.7-1 RightProjectiveModule
       6.7-2 Vectorize
       6.7-3 ^
       6.7-4 <
       6.7-5 /
+  7 Homomorphisms of Right Modules over Path Algebras
+    7.1 Categories and representation of homomorphisms
+      7.1-1 IsPathAlgebraMatModuleMap
+      7.1-2 RightModuleHomOverPathAlgebra
+    7.2 Generalities of homomorphisms
+      7.2-1 Range
+      7.2-2 Source
+      7.2-3 PreImageElm
+      7.2-4 ImageElm
+      7.2-5 ImagesSet
+      7.2-6 Zero
+      7.2-7 ZeroMap
+      7.2-8 \= (maps)
+      7.2-9 \+ (maps)
+      7.2-10 \* (maps)
+      7.2-11 IsOneToOne
+      7.2-12 IsOnto
+      7.2-13 IsIsom
+      7.2-14 IsZeroMap
+      7.2-15 KernelOfWhat
+      7.2-16 ImageOfWhat
+      7.2-17 CoKernelOfWhat
+    7.3 Homomorphisms and modules constructed from homomorphisms and modules
+      7.3-1 Ker
+      7.3-2 Im
+      7.3-3 Coker
+      7.3-4 SubRepInclusion
+      7.3-5 RadicalOfRepInclusion
+      7.3-6 SocleOfPathAlgebraMatModuleInclusion
+      7.3-7 TopOfRepProjection
   A An Appendix
   
   

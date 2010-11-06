@@ -1,5 +1,5 @@
 # GAP Implementation
-# $Id: homomorphisms.gi,v 1.2 2010/11/05 14:40:55 sunnyquiver Exp $
+# $Id: homomorphisms.gi,v 1.3 2010/11/06 14:48:40 sunnyquiver Exp $
 
 InstallMethod( ImageElm, 
     "for a map between representations and an element in a representation.",
@@ -1282,3 +1282,39 @@ InstallMethod( NumberOfNonIsoDirSummands,
   return [Length(top),List(DirectSumDecomposition(EndM/I),Dimension)];
 end
 );
+
+InstallMethod ( DualOfPathAlgebraMatModuleMap,
+    "for a map between representations of a quiver",
+    [ IsPathAlgebraMatModuleMap ], 0,
+    function( f )
+
+    local mats, M, N;
+   
+    mats := f!.maps;
+    mats := List(mats, x -> TransposedMat(x));
+    M := DualOfPathAlgebraMatModule(Source(f));
+    N := DualOfPathAlgebraMatModule(Range(f));
+
+    return RightModuleHomOverPathAlgebra(N,M,mats);
+
+end
+);
+
+InstallMethod ( SocleOfPathAlgebraMatModuleInclusion,
+    "for a map between representations of a quiver",
+    [ IsPathAlgebraMatModule ], 0,
+    function( M );
+
+    return DualOfPathAlgebraMatModuleMap(TopOfRepProjection(DualOfPathAlgebraMatModule(M)));    
+end
+);
+
+InstallMethod ( SocleOfPathAlgebraMatModule,
+    "for a map between representations of a quiver",
+    [ IsPathAlgebraMatModule ], 0,
+    function( M );
+
+    return Source(DualOfPathAlgebraMatModuleMap(TopOfRepProjection(DualOfPathAlgebraMatModule(M))));    
+end
+);
+

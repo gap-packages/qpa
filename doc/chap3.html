@@ -13,7 +13,7 @@
 <body>
 
 
-<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0.html">Top</a>  <a href="chap1.html">1</a>  <a href="chap2.html">2</a>  <a href="chap3.html">3</a>  <a href="chap4.html">4</a>  <a href="chap5.html">5</a>  <a href="chap6.html">6</a>  <a href="chapA.html">A</a>  <a href="chapBib.html">Bib</a>  <a href="chapInd.html">Ind</a>  </div>
+<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0.html">Top</a>  <a href="chap1.html">1</a>  <a href="chap2.html">2</a>  <a href="chap3.html">3</a>  <a href="chap4.html">4</a>  <a href="chap5.html">5</a>  <a href="chap6.html">6</a>  <a href="chap7.html">7</a>  <a href="chapA.html">A</a>  <a href="chapBib.html">Bib</a>  <a href="chapInd.html">Ind</a>  </div>
 
 <div class="chlinkprevnexttop">&nbsp;<a href="chap0.html">Top of Book</a>&nbsp;  &nbsp;<a href="chap2.html">Previous Chapter</a>&nbsp;  &nbsp;<a href="chap4.html">Next Chapter</a>&nbsp;  </div>
 
@@ -66,6 +66,18 @@ of Quotients of Path Algebra</span></a>
 <div class="ContSect"><span class="nocss">&nbsp;</span><a href="chap3.html#X7E7FA56079CF78D1">3.11 <span class="Heading">Predefined classes
   of quotient of path algebras</span></a>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7C678A08836F77CC">3.11-1 NakayamaAlgebra</a></span>
+</div>
+<div class="ContSect"><span class="nocss">&nbsp;</span><a href="chap3.html#X842527EC7F90C8C5">3.12 <span class="Heading">Tensor products of path algebras</span></a>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X835BBBE18104654A">3.12-1 QuiverProduct</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X858517C18242C2F1">3.12-2 QuiverProductDecomposition</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X80E3731882B80106">3.12-3 IsQuiverProductDecomposition</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X856E8B5B7F550647">3.12-4 IncludeInProductQuiver</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X8455692C7E282C6C">3.12-5 ProjectFromProductQuiver</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7A9026937BDDFA6C">3.12-6 TensorProductOfAlgebras</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7B31F4F680135E72">3.12-7 SimpleTensor</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7F0EBF88866A537D">3.12-8 TensorProductDecomposition</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X820195C47E2BE7E0">3.12-9 EnvelopingAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7AE13B567B5F72FC">3.12-10 IsEnvelopingAlgebra</a></span>
 </div>
 </div>
 
@@ -419,11 +431,153 @@ false
 
 <p>This function creates a Nakayama algebra from an admissible sequence over a field.</p>
 
+<p><a id="X842527EC7F90C8C5" name="X842527EC7F90C8C5"></a></p>
+
+<h4>3.12 <span class="Heading">Tensor products of path algebras</span></h4>
+
+<p>If Lambda and Gamma are quotients of path algebras over the same field F, then their tensor product Lambda tensor_F Gamma is also a quotient of a path algebra over F.</p>
+
+<p>The quiver for the tensor product path algebra is the <code class="func">QuiverProduct</code> (<a href="chap3.html#X835BBBE18104654A"><b>3.12-1</b></a>) of the quivers of the original algebras.</p>
+
+<p>The operation <code class="func">TensorProductOfAlgebras</code> (<a href="chap3.html#X7A9026937BDDFA6C"><b>3.12-6</b></a>) computes the tensor products of two quotients of path algebras as a quotient of a path algebra.</p>
+
+<p><a id="X835BBBE18104654A" name="X835BBBE18104654A"></a></p>
+
+<h5>3.12-1 QuiverProduct</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; QuiverProduct</code>( <var class="Arg">Q1, Q2</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>Creates the product quiver <var class="Arg">Q1</var> quiverproduct <var class="Arg">Q2</var>. A vertex in <var class="Arg">Q1</var> quiverproduct <var class="Arg">Q2</var> which is made by combining a vertex named <code class="code">u</code> in <var class="Arg">Q1</var> with a vertex <code class="code">v</code> in <var class="Arg">Q2</var> is named <code class="code">u_v</code>. Arrows are named similarly (they are made by combining an arrow from one quiver with a vertex from the other).</p>
+
+<p><a id="X858517C18242C2F1" name="X858517C18242C2F1"></a></p>
+
+<h5>3.12-2 QuiverProductDecomposition</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; QuiverProductDecomposition</code>( <var class="Arg">Q</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
+<p>Contains the original quivers <var class="Arg">Q</var> is a product of, if <var class="Arg">Q</var> was created by the <code class="func">QuiverProduct</code> (<a href="chap3.html#X835BBBE18104654A"><b>3.12-1</b></a>) operation. The value of this attribute is an object in the category <code class="func">IsQuiverProductDecomposition</code> (<a href="chap3.html#X80E3731882B80106"><b>3.12-3</b></a>).</p>
+
+<p><a id="X80E3731882B80106" name="X80E3731882B80106"></a></p>
+
+<h5>3.12-3 IsQuiverProductDecomposition</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IsQuiverProductDecomposition</code></td><td class="tdright">( filter )</td></tr></table></div>
+<p>Category for objects containing information about the relation between a product quiver and the quivers it is a product of. The quiver factors can be extracted from the decomposition object by using the [] notation (like accessing elements of a list). The decomposition object is also used by the operations <code class="func">IncludeInProductQuiver</code> (<a href="chap3.html#X856E8B5B7F550647"><b>3.12-4</b></a>) and <code class="func">ProjectFromProductQuiver</code> (<a href="chap3.html#X8455692C7E282C6C"><b>3.12-5</b></a>).</p>
+
+<p><a id="X856E8B5B7F550647" name="X856E8B5B7F550647"></a></p>
+
+<h5>3.12-4 IncludeInProductQuiver</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IncludeInProductQuiver</code>( <var class="Arg">L, Q</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>Includes paths q_1 and q_2 from two quivers into the product of these quivers. If at least one of q_1 and q_2 is a vertex, there is exactly one possible inclusion. If they are both non-trivial paths, there are several possibilities. This operation constructs the path which is the inclusion of q_1 at the source of q_2 multiplied with the inclusion of q_2 at the target of q_1.</p>
+
+<p>The argument <var class="Arg">L</var> is a list containing the paths q_1 and q_2 to be included; Q is the product quiver to include them in.</p>
+
+<p><a id="X8455692C7E282C6C" name="X8455692C7E282C6C"></a></p>
+
+<h5>3.12-5 ProjectFromProductQuiver</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; ProjectFromProductQuiver</code>( <var class="Arg">i, p</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>Returns the projection of the product quiver path <var class="Arg">p</var> to one of the factors. Which factor it should be projected to is specified by the argument <var class="Arg">i</var>.</p>
+
+<p>The following example shows how the operations related to quiver products are used.</p>
+
+
+<table class="example">
+<tr><td><pre>
+gap&gt; q1 := Quiver( [ "u1", "u2" ], [ [ "u1", "u2", "a" ] ] );
+&lt;quiver with 2 vertices and 1 arrows&gt;
+gap&gt; q2 := Quiver( [ "v1", "v2", "v3" ],
+                      [ [ "v1", "v2", "b" ],
+                        [ "v2", "v3", "c" ] ] );
+&lt;quiver with 3 vertices and 2 arrows&gt;
+gap&gt; q1_q2 := QuiverProduct( q1, q2 );
+&lt;quiver with 6 vertices and 7 arrows&gt;
+gap&gt; q1_q2.u1_b * q1_q2.a_v2;
+u1_b*a_v2
+gap&gt; IncludeInProductQuiver( [ q1.a, q2.b * q2.c ], q1_q2 );
+a_v1*u2_b*u2_c
+gap&gt; ProjectFromProductQuiver( 2, q1_q2.a_v1 * q1_q2.u2_b * q1_q2.u2_c );
+b*c
+gap&gt; q1_q2_dec := QuiverProductDecomposition( q1_q2 );
+&lt;object&gt;
+gap&gt; q1_q2_dec[ 1 ];
+&lt;quiver with 2 vertices and 1 arrows&gt;
+gap&gt; q1_q2_dec[ 1 ] = q1;
+true
+  </pre></td></tr></table>
+
+<p><a id="X7A9026937BDDFA6C" name="X7A9026937BDDFA6C"></a></p>
+
+<h5>3.12-6 TensorProductOfAlgebras</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; TensorProductOfAlgebras</code>( <var class="Arg">FQ1, FQ2</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>The operation <code class="func">TensorProductOfAlgebras</code> produces the tensor product of two (quotients of) path algebras <var class="Arg">FQ1</var> and <var class="Arg">FQ2</var>. The result is a quotient of a path algebra, whose quiver is the <code class="func">QuiverProduct</code> (<a href="chap3.html#X835BBBE18104654A"><b>3.12-1</b></a>) of the quivers of the operands.</p>
+
+<p><a id="X7B31F4F680135E72" name="X7B31F4F680135E72"></a></p>
+
+<h5>3.12-7 SimpleTensor</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; SimpleTensor</code>( <var class="Arg">L, T</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>The operation <code class="func">SimpleTensor</code> produces a simple tensor x tensor y in the tensor product of two path algebras. The argument <var class="Arg">L</var> is a list containing the elements x and y. These should be elements of two (quotients of) path algebras, and <var class="Arg">T</var> the tensor product of these algebras (produced by <code class="func">TensorProductOfAlgebras</code> (<a href="chap3.html#X7A9026937BDDFA6C"><b>3.12-6</b></a>)).</p>
+
+<p><a id="X7F0EBF88866A537D" name="X7F0EBF88866A537D"></a></p>
+
+<h5>3.12-8 TensorProductDecomposition</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; TensorProductDecomposition</code>( <var class="Arg">T</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
+<p>For a tensor product of quotients of path algebras (produced by <code class="func">TensorProductOfAlgebras</code> (<a href="chap3.html#X7A9026937BDDFA6C"><b>3.12-6</b></a>)), this attribute contains a list of the factors in the tensor product.</p>
+
+<p>The following example shows how the operations for tensor products of quotients of path algebras are used.</p>
+
+
+<table class="example">
+<tr><td><pre>
+gap&gt; q1 := Quiver( [ "u1", "u2" ], [ [ "u1", "u2", "a" ] ] );
+&lt;quiver with 2 vertices and 1 arrows&gt;
+gap&gt; q2 := Quiver( [ "v1", "v2", "v3", "v4" ],
+                      [ [ "v1", "v2", "b" ],
+                        [ "v1", "v3", "c" ],
+                        [ "v2", "v4", "d" ],
+                        [ "v3", "v4", "e" ] ] );
+&lt;quiver with 4 vertices and 4 arrows&gt;
+gap&gt; fq1 := PathAlgebra( Rationals, q1 );
+&lt;algebra-with-one over Rationals, with 3 generators&gt;
+gap&gt; fq2 := PathAlgebra( Rationals, q2 );
+&lt;algebra-with-one over Rationals, with 8 generators&gt;
+gap&gt; I := Ideal( fq2, [ fq2.b * fq2.d - fq2.c * fq2.e ] );
+&lt;two-sided ideal in &lt;algebra-with-one over Rationals, with 8 generators&gt;,
+ (1 generators)&gt;
+gap&gt; quot := fq2 / I;
+&lt;algebra-with-one over Rationals, with 8 generators&gt;
+gap&gt; t := TensorProductOfAlgebras( fq1, quot );
+&lt;algebra-with-one over Rationals, with 20 generators&gt;
+gap&gt; SimpleTensor( [ fq1.a, quot.b ], t );
+[(1)*a_v1*u2_b]
+gap&gt; t_dec := TensorProductDecomposition( t );
+[ &lt;algebra-with-one over Rationals, with 3 generators&gt;, 
+  &lt;algebra-with-one over Rationals, with 8 generators&gt; ]
+gap&gt; t_dec[ 1 ] = fq1;
+true
+  </pre></td></tr></table>
+
+<p><a id="X820195C47E2BE7E0" name="X820195C47E2BE7E0"></a></p>
+
+<h5>3.12-9 EnvelopingAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; EnvelopingAlgebra</code>( <var class="Arg">FQ</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>Produces the enveloping algebra <var class="Arg">FQ</var>^e = <var class="Arg">FQ</var> tensor <var class="Arg">FQ</var>^op of <var class="Arg">FQ</var>, which should be (a quotient of) a path algebra.</p>
+
+<p><a id="X7AE13B567B5F72FC" name="X7AE13B567B5F72FC"></a></p>
+
+<h5>3.12-10 IsEnvelopingAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IsEnvelopingAlgebra</code>( <var class="Arg">A</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
+<p>True if and only if <var class="Arg">A</var> is the result of a call to <code class="func">EnvelopingAlgebra</code> (<a href="chap3.html#X820195C47E2BE7E0"><b>3.12-9</b></a>).</p>
+
 
 <div class="chlinkprevnextbot">&nbsp;<a href="chap0.html">Top of Book</a>&nbsp;  &nbsp;<a href="chap2.html">Previous Chapter</a>&nbsp;  &nbsp;<a href="chap4.html">Next Chapter</a>&nbsp;  </div>
 
 
-<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0.html">Top</a>  <a href="chap1.html">1</a>  <a href="chap2.html">2</a>  <a href="chap3.html">3</a>  <a href="chap4.html">4</a>  <a href="chap5.html">5</a>  <a href="chap6.html">6</a>  <a href="chapA.html">A</a>  <a href="chapBib.html">Bib</a>  <a href="chapInd.html">Ind</a>  </div>
+<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0.html">Top</a>  <a href="chap1.html">1</a>  <a href="chap2.html">2</a>  <a href="chap3.html">3</a>  <a href="chap4.html">4</a>  <a href="chap5.html">5</a>  <a href="chap6.html">6</a>  <a href="chap7.html">7</a>  <a href="chapA.html">A</a>  <a href="chapBib.html">Bib</a>  <a href="chapInd.html">Ind</a>  </div>
 
 <hr />
 <p class="foot">generated by <a href="http://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc">GAPDoc2HTML</a></p>

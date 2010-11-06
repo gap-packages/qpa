@@ -1,15 +1,15 @@
 # GAP Declarations
-# $Id: specialreps.gd,v 1.1 2010/09/26 19:55:42 sunnyquiver Exp $
+# $Id: specialreps.gd,v 1.2 2010/11/06 14:48:40 sunnyquiver Exp $
 
 # specialreps.gd: Provides special representations of a quiver, 
 # 		  indecomposble projective, indecomposable injective, 
 # 		  and vertex simple representations. 
 
 DeclareOperation( "IndecomposableProjectiveRepresentations", 
-                        [IsPathAlgebra, IsList] ); 
+                        [IsSubalgebraFpPathAlgebra] ); 
 DeclareOperation( "IndecomposableInjectiveRepresentations", 
-                        [IsPathAlgebra, IsList] ); 
+                        [IsAlgebra] ); 
 DeclareOperation( "VertexSimpleRepresentations", 
-                        [IsPathAlgebra, IsList] ); 
+                        [IsAlgebra] ); 
 DeclareOperation( "ZeroRepresentation", 
-                        [IsPathAlgebra, IsList] ); 
+                        [IsAlgebra] ); 

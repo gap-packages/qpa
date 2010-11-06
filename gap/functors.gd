@@ -1,5 +1,5 @@
 # GAP Implementation
 # This file was generated from 
-# $Id: functors.gd,v 1.2 2010/10/06 05:25:19 sunnyquiver Exp $
-DeclareOperation( "DualOfPathAlgebraMatModule", 
-                    [IsPathAlgebraMatModule ] );
+# $Id: functors.gd,v 1.3 2010/11/06 14:48:40 sunnyquiver Exp $
+DeclareAttribute( "DualOfPathAlgebraMatModule", IsPathAlgebraMatModule );
+
