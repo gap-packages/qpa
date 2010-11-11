@@ -1,5 +1,5 @@
 # GAP Implementation
-# $Id: opposite.gi,v 1.1 2010/09/30 14:02:22 oysteini Exp $
+# $Id: opposite.gi,v 1.2 2010/11/11 14:32:12 sunnyquiver Exp $
 
 InstallMethod( OppositeQuiver,
         "for a quiver",
@@ -108,14 +108,16 @@ InstallMethod( OppositePathAlgebra,
         "for a quotient of a path algebra",
         [ IsSubalgebraFpPathAlgebra ],
         function( quot )
-    local PA, PA_op, rels, rels_op, quot_op;
+    local PA, PA_op, rels, rels_op, I_op, gb, gbb, quot_op;
 
     PA := OriginalPathAlgebra( quot );
     PA_op := OppositePathAlgebra( PA );
-    rels := RelatorsOfFpAlgebra( quot );
+    rels  := RelatorsOfFpAlgebra( quot );
     rels_op := OppositeRelations( rels );
-
-    quot_op := PA_op / Ideal( PA_op, rels_op );
+    I_op := Ideal( PA_op, rels_op );
+    gb   := GBNPGroebnerBasis(rels_op,PA_op);
+    gbb  := GroebnerBasis(I_op,gb);
+    quot_op := PA_op / I_op;
 
     SetOppositePathAlgebra( quot_op, quot );
 
