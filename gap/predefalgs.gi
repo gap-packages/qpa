@@ -1,6 +1,6 @@
 # GAP Implementation
 # This file was generated from 
-# $Id: predefalgs.gi,v 1.2 2010/10/06 05:29:16 sunnyquiver Exp $
+# $Id: predefalgs.gi,v 1.3 2010/11/12 11:09:36 sunnyquiver Exp $
 InstallMethod ( NakayamaAlgebra,
     "for an admissible sequence and a field",
     [IsList, IsField], 0,
@@ -17,7 +17,8 @@ InstallMethod ( NakayamaAlgebra,
               cycle,    # if we are in the A-tilde case and the relations.
                         # are long, this is used to store the cycles involved
                         # in the relations. 
-              I;        # the ideal of relations.
+              I,        # the ideal of relations.
+              gb, gbb;  # Groebner basis for the ideal I.
 #
 # Testing if we have an admissible sequence
 #
@@ -133,8 +134,14 @@ InstallMethod ( NakayamaAlgebra,
 # End of A_n-tilde case.
 #
             fi;
-            I := Ideal(KQ,rels);
-            return KQ/I; 
+            if Length(rels) = 0 then 
+               return KQ;
+            else
+               I := Ideal(KQ,rels);
+               gb := GBNPGroebnerBasis(rels,KQ);
+               gbb := GroebnerBasis(I,gb);
+               return KQ/I;
+            fi; 
         else
 #
 # A valid admissible sequence was not entered. 
