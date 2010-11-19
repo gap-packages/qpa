@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- $Id: qpadocumentation.xml,v 1.7 2010/11/06 14:48:40 sunnyquiver Exp $ -->
+<!-- $Id: qpadocumentation.xml,v 1.8 2010/11/19 14:52:01 sunnyquiver Exp $ -->
 
 <!DOCTYPE Book SYSTEM "gapdoc.dtd"
  [ <!ENTITY see '<Alt Only="LaTeX">$\to$</Alt><Alt Not="LaTeX">--&gt;</Alt>'>
@@ -1065,7 +1065,66 @@ false
     canonical basis. Question: Does this only take one argument?
    </Description>
   </ManSection>
+
+
+<ManSection>
+   <Oper Name="IsSelfinjective" Arg="A" Comm=""/>
+   <Description>
+     The function checks if the algebra <Arg>A</Arg> is finite
+     dimensional (not implemented yet), and returns true or false
+     accorgin to whether <Arg>A</Arg> is selfinjective or not.
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Oper Name="LoewyLength" Arg="A" Comm=""/>
+   <Description>
+     The function returns the Loewy length of the
+     algebra <Arg>A</Arg>, after having checked that <Arg>A</Arg> is a
+     finite dimensional quotient of a path algebra. 
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Oper Name="CartanMatrix" Arg="A" Comm=""/>
+   <Description>
+     This function returns the Cartan matrix of the
+     algebra <Arg>A</Arg>,  after having checked that <Arg>A</Arg> is a
+     finite dimensional quotient of a path algebra. 
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Oper Name="CoxeterMatrix" Arg="A" Comm=""/>
+   <Description>
+     This function returns the Coxeter matrix of the
+     algebra <Arg>A</Arg>,  after having checked that <Arg>A</Arg> is a
+     finite dimensional quotient of a path algebra. 
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Oper Name="CoxeterPolynomial" Arg="A" Comm=""/>
+   <Description>
+     This function returns the Coxeter polynomial of the
+     algebra <Arg>A</Arg>,  after having checked that <Arg>A</Arg> is a
+     finite dimensional quotient of a path algebra. 
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Oper Name="Centre/Center" Arg="A" Comm=""/>
+   <Description>
+     This function returns the centre of the algebra <Arg>A</Arg>,  
+     after having checked that <Arg>A</Arg> is a finite dimensional
+     quotient of a path algebra (the check is not implemented and also
+     not implemented for path algebras).  
+   </Description>
+</ManSection>
+
 </Section>
+
+
 
 <Section><Heading>Attributes and Operations on Elements
 of Quotients of Path Algebra</Heading>
@@ -1682,11 +1741,13 @@ dimensions all agree.  We can create a module in this way as follows.<P/>
   <ManSection>
    <Func Name="RightModuleOverPathAlgebra" Arg="A, mats" 
 	 Comm=""/>
+   <Func Name="RightModuleOverQuotientOfPathAlgebra" Arg="A, mats" 
+	 Comm=""/>
    <Returns>a representation over a path algebra.</Returns>
    <Description>
-      In the function call, <Arg>A</Arg> is the path algebra.  The
-      list of matrices <Arg>mats</Arg> can take on three different
-      forms.<P/>
+      In the function call, <Arg>A</Arg> is a (quotient of a ) path
+      algebra.  The list of matrices <Arg>mats</Arg> can take on three
+      different forms.<P/>
 
       1) The argument <Arg>mats</Arg> can be a list of blocks of
       matrices where each block is of the form, `["name of
@@ -1847,6 +1908,15 @@ gap&gt; B[4]^(P.b*P.c);
    </Description>
 </ManSection>
 
+<ManSection>
+   <Oper Name="LoewyLength" Arg="M" Comm=""/>
+   <Returns>the Loewy length of the module <Arg>M</Arg>.</Returns>
+   <Description>
+     The function checks that the module <Arg>M</Arg> is a module over
+    a finite dimensional quotient of a path algebra, and returns fail
+    otherwise (This is not implemented yet). 
+   </Description>
+</ManSection>
 
 <ManSection>
    <Oper Name="RadicalOfRep" Arg="M" Comm=""/>
@@ -1856,6 +1926,30 @@ gap&gt; B[4]^(P.b*P.c);
     module <Arg>M</Arg>. The operation
     <Ref Oper="RadicalOfRepInclusion"/> computes the inclusion of the
     radical of <Arg>M</Arg> into <Arg>M</Arg>.
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Oper Name="RadicalSeries" Arg="M" Comm=""/>
+   <Returns>the radical series of the module <Arg>M</Arg>.</Returns>
+   <Description>
+     The function gives the radical series as a list of vectors
+     <Code>[n_1,...,n_s]</Code>, where the algebra has <Math>s</Math>
+     isomorphism classes of simple modules and the numbers give the
+     multiplicity of each simple. The first vector listed corresponds
+     to the top layer, and so on.  
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Oper Name="SocleSeries" Arg="M" Comm=""/>
+   <Returns>the socle series of the module <Arg>M</Arg>.</Returns>
+   <Description>
+     The function gives the socle series as a list of vectors
+     <Code>[n_1,...,n_s]</Code>, where the algebra has <Math>s</Math>
+     isomorphism classes of simple modules and the numbers give the
+     multiplicity of each simple. The last vector listed corresponds
+     to the socle layer, and so on backwards.  
    </Description>
 </ManSection>
 
@@ -1925,34 +2019,34 @@ Here we collect the predefined representations/modules over a finite
   dimensional quotient of a path algebra. 
 
   <ManSection>
-   <Oper Name="IndecomposableProjectiveRepresentations" Arg="A" Comm=""/>
+   <Oper Name="IndecomposableProjectiveRepresentations" Arg="A [, list]" Comm=""/>
    <Returns>a list of all the indecomposable projective
    representations over a finite dimensional (quotient of a) path
-   algebra <Arg>A</Arg>. 
+   algebra <Arg>A</Arg>, when only one argument is supplied. The
+   second argument should be a list of integers, for example [1, 3,
+   4], which will return the indecomposable projective corresponding
+   to vertex 1, 3 and 4, in this order.  
    </Returns>
    <Description>
      The function checks if the algebra <Arg>A</Arg> is a
      finite dimensional (quotient of a) path algebra, and returns an 
-     error message otherwise. A shortcoming of the current
-     implementation is that it only returns the indecomposable projective
-     representations/modules as modules over the path algebra <Arg>A</Arg>
-     was constructed from, instead of <Arg>A</Arg>. 
+     error message otherwise. 
    </Description>
   </ManSection>
 
   <ManSection>
-   <Oper Name="IndecomposableInjectiveRepresentations" Arg="A" Comm=""/>
+   <Oper Name="IndecomposableInjectiveRepresentations" Arg="A [, list]" Comm=""/>
    <Returns>a list of all the indecomposable injective
    representations over a finite dimensional (quotient of a) path
-   algebra <Arg>A</Arg>. 
+   algebra <Arg>A</Arg>, when only one argument is supplied. The
+   second argument should be a list of integers, for example [1, 3,
+   4], which will return the indecomposable injective corresponding
+   to vertex 1, 3 and 4, in this order.
    </Returns>
    <Description>
      The function checks if the algebra <Arg>A</Arg> is a finite
      dimensional (quotient of a) path algebra, and returns an error
-     message otherwise. A shortcoming of the current implementation is
-     that it only returns the indecomposable injective
-     representations/modules as modules over the path
-     algebra <Arg>A</Arg> was constructed from, instead of <Arg>A</Arg>.
+     message otherwise. 
    </Description>
   </ManSection>
 
@@ -1964,10 +2058,7 @@ Here we collect the predefined representations/modules over a finite
    <Description>
      The function checks if the algebra <Arg>A</Arg> is a finite
      dimensional (quotient of a) path algebra, and returns an error
-     message otherwise. A shortcoming of the current implementation is
-     that it only returns the vertex simple representations/modules as
-     modules over the path algebra <Arg>A</Arg> was constructed from,
-     instead of <Arg>A</Arg>.
+     message otherwise. 
    </Description>
   </ManSection>
 
@@ -1979,10 +2070,7 @@ Here we collect the predefined representations/modules over a finite
    <Description>
      The function checks if the algebra <Arg>A</Arg> is a finite
      dimensional (quotient of a) path algebra, and returns an error
-     message otherwise. A shortcoming of the current implementation is
-     that it only returns the zero representation/module as
-     modules over the path algebra <Arg>A</Arg> was constructed from,
-     instead of <Arg>A</Arg>.
+     message otherwise. 
    </Description>
   </ManSection>
 </Section>
@@ -1995,9 +2083,7 @@ Here we collect the predefined representations/modules over a finite
    <Description>
      Takes the a representation <Arg>M</Arg> of a path
      algebra <Math>KQ</Math> and produces the dual of this
-     representation over the opposite path algebra <Arg>KQ_op</Arg>. A
-     shortcoming of this function is that it cannot have
-     representation over a quotient of a path algebra as an argument.
+     representation over the opposite path algebra <Arg>KQ_op</Arg>. 
    </Description>
 </ManSection>
 
@@ -2007,9 +2093,7 @@ Here we collect the predefined representations/modules over a finite
      Takes the a map <Arg>f</Arg> between two
      representations <Arg>M</Arg> and <Arg>N</Arg> over a path
      algebra <Math>A</Math> and produces the dual of this
-     map over the opposite path algebra <Arg>A^op</Arg>. A
-     shortcoming of this function is that it cannot have
-     representation over a quotient of a path algebra as an argument.
+     map over the opposite path algebra <Arg>A^op</Arg>. 
    </Description>
 </ManSection>
 

@@ -55,6 +55,12 @@
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X826641507CFBE943">3.9-1 NormalFormFunction</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X815D8565802928FE">3.9-2 IsElementOfFpPathAlgebra</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X80B32F667BF6AFD8">3.9-3 Coefficients</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7D96F5437F867D00">3.9-4 IsSelfinjective</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7BEA44FB819910B6">3.9-5 LoewyLength</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X84E3FEF587CB66C3">3.9-6 CartanMatrix</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X815CB1D47CB174ED">3.9-7 CoxeterMatrix</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7F6F526C86052150">3.9-8 CoxeterPolynomial</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X80E403A8855F6F7A">3.9-9 Centre/Center</a></span>
 </div>
 <div class="ContSect"><span class="nocss">&nbsp;</span><a href="chap3.html#X7BD7DB497917893C">3.10 <span class="Heading">Attributes and Operations on Elements
 of Quotients of Path Algebra</span></a>
@@ -376,6 +382,48 @@ false
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; Coefficients</code>( <var class="Arg">element</var> )</td><td class="tdright">( operation )</td></tr></table></div>
 <p>The operation <code class="func">Coefficients</code> operates on an <var class="Arg">element</var> of a quotient of a path algebra, and it returns the coefficients of the <var class="Arg">element</var> in terms of its canonical basis. Question: Does this only take one argument?</p>
+
+<p><a id="X7D96F5437F867D00" name="X7D96F5437F867D00"></a></p>
+
+<h5>3.9-4 IsSelfinjective</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IsSelfinjective</code>( <var class="Arg">A</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>The function checks if the algebra <var class="Arg">A</var> is finite dimensional (not implemented yet), and returns true or false accorgin to whether <var class="Arg">A</var> is selfinjective or not.</p>
+
+<p><a id="X7BEA44FB819910B6" name="X7BEA44FB819910B6"></a></p>
+
+<h5>3.9-5 LoewyLength</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; LoewyLength</code>( <var class="Arg">A</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>The function returns the Loewy length of the algebra <var class="Arg">A</var>, after having checked that <var class="Arg">A</var> is a finite dimensional quotient of a path algebra.</p>
+
+<p><a id="X84E3FEF587CB66C3" name="X84E3FEF587CB66C3"></a></p>
+
+<h5>3.9-6 CartanMatrix</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; CartanMatrix</code>( <var class="Arg">A</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>This function returns the Cartan matrix of the algebra <var class="Arg">A</var>, after having checked that <var class="Arg">A</var> is a finite dimensional quotient of a path algebra.</p>
+
+<p><a id="X815CB1D47CB174ED" name="X815CB1D47CB174ED"></a></p>
+
+<h5>3.9-7 CoxeterMatrix</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; CoxeterMatrix</code>( <var class="Arg">A</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>This function returns the Coxeter matrix of the algebra <var class="Arg">A</var>, after having checked that <var class="Arg">A</var> is a finite dimensional quotient of a path algebra.</p>
+
+<p><a id="X7F6F526C86052150" name="X7F6F526C86052150"></a></p>
+
+<h5>3.9-8 CoxeterPolynomial</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; CoxeterPolynomial</code>( <var class="Arg">A</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>This function returns the Coxeter polynomial of the algebra <var class="Arg">A</var>, after having checked that <var class="Arg">A</var> is a finite dimensional quotient of a path algebra.</p>
+
+<p><a id="X80E403A8855F6F7A" name="X80E403A8855F6F7A"></a></p>
+
+<h5>3.9-9 Centre/Center</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; Centre/Center</code>( <var class="Arg">A</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>This function returns the centre of the algebra <var class="Arg">A</var>, after having checked that <var class="Arg">A</var> is a finite dimensional quotient of a path algebra (the check is not implemented and also not implemented for path algebras).</p>
 
 <p><a id="X7BD7DB497917893C" name="X7BD7DB497917893C"></a></p>
 

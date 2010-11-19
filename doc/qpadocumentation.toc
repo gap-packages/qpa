@@ -71,23 +71,29 @@
 \contentsline {subsection}{\numberline {3.9.1}\leavevmode {\color {Chapter }NormalFormFunction}}{24}{subsection.3.9.1}
 \contentsline {subsection}{\numberline {3.9.2}\leavevmode {\color {Chapter }IsElementOfFpPathAlgebra}}{24}{subsection.3.9.2}
 \contentsline {subsection}{\numberline {3.9.3}\leavevmode {\color {Chapter }Coefficients}}{25}{subsection.3.9.3}
-\contentsline {section}{\numberline {3.10}\leavevmode {\color {Chapter }Attributes and Operations on Elements of Quotients of Path Algebra}}{25}{section.3.10}
-\contentsline {subsection}{\numberline {3.10.1}\leavevmode {\color {Chapter }IsNormalForm}}{25}{subsection.3.10.1}
-\contentsline {subsection}{\numberline {3.10.2}\leavevmode {\color {Chapter }{\textless }}}{25}{subsection.3.10.2}
-\contentsline {subsection}{\numberline {3.10.3}\leavevmode {\color {Chapter }ElementOfFpPathAlgebra}}{25}{subsection.3.10.3}
-\contentsline {subsection}{\numberline {3.10.4}\leavevmode {\color {Chapter }OriginalPathAlgebra}}{25}{subsection.3.10.4}
+\contentsline {subsection}{\numberline {3.9.4}\leavevmode {\color {Chapter }IsSelfinjective}}{25}{subsection.3.9.4}
+\contentsline {subsection}{\numberline {3.9.5}\leavevmode {\color {Chapter }LoewyLength}}{25}{subsection.3.9.5}
+\contentsline {subsection}{\numberline {3.9.6}\leavevmode {\color {Chapter }CartanMatrix}}{25}{subsection.3.9.6}
+\contentsline {subsection}{\numberline {3.9.7}\leavevmode {\color {Chapter }CoxeterMatrix}}{25}{subsection.3.9.7}
+\contentsline {subsection}{\numberline {3.9.8}\leavevmode {\color {Chapter }CoxeterPolynomial}}{25}{subsection.3.9.8}
+\contentsline {subsection}{\numberline {3.9.9}\leavevmode {\color {Chapter }Centre/Center}}{25}{subsection.3.9.9}
+\contentsline {section}{\numberline {3.10}\leavevmode {\color {Chapter }Attributes and Operations on Elements of Quotients of Path Algebra}}{26}{section.3.10}
+\contentsline {subsection}{\numberline {3.10.1}\leavevmode {\color {Chapter }IsNormalForm}}{26}{subsection.3.10.1}
+\contentsline {subsection}{\numberline {3.10.2}\leavevmode {\color {Chapter }{\textless }}}{26}{subsection.3.10.2}
+\contentsline {subsection}{\numberline {3.10.3}\leavevmode {\color {Chapter }ElementOfFpPathAlgebra}}{26}{subsection.3.10.3}
+\contentsline {subsection}{\numberline {3.10.4}\leavevmode {\color {Chapter }OriginalPathAlgebra}}{26}{subsection.3.10.4}
 \contentsline {section}{\numberline {3.11}\leavevmode {\color {Chapter }Predefined classes of quotient of path algebras}}{26}{section.3.11}
 \contentsline {subsection}{\numberline {3.11.1}\leavevmode {\color {Chapter }NakayamaAlgebra}}{26}{subsection.3.11.1}
-\contentsline {section}{\numberline {3.12}\leavevmode {\color {Chapter }Tensor products of path algebras}}{26}{section.3.12}
-\contentsline {subsection}{\numberline {3.12.1}\leavevmode {\color {Chapter }QuiverProduct}}{26}{subsection.3.12.1}
-\contentsline {subsection}{\numberline {3.12.2}\leavevmode {\color {Chapter }QuiverProductDecomposition}}{26}{subsection.3.12.2}
-\contentsline {subsection}{\numberline {3.12.3}\leavevmode {\color {Chapter }IsQuiverProductDecomposition}}{26}{subsection.3.12.3}
-\contentsline {subsection}{\numberline {3.12.4}\leavevmode {\color {Chapter }IncludeInProductQuiver}}{26}{subsection.3.12.4}
-\contentsline {subsection}{\numberline {3.12.5}\leavevmode {\color {Chapter }ProjectFromProductQuiver}}{27}{subsection.3.12.5}
-\contentsline {subsection}{\numberline {3.12.6}\leavevmode {\color {Chapter }TensorProductOfAlgebras}}{27}{subsection.3.12.6}
-\contentsline {subsection}{\numberline {3.12.7}\leavevmode {\color {Chapter }SimpleTensor}}{27}{subsection.3.12.7}
-\contentsline {subsection}{\numberline {3.12.8}\leavevmode {\color {Chapter }TensorProductDecomposition}}{28}{subsection.3.12.8}
-\contentsline {subsection}{\numberline {3.12.9}\leavevmode {\color {Chapter }EnvelopingAlgebra}}{28}{subsection.3.12.9}
+\contentsline {section}{\numberline {3.12}\leavevmode {\color {Chapter }Tensor products of path algebras}}{27}{section.3.12}
+\contentsline {subsection}{\numberline {3.12.1}\leavevmode {\color {Chapter }QuiverProduct}}{27}{subsection.3.12.1}
+\contentsline {subsection}{\numberline {3.12.2}\leavevmode {\color {Chapter }QuiverProductDecomposition}}{27}{subsection.3.12.2}
+\contentsline {subsection}{\numberline {3.12.3}\leavevmode {\color {Chapter }IsQuiverProductDecomposition}}{27}{subsection.3.12.3}
+\contentsline {subsection}{\numberline {3.12.4}\leavevmode {\color {Chapter }IncludeInProductQuiver}}{27}{subsection.3.12.4}
+\contentsline {subsection}{\numberline {3.12.5}\leavevmode {\color {Chapter }ProjectFromProductQuiver}}{28}{subsection.3.12.5}
+\contentsline {subsection}{\numberline {3.12.6}\leavevmode {\color {Chapter }TensorProductOfAlgebras}}{28}{subsection.3.12.6}
+\contentsline {subsection}{\numberline {3.12.7}\leavevmode {\color {Chapter }SimpleTensor}}{28}{subsection.3.12.7}
+\contentsline {subsection}{\numberline {3.12.8}\leavevmode {\color {Chapter }TensorProductDecomposition}}{29}{subsection.3.12.8}
+\contentsline {subsection}{\numberline {3.12.9}\leavevmode {\color {Chapter }EnvelopingAlgebra}}{29}{subsection.3.12.9}
 \contentsline {subsection}{\numberline {3.12.10}\leavevmode {\color {Chapter }IsEnvelopingAlgebra}}{29}{subsection.3.12.10}
 \contentsline {chapter}{\numberline {4}\leavevmode {\color {Chapter }Groebner Basis}}{30}{chapter.4}
 \contentsline {section}{\numberline {4.1}\leavevmode {\color {Chapter }Constructing a Groebner Basis}}{30}{section.4.1}
@@ -128,25 +134,28 @@
 \contentsline {subsection}{\numberline {6.3.1}\leavevmode {\color {Chapter }\texttt {\char 94\relax }}}{38}{subsection.6.3.1}
 \contentsline {section}{\numberline {6.4}\leavevmode {\color {Chapter }Operations on representations}}{39}{section.6.4}
 \contentsline {subsection}{\numberline {6.4.1}\leavevmode {\color {Chapter }DimensionVector}}{39}{subsection.6.4.1}
-\contentsline {subsection}{\numberline {6.4.2}\leavevmode {\color {Chapter }RadicalOfRep}}{39}{subsection.6.4.2}
-\contentsline {subsection}{\numberline {6.4.3}\leavevmode {\color {Chapter }SocleOfPathAlgebraMatModule}}{39}{subsection.6.4.3}
-\contentsline {subsection}{\numberline {6.4.4}\leavevmode {\color {Chapter }SubRep}}{39}{subsection.6.4.4}
-\contentsline {subsection}{\numberline {6.4.5}\leavevmode {\color {Chapter }TopOfRep}}{39}{subsection.6.4.5}
-\contentsline {subsection}{\numberline {6.4.6}\leavevmode {\color {Chapter }GeneratorsOfRep}}{39}{subsection.6.4.6}
-\contentsline {subsection}{\numberline {6.4.7}\leavevmode {\color {Chapter }MatricesOfPathAlgebraMatModule}}{40}{subsection.6.4.7}
+\contentsline {subsection}{\numberline {6.4.2}\leavevmode {\color {Chapter }LoewyLength}}{39}{subsection.6.4.2}
+\contentsline {subsection}{\numberline {6.4.3}\leavevmode {\color {Chapter }RadicalOfRep}}{39}{subsection.6.4.3}
+\contentsline {subsection}{\numberline {6.4.4}\leavevmode {\color {Chapter }RadicalSeries}}{39}{subsection.6.4.4}
+\contentsline {subsection}{\numberline {6.4.5}\leavevmode {\color {Chapter }SocleSeries}}{39}{subsection.6.4.5}
+\contentsline {subsection}{\numberline {6.4.6}\leavevmode {\color {Chapter }SocleOfPathAlgebraMatModule}}{39}{subsection.6.4.6}
+\contentsline {subsection}{\numberline {6.4.7}\leavevmode {\color {Chapter }SubRep}}{40}{subsection.6.4.7}
+\contentsline {subsection}{\numberline {6.4.8}\leavevmode {\color {Chapter }TopOfRep}}{40}{subsection.6.4.8}
+\contentsline {subsection}{\numberline {6.4.9}\leavevmode {\color {Chapter }GeneratorsOfRep}}{40}{subsection.6.4.9}
+\contentsline {subsection}{\numberline {6.4.10}\leavevmode {\color {Chapter }MatricesOfPathAlgebraMatModule}}{40}{subsection.6.4.10}
 \contentsline {section}{\numberline {6.5}\leavevmode {\color {Chapter }Special representations}}{40}{section.6.5}
 \contentsline {subsection}{\numberline {6.5.1}\leavevmode {\color {Chapter }IndecomposableProjectiveRepresentations}}{40}{subsection.6.5.1}
-\contentsline {subsection}{\numberline {6.5.2}\leavevmode {\color {Chapter }IndecomposableInjectiveRepresentations}}{40}{subsection.6.5.2}
-\contentsline {subsection}{\numberline {6.5.3}\leavevmode {\color {Chapter }VertexSimpleRepresentations}}{40}{subsection.6.5.3}
-\contentsline {subsection}{\numberline {6.5.4}\leavevmode {\color {Chapter }ZeroRepresentation}}{40}{subsection.6.5.4}
+\contentsline {subsection}{\numberline {6.5.2}\leavevmode {\color {Chapter }IndecomposableInjectiveRepresentations}}{41}{subsection.6.5.2}
+\contentsline {subsection}{\numberline {6.5.3}\leavevmode {\color {Chapter }VertexSimpleRepresentations}}{41}{subsection.6.5.3}
+\contentsline {subsection}{\numberline {6.5.4}\leavevmode {\color {Chapter }ZeroRepresentation}}{41}{subsection.6.5.4}
 \contentsline {section}{\numberline {6.6}\leavevmode {\color {Chapter }Functors on representations}}{41}{section.6.6}
 \contentsline {subsection}{\numberline {6.6.1}\leavevmode {\color {Chapter }DualOfPathAlgebraMatModule}}{41}{subsection.6.6.1}
 \contentsline {subsection}{\numberline {6.6.2}\leavevmode {\color {Chapter }DualOfPathAlgebraMatModuleMap}}{41}{subsection.6.6.2}
 \contentsline {section}{\numberline {6.7}\leavevmode {\color {Chapter }Vertex Projective Presentations}}{41}{section.6.7}
-\contentsline {subsection}{\numberline {6.7.1}\leavevmode {\color {Chapter }RightProjectiveModule}}{41}{subsection.6.7.1}
+\contentsline {subsection}{\numberline {6.7.1}\leavevmode {\color {Chapter }RightProjectiveModule}}{42}{subsection.6.7.1}
 \contentsline {subsection}{\numberline {6.7.2}\leavevmode {\color {Chapter }Vectorize}}{42}{subsection.6.7.2}
-\contentsline {subsection}{\numberline {6.7.3}\leavevmode {\color {Chapter }\texttt {\char 94\relax }}}{42}{subsection.6.7.3}
-\contentsline {subsection}{\numberline {6.7.4}\leavevmode {\color {Chapter }{\textless }}}{42}{subsection.6.7.4}
+\contentsline {subsection}{\numberline {6.7.3}\leavevmode {\color {Chapter }\texttt {\char 94\relax }}}{43}{subsection.6.7.3}
+\contentsline {subsection}{\numberline {6.7.4}\leavevmode {\color {Chapter }{\textless }}}{43}{subsection.6.7.4}
 \contentsline {subsection}{\numberline {6.7.5}\leavevmode {\color {Chapter }/}}{43}{subsection.6.7.5}
 \contentsline {chapter}{\numberline {7}\leavevmode {\color {Chapter }Homomorphisms of Right Modules over Path Algebras}}{44}{chapter.7}
 \contentsline {section}{\numberline {7.1}\leavevmode {\color {Chapter }Categories and representation of homomorphisms}}{44}{section.7.1}

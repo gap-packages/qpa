@@ -281,6 +281,50 @@
   algebra,  and  it  returns  the  coefficients of the [3Xelement[0m in terms of its
   canonical basis. Question: Does this only take one argument?
   
+  [1X3.9-4 IsSelfinjective[0m
+  
+  [2X> IsSelfinjective( [0X[3XA[0X[2X ) ____________________________________________[0Xoperation
+  
+  The  function checks if the algebra [3XA[0m is finite dimensional (not implemented
+  yet),  and  returns  true or false accorgin to whether [3XA[0m is selfinjective or
+  not.
+  
+  [1X3.9-5 LoewyLength[0m
+  
+  [2X> LoewyLength( [0X[3XA[0X[2X ) ________________________________________________[0Xoperation
+  
+  The function returns the Loewy length of the algebra [3XA[0m, after having checked
+  that [3XA[0m is a finite dimensional quotient of a path algebra.
+  
+  [1X3.9-6 CartanMatrix[0m
+  
+  [2X> CartanMatrix( [0X[3XA[0X[2X ) _______________________________________________[0Xoperation
+  
+  This  function  returns  the  Cartan  matrix  of the algebra [3XA[0m, after having
+  checked that [3XA[0m is a finite dimensional quotient of a path algebra.
+  
+  [1X3.9-7 CoxeterMatrix[0m
+  
+  [2X> CoxeterMatrix( [0X[3XA[0X[2X ) ______________________________________________[0Xoperation
+  
+  This  function  returns  the  Coxeter  matrix of the algebra [3XA[0m, after having
+  checked that [3XA[0m is a finite dimensional quotient of a path algebra.
+  
+  [1X3.9-8 CoxeterPolynomial[0m
+  
+  [2X> CoxeterPolynomial( [0X[3XA[0X[2X ) __________________________________________[0Xoperation
+  
+  This  function returns the Coxeter polynomial of the algebra [3XA[0m, after having
+  checked that [3XA[0m is a finite dimensional quotient of a path algebra.
+  
+  [1X3.9-9 Centre/Center[0m
+  
+  [2X> Centre/Center( [0X[3XA[0X[2X ) ______________________________________________[0Xoperation
+  
+  This function returns the centre of the algebra [3XA[0m, after having checked that
+  [3XA[0m  is  a  finite  dimensional  quotient  of a path algebra (the check is not
+  implemented and also not implemented for path algebras).
+  
   
   [1X3.10 Attributes and Operations on Elements of Quotients of Path Algebra[0X
   

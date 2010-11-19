@@ -32,12 +32,15 @@ Algebras</span></a>
 </div>
 <div class="ContSect"><span class="nocss">&nbsp;</span><a href="chap6.html#X7E5B84B1832D839E">6.4 <span class="Heading">Operations on representations</span></a>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7B5EA4B0820DE28C">6.4-1 DimensionVector</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X836C258381A956AB">6.4-2 RadicalOfRep</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X79FD8317809E5A65">6.4-3 SocleOfPathAlgebraMatModule</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X80298D0987B1882B">6.4-4 SubRep</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7FE6863F81D84464">6.4-5 TopOfRep</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X8742104E7F6A64D5">6.4-6 GeneratorsOfRep</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7E676BA9848F4D84">6.4-7 MatricesOfPathAlgebraMatModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7BEA44FB819910B6">6.4-2 LoewyLength</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X836C258381A956AB">6.4-3 RadicalOfRep</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7929281B848A9FBE">6.4-4 RadicalSeries</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X84A724267E6F136D">6.4-5 SocleSeries</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X79FD8317809E5A65">6.4-6 SocleOfPathAlgebraMatModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X80298D0987B1882B">6.4-7 SubRep</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7FE6863F81D84464">6.4-8 TopOfRep</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X8742104E7F6A64D5">6.4-9 GeneratorsOfRep</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7E676BA9848F4D84">6.4-10 MatricesOfPathAlgebraMatModule</a></span>
 </div>
 <div class="ContSect"><span class="nocss">&nbsp;</span><a href="chap6.html#X7919F94382D9B38B">6.5 <span class="Heading">Special representations</span></a>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X82637AE885576148">6.5-1 IndecomposableProjectiveRepresentations</a></span>
@@ -74,9 +77,10 @@ Algebras</span></h3>
 <h5>6.1-1 RightModuleOverPathAlgebra</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; RightModuleOverPathAlgebra</code>( <var class="Arg">A, mats</var> )</td><td class="tdright">( function )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; RightModuleOverQuotientOfPathAlgebra</code>( <var class="Arg">A, mats</var> )</td><td class="tdright">( function )</td></tr></table></div>
 <p><b>Returns: </b>a representation over a path algebra.</p>
 
-<p>In the function call, <var class="Arg">A</var> is the path algebra. The list of matrices <var class="Arg">mats</var> can take on three different forms.</p>
+<p>In the function call, <var class="Arg">A</var> is a (quotient of a ) path algebra. The list of matrices <var class="Arg">mats</var> can take on three different forms.</p>
 
 <p>1) The argument <var class="Arg">mats</var> can be a list of blocks of matrices where each block is of the form, `["name of arrow",matrix]'. So if you named your arrows when you created the quiver, then you can associate a matrix with that arrow explicitly.</p>
 
@@ -199,18 +203,45 @@ gap&gt; B[4]^(P.b*P.c);
 
 <p>A shortcoming of this that it is not defined for modules of quotients of path algebras.</p>
 
+<p><a id="X7BEA44FB819910B6" name="X7BEA44FB819910B6"></a></p>
+
+<h5>6.4-2 LoewyLength</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; LoewyLength</code>( <var class="Arg">M</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p><b>Returns: </b>the Loewy length of the module <var class="Arg">M</var>.</p>
+
+<p>The function checks that the module <var class="Arg">M</var> is a module over a finite dimensional quotient of a path algebra, and returns fail otherwise (This is not implemented yet).</p>
+
 <p><a id="X836C258381A956AB" name="X836C258381A956AB"></a></p>
 
-<h5>6.4-2 RadicalOfRep</h5>
+<h5>6.4-3 RadicalOfRep</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; RadicalOfRep</code>( <var class="Arg">M</var> )</td><td class="tdright">( operation )</td></tr></table></div>
 <p><b>Returns: </b>the radical of the module <var class="Arg">M</var>.</p>
 
 <p>This returns only the representation given by the radical of the module <var class="Arg">M</var>. The operation <code class="func">RadicalOfRepInclusion</code> (<a href="chap7.html#X7DCDCB088064BA30"><b>7.3-5</b></a>) computes the inclusion of the radical of <var class="Arg">M</var> into <var class="Arg">M</var>.</p>
 
+<p><a id="X7929281B848A9FBE" name="X7929281B848A9FBE"></a></p>
+
+<h5>6.4-4 RadicalSeries</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; RadicalSeries</code>( <var class="Arg">M</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p><b>Returns: </b>the radical series of the module <var class="Arg">M</var>.</p>
+
+<p>The function gives the radical series as a list of vectors <code class="code">[n_1,...,n_s]</code>, where the algebra has $s$ isomorphism classes of simple modules and the numbers give the multiplicity of each simple. The first vector listed corresponds to the top layer, and so on.</p>
+
+<p><a id="X84A724267E6F136D" name="X84A724267E6F136D"></a></p>
+
+<h5>6.4-5 SocleSeries</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; SocleSeries</code>( <var class="Arg">M</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p><b>Returns: </b>the socle series of the module <var class="Arg">M</var>.</p>
+
+<p>The function gives the socle series as a list of vectors <code class="code">[n_1,...,n_s]</code>, where the algebra has $s$ isomorphism classes of simple modules and the numbers give the multiplicity of each simple. The last vector listed corresponds to the socle layer, and so on backwards.</p>
+
 <p><a id="X79FD8317809E5A65" name="X79FD8317809E5A65"></a></p>
 
-<h5>6.4-3 SocleOfPathAlgebraMatModule</h5>
+<h5>6.4-6 SocleOfPathAlgebraMatModule</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; SocleOfPathAlgebraMatModule</code>( <var class="Arg">M</var> )</td><td class="tdright">( operation )</td></tr></table></div>
 <p><b>Returns: </b>the socle of the module <var class="Arg">M</var>.</p>
@@ -219,7 +250,7 @@ gap&gt; B[4]^(P.b*P.c);
 
 <p><a id="X80298D0987B1882B" name="X80298D0987B1882B"></a></p>
 
-<h5>6.4-4 SubRep</h5>
+<h5>6.4-7 SubRep</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; SubRep</code>( <var class="Arg">M, gens</var> )</td><td class="tdright">( operation )</td></tr></table></div>
 <p><b>Returns: </b>the submodule of the module <var class="Arg">M</var> generated by the elements <var class="Arg">gens</var>.</p>
@@ -228,7 +259,7 @@ gap&gt; B[4]^(P.b*P.c);
 
 <p><a id="X7FE6863F81D84464" name="X7FE6863F81D84464"></a></p>
 
-<h5>6.4-5 TopOfRep</h5>
+<h5>6.4-8 TopOfRep</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; TopOfRep</code>( <var class="Arg">M</var> )</td><td class="tdright">( operation )</td></tr></table></div>
 <p><b>Returns: </b>the top of the module <var class="Arg">M</var>.</p>
@@ -237,14 +268,14 @@ gap&gt; B[4]^(P.b*P.c);
 
 <p><a id="X8742104E7F6A64D5" name="X8742104E7F6A64D5"></a></p>
 
-<h5>6.4-6 GeneratorsOfRep</h5>
+<h5>6.4-9 GeneratorsOfRep</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; GeneratorsOfRep</code>( <var class="Arg">M</var> )</td><td class="tdright">( operation )</td></tr></table></div>
 <p><b>Returns: </b>a minimal generator set of the module <var class="Arg">M</var> as a module of the path algebra it is defined over.</p>
 
 <p><a id="X7E676BA9848F4D84" name="X7E676BA9848F4D84"></a></p>
 
-<h5>6.4-7 MatricesOfPathAlgebraMatModule</h5>
+<h5>6.4-10 MatricesOfPathAlgebraMatModule</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; MatricesOfPathAlgebraMatModule</code>( <var class="Arg">M</var> )</td><td class="tdright">( operation )</td></tr></table></div>
 <p><b>Returns: </b>a list of the matrices that defines the representation <var class="Arg">M</var> as a right module of the acting path algebra. The argument <var class="Arg">M</var> must be a <code class="code">PathAlgebraMatModule</code>.</p>
@@ -261,19 +292,19 @@ gap&gt; B[4]^(P.b*P.c);
 
 <h5>6.5-1 IndecomposableProjectiveRepresentations</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IndecomposableProjectiveRepresentations</code>( <var class="Arg">A</var> )</td><td class="tdright">( operation )</td></tr></table></div>
-<p><b>Returns: </b>a list of all the indecomposable projective representations over a finite dimensional (quotient of a) path algebra <var class="Arg">A</var>.</p>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IndecomposableProjectiveRepresentations</code>( <var class="Arg">A[, list]</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p><b>Returns: </b>a list of all the indecomposable projective representations over a finite dimensional (quotient of a) path algebra <var class="Arg">A</var>, when only one argument is supplied. The second argument should be a list of integers, for example [1, 3, 4], which will return the indecomposable projective corresponding to vertex 1, 3 and 4, in this order.</p>
 
-<p>The function checks if the algebra <var class="Arg">A</var> is a finite dimensional (quotient of a) path algebra, and returns an error message otherwise. A shortcoming of the current implementation is that it only returns the indecomposable projective representations/modules as modules over the path algebra <var class="Arg">A</var> was constructed from, instead of <var class="Arg">A</var>.</p>
+<p>The function checks if the algebra <var class="Arg">A</var> is a finite dimensional (quotient of a) path algebra, and returns an error message otherwise.</p>
 
 <p><a id="X78829EE8850BCD9F" name="X78829EE8850BCD9F"></a></p>
 
 <h5>6.5-2 IndecomposableInjectiveRepresentations</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IndecomposableInjectiveRepresentations</code>( <var class="Arg">A</var> )</td><td class="tdright">( operation )</td></tr></table></div>
-<p><b>Returns: </b>a list of all the indecomposable injective representations over a finite dimensional (quotient of a) path algebra <var class="Arg">A</var>.</p>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IndecomposableInjectiveRepresentations</code>( <var class="Arg">A[, list]</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p><b>Returns: </b>a list of all the indecomposable injective representations over a finite dimensional (quotient of a) path algebra <var class="Arg">A</var>, when only one argument is supplied. The second argument should be a list of integers, for example [1, 3, 4], which will return the indecomposable injective corresponding to vertex 1, 3 and 4, in this order.</p>
 
-<p>The function checks if the algebra <var class="Arg">A</var> is a finite dimensional (quotient of a) path algebra, and returns an error message otherwise. A shortcoming of the current implementation is that it only returns the indecomposable injective representations/modules as modules over the path algebra <var class="Arg">A</var> was constructed from, instead of <var class="Arg">A</var>.</p>
+<p>The function checks if the algebra <var class="Arg">A</var> is a finite dimensional (quotient of a) path algebra, and returns an error message otherwise.</p>
 
 <p><a id="X7B0AD1CB7F3D0D3C" name="X7B0AD1CB7F3D0D3C"></a></p>
 
@@ -282,7 +313,7 @@ gap&gt; B[4]^(P.b*P.c);
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; VertexSimpleRepresentations</code>( <var class="Arg">A</var> )</td><td class="tdright">( operation )</td></tr></table></div>
 <p><b>Returns: </b>a list of all the simple representations over a finite dimensional (quotient of a) path algebra <var class="Arg">A</var> .</p>
 
-<p>The function checks if the algebra <var class="Arg">A</var> is a finite dimensional (quotient of a) path algebra, and returns an error message otherwise. A shortcoming of the current implementation is that it only returns the vertex simple representations/modules as modules over the path algebra <var class="Arg">A</var> was constructed from, instead of <var class="Arg">A</var>.</p>
+<p>The function checks if the algebra <var class="Arg">A</var> is a finite dimensional (quotient of a) path algebra, and returns an error message otherwise.</p>
 
 <p><a id="X8106F9C681CE5E49" name="X8106F9C681CE5E49"></a></p>
 
@@ -291,7 +322,7 @@ gap&gt; B[4]^(P.b*P.c);
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; ZeroRepresentation</code>( <var class="Arg">A</var> )</td><td class="tdright">( operation )</td></tr></table></div>
 <p><b>Returns: </b>the zero representation over a finite dimensional (quotient of a) path algebra <var class="Arg">A</var> .</p>
 
-<p>The function checks if the algebra <var class="Arg">A</var> is a finite dimensional (quotient of a) path algebra, and returns an error message otherwise. A shortcoming of the current implementation is that it only returns the zero representation/module as modules over the path algebra <var class="Arg">A</var> was constructed from, instead of <var class="Arg">A</var>.</p>
+<p>The function checks if the algebra <var class="Arg">A</var> is a finite dimensional (quotient of a) path algebra, and returns an error message otherwise.</p>
 
 <p><a id="X7D99BF5A87DDC099" name="X7D99BF5A87DDC099"></a></p>
 
@@ -302,14 +333,14 @@ gap&gt; B[4]^(P.b*P.c);
 <h5>6.6-1 DualOfPathAlgebraMatModule</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; DualOfPathAlgebraMatModule</code>( <var class="Arg">M</var> )</td><td class="tdright">( operation )</td></tr></table></div>
-<p>Takes the a representation <var class="Arg">M</var> of a path algebra $KQ$ and produces the dual of this representation over the opposite path algebra <var class="Arg">KQ_op</var>. A shortcoming of this function is that it cannot have representation over a quotient of a path algebra as an argument.</p>
+<p>Takes the a representation <var class="Arg">M</var> of a path algebra $KQ$ and produces the dual of this representation over the opposite path algebra <var class="Arg">KQ_op</var>.</p>
 
 <p><a id="X86846EFE7FD4E643" name="X86846EFE7FD4E643"></a></p>
 
 <h5>6.6-2 DualOfPathAlgebraMatModuleMap</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; DualOfPathAlgebraMatModuleMap</code>( <var class="Arg">f</var> )</td><td class="tdright">( operation )</td></tr></table></div>
-<p>Takes the a map <var class="Arg">f</var> between two representations <var class="Arg">M</var> and <var class="Arg">N</var> over a path algebra $A$ and produces the dual of this map over the opposite path algebra <var class="Arg">A^op</var>. A shortcoming of this function is that it cannot have representation over a quotient of a path algebra as an argument.</p>
+<p>Takes the a map <var class="Arg">f</var> between two representations <var class="Arg">M</var> and <var class="Arg">N</var> over a path algebra $A$ and produces the dual of this map over the opposite path algebra <var class="Arg">A^op</var>.</p>
 
 <p><a id="X8097F19E8228B68C" name="X8097F19E8228B68C"></a></p>
 

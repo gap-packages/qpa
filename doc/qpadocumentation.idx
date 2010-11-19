@@ -52,20 +52,26 @@
 \indexentry{NormalFormFunction@\texttt  {NormalFormFunction}|hyperpage}{24}
 \indexentry{IsElementOfFpPathAlgebra@\texttt  {IsElementOfFpPathAlgebra}|hyperpage}{24}
 \indexentry{Coefficients@\texttt  {Coefficients}|hyperpage}{25}
-\indexentry{IsNormalForm@\texttt  {IsNormalForm}|hyperpage}{25}
-\indexentry{<@\texttt  {{\textless }}|hyperpage}{25}
-\indexentry{ElementOfFpPathAlgebra@\texttt  {ElementOfFpPathAlgebra}|hyperpage}{25}
-\indexentry{OriginalPathAlgebra@\texttt  {OriginalPathAlgebra}|hyperpage}{25}
+\indexentry{IsSelfinjective@\texttt  {IsSelfinjective}|hyperpage}{25}
+\indexentry{LoewyLength@\texttt  {LoewyLength}|hyperpage}{25}
+\indexentry{CartanMatrix@\texttt  {CartanMatrix}|hyperpage}{25}
+\indexentry{CoxeterMatrix@\texttt  {CoxeterMatrix}|hyperpage}{25}
+\indexentry{CoxeterPolynomial@\texttt  {CoxeterPolynomial}|hyperpage}{25}
+\indexentry{Centre/Center@\texttt  {Centre/Center}|hyperpage}{25}
+\indexentry{IsNormalForm@\texttt  {IsNormalForm}|hyperpage}{26}
+\indexentry{<@\texttt  {{\textless }}|hyperpage}{26}
+\indexentry{ElementOfFpPathAlgebra@\texttt  {ElementOfFpPathAlgebra}|hyperpage}{26}
+\indexentry{OriginalPathAlgebra@\texttt  {OriginalPathAlgebra}|hyperpage}{26}
 \indexentry{NakayamaAlgebra@\texttt  {NakayamaAlgebra}|hyperpage}{26}
-\indexentry{QuiverProduct@\texttt  {QuiverProduct}|hyperpage}{26}
-\indexentry{QuiverProductDecomposition@\texttt  {QuiverProductDecomposition}|hyperpage}{26}
-\indexentry{IsQuiverProductDecomposition@\texttt  {IsQuiverProductDecomposition}|hyperpage}{26}
-\indexentry{IncludeInProductQuiver@\texttt  {IncludeInProductQuiver}|hyperpage}{26}
-\indexentry{ProjectFromProductQuiver@\texttt  {ProjectFromProductQuiver}|hyperpage}{27}
-\indexentry{TensorProductOfAlgebras@\texttt  {TensorProductOfAlgebras}|hyperpage}{27}
-\indexentry{SimpleTensor@\texttt  {SimpleTensor}|hyperpage}{27}
-\indexentry{TensorProductDecomposition@\texttt  {TensorProductDecomposition}|hyperpage}{28}
-\indexentry{EnvelopingAlgebra@\texttt  {EnvelopingAlgebra}|hyperpage}{28}
+\indexentry{QuiverProduct@\texttt  {QuiverProduct}|hyperpage}{27}
+\indexentry{QuiverProductDecomposition@\texttt  {QuiverProductDecomposition}|hyperpage}{27}
+\indexentry{IsQuiverProductDecomposition@\texttt  {IsQuiverProductDecomposition}|hyperpage}{27}
+\indexentry{IncludeInProductQuiver@\texttt  {IncludeInProductQuiver}|hyperpage}{27}
+\indexentry{ProjectFromProductQuiver@\texttt  {ProjectFromProductQuiver}|hyperpage}{28}
+\indexentry{TensorProductOfAlgebras@\texttt  {TensorProductOfAlgebras}|hyperpage}{28}
+\indexentry{SimpleTensor@\texttt  {SimpleTensor}|hyperpage}{28}
+\indexentry{TensorProductDecomposition@\texttt  {TensorProductDecomposition}|hyperpage}{29}
+\indexentry{EnvelopingAlgebra@\texttt  {EnvelopingAlgebra}|hyperpage}{29}
 \indexentry{IsEnvelopingAlgebra@\texttt  {IsEnvelopingAlgebra}|hyperpage}{29}
 \indexentry{InfoGroebnerBasis@\texttt  {InfoGroebnerBasis}|hyperpage}{30}
 \indexentry{GroebnerBasis@\texttt  {GroebnerBasis}|hyperpage}{30}
@@ -88,25 +94,29 @@
 \indexentry{RightGroebnerBasisOfIdeal@\texttt  {RightGroebnerBasisOfIdeal}|hyperpage}{34}
 \indexentry{RightGroebnerBasis@\texttt  {RightGroebnerBasis}|hyperpage}{34}
 \indexentry{RightModuleOverPathAlgebra@\texttt  {RightModuleOverPathAlgebra}|hyperpage}{36}
+\indexentry{RightModuleOverQuotientOfPathAlgebra@\texttt  {RightModuleOverQuotientOfPathAlgebra}|hyperpage}{36}
 \indexentry{IsPathAlgebraMatModule@\texttt  {IsPathAlgebraMatModule}|hyperpage}{38}
 \indexentry{^@\texttt  {\texttt  {\char 94\relax }}|hyperpage}{38}
 \indexentry{DimensionVector@\texttt  {DimensionVector}|hyperpage}{39}
+\indexentry{LoewyLength@\texttt  {LoewyLength}|hyperpage}{39}
 \indexentry{RadicalOfRep@\texttt  {RadicalOfRep}|hyperpage}{39}
+\indexentry{RadicalSeries@\texttt  {RadicalSeries}|hyperpage}{39}
+\indexentry{SocleSeries@\texttt  {SocleSeries}|hyperpage}{39}
 \indexentry{SocleOfPathAlgebraMatModule@\texttt  {SocleOfPathAlgebraMatModule}|hyperpage}{39}
-\indexentry{SubRep@\texttt  {SubRep}|hyperpage}{39}
-\indexentry{TopOfRep@\texttt  {TopOfRep}|hyperpage}{39}
-\indexentry{GeneratorsOfRep@\texttt  {GeneratorsOfRep}|hyperpage}{39}
+\indexentry{SubRep@\texttt  {SubRep}|hyperpage}{40}
+\indexentry{TopOfRep@\texttt  {TopOfRep}|hyperpage}{40}
+\indexentry{GeneratorsOfRep@\texttt  {GeneratorsOfRep}|hyperpage}{40}
 \indexentry{MatricesOfPathAlgebraMatModule@\texttt  {MatricesOfPathAlgebraMatModule}|hyperpage}{40}
 \indexentry{IndecomposableProjectiveRepresentations@\texttt  {IndecomposableProjectiveRepresentations}|hyperpage}{40}
-\indexentry{IndecomposableInjectiveRepresentations@\texttt  {IndecomposableInjectiveRepresentations}|hyperpage}{40}
-\indexentry{VertexSimpleRepresentations@\texttt  {VertexSimpleRepresentations}|hyperpage}{40}
-\indexentry{ZeroRepresentation@\texttt  {ZeroRepresentation}|hyperpage}{40}
+\indexentry{IndecomposableInjectiveRepresentations@\texttt  {IndecomposableInjectiveRepresentations}|hyperpage}{41}
+\indexentry{VertexSimpleRepresentations@\texttt  {VertexSimpleRepresentations}|hyperpage}{41}
+\indexentry{ZeroRepresentation@\texttt  {ZeroRepresentation}|hyperpage}{41}
 \indexentry{DualOfPathAlgebraMatModule@\texttt  {DualOfPathAlgebraMatModule}|hyperpage}{41}
 \indexentry{DualOfPathAlgebraMatModuleMap@\texttt  {DualOfPathAlgebraMatModuleMap}|hyperpage}{41}
-\indexentry{RightProjectiveModule@\texttt  {RightProjectiveModule}|hyperpage}{41}
+\indexentry{RightProjectiveModule@\texttt  {RightProjectiveModule}|hyperpage}{42}
 \indexentry{Vectorize@\texttt  {Vectorize}|hyperpage}{42}
-\indexentry{^@\texttt  {\texttt  {\char 94\relax }}|hyperpage}{42}
-\indexentry{<@\texttt  {{\textless }}|hyperpage}{42}
+\indexentry{^@\texttt  {\texttt  {\char 94\relax }}|hyperpage}{43}
+\indexentry{<@\texttt  {{\textless }}|hyperpage}{43}
 \indexentry{/@\texttt  {/}|hyperpage}{43}
 \indexentry{IsPathAlgebraMatModuleMap@\texttt  {IsPathAlgebraMatModuleMap}|hyperpage}{44}
 \indexentry{RightModuleHomOverPathAlgebra@\texttt  {RightModuleHomOverPathAlgebra}|hyperpage}{44}

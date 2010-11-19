@@ -51,7 +51,7 @@
 \hypersetup{pdftitle=QPA}
 \markright{\scriptsize \mbox{}\hfill QPA \hfill\mbox{}}
 {\Large \textbf{Quivers and Path Algebras\mbox{}}}\\[1cm]
-{Version version 1.5\mbox{}}\\[1cm]
+{Version version 1.4\mbox{}}\\[1cm]
 {September 2010\mbox{}}\\[1cm]
 \mbox{}\\[2cm]
 {\large \textbf{The QPA-team\\
@@ -1304,6 +1304,80 @@ you will need to compute a Groebner basis of the ideal. Refer to the chapters
 
  The operation \texttt{Coefficients} operates on an \mbox{\texttt{\slshape element}} of a quotient of a path algebra, and it returns the coefficients of the \mbox{\texttt{\slshape element}} in terms of its canonical basis. Question: Does this only take one argument? }
 
+ 
+
+\subsection{\textcolor{Chapter }{IsSelfinjective}}
+\logpage{[ 3, 9, 4 ]}\nobreak
+\hyperdef{L}{X7D96F5437F867D00}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsSelfinjective({\slshape A})\index{IsSelfinjective@\texttt{IsSelfinjective}}
+\label{IsSelfinjective}
+}\hfill{\scriptsize (operation)}}\\
+
+
+ The function checks if the algebra \mbox{\texttt{\slshape A}} is finite dimensional (not implemented yet), and returns true or false
+accorgin to whether \mbox{\texttt{\slshape A}} is selfinjective or not. }
+
+ 
+
+\subsection{\textcolor{Chapter }{LoewyLength}}
+\logpage{[ 3, 9, 5 ]}\nobreak
+\hyperdef{L}{X7BEA44FB819910B6}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{LoewyLength({\slshape A})\index{LoewyLength@\texttt{LoewyLength}}
+\label{LoewyLength}
+}\hfill{\scriptsize (operation)}}\\
+
+
+ The function returns the Loewy length of the algebra \mbox{\texttt{\slshape A}}, after having checked that \mbox{\texttt{\slshape A}} is a finite dimensional quotient of a path algebra. }
+
+ 
+
+\subsection{\textcolor{Chapter }{CartanMatrix}}
+\logpage{[ 3, 9, 6 ]}\nobreak
+\hyperdef{L}{X84E3FEF587CB66C3}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{CartanMatrix({\slshape A})\index{CartanMatrix@\texttt{CartanMatrix}}
+\label{CartanMatrix}
+}\hfill{\scriptsize (operation)}}\\
+
+
+ This function returns the Cartan matrix of the algebra \mbox{\texttt{\slshape A}}, after having checked that \mbox{\texttt{\slshape A}} is a finite dimensional quotient of a path algebra. }
+
+ 
+
+\subsection{\textcolor{Chapter }{CoxeterMatrix}}
+\logpage{[ 3, 9, 7 ]}\nobreak
+\hyperdef{L}{X815CB1D47CB174ED}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{CoxeterMatrix({\slshape A})\index{CoxeterMatrix@\texttt{CoxeterMatrix}}
+\label{CoxeterMatrix}
+}\hfill{\scriptsize (operation)}}\\
+
+
+ This function returns the Coxeter matrix of the algebra \mbox{\texttt{\slshape A}}, after having checked that \mbox{\texttt{\slshape A}} is a finite dimensional quotient of a path algebra. }
+
+ 
+
+\subsection{\textcolor{Chapter }{CoxeterPolynomial}}
+\logpage{[ 3, 9, 8 ]}\nobreak
+\hyperdef{L}{X7F6F526C86052150}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{CoxeterPolynomial({\slshape A})\index{CoxeterPolynomial@\texttt{CoxeterPolynomial}}
+\label{CoxeterPolynomial}
+}\hfill{\scriptsize (operation)}}\\
+
+
+ This function returns the Coxeter polynomial of the algebra \mbox{\texttt{\slshape A}}, after having checked that \mbox{\texttt{\slshape A}} is a finite dimensional quotient of a path algebra. }
+
+ 
+
+\subsection{\textcolor{Chapter }{Centre/Center}}
+\logpage{[ 3, 9, 9 ]}\nobreak
+\hyperdef{L}{X80E403A8855F6F7A}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{Centre/Center({\slshape A})\index{Centre/Center@\texttt{Centre/Center}}
+\label{Centre/Center}
+}\hfill{\scriptsize (operation)}}\\
+
+
+ This function returns the centre of the algebra \mbox{\texttt{\slshape A}}, after having checked that \mbox{\texttt{\slshape A}} is a finite dimensional quotient of a path algebra (the check is not
+implemented and also not implemented for path algebras). }
+
  }
 
  
@@ -2020,12 +2094,15 @@ this way as follows.
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{RightModuleOverPathAlgebra({\slshape A, mats})\index{RightModuleOverPathAlgebra@\texttt{RightModuleOverPathAlgebra}}
 \label{RightModuleOverPathAlgebra}
 }\hfill{\scriptsize (function)}}\\
+\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{RightModuleOverQuotientOfPathAlgebra({\slshape A, mats})\index{RightModuleOverQuotientOfPathAlgebra@\texttt{RightModuleOverQuotientOfPathAlgebra}}
+\label{RightModuleOverQuotientOfPathAlgebra}
+}\hfill{\scriptsize (function)}}\\
 \textbf{\indent Returns:\ }
 a representation over a path algebra.
 
 
 
- In the function call, \mbox{\texttt{\slshape A}} is the path algebra. The list of matrices \mbox{\texttt{\slshape mats}} can take on three different forms.
+ In the function call, \mbox{\texttt{\slshape A}} is a (quotient of a ) path algebra. The list of matrices \mbox{\texttt{\slshape mats}} can take on three different forms.
 
  1) The argument \mbox{\texttt{\slshape mats}} can be a list of blocks of matrices where each block is of the form, `["name
 of arrow",matrix]'. So if you named your arrows when you created the quiver,
@@ -2188,8 +2265,24 @@ algebras. }
 
  
 
-\subsection{\textcolor{Chapter }{RadicalOfRep}}
+\subsection{\textcolor{Chapter }{LoewyLength}}
 \logpage{[ 6, 4, 2 ]}\nobreak
+\hyperdef{L}{X7BEA44FB819910B6}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{LoewyLength({\slshape M})\index{LoewyLength@\texttt{LoewyLength}}
+\label{LoewyLength}
+}\hfill{\scriptsize (operation)}}\\
+\textbf{\indent Returns:\ }
+the Loewy length of the module \mbox{\texttt{\slshape M}}.
+
+
+
+ The function checks that the module \mbox{\texttt{\slshape M}} is a module over a finite dimensional quotient of a path algebra, and returns
+fail otherwise (This is not implemented yet). }
+
+ 
+
+\subsection{\textcolor{Chapter }{RadicalOfRep}}
+\logpage{[ 6, 4, 3 ]}\nobreak
 \hyperdef{L}{X836C258381A956AB}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{RadicalOfRep({\slshape M})\index{RadicalOfRep@\texttt{RadicalOfRep}}
 \label{RadicalOfRep}
@@ -2203,8 +2296,41 @@ the radical of the module \mbox{\texttt{\slshape M}}.
 
  
 
+\subsection{\textcolor{Chapter }{RadicalSeries}}
+\logpage{[ 6, 4, 4 ]}\nobreak
+\hyperdef{L}{X7929281B848A9FBE}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{RadicalSeries({\slshape M})\index{RadicalSeries@\texttt{RadicalSeries}}
+\label{RadicalSeries}
+}\hfill{\scriptsize (operation)}}\\
+\textbf{\indent Returns:\ }
+the radical series of the module \mbox{\texttt{\slshape M}}.
+
+
+
+ The function gives the radical series as a list of vectors \texttt{[n{\textunderscore}1,...,n{\textunderscore}s]}, where the algebra has $s$ isomorphism classes of simple modules and the numbers give the multiplicity of
+each simple. The first vector listed corresponds to the top layer, and so on. }
+
+ 
+
+\subsection{\textcolor{Chapter }{SocleSeries}}
+\logpage{[ 6, 4, 5 ]}\nobreak
+\hyperdef{L}{X84A724267E6F136D}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{SocleSeries({\slshape M})\index{SocleSeries@\texttt{SocleSeries}}
+\label{SocleSeries}
+}\hfill{\scriptsize (operation)}}\\
+\textbf{\indent Returns:\ }
+the socle series of the module \mbox{\texttt{\slshape M}}.
+
+
+
+ The function gives the socle series as a list of vectors \texttt{[n{\textunderscore}1,...,n{\textunderscore}s]}, where the algebra has $s$ isomorphism classes of simple modules and the numbers give the multiplicity of
+each simple. The last vector listed corresponds to the socle layer, and so on
+backwards. }
+
+ 
+
 \subsection{\textcolor{Chapter }{SocleOfPathAlgebraMatModule}}
-\logpage{[ 6, 4, 3 ]}\nobreak
+\logpage{[ 6, 4, 6 ]}\nobreak
 \hyperdef{L}{X79FD8317809E5A65}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{SocleOfPathAlgebraMatModule({\slshape M})\index{SocleOfPathAlgebraMatModule@\texttt{SocleOfPathAlgebraMatModule}}
 \label{SocleOfPathAlgebraMatModule}
@@ -2219,7 +2345,7 @@ the socle of the module \mbox{\texttt{\slshape M}}.
  
 
 \subsection{\textcolor{Chapter }{SubRep}}
-\logpage{[ 6, 4, 4 ]}\nobreak
+\logpage{[ 6, 4, 7 ]}\nobreak
 \hyperdef{L}{X80298D0987B1882B}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{SubRep({\slshape M, gens})\index{SubRep@\texttt{SubRep}}
 \label{SubRep}
@@ -2235,7 +2361,7 @@ generated by the elements \mbox{\texttt{\slshape gens}} into \mbox{\texttt{\slsh
  
 
 \subsection{\textcolor{Chapter }{TopOfRep}}
-\logpage{[ 6, 4, 5 ]}\nobreak
+\logpage{[ 6, 4, 8 ]}\nobreak
 \hyperdef{L}{X7FE6863F81D84464}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{TopOfRep({\slshape M})\index{TopOfRep@\texttt{TopOfRep}}
 \label{TopOfRep}
@@ -2250,7 +2376,7 @@ the top of the module \mbox{\texttt{\slshape M}}.
  
 
 \subsection{\textcolor{Chapter }{GeneratorsOfRep}}
-\logpage{[ 6, 4, 6 ]}\nobreak
+\logpage{[ 6, 4, 9 ]}\nobreak
 \hyperdef{L}{X8742104E7F6A64D5}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{GeneratorsOfRep({\slshape M})\index{GeneratorsOfRep@\texttt{GeneratorsOfRep}}
 \label{GeneratorsOfRep}
@@ -2263,7 +2389,7 @@ a minimal generator set of the module \mbox{\texttt{\slshape M}} as a module of 
  
 
 \subsection{\textcolor{Chapter }{MatricesOfPathAlgebraMatModule}}
-\logpage{[ 6, 4, 7 ]}\nobreak
+\logpage{[ 6, 4, 10 ]}\nobreak
 \hyperdef{L}{X7E676BA9848F4D84}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{MatricesOfPathAlgebraMatModule({\slshape M})\index{MatricesOfPathAlgebraMatModule@\texttt{MatricesOfPathAlgebraMatModule}}
 \label{MatricesOfPathAlgebraMatModule}
@@ -2291,38 +2417,38 @@ dimensional quotient of a path algebra.
 \subsection{\textcolor{Chapter }{IndecomposableProjectiveRepresentations}}
 \logpage{[ 6, 5, 1 ]}\nobreak
 \hyperdef{L}{X82637AE885576148}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IndecomposableProjectiveRepresentations({\slshape A})\index{IndecomposableProjectiveRepresentations@\texttt{IndecomposableProjectiveRepresentations}}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IndecomposableProjectiveRepresentations({\slshape A[, list]})\index{IndecomposableProjectiveRepresentations@\texttt{IndecomposableProjectiveRepresentations}}
 \label{IndecomposableProjectiveRepresentations}
 }\hfill{\scriptsize (operation)}}\\
 \textbf{\indent Returns:\ }
 a list of all the indecomposable projective representations over a finite
-dimensional (quotient of a) path algebra \mbox{\texttt{\slshape A}}. 
+dimensional (quotient of a) path algebra \mbox{\texttt{\slshape A}}, when only one argument is supplied. The second argument should be a list of
+integers, for example [1, 3, 4], which will return the indecomposable
+projective corresponding to vertex 1, 3 and 4, in this order. 
 
 
 
  The function checks if the algebra \mbox{\texttt{\slshape A}} is a finite dimensional (quotient of a) path algebra, and returns an error
-message otherwise. A shortcoming of the current implementation is that it only
-returns the indecomposable projective representations/modules as modules over
-the path algebra \mbox{\texttt{\slshape A}} was constructed from, instead of \mbox{\texttt{\slshape A}}. }
+message otherwise. }
 
  
 
 \subsection{\textcolor{Chapter }{IndecomposableInjectiveRepresentations}}
 \logpage{[ 6, 5, 2 ]}\nobreak
 \hyperdef{L}{X78829EE8850BCD9F}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IndecomposableInjectiveRepresentations({\slshape A})\index{IndecomposableInjectiveRepresentations@\texttt{IndecomposableInjectiveRepresentations}}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IndecomposableInjectiveRepresentations({\slshape A[, list]})\index{IndecomposableInjectiveRepresentations@\texttt{IndecomposableInjectiveRepresentations}}
 \label{IndecomposableInjectiveRepresentations}
 }\hfill{\scriptsize (operation)}}\\
 \textbf{\indent Returns:\ }
 a list of all the indecomposable injective representations over a finite
-dimensional (quotient of a) path algebra \mbox{\texttt{\slshape A}}. 
+dimensional (quotient of a) path algebra \mbox{\texttt{\slshape A}}, when only one argument is supplied. The second argument should be a list of
+integers, for example [1, 3, 4], which will return the indecomposable
+injective corresponding to vertex 1, 3 and 4, in this order. 
 
 
 
  The function checks if the algebra \mbox{\texttt{\slshape A}} is a finite dimensional (quotient of a) path algebra, and returns an error
-message otherwise. A shortcoming of the current implementation is that it only
-returns the indecomposable injective representations/modules as modules over
-the path algebra \mbox{\texttt{\slshape A}} was constructed from, instead of \mbox{\texttt{\slshape A}}. }
+message otherwise. }
 
  
 
@@ -2339,9 +2465,7 @@ of a) path algebra \mbox{\texttt{\slshape A}} .
 
 
  The function checks if the algebra \mbox{\texttt{\slshape A}} is a finite dimensional (quotient of a) path algebra, and returns an error
-message otherwise. A shortcoming of the current implementation is that it only
-returns the vertex simple representations/modules as modules over the path
-algebra \mbox{\texttt{\slshape A}} was constructed from, instead of \mbox{\texttt{\slshape A}}. }
+message otherwise. }
 
  
 
@@ -2357,8 +2481,7 @@ the zero representation over a finite dimensional (quotient of a) path algebra \
 
 
  The function checks if the algebra \mbox{\texttt{\slshape A}} is a finite dimensional (quotient of a) path algebra, and returns an error
-message otherwise. A shortcoming of the current implementation is that it only
-returns the zero representation/module as modules over the path algebra \mbox{\texttt{\slshape A}} was constructed from, instead of \mbox{\texttt{\slshape A}}. }
+message otherwise. }
 
  }
 
@@ -2376,8 +2499,7 @@ returns the zero representation/module as modules over the path algebra \mbox{\t
 }\hfill{\scriptsize (operation)}}\\
 
 
- Takes the a representation \mbox{\texttt{\slshape M}} of a path algebra $KQ$ and produces the dual of this representation over the opposite path algebra \mbox{\texttt{\slshape KQ{\textunderscore}op}}. A shortcoming of this function is that it cannot have representation over a
-quotient of a path algebra as an argument. }
+ Takes the a representation \mbox{\texttt{\slshape M}} of a path algebra $KQ$ and produces the dual of this representation over the opposite path algebra \mbox{\texttt{\slshape KQ{\textunderscore}op}}. }
 
  
 
@@ -2389,8 +2511,7 @@ quotient of a path algebra as an argument. }
 }\hfill{\scriptsize (operation)}}\\
 
 
- Takes the a map \mbox{\texttt{\slshape f}} between two representations \mbox{\texttt{\slshape M}} and \mbox{\texttt{\slshape N}} over a path algebra $A$ and produces the dual of this map over the opposite path algebra \mbox{\texttt{\slshape A\texttt{\symbol{94}}op}}. A shortcoming of this function is that it cannot have representation over a
-quotient of a path algebra as an argument. }
+ Takes the a map \mbox{\texttt{\slshape f}} between two representations \mbox{\texttt{\slshape M}} and \mbox{\texttt{\slshape N}} over a path algebra $A$ and produces the dual of this map over the opposite path algebra \mbox{\texttt{\slshape A\texttt{\symbol{94}}op}}. }
 
  }
 
