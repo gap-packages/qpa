@@ -1,6 +1,6 @@
 # GAP Implementation
 # This file was generated from 
-# $Id: pamodule.gi,v 1.8 2010/11/01 08:50:38 sunnyquiver Exp $
+# $Id: pamodule.gi,v 1.9 2010/11/19 13:24:48 sunnyquiver Exp $
 
 ZeroModElement:=function(fam,zero)
   local result,i;
@@ -138,6 +138,15 @@ InstallOtherMethod( \^,
   end
 );
 
+InstallOtherMethod( \^,
+ "for a module element and a path",
+ true,
+ [IsPathModuleElem, IsElementOfFpPathAlgebra ] , 0 ,
+   function(elem, path);
+
+   return elem^path![1];
+end
+);
 
 InstallMethod(ZeroOp,
   "for elements of modules",
@@ -476,6 +485,162 @@ InstallMethod(RightModuleOverPathAlgebra,
   end
 );
 
+InstallMethod(RightModuleOverQuotientOfPathAlgebra,
+  "for a path algebra and list of matrices",
+  true,
+  [IsSubalgebraFpPathAlgebra, IsCollection], 0,
+  function( A, gens )
+    local R, a, dim, source, target, basis, i, x, Fam, 
+          vertices, matrices, quiver, M, vlist, alist, K, dim_M,
+          relationtest, I, walk, result, matrix, terms;
+    matrices:=[];
+    R := OriginalPathAlgebra(A);
+    quiver:=QuiverOfPathRing(A);
+    vlist:=VerticesOfQuiver(quiver);
+    K:=LeftActingDomain(A);
+    alist:=ArrowsOfQuiver(quiver);
+    vertices:=[];
+#    
+#  First checking if all arrows has been assigned some value.
+#
+    if Length(gens) < Length(alist) then 
+       Error("Each arrow has not been assigned a matrix.");
+    fi;
+#
+#  Setting the multiplication by the vertices.
+#          
+    for i in [1 .. Length(vlist)] do
+      matrices[i]:= One(K);
+    od;
+#
+#  Setting, partially, the multiplication by the arrows, taking into account
+#  the possible different formats of the input. 
+#
+#  Input of the form ["a",[[..],...,[..]]], where "a" is the label of 
+#  some arrow in the quiver
+#
+    if IsString(gens[1][1]) then                 
+       for i in [1 .. Length ( gens )] do
+          a:=gens[i][1];
+          matrices[quiver.(a)!.gen_pos]:=gens[i][2];
+       od;
+#
+#  Input of the form [[matrix_1],[matrix_2],...,[matrix_n]]
+#
+    elif IsMatrix(gens[1]) then
+       for i in [1 .. Length ( gens )] do
+          matrices[i + Length(vlist)]:=gens[i];
+       od;
+    else
+#
+#  Input of the form [[alist[1],[matrix_1]],...,[alist[n],[matrix_n]]] 
+#  where alist is a list of the vertices in the quiver.
+#  
+       for i in [1 .. Length ( gens )] do
+          a:=gens[i][1];
+          matrices[a!.gen_pos]:=gens[i][2];
+       od;
+    fi;
+
+    for i in [1 .. Length(vlist)] do
+      vertices[i]:=-1;
+    od; 
+#
+#  Setting dimensions and checking the usage of the zero space format.
+#
+    dim:=[];
+    for x in alist do
+      if IsMatrix(matrices[x!.gen_pos]) then
+        dim:= DimensionsMat ( matrices[x!.gen_pos] );
+      else
+        dim:=matrices[x!.gen_pos];
+        if ( dim[1] > 0 and dim[2] = 0 ) then
+          matrices[x!.gen_pos]   := NullMat(dim[1],1,K);
+        elif ( dim[1] = 0 and dim[2] > 0 ) then
+            matrices[x!.gen_pos] := NullMat(1,dim[2],K);
+	elif ( dim[1] = 0 and dim[2] = 0 ) then 
+            matrices[x!.gen_pos] := NullMat(1,1,K);
+        else
+            Error("A vertex cannot have negative dimension or wrong usage of the zero space format.");
+        fi;
+      fi;
+
+      source:=SourceOfPath(x);
+      target:=TargetOfPath(x);
+#
+#  Checking if all the matrices entered are compatible with respect 
+#  to the dimension of the vectorspaces at each vertex.
+#
+      if vertices[source!.gen_pos] = -1 then
+        vertices[source!.gen_pos]:= dim[1];
+      elif vertices[source!.gen_pos] <> dim[1] then
+        Error("Dimensions of matrices do not match");
+      fi;
+
+      if vertices[target!.gen_pos] = -1 then
+        vertices[target!.gen_pos]:= dim[2];
+      elif vertices[target!.gen_pos] <> dim[2] then
+        Error("Dimensions of matrices do not match");
+      fi;
+    od;
+    #
+    # Testing if the relations are satisfied.
+    #
+    dim_M := 0;
+    for i in [1..Length(vlist)] do
+    	dim_M := dim_M + vertices[i];
+    od;
+    if dim_M = 0 then 
+        relationtest := true;
+    else 
+       relationtest := true;
+       I := RelatorsOfFpAlgebra(A);
+       for i in [1..Length(I)] do
+          terms := CoefficientsAndMagmaElements(I[i]);
+          result := [Zero(K)];
+          for i in [1,3 .. Length( terms ) -1] do
+             walk := WalkOfPath(terms[i]);
+             matrix := One(Zero(K));
+     
+             for x in walk do
+                matrix := matrix * matrices[x!.gen_pos];
+             od;
+
+             matrix := terms[i+1] * matrix;
+             result := result + matrix;
+          od;
+          dim := DimensionsMat(result);
+          if result <> NullMat(dim[1],dim[2],K) then
+              relationtest := false;
+          fi;
+       od;
+    fi; 
+    #
+    # Creating the module if everything is OK.
+    #
+    if relationtest then 
+       Fam := NewFamily( "PathAlgModuleElementsFamily", IsPathModuleElem );
+       SetFilterObj( Fam, IsPathModuleElemFamily );
+       Fam!.vertices := vertices;
+       Fam!.matrices := matrices;
+       Fam!.pathAlgebra := R;
+       Fam!.quotientAlgebra := A;
+       if dim_M > 0 then 
+          basis := CreateModuleBasis(Fam);
+       else 
+    	  basis := ZeroModElement(Fam, Zero(K));
+       fi;
+       M:= RightAlgebraModuleByGenerators(A, \^, basis);
+       SetIsPathAlgebraMatModule(M,true);
+       SetIsWholeFamily(M,true);
+
+       return M;
+   else
+       Print("The entered matrices for the representation do not satisfy the relstion(s).\n");
+       return fail;
+    fi;
+end
+);
 
 InstallMethod( ViewObj, 
   "for modules over path algebras",

@@ -1,6 +1,6 @@
 # GAP Implementation
 # This file was generated from 
-# $Id: functors.gi,v 1.3 2010/11/06 14:48:40 sunnyquiver Exp $
+# $Id: functors.gi,v 1.4 2010/11/19 13:24:48 sunnyquiver Exp $
 InstallMethod ( DualOfPathAlgebraMatModule,
     "for a representation of a quiver",
     [ IsPathAlgebraMatModule ], 0,
@@ -32,13 +32,13 @@ InstallMethod ( DualOfPathAlgebraMatModule,
         fi;
     od;
 
-    N:= RightModuleOverPathAlgebra(KQ_op,mats);
+    if IsPathAlgebra(A_op) then 
+       N:= RightModuleOverPathAlgebra(A_op,mats);
+    else 
+       N:= RightModuleOverQuotientOfPathAlgebra(A_op,mats);
+    fi;
     SetDualOfPathAlgebraMatModule(N,M);
     return N;
-#
-#  Want to have:
-#    return RightModuleOverPathAlgebra(A_op,mats);
-#
 end
 );
 

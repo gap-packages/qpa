@@ -1,43 +1,42 @@
 # GAP Implementation
-# $Id: specialreps.gi,v 1.3 2010/11/06 14:48:40 sunnyquiver Exp $
+# $Id: specialreps.gi,v 1.4 2010/11/19 13:24:48 sunnyquiver Exp $
 
 # specialreps.gi: Provides special representations of a quiver, 
 # 		  indecomposble projective, indecomposable injective, 
 # 		  and vertex simple representations. 
-
+#
 InstallMethod ( IndecomposableProjectiveRepresentations, 
     "for a finite dimensional quotient of a path algebra",
-    [ IsSubalgebraFpPathAlgebra ], 0,
-    function( A )
-        local KQ, rels, I, groebner, groebner_basis, basis_A, Q, num_vert, 
-              num_arrows, i, vertices, arrows_as_paths, indec_proj, j, 
-              indec_proj_list, indec_proj_rep, l, arrow, P, gens, 
-              length_B, B, intervals_of_basis, mat, a, source, target, 
-              vertices_Q, vector, source_index, target_index, mat_index,
-              p, mat_list, zero_vertices, rows, cols, K, partial_mat; 
+    [ IsSubalgebraFpPathAlgebra, IsList ], 0,
+    function( A, which_proj )
+    local fam, KQ, I, Q, num_vert, num_arrows, i, vertices, 
+          arrows_as_paths, indec_proj, j, indec_proj_list, 
+          indec_proj_rep, l, arrow, P, gens, length_B, B, 
+          mat, a, source, target, vertices_Q, vector, intervals_of_basis, 
+          source_index, target_index, mat_index, p, mat_list, 
+          zero_vertices, rows, cols, K, partial_mat; 
 #
 #    A = KQ/<rels>
 #
 #    Testing input
 #       
-        KQ := OriginalPathAlgebra(A);
-        rels := RelatorsOfFpAlgebra(A);
-        if not (  IsPathAlgebra(KQ) )  then
-            Error("Need to enter a path algebra as an argument!");
-        fi;
-        I := Ideal(KQ,rels);
-        groebner := GBNPGroebnerBasis(rels,KQ);
-        groebner_basis := GroebnerBasis(I,groebner);
-        if not ( AdmitsFinitelyManyNontips(groebner_basis) ) then
-            Error("Need to have a finite dimensional quotient of a path algebra.");
-        fi;
+  KQ := OriginalPathAlgebra(A);
+  Q := QuiverOfPathAlgebra(KQ);
+  num_vert := Length(VerticesOfQuiver(Q));
+  if not ForAll(which_proj, x -> x in [1..num_vert]) then 
+     Print("The range of projectives entered is wrong.");
+     return fail;
+  else
+     fam := ElementsFamily(FamilyObj(A));
+     if HasGroebnerBasisOfIdeal(fam!.ideal) and 
+          AdmitsFinitelyManyNontips(GroebnerBasisOfIdeal(fam!.ideal)) then 
+
 #
 #    Finding vertices and arrows as elements of the algebra  A  for later use. 
 #
-        Q := QuiverOfPathAlgebra(KQ); 
+
         K := LeftActingDomain(KQ);
-        A := KQ/I;
-        num_vert   := Length(VerticesOfQuiver(Q));
+
         num_arrows := Length(ArrowsOfQuiver(Q)); 
         vertices   := GeneratorsOfAlgebra(A){[2..num_vert+1]};
         arrows_as_paths := 
@@ -46,7 +45,7 @@ InstallMethod ( IndecomposableProjectiveRepresentations,
 #
 #
         mat_list := [];
-        for p in [1..num_vert] do
+        for p in which_proj do
             P := RightIdeal(A,[vertices[p]]);
             B := CanonicalBasis(P);
             length_B := Length(B);
@@ -93,20 +92,37 @@ InstallMethod ( IndecomposableProjectiveRepresentations,
             Add(mat_list,mat);
         od;
         indec_proj_list := [];
-        for i in [1..num_vert] do
+        for i in [1..Length(which_proj)] do
             Add(indec_proj_list,RightModuleOverPathAlgebra(KQ,mat_list[i]));
         od;
         return indec_proj_list;
-    end
+     else
+        Print("Compute a Groebner basis of the ideal you are factoring out with before you form the quotient algebra, or you have entered an algebra which is not finite dimensional.\n");
+        return fail;
+     fi;
+  fi;
+end
 );
 
 InstallOtherMethod ( IndecomposableProjectiveRepresentations, 
     "for a finite dimensional quotient of a path algebra",
-    [ IsPathAlgebra ], 0,
+    [ IsSubalgebraFpPathAlgebra ], 0,
     function( A )
-        local KQ, rels, I, groebner, groebner_basis, basis_A, Q, num_vert, 
-              num_arrows, i, vertices, arrows_as_paths, indec_proj, j, 
-              indec_proj_list, indec_proj_rep, l, arrow, P, gens, 
+    local num_vert; 
+
+    num_vert := OrderOfQuiver(QuiverOfPathAlgebra(A));
+
+    return IndecomposableProjectiveRepresentations(A,[1..num_vert]);
+end
+);
+
+InstallOtherMethod ( IndecomposableProjectiveRepresentations, 
+    "for a finite dimensional quotient of a path algebra",
+    [ IsPathAlgebra, IsList ], 0,
+    function( A , which_proj )
+        local KQ, rels, I, groebner, groebner_basis, Q, num_vert, 
+              num_arrows, i, vertices, arrows_as_paths, j, 
+              indec_proj_list, l, arrow, P, gens, 
               length_B, B, intervals_of_basis, mat, a, source, target, 
               vertices_Q, vector, source_index, target_index, mat_index,
               p, mat_list, zero_vertices, rows, cols, K, partial_mat; 
@@ -115,13 +131,15 @@ InstallOtherMethod ( IndecomposableProjectiveRepresentations,
 #
 #    Testing input
 #       
-        if not (  IsPathAlgebra(A) )  then
-            Error("Need to enter a path algebra as an argument!");
-        fi;
-        Q := QuiverOfPathAlgebra(A); 
-        if not IsAcyclic(Q)  then
-            Error("need to have a finite dimensional path algebra as argument, ");
-        fi;
+     Q := QuiverOfPathAlgebra(A); 
+     num_vert := Length(VerticesOfQuiver(Q));
+     if not ForAll(which_proj, x -> x in [1..num_vert]) then 
+        Print("The range of projectives entered is wrong.\n");
+        return fail;
+     elif not IsAcyclic(Q)  then
+        Print("Need to have a finite dimensional path algebra as argument.\n");
+        return fail;
+     else
 #
 #    Finding vertices and arrows as elements of the algebra  A  for later use. 
 #
@@ -136,7 +154,7 @@ InstallOtherMethod ( IndecomposableProjectiveRepresentations,
 #
 #
         mat_list := [];
-        for p in [1..num_vert] do
+        for p in which_proj do
             P := RightIdeal(A,[vertices[p]]);
             B := CanonicalBasis(P);
             length_B := Length(B);
@@ -183,31 +201,59 @@ InstallOtherMethod ( IndecomposableProjectiveRepresentations,
             Add(mat_list,mat);
         od;
         indec_proj_list := [];
-        for i in [1..num_vert] do
+        for i in [1..Length(which_proj)] do
             Add(indec_proj_list,RightModuleOverPathAlgebra(A,mat_list[i]));
         od;
         return indec_proj_list;
-    end
+     fi;
+end
+);
+
+InstallOtherMethod ( IndecomposableProjectiveRepresentations, 
+    "for a finite dimensional quotient of a path algebra",
+    [ IsPathAlgebra ], 0,
+    function( A )
+    local num_vert; 
+
+    num_vert := OrderOfQuiver(QuiverOfPathAlgebra(A));
+
+    return IndecomposableProjectiveRepresentations(A,[1..num_vert]);
+end
 );
 
 InstallMethod ( IndecomposableInjectiveRepresentations, 
     "for a finite dimensional quotient of a path algebra",
-    [ IsAlgebra ], 0,
-    function( A )
+    [ IsAlgebra, IsList ], 0,
+    function( A, which_inj )
         local A_op, P_op, Q, num_vert, indec_inj_list, i; 
 
         A_op := OppositeAlgebra(A);
-        P_op := IndecomposableProjectiveRepresentations(A_op);
+        P_op := IndecomposableProjectiveRepresentations(A_op, which_inj );
         Q    := QuiverOfPathAlgebra(A); 
         num_vert := Length(VerticesOfQuiver(Q));        
         indec_inj_list := [];
-        for i in [1..num_vert] do
+        for i in [1..Length(which_inj)] do
             Add(indec_inj_list,DualOfPathAlgebraMatModule(P_op[i]));
         od;
 
         return indec_inj_list;
     end
 );
+
+InstallOtherMethod ( IndecomposableInjectiveRepresentations, 
+    "for a finite dimensional quotient of a path algebra",
+    [ IsAlgebra ], 0,
+    function( A )
+        local Q, num_vert; 
+
+        Q    := QuiverOfPathAlgebra(A); 
+        num_vert := Length(VerticesOfQuiver(Q));        
+
+        return IndecomposableInjectiveRepresentations(A, [1..num_vert]);
+    end
+);
+
+
 
 InstallMethod ( VertexSimpleRepresentations, 
     "for a finite dimensional quotient of a path algebra",

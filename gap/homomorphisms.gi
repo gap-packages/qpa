@@ -1,5 +1,5 @@
 # GAP Implementation
-# $Id: homomorphisms.gi,v 1.3 2010/11/06 14:48:40 sunnyquiver Exp $
+# $Id: homomorphisms.gi,v 1.4 2010/11/19 13:24:48 sunnyquiver Exp $
 
 InstallMethod( ImageElm, 
     "for a map between representations and an element in a representation.",
@@ -87,7 +87,7 @@ InstallMethod( RightModuleHomOverPathAlgebra,
 
   A := RightActingAlgebra(M); 
   if A <> RightActingAlgebra(N) then
-     Error("the two representations are not for the same quiver.");
+     Error("the two modules are not over the same algebra, ");
   fi;
   dim_M := DimensionVector(M);
   dim_N := DimensionVector(N);
@@ -199,7 +199,7 @@ InstallMethod ( ZeroMap,
       local A, K, dim_M, dim_N, i, mats;
 
   A := RightActingAlgebra(M);
-  if ( A = RightActingAlgebra(N) ) and IsPathAlgebra(A) then 
+  if ( A = RightActingAlgebra(N) ) then 
      K     := LeftActingDomain(M);
      dim_M := DimensionVector(M);
      dim_N := DimensionVector(N);
@@ -222,7 +222,7 @@ InstallMethod ( ZeroMap,
   
      return RightModuleHomOverPathAlgebra(M,N,mats);
   else
-     Error("the two modules entered are not modules of one and the same algebra, or they are not modules over a path algebra, ");
+     Error("the two modules entered are not modules of one and the same algebra, or they are not modules over the same (quotient of a) path algebra, ");
   fi;
 end
 );
@@ -270,13 +270,11 @@ InstallMethod( SubRepInclusion,
 # arrows_as_path, arrows as elements of algebra
 # arrows, as arrows in the quiver
 #
-# Note vertices, arrows_as_path will change if A is a quotient of a path algebra !!!!
-#
 if Length(gen) = 0 then 
-   return ZeroMap(ZeroRepresentation(OriginalPathAlgebra(A)),M);
+   return ZeroMap(ZeroRepresentation(A),M);
 else
-    vertices := GeneratorsOfAlgebra(A){[1..num_vert]};
-    arrows_as_path  := GeneratorsOfAlgebra(A){[1+num_vert..num_vert+Length(ArrowsOfQuiver(q))]};
+    vertices := List(VerticesOfQuiver(q), x -> x*One(A));
+    arrows_as_path := List(ArrowsOfQuiver(q), x -> x*One(A));
     arrows_of_quiver := GeneratorsOfQuiver(q){[1+num_vert..num_vert+Length(ArrowsOfQuiver(q))]};
 #
 # Ensuring uniform generators
@@ -385,7 +383,12 @@ else
         Add(big_mat,[arrow,mat]);
     od;
 
-    submodule := RightModuleOverPathAlgebra(A,big_mat);
+    if IsPathAlgebra(A) then 
+       submodule := RightModuleOverPathAlgebra(A,big_mat);
+    else
+       submodule := RightModuleOverQuotientOfPathAlgebra(A,big_mat); 
+    fi;      
+
 #
 # Finding inclusion map of submodule into M
 #
@@ -450,13 +453,14 @@ InstallMethod( RadicalOfRepInclusion,
 #
 # Note arrows_as_path will change if A is a quotient of a path algebra !!!!
 #
-    arrows_as_path  := GeneratorsOfAlgebra(A){[1+num_vert..num_vert+Length(ArrowsOfQuiver(q))]};
+    arrows_as_path := List(ArrowsOfQuiver(q), x -> x*One(A));
+#    arrows_as_path  := GeneratorsOfAlgebra(A){[1+num_vert..num_vert+Length(ArrowsOfQuiver(q))]};
     basis_M := Basis(M);
     generators := [];
     for a in arrows_as_path do
        for b in basis_M do 
-	      if b^a <> Zero(M) then 
-	         Add(generators,b^a);
+	  if b^a <> Zero(M) then 
+	     Add(generators,b^a);
           fi;
        od;
     od;
@@ -548,7 +552,7 @@ InstallMethod ( KerInclusion,
 if V_dim = 0 then 
    Print("The homomorphism is one-to-one.\n");
    SetIsOneToOne(f,true);
-   return ZeroMap(ZeroRepresentation(A,[]),Source(f)); 
+   return ZeroMap(ZeroRepresentation(A),Source(f)); 
 else 
   vertices := VerticesOfQuiver(QuiverOfPathAlgebra(A));
   arrows := ArrowsOfQuiver(QuiverOfPathAlgebra(A));
@@ -589,8 +593,11 @@ else
         V_list[i] := BasisVectors(V_list[i]);
      fi;
   od;
-
-  Kerf := RightModuleOverPathAlgebra(A,kermats);
+  if IsPathAlgebra(A) then 
+     Kerf := RightModuleOverPathAlgebra(A,kermats);
+  else 
+     Kerf := RightModuleOverQuotientOfPathAlgebra(A,kermats);
+  fi;
   kermap := RightModuleHomOverPathAlgebra(Kerf,M,V_list);
   SetKernelOfWhat(kermap,f);
   SetIsOneToOne(kermap,true);
@@ -627,9 +634,7 @@ InstallMethod ( ImProjectionInclusion,
    K := LeftActingDomain(M); 
    num_vert := Length(VerticesOfQuiver(QuiverOfPathAlgebra(A)));
 #
-# Note that vertices will change if A is a quotient of a path algebra !!!!
-#
-   vertices := GeneratorsOfAlgebra(A){[1..num_vert]};
+   vertices := List(VerticesOfQuiver(QuiverOfPathAlgebra(A)), x -> x*One(A));
 #
 # Finding a basis for the vector space in each vertex for the image
 #
@@ -679,7 +684,11 @@ InstallMethod ( ImProjectionInclusion,
 #         Display(mat);
          Add(image_mat,[a,mat]);
       od;
-      image_f := RightModuleOverPathAlgebra(A,image_mat);
+      if IsPathAlgebra(A) then 
+         image_f := RightModuleOverPathAlgebra(A,image_mat);
+      else
+         image_f := RightModuleOverQuotientOfPathAlgebra(A,image_mat);
+      fi;
 #
 # Finding inclusion map from the image to Range(f)
 #     
@@ -700,7 +709,7 @@ InstallMethod ( ImProjectionInclusion,
             Add(inclusion,mat);
          fi;
       od; 
-#      Display(inclusion);      
+#      Display(inclusion);
       image_inclusion := RightModuleHomOverPathAlgebra(image_f,Range(f),inclusion);
       SetImageOfWhat(image_inclusion,f);
       SetIsOneToOne(image_inclusion,true);
@@ -842,9 +851,7 @@ InstallMethod ( CokerProjection,
    K := LeftActingDomain(M); 
    num_vert := Length(VerticesOfQuiver(QuiverOfPathAlgebra(A)));
 #
-# Note that vertices will change if A is a quotient of a path algebra !!!!
-#
-   vertices := GeneratorsOfAlgebra(A){[1..num_vert]};
+   vertices := List(VerticesOfQuiver(QuiverOfPathAlgebra(A)), x -> x*One(A));
 #
 # Finding a basis for the vector space in each vertex for the cokernel
 #
@@ -899,7 +906,11 @@ InstallMethod ( CokerProjection,
       Add(cokermat,[a,mat]);
    od;
 
-   C := RightModuleOverPathAlgebra(A,cokermat);
+   if IsPathAlgebra(A) then 
+      C := RightModuleOverPathAlgebra(A,cokermat);
+   else
+      C := RightModuleOverQuotientOfPathAlgebra(A,cokermat);
+   fi;
 #
 # Finding the map for Range(f) to the cokernel 
 #
