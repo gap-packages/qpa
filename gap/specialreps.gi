@@ -1,5 +1,5 @@
 # GAP Implementation
-# $Id: specialreps.gi,v 1.4 2010/11/19 13:24:48 sunnyquiver Exp $
+# $Id: specialreps.gi,v 1.5 2010/11/19 14:51:05 sunnyquiver Exp $
 
 # specialreps.gi: Provides special representations of a quiver, 
 # 		  indecomposble projective, indecomposable injective, 
@@ -308,8 +308,11 @@ InstallMethod ( ZeroRepresentation,
     for a in arrows do
        Add(mats,[a,[0,0]]);
     od;
-        
-    return RightModuleOverPathAlgebra(KQ,mats);;
+    if IsPathAlgebra(A) then
+       return RightModuleOverPathAlgebra(A,mats);
+    else
+       return RightModuleOverQuotientOfPathAlgebra(A,mats);
+    fi;
 end
 );
 
