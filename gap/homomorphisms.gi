@@ -1,5 +1,5 @@
 # GAP Implementation
-# $Id: homomorphisms.gi,v 1.4 2010/11/19 13:24:48 sunnyquiver Exp $
+# $Id: homomorphisms.gi,v 1.5 2010/11/26 22:44:24 sunnyquiver Exp $
 
 InstallMethod( ImageElm, 
     "for a map between representations and an element in a representation.",
@@ -1090,142 +1090,191 @@ InstallMethod( HomOverPathAlgebra,
     [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ], 0,
   function( M, N )
 
-  local R, F, zero, Mfam, Nfam, quiver, Mdims, Ndims, Mmaps, Nmaps,
-        l, arrows, i, arrowPos, sourcePos, targetPos,
-        a, tMat, numColumns, numRows, r, c, row, col, startCol,
-        startRow, equations, j, k, MBasis, NBasis, mat, x, y,
-        Msum, Nsum, ns, basis, maps, b, matrise;
+  local A, F, dim_M, dim_N, num_vert, support_M, support_N, num_rows, num_cols, 
+        block_rows, block_cols, block_intervals, 
+        i, j, equations, arrows, vertices, v, a, source_arrow, target_arrow, 
+        mats_M, mats_N, prev_col, prev_row, row_start_pos, col_start_pos, 
+        row_end_pos, col_end_pos, l, m, n, hom_basis, map, mat, homs, x, y, k, b, 
+        dim_hom, zero;
 
-  R := RightActingAlgebra(M); 
-  if R <> RightActingAlgebra(N) then
-     Error("the two representations are not for the same quiver.");
-  fi;
-  F := LeftActingDomain(R);
-  zero := Zero(F);
-  MBasis:=Basis(M);
-  NBasis:=Basis(N);
-  Mfam := FamilyObj(ExtRepOfObj(MBasis[1]));
-  Nfam := FamilyObj(ExtRepOfObj(NBasis[1]));
-  quiver := QuiverOfPathRing(R);
-  Mdims := Mfam!.vertices;
-  Ndims := Nfam!.vertices;
-  Mmaps := Mfam!.matrices;
-  Nmaps := Nfam!.matrices;
-  l := Length(Mdims);
-  arrows := ArrowsOfQuiver(quiver);
-  
-  # count the number of columns and rows
-  numColumns := 0;
-  startCol := [];
-
-  for i in [1..l] do
-      startCol[i] := numColumns + 1;
-      numColumns := numColumns + Mdims[i]*Ndims[i];
-  od;
-
-  numRows := 0;
-
-  for a in arrows do
-    sourcePos := SourceOfPath(a)!.gen_pos;
-    targetPos := TargetOfPath(a)!.gen_pos;
-    numRows := numRows + Mdims[sourcePos]*Ndims[targetPos];
-  od;
-  
-  equations := MutableNullMat(numRows, numColumns, F);
-  Display(equations);
-  
-  # Create blocks
-  startRow := 1;
-  for a in arrows do
-    arrowPos := a!.gen_pos;
-    sourcePos := SourceOfPath(a)!.gen_pos;
-    targetPos := TargetOfPath(a)!.gen_pos;
-
-    # We always have a transposed version of the maps for $N$
-    tMat := TransposedMat(Nmaps[arrowPos]);
-    Display(tMat);
-    r := DimensionsMat(tMat)[1];
-    c := DimensionsMat(tMat)[2];
-    for i in [1..Mdims[sourcePos]] do
-      row := startRow+(i-1)*r;
-      col := startCol[sourcePos]+(i-1)*c;
-      Print("Intervals: ",[row..row+r-1],[col..col+c-1],"\n");
-      equations{[row..row+r-1]}{[col..col+c-1]} := tMat;
-    od;
-
-    # now subtract out appropriate copies of the $M$ map
-    row := startRow;
-    for i in [1..Mdims[sourcePos]] do
-      for j in [1..Ndims[targetPos]] do
-        col := startCol[targetPos] + j - 1;
-        for k in [1..Mdims[targetPos]] do
-          equations[row][col] := equations[row][col] - Mmaps[arrowPos][i][k];
-          col := col + r;
-        od;
-        row := row + 1;
+   A := RightActingAlgebra(M); 
+   if A <> RightActingAlgebra(N) then
+      Print("The two modules entered are not modules over the same algebra.");
+      return fail;
+   fi;
+   F := LeftActingDomain(A);
+   #
+   # Finding the support of M and N
+   # 
+   dim_M := DimensionVector(M);
+   dim_N := DimensionVector(N);
+   num_vert := Length(dim_M);   
+   support_M := [];
+   support_N := [];
+   for i in [1..num_vert] do
+      if (dim_M[i] <> 0) then 
+         AddSet(support_M,i);
+      fi;
+      if (dim_N[i] <> 0) then 
+         AddSet(support_N,i);
+      fi;
+   od;
+   #
+   # Deciding the size of the equations, 
+   # number of columns and rows
+   #
+   vertices := VerticesOfQuiver(QuiverOfPathAlgebra(OriginalPathAlgebra(A)));
+   num_cols := 0;
+   num_rows := 0;
+   block_intervals := [];
+   block_rows := [];
+   block_cols := [];
+   prev_col := 0;
+   prev_row := 0;
+   for i in support_M do
+      num_rows := num_rows + dim_M[i]*dim_N[i];
+      block_rows[i] := prev_row+1;
+      prev_row:= num_rows;
+      for a in OutgoingArrowsOfVertex(vertices[i]) do
+         source_arrow := Position(vertices,SourceOfPath(a));
+         target_arrow := Position(vertices,TargetOfPath(a));
+         if (target_arrow in support_N) and ( (source_arrow in support_N) or (target_arrow in support_M)) then 
+            num_cols := num_cols + dim_M[source_arrow]*dim_N[target_arrow];
+            Add(block_cols,[a,prev_col+1,num_cols]);
+         fi;
+         prev_col := num_cols; 
       od;
-    od;
-    startRow := startRow + Mdims[sourcePos]*Ndims[targetPos];
-  od;
+   od;
+   #
+   # Finding the linear equations for the maps between M and N
+   #
+   equations := MutableNullMat(num_rows, num_cols, F);
 
-  Display(equations);
-  
-  ns := NullspaceMat(TransposedMat(equations));
-  Msum:=Sum(Mdims);
-  Nsum:=Sum(Ndims);
-  basis := [];
-  for b in ns do
-    mat:=MutableNullMat(Msum, Nsum, F);
-    k := 1;
-    r:=0;
-    c:=0;
-
-    for i in [1..l] do
-      for x in [1..Mdims[i]] do
-        for y in [1..Ndims[i]] do
-          mat[r+x][c+y] := b[k];
-          k := k + 1;
-        od;
+   arrows := ArrowsOfQuiver(QuiverOfPathAlgebra(OriginalPathAlgebra(A)));
+   mats_M := MatricesOfPathAlgebraMatModule(M);
+   mats_N := MatricesOfPathAlgebraMatModule(N);
+   prev_col := 0;
+   prev_row := 0;
+   for i in support_M do
+      for a in OutgoingArrowsOfVertex(vertices[i]) do
+         source_arrow := Position(vertices,SourceOfPath(a));
+         target_arrow := Position(vertices,TargetOfPath(a));
+         if (target_arrow in support_N) and ( (source_arrow in support_N) or (target_arrow in support_M)) then
+            for j in [1..dim_M[source_arrow]] do
+               row_start_pos := prev_row + 1 + (j-1)*dim_N[source_arrow]; 
+               row_end_pos   := prev_row + j*dim_N[source_arrow];
+               col_start_pos := prev_col + 1 + (j-1)*dim_N[target_arrow];
+               col_end_pos   := prev_col + j*dim_N[target_arrow];
+               if (source_arrow in support_N) then 
+                  equations{[row_start_pos..row_end_pos]}{[col_start_pos..col_end_pos]} := mats_N[Position(arrows,a)];
+               fi;
+               if (target_arrow in support_M) then 
+                  for m in [1..DimensionsMat(mats_M[Position(arrows,a)])[2]] do
+                     for n in [1..dim_N[target_arrow]] do
+                        b := block_rows[target_arrow]+(m-1)*dim_N[target_arrow];
+                        equations[b+n-1][col_start_pos+n-1] := (-1)*mats_M[Position(arrows,a)][j][m];
+                     od;
+                  od;
+               fi;
+            od;
+            prev_col := prev_col + dim_M[source_arrow]*dim_N[target_arrow];
+         fi;
       od;
-      r:=r+Mdims[i];
-      c:=c+Ndims[i];
-    od;
-    Add(basis, ShallowCopy(mat));
-  od;
-
-  maps := []; 
-  for i in [1..Length(basis)] do
-    matrise := [];
-    r := 1;
-    c := 1;
-    for j in [1..l] do
-        matrise[j] := basis[i]{[r..r+Mdims[j]-1]}{[c..c+Ndims[j]-1]};
-        r := r + Mdims[j];
-        c := c + Ndims[j];
-    od;
-    Add(maps,matrise);    
-  od;
-
-  for i in [1..Length(basis)] do
-     maps[i] := Objectify( NewType( CollectionsFamily( GeneralMappingsFamily(
+      if Length(OutgoingArrowsOfVertex(vertices[i])) <> 0 then 
+         prev_row := prev_row + dim_M[source_arrow]*dim_N[source_arrow];
+      fi;
+   od;
+   #
+   # Creating the maps between the module M and N
+   #
+   homs := [];
+   if (num_rows <> 0) and (num_cols <> 0) then 
+      dim_hom := 0; 
+      hom_basis := NullspaceMat(equations);
+      for b in hom_basis do
+         map := [];
+         dim_hom := dim_hom + 1;
+         k := 1;
+         for i in [1..num_vert] do 
+            if dim_M[i] = 0 then 
+               if dim_N[i] = 0 then 
+                  Add(map,NullMat(1,1,F));
+               else
+                  Add(map,NullMat(1,dim_N[i],F));
+               fi;
+            else
+               if dim_N[i] = 0 then 
+                  Add(map,NullMat(dim_M[i],1,F));
+               else
+                  mat := MutableNullMat(dim_M[i],dim_N[i], F);
+                  for y in [1..dim_M[i]] do 
+                     for x in [1..dim_N[i]] do 
+                        mat[y][x] := b[k];
+                        k := k + 1;
+                     od;
+                  od;
+                  Add(map,mat);
+               fi;
+            fi;
+         od;
+         homs[dim_hom] := Objectify( NewType( CollectionsFamily( GeneralMappingsFamily(
                                 ElementsFamily( FamilyObj( M ) ),
                                 ElementsFamily( FamilyObj( N ) ) ) ), 
-                     IsPathAlgebraMatModuleMap and IsPathAlgebraMatModuleMapRep and IsAttributeStoringRep ), rec( maps := maps[i] ));
-     SetPathAlgebraOfMatModuleMap(maps[i], R);
-     SetSource(maps[i], M);
-     SetRange(maps[i], N);
-     SetIsWholeFamily(maps[i],true);
-  od;
+                     IsPathAlgebraMatModuleMap and IsPathAlgebraMatModuleMapRep and IsAttributeStoringRep ), rec( maps := map ));
+         SetPathAlgebraOfMatModuleMap(homs[dim_hom], A);
+         SetSource(homs[dim_hom], M);
+         SetRange(homs[dim_hom], N);
+         SetIsWholeFamily(homs[dim_hom],true);
+      od;
+      return homs;
+   else
+      homs := [];
+      if DimensionMatModule(M) = 0 or DimensionMatModule(N) = 0 then 
+         return homs;
+      else 
+         dim_hom := 0;
+         zero := [];
+         for i in [1..num_vert] do
+            if dim_M[i] = 0 then 
+               if dim_N[i] = 0 then 
+                  Add(zero,NullMat(1,1,F));
+               else
+                  Add(zero,NullMat(1,dim_N[i],F));
+               fi;
+            else
+               if dim_N[i] = 0 then 
+                  Add(zero,NullMat(dim_M[i],1,F));
+               else
+                  Add(zero,NullMat(dim_M[i],dim_N[i],F));
+               fi;
+            fi;
+         od;      
+         for i in [1..num_vert] do
+            if (dim_M[i] <> 0) and (dim_N[i] <> 0) then 
+               for m in BasisVectors(Basis(FullMatrixSpace(F,dim_M[i],dim_N[i]))) do
+                  dim_hom := dim_hom + 1;
+                  homs[dim_hom] := ShallowCopy(zero);
+                  homs[dim_hom][i] := m;
+               od;
+            fi;
+         od;
+         for i in [1..dim_hom] do 
+            homs[i] := Objectify( NewType( CollectionsFamily( GeneralMappingsFamily(
+                                ElementsFamily( FamilyObj( M ) ),
+                                ElementsFamily( FamilyObj( N ) ) ) ), 
+                     IsPathAlgebraMatModuleMap and IsPathAlgebraMatModuleMapRep and IsAttributeStoringRep ), rec( maps := homs[i] ));
+            SetPathAlgebraOfMatModuleMap(homs[i], A);
+            SetSource(homs[i], M);
+            SetRange(homs[i], N);
+            SetIsWholeFamily(homs[i],true);
+         od;
 
-#
-# LeftAlgebraModuleByGenerators(Rationals,\*,maps);
-# gen:=GeneratorsOfAlgebraModule(last);
-# ExtRepOfObj(gen[1])!.maps;
-# CategoriesOfObject(ExtRepOfObj(gen[1]));
-#
-  return maps;
+         return homs;
+      fi;
+   fi;
 end
 );
+
 
 InstallMethod( EndOverPathAlgebra,
     "for a representations of a quiver",
