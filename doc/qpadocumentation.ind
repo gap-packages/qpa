@@ -40,6 +40,7 @@
   \indexspace
 
   \item \texttt  {ElementOfFpPathAlgebra}, \hyperpage{26}
+  \item \texttt  {EndOverPathAlgebra}, \hyperpage{48}
   \item \texttt  {Enumerator}, \hyperpage{32}
   \item \texttt  {EnvelopingAlgebra}, \hyperpage{29}
 
@@ -48,6 +49,10 @@
   \item \texttt  {GeneratorsOfQuiver}, \hyperpage{15}
   \item \texttt  {GeneratorsOfRep}, \hyperpage{40}
   \item \texttt  {GroebnerBasis}, \hyperpage{30}
+
+  \indexspace
+
+  \item \texttt  {HomOverPathAlgebra}, \hyperpage{48}
 
   \indexspace
 

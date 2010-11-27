@@ -51,7 +51,7 @@
 \hypersetup{pdftitle=QPA}
 \markright{\scriptsize \mbox{}\hfill QPA \hfill\mbox{}}
 {\Large \textbf{Quivers and Path Algebras\mbox{}}}\\[1cm]
-{Version version 1.4\mbox{}}\\[1cm]
+{Version version 1.5\mbox{}}\\[1cm]
 {September 2010\mbox{}}\\[1cm]
 \mbox{}\\[2cm]
 {\large \textbf{The QPA-team\\
@@ -3067,6 +3067,37 @@ the projection from the module \mbox{\texttt{\slshape M}} to the top of the modu
 
 
  The representation given by the top of the module \mbox{\texttt{\slshape M}} can be accessed using \texttt{Range} of the homomorphism. }
+
+ 
+
+\subsection{\textcolor{Chapter }{HomOverPathAlgebra}}
+\logpage{[ 7, 3, 8 ]}\nobreak
+\hyperdef{L}{X82723F60866D77E9}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{HomOverPathAlgebra({\slshape M, N})\index{HomOverPathAlgebra@\texttt{HomOverPathAlgebra}}
+\label{HomOverPathAlgebra}
+}\hfill{\scriptsize (operation)}}\\
+\textbf{\indent Returns:\ }
+a basis for the homomorphisms from \mbox{\texttt{\slshape M}} to \mbox{\texttt{\slshape N}}.
+
+
+
+ The function checks if \mbox{\texttt{\slshape M}} and \mbox{\texttt{\slshape N}} are modules over the same algebra, and returns an error message and fail
+otherwise. }
+
+ 
+
+\subsection{\textcolor{Chapter }{EndOverPathAlgebra}}
+\logpage{[ 7, 3, 9 ]}\nobreak
+\hyperdef{L}{X78E55FC780EAC08E}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{EndOverPathAlgebra({\slshape M})\index{EndOverPathAlgebra@\texttt{EndOverPathAlgebra}}
+\label{EndOverPathAlgebra}
+}\hfill{\scriptsize (operation)}}\\
+\textbf{\indent Returns:\ }
+the endomorphism ring of \mbox{\texttt{\slshape M}} as a subalgebra of the direct sum of the full matrix rings of \mbox{\texttt{\slshape dim{\textunderscore}M[i] x dim{\textunderscore}M[i]}}, where \mbox{\texttt{\slshape i}} runs over all vertices.
+
+
+
+ The endomorphism is an algebra with one, and one can apply for example \texttt{RadicalOfAlgebra} to find the radical of the endomorphism ring. }
 
  }
 

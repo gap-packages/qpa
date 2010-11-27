@@ -33,11 +33,13 @@
   [2XDualOfPathAlgebraMatModule[0X  6.6-1
   [2XDualOfPathAlgebraMatModuleMap[0X  6.6-2
   [2XElementOfFpPathAlgebra[0X  3.10-3
+  [2XEndOverPathAlgebra[0X  7.3-9
   [2XEnumerator[0X  4.3-6
   [2XEnvelopingAlgebra[0X  3.12-9
   [2XGeneratorsOfQuiver[0X  2.5-5
   [2XGeneratorsOfRep[0X  6.4-9
   [2XGroebnerBasis[0X  4.1-2
+  [2XHomOverPathAlgebra[0X  7.3-8
   [2XIm[0X  7.3-2
   [2XImageElm[0X  7.2-4
   [2XImageOfWhat[0X  7.2-16

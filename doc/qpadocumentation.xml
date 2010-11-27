@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- $Id: qpadocumentation.xml,v 1.8 2010/11/19 14:52:01 sunnyquiver Exp $ -->
+<!-- $Id: qpadocumentation.xml,v 1.9 2010/11/27 09:56:52 sunnyquiver Exp $ -->
 
 <!DOCTYPE Book SYSTEM "gapdoc.dtd"
  [ <!ENTITY see '<Alt Only="LaTeX">$\to$</Alt><Alt Not="LaTeX">--&gt;</Alt>'>
@@ -2538,6 +2538,33 @@ This chapter describes the categories, representations, attributes,
     be accessed using <Code>Range</Code> of the homomorphism.
    </Description>
 </ManSection>
+
+<ManSection>
+   <Oper Name="HomOverPathAlgebra" Arg="M, N" Comm=""/>
+   <Returns>a basis for the homomorphisms from <Arg>M</Arg>
+   to <Arg>N</Arg>.</Returns>
+   <Description>
+    The function checks if <Arg>M</Arg> and <Arg>N</Arg> are modules
+    over the same algebra, and returns an error message and fail
+    otherwise. 
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Oper Name="EndOverPathAlgebra" Arg="M" Comm=""/>
+   <Returns>the endomorphism ring of <Arg>M</Arg> as a subalgebra of
+   the direct sum of the full matrix rings of <Arg>dim_M[i] x
+   dim_M[i]</Arg>, where <Arg>i</Arg> runs over all vertices.</Returns>
+   <Description>
+    The endomorphism is an algebra with one, and one can apply for
+    example <Code>RadicalOfAlgebra</Code> to find the radical of the
+    endomorphism ring. 
+   </Description>
+</ManSection>
+
+
+
+
 </Section>
 </Chapter>
 </Body>

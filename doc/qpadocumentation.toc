@@ -187,4 +187,6 @@
 \contentsline {subsection}{\numberline {7.3.5}\leavevmode {\color {Chapter }RadicalOfRepInclusion}}{48}{subsection.7.3.5}
 \contentsline {subsection}{\numberline {7.3.6}\leavevmode {\color {Chapter }SocleOfPathAlgebraMatModuleInclusion}}{48}{subsection.7.3.6}
 \contentsline {subsection}{\numberline {7.3.7}\leavevmode {\color {Chapter }TopOfRepProjection}}{48}{subsection.7.3.7}
+\contentsline {subsection}{\numberline {7.3.8}\leavevmode {\color {Chapter }HomOverPathAlgebra}}{48}{subsection.7.3.8}
+\contentsline {subsection}{\numberline {7.3.9}\leavevmode {\color {Chapter }EndOverPathAlgebra}}{48}{subsection.7.3.9}
 \contentsline {chapter}{\numberline {A}\leavevmode {\color {Chapter }An Appendix}}{49}{appendix.A}

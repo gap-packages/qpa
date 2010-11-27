@@ -6,7 +6,7 @@
                            [1XQuivers and Path Algebras[0m
   
   
-                              Version version 1.4
+                              Version version 1.5
   
   
                                  September 2010
@@ -247,6 +247,8 @@
       7.3-5 RadicalOfRepInclusion
       7.3-6 SocleOfPathAlgebraMatModuleInclusion
       7.3-7 TopOfRepProjection
+      7.3-8 HomOverPathAlgebra
+      7.3-9 EndOverPathAlgebra
   A An Appendix
   
   
