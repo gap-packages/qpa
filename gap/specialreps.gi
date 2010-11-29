@@ -1,5 +1,5 @@
 # GAP Implementation
-# $Id: specialreps.gi,v 1.5 2010/11/19 14:51:05 sunnyquiver Exp $
+# $Id: specialreps.gi,v 1.6 2010/11/29 15:53:13 sunnyquiver Exp $
 
 # specialreps.gi: Provides special representations of a quiver, 
 # 		  indecomposble projective, indecomposable injective, 
@@ -93,7 +93,7 @@ InstallMethod ( IndecomposableProjectiveRepresentations,
         od;
         indec_proj_list := [];
         for i in [1..Length(which_proj)] do
-            Add(indec_proj_list,RightModuleOverPathAlgebra(KQ,mat_list[i]));
+            Add(indec_proj_list,RightModuleOverQuotientOfPathAlgebra(A,mat_list[i]));
         od;
         return indec_proj_list;
      else
@@ -286,7 +286,11 @@ InstallMethod ( VertexSimpleRepresentations,
                 fi;
             fi;
         od;
-        Add(simple_rep,RightModuleOverPathAlgebra(KQ,mats));
+        if IsPathAlgebra(A) then
+           Add(simple_rep,RightModuleOverPathAlgebra(A,mats));
+        else
+           Add(simple_rep,RightModuleOverQuotientOfPathAlgebra(A,mats));
+        fi;
     od;
         
     return simple_rep;

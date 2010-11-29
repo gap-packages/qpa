@@ -1,5 +1,5 @@
 # GAP Implementation
-# $Id: homomorphisms.gi,v 1.5 2010/11/26 22:44:24 sunnyquiver Exp $
+# $Id: homomorphisms.gi,v 1.6 2010/11/29 15:53:13 sunnyquiver Exp $
 
 InstallMethod( ImageElm, 
     "for a map between representations and an element in a representation.",
@@ -1316,7 +1316,7 @@ InstallMethod( RightFacApproximation,
   homMN := HomOverPathAlgebra(M,N); 
   generators := [];
   for i in [1..Length(homMN)] do
-     Add(generators,ImagesSet(homMN[i],Source(homMN[i])));
+     Append(generators,ImagesSet(homMN[i],Source(homMN[i])));
   od;
 
   return SubRepInclusion(N,generators);
