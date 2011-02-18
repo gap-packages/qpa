@@ -1,6 +1,6 @@
 # GAP Implementation
 # This file was generated from 
-# $Id: present.gi,v 1.1 2010/05/07 13:30:13 sunnyquiver Exp $
+# $Id: present.gi,v 1.2 2011/02/18 13:42:09 sunnyquiver Exp $
 InstallMethod( IsNormalForm,
   "for path algebra vectors",
   true,
@@ -8,23 +8,22 @@ InstallMethod( IsNormalForm,
   ReturnFalse
 );
 
-
 InstallMethod( PathAlgebraVector,
   "for families of path algebra vectors and hom. list",
   true,
   [IsPathAlgebraVectorFamily, IsHomogeneousList], 0,
   function(fam, components)
-    local i, c, pos, tips, sortedtips, tippath, tippositions, tipcoord;
+    local i, j, c, pos, tipmonomials, sortedtipmonomials, tippath;
 
     if not ( IsIdenticalObj( fam!.componentFam, FamilyObj(components) )
              and fam!.vectorLen = Length(components) )
     then
         Error("components are not in the proper family");
     fi;
-
-#    pos := fam!.vectorLen+1;
-    pos := 1;
-
+#
+#  Checking if the entered vector, components, is a vector satisfying the 
+#  vertex conditions of elements in the family fam.
+# 
     for i in [fam!.vectorLen,(fam!.vectorLen-1)..1] do
         c := components[i];
 
@@ -35,90 +34,71 @@ InstallMethod( PathAlgebraVector,
         if not IsZero(c) then
             if SourceOfPath(TipMonomial(c)) <> fam!.vertices[i] then
               Error("component ", i, " starts with an improper vertex.");
-            else
-#              pos := i;
             fi;
         fi;
+    od;
+#
+#   Finding the position of the tip of the vector.
+# 
+    pos := 1;
+    tipmonomials := List(components,TipMonomial);
+    sortedtipmonomials := ShallowCopy(tipmonomials);
+    Sort(sortedtipmonomials,\<);
 
-      od;
-
-    tips := List(components,Tip);
-#    Print("tips of components: ",tips,"\n");
-    sortedtips := ShallowCopy(tips);
-    Sort(sortedtips,\<);
-#    Print("sorted tips of components: ",sortedtips,"\n");
-
-    if Length(tips) > 0 then
-      tippath := sortedtips[Length(sortedtips)];
-#      Print("tippath: ",tippath,"\n");
-      tippositions := Positions(tips,tippath);
-#      Print("tippositions: ",tippositions,"\n");
-#      tipcoord := tippositions[Length(tippositions)];
-      tipcoord := tippositions[1];
-#      Print("tipcoord: ",tipcoord,"\n");
-      pos := tipcoord;
+    if Length(tipmonomials) > 0 then
+       tippath := sortedtipmonomials[Length(sortedtipmonomials)];
+       pos := Minimum(Positions(tipmonomials,tippath));
     fi;
 
     return Objectify(fam!.defaultType, [Immutable(components), pos]);
-
-  end
+end
 );
 
-
-InstallMethod( PathAlgebraVector,
+InstallOtherMethod( PathAlgebraVector,
   "for families of path algebra vectors and hom. list (normal form)",
   true,
   [IsPathAlgebraVectorFamily and HasNormalFormFunction, 
    IsHomogeneousList], 0,
   function(fam, components)
-    local i, c, pos, tips, sortedtips, tippath, tippositions, tipcoord;
+    local i, j, c, pos, tipmonomials, sortedtipmonomials, tippath;
 
     if not ( IsIdenticalObj( fam!.componentFam, FamilyObj(components) )
-         and fam!.vectorLen = Length(components) )
+             and fam!.vectorLen = Length(components) )
     then
-      Error("components are not in the proper family");
+        Error("components are not in the proper family");
     fi;
-
-#    pos := fam!.vectorLen+1;
-    pos := 1;
-
+#
+#  Checking if the entered vector, components, is a vector satisfying the 
+#  vertex conditions of elements in the family fam.
+# 
     for i in [fam!.vectorLen,(fam!.vectorLen-1)..1] do
-      c := components[i];
+        c := components[i];
 
-      if not IsLeftUniform(c) then
-        Error("components must be left uniform");
-      fi;
-
-      if not IsZero(c) then
-        if SourceOfPath(TipMonomial(c)) <> fam!.vertices[i] then
-          Error("component ", i, " starts with an improper vertex.");
-        else
-#          pos := i;
+        if not IsLeftUniform(c) then
+            Error("components must be left uniform");
         fi;
-      fi;
 
+        if not IsZero(c) then
+            if SourceOfPath(TipMonomial(c)) <> fam!.vertices[i] then
+              Error("component ", i, " starts with an improper vertex.");
+            fi;
+        fi;
     od;
+#
+#   Finding the position of the tip of the vector.
+# 
+    pos := 1;
+    tipmonomials := List(components,TipMonomial);
+    sortedtipmonomials := ShallowCopy(tipmonomials);
+    Sort(sortedtipmonomials,\<);
 
-    tips := List(components,Tip);
-#    Print("tips of components: ",tips,"\n");
-    sortedtips := ShallowCopy(tips);
-    Sort(sortedtips,\<);
-#    Print("sorted tips of components: ",sortedtips,"\n");
-
-    if Length(tips) > 0 then
-      tippath := sortedtips[Length(sortedtips)];
-#      Print("tippath: ",tippath,"\n");
-      tippositions := Positions(tips,tippath);
-#      Print("tippositions: ",tippositions,"\n");
-#      tipcoord := tippositions[Length(tippositions)];
-      tipcoord := tippositions[1];
-#      Print("tipcoord: ",tipcoord,"\n");
-      pos := tipcoord;
+    if Length(tipmonomials) > 0 then
+       tippath := sortedtipmonomials[Length(sortedtipmonomials)];
+       pos := Minimum(Positions(tipmonomials,tippath));
     fi;
 
     return NormalFormFunction(fam)(fam, components, pos);
-
-  end
+end
 );
 
 
@@ -168,50 +148,26 @@ InstallMethod( \+,
   [IsPathAlgebraVector and IsPathAlgebraVectorDefaultRep,
    IsPathAlgebraVector and IsPathAlgebraVectorDefaultRep], 0,
   function( u, v )
-    local fam, pos, c, i, start, normal, tips, sortedtips, tippath, tippositions, tipcoord;
+    local fam, pos, c, i, normal, tipmonomials, 
+          sortedtipmonomials, tippath;
 
     c := u![1] + v![1];
     fam := FamilyObj(u);
 
     pos := 1;
+    tipmonomials := List(c,TipMonomial);
+    sortedtipmonomials := ShallowCopy(tipmonomials);
+    Sort(sortedtipmonomials,\<);
 
-#    pos := Minimum(u![2], v![2]);
-#    if pos <= fam!.vectorLen 
-#     and u![2] = v![2] and IsZero(c[pos])
-#    then
-#      start := pos;
-#      pos := fam!.vectorLen+1;
-#      for i in [start+1..fam!.vectorLen] do
-#        if not IsZero(c[i]) then
-#          pos := i;
-#          break;
-#        fi;
-#      od;
-#    fi;
-
-    tips := List(c,Tip);
-#    Print("tips of components: ",tips,"\n");
-    sortedtips := ShallowCopy(tips);
-    Sort(sortedtips,\<);
-#    Print("sorted tips of components: ",sortedtips,"\n");
-
-    if Length(tips) > 0 then
-      tippath := sortedtips[Length(sortedtips)];
-#      Print("tippath: ",tippath,"\n");
-      tippositions := Positions(tips,tippath);
-#      Print("tippositions: ",tippositions,"\n");
-#      tipcoord := tippositions[Length(tippositions)];
-      tipcoord := tippositions[1];
-#      Print("tipcoord: ",tipcoord,"\n");
-      pos := tipcoord;
+    if Length(tipmonomials) > 0 then
+       tippath := sortedtipmonomials[Length(sortedtipmonomials)];
+       pos := Minimum(Positions(tipmonomials,tippath));
     fi;
 
     normal := IsNormalForm(u) and IsNormalForm(v);
        
     return PathAlgebraVectorNC(fam, c, pos, normal);
-#    return PathAlgebraVector(fam, c, pos, normal);
-
-  end
+end
 );
 
 
@@ -221,49 +177,26 @@ InstallMethod( \-,
   [IsPathAlgebraVector and IsPathAlgebraVectorDefaultRep,
    IsPathAlgebraVector and IsPathAlgebraVectorDefaultRep], 0,
   function( u, v )
-    local fam, pos, c, i, start, normal, tips, sortedtips, tippath, tippositions, tipcoord;
+    local fam, pos, c, i, start, normal, tipmonomials, 
+          sortedtipmonomials, tippath;
 
     c := u![1] - v![1];
     fam := FamilyObj(u);
 
     pos := 1;
+    tipmonomials := List(c,TipMonomial);
+    sortedtipmonomials := ShallowCopy(tipmonomials);
+    Sort(sortedtipmonomials,\<);
 
-#    pos := Minimum(u![2], v![2]);
-#    if pos <= fam!.vectorLen 
-#      and u![2] = v![2] and IsZero(c[pos])
-#    then
-#      start := pos;
-#      pos := fam!.vectorLen+1;
-#      for i in [start+1..fam!.vectorLen] do
-#        if not IsZero(c[i]) then
-#          pos := i;
-#          break;
-#        fi;
-#      od;
-#    fi;
-
-    tips := List(c,Tip);
-#    Print("tips of components: ",tips,"\n");
-    sortedtips := ShallowCopy(tips);
-    Sort(sortedtips,\<);
-#    Print("sorted tips of components: ",sortedtips,"\n");
-
-    if Length(tips) > 0 then
-      tippath := sortedtips[Length(sortedtips)];
-#      Print("tippath: ",tippath,"\n");
-      tippositions := Positions(tips,tippath);
-#      Print("tippositions: ",tippositions,"\n");
-#      tipcoord := tippositions[Length(tippositions)];
-      tipcoord := tippositions[1];
-#      Print("tipcoord: ",tipcoord,"\n");
-      pos := tipcoord;
+    if Length(tipmonomials) > 0 then
+       tippath := sortedtipmonomials[Length(sortedtipmonomials)];
+       pos := Minimum(Positions(tipmonomials,tippath));
     fi;
 
     normal := IsNormalForm(u) and IsNormalForm(v);
 
     return PathAlgebraVectorNC(fam, c, pos, normal);
-
-  end
+end
 );
 
 
@@ -274,7 +207,7 @@ InstallMethod( AdditiveInverseOp,
   function( x )
     return PathAlgebraVectorNC(FamilyObj(x), List(x![1], AdditiveInverse), 
                                x![2], IsNormalForm(x));
-  end
+end
 );
 
 
@@ -321,6 +254,8 @@ InstallMethod( \*,
                                IsNormalForm(x));
   end
 );
+
+
 
 
 InstallMethod( PrintObj,
@@ -487,11 +422,8 @@ InstallMethod( IsLeftDivisible,
           yTipPos, yLeadingTerm, yCoeff, yMon, yWalk;
 
     xTipPos := x![2];
-#Print("tipcoord: ",x![2],"\n");
-#Print("LeadingTerm: ",LeadingTerm(x),"\n");
     xLeadingTerm := LeadingTerm(x)![1][xTipPos];
     xMon := TipMonomial(xLeadingTerm);
-#Print("xMon: ",xMon,"\n");
     xWalk := WalkOfPath(xMon);
     yTipPos := y![2];
     yLeadingTerm := LeadingTerm(y)![1][yTipPos];
@@ -1046,10 +978,9 @@ InstallOtherMethod( \^,
         break;
       fi;
     od;
-# Print(PathAlgebraVectorNC(FamilyObj(x), components, pos, false)," ***\n");
-    return PathAlgebraVectorNC(FamilyObj(x), components, pos, false);
 
-  end
+    return PathAlgebraVectorNC(FamilyObj(x), components, pos, false);
+end
 );
 
 
@@ -1266,55 +1197,6 @@ InstallMethod( RightGroebnerBasisOfModule,
 
     od;
 
-# Print("H: ",H,"\n");
-
-#    repeat
-#
-#
-#      # I'm not sure this would work if H[1] is zero since H is
-#      #   a list not a set.
-#      if IsZero(H[1]) then
-#        RemoveSet(H, H[1]);
-#      fi;
-#
-#      r := Length(H);
-#      i := 1;
-#      reducible := [];
-#
-#      while i <= Length(H) do
-#
-#        tipPos := H[i]![2]; # Component position of the tip
-#        j := i + 1;
-#
-#        while j <= Length(H) and H[j]![2] = tipPos do
-#
-#          if IsLeftDivisible(H[j], H[i]) then
-#            AddSet(reducible, H[j]);
-#            RemoveSet(H, H[j]);
-#          else
-#            j := j + 1;
-#          fi;
-#
-#        od;
-#        i := i + 1;
-#
-#      od;
-#
-#
-#      s := Length(H);
-#
-#      for i in [1..Length(reducible)] do
-#        toReduce := reducible[i];
-#        toReduce := NormalizeRightModuleElement( H, toReduce );
-#        reducible[i] := toReduce;
-#      od;
-#
-#      UniteSet(H, AsSet(reducible));
-#
-#    until s = r;
-
-
-#    H := List(H, x -> Tip(x) + NormalizeRightModuleElement( H, x - Tip(x) ));
     fam := ElementsFamily(FamilyObj(H));
     staticDictionaries := [];
     gbasisElems := List([1..fam!.vectorLen], x -> []);
