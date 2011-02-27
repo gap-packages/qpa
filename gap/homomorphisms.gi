@@ -1,5 +1,5 @@
 # GAP Implementation
-# $Id: homomorphisms.gi,v 1.6 2010/11/29 15:53:13 sunnyquiver Exp $
+# $Id: homomorphisms.gi,v 1.7 2011/02/27 13:49:55 sunnyquiver Exp $
 
 InstallMethod( ImageElm, 
     "for a map between representations and an element in a representation.",
@@ -1289,14 +1289,18 @@ InstallMethod( EndOverPathAlgebra,
   dim_M := DimensionVector(M);
   alglist := [];
   for i in [1..Length(dim_M)] do 
-     Add(alglist, MatrixAlgebra(F,dim_M[i]));
+     if dim_M[i] <> 0 then 
+        Add(alglist, MatrixAlgebra(F,dim_M[i]));
+     fi;
   od;
   maps := [];
   for i in [1..Length(EndM)] do
      maps[i] := NullMat(Dimension(M),Dimension(M),F);
      r := 1; 
      for j in [1..Length(dim_M)] do 
-        maps[i]{[r..r+dim_M[j]-1]}{[r..r+dim_M[j]-1]} := EndM[i]!.maps[j];
+        if dim_M[j] <> 0 then 
+           maps[i]{[r..r+dim_M[j]-1]}{[r..r+dim_M[j]-1]} := EndM[i]!.maps[j];
+        fi;
         r := r + dim_M[j];
      od; 
   od;

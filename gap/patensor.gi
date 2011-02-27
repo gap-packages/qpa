@@ -1,5 +1,5 @@
 # GAP Implementation
-# $Id: patensor.gi,v 1.1 2010/09/17 11:29:22 oysteini Exp $
+# $Id: patensor.gi,v 1.2 2011/02/27 13:49:55 sunnyquiver Exp $
 
 DeclareRepresentation(
         "IsQuiverProductDecompositionRep",
@@ -243,7 +243,7 @@ InstallGlobalFunction( TensorProductOfPathAlgebras,
           orig_rels, induced_rels, comm_rels, tensor_rels,
           inc_q, inc_pa,
           get_relators, make_comm_rel,
-          product_pa;
+          product_pa, I, gb, gbb;
 
     field := LeftActingDomain( PAs[ 1 ] );
     if field <> LeftActingDomain( PAs[ 2 ] ) then
@@ -302,7 +302,11 @@ InstallGlobalFunction( TensorProductOfPathAlgebras,
 
     # All the relations for the tensor product:
     tensor_rels := Concatenation( comm_rels, induced_rels );
+    I := Ideal(product_pa,tensor_rels);
+    gb := GBNPGroebnerBasis(tensor_rels,product_pa);
+    gbb := GroebnerBasis(I,gb);
 
-    return product_pa / Ideal( product_pa, tensor_rels );
+#    return product_pa / Ideal( product_pa, tensor_rels );
+    return product_pa / I;
 
 end );
