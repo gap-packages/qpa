@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- $Id: qpadocumentation.xml,v 1.9 2010/11/27 09:56:52 sunnyquiver Exp $ -->
+<!-- $Id: qpadocumentation.xml,v 1.10 2011/03/01 22:16:47 sunnyquiver Exp $ -->
 
 <!DOCTYPE Book SYSTEM "gapdoc.dtd"
  [ <!ENTITY see '<Alt Only="LaTeX">$\to$</Alt><Alt Not="LaTeX">--&gt;</Alt>'>
@@ -1906,6 +1906,65 @@ gap&gt; B[4]^(P.b*P.c);
    <Description> A shortcoming of this that it is not defined for
      modules of quotients of path algebras.
    </Description>
+</ManSection>
+
+<ManSection>
+   <Oper Name="DimensionMatModule" Arg="M" Comm="for a
+   PathAlgebraMatModule"/>
+   <Returns>the dimension of the representation <Arg>M</Arg>.
+     The argument <Arg>M</Arg> must be a <C>PathAlgebraMatModule</C>.
+   </Returns>
+</ManSection>
+
+<ManSection>
+   <Oper Name="1st_Syzygy" Arg="M" Comm="for a
+   PathAlgebraMatModule"/>
+   <Returns>the first syzygy of the representation <Arg>M</Arg> as a
+     representation. The argument <Arg>M</Arg> must be
+     a <C>PathAlgebraMatModule</C>. 
+   </Returns>
+</ManSection>
+
+<ManSection>
+   <Oper Name="nth_Syzygy" Arg="M, n" Comm="for a
+   PathAlgebraMatModule"/>
+   <Returns>the top of the syzygies until a syzygy is projective or
+     the <Arg>n</Arg>-th syzygy has been computed. The
+     argument <Arg>M</Arg> must be a <C>PathAlgebraMatModule</C>, and
+     the argument <Arg>n</Arg> must be a positive integer.
+   </Returns>
+</ManSection>
+
+<ManSection>
+   <Oper Name="IsInjectiveModule" Arg="M" Comm="for a
+   PathAlgebraMatModule"/>
+   <Returns>true if the representation <Arg>M</Arg> is injective.
+     The argument <Arg>M</Arg> must be a <C>PathAlgebraMatModule</C>.
+   </Returns>
+</ManSection>
+
+<ManSection>
+   <Oper Name="IsProjectiveModule" Arg="M" Comm="for a
+   PathAlgebraMatModule"/>
+   <Returns>true if the representation <Arg>M</Arg> is projective.
+     The argument <Arg>M</Arg> must be a <C>PathAlgebraMatModule</C>.
+   </Returns>
+</ManSection>
+
+<ManSection>
+   <Oper Name="IsSemisimpleModule" Arg="M" Comm="for a
+   PathAlgebraMatModule"/>
+   <Returns>true if the representation <Arg>M</Arg> is semisimple.
+     The argument <Arg>M</Arg> must be a <C>PathAlgebraMatModule</C>.
+   </Returns>
+</ManSection>
+
+<ManSection>
+   <Oper Name="IsSimpleModule" Arg="M" Comm="for a
+   PathAlgebraMatModule"/>
+   <Returns>true if the representation <Arg>M</Arg> is simple.
+     The argument <Arg>M</Arg> must be a <C>PathAlgebraMatModule</C>.
+   </Returns>
 </ManSection>
 
 <ManSection>

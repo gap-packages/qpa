@@ -32,15 +32,22 @@ Algebras</span></a>
 </div>
 <div class="ContSect"><span class="nocss">&nbsp;</span><a href="chap6.html#X7E5B84B1832D839E">6.4 <span class="Heading">Operations on representations</span></a>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7B5EA4B0820DE28C">6.4-1 DimensionVector</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7BEA44FB819910B6">6.4-2 LoewyLength</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X836C258381A956AB">6.4-3 RadicalOfRep</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7929281B848A9FBE">6.4-4 RadicalSeries</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X84A724267E6F136D">6.4-5 SocleSeries</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X79FD8317809E5A65">6.4-6 SocleOfPathAlgebraMatModule</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X80298D0987B1882B">6.4-7 SubRep</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7FE6863F81D84464">6.4-8 TopOfRep</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X8742104E7F6A64D5">6.4-9 GeneratorsOfRep</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7E676BA9848F4D84">6.4-10 MatricesOfPathAlgebraMatModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7A878D167E9180EE">6.4-2 DimensionMatModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7833BE7D7DB4C597">6.4-3 1st_Syzygy</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7845173B87AE5D9C">6.4-4 nth_Syzygy</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X803C2799861FFBC5">6.4-5 IsInjectiveModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X8359AC9585777CA1">6.4-6 IsProjectiveModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7A8BC26E866E44DD">6.4-7 IsSemisimpleModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7FB82B3184287362">6.4-8 IsSimpleModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7BEA44FB819910B6">6.4-9 LoewyLength</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X836C258381A956AB">6.4-10 RadicalOfRep</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7929281B848A9FBE">6.4-11 RadicalSeries</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X84A724267E6F136D">6.4-12 SocleSeries</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X79FD8317809E5A65">6.4-13 SocleOfPathAlgebraMatModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X80298D0987B1882B">6.4-14 SubRep</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7FE6863F81D84464">6.4-15 TopOfRep</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X8742104E7F6A64D5">6.4-16 GeneratorsOfRep</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7E676BA9848F4D84">6.4-17 MatricesOfPathAlgebraMatModule</a></span>
 </div>
 <div class="ContSect"><span class="nocss">&nbsp;</span><a href="chap6.html#X7919F94382D9B38B">6.5 <span class="Heading">Special representations</span></a>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X82637AE885576148">6.5-1 IndecomposableProjectiveRepresentations</a></span>
@@ -203,9 +210,58 @@ gap&gt; B[4]^(P.b*P.c);
 
 <p>A shortcoming of this that it is not defined for modules of quotients of path algebras.</p>
 
+<p><a id="X7A878D167E9180EE" name="X7A878D167E9180EE"></a></p>
+
+<h5>6.4-2 DimensionMatModule</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; DimensionMatModule</code>( <var class="Arg">M</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p><b>Returns: </b>the dimension of the representation <var class="Arg">M</var>. The argument <var class="Arg">M</var> must be a <code class="code">PathAlgebraMatModule</code>.</p>
+
+<p><a id="X7833BE7D7DB4C597" name="X7833BE7D7DB4C597"></a></p>
+
+<h5>6.4-3 1st_Syzygy</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; 1st_Syzygy</code>( <var class="Arg">M</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p><b>Returns: </b>the first syzygy of the representation <var class="Arg">M</var> as a representation. The argument <var class="Arg">M</var> must be a <code class="code">PathAlgebraMatModule</code>.</p>
+
+<p><a id="X7845173B87AE5D9C" name="X7845173B87AE5D9C"></a></p>
+
+<h5>6.4-4 nth_Syzygy</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; nth_Syzygy</code>( <var class="Arg">M, n</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p><b>Returns: </b>the top of the syzygies until a syzygy is projective or the <var class="Arg">n</var>-th syzygy has been computed. The argument <var class="Arg">M</var> must be a <code class="code">PathAlgebraMatModule</code>, and the argument <var class="Arg">n</var> must be a positive integer.</p>
+
+<p><a id="X803C2799861FFBC5" name="X803C2799861FFBC5"></a></p>
+
+<h5>6.4-5 IsInjectiveModule</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IsInjectiveModule</code>( <var class="Arg">M</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p><b>Returns: </b>true if the representation <var class="Arg">M</var> is injective. The argument <var class="Arg">M</var> must be a <code class="code">PathAlgebraMatModule</code>.</p>
+
+<p><a id="X8359AC9585777CA1" name="X8359AC9585777CA1"></a></p>
+
+<h5>6.4-6 IsProjectiveModule</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IsProjectiveModule</code>( <var class="Arg">M</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p><b>Returns: </b>true if the representation <var class="Arg">M</var> is projective. The argument <var class="Arg">M</var> must be a <code class="code">PathAlgebraMatModule</code>.</p>
+
+<p><a id="X7A8BC26E866E44DD" name="X7A8BC26E866E44DD"></a></p>
+
+<h5>6.4-7 IsSemisimpleModule</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IsSemisimpleModule</code>( <var class="Arg">M</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p><b>Returns: </b>true if the representation <var class="Arg">M</var> is semisimple. The argument <var class="Arg">M</var> must be a <code class="code">PathAlgebraMatModule</code>.</p>
+
+<p><a id="X7FB82B3184287362" name="X7FB82B3184287362"></a></p>
+
+<h5>6.4-8 IsSimpleModule</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IsSimpleModule</code>( <var class="Arg">M</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p><b>Returns: </b>true if the representation <var class="Arg">M</var> is simple. The argument <var class="Arg">M</var> must be a <code class="code">PathAlgebraMatModule</code>.</p>
+
 <p><a id="X7BEA44FB819910B6" name="X7BEA44FB819910B6"></a></p>
 
-<h5>6.4-2 LoewyLength</h5>
+<h5>6.4-9 LoewyLength</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; LoewyLength</code>( <var class="Arg">M</var> )</td><td class="tdright">( operation )</td></tr></table></div>
 <p><b>Returns: </b>the Loewy length of the module <var class="Arg">M</var>.</p>
@@ -214,7 +270,7 @@ gap&gt; B[4]^(P.b*P.c);
 
 <p><a id="X836C258381A956AB" name="X836C258381A956AB"></a></p>
 
-<h5>6.4-3 RadicalOfRep</h5>
+<h5>6.4-10 RadicalOfRep</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; RadicalOfRep</code>( <var class="Arg">M</var> )</td><td class="tdright">( operation )</td></tr></table></div>
 <p><b>Returns: </b>the radical of the module <var class="Arg">M</var>.</p>
@@ -223,7 +279,7 @@ gap&gt; B[4]^(P.b*P.c);
 
 <p><a id="X7929281B848A9FBE" name="X7929281B848A9FBE"></a></p>
 
-<h5>6.4-4 RadicalSeries</h5>
+<h5>6.4-11 RadicalSeries</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; RadicalSeries</code>( <var class="Arg">M</var> )</td><td class="tdright">( operation )</td></tr></table></div>
 <p><b>Returns: </b>the radical series of the module <var class="Arg">M</var>.</p>
@@ -232,7 +288,7 @@ gap&gt; B[4]^(P.b*P.c);
 
 <p><a id="X84A724267E6F136D" name="X84A724267E6F136D"></a></p>
 
-<h5>6.4-5 SocleSeries</h5>
+<h5>6.4-12 SocleSeries</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; SocleSeries</code>( <var class="Arg">M</var> )</td><td class="tdright">( operation )</td></tr></table></div>
 <p><b>Returns: </b>the socle series of the module <var class="Arg">M</var>.</p>
@@ -241,7 +297,7 @@ gap&gt; B[4]^(P.b*P.c);
 
 <p><a id="X79FD8317809E5A65" name="X79FD8317809E5A65"></a></p>
 
-<h5>6.4-6 SocleOfPathAlgebraMatModule</h5>
+<h5>6.4-13 SocleOfPathAlgebraMatModule</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; SocleOfPathAlgebraMatModule</code>( <var class="Arg">M</var> )</td><td class="tdright">( operation )</td></tr></table></div>
 <p><b>Returns: </b>the socle of the module <var class="Arg">M</var>.</p>
@@ -250,7 +306,7 @@ gap&gt; B[4]^(P.b*P.c);
 
 <p><a id="X80298D0987B1882B" name="X80298D0987B1882B"></a></p>
 
-<h5>6.4-7 SubRep</h5>
+<h5>6.4-14 SubRep</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; SubRep</code>( <var class="Arg">M, gens</var> )</td><td class="tdright">( operation )</td></tr></table></div>
 <p><b>Returns: </b>the submodule of the module <var class="Arg">M</var> generated by the elements <var class="Arg">gens</var>.</p>
@@ -259,7 +315,7 @@ gap&gt; B[4]^(P.b*P.c);
 
 <p><a id="X7FE6863F81D84464" name="X7FE6863F81D84464"></a></p>
 
-<h5>6.4-8 TopOfRep</h5>
+<h5>6.4-15 TopOfRep</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; TopOfRep</code>( <var class="Arg">M</var> )</td><td class="tdright">( operation )</td></tr></table></div>
 <p><b>Returns: </b>the top of the module <var class="Arg">M</var>.</p>
@@ -268,14 +324,14 @@ gap&gt; B[4]^(P.b*P.c);
 
 <p><a id="X8742104E7F6A64D5" name="X8742104E7F6A64D5"></a></p>
 
-<h5>6.4-9 GeneratorsOfRep</h5>
+<h5>6.4-16 GeneratorsOfRep</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; GeneratorsOfRep</code>( <var class="Arg">M</var> )</td><td class="tdright">( operation )</td></tr></table></div>
 <p><b>Returns: </b>a minimal generator set of the module <var class="Arg">M</var> as a module of the path algebra it is defined over.</p>
 
 <p><a id="X7E676BA9848F4D84" name="X7E676BA9848F4D84"></a></p>
 
-<h5>6.4-10 MatricesOfPathAlgebraMatModule</h5>
+<h5>6.4-17 MatricesOfPathAlgebraMatModule</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; MatricesOfPathAlgebraMatModule</code>( <var class="Arg">M</var> )</td><td class="tdright">( operation )</td></tr></table></div>
 <p><b>Returns: </b>a list of the matrices that defines the representation <var class="Arg">M</var> as a right module of the acting path algebra. The argument <var class="Arg">M</var> must be a <code class="code">PathAlgebraMatModule</code>.</p>

@@ -194,15 +194,22 @@
       6.3-1 ^
     6.4 Operations on representations
       6.4-1 DimensionVector
-      6.4-2 LoewyLength
-      6.4-3 RadicalOfRep
-      6.4-4 RadicalSeries
-      6.4-5 SocleSeries
-      6.4-6 SocleOfPathAlgebraMatModule
-      6.4-7 SubRep
-      6.4-8 TopOfRep
-      6.4-9 GeneratorsOfRep
-      6.4-10 MatricesOfPathAlgebraMatModule
+      6.4-2 DimensionMatModule
+      6.4-3 1st_Syzygy
+      6.4-4 nth_Syzygy
+      6.4-5 IsInjectiveModule
+      6.4-6 IsProjectiveModule
+      6.4-7 IsSemisimpleModule
+      6.4-8 IsSimpleModule
+      6.4-9 LoewyLength
+      6.4-10 RadicalOfRep
+      6.4-11 RadicalSeries
+      6.4-12 SocleSeries
+      6.4-13 SocleOfPathAlgebraMatModule
+      6.4-14 SubRep
+      6.4-15 TopOfRep
+      6.4-16 GeneratorsOfRep
+      6.4-17 MatricesOfPathAlgebraMatModule
     6.5 Special representations
       6.5-1 IndecomposableProjectiveRepresentations
       6.5-2 IndecomposableInjectiveRepresentations

@@ -1,4 +1,4 @@
-This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=pdflatex 2007.11.30)  27 NOV 2010 10:54
+This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=pdflatex 2007.11.30)  1 MAR 2011 23:09
 entering extended mode
  %&-line parsing enabled.
 **qpadocumentation
@@ -895,38 +895,68 @@ Underfull \hbox (badness 1038) in paragraph at lines 2255--2260
 e rep-re-sen-ta-tion []. The ar-gu-ment [] must be a
  []
 
-[38]pdfTeX warning (ext4): destination with the same identifier (name{L.X7BEA44
+[38]
+Underfull \hbox (badness 4132) in paragraph at lines 2271--2276
+[]\OT1/ptm/b/n/10.95 Returns:  \OT1/ptm/m/n/10.95 the di-men-sion of the rep-re
+-sen-ta-tion []. The ar-gu-ment [] must be a
+ []
+
+
+Underfull \hbox (badness 3128) in paragraph at lines 2310--2315
+[]\OT1/ptm/b/n/10.95 Returns:  \OT1/ptm/m/n/10.95 true if the rep-re-sen-ta-tio
+n [] is in-jec-tive. The ar-gu-ment [] must be a
+ []
+
+
+Underfull \hbox (badness 2521) in paragraph at lines 2323--2328
+[]\OT1/ptm/b/n/10.95 Returns:  \OT1/ptm/m/n/10.95 true if the rep-re-sen-ta-tio
+n [] is pro-jec-tive. The ar-gu-ment [] must be a
+ []
+
+
+Underfull \hbox (badness 1968) in paragraph at lines 2336--2341
+[]\OT1/ptm/b/n/10.95 Returns:  \OT1/ptm/m/n/10.95 true if the rep-re-sen-ta-tio
+n [] is semisim-ple. The ar-gu-ment [] must be a
+ []
+
+
+Underfull \hbox (badness 4072) in paragraph at lines 2349--2354
+[]\OT1/ptm/b/n/10.95 Returns:  \OT1/ptm/m/n/10.95 true if the rep-re-sen-ta-tio
+n [] is sim-ple. The ar-gu-ment [] must be a
+ []
+
+[39]pdfTeX warning (ext4): destination with the same identifier (name{L.X7BEA44
 FB819910B6}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.2270 \hyperdef{L}{X7BEA44FB819910B6}{}
-                                         [39] [40]
-Underfull \hbox (badness 10000) in paragraph at lines 2497--2500
+l.2361 \hyperdef{L}{X7BEA44FB819910B6}{}
+                                         [40] [41]
+Underfull \hbox (badness 10000) in paragraph at lines 2588--2591
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2509--2512
+Underfull \hbox (badness 10000) in paragraph at lines 2600--2603
 
  []
 
-[41]pdfTeX warning (ext4): destination with the same identifier (name{L.X812345
+[42]pdfTeX warning (ext4): destination with the same identifier (name{L.X812345
 6781234567}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.2595 \hyperdef{L}{X8123456781234567}{}
+l.2686 \hyperdef{L}{X8123456781234567}{}
                                         
-Underfull \hbox (badness 10000) in paragraph at lines 2596--2599
+Underfull \hbox (badness 10000) in paragraph at lines 2687--2690
 
  []
 
-[42]pdfTeX warning (ext4): destination with the same identifier (name{L.X871A3B
+[43]pdfTeX warning (ext4): destination with the same identifier (name{L.X871A3B
 1D871A3B1D}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.2613 \hyperdef{L}{X871A3B1D871A3B1D}{}
+l.2704 \hyperdef{L}{X871A3B1D871A3B1D}{}
                                         
-Underfull \hbox (badness 10000) in paragraph at lines 2614--2617
+Underfull \hbox (badness 10000) in paragraph at lines 2705--2708
 
  []
 
@@ -934,106 +964,106 @@ pdfTeX warning (ext4): destination with the same identifier (name{L.X8123456781
 234567}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.2631 \hyperdef{L}{X8123456781234567}{}
+l.2722 \hyperdef{L}{X8123456781234567}{}
                                         
-Underfull \hbox (badness 10000) in paragraph at lines 2632--2635
+Underfull \hbox (badness 10000) in paragraph at lines 2723--2726
 
  []
 
-[43]
+[44]
 Chapter 7.
 
-Underfull \hbox (badness 10000) in paragraph at lines 2679--2682
+Underfull \hbox (badness 10000) in paragraph at lines 2770--2773
 
  []
 
 
-Underfull \hbox (badness 2980) in paragraph at lines 2684--2686
+Underfull \hbox (badness 2980) in paragraph at lines 2775--2777
 []\OT1/ptm/m/n/10.95 The ho-mo-mor-phisms be-tween mod-ules over a path al-ge-b
 ra be-longs to the cat-e-gories
  []
 
-[44
+[45
 
-] [45]pdfTeX warning (ext4): destination with the same identifier (name{L.X7E84
+] [46]pdfTeX warning (ext4): destination with the same identifier (name{L.X7E84
 38F77ECB778E}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.2841 \hyperdef{L}{X7E8438F77ECB778E}{}
+l.2932 \hyperdef{L}{X7E8438F77ECB778E}{}
                                         
-Underfull \hbox (badness 10000) in paragraph at lines 2860--2863
+Underfull \hbox (badness 10000) in paragraph at lines 2951--2954
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2872--2875
+Underfull \hbox (badness 10000) in paragraph at lines 2963--2966
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2884--2887
+Underfull \hbox (badness 10000) in paragraph at lines 2975--2978
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2896--2899
+Underfull \hbox (badness 10000) in paragraph at lines 2987--2990
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2908--2911
+Underfull \hbox (badness 10000) in paragraph at lines 2999--3002
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2920--2923
+Underfull \hbox (badness 10000) in paragraph at lines 3011--3014
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2933--2936
+Underfull \hbox (badness 10000) in paragraph at lines 3024--3027
 
  []
 
-[46] [47] [48]
+[47] [48] [49]
 Appendix A.
 (./qpadocumentation.bbl (./qpadocumentation.brf)
 \tf@brf=\write7
 \openout7 = `qpadocumentation.brf'.
 
- [49
+ [50
 
 ]
 
 LaTeX Warning: Empty `thebibliography' environment on input line 3.
 
-) (./qpadocumentation.ind [50
+) (./qpadocumentation.ind [51
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 68--70
+Underfull \hbox (badness 10000) in paragraph at lines 70--72
 []\OT1/pcr/m/n/10.95 IndecomposableInjectiveRepresentations\OT1/ptm/m/n/10.95 ,
 
  []
 
 
-Overfull \hbox (4.20505pt too wide) in paragraph at lines 70--72
+Overfull \hbox (4.20505pt too wide) in paragraph at lines 72--74
 []\OT1/pcr/m/n/10.95 IndecomposableProjectiveRepresentations\OT1/ptm/m/n/10.95 
 ,
  []
 
-[51
+[52
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 168--169
+Underfull \hbox (badness 10000) in paragraph at lines 175--176
 []\OT1/pcr/m/n/10.95 RightModuleOverQuotientOfPathAlgebra\OT1/ptm/m/n/10.95 ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 176--177
+Underfull \hbox (badness 10000) in paragraph at lines 183--184
 []\OT1/pcr/m/n/10.95 SocleOfPathAlgebraMatModuleInclusion\OT1/ptm/m/n/10.95 ,
  []
 
-[52]) (./qpadocumentation.aux)
+[53]) (./qpadocumentation.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
@@ -1042,10 +1072,10 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 4375 strings out of 94073
- 63219 string characters out of 1162983
- 118477 words of memory out of 1500000
- 7148 multiletter control sequences out of 10000+50000
+ 4397 strings out of 94073
+ 63595 string characters out of 1162983
+ 118943 words of memory out of 1500000
+ 7155 multiletter control sequences out of 10000+50000
  48251 words of font info for 101 fonts, out of 1200000 for 2000
  645 hyphenation exceptions out of 8191
  25i,7n,33p,655b,587s stack positions out of 5000i,500n,6000p,200000b,5000s
@@ -1063,9 +1093,9 @@ al/texlive/2007/texmf-dist/fonts/type1/urw/symbol/usyr.pfb></usr/local/texlive/
 -dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2007/texmf-dist/font
 s/type1/urw/times/utmr8a.pfb></usr/local/texlive/2007/texmf-dist/fonts/type1/ur
 w/times/utmri8a.pfb>
-Output written on qpadocumentation.pdf (52 pages, 347246 bytes).
+Output written on qpadocumentation.pdf (53 pages, 353731 bytes).
 PDF statistics:
- 1126 PDF objects out of 1200 (max. 8388607)
- 434 named destinations out of 1000 (max. 131072)
+ 1160 PDF objects out of 1200 (max. 8388607)
+ 449 named destinations out of 1000 (max. 131072)
  17 words of extra memory for PDF output out of 10000 (max. 10000000)
 
