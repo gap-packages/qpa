@@ -1,7 +1,7 @@
 # GAP Declarations
-# $Id: homomorphisms.gd,v 1.3 2010/11/06 14:48:40 sunnyquiver Exp $
+# $Id: homomorphisms.gd,v 1.4 2011/03/16 19:53:37 sunnyquiver Exp $
 
-DeclareCategory("IsPathAlgebraMatModuleMap", IsAdditiveElementWithZero and IsGeneralMapping and RespectsScalarMultiplication and IsTotal and IsSingleValued ); 
+DeclareCategory("IsPathAlgebraMatModuleMap", IsAdditiveElementWithZero and IsAdditiveElementWithInverse and IsGeneralMapping and RespectsScalarMultiplication and IsTotal and IsSingleValued ); 
 DeclareCategoryFamily(  "IsPathAlgebraMatModuleMap" );
 DeclareCategoryCollections( "IsPathAlgebraMatModuleMap" );
 DeclareRepresentation("IsPathAlgebraMatModuleMapRep", IsComponentObjectRep and IsAttributeStoringRep, ["maps"]);

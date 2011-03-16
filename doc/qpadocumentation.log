@@ -1,4 +1,4 @@
-This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=pdflatex 2007.11.30)  1 MAR 2011 23:09
+This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=pdflatex 2007.11.30)  16 MAR 2011 20:48
 entering extended mode
  %&-line parsing enabled.
 **qpadocumentation
@@ -902,61 +902,94 @@ Underfull \hbox (badness 4132) in paragraph at lines 2271--2276
  []
 
 
-Underfull \hbox (badness 3128) in paragraph at lines 2310--2315
+Underfull \hbox (badness 10000) in paragraph at lines 2300--2303
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2305--2306
+[]\OT1/ptm/m/n/10.95 An at-tribute, re-turns true is [] is con-structed via the
+ com-mand
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2312--2315
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2325--2328
+
+ []
+
+
+Underfull \hbox (badness 4739) in paragraph at lines 2330--2333
+[]\OT1/ptm/m/n/10.95 An at-tribute, re-turns the list of pro-jec-tions from the
+ di-rect sum to the in-di-vid-ual
+ []
+
+
+Underfull \hbox (badness 3930) in paragraph at lines 2330--2333
+\OT1/ptm/m/n/10.95 mod-ules used to con-struct di-rect sum, when a di-rect sum 
+has been con-structed us-ing
+ []
+
+[39]
+Underfull \hbox (badness 3128) in paragraph at lines 2365--2370
 []\OT1/ptm/b/n/10.95 Returns:  \OT1/ptm/m/n/10.95 true if the rep-re-sen-ta-tio
 n [] is in-jec-tive. The ar-gu-ment [] must be a
  []
 
 
-Underfull \hbox (badness 2521) in paragraph at lines 2323--2328
+Underfull \hbox (badness 2521) in paragraph at lines 2378--2383
 []\OT1/ptm/b/n/10.95 Returns:  \OT1/ptm/m/n/10.95 true if the rep-re-sen-ta-tio
 n [] is pro-jec-tive. The ar-gu-ment [] must be a
  []
 
 
-Underfull \hbox (badness 1968) in paragraph at lines 2336--2341
+Underfull \hbox (badness 1968) in paragraph at lines 2391--2396
 []\OT1/ptm/b/n/10.95 Returns:  \OT1/ptm/m/n/10.95 true if the rep-re-sen-ta-tio
 n [] is semisim-ple. The ar-gu-ment [] must be a
  []
 
 
-Underfull \hbox (badness 4072) in paragraph at lines 2349--2354
+Underfull \hbox (badness 4072) in paragraph at lines 2404--2409
 []\OT1/ptm/b/n/10.95 Returns:  \OT1/ptm/m/n/10.95 true if the rep-re-sen-ta-tio
 n [] is sim-ple. The ar-gu-ment [] must be a
  []
 
-[39]pdfTeX warning (ext4): destination with the same identifier (name{L.X7BEA44
-FB819910B6}) has been already used, duplicate ignored
+pdfTeX warning (ext4): destination with the same identifier (name{L.X7BEA44FB81
+9910B6}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.2361 \hyperdef{L}{X7BEA44FB819910B6}{}
+l.2416 \hyperdef{L}{X7BEA44FB819910B6}{}
                                          [40] [41]
-Underfull \hbox (badness 10000) in paragraph at lines 2588--2591
+Underfull \hbox (badness 10000) in paragraph at lines 2643--2646
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 2600--2603
+[42]
+Underfull \hbox (badness 10000) in paragraph at lines 2655--2658
 
  []
 
-[42]pdfTeX warning (ext4): destination with the same identifier (name{L.X812345
+[43]pdfTeX warning (ext4): destination with the same identifier (name{L.X812345
 6781234567}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.2686 \hyperdef{L}{X8123456781234567}{}
+l.2741 \hyperdef{L}{X8123456781234567}{}
                                         
-Underfull \hbox (badness 10000) in paragraph at lines 2687--2690
+Underfull \hbox (badness 10000) in paragraph at lines 2742--2745
 
  []
 
-[43]pdfTeX warning (ext4): destination with the same identifier (name{L.X871A3B
-1D871A3B1D}) has been already used, duplicate ignored
+pdfTeX warning (ext4): destination with the same identifier (name{L.X871A3B1D87
+1A3B1D}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.2704 \hyperdef{L}{X871A3B1D871A3B1D}{}
+l.2759 \hyperdef{L}{X871A3B1D871A3B1D}{}
                                         
-Underfull \hbox (badness 10000) in paragraph at lines 2705--2708
+Underfull \hbox (badness 10000) in paragraph at lines 2760--2763
 
  []
 
@@ -964,106 +997,108 @@ pdfTeX warning (ext4): destination with the same identifier (name{L.X8123456781
 234567}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.2722 \hyperdef{L}{X8123456781234567}{}
+l.2777 \hyperdef{L}{X8123456781234567}{}
                                         
-Underfull \hbox (badness 10000) in paragraph at lines 2723--2726
+Underfull \hbox (badness 10000) in paragraph at lines 2778--2781
 
  []
 
-[44]
+[44] [45]
 Chapter 7.
 
-Underfull \hbox (badness 10000) in paragraph at lines 2770--2773
+Underfull \hbox (badness 10000) in paragraph at lines 2825--2828
 
  []
 
 
-Underfull \hbox (badness 2980) in paragraph at lines 2775--2777
+Underfull \hbox (badness 2980) in paragraph at lines 2830--2832
 []\OT1/ptm/m/n/10.95 The ho-mo-mor-phisms be-tween mod-ules over a path al-ge-b
 ra be-longs to the cat-e-gories
  []
 
-[45
+[46
 
-] [46]pdfTeX warning (ext4): destination with the same identifier (name{L.X7E84
+] [47]pdfTeX warning (ext4): destination with the same identifier (name{L.X7E84
 38F77ECB778E}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.2932 \hyperdef{L}{X7E8438F77ECB778E}{}
+l.2987 \hyperdef{L}{X7E8438F77ECB778E}{}
                                         
-Underfull \hbox (badness 10000) in paragraph at lines 2951--2954
+Underfull \hbox (badness 10000) in paragraph at lines 3006--3009
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2963--2966
+Underfull \hbox (badness 10000) in paragraph at lines 3018--3021
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2975--2978
+Underfull \hbox (badness 10000) in paragraph at lines 3030--3033
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2987--2990
+Underfull \hbox (badness 10000) in paragraph at lines 3042--3045
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2999--3002
+Underfull \hbox (badness 10000) in paragraph at lines 3054--3057
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3011--3014
+Underfull \hbox (badness 10000) in paragraph at lines 3066--3069
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3024--3027
+Underfull \hbox (badness 10000) in paragraph at lines 3079--3082
 
  []
 
-[47] [48] [49]
+[48] [49] [50] [51]
 Appendix A.
 (./qpadocumentation.bbl (./qpadocumentation.brf)
 \tf@brf=\write7
 \openout7 = `qpadocumentation.brf'.
 
- [50
+ [52
 
 ]
 
 LaTeX Warning: Empty `thebibliography' environment on input line 3.
 
-) (./qpadocumentation.ind [51
+) (./qpadocumentation.ind [53
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 70--72
+Underfull \hbox (badness 10000) in paragraph at lines 73--75
 []\OT1/pcr/m/n/10.95 IndecomposableInjectiveRepresentations\OT1/ptm/m/n/10.95 ,
 
  []
 
 
-Overfull \hbox (4.20505pt too wide) in paragraph at lines 72--74
+Overfull \hbox (4.20505pt too wide) in paragraph at lines 75--77
 []\OT1/pcr/m/n/10.95 IndecomposableProjectiveRepresentations\OT1/ptm/m/n/10.95 
 ,
  []
 
-[52
+[54
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 175--176
+Underfull \hbox (badness 10000) in paragraph at lines 181--182
 []\OT1/pcr/m/n/10.95 RightModuleOverQuotientOfPathAlgebra\OT1/ptm/m/n/10.95 ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 183--184
+Underfull \hbox (badness 10000) in paragraph at lines 189--190
 []\OT1/pcr/m/n/10.95 SocleOfPathAlgebraMatModuleInclusion\OT1/ptm/m/n/10.95 ,
  []
 
-[53]) (./qpadocumentation.aux)
+[55] [56
+
+]) (./qpadocumentation.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
@@ -1072,10 +1107,10 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 4397 strings out of 94073
- 63595 string characters out of 1162983
- 118943 words of memory out of 1500000
- 7155 multiletter control sequences out of 10000+50000
+ 4418 strings out of 94073
+ 63941 string characters out of 1162983
+ 119346 words of memory out of 1500000
+ 7161 multiletter control sequences out of 10000+50000
  48251 words of font info for 101 fonts, out of 1200000 for 2000
  645 hyphenation exceptions out of 8191
  25i,7n,33p,655b,587s stack positions out of 5000i,500n,6000p,200000b,5000s
@@ -1093,9 +1128,9 @@ al/texlive/2007/texmf-dist/fonts/type1/urw/symbol/usyr.pfb></usr/local/texlive/
 -dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2007/texmf-dist/font
 s/type1/urw/times/utmr8a.pfb></usr/local/texlive/2007/texmf-dist/fonts/type1/ur
 w/times/utmri8a.pfb>
-Output written on qpadocumentation.pdf (53 pages, 353731 bytes).
+Output written on qpadocumentation.pdf (56 pages, 360997 bytes).
 PDF statistics:
- 1160 PDF objects out of 1200 (max. 8388607)
- 449 named destinations out of 1000 (max. 131072)
+ 1200 PDF objects out of 1200 (max. 8388607)
+ 464 named destinations out of 1000 (max. 131072)
  17 words of extra memory for PDF output out of 10000 (max. 10000000)
 

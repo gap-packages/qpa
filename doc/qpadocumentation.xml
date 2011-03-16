@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- $Id: qpadocumentation.xml,v 1.10 2011/03/01 22:16:47 sunnyquiver Exp $ -->
+<!-- $Id: qpadocumentation.xml,v 1.11 2011/03/16 19:53:37 sunnyquiver Exp $ -->
 
 <!DOCTYPE Book SYSTEM "gapdoc.dtd"
  [ <!ENTITY see '<Alt Only="LaTeX">$\to$</Alt><Alt Not="LaTeX">--&gt;</Alt>'>
@@ -1917,6 +1917,46 @@ gap&gt; B[4]^(P.b*P.c);
 </ManSection>
 
 <ManSection>
+   <Oper Name="DirectSumOfPathAlgebraMatModules" Arg="L" Comm="for a
+   list of PathAlgebraMatModule's"/>
+   <Returns>the direct sum of the representations contained in the
+     list <Arg>L</Arg>.</Returns>
+   <Description>The argument <Arg>L</Arg> must be a list
+     of <C>PathAlgebraMatModule</C>'s over the same (quotient of a)
+     path algebra. In addition three attributes are attached to the
+     result, <C>IsDirectSum, DirectSumProjections</C>
+     and <C>DirectSumInclusions</C>.  
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Attr Name="IsDirectSum" Arg="M" Comm="for a PathAlgebraMatModule"/>
+   <Description>
+    An attribute, returns true is <Arg>M</Arg> is constructed via the
+    command <C>DirectSumOfPathAlgebraMatModules</C>.
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Attr Name="DirectSumInclusions" Arg="M" Comm="for a PathAlgebraMatModule"/>
+   <Description>
+    An attribute, returns the list of inclusions from the individual
+    modules to their direct sum, when a direct sum has been
+    constructed using <C>DirectSumOfPathAlgebraMatModules</C>.
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Attr Name="DirectSumProjections" Arg="M" Comm="for a PathAlgebraMatModule"/>
+   <Description>
+    An attribute, returns the list of projections from the direct sum
+    to the individual modules used to construct direct sum, when a
+    direct sum has been constructed
+    using <C>DirectSumOfPathAlgebraMatModules</C>.
+   </Description>
+</ManSection>
+
+<ManSection>
    <Oper Name="1st_Syzygy" Arg="M" Comm="for a
    PathAlgebraMatModule"/>
    <Returns>the first syzygy of the representation <Arg>M</Arg> as a
@@ -2507,16 +2547,41 @@ This chapter describes the categories, representations, attributes,
 </Section>
 
 <Section><Heading>Homomorphisms and modules constructed from homomorphisms and modules</Heading>
+
 <ManSection>
-   <Oper Name="Ker" Arg="f" Comm=""/>
-   <Oper Name="KerInclusion" Arg="M" Comm=""/>
-   <Returns>the kernel of a homomorphism <Arg>f</Arg> between two
+   <Oper Name="Coker" Arg="f" Comm=""/>
+   <Oper Name="CokerProjection" Arg="f" Comm=""/>
+   <Returns>the cokernel of a homomorphism <Arg>f</Arg> between two
    representations of a quiver.</Returns>
    <Description>
-    The first variant <Ref Oper="Ker"/> returns the kernel of the
+    The first variant <Ref Oper="Coker"/> returns the cokernel of the
     homomorphism <Arg>f</Arg> as a representation of the quiver, while
-    the latter one returns the inclusion homomorphism of the kernel
-    into the source of the homomorphism <Arg>f</Arg>. 
+    the latter one returns the projection homomorphism from the range
+    of the homomorphism <Arg>f</Arg> to the cokernel of the
+    homomorphism <Arg>f</Arg>.
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Oper Name="EndOverPathAlgebra" Arg="M" Comm=""/>
+   <Returns>the endomorphism ring of <Arg>M</Arg> as a subalgebra of
+   the direct sum of the full matrix rings of <Arg>dim_M[i] x
+   dim_M[i]</Arg>, where <Arg>i</Arg> runs over all vertices.</Returns>
+   <Description>
+    The endomorphism is an algebra with one, and one can apply for
+    example <Code>RadicalOfAlgebra</Code> to find the radical of the
+    endomorphism ring. 
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Oper Name="HomOverPathAlgebra" Arg="M, N" Comm=""/>
+   <Returns>a basis for the homomorphisms from <Arg>M</Arg>
+   to <Arg>N</Arg>.</Returns>
+   <Description>
+    The function checks if <Arg>M</Arg> and <Arg>N</Arg> are modules
+    over the same algebra, and returns an error message and fail
+    otherwise. 
    </Description>
 </ManSection>
 
@@ -2539,29 +2604,37 @@ This chapter describes the categories, representations, attributes,
 </ManSection>
 
 <ManSection>
-   <Oper Name="Coker" Arg="f" Comm=""/>
-   <Oper Name="CokerProjection" Arg="f" Comm=""/>
-   <Returns>the cokernel of a homomorphism <Arg>f</Arg> between two
+   <Oper Name="Ker" Arg="f" Comm=""/>
+   <Oper Name="KerInclusion" Arg="M" Comm=""/>
+   <Returns>the kernel of a homomorphism <Arg>f</Arg> between two
    representations of a quiver.</Returns>
    <Description>
-    The first variant <Ref Oper="Coker"/> returns the cokernel of the
+    The first variant <Ref Oper="Ker"/> returns the kernel of the
     homomorphism <Arg>f</Arg> as a representation of the quiver, while
-    the latter one returns the projection homomorphism from the range
-    of the homomorphism <Arg>f</Arg> to the cokernel of the
-    homomorphism <Arg>f</Arg>.
+    the latter one returns the inclusion homomorphism of the kernel
+    into the source of the homomorphism <Arg>f</Arg>. 
    </Description>
 </ManSection>
 
 <ManSection>
-   <Oper Name="SubRepInclusion" Arg="M, gens" Comm=""/>
-   <Returns>the inclusion of the submodule generated by the
-   generators <Arg>gens</Arg> into the module <Arg>M</Arg></Returns>
+   <Oper Name="PullBack" Arg="f, g" Comm="for two maps between modules
+   with common target"/>
+   <Returns>the pullback of the maps <Arg>f</Arg> and <Arg>g</Arg>.</Returns>
    <Description>
-    The function checks if <Arg>gens</Arg> are elements
-    in <Arg>M</Arg>, and returns an error message otherwise. The
-    representation given by the submodule generated by the
-    generators <Arg>gens</Arg> can be accessed
-    using <Code>Source</Code>. 
+    It is check if <Arg>f</Arg> and <Arg>g</Arg> has the same target. The
+    pullback is returned as two homomorphism from the pullback to the
+    source of <Arg>f</Arg> and to the source of <Arg>g</Arg>. 
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Oper Name="PushOut" Arg="f, g" Comm="for two maps between modules
+   with common source"/>
+   <Returns>the pushout of the maps <Arg>f</Arg> and <Arg>g</Arg>.</Returns>
+   <Description>
+    It is check if <Arg>f</Arg> and <Arg>g</Arg> has the same source. The
+    pushout is returned as two homomorphism from the target
+    of <Arg>f</Arg> and from the target of <Arg>g</Arg> to the pushout. 
    </Description>
 </ManSection>
 
@@ -2588,6 +2661,19 @@ This chapter describes the categories, representations, attributes,
 </ManSection>
 
 <ManSection>
+   <Oper Name="SubRepInclusion" Arg="M, gens" Comm=""/>
+   <Returns>the inclusion of the submodule generated by the
+   generators <Arg>gens</Arg> into the module <Arg>M</Arg></Returns>
+   <Description>
+    The function checks if <Arg>gens</Arg> are elements
+    in <Arg>M</Arg>, and returns an error message otherwise. The
+    representation given by the submodule generated by the
+    generators <Arg>gens</Arg> can be accessed
+    using <Code>Source</Code>. 
+   </Description>
+</ManSection>
+
+<ManSection>
    <Oper Name="TopOfRepProjection" Arg="M" Comm=""/>
    <Returns>the projection from the module <Arg>M</Arg> to the top of
    the module <Arg>M</Arg>
@@ -2598,28 +2684,9 @@ This chapter describes the categories, representations, attributes,
    </Description>
 </ManSection>
 
-<ManSection>
-   <Oper Name="HomOverPathAlgebra" Arg="M, N" Comm=""/>
-   <Returns>a basis for the homomorphisms from <Arg>M</Arg>
-   to <Arg>N</Arg>.</Returns>
-   <Description>
-    The function checks if <Arg>M</Arg> and <Arg>N</Arg> are modules
-    over the same algebra, and returns an error message and fail
-    otherwise. 
-   </Description>
-</ManSection>
 
-<ManSection>
-   <Oper Name="EndOverPathAlgebra" Arg="M" Comm=""/>
-   <Returns>the endomorphism ring of <Arg>M</Arg> as a subalgebra of
-   the direct sum of the full matrix rings of <Arg>dim_M[i] x
-   dim_M[i]</Arg>, where <Arg>i</Arg> runs over all vertices.</Returns>
-   <Description>
-    The endomorphism is an algebra with one, and one can apply for
-    example <Code>RadicalOfAlgebra</Code> to find the radical of the
-    endomorphism ring. 
-   </Description>
-</ManSection>
+
+
 
 
 

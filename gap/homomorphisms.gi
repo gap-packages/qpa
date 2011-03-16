@@ -1,5 +1,5 @@
 # GAP Implementation
-# $Id: homomorphisms.gi,v 1.7 2011/02/27 13:49:55 sunnyquiver Exp $
+# $Id: homomorphisms.gi,v 1.8 2011/03/16 19:53:37 sunnyquiver Exp $
 
 InstallMethod( ImageElm, 
     "for a map between representations and an element in a representation.",
@@ -105,21 +105,21 @@ InstallMethod( RightModuleHomOverPathAlgebra,
       if ( dim_M[i] = 0 ) then 
       	 if dim_N[i] = 0 then 
 	        if linmaps[i] <> NullMat(1,1,K) then 
- 	           Error("the dimension of matrix number ",i," is wrong,");
+ 	           Error("the dimension of matrix number ",i," is wrong (A),");
 	        fi; 
          else
 	        if linmaps[i] <> NullMat(1,dim_N[i],K) then
-      	       Error("the dimension of matrix number ",i," is wrong,");
+      	       Error("the dimension of matrix number ",i," is wrong (B),");
 	        fi;
          fi;
       else
 	     if dim_N[i] = 0 then
 	        if linmaps[i] <> NullMat(dim_M[i],1,K) then 
-      	       Error("the dimension of matrix number ",i," is wrong,");
+      	       Error("the dimension of matrix number ",i," is wrong (C),");
             fi;
 	     else 	        
             if DimensionsMat(linmaps[i])[1] <> dim_M[i] or DimensionsMat(linmaps[i])[2] <> dim_N[i] then
-      	       Error("the dimension of matrix number ",i," is wrong,"); 
+      	       Error("the dimension of matrix number ",i," is wrong (D),"); 
             fi;
 	     fi;
       fi; 	 
@@ -538,12 +538,12 @@ InstallMethod ( KerInclusion,
         if Length(V_list[i]) > 0 then 
            Add(VS_list,VectorSpace(K,V_list[i],"basis"));
         else
-           Add(VS_list,TrivialSubmodule(VectorSpace(K,[[1]])));
+           Add(VS_list,TrivialSubmodule(VectorSpace(K,[[One(K)]])));
         fi;
      else
         Add(V_list,[]);
         Add(dim_K,0);
-        Add(VS_list,TrivialSubmodule(VectorSpace(K,[[1]])));
+        Add(VS_list,TrivialSubmodule(VectorSpace(K,[[One(K)]])));
      fi;
   od;
   V_list := List(VS_list, V -> Basis(V));
@@ -567,14 +567,12 @@ else
      i := Position(vertices,SourceOfPath(a));
      j := Position(vertices,TargetOfPath(a));
      matrix := [];
-     for k in [1..Length(V_list[i])] do
-        Add(matrix,Coefficients(V_list[j],V_list[i][k]*mats[apos]));
-     od;
-     if dim_K[i] = 0 then 
-     	matrix := [0,dim_K[j]];
-     fi;
-     if dim_K[j] = 0 then 
-     	matrix := [dim_K[i],0];
+     if ( dim_K[i] = 0 ) or ( dim_K[j] = 0 ) then 
+     	matrix := [dim_K[i],dim_K[j]];
+     else 
+        for k in [1..Length(V_list[i])] do
+           Add(matrix,Coefficients(V_list[j],V_list[i][k]*mats[apos]));
+        od;
      fi;
      Add(kermats,[a,matrix]);
   od;
@@ -585,9 +583,13 @@ else
   for i in [1..Length(dim_M)] do
      if Dimension(VS_list[i]) = 0 then
         V_list[i] := []; 
-        for j in [1..dim_M[i]] do
-	   Add(V_list[i],Zero(K));
-	od;
+        if dim_M[i] = 0 then 
+           Add(V_list[i],Zero(K));
+        else 
+           for j in [1..dim_M[i]] do
+	      Add(V_list[i],Zero(K));
+	   od;
+        fi;
         V_list[i] := [V_list[i]];
      else 
         V_list[i] := BasisVectors(V_list[i]);
@@ -1063,6 +1065,24 @@ InstallOtherMethod( \*,
   end
 );
 
+InstallMethod( AdditiveInverseOp,
+    "for a morphism in IsPathAlgebraMatModuleMap",
+    [ IsPathAlgebraMatModuleMap ],
+
+    function ( f ) 
+
+    local i, num_vert, x;
+
+    x := [];
+    num_vert := Length(f!.maps);
+    for i in [1..num_vert] do
+          x[i] := (-1)*f!.maps[i];
+    od;
+
+    return RightModuleHomOverPathAlgebra(Source(f),Range(f),x);
+end
+);
+
 InstallOtherMethod( \*,
   "for two PathAlgebraMatModuleMap's",
   true,
@@ -1078,9 +1098,9 @@ InstallOtherMethod( \*,
      	for i in [1..num_vert] do
      	   x[i] := f!.maps[i]*a;
      	od;
-	    return RightModuleHomOverPathAlgebra(Source(f),Range(f),x);
+	return RightModuleHomOverPathAlgebra(Source(f),Range(f),x);
      else
-	    Error("the scalar is not in the same field as the algbra is over,");
+	Error("the scalar is not in the same field as the algbra is over,");
      fi;
   end
 );

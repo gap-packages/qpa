@@ -195,21 +195,25 @@
     6.4 Operations on representations
       6.4-1 DimensionVector
       6.4-2 DimensionMatModule
-      6.4-3 1st_Syzygy
-      6.4-4 nth_Syzygy
-      6.4-5 IsInjectiveModule
-      6.4-6 IsProjectiveModule
-      6.4-7 IsSemisimpleModule
-      6.4-8 IsSimpleModule
-      6.4-9 LoewyLength
-      6.4-10 RadicalOfRep
-      6.4-11 RadicalSeries
-      6.4-12 SocleSeries
-      6.4-13 SocleOfPathAlgebraMatModule
-      6.4-14 SubRep
-      6.4-15 TopOfRep
-      6.4-16 GeneratorsOfRep
-      6.4-17 MatricesOfPathAlgebraMatModule
+      6.4-3 DirectSumOfPathAlgebraMatModules
+      6.4-4 IsDirectSum
+      6.4-5 DirectSumInclusions
+      6.4-6 DirectSumProjections
+      6.4-7 1st_Syzygy
+      6.4-8 nth_Syzygy
+      6.4-9 IsInjectiveModule
+      6.4-10 IsProjectiveModule
+      6.4-11 IsSemisimpleModule
+      6.4-12 IsSimpleModule
+      6.4-13 LoewyLength
+      6.4-14 RadicalOfRep
+      6.4-15 RadicalSeries
+      6.4-16 SocleSeries
+      6.4-17 SocleOfPathAlgebraMatModule
+      6.4-18 SubRep
+      6.4-19 TopOfRep
+      6.4-20 GeneratorsOfRep
+      6.4-21 MatricesOfPathAlgebraMatModule
     6.5 Special representations
       6.5-1 IndecomposableProjectiveRepresentations
       6.5-2 IndecomposableInjectiveRepresentations
@@ -247,15 +251,17 @@
       7.2-16 ImageOfWhat
       7.2-17 CoKernelOfWhat
     7.3 Homomorphisms and modules constructed from homomorphisms and modules
-      7.3-1 Ker
-      7.3-2 Im
-      7.3-3 Coker
-      7.3-4 SubRepInclusion
-      7.3-5 RadicalOfRepInclusion
-      7.3-6 SocleOfPathAlgebraMatModuleInclusion
-      7.3-7 TopOfRepProjection
-      7.3-8 HomOverPathAlgebra
-      7.3-9 EndOverPathAlgebra
+      7.3-1 Coker
+      7.3-2 EndOverPathAlgebra
+      7.3-3 HomOverPathAlgebra
+      7.3-4 Im
+      7.3-5 Ker
+      7.3-6 PullBack
+      7.3-7 PushOut
+      7.3-8 RadicalOfRepInclusion
+      7.3-9 SocleOfPathAlgebraMatModuleInclusion
+      7.3-10 SubRepInclusion
+      7.3-11 TopOfRepProjection
   A An Appendix
   
   
