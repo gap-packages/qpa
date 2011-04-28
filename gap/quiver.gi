@@ -1,6 +1,6 @@
 # GAP Implementation
 # This file was generated from
-# $Id: quiver.gi,v 1.2 2010/09/30 14:02:22 oysteini Exp $
+# $Id: quiver.gi,v 1.3 2011/04/28 09:34:42 oysteini Exp $
 
 InstallGlobalFunction(
   Path,
@@ -1075,4 +1075,40 @@ InstallMethod( QuiverContainingPath,
         [ IsPath ],
         function( p )
     return FamilyObj( p )!.quiver;
+end );
+
+
+InstallMethod( VertexIndex,
+        "for a vertex",
+        true,
+        [ IsVertex ],
+        function( v )
+    return v!.gen_pos;
+end );
+
+
+InstallMethod( ArrowIndex,
+        "for an arrow",
+        true,
+        [ IsArrow ],
+        function( a )
+    return a!.gen_pos - Length( VerticesOfQuiver( QuiverContainingPath( a ) ) );
+end );
+
+
+InstallMethod( GeneratorIndex,
+        "for a vertex",
+        true,
+        [ IsVertex ],
+        function( v )
+    return v!.gen_pos;
+end );
+
+
+InstallMethod( GeneratorIndex,
+        "for an arrow",
+        true,
+        [ IsArrow ],
+        function( a )
+    return a!.gen_pos;
 end );

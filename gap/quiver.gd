@@ -1,6 +1,6 @@
 # GAP Declarations
 # This file was generated from
-# $Id: quiver.gd,v 1.2 2010/09/30 14:02:22 oysteini Exp $
+# $Id: quiver.gd,v 1.3 2011/04/28 09:34:42 oysteini Exp $
 DeclareInfoClass( "InfoQuiver" );
 
 DeclareCategory("IsPath", IsMultiplicativeElement);
@@ -49,3 +49,6 @@ DeclareOperation("NextPath", [IsQuiver, IsObject]);
 DeclareOperation( "\[\]", [ IsQuiverEnumerator, IsPosInt ]);
 
 DeclareOperation( "QuiverContainingPath", [ IsPath ] );
+DeclareOperation( "VertexIndex", [ IsVertex ] );
+DeclareOperation( "ArrowIndex", [ IsArrow ] );
+DeclareOperation( "GeneratorIndex", [ IsPath ] );
