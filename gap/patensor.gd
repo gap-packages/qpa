@@ -1,5 +1,5 @@
 # GAP Declarations
-# $Id: patensor.gd,v 1.1 2010/09/17 11:29:22 oysteini Exp $
+# $Id: patensor.gd,v 1.2 2011/04/28 09:44:24 oysteini Exp $
 
 # patensor.gd: Tensor product of path algebras.
 
@@ -55,3 +55,9 @@ DeclareOperation( "SimpleTensor", [ IsDenseList, IsAlgebra ] );
 
 DeclareOperation( "TensorProductOfAlgebras", [ IsAlgebra, IsAlgebra ] );
 DeclareGlobalFunction( "TensorProductOfPathAlgebras" );
+DeclareAttribute( "TensorProductDecomposition", IsAlgebra );
+
+DeclareAttribute( "EnvelopingAlgebra", IsAlgebra );
+DeclareAttribute( "IsEnvelopingAlgebra", IsAlgebra );
+
+DeclareOperation( "AlgebraAsModuleOfEnvelopingAlgebra", [ IsAlgebra ] );

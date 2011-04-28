@@ -1,5 +1,5 @@
 # GAP Implementation
-# $Id: patensor.gi,v 1.2 2011/02/27 13:49:55 sunnyquiver Exp $
+# $Id: patensor.gi,v 1.3 2011/04/28 09:44:24 oysteini Exp $
 
 DeclareRepresentation(
         "IsQuiverProductDecompositionRep",
@@ -243,7 +243,8 @@ InstallGlobalFunction( TensorProductOfPathAlgebras,
           orig_rels, induced_rels, comm_rels, tensor_rels,
           inc_q, inc_pa,
           get_relators, make_comm_rel,
-          product_pa, I, gb, gbb;
+          product_pa, I, gb, gbb,
+          tensor_product;
 
     field := LeftActingDomain( PAs[ 1 ] );
     if field <> LeftActingDomain( PAs[ 2 ] ) then
@@ -306,7 +307,91 @@ InstallGlobalFunction( TensorProductOfPathAlgebras,
     gb := GBNPGroebnerBasis(tensor_rels,product_pa);
     gbb := GroebnerBasis(I,gb);
 
-#    return product_pa / Ideal( product_pa, tensor_rels );
-    return product_pa / I;
+    tensor_product := product_pa / I;
+    SetTensorProductDecomposition( tensor_product, PAs );
+    return tensor_product;
+
+end );
+
+
+InstallMethod( EnvelopingAlgebra,
+        "for an algebra",
+        [ IsAlgebra ],
+        function( pa )
+    local envalg;
+
+    envalg := TensorProductOfAlgebras( OppositeAlgebra( pa ), pa );
+    SetIsEnvelopingAlgebra( envalg, true );
+    return envalg;
+end );
+
+
+InstallMethod( AlgebraAsModuleOfEnvelopingAlgebra,
+        "for an enveloping algebra of a path algebra",
+        [ IsSubalgebraFpPathAlgebra ],
+        function ( env )
+    local PA, Q, QxQ,
+          basis, basis_vectors, vertices, vertex_indices, vector_spaces, i, j,
+          get_coefficients, make_map,
+          arrows, module_specification;
+
+    if not ( HasIsEnvelopingAlgebra( env ) and IsEnvelopingAlgebra( env ) ) then
+        Error( "Argument must be an enveloping algebra" );
+    fi;
+
+    PA := TensorProductDecomposition( env )[ 2 ];
+
+    Q := QuiverOfPathAlgebra( PA );
+    QxQ := QuiverOfPathAlgebra( env );
+
+    basis := CanonicalBasis( PA );
+    basis_vectors := BasisVectors( basis );
+
+    vertices := VerticesOfQuiver( Q );
+    vertex_indices := [ 1 .. Length( vertices ) ];
+
+    vector_spaces := NullMat( Length( vertices ), Length( vertices ) );
+    for i in vertex_indices do
+        for j in vertex_indices do
+            vector_spaces[ i ][ j ] := PositionsNonzero( vertices[ i ] * basis_vectors * vertices[ j ] );
+        od;
+    od;
+
+    get_coefficients :=
+      function( elem )
+        return Coefficients( basis, elem );
+    end;
+
+    make_map :=
+      function( a )
+        local components, source, target, source_i, target_i, source_space, target_space,
+              dims, map_on_basis, map_on_basis_coeffs;
+
+        components := [ ProjectFromProductQuiver( 1, a ),
+                        ProjectFromProductQuiver( 2, a ) ];
+
+        source := List( components, SourceOfPath );
+        target := List( components, TargetOfPath );
+        source_i := List( source, VertexIndex );
+        target_i := List( target, VertexIndex );
+        source_space := vector_spaces[ source_i[ 1 ] ][ source_i[ 2 ] ];
+        target_space := vector_spaces[ target_i[ 1 ] ][ target_i[ 2 ] ];
+
+        dims := [ Length( source_space ), Length( target_space ) ];
+        if dims[ 1 ] = 0 or dims[ 2 ] = 0 then
+            return dims;
+        fi;
+
+        map_on_basis := OppositePath( components[ 1 ] ) * basis_vectors{ source_space } * components[ 2 ];
+        map_on_basis_coeffs := List( map_on_basis, get_coefficients );
+        return map_on_basis_coeffs
+               { [ 1 .. Length( map_on_basis_coeffs ) ] }
+               { target_space };
+    end;
+
+    arrows := ArrowsOfQuiver( QxQ );
+    module_specification := List( arrows, a->[ a, make_map( a ) ] );
+
+    return RightModuleOverQuotientOfPathAlgebra( env, module_specification );
 
 end );
