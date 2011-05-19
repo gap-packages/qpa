@@ -1,5 +1,5 @@
 # GAP Implementation
-# $Id: homomorphisms.gi,v 1.9 2011/04/28 09:31:30 sunnyquiver Exp $
+# $Id: homomorphisms.gi,v 1.10 2011/05/19 06:26:07 sunnyquiver Exp $
 
 InstallMethod( ImageElm, 
     "for a map between representations and an element in a representation.",
@@ -215,7 +215,7 @@ InstallMethod ( ZeroMap,
            if dim_N[i] = 0 then 
               Add(mats,NullMat(dim_M[i],1,K));
            else
-              Add(mats,NullMat(dim_M[i],dim_N[i]));
+              Add(mats,NullMat(dim_M[i],dim_N[i],K));
            fi;
         fi;
      od;
@@ -680,7 +680,7 @@ InstallMethod ( ImProjectionInclusion,
             mat := [Length(basis_image[source_a]),Length(basis_image[target_a])];
          else 
             for b in basis_image[source_a] do
-               Add(mat,Coefficients(basis_N[i],b*mats[pos_a]));
+               Add(mat,Coefficients(basis_image[target_a],b*mats[pos_a]));
             od;
          fi;
 #         Display(mat);
