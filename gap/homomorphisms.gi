@@ -1,5 +1,5 @@
 # GAP Implementation
-# $Id: homomorphisms.gi,v 1.10 2011/05/19 06:26:07 sunnyquiver Exp $
+# $Id: homomorphisms.gi,v 1.11 2011/05/25 06:11:12 sunnyquiver Exp $
 
 InstallMethod( ImageElm, 
     "for a map between representations and an element in a representation.",
@@ -175,13 +175,13 @@ InstallMethod ( Zero,
         if dim_N[i] = 0 then 
            Add(mats,NullMat(1,1,K));
         else
-           Add(mats,NullMat(1,dim_N[i]));
+           Add(mats,NullMat(1,dim_N[i],K));
         fi;
      else
         if dim_N[i] = 0 then 
            Add(mats,NullMat(dim_M[i],1,K));
         else
-           Add(mats,NullMat(dim_M[i],dim_N[i]));
+           Add(mats,NullMat(dim_M[i],dim_N[i],K));
         fi;
      fi;
   od;
@@ -1169,6 +1169,8 @@ InstallMethod( HomOverPathAlgebra,
    # Finding the linear equations for the maps between M and N
    #
    equations := MutableNullMat(num_rows, num_cols, F);
+   for i in [1..Length(block_cols)] do Print(block_cols[i],"\n"); od;
+   Print(block_rows,"\n");
 
    arrows := ArrowsOfQuiver(QuiverOfPathAlgebra(OriginalPathAlgebra(A)));
    mats_M := MatricesOfPathAlgebraMatModule(M);
@@ -1199,11 +1201,13 @@ InstallMethod( HomOverPathAlgebra,
             od;
             prev_col := prev_col + dim_M[source_arrow]*dim_N[target_arrow];
          fi;
+         Display(equations); Print("Arrow: ",a,"\n\n");
       od;
       if Length(OutgoingArrowsOfVertex(vertices[i])) <> 0 then 
          prev_row := prev_row + dim_M[source_arrow]*dim_N[source_arrow];
       fi;
    od;
+   Display(equations);
    #
    # Creating the maps between the module M and N
    #
