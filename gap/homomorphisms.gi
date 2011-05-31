@@ -1,5 +1,5 @@
 # GAP Implementation
-# $Id: homomorphisms.gi,v 1.11 2011/05/25 06:11:12 sunnyquiver Exp $
+# $Id: homomorphisms.gi,v 1.12 2011/05/31 06:23:13 sunnyquiver Exp $
 
 InstallMethod( ImageElm, 
     "for a map between representations and an element in a representation.",
@@ -1126,6 +1126,7 @@ InstallMethod( HomOverPathAlgebra,
    #
    # Finding the support of M and N
    # 
+   vertices := VerticesOfQuiver(QuiverOfPathAlgebra(OriginalPathAlgebra(A)));
    dim_M := DimensionVector(M);
    dim_N := DimensionVector(N);
    num_vert := Length(dim_M);   
@@ -1143,7 +1144,6 @@ InstallMethod( HomOverPathAlgebra,
    # Deciding the size of the equations, 
    # number of columns and rows
    #
-   vertices := VerticesOfQuiver(QuiverOfPathAlgebra(OriginalPathAlgebra(A)));
    num_cols := 0;
    num_rows := 0;
    block_intervals := [];
@@ -1169,8 +1169,6 @@ InstallMethod( HomOverPathAlgebra,
    # Finding the linear equations for the maps between M and N
    #
    equations := MutableNullMat(num_rows, num_cols, F);
-   for i in [1..Length(block_cols)] do Print(block_cols[i],"\n"); od;
-   Print(block_rows,"\n");
 
    arrows := ArrowsOfQuiver(QuiverOfPathAlgebra(OriginalPathAlgebra(A)));
    mats_M := MatricesOfPathAlgebraMatModule(M);
@@ -1183,8 +1181,8 @@ InstallMethod( HomOverPathAlgebra,
          target_arrow := Position(vertices,TargetOfPath(a));
          if (target_arrow in support_N) and ( (source_arrow in support_N) or (target_arrow in support_M)) then
             for j in [1..dim_M[source_arrow]] do
-               row_start_pos := prev_row + 1 + (j-1)*dim_N[source_arrow]; 
-               row_end_pos   := prev_row + j*dim_N[source_arrow];
+               row_start_pos := block_rows[source_arrow] + (j-1)*dim_N[source_arrow]; 
+               row_end_pos   := block_rows[source_arrow] - 1 + j*dim_N[source_arrow];
                col_start_pos := prev_col + 1 + (j-1)*dim_N[target_arrow];
                col_end_pos   := prev_col + j*dim_N[target_arrow];
                if (source_arrow in support_N) then 
@@ -1201,13 +1199,8 @@ InstallMethod( HomOverPathAlgebra,
             od;
             prev_col := prev_col + dim_M[source_arrow]*dim_N[target_arrow];
          fi;
-         Display(equations); Print("Arrow: ",a,"\n\n");
       od;
-      if Length(OutgoingArrowsOfVertex(vertices[i])) <> 0 then 
-         prev_row := prev_row + dim_M[source_arrow]*dim_N[source_arrow];
-      fi;
    od;
-   Display(equations);
    #
    # Creating the maps between the module M and N
    #
@@ -1298,7 +1291,6 @@ InstallMethod( HomOverPathAlgebra,
    fi;
 end
 );
-
 
 InstallMethod( EndOverPathAlgebra,
     "for a representations of a quiver",
