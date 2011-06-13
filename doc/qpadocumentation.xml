@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- $Id: qpadocumentation.xml,v 1.11 2011/03/16 19:53:37 sunnyquiver Exp $ -->
+<!-- $Id: qpadocumentation.xml,v 1.12 2011/06/13 09:57:20 sunnyquiver Exp $ -->
 
 <!DOCTYPE Book SYSTEM "gapdoc.dtd"
  [ <!ENTITY see '<Alt Only="LaTeX">$\to$</Alt><Alt Not="LaTeX">--&gt;</Alt>'>
@@ -1976,6 +1976,17 @@ gap&gt; B[4]^(P.b*P.c);
 </ManSection>
 
 <ManSection>
+   <Oper Name="IsOmegaPeriodic" Arg="M, n" Comm="for a
+   PathAlgebraMatModule and a positive integer"/>
+   <Returns><C>i</C>, where <C>i</C> is the smallest positive integer
+     less or equal <C>n</C> such that the representation <Arg>M</Arg> is isomorphic
+     to the <C>i</C>-th syzygy of <Arg>M</Arg>, and false otherwise.
+     The argument <Arg>M</Arg> must be a <C>PathAlgebraMatModule</C>,
+     and <Arg>n</Arg> must be a positive integer.
+   </Returns>
+</ManSection>
+
+<ManSection>
    <Oper Name="IsInjectiveModule" Arg="M" Comm="for a
    PathAlgebraMatModule"/>
    <Returns>true if the representation <Arg>M</Arg> is injective.
@@ -2014,6 +2025,18 @@ gap&gt; B[4]^(P.b*P.c);
      The function checks that the module <Arg>M</Arg> is a module over
     a finite dimensional quotient of a path algebra, and returns fail
     otherwise (This is not implemented yet). 
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Oper Name="ModuleIsomorphismTest" Arg="M, N" Comm=""/>
+   <Returns>true or false depending on whether <Arg>M</Arg>
+   and <Arg>N</Arg> are isomorphic or not.</Returns>
+   <Description>
+    The function first checks if the modules <Arg>M</Arg>
+    and <Arg>N</Arg> are modules over the same algebra, and returns fail
+    if not. The function returns returns true if the modules are
+    isomorphic, otherwise false. 
    </Description>
 </ManSection>
 
