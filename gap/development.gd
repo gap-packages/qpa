@@ -20,3 +20,5 @@ DeclareAttribute( "DirectSumProjections", IsPathAlgebraMatModule );
 DeclareAttribute( "DirectSumInclusions", IsPathAlgebraMatModule );
 DeclareOperation( "PushOut", [ IsPathAlgebraMatModuleMap, IsPathAlgebraMatModuleMap ] );
 DeclareOperation( "PullBack", [ IsPathAlgebraMatModuleMap, IsPathAlgebraMatModuleMap ] );
+DeclareOperation( "ModuleIsomorphismTest", [IsPathAlgebraMatModule, IsPathAlgebraMatModule ] );
+DeclareOperation( "IsOmegaPeriodic", [IsPathAlgebraMatModule, IS_INT ] );
