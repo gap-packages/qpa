@@ -875,7 +875,7 @@ InstallMethod( IsOmegaPeriodic,
    N0 := M;
    for i in [1..n] do
       N1 := 1st_Syzygy(N0);
-      if IsoTest(N0,N1) then
+      if ModuleIsomorphismTest(N0,N1) then
          return i;
       else
          N0 := N1;
