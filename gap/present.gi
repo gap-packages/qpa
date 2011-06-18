@@ -1,6 +1,6 @@
 # GAP Implementation
 # This file was generated from 
-# $Id: present.gi,v 1.2 2011/02/18 13:42:09 sunnyquiver Exp $
+# $Id: present.gi,v 1.3 2011/06/18 11:59:52 sunnyquiver Exp $
 InstallMethod( IsNormalForm,
   "for path algebra vectors",
   true,
@@ -980,6 +980,7 @@ InstallOtherMethod( \^,
     od;
 
     return PathAlgebraVectorNC(FamilyObj(x), components, pos, false);
+
 end
 );
 

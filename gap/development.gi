@@ -844,51 +844,6 @@ InstallMethod( PullBack,
 end
 );
 
-InstallMethod( ModuleIsomorphismTest, 
-   "for two path algebra matmodules",
-   [ IsPathAlgebraMatModule, IsPathAlgebraMatModule  ], 0,
-   function( M, N ) 
-
-   local K, HomMN, HomNM, MM, NN, i, j, HomMM, HomNN, V_M, V_N;
-
-   if RightActingAlgebra(M) <> RightActingAlgebra(N) then 
-      return fail;
-   else
-      K := LeftActingDomain(M);
-      HomMN := HomOverPathAlgebra(M,N);
-      HomNM := HomOverPathAlgebra(N,M);
-      MM := [];
-      NN := [];
-      for i in [1..Length(HomMN)] do
-         for j in [1..Length(HomNM)] do
-            Add(MM,HomMN[i]*HomNM[j]);
-            Add(NN,HomNM[j]*HomMN[i]);
-         od;
-      od;
-      MM := List(MM,x->x!.maps);
-      NN := List(NN,x->x!.maps);
-      for i in [1..Length(MM)] do
-         MM[i] := List(MM[i],x->Flat(x)); 
-         MM[i] := Flat(MM[i]);
-      od;
-      for i in [1..Length(NN)] do
-         NN[i] := List(NN[i],x->Flat(x)); 
-         NN[i] := Flat(NN[i]);
-      od;
-      HomMM:=HomOverPathAlgebra(M,M);
-      HomNN:=HomOverPathAlgebra(N,N);
-      V_M := VectorSpace(K,MM);
-      V_N := VectorSpace(K,NN);
-      if Dimension(V_M) = Length(HomOverPathAlgebra(M,M)) and 
-         Dimension(V_N) = Length(HomOverPathAlgebra(N,N)) then
-         return true;
-      else
-         return false;
-      fi;
-   fi; 
-end
-);
-
 InstallMethod( IsOmegaPeriodic, 
    "for a path algebra matmodule and an integer",
    [ IsPathAlgebraMatModule, IS_INT  ], 0,
@@ -899,7 +854,7 @@ InstallMethod( IsOmegaPeriodic,
    N0 := M;
    for i in [1..n] do
       N1 := 1st_Syzygy(N0);
-      if ModuleIsomorphismTest(N0,N1) then
+      if ModuleIsomorphismTest(M,N1) then
          return i;
       else
          N0 := N1;
