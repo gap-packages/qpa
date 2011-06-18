@@ -122,9 +122,15 @@
       3.5-5 IsLeftUniform
       3.5-6 IsRightUniform
       3.5-7 IsUniform
-      3.5-8 MappedExpression
+      3.5-8 MakeUniformOnRight
+      3.5-9 MappedExpression
     3.6 Constructing Quotients of Path Algebras
-    3.7 Attributes of Ideals
+    3.7 Ideals
+      3.7-1 Ideals and operations on ideals
+      3.7-2 Ideal
+      3.7-3 nthPowerOfArrowIdeal
+      3.7-4 AddNthPowerToRelations
+      3.7-5 Attributes of ideals
     3.8 Categories and Properties of Quotients of Path Algebras
       3.8-1 IsSubalgebraFpPathAlgebra
     3.9 Attributes and Operations for Quotients of Path Algebras
@@ -144,6 +150,7 @@
       3.10-4 OriginalPathAlgebra
     3.11 Predefined classes of quotient of path algebras
       3.11-1 NakayamaAlgebra
+      3.11-2 TruncatedPathAlgebra
     3.12 Tensor products of path algebras
       3.12-1 QuiverProduct
       3.12-2 QuiverProductDecomposition

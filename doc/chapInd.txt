@@ -17,6 +17,7 @@
   [2X\= (maps)[0X  7.2-9
   [2X^[0X  6.3-1
   [2X^[0X  6.7-3
+  [2XAddNthPowerToRelations[0X  3.7-4
   [2XAdjacencyMatrixOfQuiver[0X  2.5-4
   [2XAdmitsFinitelyManyNontips[0X  4.3-8
   [2XArrowsOfQuiver[0X  2.5-3
@@ -46,6 +47,7 @@
   [2XGeneratorsOfRep[0X  6.4-25
   [2XGroebnerBasis[0X  4.1-2
   [2XHomOverPathAlgebra[0X  7.3-3
+  [2XIdeal[0X  3.7-2
   [2XIdentityMap[0X  7.2-8
   [2XIm[0X  7.3-4
   [2XImageElm[0X  7.2-4
@@ -109,7 +111,8 @@
   [2XLengthOfPath[0X  2.7-3
   [2XLoewyLength[0X  3.9-5
   [2XLoewyLength[0X  6.4-17
-  [2XMappedExpression[0X  3.5-8
+  [2XMakeUniformOnRight[0X  3.5-8
+  [2XMappedExpression[0X  3.5-9
   [2XMatricesOfPathAlgebraMatModule[0X  6.4-27
   [2XMinimalSetOfGenerators[0X  6.4-26
   [2XModuleIsomorphismTest[0X  6.4-18
@@ -120,6 +123,7 @@
   [2XNormalFormFunction[0X  3.9-1
   [2Xnth_Syzygy[0X  6.4-9
   [2Xnth_SyzygyNC[0X  6.4-10
+  [2XnthPowerOfArrowIdeal[0X  3.7-3
   [2XOppositeOfQuiver[0X  2.5-9
   [2XOrderedBy[0X  2.2-2
   [2XOrderedBy[0X  3.2-2
@@ -168,6 +172,7 @@
   [2XTipReduceGroebnerBasis[0X  4.3-4
   [2XTopOfRep[0X  6.4-24
   [2XTopOfRepProjection[0X  7.3-11
+  [2XTruncatedPathAlgebra[0X  3.11-2
   [2XVectorize[0X  6.7-2
   [2XVertexSimpleRepresentations[0X  6.5-3
   [2XVerticesOfQuiver[0X  2.5-2

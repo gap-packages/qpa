@@ -1,6 +1,6 @@
 # GAP Declarations
 # This file was generated from
-# $Id: algpath.gd,v 1.3 2010/10/04 07:07:35 sunnyquiver Exp $
+# $Id: algpath.gd,v 1.4 2011/06/18 13:51:46 sunnyquiver Exp $
 DeclareProperty( "IsPathRing", IsMagmaRingModuloSpanOfZero );
 DeclareProperty( "IsPathRing", IsAlgebra );
 DeclareSynonym( "IsPathAlgebra", IsAlgebra and IsPathRing );
@@ -52,3 +52,8 @@ DeclareOperation( "BasisOfDomain", [IsSubalgebraFpPathAlgebra]);
 DeclareGlobalFunction( "PathAlgebraContainingElement");
 
 DeclareOperation( "OriginalPathAlgebra", [ IsAlgebra ] ); 
+DeclareOperation( "MakeUniformOnRight", [ IsHomogeneousList ] );
+DeclareOperation( "GeneratorsTimesArrowsOnRight", [ IsHomogeneousList ] );
+DeclareOperation( "nthPowerOfArrowIdeal", [ IsPathAlgebra, IS_INT ] );
+DeclareOperation( "TruncatedPathAlgebra", [ IsField, IsQuiver, IS_INT ] );
+DeclareOperation( "AddNthPowerToRelations", [ IsPathAlgebra, IsHomogeneousList, IS_INT ] );

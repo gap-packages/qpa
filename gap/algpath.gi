@@ -1,6 +1,6 @@
 # GAP Implementation
 # This file was generated from
-# $Id: algpath.gi,v 1.3 2010/10/04 07:07:35 sunnyquiver Exp $
+# $Id: algpath.gi,v 1.4 2011/06/18 13:51:46 sunnyquiver Exp $
 
 
 InstallMethod( IsPathRing,
@@ -1184,3 +1184,123 @@ InstallMethod( OriginalPathAlgebra,
          Error("the algebra entered was not a quotient of a path algebra.");
       fi;
 end );
+
+InstallMethod( MakeUniformOnRight,
+  "return array of right uniform path algebra elements",
+  true,
+  [ IsHomogeneousList ],
+  0,
+  function( gens )
+    local l, t, v2, terms, uterms, newg, g, test;
+
+    uterms := [];
+
+    # get coefficients and monomials for all
+    #  terms for gens:
+
+    if Length(gens) = 0 then 
+       return gens;
+    else 
+       test := IsPathAlgebra(PathAlgebraContainingElement(gens[1]));
+       for g in gens do
+          if test then 
+             terms := CoefficientsAndMagmaElements(g);
+          else
+             terms := CoefficientsAndMagmaElements(g![1]);
+          fi;    
+          # Get terminus vertices for all terms:
+          l := List(terms{[1,3..Length(terms)-1]}, x -> TargetOfPath(x));
+
+          # Make the list unique:
+          t := Unique(l);
+ 
+          # Create uniformized array based on g:
+          for v2 in t do
+             newg := g*v2;
+             if not IsZero(newg) then
+                Add(uterms,newg);
+             fi;
+          od;
+       od;
+    fi;
+    return Unique(uterms);
+end
+);
+
+InstallMethod( GeneratorsTimesArrowsOnRight, 
+   "for a path algebra",
+   [ IsHomogeneousList ], 0,
+   function( x ) 
+
+   local A, fam, i, n, longer_list, extending_arrows, a, y;
+
+   if Length(x) = 0 then
+      Print("The entered list is empty.\n");
+      return x;
+   else
+      A   := PathAlgebraContainingElement(x[1]);
+      fam := ElementsFamily(FamilyObj(A));
+      y   := MakeUniformOnRight(x);
+      n   := Length(y); 
+
+      longer_list := [];
+      for i in [1..n] do
+         extending_arrows := OutgoingArrowsOfVertex(TargetOfPath(TipMonomial(y[i]))); 
+         for a in extending_arrows do
+            if not IsZero(y[i]*a) then  
+               Add(longer_list,y[i]*a);
+            fi;
+         od;      
+      od; 
+
+      return longer_list;
+   fi;
+end
+);
+
+InstallMethod( nthPowerOfArrowIdeal, 
+   "for a path algebra",
+   [ IsPathAlgebra, IS_INT ], 0,
+   function( A, n ) 
+
+   local num_vert, num_arrows, list, i;
+
+   num_vert   := OrderOfQuiver(QuiverOfPathAlgebra(A));
+   num_arrows := SizeOfQuiver(QuiverOfPathAlgebra(A));
+   list := GeneratorsOfAlgebra(A){[1+num_vert..num_arrows+num_vert]};
+   for i in [1..n-1] do 
+      list := GeneratorsTimesArrowsOnRight(list);
+   od;
+
+   return list;
+end
+);
+
+InstallMethod( TruncatedPathAlgebra, 
+   "for a path algebra",
+   [ IsField, IsQuiver, IS_INT ], 0,
+   function( K, Q, n ) 
+
+   local KQ, rels, I, gb, gbb; 
+
+   KQ   := PathAlgebra(K,Q);
+   rels := nthPowerOfArrowIdeal(KQ,n);
+   I    := Ideal(KQ,rels);
+   gb   := GBNPGroebnerBasis(rels,KQ);
+   gbb  := GroebnerBasis(I,gb);
+
+   return KQ/I;
+end
+);
+
+InstallMethod( AddNthPowerToRelations, 
+   "for a set of relations in a path algebra",
+   [ IsPathAlgebra, IsHomogeneousList, IS_INT ], 0, 
+   function ( pa, rels, n );
+   
+   Append(rels,nthPowerOfArrowIdeal(pa,n));   
+
+   return rels; 
+
+end
+);
