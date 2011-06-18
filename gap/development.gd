@@ -11,6 +11,7 @@ DeclareOperation( "IsSimpleModule", [IsPathAlgebraMatModule ] );
 DeclareOperation( "IsSemisimpleModule", [IsPathAlgebraMatModule ] );
 DeclareOperation( "1st_Syzygy", [IsPathAlgebraMatModule ] );
 DeclareOperation( "nth_Syzygy", [IsPathAlgebraMatModule, IS_INT ] );
+DeclareOperation( "nth_SyzygyNC", [IsPathAlgebraMatModule, IS_INT ] );
 DeclareOperation( "TipMonomialandCoefficientOfVector", [ IsAlgebra, IsCollection ] );
 DeclareOperation( "TipReduceVectors", [ IsAlgebra, IsCollection ] );
 DeclareOperation( "CoefficientsOfVectors", [ IsAlgebra, IsCollection, IsList ] );

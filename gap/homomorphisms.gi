@@ -1,5 +1,5 @@
 # GAP Implementation
-# $Id: homomorphisms.gi,v 1.12 2011/05/31 06:23:13 sunnyquiver Exp $
+# $Id: homomorphisms.gi,v 1.13 2011/06/18 11:49:45 sunnyquiver Exp $
 
 InstallMethod( ImageElm, 
     "for a map between representations and an element in a representation.",
@@ -227,6 +227,32 @@ InstallMethod ( ZeroMap,
 end
 );
 
+InstallMethod ( IdentityMap, 
+  "for a PathAlgebraMatModule",
+  true,
+  [ IsPathAlgebraMatModule ],
+  0,
+  function( M )
+      local K, dim_M, i, mats;
+#
+# Representing the identity map from M to M with identity matrices 
+# of the right size, including if dim_M[i] = 0, then the identity 
+# is represented by a one-by-one identity matrix.
+#
+     K     := LeftActingDomain(M);
+     dim_M := DimensionVector(M);
+     mats  := [];
+     for i in [1..Length(dim_M)] do
+        if dim_M[i] = 0 then
+           Add(mats,IdentityMat(1,K));
+        else
+           Add(mats,IdentityMat(dim_M[i],K));
+        fi;
+     od;
+  
+     return RightModuleHomOverPathAlgebra(M,M,mats);
+end
+);
 
 InstallMethod ( \=, 
   "for a PathAlgebraMatModuleMap",
@@ -445,7 +471,7 @@ InstallMethod( RadicalOfRepInclusion,
   [ IsPathAlgebraMatModule ], 0,
   function( M )
 
-  local A, q, num_vert, arrows_as_path, basis_M, generators, a, b; 
+  local A, q, num_vert, arrows_as_path, basis_M, generators, a, b, run_time; 
 
     A := RightActingAlgebra(M);
     q := QuiverOfPathAlgebra(A);
@@ -453,9 +479,14 @@ InstallMethod( RadicalOfRepInclusion,
 #
 # Note arrows_as_path will change if A is a quotient of a path algebra !!!!
 #
+    run_time := Runtime(); 
     arrows_as_path := List(ArrowsOfQuiver(q), x -> x*One(A));
+#    Print("Finding arrows as elements in A: ",Runtime()-run_time,"\n");
+    run_time := Runtime(); 
 #    arrows_as_path  := GeneratorsOfAlgebra(A){[1+num_vert..num_vert+Length(ArrowsOfQuiver(q))]};
     basis_M := Basis(M);
+#    Print("Finding a basis of M: ",Runtime()-run_time,"\n");
+    run_time := Runtime(); 
     generators := [];
     for a in arrows_as_path do
        for b in basis_M do 
@@ -464,7 +495,7 @@ InstallMethod( RadicalOfRepInclusion,
           fi;
        od;
     od;
-    
+#    Print("Finding generators for submodule: ",Runtime()-run_time,"\n");
     return SubRepInclusion(M,generators);
 end
 );
@@ -956,11 +987,15 @@ InstallMethod( TopOfRepProjection,
   [ IsPathAlgebraMatModule ], 0,
   function( M )
 
-  local map; 
+  local map, map2, run_time; 
 
+  run_time := Runtime();
   map := RadicalOfRepInclusion(M);
-
-  return CokerProjection(map);
+#  Print("Finding RadicalOfRepInclusion: ",Runtime()-run_time,"\n");
+  run_time := Runtime();
+  map2 := CokerProjection(map);
+#  Print("Finding CokerProjection: ",Runtime()-run_time,"\n");
+  return map2;
 end
 );
 
@@ -974,22 +1009,30 @@ InstallMethod( TopOfRep,
 end
 );
 
+
 InstallMethod( GeneratorsOfRep, 
   "for a path algebra module",
   true,
   [ IsPathAlgebraMatModule ], 0,
   function( M )
 
-  local generators, map, B, i; 
+  local generators, map, B, i, run_time; 
 
   generators := [];
   if Dimension(M) <> 0 then 
+     run_time := Runtime();
      map := TopOfRepProjection(M);
+#     Print("Finding map from module to its top: ",Runtime()-run_time,"\n");
+     run_time := Runtime(); 
      B := Basis(Range(map));
+#     Print("Finding basis of the top: ",Runtime()-run_time,"\n");
+     run_time := Runtime(); 
      generators := [];
      for i in [1..Length(B)] do
         Add(generators,PreImagesElm(map,B[i]));
      od;
+#     Print("Finding preimages: ",Runtime()-run_time,"\n");
+     run_time := Runtime(); 
   fi;
   
   return generators;
@@ -1395,6 +1438,102 @@ InstallMethod ( SocleOfPathAlgebraMatModule,
     function( M );
 
     return Source(DualOfPathAlgebraMatModuleMap(TopOfRepProjection(DualOfPathAlgebraMatModule(M))));    
+end
+);
+
+InstallMethod( ModuleIsomorphismTest, 
+   "for two path algebra matmodules",
+   [ IsPathAlgebraMatModule, IsPathAlgebraMatModule  ], 0,
+   function( M, N ) 
+
+   local K, HomMN, HomNM, MM, i, j, HomMM, V_M;
+
+   if RightActingAlgebra(M) <> RightActingAlgebra(N) then 
+      return fail;
+   else
+      if DimensionVector(M) <> DimensionVector(N) then 
+         return false;
+      else
+#
+# Computing Hom(M,N) and Hom(N,M), finding the subspace in Hom(M,M)
+# spanned by Hom(M,N)*Hom(M,N), if they have the same dimension, the 
+# modules are isomorphic as they have the same dimension vector.
+#
+         K := LeftActingDomain(M);
+         HomMN := HomOverPathAlgebra(M,N);
+         HomNM := HomOverPathAlgebra(N,M);
+         MM := [];
+         for i in [1..Length(HomMN)] do
+            for j in [1..Length(HomNM)] do
+               Add(MM,HomMN[i]*HomNM[j]);
+            od;
+         od;
+         MM := List(MM,x->x!.maps);
+         for i in [1..Length(MM)] do
+            MM[i] := List(MM[i],x->Flat(x)); 
+            MM[i] := Flat(MM[i]);
+         od;
+         HomMM:=HomOverPathAlgebra(M,M);
+         if Length(MM) = 0 then 
+            V_M := TrivialSubspace(K);
+         else 
+            V_M := VectorSpace(K,MM);
+         fi; 
+         if Dimension(V_M) = Length(HomOverPathAlgebra(M,M)) then
+            return true;
+         else
+            return false;
+         fi;
+      fi;
+   fi; 
+end
+);
+
+InstallMethod( DirectSummandTest, 
+   "for two path algebra matmodules",
+   [ IsPathAlgebraMatModule, IsPathAlgebraMatModule  ], 0,
+   function( M, N ) 
+
+   local K, HomMN, HomNM, MM, i, j, HomMM, V_M;
+
+   if RightActingAlgebra(M) <> RightActingAlgebra(N) then 
+      return fail;
+   else
+      if not DimensionVectorPartialOrder(M,N) then 
+         return false;
+      else
+#
+# Computing Hom(M,N) and Hom(N,M), finding the subspace in Hom(M,M)
+# spanned by Hom(M,N)*Hom(M,N), if they have the same dimension, the 
+# module M is isomorphic to a direct summand of N. 
+#
+         K := LeftActingDomain(M);
+         HomMN := HomOverPathAlgebra(M,N);
+         HomNM := HomOverPathAlgebra(N,M);
+         MM := [];
+         for i in [1..Length(HomMN)] do
+            for j in [1..Length(HomNM)] do
+               Add(MM,HomMN[i]*HomNM[j]);
+            od;
+         od;
+         MM := List(MM,x->x!.maps);
+         for i in [1..Length(MM)] do
+            MM[i] := List(MM[i],x->Flat(x)); 
+            MM[i] := Flat(MM[i]);
+         od;
+         HomMM:=HomOverPathAlgebra(M,M);
+         if Length(MM) = 0 then 
+            V_M := TrivialSubspace(K);
+         else 
+            V_M := VectorSpace(K,MM);
+         fi;
+         if Dimension(V_M) = Length(HomOverPathAlgebra(M,M)) then
+            return true;
+         else
+            return false;
+         fi;
+      fi;
+   fi; 
 end
 );
 
