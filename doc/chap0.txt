@@ -6,7 +6,7 @@
                            [1XQuivers and Path Algebras[0m
   
   
-                              Version version 1.5
+                              Version version 1.4
   
   
                                  September 2010
@@ -195,25 +195,31 @@
     6.4 Operations on representations
       6.4-1 DimensionVector
       6.4-2 DimensionMatModule
-      6.4-3 DirectSumOfPathAlgebraMatModules
-      6.4-4 IsDirectSum
-      6.4-5 DirectSumInclusions
-      6.4-6 DirectSumProjections
-      6.4-7 1st_Syzygy
-      6.4-8 nth_Syzygy
-      6.4-9 IsInjectiveModule
-      6.4-10 IsProjectiveModule
-      6.4-11 IsSemisimpleModule
-      6.4-12 IsSimpleModule
-      6.4-13 LoewyLength
-      6.4-14 RadicalOfRep
-      6.4-15 RadicalSeries
-      6.4-16 SocleSeries
-      6.4-17 SocleOfPathAlgebraMatModule
-      6.4-18 SubRep
-      6.4-19 TopOfRep
-      6.4-20 GeneratorsOfRep
-      6.4-21 MatricesOfPathAlgebraMatModule
+      6.4-3 DirectSummandTest
+      6.4-4 DirectSumOfPathAlgebraMatModules
+      6.4-5 IsDirectSum
+      6.4-6 DirectSumInclusions
+      6.4-7 DirectSumProjections
+      6.4-8 1st_Syzygy
+      6.4-9 nth_Syzygy
+      6.4-10 nth_SyzygyNC
+      6.4-11 IsOmegaPeriodic
+      6.4-12 IsInjectiveModule
+      6.4-13 IsOmegaPeriodicTest
+      6.4-14 IsProjectiveModule
+      6.4-15 IsSemisimpleModule
+      6.4-16 IsSimpleModule
+      6.4-17 LoewyLength
+      6.4-18 ModuleIsomorphismTest
+      6.4-19 RadicalOfRep
+      6.4-20 RadicalSeries
+      6.4-21 SocleSeries
+      6.4-22 SocleOfPathAlgebraMatModule
+      6.4-23 SubRep
+      6.4-24 TopOfRep
+      6.4-25 GeneratorsOfRep
+      6.4-26 MinimalSetOfGenerators
+      6.4-27 MatricesOfPathAlgebraMatModule
     6.5 Special representations
       6.5-1 IndecomposableProjectiveRepresentations
       6.5-2 IndecomposableInjectiveRepresentations
@@ -240,16 +246,17 @@
       7.2-5 ImagesSet
       7.2-6 Zero
       7.2-7 ZeroMap
-      7.2-8 \= (maps)
-      7.2-9 \+ (maps)
-      7.2-10 \* (maps)
-      7.2-11 IsOneToOne
-      7.2-12 IsOnto
-      7.2-13 IsIsom
-      7.2-14 IsZeroMap
-      7.2-15 KernelOfWhat
-      7.2-16 ImageOfWhat
-      7.2-17 CoKernelOfWhat
+      7.2-8 IdentityMap
+      7.2-9 \= (maps)
+      7.2-10 \+ (maps)
+      7.2-11 \* (maps)
+      7.2-12 IsOneToOne
+      7.2-13 IsOnto
+      7.2-14 IsIsom
+      7.2-15 IsZeroMap
+      7.2-16 KernelOfWhat
+      7.2-17 ImageOfWhat
+      7.2-18 CoKernelOfWhat
     7.3 Homomorphisms and modules constructed from homomorphisms and modules
       7.3-1 Coker
       7.3-2 EndOverPathAlgebra

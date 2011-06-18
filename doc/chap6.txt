@@ -176,7 +176,16 @@
   [6XReturns:[0X  the  dimension  of  the representation [3XM[0m. The argument [3XM[0m must be a
             [10XPathAlgebraMatModule[0m.
   
-  [1X6.4-3 DirectSumOfPathAlgebraMatModules[0m
+  [1X6.4-3 DirectSummandTest[0m
+  
+  [2X> DirectSummandTest( [0X[3XM, N[0X[2X ) _______________________________________[0Xoperation
+  [6XReturns:[0X  true  if [3XM[0m is isomorphic to a direct summand of [3XN[0m, otherwise false
+            (or fail).
+  
+  The  function  checks  if  [3XM[0m  and  [3XN[0m are [10XPathAlgebraMatModule[0ms over the same
+  (quotient of a) path algebra.
+  
+  [1X6.4-4 DirectSumOfPathAlgebraMatModules[0m
   
   [2X> DirectSumOfPathAlgebraMatModules( [0X[3XL[0X[2X ) ___________________________[0Xoperation
   [6XReturns:[0X  the direct sum of the representations contained in the list [3XL[0m.
@@ -185,14 +194,14 @@
   (quotient  of  a) path algebra. In addition three attributes are attached to
   the result, [10XIsDirectSum, DirectSumProjections[0m and [10XDirectSumInclusions[0m.
   
-  [1X6.4-4 IsDirectSum[0m
+  [1X6.4-5 IsDirectSum[0m
   
   [2X> IsDirectSum( [0X[3XM[0X[2X ) ________________________________________________[0Xattribute
   
   An   attribute,   returns   true   is  [3XM[0m  is  constructed  via  the  command
   [10XDirectSumOfPathAlgebraMatModules[0m.
   
-  [1X6.4-5 DirectSumInclusions[0m
+  [1X6.4-6 DirectSumInclusions[0m
   
   [2X> DirectSumInclusions( [0X[3XM[0X[2X ) ________________________________________[0Xattribute
   
@@ -200,7 +209,7 @@
   their   direct   sum,   when   a  direct  sum  has  been  constructed  using
   [10XDirectSumOfPathAlgebraMatModules[0m.
   
-  [1X6.4-6 DirectSumProjections[0m
+  [1X6.4-7 DirectSumProjections[0m
   
   [2X> DirectSumProjections( [0X[3XM[0X[2X ) _______________________________________[0Xattribute
   
@@ -208,13 +217,13 @@
   individual  modules used to construct direct sum, when a direct sum has been
   constructed using [10XDirectSumOfPathAlgebraMatModules[0m.
   
-  [1X6.4-7 1st_Syzygy[0m
+  [1X6.4-8 1st_Syzygy[0m
   
   [2X> 1st_Syzygy( [0X[3XM[0X[2X ) _________________________________________________[0Xoperation
   [6XReturns:[0X  the  first syzygy of the representation [3XM[0m as a representation. The
             argument [3XM[0m must be a [10XPathAlgebraMatModule[0m.
   
-  [1X6.4-8 nth_Syzygy[0m
+  [1X6.4-9 nth_Syzygy[0m
   
   [2X> nth_Syzygy( [0X[3XM, n[0X[2X ) ______________________________________________[0Xoperation
   [6XReturns:[0X  the  top  of the syzygies until a syzygy is projective or the [3Xn[0m-th
@@ -222,31 +231,55 @@
             [10XPathAlgebraMatModule[0m,  and  the  argument  [3Xn[0m  must  be  a positive
             integer.
   
-  [1X6.4-9 IsInjectiveModule[0m
+  [1X6.4-10 nth_SyzygyNC[0m
+  
+  [2X> nth_SyzygyNC( [0X[3XM, n[0X[2X ) ____________________________________________[0Xoperation
+  [6XReturns:[0X  the  [10Xn[0m-th  syzygy of the module [3XM[0m, unless the projective dimension
+            of  [3XM[0m  is  less  or  equal  to  [10Xn-1[0m,  in which case it returns the
+            projective dimension of [3XM[0m. It does not check if the [10Xn[0m-th syzygy is
+            projective  or not. The argument [3XM[0m must be a [10XPathAlgebraMatModule[0m,
+            and the argument [3Xn[0m must be a positive integer.
+  
+  [1X6.4-11 IsOmegaPeriodic[0m
+  
+  [2X> IsOmegaPeriodic( [0X[3XM, n[0X[2X ) _________________________________________[0Xoperation
+  [6XReturns:[0X  [10Xi[0m,  where  [10Xi[0m is the smallest positive integer less or equal [10Xn[0m such
+            that  the  representation [3XM[0m is isomorphic to the [10Xi[0m-th syzygy of [3XM[0m,
+            and    false    otherwise.    The    argument    [3XM[0m   must   be   a
+            [10XPathAlgebraMatModule[0m, and [3Xn[0m must be a positive integer.
+  
+  [1X6.4-12 IsInjectiveModule[0m
   
   [2X> IsInjectiveModule( [0X[3XM[0X[2X ) __________________________________________[0Xoperation
   [6XReturns:[0X  true  if the representation [3XM[0m is injective. The argument [3XM[0m must be
             a [10XPathAlgebraMatModule[0m.
   
-  [1X6.4-10 IsProjectiveModule[0m
+  [1X6.4-13 IsOmegaPeriodicTest[0m
+  
+  [2X> IsOmegaPeriodicTest( [0X[3XM, n[0X[2X ) _____________________________________[0Xoperation
+  [6XReturns:[0X  [10Xi[0m,  where  [10Xi[0m  less  or  equal  to  [10Xn[0m  and  the representation [3XM[0m is
+            isomorphic  to the [10Xi[0m-th syzygy of [3XM[0m, or else false. The argument [3XM[0m
+            must be a [10XPathAlgebraMatModule[0m and [10Xn[0m is a positive integer.
+  
+  [1X6.4-14 IsProjectiveModule[0m
   
   [2X> IsProjectiveModule( [0X[3XM[0X[2X ) _________________________________________[0Xoperation
   [6XReturns:[0X  true if the representation [3XM[0m is projective. The argument [3XM[0m must be
             a [10XPathAlgebraMatModule[0m.
   
-  [1X6.4-11 IsSemisimpleModule[0m
+  [1X6.4-15 IsSemisimpleModule[0m
   
   [2X> IsSemisimpleModule( [0X[3XM[0X[2X ) _________________________________________[0Xoperation
   [6XReturns:[0X  true if the representation [3XM[0m is semisimple. The argument [3XM[0m must be
             a [10XPathAlgebraMatModule[0m.
   
-  [1X6.4-12 IsSimpleModule[0m
+  [1X6.4-16 IsSimpleModule[0m
   
   [2X> IsSimpleModule( [0X[3XM[0X[2X ) _____________________________________________[0Xoperation
   [6XReturns:[0X  true  if  the representation [3XM[0m is simple. The argument [3XM[0m must be a
             [10XPathAlgebraMatModule[0m.
   
-  [1X6.4-13 LoewyLength[0m
+  [1X6.4-17 LoewyLength[0m
   
   [2X> LoewyLength( [0X[3XM[0X[2X ) ________________________________________________[0Xoperation
   [6XReturns:[0X  the Loewy length of the module [3XM[0m.
@@ -255,7 +288,16 @@
   quotient  of  a  path  algebra,  and  returns  fail  otherwise  (This is not
   implemented yet).
   
-  [1X6.4-14 RadicalOfRep[0m
+  [1X6.4-18 ModuleIsomorphismTest[0m
+  
+  [2X> ModuleIsomorphismTest( [0X[3XM, N[0X[2X ) ___________________________________[0Xoperation
+  [6XReturns:[0X  true or false depending on whether [3XM[0m and [3XN[0m are isomorphic or not.
+  
+  The  function  first checks if the modules [3XM[0m and [3XN[0m are modules over the same
+  algebra,  and  returns fail if not. The function returns returns true if the
+  modules are isomorphic, otherwise false.
+  
+  [1X6.4-19 RadicalOfRep[0m
   
   [2X> RadicalOfRep( [0X[3XM[0X[2X ) _______________________________________________[0Xoperation
   [6XReturns:[0X  the radical of the module [3XM[0m.
@@ -264,7 +306,7 @@
   The  operation  [2XRadicalOfRepInclusion[0m  ([14X7.3-8[0m) computes the inclusion of the
   radical of [3XM[0m into [3XM[0m.
   
-  [1X6.4-15 RadicalSeries[0m
+  [1X6.4-20 RadicalSeries[0m
   
   [2X> RadicalSeries( [0X[3XM[0X[2X ) ______________________________________________[0Xoperation
   [6XReturns:[0X  the radical series of the module [3XM[0m.
@@ -274,7 +316,7 @@
   numbers  give  the  multiplicity  of  each  simple.  The first vector listed
   corresponds to the top layer, and so on.
   
-  [1X6.4-16 SocleSeries[0m
+  [1X6.4-21 SocleSeries[0m
   
   [2X> SocleSeries( [0X[3XM[0X[2X ) ________________________________________________[0Xoperation
   [6XReturns:[0X  the socle series of the module [3XM[0m.
@@ -284,7 +326,7 @@
   numbers  give  the  multiplicity  of  each  simple.  The  last vector listed
   corresponds to the socle layer, and so on backwards.
   
-  [1X6.4-17 SocleOfPathAlgebraMatModule[0m
+  [1X6.4-22 SocleOfPathAlgebraMatModule[0m
   
   [2X> SocleOfPathAlgebraMatModule( [0X[3XM[0X[2X ) ________________________________[0Xoperation
   [6XReturns:[0X  the socle of the module [3XM[0m.
@@ -293,7 +335,7 @@
   module  [3XM[0m.  The  inclusion  the  socle  of  [3XM[0m  into  [3XM[0m can be computed using
   [2XSocleOfPathAlgebraMatModuleInclusion[0m ([14X7.3-9[0m).
   
-  [1X6.4-18 SubRep[0m
+  [1X6.4-23 SubRep[0m
   
   [2X> SubRep( [0X[3XM, gens[0X[2X ) _______________________________________________[0Xoperation
   [6XReturns:[0X  the submodule of the module [3XM[0m generated by the elements [3Xgens[0m.
@@ -302,7 +344,7 @@
   otherwise.  The  inclusion  of  the submodule generated by the elements [3Xgens[0m
   into [3XM[0m can be computed using [2XSubRepInclusion[0m ([14X7.3-10[0m).
   
-  [1X6.4-19 TopOfRep[0m
+  [1X6.4-24 TopOfRep[0m
   
   [2X> TopOfRep( [0X[3XM[0X[2X ) ___________________________________________________[0Xoperation
   [6XReturns:[0X  the top of the module [3XM[0m.
@@ -311,13 +353,19 @@
   operation  [2XTopOfRepProjection[0m ([14X7.3-11[0m) computes the projection of the module
   [3XM[0m onto the top of the module [3XM[0m.
   
-  [1X6.4-20 GeneratorsOfRep[0m
+  [1X6.4-25 GeneratorsOfRep[0m
   
   [2X> GeneratorsOfRep( [0X[3XM[0X[2X ) ____________________________________________[0Xoperation
   [6XReturns:[0X  a  minimal  generator  set of the module [3XM[0m as a module of the path
             algebra it is defined over.
   
-  [1X6.4-21 MatricesOfPathAlgebraMatModule[0m
+  [1X6.4-26 MinimalSetOfGenerators[0m
+  
+  [2X> MinimalSetOfGenerators( [0X[3XM[0X[2X ) _____________________________________[0Xattribute
+  [6XReturns:[0X  a  minimal  generator  set of the module [3XM[0m as a module of the path
+            algebra it is defined over.
+  
+  [1X6.4-27 MatricesOfPathAlgebraMatModule[0m
   
   [2X> MatricesOfPathAlgebraMatModule( [0X[3XM[0X[2X ) _____________________________[0Xoperation
   [6XReturns:[0X  a  list  of  the  matrices  that defines the representation [3XM[0m as a

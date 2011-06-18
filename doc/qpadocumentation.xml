@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- $Id: qpadocumentation.xml,v 1.12 2011/06/13 09:57:20 sunnyquiver Exp $ -->
+<!-- $Id: qpadocumentation.xml,v 1.13 2011/06/18 12:27:45 sunnyquiver Exp $ -->
 
 <!DOCTYPE Book SYSTEM "gapdoc.dtd"
  [ <!ENTITY see '<Alt Only="LaTeX">$\to$</Alt><Alt Not="LaTeX">--&gt;</Alt>'>
@@ -1917,6 +1917,17 @@ gap&gt; B[4]^(P.b*P.c);
 </ManSection>
 
 <ManSection>
+   <Oper Name="DirectSummandTest" Arg="M, N" Comm="for two
+   PathAlgebraMatModule's"/>
+   <Returns>true if <Arg>M</Arg> is isomorphic to a direct summand
+     of <Arg>N</Arg>, otherwise false (or fail).</Returns>
+   <Description>The function checks if <Arg>M</Arg> and <Arg>N</Arg>
+     are <C>PathAlgebraMatModule</C>s over the same (quotient of a)
+     path algebra. 
+   </Description>
+</ManSection>
+
+<ManSection>
    <Oper Name="DirectSumOfPathAlgebraMatModules" Arg="L" Comm="for a
    list of PathAlgebraMatModule's"/>
    <Returns>the direct sum of the representations contained in the
@@ -1976,6 +1987,19 @@ gap&gt; B[4]^(P.b*P.c);
 </ManSection>
 
 <ManSection>
+   <Oper Name="nth_SyzygyNC" Arg="M, n" Comm="for a
+   PathAlgebraMatModule"/>
+   <Returns>the <C>n</C>-th syzygy of the module <Arg>M</Arg>, unless
+   the projective dimension of <Arg>M</Arg> is less or equal
+   to <C>n-1</C>, in which case it returns the projective dimension of 
+   <Arg>M</Arg>. It does not check if the <C>n</C>-th syzygy is
+   projective or not. The argument <Arg>M</Arg> must be
+   a <C>PathAlgebraMatModule</C>, and the argument <Arg>n</Arg> must
+   be a positive integer.
+   </Returns>
+</ManSection>
+
+<ManSection>
    <Oper Name="IsOmegaPeriodic" Arg="M, n" Comm="for a
    PathAlgebraMatModule and a positive integer"/>
    <Returns><C>i</C>, where <C>i</C> is the smallest positive integer
@@ -1991,6 +2015,17 @@ gap&gt; B[4]^(P.b*P.c);
    PathAlgebraMatModule"/>
    <Returns>true if the representation <Arg>M</Arg> is injective.
      The argument <Arg>M</Arg> must be a <C>PathAlgebraMatModule</C>.
+   </Returns>
+</ManSection>
+
+<ManSection>
+   <Oper Name="IsOmegaPeriodicTest" Arg="M, n" Comm="for a
+   PathAlgebraMatModule"/>
+   <Returns><C>i</C>, where <C>i</C> less or equal to <C>n</C> and the
+     representation <Arg>M</Arg> is isomorphic to the <C>i</C>-th
+     syzygy of <Arg>M</Arg>, or else false.  The argument <Arg>M</Arg>
+     must be a <C>PathAlgebraMatModule</C> and <C>n</C> is a positive
+     integer.
    </Returns>
 </ManSection>
 
@@ -2115,6 +2150,12 @@ gap&gt; B[4]^(P.b*P.c);
    <Oper Name="GeneratorsOfRep" Arg="M" Comm=""/>
    <Returns>a minimal generator set of the module <Arg>M</Arg> as a
    module of the path algebra it is defined over.</Returns>
+</ManSection>
+
+<ManSection>
+   <Attr Name="MinimalSetOfGenerators" Arg="M" Comm=""/>
+   <Returns>a minimal generator set of the module <Arg>M</Arg> as a
+   module of the path algebra it is defined over. </Returns>
 </ManSection>
 
 <ManSection>
@@ -2476,6 +2517,11 @@ This chapter describes the categories, representations, attributes,
 <ManSection>
    <Oper Name="ZeroMap" Arg="M, N" Comm=""/>
    <Returns>the zero map between <Arg>M</Arg> and <Arg>N</Arg>.</Returns>
+</ManSection>
+
+<ManSection>
+   <Oper Name="IdentityMap" Arg="M" Comm=""/>
+   <Returns>the identity map between <Arg>M</Arg> and <Arg>M</Arg>.</Returns>
 </ManSection>
 
 <ManSection>

@@ -135,71 +135,78 @@
 \contentsline {section}{\numberline {6.4}\leavevmode {\color {Chapter }Operations on representations}}{39}{section.6.4}
 \contentsline {subsection}{\numberline {6.4.1}\leavevmode {\color {Chapter }DimensionVector}}{39}{subsection.6.4.1}
 \contentsline {subsection}{\numberline {6.4.2}\leavevmode {\color {Chapter }DimensionMatModule}}{39}{subsection.6.4.2}
-\contentsline {subsection}{\numberline {6.4.3}\leavevmode {\color {Chapter }DirectSumOfPathAlgebraMatModules}}{39}{subsection.6.4.3}
-\contentsline {subsection}{\numberline {6.4.4}\leavevmode {\color {Chapter }IsDirectSum}}{39}{subsection.6.4.4}
-\contentsline {subsection}{\numberline {6.4.5}\leavevmode {\color {Chapter }DirectSumInclusions}}{39}{subsection.6.4.5}
-\contentsline {subsection}{\numberline {6.4.6}\leavevmode {\color {Chapter }DirectSumProjections}}{39}{subsection.6.4.6}
-\contentsline {subsection}{\numberline {6.4.7}\leavevmode {\color {Chapter }1st{\textunderscore }Syzygy}}{40}{subsection.6.4.7}
-\contentsline {subsection}{\numberline {6.4.8}\leavevmode {\color {Chapter }nth{\textunderscore }Syzygy}}{40}{subsection.6.4.8}
-\contentsline {subsection}{\numberline {6.4.9}\leavevmode {\color {Chapter }IsInjectiveModule}}{40}{subsection.6.4.9}
-\contentsline {subsection}{\numberline {6.4.10}\leavevmode {\color {Chapter }IsProjectiveModule}}{40}{subsection.6.4.10}
-\contentsline {subsection}{\numberline {6.4.11}\leavevmode {\color {Chapter }IsSemisimpleModule}}{40}{subsection.6.4.11}
-\contentsline {subsection}{\numberline {6.4.12}\leavevmode {\color {Chapter }IsSimpleModule}}{40}{subsection.6.4.12}
-\contentsline {subsection}{\numberline {6.4.13}\leavevmode {\color {Chapter }LoewyLength}}{40}{subsection.6.4.13}
-\contentsline {subsection}{\numberline {6.4.14}\leavevmode {\color {Chapter }RadicalOfRep}}{40}{subsection.6.4.14}
-\contentsline {subsection}{\numberline {6.4.15}\leavevmode {\color {Chapter }RadicalSeries}}{41}{subsection.6.4.15}
-\contentsline {subsection}{\numberline {6.4.16}\leavevmode {\color {Chapter }SocleSeries}}{41}{subsection.6.4.16}
-\contentsline {subsection}{\numberline {6.4.17}\leavevmode {\color {Chapter }SocleOfPathAlgebraMatModule}}{41}{subsection.6.4.17}
-\contentsline {subsection}{\numberline {6.4.18}\leavevmode {\color {Chapter }SubRep}}{41}{subsection.6.4.18}
-\contentsline {subsection}{\numberline {6.4.19}\leavevmode {\color {Chapter }TopOfRep}}{41}{subsection.6.4.19}
-\contentsline {subsection}{\numberline {6.4.20}\leavevmode {\color {Chapter }GeneratorsOfRep}}{41}{subsection.6.4.20}
-\contentsline {subsection}{\numberline {6.4.21}\leavevmode {\color {Chapter }MatricesOfPathAlgebraMatModule}}{42}{subsection.6.4.21}
+\contentsline {subsection}{\numberline {6.4.3}\leavevmode {\color {Chapter }DirectSummandTest}}{39}{subsection.6.4.3}
+\contentsline {subsection}{\numberline {6.4.4}\leavevmode {\color {Chapter }DirectSumOfPathAlgebraMatModules}}{39}{subsection.6.4.4}
+\contentsline {subsection}{\numberline {6.4.5}\leavevmode {\color {Chapter }IsDirectSum}}{39}{subsection.6.4.5}
+\contentsline {subsection}{\numberline {6.4.6}\leavevmode {\color {Chapter }DirectSumInclusions}}{39}{subsection.6.4.6}
+\contentsline {subsection}{\numberline {6.4.7}\leavevmode {\color {Chapter }DirectSumProjections}}{39}{subsection.6.4.7}
+\contentsline {subsection}{\numberline {6.4.8}\leavevmode {\color {Chapter }1st{\textunderscore }Syzygy}}{40}{subsection.6.4.8}
+\contentsline {subsection}{\numberline {6.4.9}\leavevmode {\color {Chapter }nth{\textunderscore }Syzygy}}{40}{subsection.6.4.9}
+\contentsline {subsection}{\numberline {6.4.10}\leavevmode {\color {Chapter }nth{\textunderscore }SyzygyNC}}{40}{subsection.6.4.10}
+\contentsline {subsection}{\numberline {6.4.11}\leavevmode {\color {Chapter }IsOmegaPeriodic}}{40}{subsection.6.4.11}
+\contentsline {subsection}{\numberline {6.4.12}\leavevmode {\color {Chapter }IsInjectiveModule}}{40}{subsection.6.4.12}
+\contentsline {subsection}{\numberline {6.4.13}\leavevmode {\color {Chapter }IsOmegaPeriodicTest}}{40}{subsection.6.4.13}
+\contentsline {subsection}{\numberline {6.4.14}\leavevmode {\color {Chapter }IsProjectiveModule}}{40}{subsection.6.4.14}
+\contentsline {subsection}{\numberline {6.4.15}\leavevmode {\color {Chapter }IsSemisimpleModule}}{41}{subsection.6.4.15}
+\contentsline {subsection}{\numberline {6.4.16}\leavevmode {\color {Chapter }IsSimpleModule}}{41}{subsection.6.4.16}
+\contentsline {subsection}{\numberline {6.4.17}\leavevmode {\color {Chapter }LoewyLength}}{41}{subsection.6.4.17}
+\contentsline {subsection}{\numberline {6.4.18}\leavevmode {\color {Chapter }ModuleIsomorphismTest}}{41}{subsection.6.4.18}
+\contentsline {subsection}{\numberline {6.4.19}\leavevmode {\color {Chapter }RadicalOfRep}}{41}{subsection.6.4.19}
+\contentsline {subsection}{\numberline {6.4.20}\leavevmode {\color {Chapter }RadicalSeries}}{41}{subsection.6.4.20}
+\contentsline {subsection}{\numberline {6.4.21}\leavevmode {\color {Chapter }SocleSeries}}{41}{subsection.6.4.21}
+\contentsline {subsection}{\numberline {6.4.22}\leavevmode {\color {Chapter }SocleOfPathAlgebraMatModule}}{42}{subsection.6.4.22}
+\contentsline {subsection}{\numberline {6.4.23}\leavevmode {\color {Chapter }SubRep}}{42}{subsection.6.4.23}
+\contentsline {subsection}{\numberline {6.4.24}\leavevmode {\color {Chapter }TopOfRep}}{42}{subsection.6.4.24}
+\contentsline {subsection}{\numberline {6.4.25}\leavevmode {\color {Chapter }GeneratorsOfRep}}{42}{subsection.6.4.25}
+\contentsline {subsection}{\numberline {6.4.26}\leavevmode {\color {Chapter }MinimalSetOfGenerators}}{42}{subsection.6.4.26}
+\contentsline {subsection}{\numberline {6.4.27}\leavevmode {\color {Chapter }MatricesOfPathAlgebraMatModule}}{42}{subsection.6.4.27}
 \contentsline {section}{\numberline {6.5}\leavevmode {\color {Chapter }Special representations}}{42}{section.6.5}
-\contentsline {subsection}{\numberline {6.5.1}\leavevmode {\color {Chapter }IndecomposableProjectiveRepresentations}}{42}{subsection.6.5.1}
-\contentsline {subsection}{\numberline {6.5.2}\leavevmode {\color {Chapter }IndecomposableInjectiveRepresentations}}{42}{subsection.6.5.2}
-\contentsline {subsection}{\numberline {6.5.3}\leavevmode {\color {Chapter }VertexSimpleRepresentations}}{42}{subsection.6.5.3}
-\contentsline {subsection}{\numberline {6.5.4}\leavevmode {\color {Chapter }ZeroRepresentation}}{42}{subsection.6.5.4}
+\contentsline {subsection}{\numberline {6.5.1}\leavevmode {\color {Chapter }IndecomposableProjectiveRepresentations}}{43}{subsection.6.5.1}
+\contentsline {subsection}{\numberline {6.5.2}\leavevmode {\color {Chapter }IndecomposableInjectiveRepresentations}}{43}{subsection.6.5.2}
+\contentsline {subsection}{\numberline {6.5.3}\leavevmode {\color {Chapter }VertexSimpleRepresentations}}{43}{subsection.6.5.3}
+\contentsline {subsection}{\numberline {6.5.4}\leavevmode {\color {Chapter }ZeroRepresentation}}{43}{subsection.6.5.4}
 \contentsline {section}{\numberline {6.6}\leavevmode {\color {Chapter }Functors on representations}}{43}{section.6.6}
 \contentsline {subsection}{\numberline {6.6.1}\leavevmode {\color {Chapter }DualOfPathAlgebraMatModule}}{43}{subsection.6.6.1}
 \contentsline {subsection}{\numberline {6.6.2}\leavevmode {\color {Chapter }DualOfPathAlgebraMatModuleMap}}{43}{subsection.6.6.2}
-\contentsline {section}{\numberline {6.7}\leavevmode {\color {Chapter }Vertex Projective Presentations}}{43}{section.6.7}
-\contentsline {subsection}{\numberline {6.7.1}\leavevmode {\color {Chapter }RightProjectiveModule}}{43}{subsection.6.7.1}
+\contentsline {section}{\numberline {6.7}\leavevmode {\color {Chapter }Vertex Projective Presentations}}{44}{section.6.7}
+\contentsline {subsection}{\numberline {6.7.1}\leavevmode {\color {Chapter }RightProjectiveModule}}{44}{subsection.6.7.1}
 \contentsline {subsection}{\numberline {6.7.2}\leavevmode {\color {Chapter }Vectorize}}{44}{subsection.6.7.2}
-\contentsline {subsection}{\numberline {6.7.3}\leavevmode {\color {Chapter }\texttt {\char 94\relax }}}{44}{subsection.6.7.3}
-\contentsline {subsection}{\numberline {6.7.4}\leavevmode {\color {Chapter }{\textless }}}{44}{subsection.6.7.4}
-\contentsline {subsection}{\numberline {6.7.5}\leavevmode {\color {Chapter }/}}{44}{subsection.6.7.5}
-\contentsline {chapter}{\numberline {7}\leavevmode {\color {Chapter }Homomorphisms of Right Modules over Path Algebras}}{46}{chapter.7}
-\contentsline {section}{\numberline {7.1}\leavevmode {\color {Chapter }Categories and representation of homomorphisms}}{46}{section.7.1}
-\contentsline {subsection}{\numberline {7.1.1}\leavevmode {\color {Chapter }IsPathAlgebraMatModuleMap}}{46}{subsection.7.1.1}
-\contentsline {subsection}{\numberline {7.1.2}\leavevmode {\color {Chapter }RightModuleHomOverPathAlgebra}}{46}{subsection.7.1.2}
-\contentsline {section}{\numberline {7.2}\leavevmode {\color {Chapter }Generalities of homomorphisms}}{46}{section.7.2}
-\contentsline {subsection}{\numberline {7.2.1}\leavevmode {\color {Chapter }Range}}{46}{subsection.7.2.1}
-\contentsline {subsection}{\numberline {7.2.2}\leavevmode {\color {Chapter }Source}}{47}{subsection.7.2.2}
-\contentsline {subsection}{\numberline {7.2.3}\leavevmode {\color {Chapter }PreImageElm}}{47}{subsection.7.2.3}
-\contentsline {subsection}{\numberline {7.2.4}\leavevmode {\color {Chapter }ImageElm}}{47}{subsection.7.2.4}
-\contentsline {subsection}{\numberline {7.2.5}\leavevmode {\color {Chapter }ImagesSet}}{47}{subsection.7.2.5}
-\contentsline {subsection}{\numberline {7.2.6}\leavevmode {\color {Chapter }Zero}}{47}{subsection.7.2.6}
-\contentsline {subsection}{\numberline {7.2.7}\leavevmode {\color {Chapter }ZeroMap}}{47}{subsection.7.2.7}
-\contentsline {subsection}{\numberline {7.2.8}\leavevmode {\color {Chapter }\texttt {\char 92\relax }= (maps)}}{47}{subsection.7.2.8}
-\contentsline {subsection}{\numberline {7.2.9}\leavevmode {\color {Chapter }\texttt {\char 92\relax }+ (maps)}}{47}{subsection.7.2.9}
-\contentsline {subsection}{\numberline {7.2.10}\leavevmode {\color {Chapter }\texttt {\char 92\relax }* (maps)}}{48}{subsection.7.2.10}
-\contentsline {subsection}{\numberline {7.2.11}\leavevmode {\color {Chapter }IsOneToOne}}{48}{subsection.7.2.11}
-\contentsline {subsection}{\numberline {7.2.12}\leavevmode {\color {Chapter }IsOnto}}{48}{subsection.7.2.12}
-\contentsline {subsection}{\numberline {7.2.13}\leavevmode {\color {Chapter }IsIsom}}{48}{subsection.7.2.13}
-\contentsline {subsection}{\numberline {7.2.14}\leavevmode {\color {Chapter }IsZeroMap}}{48}{subsection.7.2.14}
-\contentsline {subsection}{\numberline {7.2.15}\leavevmode {\color {Chapter }KernelOfWhat}}{48}{subsection.7.2.15}
-\contentsline {subsection}{\numberline {7.2.16}\leavevmode {\color {Chapter }ImageOfWhat}}{48}{subsection.7.2.16}
-\contentsline {subsection}{\numberline {7.2.17}\leavevmode {\color {Chapter }CoKernelOfWhat}}{49}{subsection.7.2.17}
-\contentsline {section}{\numberline {7.3}\leavevmode {\color {Chapter }Homomorphisms and modules constructed from homomorphisms and modules}}{49}{section.7.3}
-\contentsline {subsection}{\numberline {7.3.1}\leavevmode {\color {Chapter }Coker}}{49}{subsection.7.3.1}
-\contentsline {subsection}{\numberline {7.3.2}\leavevmode {\color {Chapter }EndOverPathAlgebra}}{49}{subsection.7.3.2}
-\contentsline {subsection}{\numberline {7.3.3}\leavevmode {\color {Chapter }HomOverPathAlgebra}}{49}{subsection.7.3.3}
-\contentsline {subsection}{\numberline {7.3.4}\leavevmode {\color {Chapter }Im}}{49}{subsection.7.3.4}
-\contentsline {subsection}{\numberline {7.3.5}\leavevmode {\color {Chapter }Ker}}{50}{subsection.7.3.5}
-\contentsline {subsection}{\numberline {7.3.6}\leavevmode {\color {Chapter }PullBack}}{50}{subsection.7.3.6}
-\contentsline {subsection}{\numberline {7.3.7}\leavevmode {\color {Chapter }PushOut}}{50}{subsection.7.3.7}
-\contentsline {subsection}{\numberline {7.3.8}\leavevmode {\color {Chapter }RadicalOfRepInclusion}}{50}{subsection.7.3.8}
-\contentsline {subsection}{\numberline {7.3.9}\leavevmode {\color {Chapter }SocleOfPathAlgebraMatModuleInclusion}}{50}{subsection.7.3.9}
-\contentsline {subsection}{\numberline {7.3.10}\leavevmode {\color {Chapter }SubRepInclusion}}{50}{subsection.7.3.10}
-\contentsline {subsection}{\numberline {7.3.11}\leavevmode {\color {Chapter }TopOfRepProjection}}{50}{subsection.7.3.11}
-\contentsline {chapter}{\numberline {A}\leavevmode {\color {Chapter }An Appendix}}{52}{appendix.A}
+\contentsline {subsection}{\numberline {6.7.3}\leavevmode {\color {Chapter }\texttt {\char 94\relax }}}{45}{subsection.6.7.3}
+\contentsline {subsection}{\numberline {6.7.4}\leavevmode {\color {Chapter }{\textless }}}{45}{subsection.6.7.4}
+\contentsline {subsection}{\numberline {6.7.5}\leavevmode {\color {Chapter }/}}{45}{subsection.6.7.5}
+\contentsline {chapter}{\numberline {7}\leavevmode {\color {Chapter }Homomorphisms of Right Modules over Path Algebras}}{47}{chapter.7}
+\contentsline {section}{\numberline {7.1}\leavevmode {\color {Chapter }Categories and representation of homomorphisms}}{47}{section.7.1}
+\contentsline {subsection}{\numberline {7.1.1}\leavevmode {\color {Chapter }IsPathAlgebraMatModuleMap}}{47}{subsection.7.1.1}
+\contentsline {subsection}{\numberline {7.1.2}\leavevmode {\color {Chapter }RightModuleHomOverPathAlgebra}}{47}{subsection.7.1.2}
+\contentsline {section}{\numberline {7.2}\leavevmode {\color {Chapter }Generalities of homomorphisms}}{47}{section.7.2}
+\contentsline {subsection}{\numberline {7.2.1}\leavevmode {\color {Chapter }Range}}{47}{subsection.7.2.1}
+\contentsline {subsection}{\numberline {7.2.2}\leavevmode {\color {Chapter }Source}}{48}{subsection.7.2.2}
+\contentsline {subsection}{\numberline {7.2.3}\leavevmode {\color {Chapter }PreImageElm}}{48}{subsection.7.2.3}
+\contentsline {subsection}{\numberline {7.2.4}\leavevmode {\color {Chapter }ImageElm}}{48}{subsection.7.2.4}
+\contentsline {subsection}{\numberline {7.2.5}\leavevmode {\color {Chapter }ImagesSet}}{48}{subsection.7.2.5}
+\contentsline {subsection}{\numberline {7.2.6}\leavevmode {\color {Chapter }Zero}}{48}{subsection.7.2.6}
+\contentsline {subsection}{\numberline {7.2.7}\leavevmode {\color {Chapter }ZeroMap}}{48}{subsection.7.2.7}
+\contentsline {subsection}{\numberline {7.2.8}\leavevmode {\color {Chapter }IdentityMap}}{48}{subsection.7.2.8}
+\contentsline {subsection}{\numberline {7.2.9}\leavevmode {\color {Chapter }\texttt {\char 92\relax }= (maps)}}{48}{subsection.7.2.9}
+\contentsline {subsection}{\numberline {7.2.10}\leavevmode {\color {Chapter }\texttt {\char 92\relax }+ (maps)}}{49}{subsection.7.2.10}
+\contentsline {subsection}{\numberline {7.2.11}\leavevmode {\color {Chapter }\texttt {\char 92\relax }* (maps)}}{49}{subsection.7.2.11}
+\contentsline {subsection}{\numberline {7.2.12}\leavevmode {\color {Chapter }IsOneToOne}}{49}{subsection.7.2.12}
+\contentsline {subsection}{\numberline {7.2.13}\leavevmode {\color {Chapter }IsOnto}}{49}{subsection.7.2.13}
+\contentsline {subsection}{\numberline {7.2.14}\leavevmode {\color {Chapter }IsIsom}}{49}{subsection.7.2.14}
+\contentsline {subsection}{\numberline {7.2.15}\leavevmode {\color {Chapter }IsZeroMap}}{49}{subsection.7.2.15}
+\contentsline {subsection}{\numberline {7.2.16}\leavevmode {\color {Chapter }KernelOfWhat}}{49}{subsection.7.2.16}
+\contentsline {subsection}{\numberline {7.2.17}\leavevmode {\color {Chapter }ImageOfWhat}}{50}{subsection.7.2.17}
+\contentsline {subsection}{\numberline {7.2.18}\leavevmode {\color {Chapter }CoKernelOfWhat}}{50}{subsection.7.2.18}
+\contentsline {section}{\numberline {7.3}\leavevmode {\color {Chapter }Homomorphisms and modules constructed from homomorphisms and modules}}{50}{section.7.3}
+\contentsline {subsection}{\numberline {7.3.1}\leavevmode {\color {Chapter }Coker}}{50}{subsection.7.3.1}
+\contentsline {subsection}{\numberline {7.3.2}\leavevmode {\color {Chapter }EndOverPathAlgebra}}{50}{subsection.7.3.2}
+\contentsline {subsection}{\numberline {7.3.3}\leavevmode {\color {Chapter }HomOverPathAlgebra}}{50}{subsection.7.3.3}
+\contentsline {subsection}{\numberline {7.3.4}\leavevmode {\color {Chapter }Im}}{50}{subsection.7.3.4}
+\contentsline {subsection}{\numberline {7.3.5}\leavevmode {\color {Chapter }Ker}}{51}{subsection.7.3.5}
+\contentsline {subsection}{\numberline {7.3.6}\leavevmode {\color {Chapter }PullBack}}{51}{subsection.7.3.6}
+\contentsline {subsection}{\numberline {7.3.7}\leavevmode {\color {Chapter }PushOut}}{51}{subsection.7.3.7}
+\contentsline {subsection}{\numberline {7.3.8}\leavevmode {\color {Chapter }RadicalOfRepInclusion}}{51}{subsection.7.3.8}
+\contentsline {subsection}{\numberline {7.3.9}\leavevmode {\color {Chapter }SocleOfPathAlgebraMatModuleInclusion}}{51}{subsection.7.3.9}
+\contentsline {subsection}{\numberline {7.3.10}\leavevmode {\color {Chapter }SubRepInclusion}}{51}{subsection.7.3.10}
+\contentsline {subsection}{\numberline {7.3.11}\leavevmode {\color {Chapter }TopOfRepProjection}}{52}{subsection.7.3.11}
+\contentsline {chapter}{\numberline {A}\leavevmode {\color {Chapter }An Appendix}}{53}{appendix.A}

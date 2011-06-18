@@ -51,7 +51,7 @@
 \hypersetup{pdftitle=QPA}
 \markright{\scriptsize \mbox{}\hfill QPA \hfill\mbox{}}
 {\Large \textbf{Quivers and Path Algebras\mbox{}}}\\[1cm]
-{Version version 1.5\mbox{}}\\[1cm]
+{Version version 1.4\mbox{}}\\[1cm]
 {September 2010\mbox{}}\\[1cm]
 \mbox{}\\[2cm]
 {\large \textbf{The QPA-team\\
@@ -2278,8 +2278,23 @@ the dimension of the representation \mbox{\texttt{\slshape M}}. The argument \mb
 
  
 
-\subsection{\textcolor{Chapter }{DirectSumOfPathAlgebraMatModules}}
+\subsection{\textcolor{Chapter }{DirectSummandTest}}
 \logpage{[ 6, 4, 3 ]}\nobreak
+\hyperdef{L}{X815B999B87E3943C}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{DirectSummandTest({\slshape M, N})\index{DirectSummandTest@\texttt{DirectSummandTest}}
+\label{DirectSummandTest}
+}\hfill{\scriptsize (operation)}}\\
+\textbf{\indent Returns:\ }
+true if \mbox{\texttt{\slshape M}} is isomorphic to a direct summand of \mbox{\texttt{\slshape N}}, otherwise false (or fail).
+
+
+
+The function checks if \mbox{\texttt{\slshape M}} and \mbox{\texttt{\slshape N}} are \texttt{PathAlgebraMatModule}s over the same (quotient of a) path algebra. }
+
+ 
+
+\subsection{\textcolor{Chapter }{DirectSumOfPathAlgebraMatModules}}
+\logpage{[ 6, 4, 4 ]}\nobreak
 \hyperdef{L}{X7C21454A80FAC4D8}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{DirectSumOfPathAlgebraMatModules({\slshape L})\index{DirectSumOfPathAlgebraMatModules@\texttt{DirectSumOfPathAlgebraMatModules}}
 \label{DirectSumOfPathAlgebraMatModules}
@@ -2295,7 +2310,7 @@ are attached to the result, \texttt{IsDirectSum, DirectSumProjections} and \text
  
 
 \subsection{\textcolor{Chapter }{IsDirectSum}}
-\logpage{[ 6, 4, 4 ]}\nobreak
+\logpage{[ 6, 4, 5 ]}\nobreak
 \hyperdef{L}{X86B993CC78F45442}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsDirectSum({\slshape M})\index{IsDirectSum@\texttt{IsDirectSum}}
 \label{IsDirectSum}
@@ -2307,7 +2322,7 @@ are attached to the result, \texttt{IsDirectSum, DirectSumProjections} and \text
  
 
 \subsection{\textcolor{Chapter }{DirectSumInclusions}}
-\logpage{[ 6, 4, 5 ]}\nobreak
+\logpage{[ 6, 4, 6 ]}\nobreak
 \hyperdef{L}{X857807CF8560B3C4}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{DirectSumInclusions({\slshape M})\index{DirectSumInclusions@\texttt{DirectSumInclusions}}
 \label{DirectSumInclusions}
@@ -2320,7 +2335,7 @@ their direct sum, when a direct sum has been constructed using \texttt{DirectSum
  
 
 \subsection{\textcolor{Chapter }{DirectSumProjections}}
-\logpage{[ 6, 4, 6 ]}\nobreak
+\logpage{[ 6, 4, 7 ]}\nobreak
 \hyperdef{L}{X80CFB7E47A785E12}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{DirectSumProjections({\slshape M})\index{DirectSumProjections@\texttt{DirectSumProjections}}
 \label{DirectSumProjections}
@@ -2334,7 +2349,7 @@ constructed using \texttt{DirectSumOfPathAlgebraMatModules}. }
  
 
 \subsection{\textcolor{Chapter }{1st{\textunderscore}Syzygy}}
-\logpage{[ 6, 4, 7 ]}\nobreak
+\logpage{[ 6, 4, 8 ]}\nobreak
 \hyperdef{L}{X7833BE7D7DB4C597}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{1st{\textunderscore}Syzygy({\slshape M})\index{1stSyzygy@\texttt{1st{\textunderscore}Syzygy}}
 \label{1stSyzygy}
@@ -2347,7 +2362,7 @@ the first syzygy of the representation \mbox{\texttt{\slshape M}} as a represent
  
 
 \subsection{\textcolor{Chapter }{nth{\textunderscore}Syzygy}}
-\logpage{[ 6, 4, 8 ]}\nobreak
+\logpage{[ 6, 4, 9 ]}\nobreak
 \hyperdef{L}{X7845173B87AE5D9C}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{nth{\textunderscore}Syzygy({\slshape M, n})\index{nthSyzygy@\texttt{nth{\textunderscore}Syzygy}}
 \label{nthSyzygy}
@@ -2359,8 +2374,34 @@ the top of the syzygies until a syzygy is projective or the \mbox{\texttt{\slsha
 
  
 
+\subsection{\textcolor{Chapter }{nth{\textunderscore}SyzygyNC}}
+\logpage{[ 6, 4, 10 ]}\nobreak
+\hyperdef{L}{X86660B9A863F85F2}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{nth{\textunderscore}SyzygyNC({\slshape M, n})\index{nthSyzygyNC@\texttt{nth{\textunderscore}SyzygyNC}}
+\label{nthSyzygyNC}
+}\hfill{\scriptsize (operation)}}\\
+\textbf{\indent Returns:\ }
+the \texttt{n}-th syzygy of the module \mbox{\texttt{\slshape M}}, unless the projective dimension of \mbox{\texttt{\slshape M}} is less or equal to \texttt{n-1}, in which case it returns the projective dimension of \mbox{\texttt{\slshape M}}. It does not check if the \texttt{n}-th syzygy is projective or not. The argument \mbox{\texttt{\slshape M}} must be a \texttt{PathAlgebraMatModule}, and the argument \mbox{\texttt{\slshape n}} must be a positive integer. 
+
+}
+
+ 
+
+\subsection{\textcolor{Chapter }{IsOmegaPeriodic}}
+\logpage{[ 6, 4, 11 ]}\nobreak
+\hyperdef{L}{X7BE6A5B586463067}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsOmegaPeriodic({\slshape M, n})\index{IsOmegaPeriodic@\texttt{IsOmegaPeriodic}}
+\label{IsOmegaPeriodic}
+}\hfill{\scriptsize (operation)}}\\
+\textbf{\indent Returns:\ }
+\texttt{i}, where \texttt{i} is the smallest positive integer less or equal \texttt{n} such that the representation \mbox{\texttt{\slshape M}} is isomorphic to the \texttt{i}-th syzygy of \mbox{\texttt{\slshape M}}, and false otherwise. The argument \mbox{\texttt{\slshape M}} must be a \texttt{PathAlgebraMatModule}, and \mbox{\texttt{\slshape n}} must be a positive integer. 
+
+}
+
+ 
+
 \subsection{\textcolor{Chapter }{IsInjectiveModule}}
-\logpage{[ 6, 4, 9 ]}\nobreak
+\logpage{[ 6, 4, 12 ]}\nobreak
 \hyperdef{L}{X803C2799861FFBC5}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsInjectiveModule({\slshape M})\index{IsInjectiveModule@\texttt{IsInjectiveModule}}
 \label{IsInjectiveModule}
@@ -2372,8 +2413,21 @@ true if the representation \mbox{\texttt{\slshape M}} is injective. The argument
 
  
 
+\subsection{\textcolor{Chapter }{IsOmegaPeriodicTest}}
+\logpage{[ 6, 4, 13 ]}\nobreak
+\hyperdef{L}{X7E1147247AB887EB}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsOmegaPeriodicTest({\slshape M, n})\index{IsOmegaPeriodicTest@\texttt{IsOmegaPeriodicTest}}
+\label{IsOmegaPeriodicTest}
+}\hfill{\scriptsize (operation)}}\\
+\textbf{\indent Returns:\ }
+\texttt{i}, where \texttt{i} less or equal to \texttt{n} and the representation \mbox{\texttt{\slshape M}} is isomorphic to the \texttt{i}-th syzygy of \mbox{\texttt{\slshape M}}, or else false. The argument \mbox{\texttt{\slshape M}} must be a \texttt{PathAlgebraMatModule} and \texttt{n} is a positive integer. 
+
+}
+
+ 
+
 \subsection{\textcolor{Chapter }{IsProjectiveModule}}
-\logpage{[ 6, 4, 10 ]}\nobreak
+\logpage{[ 6, 4, 14 ]}\nobreak
 \hyperdef{L}{X8359AC9585777CA1}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsProjectiveModule({\slshape M})\index{IsProjectiveModule@\texttt{IsProjectiveModule}}
 \label{IsProjectiveModule}
@@ -2386,7 +2440,7 @@ true if the representation \mbox{\texttt{\slshape M}} is projective. The argumen
  
 
 \subsection{\textcolor{Chapter }{IsSemisimpleModule}}
-\logpage{[ 6, 4, 11 ]}\nobreak
+\logpage{[ 6, 4, 15 ]}\nobreak
 \hyperdef{L}{X7A8BC26E866E44DD}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsSemisimpleModule({\slshape M})\index{IsSemisimpleModule@\texttt{IsSemisimpleModule}}
 \label{IsSemisimpleModule}
@@ -2399,7 +2453,7 @@ true if the representation \mbox{\texttt{\slshape M}} is semisimple. The argumen
  
 
 \subsection{\textcolor{Chapter }{IsSimpleModule}}
-\logpage{[ 6, 4, 12 ]}\nobreak
+\logpage{[ 6, 4, 16 ]}\nobreak
 \hyperdef{L}{X7FB82B3184287362}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsSimpleModule({\slshape M})\index{IsSimpleModule@\texttt{IsSimpleModule}}
 \label{IsSimpleModule}
@@ -2412,7 +2466,7 @@ true if the representation \mbox{\texttt{\slshape M}} is simple. The argument \m
  
 
 \subsection{\textcolor{Chapter }{LoewyLength}}
-\logpage{[ 6, 4, 13 ]}\nobreak
+\logpage{[ 6, 4, 17 ]}\nobreak
 \hyperdef{L}{X7BEA44FB819910B6}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{LoewyLength({\slshape M})\index{LoewyLength@\texttt{LoewyLength}}
 \label{LoewyLength}
@@ -2427,8 +2481,24 @@ fail otherwise (This is not implemented yet). }
 
  
 
+\subsection{\textcolor{Chapter }{ModuleIsomorphismTest}}
+\logpage{[ 6, 4, 18 ]}\nobreak
+\hyperdef{L}{X7CD0B746796669C8}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{ModuleIsomorphismTest({\slshape M, N})\index{ModuleIsomorphismTest@\texttt{ModuleIsomorphismTest}}
+\label{ModuleIsomorphismTest}
+}\hfill{\scriptsize (operation)}}\\
+\textbf{\indent Returns:\ }
+true or false depending on whether \mbox{\texttt{\slshape M}} and \mbox{\texttt{\slshape N}} are isomorphic or not.
+
+
+
+ The function first checks if the modules \mbox{\texttt{\slshape M}} and \mbox{\texttt{\slshape N}} are modules over the same algebra, and returns fail if not. The function
+returns returns true if the modules are isomorphic, otherwise false. }
+
+ 
+
 \subsection{\textcolor{Chapter }{RadicalOfRep}}
-\logpage{[ 6, 4, 14 ]}\nobreak
+\logpage{[ 6, 4, 19 ]}\nobreak
 \hyperdef{L}{X836C258381A956AB}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{RadicalOfRep({\slshape M})\index{RadicalOfRep@\texttt{RadicalOfRep}}
 \label{RadicalOfRep}
@@ -2443,7 +2513,7 @@ the radical of the module \mbox{\texttt{\slshape M}}.
  
 
 \subsection{\textcolor{Chapter }{RadicalSeries}}
-\logpage{[ 6, 4, 15 ]}\nobreak
+\logpage{[ 6, 4, 20 ]}\nobreak
 \hyperdef{L}{X7929281B848A9FBE}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{RadicalSeries({\slshape M})\index{RadicalSeries@\texttt{RadicalSeries}}
 \label{RadicalSeries}
@@ -2459,7 +2529,7 @@ each simple. The first vector listed corresponds to the top layer, and so on. }
  
 
 \subsection{\textcolor{Chapter }{SocleSeries}}
-\logpage{[ 6, 4, 16 ]}\nobreak
+\logpage{[ 6, 4, 21 ]}\nobreak
 \hyperdef{L}{X84A724267E6F136D}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{SocleSeries({\slshape M})\index{SocleSeries@\texttt{SocleSeries}}
 \label{SocleSeries}
@@ -2476,7 +2546,7 @@ backwards. }
  
 
 \subsection{\textcolor{Chapter }{SocleOfPathAlgebraMatModule}}
-\logpage{[ 6, 4, 17 ]}\nobreak
+\logpage{[ 6, 4, 22 ]}\nobreak
 \hyperdef{L}{X79FD8317809E5A65}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{SocleOfPathAlgebraMatModule({\slshape M})\index{SocleOfPathAlgebraMatModule@\texttt{SocleOfPathAlgebraMatModule}}
 \label{SocleOfPathAlgebraMatModule}
@@ -2491,7 +2561,7 @@ the socle of the module \mbox{\texttt{\slshape M}}.
  
 
 \subsection{\textcolor{Chapter }{SubRep}}
-\logpage{[ 6, 4, 18 ]}\nobreak
+\logpage{[ 6, 4, 23 ]}\nobreak
 \hyperdef{L}{X80298D0987B1882B}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{SubRep({\slshape M, gens})\index{SubRep@\texttt{SubRep}}
 \label{SubRep}
@@ -2507,7 +2577,7 @@ generated by the elements \mbox{\texttt{\slshape gens}} into \mbox{\texttt{\slsh
  
 
 \subsection{\textcolor{Chapter }{TopOfRep}}
-\logpage{[ 6, 4, 19 ]}\nobreak
+\logpage{[ 6, 4, 24 ]}\nobreak
 \hyperdef{L}{X7FE6863F81D84464}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{TopOfRep({\slshape M})\index{TopOfRep@\texttt{TopOfRep}}
 \label{TopOfRep}
@@ -2522,7 +2592,7 @@ the top of the module \mbox{\texttt{\slshape M}}.
  
 
 \subsection{\textcolor{Chapter }{GeneratorsOfRep}}
-\logpage{[ 6, 4, 20 ]}\nobreak
+\logpage{[ 6, 4, 25 ]}\nobreak
 \hyperdef{L}{X8742104E7F6A64D5}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{GeneratorsOfRep({\slshape M})\index{GeneratorsOfRep@\texttt{GeneratorsOfRep}}
 \label{GeneratorsOfRep}
@@ -2534,8 +2604,21 @@ a minimal generator set of the module \mbox{\texttt{\slshape M}} as a module of 
 
  
 
+\subsection{\textcolor{Chapter }{MinimalSetOfGenerators}}
+\logpage{[ 6, 4, 26 ]}\nobreak
+\hyperdef{L}{X873EBC1879921BD5}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{MinimalSetOfGenerators({\slshape M})\index{MinimalSetOfGenerators@\texttt{MinimalSetOfGenerators}}
+\label{MinimalSetOfGenerators}
+}\hfill{\scriptsize (attribute)}}\\
+\textbf{\indent Returns:\ }
+a minimal generator set of the module \mbox{\texttt{\slshape M}} as a module of the path algebra it is defined over. 
+
+}
+
+ 
+
 \subsection{\textcolor{Chapter }{MatricesOfPathAlgebraMatModule}}
-\logpage{[ 6, 4, 21 ]}\nobreak
+\logpage{[ 6, 4, 27 ]}\nobreak
 \hyperdef{L}{X7E676BA9848F4D84}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{MatricesOfPathAlgebraMatModule({\slshape M})\index{MatricesOfPathAlgebraMatModule@\texttt{MatricesOfPathAlgebraMatModule}}
 \label{MatricesOfPathAlgebraMatModule}
@@ -2953,8 +3036,21 @@ the zero map between \mbox{\texttt{\slshape M}} and \mbox{\texttt{\slshape N}}.
 
  
 
-\subsection{\textcolor{Chapter }{\texttt{\symbol{92}}= (maps)}}
+\subsection{\textcolor{Chapter }{IdentityMap}}
 \logpage{[ 7, 2, 8 ]}\nobreak
+\hyperdef{L}{X7DCFDE8F7F80821C}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IdentityMap({\slshape M})\index{IdentityMap@\texttt{IdentityMap}}
+\label{IdentityMap}
+}\hfill{\scriptsize (operation)}}\\
+\textbf{\indent Returns:\ }
+the identity map between \mbox{\texttt{\slshape M}} and \mbox{\texttt{\slshape M}}.
+
+}
+
+ 
+
+\subsection{\textcolor{Chapter }{\texttt{\symbol{92}}= (maps)}}
+\logpage{[ 7, 2, 9 ]}\nobreak
 \hyperdef{L}{X7E8438F77ECB778E}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{\texttt{\symbol{92}}= (maps)({\slshape f, g})\index{= (maps)@\texttt{\texttt{\symbol{92}}= (maps)}}
 \label{= (maps)}
@@ -2967,7 +3063,7 @@ true, if \texttt{Source(f)=Source(g)}, \texttt{Range(f)=Range(g)}, the matrices 
  
 
 \subsection{\textcolor{Chapter }{\texttt{\symbol{92}}+ (maps)}}
-\logpage{[ 7, 2, 9 ]}\nobreak
+\logpage{[ 7, 2, 10 ]}\nobreak
 \hyperdef{L}{X7FA09A067BE00277}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{\texttt{\symbol{92}}+ (maps)({\slshape f, g})\index{+ (maps)@\texttt{\texttt{\symbol{92}}+ (maps)}}
 \label{+ (maps)}
@@ -2983,7 +3079,7 @@ returns an error message otherwise. }
  
 
 \subsection{\textcolor{Chapter }{\texttt{\symbol{92}}* (maps)}}
-\logpage{[ 7, 2, 10 ]}\nobreak
+\logpage{[ 7, 2, 11 ]}\nobreak
 \hyperdef{L}{X7E8438F77ECB778E}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{\texttt{\symbol{92}}* (maps)({\slshape f, g})\index{* (maps)@\texttt{\texttt{\symbol{92}}* (maps)}}
 \label{* (maps)}
@@ -3001,7 +3097,7 @@ error message otherwise. }
  
 
 \subsection{\textcolor{Chapter }{IsOneToOne}}
-\logpage{[ 7, 2, 11 ]}\nobreak
+\logpage{[ 7, 2, 12 ]}\nobreak
 \hyperdef{L}{X7918D18A7AB257EE}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsOneToOne({\slshape f})\index{IsOneToOne@\texttt{IsOneToOne}}
 \label{IsOneToOne}
@@ -3013,7 +3109,7 @@ error message otherwise. }
  
 
 \subsection{\textcolor{Chapter }{IsOnto}}
-\logpage{[ 7, 2, 12 ]}\nobreak
+\logpage{[ 7, 2, 13 ]}\nobreak
 \hyperdef{L}{X81612A8E86D37A94}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsOnto({\slshape f})\index{IsOnto@\texttt{IsOnto}}
 \label{IsOnto}
@@ -3025,7 +3121,7 @@ error message otherwise. }
  
 
 \subsection{\textcolor{Chapter }{IsIsom}}
-\logpage{[ 7, 2, 13 ]}\nobreak
+\logpage{[ 7, 2, 14 ]}\nobreak
 \hyperdef{L}{X860BF6DA791315D2}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsIsom({\slshape f})\index{IsIsom@\texttt{IsIsom}}
 \label{IsIsom}
@@ -3037,7 +3133,7 @@ error message otherwise. }
  
 
 \subsection{\textcolor{Chapter }{IsZeroMap}}
-\logpage{[ 7, 2, 14 ]}\nobreak
+\logpage{[ 7, 2, 15 ]}\nobreak
 \hyperdef{L}{X784852E07D3D1E0D}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsZeroMap({\slshape f})\index{IsZeroMap@\texttt{IsZeroMap}}
 \label{IsZeroMap}
@@ -3049,7 +3145,7 @@ error message otherwise. }
  
 
 \subsection{\textcolor{Chapter }{KernelOfWhat}}
-\logpage{[ 7, 2, 15 ]}\nobreak
+\logpage{[ 7, 2, 16 ]}\nobreak
 \hyperdef{L}{X7EF520F67BA7F082}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{KernelOfWhat({\slshape f})\index{KernelOfWhat@\texttt{KernelOfWhat}}
 \label{KernelOfWhat}
@@ -3061,7 +3157,7 @@ error message otherwise. }
  
 
 \subsection{\textcolor{Chapter }{ImageOfWhat}}
-\logpage{[ 7, 2, 16 ]}\nobreak
+\logpage{[ 7, 2, 17 ]}\nobreak
 \hyperdef{L}{X78EE24857C79789E}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{ImageOfWhat({\slshape f})\index{ImageOfWhat@\texttt{ImageOfWhat}}
 \label{ImageOfWhat}
@@ -3074,7 +3170,7 @@ homomorphism \mbox{\texttt{\slshape g}}, then \mbox{\texttt{\slshape g}} is retu
  
 
 \subsection{\textcolor{Chapter }{CoKernelOfWhat}}
-\logpage{[ 7, 2, 17 ]}\nobreak
+\logpage{[ 7, 2, 18 ]}\nobreak
 \hyperdef{L}{X7F6E2378786AC02A}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{CoKernelOfWhat({\slshape f})\index{CoKernelOfWhat@\texttt{CoKernelOfWhat}}
 \label{CoKernelOfWhat}
