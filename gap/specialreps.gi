@@ -1,5 +1,5 @@
 # GAP Implementation
-# $Id: specialreps.gi,v 1.6 2010/11/29 15:53:13 sunnyquiver Exp $
+# $Id: specialreps.gi,v 1.7 2011/06/20 12:48:17 sunnyquiver Exp $
 
 # specialreps.gi: Provides special representations of a quiver, 
 # 		  indecomposble projective, indecomposable injective, 
@@ -14,7 +14,7 @@ InstallMethod ( IndecomposableProjectiveRepresentations,
           indec_proj_rep, l, arrow, P, gens, length_B, B, 
           mat, a, source, target, vertices_Q, vector, intervals_of_basis, 
           source_index, target_index, mat_index, p, mat_list, 
-          zero_vertices, rows, cols, K, partial_mat; 
+          zero_vertices, rows, cols, K, partial_mat, list_of_min_gen; 
 #
 #    A = KQ/<rels>
 #
@@ -45,6 +45,7 @@ InstallMethod ( IndecomposableProjectiveRepresentations,
 #
 #
         mat_list := [];
+        list_of_min_gen := [];
         for p in which_proj do
             P := RightIdeal(A,[vertices[p]]);
             B := CanonicalBasis(P);
@@ -60,6 +61,7 @@ InstallMethod ( IndecomposableProjectiveRepresentations,
                     fi;
                 od;
             od;
+
             zero_vertices := [];
             for i in [1..num_vert] do
                 if ( Length(intervals_of_basis[i]) = 0 ) then
@@ -90,10 +92,29 @@ InstallMethod ( IndecomposableProjectiveRepresentations,
                 fi;
             od;
             Add(mat_list,mat);
+            for i in [1..Length(intervals_of_basis)] do
+               if intervals_of_basis[i] = [] then
+                  intervals_of_basis[i] := [Zero(K)];
+               else 
+                  for j in [1..Length(intervals_of_basis[i])] do
+                     if intervals_of_basis[i][j] > 1 then 
+                        intervals_of_basis[i][j] := Zero(K);
+                     else
+                        intervals_of_basis[i][j] := One(K);
+                     fi;
+                  od;
+               fi;
+            od;
+            Add(list_of_min_gen,intervals_of_basis);
         od;
         indec_proj_list := [];
         for i in [1..Length(which_proj)] do
             Add(indec_proj_list,RightModuleOverQuotientOfPathAlgebra(A,mat_list[i]));
+            list_of_min_gen[i] := PathModuleElem(FamilyObj(Zero(indec_proj_list[i])![1]),list_of_min_gen[i]); 
+            
+            list_of_min_gen[i] := Objectify( TypeObj( Zero(indec_proj_list[i]) ), [ list_of_min_gen[i] ] );
+            SetMinimalSetOfGenerators(indec_proj_list[i],[list_of_min_gen[i]]);
+
         od;
         return indec_proj_list;
      else
@@ -125,7 +146,8 @@ InstallOtherMethod ( IndecomposableProjectiveRepresentations,
               indec_proj_list, l, arrow, P, gens, 
               length_B, B, intervals_of_basis, mat, a, source, target, 
               vertices_Q, vector, source_index, target_index, mat_index,
-              p, mat_list, zero_vertices, rows, cols, K, partial_mat; 
+              p, mat_list, zero_vertices, rows, cols, K, partial_mat,
+              list_of_min_gen; 
 #
 #    A = KQ
 #
@@ -154,6 +176,7 @@ InstallOtherMethod ( IndecomposableProjectiveRepresentations,
 #
 #
         mat_list := [];
+        list_of_min_gen := [];
         for p in which_proj do
             P := RightIdeal(A,[vertices[p]]);
             B := CanonicalBasis(P);
@@ -199,10 +222,28 @@ InstallOtherMethod ( IndecomposableProjectiveRepresentations,
                 fi;
             od;
             Add(mat_list,mat);
+            for i in [1..Length(intervals_of_basis)] do
+               if intervals_of_basis[i] = [] then
+                  intervals_of_basis[i] := [Zero(K)];
+               else 
+                  for j in [1..Length(intervals_of_basis[i])] do
+                     if intervals_of_basis[i][j] > 1 then 
+                        intervals_of_basis[i][j] := Zero(K);
+                     else
+                        intervals_of_basis[i][j] := One(K);
+                     fi;
+                  od;
+               fi;
+            od;
+            Add(list_of_min_gen,intervals_of_basis);
         od;
         indec_proj_list := [];
         for i in [1..Length(which_proj)] do
             Add(indec_proj_list,RightModuleOverPathAlgebra(A,mat_list[i]));
+            list_of_min_gen[i] := PathModuleElem(FamilyObj(Zero(indec_proj_list[i])![1]),list_of_min_gen[i]); 
+            
+            list_of_min_gen[i] := Objectify( TypeObj( Zero(indec_proj_list[i]) ), [ list_of_min_gen[i] ] );
+            SetMinimalSetOfGenerators(indec_proj_list[i],[list_of_min_gen[i]]);
         od;
         return indec_proj_list;
      fi;

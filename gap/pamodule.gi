@@ -1,6 +1,6 @@
 # GAP Implementation
 # This file was generated from 
-# $Id: pamodule.gi,v 1.10 2011/06/18 11:49:45 sunnyquiver Exp $
+# $Id: pamodule.gi,v 1.11 2011/06/20 12:48:17 sunnyquiver Exp $
 
 ZeroModElement:=function(fam,zero)
   local result,i;
@@ -1133,6 +1133,7 @@ InstallMethod (DimensionVector,
 end
 );
 
+
 InstallMethod( MinimalSetOfGenerators,
   "for a path algebra module",
   true,
@@ -1141,7 +1142,7 @@ InstallMethod( MinimalSetOfGenerators,
 
   local A, K, q, num_vert, arrows_as_path, basis_M, generators, 
         n, V, W, f, B, i, j, a, b, dim_vect, interval, min_gen, 
-        fam, run_time, vertices, g, v; 
+        fam, run_time, vertices, g, v, span_M; 
 
 #    run_time := Runtime();
     A := RightActingAlgebra(M);
@@ -1163,10 +1164,11 @@ InstallMethod( MinimalSetOfGenerators,
     od;
 #
 # Translating basis for M and a generating set for rad M into 
-# elements in the vector space K^dim(M). 
+# elements in the vector space K^dim(M)+e, where e is the number
+# of vertices with dim_M = 0. 
 #
-    n := Length(basis_M);
-    V := FullRowSpace(K,n);
+    span_M := List(basis_M,x->Flat(ExtRepOfObj(x![1])));
+    V := VectorSpace(K,span_M,"basis");
     generators := List(generators,x->Flat(ExtRepOfObj(x![1])));
     W := Subspace(V,generators); 
 # 
