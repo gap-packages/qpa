@@ -1,5 +1,5 @@
 # GAP Implementation
-# $Id: opposite.gi,v 1.2 2010/11/11 14:32:12 sunnyquiver Exp $
+# $Id: opposite.gi,v 1.3 2011/06/20 22:49:58 sunnyquiver Exp $
 
 InstallMethod( OppositeQuiver,
         "for a quiver",
@@ -86,13 +86,17 @@ InstallGlobalFunction( OppositePathAlgebraElement,
     PA := PathAlgebraContainingElement( elem );
     PA_op := OppositePathAlgebra( PA );
 
-    op_term :=
-      function( t )
-        return t.coeff * One( PA_op ) * OppositePath( t.monom );
-    end;
+    if elem = Zero(PA) then 
+       return Zero(PA_op);
+    else 
+       op_term :=
+       function( t )
+          return t.coeff * One( PA_op ) * OppositePath( t.monom );
+       end;
 
-    terms := PathAlgebraElementTerms( elem );
-    return Sum( terms, op_term );
+       terms := PathAlgebraElementTerms( elem );
+       return Sum( terms, op_term );
+    fi;
 end );
 
 
