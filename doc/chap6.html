@@ -68,6 +68,9 @@ Algebras</span></a>
 <div class="ContSect"><span class="nocss">&nbsp;</span><a href="chap6.html#X7D99BF5A87DDC099">6.6 <span class="Heading">Functors on representations</span></a>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X807D065C7AD70C6F">6.6-1 DualOfPathAlgebraMatModule</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X86846EFE7FD4E643">6.6-2 DualOfPathAlgebraMatModuleMap</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X82D31F887C14E921">6.6-3 DTr</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7939949279208FA3">6.6-4 TrD</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X79C0B620842128AF">6.6-5 TransposeOfModule</a></span>
 </div>
 <div class="ContSect"><span class="nocss">&nbsp;</span><a href="chap6.html#X8097F19E8228B68C">6.7 <span class="Heading">Vertex Projective Presentations</span></a>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X79175B097A0718FE">6.7-1 RightProjectiveModule</a></span>
@@ -483,6 +486,35 @@ gap&gt; B[4]^(P.b*P.c);
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; DualOfPathAlgebraMatModuleMap</code>( <var class="Arg">f</var> )</td><td class="tdright">( operation )</td></tr></table></div>
 <p>Takes the a map <var class="Arg">f</var> between two representations <var class="Arg">M</var> and <var class="Arg">N</var> over a path algebra $A$ and produces the dual of this map over the opposite path algebra <var class="Arg">A^op</var>.</p>
+
+<p><a id="X82D31F887C14E921" name="X82D31F887C14E921"></a></p>
+
+<h5>6.6-3 DTr</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; DTr</code>( <var class="Arg">M</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; DTr</code>( <var class="Arg">M, n</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p><b>Returns: </b>the dual of the transpose of the module <var class="Arg">M</var> in the first variant. In the second form it returns the dual of the transpose applied to <var class="Arg">M</var> <var class="Arg">n</var> times. If <var class="Arg">n</var> is negative, then powers of <code class="code">TrD</code> are computed.</p>
+
+<p>The argument <var class="Arg">M</var> must be a <code class="code">PathAlgebraMatModule</code> and <var class="Arg">n</var> must be an integer.</p>
+
+<p><a id="X7939949279208FA3" name="X7939949279208FA3"></a></p>
+
+<h5>6.6-4 TrD</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; TrD</code>( <var class="Arg">M</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; TrD</code>( <var class="Arg">M, n</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p><b>Returns: </b>the transpose of the dual of the module <var class="Arg">M</var> in the first variant. In the second form it returns the transpose of the dual applied to <var class="Arg">M</var> <var class="Arg">n</var> times. If <var class="Arg">n</var> is negative, then powers of <code class="code">TrD</code> are computed.</p>
+
+<p>The argument <var class="Arg">M</var> must be a <code class="code">PathAlgebraMatModule</code> and <var class="Arg">n</var> must be an integer.</p>
+
+<p><a id="X79C0B620842128AF" name="X79C0B620842128AF"></a></p>
+
+<h5>6.6-5 TransposeOfModule</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; TransposeOfModule</code>( <var class="Arg">M</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p><b>Returns: </b>the transpose of the module <var class="Arg">M</var>.</p>
+
+<p>The argument <var class="Arg">M</var> must be a <code class="code">PathAlgebraMatModule</code>.</p>
 
 <p><a id="X8097F19E8228B68C" name="X8097F19E8228B68C"></a></p>
 

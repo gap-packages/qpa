@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- $Id: qpadocumentation.xml,v 1.14 2011/06/18 13:51:46 sunnyquiver Exp $ -->
+<!-- $Id: qpadocumentation.xml,v 1.15 2011/06/21 21:29:41 sunnyquiver Exp $ -->
 
 <!DOCTYPE Book SYSTEM "gapdoc.dtd"
  [ <!ENTITY see '<Alt Only="LaTeX">$\to$</Alt><Alt Not="LaTeX">--&gt;</Alt>'>
@@ -2315,6 +2315,44 @@ Here we collect the predefined representations/modules over a finite
      representations <Arg>M</Arg> and <Arg>N</Arg> over a path
      algebra <Math>A</Math> and produces the dual of this
      map over the opposite path algebra <Arg>A^op</Arg>. 
+   </Description>
+</ManSection>
+
+
+<ManSection>
+   <Oper Name="DTr" Arg="M" Comm="for a PathAlgebraMatModule"/>
+   <Oper Name="DTr" Arg="M, n" Comm="for a PathAlgebraMatModule and an integer"/>
+   <Returns>the dual of the transpose of the module <Arg>M</Arg> in
+   the first variant. In the second form it returns the dual of the
+   transpose applied to <Arg>M</Arg> <Arg>n</Arg>
+   times. If <Arg>n</Arg> is negative, then powers of <C>TrD</C> are
+   computed.</Returns>
+   <Description>
+     The argument <Arg>M</Arg> must be a <C>PathAlgebraMatModule</C>
+     and <Arg>n</Arg> must be an integer. 
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Oper Name="TrD" Arg="M" Comm="for a PathAlgebraMatModule"/>
+   <Oper Name="TrD" Arg="M, n" Comm="for a PathAlgebraMatModule and an
+   integer"/>
+   <Returns>the transpose of the dual of the module <Arg>M</Arg> in
+   the first variant. In the second form it returns the transpose of
+   the dual applied to <Arg>M</Arg> <Arg>n</Arg>
+   times. If <Arg>n</Arg> is negative, then powers of <C>TrD</C> are
+   computed.</Returns>
+   <Description>
+     The argument <Arg>M</Arg> must be a <C>PathAlgebraMatModule</C>
+     and <Arg>n</Arg> must be an integer. 
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Oper Name="TransposeOfModule" Arg="M" Comm="for a PathAlgebraMatModule"/>
+   <Returns>the transpose of the module <Arg>M</Arg>.</Returns>
+   <Description>
+     The argument <Arg>M</Arg> must be a <C>PathAlgebraMatModule</C>. 
    </Description>
 </ManSection>
 

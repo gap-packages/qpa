@@ -175,12 +175,15 @@
 \contentsline {section}{\numberline {6.6}\leavevmode {\color {Chapter }Functors on representations}}{45}{section.6.6}
 \contentsline {subsection}{\numberline {6.6.1}\leavevmode {\color {Chapter }DualOfPathAlgebraMatModule}}{45}{subsection.6.6.1}
 \contentsline {subsection}{\numberline {6.6.2}\leavevmode {\color {Chapter }DualOfPathAlgebraMatModuleMap}}{45}{subsection.6.6.2}
+\contentsline {subsection}{\numberline {6.6.3}\leavevmode {\color {Chapter }DTr}}{46}{subsection.6.6.3}
+\contentsline {subsection}{\numberline {6.6.4}\leavevmode {\color {Chapter }TrD}}{46}{subsection.6.6.4}
+\contentsline {subsection}{\numberline {6.6.5}\leavevmode {\color {Chapter }TransposeOfModule}}{46}{subsection.6.6.5}
 \contentsline {section}{\numberline {6.7}\leavevmode {\color {Chapter }Vertex Projective Presentations}}{46}{section.6.7}
 \contentsline {subsection}{\numberline {6.7.1}\leavevmode {\color {Chapter }RightProjectiveModule}}{46}{subsection.6.7.1}
-\contentsline {subsection}{\numberline {6.7.2}\leavevmode {\color {Chapter }Vectorize}}{46}{subsection.6.7.2}
+\contentsline {subsection}{\numberline {6.7.2}\leavevmode {\color {Chapter }Vectorize}}{47}{subsection.6.7.2}
 \contentsline {subsection}{\numberline {6.7.3}\leavevmode {\color {Chapter }\texttt {\char 94\relax }}}{47}{subsection.6.7.3}
 \contentsline {subsection}{\numberline {6.7.4}\leavevmode {\color {Chapter }{\textless }}}{47}{subsection.6.7.4}
-\contentsline {subsection}{\numberline {6.7.5}\leavevmode {\color {Chapter }/}}{47}{subsection.6.7.5}
+\contentsline {subsection}{\numberline {6.7.5}\leavevmode {\color {Chapter }/}}{48}{subsection.6.7.5}
 \contentsline {chapter}{\numberline {7}\leavevmode {\color {Chapter }Homomorphisms of Right Modules over Path Algebras}}{49}{chapter.7}
 \contentsline {section}{\numberline {7.1}\leavevmode {\color {Chapter }Categories and representation of homomorphisms}}{49}{section.7.1}
 \contentsline {subsection}{\numberline {7.1.1}\leavevmode {\color {Chapter }IsPathAlgebraMatModuleMap}}{49}{subsection.7.1.1}

@@ -4,7 +4,7 @@
   \item \texttt  {\texttt  {\char 92\relax }* (maps)}, \hyperpage{51}
   \item \texttt  {\texttt  {\char 92\relax }+ (maps)}, \hyperpage{51}
   \item \texttt  {.}, \hyperpage{15}, \hyperpage{22}
-  \item \texttt  {/}, \hyperpage{47}
+  \item \texttt  {/}, \hyperpage{48}
   \item \texttt  {{\textless }}, \hyperpage{19}, \hyperpage{22}, 
 		\hyperpage{28}, \hyperpage{47}
   \item \texttt  {=}, \hyperpage{19}
@@ -41,6 +41,7 @@
   \item \texttt  {DirectSummandTest}, \hyperpage{41}
   \item \texttt  {DirectSumOfPathAlgebraMatModules}, \hyperpage{41}
   \item \texttt  {DirectSumProjections}, \hyperpage{41}
+  \item \texttt  {DTr}, \hyperpage{46}
   \item \texttt  {DualOfPathAlgebraMatModule}, \hyperpage{45}
   \item \texttt  {DualOfPathAlgebraMatModuleMap}, \hyperpage{45}
 
@@ -216,11 +217,13 @@
   \item \texttt  {TipReduceGroebnerBasis}, \hyperpage{34}
   \item \texttt  {TopOfRep}, \hyperpage{44}
   \item \texttt  {TopOfRepProjection}, \hyperpage{54}
+  \item \texttt  {TransposeOfModule}, \hyperpage{46}
+  \item \texttt  {TrD}, \hyperpage{46}
   \item \texttt  {TruncatedPathAlgebra}, \hyperpage{28}
 
   \indexspace
 
-  \item \texttt  {Vectorize}, \hyperpage{46}
+  \item \texttt  {Vectorize}, \hyperpage{47}
   \item \texttt  {VertexSimpleRepresentations}, \hyperpage{45}
   \item \texttt  {VerticesOfQuiver}, \hyperpage{15}
 

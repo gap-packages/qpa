@@ -51,7 +51,7 @@
 \hypersetup{pdftitle=QPA}
 \markright{\scriptsize \mbox{}\hfill QPA \hfill\mbox{}}
 {\Large \textbf{Quivers and Path Algebras\mbox{}}}\\[1cm]
-{Version version 1.4\mbox{}}\\[1cm]
+{Version version 1.5\mbox{}}\\[1cm]
 {September 2010\mbox{}}\\[1cm]
 \mbox{}\\[2cm]
 {\large \textbf{The QPA-team\\
@@ -2817,6 +2817,59 @@ message otherwise. }
 
 
  Takes the a map \mbox{\texttt{\slshape f}} between two representations \mbox{\texttt{\slshape M}} and \mbox{\texttt{\slshape N}} over a path algebra $A$ and produces the dual of this map over the opposite path algebra \mbox{\texttt{\slshape A\texttt{\symbol{94}}op}}. }
+
+ 
+
+\subsection{\textcolor{Chapter }{DTr}}
+\logpage{[ 6, 6, 3 ]}\nobreak
+\hyperdef{L}{X82D31F887C14E921}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{DTr({\slshape M})\index{DTr@\texttt{DTr}}
+\label{DTr}
+}\hfill{\scriptsize (operation)}}\\
+\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{DTr({\slshape M, n})\index{DTr@\texttt{DTr}}
+\label{DTr}
+}\hfill{\scriptsize (operation)}}\\
+\textbf{\indent Returns:\ }
+the dual of the transpose of the module \mbox{\texttt{\slshape M}} in the first variant. In the second form it returns the dual of the transpose
+applied to \mbox{\texttt{\slshape M}} \mbox{\texttt{\slshape n}} times. If \mbox{\texttt{\slshape n}} is negative, then powers of \texttt{TrD} are computed.
+
+
+
+ The argument \mbox{\texttt{\slshape M}} must be a \texttt{PathAlgebraMatModule} and \mbox{\texttt{\slshape n}} must be an integer. }
+
+ 
+
+\subsection{\textcolor{Chapter }{TrD}}
+\logpage{[ 6, 6, 4 ]}\nobreak
+\hyperdef{L}{X7939949279208FA3}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{TrD({\slshape M})\index{TrD@\texttt{TrD}}
+\label{TrD}
+}\hfill{\scriptsize (operation)}}\\
+\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{TrD({\slshape M, n})\index{TrD@\texttt{TrD}}
+\label{TrD}
+}\hfill{\scriptsize (operation)}}\\
+\textbf{\indent Returns:\ }
+the transpose of the dual of the module \mbox{\texttt{\slshape M}} in the first variant. In the second form it returns the transpose of the dual
+applied to \mbox{\texttt{\slshape M}} \mbox{\texttt{\slshape n}} times. If \mbox{\texttt{\slshape n}} is negative, then powers of \texttt{TrD} are computed.
+
+
+
+ The argument \mbox{\texttt{\slshape M}} must be a \texttt{PathAlgebraMatModule} and \mbox{\texttt{\slshape n}} must be an integer. }
+
+ 
+
+\subsection{\textcolor{Chapter }{TransposeOfModule}}
+\logpage{[ 6, 6, 5 ]}\nobreak
+\hyperdef{L}{X79C0B620842128AF}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{TransposeOfModule({\slshape M})\index{TransposeOfModule@\texttt{TransposeOfModule}}
+\label{TransposeOfModule}
+}\hfill{\scriptsize (operation)}}\\
+\textbf{\indent Returns:\ }
+the transpose of the module \mbox{\texttt{\slshape M}}.
+
+
+
+ The argument \mbox{\texttt{\slshape M}} must be a \texttt{PathAlgebraMatModule}. }
 
  }
 

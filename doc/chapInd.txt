@@ -37,6 +37,8 @@
   [2XDirectSummandTest[0X  6.4-3
   [2XDirectSumOfPathAlgebraMatModules[0X  6.4-4
   [2XDirectSumProjections[0X  6.4-7
+  [2XDTr[0X  6.6-3
+  [2XDTr[0X  6.6-3
   [2XDualOfPathAlgebraMatModule[0X  6.6-1
   [2XDualOfPathAlgebraMatModuleMap[0X  6.6-2
   [2XElementOfFpPathAlgebra[0X  3.10-3
@@ -172,6 +174,9 @@
   [2XTipReduceGroebnerBasis[0X  4.3-4
   [2XTopOfRep[0X  6.4-24
   [2XTopOfRepProjection[0X  7.3-11
+  [2XTransposeOfModule[0X  6.6-5
+  [2XTrD[0X  6.6-4
+  [2XTrD[0X  6.6-4
   [2XTruncatedPathAlgebra[0X  3.11-2
   [2XVectorize[0X  6.7-2
   [2XVertexSimpleRepresentations[0X  6.5-3

@@ -445,6 +445,33 @@
   Takes  the  a  map [3Xf[0m between two representations [3XM[0m and [3XN[0m over a path algebra
   $A$ and produces the dual of this map over the opposite path algebra [3XA^op[0m.
   
+  [1X6.6-3 DTr[0m
+  
+  [2X> DTr( [0X[3XM[0X[2X ) ________________________________________________________[0Xoperation
+  [2X> DTr( [0X[3XM, n[0X[2X ) _____________________________________________________[0Xoperation
+  [6XReturns:[0X  the dual of the transpose of the module [3XM[0m in the first variant. In
+            the  second form it returns the dual of the transpose applied to [3XM[0m
+            [3Xn[0m times. If [3Xn[0m is negative, then powers of [10XTrD[0m are computed.
+  
+  The argument [3XM[0m must be a [10XPathAlgebraMatModule[0m and [3Xn[0m must be an integer.
+  
+  [1X6.6-4 TrD[0m
+  
+  [2X> TrD( [0X[3XM[0X[2X ) ________________________________________________________[0Xoperation
+  [2X> TrD( [0X[3XM, n[0X[2X ) _____________________________________________________[0Xoperation
+  [6XReturns:[0X  the transpose of the dual of the module [3XM[0m in the first variant. In
+            the  second form it returns the transpose of the dual applied to [3XM[0m
+            [3Xn[0m times. If [3Xn[0m is negative, then powers of [10XTrD[0m are computed.
+  
+  The argument [3XM[0m must be a [10XPathAlgebraMatModule[0m and [3Xn[0m must be an integer.
+  
+  [1X6.6-5 TransposeOfModule[0m
+  
+  [2X> TransposeOfModule( [0X[3XM[0X[2X ) __________________________________________[0Xoperation
+  [6XReturns:[0X  the transpose of the module [3XM[0m.
+  
+  The argument [3XM[0m must be a [10XPathAlgebraMatModule[0m.
+  
   
   [1X6.7 Vertex Projective Presentations[0X
   

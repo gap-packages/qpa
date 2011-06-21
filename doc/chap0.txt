@@ -6,7 +6,7 @@
                            [1XQuivers and Path Algebras[0m
   
   
-                              Version version 1.4
+                              Version version 1.5
   
   
                                  September 2010
@@ -235,6 +235,9 @@
     6.6 Functors on representations
       6.6-1 DualOfPathAlgebraMatModule
       6.6-2 DualOfPathAlgebraMatModuleMap
+      6.6-3 DTr
+      6.6-4 TrD
+      6.6-5 TransposeOfModule
     6.7 Vertex Projective Presentations
       6.7-1 RightProjectiveModule
       6.7-2 Vectorize
