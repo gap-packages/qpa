@@ -853,6 +853,7 @@ InstallMethod( IsOmegaPeriodic,
  
    N0 := M;
    for i in [1..n] do
+      Print("Computing syzygy number: ",i,"\n");
       N1 := 1st_Syzygy(N0);
       if ModuleIsomorphismTest(M,N1) then
          return i;
