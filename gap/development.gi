@@ -402,6 +402,9 @@ InstallMethod( TipReduceVectors,
 end
 );
 
+#
+# This has a bug !!!!!!!!!!!!!!!!!!!
+#
 InstallMethod( CoefficientsOfVectors, 
    "for a path algebra",
    [ IsAlgebra, IsCollection, IsList ], 0,
@@ -431,6 +434,9 @@ InstallMethod( CoefficientsOfVectors,
       repeat
          s := TipMonomialandCoefficientOfVector(A,z);
          j := Position(tiplist,s{[1..2]});
+         if j = fail then 
+            return [x,y];
+         fi;
          t := TipMonomialandCoefficientOfVector(A,x[j]); 
          z := z - (s[3]/t[3])*x[j];
          vector[j] := vector[j] + (s[3]/t[3]);
@@ -438,7 +444,6 @@ InstallMethod( CoefficientsOfVectors,
          z = zero_vector;
       return vector;
    fi;
-
 end
 );
 
@@ -453,7 +458,8 @@ InstallMethod( 1st_Syzygy,
 	 im_a, pd, pi, dim_vect, first_syzygy, V, BV, m, v, 
          cycle_list, i, j, b,  
          pos, commutators, center, zero_count, c, x, cycles, matrix,
-         data, coeffs, fam, elms, solutions, gbb, run_time;
+         data, coeffs, fam, elms, solutions, gbb, run_time, BU, FlatBasisSyzygy,
+         partial,temp,V_list,B_list;
 
    A := RightActingAlgebra(M);
    B := CanonicalBasis(A);
@@ -463,14 +469,14 @@ InstallMethod( 1st_Syzygy,
    vertices := VerticesOfQuiver(Q);
    if IsPathAlgebra(A) then 
       verticesinalg := GeneratorsOfAlgebra(A){[1..num_vert]};
-      arrows   := GeneratorsOfAlgebra(A){[1+num_vert..num_vert+SizeOfQuiver(Q)]};   else 
+      arrows   := GeneratorsOfAlgebra(A){[1+num_vert..num_vert+SizeOfQuiver(Q)]};   
+   else 
       verticesinalg := GeneratorsOfAlgebra(A){[2..1+num_vert]};
       arrows   := GeneratorsOfAlgebra(A){[2+num_vert..1+num_vert+SizeOfQuiver(Q)]};
    fi;
 #
 #  Finding a basis of each indecomposable right projective A-module
 #
-   run_time := Runtime();
    BB := [];
    for i in [1..num_vert] do 
       BB[i] := [];
@@ -482,16 +488,11 @@ InstallMethod( 1st_Syzygy,
          fi;
       od;
    od;
-#   Print("Finding basis of indec. projectives: ",Runtime()-run_time,"\n");
-   run_time := Runtime();
+#
+# Finding a basis for the module M and a set of minimal generators
+#
    B_M := CanonicalBasis(M);
-#   Print("Finding canonical basis for M: ",Runtime()-run_time,"\n");
-   run_time := Runtime();
-#   G   := GeneratorsOfRep(M);
    G   := MinimalSetOfGenerators(M);
-
-#   Print("Finding minimal set of generator for M: ",Runtime()-run_time,"\n");
-   run_time := Runtime();
 #
 #  Assuming that the generators G of M is uniform.
 #  Finding generators multiplied with all basis elements of A.
@@ -509,22 +510,21 @@ InstallMethod( 1st_Syzygy,
          Add(MM,G[i]^BB[r][j]); 
       od;
    od;
-#   Print("Finding generators mult with basis elt's: ",Runtime()-run_time,"\n");
-   run_time := Runtime(); 
-
+#
+# Finding the matrix with the rows being the generators of M times the 
+# the basis of the corresponding projective.
+#
    matrix := NullMat(Length(MM),Dimension(M),K);
    for i in [1..Length(MM)] do
       matrix[i] := Flat(ExtRepOfObj(MM[i])![1]);
    od;
-#   Print("Finding matrix which nullspace is the kernel: ",Runtime()-run_time,"\n");
-   run_time := Runtime(); 
 #
 #  Finding the kernel of the projective cover as a vectorspace 
 #  
    solutions := NullspaceMat(matrix);
-#   Print("Finding kernel of projective cover: ",Runtime()-run_time,"\n");
-   run_time := Runtime(); 
-
+#
+# Finding the kernel as a submodule of the projective cover.
+#
    Solutions := [];
    for i in [1..Length(solutions)] do
       projective_vector := [];
@@ -538,10 +538,10 @@ InstallMethod( 1st_Syzygy,
          s := s + Length(BB[projective_cover[j]]);
       od;
       Add(Solutions,projective_vector);
-    od;
-#   Print("Finding elt's in proj. cover: ",Runtime()-run_time,"\n");
-   run_time := Runtime(); 
- 
+   od;
+#
+# Finding a uniform basis for the syzygy.
+# 
    syzygy := [];
    for i in [1..num_vert] do 
       syzygy[i] := [];
@@ -557,25 +557,42 @@ InstallMethod( 1st_Syzygy,
          fi;
       od;
    od;
-#   Print("Finding uniform elements: ",Runtime()-run_time,"\n");
-   run_time := Runtime(); 
 
    for i in [1..num_vert] do
       if Length(syzygy[i]) > 0 then
          syzygy[i] := TipReduceVectors(A,syzygy[i]);
       fi;
    od;
-#   Print("Tip reducing elements: ",Runtime()-run_time,"\n");
-   run_time := Runtime(); 
 
    arrows_of_quiver := GeneratorsOfQuiver(Q){[1+num_vert..num_vert+Length(ArrowsOfQuiver(Q))]};
-
-   dim_vect := [];
+#
+# Finding the dimension vector of the syzygy.
+#
+   dim_vect := List(syzygy,x->Length(x));
+#
+# Finding a basis for the vectorspace in each vertex for the syzygy.
+#
+   BU := Basis(UnderlyingLeftModule(B));   
+   FlatBasisSyzygy := [];
    for i in [1..num_vert] do
-      Add(dim_vect,Length(syzygy[i]));
+      if dim_vect[i] > 0 then
+         partial := [];
+         for j in [1..dim_vect[i]] do
+            Add(partial,Flat(List(syzygy[i][j],x->Coefficients(BU,x))));
+         od;
+         Add(FlatBasisSyzygy,partial);
+      fi;
    od;
-#   Print("Finding dimension vector of the kernel: ",Runtime()-run_time,"\n");
-   run_time := Runtime(); 
+#
+# Constructing the vectorspace in each vertex in the syzygy and 
+# saying that the basis is the generators we have found.
+#
+   V_list := List(FlatBasisSyzygy,x->VectorSpace(K,x,"basis"));
+   B_list := [];
+   for i in [1..num_vert] do 
+      Add(B_list,Basis(V_list[i],FlatBasisSyzygy[i]));
+   od;
+   Print("Dimension vector for syzygy: ",dim_vect,"\n");
 #
 #  Finding the 1st syzygy as a representation of the quiver.
 #
@@ -601,21 +618,21 @@ InstallMethod( 1st_Syzygy,
          mat := [dim_vect[pd],dim_vect[pi]];
       else 
          for m in syzygy[pd] do
-            Add(mat,CoefficientsOfVectors(A,syzygy[pi],m*a)); 
+            temp := Flat(List(m*a,x->Coefficients(BU,x)));
+            temp := Coefficients(B_list[pi],temp);
+            Add(mat,temp);
          od;
       fi;
       Add(big_mat,[arrow,mat]);
    od;
-#   Print("Finding the matrices of the syzygy as a representation: ",Runtime()-run_time,"\n");
-   run_time := Runtime();
-
+#
+# Creating the syzygy as a representation of the quiver.
+#
    if IsPathAlgebra(A) then 
       first_syzygy := RightModuleOverPathAlgebra(A,big_mat);
    else
       first_syzygy := RightModuleOverQuotientOfPathAlgebra(A,big_mat); 
    fi;      
-#   Print("Defining the syzygy as a representation: ",Runtime()-run_time,"\n");
-   run_time := Runtime();
 
    return first_syzygy;
 end
