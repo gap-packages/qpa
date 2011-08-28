@@ -581,13 +581,22 @@ InstallMethod( 1st_Syzygy,
             Add(partial,Flat(List(syzygy[i][j],x->Coefficients(BU,x))));
          od;
          Add(FlatBasisSyzygy,partial);
+      else
+         Add(FlatBasisSyzygy,[]);
       fi;
    od;
 #
 # Constructing the vectorspace in each vertex in the syzygy and 
 # saying that the basis is the generators we have found.
 #
-   V_list := List(FlatBasisSyzygy,x->VectorSpace(K,x,"basis"));
+  V_list := []; 
+  for i in [1..num_vert] do
+     if FlatBasisSyzygy[i] <> [] then 
+        Add(V_list,VectorSpace(K,FlatBasisSyzygy[i],"basis"));
+     else
+        Add(V_list,Subspace(K,[]));
+     fi;
+   od;
    B_list := [];
    for i in [1..num_vert] do 
       Add(B_list,Basis(V_list[i],FlatBasisSyzygy[i]));
