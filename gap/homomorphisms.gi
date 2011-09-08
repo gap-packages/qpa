@@ -1,5 +1,5 @@
 # GAP Implementation
-# $Id: homomorphisms.gi,v 1.13 2011/06/18 11:49:45 sunnyquiver Exp $
+# $Id: homomorphisms.gi,v 1.14 2011/09/08 11:39:13 sunnyquiver Exp $
 
 InstallMethod( ImageElm, 
     "for a map between representations and an element in a representation.",
@@ -1457,7 +1457,9 @@ InstallMethod( ModuleIsomorphismTest,
 #
 # Computing Hom(M,N) and Hom(N,M), finding the subspace in Hom(M,M)
 # spanned by Hom(M,N)*Hom(M,N), if they have the same dimension, the 
-# modules are isomorphic as they have the same dimension vector.
+# module M is in the additive closue of N. Assuming that the module M
+# is indecomposable (or basic), the modules are isomorphic as they have 
+# the same dimension vector.
 #
          K := LeftActingDomain(M);
          HomMN := HomOverPathAlgebra(M,N);
@@ -1493,7 +1495,11 @@ InstallMethod( DirectSummandTest,
    "for two path algebra matmodules",
    [ IsPathAlgebraMatModule, IsPathAlgebraMatModule  ], 0,
    function( M, N ) 
-
+#
+# This function assumes that the module M is indecomposable.
+# If M is not indecomposable, then the function returns true 
+# if  M  is in the additive closure of  N.
+#
    local K, HomMN, HomNM, MM, i, j, HomMM, V_M;
 
    if RightActingAlgebra(M) <> RightActingAlgebra(N) then 
