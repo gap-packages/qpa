@@ -180,7 +180,9 @@
   
   [2X> DirectSummandTest( [0X[3XM, N[0X[2X ) _______________________________________[0Xoperation
   [6XReturns:[0X  true  if [3XM[0m is isomorphic to a direct summand of [3XN[0m, otherwise false
-            (or fail).
+            (or   fail).   The   function   assumes   that  the  module  [3XM[0m  is
+            indecomposable,  otherwise it returns true is [3XM[0m is in the additive
+            closure of [3XN[0m.
   
   The  function  checks  if  [3XM[0m  and  [3XN[0m are [10XPathAlgebraMatModule[0ms over the same
   (quotient of a) path algebra.
@@ -291,7 +293,8 @@
   [1X6.4-18 ModuleIsomorphismTest[0m
   
   [2X> ModuleIsomorphismTest( [0X[3XM, N[0X[2X ) ___________________________________[0Xoperation
-  [6XReturns:[0X  true or false depending on whether [3XM[0m and [3XN[0m are isomorphic or not.
+  [6XReturns:[0X  true  or false depending on whether [3XM[0m and [3XN[0m are isomorphic or not.
+            The function assumes that the module [3XM[0m (or [3XN[0m) is indecomposable.
   
   The  function  first checks if the modules [3XM[0m and [3XN[0m are modules over the same
   algebra,  and  returns fail if not. The function returns returns true if the

@@ -6,7 +6,7 @@
   \item \texttt  {.}, \hyperpage{15}, \hyperpage{22}
   \item \texttt  {/}, \hyperpage{48}
   \item \texttt  {{\textless }}, \hyperpage{19}, \hyperpage{22}, 
-		\hyperpage{28}, \hyperpage{47}
+		\hyperpage{28}, \hyperpage{48}
   \item \texttt  {=}, \hyperpage{19}
   \item \texttt  {\texttt  {\char 92\relax }= (maps)}, \hyperpage{50}
   \item \texttt  {\texttt  {\char 94\relax }}, \hyperpage{40}, 
@@ -40,10 +40,10 @@
   \item \texttt  {DirectSumInclusions}, \hyperpage{41}
   \item \texttt  {DirectSummandTest}, \hyperpage{41}
   \item \texttt  {DirectSumOfPathAlgebraMatModules}, \hyperpage{41}
-  \item \texttt  {DirectSumProjections}, \hyperpage{41}
+  \item \texttt  {DirectSumProjections}, \hyperpage{42}
   \item \texttt  {DTr}, \hyperpage{46}
-  \item \texttt  {DualOfPathAlgebraMatModule}, \hyperpage{45}
-  \item \texttt  {DualOfPathAlgebraMatModuleMap}, \hyperpage{45}
+  \item \texttt  {DualOfPathAlgebraMatModule}, \hyperpage{46}
+  \item \texttt  {DualOfPathAlgebraMatModuleMap}, \hyperpage{46}
 
   \indexspace
 
@@ -106,7 +106,7 @@
   \item \texttt  {IsPathAlgebraMatModule}, \hyperpage{40}
   \item \texttt  {IsPathAlgebraMatModuleMap}, \hyperpage{49}
   \item \texttt  {IsPrefixOfTipInTipIdeal}, \hyperpage{35}
-  \item \texttt  {IsProjectiveModule}, \hyperpage{42}
+  \item \texttt  {IsProjectiveModule}, \hyperpage{43}
   \item \texttt  {IsQuiver}, \hyperpage{14}
   \item \texttt  {IsQuiverProductDecomposition}, \hyperpage{29}
   \item \texttt  {IsRightGroebnerBasis}, \hyperpage{36}
@@ -191,7 +191,7 @@
   \item \texttt  {RightModuleHomOverPathAlgebra}, \hyperpage{49}
   \item \texttt  {RightModuleOverPathAlgebra}, \hyperpage{38}
   \item \texttt  {RightModuleOverQuotientOfPathAlgebra}, \hyperpage{38}
-  \item \texttt  {RightProjectiveModule}, \hyperpage{46}
+  \item \texttt  {RightProjectiveModule}, \hyperpage{47}
 
   \indexspace
 
@@ -199,7 +199,7 @@
   \item \texttt  {SizeOfQuiver}, \hyperpage{16}
   \item \texttt  {SocleOfPathAlgebraMatModule}, \hyperpage{44}
   \item \texttt  {SocleOfPathAlgebraMatModuleInclusion}, \hyperpage{53}
-  \item \texttt  {SocleSeries}, \hyperpage{43}
+  \item \texttt  {SocleSeries}, \hyperpage{44}
   \item \texttt  {Source}, \hyperpage{50}
   \item \texttt  {SourceOfPath}, \hyperpage{18}
   \item \texttt  {SubRep}, \hyperpage{44}

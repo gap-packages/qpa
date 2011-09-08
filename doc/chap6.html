@@ -235,7 +235,7 @@ gap&gt; B[4]^(P.b*P.c);
 <h5>6.4-3 DirectSummandTest</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; DirectSummandTest</code>( <var class="Arg">M, N</var> )</td><td class="tdright">( operation )</td></tr></table></div>
-<p><b>Returns: </b>true if <var class="Arg">M</var> is isomorphic to a direct summand of <var class="Arg">N</var>, otherwise false (or fail).</p>
+<p><b>Returns: </b>true if <var class="Arg">M</var> is isomorphic to a direct summand of <var class="Arg">N</var>, otherwise false (or fail). The function assumes that the module <var class="Arg">M</var> is indecomposable, otherwise it returns true is <var class="Arg">M</var> is in the additive closure of <var class="Arg">N</var>.</p>
 
 <p>The function checks if <var class="Arg">M</var> and <var class="Arg">N</var> are <code class="code">PathAlgebraMatModule</code>s over the same (quotient of a) path algebra.</p>
 
@@ -346,7 +346,7 @@ gap&gt; B[4]^(P.b*P.c);
 <h5>6.4-18 ModuleIsomorphismTest</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; ModuleIsomorphismTest</code>( <var class="Arg">M, N</var> )</td><td class="tdright">( operation )</td></tr></table></div>
-<p><b>Returns: </b>true or false depending on whether <var class="Arg">M</var> and <var class="Arg">N</var> are isomorphic or not.</p>
+<p><b>Returns: </b>true or false depending on whether <var class="Arg">M</var> and <var class="Arg">N</var> are isomorphic or not. The function assumes that the module <var class="Arg">M</var> (or <var class="Arg">N</var>) is indecomposable.</p>
 
 <p>The function first checks if the modules <var class="Arg">M</var> and <var class="Arg">N</var> are modules over the same algebra, and returns fail if not. The function returns returns true if the modules are isomorphic, otherwise false.</p>
 

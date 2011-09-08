@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- $Id: qpadocumentation.xml,v 1.15 2011/06/21 21:29:41 sunnyquiver Exp $ -->
+<!-- $Id: qpadocumentation.xml,v 1.16 2011/09/08 11:34:18 sunnyquiver Exp $ -->
 
 <!DOCTYPE Book SYSTEM "gapdoc.dtd"
  [ <!ENTITY see '<Alt Only="LaTeX">$\to$</Alt><Alt Not="LaTeX">--&gt;</Alt>'>
@@ -1978,7 +1978,10 @@ gap&gt; B[4]^(P.b*P.c);
    <Oper Name="DirectSummandTest" Arg="M, N" Comm="for two
    PathAlgebraMatModule's"/>
    <Returns>true if <Arg>M</Arg> is isomorphic to a direct summand
-     of <Arg>N</Arg>, otherwise false (or fail).</Returns>
+     of <Arg>N</Arg>, otherwise false (or fail). The function
+     assumes that the module <Arg>M</Arg> is indecomposable,
+     otherwise it returns true is <Arg>M</Arg> is in the additive
+     closure of <Arg>N</Arg>.</Returns>
    <Description>The function checks if <Arg>M</Arg> and <Arg>N</Arg>
      are <C>PathAlgebraMatModule</C>s over the same (quotient of a)
      path algebra. 
@@ -2124,7 +2127,9 @@ gap&gt; B[4]^(P.b*P.c);
 <ManSection>
    <Oper Name="ModuleIsomorphismTest" Arg="M, N" Comm=""/>
    <Returns>true or false depending on whether <Arg>M</Arg>
-   and <Arg>N</Arg> are isomorphic or not.</Returns>
+   and <Arg>N</Arg> are isomorphic or not. The function assumes that
+   the module <Arg>M</Arg> (or <Arg>N</Arg>) is
+   indecomposable.</Returns> 
    <Description>
     The function first checks if the modules <Arg>M</Arg>
     and <Arg>N</Arg> are modules over the same algebra, and returns fail

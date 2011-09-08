@@ -108,21 +108,21 @@
 \indexentry{DirectSumOfPathAlgebraMatModules@\texttt  {DirectSumOfPathAlgebraMatModules}|hyperpage}{41}
 \indexentry{IsDirectSum@\texttt  {IsDirectSum}|hyperpage}{41}
 \indexentry{DirectSumInclusions@\texttt  {DirectSumInclusions}|hyperpage}{41}
-\indexentry{DirectSumProjections@\texttt  {DirectSumProjections}|hyperpage}{41}
+\indexentry{DirectSumProjections@\texttt  {DirectSumProjections}|hyperpage}{42}
 \indexentry{1stSyzygy@\texttt  {1st{\textunderscore }Syzygy}|hyperpage}{42}
 \indexentry{nthSyzygy@\texttt  {nth{\textunderscore }Syzygy}|hyperpage}{42}
 \indexentry{nthSyzygyNC@\texttt  {nth{\textunderscore }SyzygyNC}|hyperpage}{42}
 \indexentry{IsOmegaPeriodic@\texttt  {IsOmegaPeriodic}|hyperpage}{42}
 \indexentry{IsInjectiveModule@\texttt  {IsInjectiveModule}|hyperpage}{42}
 \indexentry{IsOmegaPeriodicTest@\texttt  {IsOmegaPeriodicTest}|hyperpage}{42}
-\indexentry{IsProjectiveModule@\texttt  {IsProjectiveModule}|hyperpage}{42}
+\indexentry{IsProjectiveModule@\texttt  {IsProjectiveModule}|hyperpage}{43}
 \indexentry{IsSemisimpleModule@\texttt  {IsSemisimpleModule}|hyperpage}{43}
 \indexentry{IsSimpleModule@\texttt  {IsSimpleModule}|hyperpage}{43}
 \indexentry{LoewyLength@\texttt  {LoewyLength}|hyperpage}{43}
 \indexentry{ModuleIsomorphismTest@\texttt  {ModuleIsomorphismTest}|hyperpage}{43}
 \indexentry{RadicalOfRep@\texttt  {RadicalOfRep}|hyperpage}{43}
 \indexentry{RadicalSeries@\texttt  {RadicalSeries}|hyperpage}{43}
-\indexentry{SocleSeries@\texttt  {SocleSeries}|hyperpage}{43}
+\indexentry{SocleSeries@\texttt  {SocleSeries}|hyperpage}{44}
 \indexentry{SocleOfPathAlgebraMatModule@\texttt  {SocleOfPathAlgebraMatModule}|hyperpage}{44}
 \indexentry{SubRep@\texttt  {SubRep}|hyperpage}{44}
 \indexentry{TopOfRep@\texttt  {TopOfRep}|hyperpage}{44}
@@ -133,17 +133,17 @@
 \indexentry{IndecomposableInjectiveRepresentations@\texttt  {IndecomposableInjectiveRepresentations}|hyperpage}{45}
 \indexentry{VertexSimpleRepresentations@\texttt  {VertexSimpleRepresentations}|hyperpage}{45}
 \indexentry{ZeroRepresentation@\texttt  {ZeroRepresentation}|hyperpage}{45}
-\indexentry{DualOfPathAlgebraMatModule@\texttt  {DualOfPathAlgebraMatModule}|hyperpage}{45}
-\indexentry{DualOfPathAlgebraMatModuleMap@\texttt  {DualOfPathAlgebraMatModuleMap}|hyperpage}{45}
+\indexentry{DualOfPathAlgebraMatModule@\texttt  {DualOfPathAlgebraMatModule}|hyperpage}{46}
+\indexentry{DualOfPathAlgebraMatModuleMap@\texttt  {DualOfPathAlgebraMatModuleMap}|hyperpage}{46}
 \indexentry{DTr@\texttt  {DTr}|hyperpage}{46}
 \indexentry{DTr@\texttt  {DTr}|hyperpage}{46}
 \indexentry{TrD@\texttt  {TrD}|hyperpage}{46}
 \indexentry{TrD@\texttt  {TrD}|hyperpage}{46}
 \indexentry{TransposeOfModule@\texttt  {TransposeOfModule}|hyperpage}{46}
-\indexentry{RightProjectiveModule@\texttt  {RightProjectiveModule}|hyperpage}{46}
+\indexentry{RightProjectiveModule@\texttt  {RightProjectiveModule}|hyperpage}{47}
 \indexentry{Vectorize@\texttt  {Vectorize}|hyperpage}{47}
 \indexentry{^@\texttt  {\texttt  {\char 94\relax }}|hyperpage}{47}
-\indexentry{<@\texttt  {{\textless }}|hyperpage}{47}
+\indexentry{<@\texttt  {{\textless }}|hyperpage}{48}
 \indexentry{/@\texttt  {/}|hyperpage}{48}
 \indexentry{IsPathAlgebraMatModuleMap@\texttt  {IsPathAlgebraMatModuleMap}|hyperpage}{49}
 \indexentry{RightModuleHomOverPathAlgebra@\texttt  {RightModuleHomOverPathAlgebra}|hyperpage}{49}

@@ -51,7 +51,7 @@
 \hypersetup{pdftitle=QPA}
 \markright{\scriptsize \mbox{}\hfill QPA \hfill\mbox{}}
 {\Large \textbf{Quivers and Path Algebras\mbox{}}}\\[1cm]
-{Version version 1.5\mbox{}}\\[1cm]
+{Version version 1.4\mbox{}}\\[1cm]
 {September 2010\mbox{}}\\[1cm]
 \mbox{}\\[2cm]
 {\large \textbf{The QPA-team\\
@@ -2361,7 +2361,7 @@ the dimension of the representation \mbox{\texttt{\slshape M}}. The argument \mb
 \label{DirectSummandTest}
 }\hfill{\scriptsize (operation)}}\\
 \textbf{\indent Returns:\ }
-true if \mbox{\texttt{\slshape M}} is isomorphic to a direct summand of \mbox{\texttt{\slshape N}}, otherwise false (or fail).
+true if \mbox{\texttt{\slshape M}} is isomorphic to a direct summand of \mbox{\texttt{\slshape N}}, otherwise false (or fail). The function assumes that the module \mbox{\texttt{\slshape M}} is indecomposable, otherwise it returns true is \mbox{\texttt{\slshape M}} is in the additive closure of \mbox{\texttt{\slshape N}}.
 
 
 
@@ -2564,7 +2564,7 @@ fail otherwise (This is not implemented yet). }
 \label{ModuleIsomorphismTest}
 }\hfill{\scriptsize (operation)}}\\
 \textbf{\indent Returns:\ }
-true or false depending on whether \mbox{\texttt{\slshape M}} and \mbox{\texttt{\slshape N}} are isomorphic or not.
+true or false depending on whether \mbox{\texttt{\slshape M}} and \mbox{\texttt{\slshape N}} are isomorphic or not. The function assumes that the module \mbox{\texttt{\slshape M}} (or \mbox{\texttt{\slshape N}}) is indecomposable.
 
 
 

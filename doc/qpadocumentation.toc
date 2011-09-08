@@ -146,43 +146,43 @@
 \contentsline {subsection}{\numberline {6.4.4}\leavevmode {\color {Chapter }DirectSumOfPathAlgebraMatModules}}{41}{subsection.6.4.4}
 \contentsline {subsection}{\numberline {6.4.5}\leavevmode {\color {Chapter }IsDirectSum}}{41}{subsection.6.4.5}
 \contentsline {subsection}{\numberline {6.4.6}\leavevmode {\color {Chapter }DirectSumInclusions}}{41}{subsection.6.4.6}
-\contentsline {subsection}{\numberline {6.4.7}\leavevmode {\color {Chapter }DirectSumProjections}}{41}{subsection.6.4.7}
+\contentsline {subsection}{\numberline {6.4.7}\leavevmode {\color {Chapter }DirectSumProjections}}{42}{subsection.6.4.7}
 \contentsline {subsection}{\numberline {6.4.8}\leavevmode {\color {Chapter }1st{\textunderscore }Syzygy}}{42}{subsection.6.4.8}
 \contentsline {subsection}{\numberline {6.4.9}\leavevmode {\color {Chapter }nth{\textunderscore }Syzygy}}{42}{subsection.6.4.9}
 \contentsline {subsection}{\numberline {6.4.10}\leavevmode {\color {Chapter }nth{\textunderscore }SyzygyNC}}{42}{subsection.6.4.10}
 \contentsline {subsection}{\numberline {6.4.11}\leavevmode {\color {Chapter }IsOmegaPeriodic}}{42}{subsection.6.4.11}
 \contentsline {subsection}{\numberline {6.4.12}\leavevmode {\color {Chapter }IsInjectiveModule}}{42}{subsection.6.4.12}
 \contentsline {subsection}{\numberline {6.4.13}\leavevmode {\color {Chapter }IsOmegaPeriodicTest}}{42}{subsection.6.4.13}
-\contentsline {subsection}{\numberline {6.4.14}\leavevmode {\color {Chapter }IsProjectiveModule}}{42}{subsection.6.4.14}
+\contentsline {subsection}{\numberline {6.4.14}\leavevmode {\color {Chapter }IsProjectiveModule}}{43}{subsection.6.4.14}
 \contentsline {subsection}{\numberline {6.4.15}\leavevmode {\color {Chapter }IsSemisimpleModule}}{43}{subsection.6.4.15}
 \contentsline {subsection}{\numberline {6.4.16}\leavevmode {\color {Chapter }IsSimpleModule}}{43}{subsection.6.4.16}
 \contentsline {subsection}{\numberline {6.4.17}\leavevmode {\color {Chapter }LoewyLength}}{43}{subsection.6.4.17}
 \contentsline {subsection}{\numberline {6.4.18}\leavevmode {\color {Chapter }ModuleIsomorphismTest}}{43}{subsection.6.4.18}
 \contentsline {subsection}{\numberline {6.4.19}\leavevmode {\color {Chapter }RadicalOfRep}}{43}{subsection.6.4.19}
 \contentsline {subsection}{\numberline {6.4.20}\leavevmode {\color {Chapter }RadicalSeries}}{43}{subsection.6.4.20}
-\contentsline {subsection}{\numberline {6.4.21}\leavevmode {\color {Chapter }SocleSeries}}{43}{subsection.6.4.21}
+\contentsline {subsection}{\numberline {6.4.21}\leavevmode {\color {Chapter }SocleSeries}}{44}{subsection.6.4.21}
 \contentsline {subsection}{\numberline {6.4.22}\leavevmode {\color {Chapter }SocleOfPathAlgebraMatModule}}{44}{subsection.6.4.22}
 \contentsline {subsection}{\numberline {6.4.23}\leavevmode {\color {Chapter }SubRep}}{44}{subsection.6.4.23}
 \contentsline {subsection}{\numberline {6.4.24}\leavevmode {\color {Chapter }TopOfRep}}{44}{subsection.6.4.24}
 \contentsline {subsection}{\numberline {6.4.25}\leavevmode {\color {Chapter }GeneratorsOfRep}}{44}{subsection.6.4.25}
 \contentsline {subsection}{\numberline {6.4.26}\leavevmode {\color {Chapter }MinimalSetOfGenerators}}{44}{subsection.6.4.26}
 \contentsline {subsection}{\numberline {6.4.27}\leavevmode {\color {Chapter }MatricesOfPathAlgebraMatModule}}{44}{subsection.6.4.27}
-\contentsline {section}{\numberline {6.5}\leavevmode {\color {Chapter }Special representations}}{44}{section.6.5}
+\contentsline {section}{\numberline {6.5}\leavevmode {\color {Chapter }Special representations}}{45}{section.6.5}
 \contentsline {subsection}{\numberline {6.5.1}\leavevmode {\color {Chapter }IndecomposableProjectiveRepresentations}}{45}{subsection.6.5.1}
 \contentsline {subsection}{\numberline {6.5.2}\leavevmode {\color {Chapter }IndecomposableInjectiveRepresentations}}{45}{subsection.6.5.2}
 \contentsline {subsection}{\numberline {6.5.3}\leavevmode {\color {Chapter }VertexSimpleRepresentations}}{45}{subsection.6.5.3}
 \contentsline {subsection}{\numberline {6.5.4}\leavevmode {\color {Chapter }ZeroRepresentation}}{45}{subsection.6.5.4}
-\contentsline {section}{\numberline {6.6}\leavevmode {\color {Chapter }Functors on representations}}{45}{section.6.6}
-\contentsline {subsection}{\numberline {6.6.1}\leavevmode {\color {Chapter }DualOfPathAlgebraMatModule}}{45}{subsection.6.6.1}
-\contentsline {subsection}{\numberline {6.6.2}\leavevmode {\color {Chapter }DualOfPathAlgebraMatModuleMap}}{45}{subsection.6.6.2}
+\contentsline {section}{\numberline {6.6}\leavevmode {\color {Chapter }Functors on representations}}{46}{section.6.6}
+\contentsline {subsection}{\numberline {6.6.1}\leavevmode {\color {Chapter }DualOfPathAlgebraMatModule}}{46}{subsection.6.6.1}
+\contentsline {subsection}{\numberline {6.6.2}\leavevmode {\color {Chapter }DualOfPathAlgebraMatModuleMap}}{46}{subsection.6.6.2}
 \contentsline {subsection}{\numberline {6.6.3}\leavevmode {\color {Chapter }DTr}}{46}{subsection.6.6.3}
 \contentsline {subsection}{\numberline {6.6.4}\leavevmode {\color {Chapter }TrD}}{46}{subsection.6.6.4}
 \contentsline {subsection}{\numberline {6.6.5}\leavevmode {\color {Chapter }TransposeOfModule}}{46}{subsection.6.6.5}
 \contentsline {section}{\numberline {6.7}\leavevmode {\color {Chapter }Vertex Projective Presentations}}{46}{section.6.7}
-\contentsline {subsection}{\numberline {6.7.1}\leavevmode {\color {Chapter }RightProjectiveModule}}{46}{subsection.6.7.1}
+\contentsline {subsection}{\numberline {6.7.1}\leavevmode {\color {Chapter }RightProjectiveModule}}{47}{subsection.6.7.1}
 \contentsline {subsection}{\numberline {6.7.2}\leavevmode {\color {Chapter }Vectorize}}{47}{subsection.6.7.2}
 \contentsline {subsection}{\numberline {6.7.3}\leavevmode {\color {Chapter }\texttt {\char 94\relax }}}{47}{subsection.6.7.3}
-\contentsline {subsection}{\numberline {6.7.4}\leavevmode {\color {Chapter }{\textless }}}{47}{subsection.6.7.4}
+\contentsline {subsection}{\numberline {6.7.4}\leavevmode {\color {Chapter }{\textless }}}{48}{subsection.6.7.4}
 \contentsline {subsection}{\numberline {6.7.5}\leavevmode {\color {Chapter }/}}{48}{subsection.6.7.5}
 \contentsline {chapter}{\numberline {7}\leavevmode {\color {Chapter }Homomorphisms of Right Modules over Path Algebras}}{49}{chapter.7}
 \contentsline {section}{\numberline {7.1}\leavevmode {\color {Chapter }Categories and representation of homomorphisms}}{49}{section.7.1}
