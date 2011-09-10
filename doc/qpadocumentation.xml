@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- $Id: qpadocumentation.xml,v 1.16 2011/09/08 11:34:18 sunnyquiver Exp $ -->
+<!-- $Id: qpadocumentation.xml,v 1.17 2011/09/10 12:01:21 sunnyquiver Exp $ -->
 
 <!DOCTYPE Book SYSTEM "gapdoc.dtd"
  [ <!ENTITY see '<Alt Only="LaTeX">$\to$</Alt><Alt Not="LaTeX">--&gt;</Alt>'>
@@ -1956,6 +1956,20 @@ gap&gt; B[4]^(P.b*P.c);
 <Section><Heading>Operations on representations</Heading>
 
 <ManSection>
+   <Oper Name="CommonDirectSummand" Arg="M, N" Comm="for two
+   PathAlgebraMatModule's"/>
+   <Returns>a list of four modules [<Arg>X</Arg>,<Arg>U</Arg>,<Arg>X</Arg>, <Arg>V</Arg>], 
+     where <Arg>X</Arg> is one common non-zero direct summand of <Arg>M</Arg> 
+     and <Arg>N</Arg>, the sum of <Arg>X</Arg> and <Arg>U</Arg> is  <Arg>M</Arg>
+     and the sum of  <Arg>X</Arg> and <Arg>V</Arg> is  <Arg>N</Arg>, 
+     if such a non-zero direct summand exists. Otherwise it returns false.</Returns>
+   <Description>The function checks if <Arg>M</Arg> and <Arg>N</Arg>
+     are <C>PathAlgebraMatModule</C>s over the same (quotient of a)
+     path algebra. 
+   </Description>
+</ManSection>
+
+<ManSection>
    <Oper Name="DimensionVector" Arg="M" Comm="for a
    PathAlgebraMatModule"/>
    <Returns>the dimension vector of the representation <Arg>M</Arg>.
@@ -1978,10 +1992,7 @@ gap&gt; B[4]^(P.b*P.c);
    <Oper Name="DirectSummandTest" Arg="M, N" Comm="for two
    PathAlgebraMatModule's"/>
    <Returns>true if <Arg>M</Arg> is isomorphic to a direct summand
-     of <Arg>N</Arg>, otherwise false (or fail). The function
-     assumes that the module <Arg>M</Arg> is indecomposable,
-     otherwise it returns true is <Arg>M</Arg> is in the additive
-     closure of <Arg>N</Arg>.</Returns>
+     of <Arg>N</Arg>, otherwise false.</Returns>
    <Description>The function checks if <Arg>M</Arg> and <Arg>N</Arg>
      are <C>PathAlgebraMatModule</C>s over the same (quotient of a)
      path algebra. 
@@ -2038,26 +2049,14 @@ gap&gt; B[4]^(P.b*P.c);
 </ManSection>
 
 <ManSection>
-   <Oper Name="nth_Syzygy" Arg="M, n" Comm="for a
-   PathAlgebraMatModule"/>
-   <Returns>the top of the syzygies until a syzygy is projective or
-     the <Arg>n</Arg>-th syzygy has been computed. The
-     argument <Arg>M</Arg> must be a <C>PathAlgebraMatModule</C>, and
-     the argument <Arg>n</Arg> must be a positive integer.
-   </Returns>
-</ManSection>
-
-<ManSection>
-   <Oper Name="nth_SyzygyNC" Arg="M, n" Comm="for a
-   PathAlgebraMatModule"/>
-   <Returns>the <C>n</C>-th syzygy of the module <Arg>M</Arg>, unless
-   the projective dimension of <Arg>M</Arg> is less or equal
-   to <C>n-1</C>, in which case it returns the projective dimension of 
-   <Arg>M</Arg>. It does not check if the <C>n</C>-th syzygy is
-   projective or not. The argument <Arg>M</Arg> must be
-   a <C>PathAlgebraMatModule</C>, and the argument <Arg>n</Arg> must
-   be a positive integer.
-   </Returns>
+   <Oper Name="InAdditiveClosureTest" Arg="M, N" Comm="for two
+   PathAlgebraMatModule's"/>
+   <Returns>true if <Arg>M</Arg> is in the additive closure of the module
+     <Arg>N</Arg>, otherwise false.</Returns>
+   <Description>The function checks if <Arg>M</Arg> and <Arg>N</Arg>
+     are <C>PathAlgebraMatModule</C>s over the same (quotient of a)
+     path algebra. 
+   </Description>
 </ManSection>
 
 <ManSection>
@@ -2125,17 +2124,52 @@ gap&gt; B[4]^(P.b*P.c);
 </ManSection>
 
 <ManSection>
+   <Oper Name="MaximalCommonDirectSummand" Arg="M, N" Comm="for two
+   PathAlgebraMatModule's"/>
+   <Returns>a list of three modules [<Arg>X</Arg>,<Arg>U</Arg>,<Arg>V</Arg>], 
+     where <Arg>X</Arg> is a maximal common non-zero direct summand of <Arg>M</Arg> 
+     and <Arg>N</Arg>, the sum of <Arg>X</Arg> and <Arg>U</Arg> is  <Arg>M</Arg>
+     and the sum of  <Arg>X</Arg> and <Arg>V</Arg> is  <Arg>N</Arg>, 
+     if such a non-zero maximal direct summand exists. Otherwise it returns false.</Returns>
+   <Description>The function checks if <Arg>M</Arg> and <Arg>N</Arg>
+     are <C>PathAlgebraMatModule</C>s over the same (quotient of a)
+     path algebra. 
+   </Description>
+</ManSection>
+
+<ManSection>
    <Oper Name="ModuleIsomorphismTest" Arg="M, N" Comm=""/>
    <Returns>true or false depending on whether <Arg>M</Arg>
-   and <Arg>N</Arg> are isomorphic or not. The function assumes that
-   the module <Arg>M</Arg> (or <Arg>N</Arg>) is
-   indecomposable.</Returns> 
+   and <Arg>N</Arg> are isomorphic or not.</Returns> 
    <Description>
     The function first checks if the modules <Arg>M</Arg>
     and <Arg>N</Arg> are modules over the same algebra, and returns fail
-    if not. The function returns returns true if the modules are
+    if not. The function returns true if the modules are
     isomorphic, otherwise false. 
    </Description>
+</ManSection>
+
+<ManSection>
+   <Oper Name="nth_Syzygy" Arg="M, n" Comm="for a
+   PathAlgebraMatModule"/>
+   <Returns>the top of the syzygies until a syzygy is projective or
+     the <Arg>n</Arg>-th syzygy has been computed. The
+     argument <Arg>M</Arg> must be a <C>PathAlgebraMatModule</C>, and
+     the argument <Arg>n</Arg> must be a positive integer.
+   </Returns>
+</ManSection>
+
+<ManSection>
+   <Oper Name="nth_SyzygyNC" Arg="M, n" Comm="for a
+   PathAlgebraMatModule"/>
+   <Returns>the <C>n</C>-th syzygy of the module <Arg>M</Arg>, unless
+   the projective dimension of <Arg>M</Arg> is less or equal
+   to <C>n-1</C>, in which case it returns the projective dimension of 
+   <Arg>M</Arg>. It does not check if the <C>n</C>-th syzygy is
+   projective or not. The argument <Arg>M</Arg> must be
+   a <C>PathAlgebraMatModule</C>, and the argument <Arg>n</Arg> must
+   be a positive integer.
+   </Returns>
 </ManSection>
 
 <ManSection>

@@ -1,5 +1,5 @@
 # GAP Implementation
-# $Id: homomorphisms.gi,v 1.14 2011/09/08 11:39:13 sunnyquiver Exp $
+# $Id: homomorphisms.gi,v 1.15 2011/09/10 12:01:22 sunnyquiver Exp $
 
 InstallMethod( ImageElm, 
     "for a map between representations and an element in a representation.",
@@ -581,7 +581,6 @@ InstallMethod ( KerInclusion,
   V_dim := Sum(dim_K);
   A := RightActingAlgebra(M);
 if V_dim = 0 then 
-   Print("The homomorphism is one-to-one.\n");
    SetIsOneToOne(f,true);
    return ZeroMap(ZeroRepresentation(A),Source(f)); 
 else 
@@ -777,7 +776,6 @@ InstallMethod ( ImProjectionInclusion,
 
       return [image_projection,image_inclusion];
    else
-      Print("The homomorphism is the zero homomorphism.");
       return true;
    fi;
 end
@@ -1441,105 +1439,182 @@ InstallMethod ( SocleOfPathAlgebraMatModule,
 end
 );
 
+InstallMethod( CommonDirectSummand, 
+   "for two path algebra matmodules",
+   [ IsPathAlgebraMatModule, IsPathAlgebraMatModule  ], 0,
+   function( M, N ) 
+
+   local K, HomMN, HomNM, MM, MMflat, i, j, HomMM, V_M, id, 
+         mm, mn, nm, m, n, l, f, g, pM, pN, zMN, zNM, zMM;
+#
+# This function is using the algorithm for finding a common direct 
+# summand presented in the paper "Gauss-Elimination und der groesste
+# gemeinsame direkte Summand von zwei endlichdimensionalen Moduln"
+# by K. Bongartz, Arch Math., vol. 53, 256-258.
+#
+   if RightActingAlgebra(M) <> RightActingAlgebra(N) then 
+      Print("The two modules are not modules over the same algebra.\n");
+      return fail;
+   else
+      K := LeftActingDomain(M);
+      HomMN := HomOverPathAlgebra(M,N);
+      HomNM := HomOverPathAlgebra(N,M);
+      HomMM := HomOverPathAlgebra(M,M);
+      MM := [];
+      mm := Length(HomMM); 
+      mn := Length(HomMN);
+      nm := Length(HomNM);
+      if mn*nm = 0 then 
+         return false;
+      fi;
+      n := Maximum(DimensionVector(M));
+      m := Maximum(DimensionVector(N));
+      n := Maximum([n,m]);
+      pM := TopOfRepProjection(M);
+      pN := TopOfRepProjection(N);
+      zMN := ZeroMap(M,Range(pN));
+      zNM := ZeroMap(N,Range(pM));
+      zMM := ZeroMap(M,Range(pM));
+      for j in [1..Length(HomNM)] do
+         if HomNM[j]*pM <> zNM then 
+            for i in [1..Length(HomMN)] do
+               if HomMN[i]*pN <> zMN then 
+                  for l in [1..Length(HomMM)] do
+                     if HomMM[l]*pM <> zMM then  
+                        f := (HomMN[i]*HomNM[j]*HomMM[l])^n;
+                        if f <> ZeroMap(M,M) then
+                           g := (HomNM[j]*HomMM[l]*HomMN[i])^n;
+                           if g <> ZeroMap(N,N) then
+                              return [Im(f),Ker(f),Im(g),Ker(g)];
+                           fi;                      
+                        fi; 
+                     fi;
+                  od;
+               fi;
+            od;
+         fi;
+      od;
+
+      return false;
+   fi; 
+end
+);
+
+InstallMethod( MaximalCommonDirectSummand, 
+   "for two path algebra matmodules",
+   [ IsPathAlgebraMatModule, IsPathAlgebraMatModule  ], 0,
+   function( M, N ) 
+
+   local U, V, maxcommon, L;
+
+   U := M;
+   V := N;
+   maxcommon := [];
+   repeat 
+      L := CommonDirectSummand(U,V);
+      if L <> false and L <> fail then 
+         Add(maxcommon,L[1]);
+         U := L[2];
+         V := L[4];
+         if Dimension(L[2]) = 0 or Dimension(L[4]) = 0 then
+            break;
+         fi;
+      fi;
+   until  L = false or L = fail;
+
+   if Length(maxcommon) = 0 then 
+      return false;
+   else 
+      return [maxcommon,U,V];
+   fi;     
+end
+);
+
 InstallMethod( ModuleIsomorphismTest, 
    "for two path algebra matmodules",
    [ IsPathAlgebraMatModule, IsPathAlgebraMatModule  ], 0,
    function( M, N ) 
 
-   local K, HomMN, HomNM, MM, i, j, HomMM, V_M;
+   local L;
 
-   if RightActingAlgebra(M) <> RightActingAlgebra(N) then 
-      return fail;
-   else
-      if DimensionVector(M) <> DimensionVector(N) then 
-         return false;
+   if DimensionVector(M) <> DimensionVector(N) then 
+      return false;
+   else 
+      L := MaximalCommonDirectSummand(M,N);
+      if Dimension(L[2]) = 0 and Dimension(L[3]) = 0 then 
+         return true;
       else
-#
-# Computing Hom(M,N) and Hom(N,M), finding the subspace in Hom(M,M)
-# spanned by Hom(M,N)*Hom(M,N), if they have the same dimension, the 
-# module M is in the additive closue of N. Assuming that the module M
-# is indecomposable (or basic), the modules are isomorphic as they have 
-# the same dimension vector.
-#
-         K := LeftActingDomain(M);
-         HomMN := HomOverPathAlgebra(M,N);
-         HomNM := HomOverPathAlgebra(N,M);
-         MM := [];
-         for i in [1..Length(HomMN)] do
-            for j in [1..Length(HomNM)] do
-               Add(MM,HomMN[i]*HomNM[j]);
-            od;
-         od;
-         MM := List(MM,x->x!.maps);
-         for i in [1..Length(MM)] do
-            MM[i] := List(MM[i],x->Flat(x)); 
-            MM[i] := Flat(MM[i]);
-         od;
-         HomMM:=HomOverPathAlgebra(M,M);
-         if Length(MM) = 0 then 
-            V_M := TrivialSubspace(K);
-         else 
-            V_M := VectorSpace(K,MM);
-         fi; 
-         if Dimension(V_M) = Length(HomOverPathAlgebra(M,M)) then
-            return true;
-         else
-            return false;
-         fi;
+         return false;
       fi;
-   fi; 
+   fi;
 end
-);
+); 
 
 InstallMethod( DirectSummandTest, 
    "for two path algebra matmodules",
    [ IsPathAlgebraMatModule, IsPathAlgebraMatModule  ], 0,
    function( M, N ) 
-#
-# This function assumes that the module M is indecomposable.
-# If M is not indecomposable, then the function returns true 
-# if  M  is in the additive closure of  N.
-#
-   local K, HomMN, HomNM, MM, i, j, HomMM, V_M;
 
-   if RightActingAlgebra(M) <> RightActingAlgebra(N) then 
-      return fail;
-   else
-      if not DimensionVectorPartialOrder(M,N) then 
+   local L;
+
+   if not DimensionVectorPartialOrder(M,N) then 
+      return false;
+   else 
+      L := MaximalCommonDirectSummand(M,N);
+      if L = false then 
          return false;
-      else
-#
-# Computing Hom(M,N) and Hom(N,M), finding the subspace in Hom(M,M)
-# spanned by Hom(M,N)*Hom(M,N), if they have the same dimension, the 
-# module M is isomorphic to a direct summand of N. 
-#
-         K := LeftActingDomain(M);
-         HomMN := HomOverPathAlgebra(M,N);
-         HomNM := HomOverPathAlgebra(N,M);
-         MM := [];
-         for i in [1..Length(HomMN)] do
-            for j in [1..Length(HomNM)] do
-               Add(MM,HomMN[i]*HomNM[j]);
-            od;
-         od;
-         MM := List(MM,x->x!.maps);
-         for i in [1..Length(MM)] do
-            MM[i] := List(MM[i],x->Flat(x)); 
-            MM[i] := Flat(MM[i]);
-         od;
-         HomMM:=HomOverPathAlgebra(M,M);
-         if Length(MM) = 0 then 
-            V_M := TrivialSubspace(K);
-         else 
-            V_M := VectorSpace(K,MM);
-         fi;
-         if Dimension(V_M) = Length(HomOverPathAlgebra(M,M)) then
+      else 
+         if Dimension(L[2]) = 0 then 
             return true;
          else
             return false;
          fi;
       fi;
-   fi; 
+   fi;
+end
+); 
+
+InstallMethod( InAdditiveClosureTest, 
+   "for two path algebra matmodules",
+   [ IsPathAlgebraMatModule, IsPathAlgebraMatModule  ], 0,
+   function( M, N ) 
+
+   local K, HomMN, HomNM, MM, i, j, HomMM, V_M;
+
+   if RightActingAlgebra(M) <> RightActingAlgebra(N) then 
+      return fail;
+   else
+#
+# Computing Hom(M,N) and Hom(N,M), finding the subspace in Hom(M,M)
+# spanned by Hom(M,N)*Hom(M,N), if they have the same dimension, then 
+# the identity on  M  is in the linear span of Hom(M,N)*Hom(M,N) and  
+# module M is in the additive closure of N. 
+#
+      K := LeftActingDomain(M);
+      HomMN := HomOverPathAlgebra(M,N);
+      HomNM := HomOverPathAlgebra(N,M);
+      MM := [];
+      for i in [1..Length(HomMN)] do
+         for j in [1..Length(HomNM)] do
+            Add(MM,HomMN[i]*HomNM[j]);
+         od;
+      od;
+      MM := List(MM,x->x!.maps);
+      for i in [1..Length(MM)] do
+         MM[i] := List(MM[i],x->Flat(x)); 
+         MM[i] := Flat(MM[i]);
+      od;
+      HomMM:=HomOverPathAlgebra(M,M);
+      if Length(MM) = 0 then 
+         V_M := TrivialSubspace(K);
+      else 
+         V_M := VectorSpace(K,MM);
+      fi; 
+      if Dimension(V_M) = Length(HomOverPathAlgebra(M,M)) then
+         return true;
+      else
+         return false;
+      fi;
+   fi;
 end
 );
-
