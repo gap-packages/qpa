@@ -1,5 +1,5 @@
 # GAP Implementation
-# $Id: homomorphisms.gi,v 1.15 2011/09/10 12:01:22 sunnyquiver Exp $
+# $Id: homomorphisms.gi,v 1.16 2011/09/22 10:17:54 sunnyquiver Exp $
 
 InstallMethod( ImageElm, 
     "for a map between representations and an element in a representation.",
@@ -1541,10 +1541,14 @@ InstallMethod( ModuleIsomorphismTest,
       return false;
    else 
       L := MaximalCommonDirectSummand(M,N);
-      if Dimension(L[2]) = 0 and Dimension(L[3]) = 0 then 
-         return true;
-      else
+      if L = false then 
          return false;
+      else
+         if Dimension(L[2]) = 0 and Dimension(L[3]) = 0 then 
+            return true;
+         else
+            return false;
+         fi;
       fi;
    fi;
 end
