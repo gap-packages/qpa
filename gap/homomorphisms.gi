@@ -1,20 +1,17 @@
 # GAP Implementation
-# $Id: homomorphisms.gi,v 1.17 2011/09/26 08:11:46 sunnyquiver Exp $
+# $Id: homomorphisms.gi,v 1.18 2011/10/03 20:09:59 sunnyquiver Exp $
 
 InstallMethod( ImageElm, 
     "for a map between representations and an element in a representation.",
     [ IsPathAlgebraMatModuleMap, IsAlgebraModuleElement ], 0, 
     function( map, elem )
 
-    local elt, i, n, fam, image, temp, zero, new_image;
+    local elt, n, fam, image, temp, zero, new_image;
 
     if elem in Source(map) then
   	    elt := ExtRepOfObj(elem);
         n := Basis(Range(map))[1];
-        image := [];
-        for i in [1..Length(elt![1])] do 
-            image[i] := elt![1][i]*map!.maps[i];
-        od;
+        image := List([1..Length(elt![1])], x -> elt![1][x]*map!.maps[x]);
 
         image := PathModuleElem(FamilyObj(Zero(Range(map))![1]),image);        
         return Objectify( TypeObj( n ), [ image ] );
@@ -56,16 +53,13 @@ InstallMethod( PreImagesElm,
     [ IsPathAlgebraMatModuleMap, IsAlgebraModuleElement ], 0, 
     function( map, elem )
 
-    local elt, i, m, fam, preimage;
+    local elt, m, fam, preimage;
 
     if elem in Range(map) then
         elt := ExtRepOfObj(elem)![1];
         m := Basis(Source(map))[1];
-        preimage := [];
-        for i in [1..Length(elt)] do 
-            Add(preimage,SolutionMat(map!.maps[i],elt[i]));
-        od;
-        if ForAll(preimage,x-> x <> fail) then 
+        preimage := List([1..Length(elt)], x -> SolutionMat(map!.maps[x],elt[x]));
+        if ForAll(preimage,x -> x <> fail) then 
            preimage := PathModuleElem(FamilyObj(Zero(Source(map))![1]),preimage);        
            return Objectify( TypeObj( m ), [ preimage ] );
         else
@@ -331,19 +325,13 @@ else
         new  := temp;
         temp := [];
     od;
-    V_list := [];
-    for m in submodspan do
-        Add(V_list,Coefficients(basis_M,m));
-    od;
+    V_list := List(submodspan, x -> Coefficients(basis_M,x));
     V := VectorSpace(K,V_list);
     basis_submod := CanonicalBasis(V);
 #
 # Converting elements in basis_submod to a list of elements in M 
 #
-    submod_list := [];
-    for m in basis_submod do
-        Add(submod_list,LinearCombination(basis_M,m));
-    od;
+    submod_list := List(basis_submod, x -> LinearCombination(basis_M,x));
 #
 # Finding the dimension vector of the submodule of M
 #
@@ -479,14 +467,8 @@ InstallMethod( RadicalOfRepInclusion,
 #
 # Note arrows_as_path will change if A is a quotient of a path algebra !!!!
 #
-    run_time := Runtime(); 
     arrows_as_path := List(ArrowsOfQuiver(q), x -> x*One(A));
-#    Print("Finding arrows as elements in A: ",Runtime()-run_time,"\n");
-    run_time := Runtime(); 
-#    arrows_as_path  := GeneratorsOfAlgebra(A){[1+num_vert..num_vert+Length(ArrowsOfQuiver(q))]};
     basis_M := Basis(M);
-#    Print("Finding a basis of M: ",Runtime()-run_time,"\n");
-    run_time := Runtime(); 
     generators := [];
     for a in arrows_as_path do
        for b in basis_M do 
@@ -495,7 +477,8 @@ InstallMethod( RadicalOfRepInclusion,
           fi;
        od;
     od;
-#    Print("Finding generators for submodule: ",Runtime()-run_time,"\n");
+
+    generators := Unique(generators);
     return SubRepInclusion(M,generators);
 end
 );
@@ -1049,11 +1032,9 @@ InstallMethod( \+,
      local i, num_vert, x, Fam;
 
      if ( Source(f) = Source(g) ) and ( Range(f) = Range(g) ) then 
-        x := [];
      	num_vert := Length(f!.maps);
-     	for i in [1..num_vert] do
-     	   x[i] := f!.maps[i] + g!.maps[i];
-     	od;
+     	x := List([1..num_vert], y -> f!.maps[y] + g!.maps[y]);
+
 	return RightModuleHomOverPathAlgebra(Source(f),Range(f),x);
      else
 	Error("the two arguments entered do not live in the same homomorphism set, ");
@@ -1071,11 +1052,9 @@ InstallMethod( \*,
      local i, num_vert, x;
 
      if Range(f) = Source(g) then 
-        x := [];
      	num_vert := Length(f!.maps);
-     	for i in [1..num_vert] do
-     	   x[i] := f!.maps[i]*g!.maps[i];
-     	od;
+     	x := List([1..num_vert], y -> f!.maps[y]*g!.maps[y]);
+
 	return RightModuleHomOverPathAlgebra(Source(f),Range(g),x);
      else
         Error("codomain of the first argument is not equal to the domain of the second argument, ");
@@ -1094,11 +1073,9 @@ InstallOtherMethod( \*,
 
      K := LeftActingDomain(Source(g));
      if a in K then 
-        x := [];
      	num_vert := Length(g!.maps);
-     	for i in [1..num_vert] do
-     	   x[i] := a*g!.maps[i];
-     	od;
+     	x := List([1..num_vert], y -> a*g!.maps[y]);
+
 	return RightModuleHomOverPathAlgebra(Source(g),Range(g),x);
      else
 	Error("the scalar is not in the same field as the algbra is over,");
@@ -1114,11 +1091,8 @@ InstallMethod( AdditiveInverseOp,
 
     local i, num_vert, x;
 
-    x := [];
     num_vert := Length(f!.maps);
-    for i in [1..num_vert] do
-          x[i] := (-1)*f!.maps[i];
-    od;
+    x := List([1..num_vert], y -> (-1)*f!.maps[y]);
 
     return RightModuleHomOverPathAlgebra(Source(f),Range(f),x);
 end
@@ -1134,11 +1108,9 @@ InstallOtherMethod( \*,
 
      K := LeftActingDomain(Source(f));
      if a in K then 
-        x := [];
      	num_vert := Length(f!.maps);
-     	for i in [1..num_vert] do
-     	   x[i] := f!.maps[i]*a;
-     	od;
+     	x := List([1..num_vert], y -> f!.maps[y]*a);
+
 	return RightModuleHomOverPathAlgebra(Source(f),Range(f),x);
      else
 	Error("the scalar is not in the same field as the algbra is over,");
@@ -1417,7 +1389,6 @@ InstallMethod ( DualOfPathAlgebraMatModuleMap,
     N := DualOfPathAlgebraMatModule(Range(f));
 
     return RightModuleHomOverPathAlgebra(N,M,mats);
-
 end
 );
 
