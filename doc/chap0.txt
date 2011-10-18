@@ -200,16 +200,16 @@
     6.3 Acting on Module Elements
       6.3-1 ^
     6.4 Operations on representations
-      6.4-1 DimensionVector
-      6.4-2 DimensionMatModule
-      6.4-3 DirectSummandTest
-      6.4-4 DirectSumOfPathAlgebraMatModules
-      6.4-5 IsDirectSum
-      6.4-6 DirectSumInclusions
-      6.4-7 DirectSumProjections
-      6.4-8 1st_Syzygy
-      6.4-9 nth_Syzygy
-      6.4-10 nth_SyzygyNC
+      6.4-1 CommonDirectSummand
+      6.4-2 DimensionVector
+      6.4-3 DimensionMatModule
+      6.4-4 DirectSummandTest
+      6.4-5 DirectSumOfPathAlgebraMatModules
+      6.4-6 IsDirectSum
+      6.4-7 DirectSumInclusions
+      6.4-8 DirectSumProjections
+      6.4-9 1st_Syzygy
+      6.4-10 InAdditiveClosureTest
       6.4-11 IsOmegaPeriodic
       6.4-12 IsInjectiveModule
       6.4-13 IsOmegaPeriodicTest
@@ -217,16 +217,19 @@
       6.4-15 IsSemisimpleModule
       6.4-16 IsSimpleModule
       6.4-17 LoewyLength
-      6.4-18 ModuleIsomorphismTest
-      6.4-19 RadicalOfRep
-      6.4-20 RadicalSeries
-      6.4-21 SocleSeries
-      6.4-22 SocleOfPathAlgebraMatModule
-      6.4-23 SubRep
-      6.4-24 TopOfRep
-      6.4-25 GeneratorsOfRep
-      6.4-26 MinimalSetOfGenerators
-      6.4-27 MatricesOfPathAlgebraMatModule
+      6.4-18 MaximalCommonDirectSummand
+      6.4-19 ModuleIsomorphismTest
+      6.4-20 nth_Syzygy
+      6.4-21 nth_SyzygyNC
+      6.4-22 RadicalOfRep
+      6.4-23 RadicalSeries
+      6.4-24 SocleSeries
+      6.4-25 SocleOfPathAlgebraMatModule
+      6.4-26 SubRep
+      6.4-27 TopOfRep
+      6.4-28 GeneratorsOfRep
+      6.4-29 MinimalSetOfGenerators
+      6.4-30 MatricesOfPathAlgebraMatModule
     6.5 Special representations
       6.5-1 IndecomposableProjectiveRepresentations
       6.5-2 IndecomposableInjectiveRepresentations
@@ -260,25 +263,31 @@
       7.2-9 \= (maps)
       7.2-10 \+ (maps)
       7.2-11 \* (maps)
-      7.2-12 IsOneToOne
-      7.2-13 IsOnto
-      7.2-14 IsIsom
-      7.2-15 IsZeroMap
-      7.2-16 KernelOfWhat
-      7.2-17 ImageOfWhat
-      7.2-18 CoKernelOfWhat
+      7.2-12 CoKernelOfWhat
+      7.2-13 ImageOfWhat
+      7.2-14 IsOneToOne
+      7.2-15 IsOnto
+      7.2-16 IsIsom
+      7.2-17 IsSplitEpi
+      7.2-18 IsSplitMono
+      7.2-19 IsZeroMap
+      7.2-20 KernelOfWhat
     7.3 Homomorphisms and modules constructed from homomorphisms and modules
       7.3-1 Coker
       7.3-2 EndOverPathAlgebra
       7.3-3 HomOverPathAlgebra
       7.3-4 Im
       7.3-5 Ker
-      7.3-6 PullBack
-      7.3-7 PushOut
-      7.3-8 RadicalOfRepInclusion
-      7.3-9 SocleOfPathAlgebraMatModuleInclusion
-      7.3-10 SubRepInclusion
-      7.3-11 TopOfRepProjection
+      7.3-6 LeftMinimalVersion
+      7.3-7 RightMinimalVersion
+      7.3-8 MinimalLeftApproximation
+      7.3-9 MinimalRightApproximation
+      7.3-10 PullBack
+      7.3-11 PushOut
+      7.3-12 RadicalOfRepInclusion
+      7.3-13 SocleOfPathAlgebraMatModuleInclusion
+      7.3-14 SubRepInclusion
+      7.3-15 TopOfRepProjection
   A An Appendix
   
   

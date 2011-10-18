@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- $Id: qpadocumentation.xml,v 1.17 2011/09/10 12:01:21 sunnyquiver Exp $ -->
+<!-- $Id: qpadocumentation.xml,v 1.18 2011/10/18 09:51:04 sunnyquiver Exp $ -->
 
-<!DOCTYPE Book SYSTEM "gapdoc.dtd"
- [ <!ENTITY see '<Alt Only="LaTeX">$\to$</Alt><Alt Not="LaTeX">--&gt;</Alt>'>
- ]>
+<!DOCTYPE Book SYSTEM "gapdoc.dtd">
+<!-- [ <!ENTITY see '<Alt Only="LaTeX">$\to$</Alt><Alt Not="LaTeX">--&gt;</Alt>'>
+ ]> -->
 
 <?LaTeX ExtraPreamble="
 \newcommand{\tensor}{\otimes}
@@ -31,7 +31,7 @@
   </Address>
   <Abstract>
     
-       
+      
   </Abstract>
   <Copyright>&copyright; 2010-2020 The QPA-team. 
   </Copyright>
@@ -69,10 +69,10 @@ simple example is presented first:
 We construct a quiver <Math>q</Math>, i.e. a finite directed graph, with one
 vertex and two loops:
 
-<Example>
-gap&gt; q := Quiver(["u"],[["u","u","a"],["u","u","b"]]);
-&lt;quiver with 1 vertices and 2 arrows&gt;
-</Example>
+<Example><![CDATA[
+gap> q := Quiver(["u"],[["u","u","a"],["u","u","b"]]);
+<quiver with 1 vertices and 2 arrows>
+]]></Example>
 
 We can request the list of vertices and the list of arrows
 for <Math>q</Math>:
@@ -1955,6 +1955,29 @@ gap&gt; B[4]^(P.b*P.c);
 
 <Section><Heading>Operations on representations</Heading>
 
+<Example><![CDATA[
+gap> Q  := Quiver(3,[[1,2,"a"],[1,2,"b"],[2,2,"c"],[2,3,"d"],[3,1,"e"]]);
+<quiver with 3 vertices and 5 arrows>
+gap> KQ := PathAlgebra(Rationals, Q);
+<algebra-with-one over Rationals, with 8 generators>
+gap> gens := GeneratorsOfAlgebra(KQ);
+[ (1)*v1, (1)*v2, (1)*v3, (1)*a, (1)*b, (1)*c, (1)*d, (1)*e ]
+gap> u := gens[1];; v := gens[2];;
+gap> w := gens[3];; a := gens[4];;
+gap> b := gens[5];; c := gens[6];;
+gap> d := gens[7];; e := gens[8];;
+gap> rels := [d*e,c^2,a*c*d-b*d,e*a];;
+gap> I:= Ideal(KQ,rels);;
+gap> gb:= GBNPGroebnerBasis(rels,KQ);;
+gap> gbb:= GroebnerBasis(I,gb);;
+gap> A:= KQ/I;
+<algebra-with-one over Rationals, with 8 generators>
+gap> mat:=[["a",[[1,2],[0,3],[1,5]]],["b",[[2,0],[3,0],[5,0]]],
+["c",[[0,0],[1,0]]],["d",[[1,2],[0,1]]],["e",[[0,0,0],[0,0,0]]]];;
+gap> N:= RightModuleOverQuotientOfPathAlgebra(A,mat);                         
+<right-module over <algebra-with-one over Rationals, with 8 generators>>
+]]></Example>
+
 <ManSection>
    <Oper Name="CommonDirectSummand" Arg="M, N" Comm="for two
    PathAlgebraMatModule's"/>
@@ -2038,6 +2061,39 @@ gap&gt; B[4]^(P.b*P.c);
     using <C>DirectSumOfPathAlgebraMatModules</C>.
    </Description>
 </ManSection>
+
+Using the example above.
+<Example><![CDATA[
+gap> N2:=DirectSumOfPathAlgebraMatModules([N,N]);
+<14-dimensional right-module over <algebra-with-one of dimension 
+17 over Rationals>>
+gap> proj:=DirectSumProjections(N2);
+[ <mapping: <14-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> -> <
+    7-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> >, 
+  <mapping: <14-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> -> <
+    7-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> > ]
+gap> inc:=DirectSumInclusions(N2);  
+[ <mapping: <7-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> -> <
+    14-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> >, 
+  <mapping: <7-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> -> <
+    14-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> > ]
+]]></Example>
 
 <ManSection>
    <Oper Name="1st_Syzygy" Arg="M" Comm="for a
@@ -2690,6 +2746,24 @@ This chapter describes the categories, representations, attributes,
 </ManSection>
 
 <ManSection>
+   <Attr Name="CoKernelOfWhat" Arg="f" Comm=""/>
+   <Description>
+     If the homomorphism <Arg>f</Arg> has been computed as the
+     cokernel of an other homomorphism <Arg>g</Arg>, then <Arg>g</Arg>
+     is returned.
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Attr Name="ImageOfWhat" Arg="f" Comm=""/>
+   <Description>
+     If the homomorphism <Arg>f</Arg> has been computed as the image
+     projection or image inclusion of an other
+     homomorphism <Arg>g</Arg>, then <Arg>g</Arg> is returned.
+   </Description>
+</ManSection>
+
+<ManSection>
    <Attr Name="IsOneToOne" Arg="f" Comm=""/>
    <Description>
      This returns <Code>true</Code> if the homomorphism <Arg>f</Arg>
@@ -2714,6 +2788,43 @@ This chapter describes the categories, representations, attributes,
 </ManSection>
 
 <ManSection>
+   <Attr Name="IsSplitEpi" Arg="f" Comm=""/>
+   <Description>
+     This returns <Code>false</Code> if the homomorphism <Arg>f</Arg>
+     is not a splittable epimorphism, otherwise it returns a
+     splitting of the homomorphism<Arg>f</Arg>.
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Attr Name="IsSplitMono" Arg="f" Comm=""/>
+   <Description>
+     This returns <Code>false</Code> if the homomorphism <Arg>f</Arg>
+     is not a splittable monomorphism, otherwise it returns a
+     splitting of the homomorphism<Arg>f</Arg>.
+   </Description>
+</ManSection>
+
+<Example><![CDATA[
+gap> S := VertexSimpleRepresentations(A)[1];;
+gap> H := HomOverPathAlgebra(N,S);; 
+gap> IsSplitMono(H[1]);  
+false      
+gap> f := IsSplitEpi(H[1]);
+<mapping: <1-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> -> <7-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> >
+gap> IsSplitMono(f);
+<mapping: <7-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> -> <1-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> >
+]]></Example>
+
+<ManSection>
    <Attr Name="IsZeroMap" Arg="f" Comm=""/>
    <Description>
      This returns <Code>true</Code> if the homomorphism <Arg>f</Arg>
@@ -2730,23 +2841,6 @@ This chapter describes the categories, representations, attributes,
    </Description>
 </ManSection>
 
-<ManSection>
-   <Attr Name="ImageOfWhat" Arg="f" Comm=""/>
-   <Description>
-     If the homomorphism <Arg>f</Arg> has been computed as the image
-     projection or image inclusion of an other
-     homomorphism <Arg>g</Arg>, then <Arg>g</Arg> is returned.
-   </Description>
-</ManSection>
-
-<ManSection>
-   <Attr Name="CoKernelOfWhat" Arg="f" Comm=""/>
-   <Description>
-     If the homomorphism <Arg>f</Arg> has been computed as the
-     cokernel of an other homomorphism <Arg>g</Arg>, then <Arg>g</Arg>
-     is returned.
-   </Description>
-</ManSection>
 
 </Section>
 
@@ -2821,6 +2915,83 @@ This chapter describes the categories, representations, attributes,
 </ManSection>
 
 <ManSection>
+   <Attr Name="LeftMinimalVersion" Arg="f" Comm=""/>
+   <Description>
+     It returns the left minimal version <Arg>f'</Arg> of the
+     homomorphism <Arg>f</Arg> together with the a list <Code>B</Code>
+     of modules such that the direct sum of the
+     modules, <Code>Source(f')</Code> and the modules on the
+     list <Code>B</Code> is isomorphic to <Code>Source(f)</Code>.
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Attr Name="RightMinimalVersion" Arg="f" Comm=""/>
+   <Description>
+     It returns the right minimal version <Arg>f'</Arg> of the
+     homomorphism <Arg>f</Arg> together with the a list <Code>B</Code>
+     of modules such that the direct sum of the
+     modules, <Code>Range(f')</Code> and the modules on the
+     list <Code>B</Code> is isomorphic to <Code>Range(f)</Code>.
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Attr Name="MinimalLeftApproximation" Arg="C, M" Comm=""/>
+   <Description>
+     It returns the minimal left <Code>add M</Code>-approximation of
+     the module <Arg>C</Arg>. Note: Order of the arguments are
+     opposite of the order for minimal right approximations. 
+   </Description>
+</ManSection>
+
+
+<ManSection>
+   <Attr Name="MinimalRightApproximation" Arg="M, C" Comm=""/>
+   <Description>
+     It returns the minimal right <Code>add M</Code>-approximation of
+     the module <Arg>C</Arg>. Note: Order of the arguments are
+     opposite of the order for minimal left approximations.
+   </Description>
+</ManSection>
+
+<Example><![CDATA[
+gap> H:= HomOverPathAlgebra(N,N);;
+gap> RightMinimalVersion(H[1]);   
+[ <mapping: <1-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> -> <
+    7-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> >, 
+  [ <6-dimensional right-module over <algebra-with-one of dimension 
+        17 over Rationals>> ] ]
+gap> LeftMinimalVersion(H[1]);             
+[ <mapping: <7-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> -> <
+    1-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> >, 
+  [ <6-dimensional right-module over <algebra-with-one of dimension 
+        17 over Rationals>> ] ]
+gap> S:=VertexSimpleRepresentations(A)[1];;
+gap> MinimalRightApproximation(N,S);
+<mapping: <1-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> -> <1-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> >
+gap> S:=VertexSimpleRepresentations(A)[3];;
+gap> MinimalLeftApproximation(S,N);        
+<mapping: <1-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> -> <6-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> >
+]]></Example>
+
+<ManSection>
    <Oper Name="PullBack" Arg="f, g" Comm="for two maps between modules
    with common target"/>
    <Returns>the pullback of the maps <Arg>f</Arg> and <Arg>g</Arg>.</Returns>
@@ -2887,14 +3058,6 @@ This chapter describes the categories, representations, attributes,
     be accessed using <Code>Range</Code> of the homomorphism.
    </Description>
 </ManSection>
-
-
-
-
-
-
-
-
 </Section>
 </Chapter>
 </Body>

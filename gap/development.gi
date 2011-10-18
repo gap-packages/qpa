@@ -890,3 +890,409 @@ InstallMethod( IsOmegaPeriodic,
    return false;
 end
 );
+
+InstallMethod ( FromHomMMToEndM, 
+   "for a subset of EndOverPathAlgebra to HomOverPathAlgebra",
+   true,
+   [ IsPathAlgebraMatModuleMap ],
+   0,
+   function( f )
+
+   local K, dim_vect, end_f, r, j;
+
+   K := LeftActingDomain(Source(f));
+   dim_vect := DimensionVector(Source(f));
+   end_f := NullMat(Dimension(Source(f)),Dimension(Source(f)),K);
+   r := 1; 
+   for j in [1..Length(dim_vect)] do 
+      if dim_vect[j] <> 0 then 
+         end_f{[r..r+dim_vect[j]-1]}{[r..r+dim_vect[j]-1]} := f!.maps[j];
+         r := r + dim_vect[j];
+      fi;
+   od; 
+
+   return end_f;
+end
+);
+
+InstallMethod ( FromEndMToHomMM, 
+   "for a subset of EndOverPathAlgebra to HomOverPathAlgebra",
+   true,
+   [ IsPathAlgebraMatModule, IsMatrix ],
+   0,
+   function( M, mat )
+
+   local K, dim_vect, maps, i, r;
+
+   K := LeftActingDomain(M); 
+   dim_vect := DimensionVector(M);
+
+   maps := [];
+   r := 1;
+   for i in [1..Length(dim_vect)] do
+      if dim_vect[i] = 0 then 
+         Add(maps,NullMat(1,1,K));
+      else
+         Add(maps,mat{[r..r+dim_vect[i]-1]}{[r..r+dim_vect[i]-1]});
+         r := r + dim_vect[i];
+      fi;
+   od;
+
+   return RightModuleHomOverPathAlgebra(M,M,maps);
+end
+);
+
+InstallMethod ( IsRightMinimal, 
+   "for a PathAlgebraMatModuleMap",
+   true,
+   [ IsPathAlgebraMatModuleMap ],
+   0,
+   function( f )
+
+   local B, C, BB, mat, Ann_f, radEndB;
+
+   B   := Source(f);
+   C   := Range(f);
+   BB  := HomOverPathAlgebra(B,B);
+   mat := List(BB, x -> x*f);
+   mat   := List(mat,x -> Flat(x!.maps));
+   Ann_f := NullspaceMat(mat);
+   Ann_f := List(Ann_f,x -> LinearCombination(BB,x));
+   radEndB := RadicalOfAlgebra(EndOverPathAlgebra(B)); 
+   Ann_f := List(Ann_f, x -> FromHomMMToEndM(x));
+
+   if ForAll(Ann_f, x -> x in radEndB) then 
+      return true;
+   else
+      return false;
+   fi;
+end
+);
+
+InstallMethod ( IsLeftMinimal, 
+   "for a PathAlgebraMatModuleMap",
+   true,
+   [ IsPathAlgebraMatModuleMap ],
+   0,
+   function( f )
+
+   local A, B, BB, mat, Ann_f, radEndB;
+
+   A   := Source(f);
+   B   := Range(f);
+   BB  := HomOverPathAlgebra(B,B);
+   mat := List(BB, x -> f*x );
+   mat   := List(mat,x -> Flat(x!.maps));
+   Ann_f := NullspaceMat(mat);
+   Ann_f := List(Ann_f,x -> LinearCombination(BB,x));
+   radEndB := RadicalOfAlgebra(EndOverPathAlgebra(B)); 
+   Ann_f := List(Ann_f, x -> FromHomMMToEndM(x));
+
+   if ForAll(Ann_f, x -> x in radEndB) then 
+      return true;
+   else
+      return false;
+   fi;
+end
+);
+
+InstallMethod ( IsSplitMono, 
+   "for a PathAlgebraMatModuleMap",
+   true,
+   [ IsPathAlgebraMatModuleMap ],
+   0,
+   function( f )
+
+   local B, C, CB, id_B, mat, flat_id_B, split_f;
+
+   B   := Source(f);
+   C   := Range(f);
+   if IsOneToOne(f) then 
+      CB  := HomOverPathAlgebra(C,B);
+      if Length(CB) = 0 then 
+         return false;
+      else 
+         mat := [];
+         mat := List(CB, x -> f*x);
+         id_B := IdentityMap(B); 
+         mat   := List(mat,x -> Flat(x!.maps));
+         flat_id_B := Flat(id_B!.maps); 
+         split_f := SolutionMat(mat,flat_id_B);
+
+         if split_f <> fail then 
+            split_f := LinearCombination(CB,split_f);
+            SetIsSplitEpi(split_f,f);
+            SetIsSplitMono(f,split_f);
+            return split_f;
+         else
+            SetIsSplitMono(f,false);
+            return false;
+         fi;
+      fi;
+   else
+      return false;
+   fi;
+end
+);
+
+InstallMethod ( IsSplitEpi, 
+   "for a PathAlgebraMatModuleMap",
+   true,
+   [ IsPathAlgebraMatModuleMap ],
+   0,
+   function( f )
+
+   local B, C, CB, id_C, mat, flat_id_C, split_f;
+
+   B   := Source(f);
+   C   := Range(f);
+   if IsOnto(f) then 
+      CB  := HomOverPathAlgebra(C,B);
+      if Length(CB) = 0 then 
+         return false;
+      else 
+         mat := List(CB, x -> x*f );
+         id_C := IdentityMap(C); 
+         mat   := List(mat,x -> Flat(x!.maps));
+         flat_id_C := Flat(id_C!.maps); 
+         split_f := SolutionMat(mat,flat_id_C);
+
+         if split_f <> fail then 
+            split_f := LinearCombination(CB,split_f);
+            SetIsSplitMono(split_f,f);
+            SetIsSplitEpi(f,split_f);
+            return split_f;
+         else
+            SetIsSplitEpi(f,false);
+            return false;
+         fi;
+      fi;
+   else
+      return false;
+   fi;
+end
+);
+
+InstallMethod ( MoreRightMinimalVersion, 
+   "for a PathAlgebraMatModuleMap",
+   true,
+   [ IsPathAlgebraMatModuleMap ],
+   0,
+   function( f )
+
+   local B, g, A, HomBA, HomAA, n, i, j, gg, hh;
+
+   B := Source(f);
+   g := KerInclusion(f);
+   A := Source(g);
+   HomBA  := HomOverPathAlgebra(B,A);
+   if Length(HomBA) = 0 then 
+      return f;
+   else 
+      HomAA  := HomOverPathAlgebra(A,A);
+      n := Maximum(Concatenation(DimensionVector(A),DimensionVector(B)));
+      for i in [1..Length(HomBA)] do 
+         for j in [1..Length(HomAA)] do
+            gg := (g*HomBA[i]*HomAA[j])^n;
+            if gg <> ZeroMap(A,A) then
+               hh :=  (HomBA[i]*HomAA[j]*g)^n;
+               return [KerInclusion(hh)*f,ImInclusion(hh)*f];
+            fi;
+         od;
+      od;
+      return f;
+   fi;
+end
+);
+
+InstallMethod ( MoreLeftMinimalVersion, 
+   "for a PathAlgebraMatModuleMap",
+   true,
+   [ IsPathAlgebraMatModuleMap ],
+   0,
+   function( f )
+
+   local B, g, C, HomCB, HomCC, n, i, j, gg, hh, t;
+
+   B := Range(f);
+   g := CokerProjection(f);
+   C := Range(g);
+   HomCB  := HomOverPathAlgebra(C,B);
+   if Length(HomCB) = 0 then 
+      return f;
+   else 
+      HomCC  := HomOverPathAlgebra(C,C);
+      n := Maximum(Concatenation(DimensionVector(B),DimensionVector(C)));
+      for i in [1..Length(HomCC)] do 
+         for j in [1..Length(HomCB)] do
+            gg := (HomCC[i]*HomCB[j]*g)^n;
+            if gg <> ZeroMap(C,C) then
+               hh :=  (g*HomCC[i]*HomCB[j])^n;
+               t := IsSplitMono(KerInclusion(hh));
+               return [f*t,f*ImProjection(hh)];
+            fi;
+         od;
+      od;
+      return f;
+   fi;
+end
+);
+
+InstallMethod ( RightMinimalVersion, 
+   "for a PathAlgebraMatModuleMap",
+   true,
+   [ IsPathAlgebraMatModuleMap ],
+   0,
+   function( f )
+
+   local Bprime, g, L;
+
+   Bprime := [];
+   g := f;
+   repeat
+      L := MoreRightMinimalVersion(g);
+      if L <> g then 
+         g := L[1];
+         Add(Bprime,Source(L[2]));
+      fi;
+   until 
+      L = g;
+
+   SetIsRightMinimal(g,true);
+
+   return [g,Bprime];
+end
+);
+
+InstallMethod ( LeftMinimalVersion, 
+   "for a PathAlgebraMatModuleMap",
+   true,
+   [ IsPathAlgebraMatModuleMap ],
+   0,
+   function( f )
+
+   local Bprime, g, L;
+
+   Bprime := [];
+   g := f;
+   repeat
+      L := MoreLeftMinimalVersion(g);
+      if L <> g then 
+         g := L[1];
+         Add(Bprime,Range(L[2]));
+      fi;
+   until 
+      L = g;
+
+   SetIsLeftMinimal(g,true);
+
+   return [g,Bprime];
+end
+);
+
+
+InstallMethod ( MinimalRightApproximation, 
+   "for two PathAlgebraMatModules",
+   true,
+   [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ],
+   0,
+   function( M, C )
+
+   local K, HomMC, EndM, radEndM, radHomMC, i, j, FlatHomMC, 
+         FlatradHomMC, V, BB, W, f, VoverW, B, gens, approx, approxmap;
+
+   if RightActingAlgebra(M) = RightActingAlgebra(C) then 
+      K := LeftActingDomain(M);
+      HomMC := HomOverPathAlgebra(M,C);
+      if Length(HomMC) = 0 then 
+         return ZeroMap(ZeroRepresentation(RightActingAlgebra(M)),C);
+      else  
+         EndM  := EndOverPathAlgebra(M);
+         radEndM := RadicalOfAlgebra(EndM);
+         radEndM := BasisVectors(Basis(radEndM));
+         radEndM := List(radEndM, x -> FromEndMToHomMM(M,x));
+         radHomMC := [];
+         for i in [1..Length(HomMC)] do
+            for j in [1..Length(radEndM)] do
+               Add(radHomMC,radEndM[j]*HomMC[i]);
+            od;
+         od;
+         FlatHomMC := List(HomMC, x -> Flat(x!.maps));
+         FlatradHomMC := List(radHomMC, x -> Flat(x!.maps));
+         V := VectorSpace(K,FlatHomMC,"basis");
+         BB := Basis(V,FlatHomMC);
+         W := Subspace(V,FlatradHomMC);
+         f := NaturalHomomorphismBySubspace( V, W );
+         VoverW := Range(f);
+         B := BasisVectors(Basis(VoverW));
+         gens := List(B, x -> PreImagesRepresentative(f,x)); 
+         gens := List(gens, x -> Coefficients(BB,x));
+         gens := List(gens, x -> LinearCombination(HomMC,x));
+         approx := List(gens, x -> Source(x));
+         approx := DirectSumOfPathAlgebraMatModules(approx);
+         approxmap := ShallowCopy(DirectSumProjections(approx));
+         for i in [1..Length(approxmap)] do
+            approxmap[i] := approxmap[i]*gens[i];
+         od;
+         approxmap := Sum(approxmap);
+         return RightMinimalVersion(approxmap)[1];
+      fi;
+   else
+      Error(" the two modules entered into MinimalRightApproximation are not modules over the same algebra.");
+      return fail;
+   fi;
+end
+);
+
+InstallMethod ( MinimalLeftApproximation, 
+   "for two PathAlgebraMatModules",
+   true,
+   [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ],
+   0,
+   function( C, M )
+
+   local K, HomCM, EndM, radEndM, radHomCM, i, j, FlatHomCM, 
+         FlatradHomCM, V, BB, W, f, VoverW, B, gens, approx, approxmap;
+
+   if RightActingAlgebra(M) = RightActingAlgebra(C) then 
+      K := LeftActingDomain(M);
+      HomCM := HomOverPathAlgebra(C,M);
+      if Length(HomCM) = 0 then 
+         return ZeroMap(C,ZeroRepresentation(RightActingAlgebra(M)));
+      else  
+         EndM  := EndOverPathAlgebra(M);
+         radEndM := RadicalOfAlgebra(EndM);
+         radEndM := BasisVectors(Basis(radEndM));
+         radEndM := List(radEndM, x -> FromEndMToHomMM(M,x));
+         radHomCM := [];
+         for i in [1..Length(HomCM)] do
+            for j in [1..Length(radEndM)] do
+               Add(radHomCM,HomCM[i]*radEndM[j]);
+            od;
+         od;
+         FlatHomCM := List(HomCM, x -> Flat(x!.maps));
+         FlatradHomCM := List(radHomCM, x -> Flat(x!.maps));
+         V := VectorSpace(K,FlatHomCM,"basis");
+         BB := Basis(V,FlatHomCM);
+         W := Subspace(V,FlatradHomCM);
+         f := NaturalHomomorphismBySubspace( V, W );
+         VoverW := Range(f);
+         B := BasisVectors(Basis(VoverW));
+         gens := List(B, x -> PreImagesRepresentative(f,x)); 
+         gens := List(gens, x -> Coefficients(BB,x));
+         gens := List(gens, x -> LinearCombination(HomCM,x));
+         approx := List(gens, x -> Range(x));
+         approx := DirectSumOfPathAlgebraMatModules(approx);
+         approxmap := ShallowCopy(DirectSumInclusions(approx));
+         for i in [1..Length(approxmap)] do
+            approxmap[i] := gens[i]*approxmap[i];
+         od;
+         approxmap := Sum(approxmap);
+         return LeftMinimalVersion(approxmap)[1];
+      fi;
+   else
+      Error(" the two modules entered into MinimalLeftApproximation are not modules over the same algebra.");
+      return fail;
+   fi;
+end
+);

@@ -102,82 +102,91 @@
 \indexentry{RightModuleOverQuotientOfPathAlgebra@\texttt  {RightModuleOverQuotientOfPathAlgebra}|hyperpage}{38}
 \indexentry{IsPathAlgebraMatModule@\texttt  {IsPathAlgebraMatModule}|hyperpage}{40}
 \indexentry{^@\texttt  {\texttt  {\char 94\relax }}|hyperpage}{40}
+\indexentry{CommonDirectSummand@\texttt  {CommonDirectSummand}|hyperpage}{41}
 \indexentry{DimensionVector@\texttt  {DimensionVector}|hyperpage}{41}
 \indexentry{DimensionMatModule@\texttt  {DimensionMatModule}|hyperpage}{41}
 \indexentry{DirectSummandTest@\texttt  {DirectSummandTest}|hyperpage}{41}
-\indexentry{DirectSumOfPathAlgebraMatModules@\texttt  {DirectSumOfPathAlgebraMatModules}|hyperpage}{41}
-\indexentry{IsDirectSum@\texttt  {IsDirectSum}|hyperpage}{41}
-\indexentry{DirectSumInclusions@\texttt  {DirectSumInclusions}|hyperpage}{41}
+\indexentry{DirectSumOfPathAlgebraMatModules@\texttt  {DirectSumOfPathAlgebraMatModules}|hyperpage}{42}
+\indexentry{IsDirectSum@\texttt  {IsDirectSum}|hyperpage}{42}
+\indexentry{DirectSumInclusions@\texttt  {DirectSumInclusions}|hyperpage}{42}
 \indexentry{DirectSumProjections@\texttt  {DirectSumProjections}|hyperpage}{42}
-\indexentry{1stSyzygy@\texttt  {1st{\textunderscore }Syzygy}|hyperpage}{42}
-\indexentry{nthSyzygy@\texttt  {nth{\textunderscore }Syzygy}|hyperpage}{42}
-\indexentry{nthSyzygyNC@\texttt  {nth{\textunderscore }SyzygyNC}|hyperpage}{42}
-\indexentry{IsOmegaPeriodic@\texttt  {IsOmegaPeriodic}|hyperpage}{42}
-\indexentry{IsInjectiveModule@\texttt  {IsInjectiveModule}|hyperpage}{42}
-\indexentry{IsOmegaPeriodicTest@\texttt  {IsOmegaPeriodicTest}|hyperpage}{42}
-\indexentry{IsProjectiveModule@\texttt  {IsProjectiveModule}|hyperpage}{43}
-\indexentry{IsSemisimpleModule@\texttt  {IsSemisimpleModule}|hyperpage}{43}
-\indexentry{IsSimpleModule@\texttt  {IsSimpleModule}|hyperpage}{43}
-\indexentry{LoewyLength@\texttt  {LoewyLength}|hyperpage}{43}
-\indexentry{ModuleIsomorphismTest@\texttt  {ModuleIsomorphismTest}|hyperpage}{43}
-\indexentry{RadicalOfRep@\texttt  {RadicalOfRep}|hyperpage}{43}
-\indexentry{RadicalSeries@\texttt  {RadicalSeries}|hyperpage}{43}
-\indexentry{SocleSeries@\texttt  {SocleSeries}|hyperpage}{44}
-\indexentry{SocleOfPathAlgebraMatModule@\texttt  {SocleOfPathAlgebraMatModule}|hyperpage}{44}
-\indexentry{SubRep@\texttt  {SubRep}|hyperpage}{44}
-\indexentry{TopOfRep@\texttt  {TopOfRep}|hyperpage}{44}
-\indexentry{GeneratorsOfRep@\texttt  {GeneratorsOfRep}|hyperpage}{44}
-\indexentry{MinimalSetOfGenerators@\texttt  {MinimalSetOfGenerators}|hyperpage}{44}
-\indexentry{MatricesOfPathAlgebraMatModule@\texttt  {MatricesOfPathAlgebraMatModule}|hyperpage}{44}
-\indexentry{IndecomposableProjectiveRepresentations@\texttt  {IndecomposableProjectiveRepresentations}|hyperpage}{45}
-\indexentry{IndecomposableInjectiveRepresentations@\texttt  {IndecomposableInjectiveRepresentations}|hyperpage}{45}
-\indexentry{VertexSimpleRepresentations@\texttt  {VertexSimpleRepresentations}|hyperpage}{45}
-\indexentry{ZeroRepresentation@\texttt  {ZeroRepresentation}|hyperpage}{45}
-\indexentry{DualOfPathAlgebraMatModule@\texttt  {DualOfPathAlgebraMatModule}|hyperpage}{46}
-\indexentry{DualOfPathAlgebraMatModuleMap@\texttt  {DualOfPathAlgebraMatModuleMap}|hyperpage}{46}
-\indexentry{DTr@\texttt  {DTr}|hyperpage}{46}
-\indexentry{DTr@\texttt  {DTr}|hyperpage}{46}
-\indexentry{TrD@\texttt  {TrD}|hyperpage}{46}
-\indexentry{TrD@\texttt  {TrD}|hyperpage}{46}
-\indexentry{TransposeOfModule@\texttt  {TransposeOfModule}|hyperpage}{46}
-\indexentry{RightProjectiveModule@\texttt  {RightProjectiveModule}|hyperpage}{47}
-\indexentry{Vectorize@\texttt  {Vectorize}|hyperpage}{47}
-\indexentry{^@\texttt  {\texttt  {\char 94\relax }}|hyperpage}{47}
-\indexentry{<@\texttt  {{\textless }}|hyperpage}{48}
-\indexentry{/@\texttt  {/}|hyperpage}{48}
-\indexentry{IsPathAlgebraMatModuleMap@\texttt  {IsPathAlgebraMatModuleMap}|hyperpage}{49}
-\indexentry{RightModuleHomOverPathAlgebra@\texttt  {RightModuleHomOverPathAlgebra}|hyperpage}{49}
-\indexentry{Range@\texttt  {Range}|hyperpage}{49}
-\indexentry{Source@\texttt  {Source}|hyperpage}{50}
-\indexentry{PreImageElm@\texttt  {PreImageElm}|hyperpage}{50}
-\indexentry{ImageElm@\texttt  {ImageElm}|hyperpage}{50}
-\indexentry{ImagesSet@\texttt  {ImagesSet}|hyperpage}{50}
-\indexentry{Zero@\texttt  {Zero}|hyperpage}{50}
-\indexentry{ZeroMap@\texttt  {ZeroMap}|hyperpage}{50}
-\indexentry{IdentityMap@\texttt  {IdentityMap}|hyperpage}{50}
-\indexentry{= (maps)@\texttt  {\texttt  {\char 92\relax }= (maps)}|hyperpage}{50}
-\indexentry{+ (maps)@\texttt  {\texttt  {\char 92\relax }+ (maps)}|hyperpage}{51}
-\indexentry{* (maps)@\texttt  {\texttt  {\char 92\relax }* (maps)}|hyperpage}{51}
-\indexentry{IsOneToOne@\texttt  {IsOneToOne}|hyperpage}{51}
-\indexentry{IsOnto@\texttt  {IsOnto}|hyperpage}{51}
-\indexentry{IsIsom@\texttt  {IsIsom}|hyperpage}{51}
-\indexentry{IsZeroMap@\texttt  {IsZeroMap}|hyperpage}{51}
-\indexentry{KernelOfWhat@\texttt  {KernelOfWhat}|hyperpage}{51}
-\indexentry{ImageOfWhat@\texttt  {ImageOfWhat}|hyperpage}{52}
-\indexentry{CoKernelOfWhat@\texttt  {CoKernelOfWhat}|hyperpage}{52}
-\indexentry{Coker@\texttt  {Coker}|hyperpage}{52}
-\indexentry{CokerProjection@\texttt  {CokerProjection}|hyperpage}{52}
-\indexentry{EndOverPathAlgebra@\texttt  {EndOverPathAlgebra}|hyperpage}{52}
-\indexentry{HomOverPathAlgebra@\texttt  {HomOverPathAlgebra}|hyperpage}{52}
-\indexentry{Im@\texttt  {Im}|hyperpage}{52}
-\indexentry{ImProjection@\texttt  {ImProjection}|hyperpage}{52}
-\indexentry{ImInclusion@\texttt  {ImInclusion}|hyperpage}{52}
-\indexentry{ImProjectionInclusion@\texttt  {ImProjectionInclusion}|hyperpage}{52}
-\indexentry{Ker@\texttt  {Ker}|hyperpage}{53}
-\indexentry{KerInclusion@\texttt  {KerInclusion}|hyperpage}{53}
-\indexentry{PullBack@\texttt  {PullBack}|hyperpage}{53}
-\indexentry{PushOut@\texttt  {PushOut}|hyperpage}{53}
-\indexentry{RadicalOfRepInclusion@\texttt  {RadicalOfRepInclusion}|hyperpage}{53}
-\indexentry{SocleOfPathAlgebraMatModuleInclusion@\texttt  {SocleOfPathAlgebraMatModuleInclusion}|hyperpage}{53}
-\indexentry{SubRepInclusion@\texttt  {SubRepInclusion}|hyperpage}{53}
-\indexentry{TopOfRepProjection@\texttt  {TopOfRepProjection}|hyperpage}{54}
+\indexentry{1stSyzygy@\texttt  {1st{\textunderscore }Syzygy}|hyperpage}{43}
+\indexentry{InAdditiveClosureTest@\texttt  {InAdditiveClosureTest}|hyperpage}{43}
+\indexentry{IsOmegaPeriodic@\texttt  {IsOmegaPeriodic}|hyperpage}{43}
+\indexentry{IsInjectiveModule@\texttt  {IsInjectiveModule}|hyperpage}{43}
+\indexentry{IsOmegaPeriodicTest@\texttt  {IsOmegaPeriodicTest}|hyperpage}{43}
+\indexentry{IsProjectiveModule@\texttt  {IsProjectiveModule}|hyperpage}{44}
+\indexentry{IsSemisimpleModule@\texttt  {IsSemisimpleModule}|hyperpage}{44}
+\indexentry{IsSimpleModule@\texttt  {IsSimpleModule}|hyperpage}{44}
+\indexentry{LoewyLength@\texttt  {LoewyLength}|hyperpage}{44}
+\indexentry{MaximalCommonDirectSummand@\texttt  {MaximalCommonDirectSummand}|hyperpage}{44}
+\indexentry{ModuleIsomorphismTest@\texttt  {ModuleIsomorphismTest}|hyperpage}{44}
+\indexentry{nthSyzygy@\texttt  {nth{\textunderscore }Syzygy}|hyperpage}{44}
+\indexentry{nthSyzygyNC@\texttt  {nth{\textunderscore }SyzygyNC}|hyperpage}{45}
+\indexentry{RadicalOfRep@\texttt  {RadicalOfRep}|hyperpage}{45}
+\indexentry{RadicalSeries@\texttt  {RadicalSeries}|hyperpage}{45}
+\indexentry{SocleSeries@\texttt  {SocleSeries}|hyperpage}{45}
+\indexentry{SocleOfPathAlgebraMatModule@\texttt  {SocleOfPathAlgebraMatModule}|hyperpage}{45}
+\indexentry{SubRep@\texttt  {SubRep}|hyperpage}{45}
+\indexentry{TopOfRep@\texttt  {TopOfRep}|hyperpage}{46}
+\indexentry{GeneratorsOfRep@\texttt  {GeneratorsOfRep}|hyperpage}{46}
+\indexentry{MinimalSetOfGenerators@\texttt  {MinimalSetOfGenerators}|hyperpage}{46}
+\indexentry{MatricesOfPathAlgebraMatModule@\texttt  {MatricesOfPathAlgebraMatModule}|hyperpage}{46}
+\indexentry{IndecomposableProjectiveRepresentations@\texttt  {IndecomposableProjectiveRepresentations}|hyperpage}{46}
+\indexentry{IndecomposableInjectiveRepresentations@\texttt  {IndecomposableInjectiveRepresentations}|hyperpage}{46}
+\indexentry{VertexSimpleRepresentations@\texttt  {VertexSimpleRepresentations}|hyperpage}{47}
+\indexentry{ZeroRepresentation@\texttt  {ZeroRepresentation}|hyperpage}{47}
+\indexentry{DualOfPathAlgebraMatModule@\texttt  {DualOfPathAlgebraMatModule}|hyperpage}{47}
+\indexentry{DualOfPathAlgebraMatModuleMap@\texttt  {DualOfPathAlgebraMatModuleMap}|hyperpage}{47}
+\indexentry{DTr@\texttt  {DTr}|hyperpage}{47}
+\indexentry{DTr@\texttt  {DTr}|hyperpage}{47}
+\indexentry{TrD@\texttt  {TrD}|hyperpage}{48}
+\indexentry{TrD@\texttt  {TrD}|hyperpage}{48}
+\indexentry{TransposeOfModule@\texttt  {TransposeOfModule}|hyperpage}{48}
+\indexentry{RightProjectiveModule@\texttt  {RightProjectiveModule}|hyperpage}{48}
+\indexentry{Vectorize@\texttt  {Vectorize}|hyperpage}{49}
+\indexentry{^@\texttt  {\texttt  {\char 94\relax }}|hyperpage}{49}
+\indexentry{<@\texttt  {{\textless }}|hyperpage}{49}
+\indexentry{/@\texttt  {/}|hyperpage}{49}
+\indexentry{IsPathAlgebraMatModuleMap@\texttt  {IsPathAlgebraMatModuleMap}|hyperpage}{51}
+\indexentry{RightModuleHomOverPathAlgebra@\texttt  {RightModuleHomOverPathAlgebra}|hyperpage}{51}
+\indexentry{Range@\texttt  {Range}|hyperpage}{51}
+\indexentry{Source@\texttt  {Source}|hyperpage}{52}
+\indexentry{PreImageElm@\texttt  {PreImageElm}|hyperpage}{52}
+\indexentry{ImageElm@\texttt  {ImageElm}|hyperpage}{52}
+\indexentry{ImagesSet@\texttt  {ImagesSet}|hyperpage}{52}
+\indexentry{Zero@\texttt  {Zero}|hyperpage}{52}
+\indexentry{ZeroMap@\texttt  {ZeroMap}|hyperpage}{52}
+\indexentry{IdentityMap@\texttt  {IdentityMap}|hyperpage}{52}
+\indexentry{= (maps)@\texttt  {\texttt  {\char 92\relax }= (maps)}|hyperpage}{52}
+\indexentry{+ (maps)@\texttt  {\texttt  {\char 92\relax }+ (maps)}|hyperpage}{53}
+\indexentry{* (maps)@\texttt  {\texttt  {\char 92\relax }* (maps)}|hyperpage}{53}
+\indexentry{CoKernelOfWhat@\texttt  {CoKernelOfWhat}|hyperpage}{53}
+\indexentry{ImageOfWhat@\texttt  {ImageOfWhat}|hyperpage}{53}
+\indexentry{IsOneToOne@\texttt  {IsOneToOne}|hyperpage}{53}
+\indexentry{IsOnto@\texttt  {IsOnto}|hyperpage}{53}
+\indexentry{IsIsom@\texttt  {IsIsom}|hyperpage}{53}
+\indexentry{IsSplitEpi@\texttt  {IsSplitEpi}|hyperpage}{54}
+\indexentry{IsSplitMono@\texttt  {IsSplitMono}|hyperpage}{54}
+\indexentry{IsZeroMap@\texttt  {IsZeroMap}|hyperpage}{54}
+\indexentry{KernelOfWhat@\texttt  {KernelOfWhat}|hyperpage}{54}
+\indexentry{Coker@\texttt  {Coker}|hyperpage}{55}
+\indexentry{CokerProjection@\texttt  {CokerProjection}|hyperpage}{55}
+\indexentry{EndOverPathAlgebra@\texttt  {EndOverPathAlgebra}|hyperpage}{55}
+\indexentry{HomOverPathAlgebra@\texttt  {HomOverPathAlgebra}|hyperpage}{55}
+\indexentry{Im@\texttt  {Im}|hyperpage}{55}
+\indexentry{ImProjection@\texttt  {ImProjection}|hyperpage}{55}
+\indexentry{ImInclusion@\texttt  {ImInclusion}|hyperpage}{55}
+\indexentry{ImProjectionInclusion@\texttt  {ImProjectionInclusion}|hyperpage}{55}
+\indexentry{Ker@\texttt  {Ker}|hyperpage}{55}
+\indexentry{KerInclusion@\texttt  {KerInclusion}|hyperpage}{55}
+\indexentry{LeftMinimalVersion@\texttt  {LeftMinimalVersion}|hyperpage}{56}
+\indexentry{RightMinimalVersion@\texttt  {RightMinimalVersion}|hyperpage}{56}
+\indexentry{MinimalLeftApproximation@\texttt  {MinimalLeftApproximation}|hyperpage}{56}
+\indexentry{MinimalRightApproximation@\texttt  {MinimalRightApproximation}|hyperpage}{56}
+\indexentry{PullBack@\texttt  {PullBack}|hyperpage}{57}
+\indexentry{PushOut@\texttt  {PushOut}|hyperpage}{57}
+\indexentry{RadicalOfRepInclusion@\texttt  {RadicalOfRepInclusion}|hyperpage}{57}
+\indexentry{SocleOfPathAlgebraMatModuleInclusion@\texttt  {SocleOfPathAlgebraMatModuleInclusion}|hyperpage}{57}
+\indexentry{SubRepInclusion@\texttt  {SubRepInclusion}|hyperpage}{57}
+\indexentry{TopOfRepProjection@\texttt  {TopOfRepProjection}|hyperpage}{58}
