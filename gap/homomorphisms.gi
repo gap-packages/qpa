@@ -1,6 +1,10 @@
 # GAP Implementation
-# $Id: homomorphisms.gi,v 1.19 2011/10/14 05:01:31 sunnyquiver Exp $
+# $Id: homomorphisms.gi,v 1.20 2011/11/21 11:53:16 sunnyquiver Exp $
 
+#############################################################################
+##
+#M  ImageElm( <map>, <elm> )  . . . for PathAlgebraMatModuleMap and element
+##
 InstallMethod( ImageElm, 
     "for a map between representations and an element in a representation.",
     [ IsPathAlgebraMatModuleMap, IsAlgebraModuleElement ], 0, 
@@ -20,21 +24,25 @@ InstallMethod( ImageElm,
     fi; 
 end);
 
+#############################################################################
+##
+#M  ImagesSet( <map>, <elms> ) . . for a PathAlgebraMatModuleMap and finite collection
+##
 InstallMethod( ImagesSet, 
     "for a map between representations and a set of elements in a representation.",
     [ IsPathAlgebraMatModuleMap, IsCollection ], 0, 
-    function( map, elts )
+    function( map, elms )
 
     local elt, B, images;
 
     images := [];
-    if IsList(elts) then
-        if IsFinite(elts) then
-            B := elts;
+    if IsList(elms) then
+        if IsFinite(elms) then
+            B := elms;
         fi;
     else
-        if IsPathAlgebraMatModule(elts) then 
-            B := CanonicalBasis(elts);
+        if IsPathAlgebraMatModule(elms) then 
+            B := CanonicalBasis(elms);
         else
             Error("input of wrong type,");
         fi;
@@ -48,6 +56,9 @@ InstallMethod( ImagesSet,
 end
 );
 
+# Should be
+# InstallMethod( PreImagesRepresentative, 
+#
 InstallMethod( PreImagesElm, 
     "for a map between representations and an element in a representation.",
     [ IsPathAlgebraMatModuleMap, IsAlgebraModuleElement ], 0, 

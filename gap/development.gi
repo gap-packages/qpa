@@ -1296,3 +1296,498 @@ InstallMethod ( MinimalLeftApproximation,
    fi;
 end
 );
+
+#######################################################################
+##
+#O  SupportModuleElement(<m>)
+##
+##  Given an element  <m>  in a PathAlgebraMatModule, this function
+##  finds in which vertices this element is support, that is, has 
+##  non-zero coordinates. 
+##
+InstallMethod ( SupportModuleElement, 
+   "for an element in a PathAlgebraMatModule",
+   true,
+   [ IsRightAlgebraModuleElement ],
+   0,
+   function( m )
+
+   local fam, A, Q, idempotents, support;
+#
+#  Finding the algebra over which the module  M, in which  m is an 
+#  element, is a module over. 
+# 
+   if IsPathModuleElem(ExtRepOfObj(m)) then 
+      fam := CollectionsFamily(FamilyObj(m))!.rightAlgebraElementsFam;   
+      if "wholeAlgebra" in NamesOfComponents(fam) then 
+         A := fam!.wholeAlgebra;
+      elif "pathRing" in NamesOfComponents(fam) then 
+         A := fam!.pathRing;
+      fi;
+   else 
+      return fail;
+   fi;
+#
+#  Finding the support of m.
+#
+   Q := QuiverOfPathAlgebra(OriginalPathAlgebra(A));
+   idempotents := List(VerticesOfQuiver(Q), x -> x*One(A));
+   support := Filtered(idempotents, x -> m^x <> Zero(m));
+
+   return support;
+end
+);
+
+#######################################################################
+##
+#O  BasisOfProjectives(<A>)
+##
+##  Given a finite dimensional qoutient of a path algebra  <A>, this 
+##  function finds in the basis of each indecomposable projective 
+##  in terms of paths (nontips of the ideal  I defining  A).
+##
+InstallMethod ( BasisOfProjectives, 
+    "for a finite dimensional quotient of a path algebra",
+    [ IsSubalgebraFpPathAlgebra ], 0,
+    function( A )
+
+    local Q, num_vert, fam, vertices, basis_of_projs, 
+          v, basis_of_proj, P, B, i, j;
+#
+#    Testing input if finite dimensional.
+#       
+   fam := ElementsFamily(FamilyObj(A));
+   if HasGroebnerBasisOfIdeal(fam!.ideal) and 
+          AdmitsFinitelyManyNontips(GroebnerBasisOfIdeal(fam!.ideal)) then 
+#
+      Q := QuiverOfPathAlgebra(OriginalPathAlgebra(A));
+      num_vert := OrderOfQuiver(Q); 
+      vertices := List(VerticesOfQuiver(Q), x -> x*One(A));
+      basis_of_projs := [];
+      for v in vertices do
+         basis_of_proj := List([1..num_vert], x -> []);
+         P := RightIdeal(A,[v]);
+         B := CanonicalBasis(P);
+         for i in [1..Length(B)] do
+            for j in [1..num_vert] do
+               if ( B[i]*vertices[j] <> Zero(A) ) then
+                   Add(basis_of_proj[j],B[i]);
+               fi;
+            od;
+         od;
+         Add(basis_of_projs,basis_of_proj);
+      od;
+      return basis_of_projs;
+   else
+      Print("Need to have a finite dimensional quotient of a path algebra as argument.\n");
+      return fail;      
+   fi;
+end
+);
+
+#######################################################################
+##
+#O  BasisOfProjectives(<A>)
+##
+##  Given a finite dimensional path algebra  <A>, this function finds 
+##  in the basis of each indecomposable projective in terms of paths.
+##
+InstallOtherMethod ( BasisOfProjectives, 
+   "for a finite dimensional quotient of a path algebra",
+   [ IsPathAlgebra ], 0,
+   function( A )
+   
+   local Q, num_vert, fam, vertices, basis_of_projs, 
+          v, basis_of_proj, P, B, i, j;
+#
+#  Testing input if finite dimensional.
+#       
+   Q := QuiverOfPathAlgebra(A); 
+   num_vert := OrderOfQuiver(Q);
+   if not IsAcyclic(Q)  then
+      Print("Need to have a finite dimensional path algebra as argument.\n");
+      return fail;
+   else
+      vertices := List(VerticesOfQuiver(Q), x -> x*One(A));
+      basis_of_projs := [];
+      for v in vertices do
+         basis_of_proj := List([1..num_vert], x -> []);
+         P := RightIdeal(A,[v]);
+         B := CanonicalBasis(P);
+         for i in [1..Length(B)] do
+            for j in [1..num_vert] do
+               if ( B[i]*vertices[j] <> Zero(A) ) then
+                  Add(basis_of_proj[j],B[i]);
+               fi;
+            od;
+         od;
+         Add(basis_of_projs,basis_of_proj);
+      od;
+   fi;
+  
+   return basis_of_projs;
+end
+);
+
+#######################################################################
+##
+#O  VertexPosition(<elm>)
+##
+##  This function assumes that the input is a residue class of a trivial
+##  path in finite dimensional quotient of a path algebra, and it finds  
+##  the position of this trivial path/vertex in the list of vertices for
+##  the quiver used to define the algebra.
+##
+InstallMethod ( VertexPosition, 
+   "for an element in a quotient of a path algebra",
+   true,
+   [ IsElementOfFpPathAlgebra ],
+   0,
+   function( elm )
+
+   return elm![1]![2][1]!.gen_pos;
+end
+);
+
+#######################################################################
+##
+#O  VertexPosition(<elm>)
+##
+##  This function assumes that the input is a trivial path in finite 
+##  dimensional a path algebra, and it finds the position of this 
+##  trivial path/vertex in the list of vertices for the quiver used 
+##  to define the algebra.
+##
+InstallOtherMethod ( VertexPosition, 
+   "for an element in a PathAlgebra",
+   true,
+   [ IsElementOfMagmaRingModuloRelations ],
+   0,
+   function( elm )
+
+   if "pathRing" in NamesOfComponents(FamilyObj(elm)) then 
+      return elm![2][1]!.gen_pos;
+   else
+      return false;
+   fi;
+end
+);
+
+#######################################################################
+##
+#O  HomFromProjective(<m>,<M>)
+##
+##  This function checks if the element  <m>  is an element of  <M>  and
+##  if the element  <m>  is uniform. If so, the function constructs the 
+##  map from the indecomposable projective generated by the vertex of 
+##  support to the module  <M>  given by sending the vertex to the 
+##  element  <m>. 
+##
+InstallMethod ( HomFromProjective, 
+   "for an element in a PathAlgebraMatModule and the PathAlgebraMatModule",
+   IsElmsColls,
+   [ IsRightAlgebraModuleElement, IsPathAlgebraMatModule ],
+   0,
+   function( m, M )
+
+   local A, K, num_vert, support, pos, P, B, mats, zeros, i, f;
+#
+# Finding the algebra acting on M and the number of vertices.
+#
+   A := RightActingAlgebra(M);
+   K := LeftActingDomain(M);
+   num_vert := Length(m![1]![1]);
+#   
+# Finding the support of m.
+#
+   support := SupportModuleElement(m);
+#
+# If the element  m  is uniform, we proceed to find the map.
+# 
+   if Length(support) = 1 then 
+#
+# And we need the "number of" the vertex ...
+#
+      pos := VertexPosition(support[1]);
+#
+# And the basis for the correct projective module, and the proj. module itself
+#
+	  B := BasisOfProjectives(A)[pos];
+	  P := IndecomposableProjectiveRepresentations(A)[pos];
+#
+# Then we calculate the matrices for the homomorphism
+#
+      mats  := List([1..num_vert],x -> List(B[x], y -> ExtRepOfObj(m^y)![1][x]));
+      zeros := Filtered([1..num_vert], x -> DimensionVector(P)[x] = 0);
+      for i in zeros do 
+         if DimensionVector(M)[i] <> 0 then         
+            mats[i] := NullMat(1,DimensionVector(M)[i],K);
+         else 
+            mats[i] := NullMat(1,1,K);
+         fi;
+      od;
+#
+# Construct the homomorphism
+#
+      f := RightModuleHomOverPathAlgebra(P,M,mats);
+	  return f;
+   else
+      return fail;
+   fi;
+end
+);
+
+#######################################################################
+##
+#O  ProjectiveCover(<M>)
+##
+##  This function finds the projective cover P(M) of the module  <M>  
+##  in that it returns the map from P(M) ---> M. 
+##
+InstallMethod ( ProjectiveCover, 
+   "for a PathAlgebraMatModule",
+   true,
+   [ IsPathAlgebraMatModule ],
+   0,
+   function( M )
+
+   local mingen, maps, PN, projections;
+
+   if Dimension(M) = 0 then 
+      return ZeroRepresentation(RightActingAlgebra(M));
+   else 
+      mingen := MinimalSetOfGenerators(M);
+      maps := List(mingen, x -> HomFromProjective(x,M));
+      PN := List(maps, x -> Source(x));
+      PN := DirectSumOfPathAlgebraMatModules(PN);
+      projections := DirectSumProjections(PN);
+
+      return projections*maps;;
+   fi;
+end
+);
+
+#######################################################################
+##
+#O  ExtOne(<M>,<N>)
+##
+##  This function returns the kernel of the projective cover 
+##  Omega(<M>) --> P(M) and a basis of Ext^1(<M>,<N>) inside 
+##  Hom(Omega(<M>),<N>) if the group is non-zero, otherwise it returns
+##  an empty list.
+##
+InstallMethod( ExtOne, 
+   "for two PathAlgebraMatModule's",
+   true, 
+   [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ], 0,
+   function( M, N )
+
+   local K, f, g, PM, syzygy, G, H, Img1, zero, genssyzygyN, VsyzygyN, 
+         Img, gensImg, VImg, pi, ext, preimages, homvecs, dimsyz, dimN, vec, t, 
+         l, i, H2;
+#
+# Test of input.
+#
+   if RightActingAlgebra(M) <> RightActingAlgebra(N) then 
+      Error(" the two modules entered are not modules over the same algebra.\n"); 
+   else  
+      K := LeftActingDomain(M);
+#
+# creating a short exact sequence 0 -> Syz(M) -> P(M) -> M -> 0
+# f: P(M) -> M, g: Syz(M) -> P(M)  
+#
+      f := ProjectiveCover(M);
+      g := KerInclusion(f);
+      PM := Source(f);
+      syzygy := Source(g);
+#
+# using Hom(-,N) on the s.e.s. above
+#
+      G := HomOverPathAlgebra(PM,N);
+      H := HomOverPathAlgebra(syzygy,N);
+#
+# Making a vector space of Hom(Syz(M),N)
+# by first rewriting the maps as vectors
+#
+      genssyzygyN := List(H, x -> Flat(x!.maps));
+      if Length(genssyzygyN) = 0 then
+         return [];
+      else
+         VsyzygyN := VectorSpace(K, genssyzygyN);
+#
+# finding a basis for im(g*)
+# first, find a generating set of im(g*)
+# 
+         Img1 := g*G;
+#
+# removing 0 maps by comparing to zero = Zeromap(syzygy,N)
+#
+         zero := ZeroMap(syzygy,N);
+         Img  := Filtered(Img1, x -> x <> zero);
+#
+# Rewriting the maps as vectors
+#
+         gensImg := List(Img, x -> Flat(x!.maps));
+#
+# Making a vector space of <Im g*>
+         VImg := Subspace(VsyzygyN, gensImg);  
+#
+# Making the vector space Ext1(M,N)
+#
+         pi := NaturalHomomorphismBySubspace(VsyzygyN, VImg);
+         ext := Range(pi);
+         if Dimension(Range(pi)) = 0 then 
+            return [];
+         else 
+#
+# Sending elements of ext back to Hom(Syz(M),N)
+#
+            preimages := List(BasisVectors(Basis(ext)), x -> PreImagesRepresentative(pi,x));
+#
+# need to put the parentheses back in place
+#
+            homvecs := []; # to store all lists of matrices, one list for each element (homomorphism)
+            dimsyz := DimensionVector(syzygy);
+            dimN := DimensionVector(N);
+            for vec in preimages do # iterate on each homomorphism
+               t := 0;
+               l := []; # to store the maps for one homomorphism
+               for i in [1..Size(dimsyz)] do    # matrix i in the hom. is a (dimsyz[i] x dimN[i])-matrix
+                  if ( dimsyz[i] = 0 ) then 
+                     if ( dimN[i] = 0 ) then 
+                        Append(l,[[vec{[t+1]}]]);
+                        t := t + 1;
+                     else
+                        Append(l,[[vec{[1..dimN[i]+t]}]]);
+                        t := t + dimN[i];
+                     fi;
+                  else
+                     if ( dimN[i] = 0 ) then 
+                        Append(l,List([1..dimsyz[i]], x -> [vec{[x+t]}]));
+                        t := t + dimsyz[i];
+                     else
+                        Append(l,[List([1..dimsyz[i]],x-> vec{(x-1)*dimN[i]+[1..dimN[i]] + t})]);
+	                    t := t + dimsyz[i]*dimN[i];
+                     fi;
+                  fi;
+               od;
+               Append(homvecs,[l]);
+            od;
+#
+# Making homomorphisms of the elements
+#
+            H2 := List(homvecs, x -> RightModuleHomOverPathAlgebra(syzygy,N,x));
+
+            return [g,H2];
+         fi;
+      fi;
+   fi;
+end
+);
+
+#######################################################################
+##
+#O  AlmostSplitSequence(<M>,<N>)
+##
+##  This function finds the almost split sequence ending in the module
+##  <M>, if the module is not projective. It returns fail otherwise. 
+##  The almost split sequence is returned as a pair of maps, the 
+##  monomorphism and the epimorphism. The function assumes that the 
+##  module  <M>  is indecomposable, and the range of the epimorphism
+##  is a module that is isomorphic to the input, not necessarily 
+##  identical. 
+##
+InstallMethod( AlmostSplitSequence, 
+   "for a PathAlgebraMatModule",
+   true, 
+   [ IsPathAlgebraMatModule ], 0,
+   function( M )
+
+   local K, DTrM, f, g, PM, syzygy, G, H, Img1, zero, 
+         genssyzygyDTrM, VsyzygyDTrM, Img, gensImg, VImg, 
+         stop, test, ext, preimages, homvecs, dimsyz, dimDTrM, 
+         EndDTrM, radEndDTrM, nonzeroext, temp, L, pos, i;
+#
+# Add test of input.
+#
+   K := LeftActingDomain(M);
+   if IsProjectiveModule(M) then 
+      return fail;
+   else 
+      DTrM := DTr(M);
+#
+# creating a short exact sequence 0 -> Syz(M) -> P(M) -> M -> 0
+# f: P(M) -> M, g: Syz(M) -> P(M)  
+#
+      f := ProjectiveCover(M);
+      g := KerInclusion(f);
+      PM := Source(f);
+      syzygy := Source(g);
+#
+# using Hom(-,DTrM) on the s.e.s. above
+#
+      G := HomOverPathAlgebra(PM,DTrM);
+      H := HomOverPathAlgebra(syzygy,DTrM);
+#
+# Making a vector space of Hom(Syz(M),DTrM)
+# by first rewriting the maps as vectors
+#
+      genssyzygyDTrM := List(H, x -> Flat(x!.maps));
+      VsyzygyDTrM := VectorSpace(K, genssyzygyDTrM);
+#
+# finding a basis for im(g*)
+# first, find a generating set of im(g*)
+# 
+      Img1 := g*G;
+#
+# removing 0 maps by comparing to zero = Zeromap(syzygy,DTrM)
+#
+      zero := ZeroMap(syzygy,DTrM);
+      Img  := Filtered(Img1, x -> x <> zero);
+#
+# Rewriting the maps as vectors
+#
+      gensImg := List(Img, x -> Flat(x!.maps));
+#
+# Making a vector space of <Im g*>
+      VImg := Subspace(VsyzygyDTrM, gensImg);  
+#
+# Finding a non-zero element in Ext1(M,DTrM)
+#
+      i := 1;
+      stop := false;
+      repeat 
+         test := Flat(H[i]!.maps) in VImg;
+         if test then 
+            i := i + 1;
+         else 
+            stop := true;
+         fi;
+      until stop;
+      nonzeroext := H[i];
+#
+# Finding the radical of End(DTrM)
+#
+      EndDTrM := EndOverPathAlgebra(DTrM);
+      radEndDTrM := RadicalOfAlgebra(EndDTrM);
+      radEndDTrM := List(BasisVectors(Basis(radEndDTrM)), x -> FromEndMToHomMM(DTrM,x));
+#
+# Finding an element in the socle of Ext^1(M,DTrM)
+#
+      temp := nonzeroext;
+
+      L := List(temp*radEndDTrM, x -> Flat(x!.maps) in VImg);
+      while not ForAll(L, x -> x = true) do
+         pos := Position(L,false);
+         temp := temp*radEndDTrM[pos];
+         L := List(temp*radEndDTrM, x -> Flat(x!.maps) in VImg);
+      od;
+#
+# Constructing the almost split sequence in Ext^1(M,DTrM)
+#
+      ext := PushOut(temp,g);
+
+      return [ext[1],CokerProjection(ext[1])];
+   fi;
+end
+);

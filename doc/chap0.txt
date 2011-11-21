@@ -116,14 +116,15 @@
       3.4-2 .
     3.5 Operations on Path Algebra Elements
       3.5-1 <
-      3.5-2 LeadingTerm
-      3.5-3 LeadingCoefficient
-      3.5-4 LeadingMonomial
-      3.5-5 IsLeftUniform
-      3.5-6 IsRightUniform
-      3.5-7 IsUniform
+      3.5-2 IsLeftUniform
+      3.5-3 IsRightUniform
+      3.5-4 IsUniform
+      3.5-5 LeadingTerm
+      3.5-6 LeadingCoefficient
+      3.5-7 LeadingMonomial
       3.5-8 MakeUniformOnRight
       3.5-9 MappedExpression
+      3.5-10 VertexPosition
     3.6 Constructing Quotients of Path Algebras
     3.7 Ideals
       3.7-1 Ideals and operations on ideals
@@ -226,15 +227,17 @@
       6.4-24 SocleSeries
       6.4-25 SocleOfPathAlgebraMatModule
       6.4-26 SubRep
-      6.4-27 TopOfRep
-      6.4-28 GeneratorsOfRep
-      6.4-29 MinimalSetOfGenerators
-      6.4-30 MatricesOfPathAlgebraMatModule
+      6.4-27 SupportModuleElement
+      6.4-28 TopOfRep
+      6.4-29 GeneratorsOfRep
+      6.4-30 MinimalSetOfGenerators
+      6.4-31 MatricesOfPathAlgebraMatModule
     6.5 Special representations
-      6.5-1 IndecomposableProjectiveRepresentations
-      6.5-2 IndecomposableInjectiveRepresentations
-      6.5-3 VertexSimpleRepresentations
-      6.5-4 ZeroRepresentation
+      6.5-1 BasisOfProjectives
+      6.5-2 IndecomposableProjectiveRepresentations
+      6.5-3 IndecomposableInjectiveRepresentations
+      6.5-4 VertexSimpleRepresentations
+      6.5-5 ZeroRepresentation
     6.6 Functors on representations
       6.6-1 DualOfPathAlgebraMatModule
       6.6-2 DualOfPathAlgebraMatModuleMap
@@ -275,19 +278,25 @@
     7.3 Homomorphisms and modules constructed from homomorphisms and modules
       7.3-1 Coker
       7.3-2 EndOverPathAlgebra
-      7.3-3 HomOverPathAlgebra
-      7.3-4 Im
-      7.3-5 Ker
-      7.3-6 LeftMinimalVersion
-      7.3-7 RightMinimalVersion
-      7.3-8 MinimalLeftApproximation
-      7.3-9 MinimalRightApproximation
-      7.3-10 PullBack
-      7.3-11 PushOut
-      7.3-12 RadicalOfRepInclusion
-      7.3-13 SocleOfPathAlgebraMatModuleInclusion
-      7.3-14 SubRepInclusion
-      7.3-15 TopOfRepProjection
+      7.3-3 HomFromProjective
+      7.3-4 HomOverPathAlgebra
+      7.3-5 Im
+      7.3-6 Ker
+      7.3-7 LeftMinimalVersion
+      7.3-8 RightMinimalVersion
+      7.3-9 MinimalLeftApproximation
+      7.3-10 MinimalRightApproximation
+      7.3-11 ProjectiveCover
+      7.3-12 PullBack
+      7.3-13 PushOut
+      7.3-14 RadicalOfRepInclusion
+      7.3-15 SocleOfPathAlgebraMatModuleInclusion
+      7.3-16 SubRepInclusion
+      7.3-17 TopOfRepProjection
+    7.4 Homological algebra
+      7.4-1 ExtOne
+    7.5 Auslander-Reiten theory
+      7.5-1 AlmostSplitSequence
   A An Appendix
   
   

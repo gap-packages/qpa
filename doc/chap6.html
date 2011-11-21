@@ -57,16 +57,18 @@ Algebras</span></a>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X84A724267E6F136D">6.4-24 SocleSeries</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X79FD8317809E5A65">6.4-25 SocleOfPathAlgebraMatModule</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X80298D0987B1882B">6.4-26 SubRep</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7FE6863F81D84464">6.4-27 TopOfRep</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X8742104E7F6A64D5">6.4-28 GeneratorsOfRep</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X873EBC1879921BD5">6.4-29 MinimalSetOfGenerators</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7E676BA9848F4D84">6.4-30 MatricesOfPathAlgebraMatModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X856EA09A83A5A636">6.4-27 SupportModuleElement</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7FE6863F81D84464">6.4-28 TopOfRep</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X8742104E7F6A64D5">6.4-29 GeneratorsOfRep</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X873EBC1879921BD5">6.4-30 MinimalSetOfGenerators</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7E676BA9848F4D84">6.4-31 MatricesOfPathAlgebraMatModule</a></span>
 </div>
 <div class="ContSect"><span class="nocss">&nbsp;</span><a href="chap6.html#X7919F94382D9B38B">6.5 <span class="Heading">Special representations</span></a>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X82637AE885576148">6.5-1 IndecomposableProjectiveRepresentations</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X78829EE8850BCD9F">6.5-2 IndecomposableInjectiveRepresentations</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7B0AD1CB7F3D0D3C">6.5-3 VertexSimpleRepresentations</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X8106F9C681CE5E49">6.5-4 ZeroRepresentation</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X8048CD27796253CA">6.5-1 BasisOfProjectives</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X82637AE885576148">6.5-2 IndecomposableProjectiveRepresentations</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X78829EE8850BCD9F">6.5-3 IndecomposableInjectiveRepresentations</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7B0AD1CB7F3D0D3C">6.5-4 VertexSimpleRepresentations</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X8106F9C681CE5E49">6.5-5 ZeroRepresentation</a></span>
 </div>
 <div class="ContSect"><span class="nocss">&nbsp;</span><a href="chap6.html#X7D99BF5A87DDC099">6.6 <span class="Heading">Functors on representations</span></a>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X807D065C7AD70C6F">6.6-1 DualOfPathAlgebraMatModule</a></span>
@@ -448,7 +450,7 @@ gap&gt; inc:=DirectSumInclusions(N2);
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; RadicalOfRep</code>( <var class="Arg">M</var> )</td><td class="tdright">( operation )</td></tr></table></div>
 <p><b>Returns: </b>the radical of the module <var class="Arg">M</var>.</p>
 
-<p>This returns only the representation given by the radical of the module <var class="Arg">M</var>. The operation <code class="func">RadicalOfRepInclusion</code> (<a href="chap7.html#X7DCDCB088064BA30"><b>7.3-12</b></a>) computes the inclusion of the radical of <var class="Arg">M</var> into <var class="Arg">M</var>.</p>
+<p>This returns only the representation given by the radical of the module <var class="Arg">M</var>. The operation <code class="func">RadicalOfRepInclusion</code> (<a href="chap7.html#X7DCDCB088064BA30"><b>7.3-14</b></a>) computes the inclusion of the radical of <var class="Arg">M</var> into <var class="Arg">M</var>.</p>
 
 <p><a id="X7929281B848A9FBE" name="X7929281B848A9FBE"></a></p>
 
@@ -475,7 +477,7 @@ gap&gt; inc:=DirectSumInclusions(N2);
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; SocleOfPathAlgebraMatModule</code>( <var class="Arg">M</var> )</td><td class="tdright">( operation )</td></tr></table></div>
 <p><b>Returns: </b>the socle of the module <var class="Arg">M</var>.</p>
 
-<p>This operation only return the representation given by the socle of the module <var class="Arg">M</var>. The inclusion the socle of <var class="Arg">M</var> into <var class="Arg">M</var> can be computed using <code class="func">SocleOfPathAlgebraMatModuleInclusion</code> (<a href="chap7.html#X830578BB804B6752"><b>7.3-13</b></a>).</p>
+<p>This operation only return the representation given by the socle of the module <var class="Arg">M</var>. The inclusion the socle of <var class="Arg">M</var> into <var class="Arg">M</var> can be computed using <code class="func">SocleOfPathAlgebraMatModuleInclusion</code> (<a href="chap7.html#X830578BB804B6752"><b>7.3-15</b></a>).</p>
 
 <p><a id="X80298D0987B1882B" name="X80298D0987B1882B"></a></p>
 
@@ -484,34 +486,43 @@ gap&gt; inc:=DirectSumInclusions(N2);
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; SubRep</code>( <var class="Arg">M, gens</var> )</td><td class="tdright">( operation )</td></tr></table></div>
 <p><b>Returns: </b>the submodule of the module <var class="Arg">M</var> generated by the elements <var class="Arg">gens</var>.</p>
 
-<p>The function checks if <var class="Arg">gens</var> are elements in <var class="Arg">M</var>, and returns an error message otherwise. The inclusion of the submodule generated by the elements <var class="Arg">gens</var> into <var class="Arg">M</var> can be computed using <code class="func">SubRepInclusion</code> (<a href="chap7.html#X78E1E77C82F97B42"><b>7.3-14</b></a>).</p>
+<p>The function checks if <var class="Arg">gens</var> are elements in <var class="Arg">M</var>, and returns an error message otherwise. The inclusion of the submodule generated by the elements <var class="Arg">gens</var> into <var class="Arg">M</var> can be computed using <code class="func">SubRepInclusion</code> (<a href="chap7.html#X78E1E77C82F97B42"><b>7.3-16</b></a>).</p>
+
+<p><a id="X856EA09A83A5A636" name="X856EA09A83A5A636"></a></p>
+
+<h5>6.4-27 SupportModuleElement</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; SupportModuleElement</code>( <var class="Arg">m</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p><b>Returns: </b>the primitive idempotents <var class="Arg">v</var> in the algebra over which the module containing the element <var class="Arg">m</var> is a module, such that <var class="Arg">m^v</var> is non-zero.</p>
+
+<p>The function checks if <var class="Arg">m</var> is an element in a module over a (quotient of a) path algebra, and returns fail otherwise.</p>
 
 <p><a id="X7FE6863F81D84464" name="X7FE6863F81D84464"></a></p>
 
-<h5>6.4-27 TopOfRep</h5>
+<h5>6.4-28 TopOfRep</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; TopOfRep</code>( <var class="Arg">M</var> )</td><td class="tdright">( operation )</td></tr></table></div>
 <p><b>Returns: </b>the top of the module <var class="Arg">M</var>.</p>
 
-<p>This returns only the representation given by the top of the module <var class="Arg">M</var>. The operation <code class="func">TopOfRepProjection</code> (<a href="chap7.html#X7C74AA0679E85F60"><b>7.3-15</b></a>) computes the projection of the module <var class="Arg">M</var> onto the top of the module <var class="Arg">M</var>.</p>
+<p>This returns only the representation given by the top of the module <var class="Arg">M</var>. The operation <code class="func">TopOfRepProjection</code> (<a href="chap7.html#X7C74AA0679E85F60"><b>7.3-17</b></a>) computes the projection of the module <var class="Arg">M</var> onto the top of the module <var class="Arg">M</var>.</p>
 
 <p><a id="X8742104E7F6A64D5" name="X8742104E7F6A64D5"></a></p>
 
-<h5>6.4-28 GeneratorsOfRep</h5>
+<h5>6.4-29 GeneratorsOfRep</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; GeneratorsOfRep</code>( <var class="Arg">M</var> )</td><td class="tdright">( operation )</td></tr></table></div>
 <p><b>Returns: </b>a minimal generator set of the module <var class="Arg">M</var> as a module of the path algebra it is defined over.</p>
 
 <p><a id="X873EBC1879921BD5" name="X873EBC1879921BD5"></a></p>
 
-<h5>6.4-29 MinimalSetOfGenerators</h5>
+<h5>6.4-30 MinimalSetOfGenerators</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; MinimalSetOfGenerators</code>( <var class="Arg">M</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
 <p><b>Returns: </b>a minimal generator set of the module <var class="Arg">M</var> as a module of the path algebra it is defined over.</p>
 
 <p><a id="X7E676BA9848F4D84" name="X7E676BA9848F4D84"></a></p>
 
-<h5>6.4-30 MatricesOfPathAlgebraMatModule</h5>
+<h5>6.4-31 MatricesOfPathAlgebraMatModule</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; MatricesOfPathAlgebraMatModule</code>( <var class="Arg">M</var> )</td><td class="tdright">( operation )</td></tr></table></div>
 <p><b>Returns: </b>a list of the matrices that defines the representation <var class="Arg">M</var> as a right module of the acting path algebra. The argument <var class="Arg">M</var> must be a <code class="code">PathAlgebraMatModule</code>.</p>
@@ -524,9 +535,18 @@ gap&gt; inc:=DirectSumInclusions(N2);
 
 <p>Here we collect the predefined representations/modules over a finite dimensional quotient of a path algebra.</p>
 
+<p><a id="X8048CD27796253CA" name="X8048CD27796253CA"></a></p>
+
+<h5>6.5-1 BasisOfProjectives</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; BasisOfProjectives</code>( <var class="Arg">A</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p><b>Returns: </b>a list of bases for all the indecomposable projective representations over a finite dimensional (quotient of a) path algebra <var class="Arg">A</var>. The basis for each indecomposable projective is given a list of elements in nontips in <var class="Arg">A</var>.</p>
+
+<p>The function checks if the algebra <var class="Arg">A</var> is a finite dimensional (quotient of a) path algebra, and returns an error message otherwise.</p>
+
 <p><a id="X82637AE885576148" name="X82637AE885576148"></a></p>
 
-<h5>6.5-1 IndecomposableProjectiveRepresentations</h5>
+<h5>6.5-2 IndecomposableProjectiveRepresentations</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IndecomposableProjectiveRepresentations</code>( <var class="Arg">A[, list]</var> )</td><td class="tdright">( operation )</td></tr></table></div>
 <p><b>Returns: </b>a list of all the indecomposable projective representations over a finite dimensional (quotient of a) path algebra <var class="Arg">A</var>, when only one argument is supplied. The second argument should be a list of integers, for example [1, 3, 4], which will return the indecomposable projective corresponding to vertex 1, 3 and 4, in this order.</p>
@@ -535,7 +555,7 @@ gap&gt; inc:=DirectSumInclusions(N2);
 
 <p><a id="X78829EE8850BCD9F" name="X78829EE8850BCD9F"></a></p>
 
-<h5>6.5-2 IndecomposableInjectiveRepresentations</h5>
+<h5>6.5-3 IndecomposableInjectiveRepresentations</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IndecomposableInjectiveRepresentations</code>( <var class="Arg">A[, list]</var> )</td><td class="tdright">( operation )</td></tr></table></div>
 <p><b>Returns: </b>a list of all the indecomposable injective representations over a finite dimensional (quotient of a) path algebra <var class="Arg">A</var>, when only one argument is supplied. The second argument should be a list of integers, for example [1, 3, 4], which will return the indecomposable injective corresponding to vertex 1, 3 and 4, in this order.</p>
@@ -544,7 +564,7 @@ gap&gt; inc:=DirectSumInclusions(N2);
 
 <p><a id="X7B0AD1CB7F3D0D3C" name="X7B0AD1CB7F3D0D3C"></a></p>
 
-<h5>6.5-3 VertexSimpleRepresentations</h5>
+<h5>6.5-4 VertexSimpleRepresentations</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; VertexSimpleRepresentations</code>( <var class="Arg">A</var> )</td><td class="tdright">( operation )</td></tr></table></div>
 <p><b>Returns: </b>a list of all the simple representations over a finite dimensional (quotient of a) path algebra <var class="Arg">A</var> .</p>
@@ -553,7 +573,7 @@ gap&gt; inc:=DirectSumInclusions(N2);
 
 <p><a id="X8106F9C681CE5E49" name="X8106F9C681CE5E49"></a></p>
 
-<h5>6.5-4 ZeroRepresentation</h5>
+<h5>6.5-5 ZeroRepresentation</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; ZeroRepresentation</code>( <var class="Arg">A</var> )</td><td class="tdright">( operation )</td></tr></table></div>
 <p><b>Returns: </b>the zero representation over a finite dimensional (quotient of a) path algebra <var class="Arg">A</var> .</p>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- $Id: qpadocumentation.xml,v 1.18 2011/10/18 09:51:04 sunnyquiver Exp $ -->
+<!-- $Id: qpadocumentation.xml,v 1.19 2011/11/21 11:53:15 sunnyquiver Exp $ -->
 
 <!DOCTYPE Book SYSTEM "gapdoc.dtd">
 <!-- [ <!ENTITY see '<Alt Only="LaTeX">$\to$</Alt><Alt Not="LaTeX">--&gt;</Alt>'>
@@ -864,6 +864,51 @@ returns the ordering of the quiver of the path algebra.
   </ManSection>
 
   <ManSection>
+   <Oper Name="IsLeftUniform" Arg="element" Comm=""/>
+   <Description>
+    The operation <Ref Oper="IsLeftUniform"/> operates on
+    an <Arg>element</Arg> in a path algebra, and it returns true if
+    each monomial in <Arg>element</Arg> has the same source vertex.
+   </Description>
+  </ManSection>
+
+  <ManSection>
+   <Oper Name="IsRightUniform" Arg="element" Comm=""/>
+   <Description>
+    The operation <Ref Oper="IsRightUniform"/> operates on
+    an <Arg>element</Arg> in a path algebra, and it returns true if
+    each monomial in <Arg>element</Arg> has the same target vertex.
+   </Description>
+  </ManSection>
+
+  <ManSection>
+   <Oper Name="IsUniform" Arg="element" Comm=""/>
+   <Description>
+    The operation <Ref Oper="IsUniform"/> operates on
+    an <Arg>element</Arg> in a path algebra, and it returns true if
+    each monomial in <Arg>element</Arg> has both the same source
+    vertex and the same target vertex.
+   </Description>
+  </ManSection>
+
+<Example>
+gap&gt; IsLeftUniform(elem);
+false
+gap&gt; IsRightUniform(elem);
+false
+gap&gt; IsUniform(elem);
+false
+gap&gt; another := fq.a*fq.b + fq.b*fq.d*fq.c*fq.b*fq.d;
+(Z(23)^0)*a*b+(Z(23)^0)*b*d*c*b*d
+gap&gt; IsLeftUniform(another);
+true
+gap&gt; IsRightUniform(another);
+true
+gap&gt; IsUniform(another);
+true
+</Example>
+
+  <ManSection>
    <Oper Name="LeadingTerm" Arg="element" Comm=""/>
    <Oper Name="Tip" Arg="element" Comm=""/>
    <Description>
@@ -910,33 +955,6 @@ gap&gt; LeadingMonomial(elem);
 b*d*c
 </Example>
 
-  <ManSection>
-   <Oper Name="IsLeftUniform" Arg="element" Comm=""/>
-   <Description>
-    The operation <Ref Oper="IsLeftUniform"/> operates on
-    an <Arg>element</Arg> in a path algebra, and it returns true if
-    each monomial in <Arg>element</Arg> has the same source vertex.
-   </Description>
-  </ManSection>
-
-  <ManSection>
-   <Oper Name="IsRightUniform" Arg="element" Comm=""/>
-   <Description>
-    The operation <Ref Oper="IsRightUniform"/> operates on
-    an <Arg>element</Arg> in a path algebra, and it returns true if
-    each monomial in <Arg>element</Arg> has the same target vertex.
-   </Description>
-  </ManSection>
-
-  <ManSection>
-   <Oper Name="IsUniform" Arg="element" Comm=""/>
-   <Description>
-    The operation <Ref Oper="IsUniform"/> operates on
-    an <Arg>element</Arg> in a path algebra, and it returns true if
-    each monomial in <Arg>element</Arg> has both the same source
-    vertex and the same target vertex.
-   </Description>
-  </ManSection>
 
   <ManSection>
    <Oper Name="MakeUniformOnRight" Arg="elems" Comm=""/>
@@ -948,22 +966,7 @@ b*d*c
    </Description>
   </ManSection>
 
-<Example>
-gap&gt; IsLeftUniform(elem);
-false
-gap&gt; IsRightUniform(elem);
-false
-gap&gt; IsUniform(elem);
-false
-gap&gt; another := fq.a*fq.b + fq.b*fq.d*fq.c*fq.b*fq.d;
-(Z(23)^0)*a*b+(Z(23)^0)*b*d*c*b*d
-gap&gt; IsLeftUniform(another);
-true
-gap&gt; IsRightUniform(another);
-true
-gap&gt; IsUniform(another);
-true
-</Example>
+
 
   <ManSection>
    <Oper Name="MappedExpression" Arg="expr, gens1, gens2"  Comm=""/>
@@ -978,6 +981,17 @@ true
     mapping at <Arg>expr</Arg>.
    </Description>
   </ManSection>
+
+  <ManSection>
+   <Func Name="VertexPosition" Arg="elm" Comm=""/>
+   <Returns>the position of the vertex <Arg>v</Arg> in the list of
+   vertices of which the element <Arg>elm</Arg> is a multiplum of.</Returns>
+   <Description>
+    The function assumes that a multiplum of a trivial path is
+    entered. 
+   </Description>
+  </ManSection>
+
 </Section>
 
 <Section><Heading>Constructing Quotients of Path Algebras</Heading>
@@ -2287,6 +2301,17 @@ gap> inc:=DirectSumInclusions(N2);
    </Description>
 </ManSection>
 
+<ManSection>
+   <Oper Name="SupportModuleElement" Arg="m" Comm=""/>
+   <Returns>the primitive idempotents <Arg>v</Arg> in the algebra over
+   which the module containing the element <Arg>m</Arg> is a module,
+   such that <Arg>m^v</Arg> is non-zero.</Returns>
+   <Description>
+    The function checks if <Arg>m</Arg> is an element in a module 
+    over a (quotient of a) path algebra, and returns fail otherwise. 
+   </Description>
+</ManSection>
+
 
 <ManSection>
    <Oper Name="TopOfRep" Arg="M" Comm=""/>
@@ -2333,6 +2358,20 @@ gap> inc:=DirectSumInclusions(N2);
 <Section><Heading>Special representations</Heading>
 Here we collect the predefined representations/modules over a finite
   dimensional quotient of a path algebra. 
+
+  <ManSection>
+   <Oper Name="BasisOfProjectives" Arg="A" Comm=""/>
+   <Returns>a list of bases for all the indecomposable projective
+   representations over a finite dimensional (quotient of a) path
+   algebra <Arg>A</Arg>. The basis for each indecomposable projective
+   is given a list of elements in nontips in <Arg>A</Arg>. 
+   </Returns>
+   <Description>
+     The function checks if the algebra <Arg>A</Arg> is a
+     finite dimensional (quotient of a) path algebra, and returns an 
+     error message otherwise. 
+   </Description>
+  </ManSection>
 
   <ManSection>
    <Oper Name="IndecomposableProjectiveRepresentations" Arg="A [, list]" Comm=""/>
@@ -2873,6 +2912,18 @@ gap> IsSplitMono(f);
 </ManSection>
 
 <ManSection>
+   <Oper Name="HomFromProjective" Arg="m, M" Comm=""/>
+   <Returns>the homomorphism from the indecomposable projective
+   module defined by the support of the element <Arg>m</Arg>
+   to the module <Arg>M</Arg>.</Returns>
+   <Description>
+    The function checks if <Arg>m</Arg> is an elememt in <Arg>M</Arg>
+    and if the element <Arg>m</Arg> is uniform. Otherwise it returns
+    fail. 
+   </Description>
+</ManSection>
+
+<ManSection>
    <Oper Name="HomOverPathAlgebra" Arg="M, N" Comm=""/>
    <Returns>a basis for the homomorphisms from <Arg>M</Arg>
    to <Arg>N</Arg>.</Returns>
@@ -2992,6 +3043,16 @@ gap> MinimalLeftApproximation(S,N);
 ]]></Example>
 
 <ManSection>
+   <Oper Name="ProjectiveCover" Arg="M" Comm="for a PathAlgebraMatModule"/>
+   <Returns>the projective cover of <Arg>M</Arg>, that is, returns the
+   map <Arg>P(M) --> M</Arg>.</Returns>
+   <Description>
+     If the module <Arg>M</Arg> is zero, then the functions returns
+     the zero module.<Arg>g</Arg>. 
+   </Description>
+</ManSection>
+
+<ManSection>
    <Oper Name="PullBack" Arg="f, g" Comm="for two maps between modules
    with common target"/>
    <Returns>the pullback of the maps <Arg>f</Arg> and <Arg>g</Arg>.</Returns>
@@ -3058,6 +3119,41 @@ gap> MinimalLeftApproximation(S,N);
     be accessed using <Code>Range</Code> of the homomorphism.
    </Description>
 </ManSection>
+</Section>
+
+<Section><Heading>Homological algebra</Heading>
+
+<ManSection>
+   <Oper Name="ExtOne" Arg="M, N" Comm=""/>
+   <Returns>the map from the first syzygy, <Arg>Omega(M)</Arg> to the
+   projective cover, <Arg>P(M)</Arg> of the module <Arg>M</Arg>, and
+   in addition a basis of <Math>Ext^1(M,N)</Math> in terms of elements
+   in <Math>Hom(Omega(M),N)</Math>.</Returns>
+   <Description>
+    The function checks if arguments <Arg>M</Arg> and <Arg>N</Arg> are
+    modules of the same algebra, and returns an error message
+    otherwise. It <Math>Ext^1(M,N)</Math> is zero, the functions
+    returns an empty list.
+   </Description>
+</ManSection>
+
+</Section>
+
+<Section><Heading>Auslander-Reiten theory</Heading>
+
+<ManSection>
+   <Oper Name="AlmostSplitSequence" Arg="M" Comm=""/>
+   <Returns>the almost split sequence ending in the
+   module <Arg>M</Arg> if it is indecomposable and not projective. It
+   returns the almost split sequence in terms of two maps, a left
+   minimal almost split map and a right minimal almost split map.
+   </Returns>
+   <Description>
+    The range of the right minimal almost split map is not equal to
+    the module <Arg>M</Arg> one started with, but isomorphic.  
+   </Description>
+</ManSection>
+
 </Section>
 </Chapter>
 </Body>

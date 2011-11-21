@@ -35,14 +35,15 @@
 </div>
 <div class="ContSect"><span class="nocss">&nbsp;</span><a href="chap3.html#X7CEF60107CE4616B">3.5 <span class="Heading">Operations on Path Algebra Elements</span></a>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X871A3B1D871A3B1D">3.5-1 &lt;</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X84C98E687A3A84D8">3.5-2 LeadingTerm</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X80710E9B7D8340BD">3.5-3 LeadingCoefficient</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7B3EAE41795598A5">3.5-4 LeadingMonomial</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X853C8B0B8665BFBB">3.5-5 IsLeftUniform</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7C06BE7483992634">3.5-6 IsRightUniform</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X8735FBE180797557">3.5-7 IsUniform</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X853C8B0B8665BFBB">3.5-2 IsLeftUniform</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7C06BE7483992634">3.5-3 IsRightUniform</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X8735FBE180797557">3.5-4 IsUniform</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X84C98E687A3A84D8">3.5-5 LeadingTerm</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X80710E9B7D8340BD">3.5-6 LeadingCoefficient</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7B3EAE41795598A5">3.5-7 LeadingMonomial</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X8172B40181E1B7D2">3.5-8 MakeUniformOnRight</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X796249A682818750">3.5-9 MappedExpression</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X849AC0F67A131929">3.5-10 VertexPosition</a></span>
 </div>
 <div class="ContSect"><span class="nocss">&nbsp;</span><a href="chap3.html#X7F0D555379C97A6E">3.6 <span class="Heading">Constructing Quotients of Path Algebras</span></a>
 </div>
@@ -211,70 +212,26 @@ gap&gt; fq.b;
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; &lt;</code>( <var class="Arg">a, b</var> )</td><td class="tdright">( operation )</td></tr></table></div>
 <p>The operation <code class="func">&lt;</code> operates on elements <var class="Arg">a</var> and <var class="Arg">b</var> of a path algebra $FQ$, and they are compared using the ordering for the path algebra. See Section <a href="chap2.html#X78BBB63B828EB9FB"><b>2.4</b></a> for more information on orderings.</p>
 
-<p><a id="X84C98E687A3A84D8" name="X84C98E687A3A84D8"></a></p>
-
-<h5>3.5-2 LeadingTerm</h5>
-
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; LeadingTerm</code>( <var class="Arg">element</var> )</td><td class="tdright">( operation )</td></tr></table></div>
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; Tip</code>( <var class="Arg">element</var> )</td><td class="tdright">( operation )</td></tr></table></div>
-<p>The operation <code class="func">LeadingTerm</code> or equivalently <code class="func">Tip</code> operates on an <var class="Arg">x</var> in a path algebra, and it returns is the term in <var class="Arg">element</var> whose monomial is largest among those monomials that have nonzero coefficients; this term is known as the *tip* of <var class="Arg">element</var>.</p>
-
-<p><a id="X80710E9B7D8340BD" name="X80710E9B7D8340BD"></a></p>
-
-<h5>3.5-3 LeadingCoefficient</h5>
-
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; LeadingCoefficient</code>( <var class="Arg">element</var> )</td><td class="tdright">( operation )</td></tr></table></div>
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; TipCoefficient</code>( <var class="Arg">element</var> )</td><td class="tdright">( operation )</td></tr></table></div>
-<p>The operation <code class="func">LeadingCoefficient</code> or equivalently <code class="func">TipCoefficient</code> operates on an <var class="Arg">element</var> in a path algebra, and it returns the coefficient of the tip of <var class="Arg">element</var>. This is an element of the field.</p>
-
-<p><a id="X7B3EAE41795598A5" name="X7B3EAE41795598A5"></a></p>
-
-<h5>3.5-4 LeadingMonomial</h5>
-
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; LeadingMonomial</code>( <var class="Arg">element</var> )</td><td class="tdright">( operation )</td></tr></table></div>
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; TipMonomial</code>( <var class="Arg">element</var> )</td><td class="tdright">( operation )</td></tr></table></div>
-<p>The operation <code class="func">LeadingMonomial</code> or equivalently <code class="func">TipMonomial</code> operates on an <var class="Arg">element</var> in a path algebra, and it returns the monomial of the tip of <var class="Arg">element</var>; it is the largest monomial occurring in <var class="Arg">element</var> with a nonzero coefficient. This is an element of the underlying quiver, not of the path algebra.</p>
-
-
-<table class="example">
-<tr><td><pre>
-gap&gt; elem := fq.a*fq.b*fq.c + fq.b*fq.d*fq.c+fq.d*fq.d;
-(Z(23)^0)*d^2+(Z(23)^0)*a*b*c+(Z(23)^0)*b*d*c
-gap&gt; LeadingTerm(elem);
-(Z(23)^0)*b*d*c
-gap&gt; LeadingCoefficient(elem);
-Z(23)^0
-gap&gt; LeadingMonomial(elem);
-b*d*c
-</pre></td></tr></table>
-
 <p><a id="X853C8B0B8665BFBB" name="X853C8B0B8665BFBB"></a></p>
 
-<h5>3.5-5 IsLeftUniform</h5>
+<h5>3.5-2 IsLeftUniform</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IsLeftUniform</code>( <var class="Arg">element</var> )</td><td class="tdright">( operation )</td></tr></table></div>
 <p>The operation <code class="func">IsLeftUniform</code> operates on an <var class="Arg">element</var> in a path algebra, and it returns true if each monomial in <var class="Arg">element</var> has the same source vertex.</p>
 
 <p><a id="X7C06BE7483992634" name="X7C06BE7483992634"></a></p>
 
-<h5>3.5-6 IsRightUniform</h5>
+<h5>3.5-3 IsRightUniform</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IsRightUniform</code>( <var class="Arg">element</var> )</td><td class="tdright">( operation )</td></tr></table></div>
 <p>The operation <code class="func">IsRightUniform</code> operates on an <var class="Arg">element</var> in a path algebra, and it returns true if each monomial in <var class="Arg">element</var> has the same target vertex.</p>
 
 <p><a id="X8735FBE180797557" name="X8735FBE180797557"></a></p>
 
-<h5>3.5-7 IsUniform</h5>
+<h5>3.5-4 IsUniform</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IsUniform</code>( <var class="Arg">element</var> )</td><td class="tdright">( operation )</td></tr></table></div>
 <p>The operation <code class="func">IsUniform</code> operates on an <var class="Arg">element</var> in a path algebra, and it returns true if each monomial in <var class="Arg">element</var> has both the same source vertex and the same target vertex.</p>
-
-<p><a id="X8172B40181E1B7D2" name="X8172B40181E1B7D2"></a></p>
-
-<h5>3.5-8 MakeUniformOnRight</h5>
-
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; MakeUniformOnRight</code>( <var class="Arg">elems</var> )</td><td class="tdright">( operation )</td></tr></table></div>
-<p>The operation <code class="func">MakeUniformOnRight</code> operates on a list <var class="Arg">elems</var> of elements in a path algebra, and it returns a list of right uniform elements generated by each element of <var class="Arg">elems</var>.</p>
 
 
 <table class="example">
@@ -295,12 +252,65 @@ gap&gt; IsUniform(another);
 true
 </pre></td></tr></table>
 
+<p><a id="X84C98E687A3A84D8" name="X84C98E687A3A84D8"></a></p>
+
+<h5>3.5-5 LeadingTerm</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; LeadingTerm</code>( <var class="Arg">element</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; Tip</code>( <var class="Arg">element</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>The operation <code class="func">LeadingTerm</code> or equivalently <code class="func">Tip</code> operates on an <var class="Arg">x</var> in a path algebra, and it returns is the term in <var class="Arg">element</var> whose monomial is largest among those monomials that have nonzero coefficients; this term is known as the *tip* of <var class="Arg">element</var>.</p>
+
+<p><a id="X80710E9B7D8340BD" name="X80710E9B7D8340BD"></a></p>
+
+<h5>3.5-6 LeadingCoefficient</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; LeadingCoefficient</code>( <var class="Arg">element</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; TipCoefficient</code>( <var class="Arg">element</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>The operation <code class="func">LeadingCoefficient</code> or equivalently <code class="func">TipCoefficient</code> operates on an <var class="Arg">element</var> in a path algebra, and it returns the coefficient of the tip of <var class="Arg">element</var>. This is an element of the field.</p>
+
+<p><a id="X7B3EAE41795598A5" name="X7B3EAE41795598A5"></a></p>
+
+<h5>3.5-7 LeadingMonomial</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; LeadingMonomial</code>( <var class="Arg">element</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; TipMonomial</code>( <var class="Arg">element</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>The operation <code class="func">LeadingMonomial</code> or equivalently <code class="func">TipMonomial</code> operates on an <var class="Arg">element</var> in a path algebra, and it returns the monomial of the tip of <var class="Arg">element</var>; it is the largest monomial occurring in <var class="Arg">element</var> with a nonzero coefficient. This is an element of the underlying quiver, not of the path algebra.</p>
+
+
+<table class="example">
+<tr><td><pre>
+gap&gt; elem := fq.a*fq.b*fq.c + fq.b*fq.d*fq.c+fq.d*fq.d;
+(Z(23)^0)*d^2+(Z(23)^0)*a*b*c+(Z(23)^0)*b*d*c
+gap&gt; LeadingTerm(elem);
+(Z(23)^0)*b*d*c
+gap&gt; LeadingCoefficient(elem);
+Z(23)^0
+gap&gt; LeadingMonomial(elem);
+b*d*c
+</pre></td></tr></table>
+
+<p><a id="X8172B40181E1B7D2" name="X8172B40181E1B7D2"></a></p>
+
+<h5>3.5-8 MakeUniformOnRight</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; MakeUniformOnRight</code>( <var class="Arg">elems</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>The operation <code class="func">MakeUniformOnRight</code> operates on a list <var class="Arg">elems</var> of elements in a path algebra, and it returns a list of right uniform elements generated by each element of <var class="Arg">elems</var>.</p>
+
 <p><a id="X796249A682818750" name="X796249A682818750"></a></p>
 
 <h5>3.5-9 MappedExpression</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; MappedExpression</code>( <var class="Arg">expr, gens1, gens2</var> )</td><td class="tdright">( operation )</td></tr></table></div>
 <p>The operation <code class="func">MappedExpression</code> operates on <var class="Arg">expr</var> from a path algebra and and two equal-length lists of generators <var class="Arg">gens1</var> and <var class="Arg">gens2</var> for subalgebras. The <var class="Arg">expr</var> must be in the subalgebra generated by <var class="Arg">gens1</var>. The lists define a mapping of each generator in <var class="Arg">gens1</var> to the corresponding generator in <var class="Arg">gens2</var>. The value returned is the evaluation of the mapping at <var class="Arg">expr</var>.</p>
+
+<p><a id="X849AC0F67A131929" name="X849AC0F67A131929"></a></p>
+
+<h5>3.5-10 VertexPosition</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; VertexPosition</code>( <var class="Arg">elm</var> )</td><td class="tdright">( function )</td></tr></table></div>
+<p><b>Returns: </b>the position of the vertex <var class="Arg">v</var> in the list of vertices of which the element <var class="Arg">elm</var> is a multiplum of.</p>
+
+<p>The function assumes that a multiplum of a trivial path is entered.</p>
 
 <p><a id="X7F0D555379C97A6E" name="X7F0D555379C97A6E"></a></p>
 
