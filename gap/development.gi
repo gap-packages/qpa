@@ -3,24 +3,47 @@ InstallMethod( IsSelfinjective,
    [ IsSubalgebraFpPathAlgebra ], 0,
    function( A ) 
 
-   local KQ, rels, I, B, gb, gbb, Inj, T, num_vert, total, i;
+   local fam, KQ, rels, I, B, gb, gbb, Inj, T, num_vert, total, i;
 
-   Inj := IndecomposableInjectiveRepresentations(A);
-   T := List(Inj, M -> DimensionVector(TopOfRep(M)));
-   num_vert := Length(T);
-   total := [];
-   for i in [1..num_vert] do
-      Add(total,0);
-   od;
-   for i in [1..num_vert] do
-      total := total + T[i];
-   od;
+   fam := ElementsFamily(FamilyObj(A));
+   if HasGroebnerBasisOfIdeal(fam!.ideal) and 
+          AdmitsFinitelyManyNontips(GroebnerBasisOfIdeal(fam!.ideal)) then 
+      Inj := IndecomposableInjectiveRepresentations(A);
+      T := List(Inj, M -> DimensionVector(TopOfRep(M)));
+      num_vert := Length(T);
+      total := List([1..num_vert], x -> 0);
+      for i in [1..num_vert] do
+         total := total + T[i];
+      od;
    
-   if ( num_vert = Sum(total) ) and ( ForAll(total, x -> x > 0) )  then
-      return true;
+      if ( num_vert = Sum(total) ) and ( ForAll(total, x -> x > 0) )  then
+         return true;
+      else
+         return false;
+      fi;
    else
-      return false;
+      return fail;
    fi;   
+end
+);
+
+InstallOtherMethod( IsSelfinjective,
+   "for a path algebra",
+   [ IsPathAlgebra ], 0,
+   function( A )
+
+   local Q;
+
+   Q := QuiverOfPathAlgebra(A);
+   if IsAcyclic(Q) then 
+      if SizeOfQuiver(Q) > 0 then 
+         return false;
+      else
+         return true;
+      fi;
+   else
+      return fail;
+   fi;
 end
 );
 
@@ -51,12 +74,17 @@ InstallOtherMethod( LoewyLength,
    [ IsSubalgebraFpPathAlgebra ], 0,
    function( A ) 
 
-   local N, i;
+   local fam, gb, N;
 
-   N := IndecomposableProjectiveRepresentations(A);
-   N := List(N, x -> LoewyLength(x));
-
-   return Maximum(N);
+   fam := ElementsFamily(FamilyObj(A));
+   if HasGroebnerBasisOfIdeal(fam!.ideal) and
+          AdmitsFinitelyManyNontips(GroebnerBasisOfIdeal(fam!.ideal)) then
+      gb := GroebnerBasisOfIdeal(fam!.ideal);
+      N := List(Nontips(gb), x -> LengthOfPath(x));
+      return Maximum(N)+1;
+   else
+      return fail;
+   fi;
 end
 );
 
@@ -1655,15 +1683,15 @@ InstallMethod( ExtOne,
                for i in [1..Size(dimsyz)] do    # matrix i in the hom. is a (dimsyz[i] x dimN[i])-matrix
                   if ( dimsyz[i] = 0 ) then 
                      if ( dimN[i] = 0 ) then 
-                        Append(l,[[vec{[t+1]}]]);
+                        Add(l,[vec{[t+1]}]);
                         t := t + 1;
                      else
-                        Append(l,[[vec{[1..dimN[i]+t]}]]);
+                        Add(l,[vec{[1..dimN[i]+t]}]);
                         t := t + dimN[i];
                      fi;
                   else
                      if ( dimN[i] = 0 ) then 
-                        Append(l,List([1..dimsyz[i]], x -> [vec{[x+t]}]));
+                        Add(l,List([1..dimsyz[i]], x -> [vec{[x+t]}]));
                         t := t + dimsyz[i];
                      else
                         Append(l,[List([1..dimsyz[i]],x-> vec{(x-1)*dimN[i]+[1..dimN[i]] + t})]);

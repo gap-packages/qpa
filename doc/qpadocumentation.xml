@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- $Id: qpadocumentation.xml,v 1.19 2011/11/21 11:53:15 sunnyquiver Exp $ -->
+<!-- $Id: qpadocumentation.xml,v 1.20 2012/01/09 07:49:52 sunnyquiver Exp $ -->
 
 <!DOCTYPE Book SYSTEM "gapdoc.dtd">
 <!-- [ <!ENTITY see '<Alt Only="LaTeX">$\to$</Alt><Alt Not="LaTeX">--&gt;</Alt>'>
@@ -1133,18 +1133,21 @@ false
 <ManSection>
    <Oper Name="IsSelfinjective" Arg="A" Comm=""/>
    <Description>
-     The function checks if the algebra <Arg>A</Arg> is finite
-     dimensional (not implemented yet), and returns true or false
-     accorgin to whether <Arg>A</Arg> is selfinjective or not.
+     This function takes a path algebra or a quotient of a path
+     algebra as an argument <Arg>A</Arg>, and returns fail
+     if <Arg>A</Arg> is not finite dimensional. Otherwise it returns
+     true or false according to whether <Arg>A</Arg> is selfinjective
+     or not.
    </Description>
 </ManSection>
 
 <ManSection>
    <Oper Name="LoewyLength" Arg="A" Comm=""/>
    <Description>
-     The function returns the Loewy length of the
-     algebra <Arg>A</Arg>, after having checked that <Arg>A</Arg> is a
-     finite dimensional quotient of a path algebra. 
+     This function takes a pathalgebra or a quotient of a path algebra
+     as an argument <Arg>A</Arg>, and returns fail if <Arg>A</Arg> is
+     not finite dimensional. Otherwise it returns the Loewy length of
+     the algebra <Arg>A</Arg>. 
    </Description>
 </ManSection>
 
@@ -1811,11 +1814,12 @@ the vector spaces of the correct dimension, and check to make sure the
 dimensions all agree.  We can create a module in this way as follows.<P/>
 
   <ManSection>
-   <Func Name="RightModuleOverPathAlgebra" Arg="A, mats" 
+   <Oper Name="RightModuleOverPathAlgebra" Arg="A, mats" 
 	 Comm=""/>
-   <Func Name="RightModuleOverQuotientOfPathAlgebra" Arg="A, mats" 
+   <Oper Name="RightModuleOverQuotientOfPathAlgebra" Arg="A, mats" 
 	 Comm=""/>
-   <Returns>a representation over a path algebra.</Returns>
+   <Returns>a module over a path algebra in the first variant, 
+     a module over a qoutient of a path algebra in the second variant.</Returns>
    <Description>
       In the function call, <Arg>A</Arg> is a (quotient of a ) path
       algebra.  The list of matrices <Arg>mats</Arg> can take on three
@@ -1858,7 +1862,10 @@ dimensions all agree.  We can create a module in this way as follows.<P/>
    </Description>
   </ManSection>
 
-<Example>
+<Example><![CDATA[
+
+
+
 gap&gt; Q := Quiver(2, [[1, 2, "a"], [2, 1, "b"],[1, 1, "c"]]); 
 &lt;quiver with 2 vertices and 3 arrows&gt;
 gap&gt; P := PathAlgebra(Rationals, Q);
@@ -1898,6 +1905,7 @@ gap&gt; Basis(M);
 Basis( &lt;
 0-dimensional right-module over &lt;algebra-with-one over Rationals, with 
 5 generators&gt;&gt;, [  ] )
+]]>
 </Example>
 </Section>
 
