@@ -23,9 +23,10 @@
   
   [1X6.1-1 RightModuleOverPathAlgebra[0m
   
-  [2X> RightModuleOverPathAlgebra( [0X[3XA, mats[0X[2X ) ____________________________[0Xfunction
-  [2X> RightModuleOverQuotientOfPathAlgebra( [0X[3XA, mats[0X[2X ) __________________[0Xfunction
-  [6XReturns:[0X  a representation over a path algebra.
+  [2X> RightModuleOverPathAlgebra( [0X[3XA, mats[0X[2X ) ___________________________[0Xoperation
+  [2X> RightModuleOverQuotientOfPathAlgebra( [0X[3XA, mats[0X[2X ) _________________[0Xoperation
+  [6XReturns:[0X  a module over a path algebra in the first variant, a module over a
+            qoutient of a path algebra in the second variant.
   
   In  the  function  call,  [3XA[0m  is a (quotient of a ) path algebra. The list of
   matrices [3Xmats[0m can take on three different forms.
@@ -60,45 +61,49 @@
   only one matrix assigned to it.
   
   [4X---------------------------  Example  ----------------------------[0X
-    [4Xgap> Q := Quiver(2, [[1, 2, "a"], [2, 1, "b"],[1, 1, "c"]]); [0X
-    [4X<quiver with 2 vertices and 3 arrows>[0X
-    [4Xgap> P := PathAlgebra(Rationals, Q);[0X
-    [4X<algebra-with-one over Rationals, with 5 generators>[0X
-    [4Xgap> matrices := [["a", [[1,0,0],[0,1,0]]], ["b", [[0,1],[1,0],[0,1]]],[0X
-    [4X> ["c", [[0,0],[1,0]]]];[0X
+    [4X[0X
+    [4X[0X
+    [4X[0X
+    [4Xgap&gt; Q := Quiver(2, [[1, 2, "a"], [2, 1, "b"],[1, 1, "c"]]); [0X
+    [4X&lt;quiver with 2 vertices and 3 arrows&gt;[0X
+    [4Xgap&gt; P := PathAlgebra(Rationals, Q);[0X
+    [4X&lt;algebra-with-one over Rationals, with 5 generators&gt;[0X
+    [4Xgap&gt; matrices := [["a", [[1,0,0],[0,1,0]]], ["b", [[0,1],[1,0],[0,1]]],[0X
+    [4X&gt; ["c", [[0,0],[1,0]]]];[0X
     [4X[ [ "a", [ [ 1, 0, 0 ], [ 0, 1, 0 ] ] ],[0X
     [4X  [ "b", [ [ 0, 1 ], [ 1, 0 ], [ 0, 1 ] ] ],[0X
     [4X  [ "c", [ [ 0, 0 ], [ 1, 0 ] ] ] ][0X
-    [4Xgap> M := RightModuleOverPathAlgebra(P,matrices);[0X
-    [4X<right-module over <algebra-with-one over Rationals, with 5[0X
-    [4Xgenerators>> [0X
-    [4Xgap> mats := [ [[1,0,0], [0,1,0]], [[0,1],[1,0],[0,1]], [[0,0],[1,0]] ];; [0X
-    [4Xgap> N := RightModuleOverPathAlgebra(P,mats); [0X
-    [4X<right-module over <algebra-with-one over Rationals, with 5[0X
-    [4Xgenerators>> [0X
-    [4Xgap> arrows := ArrowsOfQuiver(Q);[0X
+    [4Xgap&gt; M := RightModuleOverPathAlgebra(P,matrices);[0X
+    [4X&lt;right-module over &lt;algebra-with-one over Rationals, with 5[0X
+    [4Xgenerators&gt;&gt; [0X
+    [4Xgap&gt; mats := [ [[1,0,0], [0,1,0]], [[0,1],[1,0],[0,1]], [[0,0],[1,0]] ];; [0X
+    [4Xgap&gt; N := RightModuleOverPathAlgebra(P,mats); [0X
+    [4X&lt;right-module over &lt;algebra-with-one over Rationals, with 5[0X
+    [4Xgenerators&gt;&gt; [0X
+    [4Xgap&gt; arrows := ArrowsOfQuiver(Q);[0X
     [4X[ a, b, c ][0X
-    [4Xgap> mats := [[arrows[1], [[1,0,0],[0,1,0]]], [0X
-    [4X> [arrows[2], [[0,1],[1,0],[0,1]]], [arrows[3], [[0,0],[1,0]]]];;[0X
-    [4Xgap> N := RightModuleOverPathAlgebra(P,mats); [0X
-    [4X<right-module over <algebra-with-one over Rationals, with 5[0X
-    [4Xgenerators>>[0X
-    [4Xgap> # Next we give the vertex simple associate to vertex 1. [0X
-    [4Xgap> M :=[0X
+    [4Xgap&gt; mats := [[arrows[1], [[1,0,0],[0,1,0]]], [0X
+    [4X&gt; [arrows[2], [[0,1],[1,0],[0,1]]], [arrows[3], [[0,0],[1,0]]]];;[0X
+    [4Xgap&gt; N := RightModuleOverPathAlgebra(P,mats); [0X
+    [4X&lt;right-module over &lt;algebra-with-one over Rationals, with 5[0X
+    [4Xgenerators&gt;&gt;[0X
+    [4Xgap&gt; # Next we give the vertex simple associate to vertex 1. [0X
+    [4Xgap&gt; M :=[0X
     [4XRightModuleOverPathAlgebra(P,[["a",[1,0]],["b",[0,1]],["c",[[0]]]]);[0X
-    [4X<right-module over <algebra-with-one over Rationals, with 5[0X
-    [4X					generators>> [0X
-    [4Xgap> # Finally, the next defines the zero representation of the quiver.[0X
-    [4Xgap> M :=[0X
+    [4X&lt;right-module over &lt;algebra-with-one over Rationals, with 5[0X
+    [4X					generators&gt;&gt; [0X
+    [4Xgap&gt; # Finally, the next defines the zero representation of the quiver.[0X
+    [4Xgap&gt; M :=[0X
     [4XRightModuleOverPathAlgebra(P,[["a",[0,0]],["b",[0,0]],["c",[0,0]]]);[0X
-    [4X<right-module over <algebra-with-one over Rationals, with 5[0X
-    [4X					generators>> [0X
-    [4Xgap> Dimension(M);[0X
+    [4X&lt;right-module over &lt;algebra-with-one over Rationals, with 5[0X
+    [4X					generators&gt;&gt; [0X
+    [4Xgap&gt; Dimension(M);[0X
     [4X0[0X
-    [4Xgap> Basis(M);[0X
-    [4XBasis( <[0X
-    [4X0-dimensional right-module over <algebra-with-one over Rationals, with [0X
-    [4X5 generators>>, [  ] )[0X
+    [4Xgap&gt; Basis(M);[0X
+    [4XBasis( &lt;[0X
+    [4X0-dimensional right-module over &lt;algebra-with-one over Rationals, with [0X
+    [4X5 generators&gt;&gt;, [  ] )[0X
+    [4X[0X
   [4X------------------------------------------------------------------[0X
   
   

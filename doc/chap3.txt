@@ -329,9 +329,9 @@
   
   [2X> IsSelfinjective( [0X[3XA[0X[2X ) ____________________________________________[0Xoperation
   
-  The  function checks if the algebra [3XA[0m is finite dimensional (not implemented
-  yet),  and  returns  true or false accorgin to whether [3XA[0m is selfinjective or
-  not.
+  This  function  takes  a  path algebra or a quotient of a path algebra as an
+  argument  [3XA[0m,  and  returns fail if [3XA[0m is not finite dimensional. Otherwise it
+  returns true or false according to whether [3XA[0m is selfinjective or not.
   
   [1X3.9-5 LoewyLength[0m
   

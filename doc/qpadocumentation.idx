@@ -100,13 +100,13 @@
 \indexentry{RightGroebnerBasisOfIdeal@\texttt  {RightGroebnerBasisOfIdeal}|hyperpage}{36}
 \indexentry{RightGroebnerBasis@\texttt  {RightGroebnerBasis}|hyperpage}{36}
 \indexentry{RightModuleOverPathAlgebra@\texttt  {RightModuleOverPathAlgebra}|hyperpage}{38}
-\indexentry{RightModuleOverQuotientOfPathAlgebra@\texttt  {RightModuleOverQuotientOfPathAlgebra}|hyperpage}{38}
+\indexentry{RightModuleOverQuotientOfPathAlgebra@\texttt  {Right}\discretionary {-}{}{}\texttt  {Module}\discretionary {-}{}{}\texttt  {Over}\discretionary {-}{}{}\texttt  {Quotient}\discretionary {-}{}{}\texttt  {Of}\discretionary {-}{}{}\texttt  {Path}\discretionary {-}{}{}\texttt  {Algebra}|hyperpage}{38}
 \indexentry{IsPathAlgebraMatModule@\texttt  {IsPathAlgebraMatModule}|hyperpage}{40}
 \indexentry{^@\texttt  {\texttt  {\char 94\relax }}|hyperpage}{40}
 \indexentry{CommonDirectSummand@\texttt  {CommonDirectSummand}|hyperpage}{41}
 \indexentry{DimensionVector@\texttt  {DimensionVector}|hyperpage}{41}
 \indexentry{DimensionMatModule@\texttt  {DimensionMatModule}|hyperpage}{41}
-\indexentry{DirectSummandTest@\texttt  {DirectSummandTest}|hyperpage}{41}
+\indexentry{DirectSummandTest@\texttt  {DirectSummandTest}|hyperpage}{42}
 \indexentry{DirectSumOfPathAlgebraMatModules@\texttt  {DirectSumOfPathAlgebraMatModules}|hyperpage}{42}
 \indexentry{IsDirectSum@\texttt  {IsDirectSum}|hyperpage}{42}
 \indexentry{DirectSumInclusions@\texttt  {DirectSumInclusions}|hyperpage}{42}
@@ -135,8 +135,8 @@
 \indexentry{MinimalSetOfGenerators@\texttt  {MinimalSetOfGenerators}|hyperpage}{46}
 \indexentry{MatricesOfPathAlgebraMatModule@\texttt  {MatricesOfPathAlgebraMatModule}|hyperpage}{46}
 \indexentry{BasisOfProjectives@\texttt  {BasisOfProjectives}|hyperpage}{46}
-\indexentry{IndecomposableProjectiveRepresentations@\texttt  {IndecomposableProjectiveRepresentations}|hyperpage}{47}
-\indexentry{IndecomposableInjectiveRepresentations@\texttt  {IndecomposableInjectiveRepresentations}|hyperpage}{47}
+\indexentry{IndecomposableProjectiveRepresentations@\texttt  {Indecomposable}\discretionary {-}{}{}\texttt  {Projective}\discretionary {-}{}{}\texttt  {Representations}|hyperpage}{47}
+\indexentry{IndecomposableInjectiveRepresentations@\texttt  {Indecomposable}\discretionary {-}{}{}\texttt  {Injective}\discretionary {-}{}{}\texttt  {Representations}|hyperpage}{47}
 \indexentry{VertexSimpleRepresentations@\texttt  {VertexSimpleRepresentations}|hyperpage}{47}
 \indexentry{ZeroRepresentation@\texttt  {ZeroRepresentation}|hyperpage}{47}
 \indexentry{DualOfPathAlgebraMatModule@\texttt  {DualOfPathAlgebraMatModule}|hyperpage}{47}
@@ -192,7 +192,7 @@
 \indexentry{PullBack@\texttt  {PullBack}|hyperpage}{57}
 \indexentry{PushOut@\texttt  {PushOut}|hyperpage}{57}
 \indexentry{RadicalOfRepInclusion@\texttt  {RadicalOfRepInclusion}|hyperpage}{57}
-\indexentry{SocleOfPathAlgebraMatModuleInclusion@\texttt  {SocleOfPathAlgebraMatModuleInclusion}|hyperpage}{58}
+\indexentry{SocleOfPathAlgebraMatModuleInclusion@\texttt  {Socle}\discretionary {-}{}{}\texttt  {Of}\discretionary {-}{}{}\texttt  {Path}\discretionary {-}{}{}\texttt  {Algebra}\discretionary {-}{}{}\texttt  {Mat}\discretionary {-}{}{}\texttt  {Module}\discretionary {-}{}{}\texttt  {Inclusion}|hyperpage}{58}
 \indexentry{SubRepInclusion@\texttt  {SubRepInclusion}|hyperpage}{58}
 \indexentry{TopOfRepProjection@\texttt  {TopOfRepProjection}|hyperpage}{58}
 \indexentry{ExtOne@\texttt  {ExtOne}|hyperpage}{58}

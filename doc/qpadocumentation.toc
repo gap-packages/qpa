@@ -144,7 +144,7 @@
 \contentsline {subsection}{\numberline {6.4.1}\leavevmode {\color {Chapter }CommonDirectSummand}}{41}{subsection.6.4.1}
 \contentsline {subsection}{\numberline {6.4.2}\leavevmode {\color {Chapter }DimensionVector}}{41}{subsection.6.4.2}
 \contentsline {subsection}{\numberline {6.4.3}\leavevmode {\color {Chapter }DimensionMatModule}}{41}{subsection.6.4.3}
-\contentsline {subsection}{\numberline {6.4.4}\leavevmode {\color {Chapter }DirectSummandTest}}{41}{subsection.6.4.4}
+\contentsline {subsection}{\numberline {6.4.4}\leavevmode {\color {Chapter }DirectSummandTest}}{42}{subsection.6.4.4}
 \contentsline {subsection}{\numberline {6.4.5}\leavevmode {\color {Chapter }DirectSumOfPathAlgebraMatModules}}{42}{subsection.6.4.5}
 \contentsline {subsection}{\numberline {6.4.6}\leavevmode {\color {Chapter }IsDirectSum}}{42}{subsection.6.4.6}
 \contentsline {subsection}{\numberline {6.4.7}\leavevmode {\color {Chapter }DirectSumInclusions}}{42}{subsection.6.4.7}

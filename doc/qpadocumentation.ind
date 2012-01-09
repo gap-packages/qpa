@@ -44,7 +44,7 @@
   \item \texttt  {DimensionMatModule}, \hyperpage{41}
   \item \texttt  {DimensionVector}, \hyperpage{41}
   \item \texttt  {DirectSumInclusions}, \hyperpage{42}
-  \item \texttt  {DirectSummandTest}, \hyperpage{41}
+  \item \texttt  {DirectSummandTest}, \hyperpage{42}
   \item \texttt  {DirectSumOfPathAlgebraMatModules}, \hyperpage{42}
   \item \texttt  {DirectSumProjections}, \hyperpage{42}
   \item \texttt  {DTr}, \hyperpage{48}
@@ -84,9 +84,9 @@
   \item \texttt  {InAdditiveClosureTest}, \hyperpage{43}
   \item \texttt  {IncludeInProductQuiver}, \hyperpage{29}
   \item \texttt  {IncomingArrowsOfVertex}, \hyperpage{19}
-  \item \texttt  {IndecomposableInjectiveRepresentations}, 
+  \item \texttt  {Indecomposable}\discretionary {-}{}{}\texttt  {Injective}\discretionary {-}{}{}\texttt  {Representations}, 
 		\hyperpage{47}
-  \item \texttt  {IndecomposableProjectiveRepresentations}, 
+  \item \texttt  {Indecomposable}\discretionary {-}{}{}\texttt  {Projective}\discretionary {-}{}{}\texttt  {Representations}, 
 		\hyperpage{47}
   \item \texttt  {InDegreeOfVertex}, \hyperpage{20}
   \item \texttt  {InfoGroebnerBasis}, \hyperpage{32}
@@ -207,7 +207,8 @@
   \item \texttt  {RightMinimalVersion}, \hyperpage{56}
   \item \texttt  {RightModuleHomOverPathAlgebra}, \hyperpage{51}
   \item \texttt  {RightModuleOverPathAlgebra}, \hyperpage{38}
-  \item \texttt  {RightModuleOverQuotientOfPathAlgebra}, \hyperpage{38}
+  \item \texttt  {Right}\discretionary {-}{}{}\texttt  {Module}\discretionary {-}{}{}\texttt  {Over}\discretionary {-}{}{}\texttt  {Quotient}\discretionary {-}{}{}\texttt  {Of}\discretionary {-}{}{}\texttt  {Path}\discretionary {-}{}{}\texttt  {Algebra}, 
+		\hyperpage{38}
   \item \texttt  {RightProjectiveModule}, \hyperpage{48}
 
   \indexspace
@@ -215,7 +216,8 @@
   \item \texttt  {SimpleTensor}, \hyperpage{30}
   \item \texttt  {SizeOfQuiver}, \hyperpage{16}
   \item \texttt  {SocleOfPathAlgebraMatModule}, \hyperpage{45}
-  \item \texttt  {SocleOfPathAlgebraMatModuleInclusion}, \hyperpage{58}
+  \item \texttt  {Socle}\discretionary {-}{}{}\texttt  {Of}\discretionary {-}{}{}\texttt  {Path}\discretionary {-}{}{}\texttt  {Algebra}\discretionary {-}{}{}\texttt  {Mat}\discretionary {-}{}{}\texttt  {Module}\discretionary {-}{}{}\texttt  {Inclusion}, 
+		\hyperpage{58}
   \item \texttt  {SocleSeries}, \hyperpage{45}
   \item \texttt  {Source}, \hyperpage{52}
   \item \texttt  {SourceOfPath}, \hyperpage{18}

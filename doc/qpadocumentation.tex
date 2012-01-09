@@ -43,6 +43,10 @@
 
 \newcommand{\GAP}{\textsf{GAP}}
 
+%% nicer description environments, allows long labels
+\usepackage{enumitem}
+\setdescription{style=nextline}
+
 \begin{document}
 
 \logpage{[ 0, 0, 0 ]}
@@ -1392,8 +1396,9 @@ you will need to compute a Groebner basis of the ideal. Refer to the chapters
 }\hfill{\scriptsize (operation)}}\\
 
 
- The function checks if the algebra \mbox{\texttt{\slshape A}} is finite dimensional (not implemented yet), and returns true or false
-accorgin to whether \mbox{\texttt{\slshape A}} is selfinjective or not. }
+ This function takes a path algebra or a quotient of a path algebra as an
+argument \mbox{\texttt{\slshape A}}, and returns fail if \mbox{\texttt{\slshape A}} is not finite dimensional. Otherwise it returns true or false according to
+whether \mbox{\texttt{\slshape A}} is selfinjective or not. }
 
  
 
@@ -2184,12 +2189,13 @@ this way as follows.
 \hyperdef{L}{X82DAF2167E65C4A8}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{RightModuleOverPathAlgebra({\slshape A, mats})\index{RightModuleOverPathAlgebra@\texttt{RightModuleOverPathAlgebra}}
 \label{RightModuleOverPathAlgebra}
-}\hfill{\scriptsize (function)}}\\
-\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{RightModuleOverQuotientOfPathAlgebra({\slshape A, mats})\index{RightModuleOverQuotientOfPathAlgebra@\texttt{RightModuleOverQuotientOfPathAlgebra}}
+}\hfill{\scriptsize (operation)}}\\
+\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{RightModuleOverQuotientOfPathAlgebra({\slshape A, mats})\index{RightModuleOverQuotientOfPathAlgebra@\texttt{Right}\-\texttt{Module}\-\texttt{Over}\-\texttt{Quotient}\-\texttt{Of}\-\texttt{Path}\-\texttt{Algebra}}
 \label{RightModuleOverQuotientOfPathAlgebra}
-}\hfill{\scriptsize (function)}}\\
+}\hfill{\scriptsize (operation)}}\\
 \textbf{\indent Returns:\ }
-a representation over a path algebra.
+a module over a path algebra in the first variant, a module over a qoutient of
+a path algebra in the second variant.
 
 
 
@@ -2221,45 +2227,49 @@ one matrix assigned to it.
 
  
 \begin{Verbatim}[fontsize=\small,frame=single,label=Example]
-  gap> Q := Quiver(2, [[1, 2, "a"], [2, 1, "b"],[1, 1, "c"]]); 
-  <quiver with 2 vertices and 3 arrows>
-  gap> P := PathAlgebra(Rationals, Q);
-  <algebra-with-one over Rationals, with 5 generators>
-  gap> matrices := [["a", [[1,0,0],[0,1,0]]], ["b", [[0,1],[1,0],[0,1]]],
-  > ["c", [[0,0],[1,0]]]];
+  
+  
+  
+  gap&gt; Q := Quiver(2, [[1, 2, "a"], [2, 1, "b"],[1, 1, "c"]]); 
+  &lt;quiver with 2 vertices and 3 arrows&gt;
+  gap&gt; P := PathAlgebra(Rationals, Q);
+  &lt;algebra-with-one over Rationals, with 5 generators&gt;
+  gap&gt; matrices := [["a", [[1,0,0],[0,1,0]]], ["b", [[0,1],[1,0],[0,1]]],
+  &gt; ["c", [[0,0],[1,0]]]];
   [ [ "a", [ [ 1, 0, 0 ], [ 0, 1, 0 ] ] ],
     [ "b", [ [ 0, 1 ], [ 1, 0 ], [ 0, 1 ] ] ],
     [ "c", [ [ 0, 0 ], [ 1, 0 ] ] ] ]
-  gap> M := RightModuleOverPathAlgebra(P,matrices);
-  <right-module over <algebra-with-one over Rationals, with 5
-  generators>> 
-  gap> mats := [ [[1,0,0], [0,1,0]], [[0,1],[1,0],[0,1]], [[0,0],[1,0]] ];; 
-  gap> N := RightModuleOverPathAlgebra(P,mats); 
-  <right-module over <algebra-with-one over Rationals, with 5
-  generators>> 
-  gap> arrows := ArrowsOfQuiver(Q);
+  gap&gt; M := RightModuleOverPathAlgebra(P,matrices);
+  &lt;right-module over &lt;algebra-with-one over Rationals, with 5
+  generators&gt;&gt; 
+  gap&gt; mats := [ [[1,0,0], [0,1,0]], [[0,1],[1,0],[0,1]], [[0,0],[1,0]] ];; 
+  gap&gt; N := RightModuleOverPathAlgebra(P,mats); 
+  &lt;right-module over &lt;algebra-with-one over Rationals, with 5
+  generators&gt;&gt; 
+  gap&gt; arrows := ArrowsOfQuiver(Q);
   [ a, b, c ]
-  gap> mats := [[arrows[1], [[1,0,0],[0,1,0]]], 
-  > [arrows[2], [[0,1],[1,0],[0,1]]], [arrows[3], [[0,0],[1,0]]]];;
-  gap> N := RightModuleOverPathAlgebra(P,mats); 
-  <right-module over <algebra-with-one over Rationals, with 5
-  generators>>
-  gap> # Next we give the vertex simple associate to vertex 1. 
-  gap> M :=
+  gap&gt; mats := [[arrows[1], [[1,0,0],[0,1,0]]], 
+  &gt; [arrows[2], [[0,1],[1,0],[0,1]]], [arrows[3], [[0,0],[1,0]]]];;
+  gap&gt; N := RightModuleOverPathAlgebra(P,mats); 
+  &lt;right-module over &lt;algebra-with-one over Rationals, with 5
+  generators&gt;&gt;
+  gap&gt; # Next we give the vertex simple associate to vertex 1. 
+  gap&gt; M :=
   RightModuleOverPathAlgebra(P,[["a",[1,0]],["b",[0,1]],["c",[[0]]]]);
-  <right-module over <algebra-with-one over Rationals, with 5
-  					generators>> 
-  gap> # Finally, the next defines the zero representation of the quiver.
-  gap> M :=
+  &lt;right-module over &lt;algebra-with-one over Rationals, with 5
+  					generators&gt;&gt; 
+  gap&gt; # Finally, the next defines the zero representation of the quiver.
+  gap&gt; M :=
   RightModuleOverPathAlgebra(P,[["a",[0,0]],["b",[0,0]],["c",[0,0]]]);
-  <right-module over <algebra-with-one over Rationals, with 5
-  					generators>> 
-  gap> Dimension(M);
+  &lt;right-module over &lt;algebra-with-one over Rationals, with 5
+  					generators&gt;&gt; 
+  gap&gt; Dimension(M);
   0
-  gap> Basis(M);
-  Basis( <
-  0-dimensional right-module over <algebra-with-one over Rationals, with 
-  5 generators>>, [  ] )
+  gap&gt; Basis(M);
+  Basis( &lt;
+  0-dimensional right-module over &lt;algebra-with-one over Rationals, with 
+  5 generators&gt;&gt;, [  ] )
+  
 \end{Verbatim}
  }
 
@@ -2872,7 +2882,7 @@ message otherwise. }
 \subsection{\textcolor{Chapter }{IndecomposableProjectiveRepresentations}}
 \logpage{[ 6, 5, 2 ]}\nobreak
 \hyperdef{L}{X82637AE885576148}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IndecomposableProjectiveRepresentations({\slshape A[, list]})\index{IndecomposableProjectiveRepresentations@\texttt{IndecomposableProjectiveRepresentations}}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IndecomposableProjectiveRepresentations({\slshape A[, list]})\index{IndecomposableProjectiveRepresentations@\texttt{Indecomposable}\-\texttt{Projective}\-\texttt{Representations}}
 \label{IndecomposableProjectiveRepresentations}
 }\hfill{\scriptsize (operation)}}\\
 \textbf{\indent Returns:\ }
@@ -2891,7 +2901,7 @@ message otherwise. }
 \subsection{\textcolor{Chapter }{IndecomposableInjectiveRepresentations}}
 \logpage{[ 6, 5, 3 ]}\nobreak
 \hyperdef{L}{X78829EE8850BCD9F}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IndecomposableInjectiveRepresentations({\slshape A[, list]})\index{IndecomposableInjectiveRepresentations@\texttt{IndecomposableInjectiveRepresentations}}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IndecomposableInjectiveRepresentations({\slshape A[, list]})\index{IndecomposableInjectiveRepresentations@\texttt{Indecomposable}\-\texttt{Injective}\-\texttt{Representations}}
 \label{IndecomposableInjectiveRepresentations}
 }\hfill{\scriptsize (operation)}}\\
 \textbf{\indent Returns:\ }
@@ -3773,7 +3783,7 @@ the inclusion of the radical of the module \mbox{\texttt{\slshape M}} into \mbox
 \subsection{\textcolor{Chapter }{SocleOfPathAlgebraMatModuleInclusion}}
 \logpage{[ 7, 3, 15 ]}\nobreak
 \hyperdef{L}{X830578BB804B6752}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{SocleOfPathAlgebraMatModuleInclusion({\slshape M})\index{SocleOfPathAlgebraMatModuleInclusion@\texttt{SocleOfPathAlgebraMatModuleInclusion}}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{SocleOfPathAlgebraMatModuleInclusion({\slshape M})\index{SocleOfPathAlgebraMatModuleInclusion@\texttt{Socle}\-\texttt{Of}\-\texttt{Path}\-\texttt{Algebra}\-\texttt{Mat}\-\texttt{Module}\-\texttt{Inclusion}}
 \label{SocleOfPathAlgebraMatModuleInclusion}
 }\hfill{\scriptsize (operation)}}\\
 \textbf{\indent Returns:\ }
