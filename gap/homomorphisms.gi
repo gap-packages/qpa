@@ -1,5 +1,5 @@
 # GAP Implementation
-# $Id: homomorphisms.gi,v 1.20 2011/11/21 11:53:16 sunnyquiver Exp $
+# $Id: homomorphisms.gi,v 1.21 2012/01/10 13:22:04 sunnyquiver Exp $
 
 #############################################################################
 ##
@@ -13,8 +13,8 @@ InstallMethod( ImageElm,
     local elt, n, fam, image, temp, zero, new_image;
 
     if elem in Source(map) then
-  	    elt := ExtRepOfObj(elem);
-        n := Basis(Range(map))[1];
+  	elt := ExtRepOfObj(elem);
+        n := Zero(Range(map));
         image := List([1..Length(elt![1])], x -> elt![1][x]*map!.maps[x]);
 
         image := PathModuleElem(FamilyObj(Zero(Range(map))![1]),image);        
@@ -42,7 +42,7 @@ InstallMethod( ImagesSet,
         fi;
     else
         if IsPathAlgebraMatModule(elms) then 
-            B := CanonicalBasis(elms);
+            B := BasisVectors(CanonicalBasis(elms));
         else
             Error("input of wrong type,");
         fi;
@@ -770,7 +770,7 @@ InstallMethod ( ImProjectionInclusion,
 
       return [image_projection,image_inclusion];
    else
-      return true;
+      return [ZeroMap(M,ZeroRepresentation(A)),ZeroMap(ZeroRepresentation(A),N)];
    fi;
 end
 );
@@ -815,11 +815,7 @@ InstallMethod ( IsZeroMap,
    0,
    function( f );
 
-   if Length(ImagesSet(f,Source(f))) = 0 then 
-      return true;
-   else
-      return false;
-   fi;
+   return ForAll(f!.maps, IsZero);
 end
 );
 
