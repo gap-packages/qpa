@@ -1,5 +1,5 @@
 # GAP Implementation
-# $Id: homomorphisms.gi,v 1.21 2012/01/10 13:22:04 sunnyquiver Exp $
+# $Id: homomorphisms.gi,v 1.22 2012/01/17 09:16:54 oysteini Exp $
 
 #############################################################################
 ##
@@ -13,6 +13,9 @@ InstallMethod( ImageElm,
     local elt, n, fam, image, temp, zero, new_image;
 
     if elem in Source(map) then
+        if Dimension(Range(map)) = 0 then
+            return Zero(Range(map));
+        fi;
   	elt := ExtRepOfObj(elem);
         n := Zero(Range(map));
         image := List([1..Length(elt![1])], x -> elt![1][x]*map!.maps[x]);
