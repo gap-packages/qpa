@@ -1582,7 +1582,7 @@ InstallMethod ( ProjectiveCover,
    local mingen, maps, PN, projections;
 
    if Dimension(M) = 0 then 
-      return ZeroRepresentation(RightActingAlgebra(M));
+      return ZeroMap(ZeroRepresentation(RightActingAlgebra(M)), M);
    else 
       mingen := MinimalSetOfGenerators(M);
       maps := List(mingen, x -> HomFromProjective(x,M));
