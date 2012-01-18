@@ -1691,7 +1691,7 @@ InstallMethod( ExtOne,
                      fi;
                   else
                      if ( dimN[i] = 0 ) then 
-                        Add(l,List([1..dimsyz[i]], x -> [vec{[x+t]}]));
+                        Add(l,List([1..dimsyz[i]], x -> vec{[x+t]}));
                         t := t + dimsyz[i];
                      else
                         Append(l,[List([1..dimsyz[i]],x-> vec{(x-1)*dimN[i]+[1..dimN[i]] + t})]);
