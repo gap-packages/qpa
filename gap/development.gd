@@ -41,3 +41,4 @@ DeclareOperation( "HomFromProjective", [ IsRightAlgebraModuleElement, IsPathAlge
 DeclareAttribute( "ProjectiveCover", IsPathAlgebraMatModule );
 DeclareOperation( "ExtOne", [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ]);
 DeclareOperation( "AlmostSplitSequence", [ IsPathAlgebraMatModule ]);
+DeclareOperation( "ExtOneAdd", [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ]);

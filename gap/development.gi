@@ -1715,6 +1715,134 @@ end
 
 #######################################################################
 ##
+#O  ExtOneAdd(<M>,<N>)
+##
+##  This function returns the kernel of the projective cover 
+##  Omega(<M>) --> P(M) and a basis of Ext^1(<M>,<N>) inside 
+##  Hom(Omega(<M>),<N>) if the group is non-zero, otherwise it returns
+##  an empty list.
+##
+InstallMethod( ExtOneAdd, 
+   "for two PathAlgebraMatModule's",
+   true, 
+   [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ], 0,
+   function( M, N )
+
+   local K, f, g, PM, syzygy, G, H, Img1, zero, genssyzygyN, VsyzygyN, 
+         Img, gensImg, VImg, pi, ext, preimages, homvecs, dimsyz, dimN, vec, t, 
+         l, i, H2, coefficients;
+#
+# Test of input.
+#
+   if RightActingAlgebra(M) <> RightActingAlgebra(N) then 
+      Error(" the two modules entered are not modules over the same algebra.\n"); 
+   else  
+      K := LeftActingDomain(M);
+#
+# creating a short exact sequence 0 -> Syz(M) -> P(M) -> M -> 0
+# f: P(M) -> M, g: Syz(M) -> P(M)  
+#
+      f := ProjectiveCover(M);
+      g := KerInclusion(f);
+      PM := Source(f);
+      syzygy := Source(g);
+#
+# using Hom(-,N) on the s.e.s. above
+#
+      G := HomOverPathAlgebra(PM,N);
+      H := HomOverPathAlgebra(syzygy,N);
+#
+# Making a vector space of Hom(Syz(M),N)
+# by first rewriting the maps as vectors
+#
+      genssyzygyN := List(H, x -> Flat(x!.maps));
+      if Length(genssyzygyN) = 0 then
+         return [];
+      else
+         VsyzygyN := VectorSpace(K, genssyzygyN);
+#
+# finding a basis for im(g*)
+# first, find a generating set of im(g*)
+# 
+         Img1 := g*G;
+#
+# removing 0 maps by comparing to zero = Zeromap(syzygy,N)
+#
+         zero := ZeroMap(syzygy,N);
+         Img  := Filtered(Img1, x -> x <> zero);
+#
+# Rewriting the maps as vectors
+#
+         gensImg := List(Img, x -> Flat(x!.maps));
+#
+# Making a vector space of <Im g*>
+         VImg := Subspace(VsyzygyN, gensImg);  
+#
+# Making the vector space Ext1(M,N)
+#
+         pi := NaturalHomomorphismBySubspace(VsyzygyN, VImg);
+         ext := Range(pi);
+         if Dimension(Range(pi)) = 0 then 
+            return [g,[]];
+         else 
+#
+# Sending elements of ext back to Hom(Syz(M),N)
+#
+            preimages := List(BasisVectors(Basis(ext)), x -> PreImagesRepresentative(pi,x));
+#
+# need to put the parentheses back in place
+#
+            homvecs := []; # to store all lists of matrices, one list for each element (homomorphism)
+            dimsyz := DimensionVector(syzygy);
+            dimN := DimensionVector(N);
+            for vec in preimages do # iterate on each homomorphism
+               t := 0;
+               l := []; # to store the maps for one homomorphism
+               for i in [1..Size(dimsyz)] do    # matrix i in the hom. is a (dimsyz[i] x dimN[i])-matrix
+                  if ( dimsyz[i] = 0 ) then 
+                     if ( dimN[i] = 0 ) then 
+                        Add(l,[vec{[t+1]}]);
+                        t := t + 1;
+                     else
+                        Add(l,[vec{[1..dimN[i]+t]}]);
+                        t := t + dimN[i];
+                     fi;
+                  else
+                     if ( dimN[i] = 0 ) then 
+                        Add(l,List([1..dimsyz[i]], x -> vec{[x+t]}));
+                        t := t + dimsyz[i];
+                     else
+                        Append(l,[List([1..dimsyz[i]],x -> vec{(x-1)*dimN[i]+[1..dimN[i]] + t})]);
+	                    t := t + dimsyz[i]*dimN[i];
+                     fi;
+                  fi;
+               od;
+               Append(homvecs,[l]);
+            od;
+#
+# Making homomorphisms of the elements
+#
+
+            H2 := List(homvecs, x -> RightModuleHomOverPathAlgebra(syzygy,N,x));
+
+            coefficients := function( map ) 
+               local vector, B;
+       
+               vector := ImageElm(pi,Flat(map!.maps)); 
+               B := Basis(Range(pi));
+               
+               return Coefficients(B,vector);
+            end;
+
+            return [g,H2,coefficients];
+         fi;
+      fi;
+   fi;
+end
+);
+
+#######################################################################
+##
 #O  AlmostSplitSequence(<M>,<N>)
 ##
 ##  This function finds the almost split sequence ending in the module
@@ -1819,3 +1947,4 @@ InstallMethod( AlmostSplitSequence,
    fi;
 end
 );
+

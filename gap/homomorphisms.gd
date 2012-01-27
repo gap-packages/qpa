@@ -1,5 +1,5 @@
 # GAP Declarations
-# $Id: homomorphisms.gd,v 1.7 2012/01/01 18:44:37 sunnyquiver Exp $
+# $Id: homomorphisms.gd,v 1.8 2012/01/27 11:27:05 sunnyquiver Exp $
 
 DeclareCategory("IsPathAlgebraMatModuleMap", IsAdditiveElementWithZero and IsAdditiveElementWithInverse and IsGeneralMapping and RespectsScalarMultiplication and IsTotal and IsSingleValued ); 
 DeclareCategoryFamily(  "IsPathAlgebraMatModuleMap" );
@@ -12,14 +12,14 @@ DeclareOperation( "HomOverPathAlgebra", [IsPathAlgebraMatModule, IsPathAlgebraMa
 DeclareOperation( "EndOverPathAlgebra", [IsPathAlgebraMatModule ] ); 
 DeclareOperation( "NumberOfNonIsoDirSummands", [IsPathAlgebraMatModule ] ); 
 DeclareOperation( "LiftIdempotents", [IsPathAlgebraMatModule ] ); 
-DeclareOperation( "Ker", [IsPathAlgebraMatModuleMap ] ); 
+DeclareAttribute( "Ker", IsPathAlgebraMatModuleMap ); 
 DeclareAttribute( "KerInclusion", IsPathAlgebraMatModuleMap ); 
-DeclareOperation( "ImProjectionInclusion", [IsPathAlgebraMatModuleMap ] ); 
-DeclareOperation( "ImProjection", [IsPathAlgebraMatModuleMap ] ); 
-DeclareOperation( "ImInclusion", [IsPathAlgebraMatModuleMap ] ); 
-DeclareOperation( "Im", [IsPathAlgebraMatModuleMap ] ); 
-DeclareOperation( "Coker", [IsPathAlgebraMatModuleMap ] ); 
-DeclareOperation( "CokerProjection", [IsPathAlgebraMatModuleMap ] ); 
+DeclareAttribute( "ImProjectionInclusion", IsPathAlgebraMatModuleMap ); 
+DeclareAttribute( "ImProjection", IsPathAlgebraMatModuleMap ); 
+DeclareAttribute( "ImInclusion", IsPathAlgebraMatModuleMap ); 
+DeclareAttribute( "Im", IsPathAlgebraMatModuleMap ); 
+DeclareAttribute( "Coker", IsPathAlgebraMatModuleMap ); 
+DeclareAttribute( "CokerProjection", IsPathAlgebraMatModuleMap ); 
 DeclareAttribute( "KernelOfWhat", IsPathAlgebraMatModuleMap );
 DeclareAttribute( "CoKernelOfWhat", IsPathAlgebraMatModuleMap );
 DeclareAttribute( "ImageOfWhat", IsPathAlgebraMatModuleMap );
@@ -45,3 +45,8 @@ DeclareOperation( "MaximalCommonDirectSummand", [IsPathAlgebraMatModule, IsPathA
 DeclareOperation( "ModuleIsomorphismTest", [IsPathAlgebraMatModule, IsPathAlgebraMatModule ] ); 
 DeclareOperation( "DirectSummandTest", [IsPathAlgebraMatModule, IsPathAlgebraMatModule ] ); 
 DeclareOperation( "InAdditiveClosureTest", [IsPathAlgebraMatModule, IsPathAlgebraMatModule ] ); 
+DeclareOperation( "MorphismOnKernel", [ IsPathAlgebraMatModuleMap, IsPathAlgebraMatModuleMap, IsPathAlgebraMatModuleMap, IsPathAlgebraMatModuleMap ] );
+DeclareOperation( "MorphismOnImage", [ IsPathAlgebraMatModuleMap, IsPathAlgebraMatModuleMap, IsPathAlgebraMatModuleMap, IsPathAlgebraMatModuleMap ] );
+DeclareOperation( "MorphismOnCokernel", [ IsPathAlgebraMatModuleMap, IsPathAlgebraMatModuleMap, IsPathAlgebraMatModuleMap, IsPathAlgebraMatModuleMap ] );
+DeclareOperation( "LiftingMorphismFromProjective", [ IsPathAlgebraMatModuleMap, IsPathAlgebraMatModuleMap ] );
+DeclareOperation( "LiftingInclusionMorphisms", [ IsPathAlgebraMatModuleMap, IsPathAlgebraMatModuleMap ] );

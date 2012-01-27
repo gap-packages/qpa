@@ -1,5 +1,5 @@
 # GAP Implementation
-# $Id: homomorphisms.gi,v 1.22 2012/01/17 09:16:54 oysteini Exp $
+# $Id: homomorphisms.gi,v 1.23 2012/01/27 11:27:05 sunnyquiver Exp $
 
 #############################################################################
 ##
@@ -1600,6 +1600,359 @@ InstallMethod( InAdditiveClosureTest,
       else
          return false;
       fi;
+   fi;
+end
+);
+
+#######################################################################
+##
+#O  MorphismOnKernel( <f>, <g>, <beta>, <alpha> )
+##
+##  Given the following commutative diagram
+##          B -- f --> C
+##          |          |
+##     beta |          | alpha
+##          V          V 
+##          B' - g --> C' 
+##  this function finds the induced homomorphism on the kernels of 
+##  f and g. 
+##
+InstallMethod ( MorphismOnKernel, 
+   "for commutative diagram of PathAlgebraMatModuleMaps",
+   true,
+   [ IsPathAlgebraMatModuleMap, IsPathAlgebraMatModuleMap, IsPathAlgebraMatModuleMap, IsPathAlgebraMatModuleMap ], 
+   0,
+   function( f, g, beta, alpha )
+
+   local K, kerf, kerg, B, dim_vec_kerf, dim_vec_kerg, map, j, i, p, mat;
+#
+#  Checking if a commutative diagram was entered
+# 
+   if f*alpha = beta*g then 
+# 
+#
+      K := LeftActingDomain(Source(f));
+      kerf := KerInclusion(f);
+      kerg := KerInclusion(g);
+#
+#  Computing the information needed for lifting the morphism.
+#
+      B := BasisVectors(Basis(Source(kerf)));
+      B := List(B, x -> ImageElm(kerf*beta,x));
+      B := List(B, x -> PreImagesElm(kerg,x));
+#
+#  Computing dimension vectors so that we can insert zero matrices of 
+#  the right size. 
+#
+      dim_vec_kerf := DimensionVector(Source(kerf));
+      dim_vec_kerg := DimensionVector(Source(kerg));
+      map := [];
+      j := 0;
+      for i in [1..Length(dim_vec_kerf)] do
+#
+#  If the kernel of  f  is zero in vertex  i, then insert a zero matrix of
+#  the right size, do not use any of the lifting information.
+# 
+         if dim_vec_kerf[i] = 0 then
+            if  dim_vec_kerg[i] = 0 then 
+               Add(map,NullMat(1,1,K));
+            else
+               Add(map,NullMat(1,dim_vec_kerg[i],K));
+            fi;
+         else
+#
+#  If the kernel of  f  is non-zero in vertex  i, then use the lifting 
+#  information to compute the right matrix for the map from vertex  i  to  i.
+# 
+            mat := [];
+            for p in [1..dim_vec_kerf[i]] do
+               j := j + 1;
+               Add(mat,ExtRepOfObj(ExtRepOfObj(B[j]))[i]);
+            od;
+            Add(map,mat);
+         fi;
+      od;
+      return RightModuleHomOverPathAlgebra(Source(kerf),Source(kerg),map);
+   else 
+      return fail;
+   fi;
+end
+);
+
+#######################################################################
+##
+#O  MorphismOnImage( <f>, <g>, <beta>, <alpha> )
+##
+##  Given the following commutative diagram
+##          B -- f --> C
+##          |          |
+##     beta |          | alpha
+##          V          V 
+##          B' - g --> C' 
+##  this function finds the induced homomorphism on the images of 
+##  f and g. 
+##
+InstallMethod ( MorphismOnImage, 
+   "for commutative diagram of PathAlgebraMatModuleMaps",
+   true,
+   [ IsPathAlgebraMatModuleMap, IsPathAlgebraMatModuleMap, IsPathAlgebraMatModuleMap, IsPathAlgebraMatModuleMap ], 
+   0,
+   function( f, g, beta, alpha )
+
+   local K, imagef, imageg, B, dim_vec_imagef, dim_vec_imageg, map, j, i, p, mat;
+#
+#  Checking if a commutative diagram was entered
+# 
+   if f*alpha = beta*g then 
+# 
+#
+      K := LeftActingDomain(Source(f));
+      imagef := ImProjection(f);
+      imageg := ImProjection(g);
+#
+#  Computing the information needed for lifting the morphism.
+#
+      B := BasisVectors(Basis(Range(imagef)));
+      B := List(B, x -> PreImagesElm(imagef,x));
+      B := List(B, x -> ImageElm(beta*imageg,x));
+#
+#  Computing dimension vectors so that we can insert zero matrices of 
+#  the right size. 
+#
+      dim_vec_imagef := DimensionVector(Range(imagef));
+      dim_vec_imageg := DimensionVector(Range(imageg));
+      map := [];
+      j := 0;
+      for i in [1..Length(dim_vec_imagef)] do
+#
+#  If the image of  f  is zero in vertex  i, then insert a zero matrix of
+#  the right size, do not use any of the lifting information.
+# 
+         if dim_vec_imagef[i] = 0 then
+            if  dim_vec_imageg[i] = 0 then 
+               Add(map,NullMat(1,1,K));
+            else
+               Add(map,NullMat(1,dim_vec_imageg[i],K));
+            fi;
+         else
+#
+#  If the cokernel of  f  is non-zero in vertex  i, then use the lifting 
+#  information to compute the right matrix for the map from vertex  i  to  i.
+# 
+            mat := [];
+            for p in [1..dim_vec_imagef[i]] do
+               j := j + 1;
+               Add(mat,ExtRepOfObj(ExtRepOfObj(B[j]))[i]);
+            od;
+            Add(map,mat);
+         fi;
+      od;
+      return RightModuleHomOverPathAlgebra(Range(imagef),Range(imageg),map);
+   else 
+      return fail;
+   fi;
+end
+);
+
+#######################################################################
+##
+#O  MorphismOnCokernel( <f>, <g>, <beta>, <alpha> )
+##
+##  Given the following commutative diagram
+##          B -- f --> C
+##          |          |
+##     beta |          | alpha
+##          V          V 
+##          B' - g --> C' 
+##  this function finds the induced homomorphism on the cokernels of 
+##  f and g. 
+##
+InstallMethod ( MorphismOnCokernel, 
+   "for commutative diagram of PathAlgebraMatModuleMaps",
+   true,
+   [ IsPathAlgebraMatModuleMap, IsPathAlgebraMatModuleMap, IsPathAlgebraMatModuleMap, IsPathAlgebraMatModuleMap ], 
+   0,
+   function( f, g, beta, alpha )
+
+   local K, cokerf, cokerg, B, dim_vec_cokerf, dim_vec_cokerg, map, j, i, p, mat;
+#
+#  Checking if a commutative diagram was entered
+# 
+   if f*alpha = beta*g then 
+# 
+#
+      K := LeftActingDomain(Source(f));
+      cokerf := CokerProjection(f);
+      cokerg := CokerProjection(g);
+#
+#  Computing the information needed for lifting the morphism.
+#
+      B := BasisVectors(Basis(Range(cokerf)));
+      B := List(B, x -> PreImagesElm(cokerf,x));
+      B := List(B, x -> ImageElm(alpha*cokerg,x));
+#
+#  Computing dimension vectors so that we can insert zero matrices of 
+#  the right size. 
+#
+      dim_vec_cokerf := DimensionVector(Range(cokerf));
+      dim_vec_cokerg := DimensionVector(Range(cokerg));
+      map := [];
+      j := 0;
+      for i in [1..Length(dim_vec_cokerf)] do
+#
+#  If the cokernel of  f  is zero in vertex  i, then insert a zero matrix of
+#  the right size, do not use any of the lifting information.
+# 
+         if dim_vec_cokerf[i] = 0 then
+            if  dim_vec_cokerg[i] = 0 then 
+               Add(map,NullMat(1,1,K));
+            else
+               Add(map,NullMat(1,dim_vec_cokerg[i],K));
+            fi;
+         else
+#
+#  If the cokernel of  f  is non-zero in vertex  i, then use the lifting 
+#  information to compute the right matrix for the map from vertex  i  to  i.
+# 
+            mat := [];
+            for p in [1..dim_vec_cokerf[i]] do
+               j := j + 1;
+               Add(mat,ExtRepOfObj(ExtRepOfObj(B[j]))[i]);
+            od;
+            Add(map,mat);
+         fi;
+      od;
+      return RightModuleHomOverPathAlgebra(Range(cokerf),Range(cokerg),map);
+   else 
+      return fail;
+   fi;
+end
+);
+
+
+#######################################################################
+##
+#O  LiftingMorphismFromProjective( <f>, <g> )
+##
+##  Given the following diagram
+##                P
+##                |
+##                | f
+##            g   V 
+##        B ----> C 
+##  where  P  is a direct sum of indecomposable projective modules 
+##  constructed via DirectSumOfPathAlgebraMatModules and  g  an epimorphism, 
+##  this function finds a lifting of  f  to  B.
+##
+InstallMethod ( LiftingMorphismFromProjective, 
+   "for two PathAlgebraMatModuleMaps",
+   true,
+   [ IsPathAlgebraMatModuleMap, IsPathAlgebraMatModuleMap ], 
+   0,
+   function( f, g )
+
+   local K, B, inclusions, projections, i, m, hmap; 
+#
+#  Checking if the input is as required
+# 
+   P := Source(f);
+   if IsProjectiveModule(P) and IsDirectSum(P) and IsOnto(g) and ( Range(f) = Range(g) ) then 
+# 
+#
+      K := LeftActingDomain(P);
+      inclusions  := DirectSumInclusions(P);
+      projections := DirectSumProjections(P);
+      hmap := [];
+#
+#  First construct the lifting from each indecomposable direcct summand of  P.
+# 
+      for i in [1..Length(inclusions)] do
+         m := MinimalSetOfGenerators(Source(inclusions[i]))[1];
+         if ImageElm(f,ImageElm(inclusions[i],m)) = Zero(Range(f)) then 
+            Add(hmap,ZeroMap(Source(inclusions[i]),Source(g)));
+         else 
+            m := PreImagesElm(g,ImageElm(f,ImageElm(inclusions[i],m)));
+            Add(hmap,HomFromProjective(m,Source(g)));
+         fi;
+      od;
+#
+#  Make sure that the partial liftings start in the right modules/variables. 
+#
+      hmap := List([1..Length(inclusions)], x -> RightModuleHomOverPathAlgebra(Source(inclusions[x]),Source(g),hmap[x]!.maps));
+      return projections*hmap;
+   else 
+      return fail;
+   fi;
+end
+);
+
+#######################################################################
+##
+#O  LiftingInclusionMorphisms( <f>, <g> )
+##
+##  Given the following diagram
+##                A
+##                |
+##                | f
+##            g   V 
+##        B ----> C 
+##  where  f  and  g  are inclusions, this function constructs a 
+##  morphism (inclusion) from  A  to  B, whenever the image of  f  is
+##  contained in the image of  g.  Otherwise the function returns fail.
+##
+InstallMethod ( LiftingInclusionMorphisms, 
+   "for two PathAlgebraMatModuleMaps",
+   true,
+   [ IsPathAlgebraMatModuleMap, IsPathAlgebraMatModuleMap ], 
+   0,
+   function( f, g )
+
+   local pi, K, B, dim_vec_sourcef, dim_vec_sourceg, map, i, j, mat, p; 
+#
+#  Checking if the image of  f  is contained in the image of  g.
+# 
+   pi := CokerProjection(g);
+   if ( Range(f) = Range(g) ) and ( f*pi = ZeroMap(Source(f),Range(pi)) ) then 
+# 
+#
+      K := LeftActingDomain(Source(f));
+      B := BasisVectors(Basis(Source(f)));
+      B := List(B, x -> PreImagesElm(g,ImageElm(f,x)));
+#
+#  Computing dimension vectors so that we can insert zero matrices of 
+#  the right size. 
+#
+      dim_vec_sourcef := DimensionVector(Source(f));
+      dim_vec_sourceg := DimensionVector(Source(g));
+      map := [];
+      j := 0;
+      for i in [1..Length(dim_vec_sourcef)] do
+#
+#  If the source of  f  is zero in vertex  i, then insert a zero matrix of
+#  the right size, do not use any of the lifting information.
+# 
+         if dim_vec_sourcef[i] = 0 then
+            if  dim_vec_sourceg[i] = 0 then 
+               Add(map,NullMat(1,1,K));
+            else
+               Add(map,NullMat(1,dim_vec_sourceg[i],K));
+            fi;
+         else
+#
+#  If the source of  f  is non-zero in vertex  i, then use the lifting 
+#  information to compute the right matrix for the map from vertex  i  to  i.
+# 
+            mat := [];
+            for p in [1..dim_vec_sourcef[i]] do
+               j := j + 1;
+               Add(mat,ExtRepOfObj(ExtRepOfObj(B[j]))[i]);
+            od;
+            Add(map,mat);
+         fi;
+      od;
+      return RightModuleHomOverPathAlgebra(Source(f),Source(g),map);
+   else 
+      return fail;
    fi;
 end
 );
