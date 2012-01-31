@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- $Id: qpadocumentation.xml,v 1.20 2012/01/09 07:49:52 sunnyquiver Exp $ -->
+<!-- $Id: qpadocumentation.xml,v 1.21 2012/01/31 07:29:41 oysteini Exp $ -->
 
 <!DOCTYPE Book SYSTEM "gapdoc.dtd">
 <!-- [ <!ENTITY see '<Alt Only="LaTeX">$\to$</Alt><Alt Not="LaTeX">--&gt;</Alt>'>
@@ -3163,6 +3163,196 @@ gap> MinimalLeftApproximation(S,N);
 </ManSection>
 
 </Section>
+</Chapter>
+
+
+
+<Chapter>
+<Heading>Chain complexes</Heading>
+TODO
+
+
+<Section>
+<Heading>Representation of categories</Heading>
+
+A chain complex consists of objects and morphisms from some category.
+In QPA, this category will usually be the category of right modules
+over some quotient of a path algebra.
+
+(TODO)
+
+</Section>
+
+
+<Section>
+<Heading>Making a complex</Heading>
+
+The most general constructor for complexes is the function
+<Ref Func="Complex"/>.  In addition to this, there are constructors
+for common special cases:
+<List>
+<Item><Ref Func="ZeroComplex"/></Item>
+<Item><Ref Func="SingleObjectComplex"/></Item>
+<Item><Ref Func="FiniteComplex"/></Item>
+<Item><Ref Func="ShortExactSequence"/></Item>
+</List>
+<!-- TODO: ComplexByDifferentialList -->
+
+<ManSection>
+<Filt Type="Category" Name="IsComplex"/>
+<Description>
+The category for chain complexes.
+</Description>
+</ManSection>
+
+<ManSection>
+<Filt Type="Category" Name="IsZeroComplex"/>
+<Description>
+Category for zero complexes, subcategory of <Ref Filt="IsComplex"/>.
+</Description>
+</ManSection>
+
+<ManSection>
+<Func Name="Complex"
+      Arg="cat, baseDegree, middle, positive, negative"/>
+<Returns>A newly created chain complex</Returns>
+<Description>
+The first argument, <Arg>cat</Arg> is an <Ref Filt="IsCat"/> object
+describing the category to create a chain complex over.<P/>
+
+The rest of the arguments describe the differentials of the complex.
+These are divided into three parts: one finite (<Q>middle</Q>) and two
+infinite (<Q>positive</Q> and <Q>negative</Q>).  The positive part
+contains all differentials in degrees higher than those in the middle
+part, and the negative part contains all differentials in degrees
+lower than those in the middle part.  (The middle part may be placed
+anywhere, so the positive part can -- despite its name -- contain some
+differentials of negative degree.  Conversely, the negative part can
+contain some differentials of positive degree.)<P/>
+
+The argument <Arg>middle</Arg> is a list containing the differentials
+for the middle part.  The argument <Arg>baseDegree</Arg> gives the
+degree of the first differential in this list.  The second
+differential is placed in degree <M><Arg>baseDegree</Arg>+1</M>, and
+so on.  Thus, the middle part consists of the degrees
+<Display>
+<Arg>baseDegree</Arg>,\quad
+<Arg>baseDegree</Arg> + 1,\quad
+\ldots\quad
+<Arg>baseDegree</Arg> + \text{Length}(<Arg>middle</Arg>).
+</Display>
+
+Each of the arguments <Arg>positive</Arg> and <Arg>negative</Arg> can
+be one of the following:
+<List>
+<Item>The string <Code>"zero"</Code>, meaning that the part contains
+  only zero objects and zero morphisms.</Item>
+<Item>A list of the form <Code>[ "repeat", L ]</Code>,
+  where <Code>L</Code> is a list of morphisms.  The part will contain
+  the differentials in <Code>L</Code> repeated infinitely many times.
+  The convention for the order of elements in <Code>L</Code> is
+  that <Code>L[1]</Code> is the differential which is closest to the
+  middle part, and <Code>L[Length(L)]</Code> is farthest away from the
+  middle part.</Item>
+<Item>A list of the form <Code>[ "pos", f ]</Code> or <Code>[ "pos",
+  f, store ]</Code>, where <Code>f</Code> is a function of two
+  arguments, and <Code>store</Code> (if included) is a boolean.  The
+  function <Code>f</Code> is used to compute the differentials in this
+  part.  The function <Code>f</Code> is not called immediately by
+  the <Code>Complex</Code> constructor, but will be called later as
+  the differentials in this part are needed.  The function
+  call <Code>f(C,i)</Code> (where <Code>C</Code> is the complex
+  and <Code>i</Code> an integer) should produce the differential in
+  degree <Code>i</Code>.  The function may use <Code>C</Code> to look
+  up other differentials in the complex, as long as this does not
+  cause an infinite loop.  If <Code>store</Code> is <Code>true</Code>
+  (or not specified), each computed differential is stored, and they
+  are computed in order from the one closest to the middle part,
+  regardless of which order they are requested in.</Item>
+<Item>A list of the form <Code>[ "next", f, init ]</Code>,
+  where <Code>f</Code> is a function of one argument,
+  and <Code>init</Code> is a morphism.  The function <Code>f</Code> is
+  used to compute the differentials in this part.  For the first
+  differential in the part (that is, the one closest to the middle
+  part), <Code>f</Code> is called with <Code>init</Code> as
+  argument.  For the next differential, <Code>f</Code> is called with
+  the first differential as argument, and so on.  Thus, the
+  differentials are
+  <Display>
+    f(\text{init}),\quad
+    f^2(\text{init}),\quad
+    f^3(\text{init}),\quad \ldots
+  </Display>
+  Each differential is stored when it has been computed.
+</Item>
+</List>
+</Description>
+</ManSection>
+
+<ManSection>
+<Func Name="ZeroComplex" Arg="cat"/>
+<Returns>A newly created zero complex</Returns>
+<Description>
+This function creates a zero complex (a complex consisting of only
+zero objects and zero morphisms) over the category described by the
+<Ref Filt="IsCat"/> object <Arg>cat</Arg>.
+</Description>
+</ManSection>
+
+<ManSection>
+<Func Name="FiniteComplex" Arg="cat, baseDegree, differentials"/>
+<Returns>A newly created complex</Returns>
+<Description>
+This function creates a complex where all but finitely many objects
+are the zero object.<P/>
+
+The argument <Arg>cat</Arg> is an <Ref Filt="IsCat"/> object
+describing the category to create a chain complex over.<P/>
+
+The argument <Arg>differentials</Arg> is a list of morphisms.  The
+argument <Arg>baseDegree</Arg> gives the degree for the first
+differential in this list.  The subsequent differentials are placed in
+degrees <M><Arg>baseDegree</Arg>+1</M>, and so on.<P/>
+
+This means that the <Arg>differentials</Arg> argument specifies the
+differentials in degrees
+<Display>
+<Arg>baseDegree</Arg>,\quad
+<Arg>baseDegree</Arg> + 1,\quad
+\ldots \quad
+<Arg>baseDegree</Arg> + \text{Length}(<Arg>differentials</Arg>);
+</Display>
+and thus implicitly the objects in degrees
+<Display>
+<Arg>baseDegree</Arg> - 1,\quad
+<Arg>baseDegree</Arg>,\quad
+\ldots \quad
+<Arg>baseDegree</Arg> + \text{Length}(<Arg>differentials</Arg>).
+</Display>
+All other objects in the complex are zero.
+</Description>
+</ManSection>
+
+</Section>
+
+
+<Section>
+<Heading>Information about a complex</Heading>
+
+</Section>
+
+
+<Section>
+<Heading>Transforming and combinig complexes</Heading>
+
+</Section>
+
+
+<Section>
+<Heading>Chain maps</Heading>
+
+</Section>
+
 </Chapter>
 </Body>
 
