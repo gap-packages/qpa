@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- $Id: qpadocumentation.xml,v 1.21 2012/01/31 07:29:41 oysteini Exp $ -->
+<!-- $Id: qpadocumentation.xml,v 1.22 2012/02/02 10:07:31 sunnyquiver Exp $ -->
 
 <!DOCTYPE Book SYSTEM "gapdoc.dtd">
 <!-- [ <!ENTITY see '<Alt Only="LaTeX">$\to$</Alt><Alt Not="LaTeX">--&gt;</Alt>'>
@@ -1863,9 +1863,6 @@ dimensions all agree.  We can create a module in this way as follows.<P/>
   </ManSection>
 
 <Example><![CDATA[
-
-
-
 gap&gt; Q := Quiver(2, [[1, 2, "a"], [2, 1, "b"],[1, 1, "c"]]); 
 &lt;quiver with 2 vertices and 3 arrows&gt;
 gap&gt; P := PathAlgebra(Rationals, Q);
@@ -1907,6 +1904,45 @@ Basis( &lt;
 5 generators&gt;&gt;, [  ] )
 ]]>
 </Example>
+
+<ManSection>
+   <Oper Name="NewRightModuleOverPathAlgebra" Arg="A, dim_vector, gens" 
+	 Comm=""/>
+   <Description>
+      The first argument <Arg>A</Arg> is a (quotient of a ) path
+      algebra, the second argument <Arg>dim_vector</Arg> is the
+      dimension vector of the module, and the last
+      argument <Arg>gens</Arg> (maybe an empty list []) is a list of
+      elements of the form ["label",matrix].  This function constructs
+      a right module over a (quotient of a) path algebra <Arg>A</Arg>
+      with dimension vector <Arg>dim_vector</Arg>, and where the
+      generators/arrows with a non-zero action is given in the list
+      <Arg>gens</Arg>. The format of the list <Arg>gens</Arg> is
+      [["a",[matrix_a]],["b",[matrix_b]],...], where "a" and "b" are
+      labels of arrows used when the underlying quiver was created and
+      matrix_? is the action of the algebra element corresponding to
+      the arrow with label "?". The action of the arrows can be
+      entered in any order. The function checks if the
+      algebra <Arg>A</Arg> is a (quotient of a) path algebra and if
+      the matrices of the action of the arrows have the correct size
+      according to the dimension vector entered and also whether or
+      not the relations of the algebra are satisfied.  
+   </Description>
+  </ManSection>
+
+<Example><![CDATA[
+gap> # Using the above example.  
+gap> matrices := [["a", [[1,0,0],[0,1,0]]], ["b",
+[[0,1],[1,0],[0,1]]], ["c", [[0,0],[1,0]]]];
+[ [ "a", [ [ 1, 0, 0 ], [ 0, 1, 0 ] ] ], 
+  [ "b", [ [ 0, 1 ], [ 1, 0 ], [ 0, 1 ] ] ], [ "c", [ [ 0, 0 ], [ 1, 0 ] ] ] ]
+gap> M:=NewRightModuleOverPathAlgebra(P,[2,3],matrices);
+<right-module over <algebra-with-one over Rationals, with 5 generators>>
+gap> M:=NewRightModuleOverPathAlgebra(P,[2,3],[]);      
+<right-module over <algebra-with-one over Rationals, with 5 generators>>
+]]>
+</Example>
+
 </Section>
 
 <Section><Heading>Categories Of Matrix Modules</Heading>
@@ -2661,6 +2697,27 @@ Basis( &lt;9-dimensional right-module over &lt;algebra-with-one of dimension
 This chapter describes the categories, representations, attributes,
   and operations on homomorphisms between representations of quivers. 
 
+The example used throughout this chapter is the following.
+<Example><![CDATA[
+gap> Q:= Quiver(3,[[1,2,"a"],[1,2,"b"],[2,2,"c"],[2,3,"d"],[3,1,"e"]]);;
+gap> KQ:= PathAlgebra(Rationals, Q);;
+gap> gen:= GeneratorsOfAlgebra(KQ);;
+gap> a:= gen[4];;
+gap> b:= gen[5];;
+gap> c:= gen[6];;
+gap> d:= gen[7];;
+gap> e:= gen[8];;
+gap> rels:= [d*e,c^2,a*c*d-b*d,e*a];;
+gap> I:= Ideal(KQ,rels);;
+gap> gb:= GBNPGroebnerBasis(rels,KQ);;
+gap> gbb:= GroebnerBasis(I,gb);;
+gap> A:= KQ/I;;
+gap> mat:=[["a",[[1,2],[0,3],[1,5]]],["b",[[2,0],[3,0],[5,0]]],["c",[[0,0],[1,0]]],
+["d",[[1,2],[0,1]]],["e",[[0,0,0],[0,0,0]]]];;
+gap> N:= RightModuleOverQuotientOfPathAlgebra(A,mat);;
+]]></Example>
+
+
 <Section><Heading>Categories and representation of homomorphisms</Heading>
 
 <ManSection>
@@ -2688,12 +2745,27 @@ This chapter describes the categories, representations, attributes,
      from the module <Arg>M</Arg> to the module <Arg>N</Arg> by
      checking that the matrices given in <Arg>mats</Arg> have the
      correct size and satisfy the appropriate commutativity conditions
-     with the matrices in the representations given by <Arg>M</Arg>
+     with the matrices in the modules given by <Arg>M</Arg>
      and <Arg>N</Arg>. The source (or domain) and the range (or
      codomain) of the homomorphism constructed can by obtained again
      by <Ref Oper="Range"/> and by <Ref Oper="Source"/>, respectively.
    </Description>
 </ManSection>
+
+<Example><![CDATA[
+gap> L := RightModuleOverQuotientOfPathAlgebra(A,[["a",[0,1]],["b",[0,1]],
+["c",[[0]]],["d",[[1]]],["e",[1,0]]]);
+<right-module over <algebra-with-one over Rationals, with 8 generators>>
+gap> DimensionVector(L);
+[ 0, 1, 1 ]
+gap> f := RightModuleHomOverPathAlgebra(L,N,[[[0,0,0]], [[1,0]], [[1,2]]]);
+<mapping: <2-dimensional right-module over AlgebraWithOne( Rationals,
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d],
+[(1)*e] ] )> -> <7-dimensional right-module over AlgebraWithOne(Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] ] )> >
+gap> IsPathAlgebraMatModuleMap(f);
+true
+]]></Example>
 
 </Section>
 
@@ -2709,10 +2781,22 @@ This chapter describes the categories, representations, attributes,
    <Returns>the source (or domain) the homomorphism <Arg>f</Arg>.</Returns>
 </ManSection>
 
+<Example><![CDATA[
+gap> Range(f);
+<7-dimensional right-module over <algebra-with-one over Rationals, with 
+8 generators>>
+gap> Source(f);
+<2-dimensional right-module over <algebra-with-one over Rationals, with 
+8 generators>>
+gap> Source(f) = L;
+true
+]]></Example>
+
 <ManSection>
-   <Oper Name="PreImageElm" Arg="f, elem" Comm=""/>
+   <Oper Name="PreImagesElm" Arg="f, elem" Comm=""/>
    <Returns>a preimage of an element <Arg>elem</Arg> in the range (or
-   codomain) the homomorphism <Arg>f</Arg>.</Returns>
+   codomain) the homomorphism <Arg>f</Arg>. The name of this function
+   should be changed to PreImagesRepresentative.</Returns>
    <Description>
      The functions checks if <Arg>elem</Arg> is an element in the
      range of <Arg>f</Arg>, and it returns a preimage
@@ -2734,8 +2818,8 @@ This chapter describes the categories, representations, attributes,
 
 <ManSection>
    <Oper Name="ImagesSet" Arg="f, elts" Comm=""/>
-   <Returns>the non-zero images of a set elements <Arg>elts</Arg> in
-   the source (or domain) of the homomorphism <Arg>f</Arg>, or
+   <Returns>the non-zero images of a set of elements <Arg>elts</Arg>
+   in the source of the homomorphism <Arg>f</Arg>, or
    if <Arg>elts</Arg> is a submodule of the source of <Arg>f</Arg>, it
    returns a basis of the non-zero elements in the image of the
    homomorphism restricted to the submodule.</Returns>
@@ -2745,6 +2829,26 @@ This chapter describes the categories, representations, attributes,
      returns an error message otherwise.
    </Description>
 </ManSection>
+
+<Example><![CDATA[
+B:=BasisVectors(Basis(N)); 
+[ [ [ 1, 0, 0 ], [ 0, 0 ], [ 0, 0 ] ], [ [ 0, 1, 0 ], [ 0, 0 ], [ 0, 0 ] ], 
+  [ [ 0, 0, 1 ], [ 0, 0 ], [ 0, 0 ] ], [ [ 0, 0, 0 ], [ 1, 0 ], [ 0, 0 ] ], 
+  [ [ 0, 0, 0 ], [ 0, 1 ], [ 0, 0 ] ], [ [ 0, 0, 0 ], [ 0, 0 ], [ 1, 0 ] ], 
+  [ [ 0, 0, 0 ], [ 0, 0 ], [ 0, 1 ] ] ]
+gap> PreImagesElm(f,B[4]);     
+[ [ 0 ], [ 1 ], [ 0 ] ]
+gap> PreImagesElm(f,B[5]);
+fail
+gap> BL:=BasisVectors(Basis(L));
+[ [ [ 0 ], [ 1 ], [ 0 ] ], [ [ 0 ], [ 0 ], [ 1 ] ] ]
+gap> ImageElm(f,BL[1]);
+[ [ 0, 0, 0 ], [ 1, 0 ], [ 0, 0 ] ]
+gap> ImagesSet(f,L);
+[ [ [ 0, 0, 0 ], [ 1, 0 ], [ 0, 0 ] ], [ [ 0, 0, 0 ], [ 0, 0 ], [ 1, 2 ] ] ]
+gap> ImagesSet(f,BL);
+[ [ [ 0, 0, 0 ], [ 1, 0 ], [ 0, 0 ] ], [ [ 0, 0, 0 ], [ 0, 0 ], [ 1, 2 ] ] ]
+]]></Example>
 
 <ManSection>
    <Oper Name="Zero" Arg="f" Comm=""/>
@@ -2791,6 +2895,53 @@ This chapter describes the categories, representations, attributes,
    the correct field, and returns an error message otherwise.
    </Description>
 </ManSection>
+
+<Example><![CDATA[
+gap> z:=Zero(f);
+<mapping: <2-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> -> <7-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> >
+gap> f = z;
+false
+gap> Range(f) = Range(z);
+true
+gap> y := ZeroMap(L,N); 
+<mapping: <2-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> -> <7-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> >
+gap> y = z;            
+true
+gap> id := IdentityMap(N);  
+<mapping: <7-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> -> <7-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> >
+gap> f*id;
+<mapping: <2-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> -> <7-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> >
+gap> id*f;
+Error, codomain of the first argument is not equal to the domain of the second\
+ argument,  called from
+<function>( <arguments> ) called from read-eval-loop
+Entering break read-eval-print loop ...
+you can 'quit;' to quit to outer loop, or
+you can 'return;' to continue
+brk> 
+gap> 2*f + z;
+<mapping: <2-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> -> <7-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> >
+]]></Example>
 
 <ManSection>
    <Attr Name="CoKernelOfWhat" Arg="f" Comm=""/>
@@ -2894,8 +3045,8 @@ gap> IsSplitMono(f);
 <Section><Heading>Homomorphisms and modules constructed from homomorphisms and modules</Heading>
 
 <ManSection>
-   <Oper Name="Coker" Arg="f" Comm=""/>
-   <Oper Name="CokerProjection" Arg="f" Comm=""/>
+   <Attr Name="Coker" Arg="f" Comm=""/>
+   <Attr Name="CokerProjection" Arg="f" Comm=""/>
    <Returns>the cokernel of a homomorphism <Arg>f</Arg> between two
    representations of a quiver.</Returns>
    <Description>
@@ -2943,14 +3094,14 @@ gap> IsSplitMono(f);
 </ManSection>
 
 <ManSection>
-   <Oper Name="Im" Arg="f" Comm=""/>
-   <Oper Name="ImProjection" Arg="f" Comm=""/>
-   <Oper Name="ImInclusion" Arg="" Comm=""/>
-   <Oper Name="ImProjectionInclusion" Arg="" Comm=""/>
+   <Attr Name="Im" Arg="f" Comm=""/>
+   <Attr Name="ImProjection" Arg="f" Comm=""/>
+   <Attr Name="ImInclusion" Arg="" Comm=""/>
+   <Attr Name="ImProjectionInclusion" Arg="" Comm=""/>
    <Returns>the image of a homomorphism <Arg>f</Arg> between two
    representations of a quiver.</Returns>
    <Description>
-    The first variant <Ref Oper="Im"/> returns the image of the
+    The first variant <Ref Attr="Im"/> returns the image of the
     homomorphism <Arg>f</Arg> as a representation of the quiver. The
     second returns the projection from the source of <Arg>f</Arg> to
     the image into the source of the homomorphism <Arg>f</Arg>. The
@@ -2961,12 +3112,12 @@ gap> IsSplitMono(f);
 </ManSection>
 
 <ManSection>
-   <Oper Name="Ker" Arg="f" Comm=""/>
-   <Oper Name="KerInclusion" Arg="M" Comm=""/>
+   <Attr Name="Ker" Arg="f" Comm=""/>
+   <Attr Name="KerInclusion" Arg="M" Comm=""/>
    <Returns>the kernel of a homomorphism <Arg>f</Arg> between two
    representations of a quiver.</Returns>
    <Description>
-    The first variant <Ref Oper="Ker"/> returns the kernel of the
+    The first variant <Ref Attr="Ker"/> returns the kernel of the
     homomorphism <Arg>f</Arg> as a representation of the quiver, while
     the latter one returns the inclusion homomorphism of the kernel
     into the source of the homomorphism <Arg>f</Arg>. 
@@ -2981,6 +3132,35 @@ gap> IsSplitMono(f);
      of modules such that the direct sum of the
      modules, <Code>Source(f')</Code> and the modules on the
      list <Code>B</Code> is isomorphic to <Code>Source(f)</Code>.
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Oper Name="LiftingInclusionMorphisms" Arg="f, g" Comm=""/>
+   <Description>
+    Given two inclusions <Math>f\colon A\to C</Math> and <Math>g\colon
+    B\to C</Math>, this function constructs a morphism (inclusion)
+    from <Math>A</Math> to <Math>B</Math>, whenever the image
+    of <Arg>f</Arg> is contained in the image of <Arg>g</Arg>.
+    Otherwise the function returns fail. The function checks
+    if <Arg>f</Arg> and <Arg>g</Arg> have the same range and if the
+    image of <Arg>f</Arg> is contained in the image of <Arg>g</Arg>. 
+   </Description>
+</ManSection>
+
+
+<ManSection>
+   <Oper Name="LiftingMorphismFromProjective" Arg="f, g" Comm=""/>
+   <Description>
+    Given two morphisms <Math>f\colon P\to C</Math> and <Math>g\colon
+    B\to C</Math>, where  P  is a direct sum of indecomposable
+    projective modules constructed
+    via <Code>DirectSumOfPathAlgebraMatModules</Code>
+    and  <Arg>g</Arg> an epimorphism, this function finds a lifting
+    of  <Arg>f</Arg>  to  <Math>B</Math>. The function checks
+    if <Math>P</Math> is a direct sum of indecomposable projective
+    modules, if <Arg>g</Arg> is onto and if  <Arg>f</Arg>
+    and <Arg>g</Arg> have the same range.
    </Description>
 </ManSection>
 
@@ -3051,6 +3231,26 @@ gap> MinimalLeftApproximation(S,N);
 ]]></Example>
 
 <ManSection>
+   <Oper Name="MorphismOnKernel" Arg="f, g, beta, alpha" Comm="for a
+   commutative diagram of maps"/>
+   <Oper Name="MorphismOnImage" Arg="f, g, beta, alpha" Comm="for a
+   commutative diagram of maps"/>
+   <Oper Name="MorphismOnCokernel" Arg="f, g, beta, alpha" Comm="for a
+   commutative diagram of maps"/>
+   <Returns>the morphism induced on the kernels, the images or the
+   cokernels of the morphisms <Arg>f</Arg> and <Arg>g</Arg>,
+   respectively.</Returns>  
+   <Description>
+    It is checked 
+    if <Arg>f</Arg>, <Arg>g</Arg>, <Arg>beta</Arg>, <Arg>alpha</Arg>
+    forms a commutative diagram, that is, if <Math>f \alpha - \beta g
+    = 0</Math>. 
+   </Description>
+</ManSection>
+
+
+
+<ManSection>
    <Oper Name="ProjectiveCover" Arg="M" Comm="for a PathAlgebraMatModule"/>
    <Returns>the projective cover of <Arg>M</Arg>, that is, returns the
    map <Arg>P(M) --> M</Arg>.</Returns>
@@ -3065,7 +3265,7 @@ gap> MinimalLeftApproximation(S,N);
    with common target"/>
    <Returns>the pullback of the maps <Arg>f</Arg> and <Arg>g</Arg>.</Returns>
    <Description>
-    It is check if <Arg>f</Arg> and <Arg>g</Arg> has the same target. The
+    It is checked if <Arg>f</Arg> and <Arg>g</Arg> has the same target. The
     pullback is returned as two homomorphism from the pullback to the
     source of <Arg>f</Arg> and to the source of <Arg>g</Arg>. 
    </Description>
@@ -3076,7 +3276,7 @@ gap> MinimalLeftApproximation(S,N);
    with common source"/>
    <Returns>the pushout of the maps <Arg>f</Arg> and <Arg>g</Arg>.</Returns>
    <Description>
-    It is check if <Arg>f</Arg> and <Arg>g</Arg> has the same source. The
+    It is checked if <Arg>f</Arg> and <Arg>g</Arg> has the same source. The
     pushout is returned as two homomorphism from the target
     of <Arg>f</Arg> and from the target of <Arg>g</Arg> to the pushout. 
    </Description>

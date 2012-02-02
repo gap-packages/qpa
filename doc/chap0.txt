@@ -196,6 +196,7 @@
   6 Right Modules over Path Algebras
     6.1 Matrix Modules
       6.1-1 RightModuleOverPathAlgebra
+      6.1-2 NewRightModuleOverPathAlgebra
     6.2 Categories Of Matrix Modules
       6.2-1 IsPathAlgebraMatModule
     6.3 Acting on Module Elements
@@ -257,7 +258,7 @@
     7.2 Generalities of homomorphisms
       7.2-1 Range
       7.2-2 Source
-      7.2-3 PreImageElm
+      7.2-3 PreImagesElm
       7.2-4 ImageElm
       7.2-5 ImagesSet
       7.2-6 Zero
@@ -283,20 +284,34 @@
       7.3-5 Im
       7.3-6 Ker
       7.3-7 LeftMinimalVersion
-      7.3-8 RightMinimalVersion
-      7.3-9 MinimalLeftApproximation
-      7.3-10 MinimalRightApproximation
-      7.3-11 ProjectiveCover
-      7.3-12 PullBack
-      7.3-13 PushOut
-      7.3-14 RadicalOfRepInclusion
-      7.3-15 SocleOfPathAlgebraMatModuleInclusion
-      7.3-16 SubRepInclusion
-      7.3-17 TopOfRepProjection
+      7.3-8 LiftingInclusionMorphisms
+      7.3-9 LiftingMorphismFromProjective
+      7.3-10 RightMinimalVersion
+      7.3-11 MinimalLeftApproximation
+      7.3-12 MinimalRightApproximation
+      7.3-13 MorphismOnKernel
+      7.3-14 ProjectiveCover
+      7.3-15 PullBack
+      7.3-16 PushOut
+      7.3-17 RadicalOfRepInclusion
+      7.3-18 SocleOfPathAlgebraMatModuleInclusion
+      7.3-19 SubRepInclusion
+      7.3-20 TopOfRepProjection
     7.4 Homological algebra
       7.4-1 ExtOne
     7.5 Auslander-Reiten theory
       7.5-1 AlmostSplitSequence
+  8 Chain complexes
+    8.1 Representation of categories
+    8.2 Making a complex
+      8.2-1 IsComplex
+      8.2-2 IsZeroComplex
+      8.2-3 Complex
+      8.2-4 ZeroComplex
+      8.2-5 FiniteComplex
+    8.3 Information about a complex
+    8.4 Transforming and combinig complexes
+    8.5 Chain maps
   A An Appendix
   
   

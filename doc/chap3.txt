@@ -337,8 +337,9 @@
   
   [2X> LoewyLength( [0X[3XA[0X[2X ) ________________________________________________[0Xoperation
   
-  The function returns the Loewy length of the algebra [3XA[0m, after having checked
-  that [3XA[0m is a finite dimensional quotient of a path algebra.
+  This  function  takes  a  pathalgebra  or a quotient of a path algebra as an
+  argument  [3XA[0m,  and  returns fail if [3XA[0m is not finite dimensional. Otherwise it
+  returns the Loewy length of the algebra [3XA[0m.
   
   [1X3.9-6 CartanMatrix[0m
   

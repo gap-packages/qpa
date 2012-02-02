@@ -1,16 +1,16 @@
 \begin{theindex}
 
   \item \texttt  {*}, \hyperpage{18}
-  \item \texttt  {\texttt  {\char 92\relax }* (maps)}, \hyperpage{53}
-  \item \texttt  {\texttt  {\char 92\relax }+ (maps)}, \hyperpage{53}
+  \item \texttt  {\texttt  {\char 92\relax }* (maps)}, \hyperpage{55}
+  \item \texttt  {\texttt  {\char 92\relax }+ (maps)}, \hyperpage{55}
   \item \texttt  {.}, \hyperpage{15}, \hyperpage{22}
   \item \texttt  {/}, \hyperpage{50}
   \item \texttt  {{\textless }}, \hyperpage{19}, \hyperpage{22}, 
 		\hyperpage{28}, \hyperpage{50}
   \item \texttt  {=}, \hyperpage{19}
-  \item \texttt  {\texttt  {\char 92\relax }= (maps)}, \hyperpage{52}
+  \item \texttt  {\texttt  {\char 92\relax }= (maps)}, \hyperpage{55}
   \item \texttt  {\texttt  {\char 94\relax }}, \hyperpage{40}, 
-		\hyperpage{49}
+		\hyperpage{50}
   \item \texttt  {1st{\textunderscore }Syzygy}, \hyperpage{43}
 
   \indexspace
@@ -18,46 +18,51 @@
   \item \texttt  {AddNthPowerToRelations}, \hyperpage{25}
   \item \texttt  {AdjacencyMatrixOfQuiver}, \hyperpage{16}
   \item \texttt  {AdmitsFinitelyManyNontips}, \hyperpage{35}
-  \item \texttt  {AlmostSplitSequence}, \hyperpage{58}
+  \item \texttt  {AlmostSplitSequence}, \hyperpage{62}
   \item \texttt  {ArrowsOfQuiver}, \hyperpage{15}
 
   \indexspace
 
-  \item \texttt  {BasisOfProjectives}, \hyperpage{46}
+  \item \texttt  {BasisOfProjectives}, \hyperpage{47}
 
   \indexspace
 
   \item \texttt  {CartanMatrix}, \hyperpage{27}
   \item \texttt  {Centre/Center}, \hyperpage{27}
   \item \texttt  {Coefficients}, \hyperpage{27}
-  \item \texttt  {Coker}, \hyperpage{55}
-  \item \texttt  {CoKernelOfWhat}, \hyperpage{53}
-  \item \texttt  {CokerProjection}, \hyperpage{55}
-  \item \texttt  {CommonDirectSummand}, \hyperpage{41}
+  \item \texttt  {Coker}, \hyperpage{58}
+  \item \texttt  {CoKernelOfWhat}, \hyperpage{56}
+  \item \texttt  {CokerProjection}, \hyperpage{58}
+  \item \texttt  {CommonDirectSummand}, \hyperpage{42}
   \item \texttt  {CompletelyReduce}, \hyperpage{33}
   \item \texttt  {CompletelyReduceGroebnerBasis}, \hyperpage{34}
+  \item \texttt  {Complex}, \hyperpage{64}
   \item \texttt  {CoxeterMatrix}, \hyperpage{27}
   \item \texttt  {CoxeterPolynomial}, \hyperpage{27}
 
   \indexspace
 
-  \item \texttt  {DimensionMatModule}, \hyperpage{41}
-  \item \texttt  {DimensionVector}, \hyperpage{41}
-  \item \texttt  {DirectSumInclusions}, \hyperpage{42}
+  \item \texttt  {DimensionMatModule}, \hyperpage{42}
+  \item \texttt  {DimensionVector}, \hyperpage{42}
+  \item \texttt  {DirectSumInclusions}, \hyperpage{43}
   \item \texttt  {DirectSummandTest}, \hyperpage{42}
   \item \texttt  {DirectSumOfPathAlgebraMatModules}, \hyperpage{42}
-  \item \texttt  {DirectSumProjections}, \hyperpage{42}
+  \item \texttt  {DirectSumProjections}, \hyperpage{43}
   \item \texttt  {DTr}, \hyperpage{48}
-  \item \texttt  {DualOfPathAlgebraMatModule}, \hyperpage{47}
+  \item \texttt  {DualOfPathAlgebraMatModule}, \hyperpage{48}
   \item \texttt  {DualOfPathAlgebraMatModuleMap}, \hyperpage{48}
 
   \indexspace
 
   \item \texttt  {ElementOfFpPathAlgebra}, \hyperpage{28}
-  \item \texttt  {EndOverPathAlgebra}, \hyperpage{55}
+  \item \texttt  {EndOverPathAlgebra}, \hyperpage{58}
   \item \texttt  {Enumerator}, \hyperpage{34}
   \item \texttt  {EnvelopingAlgebra}, \hyperpage{31}
-  \item \texttt  {ExtOne}, \hyperpage{58}
+  \item \texttt  {ExtOne}, \hyperpage{62}
+
+  \indexspace
+
+  \item \texttt  {FiniteComplex}, \hyperpage{65}
 
   \indexspace
 
@@ -67,26 +72,26 @@
 
   \indexspace
 
-  \item \texttt  {HomFromProjective}, \hyperpage{55}
-  \item \texttt  {HomOverPathAlgebra}, \hyperpage{55}
+  \item \texttt  {HomFromProjective}, \hyperpage{58}
+  \item \texttt  {HomOverPathAlgebra}, \hyperpage{58}
 
   \indexspace
 
   \item \texttt  {Ideal}, \hyperpage{25}
-  \item \texttt  {IdentityMap}, \hyperpage{52}
-  \item \texttt  {Im}, \hyperpage{55}
-  \item \texttt  {ImageElm}, \hyperpage{52}
-  \item \texttt  {ImageOfWhat}, \hyperpage{53}
-  \item \texttt  {ImagesSet}, \hyperpage{52}
-  \item \texttt  {ImInclusion}, \hyperpage{55}
-  \item \texttt  {ImProjection}, \hyperpage{55}
-  \item \texttt  {ImProjectionInclusion}, \hyperpage{55}
-  \item \texttt  {InAdditiveClosureTest}, \hyperpage{43}
+  \item \texttt  {IdentityMap}, \hyperpage{55}
+  \item \texttt  {Im}, \hyperpage{58}
+  \item \texttt  {ImageElm}, \hyperpage{54}
+  \item \texttt  {ImageOfWhat}, \hyperpage{56}
+  \item \texttt  {ImagesSet}, \hyperpage{54}
+  \item \texttt  {ImInclusion}, \hyperpage{58}
+  \item \texttt  {ImProjection}, \hyperpage{58}
+  \item \texttt  {ImProjectionInclusion}, \hyperpage{58}
+  \item \texttt  {InAdditiveClosureTest}, \hyperpage{44}
   \item \texttt  {IncludeInProductQuiver}, \hyperpage{29}
   \item \texttt  {IncomingArrowsOfVertex}, \hyperpage{19}
-  \item \texttt  {Indecomposable}\discretionary {-}{}{}\texttt  {Injective}\discretionary {-}{}{}\texttt  {Representations}, 
+  \item \texttt  {IndecomposableInjectiveRepresentations}, 
 		\hyperpage{47}
-  \item \texttt  {Indecomposable}\discretionary {-}{}{}\texttt  {Projective}\discretionary {-}{}{}\texttt  {Representations}, 
+  \item \texttt  {IndecomposableProjectiveRepresentations}, 
 		\hyperpage{47}
   \item \texttt  {InDegreeOfVertex}, \hyperpage{20}
   \item \texttt  {InfoGroebnerBasis}, \hyperpage{32}
@@ -96,24 +101,25 @@
   \item \texttt  {IsArrow}, \hyperpage{17}
   \item \texttt  {IsCompleteGroebnerBasis}, \hyperpage{33}
   \item \texttt  {IsCompletelyReducedGroebnerBasis}, \hyperpage{33}
+  \item \texttt  {IsComplex}, \hyperpage{63}
   \item \texttt  {IsDirectSum}, \hyperpage{42}
   \item \texttt  {IsElementOfFpPathAlgebra}, \hyperpage{26}
   \item \texttt  {IsEnvelopingAlgebra}, \hyperpage{31}
   \item \texttt  {IsFinite}, \hyperpage{15}
   \item \texttt  {IsGroebnerBasis}, \hyperpage{32}
   \item \texttt  {IsHomogenousGroebnerBasis}, \hyperpage{33}
-  \item \texttt  {IsInjectiveModule}, \hyperpage{43}
-  \item \texttt  {IsIsom}, \hyperpage{53}
+  \item \texttt  {IsInjectiveModule}, \hyperpage{44}
+  \item \texttt  {IsIsom}, \hyperpage{57}
   \item \texttt  {IsLeftUniform}, \hyperpage{23}
   \item \texttt  {IsNormalForm}, \hyperpage{28}
-  \item \texttt  {IsOmegaPeriodic}, \hyperpage{43}
-  \item \texttt  {IsOmegaPeriodicTest}, \hyperpage{43}
-  \item \texttt  {IsOneToOne}, \hyperpage{53}
-  \item \texttt  {IsOnto}, \hyperpage{53}
+  \item \texttt  {IsOmegaPeriodic}, \hyperpage{44}
+  \item \texttt  {IsOmegaPeriodicTest}, \hyperpage{44}
+  \item \texttt  {IsOneToOne}, \hyperpage{56}
+  \item \texttt  {IsOnto}, \hyperpage{56}
   \item \texttt  {IsPath}, \hyperpage{17}
   \item \texttt  {IsPathAlgebra}, \hyperpage{22}
   \item \texttt  {IsPathAlgebraMatModule}, \hyperpage{40}
-  \item \texttt  {IsPathAlgebraMatModuleMap}, \hyperpage{51}
+  \item \texttt  {IsPathAlgebraMatModuleMap}, \hyperpage{52}
   \item \texttt  {IsPrefixOfTipInTipIdeal}, \hyperpage{35}
   \item \texttt  {IsProjectiveModule}, \hyperpage{44}
   \item \texttt  {IsQuiver}, \hyperpage{14}
@@ -123,51 +129,58 @@
   \item \texttt  {IsSelfinjective}, \hyperpage{27}
   \item \texttt  {IsSemisimpleModule}, \hyperpage{44}
   \item \texttt  {IsSimpleModule}, \hyperpage{44}
-  \item \texttt  {IsSplitEpi}, \hyperpage{54}
-  \item \texttt  {IsSplitMono}, \hyperpage{54}
+  \item \texttt  {IsSplitEpi}, \hyperpage{57}
+  \item \texttt  {IsSplitMono}, \hyperpage{57}
   \item \texttt  {IsSubalgebraFpPathAlgebra}, \hyperpage{26}
   \item \texttt  {IsTipReducedGroebnerBasis}, \hyperpage{33}
   \item \texttt  {IsUniform}, \hyperpage{23}
   \item \texttt  {IsVertex}, \hyperpage{17}
-  \item \texttt  {IsZeroMap}, \hyperpage{54}
+  \item \texttt  {IsZeroComplex}, \hyperpage{63}
+  \item \texttt  {IsZeroMap}, \hyperpage{57}
   \item \texttt  {IsZeroPath}, \hyperpage{17}
   \item \texttt  {Iterator}, \hyperpage{34}
 
   \indexspace
 
-  \item \texttt  {Ker}, \hyperpage{56}
-  \item \texttt  {KerInclusion}, \hyperpage{56}
-  \item \texttt  {KernelOfWhat}, \hyperpage{54}
+  \item \texttt  {Ker}, \hyperpage{59}
+  \item \texttt  {KerInclusion}, \hyperpage{59}
+  \item \texttt  {KernelOfWhat}, \hyperpage{57}
 
   \indexspace
 
   \item \texttt  {LeadingCoefficient}, \hyperpage{23}
   \item \texttt  {LeadingMonomial}, \hyperpage{24}
   \item \texttt  {LeadingTerm}, \hyperpage{23}
-  \item \texttt  {LeftMinimalVersion}, \hyperpage{56}
+  \item \texttt  {LeftMinimalVersion}, \hyperpage{59}
   \item \texttt  {LengthOfPath}, \hyperpage{18}
+  \item \texttt  {LiftingInclusionMorphisms}, \hyperpage{59}
+  \item \texttt  {LiftingMorphismFromProjective}, \hyperpage{59}
   \item \texttt  {LoewyLength}, \hyperpage{27}, \hyperpage{44}
 
   \indexspace
 
   \item \texttt  {MakeUniformOnRight}, \hyperpage{24}
   \item \texttt  {MappedExpression}, \hyperpage{24}
-  \item \texttt  {MatricesOfPathAlgebraMatModule}, \hyperpage{46}
-  \item \texttt  {MaximalCommonDirectSummand}, \hyperpage{44}
-  \item \texttt  {MinimalLeftApproximation}, \hyperpage{56}
-  \item \texttt  {MinimalRightApproximation}, \hyperpage{56}
-  \item \texttt  {MinimalSetOfGenerators}, \hyperpage{46}
-  \item \texttt  {ModuleIsomorphismTest}, \hyperpage{44}
+  \item \texttt  {MatricesOfPathAlgebraMatModule}, \hyperpage{47}
+  \item \texttt  {MaximalCommonDirectSummand}, \hyperpage{45}
+  \item \texttt  {MinimalLeftApproximation}, \hyperpage{59}
+  \item \texttt  {MinimalRightApproximation}, \hyperpage{60}
+  \item \texttt  {MinimalSetOfGenerators}, \hyperpage{47}
+  \item \texttt  {ModuleIsomorphismTest}, \hyperpage{45}
+  \item \texttt  {MorphismOnCokernel}, \hyperpage{60}
+  \item \texttt  {MorphismOnImage}, \hyperpage{60}
+  \item \texttt  {MorphismOnKernel}, \hyperpage{60}
 
   \indexspace
 
   \item \texttt  {NakayamaAlgebra}, \hyperpage{28}
   \item \texttt  {NeighborsOfVertex}, \hyperpage{20}
+  \item \texttt  {NewRightModuleOverPathAlgebra}, \hyperpage{40}
   \item \texttt  {Nontips}, \hyperpage{35}
   \item \texttt  {NontipSize}, \hyperpage{35}
   \item \texttt  {NormalFormFunction}, \hyperpage{26}
   \item \texttt  {nthPowerOfArrowIdeal}, \hyperpage{25}
-  \item \texttt  {nth{\textunderscore }Syzygy}, \hyperpage{44}
+  \item \texttt  {nth{\textunderscore }Syzygy}, \hyperpage{45}
   \item \texttt  {nth{\textunderscore }SyzygyNC}, \hyperpage{45}
 
   \indexspace
@@ -183,11 +196,11 @@
   \indexspace
 
   \item \texttt  {PathAlgebra}, \hyperpage{21}
-  \item \texttt  {PreImageElm}, \hyperpage{52}
+  \item \texttt  {PreImagesElm}, \hyperpage{53}
   \item \texttt  {ProjectFromProductQuiver}, \hyperpage{30}
-  \item \texttt  {ProjectiveCover}, \hyperpage{57}
-  \item \texttt  {PullBack}, \hyperpage{57}
-  \item \texttt  {PushOut}, \hyperpage{57}
+  \item \texttt  {ProjectiveCover}, \hyperpage{61}
+  \item \texttt  {PullBack}, \hyperpage{61}
+  \item \texttt  {PushOut}, \hyperpage{61}
 
   \indexspace
 
@@ -199,30 +212,28 @@
   \indexspace
 
   \item \texttt  {RadicalOfRep}, \hyperpage{45}
-  \item \texttt  {RadicalOfRepInclusion}, \hyperpage{57}
+  \item \texttt  {RadicalOfRepInclusion}, \hyperpage{61}
   \item \texttt  {RadicalSeries}, \hyperpage{45}
-  \item \texttt  {Range}, \hyperpage{51}
+  \item \texttt  {Range}, \hyperpage{53}
   \item \texttt  {RightGroebnerBasis}, \hyperpage{36}
   \item \texttt  {RightGroebnerBasisOfIdeal}, \hyperpage{36}
-  \item \texttt  {RightMinimalVersion}, \hyperpage{56}
-  \item \texttt  {RightModuleHomOverPathAlgebra}, \hyperpage{51}
+  \item \texttt  {RightMinimalVersion}, \hyperpage{59}
+  \item \texttt  {RightModuleHomOverPathAlgebra}, \hyperpage{53}
   \item \texttt  {RightModuleOverPathAlgebra}, \hyperpage{38}
-  \item \texttt  {Right}\discretionary {-}{}{}\texttt  {Module}\discretionary {-}{}{}\texttt  {Over}\discretionary {-}{}{}\texttt  {Quotient}\discretionary {-}{}{}\texttt  {Of}\discretionary {-}{}{}\texttt  {Path}\discretionary {-}{}{}\texttt  {Algebra}, 
-		\hyperpage{38}
-  \item \texttt  {RightProjectiveModule}, \hyperpage{48}
+  \item \texttt  {RightModuleOverQuotientOfPathAlgebra}, \hyperpage{38}
+  \item \texttt  {RightProjectiveModule}, \hyperpage{49}
 
   \indexspace
 
   \item \texttt  {SimpleTensor}, \hyperpage{30}
   \item \texttt  {SizeOfQuiver}, \hyperpage{16}
-  \item \texttt  {SocleOfPathAlgebraMatModule}, \hyperpage{45}
-  \item \texttt  {Socle}\discretionary {-}{}{}\texttt  {Of}\discretionary {-}{}{}\texttt  {Path}\discretionary {-}{}{}\texttt  {Algebra}\discretionary {-}{}{}\texttt  {Mat}\discretionary {-}{}{}\texttt  {Module}\discretionary {-}{}{}\texttt  {Inclusion}, 
-		\hyperpage{58}
-  \item \texttt  {SocleSeries}, \hyperpage{45}
-  \item \texttt  {Source}, \hyperpage{52}
+  \item \texttt  {SocleOfPathAlgebraMatModule}, \hyperpage{46}
+  \item \texttt  {SocleOfPathAlgebraMatModuleInclusion}, \hyperpage{61}
+  \item \texttt  {SocleSeries}, \hyperpage{46}
+  \item \texttt  {Source}, \hyperpage{53}
   \item \texttt  {SourceOfPath}, \hyperpage{18}
-  \item \texttt  {SubRep}, \hyperpage{45}
-  \item \texttt  {SubRepInclusion}, \hyperpage{58}
+  \item \texttt  {SubRep}, \hyperpage{46}
+  \item \texttt  {SubRepInclusion}, \hyperpage{61}
   \item \texttt  {SupportModuleElement}, \hyperpage{46}
 
   \indexspace
@@ -236,8 +247,8 @@
   \item \texttt  {TipReduce}, \hyperpage{34}
   \item \texttt  {TipReduceGroebnerBasis}, \hyperpage{34}
   \item \texttt  {TopOfRep}, \hyperpage{46}
-  \item \texttt  {TopOfRepProjection}, \hyperpage{58}
-  \item \texttt  {TransposeOfModule}, \hyperpage{48}
+  \item \texttt  {TopOfRepProjection}, \hyperpage{61}
+  \item \texttt  {TransposeOfModule}, \hyperpage{49}
   \item \texttt  {TrD}, \hyperpage{48}
   \item \texttt  {TruncatedPathAlgebra}, \hyperpage{29}
 
@@ -245,7 +256,7 @@
 
   \item \texttt  {Vectorize}, \hyperpage{49}
   \item \texttt  {VertexPosition}, \hyperpage{24}
-  \item \texttt  {VertexSimpleRepresentations}, \hyperpage{47}
+  \item \texttt  {VertexSimpleRepresentations}, \hyperpage{48}
   \item \texttt  {VerticesOfQuiver}, \hyperpage{15}
 
   \indexspace
@@ -254,8 +265,9 @@
 
   \indexspace
 
-  \item \texttt  {Zero}, \hyperpage{52}
-  \item \texttt  {ZeroMap}, \hyperpage{52}
-  \item \texttt  {ZeroRepresentation}, \hyperpage{47}
+  \item \texttt  {Zero}, \hyperpage{54}
+  \item \texttt  {ZeroComplex}, \hyperpage{64}
+  \item \texttt  {ZeroMap}, \hyperpage{54}
+  \item \texttt  {ZeroRepresentation}, \hyperpage{48}
 
 \end{theindex}

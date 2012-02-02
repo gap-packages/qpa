@@ -32,6 +32,7 @@
   [2XCommonDirectSummand[0X  6.4-1
   [2XCompletelyReduce[0X  4.3-1
   [2XCompletelyReduceGroebnerBasis[0X  4.3-2
+  [2XComplex[0X  8.2-3
   [2XCoxeterMatrix[0X  3.9-7
   [2XCoxeterPolynomial[0X  3.9-8
   [2XDimensionMatModule[0X  6.4-3
@@ -49,6 +50,7 @@
   [2XEnumerator[0X  4.3-6
   [2XEnvelopingAlgebra[0X  3.12-9
   [2XExtOne[0X  7.4-1
+  [2XFiniteComplex[0X  8.2-5
   [2XGeneratorsOfQuiver[0X  2.5-5
   [2XGeneratorsOfRep[0X  6.4-29
   [2XGroebnerBasis[0X  4.1-2
@@ -76,6 +78,7 @@
   [2XIsArrow[0X  2.6-3
   [2XIsCompleteGroebnerBasis[0X  4.2-5
   [2XIsCompletelyReducedGroebnerBasis[0X  4.2-3
+  [2XIsComplex[0X  8.2-1
   [2XIsDirectSum[0X  6.4-6
   [2XIsElementOfFpPathAlgebra[0X  3.9-2
   [2XIsEnvelopingAlgebra[0X  3.12-10
@@ -109,6 +112,7 @@
   [2XIsTipReducedGroebnerBasis[0X  4.2-2
   [2XIsUniform[0X  3.5-4
   [2XIsVertex[0X  2.6-2
+  [2XIsZeroComplex[0X  8.2-2
   [2XIsZeroMap[0X  7.2-19
   [2XIsZeroPath[0X  2.6-4
   [2XIterator[0X  4.3-5
@@ -120,18 +124,24 @@
   [2XLeadingTerm[0X  3.5-5
   [2XLeftMinimalVersion[0X  7.3-7
   [2XLengthOfPath[0X  2.7-3
+  [2XLiftingInclusionMorphisms[0X  7.3-8
+  [2XLiftingMorphismFromProjective[0X  7.3-9
   [2XLoewyLength[0X  3.9-5
   [2XLoewyLength[0X  6.4-17
   [2XMakeUniformOnRight[0X  3.5-8
   [2XMappedExpression[0X  3.5-9
   [2XMatricesOfPathAlgebraMatModule[0X  6.4-31
   [2XMaximalCommonDirectSummand[0X  6.4-18
-  [2XMinimalLeftApproximation[0X  7.3-9
-  [2XMinimalRightApproximation[0X  7.3-10
+  [2XMinimalLeftApproximation[0X  7.3-11
+  [2XMinimalRightApproximation[0X  7.3-12
   [2XMinimalSetOfGenerators[0X  6.4-30
   [2XModuleIsomorphismTest[0X  6.4-19
+  [2XMorphismOnCokernel[0X  7.3-13
+  [2XMorphismOnImage[0X  7.3-13
+  [2XMorphismOnKernel[0X  7.3-13
   [2XNakayamaAlgebra[0X  3.11-1
   [2XNeighborsOfVertex[0X  2.8-5
+  [2XNewRightModuleOverPathAlgebra[0X  6.1-2
   [2XNontips[0X  4.3-7
   [2XNontipSize[0X  4.3-9
   [2XNormalFormFunction[0X  3.9-1
@@ -147,11 +157,11 @@
   [2XOutDegreeOfVertex[0X  2.8-4
   [2XOutgoingArrowsOfVertex[0X  2.8-2
   [2XPathAlgebra[0X  3.2-1
-  [2XPreImageElm[0X  7.2-3
+  [2XPreImagesElm[0X  7.2-3
   [2XProjectFromProductQuiver[0X  3.12-5
-  [2XProjectiveCover[0X  7.3-11
-  [2XPullBack[0X  7.3-12
-  [2XPushOut[0X  7.3-13
+  [2XProjectiveCover[0X  7.3-14
+  [2XPullBack[0X  7.3-15
+  [2XPushOut[0X  7.3-16
   [2XQuiver[0X  2.2-1
   [2XQuiver[0X  2.2-1
   [2XQuiver[0X  2.2-1
@@ -159,12 +169,12 @@
   [2XQuiverProduct[0X  3.12-1
   [2XQuiverProductDecomposition[0X  3.12-2
   [2XRadicalOfRep[0X  6.4-22
-  [2XRadicalOfRepInclusion[0X  7.3-14
+  [2XRadicalOfRepInclusion[0X  7.3-17
   [2XRadicalSeries[0X  6.4-23
   [2XRange[0X  7.2-1
   [2XRightGroebnerBasis[0X  4.4-3
   [2XRightGroebnerBasisOfIdeal[0X  4.4-2
-  [2XRightMinimalVersion[0X  7.3-8
+  [2XRightMinimalVersion[0X  7.3-10
   [2XRightModuleHomOverPathAlgebra[0X  7.1-2
   [2XRightModuleOverPathAlgebra[0X  6.1-1
   [2XRightModuleOverQuotientOfPathAlgebra[0X  6.1-1
@@ -172,12 +182,12 @@
   [2XSimpleTensor[0X  3.12-7
   [2XSizeOfQuiver[0X  2.5-7
   [2XSocleOfPathAlgebraMatModule[0X  6.4-25
-  [2XSocleOfPathAlgebraMatModuleInclusion[0X  7.3-15
+  [2XSocleOfPathAlgebraMatModuleInclusion[0X  7.3-18
   [2XSocleSeries[0X  6.4-24
   [2XSource[0X  7.2-2
   [2XSourceOfPath[0X  2.7-1
   [2XSubRep[0X  6.4-26
-  [2XSubRepInclusion[0X  7.3-16
+  [2XSubRepInclusion[0X  7.3-19
   [2XSupportModuleElement[0X  6.4-27
   [2XTargetOfPath[0X  2.7-2
   [2XTensorProductDecomposition[0X  3.12-8
@@ -188,7 +198,7 @@
   [2XTipReduce[0X  4.3-3
   [2XTipReduceGroebnerBasis[0X  4.3-4
   [2XTopOfRep[0X  6.4-28
-  [2XTopOfRepProjection[0X  7.3-17
+  [2XTopOfRepProjection[0X  7.3-20
   [2XTransposeOfModule[0X  6.6-5
   [2XTrD[0X  6.6-4
   [2XTrD[0X  6.6-4
@@ -199,6 +209,7 @@
   [2XVerticesOfQuiver[0X  2.5-2
   [2XWalkOfPath[0X  2.7-4
   [2XZero[0X  7.2-6
+  [2XZeroComplex[0X  8.2-4
   [2XZeroMap[0X  7.2-7
   [2XZeroRepresentation[0X  6.5-5
   

@@ -1,6 +1,6 @@
 # GAP Implementation
 # This file was generated from 
-# $Id: pamodule.gi,v 1.12 2012/01/17 08:50:16 oysteini Exp $
+# $Id: pamodule.gi,v 1.13 2012/02/02 10:07:31 sunnyquiver Exp $
 
 ZeroModElement:=function(fam,zero)
   local result,i;
@@ -641,6 +641,166 @@ InstallMethod(RightModuleOverQuotientOfPathAlgebra,
     fi;
 end
 );
+
+#######################################################################
+##
+#O  NewRightModuleOverPathAlgebra( <A>, <dim_vector>, <gens> )
+##
+##  This function constructs a right module over a (quotient of a) path
+##  algebra  A  with dimension vector  dim_vector, and where the 
+##  generators with a non-zero action is given in the list  gens. The 
+##  format of the list gens is [["a",[matrix_a]],["b",[matrix_b]],...],
+##  where "a" and "b" are labels of arrows used when the underlying quiver
+##  was created and matrix_? is the action of the algebra element 
+##  corresponding to the arrow with label "?". The action of the arrows
+##  can be entered in any order. 
+##
+InstallMethod(NewRightModuleOverPathAlgebra,
+  "for a path algebra and list of matrices",
+  true,
+  [ IsAlgebra, IsList, IsList ], 0,
+  function( A, dim_vector, gens )
+
+  local quiver, vertices, K, arrows, num_vert, gens_of_quiver,
+        matrices, i, entered_arrows, arrow_labels, matrices_set, a, b,
+        origin, target, dim_mat, arrows_not_set, dim_M, relationtest,
+        I, terms, result, matrix, walk, x, dim, Fam, basis, M;
+#
+#  Testing the entered algebra.
+#
+   if not IsPathAlgebra(A) and not IsSubalgebraFpPathAlgebra(A) then 
+      Error("entered algebra is not a (quotient of a) path algebra.\n");
+   fi;
+#
+#  Setting up the data we need.
+#
+   quiver   := QuiverOfPathRing(A);
+   vertices := VerticesOfQuiver(quiver);
+   K        := LeftActingDomain(A);
+   arrows   := ArrowsOfQuiver(quiver);
+   num_vert := OrderOfQuiver(quiver);
+   gens_of_quiver := GeneratorsOfQuiver(quiver);
+#
+#  Setting the multiplication by the vertices.
+#          
+   matrices := List([1 .. Length(vertices)], x -> One(K));
+#
+#  First finding the labels of the entered by the user,
+#  then finding the labels used for the quiver.
+#
+   entered_arrows := List(gens, x -> x[1]);
+   arrow_labels := List(arrows, x -> x!.String);    
+   matrices_set := [];
+#
+#  If all labels entered by the user actually exist in the quiver in question,
+#  start creating the matrices defining the multiplication by the arrows. 
+#
+   if ForAll( entered_arrows, x -> x in arrow_labels )  then                 
+      for i in [1 .. Length( gens )] do
+         a := gens[i][1];
+         b := quiver.(a);
+         origin := Position(vertices,SourceOfPath(b));
+         target := Position(vertices,TargetOfPath(b));
+# 
+#  If an entered map for an arrow ending or starting in a zero dimensional space is non-zero, 
+#  give an error message, otherwise check for the right size and enter into list of acting 
+#  matrices if OK.
+# 
+         if ( dim_vector[origin] = 0 or dim_vector[target] = 0 ) and gens[i][2] <> Zero(gens[i][2]) then  
+            Error("a non-zero matrix was entered for the arrow  ",b,"  when it should be zero.\n"); 
+         else
+            dim_mat := DimensionsMat(gens[i][2]);
+            if ( dim_vector[origin] <> dim_mat[1] ) or (dim_vector[target] <> dim_mat[2] ) then   
+               Error("wrong size of the matrix for the arrow  ",b,".\n");
+            else 
+               matrices[quiver.(a)!.gen_pos] := gens[i][2];
+               AddSet(matrices_set, quiver.(a)!.gen_pos);
+            fi;
+         fi;
+      od;
+#
+#  Now set the matrices which are not set by the user, that is, all are going to be zero matrices. 
+#
+      arrows_not_set := [num_vert+1..num_vert+SizeOfQuiver(quiver)];
+      SubtractSet(arrows_not_set, matrices_set);
+      for i in arrows_not_set do
+         a := gens_of_quiver[i];
+         origin := Position(vertices,SourceOfPath(a));
+         target := Position(vertices,TargetOfPath(a)); 
+         if dim_vector[origin] = 0 then 
+            if dim_vector[target] = 0 then 
+               matrices[i] := NullMat(1,1,K);
+            else
+               matrices[i] := NullMat(1,dim_vector[target],K);
+            fi;
+         else
+            if dim_vector[target] = 0 then 
+               matrices[i] := NullMat(dim_vector[origin],1,K);
+            else
+               matrices[i] := NullMat(dim_vector[origin],dim_vector[target],K);
+            fi;            
+         fi;
+      od;
+   else
+      Print("The following arrow labels don't exist: ",Filtered(entered_arrows, x -> not x in arrow_labels),"\n");
+      Error("input not on required form.\n");
+   fi;
+
+#
+#  Testing if the relations are satisfied, whenever we have a quotient of a path algebra.
+#
+   dim_M := Sum(dim_vector);
+   if dim_M = 0 or IsPathAlgebra(A) then 
+      relationtest := true;
+   else 
+      relationtest := true;
+      I := RelatorsOfFpAlgebra(A);
+      for i in [1..Length(I)] do
+         terms := CoefficientsAndMagmaElements(I[i]);
+         result := [Zero(K)];
+         for i in [1,3 .. Length( terms ) - 1] do
+            walk := WalkOfPath(terms[i]);
+            matrix := One(K);
+            for x in walk do
+               matrix := matrix * matrices[x!.gen_pos];
+            od;
+            matrix := terms[i+1] * matrix;
+            result := result + matrix;
+         od;
+         dim := DimensionsMat(result);
+         if result <> NullMat(dim[1],dim[2],K) then
+            relationtest := false;
+         fi;
+      od;
+   fi; 
+#
+# Creating the module if everything is OK, else give an error message.
+#
+   if relationtest then 
+       Fam := NewFamily( "PathAlgModuleElementsFamily", IsPathModuleElem );
+       SetFilterObj( Fam, IsPathModuleElemFamily );
+       Fam!.vertices := dim_vector;
+       Fam!.matrices := matrices;
+       Fam!.pathAlgebra := OriginalPathAlgebra(A);
+       Fam!.quotientAlgebra := A;
+       if dim_M > 0 then 
+          basis := CreateModuleBasis(Fam);
+       else 
+    	  basis := [ ZeroModElement(Fam, Zero(K)) ];
+       fi;
+       M := RightAlgebraModuleByGenerators(A, \^, basis);
+       SetIsPathAlgebraMatModule(M,true);
+       SetIsWholeFamily(M,true);
+
+       return M;
+   else
+      Print("The entered matrices for the module do not satisfy the relation(s).\n");
+      return fail;
+   fi;
+end
+);
+
+
 
 InstallMethod( ViewObj, 
   "for modules over path algebras",
