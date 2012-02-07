@@ -1,23 +1,25 @@
 The QPA share package for GAP 4.4
 ==================================
 
-Version 0.4.3; September 30th, 2010
+Version 1.0.6; January 19th, 2012
 Copyright (C) 2010 The QPA-team, 	
                         http://sourceforge.net/projects/quiverspathalg/ 
 
 Introduction
 ------------
 
-QPA is designed as a GAP 4.4 share package providing new functions in
-noncommutative algebra. Currently QPA provides the following features:
+The "Quivers and Path Algebras" team has as a goal to develop a GAP
+package(s) for carrying out computations for finite dimensional
+quotients of path algebras over the fields that are available in
+GAP. The package we aim to develop for GAP is called QPA for Quivers
+and Path Algebras.
 
-    - Path algebras and their quotients
-    - Matrix representations of path algebras and their quotients
-    - Connection to GBNP for computing Groebner bases (only with length-lex ordering)
-    - Projective modules over path algebras
-    - Modules over path algebras defined by projective presentations
-    - Endomorphism rings and homomorphism spaces of modules over path algebras
-    - Decomposition of finite modules over path algebras
+QPA is designed as a GAP 4.4 share package providing new functions in
+noncommutative algebra. For the current functions provided by QPA follow
+the URL
+              http://www.math.ntnu.no/~oyvinso/QPA/
+
+and look at WhatYouCanDoList.
 
 Contents
 --------
@@ -42,35 +44,64 @@ QPA can be obtained from
 
     	http://sourceforge.net/projects/quiverspathalg/
 
-To use the GBNP Groebner basis system, obtain GBNP from its home at:
+The Groebner basis package GBNP is required to run QPA. The
+GBNP Groebner basis can be obtain from its home at:
 
 	http://www.win.tue.nl/~amc/pub/grobner/chap0.html
 
 Installation
 ------------
 
-The easiest installation is to place QPA-0.4.3.tar.gz in the `pkg'
-directory of your GAP installation. Assuming ${GAPDIR} is the location
-of your GAP installation, the following steps will unpack QPA-0.4.3.tar.gz
+For intalling and downloading: Assuming that GAP is installed on your
+comupter, follow the following steps:
 
-        cd ${GAPDIR}/pkg
-        gunzip QPA-0.4.3.tar.gz
-        tar xf QPA-0.4.3.tar.gz
+1.  Make a directory, say GAPdirectory.
+2.  In the GAPdirectory, create a subdirectory gap, with again a 
+    subdirectory pkg, that is, now you should have a directory 
+    GAPdirectory/gap/pkg/.
+3.  Move to the directory GAPdirectory/gap/pkg/
+4.  Give the following two commands:
+        cvs -d:pserver:anonymous@quiverspathalg.cvs.sourceforge.net:/cvsroot/quiverspathalg login
+        cvs -z3 -d:pserver:anonymous@quiverspathalg.cvs.sourceforge.net:/cvsroot/quiverspathalg co -P qpa
+5.  QPA is using the GAP-package GBNP, go to this webpage and 
+    download the latest version of this package. Unpack it in 
+    the directory GAPdirectory/gap/pkg/.
+6.  The directory GAPdirectory/gap/pkg/ should now have two subdirectories, gbnp and qpa.
+7.  When starting GAP, use the command: gap -l ";/fullpath/GAPdirectory/gap/", 
+    where "fullpath" is the complete directory path name for the directory 
+    containing the subdirectory GAPdirectory. Or for convenience, define an 
+    alias, for instance in .bashrc, alias gap='gap -l ";/fullpath/GAPdirectory/gap/"'.
+8.  Making the documentation:
+    (i)   Move to the directory GAPdirectory/gap/pkg/qpa/doc
+    (ii)  Start gap
+    (iii) Give the command (at the gap prompt): Read("MakeQPADoc.gi");
 
-A directory named `QPA' should now exist in ${GAPDIR}/pkg.  It is assumed
-that the GBNP package (0.9.3 or higher) is installed in the ${GAPDIR}/pkg
-directory also.
-
+For the latest version of QPA, always download the CVS
+repository. Follow the instructions in 3 and 4 above to update your
+installation, if you have a version of QPA installed already in
+GAPdirectory/gap/pkg/.
 
 Using QPA
 ----------
 
-The QPA share package can be loaded in GAP with
+Assuming that GAP is installed on your computer and that QPA is installed at
+above, start QPA/GAP using the command: 
 
-        RequirePackage("QPA");
+     gap -l ";/fullpath/GAPdirectory/gap/" 
+
+where "fullpath" is the complete directory path name for the directory
+containing the subdirectory GAPdirectory. Or for convenience, define
+an alias, for instance in .bashrc, 
+
+     alias gap='gap -l ";/fullpath/GAPdirectory/gap/"'  
 
 See the user manual in the doc directory for more information regarding
-the use of QPA.
+the use of QPA, or follow the URL
+
+     http://www.math.ntnu.no/~oyvinso/QPA/manual.pdf
+
+to see the current manual/documentation of QPA (still work in progress,
+not brilliant at this point). 
 
 Contact
 -------
