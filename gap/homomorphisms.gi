@@ -1,5 +1,5 @@
 # GAP Implementation
-# $Id: homomorphisms.gi,v 1.23 2012/01/27 11:27:05 sunnyquiver Exp $
+# $Id: homomorphisms.gi,v 1.24 2012/02/27 12:26:34 sunnyquiver Exp $
 
 #############################################################################
 ##
@@ -7,7 +7,7 @@
 ##
 InstallMethod( ImageElm, 
     "for a map between representations and an element in a representation.",
-    [ IsPathAlgebraMatModuleMap, IsAlgebraModuleElement ], 0, 
+    [ IsPathAlgebraModuleHomomorphism, IsAlgebraModuleElement ], 0, 
     function( map, elem )
 
     local elt, n, fam, image, temp, zero, new_image;
@@ -33,7 +33,7 @@ end);
 ##
 InstallMethod( ImagesSet, 
     "for a map between representations and a set of elements in a representation.",
-    [ IsPathAlgebraMatModuleMap, IsCollection ], 0, 
+    [ IsPathAlgebraModuleHomomorphism, IsCollection ], 0, 
     function( map, elms )
 
     local elt, B, images;
@@ -44,7 +44,7 @@ InstallMethod( ImagesSet,
             B := elms;
         fi;
     else
-        if IsPathAlgebraMatModule(elms) then 
+        if IsPathAlgebraModule(elms) then 
             B := BasisVectors(CanonicalBasis(elms));
         else
             Error("input of wrong type,");
@@ -62,9 +62,9 @@ end
 # Should be
 # InstallMethod( PreImagesRepresentative, 
 #
-InstallMethod( PreImagesElm, 
+InstallMethod( PreImagesRepresentative, 
     "for a map between representations and an element in a representation.",
-    [ IsPathAlgebraMatModuleMap, IsAlgebraModuleElement ], 0, 
+    [ IsPathAlgebraModuleHomomorphism, IsAlgebraModuleElement ], 0, 
     function( map, elem )
 
     local elt, m, fam, preimage;
@@ -85,9 +85,9 @@ InstallMethod( PreImagesElm,
 end);
 
 
-InstallMethod( RightModuleHomOverPathAlgebra,
+InstallMethod( RightModuleHomOverAlgebra,
     "for two representations of a quiver",
-    [ IsPathAlgebraMatModule, IsPathAlgebraMatModule, IsList ], 0,
+    [ IsPathAlgebraModule, IsPathAlgebraModule, IsList ], 0,
     function( M, N, linmaps)
 
   local A, K, mat_M, mat_N, map, Fam, dim_M, dim_N, Q, arrows, 
@@ -135,8 +135,8 @@ InstallMethod( RightModuleHomOverPathAlgebra,
 # 
 # Check commutativity relations with the matrices in M and N.
 #
-  mat_M := MatricesOfPathAlgebraMatModule(M);
-  mat_N := MatricesOfPathAlgebraMatModule(N);
+  mat_M := MatricesOfPathAlgebraModule(M);
+  mat_N := MatricesOfPathAlgebraModule(N);
   Q := QuiverOfPathAlgebra(A);
   arrows   := ArrowsOfQuiver(Q);
   vertices := VerticesOfQuiver(Q);
@@ -153,8 +153,8 @@ InstallMethod( RightModuleHomOverPathAlgebra,
   map := Objectify( NewType( CollectionsFamily( GeneralMappingsFamily(
                                 ElementsFamily( FamilyObj( M ) ),
                                 ElementsFamily( FamilyObj( N ) ) ) ), 
-#          IsPathAlgebraMatModuleMapRep ), rec( maps := linmaps ));
-          IsPathAlgebraMatModuleMap and IsPathAlgebraMatModuleMapRep ), rec( maps := linmaps ));
+#          IsPathAlgebraModuleHomomorphismRep ), rec( maps := linmaps ));
+          IsPathAlgebraModuleHomomorphism and IsPathAlgebraModuleHomomorphismRep ), rec( maps := linmaps ));
   SetPathAlgebraOfMatModuleMap(map, A);
   SetSource(map, M);
   SetRange(map, N);  
@@ -167,7 +167,7 @@ end );
 InstallMethod ( Zero, 
   "for a PathAlgebraMatModuleMap",
   true,
-  [ IsPathAlgebraMatModuleMap ],
+  [ IsPathAlgebraModuleHomomorphism ],
   0,
   function( f )
       local M, N, K, dim_M, dim_N, i, mats;
@@ -194,14 +194,14 @@ InstallMethod ( Zero,
      fi;
   od;
   
-  return RightModuleHomOverPathAlgebra(Source(f),Range(f),mats);
+  return RightModuleHomOverAlgebra(Source(f),Range(f),mats);
 end
 );
 
-InstallMethod ( ZeroMap, 
+InstallMethod ( ZeroMapping, 
   " between two PathAlgebraMatModule's ",
   true,
-  [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ],
+  [ IsPathAlgebraModule, IsPathAlgebraModule ],
   0,
   function( M, N )
       local A, K, dim_M, dim_N, i, mats;
@@ -228,17 +228,17 @@ InstallMethod ( ZeroMap,
         fi;
      od;
   
-     return RightModuleHomOverPathAlgebra(M,N,mats);
+     return RightModuleHomOverAlgebra(M,N,mats);
   else
      Error("the two modules entered are not modules of one and the same algebra, or they are not modules over the same (quotient of a) path algebra, ");
   fi;
 end
 );
 
-InstallMethod ( IdentityMap, 
+InstallMethod ( IdentityMapping, 
   "for a PathAlgebraMatModule",
   true,
-  [ IsPathAlgebraMatModule ],
+  [ IsPathAlgebraModule ],
   0,
   function( M )
       local K, dim_M, i, mats;
@@ -258,14 +258,14 @@ InstallMethod ( IdentityMap,
         fi;
      od;
   
-     return RightModuleHomOverPathAlgebra(M,M,mats);
+     return RightModuleHomOverAlgebra(M,M,mats);
 end
 );
 
 InstallMethod ( \=, 
   "for a PathAlgebraMatModuleMap",
   true,
-  [ IsPathAlgebraMatModuleMap, IsPathAlgebraMatModuleMap ],
+  [ IsPathAlgebraModuleHomomorphism, IsPathAlgebraModuleHomomorphism ],
   0,
   function( f, g )
       local a;
@@ -279,10 +279,10 @@ InstallMethod ( \=,
 end
 );
 
-InstallMethod( SubRepInclusion,
+InstallMethod( SubRepresentationInclusion,
   "for a path algebra module and list of its elements",
   true,
-  [IsPathAlgebraMatModule, IsList], 0,
+  [IsPathAlgebraModule, IsList], 0,
   function( M, gen )
 
   local A, q, K, num_vert, basis_M, vertices, arrows_as_path, arrows_of_quiver, 
@@ -305,7 +305,7 @@ InstallMethod( SubRepInclusion,
 # arrows, as arrows in the quiver
 #
 if Length(gen) = 0 then 
-   return ZeroMap(ZeroRepresentation(A),M);
+   return ZeroMapping(ZeroModule(A),M);
 else
     vertices := List(VerticesOfQuiver(q), x -> x*One(A));
     arrows_as_path := List(ArrowsOfQuiver(q), x -> x*One(A));
@@ -414,7 +414,7 @@ else
     if IsPathAlgebra(A) then 
        submodule := RightModuleOverPathAlgebra(A,big_mat);
     else
-       submodule := RightModuleOverQuotientOfPathAlgebra(A,big_mat); 
+       submodule := RightModuleOverPathAlgebra(A,big_mat); 
     fi;      
 
 #
@@ -451,26 +451,26 @@ else
           Add(inclusion,mat{dim_size[i]}{dim_size_M[i]});
        fi;
     od;
-    return RightModuleHomOverPathAlgebra(submodule,M,inclusion);
+    return RightModuleHomOverAlgebra(submodule,M,inclusion);
 fi;
 end
 );
 
-InstallMethod( SubRep,
+InstallMethod( SubRepresentation,
   "for a path algebra module and list of its elements",
   true,
-  [IsPathAlgebraMatModule, IsList], 0,
+  [IsPathAlgebraModule, IsList], 0,
   function( M, gen );
 
-  return Source(SubRepInclusion(M,gen));
+  return Source(SubRepresentationInclusion(M,gen));
 end
 );
 
 
-InstallMethod( RadicalOfRepInclusion,
+InstallMethod( RadicalOfModuleInclusion,
   "for a path algebra module",
   true,
-  [ IsPathAlgebraMatModule ], 0,
+  [ IsPathAlgebraModule ], 0,
   function( M )
 
   local A, q, num_vert, arrows_as_path, basis_M, generators, a, b, run_time; 
@@ -493,24 +493,24 @@ InstallMethod( RadicalOfRepInclusion,
     od;
 
     generators := Unique(generators);
-    return SubRepInclusion(M,generators);
+    return SubRepresentationInclusion(M,generators);
 end
 );
 
-InstallMethod( RadicalOfRep,
+InstallMethod( RadicalOfModule,
   "for a path algebra module",
   true,
-  [ IsPathAlgebraMatModule ], 0,
+  [ IsPathAlgebraModule ], 0,
   function( M )
 
-  return Source(RadicalOfRepInclusion(M));
+  return Source(RadicalOfModuleInclusion(M));
 end
 );
 
-InstallMethod ( IsOneToOne, 
+InstallOtherMethod ( IsInjective, 
   "for a PathAlgebraMatModuleMap",
   true,
-  [ IsPathAlgebraMatModuleMap ],
+  [ IsPathAlgebraModuleHomomorphism ],
   0,
   function( f )
       local M, K, V_list, dim_K, dim_M, i, VS_list;
@@ -530,20 +530,20 @@ InstallMethod ( IsOneToOne,
       fi;
   od;
   if dim_K = 0 then
-     SetIsOneToOne(f,true);
+     SetIsInjective(f,true);
      return true;
   else
-     SetIsOneToOne(f,false);
+     SetIsInjective(f,false);
      return false;
   fi;
 
 end
 );
 
-InstallMethod ( KerInclusion, 
+InstallMethod ( KernelInclusion, 
   "for a PathAlgebraMatModuleMap",
   true,
-  [ IsPathAlgebraMatModuleMap ],
+  [ IsPathAlgebraModuleHomomorphism ],
   0,
   function( f )
       local M, dim_M, V_list, V_dim, i, dim_K, VS_list, A, K, vertices, 
@@ -578,12 +578,12 @@ InstallMethod ( KerInclusion,
   V_dim := Sum(dim_K);
   A := RightActingAlgebra(M);
 if V_dim = 0 then 
-   SetIsOneToOne(f,true);
-   return ZeroMap(ZeroRepresentation(A),Source(f)); 
+   SetIsInjective(f,true);
+   return ZeroMapping(ZeroModule(A),Source(f)); 
 else 
   vertices := VerticesOfQuiver(QuiverOfPathAlgebra(A));
   arrows := ArrowsOfQuiver(QuiverOfPathAlgebra(A));
-  mats := MatricesOfPathAlgebraMatModule(M);
+  mats := MatricesOfPathAlgebraModule(M);
   kermats := [];
 #
 # The matrices f_alpha of the representation M is used to compute
@@ -625,31 +625,31 @@ else
   if IsPathAlgebra(A) then 
      Kerf := RightModuleOverPathAlgebra(A,kermats);
   else 
-     Kerf := RightModuleOverQuotientOfPathAlgebra(A,kermats);
+     Kerf := RightModuleOverPathAlgebra(A,kermats);
   fi;
-  kermap := RightModuleHomOverPathAlgebra(Kerf,M,V_list);
+  kermap := RightModuleHomOverAlgebra(Kerf,M,V_list);
   SetKernelOfWhat(kermap,f);
-  SetIsOneToOne(kermap,true);
+  SetIsInjective(kermap,true);
   return kermap;
 fi;
 end
 );
 
-InstallMethod ( Ker, 
+InstallMethod ( KernelOfAdditiveGeneralMapping, 
   "for a PathAlgebraMatModuleMap",
   true,
-  [ IsPathAlgebraMatModuleMap ],
+  [ IsPathAlgebraModuleHomomorphism ],
   0,
   function( f )
 
-  return Source(KerInclusion(f));
+  return Source(KernelInclusion(f));
 end
 );
 
-InstallMethod ( ImProjectionInclusion, 
+InstallMethod ( ImageProjectionInclusion, 
    "for a PathAlgebraMatModuleMap",
    true,
-   [ IsPathAlgebraMatModuleMap ],
+   [ IsPathAlgebraModuleHomomorphism ],
    0,
    function( f )
       local M, N, image, images, A, K, num_vert, vertices, arrows, gen_list, B, i,fam, n, s, v,
@@ -696,7 +696,7 @@ InstallMethod ( ImProjectionInclusion,
 # Finding the matrices of the representation image
 #
       arrows := ArrowsOfQuiver(QuiverOfPathAlgebra(A));
-      mats := MatricesOfPathAlgebraMatModule(N);
+      mats := MatricesOfPathAlgebraModule(N);
       image_mat := [];
       for a in arrows do 
          mat := [];
@@ -716,7 +716,7 @@ InstallMethod ( ImProjectionInclusion,
       if IsPathAlgebra(A) then 
          image_f := RightModuleOverPathAlgebra(A,image_mat);
       else
-         image_f := RightModuleOverQuotientOfPathAlgebra(A,image_mat);
+         image_f := RightModuleOverPathAlgebra(A,image_mat);
       fi;
 #
 # Finding inclusion map from the image to Range(f)
@@ -739,9 +739,9 @@ InstallMethod ( ImProjectionInclusion,
          fi;
       od; 
 #      Display(inclusion);
-      image_inclusion := RightModuleHomOverPathAlgebra(image_f,Range(f),inclusion);
+      image_inclusion := RightModuleHomOverAlgebra(image_f,Range(f),inclusion);
       SetImageOfWhat(image_inclusion,f);
-      SetIsOneToOne(image_inclusion,true);
+      SetIsInjective(image_inclusion,true);
 #
 # Finding the projection for Source(f) to the image
 #
@@ -767,54 +767,54 @@ InstallMethod ( ImProjectionInclusion,
             Add(projection,mat);
          fi;
       od;
-      image_projection := RightModuleHomOverPathAlgebra(Source(f),image_f,projection);
+      image_projection := RightModuleHomOverAlgebra(Source(f),image_f,projection);
       SetImageOfWhat(image_projection,f);
-      SetIsOnto(image_projection,true);
+      SetIsSurjective(image_projection,true);
 
       return [image_projection,image_inclusion];
    else
-      return [ZeroMap(M,ZeroRepresentation(A)),ZeroMap(ZeroRepresentation(A),N)];
+      return [ZeroMapping(M,ZeroModule(A)),ZeroMapping(ZeroModule(A),N)];
    fi;
 end
 );
 
-InstallMethod ( ImProjection, 
+InstallMethod ( ImageProjection, 
    "for a PathAlgebraMatModuleMap",
    true,
-   [ IsPathAlgebraMatModuleMap ],
+   [ IsPathAlgebraModuleHomomorphism ],
    0,
    function( f );
 
-   return ImProjectionInclusion(f)[1];
+   return ImageProjectionInclusion(f)[1];
 end
 );
 
-InstallMethod ( ImInclusion, 
+InstallMethod ( ImageInclusion, 
    "for a PathAlgebraMatModuleMap",
    true,
-   [ IsPathAlgebraMatModuleMap ],
+   [ IsPathAlgebraModuleHomomorphism ],
    0,
    function( f );
 
-   return ImProjectionInclusion(f)[2];
+   return ImageProjectionInclusion(f)[2];
 end
 );
 
-InstallMethod ( Im, 
+InstallMethod ( ImagesSource, 
    "for a PathAlgebraMatModuleMap",
    true,
-   [ IsPathAlgebraMatModuleMap ],
+   [ IsPathAlgebraModuleHomomorphism ],
    0,
    function( f );
 
-   return Range(ImProjectionInclusion(f)[1]);
+   return Range(ImageProjectionInclusion(f)[1]);
 end
 );
 
-InstallMethod ( IsZeroMap, 
+InstallMethod ( IsZero, 
    "for a PathAlgebraMatModuleMap",
    true,
-   [ IsPathAlgebraMatModuleMap ],
+   [ IsPathAlgebraModuleHomomorphism ],
    0,
    function( f );
 
@@ -822,10 +822,10 @@ InstallMethod ( IsZeroMap,
 end
 );
 
-InstallMethod ( IsOnto, 
+InstallOtherMethod ( IsSurjective, 
    "for a PathAlgebraMatModuleMap",
    true,
-   [ IsPathAlgebraMatModuleMap ],
+   [ IsPathAlgebraModuleHomomorphism ],
    0,
    function( f )
       local image, dim_image, K, V;
@@ -840,28 +840,30 @@ InstallMethod ( IsOnto,
       dim_image :=  Dimension(Subspace(V,image));
    fi;
    if dim_image = Dimension(Range(f)) then 
+      SetIsSurjective(f,true);
       return true;
    else
+      SetIsSurjective(f,false);
       return false;
    fi;
 end
 );
 
-InstallMethod ( IsIsom, 
+InstallMethod ( IsIsomorphism, 
    "for a PathAlgebraMatModuleMap",
    true,
-   [ IsPathAlgebraMatModuleMap ],
+   [ IsPathAlgebraModuleHomomorphism ],
    0,
    function( f );
 
-   return IsOneToOne(f) and IsOnto(f);
+   return IsInjective(f) and IsSurjective(f);
 end
 );
 
-InstallMethod ( CokerProjection, 
+InstallMethod ( CoKernelProjection, 
    "for a PathAlgebraMatModuleMap",
    true,
-   [ IsPathAlgebraMatModuleMap ],
+   [ IsPathAlgebraModuleHomomorphism ],
    0,
    function( f )
       local M, N, image, A, K, num_vert, vertices, arrows, basis_list,i, n, v,
@@ -910,7 +912,7 @@ InstallMethod ( CokerProjection,
 #
 # Finding the matrices of the representation of the cokernel 
 #
-   mats := MatricesOfPathAlgebraMatModule(N);
+   mats := MatricesOfPathAlgebraModule(N);
    arrows := ArrowsOfQuiver(QuiverOfPathAlgebra(A));
    cokermat := [];
    for a in arrows do 
@@ -933,7 +935,7 @@ InstallMethod ( CokerProjection,
    if IsPathAlgebra(A) then 
       C := RightModuleOverPathAlgebra(A,cokermat);
    else
-      C := RightModuleOverQuotientOfPathAlgebra(A,cokermat);
+      C := RightModuleOverPathAlgebra(A,cokermat);
    fi;
 #
 # Finding the map for Range(f) to the cokernel 
@@ -953,90 +955,59 @@ InstallMethod ( CokerProjection,
       Add(map,partmap);
    od;
 
-   morph := RightModuleHomOverPathAlgebra(Range(f),C,map);
+   morph := RightModuleHomOverAlgebra(Range(f),C,map);
    SetCoKernelOfWhat(morph,f);
-   SetIsOnto(morph,true);
+   SetIsSurjective(morph,true);
 
    return morph;
 end
 );
 
-InstallMethod ( Coker, 
+InstallMethod ( CoKernelOfAdditiveGeneralMapping, 
    "for a PathAlgebraMatModuleMap",
    true,
-   [ IsPathAlgebraMatModuleMap ],
-   0,
+   [ IsPathAlgebraModuleHomomorphism ],
+   SUM_FLAGS+1,
    function( f )
 
-   return Range(CokerProjection(f));
+   return Range(CoKernelProjection(f));
 end
 );
 
-InstallMethod( TopOfRepProjection,
+InstallMethod( TopOfModuleProjection,
   "for a path algebra module",
   true,
-  [ IsPathAlgebraMatModule ], 0,
+  [ IsPathAlgebraModule ], 0,
   function( M )
 
   local map, map2, run_time; 
 
   run_time := Runtime();
-  map := RadicalOfRepInclusion(M);
-#  Print("Finding RadicalOfRepInclusion: ",Runtime()-run_time,"\n");
+  map := RadicalOfModuleInclusion(M);
+#  Print("Finding RadicalOfModuleInclusion: ",Runtime()-run_time,"\n");
   run_time := Runtime();
-  map2 := CokerProjection(map);
-#  Print("Finding CokerProjection: ",Runtime()-run_time,"\n");
+  map2 := CoKernelProjection(map);
+#  Print("Finding CoKernelProjection: ",Runtime()-run_time,"\n");
   return map2;
 end
 );
 
-InstallMethod( TopOfRep,
+InstallMethod( TopOfModule,
   "for a path algebra module",
   true,
-  [ IsPathAlgebraMatModule ], 0,
+  [ IsPathAlgebraModule ], 0,
   function( M );
 
-  return Range(TopOfRepProjection(M));
+  return Range(TopOfModuleProjection(M));
 end
 );
-
-
-InstallMethod( GeneratorsOfRep, 
-  "for a path algebra module",
-  true,
-  [ IsPathAlgebraMatModule ], 0,
-  function( M )
-
-  local generators, map, B, i, run_time; 
-
-  generators := [];
-  if Dimension(M) <> 0 then 
-     run_time := Runtime();
-     map := TopOfRepProjection(M);
-#     Print("Finding map from module to its top: ",Runtime()-run_time,"\n");
-     run_time := Runtime(); 
-     B := Basis(Range(map));
-#     Print("Finding basis of the top: ",Runtime()-run_time,"\n");
-     run_time := Runtime(); 
-     generators := [];
-     for i in [1..Length(B)] do
-        Add(generators,PreImagesElm(map,B[i]));
-     od;
-#     Print("Finding preimages: ",Runtime()-run_time,"\n");
-     run_time := Runtime(); 
-  fi;
-  
-  return generators;
-end
-);
-
 
 InstallMethod( \+,
   "for two PathAlgebraMatModuleMap's",
   true,
 #  IsIdenticalObj,
-  [ IsPathAlgebraMatModuleMap,
-    IsPathAlgebraMatModuleMap ],
+  [ IsPathAlgebraModuleHomomorphism,
+    IsPathAlgebraModuleHomomorphism ],
   0,
   function( f, g )
      local i, num_vert, x, Fam;
@@ -1045,7 +1016,7 @@ InstallMethod( \+,
      	num_vert := Length(f!.maps);
      	x := List([1..num_vert], y -> f!.maps[y] + g!.maps[y]);
 
-	return RightModuleHomOverPathAlgebra(Source(f),Range(f),x);
+	return RightModuleHomOverAlgebra(Source(f),Range(f),x);
      else
 	Error("the two arguments entered do not live in the same homomorphism set, ");
      fi;
@@ -1055,8 +1026,8 @@ InstallMethod( \+,
 InstallMethod( \*,
   "for two PathAlgebraMatModuleMap's",
   true,
-  [ IsPathAlgebraMatModuleMap,
-    IsPathAlgebraMatModuleMap ],
+  [ IsPathAlgebraModuleHomomorphism,
+    IsPathAlgebraModuleHomomorphism ],
   0,
   function( f, g )
      local i, num_vert, x;
@@ -1065,7 +1036,7 @@ InstallMethod( \*,
      	num_vert := Length(f!.maps);
      	x := List([1..num_vert], y -> f!.maps[y]*g!.maps[y]);
 
-	return RightModuleHomOverPathAlgebra(Source(f),Range(g),x);
+	return RightModuleHomOverAlgebra(Source(f),Range(g),x);
      else
         Error("codomain of the first argument is not equal to the domain of the second argument, ");
      fi;
@@ -1076,7 +1047,7 @@ InstallOtherMethod( \*,
   "for two PathAlgebraMatModuleMap's",
   true,
   [ IsScalar,
-    IsPathAlgebraMatModuleMap ],
+    IsPathAlgebraModuleHomomorphism ],
   0,
   function( a, g )
      local K, i, num_vert, x;
@@ -1086,7 +1057,7 @@ InstallOtherMethod( \*,
      	num_vert := Length(g!.maps);
      	x := List([1..num_vert], y -> a*g!.maps[y]);
 
-	return RightModuleHomOverPathAlgebra(Source(g),Range(g),x);
+	return RightModuleHomOverAlgebra(Source(g),Range(g),x);
      else
 	Error("the scalar is not in the same field as the algbra is over,");
      fi;
@@ -1094,8 +1065,8 @@ InstallOtherMethod( \*,
 );
 
 InstallMethod( AdditiveInverseOp,
-    "for a morphism in IsPathAlgebraMatModuleMap",
-    [ IsPathAlgebraMatModuleMap ],
+    "for a morphism in IsPathAlgebraModuleHomomorphism",
+    [ IsPathAlgebraModuleHomomorphism ],
 
     function ( f ) 
 
@@ -1104,14 +1075,14 @@ InstallMethod( AdditiveInverseOp,
     num_vert := Length(f!.maps);
     x := List([1..num_vert], y -> (-1)*f!.maps[y]);
 
-    return RightModuleHomOverPathAlgebra(Source(f),Range(f),x);
+    return RightModuleHomOverAlgebra(Source(f),Range(f),x);
 end
 );
 
 InstallOtherMethod( \*,
   "for two PathAlgebraMatModuleMap's",
   true,
-  [ IsPathAlgebraMatModuleMap, IsScalar ],
+  [ IsPathAlgebraModuleHomomorphism, IsScalar ],
   0,
   function( f, a )
      local K, i, num_vert, x;
@@ -1121,16 +1092,16 @@ InstallOtherMethod( \*,
      	num_vert := Length(f!.maps);
      	x := List([1..num_vert], y -> f!.maps[y]*a);
 
-	return RightModuleHomOverPathAlgebra(Source(f),Range(f),x);
+	return RightModuleHomOverAlgebra(Source(f),Range(f),x);
      else
 	Error("the scalar is not in the same field as the algbra is over,");
      fi;
   end
 );
 
-InstallMethod( HomOverPathAlgebra,
+InstallMethod( HomOverAlgebra,
     "for two representations of a quiver",
-    [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ], 0,
+    [ IsPathAlgebraModule, IsPathAlgebraModule ], 0,
   function( M, N )
 
   local A, F, dim_M, dim_N, num_vert, support_M, support_N, num_rows, num_cols, 
@@ -1194,8 +1165,8 @@ InstallMethod( HomOverPathAlgebra,
    equations := MutableNullMat(num_rows, num_cols, F);
 
    arrows := ArrowsOfQuiver(QuiverOfPathAlgebra(OriginalPathAlgebra(A)));
-   mats_M := MatricesOfPathAlgebraMatModule(M);
-   mats_N := MatricesOfPathAlgebraMatModule(N);
+   mats_M := MatricesOfPathAlgebraModule(M);
+   mats_N := MatricesOfPathAlgebraModule(N);
    prev_col := 0;
    prev_row := 0;
    for i in support_M do
@@ -1260,7 +1231,7 @@ InstallMethod( HomOverPathAlgebra,
          homs[dim_hom] := Objectify( NewType( CollectionsFamily( GeneralMappingsFamily(
                                 ElementsFamily( FamilyObj( M ) ),
                                 ElementsFamily( FamilyObj( N ) ) ) ), 
-                     IsPathAlgebraMatModuleMap and IsPathAlgebraMatModuleMapRep and IsAttributeStoringRep ), rec( maps := map ));
+                     IsPathAlgebraModuleHomomorphism and IsPathAlgebraModuleHomomorphismRep and IsAttributeStoringRep ), rec( maps := map ));
          SetPathAlgebraOfMatModuleMap(homs[dim_hom], A);
          SetSource(homs[dim_hom], M);
          SetRange(homs[dim_hom], N);
@@ -1269,7 +1240,7 @@ InstallMethod( HomOverPathAlgebra,
       return homs;
    else
       homs := [];
-      if DimensionMatModule(M) = 0 or DimensionMatModule(N) = 0 then 
+      if Dimension(M) = 0 or Dimension(N) = 0 then 
          return homs;
       else 
          dim_hom := 0;
@@ -1302,7 +1273,7 @@ InstallMethod( HomOverPathAlgebra,
             homs[i] := Objectify( NewType( CollectionsFamily( GeneralMappingsFamily(
                                 ElementsFamily( FamilyObj( M ) ),
                                 ElementsFamily( FamilyObj( N ) ) ) ), 
-                     IsPathAlgebraMatModuleMap and IsPathAlgebraMatModuleMapRep and IsAttributeStoringRep ), rec( maps := homs[i] ));
+                     IsPathAlgebraModuleHomomorphism and IsPathAlgebraModuleHomomorphismRep and IsAttributeStoringRep ), rec( maps := homs[i] ));
             SetPathAlgebraOfMatModuleMap(homs[i], A);
             SetSource(homs[i], M);
             SetRange(homs[i], N);
@@ -1315,14 +1286,14 @@ InstallMethod( HomOverPathAlgebra,
 end
 );
 
-InstallMethod( EndOverPathAlgebra,
+InstallMethod( EndOverAlgebra,
     "for a representations of a quiver",
-    [ IsPathAlgebraMatModule ], 0,
+    [ IsPathAlgebraModule ], 0,
   function( M )
 
   local EndM, R, F, dim_M, alglist, i, j, r, maps, A; 
 
-  EndM := HomOverPathAlgebra(M,M);
+  EndM := HomOverAlgebra(M,M);
   R := RightActingAlgebra(M); 
   F := LeftActingDomain(R);
   dim_M := DimensionVector(M);
@@ -1351,30 +1322,30 @@ end
 
 InstallMethod( RightFacApproximation,
     "for a representations of a quiver",
-    [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ], 0,
+    [ IsPathAlgebraModule, IsPathAlgebraModule ], 0,
   function( M, N )
 
   local homMN, i, generators; 
 
-  homMN := HomOverPathAlgebra(M,N); 
+  homMN := HomOverAlgebra(M,N); 
   generators := [];
   for i in [1..Length(homMN)] do
      Append(generators,ImagesSet(homMN[i],Source(homMN[i])));
   od;
 
-  return SubRepInclusion(N,generators);
+  return SubRepresentationInclusion(N,generators);
 end
 );
 
 InstallMethod( NumberOfNonIsoDirSummands,
     "for a representations of a quiver",
-    [ IsPathAlgebraMatModule ], 0,
+    [ IsPathAlgebraModule ], 0,
   function( M )
 
   local EndM, K, J, gens, I, A, top, AA, B, n,
   	i, j, genA, V, W, d;
 
-  EndM := EndOverPathAlgebra(M);
+  EndM := EndOverAlgebra(M);
   K    := LeftActingDomain(M);
   J    := RadicalOfAlgebra(EndM);
   gens := GeneratorsOfAlgebra(J);
@@ -1386,43 +1357,43 @@ InstallMethod( NumberOfNonIsoDirSummands,
 end
 );
 
-InstallMethod ( DualOfPathAlgebraMatModuleMap,
+InstallMethod ( DualOfModuleHomomorphism,
     "for a map between representations of a quiver",
-    [ IsPathAlgebraMatModuleMap ], 0,
+    [ IsPathAlgebraModuleHomomorphism ], 0,
     function( f )
 
     local mats, M, N;
    
     mats := f!.maps;
     mats := List(mats, x -> TransposedMat(x));
-    M := DualOfPathAlgebraMatModule(Source(f));
-    N := DualOfPathAlgebraMatModule(Range(f));
+    M := DualOfModule(Source(f));
+    N := DualOfModule(Range(f));
 
-    return RightModuleHomOverPathAlgebra(N,M,mats);
+    return RightModuleHomOverAlgebra(N,M,mats);
 end
 );
 
-InstallMethod ( SocleOfPathAlgebraMatModuleInclusion,
+InstallMethod ( SocleOfModuleInclusion,
     "for a map between representations of a quiver",
-    [ IsPathAlgebraMatModule ], 0,
+    [ IsPathAlgebraModule ], 0,
     function( M );
 
-    return DualOfPathAlgebraMatModuleMap(TopOfRepProjection(DualOfPathAlgebraMatModule(M)));    
+    return DualOfModuleHomomorphism(TopOfModuleProjection(DualOfModule(M)));    
 end
 );
 
-InstallMethod ( SocleOfPathAlgebraMatModule,
+InstallMethod ( SocleOfModule,
     "for a map between representations of a quiver",
-    [ IsPathAlgebraMatModule ], 0,
+    [ IsPathAlgebraModule ], 0,
     function( M );
 
-    return Source(DualOfPathAlgebraMatModuleMap(TopOfRepProjection(DualOfPathAlgebraMatModule(M))));    
+    return Source(DualOfModuleHomomorphism(TopOfModuleProjection(DualOfModule(M))));    
 end
 );
 
 InstallMethod( CommonDirectSummand, 
    "for two path algebra matmodules",
-   [ IsPathAlgebraMatModule, IsPathAlgebraMatModule  ], 0,
+   [ IsPathAlgebraModule, IsPathAlgebraModule  ], 0,
    function( M, N ) 
 
    local K, HomMN, HomNM, MM, MMflat, i, j, HomMM, V_M, id, 
@@ -1438,9 +1409,9 @@ InstallMethod( CommonDirectSummand,
       return fail;
    else
       K := LeftActingDomain(M);
-      HomMN := HomOverPathAlgebra(M,N);
-      HomNM := HomOverPathAlgebra(N,M);
-      HomMM := HomOverPathAlgebra(M,M);
+      HomMN := HomOverAlgebra(M,N);
+      HomNM := HomOverAlgebra(N,M);
+      HomMM := HomOverAlgebra(M,M);
       MM := [];
       mm := Length(HomMM); 
       mn := Length(HomMN);
@@ -1451,11 +1422,11 @@ InstallMethod( CommonDirectSummand,
       n := Maximum(DimensionVector(M));
       m := Maximum(DimensionVector(N));
       n := Maximum([n,m]);
-      pM := TopOfRepProjection(M);
-      pN := TopOfRepProjection(N);
-      zMN := ZeroMap(M,Range(pN));
-      zNM := ZeroMap(N,Range(pM));
-      zMM := ZeroMap(M,Range(pM));
+      pM := TopOfModuleProjection(M);
+      pN := TopOfModuleProjection(N);
+      zMN := ZeroMapping(M,Range(pN));
+      zNM := ZeroMapping(N,Range(pM));
+      zMM := ZeroMapping(M,Range(pM));
       for j in [1..Length(HomNM)] do
          if HomNM[j]*pM <> zNM then 
             for i in [1..Length(HomMN)] do
@@ -1463,10 +1434,10 @@ InstallMethod( CommonDirectSummand,
                   for l in [1..Length(HomMM)] do
                      if HomMM[l]*pM <> zMM then  
                         f := (HomMN[i]*HomNM[j]*HomMM[l])^n;
-                        if f <> ZeroMap(M,M) then
+                        if f <> ZeroMapping(M,M) then
                            g := (HomNM[j]*HomMM[l]*HomMN[i])^n;
-                           if g <> ZeroMap(N,N) then
-                              return [Im(f),Ker(f),Im(g),Ker(g)];
+                           if g <> ZeroMapping(N,N) then
+                              return [Image(f),Kernel(f),Image(g),Kernel(g)];
                            fi;                      
                         fi; 
                      fi;
@@ -1483,7 +1454,7 @@ end
 
 InstallMethod( MaximalCommonDirectSummand, 
    "for two path algebra matmodules",
-   [ IsPathAlgebraMatModule, IsPathAlgebraMatModule  ], 0,
+   [ IsPathAlgebraModule, IsPathAlgebraModule  ], 0,
    function( M, N ) 
 
    local U, V, maxcommon, L;
@@ -1511,9 +1482,9 @@ InstallMethod( MaximalCommonDirectSummand,
 end
 );
 
-InstallMethod( ModuleIsomorphismTest, 
+InstallMethod( IsomorphicModules, 
    "for two path algebra matmodules",
-   [ IsPathAlgebraMatModule, IsPathAlgebraMatModule  ], 0,
+   [ IsPathAlgebraModule, IsPathAlgebraModule  ], 0,
    function( M, N ) 
 
    local L;
@@ -1535,9 +1506,9 @@ InstallMethod( ModuleIsomorphismTest,
 end
 ); 
 
-InstallMethod( DirectSummandTest, 
+InstallMethod( IsDirectSummand, 
    "for two path algebra matmodules",
-   [ IsPathAlgebraMatModule, IsPathAlgebraMatModule  ], 0,
+   [ IsPathAlgebraModule, IsPathAlgebraModule  ], 0,
    function( M, N ) 
 
    local L;
@@ -1559,9 +1530,9 @@ InstallMethod( DirectSummandTest,
 end
 ); 
 
-InstallMethod( InAdditiveClosureTest, 
+InstallMethod( IsInAdditiveClosure, 
    "for two path algebra matmodules",
-   [ IsPathAlgebraMatModule, IsPathAlgebraMatModule  ], 0,
+   [ IsPathAlgebraModule, IsPathAlgebraModule  ], 0,
    function( M, N ) 
 
    local K, HomMN, HomNM, MM, i, j, HomMM, V_M;
@@ -1576,8 +1547,8 @@ InstallMethod( InAdditiveClosureTest,
 # module M is in the additive closure of N. 
 #
       K := LeftActingDomain(M);
-      HomMN := HomOverPathAlgebra(M,N);
-      HomNM := HomOverPathAlgebra(N,M);
+      HomMN := HomOverAlgebra(M,N);
+      HomNM := HomOverAlgebra(N,M);
       MM := [];
       for i in [1..Length(HomMN)] do
          for j in [1..Length(HomNM)] do
@@ -1589,13 +1560,13 @@ InstallMethod( InAdditiveClosureTest,
          MM[i] := List(MM[i],x->Flat(x)); 
          MM[i] := Flat(MM[i]);
       od;
-      HomMM:=HomOverPathAlgebra(M,M);
+      HomMM:=HomOverAlgebra(M,M);
       if Length(MM) = 0 then 
          V_M := TrivialSubspace(K);
       else 
          V_M := VectorSpace(K,MM);
       fi; 
-      if Dimension(V_M) = Length(HomOverPathAlgebra(M,M)) then
+      if Dimension(V_M) = Length(HomOverAlgebra(M,M)) then
          return true;
       else
          return false;
@@ -1620,7 +1591,7 @@ end
 InstallMethod ( MorphismOnKernel, 
    "for commutative diagram of PathAlgebraMatModuleMaps",
    true,
-   [ IsPathAlgebraMatModuleMap, IsPathAlgebraMatModuleMap, IsPathAlgebraMatModuleMap, IsPathAlgebraMatModuleMap ], 
+   [ IsPathAlgebraModuleHomomorphism, IsPathAlgebraModuleHomomorphism, IsPathAlgebraModuleHomomorphism, IsPathAlgebraModuleHomomorphism ], 
    0,
    function( f, g, beta, alpha )
 
@@ -1632,14 +1603,14 @@ InstallMethod ( MorphismOnKernel,
 # 
 #
       K := LeftActingDomain(Source(f));
-      kerf := KerInclusion(f);
-      kerg := KerInclusion(g);
+      kerf := KernelInclusion(f);
+      kerg := KernelInclusion(g);
 #
 #  Computing the information needed for lifting the morphism.
 #
       B := BasisVectors(Basis(Source(kerf)));
       B := List(B, x -> ImageElm(kerf*beta,x));
-      B := List(B, x -> PreImagesElm(kerg,x));
+      B := List(B, x -> PreImagesRepresentative(kerg,x));
 #
 #  Computing dimension vectors so that we can insert zero matrices of 
 #  the right size. 
@@ -1672,7 +1643,7 @@ InstallMethod ( MorphismOnKernel,
             Add(map,mat);
          fi;
       od;
-      return RightModuleHomOverPathAlgebra(Source(kerf),Source(kerg),map);
+      return RightModuleHomOverAlgebra(Source(kerf),Source(kerg),map);
    else 
       return fail;
    fi;
@@ -1695,7 +1666,7 @@ end
 InstallMethod ( MorphismOnImage, 
    "for commutative diagram of PathAlgebraMatModuleMaps",
    true,
-   [ IsPathAlgebraMatModuleMap, IsPathAlgebraMatModuleMap, IsPathAlgebraMatModuleMap, IsPathAlgebraMatModuleMap ], 
+   [ IsPathAlgebraModuleHomomorphism, IsPathAlgebraModuleHomomorphism, IsPathAlgebraModuleHomomorphism, IsPathAlgebraModuleHomomorphism ], 
    0,
    function( f, g, beta, alpha )
 
@@ -1707,13 +1678,13 @@ InstallMethod ( MorphismOnImage,
 # 
 #
       K := LeftActingDomain(Source(f));
-      imagef := ImProjection(f);
-      imageg := ImProjection(g);
+      imagef := ImageProjection(f);
+      imageg := ImageProjection(g);
 #
 #  Computing the information needed for lifting the morphism.
 #
       B := BasisVectors(Basis(Range(imagef)));
-      B := List(B, x -> PreImagesElm(imagef,x));
+      B := List(B, x -> PreImagesRepresentative(imagef,x));
       B := List(B, x -> ImageElm(beta*imageg,x));
 #
 #  Computing dimension vectors so that we can insert zero matrices of 
@@ -1747,7 +1718,7 @@ InstallMethod ( MorphismOnImage,
             Add(map,mat);
          fi;
       od;
-      return RightModuleHomOverPathAlgebra(Range(imagef),Range(imageg),map);
+      return RightModuleHomOverAlgebra(Range(imagef),Range(imageg),map);
    else 
       return fail;
    fi;
@@ -1756,7 +1727,7 @@ end
 
 #######################################################################
 ##
-#O  MorphismOnCokernel( <f>, <g>, <beta>, <alpha> )
+#O  MorphismOnCoKernel( <f>, <g>, <beta>, <alpha> )
 ##
 ##  Given the following commutative diagram
 ##          B -- f --> C
@@ -1767,10 +1738,10 @@ end
 ##  this function finds the induced homomorphism on the cokernels of 
 ##  f and g. 
 ##
-InstallMethod ( MorphismOnCokernel, 
+InstallMethod ( MorphismOnCoKernel, 
    "for commutative diagram of PathAlgebraMatModuleMaps",
    true,
-   [ IsPathAlgebraMatModuleMap, IsPathAlgebraMatModuleMap, IsPathAlgebraMatModuleMap, IsPathAlgebraMatModuleMap ], 
+   [ IsPathAlgebraModuleHomomorphism, IsPathAlgebraModuleHomomorphism, IsPathAlgebraModuleHomomorphism, IsPathAlgebraModuleHomomorphism ], 
    0,
    function( f, g, beta, alpha )
 
@@ -1782,13 +1753,13 @@ InstallMethod ( MorphismOnCokernel,
 # 
 #
       K := LeftActingDomain(Source(f));
-      cokerf := CokerProjection(f);
-      cokerg := CokerProjection(g);
+      cokerf := CoKernelProjection(f);
+      cokerg := CoKernelProjection(g);
 #
 #  Computing the information needed for lifting the morphism.
 #
       B := BasisVectors(Basis(Range(cokerf)));
-      B := List(B, x -> PreImagesElm(cokerf,x));
+      B := List(B, x -> PreImagesRepresentative(cokerf,x));
       B := List(B, x -> ImageElm(alpha*cokerg,x));
 #
 #  Computing dimension vectors so that we can insert zero matrices of 
@@ -1822,7 +1793,7 @@ InstallMethod ( MorphismOnCokernel,
             Add(map,mat);
          fi;
       od;
-      return RightModuleHomOverPathAlgebra(Range(cokerf),Range(cokerg),map);
+      return RightModuleHomOverAlgebra(Range(cokerf),Range(cokerg),map);
    else 
       return fail;
    fi;
@@ -1841,13 +1812,13 @@ end
 ##            g   V 
 ##        B ----> C 
 ##  where  P  is a direct sum of indecomposable projective modules 
-##  constructed via DirectSumOfPathAlgebraMatModules and  g  an epimorphism, 
+##  constructed via DirectSumOfModules and  g  an epimorphism, 
 ##  this function finds a lifting of  f  to  B.
 ##
 InstallMethod ( LiftingMorphismFromProjective, 
    "for two PathAlgebraMatModuleMaps",
    true,
-   [ IsPathAlgebraMatModuleMap, IsPathAlgebraMatModuleMap ], 
+   [ IsPathAlgebraModuleHomomorphism, IsPathAlgebraModuleHomomorphism ], 
    0,
    function( f, g )
 
@@ -1856,7 +1827,7 @@ InstallMethod ( LiftingMorphismFromProjective,
 #  Checking if the input is as required
 # 
    P := Source(f);
-   if IsProjectiveModule(P) and IsDirectSum(P) and IsOnto(g) and ( Range(f) = Range(g) ) then 
+   if IsProjectiveModule(P) and IsDirectSumOfModules(P) and IsSurjective(g) and ( Range(f) = Range(g) ) then 
 # 
 #
       K := LeftActingDomain(P);
@@ -1867,18 +1838,18 @@ InstallMethod ( LiftingMorphismFromProjective,
 #  First construct the lifting from each indecomposable direcct summand of  P.
 # 
       for i in [1..Length(inclusions)] do
-         m := MinimalSetOfGenerators(Source(inclusions[i]))[1];
+         m := MinimalGeneratingSetOfModule(Source(inclusions[i]))[1];
          if ImageElm(f,ImageElm(inclusions[i],m)) = Zero(Range(f)) then 
-            Add(hmap,ZeroMap(Source(inclusions[i]),Source(g)));
+            Add(hmap,ZeroMapping(Source(inclusions[i]),Source(g)));
          else 
-            m := PreImagesElm(g,ImageElm(f,ImageElm(inclusions[i],m)));
+            m := PreImagesRepresentative(g,ImageElm(f,ImageElm(inclusions[i],m)));
             Add(hmap,HomFromProjective(m,Source(g)));
          fi;
       od;
 #
 #  Make sure that the partial liftings start in the right modules/variables. 
 #
-      hmap := List([1..Length(inclusions)], x -> RightModuleHomOverPathAlgebra(Source(inclusions[x]),Source(g),hmap[x]!.maps));
+      hmap := List([1..Length(inclusions)], x -> RightModuleHomOverAlgebra(Source(inclusions[x]),Source(g),hmap[x]!.maps));
       return projections*hmap;
    else 
       return fail;
@@ -1903,7 +1874,7 @@ end
 InstallMethod ( LiftingInclusionMorphisms, 
    "for two PathAlgebraMatModuleMaps",
    true,
-   [ IsPathAlgebraMatModuleMap, IsPathAlgebraMatModuleMap ], 
+   [ IsPathAlgebraModuleHomomorphism, IsPathAlgebraModuleHomomorphism ], 
    0,
    function( f, g )
 
@@ -1911,13 +1882,13 @@ InstallMethod ( LiftingInclusionMorphisms,
 #
 #  Checking if the image of  f  is contained in the image of  g.
 # 
-   pi := CokerProjection(g);
-   if ( Range(f) = Range(g) ) and ( f*pi = ZeroMap(Source(f),Range(pi)) ) then 
+   pi := CoKernelProjection(g);
+   if ( Range(f) = Range(g) ) and ( f*pi = ZeroMapping(Source(f),Range(pi)) ) then 
 # 
 #
       K := LeftActingDomain(Source(f));
       B := BasisVectors(Basis(Source(f)));
-      B := List(B, x -> PreImagesElm(g,ImageElm(f,x)));
+      B := List(B, x -> PreImagesRepresentative(g,ImageElm(f,x)));
 #
 #  Computing dimension vectors so that we can insert zero matrices of 
 #  the right size. 
@@ -1950,7 +1921,7 @@ InstallMethod ( LiftingInclusionMorphisms,
             Add(map,mat);
          fi;
       od;
-      return RightModuleHomOverPathAlgebra(Source(f),Source(g),map);
+      return RightModuleHomOverAlgebra(Source(f),Source(g),map);
    else 
       return fail;
    fi;

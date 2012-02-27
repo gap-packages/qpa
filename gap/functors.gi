@@ -1,9 +1,9 @@
 # GAP Implementation
 # This file was generated from 
-# $Id: functors.gi,v 1.5 2011/06/21 21:29:42 sunnyquiver Exp $
-InstallMethod ( DualOfPathAlgebraMatModule,
+# $Id: functors.gi,v 1.6 2012/02/27 12:26:34 sunnyquiver Exp $
+InstallMethod ( DualOfModule,
     "for a representation of a quiver",
-    [ IsPathAlgebraMatModule ], 0,
+    [ IsPathAlgebraModule ], 0,
     function( M )
 #
 #   M     = a representation of the quiver Q over K with rels
@@ -15,11 +15,11 @@ InstallMethod ( DualOfPathAlgebraMatModule,
 A_op  := OppositeAlgebra(RightActingAlgebra(M));
 dim_vect_M := DimensionVector(M); 
 if Sum(dim_vect_M) = 0 then
-   return ZeroRepresentation(A_op);
+   return ZeroModule(A_op);
 else
     KQ_op := OriginalPathAlgebra(A_op);
     num_vert := Length(DimensionVector(M));
-    mat_M    := MatricesOfPathAlgebraMatModule(M); 
+    mat_M    := MatricesOfPathAlgebraModule(M); 
     arrows   := ArrowsOfQuiver(QuiverOfPathAlgebra(KQ_op));
     mat_M_op := List(mat_M, X -> TransposedMat(X));
     vert_in_quiver := VerticesOfQuiver(QuiverOfPathAlgebra(KQ_op));
@@ -38,9 +38,9 @@ else
     if IsPathAlgebra(A_op) then 
        N:= RightModuleOverPathAlgebra(A_op,mats);
     else 
-       N:= RightModuleOverQuotientOfPathAlgebra(A_op,mats);
+       N:= RightModuleOverPathAlgebra(A_op,mats);
     fi;
-    SetDualOfPathAlgebraMatModule(N,M);
+    SetDualOfModule(N,M);
     return N;
 fi;
 end
@@ -48,7 +48,7 @@ end
 
 InstallMethod( TransposeOfModule,
    "for a path algebra",
-   [ IsPathAlgebraMatModule ], 0,
+   [ IsPathAlgebraModule ], 0,
    function( M ) 
 
    local A, B, Q, fam, KQ, gens, K, 
@@ -69,14 +69,14 @@ InstallMethod( TransposeOfModule,
    KQ := OriginalPathAlgebra(A);
    K := LeftActingDomain(A);
 
-   num_vert := OrderOfQuiver(Q);
+   num_vert := NumberOfVertices(Q);
    vertices := VerticesOfQuiver(Q);
    if IsPathAlgebra(A) then 
       verticesinalg := GeneratorsOfAlgebra(A){[1..num_vert]};
-      arrows   := GeneratorsOfAlgebra(A){[1+num_vert..num_vert+SizeOfQuiver(Q)]};  
+      arrows   := GeneratorsOfAlgebra(A){[1+num_vert..num_vert+NumberOfArrows(Q)]};  
    else 
       verticesinalg := GeneratorsOfAlgebra(A){[2..1+num_vert]};
-      arrows   := GeneratorsOfAlgebra(A){[2+num_vert..1+num_vert+SizeOfQuiver(Q)]};
+      arrows   := GeneratorsOfAlgebra(A){[2+num_vert..1+num_vert+NumberOfArrows(Q)]};
    fi;
 #
 # Finding a basis for all the indecomposable projective A-modules as
@@ -95,7 +95,7 @@ InstallMethod( TransposeOfModule,
    od;
 
    B_M := CanonicalBasis(M);
-   G   := MinimalSetOfGenerators(M);
+   G   := MinimalGeneratingSetOfModule(M);
 #
 # Computing the product of all the elements in the 
 # minimal generating set G of M, with the basis of the
@@ -178,7 +178,7 @@ InstallMethod( TransposeOfModule,
 #
 if Length(solutions) = 0 then 
    Print("The entered module is projective.\n");
-   return ZeroRepresentation(OppositeAlgebra(A));
+   return ZeroModule(OppositeAlgebra(A));
 else
    V := VectorSpace(K,solutions);
    W := Subspace(V,radicalspace);
@@ -211,12 +211,12 @@ else
 # Finding the indecomposable projective modules in the projective 
 # cover of M.
 #
-   PP:= IndecomposableProjectiveRepresentations(A); 
+   PP:= IndecProjectiveModules(A); 
    P_list := [];
    for i in [1..Length(projective_cover)] do
       Add(P_list,PP[projective_cover[i]]);
    od;
-   P_0:= DirectSumOfPathAlgebraMatModules(P_list); 
+   P_0:= DirectSumOfModules(P_list); 
 #
 # Finding the indecomposable projective modules in the projective
 # cover of the syzygy of M.
@@ -250,12 +250,12 @@ else
 # 
 # Finding all indecomposable projective modules over the opposite algebra.
 #
-   PPop := IndecomposableProjectiveRepresentations(Aop);
+   PPop := IndecProjectiveModules(Aop);
 #
 # Constructing the projective cover of the transpose of M.
 #
    P_0op_list := List(P1_list,x->PPop[x]);
-   P_0op := DirectSumOfPathAlgebraMatModules(P_0op_list);
+   P_0op := DirectSumOfModules(P_0op_list);
 #
 # Constructing the transpose as the coker of the inclusion of the image
 # of the presentation matrix of the transpose of M.
@@ -264,7 +264,7 @@ else
    inc_list := DirectSumInclusions(P_0op);
    min_gen_list := [];
    for i in [1..Length(P_0op_list)] do
-      Add(min_gen_list,ImageElm(inc_list[i],MinimalSetOfGenerators(P_0op_list[i])[1]));
+      Add(min_gen_list,ImageElm(inc_list[i],MinimalGeneratingSetOfModule(P_0op_list[i])[1]));
    od;
    for i in [1..dim[1]] do
       temp := Zero(P_0op);
@@ -273,8 +273,8 @@ else
       od;
       Add(gens,temp);      
    od;
-   f := SubRepInclusion(P_0op,gens);
-   U := Coker(f);
+   f := SubRepresentationInclusion(P_0op,gens);
+   U := CoKernel(f);
 
    return U;
 fi;
@@ -283,25 +283,25 @@ end
 
 InstallMethod( DTr,
    "for a path algebra module",
-   [ IsPathAlgebraMatModule ], 0,
+   [ IsPathAlgebraModule ], 0,
    function( M );
 
-   return DualOfPathAlgebraMatModule(TransposeOfModule(M));
+   return DualOfModule(TransposeOfModule(M));
 end
 );
 
 InstallMethod( TrD,
    "for a path algebra module",
-   [ IsPathAlgebraMatModule ], 0,
+   [ IsPathAlgebraModule ], 0,
    function( M );
 
-   return TransposeOfModule(DualOfPathAlgebraMatModule(M));
+   return TransposeOfModule(DualOfModule(M));
 end
 );
 
 InstallOtherMethod( DTr,
    "for a path algebra module",
-   [ IsPathAlgebraMatModule, IS_INT ], 0,
+   [ IsPathAlgebraModule, IS_INT ], 0,
    function( M, n )
 
    local U, i;
@@ -327,7 +327,7 @@ end
 
 InstallOtherMethod( TrD,
    "for a path algebra module",
-   [ IsPathAlgebraMatModule, IS_INT ], 0,
+   [ IsPathAlgebraModule, IS_INT ], 0,
    function( M, n )
 
    local U, i;

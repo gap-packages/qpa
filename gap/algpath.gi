@@ -1,6 +1,6 @@
 # GAP Implementation
 # This file was generated from
-# $Id: algpath.gi,v 1.4 2011/06/18 13:51:46 sunnyquiver Exp $
+# $Id: algpath.gi,v 1.5 2012/02/27 12:26:34 sunnyquiver Exp $
 
 
 InstallMethod( IsPathRing,
@@ -198,11 +198,11 @@ InstallGlobalFunction( FactorPathAlgebraByRelators,
     
     # Create a new family
     fam := NewFamily( "FamilyElementsFpPathAlgebra",
-                      IsElementOfFpPathAlgebra );
+                      IsElementOfQuotientOfPathAlgebra );
 
 
     # Create the default type of elements
-    fam!.defaultType := NewType( fam, IsElementOfFpPathAlgebra 
+    fam!.defaultType := NewType( fam, IsElementOfQuotientOfPathAlgebra 
                                       and IsPackedElementDefaultRep );
 
 
@@ -211,7 +211,7 @@ InstallGlobalFunction( FactorPathAlgebraByRelators,
     if HasGroebnerBasisOfIdeal( I ) 
 #       and IsCompleteGroebnerBasis( GroebnerBasisOfIdeal( I ) )
     then
-       fam!.normalizedType := NewType( fam, IsElementOfFpPathAlgebra
+       fam!.normalizedType := NewType( fam, IsElementOfQuotientOfPathAlgebra
                                             and IsNormalForm
                                             and IsPackedElementDefaultRep );
        gb := GroebnerBasisOfIdeal( I );
@@ -236,7 +236,7 @@ InstallGlobalFunction( FactorPathAlgebraByRelators,
     # Path algebras are always algebras with one
     A := Objectify(
         NewType( CollectionsFamily( fam ),
-                IsSubalgebraFpPathAlgebra
+                IsQuotientOfPathAlgebra
             and IsAlgebraWithOne
             and IsWholeFamily
             and IsAttributeStoringRep ),
@@ -245,10 +245,10 @@ InstallGlobalFunction( FactorPathAlgebraByRelators,
     SetLeftActingDomain( A, LeftActingDomain( R ) );
     SetGeneratorsOfAlgebraWithOne( A, 
         List( GeneratorsOfAlgebra( R ), 
-            a -> ElementOfFpPathAlgebra( fam, a, false ) ) );
+            a -> ElementOfQuotientOfPathAlgebra( fam, a, false ) ) );
 
-    SetZero( fam, ElementOfFpPathAlgebra( fam, Zero( R ), true ) );
-    SetOne( fam, ElementOfFpPathAlgebra( fam, One( R ), true ) );
+    SetZero( fam, ElementOfQuotientOfPathAlgebra( fam, Zero( R ), true ) );
+    SetOne( fam, ElementOfQuotientOfPathAlgebra( fam, One( R ), true ) );
     UseFactorRelation( R, relators, A );
 
     SetOrderingOfAlgebra( A, O );
@@ -377,7 +377,7 @@ InstallOtherMethod( LeadingTerm,
 InstallMethod( LeadingTerm,
   "for a quotient of path algebra element",
   true,
-  [IsElementOfFpPathAlgebra and IsPackedElementDefaultRep],
+  [IsElementOfQuotientOfPathAlgebra and IsPackedElementDefaultRep],
   0,
   function(e)
     local lt, fam;
@@ -385,7 +385,7 @@ InstallMethod( LeadingTerm,
     fam := FamilyObj(e);
     lt :=  LeadingTerm(e![1]);
 
-    return ElementOfFpPathAlgebra(fam, lt, IsNormalForm(e));
+    return ElementOfQuotientOfPathAlgebra(fam, lt, IsNormalForm(e));
 
   end
 );
@@ -414,7 +414,7 @@ InstallOtherMethod( LeadingCoefficient,
 InstallOtherMethod( LeadingCoefficient, 
   "for elements of quotients of path algebras",
   true,
-  [IsElementOfFpPathAlgebra and IsPackedElementDefaultRep], 0,
+  [IsElementOfQuotientOfPathAlgebra and IsPackedElementDefaultRep], 0,
   function(e)
 
     return LeadingCoefficient(e![1]);
@@ -449,7 +449,7 @@ InstallOtherMethod( LeadingMonomial,
 InstallOtherMethod( LeadingMonomial, 
   "for elements of quotients of path algebras",
   true,
-  [IsElementOfFpPathAlgebra and IsPackedElementDefaultRep],
+  [IsElementOfQuotientOfPathAlgebra and IsPackedElementDefaultRep],
   0,
   function(e)
       return LeadingMonomial(e![1]);
@@ -480,7 +480,7 @@ InstallMethod( IsLeftUniform,
 InstallMethod( IsLeftUniform,
   "for quotient of path algebra elements",
   true,
-  [ IsElementOfFpPathAlgebra and IsPackedElementDefaultRep],
+  [ IsElementOfQuotientOfPathAlgebra and IsPackedElementDefaultRep],
   0,
   function( e )
     return IsLeftUniform(e![1]);
@@ -543,7 +543,7 @@ InstallMethod( IsRightUniform,
 InstallMethod( IsRightUniform,
   "for quotient of path algebra elements",
   true,
-  [ IsElementOfFpPathAlgebra and IsPackedElementDefaultRep], 0,
+  [ IsElementOfQuotientOfPathAlgebra and IsPackedElementDefaultRep], 0,
   function( e )
     return IsRightUniform(e![1]);
   end
@@ -600,7 +600,7 @@ InstallMethod( IsUniform,
 InstallMethod( IsUniform,
   "for quotient of path algebra elements",
   true,
-  [ IsElementOfFpPathAlgebra and IsPackedElementDefaultRep], 0,
+  [ IsElementOfQuotientOfPathAlgebra and IsPackedElementDefaultRep], 0,
   function( e )
     return IsUniform(e![1]);
   end
@@ -696,7 +696,7 @@ InstallMethod( ImagesRepresentative,
     local A;
 
     A := Source(alghom);
-    if not (IsPathAlgebra(A) or IsSubalgebraFpPathAlgebra(A)) then
+    if not (IsPathAlgebra(A) or IsQuotientOfPathAlgebra(A)) then
         TryNextMethod();
     fi;
 
@@ -709,7 +709,7 @@ InstallMethod( ImagesRepresentative,
 InstallOtherMethod( OrderedBy,
   "for a quotient of a path algebra",
   true,
-  [IsSubalgebraFpPathAlgebra, IsQuiverOrdering], 0,
+  [IsQuotientOfPathAlgebra, IsQuiverOrdering], 0,
   function(A, O)
     local fam;
     fam := ElementsFamily(FamilyObj(A));
@@ -723,14 +723,14 @@ InstallOtherMethod( OrderedBy,
 InstallMethod( \.,
   "for quotients of path algebras",
   true,
-  [IsSubalgebraFpPathAlgebra, IsPosInt], 0,
+  [IsQuotientOfPathAlgebra, IsPosInt], 0,
   function(A, name)
     local parent, family;
 
     family := ElementsFamily(FamilyObj(A));
     parent := family!.pathAlgebra;
 
-    return ElementOfFpPathAlgebra(family, parent.(NameRNam(name)), false );
+    return ElementOfQuotientOfPathAlgebra(family, parent.(NameRNam(name)), false );
 
   end
 );
@@ -739,7 +739,7 @@ InstallMethod( \.,
 InstallMethod( RelatorsOfFpAlgebra,
   "for a quotient of a path algebra",
   true,
-  [IsSubalgebraFpPathAlgebra and IsFullFpPathAlgebra], 0,
+  [IsQuotientOfPathAlgebra and IsFullFpPathAlgebra], 0,
   A -> GeneratorsOfIdeal(ElementsFamily(FamilyObj(A))!.ideal)
 );
 
@@ -747,7 +747,7 @@ InstallMethod( RelatorsOfFpAlgebra,
 InstallMethod( IsFiniteDimensional,
   "for quotients of path algebras",
   true,
-  [IsSubalgebraFpPathAlgebra and IsFullFpPathAlgebra], 0,
+  [IsQuotientOfPathAlgebra and IsFullFpPathAlgebra], 0,
   function( A )
     local gb, fam;
 
@@ -767,7 +767,7 @@ InstallMethod( IsFiniteDimensional,
 InstallMethod( Dimension,
   "for quotients of path algebras",
   true,
-  [IsSubalgebraFpPathAlgebra and IsFullFpPathAlgebra], 0,
+  [IsQuotientOfPathAlgebra and IsFullFpPathAlgebra], 0,
   function( A )
     local gb, fam;
 
@@ -786,7 +786,7 @@ Print(gb,"\n");
 InstallMethod( CanonicalBasis,
   "for quotients of path algebras",
   true,
-  [IsSubalgebraFpPathAlgebra], 0,
+  [IsQuotientOfPathAlgebra], 0,
   function( A )
     local B, fam, zero, nontips, parent, parentFam, parentOne;
 
@@ -812,7 +812,7 @@ InstallMethod( CanonicalBasis,
                                                   [x] ) );
         SetBasisVectors( B,
             List( EnumeratorSorted( nontips ), 
-                  x -> ElementOfFpPathAlgebra( fam, x, true ) ) );
+                  x -> ElementOfQuotientOfPathAlgebra( fam, x, true ) ) );
         B!.zerovector := List( BasisVectors( B ), x -> zero );
     fi;
     SetIsCanonicalBasis( B, true );
@@ -824,7 +824,7 @@ InstallMethod( CanonicalBasis,
 InstallMethod( BasisOfDomain,
   "for quotients of path algebras (CanonicalBasis)",
   true,
-  [IsSubalgebraFpPathAlgebra], 10,
+  [IsQuotientOfPathAlgebra], 10,
   CanonicalBasis
 );
 
@@ -833,7 +833,7 @@ InstallMethod( Coefficients,
   "for canonical bases of quotients of path algebras",
   IsCollsElms,
   [IsCanonicalBasisFreeMagmaRingRep, 
-   IsElementOfFpPathAlgebra and IsNormalForm], 0,
+   IsElementOfQuotientOfPathAlgebra and IsNormalForm], 0,
   function( B, e )
     local coeffs, data, elms, i, fam;
 
@@ -849,20 +849,20 @@ InstallMethod( Coefficients,
 );
 
 
-InstallMethod( ElementOfFpPathAlgebra, 
+InstallMethod( ElementOfQuotientOfPathAlgebra, 
   "for family of quotient path algebra elements and a ring element",
   true,
-  [ IsElementOfFpPathAlgebraFamily, IsRingElement, IsBool ], 0,
+  [ IsElementOfQuotientOfPathAlgebraFamily, IsRingElement, IsBool ], 0,
   function( fam, elm, normal )
       return Objectify( fam!.defaultType, [ Immutable(elm) ]);
   end
 );
 
 
-InstallMethod( ElementOfFpPathAlgebra,
+InstallMethod( ElementOfQuotientOfPathAlgebra,
   "for family of quotient path algebra elements and a ring element (n.f.)",
   true,
-  [ IsElementOfFpPathAlgebraFamily and HasNormalFormFunction,
+  [ IsElementOfQuotientOfPathAlgebraFamily and HasNormalFormFunction,
     IsRingElement, IsBool ], 0,
   function( fam, elm, normal )
     if normal then
@@ -877,7 +877,7 @@ InstallMethod( ElementOfFpPathAlgebra,
 InstallMethod( ExtRepOfObj,
   "for element of a quotient of a path algebra",
   true,
-  [ IsElementOfFpPathAlgebra and IsPackedElementDefaultRep ], 0,
+  [ IsElementOfQuotientOfPathAlgebra and IsPackedElementDefaultRep ], 0,
   elm -> ExtRepOfObj( elm![1] )
 );
 
@@ -885,7 +885,7 @@ InstallMethod( ExtRepOfObj,
 InstallMethod( IsNormalForm,
   "for f.p. algebra elements",
   true,
-  [IsElementOfFpPathAlgebra], 0,
+  [IsElementOfQuotientOfPathAlgebra], 0,
   ReturnFalse
 );
 
@@ -893,8 +893,8 @@ InstallMethod( IsNormalForm,
 InstallMethod( \=,
    "for normal forms of elements of quotients of path algebras",
   IsIdenticalObj,
-  [IsElementOfFpPathAlgebra and IsPackedElementDefaultRep and IsNormalForm,
-   IsElementOfFpPathAlgebra and IsPackedElementDefaultRep and IsNormalForm],
+  [IsElementOfQuotientOfPathAlgebra and IsPackedElementDefaultRep and IsNormalForm,
+   IsElementOfQuotientOfPathAlgebra and IsPackedElementDefaultRep and IsNormalForm],
   0,
   function(e, f)
     return ExtRepOfObj(e![1]) = ExtRepOfObj(f![1]);
@@ -905,8 +905,8 @@ InstallMethod( \=,
 InstallMethod( \<,
   "for elements of quotients of path algebras",
   IsIdenticalObj,
-  [IsElementOfFpPathAlgebra and IsNormalForm and IsPackedElementDefaultRep,
-   IsElementOfFpPathAlgebra and IsNormalForm and IsPackedElementDefaultRep],
+  [IsElementOfQuotientOfPathAlgebra and IsNormalForm and IsPackedElementDefaultRep,
+   IsElementOfQuotientOfPathAlgebra and IsNormalForm and IsPackedElementDefaultRep],
   0,
   function(e, f)
     return e![1] < f![1];
@@ -917,10 +917,10 @@ InstallMethod( \<,
 InstallMethod(\+,
   "quotient path algebra elements",
   IsIdenticalObj,
-  [IsPackedElementDefaultRep and IsElementOfFpPathAlgebra,
-   IsPackedElementDefaultRep and IsElementOfFpPathAlgebra], 0,
+  [IsPackedElementDefaultRep and IsElementOfQuotientOfPathAlgebra,
+   IsPackedElementDefaultRep and IsElementOfQuotientOfPathAlgebra], 0,
   function(e, f)
-    return ElementOfFpPathAlgebra(FamilyObj(e),e![1]+f![1], 
+    return ElementOfQuotientOfPathAlgebra(FamilyObj(e),e![1]+f![1], 
                                   IsNormalForm(e) and IsNormalForm(f));
   end
 );
@@ -929,10 +929,10 @@ InstallMethod(\+,
 InstallMethod(\-,
   "quotient path algebra elements",
   IsIdenticalObj,
-  [IsPackedElementDefaultRep and IsElementOfFpPathAlgebra,
-   IsPackedElementDefaultRep and IsElementOfFpPathAlgebra], 0,
+  [IsPackedElementDefaultRep and IsElementOfQuotientOfPathAlgebra,
+   IsPackedElementDefaultRep and IsElementOfQuotientOfPathAlgebra], 0,
   function(e, f)
-    return ElementOfFpPathAlgebra(FamilyObj(e),e![1]-f![1], 
+    return ElementOfQuotientOfPathAlgebra(FamilyObj(e),e![1]-f![1], 
                                   IsNormalForm(e) and IsNormalForm(f));
   end
 );
@@ -941,10 +941,10 @@ InstallMethod(\-,
 InstallMethod(\*,
   "quotient path algebra elements",
   IsIdenticalObj,
-  [IsPackedElementDefaultRep and IsElementOfFpPathAlgebra,
-   IsPackedElementDefaultRep and IsElementOfFpPathAlgebra], 0,
+  [IsPackedElementDefaultRep and IsElementOfQuotientOfPathAlgebra,
+   IsPackedElementDefaultRep and IsElementOfQuotientOfPathAlgebra], 0,
   function(e, f)
-    return ElementOfFpPathAlgebra(FamilyObj(e),e![1]*f![1], false);
+    return ElementOfQuotientOfPathAlgebra(FamilyObj(e),e![1]*f![1], false);
   end
 );
 
@@ -953,9 +953,9 @@ InstallMethod(\*,
   "ring el * quot path algebra el",
   IsRingsMagmaRings,
   [IsRingElement,
-   IsPackedElementDefaultRep and IsElementOfFpPathAlgebra],0,
+   IsPackedElementDefaultRep and IsElementOfQuotientOfPathAlgebra],0,
   function(e,f)
-    return ElementOfFpPathAlgebra(FamilyObj(f),e*f![1], IsNormalForm(f));
+    return ElementOfQuotientOfPathAlgebra(FamilyObj(f),e*f![1], IsNormalForm(f));
   end
 );
 
@@ -963,10 +963,10 @@ InstallMethod(\*,
 InstallMethod(\*,
   "quot path algebra el*ring el",
   IsMagmaRingsRings,
-    [IsPackedElementDefaultRep and IsElementOfFpPathAlgebra,
+    [IsPackedElementDefaultRep and IsElementOfQuotientOfPathAlgebra,
      IsRingElement],0,
     function(e,f)
-        return ElementOfFpPathAlgebra(FamilyObj(e),e![1]*f, IsNormalForm(e));
+        return ElementOfQuotientOfPathAlgebra(FamilyObj(e),e![1]*f, IsNormalForm(e));
 end);
 
 
@@ -974,9 +974,9 @@ InstallMethod(\*,
   "quiver element and quotient of path algebra element",
   true, # should check to see that p is in correct quiver
   [IsPath, 
-   IsPackedElementDefaultRep and IsElementOfFpPathAlgebra], 0,
+   IsPackedElementDefaultRep and IsElementOfQuotientOfPathAlgebra], 0,
   function( p, e )
-    return ElementOfFpPathAlgebra(FamilyObj(e), p*e![1], false);
+    return ElementOfQuotientOfPathAlgebra(FamilyObj(e), p*e![1], false);
   end
 );
 
@@ -984,10 +984,10 @@ InstallMethod(\*,
 InstallMethod(\*,
   "quotient of path algebra element and quiver element",
   true, # should check to see that p is in correct quiver
-  [IsPackedElementDefaultRep and IsElementOfFpPathAlgebra,
+  [IsPackedElementDefaultRep and IsElementOfQuotientOfPathAlgebra,
    IsPath], 0,
   function( e, p )
-    return ElementOfFpPathAlgebra(FamilyObj(e), e![1] * p, false);
+    return ElementOfQuotientOfPathAlgebra(FamilyObj(e), e![1] * p, false);
   end
 );
 
@@ -995,10 +995,10 @@ InstallMethod(\*,
 InstallMethod(AdditiveInverseOp,
   "quotient path algebra elements",
   true,
-  [IsPackedElementDefaultRep and IsElementOfFpPathAlgebra], 0,
+  [IsPackedElementDefaultRep and IsElementOfQuotientOfPathAlgebra], 0,
   function(e)
     return
-        ElementOfFpPathAlgebra(FamilyObj(e),AdditiveInverse(e![1]),
+        ElementOfQuotientOfPathAlgebra(FamilyObj(e),AdditiveInverse(e![1]),
                                IsNormalForm(e));
   end
 );
@@ -1007,12 +1007,12 @@ InstallMethod(AdditiveInverseOp,
 InstallOtherMethod( OneOp,
   "for quotient path algebra algebra element",
   true,
-  [ IsElementOfFpPathAlgebra and IsPackedElementDefaultRep ], 0,
+  [ IsElementOfQuotientOfPathAlgebra and IsPackedElementDefaultRep ], 0,
   function( e )
   local one;
   one:= One( e![1] );
   if one <> fail then
-    one:= ElementOfFpPathAlgebra( FamilyObj( e ), one, true );
+    one:= ElementOfQuotientOfPathAlgebra( FamilyObj( e ), one, true );
   fi;
 
   return one;
@@ -1024,15 +1024,15 @@ InstallOtherMethod( OneOp,
 InstallMethod( ZeroOp,
   "for a quotient path algebra element",
   true,
-  [ IsElementOfFpPathAlgebra and IsPackedElementDefaultRep ], 0,
-  e -> ElementOfFpPathAlgebra( FamilyObj( e ), Zero( e![1] ), true )
+  [ IsElementOfQuotientOfPathAlgebra and IsPackedElementDefaultRep ], 0,
+  e -> ElementOfQuotientOfPathAlgebra( FamilyObj( e ), Zero( e![1] ), true )
 );
 
 
 InstallOtherMethod( MappedExpression,
   "for f.p. path algebra, and two lists of generators",
   IsElmsCollsX,
-  [ IsElementOfFpPathAlgebra and IsPackedElementDefaultRep,
+  [ IsElementOfQuotientOfPathAlgebra and IsPackedElementDefaultRep,
     IsHomogeneousList, IsHomogeneousList ], 0,
   function( expr, gens1, gens2 )
     return MappedExpression( expr![1], List(gens1, x -> x![1]), gens2 );
@@ -1043,7 +1043,7 @@ InstallOtherMethod( MappedExpression,
 InstallMethod( PrintObj,
   "quotient of path algebra elements",
   true,
-  [ IsElementOfFpPathAlgebra and IsPackedElementDefaultRep ], 0,
+  [ IsElementOfQuotientOfPathAlgebra and IsPackedElementDefaultRep ], 0,
   function( e )
     Print( "[", e![1], "]" );
   end
@@ -1053,14 +1053,14 @@ InstallMethod( PrintObj,
 InstallMethod( ObjByExtRep,
   "for family of f.p. algebra elements with normal form",
   true,
-  [ IsElementOfFpPathAlgebraFamily,
+  [ IsElementOfQuotientOfPathAlgebraFamily,
     IsList ], 0,
   function( Fam, descr )
     local pathAlgFam;
 
     pathAlgFam := ElementsFamily(FamilyObj(Fam!.pathAlgebra));
 
-    return ElementOfFpPathAlgebra(Fam, 
+    return ElementOfQuotientOfPathAlgebra(Fam, 
                   ObjByExtRep( pathAlgFam, descr ), false);
   end
 );
@@ -1069,7 +1069,7 @@ InstallMethod( ObjByExtRep,
 InstallHandlingByNiceBasis( "IsFpPathAlgebraElementsSpace",
   rec(
     detect := function( F, gens, V, zero )
-      return IsElementOfFpPathAlgebraCollection( V );
+      return IsElementOfQuotientOfPathAlgebraCollection( V );
     end,
 
     NiceFreeLeftModuleInfo := function( V )
@@ -1137,7 +1137,7 @@ InstallHandlingByNiceBasis( "IsFpPathAlgebraElementsSpace",
       parentFam := ElementsFamily( FamilyObj( info.family!.pathAlgebra ) );
       elem := ElementOfMagmaRing( parentFam, parentFam!.zeroRing,
                                   r, info.monomials );
-      return ElementOfFpPathAlgebra( info.family, elem, true );
+      return ElementOfQuotientOfPathAlgebra( info.family, elem, true );
     end
   )
 );
@@ -1145,7 +1145,7 @@ InstallHandlingByNiceBasis( "IsFpPathAlgebraElementsSpace",
     
 InstallGlobalFunction( PathAlgebraContainingElement,
         function( elem )
-    if IsElementOfFpPathAlgebra( elem ) then
+    if IsElementOfQuotientOfPathAlgebra( elem ) then
         return FamilyObj( elem )!.wholeAlgebra;
     else
         return FamilyObj( elem )!.pathRing;
@@ -1166,7 +1166,7 @@ end );
 #
 # InstallMethod( PathAlgebraContainingElement,
 #         "for an element of a quotient of a path algebra",
-#         [ IsElementOfFpPathAlgebra ],
+#         [ IsElementOfQuotientOfPathAlgebra ],
 #         function( elem )
 #     return FamilyObj( elem )!.wholeAlgebra;
 # end );
@@ -1178,7 +1178,7 @@ InstallMethod( OriginalPathAlgebra,
    function( quot )
       if IsPathAlgebra( quot ) then
          return quot;
-      elif IsSubalgebraFpPathAlgebra( quot ) then
+      elif IsQuotientOfPathAlgebra( quot ) then
          return ElementsFamily( FamilyObj( quot ) )!.pathAlgebra;
       else 
          Error("the algebra entered was not a quotient of a path algebra.");
@@ -1258,15 +1258,15 @@ InstallMethod( GeneratorsTimesArrowsOnRight,
 end
 );
 
-InstallMethod( nthPowerOfArrowIdeal, 
+InstallMethod( NthPowerOfArrowIdeal, 
    "for a path algebra",
    [ IsPathAlgebra, IS_INT ], 0,
    function( A, n ) 
 
    local num_vert, num_arrows, list, i;
 
-   num_vert   := OrderOfQuiver(QuiverOfPathAlgebra(A));
-   num_arrows := SizeOfQuiver(QuiverOfPathAlgebra(A));
+   num_vert   := NumberOfVertices(QuiverOfPathAlgebra(A));
+   num_arrows := NumberOfArrows(QuiverOfPathAlgebra(A));
    list := GeneratorsOfAlgebra(A){[1+num_vert..num_arrows+num_vert]};
    for i in [1..n-1] do 
       list := GeneratorsTimesArrowsOnRight(list);
@@ -1284,7 +1284,7 @@ InstallMethod( TruncatedPathAlgebra,
    local KQ, rels, I, gb, gbb; 
 
    KQ   := PathAlgebra(K,Q);
-   rels := nthPowerOfArrowIdeal(KQ,n);
+   rels := NthPowerOfArrowIdeal(KQ,n);
    I    := Ideal(KQ,rels);
    gb   := GBNPGroebnerBasis(rels,KQ);
    gbb  := GroebnerBasis(I,gb);
@@ -1298,7 +1298,7 @@ InstallMethod( AddNthPowerToRelations,
    [ IsPathAlgebra, IsHomogeneousList, IS_INT ], 0, 
    function ( pa, rels, n );
    
-   Append(rels,nthPowerOfArrowIdeal(pa,n));   
+   Append(rels,NthPowerOfArrowIdeal(pa,n));   
 
    return rels; 
 

@@ -1,6 +1,6 @@
 # GAP Declarations
 # This file was generated from
-# $Id: quiver.gd,v 1.3 2011/04/28 09:34:42 oysteini Exp $
+# $Id: quiver.gd,v 1.4 2012/02/27 12:26:34 sunnyquiver Exp $
 DeclareInfoClass( "InfoQuiver" );
 
 DeclareCategory("IsPath", IsMultiplicativeElement);
@@ -36,10 +36,10 @@ DeclareAttribute("VerticesOfQuiver", IsQuiver);
 DeclareAttribute("ArrowsOfQuiver", IsQuiver);
 DeclareAttribute("AdjacencyMatrixOfQuiver", IsQuiver);
 DeclareSynonymAttr( "GeneratorsOfQuiver", GeneratorsOfMagma);
-DeclareProperty("IsAcyclic", IsQuiver);
-InstallImmediateMethod(IsFinite, IsQuiver and HasIsAcyclic, 0, IsAcyclic);
-DeclareAttribute("OrderOfQuiver", IsQuiver);
-DeclareAttribute("SizeOfQuiver", IsQuiver);
+DeclareProperty("IsAcyclicQuiver", IsQuiver);
+InstallImmediateMethod(IsFinite, IsQuiver and HasIsAcyclicQuiver, 0, IsAcyclicQuiver);
+DeclareAttribute("NumberOfVertices", IsQuiver);
+DeclareAttribute("NumberOfArrows", IsQuiver);
 DeclareAttribute( "OrderingOfQuiver", IsQuiver);
 
 DeclareGlobalFunction("Quiver");

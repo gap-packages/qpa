@@ -6,9 +6,9 @@ K := Rationals;
 pa := PathAlgebra(K,q);
 M1:=RightModuleOverPathAlgebra(pa,[["a",[[1,0],[2,4],[3,5]]],["b",[[0,1],[0,1],[4,3]]],["c",[[0,1],[0,0]]],["d",[[0,0],[0,0]]],["e",[[2,3,0],[7,5,6]]]]);
 
-DeclareOperation("ProjectivePresentationOfRightModuleOverPathAlgebra",[IsPathAlgebraMatModule, IsQuiver]);
+DeclareOperation("ProjectivePresentationOfRightModuleOverPathAlgebra",[IsPathAlgebraModule, IsQuiver]);
 
-InstallMethod(ProjectivePresentationOfRightModuleOverPathAlgebra, "for projective presentation of a right module over a path algebra", [IsPathAlgebraMatModule, IsQuiver], 0,
+InstallMethod(ProjectivePresentationOfRightModuleOverPathAlgebra, "for projective presentation of a right module over a path algebra", [IsPathAlgebraModule, IsQuiver], 0,
 
 function(M,q)
 

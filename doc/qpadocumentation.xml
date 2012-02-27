@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- $Id: qpadocumentation.xml,v 1.23 2012/02/24 08:49:00 oysteini Exp $ -->
+<!-- $Id: qpadocumentation.xml,v 1.24 2012/02/27 12:30:13 sunnyquiver Exp $ -->
 
 <!DOCTYPE Book SYSTEM "gapdoc.dtd">
 <!-- [ <!ENTITY see '<Alt Only="LaTeX">$\to$</Alt><Alt Not="LaTeX">--&gt;</Alt>'>
  ]> -->
 
 <?LaTeX ExtraPreamble="
-\usepackage{amsmath}
 \newcommand{\tensor}{\otimes}
 \newcommand{\quiverproduct}{\times}
 "?>
@@ -388,7 +387,7 @@ v2
   </ManSection>
 
   <ManSection>
-   <Prop Name="IsAcyclic" Arg="object" Comm="property, whether object
+   <Prop Name="IsAcyclicQuiver" Arg="object" Comm="property, whether object
    is a quiver with no cycles"/>
    <Description>
      is true when <Arg>object</Arg> is a quiver with no cycles.
@@ -399,7 +398,7 @@ v2
    <Prop Name="IsFinite" Arg="object" Comm=""/>
    <Description>
      is true when <Arg>object</Arg> is a finite set. Synonymous with
-     `IsAcyclic'. 
+     `IsAcyclicQuiver'. 
    </Description>
   </ManSection>
 
@@ -410,11 +409,11 @@ gap&gt; IsQuiver("v1");
 false
 gap&gt; IsQuiver(quiver1);
 true
-gap&gt; IsAcyclic(quiver1);
+gap&gt; IsAcyclicQuiver(quiver1);
 true
 gap&gt; quiver2 := Quiver(["u","v"],[["u","v"],["v","u"]]);
 &lt;quiver with 2 vertices and 2 arrows&gt;
-gap&gt; IsAcyclic(quiver2);
+gap&gt; IsAcyclicQuiver(quiver2);
 false
 gap&gt; IsFinite(quiver1);
 true
@@ -477,14 +476,14 @@ false
   </ManSection>
 
   <ManSection>
-   <Attr Name="OrderOfQuiver" Arg="object" Comm=""/>
+   <Attr Name="NumberOfVertices" Arg="object" Comm=""/>
    <Description>
     An attribute. Returns the number of vertices in <Arg>object</Arg>.
    </Description>
   </ManSection>
 
   <ManSection>
-   <Attr Name="SizeOfQuiver" Arg="object" Comm=""/>
+   <Attr Name="NumberOfArrows" Arg="object" Comm=""/>
    <Description>
     An attribute. Returns the number of arrows in <Arg>object</Arg>.
    </Description>
@@ -525,9 +524,9 @@ gap&gt; AdjacencyMatrixOfQuiver(q1);
 [ [ 1, 1 ], [ 1, 1 ] ]
 gap&gt; GeneratorsOfQuiver(q1);
 [ u, v, a, b, c, d ]
-gap&gt; OrderOfQuiver(q1);
+gap&gt; NumberOfVertices(q1);
 2
-gap&gt; SizeOfQuiver(q1);
+gap&gt; NumberOfArrows(q1);
 4
 gap&gt; OrderingOfQuiver(q1);
 &lt;length left lexicographic ordering&gt;
@@ -1028,9 +1027,9 @@ gap&gt; quot := fq/I;
   </ManSection>
 
   <ManSection>
-   <Oper Name="nthPowerOfArrowIdeal" Arg="KQ, n" Comm=""/>
+   <Oper Name="NthPowerOfArrowIdeal" Arg="KQ, n" Comm=""/>
    <Description>
-    The operation <Ref Oper="nthPowerOfArrowIdeal"/> defines the ideal
+    The operation <Ref Oper="NthPowerOfArrowIdeal"/> defines the ideal
     generated all the paths of length <Arg>n</Arg> in the path
     algebra <Arg>KQ</Arg>. 
    </Description>
@@ -1077,7 +1076,7 @@ true
 <Section><Heading>Categories and Properties of Quotients of Path Algebras</Heading>
 
   <ManSection>
-   <Prop Name="IsSubalgebraFpPathAlgebra" Arg="object" Comm="checks if
+   <Prop Name="IsQuotientOfPathAlgebra" Arg="object" Comm="checks if
    object is a quotient of a path algebra"/>
    <Description>
      is true when <Arg>object</Arg> is a quotient of a path algebra.
@@ -1085,9 +1084,9 @@ true
   </ManSection>
 
 <Example>
-gap&gt; IsSubalgebraFpPathAlgebra(quot);
+gap&gt; IsQuotientOfPathAlgebra(quot);
 true
-gap&gt; IsSubalgebraFpPathAlgebra(fq);
+gap&gt; IsQuotientOfPathAlgebra(fq);
 false
 </Example>
 </Section>
@@ -1104,7 +1103,7 @@ false
   </ManSection>
 
   <ManSection>
-   <Prop Name="IsElementOfFpPathAlgebra" Arg="object" Comm=""/>
+   <Prop Name="IsElementOfQuotientOfPathAlgebra" Arg="object" Comm=""/>
    <Description>
      is true if <Arg>object</Arg> is an element of some quotient of a
      path algebra.
@@ -1114,9 +1113,9 @@ false
 <Example>
 gap&gt; this := anotherquot.a*anotherquot.b;
 [(Z(23)^0)*a*b]
-gap&gt; IsElementOfFpPathAlgebra(this);
+gap&gt; IsElementOfQuotientOfPathAlgebra(this);
 true
-gap&gt; IsElementOfFpPathAlgebra(fq);
+gap&gt; IsElementOfQuotientOfPathAlgebra(fq);
 false
 </Example>
 
@@ -1132,7 +1131,7 @@ false
 
 
 <ManSection>
-   <Oper Name="IsSelfinjective" Arg="A" Comm=""/>
+   <Oper Name="IsSelfinjectiveAlgebra" Arg="A" Comm=""/>
    <Description>
      This function takes a path algebra or a quotient of a path
      algebra as an argument <Arg>A</Arg>, and returns fail
@@ -1221,10 +1220,10 @@ false
   </ManSection>
 
   <ManSection>
-   <Oper Name="ElementOfFpPathAlgebra" Arg="family, element,
+   <Oper Name="ElementOfQuotientOfPathAlgebra" Arg="family, element,
    computenormal" Comm=""/>
    <Description>
-    The operation <Ref Oper="ElementOfFpPathAlgebra"/> operates on
+    The operation <Ref Oper="ElementOfQuotientOfPathAlgebra"/> operates on
     an <Arg>element</Arg> in a path algebra, and it projects it into
     the quotient given by <Arg>family</Arg>.
     If <Arg>computenormal</Arg> is true, then the normal form of the
@@ -1539,7 +1538,7 @@ gap&gt;
 </Example>
 
   <ManSection>
-   <Prop Name="IsHomogenousGroebnerBasis" Arg="object" Comm=""/>
+   <Prop Name="IsHomogeneousGroebnerBasis" Arg="object" Comm=""/>
    <Description>
      is true when <Arg>object</Arg> is a Groebnerbasis which is homogenous.
    </Description>
@@ -1817,12 +1816,12 @@ dimensions all agree.  We can create a module in this way as follows.<P/>
   <ManSection>
    <Oper Name="RightModuleOverPathAlgebra" Arg="A, mats" 
 	 Comm=""/>
-   <Oper Name="RightModuleOverQuotientOfPathAlgebra" Arg="A, mats" 
+   <Oper Name="RightModuleOverPathAlgebra" Arg="A, dim_vector, gens" 
 	 Comm=""/>
-   <Returns>a module over a path algebra in the first variant, 
-     a module over a qoutient of a path algebra in the second variant.</Returns>
+   <Returns>a module over a path algebra or over a qoutient of a path
+   algebra in the second variant.</Returns> 
    <Description>
-      In the function call, <Arg>A</Arg> is a (quotient of a ) path
+      In the first function call, <Arg>A</Arg> is a (quotient of a ) path
       algebra.  The list of matrices <Arg>mats</Arg> can take on three
       different forms.<P/>
 
@@ -1860,6 +1859,26 @@ dimensions all agree.  We can create a module in this way as follows.<P/>
       returned. The function verifies that the dimensions of the
       matrices and vector spaces are correct and match, and that each
       arrow has only one matrix assigned to it.<P/>
+
+      In the second function call, the first argument <Arg>A</Arg> is
+      a (quotient of a ) path algebra, the second
+      argument <Arg>dim_vector</Arg> is the dimension vector of the
+      module, and the last argument <Arg>gens</Arg> (maybe an empty
+      list []) is a list of elements of the form ["label",matrix].
+      This function constructs a right module over a (quotient of a)
+      path algebra <Arg>A</Arg> with dimension
+      vector <Arg>dim_vector</Arg>, and where the generators/arrows
+      with a non-zero action is given in the list
+      <Arg>gens</Arg>. The format of the list <Arg>gens</Arg> is
+      [["a",[matrix_a]],["b",[matrix_b]],...], where "a" and "b" are
+      labels of arrows used when the underlying quiver was created and
+      matrix_? is the action of the algebra element corresponding to
+      the arrow with label "?". The action of the arrows can be
+      entered in any order. The function checks if the
+      algebra <Arg>A</Arg> is a (quotient of a) path algebra and if
+      the matrices of the action of the arrows have the correct size
+      according to the dimension vector entered and also whether or
+      not the relations of the algebra are satisfied.  
    </Description>
   </ManSection>
 
@@ -1903,43 +1922,14 @@ gap&gt; Basis(M);
 Basis( &lt;
 0-dimensional right-module over &lt;algebra-with-one over Rationals, with 
 5 generators&gt;&gt;, [  ] )
-]]>
-</Example>
-
-<ManSection>
-   <Oper Name="NewRightModuleOverPathAlgebra" Arg="A, dim_vector, gens" 
-	 Comm=""/>
-   <Description>
-      The first argument <Arg>A</Arg> is a (quotient of a ) path
-      algebra, the second argument <Arg>dim_vector</Arg> is the
-      dimension vector of the module, and the last
-      argument <Arg>gens</Arg> (maybe an empty list []) is a list of
-      elements of the form ["label",matrix].  This function constructs
-      a right module over a (quotient of a) path algebra <Arg>A</Arg>
-      with dimension vector <Arg>dim_vector</Arg>, and where the
-      generators/arrows with a non-zero action is given in the list
-      <Arg>gens</Arg>. The format of the list <Arg>gens</Arg> is
-      [["a",[matrix_a]],["b",[matrix_b]],...], where "a" and "b" are
-      labels of arrows used when the underlying quiver was created and
-      matrix_? is the action of the algebra element corresponding to
-      the arrow with label "?". The action of the arrows can be
-      entered in any order. The function checks if the
-      algebra <Arg>A</Arg> is a (quotient of a) path algebra and if
-      the matrices of the action of the arrows have the correct size
-      according to the dimension vector entered and also whether or
-      not the relations of the algebra are satisfied.  
-   </Description>
-  </ManSection>
-
-<Example><![CDATA[
 gap> # Using the above example.  
 gap> matrices := [["a", [[1,0,0],[0,1,0]]], ["b",
 [[0,1],[1,0],[0,1]]], ["c", [[0,0],[1,0]]]];
 [ [ "a", [ [ 1, 0, 0 ], [ 0, 1, 0 ] ] ], 
   [ "b", [ [ 0, 1 ], [ 1, 0 ], [ 0, 1 ] ] ], [ "c", [ [ 0, 0 ], [ 1, 0 ] ] ] ]
-gap> M:=NewRightModuleOverPathAlgebra(P,[2,3],matrices);
+gap> M := RightModuleOverPathAlgebra(P,[2,3],matrices);
 <right-module over <algebra-with-one over Rationals, with 5 generators>>
-gap> M:=NewRightModuleOverPathAlgebra(P,[2,3],[]);      
+gap> M := RightModuleOverPathAlgebra(P,[2,3],[]);      
 <right-module over <algebra-with-one over Rationals, with 5 generators>>
 ]]>
 </Example>
@@ -1949,10 +1939,10 @@ gap> M:=NewRightModuleOverPathAlgebra(P,[2,3],[]);
 <Section><Heading>Categories Of Matrix Modules</Heading>
 
   <ManSection>
-   <Filt Name="IsPathAlgebraMatModule" Arg="object" Comm=""/>
+   <Filt Name="IsPathAlgebraModule" Arg="object" Comm=""/>
    <Description>
      These matrix modules fall under the category `IsAlgebraModule' with
-the added filter of `IsPathAlgebraMatModule'.  Operations available
+the added filter of `IsPathAlgebraModule'.  Operations available
 for algebra modules can be applied to path algebra modules.  See
 "ref:representations of algebras" for more details.
 
@@ -2033,7 +2023,7 @@ gap> A:= KQ/I;
 <algebra-with-one over Rationals, with 8 generators>
 gap> mat:=[["a",[[1,2],[0,3],[1,5]]],["b",[[2,0],[3,0],[5,0]]],
 ["c",[[0,0],[1,0]]],["d",[[1,2],[0,1]]],["e",[[0,0,0],[0,0,0]]]];;
-gap> N:= RightModuleOverQuotientOfPathAlgebra(A,mat);                         
+gap> N:= RightModuleOverPathAlgebra(A,mat);                         
 <right-module over <algebra-with-one over Rationals, with 8 generators>>
 ]]></Example>
 
@@ -2063,7 +2053,7 @@ gap> N:= RightModuleOverQuotientOfPathAlgebra(A,mat);
 </ManSection>
 
 <ManSection>
-   <Oper Name="DimensionMatModule" Arg="M" Comm="for a
+   <Oper Name="Dimension" Arg="M" Comm="for a
    PathAlgebraMatModule"/>
    <Returns>the dimension of the representation <Arg>M</Arg>.
      The argument <Arg>M</Arg> must be a <C>PathAlgebraMatModule</C>.
@@ -2071,7 +2061,7 @@ gap> N:= RightModuleOverQuotientOfPathAlgebra(A,mat);
 </ManSection>
 
 <ManSection>
-   <Oper Name="DirectSummandTest" Arg="M, N" Comm="for two
+   <Oper Name="IsDirectSummand" Arg="M, N" Comm="for two
    PathAlgebraMatModule's"/>
    <Returns>true if <Arg>M</Arg> is isomorphic to a direct summand
      of <Arg>N</Arg>, otherwise false.</Returns>
@@ -2082,23 +2072,23 @@ gap> N:= RightModuleOverQuotientOfPathAlgebra(A,mat);
 </ManSection>
 
 <ManSection>
-   <Oper Name="DirectSumOfPathAlgebraMatModules" Arg="L" Comm="for a
+   <Oper Name="DirectSumOfModules" Arg="L" Comm="for a
    list of PathAlgebraMatModule's"/>
    <Returns>the direct sum of the representations contained in the
      list <Arg>L</Arg>.</Returns>
    <Description>The argument <Arg>L</Arg> must be a list
      of <C>PathAlgebraMatModule</C>'s over the same (quotient of a)
      path algebra. In addition three attributes are attached to the
-     result, <C>IsDirectSum, DirectSumProjections</C>
+     result, <C>IsDirectSumOfModules, DirectSumProjections</C>
      and <C>DirectSumInclusions</C>.  
    </Description>
 </ManSection>
 
 <ManSection>
-   <Attr Name="IsDirectSum" Arg="M" Comm="for a PathAlgebraMatModule"/>
+   <Attr Name="IsDirectSumOfModules" Arg="M" Comm="for a PathAlgebraMatModule"/>
    <Description>
     An attribute, returns true is <Arg>M</Arg> is constructed via the
-    command <C>DirectSumOfPathAlgebraMatModules</C>.
+    command <C>DirectSumOfModules</C>.
    </Description>
 </ManSection>
 
@@ -2107,7 +2097,7 @@ gap> N:= RightModuleOverQuotientOfPathAlgebra(A,mat);
    <Description>
     An attribute, returns the list of inclusions from the individual
     modules to their direct sum, when a direct sum has been
-    constructed using <C>DirectSumOfPathAlgebraMatModules</C>.
+    constructed using <C>DirectSumOfModules</C>.
    </Description>
 </ManSection>
 
@@ -2117,13 +2107,13 @@ gap> N:= RightModuleOverQuotientOfPathAlgebra(A,mat);
     An attribute, returns the list of projections from the direct sum
     to the individual modules used to construct direct sum, when a
     direct sum has been constructed
-    using <C>DirectSumOfPathAlgebraMatModules</C>.
+    using <C>DirectSumOfModules</C>.
    </Description>
 </ManSection>
 
 Using the example above.
 <Example><![CDATA[
-gap> N2:=DirectSumOfPathAlgebraMatModules([N,N]);
+gap> N2:=DirectSumOfModules([N,N]);
 <14-dimensional right-module over <algebra-with-one of dimension 
 17 over Rationals>>
 gap> proj:=DirectSumProjections(N2);
@@ -2164,7 +2154,7 @@ gap> inc:=DirectSumInclusions(N2);
 </ManSection>
 
 <ManSection>
-   <Oper Name="InAdditiveClosureTest" Arg="M, N" Comm="for two
+   <Oper Name="IsInAdditiveClosure" Arg="M, N" Comm="for two
    PathAlgebraMatModule's"/>
    <Returns>true if <Arg>M</Arg> is in the additive closure of the module
      <Arg>N</Arg>, otherwise false.</Returns>
@@ -2190,17 +2180,6 @@ gap> inc:=DirectSumInclusions(N2);
    PathAlgebraMatModule"/>
    <Returns>true if the representation <Arg>M</Arg> is injective.
      The argument <Arg>M</Arg> must be a <C>PathAlgebraMatModule</C>.
-   </Returns>
-</ManSection>
-
-<ManSection>
-   <Oper Name="IsOmegaPeriodicTest" Arg="M, n" Comm="for a
-   PathAlgebraMatModule"/>
-   <Returns><C>i</C>, where <C>i</C> less or equal to <C>n</C> and the
-     representation <Arg>M</Arg> is isomorphic to the <C>i</C>-th
-     syzygy of <Arg>M</Arg>, or else false.  The argument <Arg>M</Arg>
-     must be a <C>PathAlgebraMatModule</C> and <C>n</C> is a positive
-     integer.
    </Returns>
 </ManSection>
 
@@ -2253,7 +2232,7 @@ gap> inc:=DirectSumInclusions(N2);
 </ManSection>
 
 <ManSection>
-   <Oper Name="ModuleIsomorphismTest" Arg="M, N" Comm=""/>
+   <Oper Name="IsomorphicModules" Arg="M, N" Comm=""/>
    <Returns>true or false depending on whether <Arg>M</Arg>
    and <Arg>N</Arg> are isomorphic or not.</Returns> 
    <Description>
@@ -2265,7 +2244,7 @@ gap> inc:=DirectSumInclusions(N2);
 </ManSection>
 
 <ManSection>
-   <Oper Name="nth_Syzygy" Arg="M, n" Comm="for a
+   <Oper Name="NthSyzygy" Arg="M, n" Comm="for a
    PathAlgebraMatModule"/>
    <Returns>the top of the syzygies until a syzygy is projective or
      the <Arg>n</Arg>-th syzygy has been computed. The
@@ -2275,7 +2254,7 @@ gap> inc:=DirectSumInclusions(N2);
 </ManSection>
 
 <ManSection>
-   <Oper Name="nth_SyzygyNC" Arg="M, n" Comm="for a
+   <Oper Name="NthSyzygyNC" Arg="M, n" Comm="for a
    PathAlgebraMatModule"/>
    <Returns>the <C>n</C>-th syzygy of the module <Arg>M</Arg>, unless
    the projective dimension of <Arg>M</Arg> is less or equal
@@ -2288,12 +2267,12 @@ gap> inc:=DirectSumInclusions(N2);
 </ManSection>
 
 <ManSection>
-   <Oper Name="RadicalOfRep" Arg="M" Comm=""/>
+   <Oper Name="RadicalOfModule" Arg="M" Comm=""/>
    <Returns>the radical of the module <Arg>M</Arg>.</Returns>
    <Description>
     This returns only the representation given by the radical of the
     module <Arg>M</Arg>. The operation
-    <Ref Oper="RadicalOfRepInclusion"/> computes the inclusion of the
+    <Ref Oper="RadicalOfModuleInclusion"/> computes the inclusion of the
     radical of <Arg>M</Arg> into <Arg>M</Arg>.
    </Description>
 </ManSection>
@@ -2323,18 +2302,18 @@ gap> inc:=DirectSumInclusions(N2);
 </ManSection>
 
 <ManSection>
-   <Oper Name="SocleOfPathAlgebraMatModule" Arg="M" Comm=""/>
+   <Oper Name="SocleOfModule" Arg="M" Comm=""/>
    <Returns>the socle of the module <Arg>M</Arg>.</Returns>
    <Description>
     This operation only return the representation given by the socle
     of the module <Arg>M</Arg>.  The inclusion the socle
     of <Arg>M</Arg> into <Arg>M</Arg> can be computed using
-    <Ref Oper="SocleOfPathAlgebraMatModuleInclusion"/>.
+    <Ref Oper="SocleOfModuleInclusion"/>.
    </Description>
 </ManSection>
 
 <ManSection>
-   <Oper Name="SubRep" Arg="M, gens" Comm=""/>
+   <Oper Name="SubRepresentation" Arg="M, gens" Comm=""/>
    <Returns>the submodule of the module <Arg>M</Arg> generated by the
    elements <Arg>gens</Arg>.</Returns>
    <Description>
@@ -2342,7 +2321,7 @@ gap> inc:=DirectSumInclusions(N2);
     in <Arg>M</Arg>, and returns an error message otherwise. The
     inclusion of the submodule generated by the
     elements <Arg>gens</Arg> into <Arg>M</Arg> can be computed using
-    <Ref Oper="SubRepInclusion"/>.   
+    <Ref Oper="SubRepresentationInclusion"/>.   
    </Description>
 </ManSection>
 
@@ -2359,30 +2338,24 @@ gap> inc:=DirectSumInclusions(N2);
 
 
 <ManSection>
-   <Oper Name="TopOfRep" Arg="M" Comm=""/>
+   <Oper Name="TopOfModule" Arg="M" Comm=""/>
    <Returns>the top of the module <Arg>M</Arg>.</Returns>
    <Description>
     This returns only the representation given by the top of the
     module <Arg>M</Arg>. The operation
-    <Ref Oper="TopOfRepProjection"/> computes the projection of the
+    <Ref Oper="TopOfModuleProjection"/> computes the projection of the
     module <Arg>M</Arg> onto the top of the module <Arg>M</Arg>. 
    </Description>
 </ManSection>
 
 <ManSection>
-   <Oper Name="GeneratorsOfRep" Arg="M" Comm=""/>
-   <Returns>a minimal generator set of the module <Arg>M</Arg> as a
-   module of the path algebra it is defined over.</Returns>
-</ManSection>
-
-<ManSection>
-   <Attr Name="MinimalSetOfGenerators" Arg="M" Comm=""/>
+   <Attr Name="MinimalGeneratingSetOfModule" Arg="M" Comm=""/>
    <Returns>a minimal generator set of the module <Arg>M</Arg> as a
    module of the path algebra it is defined over. </Returns>
 </ManSection>
 
 <ManSection>
-   <Oper Name="MatricesOfPathAlgebraMatModule" Arg="M" Comm="for a
+   <Oper Name="MatricesOfPathAlgebraModule" Arg="M" Comm="for a
    PathAlgebraMatModule"/>
    <Returns>a list of the matrices that defines the
      representation <Arg>M</Arg> as a right module of the acting path
@@ -2419,7 +2392,7 @@ Here we collect the predefined representations/modules over a finite
   </ManSection>
 
   <ManSection>
-   <Oper Name="IndecomposableProjectiveRepresentations" Arg="A [, list]" Comm=""/>
+   <Oper Name="IndecProjectiveModules" Arg="A [, list]" Comm=""/>
    <Returns>a list of all the indecomposable projective
    representations over a finite dimensional (quotient of a) path
    algebra <Arg>A</Arg>, when only one argument is supplied. The
@@ -2435,7 +2408,7 @@ Here we collect the predefined representations/modules over a finite
   </ManSection>
 
   <ManSection>
-   <Oper Name="IndecomposableInjectiveRepresentations" Arg="A [, list]" Comm=""/>
+   <Oper Name="IndecInjectiveModules" Arg="A [, list]" Comm=""/>
    <Returns>a list of all the indecomposable injective
    representations over a finite dimensional (quotient of a) path
    algebra <Arg>A</Arg>, when only one argument is supplied. The
@@ -2451,7 +2424,7 @@ Here we collect the predefined representations/modules over a finite
   </ManSection>
 
   <ManSection>
-   <Oper Name="VertexSimpleRepresentations" Arg="A" Comm=""/>
+   <Oper Name="SimpleModules" Arg="A" Comm=""/>
    <Returns>a list of all the simple representations over a finite
    dimensional (quotient of a) path algebra <Arg>A</Arg> .
    </Returns>
@@ -2463,7 +2436,7 @@ Here we collect the predefined representations/modules over a finite
   </ManSection>
 
   <ManSection>
-   <Oper Name="ZeroRepresentation" Arg="A" Comm=""/>
+   <Oper Name="ZeroModule" Arg="A" Comm=""/>
    <Returns>the zero representation over a finite dimensional
    (quotient of a) path algebra <Arg>A</Arg> .
    </Returns>
@@ -2479,7 +2452,7 @@ Here we collect the predefined representations/modules over a finite
 <Section><Heading>Functors on representations</Heading>
 
 <ManSection>
-   <Oper Name="DualOfPathAlgebraMatModule" Arg="M" Comm="for a PathAlgebraMatModule"/>
+   <Oper Name="DualOfModule" Arg="M" Comm="for a PathAlgebraMatModule"/>
    <Description>
      Takes the a representation <Arg>M</Arg> of a path
      algebra <Math>KQ</Math> and produces the dual of this
@@ -2488,7 +2461,7 @@ Here we collect the predefined representations/modules over a finite
 </ManSection>
 
 <ManSection>
-   <Oper Name="DualOfPathAlgebraMatModuleMap" Arg="f" Comm="for a PathAlgebraMatModuleMap"/>
+   <Oper Name="DualOfModuleHomomorphism" Arg="f" Comm="for a PathAlgebraMatModuleMap"/>
    <Description>
      Takes the a map <Arg>f</Arg> between two
      representations <Arg>M</Arg> and <Arg>N</Arg> over a path
@@ -2715,25 +2688,25 @@ gap> gbb:= GroebnerBasis(I,gb);;
 gap> A:= KQ/I;;
 gap> mat:=[["a",[[1,2],[0,3],[1,5]]],["b",[[2,0],[3,0],[5,0]]],["c",[[0,0],[1,0]]],
 ["d",[[1,2],[0,1]]],["e",[[0,0,0],[0,0,0]]]];;
-gap> N:= RightModuleOverQuotientOfPathAlgebra(A,mat);;
+gap> N:= RightModuleOverPathAlgebra(A,mat);;
 ]]></Example>
 
 
 <Section><Heading>Categories and representation of homomorphisms</Heading>
 
 <ManSection>
-   <Filt Name="IsPathAlgebraMatModuleMap" Arg="object" Comm="category"/>
+   <Filt Name="IsPathAlgebraModuleHomomorphism" Arg="object" Comm="category"/>
    <Description>
      The homomorphisms between modules over a path algebra belongs to
      the categories <Code>IsAdditiveElementWithZero</Code>, 
      <Code>IsGeneralMapping</Code>, <Code>RespectsScalarMultiplication</Code>, 
      <Code>IsTotal</Code> and <Code>IsSingleValued</Code> with the
-     added filter of <Ref Filt="IsPathAlgebraMatModuleMap"/> 
+     added filter of <Ref Filt="IsPathAlgebraModuleHomomorphism"/> 
    </Description>
 </ManSection> 
 
 <ManSection>
-   <Oper Name="RightModuleHomOverPathAlgebra" Arg="M, N, mats" Comm=""/>
+   <Oper Name="RightModuleHomOverAlgebra" Arg="M, N, mats" Comm=""/>
    <Returns>a homomorphism from the module <Arg>M</Arg> to the
    module <Arg>N</Arg> given by the matrices <Arg>mats</Arg>.</Returns>
    <Description>
@@ -2754,17 +2727,17 @@ gap> N:= RightModuleOverQuotientOfPathAlgebra(A,mat);;
 </ManSection>
 
 <Example><![CDATA[
-gap> L := RightModuleOverQuotientOfPathAlgebra(A,[["a",[0,1]],["b",[0,1]],
+gap> L := RightModuleOverPathAlgebra(A,[["a",[0,1]],["b",[0,1]],
 ["c",[[0]]],["d",[[1]]],["e",[1,0]]]);
 <right-module over <algebra-with-one over Rationals, with 8 generators>>
 gap> DimensionVector(L);
 [ 0, 1, 1 ]
-gap> f := RightModuleHomOverPathAlgebra(L,N,[[[0,0,0]], [[1,0]], [[1,2]]]);
+gap> f := RightModuleHomOverAlgebra(L,N,[[[0,0,0]], [[1,0]], [[1,2]]]);
 <mapping: <2-dimensional right-module over AlgebraWithOne( Rationals,
 [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d],
 [(1)*e] ] )> -> <7-dimensional right-module over AlgebraWithOne(Rationals, 
 [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] ] )> >
-gap> IsPathAlgebraMatModuleMap(f);
+gap> IsPathAlgebraModuleHomomorphism(f);
 true
 ]]></Example>
 
@@ -2794,10 +2767,9 @@ true
 ]]></Example>
 
 <ManSection>
-   <Oper Name="PreImagesElm" Arg="f, elem" Comm=""/>
+   <Oper Name="PreImagesRepresentative" Arg="f, elem" Comm=""/>
    <Returns>a preimage of an element <Arg>elem</Arg> in the range (or
-   codomain) the homomorphism <Arg>f</Arg>. The name of this function
-   should be changed to PreImagesRepresentative.</Returns>
+   codomain) the homomorphism <Arg>f</Arg>.</Returns>
    <Description>
      The functions checks if <Arg>elem</Arg> is an element in the
      range of <Arg>f</Arg>, and it returns a preimage
@@ -2837,9 +2809,9 @@ B:=BasisVectors(Basis(N));
   [ [ 0, 0, 1 ], [ 0, 0 ], [ 0, 0 ] ], [ [ 0, 0, 0 ], [ 1, 0 ], [ 0, 0 ] ], 
   [ [ 0, 0, 0 ], [ 0, 1 ], [ 0, 0 ] ], [ [ 0, 0, 0 ], [ 0, 0 ], [ 1, 0 ] ], 
   [ [ 0, 0, 0 ], [ 0, 0 ], [ 0, 1 ] ] ]
-gap> PreImagesElm(f,B[4]);     
+gap> PreImagesRepresentative(f,B[4]);     
 [ [ 0 ], [ 1 ], [ 0 ] ]
-gap> PreImagesElm(f,B[5]);
+gap> PreImagesRepresentative(f,B[5]);
 fail
 gap> BL:=BasisVectors(Basis(L));
 [ [ [ 0 ], [ 1 ], [ 0 ] ], [ [ 0 ], [ 0 ], [ 1 ] ] ]
@@ -2858,12 +2830,12 @@ gap> ImagesSet(f,BL);
 </ManSection>
 
 <ManSection>
-   <Oper Name="ZeroMap" Arg="M, N" Comm=""/>
+   <Oper Name="ZeroMapping" Arg="M, N" Comm=""/>
    <Returns>the zero map between <Arg>M</Arg> and <Arg>N</Arg>.</Returns>
 </ManSection>
 
 <ManSection>
-   <Oper Name="IdentityMap" Arg="M" Comm=""/>
+   <Oper Name="IdentityMapping" Arg="M" Comm=""/>
    <Returns>the identity map between <Arg>M</Arg> and <Arg>M</Arg>.</Returns>
 </ManSection>
 
@@ -2908,7 +2880,7 @@ gap> f = z;
 false
 gap> Range(f) = Range(z);
 true
-gap> y := ZeroMap(L,N); 
+gap> y := ZeroMapping(L,N); 
 <mapping: <2-dimensional right-module over AlgebraWithOne( Rationals, 
 [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
  ] )> -> <7-dimensional right-module over AlgebraWithOne( Rationals, 
@@ -2916,7 +2888,7 @@ gap> y := ZeroMap(L,N);
  ] )> >
 gap> y = z;            
 true
-gap> id := IdentityMap(N);  
+gap> id := IdentityMapping(N);  
 <mapping: <7-dimensional right-module over AlgebraWithOne( Rationals, 
 [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
  ] )> -> <7-dimensional right-module over AlgebraWithOne( Rationals, 
@@ -2963,7 +2935,7 @@ gap> 2*f + z;
 </ManSection>
 
 <ManSection>
-   <Attr Name="IsOneToOne" Arg="f" Comm=""/>
+   <Attr Name="IsInjective" Arg="f" Comm=""/>
    <Description>
      This returns <Code>true</Code> if the homomorphism <Arg>f</Arg>
      is one-to-one.
@@ -2971,7 +2943,7 @@ gap> 2*f + z;
 </ManSection>
 
 <ManSection>
-   <Attr Name="IsOnto" Arg="f" Comm=""/>
+   <Attr Name="IsSurjective" Arg="f" Comm=""/>
    <Description>
      This returns <Code>true</Code> if the homomorphism <Arg>f</Arg>
      is onto.
@@ -2979,7 +2951,7 @@ gap> 2*f + z;
 </ManSection>
 
 <ManSection>
-   <Attr Name="IsIsom" Arg="f" Comm=""/>
+   <Attr Name="IsIsomorphism" Arg="f" Comm=""/>
    <Description>
      This returns <Code>true</Code> if the homomorphism <Arg>f</Arg>
      is an isomorphism.
@@ -2987,7 +2959,7 @@ gap> 2*f + z;
 </ManSection>
 
 <ManSection>
-   <Attr Name="IsSplitEpi" Arg="f" Comm=""/>
+   <Attr Name="IsSplitEpimorphism" Arg="f" Comm=""/>
    <Description>
      This returns <Code>false</Code> if the homomorphism <Arg>f</Arg>
      is not a splittable epimorphism, otherwise it returns a
@@ -2996,7 +2968,7 @@ gap> 2*f + z;
 </ManSection>
 
 <ManSection>
-   <Attr Name="IsSplitMono" Arg="f" Comm=""/>
+   <Attr Name="IsSplitMonomorphism" Arg="f" Comm=""/>
    <Description>
      This returns <Code>false</Code> if the homomorphism <Arg>f</Arg>
      is not a splittable monomorphism, otherwise it returns a
@@ -3005,17 +2977,17 @@ gap> 2*f + z;
 </ManSection>
 
 <Example><![CDATA[
-gap> S := VertexSimpleRepresentations(A)[1];;
-gap> H := HomOverPathAlgebra(N,S);; 
-gap> IsSplitMono(H[1]);  
+gap> S := SimpleModules(A)[1];;
+gap> H := HomOverAlgebra(N,S);; 
+gap> IsSplitMonomorphism(H[1]);  
 false      
-gap> f := IsSplitEpi(H[1]);
+gap> f := IsSplitEpimorphism(H[1]);
 <mapping: <1-dimensional right-module over AlgebraWithOne( Rationals, 
 [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
  ] )> -> <7-dimensional right-module over AlgebraWithOne( Rationals, 
 [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
  ] )> >
-gap> IsSplitMono(f);
+gap> IsSplitMonomorphism(f);
 <mapping: <7-dimensional right-module over AlgebraWithOne( Rationals, 
 [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
  ] )> -> <1-dimensional right-module over AlgebraWithOne( Rationals, 
@@ -3024,7 +2996,7 @@ gap> IsSplitMono(f);
 ]]></Example>
 
 <ManSection>
-   <Attr Name="IsZeroMap" Arg="f" Comm=""/>
+   <Prop Name="IsZero" Arg="f" Comm=""/>
    <Description>
      This returns <Code>true</Code> if the homomorphism <Arg>f</Arg>
      is zero homomorphism.
@@ -3046,12 +3018,12 @@ gap> IsSplitMono(f);
 <Section><Heading>Homomorphisms and modules constructed from homomorphisms and modules</Heading>
 
 <ManSection>
-   <Attr Name="Coker" Arg="f" Comm=""/>
-   <Attr Name="CokerProjection" Arg="f" Comm=""/>
+   <Attr Name="CoKernel" Arg="f" Comm=""/>
+   <Attr Name="CoKernelProjection" Arg="f" Comm=""/>
    <Returns>the cokernel of a homomorphism <Arg>f</Arg> between two
    representations of a quiver.</Returns>
    <Description>
-    The first variant <Ref Oper="Coker"/> returns the cokernel of the
+    The first variant <Ref Oper="CoKernel"/> returns the cokernel of the
     homomorphism <Arg>f</Arg> as a representation of the quiver, while
     the latter one returns the projection homomorphism from the range
     of the homomorphism <Arg>f</Arg> to the cokernel of the
@@ -3060,7 +3032,7 @@ gap> IsSplitMono(f);
 </ManSection>
 
 <ManSection>
-   <Oper Name="EndOverPathAlgebra" Arg="M" Comm=""/>
+   <Oper Name="EndOverAlgebra" Arg="M" Comm=""/>
    <Returns>the endomorphism ring of <Arg>M</Arg> as a subalgebra of
    the direct sum of the full matrix rings of <Arg>dim_M[i] x
    dim_M[i]</Arg>, where <Arg>i</Arg> runs over all vertices.</Returns>
@@ -3084,7 +3056,7 @@ gap> IsSplitMono(f);
 </ManSection>
 
 <ManSection>
-   <Oper Name="HomOverPathAlgebra" Arg="M, N" Comm=""/>
+   <Oper Name="HomOverAlgebra" Arg="M, N" Comm=""/>
    <Returns>a basis for the homomorphisms from <Arg>M</Arg>
    to <Arg>N</Arg>.</Returns>
    <Description>
@@ -3095,33 +3067,33 @@ gap> IsSplitMono(f);
 </ManSection>
 
 <ManSection>
-   <Attr Name="Im" Arg="f" Comm=""/>
-   <Attr Name="ImProjection" Arg="f" Comm=""/>
-   <Attr Name="ImInclusion" Arg="" Comm=""/>
-   <Attr Name="ImProjectionInclusion" Arg="" Comm=""/>
+   <Attr Name="Image" Arg="f" Comm=""/>
+   <Attr Name="ImageProjection" Arg="f" Comm=""/>
+   <Attr Name="ImageInclusion" Arg="" Comm=""/>
+   <Attr Name="ImageProjectionInclusion" Arg="" Comm=""/>
    <Returns>the image of a homomorphism <Arg>f</Arg> between two
    representations of a quiver.</Returns>
    <Description>
-    The first variant <Ref Attr="Im"/> returns the image of the
-    homomorphism <Arg>f</Arg> as a representation of the quiver. The
-    second returns the projection from the source of <Arg>f</Arg> to
-    the image into the source of the homomorphism <Arg>f</Arg>. The
-    third returns the inclusion of the image into the range of the
-    homomorphism <Arg>f</Arg>. The last one returns both the
-    projection and the inclusion. 
+    The first variant <Ref Attr="Image"/> returns the
+    image of the homomorphism <Arg>f</Arg> as a representation of the
+    quiver. The second returns the projection from the source
+    of <Arg>f</Arg> to the image into the source of the
+    homomorphism <Arg>f</Arg>. The third returns the inclusion of the
+    image into the range of the homomorphism <Arg>f</Arg>. The last
+    one returns both the projection and the inclusion.
    </Description>
 </ManSection>
 
 <ManSection>
-   <Attr Name="Ker" Arg="f" Comm=""/>
-   <Attr Name="KerInclusion" Arg="M" Comm=""/>
+   <Attr Name="Kernel" Arg="f" Comm=""/>
+   <Attr Name="KernelInclusion" Arg="M" Comm=""/>
    <Returns>the kernel of a homomorphism <Arg>f</Arg> between two
    representations of a quiver.</Returns>
    <Description>
-    The first variant <Ref Attr="Ker"/> returns the kernel of the
-    homomorphism <Arg>f</Arg> as a representation of the quiver, while
-    the latter one returns the inclusion homomorphism of the kernel
-    into the source of the homomorphism <Arg>f</Arg>. 
+    The first variant <Ref Attr="Kernel"/> returns the
+    kernel of the homomorphism <Arg>f</Arg> as a representation of the
+    quiver, while the latter one returns the inclusion homomorphism of
+    the kernel into the source of the homomorphism <Arg>f</Arg>.
    </Description>
 </ManSection>
 
@@ -3156,7 +3128,7 @@ gap> IsSplitMono(f);
     Given two morphisms <Math>f\colon P\to C</Math> and <Math>g\colon
     B\to C</Math>, where  P  is a direct sum of indecomposable
     projective modules constructed
-    via <Code>DirectSumOfPathAlgebraMatModules</Code>
+    via <Code>DirectSumOfModules</Code>
     and  <Arg>g</Arg> an epimorphism, this function finds a lifting
     of  <Arg>f</Arg>  to  <Math>B</Math>. The function checks
     if <Math>P</Math> is a direct sum of indecomposable projective
@@ -3196,7 +3168,7 @@ gap> IsSplitMono(f);
 </ManSection>
 
 <Example><![CDATA[
-gap> H:= HomOverPathAlgebra(N,N);;
+gap> H:= HomOverAlgebra(N,N);;
 gap> RightMinimalVersion(H[1]);   
 [ <mapping: <1-dimensional right-module over AlgebraWithOne( Rationals, 
     [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
@@ -3215,14 +3187,14 @@ gap> LeftMinimalVersion(H[1]);
       [(1)*e] ] )> >, 
   [ <6-dimensional right-module over <algebra-with-one of dimension 
         17 over Rationals>> ] ]
-gap> S:=VertexSimpleRepresentations(A)[1];;
+gap> S:=SimpleModules(A)[1];;
 gap> MinimalRightApproximation(N,S);
 <mapping: <1-dimensional right-module over AlgebraWithOne( Rationals, 
 [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
  ] )> -> <1-dimensional right-module over AlgebraWithOne( Rationals, 
 [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
  ] )> >
-gap> S:=VertexSimpleRepresentations(A)[3];;
+gap> S:=SimpleModules(A)[3];;
 gap> MinimalLeftApproximation(S,N);        
 <mapping: <1-dimensional right-module over AlgebraWithOne( Rationals, 
 [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
@@ -3236,7 +3208,7 @@ gap> MinimalLeftApproximation(S,N);
    commutative diagram of maps"/>
    <Oper Name="MorphismOnImage" Arg="f, g, beta, alpha" Comm="for a
    commutative diagram of maps"/>
-   <Oper Name="MorphismOnCokernel" Arg="f, g, beta, alpha" Comm="for a
+   <Oper Name="MorphismOnCoKernel" Arg="f, g, beta, alpha" Comm="for a
    commutative diagram of maps"/>
    <Returns>the morphism induced on the kernels, the images or the
    cokernels of the morphisms <Arg>f</Arg> and <Arg>g</Arg>,
@@ -3284,7 +3256,7 @@ gap> MinimalLeftApproximation(S,N);
 </ManSection>
 
 <ManSection>
-   <Oper Name="RadicalOfRepInclusion" Arg="M" Comm=""/>
+   <Oper Name="RadicalOfModuleInclusion" Arg="M" Comm=""/>
    <Returns>the inclusion of the radical of the module <Arg>M</Arg>
    into <Arg>M</Arg>.</Returns>
    <Description>
@@ -3295,18 +3267,18 @@ gap> MinimalLeftApproximation(S,N);
 </ManSection>
 
 <ManSection>
-   <Oper Name="SocleOfPathAlgebraMatModuleInclusion" Arg="M" Comm=""/>
+   <Oper Name="SocleOfModuleInclusion" Arg="M" Comm=""/>
    <Returns>the inclusion of the socle of the module <Arg>M</Arg>
    into <Arg>M</Arg>.</Returns>
    <Description>
     The representation given by the socle of <Arg>M</Arg> can be accessed
     using <Code>Source</Code>, or it can be computed directly via the
-    command <Ref Oper="SocleOfPathAlgebraMatModule"/>. 
+    command <Ref Oper="SocleOfModule"/>. 
    </Description>
 </ManSection>
 
 <ManSection>
-   <Oper Name="SubRepInclusion" Arg="M, gens" Comm=""/>
+   <Oper Name="SubRepresentationInclusion" Arg="M, gens" Comm=""/>
    <Returns>the inclusion of the submodule generated by the
    generators <Arg>gens</Arg> into the module <Arg>M</Arg></Returns>
    <Description>
@@ -3319,7 +3291,7 @@ gap> MinimalLeftApproximation(S,N);
 </ManSection>
 
 <ManSection>
-   <Oper Name="TopOfRepProjection" Arg="M" Comm=""/>
+   <Oper Name="TopOfModuleProjection" Arg="M" Comm=""/>
    <Returns>the projection from the module <Arg>M</Arg> to the top of
    the module <Arg>M</Arg>
    into <Arg>M</Arg>.</Returns>
@@ -3333,7 +3305,7 @@ gap> MinimalLeftApproximation(S,N);
 <Section><Heading>Homological algebra</Heading>
 
 <ManSection>
-   <Oper Name="ExtOne" Arg="M, N" Comm=""/>
+   <Oper Name="ExtOverAlgebra" Arg="M, N" Comm=""/>
    <Returns>the map from the first syzygy, <Arg>Omega(M)</Arg> to the
    projective cover, <Arg>P(M)</Arg> of the module <Arg>M</Arg>, and
    in addition a basis of <Math>Ext^1(M,N)</Math> in terms of elements

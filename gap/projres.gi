@@ -1,6 +1,6 @@
 # GAP Implementation
 # This file was generated from
-# $Id: projres.gi,v 1.2 2010/08/05 17:39:37 uid414323 Exp $
+# $Id: projres.gi,v 1.3 2012/02/27 12:26:34 sunnyquiver Exp $
 #
 
 InstallMethod( ProjectiveResolutionFpPathAlgebraModule,
@@ -16,7 +16,7 @@ InstallMethod( ProjectiveResolutionFpPathAlgebraModule,
           f, fprime;
 
     # Check we're in correct category:
-    if not (IsPathAlgebra(A) or IsSubalgebraFpPathAlgebra(A)) then
+    if not (IsPathAlgebra(A) or IsQuotientOfPathAlgebra(A)) then
         TryNextMethod();
     fi;
 
@@ -206,7 +206,7 @@ InstallMethod( ProjectiveResolutionFpPathAlgebraModule,
 
     maps := [presentation_map];
 
-    if not (IsPathAlgebra(A) or IsSubalgebraFpPathAlgebra(A)) then
+    if not (IsPathAlgebra(A) or IsQuotientOfPathAlgebra(A)) then
         TryNextMethod();
     fi;
 

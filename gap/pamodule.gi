@@ -1,6 +1,6 @@
 # GAP Implementation
 # This file was generated from 
-# $Id: pamodule.gi,v 1.13 2012/02/02 10:07:31 sunnyquiver Exp $
+# $Id: pamodule.gi,v 1.14 2012/02/27 12:26:34 sunnyquiver Exp $
 
 ZeroModElement:=function(fam,zero)
   local result,i;
@@ -141,7 +141,7 @@ InstallOtherMethod( \^,
 InstallOtherMethod( \^,
  "for a module element and a path",
  true,
- [IsPathModuleElem, IsElementOfFpPathAlgebra ] , 0 ,
+ [IsPathModuleElem, IsElementOfQuotientOfPathAlgebra ] , 0 ,
    function(elem, path);
 
    return elem^path![1];
@@ -295,7 +295,7 @@ InstallMethod( Coefficients,
 InstallMethod(CanonicalBasis,
   "for a path algebra matrix module",
   true,
-  [IsFreeLeftModule and IsPathAlgebraMatModule], NICE_FLAGS+1,
+  [IsFreeLeftModule and IsPathAlgebraModule], NICE_FLAGS+1,
   function(V)
     local basis, vgens, gens, x, i, fam, zero, MB, Vfam;
 
@@ -367,18 +367,26 @@ end;
 
 
 InstallMethod(RightModuleOverPathAlgebra,
-  "for a path algebra and list of matrices",
+  "for a (quotient of a) path algebra and list of matrices",
   true,
-  [IsPathAlgebra, IsCollection], 0,
+  [IsAlgebra, IsCollection], 0,
   function( R, gens )
     local a, dim, source, target, basis, i, x, Fam, 
-          vertices, matrices, quiver, M, vlist, alist, K, dim_M;
-    matrices:=[];
-    quiver:=QuiverOfPathRing(R);
-    vlist:=VerticesOfQuiver(quiver);
-    K:=LeftActingDomain(R);
-    alist:=ArrowsOfQuiver(quiver);
-    vertices:=[];
+          vertices, matrices, quiver, M, vlist, alist, K, dim_M, 
+          dim_vector, relationtest, I, terms, result, walk, matrix;
+#
+#  Testing the entered algebra.
+#
+    if not IsPathAlgebra(R) and not IsQuotientOfPathAlgebra(R) then 
+       Error("entered algebra is not a (quotient of a) path algebra.\n");
+    fi;
+
+    matrices := [];
+    quiver := QuiverOfPathRing(R);
+    vlist  := VerticesOfQuiver(quiver);
+    K      := LeftActingDomain(R);
+    alist  := ArrowsOfQuiver(quiver);
+    vertices := [];
 #    
 #  First checking if all arrows has been assigned some value.
 #
@@ -462,189 +470,72 @@ InstallMethod(RightModuleOverPathAlgebra,
         Error("Dimensions of matrices do not match");
       fi;
     od;
-
+#
+#  Testing if the relations are satisfied, whenever we have a quotient of a path algebra.
+#
     dim_M := 0;
     for i in [1..Length(vlist)] do
     	dim_M := dim_M + vertices[i];
     od;
-    Fam := NewFamily( "PathAlgModuleElementsFamily", IsPathModuleElem );
-    SetFilterObj( Fam, IsPathModuleElemFamily );
-    Fam!.vertices:=vertices;
-    Fam!.matrices:=matrices;
-    Fam!.pathAlgebra:=R;
-    if dim_M > 0 then 
-        basis := CreateModuleBasis(Fam);
-    else 
-    	basis := [ ZeroModElement(Fam, Zero(K)) ];
-    fi;
-    M:= RightAlgebraModuleByGenerators(R, \^, basis);
-    SetIsPathAlgebraMatModule(M,true);
-    SetIsWholeFamily(M,true);
-
-    return M;
-  end
-);
-
-InstallMethod(RightModuleOverQuotientOfPathAlgebra,
-  "for a path algebra and list of matrices",
-  true,
-  [IsSubalgebraFpPathAlgebra, IsCollection], 0,
-  function( A, gens )
-    local R, a, dim, source, target, basis, i, x, Fam, 
-          vertices, matrices, quiver, M, vlist, alist, K, dim_M,
-          relationtest, I, walk, result, matrix, terms;
-    matrices:=[];
-    R := OriginalPathAlgebra(A);
-    quiver:=QuiverOfPathRing(A);
-    vlist:=VerticesOfQuiver(quiver);
-    K:=LeftActingDomain(A);
-    alist:=ArrowsOfQuiver(quiver);
-    vertices:=[];
-#    
-#  First checking if all arrows has been assigned some value.
+   if dim_M = 0 or IsPathAlgebra(R) then 
+      relationtest := true;
+   else 
+      relationtest := true;
+      I := RelatorsOfFpAlgebra(R);
+      for i in [1..Length(I)] do
+         terms := CoefficientsAndMagmaElements(I[i]);
+         result := [Zero(K)];
+         for i in [1,3 .. Length( terms ) - 1] do
+            walk := WalkOfPath(terms[i]);
+            matrix := One(K);
+            for x in walk do
+               matrix := matrix * matrices[x!.gen_pos];
+            od;
+            matrix := terms[i+1] * matrix;
+            result := result + matrix;
+         od;
+         dim := DimensionsMat(result);
+         if result <> NullMat(dim[1],dim[2],K) then
+            relationtest := false;
+         fi;
+      od;
+   fi; 
 #
-    if Length(gens) < Length(alist) then 
-       Error("Each arrow has not been assigned a matrix.");
-    fi;
+# Creating the module if everything is OK, else give an error message.
 #
-#  Setting the multiplication by the vertices.
-#          
-    for i in [1 .. Length(vlist)] do
-      matrices[i]:= One(K);
-    od;
-#
-#  Setting, partially, the multiplication by the arrows, taking into account
-#  the possible different formats of the input. 
-#
-#  Input of the form ["a",[[..],...,[..]]], where "a" is the label of 
-#  some arrow in the quiver
-#
-    if IsString(gens[1][1]) then                 
-       for i in [1 .. Length ( gens )] do
-          a:=gens[i][1];
-          matrices[quiver.(a)!.gen_pos]:=gens[i][2];
-       od;
-#
-#  Input of the form [[matrix_1],[matrix_2],...,[matrix_n]]
-#
-    elif IsMatrix(gens[1]) then
-       for i in [1 .. Length ( gens )] do
-          matrices[i + Length(vlist)]:=gens[i];
-       od;
-    else
-#
-#  Input of the form [[alist[1],[matrix_1]],...,[alist[n],[matrix_n]]] 
-#  where alist is a list of the vertices in the quiver.
-#  
-       for i in [1 .. Length ( gens )] do
-          a:=gens[i][1];
-          matrices[a!.gen_pos]:=gens[i][2];
-       od;
-    fi;
-
-    for i in [1 .. Length(vlist)] do
-      vertices[i]:=-1;
-    od; 
-#
-#  Setting dimensions and checking the usage of the zero space format.
-#
-    dim:=[];
-    for x in alist do
-      if IsMatrix(matrices[x!.gen_pos]) then
-        dim:= DimensionsMat ( matrices[x!.gen_pos] );
-      else
-        dim:=matrices[x!.gen_pos];
-        if ( dim[1] > 0 and dim[2] = 0 ) then
-          matrices[x!.gen_pos]   := NullMat(dim[1],1,K);
-        elif ( dim[1] = 0 and dim[2] > 0 ) then
-            matrices[x!.gen_pos] := NullMat(1,dim[2],K);
-	elif ( dim[1] = 0 and dim[2] = 0 ) then 
-            matrices[x!.gen_pos] := NullMat(1,1,K);
-        else
-            Error("A vertex cannot have negative dimension or wrong usage of the zero space format.");
-        fi;
-      fi;
-
-      source:=SourceOfPath(x);
-      target:=TargetOfPath(x);
-#
-#  Checking if all the matrices entered are compatible with respect 
-#  to the dimension of the vectorspaces at each vertex.
-#
-      if vertices[source!.gen_pos] = -1 then
-        vertices[source!.gen_pos]:= dim[1];
-      elif vertices[source!.gen_pos] <> dim[1] then
-        Error("Dimensions of matrices do not match");
-      fi;
-
-      if vertices[target!.gen_pos] = -1 then
-        vertices[target!.gen_pos]:= dim[2];
-      elif vertices[target!.gen_pos] <> dim[2] then
-        Error("Dimensions of matrices do not match");
-      fi;
-    od;
-    #
-    # Testing if the relations are satisfied.
-    #
-    dim_M := 0;
-    for i in [1..Length(vlist)] do
-    	dim_M := dim_M + vertices[i];
-    od;
-    if dim_M = 0 then 
-        relationtest := true;
-    else 
-       relationtest := true;
-       I := RelatorsOfFpAlgebra(A);
-       for i in [1..Length(I)] do
-          terms := CoefficientsAndMagmaElements(I[i]);
-          result := [Zero(K)];
-          for i in [1,3 .. Length( terms ) -1] do
-             walk := WalkOfPath(terms[i]);
-             matrix := One(Zero(K));
-     
-             for x in walk do
-                matrix := matrix * matrices[x!.gen_pos];
-             od;
-
-             matrix := terms[i+1] * matrix;
-             result := result + matrix;
-          od;
-          dim := DimensionsMat(result);
-          if result <> NullMat(dim[1],dim[2],K) then
-              relationtest := false;
-          fi;
-       od;
-    fi; 
-    #
-    # Creating the module if everything is OK.
-    #
-    if relationtest then 
+   if relationtest then 
        Fam := NewFamily( "PathAlgModuleElementsFamily", IsPathModuleElem );
        SetFilterObj( Fam, IsPathModuleElemFamily );
        Fam!.vertices := vertices;
        Fam!.matrices := matrices;
-       Fam!.pathAlgebra := R;
-       Fam!.quotientAlgebra := A;
+       Fam!.pathAlgebra := OriginalPathAlgebra(R);
+       if IsQuotientOfPathAlgebra(R) then 
+          Fam!.quotientAlgebra := R;
+       fi;
        if dim_M > 0 then 
           basis := CreateModuleBasis(Fam);
+          dim_vector := vertices;
        else 
     	  basis := [ ZeroModElement(Fam, Zero(K)) ];
+          dim_vector := List(vlist, x -> 0);
        fi;
-       M:= RightAlgebraModuleByGenerators(A, \^, basis);
-       SetIsPathAlgebraMatModule(M,true);
+       M := RightAlgebraModuleByGenerators(R, \^, basis);
+       SetIsPathAlgebraModule(M,true);
        SetIsWholeFamily(M,true);
+       SetDimensionVector(M,dim_vector);
 
        return M;
    else
-       Print("The entered matrices for the representation do not satisfy the relstion(s).\n");
-       return fail;
-    fi;
+      Print("The entered matrices for the module do not satisfy the relation(s).\n");
+      return fail;
+   fi;
 end
 );
 
+
 #######################################################################
 ##
-#O  NewRightModuleOverPathAlgebra( <A>, <dim_vector>, <gens> )
+#O  RightModuleOverPathAlgebra( <A>, <dim_vector>, <gens> )
 ##
 ##  This function constructs a right module over a (quotient of a) path
 ##  algebra  A  with dimension vector  dim_vector, and where the 
@@ -655,7 +546,7 @@ end
 ##  corresponding to the arrow with label "?". The action of the arrows
 ##  can be entered in any order. 
 ##
-InstallMethod(NewRightModuleOverPathAlgebra,
+InstallOtherMethod(RightModuleOverPathAlgebra,
   "for a path algebra and list of matrices",
   true,
   [ IsAlgebra, IsList, IsList ], 0,
@@ -668,7 +559,7 @@ InstallMethod(NewRightModuleOverPathAlgebra,
 #
 #  Testing the entered algebra.
 #
-   if not IsPathAlgebra(A) and not IsSubalgebraFpPathAlgebra(A) then 
+   if not IsPathAlgebra(A) and not IsQuotientOfPathAlgebra(A) then 
       Error("entered algebra is not a (quotient of a) path algebra.\n");
    fi;
 #
@@ -678,7 +569,7 @@ InstallMethod(NewRightModuleOverPathAlgebra,
    vertices := VerticesOfQuiver(quiver);
    K        := LeftActingDomain(A);
    arrows   := ArrowsOfQuiver(quiver);
-   num_vert := OrderOfQuiver(quiver);
+   num_vert := NumberOfVertices(quiver);
    gens_of_quiver := GeneratorsOfQuiver(quiver);
 #
 #  Setting the multiplication by the vertices.
@@ -721,7 +612,7 @@ InstallMethod(NewRightModuleOverPathAlgebra,
 #
 #  Now set the matrices which are not set by the user, that is, all are going to be zero matrices. 
 #
-      arrows_not_set := [num_vert+1..num_vert+SizeOfQuiver(quiver)];
+      arrows_not_set := [num_vert+1..num_vert+NumberOfArrows(quiver)];
       SubtractSet(arrows_not_set, matrices_set);
       for i in arrows_not_set do
          a := gens_of_quiver[i];
@@ -789,8 +680,9 @@ InstallMethod(NewRightModuleOverPathAlgebra,
     	  basis := [ ZeroModElement(Fam, Zero(K)) ];
        fi;
        M := RightAlgebraModuleByGenerators(A, \^, basis);
-       SetIsPathAlgebraMatModule(M,true);
+       SetIsPathAlgebraModule(M,true);
        SetIsWholeFamily(M,true);
+       SetDimensionVector(M,dim_vector);
 
        return M;
    else
@@ -799,8 +691,6 @@ InstallMethod(NewRightModuleOverPathAlgebra,
    fi;
 end
 );
-
-
 
 InstallMethod( ViewObj, 
   "for modules over path algebras",
@@ -817,7 +707,6 @@ InstallMethod( ViewObj,
 
   end
 );
-
 
 InstallMethod( \in, 
   "for a path module elem and a path algebra matrix module",
@@ -838,7 +727,7 @@ InstallMethod( \in,
 InstallMethod( SubAlgebraModule,
   "for path algebra module and a list of submodule generators",
   IsIdenticalObj,
-  [ IsFreeLeftModule and IsPathAlgebraMatModule,
+  [ IsFreeLeftModule and IsPathAlgebraModule,
     IsAlgebraModuleElementCollection and IsList], 0,
   function( V, gens )
     local sub, ngens, vlist, fam, alggens,x, i;
@@ -861,7 +750,7 @@ InstallMethod( SubAlgebraModule,
                       rec() );
     SetParent( sub, V );
     SetIsAlgebraModule( sub, true );
-    SetIsPathAlgebraMatModule( sub, true );
+    SetIsPathAlgebraModule( sub, true );
     SetLeftActingDomain( sub, LeftActingDomain(V) );
     SetGeneratorsOfAlgebraModule( sub, ngens );
 
@@ -885,7 +774,7 @@ InstallMethod( SubAlgebraModule,
 InstallMethod(SubmoduleAsModule, 
   "for submodules of path algebra matrix modules",
   true, 
-  [IsAlgebraModule and IsPathAlgebraMatModule], 0,
+  [IsAlgebraModule and IsPathAlgebraModule], 0,
   function( N )
 
     local gens, fam, R, F, alist, verts, sdims, vgens, x, i, 
@@ -946,7 +835,7 @@ InstallMethod(SubmoduleAsModule,
 InstallOtherMethod(NaturalHomomorphismBySubAlgebraModule,
   "for modules over path algebras and their submodules",
   true,
-  [IsPathAlgebraMatModule, IsPathAlgebraMatModule], 0,
+  [IsPathAlgebraModule, IsPathAlgebraModule], 0,
   function(M,N)
 
     local pfam, Q, pgens, qgens, sgens, a, alist, R, pmats, qmats, pdims, sdims, qdims, hom,
@@ -1173,8 +1062,8 @@ InstallOtherMethod( Hom,
   "for a path ring, and two right modules over the path ring",
   true,
   [ IsPathRing, 
-    IsPathAlgebraMatModule,
-    IsPathAlgebraMatModule ], 0,
+    IsPathAlgebraModule,
+    IsPathAlgebraModule ], 0,
   function(R, M, N)
     local basis, Mbasis, Nbasis, gens, Msub, Nsub;
 
@@ -1217,7 +1106,7 @@ InstallOtherMethod( Hom,
 InstallOtherMethod( End,
   "for a path ring and a right module",
   true,
-  [IsPathRing, IsPathAlgebraMatModule], 0,
+  [IsPathRing, IsPathAlgebraModule], 0,
   function( R, M )
     local basis, gens, Msub, Mbasis;
 
@@ -1238,9 +1127,9 @@ InstallOtherMethod( End,
   end
 );
 
-InstallMethod ( MatricesOfPathAlgebraMatModule,
+InstallMethod ( MatricesOfPathAlgebraModule,
     "for a representation of a quiver",
-    [ IsPathAlgebraMatModule ], 0,
+    [ IsPathAlgebraModule ], 0,
     function( M )
 #
 #   M     = a representation of the quiver Q over K
@@ -1268,36 +1157,11 @@ InstallMethod ( MatricesOfPathAlgebraMatModule,
 end
 );
 
-InstallMethod (DimensionVector,
-    "for a representation of a quiver",
-    [ IsPathAlgebraMatModule ], 0,
-    function( M )
-#
-#   M = a representation of the quiver Q over K
-#
-    local n, dim, i, m, fam;
 
-    if Dimension(M) = 0 then 
-       n := Length(VerticesOfQuiver(QuiverOfPathAlgebra(RightActingAlgebra(M)))); 
-       dim := [];
-       for i in [1..n] do
-          dim[i] := 0;
-       od;
-       return dim;
-    else
-       m   := ExtRepOfObj(Zero(M));
-       fam := FamilyObj(m);
-    
-       return fam!.vertices;
-    fi;
-end
-);
-
-
-InstallMethod( MinimalSetOfGenerators,
+InstallMethod( MinimalGeneratingSetOfModule,
   "for a path algebra module",
   true,
-  [ IsPathAlgebraMatModule ], 0,
+  [ IsPathAlgebraModule ], 0,
   function( M )
 
   local A, K, q, num_vert, arrows_as_path, basis_M, generators, 
@@ -1384,7 +1248,7 @@ end
 
 InstallMethod( DimensionVectorPartialOrder, 
    "for two path algebra matmodules",
-   [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ], 0,
+   [ IsPathAlgebraModule, IsPathAlgebraModule ], 0,
    function( M, N) 
 
    local L1, L2;

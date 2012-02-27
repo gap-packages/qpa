@@ -1,6 +1,6 @@
 # GAP Implementation
 # This file was generated from 
-# $Id: ordering.gi,v 1.1 2010/05/07 13:30:13 sunnyquiver Exp $
+# $Id: ordering.gi,v 1.2 2012/02/27 12:26:34 sunnyquiver Exp $
 
 InstallMethod(LessThanByOrdering,
  "for orderings and two paths",
@@ -59,7 +59,7 @@ InstallGlobalFunction(CheckQuiverSubsetForCycles,
      local h,n,a,b,i,r,visit;
 
      #Possibly a big shortcut
-     if HasIsAcyclic(Q) and IsAcyclic(Q) then
+     if HasIsAcyclicQuiver(Q) and IsAcyclicQuiver(Q) then
          return true;
      fi;
 
@@ -341,7 +341,7 @@ InstallMethod(IsWellSubset,
  function(O,L)
      local h,n,a,b,i,r,lgst,lgst_lex,visit;
      #Possibly a big shortcut
-     if HasIsAcyclic(O!.quiver) and IsAcyclic(O!.quiver) then
+     if HasIsAcyclicQuiver(O!.quiver) and IsAcyclicQuiver(O!.quiver) then
          return true;
      fi;
      #Identify every arrow in the list, as well as every vertex we
@@ -471,7 +471,7 @@ InstallMethod(IsWellReversedSubset,
  function(O,L)
      local h,n,a,b,i,r,lgst,lgst_lex,visit;
      #Possibly a big shortcut
-     if HasIsAcyclic(O!.quiver) and IsAcyclic(O!.quiver) then
+     if HasIsAcyclicQuiver(O!.quiver) and IsAcyclicQuiver(O!.quiver) then
          return true;
      fi;
      #Identify every arrow in the list, as well as every vertex we
@@ -1388,7 +1388,7 @@ InstallMethod(IsWellReversedSubset,
  [IsWeightOrdering,IsHomogeneousList],0,
  function(O,L)
      local z,o;
-     if HasIsAcyclic(O!.quiver) and IsAcyclic(O!.quiver) then
+     if HasIsAcyclicQuiver(O!.quiver) and IsAcyclicQuiver(O!.quiver) then
          return true;
      fi;
      o:=Length(VerticesOfQuiver(O!.quiver));
@@ -1585,7 +1585,7 @@ InstallGlobalFunction(CheckBlocksForCycles,
  function(O,block)
      local i,r,n,visit;
      #Possibly a big shortcut
-     if HasIsAcyclic(O!.quiver) and IsAcyclic(O!.quiver) then
+     if HasIsAcyclicQuiver(O!.quiver) and IsAcyclicQuiver(O!.quiver) then
          return true;
      fi;
      n:=[];

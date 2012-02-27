@@ -41,7 +41,7 @@ function( A )
         return f * g;
     end;
     isExact := function( g, f )
-        return Dimension( Ker( g ) ) = Dimension( Im( f ) );
+        return Dimension( Kernel( g ) ) = Dimension( Image( f ) );
     end;
     objStr := function( M )
         local dims;
@@ -50,13 +50,13 @@ function( A )
     end;
     return Cat( [ "right modules", A ],
                 rec( name := "right modules over algebra",
-                     zeroObj := ZeroRepresentation( A ),
+                     zeroObj := ZeroModule( A ),
                      isZeroObj := isZeroObj,
-                     zeroMap := ZeroMap,
-                     isZeroMap := IsZeroMap,
+                     zeroMap := ZeroMapping,
+                     isZeroMapping := IsZero,
                      composeMaps := composeMaps,
-                     ker := Ker,
-                     im := Im,
+                     ker := Kernel,
+                     im := Image,
                      isExact := isExact,
                      objStr := objStr ) );
 end );
@@ -115,7 +115,7 @@ function( cat, basePosition, middle, positive, negative )
             Error( "range of ", diffNames[ 1 ], " is not the same as source of ",
                    diffNames[ 2 ], ".\n" );
         fi;
-        if not cat.isZeroMap( cat.composeMaps( diffs[ 2 ], diffs[ 1 ] ) ) then
+        if not cat.isZeroMapping( cat.composeMaps( diffs[ 2 ], diffs[ 1 ] ) ) then
             Error( "non-zero composition of ", diffNames[ 2 ],
                    " and ", diffNames[ 1 ], ".\n" );
         fi;
@@ -246,7 +246,7 @@ function( cat, basePosition, middle, positive, negative )
                    " is not the same as range of differential ",
                    degrees[ 2 ], " in complex\n   ", C, "\n" );
         fi;
-        if not cat.isZeroMap( cat.composeMaps( diffs[ 1 ], diffs[ 2 ] ) ) then
+        if not cat.isZeroMapping( cat.composeMaps( diffs[ 1 ], diffs[ 2 ] ) ) then
             Error( "nonzero composition of differentials ", degrees[ 1 ],
                    " and ", degrees[ 2 ], " in complex\n   ", C, "\n" );
         fi;
@@ -281,13 +281,13 @@ end );
 InstallMethod( CyclesOfComplex,
 [ IsComplex, IsInt ],
 function( C, i )
-    return Ker( DifferentialOfComplex( C, i ) );
+    return Kernel( DifferentialOfComplex( C, i ) );
 end );
 
 InstallMethod( BoundariesOfComplex,
 [ IsComplex, IsInt ],
 function( C, i )
-    return Im( DifferentialOfComplex( C, i + 1 ) );
+    return Image( DifferentialOfComplex( C, i + 1 ) );
 end );
 
 InstallMethod( HomologyOfComplex, # TODO: this does not work
@@ -608,12 +608,12 @@ end );
 
 
 InstallMethod( ProjectiveResolution,
-[ IsPathAlgebraMatModule ],
+[ IsPathAlgebraModule ],
 function( M )
     local nextDifferential, cover;
 
     nextDifferential := function( d )
-        return ProjectiveCover( Ker( d ) ) * KerInclusion( d );
+        return ProjectiveCover( Kernel( d ) ) * KernelInclusion( d );
     end;
 
     cover := ProjectiveCover( M );
@@ -676,7 +676,7 @@ function( source, range, basePosition, middle, positive, negative )
     # if positive = "zero" then
     #     numZeroMaps := 0;
     #     for i in [ Length( middle ), Length( middle ) - 1 .. 1 ] do
-    #         if cat.isZeroMap( middle[ i ] ) then
+    #         if cat.isZeroMapping( middle[ i ] ) then
     #             numZeroMaps := numZeroMaps + 1;
     #         else
     #             break;
@@ -687,7 +687,7 @@ function( source, range, basePosition, middle, positive, negative )
     # if negative = "zero" then
     #     numZeroMaps := 0;
     #     for i in [ 1 .. Length( middle ) ] do
-    #         if cat.isZeroMap( middle[ i ] ) then
+    #         if cat.isZeroMapping( middle[ i ] ) then
     #             numZeroMaps := numZeroMaps + 1;
     #         else
     #             break;

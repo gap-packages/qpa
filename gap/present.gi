@@ -1,6 +1,6 @@
 # GAP Implementation
 # This file was generated from 
-# $Id: present.gi,v 1.3 2011/06/18 11:59:52 sunnyquiver Exp $
+# $Id: present.gi,v 1.4 2012/02/27 12:26:34 sunnyquiver Exp $
 InstallMethod( IsNormalForm,
   "for path algebra vectors",
   true,
@@ -816,7 +816,7 @@ InstallMethod( RightProjectiveModule,
 InstallMethod( RightProjectiveModule,
   "for f.p. path algebras and vertices",
   IsIdenticalObj,
-  [ IsSubalgebraFpPathAlgebra, IsHomogeneousList ], 0,
+  [ IsQuotientOfPathAlgebra, IsHomogeneousList ], 0,
   function( A, verts )
     local i, fam, zero, gen, gens, M;
 
@@ -1341,7 +1341,7 @@ InstallMethod( LiftPathAlgebraModule,
 
     A := ActingAlgebra( M );
 
-    if not IsSubalgebraFpPathAlgebra( A ) then
+    if not IsQuotientOfPathAlgebra( A ) then
       return M;
     fi;
 
@@ -1426,7 +1426,7 @@ InstallMethod( NaturalHomomorphismBySubAlgebraModule,
     fam!.vertices := fam!.preimageFam!.vertices;
     fam!.componentFam := fam!.preimageFam!.componentFam;
     fam!.bottomModule := N;
-    fam!.needsLift := IsSubalgebraFpPathAlgebra(ActingAlgebra(N));
+    fam!.needsLift := IsQuotientOfPathAlgebra(ActingAlgebra(N));
     fam!.zeroPath := Zero(QuiverOfPathAlgebra(ActingAlgebra(N)));
 
     N := LiftPathAlgebraModule(N);
@@ -1460,7 +1460,7 @@ InstallMethod( NaturalHomomorphismBySubAlgebraModule,
             nf := CompletelyReduce(fam!.gb, preVec);
               
             if fam!.needsLift then
-              nf![1] := List(nf![1], x->ElementOfFpPathAlgebra(fpFam, x, true));
+              nf![1] := List(nf![1], x->ElementOfQuotientOfPathAlgebra(fpFam, x, true));
             fi;
 
 #Print("BANG ",Objectify( fam!.defaultType, [nf![1], nf![2]])," \n");
@@ -1552,7 +1552,7 @@ InstallMethod( VertexProjectivePresentation,
   function( A, map )
     local gen, len, verts, gVerts, i, P, N;
 
-    if not (IsPathAlgebra(A) or IsSubalgebraFpPathAlgebra(A)) then
+    if not (IsPathAlgebra(A) or IsQuotientOfPathAlgebra(A)) then
         TryNextMethod();
     fi;
 
@@ -1620,7 +1620,7 @@ InstallOtherMethod( VertexProjectivePresentation,
   function( A, map, verts )
     local gen, len, gVerts, i, P, N;
 
-    if not (IsPathAlgebra(A) or IsSubalgebraFpPathAlgebra(A)) then
+    if not (IsPathAlgebra(A) or IsQuotientOfPathAlgebra(A)) then
       TryNextMethod();
     fi;
 
@@ -1780,12 +1780,12 @@ HOPF_FpPathAlgebraModuleHom := function(A, M, N)
   od;
 
   Info(InfoPathAlgebraModule, 1, "FINISH: Linear equations: ", Runtime()-rt);
-  Info(InfoPathAlgebraModule, 1, "START: Cokernel: ", Runtime()-rt);
+  Info(InfoPathAlgebraModule, 1, "START: CoKernelnel: ", Runtime()-rt);
   Info(InfoPathAlgebraModule, 2, "Dimensions: ", DimensionsMat(eqns));
 
   cokernel := NullspaceMatDestructive( eqns );
 
-  Info(InfoPathAlgebraModule, 1, "FINISH: Cokernel: ", Runtime()-rt);
+  Info(InfoPathAlgebraModule, 1, "FINISH: CoKernelnel: ", Runtime()-rt);
   Info(InfoPathAlgebraModule, 1, "START: Interpret basis: ", Runtime()-rt);
 
   mbv := BasisVectors(Basis(M));

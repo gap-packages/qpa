@@ -1,5 +1,5 @@
 # GAP Implementation
-# $Id: patensor.gi,v 1.3 2011/04/28 09:44:24 oysteini Exp $
+# $Id: patensor.gi,v 1.4 2012/02/27 12:26:34 sunnyquiver Exp $
 
 DeclareRepresentation(
         "IsQuiverProductDecompositionRep",
@@ -203,7 +203,7 @@ end );
 
 # Four methods for the TensorProductOfAlgebras to account for the possible
 # combinations of argument types.  We would like to say that each argument
-# should be ( IsPathAlgebra or IsSubalgebraFpPathAlgebra ), but it is not
+# should be ( IsPathAlgebra or IsQuotientOfPathAlgebra ), but it is not
 # possible to combine filters using "or".
 
 InstallMethod( TensorProductOfAlgebras,
@@ -216,21 +216,21 @@ end );
 InstallMethod( TensorProductOfAlgebras,
         "for two quotients of path algebras",
         ReturnTrue,
-        [ IsSubalgebraFpPathAlgebra, IsSubalgebraFpPathAlgebra ],
+        [ IsQuotientOfPathAlgebra, IsQuotientOfPathAlgebra ],
         function( pa1, pa2 )
     return TensorProductOfPathAlgebras( [ pa1, pa2 ] );
 end );
 InstallMethod( TensorProductOfAlgebras,
         "for path algebra and quotient of path algebra",
         ReturnTrue,
-        [ IsPathAlgebra, IsSubalgebraFpPathAlgebra ],
+        [ IsPathAlgebra, IsQuotientOfPathAlgebra ],
         function( pa1, pa2 )
     return TensorProductOfPathAlgebras( [ pa1, pa2 ] );
 end );
 InstallMethod( TensorProductOfAlgebras,
         "for quotient of path algebra and path algebra",
         ReturnTrue,
-        [ IsSubalgebraFpPathAlgebra, IsPathAlgebra ],
+        [ IsQuotientOfPathAlgebra, IsPathAlgebra ],
         function( pa1, pa2 )
     return TensorProductOfPathAlgebras( [ pa1, pa2 ] );
 end );
@@ -286,7 +286,7 @@ InstallGlobalFunction( TensorProductOfPathAlgebras,
     # algebra (or the empty list if the algebra is not a quotient):
     get_relators :=
       function( pa )
-        if IsSubalgebraFpPathAlgebra( pa ) then
+        if IsQuotientOfPathAlgebra( pa ) then
             return RelatorsOfFpAlgebra( pa );
         else
             return [ ];
@@ -328,7 +328,7 @@ end );
 
 InstallMethod( AlgebraAsModuleOfEnvelopingAlgebra,
         "for an enveloping algebra of a path algebra",
-        [ IsSubalgebraFpPathAlgebra ],
+        [ IsQuotientOfPathAlgebra ],
         function ( env )
     local PA, Q, QxQ,
           basis, basis_vectors, vertices, vertex_indices, vector_spaces, i, j,
@@ -392,6 +392,6 @@ InstallMethod( AlgebraAsModuleOfEnvelopingAlgebra,
     arrows := ArrowsOfQuiver( QxQ );
     module_specification := List( arrows, a->[ a, make_map( a ) ] );
 
-    return RightModuleOverQuotientOfPathAlgebra( env, module_specification );
+    return RightModuleOverPathAlgebra( env, module_specification );
 
 end );

@@ -134,7 +134,7 @@ InstallMethod( QuadraticPerpOfPathAlgebraIdeal,
 
          if (Length(gens) = 0) then
             Print ("KoszulDualOfPathAlgebraByIdeal(): empty generator list");
-            return nthPowerOfArrowIdeal(pa_op,2);
+            return NthPowerOfArrowIdeal(pa_op,2);
          else 
             p2 := PathsOfLengthTwo(QuiverOfPathAlgebra(pa));
 

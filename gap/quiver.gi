@@ -1,6 +1,6 @@
 # GAP Implementation
 # This file was generated from
-# $Id: quiver.gi,v 1.3 2011/04/28 09:34:42 oysteini Exp $
+# $Id: quiver.gi,v 1.4 2012/02/27 12:26:34 sunnyquiver Exp $
 
 InstallGlobalFunction(
   Path,
@@ -586,8 +586,8 @@ InstallGlobalFunction( Quiver,
     Fam!.quiver := Q;
     SetVerticesOfQuiver( Q, vertices );
     SetArrowsOfQuiver( Q, arrows );
-    SetOrderOfQuiver( Q, Length( vertices ) );
-    SetSizeOfQuiver( Q, Length( arrows ) );
+    SetNumberOfVertices( Q, Length( vertices ) );
+    SetNumberOfArrows( Q, Length( arrows ) );
     SetGeneratorsOfMagma( Q, Concatenation( vertices, arrows ) );
     SetAdjacencyMatrixOfQuiver( Q, matrix );
     SetIsWholeFamily(Q, true);
@@ -684,8 +684,8 @@ InstallMethod( OrderedBy,
 
     SetVerticesOfQuiver( new_Q, new_vertices );
     SetArrowsOfQuiver( new_Q, new_arrows );
-    SetOrderOfQuiver( new_Q, Length( new_vertices ) );
-    SetSizeOfQuiver( new_Q, Length( new_arrows ) );
+    SetNumberOfVertices( new_Q, Length( new_vertices ) );
+    SetNumberOfArrows( new_Q, Length( new_arrows ) );
     SetGeneratorsOfMagma( new_Q, Concatenation( new_vertices, new_arrows ) );
     SetAdjacencyMatrixOfQuiver( new_Q, AdjacencyMatrixOfQuiver(Q) );
     SetOrderingOfQuiver( new_Q, O ); 
@@ -698,7 +698,7 @@ InstallMethod( OrderedBy,
 );
 
 
-InstallMethod( IsAcyclic,
+InstallMethod( IsAcyclicQuiver,
   "for quivers",
   true,
   [ IsQuiver ], 0,
@@ -767,7 +767,7 @@ InstallMethod( IsFinite,
   "for quivers",
   true,
   [ IsQuiver ], 0,
-  IsAcyclic
+  IsAcyclicQuiver
 );
 
 
@@ -1020,9 +1020,9 @@ InstallMethod( ViewObj,
   [ IsQuiver ], 0,
   function( Q )
     Print( "<quiver with " );
-    Print( OrderOfQuiver(Q) );
+    Print( NumberOfVertices(Q) );
     Print( " vertices and " );
-    Print( SizeOfQuiver(Q) );
+    Print( NumberOfArrows(Q) );
     Print( " arrows>" );
   end
 );

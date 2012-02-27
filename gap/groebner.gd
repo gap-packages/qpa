@@ -1,6 +1,6 @@
 # GAP Declarations
 # This file was generated from
-# $Id: groebner.gd,v 1.1 2010/05/07 13:30:13 sunnyquiver Exp $
+# $Id: groebner.gd,v 1.2 2012/02/27 12:26:34 sunnyquiver Exp $
 DeclareCategory( "IsGroebnerBasis", IsCollection );
 
 DeclareRepresentation(
@@ -19,7 +19,7 @@ DeclareOperation("TipReduce", [IsGroebnerBasis, IsRingElement]);
 DeclareOperation("TipReduceGroebnerBasis", [IsGroebnerBasis]);
 
 DeclareProperty("IsTipReducedGroebnerBasis", IsGroebnerBasis);
-DeclareProperty("IsHomogenousGroebnerBasis", IsGroebnerBasis);
+DeclareProperty("IsHomogeneousGroebnerBasis", IsGroebnerBasis);
 DeclareProperty("IsCompleteGroebnerBasis", IsGroebnerBasis);
 DeclareProperty("IsCompletelyReducedGroebnerBasis", IsGroebnerBasis);
 

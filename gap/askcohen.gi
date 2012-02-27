@@ -95,7 +95,7 @@ InstallMethod( GBNPGroebnerBasisNC,
       # Add relations to preserve structure of path
       #  algebra (first we get number of vertices,
       #  if there's only one, we have a free algebra):     
-      numv := OrderOfQuiver(q); 
+      numv := NumberOfVertices(q); 
 
       if numv > 1 then
 
@@ -346,7 +346,7 @@ InstallMethod( QPA_InArrowIdeal,
       q := QuiverOfPathAlgebra(pa);
 
       # Get number vertices:
-      numv := OrderOfQuiver(q);
+      numv := NumberOfVertices(q);
 
       # The following checks that each element in
       #  given list is an element of the given
@@ -409,7 +409,7 @@ InstallMethod( QPA_RelationsForPathAlgebra,
     numg := Length(gens);
 
     # Get number of vertices:
-    numv := OrderOfQuiver(quiv); 
+    numv := NumberOfVertices(quiv); 
 
     # Calculate number of arrows:
     numa := numg - numv;

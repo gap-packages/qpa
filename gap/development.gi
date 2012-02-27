@@ -1,6 +1,6 @@
-InstallMethod( IsSelfinjective, 
+InstallMethod( IsSelfinjectiveAlgebra, 
    "for a finite dimension quotient of a path algebra",
-   [ IsSubalgebraFpPathAlgebra ], 0,
+   [ IsQuotientOfPathAlgebra ], 0,
    function( A ) 
 
    local fam, KQ, rels, I, B, gb, gbb, Inj, T, num_vert, total, i;
@@ -8,8 +8,8 @@ InstallMethod( IsSelfinjective,
    fam := ElementsFamily(FamilyObj(A));
    if HasGroebnerBasisOfIdeal(fam!.ideal) and 
           AdmitsFinitelyManyNontips(GroebnerBasisOfIdeal(fam!.ideal)) then 
-      Inj := IndecomposableInjectiveRepresentations(A);
-      T := List(Inj, M -> DimensionVector(TopOfRep(M)));
+      Inj := IndecInjectiveModules(A);
+      T := List(Inj, M -> DimensionVector(TopOfModule(M)));
       num_vert := Length(T);
       total := List([1..num_vert], x -> 0);
       for i in [1..num_vert] do
@@ -27,7 +27,7 @@ InstallMethod( IsSelfinjective,
 end
 );
 
-InstallOtherMethod( IsSelfinjective,
+InstallOtherMethod( IsSelfinjectiveAlgebra,
    "for a path algebra",
    [ IsPathAlgebra ], 0,
    function( A )
@@ -35,8 +35,8 @@ InstallOtherMethod( IsSelfinjective,
    local Q;
 
    Q := QuiverOfPathAlgebra(A);
-   if IsAcyclic(Q) then 
-      if SizeOfQuiver(Q) > 0 then 
+   if IsAcyclicQuiver(Q) then 
+      if NumberOfArrows(Q) > 0 then 
          return false;
       else
          return true;
@@ -49,7 +49,7 @@ end
 
 InstallMethod( LoewyLength, 
    "for a PathAlgebraMatModule",
-   [ IsPathAlgebraMatModule ], 0,
+   [ IsPathAlgebraModule ], 0,
    function( M ) 
 
    local N, i;
@@ -60,7 +60,7 @@ InstallMethod( LoewyLength,
       return 0;
    else
       repeat 
-         N := RadicalOfRep(N);
+         N := RadicalOfModule(N);
          i := i + 1;
       until
          Dimension(N) = 0;
@@ -71,7 +71,7 @@ end
 
 InstallOtherMethod( LoewyLength, 
    "for a SubalgebraFpPathAlgebra",
-   [ IsSubalgebraFpPathAlgebra ], 0,
+   [ IsQuotientOfPathAlgebra ], 0,
    function( A ) 
 
    local fam, gb, N;
@@ -95,8 +95,8 @@ InstallOtherMethod( LoewyLength,
 
    local N, i;
 
-   if IsAcyclic(QuiverOfPathAlgebra(A)) then 
-      N := IndecomposableProjectiveRepresentations(A);
+   if IsAcyclicQuiver(QuiverOfPathAlgebra(A)) then 
+      N := IndecProjectiveModules(A);
       N := List(N, x -> LoewyLength(x));
       return Maximum(N);
    else
@@ -112,7 +112,7 @@ InstallOtherMethod( CartanMatrix,
 
    local P, C, i;
 
-   P := IndecomposableProjectiveRepresentations(A);
+   P := IndecProjectiveModules(A);
    C := [];
    for i in [1..Length(P)] do
       Add(C,DimensionVector(P[i]));
@@ -124,12 +124,12 @@ end
 
 InstallOtherMethod( CartanMatrix, 
    "for a SubalgebraFpPathAlgebra",
-   [ IsSubalgebraFpPathAlgebra ], 0,
+   [ IsQuotientOfPathAlgebra ], 0,
    function( A ) 
 
    local P, C, i;
 
-   P := IndecomposableProjectiveRepresentations(A);
+   P := IndecProjectiveModules(A);
    C := [];
    for i in [1..Length(P)] do
       Add(C,DimensionVector(P[i]));
@@ -157,7 +157,7 @@ end
 
 InstallOtherMethod( CoxeterMatrix, 
    "for a PathAlgebra",
-   [ IsSubalgebraFpPathAlgebra ], 0,
+   [ IsQuotientOfPathAlgebra ], 0,
    function( A ) 
 
    local C;
@@ -189,7 +189,7 @@ end
 
 InstallOtherMethod( CoxeterPolynomial, 
    "for a PathAlgebra",
-   [ IsSubalgebraFpPathAlgebra ], 0,
+   [ IsQuotientOfPathAlgebra ], 0,
    function( A ) 
 
    local P, C, i;
@@ -206,7 +206,7 @@ end
 
 InstallMethod( RadicalSeries, 
    "for a PathAlgebraMatModule",
-   [ IsPathAlgebraMatModule ], 0,
+   [ IsPathAlgebraModule ], 0,
    function( M ) 
 
    local N, radlayers, i;
@@ -218,8 +218,8 @@ InstallMethod( RadicalSeries,
       i := 0;
       N := M;
       repeat     
-         Add(radlayers,DimensionVector(TopOfRep(N)));
-         N := RadicalOfRep(N);
+         Add(radlayers,DimensionVector(TopOfModule(N)));
+         N := RadicalOfModule(N);
          i := i + 1;
       until
          Dimension(N) = 0;
@@ -230,7 +230,7 @@ end
 
 InstallMethod( SocleSeries, 
    "for a PathAlgebraMatModule",
-   [ IsPathAlgebraMatModule ], 0,
+   [ IsPathAlgebraModule ], 0,
    function( M ) 
 
    local N, series, socleseries, i, n;
@@ -240,10 +240,10 @@ InstallMethod( SocleSeries,
    else
       series := [];
       i := 0;
-      N := DualOfPathAlgebraMatModule(M);
+      N := DualOfModule(M);
       repeat     
-         Add(series,DimensionVector(TopOfRep(N)));
-         N := RadicalOfRep(N);
+         Add(series,DimensionVector(TopOfModule(N)));
+         N := RadicalOfModule(N);
          i := i + 1;
       until
          Dimension(N) = 0;
@@ -257,9 +257,9 @@ InstallMethod( SocleSeries,
 end
 );
 
-InstallMethod( DimensionMatModule,
+InstallOtherMethod( Dimension,
    "for a PathAlgebraMatModule",
-   [ IsPathAlgebraMatModule ], 0,
+   [ IsPathAlgebraModule ], 0,
    function( M );
 
    return Sum(DimensionVector(M));
@@ -268,7 +268,7 @@ end
 
 InstallMethod( Centre,
    "for a path algebra",
-   [ IsSubalgebraFpPathAlgebra ], 0,
+   [ IsQuotientOfPathAlgebra ], 0,
    function( A ) 
 
    local Q, K, num_vert, vertices, arrows, B, cycle_list, i, j, b, 
@@ -278,9 +278,9 @@ InstallMethod( Centre,
    B := CanonicalBasis(A);
    Q := QuiverOfPathAlgebra(A); 
    K := LeftActingDomain(A);
-   num_vert := OrderOfQuiver(Q);
+   num_vert := NumberOfVertices(Q);
    vertices := VerticesOfQuiver(Q);
-   arrows   := GeneratorsOfAlgebra(A){[2+num_vert..1+num_vert+SizeOfQuiver(Q)]};
+   arrows   := GeneratorsOfAlgebra(A){[2+num_vert..1+num_vert+NumberOfArrows(Q)]};
   
    cycle_list := [];
    for b in B do
@@ -297,11 +297,11 @@ InstallMethod( Centre,
       od;
    od;
 
-   matrix := NullMat(cycles,Length(B)*SizeOfQuiver(Q),K);
+   matrix := NullMat(cycles,Length(B)*NumberOfArrows(Q),K);
 
    for j in [1..cycles] do
-      for i in [1..SizeOfQuiver(Q)] do
-         matrix[j]{[Length(B)*(i-1)+1..Length(B)*i]} := Coefficients(B,commutators[i+(j-1)*SizeOfQuiver(Q)]); 
+      for i in [1..NumberOfArrows(Q)] do
+         matrix[j]{[Length(B)*(i-1)+1..Length(B)*i]} := Coefficients(B,commutators[i+(j-1)*NumberOfArrows(Q)]); 
       od;
    od;
 
@@ -323,21 +323,21 @@ end
 
 InstallMethod( IsProjectiveModule, 
    "for a module over a quotient of a path algebra",
-   [ IsPathAlgebraMatModule ], 0,
+   [ IsPathAlgebraModule ], 0,
    function( M ) 
 
    local top, dimension, i, P; 
 
-   top := TopOfRep(M); 
+   top := TopOfModule(M); 
    dimension := 0; 
    for i in [1..Length(DimensionVector(M))] do 
       if DimensionVector(top)[i] <> 0 then 
-         P := IndecomposableProjectiveRepresentations(RightActingAlgebra(M),[i]); 
-         dimension := dimension + DimensionMatModule(P[1])*DimensionVector(top)[i];
+         P := IndecProjectiveModules(RightActingAlgebra(M),[i]); 
+         dimension := dimension + Dimension(P[1])*DimensionVector(top)[i];
       fi;
    od; 
 
-   if dimension = DimensionMatModule(M) then 
+   if dimension = Dimension(M) then 
       return true;
    else 
       return false;
@@ -347,19 +347,19 @@ end
 
 InstallMethod( IsInjectiveModule, 
    "for a module over a quotient of a path algebra",
-   [ IsPathAlgebraMatModule ], 0,
+   [ IsPathAlgebraModule ], 0,
    function( M ) ; 
 
-   return IsProjectiveModule(DualOfPathAlgebraMatModule(M));
+   return IsProjectiveModule(DualOfModule(M));
 end
 );
 
 InstallMethod( IsSimpleModule, 
    "for a module over a quotient of a path algebra",
-   [ IsPathAlgebraMatModule ], 0,
+   [ IsPathAlgebraModule ], 0,
    function( M ) ; 
 
-   if DimensionMatModule(M) = 1 then 
+   if Dimension(M) = 1 then 
       return true;
    else
       return false;
@@ -369,10 +369,10 @@ end
 
 InstallMethod( IsSemisimpleModule, 
    "for a module over a quotient of a path algebra",
-   [ IsPathAlgebraMatModule ], 0,
+   [ IsPathAlgebraModule ], 0,
    function( M ) ; 
 
-   if DimensionMatModule(RadicalOfRep(M)) = 0 then 
+   if Dimension(RadicalOfModule(M)) = 0 then 
       return true;
    else
       return false;
@@ -477,7 +477,7 @@ end
 
 InstallMethod( 1st_Syzygy,
    "for a path algebra",
-   [ IsPathAlgebraMatModule ], 0,
+   [ IsPathAlgebraModule ], 0,
    function( M ) 
 
    local A, Q, K, num_vert, vertices, verticesinalg, arrows, B, BB, B_M, 
@@ -489,18 +489,21 @@ InstallMethod( 1st_Syzygy,
          data, coeffs, fam, elms, solutions, gbb, run_time, BU, FlatBasisSyzygy,
          partial,temp,V_list,B_list;
 
-   A := RightActingAlgebra(M);
+   A:= RightActingAlgebra(M);   
+   if Dimension(M) = 0 then 
+       return ZeroModule(A);
+   fi;
    B := CanonicalBasis(A);
    Q := QuiverOfPathAlgebra(A); 
    K := LeftActingDomain(A);
-   num_vert := OrderOfQuiver(Q);
+   num_vert := NumberOfVertices(Q);
    vertices := VerticesOfQuiver(Q);
    if IsPathAlgebra(A) then 
       verticesinalg := GeneratorsOfAlgebra(A){[1..num_vert]};
-      arrows   := GeneratorsOfAlgebra(A){[1+num_vert..num_vert+SizeOfQuiver(Q)]};   
+      arrows   := GeneratorsOfAlgebra(A){[1+num_vert..num_vert+NumberOfArrows(Q)]};   
    else 
       verticesinalg := GeneratorsOfAlgebra(A){[2..1+num_vert]};
-      arrows   := GeneratorsOfAlgebra(A){[2+num_vert..1+num_vert+SizeOfQuiver(Q)]};
+      arrows   := GeneratorsOfAlgebra(A){[2+num_vert..1+num_vert+NumberOfArrows(Q)]};
    fi;
 #
 #  Finding a basis of each indecomposable right projective A-module
@@ -520,7 +523,7 @@ InstallMethod( 1st_Syzygy,
 # Finding a basis for the module M and a set of minimal generators
 #
    B_M := CanonicalBasis(M);
-   G   := MinimalSetOfGenerators(M);
+   G   := MinimalGeneratingSetOfModule(M);
 #
 #  Assuming that the generators G of M is uniform.
 #  Finding generators multiplied with all basis elements of A.
@@ -668,16 +671,16 @@ InstallMethod( 1st_Syzygy,
    if IsPathAlgebra(A) then 
       first_syzygy := RightModuleOverPathAlgebra(A,big_mat);
    else
-      first_syzygy := RightModuleOverQuotientOfPathAlgebra(A,big_mat); 
+      first_syzygy := RightModuleOverPathAlgebra(A,big_mat); 
    fi;      
 
    return first_syzygy;
 end
 );
 
-InstallMethod( nth_Syzygy,
+InstallMethod( NthSyzygy,
    "for a path algebra module and a positive integer",
-   [ IsPathAlgebraMatModule, IS_INT ], 0,
+   [ IsPathAlgebraModule, IS_INT ], 0,
    function( M, n ) 
 
    local i, result;
@@ -689,7 +692,7 @@ InstallMethod( nth_Syzygy,
       for i in [1..n] do
          Print("Computing syzygy number: ",i," ...\n");
          result := 1st_Syzygy(result);
-         Print("Top of the ",i,"th syzygy: ",DimensionVector(TopOfRep(result)),"\n");
+         Print("Top of the ",i,"th syzygy: ",DimensionVector(TopOfModule(result)),"\n");
          if IsProjectiveModule(result) then 
             Print("The module has projective dimension ",i,".\n");
             break;
@@ -701,9 +704,9 @@ InstallMethod( nth_Syzygy,
 end
 );
 
-InstallMethod( nth_SyzygyNC,
+InstallMethod( NthSyzygyNC,
    "for a path algebra module and a positive integer",
-   [ IsPathAlgebraMatModule, IS_INT ], 0,
+   [ IsPathAlgebraModule, IS_INT ], 0,
    function( M, n ) 
 
    local i, result;
@@ -722,7 +725,7 @@ InstallMethod( nth_SyzygyNC,
 end
 );
 
-InstallMethod( DirectSumOfPathAlgebraMatModules,
+InstallMethod( DirectSumOfModules,
    "for a list of modules over a path algebra",
    [ IsList ], 0,
    function( L ) 
@@ -736,7 +739,7 @@ InstallMethod( DirectSumOfPathAlgebraMatModules,
    if n > 0 then 
       A := RightActingAlgebra(L[1]);
       K := LeftActingDomain(A);
-      if ForAll(L,IsPathAlgebraMatModule) and ForAll(L,x -> RightActingAlgebra(x) = A) then 
+      if ForAll(L,IsPathAlgebraModule) and ForAll(L,x -> RightActingAlgebra(x) = A) then 
          Q := QuiverOfPathAlgebra(OriginalPathAlgebra(A));
          arrows := ArrowsOfQuiver(Q);
          vertices := VerticesOfQuiver(Q);
@@ -764,7 +767,7 @@ InstallMethod( DirectSumOfPathAlgebraMatModules,
                for r in [1..n] do
                   if dim_list[r][origin] <> 0 and dim_list[r][target] <> 0 then
                      mat{[row_pos..(row_pos+dim_list[r][origin]-1)]}{[col_pos..(col_pos+dim_list[r][target]-1)]} := 
-                     MatricesOfPathAlgebraMatModule(L[r])[i];
+                     MatricesOfPathAlgebraModule(L[r])[i];
                   fi;
                   row_pos := row_pos + dim_list[r][origin];
                   col_pos := col_pos + dim_list[r][target]; 
@@ -779,7 +782,7 @@ InstallMethod( DirectSumOfPathAlgebraMatModules,
       if IsPathAlgebra(A) then 
          direct_sum := RightModuleOverPathAlgebra(A,big_mat);
       else
-         direct_sum := RightModuleOverQuotientOfPathAlgebra(A,big_mat); 
+         direct_sum := RightModuleOverPathAlgebra(A,big_mat); 
       fi; 
 
       list_of_projs := [];
@@ -809,7 +812,7 @@ InstallMethod( DirectSumOfPathAlgebraMatModules,
             fi;
             Add(maps,map);
          od;
-         Add(list_of_projs,RightModuleHomOverPathAlgebra(direct_sum,L[i],maps));
+         Add(list_of_projs,RightModuleHomOverAlgebra(direct_sum,L[i],maps));
       od;
 
       list_of_incls := [];
@@ -835,15 +838,15 @@ InstallMethod( DirectSumOfPathAlgebraMatModules,
             fi;
             Add(maps,map);
          od;
-         Add(list_of_incls,RightModuleHomOverPathAlgebra(L[i],direct_sum,maps));
+         Add(list_of_incls,RightModuleHomOverAlgebra(L[i],direct_sum,maps));
       od;
 
       if Sum(dim_vect) <> 0 then 
-         SetIsDirectSum(direct_sum,true);
+         SetIsDirectSumOfModules(direct_sum,true);
          SetDirectSumProjections(direct_sum,list_of_projs);
          SetDirectSumInclusions(direct_sum,list_of_incls);
       else 
-         SetIsDirectSum(direct_sum,false);         
+         SetIsDirectSumOfModules(direct_sum,false);         
       fi;
       return direct_sum;
    fi;
@@ -854,7 +857,7 @@ end
 
 InstallMethod( PushOut,
    "for two homomorphisms starting in a common module over a path algebra",
-   [ IsPathAlgebraMatModuleMap, IsPathAlgebraMatModuleMap ], 0,
+   [ IsPathAlgebraModuleHomomorphism, IsPathAlgebraModuleHomomorphism ], 0,
    function( f, g ) 
 
    local B, C, BplusC, inclusions, projections, h;
@@ -862,10 +865,10 @@ InstallMethod( PushOut,
    if Source(f) = Source(g) then 
       B := Range(f);
       C := Range(g);
-      BplusC := DirectSumOfPathAlgebraMatModules([B,C]);
+      BplusC := DirectSumOfModules([B,C]);
       inclusions := DirectSumInclusions(BplusC);
       h := f*inclusions[1]-g*inclusions[2];
-      h := CokerProjection(h);
+      h := CoKernelProjection(h);
 
       return [inclusions[1]*h,inclusions[2]*h];
    else
@@ -877,7 +880,7 @@ end
 
 InstallMethod( PullBack,
    "for two homomorphisms ending in a common module over a path algebra",
-   [ IsPathAlgebraMatModuleMap, IsPathAlgebraMatModuleMap ], 0,
+   [ IsPathAlgebraModuleHomomorphism, IsPathAlgebraModuleHomomorphism ], 0,
    function( f, g ) 
 
    local A, B, AplusB, projections, h;
@@ -885,10 +888,10 @@ InstallMethod( PullBack,
    if Range(f) = Range(g) then 
       A := Source(f);
       B := Source(g);
-      AplusB := DirectSumOfPathAlgebraMatModules([A,B]);
+      AplusB := DirectSumOfModules([A,B]);
       projections := DirectSumProjections(AplusB);
       h := projections[1]*f-projections[2]*g;
-      h := KerInclusion(h);
+      h := KernelInclusion(h);
 
       return [h*projections[1],h*projections[2]];
    else
@@ -900,7 +903,7 @@ end
 
 InstallMethod( IsOmegaPeriodic, 
    "for a path algebra matmodule and an integer",
-   [ IsPathAlgebraMatModule, IS_INT  ], 0,
+   [ IsPathAlgebraModule, IS_INT  ], 0,
    function( M, n ) 
 
    local N0, N1, i;
@@ -909,7 +912,7 @@ InstallMethod( IsOmegaPeriodic,
    for i in [1..n] do
       Print("Computing syzygy number: ",i,"\n");
       N1 := 1st_Syzygy(N0);
-      if ModuleIsomorphismTest(M,N1) then
+      if IsomorphicModules(M,N1) then
          return i;
       else
          N0 := N1;
@@ -920,9 +923,9 @@ end
 );
 
 InstallMethod ( FromHomMMToEndM, 
-   "for a subset of EndOverPathAlgebra to HomOverPathAlgebra",
+   "for a subset of EndOverAlgebra to HomOverAlgebra",
    true,
-   [ IsPathAlgebraMatModuleMap ],
+   [ IsPathAlgebraModuleHomomorphism ],
    0,
    function( f )
 
@@ -944,9 +947,9 @@ end
 );
 
 InstallMethod ( FromEndMToHomMM, 
-   "for a subset of EndOverPathAlgebra to HomOverPathAlgebra",
+   "for a subset of EndOverAlgebra to HomOverAlgebra",
    true,
-   [ IsPathAlgebraMatModule, IsMatrix ],
+   [ IsPathAlgebraModule, IsMatrix ],
    0,
    function( M, mat )
 
@@ -966,14 +969,14 @@ InstallMethod ( FromEndMToHomMM,
       fi;
    od;
 
-   return RightModuleHomOverPathAlgebra(M,M,maps);
+   return RightModuleHomOverAlgebra(M,M,maps);
 end
 );
 
 InstallMethod ( IsRightMinimal, 
    "for a PathAlgebraMatModuleMap",
    true,
-   [ IsPathAlgebraMatModuleMap ],
+   [ IsPathAlgebraModuleHomomorphism ],
    0,
    function( f )
 
@@ -981,12 +984,12 @@ InstallMethod ( IsRightMinimal,
 
    B   := Source(f);
    C   := Range(f);
-   BB  := HomOverPathAlgebra(B,B);
+   BB  := HomOverAlgebra(B,B);
    mat := List(BB, x -> x*f);
    mat   := List(mat,x -> Flat(x!.maps));
    Ann_f := NullspaceMat(mat);
    Ann_f := List(Ann_f,x -> LinearCombination(BB,x));
-   radEndB := RadicalOfAlgebra(EndOverPathAlgebra(B)); 
+   radEndB := RadicalOfAlgebra(EndOverAlgebra(B)); 
    Ann_f := List(Ann_f, x -> FromHomMMToEndM(x));
 
    if ForAll(Ann_f, x -> x in radEndB) then 
@@ -1000,7 +1003,7 @@ end
 InstallMethod ( IsLeftMinimal, 
    "for a PathAlgebraMatModuleMap",
    true,
-   [ IsPathAlgebraMatModuleMap ],
+   [ IsPathAlgebraModuleHomomorphism ],
    0,
    function( f )
 
@@ -1008,12 +1011,12 @@ InstallMethod ( IsLeftMinimal,
 
    A   := Source(f);
    B   := Range(f);
-   BB  := HomOverPathAlgebra(B,B);
+   BB  := HomOverAlgebra(B,B);
    mat := List(BB, x -> f*x );
    mat   := List(mat,x -> Flat(x!.maps));
    Ann_f := NullspaceMat(mat);
    Ann_f := List(Ann_f,x -> LinearCombination(BB,x));
-   radEndB := RadicalOfAlgebra(EndOverPathAlgebra(B)); 
+   radEndB := RadicalOfAlgebra(EndOverAlgebra(B)); 
    Ann_f := List(Ann_f, x -> FromHomMMToEndM(x));
 
    if ForAll(Ann_f, x -> x in radEndB) then 
@@ -1024,10 +1027,10 @@ InstallMethod ( IsLeftMinimal,
 end
 );
 
-InstallMethod ( IsSplitMono, 
+InstallMethod ( IsSplitMonomorphism, 
    "for a PathAlgebraMatModuleMap",
    true,
-   [ IsPathAlgebraMatModuleMap ],
+   [ IsPathAlgebraModuleHomomorphism ],
    0,
    function( f )
 
@@ -1035,25 +1038,25 @@ InstallMethod ( IsSplitMono,
 
    B   := Source(f);
    C   := Range(f);
-   if IsOneToOne(f) then 
-      CB  := HomOverPathAlgebra(C,B);
+   if IsInjective(f) then 
+      CB  := HomOverAlgebra(C,B);
       if Length(CB) = 0 then 
          return false;
       else 
          mat := [];
          mat := List(CB, x -> f*x);
-         id_B := IdentityMap(B); 
+         id_B := IdentityMapping(B); 
          mat   := List(mat,x -> Flat(x!.maps));
          flat_id_B := Flat(id_B!.maps); 
          split_f := SolutionMat(mat,flat_id_B);
 
          if split_f <> fail then 
             split_f := LinearCombination(CB,split_f);
-            SetIsSplitEpi(split_f,f);
-            SetIsSplitMono(f,split_f);
+            SetIsSplitEpimorphism(split_f,f);
+            SetIsSplitMonomorphism(f,split_f);
             return split_f;
          else
-            SetIsSplitMono(f,false);
+            SetIsSplitMonomorphism(f,false);
             return false;
          fi;
       fi;
@@ -1063,10 +1066,10 @@ InstallMethod ( IsSplitMono,
 end
 );
 
-InstallMethod ( IsSplitEpi, 
+InstallMethod ( IsSplitEpimorphism, 
    "for a PathAlgebraMatModuleMap",
    true,
-   [ IsPathAlgebraMatModuleMap ],
+   [ IsPathAlgebraModuleHomomorphism ],
    0,
    function( f )
 
@@ -1074,24 +1077,24 @@ InstallMethod ( IsSplitEpi,
 
    B   := Source(f);
    C   := Range(f);
-   if IsOnto(f) then 
-      CB  := HomOverPathAlgebra(C,B);
+   if IsSurjective(f) then 
+      CB  := HomOverAlgebra(C,B);
       if Length(CB) = 0 then 
          return false;
       else 
          mat := List(CB, x -> x*f );
-         id_C := IdentityMap(C); 
+         id_C := IdentityMapping(C); 
          mat   := List(mat,x -> Flat(x!.maps));
          flat_id_C := Flat(id_C!.maps); 
          split_f := SolutionMat(mat,flat_id_C);
 
          if split_f <> fail then 
             split_f := LinearCombination(CB,split_f);
-            SetIsSplitMono(split_f,f);
-            SetIsSplitEpi(f,split_f);
+            SetIsSplitMonomorphism(split_f,f);
+            SetIsSplitEpimorphism(f,split_f);
             return split_f;
          else
-            SetIsSplitEpi(f,false);
+            SetIsSplitEpimorphism(f,false);
             return false;
          fi;
       fi;
@@ -1104,27 +1107,27 @@ end
 InstallMethod ( MoreRightMinimalVersion, 
    "for a PathAlgebraMatModuleMap",
    true,
-   [ IsPathAlgebraMatModuleMap ],
+   [ IsPathAlgebraModuleHomomorphism ],
    0,
    function( f )
 
    local B, g, A, HomBA, HomAA, n, i, j, gg, hh;
 
    B := Source(f);
-   g := KerInclusion(f);
+   g := KernelInclusion(f);
    A := Source(g);
-   HomBA  := HomOverPathAlgebra(B,A);
+   HomBA  := HomOverAlgebra(B,A);
    if Length(HomBA) = 0 then 
       return f;
    else 
-      HomAA  := HomOverPathAlgebra(A,A);
+      HomAA  := HomOverAlgebra(A,A);
       n := Maximum(Concatenation(DimensionVector(A),DimensionVector(B)));
       for i in [1..Length(HomBA)] do 
          for j in [1..Length(HomAA)] do
             gg := (g*HomBA[i]*HomAA[j])^n;
-            if gg <> ZeroMap(A,A) then
+            if gg <> ZeroMapping(A,A) then
                hh :=  (HomBA[i]*HomAA[j]*g)^n;
-               return [KerInclusion(hh)*f,ImInclusion(hh)*f];
+               return [KernelInclusion(hh)*f,ImageInclusion(hh)*f];
             fi;
          od;
       od;
@@ -1136,28 +1139,28 @@ end
 InstallMethod ( MoreLeftMinimalVersion, 
    "for a PathAlgebraMatModuleMap",
    true,
-   [ IsPathAlgebraMatModuleMap ],
+   [ IsPathAlgebraModuleHomomorphism ],
    0,
    function( f )
 
    local B, g, C, HomCB, HomCC, n, i, j, gg, hh, t;
 
    B := Range(f);
-   g := CokerProjection(f);
+   g := CoKernelProjection(f);
    C := Range(g);
-   HomCB  := HomOverPathAlgebra(C,B);
+   HomCB  := HomOverAlgebra(C,B);
    if Length(HomCB) = 0 then 
       return f;
    else 
-      HomCC  := HomOverPathAlgebra(C,C);
+      HomCC  := HomOverAlgebra(C,C);
       n := Maximum(Concatenation(DimensionVector(B),DimensionVector(C)));
       for i in [1..Length(HomCC)] do 
          for j in [1..Length(HomCB)] do
             gg := (HomCC[i]*HomCB[j]*g)^n;
-            if gg <> ZeroMap(C,C) then
+            if gg <> ZeroMapping(C,C) then
                hh :=  (g*HomCC[i]*HomCB[j])^n;
-               t := IsSplitMono(KerInclusion(hh));
-               return [f*t,f*ImProjection(hh)];
+               t := IsSplitMonomorphism(KernelInclusion(hh));
+               return [f*t,f*ImageProjection(hh)];
             fi;
          od;
       od;
@@ -1169,7 +1172,7 @@ end
 InstallMethod ( RightMinimalVersion, 
    "for a PathAlgebraMatModuleMap",
    true,
-   [ IsPathAlgebraMatModuleMap ],
+   [ IsPathAlgebraModuleHomomorphism ],
    0,
    function( f )
 
@@ -1195,7 +1198,7 @@ end
 InstallMethod ( LeftMinimalVersion, 
    "for a PathAlgebraMatModuleMap",
    true,
-   [ IsPathAlgebraMatModuleMap ],
+   [ IsPathAlgebraModuleHomomorphism ],
    0,
    function( f )
 
@@ -1222,7 +1225,7 @@ end
 InstallMethod ( MinimalRightApproximation, 
    "for two PathAlgebraMatModules",
    true,
-   [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ],
+   [ IsPathAlgebraModule, IsPathAlgebraModule ],
    0,
    function( M, C )
 
@@ -1231,11 +1234,11 @@ InstallMethod ( MinimalRightApproximation,
 
    if RightActingAlgebra(M) = RightActingAlgebra(C) then 
       K := LeftActingDomain(M);
-      HomMC := HomOverPathAlgebra(M,C);
+      HomMC := HomOverAlgebra(M,C);
       if Length(HomMC) = 0 then 
-         return ZeroMap(ZeroRepresentation(RightActingAlgebra(M)),C);
+         return ZeroMapping(ZeroModule(RightActingAlgebra(M)),C);
       else  
-         EndM  := EndOverPathAlgebra(M);
+         EndM  := EndOverAlgebra(M);
          radEndM := RadicalOfAlgebra(EndM);
          radEndM := BasisVectors(Basis(radEndM));
          radEndM := List(radEndM, x -> FromEndMToHomMM(M,x));
@@ -1257,7 +1260,7 @@ InstallMethod ( MinimalRightApproximation,
          gens := List(gens, x -> Coefficients(BB,x));
          gens := List(gens, x -> LinearCombination(HomMC,x));
          approx := List(gens, x -> Source(x));
-         approx := DirectSumOfPathAlgebraMatModules(approx);
+         approx := DirectSumOfModules(approx);
          approxmap := ShallowCopy(DirectSumProjections(approx));
          for i in [1..Length(approxmap)] do
             approxmap[i] := approxmap[i]*gens[i];
@@ -1275,7 +1278,7 @@ end
 InstallMethod ( MinimalLeftApproximation, 
    "for two PathAlgebraMatModules",
    true,
-   [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ],
+   [ IsPathAlgebraModule, IsPathAlgebraModule ],
    0,
    function( C, M )
 
@@ -1284,11 +1287,11 @@ InstallMethod ( MinimalLeftApproximation,
 
    if RightActingAlgebra(M) = RightActingAlgebra(C) then 
       K := LeftActingDomain(M);
-      HomCM := HomOverPathAlgebra(C,M);
+      HomCM := HomOverAlgebra(C,M);
       if Length(HomCM) = 0 then 
-         return ZeroMap(C,ZeroRepresentation(RightActingAlgebra(M)));
+         return ZeroMapping(C,ZeroModule(RightActingAlgebra(M)));
       else  
-         EndM  := EndOverPathAlgebra(M);
+         EndM  := EndOverAlgebra(M);
          radEndM := RadicalOfAlgebra(EndM);
          radEndM := BasisVectors(Basis(radEndM));
          radEndM := List(radEndM, x -> FromEndMToHomMM(M,x));
@@ -1310,7 +1313,7 @@ InstallMethod ( MinimalLeftApproximation,
          gens := List(gens, x -> Coefficients(BB,x));
          gens := List(gens, x -> LinearCombination(HomCM,x));
          approx := List(gens, x -> Range(x));
-         approx := DirectSumOfPathAlgebraMatModules(approx);
+         approx := DirectSumOfModules(approx);
          approxmap := ShallowCopy(DirectSumInclusions(approx));
          for i in [1..Length(approxmap)] do
             approxmap[i] := gens[i]*approxmap[i];
@@ -1376,7 +1379,7 @@ end
 ##
 InstallMethod ( BasisOfProjectives, 
     "for a finite dimensional quotient of a path algebra",
-    [ IsSubalgebraFpPathAlgebra ], 0,
+    [ IsQuotientOfPathAlgebra ], 0,
     function( A )
 
     local Q, num_vert, fam, vertices, basis_of_projs, 
@@ -1389,7 +1392,7 @@ InstallMethod ( BasisOfProjectives,
           AdmitsFinitelyManyNontips(GroebnerBasisOfIdeal(fam!.ideal)) then 
 #
       Q := QuiverOfPathAlgebra(OriginalPathAlgebra(A));
-      num_vert := OrderOfQuiver(Q); 
+      num_vert := NumberOfVertices(Q); 
       vertices := List(VerticesOfQuiver(Q), x -> x*One(A));
       basis_of_projs := [];
       for v in vertices do
@@ -1431,8 +1434,8 @@ InstallOtherMethod ( BasisOfProjectives,
 #  Testing input if finite dimensional.
 #       
    Q := QuiverOfPathAlgebra(A); 
-   num_vert := OrderOfQuiver(Q);
-   if not IsAcyclic(Q)  then
+   num_vert := NumberOfVertices(Q);
+   if not IsAcyclicQuiver(Q)  then
       Print("Need to have a finite dimensional path algebra as argument.\n");
       return fail;
    else
@@ -1469,7 +1472,7 @@ end
 InstallMethod ( VertexPosition, 
    "for an element in a quotient of a path algebra",
    true,
-   [ IsElementOfFpPathAlgebra ],
+   [ IsElementOfQuotientOfPathAlgebra ],
    0,
    function( elm )
 
@@ -1514,7 +1517,7 @@ end
 InstallMethod ( HomFromProjective, 
    "for an element in a PathAlgebraMatModule and the PathAlgebraMatModule",
    IsElmsColls,
-   [ IsRightAlgebraModuleElement, IsPathAlgebraMatModule ],
+   [ IsRightAlgebraModuleElement, IsPathAlgebraModule ],
    0,
    function( m, M )
 
@@ -1541,7 +1544,7 @@ InstallMethod ( HomFromProjective,
 # And the basis for the correct projective module, and the proj. module itself
 #
 	  B := BasisOfProjectives(A)[pos];
-	  P := IndecomposableProjectiveRepresentations(A)[pos];
+	  P := IndecProjectiveModules(A)[pos];
 #
 # Then we calculate the matrices for the homomorphism
 #
@@ -1557,7 +1560,7 @@ InstallMethod ( HomFromProjective,
 #
 # Construct the homomorphism
 #
-      f := RightModuleHomOverPathAlgebra(P,M,mats);
+      f := RightModuleHomOverAlgebra(P,M,mats);
 	  return f;
    else
       return fail;
@@ -1575,19 +1578,19 @@ end
 InstallMethod ( ProjectiveCover, 
    "for a PathAlgebraMatModule",
    true,
-   [ IsPathAlgebraMatModule ],
+   [ IsPathAlgebraModule ],
    0,
    function( M )
 
    local mingen, maps, PN, projections;
 
    if Dimension(M) = 0 then 
-      return ZeroMap(ZeroRepresentation(RightActingAlgebra(M)), M);
+      return ZeroMapping(ZeroModule(RightActingAlgebra(M)), M);
    else 
-      mingen := MinimalSetOfGenerators(M);
+      mingen := MinimalGeneratingSetOfModule(M);
       maps := List(mingen, x -> HomFromProjective(x,M));
       PN := List(maps, x -> Source(x));
-      PN := DirectSumOfPathAlgebraMatModules(PN);
+      PN := DirectSumOfModules(PN);
       projections := DirectSumProjections(PN);
 
       return projections*maps;;
@@ -1597,17 +1600,17 @@ end
 
 #######################################################################
 ##
-#O  ExtOne(<M>,<N>)
+#O  ExtOverAlgebra(<M>,<N>)
 ##
 ##  This function returns the kernel of the projective cover 
 ##  Omega(<M>) --> P(M) and a basis of Ext^1(<M>,<N>) inside 
 ##  Hom(Omega(<M>),<N>) if the group is non-zero, otherwise it returns
 ##  an empty list.
 ##
-InstallMethod( ExtOne, 
+InstallMethod( ExtOverAlgebra, 
    "for two PathAlgebraMatModule's",
    true, 
-   [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ], 0,
+   [ IsPathAlgebraModule, IsPathAlgebraModule ], 0,
    function( M, N )
 
    local K, f, g, PM, syzygy, G, H, Img1, zero, genssyzygyN, VsyzygyN, 
@@ -1625,14 +1628,14 @@ InstallMethod( ExtOne,
 # f: P(M) -> M, g: Syz(M) -> P(M)  
 #
       f := ProjectiveCover(M);
-      g := KerInclusion(f);
+      g := KernelInclusion(f);
       PM := Source(f);
       syzygy := Source(g);
 #
 # using Hom(-,N) on the s.e.s. above
 #
-      G := HomOverPathAlgebra(PM,N);
-      H := HomOverPathAlgebra(syzygy,N);
+      G := HomOverAlgebra(PM,N);
+      H := HomOverAlgebra(syzygy,N);
 #
 # Making a vector space of Hom(Syz(M),N)
 # by first rewriting the maps as vectors
@@ -1650,7 +1653,7 @@ InstallMethod( ExtOne,
 #
 # removing 0 maps by comparing to zero = Zeromap(syzygy,N)
 #
-         zero := ZeroMap(syzygy,N);
+         zero := ZeroMapping(syzygy,N);
          Img  := Filtered(Img1, x -> x <> zero);
 #
 # Rewriting the maps as vectors
@@ -1704,7 +1707,7 @@ InstallMethod( ExtOne,
 #
 # Making homomorphisms of the elements
 #
-            H2 := List(homvecs, x -> RightModuleHomOverPathAlgebra(syzygy,N,x));
+            H2 := List(homvecs, x -> RightModuleHomOverAlgebra(syzygy,N,x));
 
             return [g,H2];
          fi;
@@ -1715,17 +1718,17 @@ end
 
 #######################################################################
 ##
-#O  ExtOneAdd(<M>,<N>)
+#O  ExtOverAlgebraAdd(<M>,<N>)
 ##
 ##  This function returns the kernel of the projective cover 
 ##  Omega(<M>) --> P(M) and a basis of Ext^1(<M>,<N>) inside 
 ##  Hom(Omega(<M>),<N>) if the group is non-zero, otherwise it returns
 ##  an empty list.
 ##
-InstallMethod( ExtOneAdd, 
+InstallMethod( ExtOverAlgebraAdd, 
    "for two PathAlgebraMatModule's",
    true, 
-   [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ], 0,
+   [ IsPathAlgebraModule, IsPathAlgebraModule ], 0,
    function( M, N )
 
    local K, f, g, PM, syzygy, G, H, Img1, zero, genssyzygyN, VsyzygyN, 
@@ -1743,14 +1746,14 @@ InstallMethod( ExtOneAdd,
 # f: P(M) -> M, g: Syz(M) -> P(M)  
 #
       f := ProjectiveCover(M);
-      g := KerInclusion(f);
+      g := KernelInclusion(f);
       PM := Source(f);
       syzygy := Source(g);
 #
 # using Hom(-,N) on the s.e.s. above
 #
-      G := HomOverPathAlgebra(PM,N);
-      H := HomOverPathAlgebra(syzygy,N);
+      G := HomOverAlgebra(PM,N);
+      H := HomOverAlgebra(syzygy,N);
 #
 # Making a vector space of Hom(Syz(M),N)
 # by first rewriting the maps as vectors
@@ -1768,7 +1771,7 @@ InstallMethod( ExtOneAdd,
 #
 # removing 0 maps by comparing to zero = Zeromap(syzygy,N)
 #
-         zero := ZeroMap(syzygy,N);
+         zero := ZeroMapping(syzygy,N);
          Img  := Filtered(Img1, x -> x <> zero);
 #
 # Rewriting the maps as vectors
@@ -1823,7 +1826,7 @@ InstallMethod( ExtOneAdd,
 # Making homomorphisms of the elements
 #
 
-            H2 := List(homvecs, x -> RightModuleHomOverPathAlgebra(syzygy,N,x));
+            H2 := List(homvecs, x -> RightModuleHomOverAlgebra(syzygy,N,x));
 
             coefficients := function( map ) 
                local vector, B;
@@ -1856,7 +1859,7 @@ end
 InstallMethod( AlmostSplitSequence, 
    "for a PathAlgebraMatModule",
    true, 
-   [ IsPathAlgebraMatModule ], 0,
+   [ IsPathAlgebraModule ], 0,
    function( M )
 
    local K, DTrM, f, g, PM, syzygy, G, H, Img1, zero, 
@@ -1876,14 +1879,14 @@ InstallMethod( AlmostSplitSequence,
 # f: P(M) -> M, g: Syz(M) -> P(M)  
 #
       f := ProjectiveCover(M);
-      g := KerInclusion(f);
+      g := KernelInclusion(f);
       PM := Source(f);
       syzygy := Source(g);
 #
 # using Hom(-,DTrM) on the s.e.s. above
 #
-      G := HomOverPathAlgebra(PM,DTrM);
-      H := HomOverPathAlgebra(syzygy,DTrM);
+      G := HomOverAlgebra(PM,DTrM);
+      H := HomOverAlgebra(syzygy,DTrM);
 #
 # Making a vector space of Hom(Syz(M),DTrM)
 # by first rewriting the maps as vectors
@@ -1898,7 +1901,7 @@ InstallMethod( AlmostSplitSequence,
 #
 # removing 0 maps by comparing to zero = Zeromap(syzygy,DTrM)
 #
-      zero := ZeroMap(syzygy,DTrM);
+      zero := ZeroMapping(syzygy,DTrM);
       Img  := Filtered(Img1, x -> x <> zero);
 #
 # Rewriting the maps as vectors
@@ -1924,7 +1927,7 @@ InstallMethod( AlmostSplitSequence,
 #
 # Finding the radical of End(DTrM)
 #
-      EndDTrM := EndOverPathAlgebra(DTrM);
+      EndDTrM := EndOverAlgebra(DTrM);
       radEndDTrM := RadicalOfAlgebra(EndDTrM);
       radEndDTrM := List(BasisVectors(Basis(radEndDTrM)), x -> FromEndMToHomMM(DTrM,x));
 #
@@ -1943,7 +1946,7 @@ InstallMethod( AlmostSplitSequence,
 #
       ext := PushOut(temp,g);
 
-      return [ext[1],CokerProjection(ext[1])];
+      return [ext[1],CoKernelProjection(ext[1])];
    fi;
 end
 );

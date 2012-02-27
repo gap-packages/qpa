@@ -1,13 +1,13 @@
 # GAP Implementation
-# $Id: specialreps.gi,v 1.7 2011/06/20 12:48:17 sunnyquiver Exp $
+# $Id: specialreps.gi,v 1.8 2012/02/27 12:26:34 sunnyquiver Exp $
 
 # specialreps.gi: Provides special representations of a quiver, 
 # 		  indecomposble projective, indecomposable injective, 
 # 		  and vertex simple representations. 
 #
-InstallMethod ( IndecomposableProjectiveRepresentations, 
+InstallMethod ( IndecProjectiveModules, 
     "for a finite dimensional quotient of a path algebra",
-    [ IsSubalgebraFpPathAlgebra, IsList ], 0,
+    [ IsQuotientOfPathAlgebra, IsList ], 0,
     function( A, which_proj )
     local fam, KQ, I, Q, num_vert, num_arrows, i, vertices, 
           arrows_as_paths, indec_proj, j, indec_proj_list, 
@@ -109,11 +109,11 @@ InstallMethod ( IndecomposableProjectiveRepresentations,
         od;
         indec_proj_list := [];
         for i in [1..Length(which_proj)] do
-            Add(indec_proj_list,RightModuleOverQuotientOfPathAlgebra(A,mat_list[i]));
+            Add(indec_proj_list,RightModuleOverPathAlgebra(A,mat_list[i]));
             list_of_min_gen[i] := PathModuleElem(FamilyObj(Zero(indec_proj_list[i])![1]),list_of_min_gen[i]); 
             
             list_of_min_gen[i] := Objectify( TypeObj( Zero(indec_proj_list[i]) ), [ list_of_min_gen[i] ] );
-            SetMinimalSetOfGenerators(indec_proj_list[i],[list_of_min_gen[i]]);
+            SetMinimalGeneratingSetOfModule(indec_proj_list[i],[list_of_min_gen[i]]);
 
         od;
         return indec_proj_list;
@@ -125,19 +125,19 @@ InstallMethod ( IndecomposableProjectiveRepresentations,
 end
 );
 
-InstallOtherMethod ( IndecomposableProjectiveRepresentations, 
+InstallOtherMethod ( IndecProjectiveModules, 
     "for a finite dimensional quotient of a path algebra",
-    [ IsSubalgebraFpPathAlgebra ], 0,
+    [ IsQuotientOfPathAlgebra ], 0,
     function( A )
     local num_vert; 
 
-    num_vert := OrderOfQuiver(QuiverOfPathAlgebra(A));
+    num_vert := NumberOfVertices(QuiverOfPathAlgebra(A));
 
-    return IndecomposableProjectiveRepresentations(A,[1..num_vert]);
+    return IndecProjectiveModules(A,[1..num_vert]);
 end
 );
 
-InstallOtherMethod ( IndecomposableProjectiveRepresentations, 
+InstallOtherMethod ( IndecProjectiveModules, 
     "for a finite dimensional quotient of a path algebra",
     [ IsPathAlgebra, IsList ], 0,
     function( A , which_proj )
@@ -158,7 +158,7 @@ InstallOtherMethod ( IndecomposableProjectiveRepresentations,
      if not ForAll(which_proj, x -> x in [1..num_vert]) then 
         Print("The range of projectives entered is wrong.\n");
         return fail;
-     elif not IsAcyclic(Q)  then
+     elif not IsAcyclicQuiver(Q)  then
         Print("Need to have a finite dimensional path algebra as argument.\n");
         return fail;
      else
@@ -243,45 +243,45 @@ InstallOtherMethod ( IndecomposableProjectiveRepresentations,
             list_of_min_gen[i] := PathModuleElem(FamilyObj(Zero(indec_proj_list[i])![1]),list_of_min_gen[i]); 
             
             list_of_min_gen[i] := Objectify( TypeObj( Zero(indec_proj_list[i]) ), [ list_of_min_gen[i] ] );
-            SetMinimalSetOfGenerators(indec_proj_list[i],[list_of_min_gen[i]]);
+            SetMinimalGeneratingSetOfModule(indec_proj_list[i],[list_of_min_gen[i]]);
         od;
         return indec_proj_list;
      fi;
 end
 );
 
-InstallOtherMethod ( IndecomposableProjectiveRepresentations, 
+InstallOtherMethod ( IndecProjectiveModules, 
     "for a finite dimensional quotient of a path algebra",
     [ IsPathAlgebra ], 0,
     function( A )
     local num_vert; 
 
-    num_vert := OrderOfQuiver(QuiverOfPathAlgebra(A));
+    num_vert := NumberOfVertices(QuiverOfPathAlgebra(A));
 
-    return IndecomposableProjectiveRepresentations(A,[1..num_vert]);
+    return IndecProjectiveModules(A,[1..num_vert]);
 end
 );
 
-InstallMethod ( IndecomposableInjectiveRepresentations, 
+InstallMethod ( IndecInjectiveModules, 
     "for a finite dimensional quotient of a path algebra",
     [ IsAlgebra, IsList ], 0,
     function( A, which_inj )
         local A_op, P_op, Q, num_vert, indec_inj_list, i; 
 
         A_op := OppositeAlgebra(A);
-        P_op := IndecomposableProjectiveRepresentations(A_op, which_inj );
+        P_op := IndecProjectiveModules(A_op, which_inj );
         Q    := QuiverOfPathAlgebra(A); 
         num_vert := Length(VerticesOfQuiver(Q));        
         indec_inj_list := [];
         for i in [1..Length(which_inj)] do
-            Add(indec_inj_list,DualOfPathAlgebraMatModule(P_op[i]));
+            Add(indec_inj_list,DualOfModule(P_op[i]));
         od;
 
         return indec_inj_list;
     end
 );
 
-InstallOtherMethod ( IndecomposableInjectiveRepresentations, 
+InstallOtherMethod ( IndecInjectiveModules, 
     "for a finite dimensional quotient of a path algebra",
     [ IsAlgebra ], 0,
     function( A )
@@ -290,19 +290,19 @@ InstallOtherMethod ( IndecomposableInjectiveRepresentations,
         Q    := QuiverOfPathAlgebra(A); 
         num_vert := Length(VerticesOfQuiver(Q));        
 
-        return IndecomposableInjectiveRepresentations(A, [1..num_vert]);
+        return IndecInjectiveModules(A, [1..num_vert]);
     end
 );
 
 
 
-InstallMethod ( VertexSimpleRepresentations, 
+InstallMethod ( SimpleModules, 
     "for a finite dimensional quotient of a path algebra",
     [ IsAlgebra ], 0,
     function( A )
         local KQ, arrows, vertices, v, mats, a, simple_rep;
 #
-    if ( not IsPathAlgebra(A) ) and ( not IsSubalgebraFpPathAlgebra(A) ) then 
+    if ( not IsPathAlgebra(A) ) and ( not IsQuotientOfPathAlgebra(A) ) then 
        Error("argument entered is a not (a quotient of) a path algebra,\n");
     fi;
  
@@ -330,7 +330,7 @@ InstallMethod ( VertexSimpleRepresentations,
         if IsPathAlgebra(A) then
            Add(simple_rep,RightModuleOverPathAlgebra(A,mats));
         else
-           Add(simple_rep,RightModuleOverQuotientOfPathAlgebra(A,mats));
+           Add(simple_rep,RightModuleOverPathAlgebra(A,mats));
         fi;
     od;
         
@@ -338,13 +338,13 @@ InstallMethod ( VertexSimpleRepresentations,
 end
 );
 
-InstallMethod ( ZeroRepresentation, 
+InstallMethod ( ZeroModule, 
     "for a finite dimensional quotient of a path algebra",
     [ IsAlgebra ], 0,
     function( A )
         local KQ, arrows, vertices, v, mats, a, simple_rep;
 #
-    if ( not IsPathAlgebra(A) ) and ( not IsSubalgebraFpPathAlgebra(A) ) then 
+    if ( not IsPathAlgebra(A) ) and ( not IsQuotientOfPathAlgebra(A) ) then 
        Error("argument entered is a not (a quotient of) a path algebra,\n");
     fi;
     KQ := OriginalPathAlgebra(A); 
@@ -356,7 +356,7 @@ InstallMethod ( ZeroRepresentation,
     if IsPathAlgebra(A) then
        return RightModuleOverPathAlgebra(A,mats);
     else
-       return RightModuleOverQuotientOfPathAlgebra(A,mats);
+       return RightModuleOverPathAlgebra(A,mats);
     fi;
 end
 );
