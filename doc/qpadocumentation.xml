@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- $Id: qpadocumentation.xml,v 1.24 2012/02/27 12:30:13 sunnyquiver Exp $ -->
+<!-- $Id: qpadocumentation.xml,v 1.25 2012/02/27 12:33:11 sunnyquiver Exp $ -->
 
 <!DOCTYPE Book SYSTEM "gapdoc.dtd">
 <!-- [ <!ENTITY see '<Alt Only="LaTeX">$\to$</Alt><Alt Not="LaTeX">--&gt;</Alt>'>
  ]> -->
 
 <?LaTeX ExtraPreamble="
+\usepackage{amsmath}
 \newcommand{\tensor}{\otimes}
 \newcommand{\quiverproduct}{\times}
 "?>
