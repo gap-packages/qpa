@@ -71,7 +71,7 @@
       2.2-2 OrderedBy
     2.3 Categories and Properties of Quivers
       2.3-1 IsQuiver
-      2.3-2 IsAcyclic
+      2.3-2 IsAcyclicQuiver
       2.3-3 IsFinite
     2.4 Orderings of paths in a quiver
     2.5 Attributes and Operations for Quivers
@@ -80,8 +80,8 @@
       2.5-3 ArrowsOfQuiver
       2.5-4 AdjacencyMatrixOfQuiver
       2.5-5 GeneratorsOfQuiver
-      2.5-6 OrderOfQuiver
-      2.5-7 SizeOfQuiver
+      2.5-6 NumberOfVertices
+      2.5-7 NumberOfArrows
       2.5-8 OrderingOfQuiver
       2.5-9 OppositeOfQuiver
     2.6 Categories and Properties of Paths
@@ -129,16 +129,16 @@
     3.7 Ideals
       3.7-1 Ideals and operations on ideals
       3.7-2 Ideal
-      3.7-3 nthPowerOfArrowIdeal
+      3.7-3 NthPowerOfArrowIdeal
       3.7-4 AddNthPowerToRelations
       3.7-5 Attributes of ideals
     3.8 Categories and Properties of Quotients of Path Algebras
-      3.8-1 IsSubalgebraFpPathAlgebra
+      3.8-1 IsQuotientOfPathAlgebra
     3.9 Attributes and Operations for Quotients of Path Algebras
       3.9-1 NormalFormFunction
-      3.9-2 IsElementOfFpPathAlgebra
+      3.9-2 IsElementOfQuotientOfPathAlgebra
       3.9-3 Coefficients
-      3.9-4 IsSelfinjective
+      3.9-4 IsSelfinjectiveAlgebra
       3.9-5 LoewyLength
       3.9-6 CartanMatrix
       3.9-7 CoxeterMatrix
@@ -147,7 +147,7 @@
     3.10 Attributes and Operations on Elements of Quotients of Path Algebra
       3.10-1 IsNormalForm
       3.10-2 <
-      3.10-3 ElementOfFpPathAlgebra
+      3.10-3 ElementOfQuotientOfPathAlgebra
       3.10-4 OriginalPathAlgebra
     3.11 Predefined classes of quotient of path algebras
       3.11-1 NakayamaAlgebra
@@ -171,7 +171,7 @@
       4.2-1 IsGroebnerBasis
       4.2-2 IsTipReducedGroebnerBasis
       4.2-3 IsCompletelyReducedGroebnerBasis
-      4.2-4 IsHomogenousGroebnerBasis
+      4.2-4 IsHomogeneousGroebnerBasis
       4.2-5 IsCompleteGroebnerBasis
     4.3 Attributes and Operations for Groebner Basis
       4.3-1 CompletelyReduce
@@ -196,52 +196,49 @@
   6 Right Modules over Path Algebras
     6.1 Matrix Modules
       6.1-1 RightModuleOverPathAlgebra
-      6.1-2 NewRightModuleOverPathAlgebra
     6.2 Categories Of Matrix Modules
-      6.2-1 IsPathAlgebraMatModule
+      6.2-1 IsPathAlgebraModule
     6.3 Acting on Module Elements
       6.3-1 ^
     6.4 Operations on representations
       6.4-1 CommonDirectSummand
       6.4-2 DimensionVector
-      6.4-3 DimensionMatModule
-      6.4-4 DirectSummandTest
-      6.4-5 DirectSumOfPathAlgebraMatModules
-      6.4-6 IsDirectSum
+      6.4-3 Dimension
+      6.4-4 IsDirectSummand
+      6.4-5 DirectSumOfModules
+      6.4-6 IsDirectSumOfModules
       6.4-7 DirectSumInclusions
       6.4-8 DirectSumProjections
-      6.4-9 1st_Syzygy
-      6.4-10 InAdditiveClosureTest
+      6.4-9 1stSyzygy
+      6.4-10 IsInAdditiveClosure
       6.4-11 IsOmegaPeriodic
       6.4-12 IsInjectiveModule
-      6.4-13 IsOmegaPeriodicTest
-      6.4-14 IsProjectiveModule
-      6.4-15 IsSemisimpleModule
-      6.4-16 IsSimpleModule
-      6.4-17 LoewyLength
-      6.4-18 MaximalCommonDirectSummand
-      6.4-19 ModuleIsomorphismTest
-      6.4-20 nth_Syzygy
-      6.4-21 nth_SyzygyNC
-      6.4-22 RadicalOfRep
-      6.4-23 RadicalSeries
-      6.4-24 SocleSeries
-      6.4-25 SocleOfPathAlgebraMatModule
-      6.4-26 SubRep
-      6.4-27 SupportModuleElement
-      6.4-28 TopOfRep
-      6.4-29 GeneratorsOfRep
-      6.4-30 MinimalSetOfGenerators
-      6.4-31 MatricesOfPathAlgebraMatModule
+      6.4-13 IsProjectiveModule
+      6.4-14 IsSemisimpleModule
+      6.4-15 IsSimpleModule
+      6.4-16 LoewyLength
+      6.4-17 MaximalCommonDirectSummand
+      6.4-18 IsomorphicModules
+      6.4-19 NthSyzygy
+      6.4-20 NthSyzygyNC
+      6.4-21 RadicalOfModule
+      6.4-22 RadicalSeries
+      6.4-23 SocleSeries
+      6.4-24 SocleOfModule
+      6.4-25 SubRepresentation
+      6.4-26 SupportModuleElement
+      6.4-27 TopOfModule
+      6.4-28 MinimalGeneratingSetOfModule
+      6.4-29 MatricesOfPathAlgebraModule
     6.5 Special representations
       6.5-1 BasisOfProjectives
-      6.5-2 IndecomposableProjectiveRepresentations
-      6.5-3 IndecomposableInjectiveRepresentations
-      6.5-4 VertexSimpleRepresentations
-      6.5-5 ZeroRepresentation
+      6.5-2 IndecProjectiveModules
+      6.5-3 IndecInjectiveModules
+      6.5-4 SimpleModules
+      6.5-5 ZeroModule
     6.6 Functors on representations
-      6.6-1 DualOfPathAlgebraMatModule
-      6.6-2 DualOfPathAlgebraMatModuleMap
+      6.6-1 DualOfModule
+      6.6-2 DualOfModuleHomomorphism
       6.6-3 DTr
       6.6-4 TrD
       6.6-5 TransposeOfModule
@@ -253,36 +250,36 @@
       6.7-5 /
   7 Homomorphisms of Right Modules over Path Algebras
     7.1 Categories and representation of homomorphisms
-      7.1-1 IsPathAlgebraMatModuleMap
-      7.1-2 RightModuleHomOverPathAlgebra
+      7.1-1 IsPathAlgebraModuleHomomorphism
+      7.1-2 RightModuleHomOverAlgebra
     7.2 Generalities of homomorphisms
       7.2-1 Range
       7.2-2 Source
-      7.2-3 PreImagesElm
+      7.2-3 PreImagesRepresentative
       7.2-4 ImageElm
       7.2-5 ImagesSet
       7.2-6 Zero
-      7.2-7 ZeroMap
-      7.2-8 IdentityMap
+      7.2-7 ZeroMapping
+      7.2-8 IdentityMapping
       7.2-9 \= (maps)
       7.2-10 \+ (maps)
       7.2-11 \* (maps)
       7.2-12 CoKernelOfWhat
       7.2-13 ImageOfWhat
-      7.2-14 IsOneToOne
-      7.2-15 IsOnto
-      7.2-16 IsIsom
-      7.2-17 IsSplitEpi
-      7.2-18 IsSplitMono
-      7.2-19 IsZeroMap
+      7.2-14 IsInjective
+      7.2-15 IsSurjective
+      7.2-16 IsIsomorphism
+      7.2-17 IsSplitEpimorphism
+      7.2-18 IsSplitMonomorphism
+      7.2-19 IsZero
       7.2-20 KernelOfWhat
     7.3 Homomorphisms and modules constructed from homomorphisms and modules
-      7.3-1 Coker
-      7.3-2 EndOverPathAlgebra
+      7.3-1 CoKernel
+      7.3-2 EndOverAlgebra
       7.3-3 HomFromProjective
-      7.3-4 HomOverPathAlgebra
-      7.3-5 Im
-      7.3-6 Ker
+      7.3-4 HomOverAlgebra
+      7.3-5 Image
+      7.3-6 Kernel
       7.3-7 LeftMinimalVersion
       7.3-8 LiftingInclusionMorphisms
       7.3-9 LiftingMorphismFromProjective
@@ -293,12 +290,12 @@
       7.3-14 ProjectiveCover
       7.3-15 PullBack
       7.3-16 PushOut
-      7.3-17 RadicalOfRepInclusion
-      7.3-18 SocleOfPathAlgebraMatModuleInclusion
-      7.3-19 SubRepInclusion
-      7.3-20 TopOfRepProjection
+      7.3-17 RadicalOfModuleInclusion
+      7.3-18 SocleOfModuleInclusion
+      7.3-19 SubRepresentationInclusion
+      7.3-20 TopOfModuleProjection
     7.4 Homological algebra
-      7.4-1 ExtOne
+      7.4-1 ExtOverAlgebra
     7.5 Auslander-Reiten theory
       7.5-1 AlmostSplitSequence
   8 Chain complexes

@@ -61,9 +61,9 @@
     [4Xgap>[0X
   [4X------------------------------------------------------------------[0X
   
-  [1X4.2-4 IsHomogenousGroebnerBasis[0m
+  [1X4.2-4 IsHomogeneousGroebnerBasis[0m
   
-  [2X> IsHomogenousGroebnerBasis( [0X[3Xobject[0X[2X ) ______________________________[0Xproperty
+  [2X> IsHomogeneousGroebnerBasis( [0X[3Xobject[0X[2X ) _____________________________[0Xproperty
   
   is true when [3Xobject[0m is a Groebnerbasis which is homogenous.
   

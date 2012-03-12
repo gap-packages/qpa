@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2011.8.11)  27 FEB 2012 08:10
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2011.8.11)  12 MAR 2012 08:45
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -337,13 +337,10 @@ LaTeX Warning: Label `<' multiply defined.
 LaTeX Warning: Label `<' multiply defined.
 
 
+LaTeX Warning: Label `RightModuleOverPathAlgebra' multiply defined.
+
+
 LaTeX Warning: Label `LoewyLength' multiply defined.
-
-
-LaTeX Warning: Label `DTr' multiply defined.
-
-
-LaTeX Warning: Label `TrD' multiply defined.
 
 
 LaTeX Warning: Label `^' multiply defined.
@@ -1020,13 +1017,8 @@ Chapter 5.
 Chapter 6.
 [38
 
-]
-Underfull \hbox (badness 10000) in paragraph at lines 2275--2278
-
- []
-
-[39]
-Underfull \hbox (badness 10000) in paragraph at lines 2313--2316
+] [39]
+Underfull \hbox (badness 10000) in paragraph at lines 2297--2300
 
  []
 
@@ -1034,77 +1026,59 @@ pdfTeX warning (ext4): destination with the same identifier (name{L.X8123456781
 234567}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.2335 \hyperdef{L}{X8123456781234567}{}
+l.2319 \hyperdef{L}{X8123456781234567}{}
                                         
-Underfull \hbox (badness 10000) in paragraph at lines 2336--2339
+Underfull \hbox (badness 10000) in paragraph at lines 2320--2323
 
  []
 
 [40] [41]
-Underfull \hbox (badness 1038) in paragraph at lines 2422--2427
+Underfull \hbox (badness 1038) in paragraph at lines 2406--2411
 []\OT1/ptm/b/n/10.95 Returns:  \OT1/ptm/m/n/10.95 the di-men-sion vec-tor of th
 e rep-re-sen-ta-tion []. The ar-gu-ment [] must be a
  []
 
 
-Underfull \hbox (badness 4132) in paragraph at lines 2438--2443
+Underfull \hbox (badness 4132) in paragraph at lines 2422--2427
 []\OT1/ptm/b/n/10.95 Returns:  \OT1/ptm/m/n/10.95 the di-men-sion of the rep-re
 -sen-ta-tion []. The ar-gu-ment [] must be a
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2482--2485
+Underfull \hbox (badness 10000) in paragraph at lines 2466--2469
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2487--2488
-[]\OT1/ptm/m/n/10.95 An at-tribute, re-turns true is [] is con-structed via the
- com-mand
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 2494--2497
-
- []
-
-[42]
-Underfull \hbox (badness 10000) in paragraph at lines 2507--2510
+Underfull \hbox (badness 10000) in paragraph at lines 2478--2481
 
  []
 
 
-Underfull \hbox (badness 4739) in paragraph at lines 2512--2515
-[]\OT1/ptm/m/n/10.95 An at-tribute, re-turns the list of pro-jec-tions from the
- di-rect sum to the in-di-vid-ual
+Underfull \hbox (badness 10000) in paragraph at lines 2491--2494
+
  []
 
-
-Underfull \hbox (badness 3930) in paragraph at lines 2512--2515
-\OT1/ptm/m/n/10.95 mod-ules used to con-struct di-rect sum, when a di-rect sum 
-has been con-structed us-ing
- []
-
-[43]
-Underfull \hbox (badness 3128) in paragraph at lines 2594--2599
+[42] [43]
+Underfull \hbox (badness 3128) in paragraph at lines 2578--2583
 []\OT1/ptm/b/n/10.95 Returns:  \OT1/ptm/m/n/10.95 true if the rep-re-sen-ta-tio
 n [] is in-jec-tive. The ar-gu-ment [] must be a
  []
 
 
-Underfull \hbox (badness 2521) in paragraph at lines 2620--2625
+Underfull \hbox (badness 2521) in paragraph at lines 2591--2596
 []\OT1/ptm/b/n/10.95 Returns:  \OT1/ptm/m/n/10.95 true if the rep-re-sen-ta-tio
 n [] is pro-jec-tive. The ar-gu-ment [] must be a
  []
 
 
-Underfull \hbox (badness 1968) in paragraph at lines 2633--2638
+Underfull \hbox (badness 1968) in paragraph at lines 2604--2609
 []\OT1/ptm/b/n/10.95 Returns:  \OT1/ptm/m/n/10.95 true if the rep-re-sen-ta-tio
 n [] is semisim-ple. The ar-gu-ment [] must be a
  []
 
 
-Underfull \hbox (badness 4072) in paragraph at lines 2646--2651
+Underfull \hbox (badness 4072) in paragraph at lines 2617--2622
 []\OT1/ptm/b/n/10.95 Returns:  \OT1/ptm/m/n/10.95 true if the rep-re-sen-ta-tio
 n [] is sim-ple. The ar-gu-ment [] must be a
  []
@@ -1113,34 +1087,34 @@ pdfTeX warning (ext4): destination with the same identifier (name{L.X7BEA44FB81
 9910B6}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.2658 \hyperdef{L}{X7BEA44FB819910B6}{}
-                                         [44] [45] [46] [47]
-Underfull \hbox (badness 10000) in paragraph at lines 2990--2993
+l.2629 \hyperdef{L}{X7BEA44FB819910B6}{}
+                                         [44] [45] [46]
+Underfull \hbox (badness 10000) in paragraph at lines 2948--2951
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 3002--3005
+[47]
+Underfull \hbox (badness 10000) in paragraph at lines 2960--2963
 
  []
 
-[48] [49]pdfTeX warning (ext4): destination with the same identifier (name{L.X8
-123456781234567}) has been already used, duplicate ignored
+[48]pdfTeX warning (ext4): destination with the same identifier (name{L.X812345
+6781234567}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.3141 \hyperdef{L}{X8123456781234567}{}
+l.3099 \hyperdef{L}{X8123456781234567}{}
                                         
-Underfull \hbox (badness 10000) in paragraph at lines 3142--3145
+Underfull \hbox (badness 10000) in paragraph at lines 3100--3103
 
  []
 
-pdfTeX warning (ext4): destination with the same identifier (name{L.X871A3B1D87
-1A3B1D}) has been already used, duplicate ignored
+[49]pdfTeX warning (ext4): destination with the same identifier (name{L.X871A3B
+1D871A3B1D}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.3159 \hyperdef{L}{X871A3B1D871A3B1D}{}
+l.3117 \hyperdef{L}{X871A3B1D871A3B1D}{}
                                         
-Underfull \hbox (badness 10000) in paragraph at lines 3160--3163
+Underfull \hbox (badness 10000) in paragraph at lines 3118--3121
 
  []
 
@@ -1148,194 +1122,172 @@ pdfTeX warning (ext4): destination with the same identifier (name{L.X8123456781
 234567}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.3177 \hyperdef{L}{X8123456781234567}{}
+l.3135 \hyperdef{L}{X8123456781234567}{}
                                         
-Underfull \hbox (badness 10000) in paragraph at lines 3178--3181
+Underfull \hbox (badness 10000) in paragraph at lines 3136--3139
 
  []
 
-[50] [51]
+[50]
 Chapter 7.
 
-Underfull \hbox (badness 10000) in paragraph at lines 3245--3248
+Underfull \hbox (badness 10000) in paragraph at lines 3203--3206
 
  []
 
 
-Underfull \hbox (badness 2980) in paragraph at lines 3250--3252
+Underfull \hbox (badness 2980) in paragraph at lines 3208--3210
 []\OT1/ptm/m/n/10.95 The ho-mo-mor-phisms be-tween mod-ules over a path al-ge-b
 ra be-longs to the cat-e-gories
  []
 
-[52
+[51
 
-] [53] [54] [55pdfTeX warning (ext4): destination with the same identifier (nam
+] [52] [53] [54pdfTeX warning (ext4): destination with the same identifier (nam
 e{L.X7E8438F77ECB778E}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.3508 ...)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e]
+l.3466 ...)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e]
                                                   ]
-Underfull \hbox (badness 10000) in paragraph at lines 3532--3535
+Underfull \hbox (badness 10000) in paragraph at lines 3490--3493
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3544--3547
+Underfull \hbox (badness 10000) in paragraph at lines 3502--3505
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3557--3560
+Underfull \hbox (badness 10000) in paragraph at lines 3515--3518
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3569--3572
+Underfull \hbox (badness 10000) in paragraph at lines 3527--3530
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3581--3584
+Underfull \hbox (badness 10000) in paragraph at lines 3539--3542
 
  []
 
-[56]
-Underfull \hbox (badness 10000) in paragraph at lines 3593--3596
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 3606--3609
+[55]
+Underfull \hbox (badness 10000) in paragraph at lines 3551--3554
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3638--3641
+Underfull \hbox (badness 10000) in paragraph at lines 3564--3567
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3650--3653
-
- []
-
-[57] [58]
-Underfull \hbox (badness 10000) in paragraph at lines 3779--3782
+Underfull \hbox (badness 10000) in paragraph at lines 3596--3599
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3791--3794
+Underfull \hbox (badness 10000) in paragraph at lines 3608--3611
+
+ []
+
+[56] [57]
+Underfull \hbox (badness 10000) in paragraph at lines 3737--3740
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3803--3806
+Underfull \hbox (badness 10000) in paragraph at lines 3749--3752
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3815--3818
+Underfull \hbox (badness 10000) in paragraph at lines 3761--3764
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3827--3830
+Underfull \hbox (badness 10000) in paragraph at lines 3773--3776
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3840--3843
+Underfull \hbox (badness 10000) in paragraph at lines 3785--3788
 
  []
 
-[59]
+
+Underfull \hbox (badness 10000) in paragraph at lines 3798--3801
+
+ []
+
+[58]
 LaTeX Font Info:    Font shape `OML/pcr/m/sl' in size <10.95> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 3915.
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 3873.
 
- [60] [61] [62]
+ [59] [60] [61]
 Chapter 8.
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/pzccm/m/n' tried instead on input line 4080
+(Font)              Font shape `OMS/pzccm/m/n' tried instead on input line 4038
 .
 
-LaTeX Warning: Reference `SingleObjectComplex' on page 63 undefined on input li
-ne 4081.
+LaTeX Warning: Reference `SingleObjectComplex' on page 62 undefined on input li
+ne 4039.
 
 
-LaTeX Warning: Reference `ShortExactSequence' on page 63 undefined on input lin
-e 4083.
+LaTeX Warning: Reference `ShortExactSequence' on page 62 undefined on input lin
+e 4041.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 4090--4093
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 4102--4105
+Underfull \hbox (badness 10000) in paragraph at lines 4048--4051
 
  []
 
 
-LaTeX Warning: Reference `IsCat' on page 63 undefined on input line 4122.
+Underfull \hbox (badness 10000) in paragraph at lines 4060--4063
 
-[63
+ []
+
+
+LaTeX Warning: Reference `IsCat' on page 62 undefined on input line 4080.
+
+[62
 
 ]
 
-LaTeX Warning: Reference `IsCat' on page 64 undefined on input line 4166.
+LaTeX Warning: Reference `IsCat' on page 63 undefined on input line 4124.
+
+[63]
+
+LaTeX Warning: Reference `IsCat' on page 64 undefined on input line 4142.
 
 [64]
-
-LaTeX Warning: Reference `IsCat' on page 65 undefined on input line 4184.
-
-[65]
 Appendix A.
 (./qpadocumentation.bbl (./qpadocumentation.brf)
 \tf@brf=\write7
 \openout7 = `qpadocumentation.brf'.
 
- [66
+ [65
 
 ]
 
 LaTeX Warning: Empty `thebibliography' environment on input line 3.
 
-) (./qpadocumentation.ind [67
+) (./qpadocumentation.ind [66
 
-]
-Underfull \hbox (badness 10000) in paragraph at lines 92--94
-[]\OT1/pcr/m/n/10.95 IndecomposableInjectiveRepresentations\OT1/ptm/m/n/10.95 ,
+] [67
 
- []
-
-
-Overfull \hbox (4.20505pt too wide) in paragraph at lines 94--96
-[]\OT1/pcr/m/n/10.95 IndecomposableProjectiveRepresentations\OT1/ptm/m/n/10.95 
-,
- []
-
-[68
-
-] [69]
-Underfull \hbox (badness 10000) in paragraph at lines 223--224
-[]\OT1/pcr/m/n/10.95 RightModuleOverQuotientOfPathAlgebra\OT1/ptm/m/n/10.95 ,
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 231--232
-[]\OT1/pcr/m/n/10.95 SocleOfPathAlgebraMatModuleInclusion\OT1/ptm/m/n/10.95 ,
- []
-
-[70
+] [68] [69
 
 ])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 4245.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 4245.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 4203.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 4203.
  (./qpadocumentation.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 4245.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 4245.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 4203.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 4203.
 
 Package rerunfilecheck Info: File `qpadocumentation.brf' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
@@ -1351,10 +1303,10 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 7232 strings out of 493629
- 105232 string characters out of 3146270
- 198178 words of memory out of 3000000
- 9848 multiletter control sequences out of 15000+200000
+ 7223 strings out of 493629
+ 105059 string characters out of 3146270
+ 197998 words of memory out of 3000000
+ 9846 multiletter control sequences out of 15000+200000
  48749 words of font info for 102 fonts, out of 3000000 for 9000
  831 hyphenation exceptions out of 8191
  32i,7n,25p,656b,606s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -1371,10 +1323,10 @@ type1/urw/symbol/usyr.pfb></usr/lib/texlive/texmf-dist/fonts/type1/urw/times/ut
 mb8a.pfb></usr/lib/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/li
 b/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/lib/texlive/texmf-d
 ist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on qpadocumentation.pdf (70 pages, 301013 bytes).
+Output written on qpadocumentation.pdf (69 pages, 298715 bytes).
 PDF statistics:
- 1488 PDF objects out of 1728 (max. 8388607)
- 1388 compressed objects within 14 object streams
- 578 named destinations out of 1000 (max. 500000)
+ 1471 PDF objects out of 1728 (max. 8388607)
+ 1372 compressed objects within 14 object streams
+ 571 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

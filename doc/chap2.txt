@@ -93,9 +93,9 @@
   
   is true when [3Xobject[0m is a quiver.
   
-  [1X2.3-2 IsAcyclic[0m
+  [1X2.3-2 IsAcyclicQuiver[0m
   
-  [2X> IsAcyclic( [0X[3Xobject[0X[2X ) ______________________________________________[0Xproperty
+  [2X> IsAcyclicQuiver( [0X[3Xobject[0X[2X ) ________________________________________[0Xproperty
   
   is true when [3Xobject[0m is a quiver with no cycles.
   
@@ -103,7 +103,7 @@
   
   [2X> IsFinite( [0X[3Xobject[0X[2X ) _______________________________________________[0Xproperty
   
-  is true when [3Xobject[0m is a finite set. Synonymous with `IsAcyclic'.
+  is true when [3Xobject[0m is a finite set. Synonymous with `IsAcyclicQuiver'.
   
   [4X---------------------------  Example  ----------------------------[0X
     [4Xgap> quiver1 := Quiver(2,[[1,2]]);[0X
@@ -112,11 +112,11 @@
     [4Xfalse[0X
     [4Xgap> IsQuiver(quiver1);[0X
     [4Xtrue[0X
-    [4Xgap> IsAcyclic(quiver1);[0X
+    [4Xgap> IsAcyclicQuiver(quiver1);[0X
     [4Xtrue[0X
     [4Xgap> quiver2 := Quiver(["u","v"],[["u","v"],["v","u"]]);[0X
     [4X<quiver with 2 vertices and 2 arrows>[0X
-    [4Xgap> IsAcyclic(quiver2);[0X
+    [4Xgap> IsAcyclicQuiver(quiver2);[0X
     [4Xfalse[0X
     [4Xgap> IsFinite(quiver1);[0X
     [4Xtrue[0X
@@ -166,15 +166,15 @@
   
   An attribute. Returns a list of the vertices and the arrows in [3Xobject[0m.
   
-  [1X2.5-6 OrderOfQuiver[0m
+  [1X2.5-6 NumberOfVertices[0m
   
-  [2X> OrderOfQuiver( [0X[3Xobject[0X[2X ) _________________________________________[0Xattribute
+  [2X> NumberOfVertices( [0X[3Xobject[0X[2X ) ______________________________________[0Xattribute
   
   An attribute. Returns the number of vertices in [3Xobject[0m.
   
-  [1X2.5-7 SizeOfQuiver[0m
+  [1X2.5-7 NumberOfArrows[0m
   
-  [2X> SizeOfQuiver( [0X[3Xobject[0X[2X ) __________________________________________[0Xattribute
+  [2X> NumberOfArrows( [0X[3Xobject[0X[2X ) ________________________________________[0Xattribute
   
   An attribute. Returns the number of arrows in [3Xobject[0m.
   
@@ -209,9 +209,9 @@
     [4X[ [ 1, 1 ], [ 1, 1 ] ][0X
     [4Xgap> GeneratorsOfQuiver(q1);[0X
     [4X[ u, v, a, b, c, d ][0X
-    [4Xgap> OrderOfQuiver(q1);[0X
+    [4Xgap> NumberOfVertices(q1);[0X
     [4X2[0X
-    [4Xgap> SizeOfQuiver(q1);[0X
+    [4Xgap> NumberOfArrows(q1);[0X
     [4X4[0X
     [4Xgap> OrderingOfQuiver(q1);[0X
     [4X<length left lexicographic ordering>[0X

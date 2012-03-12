@@ -28,7 +28,7 @@
 </div>
 <div class="ContSect"><span class="nocss">&nbsp;</span><a href="chap2.html#X80BB6B6183134D88">2.3 <span class="Heading">Categories and Properties of Quivers</span></a>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X7E9C03497FD7778B">2.3-1 IsQuiver</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X847A62A6806046C4">2.3-2 IsAcyclic</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X82E99C5F8624BD86">2.3-2 IsAcyclicQuiver</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X808A4061809A6E67">2.3-3 IsFinite</a></span>
 </div>
 <div class="ContSect"><span class="nocss">&nbsp;</span><a href="chap2.html#X78BBB63B828EB9FB">2.4 <span class="Heading">Orderings of paths in a
@@ -40,8 +40,8 @@
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X82C42D7D820D5F9B">2.5-3 ArrowsOfQuiver</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X7AF572F081AEFE98">2.5-4 AdjacencyMatrixOfQuiver</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X7B4A7F0F813E63FC">2.5-5 GeneratorsOfQuiver</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X7C00FB118125F3F8">2.5-6 OrderOfQuiver</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X87E83DB57F0CB1D8">2.5-7 SizeOfQuiver</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X822BD7F37F8AF016">2.5-6 NumberOfVertices</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X7AC77C9C7D069663">2.5-7 NumberOfArrows</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X84D1D1AA82689B03">2.5-8 OrderingOfQuiver</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X825050BA7DCC6D43">2.5-9 OppositeOfQuiver</a></span>
 </div>
@@ -155,11 +155,11 @@ v2
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IsQuiver</code>( <var class="Arg">object</var> )</td><td class="tdright">( property )</td></tr></table></div>
 <p>is true when <var class="Arg">object</var> is a quiver.</p>
 
-<p><a id="X847A62A6806046C4" name="X847A62A6806046C4"></a></p>
+<p><a id="X82E99C5F8624BD86" name="X82E99C5F8624BD86"></a></p>
 
-<h5>2.3-2 IsAcyclic</h5>
+<h5>2.3-2 IsAcyclicQuiver</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IsAcyclic</code>( <var class="Arg">object</var> )</td><td class="tdright">( property )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IsAcyclicQuiver</code>( <var class="Arg">object</var> )</td><td class="tdright">( property )</td></tr></table></div>
 <p>is true when <var class="Arg">object</var> is a quiver with no cycles.</p>
 
 <p><a id="X808A4061809A6E67" name="X808A4061809A6E67"></a></p>
@@ -167,7 +167,7 @@ v2
 <h5>2.3-3 IsFinite</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IsFinite</code>( <var class="Arg">object</var> )</td><td class="tdright">( property )</td></tr></table></div>
-<p>is true when <var class="Arg">object</var> is a finite set. Synonymous with `IsAcyclic'.</p>
+<p>is true when <var class="Arg">object</var> is a finite set. Synonymous with `IsAcyclicQuiver'.</p>
 
 
 <table class="example">
@@ -178,11 +178,11 @@ gap&gt; IsQuiver("v1");
 false
 gap&gt; IsQuiver(quiver1);
 true
-gap&gt; IsAcyclic(quiver1);
+gap&gt; IsAcyclicQuiver(quiver1);
 true
 gap&gt; quiver2 := Quiver(["u","v"],[["u","v"],["v","u"]]);
 &lt;quiver with 2 vertices and 2 arrows&gt;
-gap&gt; IsAcyclic(quiver2);
+gap&gt; IsAcyclicQuiver(quiver2);
 false
 gap&gt; IsFinite(quiver1);
 true
@@ -236,18 +236,18 @@ false
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; GeneratorsOfQuiver</code>( <var class="Arg">object</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
 <p>An attribute. Returns a list of the vertices and the arrows in <var class="Arg">object</var>.</p>
 
-<p><a id="X7C00FB118125F3F8" name="X7C00FB118125F3F8"></a></p>
+<p><a id="X822BD7F37F8AF016" name="X822BD7F37F8AF016"></a></p>
 
-<h5>2.5-6 OrderOfQuiver</h5>
+<h5>2.5-6 NumberOfVertices</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; OrderOfQuiver</code>( <var class="Arg">object</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; NumberOfVertices</code>( <var class="Arg">object</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
 <p>An attribute. Returns the number of vertices in <var class="Arg">object</var>.</p>
 
-<p><a id="X87E83DB57F0CB1D8" name="X87E83DB57F0CB1D8"></a></p>
+<p><a id="X7AC77C9C7D069663" name="X7AC77C9C7D069663"></a></p>
 
-<h5>2.5-7 SizeOfQuiver</h5>
+<h5>2.5-7 NumberOfArrows</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; SizeOfQuiver</code>( <var class="Arg">object</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; NumberOfArrows</code>( <var class="Arg">object</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
 <p>An attribute. Returns the number of arrows in <var class="Arg">object</var>.</p>
 
 <p><a id="X84D1D1AA82689B03" name="X84D1D1AA82689B03"></a></p>
@@ -282,9 +282,9 @@ gap&gt; AdjacencyMatrixOfQuiver(q1);
 [ [ 1, 1 ], [ 1, 1 ] ]
 gap&gt; GeneratorsOfQuiver(q1);
 [ u, v, a, b, c, d ]
-gap&gt; OrderOfQuiver(q1);
+gap&gt; NumberOfVertices(q1);
 2
-gap&gt; SizeOfQuiver(q1);
+gap&gt; NumberOfArrows(q1);
 4
 gap&gt; OrderingOfQuiver(q1);
 &lt;length left lexicographic ordering&gt;

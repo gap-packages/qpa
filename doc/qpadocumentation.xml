@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- $Id: qpadocumentation.xml,v 1.25 2012/02/27 12:33:11 sunnyquiver Exp $ -->
+<!-- $Id: qpadocumentation.xml,v 1.26 2012/03/12 09:42:31 sunnyquiver Exp $ -->
 
 <!DOCTYPE Book SYSTEM "gapdoc.dtd">
 <!-- [ <!ENTITY see '<Alt Only="LaTeX">$\to$</Alt><Alt Not="LaTeX">--&gt;</Alt>'>
@@ -2146,7 +2146,7 @@ gap> inc:=DirectSumInclusions(N2);
 ]]></Example>
 
 <ManSection>
-   <Oper Name="1st_Syzygy" Arg="M" Comm="for a
+   <Oper Name="1stSyzygy" Arg="M" Comm="for a
    PathAlgebraMatModule"/>
    <Returns>the first syzygy of the representation <Arg>M</Arg> as a
      representation. The argument <Arg>M</Arg> must be
@@ -2473,13 +2473,16 @@ Here we collect the predefined representations/modules over a finite
 
 
 <ManSection>
-   <Oper Name="DTr" Arg="M" Comm="for a PathAlgebraMatModule"/>
-   <Oper Name="DTr" Arg="M, n" Comm="for a PathAlgebraMatModule and an integer"/>
-   <Returns>the dual of the transpose of the module <Arg>M</Arg> in
-   the first variant. In the second form it returns the dual of the
-   transpose applied to <Arg>M</Arg> <Arg>n</Arg>
-   times. If <Arg>n</Arg> is negative, then powers of <C>TrD</C> are
-   computed.</Returns>
+   <Oper Name="DTr" Arg="M, [ n ]" Comm="for a PathAlgebraMatModule and an
+   integer"/>
+   <Oper Name="DualOfTranspose" Arg="M, [ n ]" Comm="for a
+   PathAlgebraMatModule"/> 
+   <Returns>the dual of the transpose of the module <Arg>M</Arg> when
+   called with only one argument, while it returns the dual of the
+   transpose applied to <Arg>M</Arg> <Arg>n</Arg> times
+   otherwise. If <Arg>n</Arg> is negative, then powers of <C>TrD</C>
+   are computed. <Ref Oper="DualOfTranspose"/> is a synonym for
+   <Ref Oper="DTr"/>. </Returns>
    <Description>
      The argument <Arg>M</Arg> must be a <C>PathAlgebraMatModule</C>
      and <Arg>n</Arg> must be an integer. 
@@ -2487,14 +2490,16 @@ Here we collect the predefined representations/modules over a finite
 </ManSection>
 
 <ManSection>
-   <Oper Name="TrD" Arg="M" Comm="for a PathAlgebraMatModule"/>
-   <Oper Name="TrD" Arg="M, n" Comm="for a PathAlgebraMatModule and an
+
+   <Oper Name="TrD" Arg="M, [n]" Comm="for a PathAlgebraMatModule and an
    integer"/>
-   <Returns>the transpose of the dual of the module <Arg>M</Arg> in
-   the first variant. In the second form it returns the transpose of
-   the dual applied to <Arg>M</Arg> <Arg>n</Arg>
-   times. If <Arg>n</Arg> is negative, then powers of <C>TrD</C> are
-   computed.</Returns>
+   <Oper Name="TransposeOfDual" Arg="M, [n]" Comm="for a PathAlgebraMatModule"/>
+   <Returns>the transpose of the dual of the module <Arg>M</Arg> when
+   called with only one argument, while it returns the transpose of
+   the dual applied to <Arg>M</Arg> <Arg>n</Arg> times
+   otherwise. If <Arg>n</Arg> is negative, then powers of <C>TrD</C>
+   are computed. <Ref Oper="TransposeOfDual"/> is a synonym for
+   <Ref Oper="TrD"/>.</Returns>
    <Description>
      The argument <Arg>M</Arg> must be a <C>PathAlgebraMatModule</C>
      and <Arg>n</Arg> must be an integer. 

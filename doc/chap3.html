@@ -52,20 +52,20 @@
     on ideals</span></a>
 </span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X82ACACDD7D8E9B25">3.7-2 Ideal</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X830187497E0BD4F0">3.7-3 nthPowerOfArrowIdeal</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X830187497E0BD4F0">3.7-3 NthPowerOfArrowIdeal</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X824D550E8371098C">3.7-4 AddNthPowerToRelations</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X85D4E72B787B1C49">3.7-5 <span class="Heading">Attributes of ideals</span></a>
 </span>
 </div>
 <div class="ContSect"><span class="nocss">&nbsp;</span><a href="chap3.html#X7A3CA333873389AD">3.8 <span class="Heading">Categories and Properties of Quotients of Path Algebras</span></a>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X78476A128036573F">3.8-1 IsSubalgebraFpPathAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X790DB9BF831B577D">3.8-1 IsQuotientOfPathAlgebra</a></span>
 </div>
 <div class="ContSect"><span class="nocss">&nbsp;</span><a href="chap3.html#X86647D317A961513">3.9 <span class="Heading">Attributes and Operations for Quotients of Path
     Algebras</span></a>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X826641507CFBE943">3.9-1 NormalFormFunction</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X815D8565802928FE">3.9-2 IsElementOfFpPathAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X87495684791B5742">3.9-2 IsElementOfQuotientOfPathAlgebra</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X80B32F667BF6AFD8">3.9-3 Coefficients</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7D96F5437F867D00">3.9-4 IsSelfinjective</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X8555FC6B85FE9C6D">3.9-4 IsSelfinjectiveAlgebra</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7BEA44FB819910B6">3.9-5 LoewyLength</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X84E3FEF587CB66C3">3.9-6 CartanMatrix</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X815CB1D47CB174ED">3.9-7 CoxeterMatrix</a></span>
@@ -76,7 +76,7 @@
 of Quotients of Path Algebra</span></a>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X8271E6F27C2C826E">3.10-1 IsNormalForm</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X871A3B1D871A3B1D">3.10-2 &lt;</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X868C9F9981388DAA">3.10-3 ElementOfFpPathAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7F2527747A3D0D6D">3.10-3 ElementOfQuotientOfPathAlgebra</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X8088721187BA8D82">3.10-4 OriginalPathAlgebra</a></span>
 </div>
 <div class="ContSect"><span class="nocss">&nbsp;</span><a href="chap3.html#X7E7FA56079CF78D1">3.11 <span class="Heading">Predefined classes
@@ -348,10 +348,10 @@ gap&gt; quot := fq/I;
 
 <p><a id="X830187497E0BD4F0" name="X830187497E0BD4F0"></a></p>
 
-<h5>3.7-3 nthPowerOfArrowIdeal</h5>
+<h5>3.7-3 NthPowerOfArrowIdeal</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; nthPowerOfArrowIdeal</code>( <var class="Arg">KQ, n</var> )</td><td class="tdright">( operation )</td></tr></table></div>
-<p>The operation <code class="func">nthPowerOfArrowIdeal</code> defines the ideal generated all the paths of length <var class="Arg">n</var> in the path algebra <var class="Arg">KQ</var>.</p>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; NthPowerOfArrowIdeal</code>( <var class="Arg">KQ, n</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>The operation <code class="func">NthPowerOfArrowIdeal</code> defines the ideal generated all the paths of length <var class="Arg">n</var> in the path algebra <var class="Arg">KQ</var>.</p>
 
 <p><a id="X824D550E8371098C" name="X824D550E8371098C"></a></p>
 
@@ -387,19 +387,19 @@ true
 
 <h4>3.8 <span class="Heading">Categories and Properties of Quotients of Path Algebras</span></h4>
 
-<p><a id="X78476A128036573F" name="X78476A128036573F"></a></p>
+<p><a id="X790DB9BF831B577D" name="X790DB9BF831B577D"></a></p>
 
-<h5>3.8-1 IsSubalgebraFpPathAlgebra</h5>
+<h5>3.8-1 IsQuotientOfPathAlgebra</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IsSubalgebraFpPathAlgebra</code>( <var class="Arg">object</var> )</td><td class="tdright">( property )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IsQuotientOfPathAlgebra</code>( <var class="Arg">object</var> )</td><td class="tdright">( property )</td></tr></table></div>
 <p>is true when <var class="Arg">object</var> is a quotient of a path algebra.</p>
 
 
 <table class="example">
 <tr><td><pre>
-gap&gt; IsSubalgebraFpPathAlgebra(quot);
+gap&gt; IsQuotientOfPathAlgebra(quot);
 true
-gap&gt; IsSubalgebraFpPathAlgebra(fq);
+gap&gt; IsQuotientOfPathAlgebra(fq);
 false
 </pre></td></tr></table>
 
@@ -415,11 +415,11 @@ false
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; NormalFormFunction</code>( <var class="Arg">object</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
 <p>is a function that can compute normal forms for elements of <var class="Arg">object</var>. It may be supplied by the user.</p>
 
-<p><a id="X815D8565802928FE" name="X815D8565802928FE"></a></p>
+<p><a id="X87495684791B5742" name="X87495684791B5742"></a></p>
 
-<h5>3.9-2 IsElementOfFpPathAlgebra</h5>
+<h5>3.9-2 IsElementOfQuotientOfPathAlgebra</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IsElementOfFpPathAlgebra</code>( <var class="Arg">object</var> )</td><td class="tdright">( property )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IsElementOfQuotientOfPathAlgebra</code>( <var class="Arg">object</var> )</td><td class="tdright">( property )</td></tr></table></div>
 <p>is true if <var class="Arg">object</var> is an element of some quotient of a path algebra.</p>
 
 
@@ -427,9 +427,9 @@ false
 <tr><td><pre>
 gap&gt; this := anotherquot.a*anotherquot.b;
 [(Z(23)^0)*a*b]
-gap&gt; IsElementOfFpPathAlgebra(this);
+gap&gt; IsElementOfQuotientOfPathAlgebra(this);
 true
-gap&gt; IsElementOfFpPathAlgebra(fq);
+gap&gt; IsElementOfQuotientOfPathAlgebra(fq);
 false
 </pre></td></tr></table>
 
@@ -440,11 +440,11 @@ false
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; Coefficients</code>( <var class="Arg">element</var> )</td><td class="tdright">( operation )</td></tr></table></div>
 <p>The operation <code class="func">Coefficients</code> operates on an <var class="Arg">element</var> of a quotient of a path algebra, and it returns the coefficients of the <var class="Arg">element</var> in terms of its canonical basis. Question: Does this only take one argument?</p>
 
-<p><a id="X7D96F5437F867D00" name="X7D96F5437F867D00"></a></p>
+<p><a id="X8555FC6B85FE9C6D" name="X8555FC6B85FE9C6D"></a></p>
 
-<h5>3.9-4 IsSelfinjective</h5>
+<h5>3.9-4 IsSelfinjectiveAlgebra</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IsSelfinjective</code>( <var class="Arg">A</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IsSelfinjectiveAlgebra</code>( <var class="Arg">A</var> )</td><td class="tdright">( operation )</td></tr></table></div>
 <p>This function takes a path algebra or a quotient of a path algebra as an argument <var class="Arg">A</var>, and returns fail if <var class="Arg">A</var> is not finite dimensional. Otherwise it returns true or false according to whether <var class="Arg">A</var> is selfinjective or not.</p>
 
 <p><a id="X7BEA44FB819910B6" name="X7BEA44FB819910B6"></a></p>
@@ -508,12 +508,12 @@ false
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; &lt;</code>( <var class="Arg">a, b</var> )</td><td class="tdright">( operation )</td></tr></table></div>
 <p>The operation <code class="func">&lt;</code> operates on two elements <var class="Arg">a</var> and <var class="Arg">b</var> from a path algebra $FQ$, and it compares them using the ordering for the path algebra.</p>
 
-<p><a id="X868C9F9981388DAA" name="X868C9F9981388DAA"></a></p>
+<p><a id="X7F2527747A3D0D6D" name="X7F2527747A3D0D6D"></a></p>
 
-<h5>3.10-3 ElementOfFpPathAlgebra</h5>
+<h5>3.10-3 ElementOfQuotientOfPathAlgebra</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; ElementOfFpPathAlgebra</code>( <var class="Arg">family, element, computenormal</var> )</td><td class="tdright">( operation )</td></tr></table></div>
-<p>The operation <code class="func">ElementOfFpPathAlgebra</code> operates on an <var class="Arg">element</var> in a path algebra, and it projects it into the quotient given by <var class="Arg">family</var>. If <var class="Arg">computenormal</var> is true, then the normal form of the projection of <var class="Arg">element</var> is returned.</p>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; ElementOfQuotientOfPathAlgebra</code>( <var class="Arg">family, element, computenormal</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>The operation <code class="func">ElementOfQuotientOfPathAlgebra</code> operates on an <var class="Arg">element</var> in a path algebra, and it projects it into the quotient given by <var class="Arg">family</var>. If <var class="Arg">computenormal</var> is true, then the normal form of the projection of <var class="Arg">element</var> is returned.</p>
 
 <p><a id="X8088721187BA8D82" name="X8088721187BA8D82"></a></p>
 

@@ -434,11 +434,11 @@ a copy of \mbox{\texttt{\slshape quiver}} whose elements are ordered by \mbox{\t
 
  
 
-\subsection{\textcolor{Chapter }{IsAcyclic}}
+\subsection{\textcolor{Chapter }{IsAcyclicQuiver}}
 \logpage{[ 2, 3, 2 ]}\nobreak
-\hyperdef{L}{X847A62A6806046C4}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsAcyclic({\slshape object})\index{IsAcyclic@\texttt{IsAcyclic}}
-\label{IsAcyclic}
+\hyperdef{L}{X82E99C5F8624BD86}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsAcyclicQuiver({\slshape object})\index{IsAcyclicQuiver@\texttt{IsAcyclicQuiver}}
+\label{IsAcyclicQuiver}
 }\hfill{\scriptsize (property)}}\\
 
 
@@ -454,7 +454,7 @@ a copy of \mbox{\texttt{\slshape quiver}} whose elements are ordered by \mbox{\t
 }\hfill{\scriptsize (property)}}\\
 
 
- is true when \mbox{\texttt{\slshape object}} is a finite set. Synonymous with `IsAcyclic'. }
+ is true when \mbox{\texttt{\slshape object}} is a finite set. Synonymous with `IsAcyclicQuiver'. }
 
  
 \begin{Verbatim}[fontsize=\small,frame=single,label=Example]
@@ -464,11 +464,11 @@ a copy of \mbox{\texttt{\slshape quiver}} whose elements are ordered by \mbox{\t
   false
   gap> IsQuiver(quiver1);
   true
-  gap> IsAcyclic(quiver1);
+  gap> IsAcyclicQuiver(quiver1);
   true
   gap> quiver2 := Quiver(["u","v"],[["u","v"],["v","u"]]);
   <quiver with 2 vertices and 2 arrows>
-  gap> IsAcyclic(quiver2);
+  gap> IsAcyclicQuiver(quiver2);
   false
   gap> IsFinite(quiver1);
   true
@@ -553,11 +553,11 @@ v1, v2, ... and a1, a2, ... in the order they are created. }
 
  
 
-\subsection{\textcolor{Chapter }{OrderOfQuiver}}
+\subsection{\textcolor{Chapter }{NumberOfVertices}}
 \logpage{[ 2, 5, 6 ]}\nobreak
-\hyperdef{L}{X7C00FB118125F3F8}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{OrderOfQuiver({\slshape object})\index{OrderOfQuiver@\texttt{OrderOfQuiver}}
-\label{OrderOfQuiver}
+\hyperdef{L}{X822BD7F37F8AF016}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{NumberOfVertices({\slshape object})\index{NumberOfVertices@\texttt{NumberOfVertices}}
+\label{NumberOfVertices}
 }\hfill{\scriptsize (attribute)}}\\
 
 
@@ -565,11 +565,11 @@ v1, v2, ... and a1, a2, ... in the order they are created. }
 
  
 
-\subsection{\textcolor{Chapter }{SizeOfQuiver}}
+\subsection{\textcolor{Chapter }{NumberOfArrows}}
 \logpage{[ 2, 5, 7 ]}\nobreak
-\hyperdef{L}{X87E83DB57F0CB1D8}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{SizeOfQuiver({\slshape object})\index{SizeOfQuiver@\texttt{SizeOfQuiver}}
-\label{SizeOfQuiver}
+\hyperdef{L}{X7AC77C9C7D069663}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{NumberOfArrows({\slshape object})\index{NumberOfArrows@\texttt{NumberOfArrows}}
+\label{NumberOfArrows}
 }\hfill{\scriptsize (attribute)}}\\
 
 
@@ -618,9 +618,9 @@ orginal quiver" + "{\textunderscore}op". }
   [ [ 1, 1 ], [ 1, 1 ] ]
   gap> GeneratorsOfQuiver(q1);
   [ u, v, a, b, c, d ]
-  gap> OrderOfQuiver(q1);
+  gap> NumberOfVertices(q1);
   2
-  gap> SizeOfQuiver(q1);
+  gap> NumberOfArrows(q1);
   4
   gap> OrderingOfQuiver(q1);
   <length left lexicographic ordering>
@@ -1261,15 +1261,15 @@ an algebra, refer to "ref:algebras".
 
  
 
-\subsection{\textcolor{Chapter }{nthPowerOfArrowIdeal}}
+\subsection{\textcolor{Chapter }{NthPowerOfArrowIdeal}}
 \logpage{[ 3, 7, 3 ]}\nobreak
 \hyperdef{L}{X830187497E0BD4F0}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{nthPowerOfArrowIdeal({\slshape KQ, n})\index{nthPowerOfArrowIdeal@\texttt{nthPowerOfArrowIdeal}}
-\label{nthPowerOfArrowIdeal}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{NthPowerOfArrowIdeal({\slshape KQ, n})\index{NthPowerOfArrowIdeal@\texttt{NthPowerOfArrowIdeal}}
+\label{NthPowerOfArrowIdeal}
 }\hfill{\scriptsize (operation)}}\\
 
 
- The operation \texttt{nthPowerOfArrowIdeal} defines the ideal generated all the paths of length \mbox{\texttt{\slshape n}} in the path algebra \mbox{\texttt{\slshape KQ}}. }
+ The operation \texttt{NthPowerOfArrowIdeal} defines the ideal generated all the paths of length \mbox{\texttt{\slshape n}} in the path algebra \mbox{\texttt{\slshape KQ}}. }
 
  
 
@@ -1315,11 +1315,11 @@ you will need to compute a Groebner basis of the ideal. Refer to the chapters
 {
  
 
-\subsection{\textcolor{Chapter }{IsSubalgebraFpPathAlgebra}}
+\subsection{\textcolor{Chapter }{IsQuotientOfPathAlgebra}}
 \logpage{[ 3, 8, 1 ]}\nobreak
-\hyperdef{L}{X78476A128036573F}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsSubalgebraFpPathAlgebra({\slshape object})\index{IsSubalgebraFpPathAlgebra@\texttt{IsSubalgebraFpPathAlgebra}}
-\label{IsSubalgebraFpPathAlgebra}
+\hyperdef{L}{X790DB9BF831B577D}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsQuotientOfPathAlgebra({\slshape object})\index{IsQuotientOfPathAlgebra@\texttt{IsQuotientOfPathAlgebra}}
+\label{IsQuotientOfPathAlgebra}
 }\hfill{\scriptsize (property)}}\\
 
 
@@ -1327,9 +1327,9 @@ you will need to compute a Groebner basis of the ideal. Refer to the chapters
 
  
 \begin{Verbatim}[fontsize=\small,frame=single,label=Example]
-  gap> IsSubalgebraFpPathAlgebra(quot);
+  gap> IsQuotientOfPathAlgebra(quot);
   true
-  gap> IsSubalgebraFpPathAlgebra(fq);
+  gap> IsQuotientOfPathAlgebra(fq);
   false
 \end{Verbatim}
  }
@@ -1352,11 +1352,11 @@ you will need to compute a Groebner basis of the ideal. Refer to the chapters
 
  
 
-\subsection{\textcolor{Chapter }{IsElementOfFpPathAlgebra}}
+\subsection{\textcolor{Chapter }{IsElementOfQuotientOfPathAlgebra}}
 \logpage{[ 3, 9, 2 ]}\nobreak
-\hyperdef{L}{X815D8565802928FE}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsElementOfFpPathAlgebra({\slshape object})\index{IsElementOfFpPathAlgebra@\texttt{IsElementOfFpPathAlgebra}}
-\label{IsElementOfFpPathAlgebra}
+\hyperdef{L}{X87495684791B5742}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsElementOfQuotientOfPathAlgebra({\slshape object})\index{IsElementOfQuotientOfPathAlgebra@\texttt{IsElementOfQuotientOfPathAlgebra}}
+\label{IsElementOfQuotientOfPathAlgebra}
 }\hfill{\scriptsize (property)}}\\
 
 
@@ -1366,9 +1366,9 @@ you will need to compute a Groebner basis of the ideal. Refer to the chapters
 \begin{Verbatim}[fontsize=\small,frame=single,label=Example]
   gap> this := anotherquot.a*anotherquot.b;
   [(Z(23)^0)*a*b]
-  gap> IsElementOfFpPathAlgebra(this);
+  gap> IsElementOfQuotientOfPathAlgebra(this);
   true
-  gap> IsElementOfFpPathAlgebra(fq);
+  gap> IsElementOfQuotientOfPathAlgebra(fq);
   false
 \end{Verbatim}
  
@@ -1385,11 +1385,11 @@ you will need to compute a Groebner basis of the ideal. Refer to the chapters
 
  
 
-\subsection{\textcolor{Chapter }{IsSelfinjective}}
+\subsection{\textcolor{Chapter }{IsSelfinjectiveAlgebra}}
 \logpage{[ 3, 9, 4 ]}\nobreak
-\hyperdef{L}{X7D96F5437F867D00}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsSelfinjective({\slshape A})\index{IsSelfinjective@\texttt{IsSelfinjective}}
-\label{IsSelfinjective}
+\hyperdef{L}{X8555FC6B85FE9C6D}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsSelfinjectiveAlgebra({\slshape A})\index{IsSelfinjectiveAlgebra@\texttt{IsSelfinjectiveAlgebra}}
+\label{IsSelfinjectiveAlgebra}
 }\hfill{\scriptsize (operation)}}\\
 
 
@@ -1497,15 +1497,15 @@ implemented and also not implemented for path algebras). }
 
  
 
-\subsection{\textcolor{Chapter }{ElementOfFpPathAlgebra}}
+\subsection{\textcolor{Chapter }{ElementOfQuotientOfPathAlgebra}}
 \logpage{[ 3, 10, 3 ]}\nobreak
-\hyperdef{L}{X868C9F9981388DAA}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{ElementOfFpPathAlgebra({\slshape family, element, computenormal})\index{ElementOfFpPathAlgebra@\texttt{ElementOfFpPathAlgebra}}
-\label{ElementOfFpPathAlgebra}
+\hyperdef{L}{X7F2527747A3D0D6D}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{ElementOfQuotientOfPathAlgebra({\slshape family, element, computenormal})\index{ElementOfQuotientOfPathAlgebra@\texttt{ElementOfQuotientOfPathAlgebra}}
+\label{ElementOfQuotientOfPathAlgebra}
 }\hfill{\scriptsize (operation)}}\\
 
 
- The operation \texttt{ElementOfFpPathAlgebra} operates on an \mbox{\texttt{\slshape element}} in a path algebra, and it projects it into the quotient given by \mbox{\texttt{\slshape family}}. If \mbox{\texttt{\slshape computenormal}} is true, then the normal form of the projection of \mbox{\texttt{\slshape element}} is returned. }
+ The operation \texttt{ElementOfQuotientOfPathAlgebra} operates on an \mbox{\texttt{\slshape element}} in a path algebra, and it projects it into the quotient given by \mbox{\texttt{\slshape family}}. If \mbox{\texttt{\slshape computenormal}} is true, then the normal form of the projection of \mbox{\texttt{\slshape element}} is returned. }
 
  
 
@@ -1859,11 +1859,11 @@ external Groebner basis programs. }
 \end{Verbatim}
  
 
-\subsection{\textcolor{Chapter }{IsHomogenousGroebnerBasis}}
+\subsection{\textcolor{Chapter }{IsHomogeneousGroebnerBasis}}
 \logpage{[ 4, 2, 4 ]}\nobreak
-\hyperdef{L}{X846E8A4984A9FBF3}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsHomogenousGroebnerBasis({\slshape object})\index{IsHomogenousGroebnerBasis@\texttt{IsHomogenousGroebnerBasis}}
-\label{IsHomogenousGroebnerBasis}
+\hyperdef{L}{X799FD421784D1FFC}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsHomogeneousGroebnerBasis({\slshape object})\index{IsHomogeneousGroebnerBasis@\texttt{IsHomogeneousGroebnerBasis}}
+\label{IsHomogeneousGroebnerBasis}
 }\hfill{\scriptsize (property)}}\\
 
 
@@ -2189,16 +2189,16 @@ this way as follows.
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{RightModuleOverPathAlgebra({\slshape A, mats})\index{RightModuleOverPathAlgebra@\texttt{RightModuleOverPathAlgebra}}
 \label{RightModuleOverPathAlgebra}
 }\hfill{\scriptsize (operation)}}\\
-\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{RightModuleOverQuotientOfPathAlgebra({\slshape A, mats})\index{RightModuleOverQuotientOfPathAlgebra@\texttt{RightModuleOverQuotientOfPathAlgebra}}
-\label{RightModuleOverQuotientOfPathAlgebra}
+\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{RightModuleOverPathAlgebra({\slshape A, dim{\textunderscore}vector, gens})\index{RightModuleOverPathAlgebra@\texttt{RightModuleOverPathAlgebra}}
+\label{RightModuleOverPathAlgebra}
 }\hfill{\scriptsize (operation)}}\\
 \textbf{\indent Returns:\ }
-a module over a path algebra in the first variant, a module over a qoutient of
-a path algebra in the second variant.
+a module over a path algebra or over a qoutient of a path algebra in the
+second variant.
 
 
 
- In the function call, \mbox{\texttt{\slshape A}} is a (quotient of a ) path algebra. The list of matrices \mbox{\texttt{\slshape mats}} can take on three different forms.
+ In the first function call, \mbox{\texttt{\slshape A}} is a (quotient of a ) path algebra. The list of matrices \mbox{\texttt{\slshape mats}} can take on three different forms.
 
  1) The argument \mbox{\texttt{\slshape mats}} can be a list of blocks of matrices where each block is of the form, `["name
 of arrow",matrix]'. So if you named your arrows when you created the quiver,
@@ -2222,7 +2222,14 @@ error will be returned. The function verifies that the dimensions of the
 matrices and vector spaces are correct and match, and that each arrow has only
 one matrix assigned to it.
 
- }
+ In the second function call, the first argument \mbox{\texttt{\slshape A}} is a (quotient of a ) path algebra, the second argument \mbox{\texttt{\slshape dim{\textunderscore}vector}} is the dimension vector of the module, and the last argument \mbox{\texttt{\slshape gens}} (maybe an empty list []) is a list of elements of the form ["label",matrix].
+This function constructs a right module over a (quotient of a) path algebra \mbox{\texttt{\slshape A}} with dimension vector \mbox{\texttt{\slshape dim{\textunderscore}vector}}, and where the generators/arrows with a non-zero action is given in the list \mbox{\texttt{\slshape gens}}. The format of the list \mbox{\texttt{\slshape gens}} is [["a",[matrix{\textunderscore}a]],["b",[matrix{\textunderscore}b]],...],
+where "a" and "b" are labels of arrows used when the underlying quiver was
+created and matrix{\textunderscore}? is the action of the algebra element
+corresponding to the arrow with label "?". The action of the arrows can be
+entered in any order. The function checks if the algebra \mbox{\texttt{\slshape A}} is a (quotient of a) path algebra and if the matrices of the action of the
+arrows have the correct size according to the dimension vector entered and
+also whether or not the relations of the algebra are satisfied. }
 
  
 \begin{Verbatim}[fontsize=\small,frame=single,label=Example]
@@ -2265,37 +2272,14 @@ one matrix assigned to it.
   Basis( &lt;
   0-dimensional right-module over &lt;algebra-with-one over Rationals, with 
   5 generators&gt;&gt;, [  ] )
-  
-\end{Verbatim}
- 
-
-\subsection{\textcolor{Chapter }{NewRightModuleOverPathAlgebra}}
-\logpage{[ 6, 1, 2 ]}\nobreak
-\hyperdef{L}{X783DDA4B864535DE}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{NewRightModuleOverPathAlgebra({\slshape A, dim{\textunderscore}vector, gens})\index{NewRightModuleOverPathAlgebra@\texttt{NewRightModuleOverPathAlgebra}}
-\label{NewRightModuleOverPathAlgebra}
-}\hfill{\scriptsize (operation)}}\\
-
-
- The first argument \mbox{\texttt{\slshape A}} is a (quotient of a ) path algebra, the second argument \mbox{\texttt{\slshape dim{\textunderscore}vector}} is the dimension vector of the module, and the last argument \mbox{\texttt{\slshape gens}} (maybe an empty list []) is a list of elements of the form ["label",matrix].
-This function constructs a right module over a (quotient of a) path algebra \mbox{\texttt{\slshape A}} with dimension vector \mbox{\texttt{\slshape dim{\textunderscore}vector}}, and where the generators/arrows with a non-zero action is given in the list \mbox{\texttt{\slshape gens}}. The format of the list \mbox{\texttt{\slshape gens}} is [["a",[matrix{\textunderscore}a]],["b",[matrix{\textunderscore}b]],...],
-where "a" and "b" are labels of arrows used when the underlying quiver was
-created and matrix{\textunderscore}? is the action of the algebra element
-corresponding to the arrow with label "?". The action of the arrows can be
-entered in any order. The function checks if the algebra \mbox{\texttt{\slshape A}} is a (quotient of a) path algebra and if the matrices of the action of the
-arrows have the correct size according to the dimension vector entered and
-also whether or not the relations of the algebra are satisfied. }
-
- 
-\begin{Verbatim}[fontsize=\small,frame=single,label=Example]
   gap> # Using the above example.  
   gap> matrices := [["a", [[1,0,0],[0,1,0]]], ["b",
   [[0,1],[1,0],[0,1]]], ["c", [[0,0],[1,0]]]];
   [ [ "a", [ [ 1, 0, 0 ], [ 0, 1, 0 ] ] ], 
     [ "b", [ [ 0, 1 ], [ 1, 0 ], [ 0, 1 ] ] ], [ "c", [ [ 0, 0 ], [ 1, 0 ] ] ] ]
-  gap> M:=NewRightModuleOverPathAlgebra(P,[2,3],matrices);
+  gap> M := RightModuleOverPathAlgebra(P,[2,3],matrices);
   <right-module over <algebra-with-one over Rationals, with 5 generators>>
-  gap> M:=NewRightModuleOverPathAlgebra(P,[2,3],[]);      
+  gap> M := RightModuleOverPathAlgebra(P,[2,3],[]);      
   <right-module over <algebra-with-one over Rationals, with 5 generators>>
   
 \end{Verbatim}
@@ -2307,20 +2291,20 @@ also whether or not the relations of the algebra are satisfied. }
 {
  
 
-\subsection{\textcolor{Chapter }{IsPathAlgebraMatModule}}
+\subsection{\textcolor{Chapter }{IsPathAlgebraModule}}
 \logpage{[ 6, 2, 1 ]}\nobreak
-\hyperdef{L}{X8710CC447F1F7B17}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsPathAlgebraMatModule({\slshape object})\index{IsPathAlgebraMatModule@\texttt{IsPathAlgebraMatModule}}
-\label{IsPathAlgebraMatModule}
+\hyperdef{L}{X82A8398478788A5A}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsPathAlgebraModule({\slshape object})\index{IsPathAlgebraModule@\texttt{IsPathAlgebraModule}}
+\label{IsPathAlgebraModule}
 }\hfill{\scriptsize (filter)}}\\
 
 
  These matrix modules fall under the category `IsAlgebraModule' with the added
-filter of `IsPathAlgebraMatModule'. Operations available for algebra modules
-can be applied to path algebra modules. See "ref:representations of algebras"
-for more details. These modules are also vector spaces over the field of the
-path algebra. So refer to "ref:vector spaces" for descriptions of the basis
-and elementwise operations available. }
+filter of `IsPathAlgebraModule'. Operations available for algebra modules can
+be applied to path algebra modules. See "ref:representations of algebras" for
+more details. These modules are also vector spaces over the field of the path
+algebra. So refer to "ref:vector spaces" for descriptions of the basis and
+elementwise operations available. }
 
  }
 
@@ -2396,7 +2380,7 @@ and elementwise operations available. }
   <algebra-with-one over Rationals, with 8 generators>
   gap> mat:=[["a",[[1,2],[0,3],[1,5]]],["b",[[2,0],[3,0],[5,0]]],
   ["c",[[0,0],[1,0]]],["d",[[1,2],[0,1]]],["e",[[0,0,0],[0,0,0]]]];;
-  gap> N:= RightModuleOverQuotientOfPathAlgebra(A,mat);                         
+  gap> N:= RightModuleOverPathAlgebra(A,mat);                         
   <right-module over <algebra-with-one over Rationals, with 8 generators>>
 \end{Verbatim}
  
@@ -2432,11 +2416,11 @@ algebras. }
 
  
 
-\subsection{\textcolor{Chapter }{DimensionMatModule}}
+\subsection{\textcolor{Chapter }{Dimension}}
 \logpage{[ 6, 4, 3 ]}\nobreak
-\hyperdef{L}{X7A878D167E9180EE}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{DimensionMatModule({\slshape M})\index{DimensionMatModule@\texttt{DimensionMatModule}}
-\label{DimensionMatModule}
+\hyperdef{L}{X7E6926C6850E7C4E}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{Dimension({\slshape M})\index{Dimension@\texttt{Dimension}}
+\label{Dimension}
 }\hfill{\scriptsize (operation)}}\\
 \textbf{\indent Returns:\ }
 the dimension of the representation \mbox{\texttt{\slshape M}}. The argument \mbox{\texttt{\slshape M}} must be a \texttt{PathAlgebraMatModule}. 
@@ -2445,11 +2429,11 @@ the dimension of the representation \mbox{\texttt{\slshape M}}. The argument \mb
 
  
 
-\subsection{\textcolor{Chapter }{DirectSummandTest}}
+\subsection{\textcolor{Chapter }{IsDirectSummand}}
 \logpage{[ 6, 4, 4 ]}\nobreak
-\hyperdef{L}{X815B999B87E3943C}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{DirectSummandTest({\slshape M, N})\index{DirectSummandTest@\texttt{DirectSummandTest}}
-\label{DirectSummandTest}
+\hyperdef{L}{X7E24DCE07E98E50D}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsDirectSummand({\slshape M, N})\index{IsDirectSummand@\texttt{IsDirectSummand}}
+\label{IsDirectSummand}
 }\hfill{\scriptsize (operation)}}\\
 \textbf{\indent Returns:\ }
 true if \mbox{\texttt{\slshape M}} is isomorphic to a direct summand of \mbox{\texttt{\slshape N}}, otherwise false.
@@ -2460,11 +2444,11 @@ The function checks if \mbox{\texttt{\slshape M}} and \mbox{\texttt{\slshape N}}
 
  
 
-\subsection{\textcolor{Chapter }{DirectSumOfPathAlgebraMatModules}}
+\subsection{\textcolor{Chapter }{DirectSumOfModules}}
 \logpage{[ 6, 4, 5 ]}\nobreak
-\hyperdef{L}{X7C21454A80FAC4D8}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{DirectSumOfPathAlgebraMatModules({\slshape L})\index{DirectSumOfPathAlgebraMatModules@\texttt{DirectSumOfPathAlgebraMatModules}}
-\label{DirectSumOfPathAlgebraMatModules}
+\hyperdef{L}{X879541298181840D}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{DirectSumOfModules({\slshape L})\index{DirectSumOfModules@\texttt{DirectSumOfModules}}
+\label{DirectSumOfModules}
 }\hfill{\scriptsize (operation)}}\\
 \textbf{\indent Returns:\ }
 the direct sum of the representations contained in the list \mbox{\texttt{\slshape L}}.
@@ -2472,19 +2456,19 @@ the direct sum of the representations contained in the list \mbox{\texttt{\slsha
 
 
 The argument \mbox{\texttt{\slshape L}} must be a list of \texttt{PathAlgebraMatModule}'s over the same (quotient of a) path algebra. In addition three attributes
-are attached to the result, \texttt{IsDirectSum, DirectSumProjections} and \texttt{DirectSumInclusions}. }
+are attached to the result, \texttt{IsDirectSumOfModules, DirectSumProjections} and \texttt{DirectSumInclusions}. }
 
  
 
-\subsection{\textcolor{Chapter }{IsDirectSum}}
+\subsection{\textcolor{Chapter }{IsDirectSumOfModules}}
 \logpage{[ 6, 4, 6 ]}\nobreak
-\hyperdef{L}{X86B993CC78F45442}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsDirectSum({\slshape M})\index{IsDirectSum@\texttt{IsDirectSum}}
-\label{IsDirectSum}
+\hyperdef{L}{X7A50C15B87236111}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsDirectSumOfModules({\slshape M})\index{IsDirectSumOfModules@\texttt{IsDirectSumOfModules}}
+\label{IsDirectSumOfModules}
 }\hfill{\scriptsize (attribute)}}\\
 
 
- An attribute, returns true is \mbox{\texttt{\slshape M}} is constructed via the command \texttt{DirectSumOfPathAlgebraMatModules}. }
+ An attribute, returns true is \mbox{\texttt{\slshape M}} is constructed via the command \texttt{DirectSumOfModules}. }
 
  
 
@@ -2497,7 +2481,7 @@ are attached to the result, \texttt{IsDirectSum, DirectSumProjections} and \text
 
 
  An attribute, returns the list of inclusions from the individual modules to
-their direct sum, when a direct sum has been constructed using \texttt{DirectSumOfPathAlgebraMatModules}. }
+their direct sum, when a direct sum has been constructed using \texttt{DirectSumOfModules}. }
 
  
 
@@ -2511,11 +2495,11 @@ their direct sum, when a direct sum has been constructed using \texttt{DirectSum
 
  An attribute, returns the list of projections from the direct sum to the
 individual modules used to construct direct sum, when a direct sum has been
-constructed using \texttt{DirectSumOfPathAlgebraMatModules}. }
+constructed using \texttt{DirectSumOfModules}. }
 
  Using the example above. 
 \begin{Verbatim}[fontsize=\small,frame=single,label=Example]
-  gap> N2:=DirectSumOfPathAlgebraMatModules([N,N]);
+  gap> N2:=DirectSumOfModules([N,N]);
   <14-dimensional right-module over <algebra-with-one of dimension 
   17 over Rationals>>
   gap> proj:=DirectSumProjections(N2);
@@ -2547,10 +2531,10 @@ constructed using \texttt{DirectSumOfPathAlgebraMatModules}. }
 \end{Verbatim}
  
 
-\subsection{\textcolor{Chapter }{1st{\textunderscore}Syzygy}}
+\subsection{\textcolor{Chapter }{1stSyzygy}}
 \logpage{[ 6, 4, 9 ]}\nobreak
-\hyperdef{L}{X7833BE7D7DB4C597}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{1st{\textunderscore}Syzygy({\slshape M})\index{1stSyzygy@\texttt{1st{\textunderscore}Syzygy}}
+\hyperdef{L}{X7EC01D588141BB96}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{1stSyzygy({\slshape M})\index{1stSyzygy@\texttt{1stSyzygy}}
 \label{1stSyzygy}
 }\hfill{\scriptsize (operation)}}\\
 \textbf{\indent Returns:\ }
@@ -2560,11 +2544,11 @@ the first syzygy of the representation \mbox{\texttt{\slshape M}} as a represent
 
  
 
-\subsection{\textcolor{Chapter }{InAdditiveClosureTest}}
+\subsection{\textcolor{Chapter }{IsInAdditiveClosure}}
 \logpage{[ 6, 4, 10 ]}\nobreak
-\hyperdef{L}{X8072C8C67C52B44A}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{InAdditiveClosureTest({\slshape M, N})\index{InAdditiveClosureTest@\texttt{InAdditiveClosureTest}}
-\label{InAdditiveClosureTest}
+\hyperdef{L}{X7E5246D4831DB250}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsInAdditiveClosure({\slshape M, N})\index{IsInAdditiveClosure@\texttt{IsInAdditiveClosure}}
+\label{IsInAdditiveClosure}
 }\hfill{\scriptsize (operation)}}\\
 \textbf{\indent Returns:\ }
 true if \mbox{\texttt{\slshape M}} is in the additive closure of the module \mbox{\texttt{\slshape N}}, otherwise false.
@@ -2601,21 +2585,8 @@ true if the representation \mbox{\texttt{\slshape M}} is injective. The argument
 
  
 
-\subsection{\textcolor{Chapter }{IsOmegaPeriodicTest}}
-\logpage{[ 6, 4, 13 ]}\nobreak
-\hyperdef{L}{X7E1147247AB887EB}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsOmegaPeriodicTest({\slshape M, n})\index{IsOmegaPeriodicTest@\texttt{IsOmegaPeriodicTest}}
-\label{IsOmegaPeriodicTest}
-}\hfill{\scriptsize (operation)}}\\
-\textbf{\indent Returns:\ }
-\texttt{i}, where \texttt{i} less or equal to \texttt{n} and the representation \mbox{\texttt{\slshape M}} is isomorphic to the \texttt{i}-th syzygy of \mbox{\texttt{\slshape M}}, or else false. The argument \mbox{\texttt{\slshape M}} must be a \texttt{PathAlgebraMatModule} and \texttt{n} is a positive integer. 
-
-}
-
- 
-
 \subsection{\textcolor{Chapter }{IsProjectiveModule}}
-\logpage{[ 6, 4, 14 ]}\nobreak
+\logpage{[ 6, 4, 13 ]}\nobreak
 \hyperdef{L}{X8359AC9585777CA1}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsProjectiveModule({\slshape M})\index{IsProjectiveModule@\texttt{IsProjectiveModule}}
 \label{IsProjectiveModule}
@@ -2628,7 +2599,7 @@ true if the representation \mbox{\texttt{\slshape M}} is projective. The argumen
  
 
 \subsection{\textcolor{Chapter }{IsSemisimpleModule}}
-\logpage{[ 6, 4, 15 ]}\nobreak
+\logpage{[ 6, 4, 14 ]}\nobreak
 \hyperdef{L}{X7A8BC26E866E44DD}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsSemisimpleModule({\slshape M})\index{IsSemisimpleModule@\texttt{IsSemisimpleModule}}
 \label{IsSemisimpleModule}
@@ -2641,7 +2612,7 @@ true if the representation \mbox{\texttt{\slshape M}} is semisimple. The argumen
  
 
 \subsection{\textcolor{Chapter }{IsSimpleModule}}
-\logpage{[ 6, 4, 16 ]}\nobreak
+\logpage{[ 6, 4, 15 ]}\nobreak
 \hyperdef{L}{X7FB82B3184287362}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsSimpleModule({\slshape M})\index{IsSimpleModule@\texttt{IsSimpleModule}}
 \label{IsSimpleModule}
@@ -2654,7 +2625,7 @@ true if the representation \mbox{\texttt{\slshape M}} is simple. The argument \m
  
 
 \subsection{\textcolor{Chapter }{LoewyLength}}
-\logpage{[ 6, 4, 17 ]}\nobreak
+\logpage{[ 6, 4, 16 ]}\nobreak
 \hyperdef{L}{X7BEA44FB819910B6}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{LoewyLength({\slshape M})\index{LoewyLength@\texttt{LoewyLength}}
 \label{LoewyLength}
@@ -2670,7 +2641,7 @@ fail otherwise (This is not implemented yet). }
  
 
 \subsection{\textcolor{Chapter }{MaximalCommonDirectSummand}}
-\logpage{[ 6, 4, 18 ]}\nobreak
+\logpage{[ 6, 4, 17 ]}\nobreak
 \hyperdef{L}{X7B480767836D0764}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{MaximalCommonDirectSummand({\slshape M, N})\index{MaximalCommonDirectSummand@\texttt{MaximalCommonDirectSummand}}
 \label{MaximalCommonDirectSummand}
@@ -2685,11 +2656,11 @@ The function checks if \mbox{\texttt{\slshape M}} and \mbox{\texttt{\slshape N}}
 
  
 
-\subsection{\textcolor{Chapter }{ModuleIsomorphismTest}}
-\logpage{[ 6, 4, 19 ]}\nobreak
-\hyperdef{L}{X7CD0B746796669C8}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{ModuleIsomorphismTest({\slshape M, N})\index{ModuleIsomorphismTest@\texttt{ModuleIsomorphismTest}}
-\label{ModuleIsomorphismTest}
+\subsection{\textcolor{Chapter }{IsomorphicModules}}
+\logpage{[ 6, 4, 18 ]}\nobreak
+\hyperdef{L}{X7D198BB5808D38F2}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsomorphicModules({\slshape M, N})\index{IsomorphicModules@\texttt{IsomorphicModules}}
+\label{IsomorphicModules}
 }\hfill{\scriptsize (operation)}}\\
 \textbf{\indent Returns:\ }
 true or false depending on whether \mbox{\texttt{\slshape M}} and \mbox{\texttt{\slshape N}} are isomorphic or not.
@@ -2701,11 +2672,11 @@ returns true if the modules are isomorphic, otherwise false. }
 
  
 
-\subsection{\textcolor{Chapter }{nth{\textunderscore}Syzygy}}
-\logpage{[ 6, 4, 20 ]}\nobreak
-\hyperdef{L}{X7845173B87AE5D9C}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{nth{\textunderscore}Syzygy({\slshape M, n})\index{nthSyzygy@\texttt{nth{\textunderscore}Syzygy}}
-\label{nthSyzygy}
+\subsection{\textcolor{Chapter }{NthSyzygy}}
+\logpage{[ 6, 4, 19 ]}\nobreak
+\hyperdef{L}{X7EB51A487B5B239D}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{NthSyzygy({\slshape M, n})\index{NthSyzygy@\texttt{NthSyzygy}}
+\label{NthSyzygy}
 }\hfill{\scriptsize (operation)}}\\
 \textbf{\indent Returns:\ }
 the top of the syzygies until a syzygy is projective or the \mbox{\texttt{\slshape n}}-th syzygy has been computed. The argument \mbox{\texttt{\slshape M}} must be a \texttt{PathAlgebraMatModule}, and the argument \mbox{\texttt{\slshape n}} must be a positive integer. 
@@ -2714,11 +2685,11 @@ the top of the syzygies until a syzygy is projective or the \mbox{\texttt{\slsha
 
  
 
-\subsection{\textcolor{Chapter }{nth{\textunderscore}SyzygyNC}}
-\logpage{[ 6, 4, 21 ]}\nobreak
-\hyperdef{L}{X86660B9A863F85F2}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{nth{\textunderscore}SyzygyNC({\slshape M, n})\index{nthSyzygyNC@\texttt{nth{\textunderscore}SyzygyNC}}
-\label{nthSyzygyNC}
+\subsection{\textcolor{Chapter }{NthSyzygyNC}}
+\logpage{[ 6, 4, 20 ]}\nobreak
+\hyperdef{L}{X870531C67C402A64}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{NthSyzygyNC({\slshape M, n})\index{NthSyzygyNC@\texttt{NthSyzygyNC}}
+\label{NthSyzygyNC}
 }\hfill{\scriptsize (operation)}}\\
 \textbf{\indent Returns:\ }
 the \texttt{n}-th syzygy of the module \mbox{\texttt{\slshape M}}, unless the projective dimension of \mbox{\texttt{\slshape M}} is less or equal to \texttt{n-1}, in which case it returns the projective dimension of \mbox{\texttt{\slshape M}}. It does not check if the \texttt{n}-th syzygy is projective or not. The argument \mbox{\texttt{\slshape M}} must be a \texttt{PathAlgebraMatModule}, and the argument \mbox{\texttt{\slshape n}} must be a positive integer. 
@@ -2727,23 +2698,23 @@ the \texttt{n}-th syzygy of the module \mbox{\texttt{\slshape M}}, unless the pr
 
  
 
-\subsection{\textcolor{Chapter }{RadicalOfRep}}
-\logpage{[ 6, 4, 22 ]}\nobreak
-\hyperdef{L}{X836C258381A956AB}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{RadicalOfRep({\slshape M})\index{RadicalOfRep@\texttt{RadicalOfRep}}
-\label{RadicalOfRep}
+\subsection{\textcolor{Chapter }{RadicalOfModule}}
+\logpage{[ 6, 4, 21 ]}\nobreak
+\hyperdef{L}{X7E44920683157DE2}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{RadicalOfModule({\slshape M})\index{RadicalOfModule@\texttt{RadicalOfModule}}
+\label{RadicalOfModule}
 }\hfill{\scriptsize (operation)}}\\
 \textbf{\indent Returns:\ }
 the radical of the module \mbox{\texttt{\slshape M}}.
 
 
 
- This returns only the representation given by the radical of the module \mbox{\texttt{\slshape M}}. The operation \texttt{RadicalOfRepInclusion} (\ref{RadicalOfRepInclusion}) computes the inclusion of the radical of \mbox{\texttt{\slshape M}} into \mbox{\texttt{\slshape M}}. }
+ This returns only the representation given by the radical of the module \mbox{\texttt{\slshape M}}. The operation \texttt{RadicalOfModuleInclusion} (\ref{RadicalOfModuleInclusion}) computes the inclusion of the radical of \mbox{\texttt{\slshape M}} into \mbox{\texttt{\slshape M}}. }
 
  
 
 \subsection{\textcolor{Chapter }{RadicalSeries}}
-\logpage{[ 6, 4, 23 ]}\nobreak
+\logpage{[ 6, 4, 22 ]}\nobreak
 \hyperdef{L}{X7929281B848A9FBE}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{RadicalSeries({\slshape M})\index{RadicalSeries@\texttt{RadicalSeries}}
 \label{RadicalSeries}
@@ -2759,7 +2730,7 @@ each simple. The first vector listed corresponds to the top layer, and so on. }
  
 
 \subsection{\textcolor{Chapter }{SocleSeries}}
-\logpage{[ 6, 4, 24 ]}\nobreak
+\logpage{[ 6, 4, 23 ]}\nobreak
 \hyperdef{L}{X84A724267E6F136D}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{SocleSeries({\slshape M})\index{SocleSeries@\texttt{SocleSeries}}
 \label{SocleSeries}
@@ -2775,26 +2746,26 @@ backwards. }
 
  
 
-\subsection{\textcolor{Chapter }{SocleOfPathAlgebraMatModule}}
-\logpage{[ 6, 4, 25 ]}\nobreak
-\hyperdef{L}{X79FD8317809E5A65}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{SocleOfPathAlgebraMatModule({\slshape M})\index{SocleOfPathAlgebraMatModule@\texttt{SocleOfPathAlgebraMatModule}}
-\label{SocleOfPathAlgebraMatModule}
+\subsection{\textcolor{Chapter }{SocleOfModule}}
+\logpage{[ 6, 4, 24 ]}\nobreak
+\hyperdef{L}{X79DF34618798E866}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{SocleOfModule({\slshape M})\index{SocleOfModule@\texttt{SocleOfModule}}
+\label{SocleOfModule}
 }\hfill{\scriptsize (operation)}}\\
 \textbf{\indent Returns:\ }
 the socle of the module \mbox{\texttt{\slshape M}}.
 
 
 
- This operation only return the representation given by the socle of the module \mbox{\texttt{\slshape M}}. The inclusion the socle of \mbox{\texttt{\slshape M}} into \mbox{\texttt{\slshape M}} can be computed using \texttt{SocleOfPathAlgebraMatModuleInclusion} (\ref{SocleOfPathAlgebraMatModuleInclusion}). }
+ This operation only return the representation given by the socle of the module \mbox{\texttt{\slshape M}}. The inclusion the socle of \mbox{\texttt{\slshape M}} into \mbox{\texttt{\slshape M}} can be computed using \texttt{SocleOfModuleInclusion} (\ref{SocleOfModuleInclusion}). }
 
  
 
-\subsection{\textcolor{Chapter }{SubRep}}
-\logpage{[ 6, 4, 26 ]}\nobreak
-\hyperdef{L}{X80298D0987B1882B}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{SubRep({\slshape M, gens})\index{SubRep@\texttt{SubRep}}
-\label{SubRep}
+\subsection{\textcolor{Chapter }{SubRepresentation}}
+\logpage{[ 6, 4, 25 ]}\nobreak
+\hyperdef{L}{X858AC23C83AC843E}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{SubRepresentation({\slshape M, gens})\index{SubRepresentation@\texttt{SubRepresentation}}
+\label{SubRepresentation}
 }\hfill{\scriptsize (operation)}}\\
 \textbf{\indent Returns:\ }
 the submodule of the module \mbox{\texttt{\slshape M}} generated by the elements \mbox{\texttt{\slshape gens}}.
@@ -2802,12 +2773,12 @@ the submodule of the module \mbox{\texttt{\slshape M}} generated by the elements
 
 
  The function checks if \mbox{\texttt{\slshape gens}} are elements in \mbox{\texttt{\slshape M}}, and returns an error message otherwise. The inclusion of the submodule
-generated by the elements \mbox{\texttt{\slshape gens}} into \mbox{\texttt{\slshape M}} can be computed using \texttt{SubRepInclusion} (\ref{SubRepInclusion}). }
+generated by the elements \mbox{\texttt{\slshape gens}} into \mbox{\texttt{\slshape M}} can be computed using \texttt{SubRepresentationInclusion} (\ref{SubRepresentationInclusion}). }
 
  
 
 \subsection{\textcolor{Chapter }{SupportModuleElement}}
-\logpage{[ 6, 4, 27 ]}\nobreak
+\logpage{[ 6, 4, 26 ]}\nobreak
 \hyperdef{L}{X856EA09A83A5A636}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{SupportModuleElement({\slshape m})\index{SupportModuleElement@\texttt{SupportModuleElement}}
 \label{SupportModuleElement}
@@ -2822,39 +2793,26 @@ fail otherwise. }
 
  
 
-\subsection{\textcolor{Chapter }{TopOfRep}}
-\logpage{[ 6, 4, 28 ]}\nobreak
-\hyperdef{L}{X7FE6863F81D84464}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{TopOfRep({\slshape M})\index{TopOfRep@\texttt{TopOfRep}}
-\label{TopOfRep}
+\subsection{\textcolor{Chapter }{TopOfModule}}
+\logpage{[ 6, 4, 27 ]}\nobreak
+\hyperdef{L}{X87F571327E43AFB4}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{TopOfModule({\slshape M})\index{TopOfModule@\texttt{TopOfModule}}
+\label{TopOfModule}
 }\hfill{\scriptsize (operation)}}\\
 \textbf{\indent Returns:\ }
 the top of the module \mbox{\texttt{\slshape M}}.
 
 
 
- This returns only the representation given by the top of the module \mbox{\texttt{\slshape M}}. The operation \texttt{TopOfRepProjection} (\ref{TopOfRepProjection}) computes the projection of the module \mbox{\texttt{\slshape M}} onto the top of the module \mbox{\texttt{\slshape M}}. }
+ This returns only the representation given by the top of the module \mbox{\texttt{\slshape M}}. The operation \texttt{TopOfModuleProjection} (\ref{TopOfModuleProjection}) computes the projection of the module \mbox{\texttt{\slshape M}} onto the top of the module \mbox{\texttt{\slshape M}}. }
 
  
 
-\subsection{\textcolor{Chapter }{GeneratorsOfRep}}
-\logpage{[ 6, 4, 29 ]}\nobreak
-\hyperdef{L}{X8742104E7F6A64D5}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{GeneratorsOfRep({\slshape M})\index{GeneratorsOfRep@\texttt{GeneratorsOfRep}}
-\label{GeneratorsOfRep}
-}\hfill{\scriptsize (operation)}}\\
-\textbf{\indent Returns:\ }
-a minimal generator set of the module \mbox{\texttt{\slshape M}} as a module of the path algebra it is defined over.
-
-}
-
- 
-
-\subsection{\textcolor{Chapter }{MinimalSetOfGenerators}}
-\logpage{[ 6, 4, 30 ]}\nobreak
-\hyperdef{L}{X873EBC1879921BD5}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{MinimalSetOfGenerators({\slshape M})\index{MinimalSetOfGenerators@\texttt{MinimalSetOfGenerators}}
-\label{MinimalSetOfGenerators}
+\subsection{\textcolor{Chapter }{MinimalGeneratingSetOfModule}}
+\logpage{[ 6, 4, 28 ]}\nobreak
+\hyperdef{L}{X821FA104861FF19B}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{MinimalGeneratingSetOfModule({\slshape M})\index{MinimalGeneratingSetOfModule@\texttt{MinimalGeneratingSetOfModule}}
+\label{MinimalGeneratingSetOfModule}
 }\hfill{\scriptsize (attribute)}}\\
 \textbf{\indent Returns:\ }
 a minimal generator set of the module \mbox{\texttt{\slshape M}} as a module of the path algebra it is defined over. 
@@ -2863,11 +2821,11 @@ a minimal generator set of the module \mbox{\texttt{\slshape M}} as a module of 
 
  
 
-\subsection{\textcolor{Chapter }{MatricesOfPathAlgebraMatModule}}
-\logpage{[ 6, 4, 31 ]}\nobreak
-\hyperdef{L}{X7E676BA9848F4D84}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{MatricesOfPathAlgebraMatModule({\slshape M})\index{MatricesOfPathAlgebraMatModule@\texttt{MatricesOfPathAlgebraMatModule}}
-\label{MatricesOfPathAlgebraMatModule}
+\subsection{\textcolor{Chapter }{MatricesOfPathAlgebraModule}}
+\logpage{[ 6, 4, 29 ]}\nobreak
+\hyperdef{L}{X81BB198380631A9B}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{MatricesOfPathAlgebraModule({\slshape M})\index{MatricesOfPathAlgebraModule@\texttt{MatricesOfPathAlgebraModule}}
+\label{MatricesOfPathAlgebraModule}
 }\hfill{\scriptsize (operation)}}\\
 \textbf{\indent Returns:\ }
 a list of the matrices that defines the representation \mbox{\texttt{\slshape M}} as a right module of the acting path algebra. The argument \mbox{\texttt{\slshape M}} must be a \texttt{PathAlgebraMatModule}. 
@@ -2907,11 +2865,11 @@ message otherwise. }
 
  
 
-\subsection{\textcolor{Chapter }{IndecomposableProjectiveRepresentations}}
+\subsection{\textcolor{Chapter }{IndecProjectiveModules}}
 \logpage{[ 6, 5, 2 ]}\nobreak
-\hyperdef{L}{X82637AE885576148}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IndecomposableProjectiveRepresentations({\slshape A[, list]})\index{IndecomposableProjectiveRepresentations@\texttt{IndecomposableProjectiveRepresentations}}
-\label{IndecomposableProjectiveRepresentations}
+\hyperdef{L}{X85EDCFE27F66093F}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IndecProjectiveModules({\slshape A[, list]})\index{IndecProjectiveModules@\texttt{IndecProjectiveModules}}
+\label{IndecProjectiveModules}
 }\hfill{\scriptsize (operation)}}\\
 \textbf{\indent Returns:\ }
 a list of all the indecomposable projective representations over a finite
@@ -2926,11 +2884,11 @@ message otherwise. }
 
  
 
-\subsection{\textcolor{Chapter }{IndecomposableInjectiveRepresentations}}
+\subsection{\textcolor{Chapter }{IndecInjectiveModules}}
 \logpage{[ 6, 5, 3 ]}\nobreak
-\hyperdef{L}{X78829EE8850BCD9F}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IndecomposableInjectiveRepresentations({\slshape A[, list]})\index{IndecomposableInjectiveRepresentations@\texttt{IndecomposableInjectiveRepresentations}}
-\label{IndecomposableInjectiveRepresentations}
+\hyperdef{L}{X87741234871B1F5C}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IndecInjectiveModules({\slshape A[, list]})\index{IndecInjectiveModules@\texttt{IndecInjectiveModules}}
+\label{IndecInjectiveModules}
 }\hfill{\scriptsize (operation)}}\\
 \textbf{\indent Returns:\ }
 a list of all the indecomposable injective representations over a finite
@@ -2945,11 +2903,11 @@ message otherwise. }
 
  
 
-\subsection{\textcolor{Chapter }{VertexSimpleRepresentations}}
+\subsection{\textcolor{Chapter }{SimpleModules}}
 \logpage{[ 6, 5, 4 ]}\nobreak
-\hyperdef{L}{X7B0AD1CB7F3D0D3C}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{VertexSimpleRepresentations({\slshape A})\index{VertexSimpleRepresentations@\texttt{VertexSimpleRepresentations}}
-\label{VertexSimpleRepresentations}
+\hyperdef{L}{X7C61261F7C5E53B8}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{SimpleModules({\slshape A})\index{SimpleModules@\texttt{SimpleModules}}
+\label{SimpleModules}
 }\hfill{\scriptsize (operation)}}\\
 \textbf{\indent Returns:\ }
 a list of all the simple representations over a finite dimensional (quotient
@@ -2962,11 +2920,11 @@ message otherwise. }
 
  
 
-\subsection{\textcolor{Chapter }{ZeroRepresentation}}
+\subsection{\textcolor{Chapter }{ZeroModule}}
 \logpage{[ 6, 5, 5 ]}\nobreak
-\hyperdef{L}{X8106F9C681CE5E49}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{ZeroRepresentation({\slshape A})\index{ZeroRepresentation@\texttt{ZeroRepresentation}}
-\label{ZeroRepresentation}
+\hyperdef{L}{X7CCE2D12807AA35A}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{ZeroModule({\slshape A})\index{ZeroModule@\texttt{ZeroModule}}
+\label{ZeroModule}
 }\hfill{\scriptsize (operation)}}\\
 \textbf{\indent Returns:\ }
 the zero representation over a finite dimensional (quotient of a) path algebra \mbox{\texttt{\slshape A}} . 
@@ -2984,11 +2942,11 @@ message otherwise. }
 {
  
 
-\subsection{\textcolor{Chapter }{DualOfPathAlgebraMatModule}}
+\subsection{\textcolor{Chapter }{DualOfModule}}
 \logpage{[ 6, 6, 1 ]}\nobreak
-\hyperdef{L}{X807D065C7AD70C6F}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{DualOfPathAlgebraMatModule({\slshape M})\index{DualOfPathAlgebraMatModule@\texttt{DualOfPathAlgebraMatModule}}
-\label{DualOfPathAlgebraMatModule}
+\hyperdef{L}{X82D7B50A7ACA47BF}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{DualOfModule({\slshape M})\index{DualOfModule@\texttt{DualOfModule}}
+\label{DualOfModule}
 }\hfill{\scriptsize (operation)}}\\
 
 
@@ -2996,11 +2954,11 @@ message otherwise. }
 
  
 
-\subsection{\textcolor{Chapter }{DualOfPathAlgebraMatModuleMap}}
+\subsection{\textcolor{Chapter }{DualOfModuleHomomorphism}}
 \logpage{[ 6, 6, 2 ]}\nobreak
-\hyperdef{L}{X86846EFE7FD4E643}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{DualOfPathAlgebraMatModuleMap({\slshape f})\index{DualOfPathAlgebraMatModuleMap@\texttt{DualOfPathAlgebraMatModuleMap}}
-\label{DualOfPathAlgebraMatModuleMap}
+\hyperdef{L}{X847DDC417BFB8515}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{DualOfModuleHomomorphism({\slshape f})\index{DualOfModuleHomomorphism@\texttt{DualOfModuleHomomorphism}}
+\label{DualOfModuleHomomorphism}
 }\hfill{\scriptsize (operation)}}\\
 
 
@@ -3011,15 +2969,15 @@ message otherwise. }
 \subsection{\textcolor{Chapter }{DTr}}
 \logpage{[ 6, 6, 3 ]}\nobreak
 \hyperdef{L}{X82D31F887C14E921}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{DTr({\slshape M})\index{DTr@\texttt{DTr}}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{DTr({\slshape M[, n]})\index{DTr@\texttt{DTr}}
 \label{DTr}
 }\hfill{\scriptsize (operation)}}\\
-\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{DTr({\slshape M, n})\index{DTr@\texttt{DTr}}
-\label{DTr}
+\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{DualOfTranspose({\slshape M[, n]})\index{DualOfTranspose@\texttt{DualOfTranspose}}
+\label{DualOfTranspose}
 }\hfill{\scriptsize (operation)}}\\
 \textbf{\indent Returns:\ }
-the dual of the transpose of the module \mbox{\texttt{\slshape M}} in the first variant. In the second form it returns the dual of the transpose
-applied to \mbox{\texttt{\slshape M}} \mbox{\texttt{\slshape n}} times. If \mbox{\texttt{\slshape n}} is negative, then powers of \texttt{TrD} are computed.
+the dual of the transpose of the module \mbox{\texttt{\slshape M}} when called with only one argument, while it returns the dual of the transpose
+applied to \mbox{\texttt{\slshape M}} \mbox{\texttt{\slshape n}} times otherwise. If \mbox{\texttt{\slshape n}} is negative, then powers of \texttt{TrD} are computed. \texttt{DualOfTranspose} is a synonym for \texttt{DTr}. 
 
 
 
@@ -3030,15 +2988,15 @@ applied to \mbox{\texttt{\slshape M}} \mbox{\texttt{\slshape n}} times. If \mbox
 \subsection{\textcolor{Chapter }{TrD}}
 \logpage{[ 6, 6, 4 ]}\nobreak
 \hyperdef{L}{X7939949279208FA3}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{TrD({\slshape M})\index{TrD@\texttt{TrD}}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{TrD({\slshape M[, n]})\index{TrD@\texttt{TrD}}
 \label{TrD}
 }\hfill{\scriptsize (operation)}}\\
-\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{TrD({\slshape M, n})\index{TrD@\texttt{TrD}}
-\label{TrD}
+\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{TransposeOfDual({\slshape M[, n]})\index{TransposeOfDual@\texttt{TransposeOfDual}}
+\label{TransposeOfDual}
 }\hfill{\scriptsize (operation)}}\\
 \textbf{\indent Returns:\ }
-the transpose of the dual of the module \mbox{\texttt{\slshape M}} in the first variant. In the second form it returns the transpose of the dual
-applied to \mbox{\texttt{\slshape M}} \mbox{\texttt{\slshape n}} times. If \mbox{\texttt{\slshape n}} is negative, then powers of \texttt{TrD} are computed.
+the transpose of the dual of the module \mbox{\texttt{\slshape M}} when called with only one argument, while it returns the transpose of the dual
+applied to \mbox{\texttt{\slshape M}} \mbox{\texttt{\slshape n}} times otherwise. If \mbox{\texttt{\slshape n}} is negative, then powers of \texttt{TrD} are computed. \texttt{TransposeOfDual} is a synonym for \texttt{TrD}.
 
 
 
@@ -3231,7 +3189,7 @@ used throughout this chapter is the following.
   gap> A:= KQ/I;;
   gap> mat:=[["a",[[1,2],[0,3],[1,5]]],["b",[[2,0],[3,0],[5,0]]],["c",[[0,0],[1,0]]],
   ["d",[[1,2],[0,1]]],["e",[[0,0,0],[0,0,0]]]];;
-  gap> N:= RightModuleOverQuotientOfPathAlgebra(A,mat);;
+  gap> N:= RightModuleOverPathAlgebra(A,mat);;
 \end{Verbatim}
  
 \section{\textcolor{Chapter }{Categories and representation of homomorphisms}}\logpage{[ 7, 1, 0 ]}
@@ -3239,24 +3197,24 @@ used throughout this chapter is the following.
 {
  
 
-\subsection{\textcolor{Chapter }{IsPathAlgebraMatModuleMap}}
+\subsection{\textcolor{Chapter }{IsPathAlgebraModuleHomomorphism}}
 \logpage{[ 7, 1, 1 ]}\nobreak
-\hyperdef{L}{X7B5879BF7BDF08BA}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsPathAlgebraMatModuleMap({\slshape object})\index{IsPathAlgebraMatModuleMap@\texttt{IsPathAlgebraMatModuleMap}}
-\label{IsPathAlgebraMatModuleMap}
+\hyperdef{L}{X79AE9787877E0A28}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsPathAlgebraModuleHomomorphism({\slshape object})\index{IsPathAlgebraModuleHomomorphism@\texttt{IsPathAlgebraModuleHomomorphism}}
+\label{IsPathAlgebraModuleHomomorphism}
 }\hfill{\scriptsize (filter)}}\\
 
 
  The homomorphisms between modules over a path algebra belongs to the
-categories \texttt{IsAdditiveElementWithZero}, \texttt{IsGeneralMapping}, \texttt{RespectsScalarMultiplication}, \texttt{IsTotal} and \texttt{IsSingleValued} with the added filter of \texttt{IsPathAlgebraMatModuleMap} }
+categories \texttt{IsAdditiveElementWithZero}, \texttt{IsGeneralMapping}, \texttt{RespectsScalarMultiplication}, \texttt{IsTotal} and \texttt{IsSingleValued} with the added filter of \texttt{IsPathAlgebraModuleHomomorphism} }
 
  
 
-\subsection{\textcolor{Chapter }{RightModuleHomOverPathAlgebra}}
+\subsection{\textcolor{Chapter }{RightModuleHomOverAlgebra}}
 \logpage{[ 7, 1, 2 ]}\nobreak
-\hyperdef{L}{X85614C9E85E173F9}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{RightModuleHomOverPathAlgebra({\slshape M, N, mats})\index{RightModuleHomOverPathAlgebra@\texttt{RightModuleHomOverPathAlgebra}}
-\label{RightModuleHomOverPathAlgebra}
+\hyperdef{L}{X8318ED607FE21F55}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{RightModuleHomOverAlgebra({\slshape M, N, mats})\index{RightModuleHomOverAlgebra@\texttt{RightModuleHomOverAlgebra}}
+\label{RightModuleHomOverAlgebra}
 }\hfill{\scriptsize (operation)}}\\
 \textbf{\indent Returns:\ }
 a homomorphism from the module \mbox{\texttt{\slshape M}} to the module \mbox{\texttt{\slshape N}} given by the matrices \mbox{\texttt{\slshape mats}}.
@@ -3269,17 +3227,17 @@ constructed can by obtained again by \texttt{Range} (\ref{Range}) and by \texttt
 
  
 \begin{Verbatim}[fontsize=\small,frame=single,label=Example]
-  gap> L := RightModuleOverQuotientOfPathAlgebra(A,[["a",[0,1]],["b",[0,1]],
+  gap> L := RightModuleOverPathAlgebra(A,[["a",[0,1]],["b",[0,1]],
   ["c",[[0]]],["d",[[1]]],["e",[1,0]]]);
   <right-module over <algebra-with-one over Rationals, with 8 generators>>
   gap> DimensionVector(L);
   [ 0, 1, 1 ]
-  gap> f := RightModuleHomOverPathAlgebra(L,N,[[[0,0,0]], [[1,0]], [[1,2]]]);
+  gap> f := RightModuleHomOverAlgebra(L,N,[[[0,0,0]], [[1,0]], [[1,2]]]);
   <mapping: <2-dimensional right-module over AlgebraWithOne( Rationals,
   [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d],
   [(1)*e] ] )> -> <7-dimensional right-module over AlgebraWithOne(Rationals, 
   [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] ] )> >
-  gap> IsPathAlgebraMatModuleMap(f);
+  gap> IsPathAlgebraModuleHomomorphism(f);
   true
 \end{Verbatim}
  }
@@ -3327,14 +3285,14 @@ the source (or domain) the homomorphism \mbox{\texttt{\slshape f}}.
 \end{Verbatim}
  
 
-\subsection{\textcolor{Chapter }{PreImagesElm}}
+\subsection{\textcolor{Chapter }{PreImagesRepresentative}}
 \logpage{[ 7, 2, 3 ]}\nobreak
-\hyperdef{L}{X7FBB830C8729E995}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{PreImagesElm({\slshape f, elem})\index{PreImagesElm@\texttt{PreImagesElm}}
-\label{PreImagesElm}
+\hyperdef{L}{X7AE24A1586B7DE79}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{PreImagesRepresentative({\slshape f, elem})\index{PreImagesRepresentative@\texttt{PreImagesRepresentative}}
+\label{PreImagesRepresentative}
 }\hfill{\scriptsize (operation)}}\\
 \textbf{\indent Returns:\ }
-a preimage of an element \mbox{\texttt{\slshape elem}} in the range (or codomain) the homomorphism \mbox{\texttt{\slshape f}}. The name of this function should be changed to PreImagesRepresentative.
+a preimage of an element \mbox{\texttt{\slshape elem}} in the range (or codomain) the homomorphism \mbox{\texttt{\slshape f}}.
 
 
 
@@ -3378,9 +3336,9 @@ restricted to the submodule.
     [ [ 0, 0, 1 ], [ 0, 0 ], [ 0, 0 ] ], [ [ 0, 0, 0 ], [ 1, 0 ], [ 0, 0 ] ], 
     [ [ 0, 0, 0 ], [ 0, 1 ], [ 0, 0 ] ], [ [ 0, 0, 0 ], [ 0, 0 ], [ 1, 0 ] ], 
     [ [ 0, 0, 0 ], [ 0, 0 ], [ 0, 1 ] ] ]
-  gap> PreImagesElm(f,B[4]);     
+  gap> PreImagesRepresentative(f,B[4]);     
   [ [ 0 ], [ 1 ], [ 0 ] ]
-  gap> PreImagesElm(f,B[5]);
+  gap> PreImagesRepresentative(f,B[5]);
   fail
   gap> BL:=BasisVectors(Basis(L));
   [ [ [ 0 ], [ 1 ], [ 0 ] ], [ [ 0 ], [ 0 ], [ 1 ] ] ]
@@ -3406,11 +3364,11 @@ the zero map between \texttt{Source(f)} and \texttt{Range(f)}.
 
  
 
-\subsection{\textcolor{Chapter }{ZeroMap}}
+\subsection{\textcolor{Chapter }{ZeroMapping}}
 \logpage{[ 7, 2, 7 ]}\nobreak
-\hyperdef{L}{X8377BC22879E9177}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{ZeroMap({\slshape M, N})\index{ZeroMap@\texttt{ZeroMap}}
-\label{ZeroMap}
+\hyperdef{L}{X795FF8DC785F110A}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{ZeroMapping({\slshape M, N})\index{ZeroMapping@\texttt{ZeroMapping}}
+\label{ZeroMapping}
 }\hfill{\scriptsize (operation)}}\\
 \textbf{\indent Returns:\ }
 the zero map between \mbox{\texttt{\slshape M}} and \mbox{\texttt{\slshape N}}.
@@ -3419,11 +3377,11 @@ the zero map between \mbox{\texttt{\slshape M}} and \mbox{\texttt{\slshape N}}.
 
  
 
-\subsection{\textcolor{Chapter }{IdentityMap}}
+\subsection{\textcolor{Chapter }{IdentityMapping}}
 \logpage{[ 7, 2, 8 ]}\nobreak
-\hyperdef{L}{X7DCFDE8F7F80821C}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IdentityMap({\slshape M})\index{IdentityMap@\texttt{IdentityMap}}
-\label{IdentityMap}
+\hyperdef{L}{X7EBAE0368470A603}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IdentityMapping({\slshape M})\index{IdentityMapping@\texttt{IdentityMapping}}
+\label{IdentityMapping}
 }\hfill{\scriptsize (operation)}}\\
 \textbf{\indent Returns:\ }
 the identity map between \mbox{\texttt{\slshape M}} and \mbox{\texttt{\slshape M}}.
@@ -3489,7 +3447,7 @@ error message otherwise. }
   false
   gap> Range(f) = Range(z);
   true
-  gap> y := ZeroMap(L,N); 
+  gap> y := ZeroMapping(L,N); 
   <mapping: <2-dimensional right-module over AlgebraWithOne( Rationals, 
   [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
    ] )> -> <7-dimensional right-module over AlgebraWithOne( Rationals, 
@@ -3497,7 +3455,7 @@ error message otherwise. }
    ] )> >
   gap> y = z;            
   true
-  gap> id := IdentityMap(N);  
+  gap> id := IdentityMapping(N);  
   <mapping: <7-dimensional right-module over AlgebraWithOne( Rationals, 
   [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
    ] )> -> <7-dimensional right-module over AlgebraWithOne( Rationals, 
@@ -3551,11 +3509,11 @@ homomorphism \mbox{\texttt{\slshape g}}, then \mbox{\texttt{\slshape g}} is retu
 
  
 
-\subsection{\textcolor{Chapter }{IsOneToOne}}
+\subsection{\textcolor{Chapter }{IsInjective}}
 \logpage{[ 7, 2, 14 ]}\nobreak
-\hyperdef{L}{X7918D18A7AB257EE}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsOneToOne({\slshape f})\index{IsOneToOne@\texttt{IsOneToOne}}
-\label{IsOneToOne}
+\hyperdef{L}{X7F065FD7822C0A12}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsInjective({\slshape f})\index{IsInjective@\texttt{IsInjective}}
+\label{IsInjective}
 }\hfill{\scriptsize (attribute)}}\\
 
 
@@ -3563,11 +3521,11 @@ homomorphism \mbox{\texttt{\slshape g}}, then \mbox{\texttt{\slshape g}} is retu
 
  
 
-\subsection{\textcolor{Chapter }{IsOnto}}
+\subsection{\textcolor{Chapter }{IsSurjective}}
 \logpage{[ 7, 2, 15 ]}\nobreak
-\hyperdef{L}{X81612A8E86D37A94}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsOnto({\slshape f})\index{IsOnto@\texttt{IsOnto}}
-\label{IsOnto}
+\hyperdef{L}{X784ECE847E005B8F}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsSurjective({\slshape f})\index{IsSurjective@\texttt{IsSurjective}}
+\label{IsSurjective}
 }\hfill{\scriptsize (attribute)}}\\
 
 
@@ -3575,11 +3533,11 @@ homomorphism \mbox{\texttt{\slshape g}}, then \mbox{\texttt{\slshape g}} is retu
 
  
 
-\subsection{\textcolor{Chapter }{IsIsom}}
+\subsection{\textcolor{Chapter }{IsIsomorphism}}
 \logpage{[ 7, 2, 16 ]}\nobreak
-\hyperdef{L}{X860BF6DA791315D2}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsIsom({\slshape f})\index{IsIsom@\texttt{IsIsom}}
-\label{IsIsom}
+\hyperdef{L}{X7E07BBF57B92BA56}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsIsomorphism({\slshape f})\index{IsIsomorphism@\texttt{IsIsomorphism}}
+\label{IsIsomorphism}
 }\hfill{\scriptsize (attribute)}}\\
 
 
@@ -3587,11 +3545,11 @@ homomorphism \mbox{\texttt{\slshape g}}, then \mbox{\texttt{\slshape g}} is retu
 
  
 
-\subsection{\textcolor{Chapter }{IsSplitEpi}}
+\subsection{\textcolor{Chapter }{IsSplitEpimorphism}}
 \logpage{[ 7, 2, 17 ]}\nobreak
-\hyperdef{L}{X8657FFF1836A0DAF}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsSplitEpi({\slshape f})\index{IsSplitEpi@\texttt{IsSplitEpi}}
-\label{IsSplitEpi}
+\hyperdef{L}{X80A66EFA862E56BC}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsSplitEpimorphism({\slshape f})\index{IsSplitEpimorphism@\texttt{IsSplitEpimorphism}}
+\label{IsSplitEpimorphism}
 }\hfill{\scriptsize (attribute)}}\\
 
 
@@ -3600,11 +3558,11 @@ homomorphism\mbox{\texttt{\slshape f}}. }
 
  
 
-\subsection{\textcolor{Chapter }{IsSplitMono}}
+\subsection{\textcolor{Chapter }{IsSplitMonomorphism}}
 \logpage{[ 7, 2, 18 ]}\nobreak
-\hyperdef{L}{X82D3ABDB81F74FAA}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsSplitMono({\slshape f})\index{IsSplitMono@\texttt{IsSplitMono}}
-\label{IsSplitMono}
+\hyperdef{L}{X7DFACF1F7D7F7EE9}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsSplitMonomorphism({\slshape f})\index{IsSplitMonomorphism@\texttt{IsSplitMonomorphism}}
+\label{IsSplitMonomorphism}
 }\hfill{\scriptsize (attribute)}}\\
 
 
@@ -3613,17 +3571,17 @@ homomorphism\mbox{\texttt{\slshape f}}. }
 
  
 \begin{Verbatim}[fontsize=\small,frame=single,label=Example]
-  gap> S := VertexSimpleRepresentations(A)[1];;
-  gap> H := HomOverPathAlgebra(N,S);; 
-  gap> IsSplitMono(H[1]);  
+  gap> S := SimpleModules(A)[1];;
+  gap> H := HomOverAlgebra(N,S);; 
+  gap> IsSplitMonomorphism(H[1]);  
   false      
-  gap> f := IsSplitEpi(H[1]);
+  gap> f := IsSplitEpimorphism(H[1]);
   <mapping: <1-dimensional right-module over AlgebraWithOne( Rationals, 
   [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
    ] )> -> <7-dimensional right-module over AlgebraWithOne( Rationals, 
   [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
    ] )> >
-  gap> IsSplitMono(f);
+  gap> IsSplitMonomorphism(f);
   <mapping: <7-dimensional right-module over AlgebraWithOne( Rationals, 
   [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
    ] )> -> <1-dimensional right-module over AlgebraWithOne( Rationals, 
@@ -3632,12 +3590,12 @@ homomorphism\mbox{\texttt{\slshape f}}. }
 \end{Verbatim}
  
 
-\subsection{\textcolor{Chapter }{IsZeroMap}}
+\subsection{\textcolor{Chapter }{IsZero}}
 \logpage{[ 7, 2, 19 ]}\nobreak
-\hyperdef{L}{X784852E07D3D1E0D}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsZeroMap({\slshape f})\index{IsZeroMap@\texttt{IsZeroMap}}
-\label{IsZeroMap}
-}\hfill{\scriptsize (attribute)}}\\
+\hyperdef{L}{X82BDA47282F9BBA7}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsZero({\slshape f})\index{IsZero@\texttt{IsZero}}
+\label{IsZero}
+}\hfill{\scriptsize (property)}}\\
 
 
  This returns \texttt{true} if the homomorphism \mbox{\texttt{\slshape f}} is zero homomorphism. }
@@ -3662,30 +3620,30 @@ homomorphism\mbox{\texttt{\slshape f}}. }
 {
  
 
-\subsection{\textcolor{Chapter }{Coker}}
+\subsection{\textcolor{Chapter }{CoKernel}}
 \logpage{[ 7, 3, 1 ]}\nobreak
-\hyperdef{L}{X82386871781E4113}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{Coker({\slshape f})\index{Coker@\texttt{Coker}}
-\label{Coker}
+\hyperdef{L}{X875F177A82BF9B8B}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{CoKernel({\slshape f})\index{CoKernel@\texttt{CoKernel}}
+\label{CoKernel}
 }\hfill{\scriptsize (attribute)}}\\
-\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{CokerProjection({\slshape f})\index{CokerProjection@\texttt{CokerProjection}}
-\label{CokerProjection}
+\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{CoKernelProjection({\slshape f})\index{CoKernelProjection@\texttt{CoKernelProjection}}
+\label{CoKernelProjection}
 }\hfill{\scriptsize (attribute)}}\\
 \textbf{\indent Returns:\ }
 the cokernel of a homomorphism \mbox{\texttt{\slshape f}} between two representations of a quiver.
 
 
 
- The first variant \texttt{Coker} returns the cokernel of the homomorphism \mbox{\texttt{\slshape f}} as a representation of the quiver, while the latter one returns the projection
+ The first variant \texttt{CoKernel} returns the cokernel of the homomorphism \mbox{\texttt{\slshape f}} as a representation of the quiver, while the latter one returns the projection
 homomorphism from the range of the homomorphism \mbox{\texttt{\slshape f}} to the cokernel of the homomorphism \mbox{\texttt{\slshape f}}. }
 
  
 
-\subsection{\textcolor{Chapter }{EndOverPathAlgebra}}
+\subsection{\textcolor{Chapter }{EndOverAlgebra}}
 \logpage{[ 7, 3, 2 ]}\nobreak
-\hyperdef{L}{X78E55FC780EAC08E}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{EndOverPathAlgebra({\slshape M})\index{EndOverPathAlgebra@\texttt{EndOverPathAlgebra}}
-\label{EndOverPathAlgebra}
+\hyperdef{L}{X79FDBE1B795308A9}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{EndOverAlgebra({\slshape M})\index{EndOverAlgebra@\texttt{EndOverAlgebra}}
+\label{EndOverAlgebra}
 }\hfill{\scriptsize (operation)}}\\
 \textbf{\indent Returns:\ }
 the endomorphism ring of \mbox{\texttt{\slshape M}} as a subalgebra of the direct sum of the full matrix rings of \mbox{\texttt{\slshape dim{\textunderscore}M[i] x dim{\textunderscore}M[i]}}, where \mbox{\texttt{\slshape i}} runs over all vertices.
@@ -3712,11 +3670,11 @@ support of the element \mbox{\texttt{\slshape m}} to the module \mbox{\texttt{\s
 
  
 
-\subsection{\textcolor{Chapter }{HomOverPathAlgebra}}
+\subsection{\textcolor{Chapter }{HomOverAlgebra}}
 \logpage{[ 7, 3, 4 ]}\nobreak
-\hyperdef{L}{X82723F60866D77E9}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{HomOverPathAlgebra({\slshape M, N})\index{HomOverPathAlgebra@\texttt{HomOverPathAlgebra}}
-\label{HomOverPathAlgebra}
+\hyperdef{L}{X8681E72F7FD4BFCE}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{HomOverAlgebra({\slshape M, N})\index{HomOverAlgebra@\texttt{HomOverAlgebra}}
+\label{HomOverAlgebra}
 }\hfill{\scriptsize (operation)}}\\
 \textbf{\indent Returns:\ }
 a basis for the homomorphisms from \mbox{\texttt{\slshape M}} to \mbox{\texttt{\slshape N}}.
@@ -3728,47 +3686,47 @@ otherwise. }
 
  
 
-\subsection{\textcolor{Chapter }{Im}}
+\subsection{\textcolor{Chapter }{Image}}
 \logpage{[ 7, 3, 5 ]}\nobreak
-\hyperdef{L}{X7E2D2D80781D3D91}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{Im({\slshape f})\index{Im@\texttt{Im}}
-\label{Im}
+\hyperdef{L}{X87F4D35A826599C6}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{Image({\slshape f})\index{Image@\texttt{Image}}
+\label{Image}
 }\hfill{\scriptsize (attribute)}}\\
-\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{ImProjection({\slshape f})\index{ImProjection@\texttt{ImProjection}}
-\label{ImProjection}
+\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{ImageProjection({\slshape f})\index{ImageProjection@\texttt{ImageProjection}}
+\label{ImageProjection}
 }\hfill{\scriptsize (attribute)}}\\
-\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{ImInclusion({\slshape })\index{ImInclusion@\texttt{ImInclusion}}
-\label{ImInclusion}
+\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{ImageInclusion({\slshape })\index{ImageInclusion@\texttt{ImageInclusion}}
+\label{ImageInclusion}
 }\hfill{\scriptsize (attribute)}}\\
-\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{ImProjectionInclusion({\slshape })\index{ImProjectionInclusion@\texttt{ImProjectionInclusion}}
-\label{ImProjectionInclusion}
+\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{ImageProjectionInclusion({\slshape })\index{ImageProjectionInclusion@\texttt{ImageProjectionInclusion}}
+\label{ImageProjectionInclusion}
 }\hfill{\scriptsize (attribute)}}\\
 \textbf{\indent Returns:\ }
 the image of a homomorphism \mbox{\texttt{\slshape f}} between two representations of a quiver.
 
 
 
- The first variant \texttt{Im} returns the image of the homomorphism \mbox{\texttt{\slshape f}} as a representation of the quiver. The second returns the projection from the
+ The first variant \texttt{Image} returns the image of the homomorphism \mbox{\texttt{\slshape f}} as a representation of the quiver. The second returns the projection from the
 source of \mbox{\texttt{\slshape f}} to the image into the source of the homomorphism \mbox{\texttt{\slshape f}}. The third returns the inclusion of the image into the range of the
 homomorphism \mbox{\texttt{\slshape f}}. The last one returns both the projection and the inclusion. }
 
  
 
-\subsection{\textcolor{Chapter }{Ker}}
+\subsection{\textcolor{Chapter }{Kernel}}
 \logpage{[ 7, 3, 6 ]}\nobreak
-\hyperdef{L}{X875B49CA80228AC9}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{Ker({\slshape f})\index{Ker@\texttt{Ker}}
-\label{Ker}
+\hyperdef{L}{X7DCD99628504B810}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{Kernel({\slshape f})\index{Kernel@\texttt{Kernel}}
+\label{Kernel}
 }\hfill{\scriptsize (attribute)}}\\
-\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{KerInclusion({\slshape M})\index{KerInclusion@\texttt{KerInclusion}}
-\label{KerInclusion}
+\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{KernelInclusion({\slshape M})\index{KernelInclusion@\texttt{KernelInclusion}}
+\label{KernelInclusion}
 }\hfill{\scriptsize (attribute)}}\\
 \textbf{\indent Returns:\ }
 the kernel of a homomorphism \mbox{\texttt{\slshape f}} between two representations of a quiver.
 
 
 
- The first variant \texttt{Ker} returns the kernel of the homomorphism \mbox{\texttt{\slshape f}} as a representation of the quiver, while the latter one returns the inclusion
+ The first variant \texttt{Kernel} returns the kernel of the homomorphism \mbox{\texttt{\slshape f}} as a representation of the quiver, while the latter one returns the inclusion
 homomorphism of the kernel into the source of the homomorphism \mbox{\texttt{\slshape f}}. }
 
  
@@ -3805,7 +3763,7 @@ homomorphism of the kernel into the source of the homomorphism \mbox{\texttt{\sl
 }\hfill{\scriptsize (operation)}}\\
 
 
- Given two morphisms $f\colon P\to C$ and $g\colon B\to C$, where P is a direct sum of indecomposable projective modules constructed via \texttt{DirectSumOfPathAlgebraMatModules} and \mbox{\texttt{\slshape g}} an epimorphism, this function finds a lifting of \mbox{\texttt{\slshape f}} to $B$. The function checks if $P$ is a direct sum of indecomposable projective modules, if \mbox{\texttt{\slshape g}} is onto and if \mbox{\texttt{\slshape f}} and \mbox{\texttt{\slshape g}} have the same range. }
+ Given two morphisms $f\colon P\to C$ and $g\colon B\to C$, where P is a direct sum of indecomposable projective modules constructed via \texttt{DirectSumOfModules} and \mbox{\texttt{\slshape g}} an epimorphism, this function finds a lifting of \mbox{\texttt{\slshape f}} to $B$. The function checks if $P$ is a direct sum of indecomposable projective modules, if \mbox{\texttt{\slshape g}} is onto and if \mbox{\texttt{\slshape f}} and \mbox{\texttt{\slshape g}} have the same range. }
 
  
 
@@ -3847,7 +3805,7 @@ approximations. }
 
  
 \begin{Verbatim}[fontsize=\small,frame=single,label=Example]
-  gap> H:= HomOverPathAlgebra(N,N);;
+  gap> H:= HomOverAlgebra(N,N);;
   gap> RightMinimalVersion(H[1]);   
   [ <mapping: <1-dimensional right-module over AlgebraWithOne( Rationals, 
       [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
@@ -3866,14 +3824,14 @@ approximations. }
         [(1)*e] ] )> >, 
     [ <6-dimensional right-module over <algebra-with-one of dimension 
           17 over Rationals>> ] ]
-  gap> S:=VertexSimpleRepresentations(A)[1];;
+  gap> S:=SimpleModules(A)[1];;
   gap> MinimalRightApproximation(N,S);
   <mapping: <1-dimensional right-module over AlgebraWithOne( Rationals, 
   [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
    ] )> -> <1-dimensional right-module over AlgebraWithOne( Rationals, 
   [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
    ] )> >
-  gap> S:=VertexSimpleRepresentations(A)[3];;
+  gap> S:=SimpleModules(A)[3];;
   gap> MinimalLeftApproximation(S,N);        
   <mapping: <1-dimensional right-module over AlgebraWithOne( Rationals, 
   [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
@@ -3892,8 +3850,8 @@ approximations. }
 \noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{MorphismOnImage({\slshape f, g, beta, alpha})\index{MorphismOnImage@\texttt{MorphismOnImage}}
 \label{MorphismOnImage}
 }\hfill{\scriptsize (operation)}}\\
-\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{MorphismOnCokernel({\slshape f, g, beta, alpha})\index{MorphismOnCokernel@\texttt{MorphismOnCokernel}}
-\label{MorphismOnCokernel}
+\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{MorphismOnCoKernel({\slshape f, g, beta, alpha})\index{MorphismOnCoKernel@\texttt{MorphismOnCoKernel}}
+\label{MorphismOnCoKernel}
 }\hfill{\scriptsize (operation)}}\\
 \textbf{\indent Returns:\ }
 the morphism induced on the kernels, the images or the cokernels of the
@@ -3952,11 +3910,11 @@ target of \mbox{\texttt{\slshape f}} and from the target of \mbox{\texttt{\slsha
 
  
 
-\subsection{\textcolor{Chapter }{RadicalOfRepInclusion}}
+\subsection{\textcolor{Chapter }{RadicalOfModuleInclusion}}
 \logpage{[ 7, 3, 17 ]}\nobreak
-\hyperdef{L}{X7DCDCB088064BA30}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{RadicalOfRepInclusion({\slshape M})\index{RadicalOfRepInclusion@\texttt{RadicalOfRepInclusion}}
-\label{RadicalOfRepInclusion}
+\hyperdef{L}{X7BF04DAE78E98D9C}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{RadicalOfModuleInclusion({\slshape M})\index{RadicalOfModuleInclusion@\texttt{RadicalOfModuleInclusion}}
+\label{RadicalOfModuleInclusion}
 }\hfill{\scriptsize (operation)}}\\
 \textbf{\indent Returns:\ }
 the inclusion of the radical of the module \mbox{\texttt{\slshape M}} into \mbox{\texttt{\slshape M}}.
@@ -3967,26 +3925,26 @@ the inclusion of the radical of the module \mbox{\texttt{\slshape M}} into \mbox
 
  
 
-\subsection{\textcolor{Chapter }{SocleOfPathAlgebraMatModuleInclusion}}
+\subsection{\textcolor{Chapter }{SocleOfModuleInclusion}}
 \logpage{[ 7, 3, 18 ]}\nobreak
-\hyperdef{L}{X830578BB804B6752}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{SocleOfPathAlgebraMatModuleInclusion({\slshape M})\index{SocleOfPathAlgebraMatModuleInclusion@\texttt{SocleOfPathAlgebraMatModuleInclusion}}
-\label{SocleOfPathAlgebraMatModuleInclusion}
+\hyperdef{L}{X82EB23337C5F4DBB}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{SocleOfModuleInclusion({\slshape M})\index{SocleOfModuleInclusion@\texttt{SocleOfModuleInclusion}}
+\label{SocleOfModuleInclusion}
 }\hfill{\scriptsize (operation)}}\\
 \textbf{\indent Returns:\ }
 the inclusion of the socle of the module \mbox{\texttt{\slshape M}} into \mbox{\texttt{\slshape M}}.
 
 
 
- The representation given by the socle of \mbox{\texttt{\slshape M}} can be accessed using \texttt{Source}, or it can be computed directly via the command \texttt{SocleOfPathAlgebraMatModule} (\ref{SocleOfPathAlgebraMatModule}). }
+ The representation given by the socle of \mbox{\texttt{\slshape M}} can be accessed using \texttt{Source}, or it can be computed directly via the command \texttt{SocleOfModule} (\ref{SocleOfModule}). }
 
  
 
-\subsection{\textcolor{Chapter }{SubRepInclusion}}
+\subsection{\textcolor{Chapter }{SubRepresentationInclusion}}
 \logpage{[ 7, 3, 19 ]}\nobreak
-\hyperdef{L}{X78E1E77C82F97B42}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{SubRepInclusion({\slshape M, gens})\index{SubRepInclusion@\texttt{SubRepInclusion}}
-\label{SubRepInclusion}
+\hyperdef{L}{X7E9BF05587D4A86A}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{SubRepresentationInclusion({\slshape M, gens})\index{SubRepresentationInclusion@\texttt{SubRepresentationInclusion}}
+\label{SubRepresentationInclusion}
 }\hfill{\scriptsize (operation)}}\\
 \textbf{\indent Returns:\ }
 the inclusion of the submodule generated by the generators \mbox{\texttt{\slshape gens}} into the module \mbox{\texttt{\slshape M}}
@@ -3998,11 +3956,11 @@ submodule generated by the generators \mbox{\texttt{\slshape gens}} can be acces
 
  
 
-\subsection{\textcolor{Chapter }{TopOfRepProjection}}
+\subsection{\textcolor{Chapter }{TopOfModuleProjection}}
 \logpage{[ 7, 3, 20 ]}\nobreak
-\hyperdef{L}{X7C74AA0679E85F60}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{TopOfRepProjection({\slshape M})\index{TopOfRepProjection@\texttt{TopOfRepProjection}}
-\label{TopOfRepProjection}
+\hyperdef{L}{X804BD7CD804E63C4}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{TopOfModuleProjection({\slshape M})\index{TopOfModuleProjection@\texttt{TopOfModuleProjection}}
+\label{TopOfModuleProjection}
 }\hfill{\scriptsize (operation)}}\\
 \textbf{\indent Returns:\ }
 the projection from the module \mbox{\texttt{\slshape M}} to the top of the module \mbox{\texttt{\slshape M}} into \mbox{\texttt{\slshape M}}.
@@ -4019,11 +3977,11 @@ the projection from the module \mbox{\texttt{\slshape M}} to the top of the modu
 {
  
 
-\subsection{\textcolor{Chapter }{ExtOne}}
+\subsection{\textcolor{Chapter }{ExtOverAlgebra}}
 \logpage{[ 7, 4, 1 ]}\nobreak
-\hyperdef{L}{X7C022F0E7A471BB1}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{ExtOne({\slshape M, N})\index{ExtOne@\texttt{ExtOne}}
-\label{ExtOne}
+\hyperdef{L}{X787217547958E9C3}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{ExtOverAlgebra({\slshape M, N})\index{ExtOverAlgebra@\texttt{ExtOverAlgebra}}
+\label{ExtOverAlgebra}
 }\hfill{\scriptsize (operation)}}\\
 \textbf{\indent Returns:\ }
 the map from the first syzygy, \mbox{\texttt{\slshape Omega(M)}} to the projective cover, \mbox{\texttt{\slshape P(M)}} of the module \mbox{\texttt{\slshape M}}, and in addition a basis of $Ext^1(M,N)$ in terms of elements in $Hom(Omega(M),N)$.
