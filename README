@@ -84,7 +84,7 @@ GAPdirectory/gap/pkg/.
 Using QPA
 ----------
 
-Assuming that GAP is installed on your computer and that QPA is installed at
+Assuming that GAP is installed on your computer and that QPA is installed as
 above, start QPA/GAP using the command: 
 
      gap -l ";/fullpath/GAPdirectory/gap/" 

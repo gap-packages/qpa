@@ -475,7 +475,7 @@ InstallMethod( CoefficientsOfVectors,
 end
 );
 
-InstallMethod( 1st_Syzygy,
+InstallMethod( 1stSyzygy,
    "for a path algebra",
    [ IsPathAlgebraModule ], 0,
    function( M ) 
@@ -691,7 +691,7 @@ InstallMethod( NthSyzygy,
    else 
       for i in [1..n] do
          Print("Computing syzygy number: ",i," ...\n");
-         result := 1st_Syzygy(result);
+         result := 1stSyzygy(result);
          Print("Top of the ",i,"th syzygy: ",DimensionVector(TopOfModule(result)),"\n");
          if IsProjectiveModule(result) then 
             Print("The module has projective dimension ",i,".\n");
@@ -714,7 +714,7 @@ InstallMethod( NthSyzygyNC,
    result := ShallowCopy(M);
    for i in [1..n] do
       Print("Computing syzygy number: ",i," ....\n");
-      result := 1st_Syzygy(result);
+      result := 1stSyzygy(result);
       if Dimension(result) = 0 then 
          Print("The module has projective dimension ",i-1,".\n");
          break;
@@ -911,7 +911,7 @@ InstallMethod( IsOmegaPeriodic,
    N0 := M;
    for i in [1..n] do
       Print("Computing syzygy number: ",i,"\n");
-      N1 := 1st_Syzygy(N0);
+      N1 := 1stSyzygy(N0);
       if IsomorphicModules(M,N1) then
          return i;
       else

@@ -40,11 +40,11 @@ Subtitle := "Quivers and Path Algebras",
 ##  See '?Extending: Version Numbers' in GAP help for an explanation
 ##  of valid version numbers. For an automatic package distribution update
 ##  you must provide a new version number even after small changes.
-Version := "0.4.3",
+Version := "1.06",
 
 ##  Release date of the current version in dd/mm/yyyy format.
 # 
-Date := "05/03/2007",
+Date := "19/01/2012",
 
 ##  URL of the archive(s) of the current package release, but *without*
 ##  the format extension(s), like '.zoo', which are given next.
@@ -54,8 +54,8 @@ Date := "05/03/2007",
 ##  directory containing the package (in our "example" probably:
 ##  example/init.g, ...    or  example-1.3/init.g, ...  )
 # 
-#ArchiveURL := 
-#          " http://www.win.tue.nl/~amc/pub/grobner/GBNP-0.9.3",
+ArchiveURL := 
+        "http://sourceforge.net/projects/quiverspathalg/files/qpa-version-1.06",
 
 ##  All provided formats as list of file extensions, separated by white
 ##  space or commas.
@@ -71,7 +71,7 @@ Date := "05/03/2007",
 ##  a convenient installation and upgrading on Linux systems.
 ##  
 # ArchiveFormats := ".zoo", # the others are generated automatically
-# ArchiveFormats := ".tar.gz",
+ArchiveFormats := ".tar.gz",
 
 ##  If not all of the archive formats mentioned above are provided, these 
 ##  can be produced at the GAP side. Therefore it is necessary to know which
@@ -158,8 +158,22 @@ Persons := [
                        "U.S.A." ] ),
     Place         := "Blacksburg",
     Institution   := "Virginia Polytechnic Institute and State  University"
-  )
-
+           ),
+  rec( 
+    LastName      := "Solberg",
+    FirstNames    := "Oeyvind",
+    IsAuthor      := true,
+    IsMaintainer  := true,
+    Email         := "oyvind.solberg@math.ntnu.no",
+    WWWHome       := "http://www.math.ntnu.no/~oyvinso/",
+    PostalAddress := Concatenation( [
+		       "Department of Mathematical Sciences\n",
+		       "NTNU\n",
+		       "N-7491 Trondheim\n",
+                       "Norway" ] ),
+    Place         := "Trondheim",
+    Institution   := "Norwegian University of Science and Technology"
+  )            
 # provide such a record for each author and/or maintainer ...
   
 ],
@@ -193,10 +207,10 @@ Status := "dev",
 ##  the updating of package information on the GAP Website, and inclusion
 ##  and updating of the package in the GAP distribution.
 #
-#README_URL := 
-#  "http://www.win.tue.nl/~amc/pub/grobner/README",
-#PackageInfoURL := 
-#  "http://www.win.tue.nl/~amc/pub/grobner/PackageInfo.g",
+README_URL := 
+  "http://quiverspathalg.cvs.sourceforge.net/viewvc/quiverspathalg/qpa/README?view=log",
+PackageInfoURL := 
+  "http://quiverspathalg.cvs.sourceforge.net/viewvc/quiverspathalg/qpa/PackageInfo.g?view=log",
 
 ##  Here you  must provide a short abstract explaining the package content 
 ##  in HTML format (used on the package overview Web page) and an URL 
@@ -208,18 +222,14 @@ Status := "dev",
 # AbstractHTML := "This package provides  a collection of functions for \
 # computing the Smith normal form of integer matrices and some related \
 # utilities.",
-#AbstractHTML := 
-#  "The <span class=\"pkgname\">GBNP</spam> package provides algorithms for \
-#   computing Grobner bases of noncommutative polynomials with coefficients \
-#   from a field implemented in <span class=\"pkgname\">GAP</span> and with \
-#   respect to the \"total degree first then lexicographical\" ordering. \
-#   Further provided are some variations, such as a weighted and truncated \
-#   version and a tracing facility. The word \"algorithm\" is to be \
-#   interpreted loosely here: in general one cannot expect such an algorithm \
-#   to terminate, as it would imply solvability of the word problem for \
-#   finitely presented (semi)groups.",
-
-#PackageWWWHome := "http://www.win.tue.nl/~amc/pub/grobner/doc.html",
+AbstractHTML := "The <span class=\"pkgname\">QPA</span> package provides data structures \
+                   and algorithms for doing computations with finite dimensional quotients \
+                   of path algebras, and finitely generated modules over such algebras. The \
+                   current version of the QPA package has data structures for quivers, \
+                   quotients of path algebras, and modules, homomorphisms and complexes of \
+                   modules over quotients of path algebras.",
+                   
+PackageWWWHome := "http://quiverspathalg.cvs.sourceforge.net/viewvc/quiverspathalg/qpa/",
                
 ##  Here is the information on the help books of the package, used for
 ##  loading into GAP's online help and maybe for an online copy of the 
@@ -252,11 +262,11 @@ PackageDoc := rec(
   # use same as in GAP            
   BookName  := "QPA",
   # format/extension can be one of .zoo, .tar.gz, .tar.bz2, -win.zip
-#  Archive := 
-#      "http://www.win.tue.nl/~amc/pub/grobner/GBNPdoc-0.9.3.tar.gz",
-#  ArchiveURLSubset := ["doc", "htm"],
-#  HTMLStart := "doc/chap0.htm",
-#  PDFFile   := "doc/manual.pdf",
+  Archive := 
+   "http://sourceforge.net/projects/quiverspathalg/files/qpa-version-1.06.tar.gz",
+  ArchiveURLSubset := ["doc", "htm"],
+  HTMLStart := "doc/chap0.htm",
+  PDFFile   := "doc/manual.pdf",
   # the path to the .six file used by GAP's help system
   SixFile   := "doc/manual.six",
   # a longer title of the book, this together with the book name should

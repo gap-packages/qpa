@@ -9,7 +9,7 @@ DeclareOperation( "IsProjectiveModule", [IsPathAlgebraModule ] );
 DeclareOperation( "IsInjectiveModule", [IsPathAlgebraModule ] ); 
 DeclareOperation( "IsSimpleModule", [IsPathAlgebraModule ] ); 
 DeclareOperation( "IsSemisimpleModule", [IsPathAlgebraModule ] );
-DeclareOperation( "1st_Syzygy", [IsPathAlgebraModule ] );
+DeclareOperation( "1stSyzygy", [IsPathAlgebraModule ] );
 DeclareOperation( "NthSyzygy", [IsPathAlgebraModule, IS_INT ] );
 DeclareOperation( "NthSyzygyNC", [IsPathAlgebraModule, IS_INT ] );
 DeclareOperation( "TipMonomialandCoefficientOfVector", [ IsAlgebra, IsCollection ] );
