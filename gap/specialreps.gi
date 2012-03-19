@@ -1,5 +1,5 @@
 # GAP Implementation
-# $Id: specialreps.gi,v 1.8 2012/02/27 12:26:34 sunnyquiver Exp $
+# $Id: specialreps.gi,v 1.9 2012/03/19 08:58:59 sunnyquiver Exp $
 
 # specialreps.gi: Provides special representations of a quiver, 
 # 		  indecomposble projective, indecomposable injective, 
@@ -323,7 +323,7 @@ InstallMethod ( SimpleModules,
                 if TargetOfPath(TipMonomial(One(KQ)*a)) <> v then
                     Add(mats,[a,[1,0]]);
                 else
-                    Add(mats,[a,[[0]]]);
+                    Add(mats,[a,[[Zero(LeftActingDomain(A))]]]);
                 fi;
             fi;
         od;
