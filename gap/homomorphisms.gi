@@ -1,5 +1,5 @@
 # GAP Implementation
-# $Id: homomorphisms.gi,v 1.24 2012/02/27 12:26:34 sunnyquiver Exp $
+# $Id: homomorphisms.gi,v 1.25 2012/03/21 14:52:31 andrzejmroz Exp $
 
 #############################################################################
 ##
@@ -1396,61 +1396,64 @@ InstallMethod( CommonDirectSummand,
    [ IsPathAlgebraModule, IsPathAlgebraModule  ], 0,
    function( M, N ) 
 
-   local K, HomMN, HomNM, MM, MMflat, i, j, HomMM, V_M, id, 
-         mm, mn, nm, m, n, l, f, g, pM, pN, zMN, zNM, zMM;
+   local K, HomMN, HomNM, mn, nm, n, m, i, j,  
+         l, zero, f, fnm, nmf;
 #
 # This function is using the algorithm for finding a common direct 
 # summand presented in the paper "Gauss-Elimination und der groesste
 # gemeinsame direkte Summand von zwei endlichdimensionalen Moduln"
-# by K. Bongartz, Arch Math., vol. 53, 256-258.
+# by K. Bongartz, Arch Math., vol. 53, 256-258, with the modification
+# done by Andrzej Mroz found in "On the computational complexity of Bongartz's
+# algorithm" (improving the complexity of the algorithm).
 #
    if RightActingAlgebra(M) <> RightActingAlgebra(N) then 
       Print("The two modules are not modules over the same algebra.\n");
       return fail;
    else
-      K := LeftActingDomain(M);
       HomMN := HomOverAlgebra(M,N);
       HomNM := HomOverAlgebra(N,M);
-      HomMM := HomOverAlgebra(M,M);
-      MM := [];
-      mm := Length(HomMM); 
       mn := Length(HomMN);
       nm := Length(HomNM);
-      if mn*nm = 0 then 
+      
+      if mn = 0 or nm = 0 then 
          return false;
       fi;
-      n := Maximum(DimensionVector(M));
-      m := Maximum(DimensionVector(N));
-      n := Maximum([n,m]);
-      pM := TopOfModuleProjection(M);
-      pN := TopOfModuleProjection(N);
-      zMN := ZeroMapping(M,Range(pN));
-      zNM := ZeroMapping(N,Range(pM));
-      zMM := ZeroMapping(M,Range(pM));
-      for j in [1..Length(HomNM)] do
-         if HomNM[j]*pM <> zNM then 
-            for i in [1..Length(HomMN)] do
-               if HomMN[i]*pN <> zMN then 
-                  for l in [1..Length(HomMM)] do
-                     if HomMM[l]*pM <> zMM then  
-                        f := (HomMN[i]*HomNM[j]*HomMM[l])^n;
-                        if f <> ZeroMapping(M,M) then
-                           g := (HomNM[j]*HomMM[l]*HomMN[i])^n;
-                           if g <> ZeroMapping(N,N) then
-                              return [Image(f),Kernel(f),Image(g),Kernel(g)];
-                           fi;                      
-                        fi; 
-                     fi;
-                  od;
-               fi;
-            od;
-         fi;
+      
+      m := Maximum(DimensionVector(M));
+      n := Maximum(DimensionVector(N));
+      if n = m then
+          l := n;
+      else
+          l := Minimum([n,m]) + 1;
+      fi;
+      
+     
+
+      zero := ZeroMapping(M,M);
+      
+      for j in [1..nm] do
+          for i in [1..mn] do
+  		    
+  		    if l>1 then  # because hom^0*hom => error!       
+                f := (HomMN[i]*HomNM[j])^(l-1)*HomMN[i];
+              else f := HomMN[i];
+              fi;
+              
+              fnm := f*HomNM[j];
+              
+              if fnm <> zero then
+                  nmf := HomNM[j]*f; 
+                  return [Image(fnm),Kernel(fnm),Image(nmf),Kernel(nmf)];
+              fi;
+              
+          od;
       od;
 
       return false;
    fi; 
 end
 );
+
 
 InstallMethod( MaximalCommonDirectSummand, 
    "for two path algebra matmodules",
