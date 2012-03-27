@@ -3171,8 +3171,12 @@ dimensions are also available. }
 \hyperdef{L}{X7C049EFC82A7CAA7}{}
 {
  This chapter describes the categories, representations, attributes, and
-operations on homomorphisms between representations of quivers. The example
-used throughout this chapter is the following. 
+operations on homomorphisms between representations of quivers. Given two
+homorphisms $f\colon L\to M$ and $g\colon M\to N$, then the composition is written $f*g$. The elements in the modules or the representations of a quiver are row
+vectors. Therefore the homomorphisms between two modules are acting on these
+row vectors, that is, if $m_i$ is in $M[i]$ and $g_i\colon M[i]\to N[i]$ represents the linear map, then the value of $g$ applied to $m_i$ is the matrix product $m_i*g_i$.
+
+ The example used throughout this chapter is the following. 
 \begin{Verbatim}[fontsize=\small,frame=single,label=Example]
   gap> Q:= Quiver(3,[[1,2,"a"],[1,2,"b"],[2,2,"c"],[2,3,"d"],[3,1,"e"]]);;
   gap> KQ:= PathAlgebra(Rationals, Q);;
@@ -3200,13 +3204,19 @@ used throughout this chapter is the following.
 \subsection{\textcolor{Chapter }{IsPathAlgebraModuleHomomorphism}}
 \logpage{[ 7, 1, 1 ]}\nobreak
 \hyperdef{L}{X79AE9787877E0A28}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsPathAlgebraModuleHomomorphism({\slshape object})\index{IsPathAlgebraModuleHomomorphism@\texttt{IsPathAlgebraModuleHomomorphism}}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsPathAlgebraModuleHomomorphism({\slshape f})\index{IsPathAlgebraModuleHomomorphism@\texttt{IsPathAlgebraModuleHomomorphism}}
 \label{IsPathAlgebraModuleHomomorphism}
 }\hfill{\scriptsize (filter)}}\\
 
 
- The homomorphisms between modules over a path algebra belongs to the
-categories \texttt{IsAdditiveElementWithZero}, \texttt{IsGeneralMapping}, \texttt{RespectsScalarMultiplication}, \texttt{IsTotal} and \texttt{IsSingleValued} with the added filter of \texttt{IsPathAlgebraModuleHomomorphism} }
+ Arguments: \mbox{\texttt{\slshape f}} - any object in GAP.
+
+ \textbf{\indent Returns:\ }
+ true or false depending on if \mbox{\texttt{\slshape f}} belongs to the categories \texttt{IsAdditiveElementWithZero}, \texttt{IsAdditiveElementWithInverse}, \texttt{IsGeneralMapping}, \texttt{RespectsAddition}, \texttt{RespectsZero}, \texttt{RespectsScalarMultiplication}, \texttt{IsTotal} and \texttt{IsSingleValued} or not. 
+
+
+
+ This defines the category \texttt{IsPathAlgebraModuleHomomorphism}. }
 
  
 
@@ -3216,12 +3226,17 @@ categories \texttt{IsAdditiveElementWithZero}, \texttt{IsGeneralMapping}, \textt
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{RightModuleHomOverAlgebra({\slshape M, N, mats})\index{RightModuleHomOverAlgebra@\texttt{RightModuleHomOverAlgebra}}
 \label{RightModuleHomOverAlgebra}
 }\hfill{\scriptsize (operation)}}\\
-\textbf{\indent Returns:\ }
-a homomorphism from the module \mbox{\texttt{\slshape M}} to the module \mbox{\texttt{\slshape N}} given by the matrices \mbox{\texttt{\slshape mats}}.
+
+
+ Arguments: \mbox{\texttt{\slshape M}}, \mbox{\texttt{\slshape N}} - two modules over the same (quotient of a) path algebra, \mbox{\texttt{\slshape mats}} - a list of matrices, one for each vertex in the quiver of the path algebra.
+
+ \textbf{\indent Returns:\ }
+a homomorphism in the category \texttt{IsPathAlgebraModuleHomomorphism} from the module \mbox{\texttt{\slshape M}} to the module \mbox{\texttt{\slshape N}} given by the matrices \mbox{\texttt{\slshape mats}}.
 
 
 
- The arguments \mbox{\texttt{\slshape M}} and \mbox{\texttt{\slshape N}} are two modules over the same algebra (this is checked), and \mbox{\texttt{\slshape mats}} is a list \texttt{DimensionVector(M)[i]} by \texttt{DimensionVector(N)[i]} matrices, where \texttt{i} runs over all the vertices in the underlying quiver. The function checks if \mbox{\texttt{\slshape mats}} is a homomorphism from the module \mbox{\texttt{\slshape M}} to the module \mbox{\texttt{\slshape N}} by checking that the matrices given in \mbox{\texttt{\slshape mats}} have the correct size and satisfy the appropriate commutativity conditions
+ The arguments \mbox{\texttt{\slshape M}} and \mbox{\texttt{\slshape N}} are two modules over the same algebra (this is checked), and \mbox{\texttt{\slshape mats}} is a list of matrices \texttt{mats[i]}, where \texttt{mats[i]} represents the linear map from \texttt{M[i]} to \texttt{N[i]} with \texttt{i} running through all the vertices in the same order as when the underlying
+quiver was created. If \texttt{DimensionVector(M)[i]} is zero and \texttt{DimensionVector(N)[i]} is non-zero, then \texttt{mats[i]} must be the zero \texttt{1} by \texttt{DimensionVector(N)[i]} matrix. Similarly if the other way around. If both \texttt{DimensionVector(M)[i]} and \texttt{DimensionVector(N)[i]} are zero, then \texttt{mats[i]} must be the \texttt{1} by \texttt{1} zero matrix. The function checks if \mbox{\texttt{\slshape mats}} is a homomorphism from the module \mbox{\texttt{\slshape M}} to the module \mbox{\texttt{\slshape N}} by checking that the matrices given in \mbox{\texttt{\slshape mats}} have the correct size and satisfy the appropriate commutativity conditions
 with the matrices in the modules given by \mbox{\texttt{\slshape M}} and \mbox{\texttt{\slshape N}}. The source (or domain) and the range (or codomain) of the homomorphism
 constructed can by obtained again by \texttt{Range} (\ref{Range}) and by \texttt{Source} (\ref{Source}), respectively. }
 
@@ -3254,7 +3269,11 @@ constructed can by obtained again by \texttt{Range} (\ref{Range}) and by \texttt
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{Range({\slshape f})\index{Range@\texttt{Range}}
 \label{Range}
 }\hfill{\scriptsize (operation)}}\\
-\textbf{\indent Returns:\ }
+
+
+ Arguments: \mbox{\texttt{\slshape f}} - a homomorphism between two modules.
+
+ \textbf{\indent Returns:\ }
 the range (or codomain) the homomorphism \mbox{\texttt{\slshape f}}.
 
 }
@@ -3267,7 +3286,11 @@ the range (or codomain) the homomorphism \mbox{\texttt{\slshape f}}.
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{Source({\slshape f})\index{Source@\texttt{Source}}
 \label{Source}
 }\hfill{\scriptsize (operation)}}\\
-\textbf{\indent Returns:\ }
+
+
+ Arguments: \mbox{\texttt{\slshape f}} - a homomorphism between two modules.
+
+ \textbf{\indent Returns:\ }
 the source (or domain) the homomorphism \mbox{\texttt{\slshape f}}.
 
 }

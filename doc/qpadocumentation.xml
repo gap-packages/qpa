@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- $Id: qpadocumentation.xml,v 1.26 2012/03/12 09:42:31 sunnyquiver Exp $ -->
+<!-- $Id: qpadocumentation.xml,v 1.27 2012/03/27 07:54:17 sunnyquiver Exp $ -->
 
 <!DOCTYPE Book SYSTEM "gapdoc.dtd">
 <!-- [ <!ENTITY see '<Alt Only="LaTeX">$\to$</Alt><Alt Not="LaTeX">--&gt;</Alt>'>
@@ -2675,7 +2675,16 @@ Basis( &lt;9-dimensional right-module over &lt;algebra-with-one of dimension
     over Path Algebras</Heading>
 
 This chapter describes the categories, representations, attributes,
-  and operations on homomorphisms between representations of quivers. 
+  and operations on homomorphisms between representations of
+  quivers. Given two homorphisms <Math>f\colon L\to M</Math>
+  and <Math>g\colon M\to N</Math>, then the composition is
+  written <Math>f*g</Math>. The elements in the modules or the
+  representations of a quiver are row vectors. Therefore the
+  homomorphisms between two modules are acting on these row vectors,
+  that is, if  <Math>m_i</Math> is in <Math>M[i]</Math>
+  and  <Math>g_i\colon M[i]\to N[i]</Math> represents the linear map,
+  then the value of <Math>g</Math> applied to  <Math>m_i</Math> is the
+  matrix product  <Math>m_i*g_i</Math>.<P /> 
 
 The example used throughout this chapter is the following.
 <Example><![CDATA[
@@ -2701,34 +2710,56 @@ gap> N:= RightModuleOverPathAlgebra(A,mat);;
 <Section><Heading>Categories and representation of homomorphisms</Heading>
 
 <ManSection>
-   <Filt Name="IsPathAlgebraModuleHomomorphism" Arg="object" Comm="category"/>
+   <Filt Name="IsPathAlgebraModuleHomomorphism" Arg="f" Comm="category"/>
    <Description>
-     The homomorphisms between modules over a path algebra belongs to
-     the categories <Code>IsAdditiveElementWithZero</Code>, 
-     <Code>IsGeneralMapping</Code>, <Code>RespectsScalarMultiplication</Code>, 
-     <Code>IsTotal</Code> and <Code>IsSingleValued</Code> with the
-     added filter of <Ref Filt="IsPathAlgebraModuleHomomorphism"/> 
+     Arguments: <Arg>f</Arg> - any object in GAP.<P />
+   </Description>
+   <Returns> true or false depending on if <Arg>f</Arg> belongs to the
+     categories <Code>IsAdditiveElementWithZero</Code>, <C>IsAdditiveElementWithInverse</C>,
+     <Code>IsGeneralMapping</Code>, <C>RespectsAddition</C>, <C>RespectsZero</C>, 
+     <Code>RespectsScalarMultiplication</Code>,
+     <Code>IsTotal</Code> and <Code>IsSingleValued</Code> or not.
+   </Returns>
+   <Description>
+     This defines the category
+     <Ref Filt="IsPathAlgebraModuleHomomorphism"/>. 
    </Description>
 </ManSection> 
 
 <ManSection>
    <Oper Name="RightModuleHomOverAlgebra" Arg="M, N, mats" Comm=""/>
-   <Returns>a homomorphism from the module <Arg>M</Arg> to the
+   <Description>
+     Arguments: <Arg>M</Arg>, <Arg>N</Arg> - two modules over the same
+     (quotient of a) path algebra, <Arg>mats</Arg> - a list of
+     matrices, one for each vertex in the quiver of the path
+     algebra.<P />
+   </Description>
+   <Returns>a homomorphism in the
+   category <C>IsPathAlgebraModuleHomomorphism</C> from the module <Arg>M</Arg> to the
    module <Arg>N</Arg> given by the matrices <Arg>mats</Arg>.</Returns>
    <Description>
      The arguments <Arg>M</Arg> and <Arg>N</Arg> are two modules over
      the same algebra (this is checked), and <Arg>mats</Arg> is a list
-     <Code>DimensionVector(M)[i]</Code>
-     by <Code>DimensionVector(N)[i]</Code> matrices,
-     where <Code>i</Code> runs over all the vertices in the underlying
-     quiver. The function checks if <Arg>mats</Arg> is a homomorphism
-     from the module <Arg>M</Arg> to the module <Arg>N</Arg> by
-     checking that the matrices given in <Arg>mats</Arg> have the
-     correct size and satisfy the appropriate commutativity conditions
-     with the matrices in the modules given by <Arg>M</Arg>
-     and <Arg>N</Arg>. The source (or domain) and the range (or
-     codomain) of the homomorphism constructed can by obtained again
-     by <Ref Oper="Range"/> and by <Ref Oper="Source"/>, respectively.
+     of matrices <C>mats[i]</C>, where <C>mats[i]</C> represents the
+     linear map from <C>M[i]</C> to <C>N[i]</C> with <Code>i</Code>
+     running through all the vertices in the same order as when the
+     underlying quiver was created. If
+     <Code>DimensionVector(M)[i]</Code> is zero 
+     and <Code>DimensionVector(N)[i]</Code> is non-zero, then
+     <C>mats[i]</C> must be the zero <Code>1</Code>
+     by <Code>DimensionVector(N)[i]</Code> matrix. Similarly if the
+     other way around. If both <Code>DimensionVector(M)[i]</Code>
+     and <Code>DimensionVector(N)[i]</Code> are zero,
+     then <C>mats[i]</C> must be the <Code>1</Code> by <Code>1</Code>
+     zero matrix. The function checks if <Arg>mats</Arg> is a
+     homomorphism from the module <Arg>M</Arg> to the
+     module <Arg>N</Arg> by checking that the matrices given
+     in <Arg>mats</Arg> have the correct size and satisfy the
+     appropriate commutativity conditions with the matrices in the
+     modules given by <Arg>M</Arg> and <Arg>N</Arg>. The source (or
+     domain) and the range (or codomain) of the homomorphism
+     constructed can by obtained again by <Ref Oper="Range"/> and by
+     <Ref Oper="Source"/>, respectively.
    </Description>
 </ManSection>
 
@@ -2753,11 +2784,17 @@ true
 
 <ManSection>
    <Oper Name="Range" Arg="f" Comm=""/>
+   <Description>
+     Arguments: <Arg>f</Arg> - a homomorphism between two modules.<P />
+   </Description>
    <Returns>the range (or codomain) the homomorphism <Arg>f</Arg>.</Returns>
 </ManSection>
 
 <ManSection>
    <Oper Name="Source" Arg="f" Comm=""/>
+   <Description>
+     Arguments: <Arg>f</Arg> - a homomorphism between two modules.<P />
+   </Description>
    <Returns>the source (or domain) the homomorphism <Arg>f</Arg>.</Returns>
 </ManSection>
 

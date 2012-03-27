@@ -72,18 +72,18 @@
   \indexspace
 
   \item \texttt  {HomFromProjective}, \hyperpage{57}
-  \item \texttt  {HomOverAlgebra}, \hyperpage{57}
+  \item \texttt  {HomOverAlgebra}, \hyperpage{58}
 
   \indexspace
 
   \item \texttt  {Ideal}, \hyperpage{25}
   \item \texttt  {IdentityMapping}, \hyperpage{54}
-  \item \texttt  {Image}, \hyperpage{57}
+  \item \texttt  {Image}, \hyperpage{58}
   \item \texttt  {ImageElm}, \hyperpage{53}
-  \item \texttt  {ImageInclusion}, \hyperpage{57}
+  \item \texttt  {ImageInclusion}, \hyperpage{58}
   \item \texttt  {ImageOfWhat}, \hyperpage{55}
-  \item \texttt  {ImageProjection}, \hyperpage{57}
-  \item \texttt  {ImageProjectionInclusion}, \hyperpage{57}
+  \item \texttt  {ImageProjection}, \hyperpage{58}
+  \item \texttt  {ImageProjectionInclusion}, \hyperpage{58}
   \item \texttt  {ImagesSet}, \hyperpage{53}
   \item \texttt  {IncludeInProductQuiver}, \hyperpage{29}
   \item \texttt  {IncomingArrowsOfVertex}, \hyperpage{19}
@@ -106,7 +106,7 @@
   \item \texttt  {IsGroebnerBasis}, \hyperpage{32}
   \item \texttt  {IsHomogeneousGroebnerBasis}, \hyperpage{33}
   \item \texttt  {IsInAdditiveClosure}, \hyperpage{43}
-  \item \texttt  {IsInjective}, \hyperpage{55}
+  \item \texttt  {IsInjective}, \hyperpage{56}
   \item \texttt  {IsInjectiveModule}, \hyperpage{44}
   \item \texttt  {IsIsomorphism}, \hyperpage{56}
   \item \texttt  {IsLeftUniform}, \hyperpage{23}
@@ -129,11 +129,11 @@
   \item \texttt  {IsSimpleModule}, \hyperpage{44}
   \item \texttt  {IsSplitEpimorphism}, \hyperpage{56}
   \item \texttt  {IsSplitMonomorphism}, \hyperpage{56}
-  \item \texttt  {IsSurjective}, \hyperpage{55}
+  \item \texttt  {IsSurjective}, \hyperpage{56}
   \item \texttt  {IsTipReducedGroebnerBasis}, \hyperpage{33}
   \item \texttt  {IsUniform}, \hyperpage{23}
   \item \texttt  {IsVertex}, \hyperpage{17}
-  \item \texttt  {IsZero}, \hyperpage{56}
+  \item \texttt  {IsZero}, \hyperpage{57}
   \item \texttt  {IsZeroComplex}, \hyperpage{62}
   \item \texttt  {IsZeroPath}, \hyperpage{17}
   \item \texttt  {Iterator}, \hyperpage{34}
@@ -142,7 +142,7 @@
 
   \item \texttt  {Kernel}, \hyperpage{58}
   \item \texttt  {KernelInclusion}, \hyperpage{58}
-  \item \texttt  {KernelOfWhat}, \hyperpage{56}
+  \item \texttt  {KernelOfWhat}, \hyperpage{57}
 
   \indexspace
 
@@ -162,11 +162,11 @@
   \item \texttt  {MatricesOfPathAlgebraModule}, \hyperpage{46}
   \item \texttt  {MaximalCommonDirectSummand}, \hyperpage{44}
   \item \texttt  {MinimalGeneratingSetOfModule}, \hyperpage{46}
-  \item \texttt  {MinimalLeftApproximation}, \hyperpage{58}
+  \item \texttt  {MinimalLeftApproximation}, \hyperpage{59}
   \item \texttt  {MinimalRightApproximation}, \hyperpage{59}
-  \item \texttt  {MorphismOnCoKernel}, \hyperpage{59}
-  \item \texttt  {MorphismOnImage}, \hyperpage{59}
-  \item \texttt  {MorphismOnKernel}, \hyperpage{59}
+  \item \texttt  {MorphismOnCoKernel}, \hyperpage{60}
+  \item \texttt  {MorphismOnImage}, \hyperpage{60}
+  \item \texttt  {MorphismOnKernel}, \hyperpage{60}
 
   \indexspace
 
@@ -193,7 +193,7 @@
   \indexspace
 
   \item \texttt  {PathAlgebra}, \hyperpage{21}
-  \item \texttt  {PreImagesRepresentative}, \hyperpage{52}
+  \item \texttt  {PreImagesRepresentative}, \hyperpage{53}
   \item \texttt  {ProjectFromProductQuiver}, \hyperpage{30}
   \item \texttt  {ProjectiveCover}, \hyperpage{60}
   \item \texttt  {PullBack}, \hyperpage{60}
@@ -214,7 +214,7 @@
   \item \texttt  {Range}, \hyperpage{52}
   \item \texttt  {RightGroebnerBasis}, \hyperpage{36}
   \item \texttt  {RightGroebnerBasisOfIdeal}, \hyperpage{36}
-  \item \texttt  {RightMinimalVersion}, \hyperpage{58}
+  \item \texttt  {RightMinimalVersion}, \hyperpage{59}
   \item \texttt  {RightModuleHomOverAlgebra}, \hyperpage{52}
   \item \texttt  {RightModuleOverPathAlgebra}, \hyperpage{38}
   \item \texttt  {RightProjectiveModule}, \hyperpage{49}
@@ -224,12 +224,12 @@
   \item \texttt  {SimpleModules}, \hyperpage{47}
   \item \texttt  {SimpleTensor}, \hyperpage{30}
   \item \texttt  {SocleOfModule}, \hyperpage{46}
-  \item \texttt  {SocleOfModuleInclusion}, \hyperpage{60}
+  \item \texttt  {SocleOfModuleInclusion}, \hyperpage{61}
   \item \texttt  {SocleSeries}, \hyperpage{45}
-  \item \texttt  {Source}, \hyperpage{52}
+  \item \texttt  {Source}, \hyperpage{53}
   \item \texttt  {SourceOfPath}, \hyperpage{18}
   \item \texttt  {SubRepresentation}, \hyperpage{46}
-  \item \texttt  {SubRepresentationInclusion}, \hyperpage{60}
+  \item \texttt  {SubRepresentationInclusion}, \hyperpage{61}
   \item \texttt  {SupportModuleElement}, \hyperpage{46}
 
   \indexspace
@@ -243,7 +243,7 @@
   \item \texttt  {TipReduce}, \hyperpage{34}
   \item \texttt  {TipReduceGroebnerBasis}, \hyperpage{34}
   \item \texttt  {TopOfModule}, \hyperpage{46}
-  \item \texttt  {TopOfModuleProjection}, \hyperpage{60}
+  \item \texttt  {TopOfModuleProjection}, \hyperpage{61}
   \item \texttt  {TransposeOfDual}, \hyperpage{48}
   \item \texttt  {TransposeOfModule}, \hyperpage{48}
   \item \texttt  {TrD}, \hyperpage{48}
@@ -261,9 +261,9 @@
 
   \indexspace
 
-  \item \texttt  {Zero}, \hyperpage{53}
+  \item \texttt  {Zero}, \hyperpage{54}
   \item \texttt  {ZeroComplex}, \hyperpage{63}
-  \item \texttt  {ZeroMapping}, \hyperpage{53}
+  \item \texttt  {ZeroMapping}, \hyperpage{54}
   \item \texttt  {ZeroModule}, \hyperpage{47}
 
 \end{theindex}
