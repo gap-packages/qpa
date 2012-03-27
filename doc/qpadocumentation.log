@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2011.8.11)  27 MAR 2012 09:51
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2011.8.11)  27 MAR 2012 14:44
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1131,25 +1131,25 @@ Underfull \hbox (badness 10000) in paragraph at lines 3136--3139
 [50]
 Chapter 7.
 
-Underfull \hbox (badness 10000) in paragraph at lines 3207--3210
+Underfull \hbox (badness 10000) in paragraph at lines 3208--3211
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3214--3216
+Underfull \hbox (badness 10000) in paragraph at lines 3215--3217
 [][]\OT1/ptm/b/n/10.95 Returns:  \OT1/ptm/m/n/10.95 true or false de-pend-ing o
 n if [] be-longs to the cat-e-gories
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3214--3216
+Underfull \hbox (badness 10000) in paragraph at lines 3215--3217
 \OT1/pcr/m/n/10.95 IsAdditiveElementWithZero\OT1/ptm/m/n/10.95 , \OT1/pcr/m/n/1
 0.95 IsAdditiveElementWithInverse\OT1/ptm/m/n/10.95 , \OT1/pcr/m/n/10.95 IsGene
 ralMapping\OT1/ptm/m/n/10.95 ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3214--3216
+Underfull \hbox (badness 10000) in paragraph at lines 3215--3217
 \OT1/pcr/m/n/10.95 RespectsAddition\OT1/ptm/m/n/10.95 , \OT1/pcr/m/n/10.95 Resp
 ectsZero\OT1/ptm/m/n/10.95 , \OT1/pcr/m/n/10.95 RespectsScalarMultiplication\OT
 1/ptm/m/n/10.95 , \OT1/pcr/m/n/10.95 IsTotal \OT1/ptm/m/n/10.95 and
@@ -1158,165 +1158,288 @@ ectsZero\OT1/ptm/m/n/10.95 , \OT1/pcr/m/n/10.95 RespectsScalarMultiplication\OT
 [51
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 3226--3229
+Underfull \hbox (badness 10000) in paragraph at lines 3227--3230
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3269--3272
+Underfull \hbox (badness 10000) in paragraph at lines 3270--3273
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3286--3289
+Underfull \hbox (badness 10000) in paragraph at lines 3287--3290
 
  []
 
-[52] [53] [54pdfTeX warning (ext4): destination with the same identifier (name{
-L.X7E8438F77ECB778E}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.3471   gap> Range(f) = Range(z);
-                                  ]
-Underfull \hbox (badness 10000) in paragraph at lines 3513--3516
+[52]
+Underfull \hbox (badness 10000) in paragraph at lines 3315--3318
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3525--3528
+Underfull \hbox (badness 10000) in paragraph at lines 3334--3337
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 3353--3356
+
+ []
+
+[53]
+Underfull \hbox (badness 10000) in paragraph at lines 3392--3395
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 3409--3412
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 3426--3429
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 3443--3446
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 3460--3463
+
+ []
+
+[54]pdfTeX warning (ext4): destination with the same identifier (name{L.X7E8438
+F77ECB778E}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.3479 \hyperdef{L}{X7E8438F77ECB778E}{}
+                                        
+Underfull \hbox (badness 10000) in paragraph at lines 3480--3483
 
  []
 
 [55]
-Underfull \hbox (badness 10000) in paragraph at lines 3538--3541
-
- []
-
-
 Underfull \hbox (badness 10000) in paragraph at lines 3550--3553
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3562--3565
+Underfull \hbox (badness 10000) in paragraph at lines 3567--3570
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3574--3577
+Underfull \hbox (badness 10000) in paragraph at lines 3585--3588
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3587--3590
+Underfull \hbox (badness 10000) in paragraph at lines 3602--3605
 
  []
 
-[56]
+
 Underfull \hbox (badness 10000) in paragraph at lines 3619--3622
 
  []
 
+[56]
+Underfull \hbox (badness 10000) in paragraph at lines 3663--3666
 
-Underfull \hbox (badness 10000) in paragraph at lines 3631--3634
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 3681--3684
 
  []
 
 [57]
-Underfull \hbox (badness 10000) in paragraph at lines 3760--3763
+Underfull \hbox (badness 10000) in paragraph at lines 3718--3721
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3772--3775
+Underfull \hbox (badness 10000) in paragraph at lines 3735--3738
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3784--3787
+Underfull \hbox (badness 10000) in paragraph at lines 3758--3764
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 3781--3784
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 3800--3803
 
  []
 
 [58]
-Underfull \hbox (badness 10000) in paragraph at lines 3796--3799
+Underfull \hbox (badness 10000) in paragraph at lines 3820--3823
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3808--3811
+Underfull \hbox (badness 10000) in paragraph at lines 3840--3852
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3821--3824
+Underfull \hbox (badness 10000) in paragraph at lines 3870--3876
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 3893--3896
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 3910--3913
 
  []
 
 [59]
-LaTeX Font Info:    Font shape `OML/pcr/m/sl' in size <10.95> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 3896.
+Underfull \hbox (badness 10000) in paragraph at lines 3929--3932
 
- [60] [61]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 3948--3951
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 3965--3968
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 3983--3986
+
+ []
+
+[60]
+Underfull \hbox (badness 10000) in paragraph at lines 4037--4046
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4063--4066
+
+ []
+
+LaTeX Font Info:    Font shape `OML/pcr/m/sl' in size <10.95> not available
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 4071.
+
+[61]
+Underfull \hbox (badness 10000) in paragraph at lines 4082--4085
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4102--4105
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4122--4125
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4141--4144
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4160--4163
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4180--4183
+
+ []
+
+[62]
+Underfull \hbox (badness 10000) in paragraph at lines 4205--4208
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4230--4233
+
+ []
+
+[63]
 Chapter 8.
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/pzccm/m/n' tried instead on input line 4061
+(Font)              Font shape `OMS/pzccm/m/n' tried instead on input line 4268
 .
 
-LaTeX Warning: Reference `SingleObjectComplex' on page 62 undefined on input li
-ne 4062.
+LaTeX Warning: Reference `SingleObjectComplex' on page 64 undefined on input li
+ne 4269.
 
 
-LaTeX Warning: Reference `ShortExactSequence' on page 62 undefined on input lin
-e 4064.
+LaTeX Warning: Reference `ShortExactSequence' on page 64 undefined on input lin
+e 4271.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 4071--4074
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 4083--4086
+Underfull \hbox (badness 10000) in paragraph at lines 4278--4281
 
  []
 
 
-LaTeX Warning: Reference `IsCat' on page 62 undefined on input line 4103.
+Underfull \hbox (badness 10000) in paragraph at lines 4290--4293
 
-[62
+ []
+
+
+LaTeX Warning: Reference `IsCat' on page 64 undefined on input line 4310.
+
+[64
 
 ]
 
-LaTeX Warning: Reference `IsCat' on page 63 undefined on input line 4147.
+LaTeX Warning: Reference `IsCat' on page 65 undefined on input line 4354.
 
-[63]
+[65]
 
-LaTeX Warning: Reference `IsCat' on page 64 undefined on input line 4165.
+LaTeX Warning: Reference `IsCat' on page 66 undefined on input line 4372.
 
-[64]
+[66]
 Appendix A.
 (./qpadocumentation.bbl (./qpadocumentation.brf)
 \tf@brf=\write7
 \openout7 = `qpadocumentation.brf'.
 
- [65
+ [67
 
 ]
 
 LaTeX Warning: Empty `thebibliography' environment on input line 3.
 
-) (./qpadocumentation.ind [66
+) (./qpadocumentation.ind [68
 
-] [67
+] [69
 
-] [68] [69
+] [70] [71
 
 ])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 4226.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 4226.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 4433.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 4433.
  (./qpadocumentation.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 4226.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 4226.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 4433.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 4433.
 
 Package rerunfilecheck Info: File `qpadocumentation.brf' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
@@ -1332,8 +1455,8 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 7223 strings out of 493629
- 105059 string characters out of 3146270
+ 7225 strings out of 493629
+ 105073 string characters out of 3146270
  197998 words of memory out of 3000000
  9846 multiletter control sequences out of 15000+200000
  48749 words of font info for 102 fonts, out of 3000000 for 9000
@@ -1352,10 +1475,10 @@ type1/urw/symbol/usyr.pfb></usr/lib/texlive/texmf-dist/fonts/type1/urw/times/ut
 mb8a.pfb></usr/lib/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/li
 b/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/lib/texlive/texmf-d
 ist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on qpadocumentation.pdf (69 pages, 300835 bytes).
+Output written on qpadocumentation.pdf (71 pages, 303700 bytes).
 PDF statistics:
- 1471 PDF objects out of 1728 (max. 8388607)
- 1372 compressed objects within 14 object streams
- 571 named destinations out of 1000 (max. 500000)
+ 1480 PDF objects out of 1728 (max. 8388607)
+ 1379 compressed objects within 14 object streams
+ 573 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

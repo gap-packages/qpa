@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- $Id: qpadocumentation.xml,v 1.27 2012/03/27 07:54:17 sunnyquiver Exp $ -->
+<!-- $Id: qpadocumentation.xml,v 1.28 2012/03/27 12:46:51 sunnyquiver Exp $ -->
 
 <!DOCTYPE Book SYSTEM "gapdoc.dtd">
 <!-- [ <!ENTITY see '<Alt Only="LaTeX">$\to$</Alt><Alt Not="LaTeX">--&gt;</Alt>'>
@@ -2676,15 +2676,16 @@ Basis( &lt;9-dimensional right-module over &lt;algebra-with-one of dimension
 
 This chapter describes the categories, representations, attributes,
   and operations on homomorphisms between representations of
-  quivers. Given two homorphisms <Math>f\colon L\to M</Math>
-  and <Math>g\colon M\to N</Math>, then the composition is
-  written <Math>f*g</Math>. The elements in the modules or the
-  representations of a quiver are row vectors. Therefore the
-  homomorphisms between two modules are acting on these row vectors,
-  that is, if  <Math>m_i</Math> is in <Math>M[i]</Math>
-  and  <Math>g_i\colon M[i]\to N[i]</Math> represents the linear map,
-  then the value of <Math>g</Math> applied to  <Math>m_i</Math> is the
-  matrix product  <Math>m_i*g_i</Math>.<P /> 
+  quivers.<P /> 
+
+Given two homorphisms <Math>f\colon L\to M</Math> and <Math>g\colon
+  M\to N</Math>, then the composition is written <Math>f*g</Math>. The
+  elements in the modules or the representations of a quiver are row
+  vectors. Therefore the homomorphisms between two modules are acting
+  on these row vectors, that is, if <Math>m_i</Math> is
+  in <Math>M[i]</Math> and <Math>g_i\colon M[i]\to N[i]</Math>
+  represents the linear map, then the value of <Math>g</Math> applied
+  to <Math>m_i</Math> is the matrix product <Math>m_i*g_i</Math>.<P />
 
 The example used throughout this chapter is the following.
 <Example><![CDATA[
@@ -2811,18 +2812,25 @@ true
 
 <ManSection>
    <Oper Name="PreImagesRepresentative" Arg="f, elem" Comm=""/>
-   <Returns>a preimage of an element <Arg>elem</Arg> in the range (or
-   codomain) the homomorphism <Arg>f</Arg>.</Returns>
+   <Description>
+     Arguments: <Arg>f</Arg> - a homomorphism between two
+     modules, <Arg>elem</Arg> - an element in the range of <Arg>f</Arg>.<P />
+   </Description>
+   <Returns>a preimage of the element <Arg>elem</Arg> in the range (or
+   codomain) the homomorphism <Arg>f</Arg> if a preimage exists,
+   otherwise it returns <C>fail</C>.</Returns>
    <Description>
      The functions checks if <Arg>elem</Arg> is an element in the
-     range of <Arg>f</Arg>, and it returns a preimage
-     of <Arg>elem</Arg> one exists, and otherwise it
-     returns <Code>fail</Code>. 
+     range of <Arg>f</Arg>. 
    </Description>
 </ManSection>
 
 <ManSection>
    <Oper Name="ImageElm" Arg="f, elem" Comm=""/>
+   <Description>
+     Arguments: <Arg>f</Arg> - a homomorphism between two
+     modules, <Arg>elem</Arg> - an element in the source of <Arg>f</Arg>.<P />
+   </Description>
    <Returns>the image of the element <Arg>elem</Arg> in the source (or
    domain) of the homomorphism <Arg>f</Arg>.</Returns>
    <Description>
@@ -2834,11 +2842,15 @@ true
 
 <ManSection>
    <Oper Name="ImagesSet" Arg="f, elts" Comm=""/>
+   <Description>
+     Arguments: <Arg>f</Arg> - a homomorphism between two
+     modules, <Arg>elts</Arg> - an element in the source
+     of <Arg>f</Arg>, or the source of <Arg>f</Arg>.<P />
+   </Description>
    <Returns>the non-zero images of a set of elements <Arg>elts</Arg>
    in the source of the homomorphism <Arg>f</Arg>, or
-   if <Arg>elts</Arg> is a submodule of the source of <Arg>f</Arg>, it
-   returns a basis of the non-zero elements in the image of the
-   homomorphism restricted to the submodule.</Returns>
+   if <Arg>elts</Arg> is  the source of <Arg>f</Arg>, it
+   returns a basis of the image.</Returns>
    <Description>
      The functions checks if the set of elements <Arg>elts</Arg>
      consists of elements in the source of <Arg>f</Arg>, and it
@@ -2868,22 +2880,35 @@ gap> ImagesSet(f,BL);
 
 <ManSection>
    <Oper Name="Zero" Arg="f" Comm=""/>
+   <Description>
+     Arguments: <Arg>f</Arg> - a homomorphism between two modules.<P />
+   </Description>
    <Returns>the zero map between <Code>Source(f)</Code>
    and <Code>Range(f)</Code>.</Returns>
 </ManSection>
 
 <ManSection>
    <Oper Name="ZeroMapping" Arg="M, N" Comm=""/>
+   <Description>
+     Arguments: <Arg>M</Arg>, <Arg>N</Arg> - two modules.<P />
+   </Description>
    <Returns>the zero map between <Arg>M</Arg> and <Arg>N</Arg>.</Returns>
 </ManSection>
 
 <ManSection>
    <Oper Name="IdentityMapping" Arg="M" Comm=""/>
+   <Description>
+     Arguments: <Arg>M</Arg> - a module.<P />
+   </Description>
    <Returns>the identity map between <Arg>M</Arg> and <Arg>M</Arg>.</Returns>
 </ManSection>
 
 <ManSection>
    <Oper Name="\= (maps)" Arg="f,g " Comm=""/>
+   <Description>
+     Arguments: <Arg>f</Arg>, <Arg>g</Arg> - two homomorphisms between
+     two modules.<P />
+   </Description>
    <Returns>true,
    if <Code>Source(f)=Source(g)</Code>, <Code>Range(f)=Range(g)</Code>,
    the matrices defining the maps <Arg>f</Arg> and <Arg>g</Arg>
@@ -2892,6 +2917,10 @@ gap> ImagesSet(f,BL);
 
 <ManSection>
    <Oper Name="\+ (maps)" Arg="f,g " Comm=""/>
+   <Description>
+     Arguments: <Arg>f</Arg>, <Arg>g</Arg> - two homomorphisms between
+     two modules.<P />
+   </Description>
    <Returns>the sum <Arg>f+g</Arg> of the maps <Arg>f</Arg>
    and <Arg>g</Arg>.</Returns>
    <Description>The functions checks if the maps have the same source
@@ -2901,6 +2930,10 @@ gap> ImagesSet(f,BL);
 
 <ManSection>
    <Oper Name="\* (maps)" Arg="f,g " Comm=""/>
+   <Description>
+     Arguments: <Arg>f</Arg>, <Arg>g</Arg> - two homomorphisms between
+     two modules, or one scalar and one homomorphism between modules.<P />
+   </Description>
    <Returns>the composition <Arg>fg</Arg> of the maps <Arg>f</Arg>
    and <Arg>g</Arg>, if the input are maps between representations of
    the same quivers. If <Arg>f</Arg> or <Arg>g</Arg> is a 
@@ -2962,61 +2995,111 @@ gap> 2*f + z;
 <ManSection>
    <Attr Name="CoKernelOfWhat" Arg="f" Comm=""/>
    <Description>
-     If the homomorphism <Arg>f</Arg> has been computed as the
-     cokernel of an other homomorphism <Arg>g</Arg>, then <Arg>g</Arg>
-     is returned.
+     Arguments: <Arg>f</Arg> - a homomorphism between
+     two modules.<P />
    </Description>
+   <Returns>
+     a homomorphism <Arg>g</Arg>, if <Arg>f</Arg> has been computed as the
+     cokernel of the homomorphism <Arg>g</Arg>.
+   </Returns>
 </ManSection>
 
 <ManSection>
    <Attr Name="ImageOfWhat" Arg="f" Comm=""/>
    <Description>
-     If the homomorphism <Arg>f</Arg> has been computed as the image
-     projection or image inclusion of an other
-     homomorphism <Arg>g</Arg>, then <Arg>g</Arg> is returned.
+     Arguments: <Arg>f</Arg> - a homomorphism between two
+     modules.<P />
    </Description>
+   <Returns>
+     a homomorphism <Arg>g</Arg>, if <Arg>f</Arg> has been computed as the
+     image projection or the image inclusion of the homomorphism <Arg>g</Arg>.
+   </Returns>
 </ManSection>
 
 <ManSection>
    <Attr Name="IsInjective" Arg="f" Comm=""/>
    <Description>
-     This returns <Code>true</Code> if the homomorphism <Arg>f</Arg>
-     is one-to-one.
+     Arguments: <Arg>f</Arg> - a homomorphism between two
+     modules.<P />
    </Description>
+   <Returns>
+     <Code>true</Code> if the homomorphism <Arg>f</Arg> is one-to-one.
+   </Returns>
 </ManSection>
 
 <ManSection>
    <Attr Name="IsSurjective" Arg="f" Comm=""/>
    <Description>
-     This returns <Code>true</Code> if the homomorphism <Arg>f</Arg>
-     is onto.
+     Arguments: <Arg>f</Arg> - a homomorphism between two
+     modules.<P />
    </Description>
+   <Returns>
+     <Code>true</Code> if the homomorphism <Arg>f</Arg> is onto.
+   </Returns>
 </ManSection>
 
 <ManSection>
    <Attr Name="IsIsomorphism" Arg="f" Comm=""/>
    <Description>
-     This returns <Code>true</Code> if the homomorphism <Arg>f</Arg>
-     is an isomorphism.
+     Arguments: <Arg>f</Arg> - a homomorphism between two
+     modules.<P />
    </Description>
+   <Returns>
+     <Code>true</Code> if the homomorphism <Arg>f</Arg> is an isomorphism.
+   </Returns>
 </ManSection>
+
+<Example><![CDATA[
+gap> L := RightModuleOverPathAlgebra(A,[["a",[0,1]],["b",[0,1]], 
+     ["c",[[0]]],["d",[[1]]],["e",[1,0]]]);;
+gap> f := RightModuleHomOverAlgebra(L,N,[[[0,0,0]], [[1,0]], [[1,2]]]);;
+gap> g := CoKernelProjection(f);                                       
+<mapping: <7-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> -> <5-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> >
+gap> CoKernelOfWhat(g) = f;
+true
+gap> h := ImageProjection(f);
+<mapping: <2-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> -> <2-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> >
+gap> ImageOfWhat(h) = f;
+true
+gap> IsInjective(f); IsSurjective(f); IsIsomorphism(f); IsIsomorphism(h);
+true
+false
+false
+true
+]]></Example>
 
 <ManSection>
    <Attr Name="IsSplitEpimorphism" Arg="f" Comm=""/>
    <Description>
-     This returns <Code>false</Code> if the homomorphism <Arg>f</Arg>
+     Arguments: <Arg>f</Arg> - a homomorphism between two
+     modules.<P />
+   </Description>
+   <Returns>
+     <Code>false</Code> if the homomorphism <Arg>f</Arg>
      is not a splittable epimorphism, otherwise it returns a
      splitting of the homomorphism<Arg>f</Arg>.
-   </Description>
+   </Returns>
 </ManSection>
 
 <ManSection>
    <Attr Name="IsSplitMonomorphism" Arg="f" Comm=""/>
    <Description>
-     This returns <Code>false</Code> if the homomorphism <Arg>f</Arg>
+     Arguments: <Arg>f</Arg> - a homomorphism between two
+     modules.<P />
+   </Description>
+   <Returns>
+     <Code>false</Code> if the homomorphism <Arg>f</Arg>
      is not a splittable monomorphism, otherwise it returns a
      splitting of the homomorphism<Arg>f</Arg>.
-   </Description>
+   </Returns>
 </ManSection>
 
 <Example><![CDATA[
@@ -3041,18 +3124,25 @@ gap> IsSplitMonomorphism(f);
 <ManSection>
    <Prop Name="IsZero" Arg="f" Comm=""/>
    <Description>
-     This returns <Code>true</Code> if the homomorphism <Arg>f</Arg>
-     is zero homomorphism.
+     Arguments: <Arg>f</Arg> - a homomorphism between two
+     modules.<P />
    </Description>
+   <Returns>
+     <Code>true</Code> if the homomorphism <Arg>f</Arg>
+     is a zero homomorphism.
+   </Returns>
 </ManSection>
 
 <ManSection>
    <Attr Name="KernelOfWhat" Arg="f" Comm=""/>
    <Description>
-     If the homomorphism <Arg>f</Arg> has been computed as the kernel
-     of an other homomorphism <Arg>g</Arg>, then <Arg>g</Arg> is
-     returned. 
+     Arguments: <Arg>f</Arg> - a homomorphism between two
+     modules.<P />
    </Description>
+   <Returns>
+     a homomorphism <Arg>g</Arg>, if <Arg>f</Arg> has been computed as the
+     kernel of the homomorphism <Arg>g</Arg>.
+   </Returns>
 </ManSection>
 
 
@@ -3063,19 +3153,26 @@ gap> IsSplitMonomorphism(f);
 <ManSection>
    <Attr Name="CoKernel" Arg="f" Comm=""/>
    <Attr Name="CoKernelProjection" Arg="f" Comm=""/>
+   <Description>
+     Arguments: <Arg>f</Arg> - a homomorphism between two
+     modules.<P />
+   </Description>
    <Returns>the cokernel of a homomorphism <Arg>f</Arg> between two
    representations of a quiver.</Returns>
    <Description>
-    The first variant <Ref Oper="CoKernel"/> returns the cokernel of the
-    homomorphism <Arg>f</Arg> as a representation of the quiver, while
-    the latter one returns the projection homomorphism from the range
-    of the homomorphism <Arg>f</Arg> to the cokernel of the
+    The first variant <Ref Oper="CoKernel"/> returns the cokernel of
+    the homomorphism <Arg>f</Arg> as a module, while the latter one
+    returns the projection homomorphism from the range of the
+    homomorphism <Arg>f</Arg> to the cokernel of the
     homomorphism <Arg>f</Arg>.
    </Description>
 </ManSection>
 
 <ManSection>
    <Oper Name="EndOverAlgebra" Arg="M" Comm=""/>
+   <Description>
+     Arguments: <Arg></Arg> - a module.<P />
+   </Description>
    <Returns>the endomorphism ring of <Arg>M</Arg> as a subalgebra of
    the direct sum of the full matrix rings of <Arg>dim_M[i] x
    dim_M[i]</Arg>, where <Arg>i</Arg> runs over all vertices.</Returns>
@@ -3088,18 +3185,24 @@ gap> IsSplitMonomorphism(f);
 
 <ManSection>
    <Oper Name="HomFromProjective" Arg="m, M" Comm=""/>
+   <Description>
+     Arguments: <Arg>m</Arg>, <Arg>M</Arg> - an element and a module.<P />
+   </Description>
    <Returns>the homomorphism from the indecomposable projective
    module defined by the support of the element <Arg>m</Arg>
    to the module <Arg>M</Arg>.</Returns>
    <Description>
     The function checks if <Arg>m</Arg> is an elememt in <Arg>M</Arg>
-    and if the element <Arg>m</Arg> is uniform. Otherwise it returns
-    fail. 
+    and if the element <Arg>m</Arg> is supported in only one
+    vertex. Otherwise it returns fail.
    </Description>
 </ManSection>
 
 <ManSection>
    <Oper Name="HomOverAlgebra" Arg="M, N" Comm=""/>
+   <Description>
+     Arguments: <Arg>M</Arg>, <Arg>N</Arg> - two modules.<P />
+   </Description>
    <Returns>a basis for the homomorphisms from <Arg>M</Arg>
    to <Arg>N</Arg>.</Returns>
    <Description>
@@ -3112,26 +3215,33 @@ gap> IsSplitMonomorphism(f);
 <ManSection>
    <Attr Name="Image" Arg="f" Comm=""/>
    <Attr Name="ImageProjection" Arg="f" Comm=""/>
-   <Attr Name="ImageInclusion" Arg="" Comm=""/>
-   <Attr Name="ImageProjectionInclusion" Arg="" Comm=""/>
-   <Returns>the image of a homomorphism <Arg>f</Arg> between two
-   representations of a quiver.</Returns>
+   <Attr Name="ImageInclusion" Arg="f" Comm=""/>
+   <Attr Name="ImageProjectionInclusion" Arg="f" Comm=""/>
    <Description>
-    The first variant <Ref Attr="Image"/> returns the
-    image of the homomorphism <Arg>f</Arg> as a representation of the
-    quiver. The second returns the projection from the source
-    of <Arg>f</Arg> to the image into the source of the
-    homomorphism <Arg>f</Arg>. The third returns the inclusion of the
-    image into the range of the homomorphism <Arg>f</Arg>. The last
-    one returns both the projection and the inclusion.
+     Arguments: <Arg>f</Arg> - a homomorphism between two
+     modules.<P />
+   </Description>
+   <Returns>the image of a homomorphism <Arg>f</Arg> between two modules.</Returns>
+   <Description>
+    The first variant <Ref Attr="Image"/> returns the image of the
+    homomorphism <Arg>f</Arg> as a representation of the quiver. The
+    second returns the projection from the source of <Arg>f</Arg> to
+    the image of the homomorphism <Arg>f</Arg>. The third returns the
+    inclusion of the image into the range of the
+    homomorphism <Arg>f</Arg>. The last one returns both the
+    projection and the inclusion.
    </Description>
 </ManSection>
 
 <ManSection>
    <Attr Name="Kernel" Arg="f" Comm=""/>
-   <Attr Name="KernelInclusion" Arg="M" Comm=""/>
+   <Attr Name="KernelInclusion" Arg="f" Comm=""/>
+   <Description>
+     Arguments: <Arg>f</Arg> - a homomorphism between two
+     modules.<P />
+   </Description>
    <Returns>the kernel of a homomorphism <Arg>f</Arg> between two
-   representations of a quiver.</Returns>
+   modules.</Returns>
    <Description>
     The first variant <Ref Attr="Kernel"/> returns the
     kernel of the homomorphism <Arg>f</Arg> as a representation of the
@@ -3143,16 +3253,27 @@ gap> IsSplitMonomorphism(f);
 <ManSection>
    <Attr Name="LeftMinimalVersion" Arg="f" Comm=""/>
    <Description>
-     It returns the left minimal version <Arg>f'</Arg> of the
+     Arguments: <Arg>f</Arg> - a homomorphism between two
+     modules.<P />
+   </Description>
+   <Returns>
+     the left minimal version <Arg>f'</Arg> of the
      homomorphism <Arg>f</Arg> together with the a list <Code>B</Code>
      of modules such that the direct sum of the
-     modules, <Code>Source(f')</Code> and the modules on the
+     modules, <Code>Source(f')</Code> and the modules in the
      list <Code>B</Code> is isomorphic to <Code>Source(f)</Code>.
-   </Description>
+   </Returns>
 </ManSection>
 
 <ManSection>
    <Oper Name="LiftingInclusionMorphisms" Arg="f, g" Comm=""/>
+   <Description>
+     Arguments: <Arg>f</Arg>, <Arg>g</Arg> - two homomorphisms between modules.<P />
+   </Description>
+   <Returns>
+     a factorization of <Arg>f</Arg> in terms of <Arg>g</Arg>, whenever
+     possible and <C>fail</C> otherwise.
+   </Returns>
    <Description>
     Given two inclusions <Math>f\colon A\to C</Math> and <Math>g\colon
     B\to C</Math>, this function constructs a morphism (inclusion)
@@ -3168,14 +3289,21 @@ gap> IsSplitMonomorphism(f);
 <ManSection>
    <Oper Name="LiftingMorphismFromProjective" Arg="f, g" Comm=""/>
    <Description>
+     Arguments: <Arg>f</Arg>, <Arg>g</Arg> - two homomorphisms with
+     common range.<P />
+   </Description>
+   <Returns>
+     a factorization of <Arg>f</Arg> in terms of <Arg>g</Arg>, whenever
+     possible and <C>fail</C> otherwise.
+   </Returns>
+   <Description>
     Given two morphisms <Math>f\colon P\to C</Math> and <Math>g\colon
-    B\to C</Math>, where  P  is a direct sum of indecomposable
-    projective modules constructed
-    via <Code>DirectSumOfModules</Code>
-    and  <Arg>g</Arg> an epimorphism, this function finds a lifting
-    of  <Arg>f</Arg>  to  <Math>B</Math>. The function checks
+    B\to C</Math>, where P is a direct sum of indecomposable
+    projective modules constructed via <Code>DirectSumOfModules</Code>
+    and <Arg>g</Arg> an epimorphism, this function finds a lifting
+    of <Arg>f</Arg> to <Math>B</Math>. The function checks
     if <Math>P</Math> is a direct sum of indecomposable projective
-    modules, if <Arg>g</Arg> is onto and if  <Arg>f</Arg>
+    modules, if <Arg>g</Arg> is onto and if <Arg>f</Arg>
     and <Arg>g</Arg> have the same range.
    </Description>
 </ManSection>
@@ -3183,31 +3311,40 @@ gap> IsSplitMonomorphism(f);
 <ManSection>
    <Attr Name="RightMinimalVersion" Arg="f" Comm=""/>
    <Description>
-     It returns the right minimal version <Arg>f'</Arg> of the
+     Arguments: <Arg>f</Arg> - a homomorphism between two
+     modules.<P />
+   </Description>
+   <Returns>
+     the right minimal version <Arg>f'</Arg> of the
      homomorphism <Arg>f</Arg> together with the a list <Code>B</Code>
      of modules such that the direct sum of the
-     modules, <Code>Range(f')</Code> and the modules on the
-     list <Code>B</Code> is isomorphic to <Code>Range(f)</Code>.
-   </Description>
+     modules, <Code>Source(f')</Code> and the modules on the
+     list <Code>B</Code> is isomorphic to <Code>Source(f)</Code>.
+   </Returns>
 </ManSection>
 
 <ManSection>
    <Attr Name="MinimalLeftApproximation" Arg="C, M" Comm=""/>
    <Description>
-     It returns the minimal left <Code>add M</Code>-approximation of
-     the module <Arg>C</Arg>. Note: Order of the arguments are
-     opposite of the order for minimal right approximations. 
+     Arguments: <Arg>C</Arg>, <Arg>M</Arg> - two modules.<P />
    </Description>
+   <Returns>
+     the minimal left <Code>add M</Code>-approximation of the
+     module <Arg>C</Arg>. Note: The order of the arguments is opposite
+     of the order for minimal right approximations.
+   </Returns>
 </ManSection>
-
 
 <ManSection>
    <Attr Name="MinimalRightApproximation" Arg="M, C" Comm=""/>
    <Description>
-     It returns the minimal right <Code>add M</Code>-approximation of
-     the module <Arg>C</Arg>. Note: Order of the arguments are
-     opposite of the order for minimal left approximations.
+     Arguments: <Arg>M</Arg>, <Arg>C</Arg> - two modules.<P />
    </Description>
+   <Returns>
+     the minimal right <Code>add M</Code>-approximation of the
+     module <Arg>C</Arg>. Note: The order of the arguments is opposite
+     of the order for minimal left approximations.
+   </Returns>
 </ManSection>
 
 <Example><![CDATA[
@@ -3253,36 +3390,45 @@ gap> MinimalLeftApproximation(S,N);
    commutative diagram of maps"/>
    <Oper Name="MorphismOnCoKernel" Arg="f, g, beta, alpha" Comm="for a
    commutative diagram of maps"/>
+   <Description>
+     Arguments: <Arg>f</Arg>, <Arg>g</Arg>, <Arg>beta</Arg>, <Arg>alpha</Arg>
+     - four homomorphisms of modules.<P />
+   </Description>
    <Returns>the morphism induced on the kernels, the images or the
    cokernels of the morphisms <Arg>f</Arg> and <Arg>g</Arg>,
    respectively.</Returns>  
    <Description>
-    It is checked 
+    It is checked
     if <Arg>f</Arg>, <Arg>g</Arg>, <Arg>beta</Arg>, <Arg>alpha</Arg>
     forms a commutative diagram, that is, if <Math>f \alpha - \beta g
-    = 0</Math>. 
+    = 0</Math>.
    </Description>
 </ManSection>
 
-
-
 <ManSection>
    <Oper Name="ProjectiveCover" Arg="M" Comm="for a PathAlgebraMatModule"/>
+   <Description>
+     Arguments: <Arg>M</Arg> - a module.<P />
+   </Description>
    <Returns>the projective cover of <Arg>M</Arg>, that is, returns the
    map <Arg>P(M) --> M</Arg>.</Returns>
    <Description>
-     If the module <Arg>M</Arg> is zero, then the functions returns
-     the zero module.<Arg>g</Arg>. 
+     If the module <Arg>M</Arg> is zero, then the zero map
+     to <Arg>M</Arg> is returned. 
    </Description>
 </ManSection>
 
 <ManSection>
    <Oper Name="PullBack" Arg="f, g" Comm="for two maps between modules
    with common target"/>
+   <Description>
+     Arguments: <Arg>f</Arg>, <Arg>g</Arg> - two homomorphisms between
+     modules with a common range.<P />
+   </Description>
    <Returns>the pullback of the maps <Arg>f</Arg> and <Arg>g</Arg>.</Returns>
    <Description>
-    It is checked if <Arg>f</Arg> and <Arg>g</Arg> has the same target. The
-    pullback is returned as two homomorphism from the pullback to the
+    It is checked if <Arg>f</Arg> and <Arg>g</Arg> has the same range. The
+    pullback is returned as two homomorphisms from the pullback to the
     source of <Arg>f</Arg> and to the source of <Arg>g</Arg>. 
    </Description>
 </ManSection>
@@ -3290,56 +3436,72 @@ gap> MinimalLeftApproximation(S,N);
 <ManSection>
    <Oper Name="PushOut" Arg="f, g" Comm="for two maps between modules
    with common source"/>
+   <Description>
+     Arguments: <Arg>f</Arg>, <Arg>g</Arg> - two homomorphisms between
+     modules with a common source.<P />
+   </Description>
    <Returns>the pushout of the maps <Arg>f</Arg> and <Arg>g</Arg>.</Returns>
    <Description>
-    It is checked if <Arg>f</Arg> and <Arg>g</Arg> has the same source. The
-    pushout is returned as two homomorphism from the target
-    of <Arg>f</Arg> and from the target of <Arg>g</Arg> to the pushout. 
+    It is checked if <Arg>f</Arg> and <Arg>g</Arg> has the same
+    source. The pushout is returned as two homomorphisms from the
+    range of <Arg>f</Arg> and from the range of <Arg>g</Arg> to the
+    pushout.
    </Description>
 </ManSection>
 
 <ManSection>
    <Oper Name="RadicalOfModuleInclusion" Arg="M" Comm=""/>
+   <Description>
+     Arguments: <Arg>M</Arg> - a module.<P />
+   </Description>
    <Returns>the inclusion of the radical of the module <Arg>M</Arg>
    into <Arg>M</Arg>.</Returns>
    <Description>
-    The representation given by the submodule generated by the
-    generators <Arg>gens</Arg> can be accessed
-    using <Code>Source</Code>.
+    The radical of <Arg>M</Arg> can be accessed
+    using <Code>Source</Code>, or it can be computed directly via the
+    command <Ref Oper="RadicalOfModule"/>. 
    </Description>
 </ManSection>
 
 <ManSection>
    <Oper Name="SocleOfModuleInclusion" Arg="M" Comm=""/>
+   <Description>
+     Arguments: <Arg>M</Arg> - a module.<P />
+   </Description>
    <Returns>the inclusion of the socle of the module <Arg>M</Arg>
    into <Arg>M</Arg>.</Returns>
    <Description>
-    The representation given by the socle of <Arg>M</Arg> can be accessed
+    The socle of <Arg>M</Arg> can be accessed
     using <Code>Source</Code>, or it can be computed directly via the
-    command <Ref Oper="SocleOfModule"/>. 
+    command <Ref Oper="SocleOfModule"/>.
    </Description>
 </ManSection>
 
 <ManSection>
    <Oper Name="SubRepresentationInclusion" Arg="M, gens" Comm=""/>
+   <Description>
+     Arguments: <Arg>M</Arg> - a module, <Arg>gens</Arg> - elements in
+     <Arg>M</Arg>, .<P />
+   </Description>
    <Returns>the inclusion of the submodule generated by the
    generators <Arg>gens</Arg> into the module <Arg>M</Arg></Returns>
    <Description>
     The function checks if <Arg>gens</Arg> are elements
     in <Arg>M</Arg>, and returns an error message otherwise. The
-    representation given by the submodule generated by the
-    generators <Arg>gens</Arg> can be accessed
-    using <Code>Source</Code>. 
+    module given by the submodule generated by the
+    generators <Arg>gens</Arg> can be accessed using <Code>Source</Code>.
    </Description>
 </ManSection>
 
 <ManSection>
    <Oper Name="TopOfModuleProjection" Arg="M" Comm=""/>
-   <Returns>the projection from the module <Arg>M</Arg> to the top of
-   the module <Arg>M</Arg>
-   into <Arg>M</Arg>.</Returns>
    <Description>
-    The representation given by the top of the module <Arg>M</Arg> can
+     Arguments: <Arg>M</Arg> - a module.<P />
+   </Description>
+   <Returns>the projection from the module <Arg>M</Arg> to the top of
+   the module <Arg>M</Arg>.</Returns>
+   <Description>
+    The module given by the top of the module <Arg>M</Arg> can
     be accessed using <Code>Range</Code> of the homomorphism.
    </Description>
 </ManSection>
@@ -3349,15 +3511,18 @@ gap> MinimalLeftApproximation(S,N);
 
 <ManSection>
    <Oper Name="ExtOverAlgebra" Arg="M, N" Comm=""/>
+   <Description>
+     Arguments: <Arg>M</Arg>, <Arg>N</Arg> - two modules.<P />
+   </Description>
    <Returns>the map from the first syzygy, <Arg>Omega(M)</Arg> to the
    projective cover, <Arg>P(M)</Arg> of the module <Arg>M</Arg>, and
    in addition a basis of <Math>Ext^1(M,N)</Math> in terms of elements
    in <Math>Hom(Omega(M),N)</Math>.</Returns>
    <Description>
-    The function checks if arguments <Arg>M</Arg> and <Arg>N</Arg> are
-    modules of the same algebra, and returns an error message
-    otherwise. It <Math>Ext^1(M,N)</Math> is zero, the functions
-    returns an empty list.
+    The function checks if the arguments <Arg>M</Arg> and <Arg>N</Arg>
+    are modules of the same algebra, and returns an error message
+    otherwise. It <Math>Ext^1(M,N)</Math> is zero, an empty list is
+    returned.
    </Description>
 </ManSection>
 
@@ -3367,6 +3532,9 @@ gap> MinimalLeftApproximation(S,N);
 
 <ManSection>
    <Oper Name="AlmostSplitSequence" Arg="M" Comm=""/>
+   <Description>
+     Arguments: <Arg>M</Arg> - an indecomposable non-projective module.<P />
+   </Description>
    <Returns>the almost split sequence ending in the
    module <Arg>M</Arg> if it is indecomposable and not projective. It
    returns the almost split sequence in terms of two maps, a left
@@ -3377,7 +3545,6 @@ gap> MinimalLeftApproximation(S,N);
     the module <Arg>M</Arg> one started with, but isomorphic.  
    </Description>
 </ManSection>
-
 </Section>
 </Chapter>
 
