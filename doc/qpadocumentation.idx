@@ -160,7 +160,7 @@
 \indexentry{ZeroMapping@\texttt  {ZeroMapping}|hyperpage}{54}
 \indexentry{IdentityMapping@\texttt  {IdentityMapping}|hyperpage}{54}
 \indexentry{= (maps)@\texttt  {\texttt  {\char 92\relax }= (maps)}|hyperpage}{54}
-\indexentry{+ (maps)@\texttt  {\texttt  {\char 92\relax }+ (maps)}|hyperpage}{54}
+\indexentry{+ (maps)@\texttt  {\texttt  {\char 92\relax }+ (maps)}|hyperpage}{55}
 \indexentry{* (maps)@\texttt  {\texttt  {\char 92\relax }* (maps)}|hyperpage}{55}
 \indexentry{CoKernelOfWhat@\texttt  {CoKernelOfWhat}|hyperpage}{56}
 \indexentry{ImageOfWhat@\texttt  {ImageOfWhat}|hyperpage}{56}
@@ -174,7 +174,7 @@
 \indexentry{CoKernel@\texttt  {CoKernel}|hyperpage}{58}
 \indexentry{CoKernelProjection@\texttt  {CoKernelProjection}|hyperpage}{58}
 \indexentry{EndOverAlgebra@\texttt  {EndOverAlgebra}|hyperpage}{58}
-\indexentry{HomFromProjective@\texttt  {HomFromProjective}|hyperpage}{58}
+\indexentry{HomFromProjective@\texttt  {HomFromProjective}|hyperpage}{59}
 \indexentry{HomOverAlgebra@\texttt  {HomOverAlgebra}|hyperpage}{59}
 \indexentry{Image@\texttt  {Image}|hyperpage}{59}
 \indexentry{ImageProjection@\texttt  {ImageProjection}|hyperpage}{59}
@@ -182,26 +182,26 @@
 \indexentry{ImageProjectionInclusion@\texttt  {ImageProjectionInclusion}|hyperpage}{59}
 \indexentry{Kernel@\texttt  {Kernel}|hyperpage}{59}
 \indexentry{KernelInclusion@\texttt  {KernelInclusion}|hyperpage}{59}
-\indexentry{LeftMinimalVersion@\texttt  {LeftMinimalVersion}|hyperpage}{59}
+\indexentry{LeftMinimalVersion@\texttt  {LeftMinimalVersion}|hyperpage}{60}
 \indexentry{LiftingInclusionMorphisms@\texttt  {LiftingInclusionMorphisms}|hyperpage}{60}
 \indexentry{LiftingMorphismFromProjective@\texttt  {LiftingMorphismFromProjective}|hyperpage}{60}
 \indexentry{RightMinimalVersion@\texttt  {RightMinimalVersion}|hyperpage}{60}
 \indexentry{MinimalLeftApproximation@\texttt  {MinimalLeftApproximation}|hyperpage}{60}
-\indexentry{MinimalRightApproximation@\texttt  {MinimalRightApproximation}|hyperpage}{60}
+\indexentry{MinimalRightApproximation@\texttt  {MinimalRightApproximation}|hyperpage}{61}
 \indexentry{MorphismOnKernel@\texttt  {MorphismOnKernel}|hyperpage}{61}
 \indexentry{MorphismOnImage@\texttt  {MorphismOnImage}|hyperpage}{61}
 \indexentry{MorphismOnCoKernel@\texttt  {MorphismOnCoKernel}|hyperpage}{61}
-\indexentry{ProjectiveCover@\texttt  {ProjectiveCover}|hyperpage}{61}
+\indexentry{ProjectiveCover@\texttt  {ProjectiveCover}|hyperpage}{62}
 \indexentry{PullBack@\texttt  {PullBack}|hyperpage}{62}
 \indexentry{PushOut@\texttt  {PushOut}|hyperpage}{62}
 \indexentry{RadicalOfModuleInclusion@\texttt  {RadicalOfModuleInclusion}|hyperpage}{62}
 \indexentry{SocleOfModuleInclusion@\texttt  {SocleOfModuleInclusion}|hyperpage}{62}
-\indexentry{SubRepresentationInclusion@\texttt  {SubRepresentationInclusion}|hyperpage}{62}
+\indexentry{SubRepresentationInclusion@\texttt  {SubRepresentationInclusion}|hyperpage}{63}
 \indexentry{TopOfModuleProjection@\texttt  {TopOfModuleProjection}|hyperpage}{63}
-\indexentry{ExtOverAlgebra@\texttt  {ExtOverAlgebra}|hyperpage}{63}
-\indexentry{AlmostSplitSequence@\texttt  {AlmostSplitSequence}|hyperpage}{63}
-\indexentry{IsComplex@\texttt  {IsComplex}|hyperpage}{64}
-\indexentry{IsZeroComplex@\texttt  {IsZeroComplex}|hyperpage}{64}
-\indexentry{Complex@\texttt  {Complex}|hyperpage}{65}
-\indexentry{ZeroComplex@\texttt  {ZeroComplex}|hyperpage}{65}
-\indexentry{FiniteComplex@\texttt  {FiniteComplex}|hyperpage}{66}
+\indexentry{ExtOverAlgebra@\texttt  {ExtOverAlgebra}|hyperpage}{64}
+\indexentry{AlmostSplitSequence@\texttt  {AlmostSplitSequence}|hyperpage}{64}
+\indexentry{IsComplex@\texttt  {IsComplex}|hyperpage}{65}
+\indexentry{IsZeroComplex@\texttt  {IsZeroComplex}|hyperpage}{65}
+\indexentry{Complex@\texttt  {Complex}|hyperpage}{66}
+\indexentry{ZeroComplex@\texttt  {ZeroComplex}|hyperpage}{66}
+\indexentry{FiniteComplex@\texttt  {FiniteComplex}|hyperpage}{67}

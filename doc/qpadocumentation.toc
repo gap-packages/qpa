@@ -202,7 +202,7 @@
 \contentsline {subsection}{\numberline {7.2.7}\leavevmode {\color {Chapter }ZeroMapping}}{54}{subsection.7.2.7}
 \contentsline {subsection}{\numberline {7.2.8}\leavevmode {\color {Chapter }IdentityMapping}}{54}{subsection.7.2.8}
 \contentsline {subsection}{\numberline {7.2.9}\leavevmode {\color {Chapter }\texttt {\char 92\relax }= (maps)}}{54}{subsection.7.2.9}
-\contentsline {subsection}{\numberline {7.2.10}\leavevmode {\color {Chapter }\texttt {\char 92\relax }+ (maps)}}{54}{subsection.7.2.10}
+\contentsline {subsection}{\numberline {7.2.10}\leavevmode {\color {Chapter }\texttt {\char 92\relax }+ (maps)}}{55}{subsection.7.2.10}
 \contentsline {subsection}{\numberline {7.2.11}\leavevmode {\color {Chapter }\texttt {\char 92\relax }* (maps)}}{55}{subsection.7.2.11}
 \contentsline {subsection}{\numberline {7.2.12}\leavevmode {\color {Chapter }CoKernelOfWhat}}{56}{subsection.7.2.12}
 \contentsline {subsection}{\numberline {7.2.13}\leavevmode {\color {Chapter }ImageOfWhat}}{56}{subsection.7.2.13}
@@ -216,37 +216,37 @@
 \contentsline {section}{\numberline {7.3}\leavevmode {\color {Chapter }Homomorphisms and modules constructed from homomorphisms and modules}}{58}{section.7.3}
 \contentsline {subsection}{\numberline {7.3.1}\leavevmode {\color {Chapter }CoKernel}}{58}{subsection.7.3.1}
 \contentsline {subsection}{\numberline {7.3.2}\leavevmode {\color {Chapter }EndOverAlgebra}}{58}{subsection.7.3.2}
-\contentsline {subsection}{\numberline {7.3.3}\leavevmode {\color {Chapter }HomFromProjective}}{58}{subsection.7.3.3}
+\contentsline {subsection}{\numberline {7.3.3}\leavevmode {\color {Chapter }HomFromProjective}}{59}{subsection.7.3.3}
 \contentsline {subsection}{\numberline {7.3.4}\leavevmode {\color {Chapter }HomOverAlgebra}}{59}{subsection.7.3.4}
 \contentsline {subsection}{\numberline {7.3.5}\leavevmode {\color {Chapter }Image}}{59}{subsection.7.3.5}
 \contentsline {subsection}{\numberline {7.3.6}\leavevmode {\color {Chapter }Kernel}}{59}{subsection.7.3.6}
-\contentsline {subsection}{\numberline {7.3.7}\leavevmode {\color {Chapter }LeftMinimalVersion}}{59}{subsection.7.3.7}
+\contentsline {subsection}{\numberline {7.3.7}\leavevmode {\color {Chapter }LeftMinimalVersion}}{60}{subsection.7.3.7}
 \contentsline {subsection}{\numberline {7.3.8}\leavevmode {\color {Chapter }LiftingInclusionMorphisms}}{60}{subsection.7.3.8}
 \contentsline {subsection}{\numberline {7.3.9}\leavevmode {\color {Chapter }LiftingMorphismFromProjective}}{60}{subsection.7.3.9}
 \contentsline {subsection}{\numberline {7.3.10}\leavevmode {\color {Chapter }RightMinimalVersion}}{60}{subsection.7.3.10}
 \contentsline {subsection}{\numberline {7.3.11}\leavevmode {\color {Chapter }MinimalLeftApproximation}}{60}{subsection.7.3.11}
-\contentsline {subsection}{\numberline {7.3.12}\leavevmode {\color {Chapter }MinimalRightApproximation}}{60}{subsection.7.3.12}
+\contentsline {subsection}{\numberline {7.3.12}\leavevmode {\color {Chapter }MinimalRightApproximation}}{61}{subsection.7.3.12}
 \contentsline {subsection}{\numberline {7.3.13}\leavevmode {\color {Chapter }MorphismOnKernel}}{61}{subsection.7.3.13}
-\contentsline {subsection}{\numberline {7.3.14}\leavevmode {\color {Chapter }ProjectiveCover}}{61}{subsection.7.3.14}
+\contentsline {subsection}{\numberline {7.3.14}\leavevmode {\color {Chapter }ProjectiveCover}}{62}{subsection.7.3.14}
 \contentsline {subsection}{\numberline {7.3.15}\leavevmode {\color {Chapter }PullBack}}{62}{subsection.7.3.15}
 \contentsline {subsection}{\numberline {7.3.16}\leavevmode {\color {Chapter }PushOut}}{62}{subsection.7.3.16}
 \contentsline {subsection}{\numberline {7.3.17}\leavevmode {\color {Chapter }RadicalOfModuleInclusion}}{62}{subsection.7.3.17}
 \contentsline {subsection}{\numberline {7.3.18}\leavevmode {\color {Chapter }SocleOfModuleInclusion}}{62}{subsection.7.3.18}
-\contentsline {subsection}{\numberline {7.3.19}\leavevmode {\color {Chapter }SubRepresentationInclusion}}{62}{subsection.7.3.19}
+\contentsline {subsection}{\numberline {7.3.19}\leavevmode {\color {Chapter }SubRepresentationInclusion}}{63}{subsection.7.3.19}
 \contentsline {subsection}{\numberline {7.3.20}\leavevmode {\color {Chapter }TopOfModuleProjection}}{63}{subsection.7.3.20}
-\contentsline {section}{\numberline {7.4}\leavevmode {\color {Chapter }Homological algebra}}{63}{section.7.4}
-\contentsline {subsection}{\numberline {7.4.1}\leavevmode {\color {Chapter }ExtOverAlgebra}}{63}{subsection.7.4.1}
-\contentsline {section}{\numberline {7.5}\leavevmode {\color {Chapter }Auslander-Reiten theory}}{63}{section.7.5}
-\contentsline {subsection}{\numberline {7.5.1}\leavevmode {\color {Chapter }AlmostSplitSequence}}{63}{subsection.7.5.1}
-\contentsline {chapter}{\numberline {8}\leavevmode {\color {Chapter }Chain complexes}}{64}{chapter.8}
-\contentsline {section}{\numberline {8.1}\leavevmode {\color {Chapter }Representation of categories}}{64}{section.8.1}
-\contentsline {section}{\numberline {8.2}\leavevmode {\color {Chapter }Making a complex}}{64}{section.8.2}
-\contentsline {subsection}{\numberline {8.2.1}\leavevmode {\color {Chapter }IsComplex}}{64}{subsection.8.2.1}
-\contentsline {subsection}{\numberline {8.2.2}\leavevmode {\color {Chapter }IsZeroComplex}}{64}{subsection.8.2.2}
-\contentsline {subsection}{\numberline {8.2.3}\leavevmode {\color {Chapter }Complex}}{65}{subsection.8.2.3}
-\contentsline {subsection}{\numberline {8.2.4}\leavevmode {\color {Chapter }ZeroComplex}}{65}{subsection.8.2.4}
-\contentsline {subsection}{\numberline {8.2.5}\leavevmode {\color {Chapter }FiniteComplex}}{66}{subsection.8.2.5}
-\contentsline {section}{\numberline {8.3}\leavevmode {\color {Chapter }Information about a complex}}{66}{section.8.3}
-\contentsline {section}{\numberline {8.4}\leavevmode {\color {Chapter }Transforming and combinig complexes}}{66}{section.8.4}
-\contentsline {section}{\numberline {8.5}\leavevmode {\color {Chapter }Chain maps}}{66}{section.8.5}
-\contentsline {chapter}{\numberline {A}\leavevmode {\color {Chapter }An Appendix}}{67}{appendix.A}
+\contentsline {section}{\numberline {7.4}\leavevmode {\color {Chapter }Homological algebra}}{64}{section.7.4}
+\contentsline {subsection}{\numberline {7.4.1}\leavevmode {\color {Chapter }ExtOverAlgebra}}{64}{subsection.7.4.1}
+\contentsline {section}{\numberline {7.5}\leavevmode {\color {Chapter }Auslander-Reiten theory}}{64}{section.7.5}
+\contentsline {subsection}{\numberline {7.5.1}\leavevmode {\color {Chapter }AlmostSplitSequence}}{64}{subsection.7.5.1}
+\contentsline {chapter}{\numberline {8}\leavevmode {\color {Chapter }Chain complexes}}{65}{chapter.8}
+\contentsline {section}{\numberline {8.1}\leavevmode {\color {Chapter }Representation of categories}}{65}{section.8.1}
+\contentsline {section}{\numberline {8.2}\leavevmode {\color {Chapter }Making a complex}}{65}{section.8.2}
+\contentsline {subsection}{\numberline {8.2.1}\leavevmode {\color {Chapter }IsComplex}}{65}{subsection.8.2.1}
+\contentsline {subsection}{\numberline {8.2.2}\leavevmode {\color {Chapter }IsZeroComplex}}{65}{subsection.8.2.2}
+\contentsline {subsection}{\numberline {8.2.3}\leavevmode {\color {Chapter }Complex}}{66}{subsection.8.2.3}
+\contentsline {subsection}{\numberline {8.2.4}\leavevmode {\color {Chapter }ZeroComplex}}{66}{subsection.8.2.4}
+\contentsline {subsection}{\numberline {8.2.5}\leavevmode {\color {Chapter }FiniteComplex}}{67}{subsection.8.2.5}
+\contentsline {section}{\numberline {8.3}\leavevmode {\color {Chapter }Information about a complex}}{67}{section.8.3}
+\contentsline {section}{\numberline {8.4}\leavevmode {\color {Chapter }Transforming and combinig complexes}}{67}{section.8.4}
+\contentsline {section}{\numberline {8.5}\leavevmode {\color {Chapter }Chain maps}}{67}{section.8.5}
+\contentsline {chapter}{\numberline {A}\leavevmode {\color {Chapter }An Appendix}}{68}{appendix.A}

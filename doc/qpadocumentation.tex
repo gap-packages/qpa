@@ -27,6 +27,9 @@
 \usepackage{amsmath}
 \newcommand{\tensor}{\otimes}
 \newcommand{\quiverproduct}{\times}
+\newcommand{\Hom}{\operatorname{Hom}\nolimits}
+\newcommand{\End}{\operatorname{End}\nolimits}
+\newcommand{\Ext}{\operatorname{Ext}\nolimits}
 \usepackage[pdftex=true,
         a4paper=true,bookmarks=false,pdftitle={Written with GAPDoc},
         pdfcreator={LaTeX with hyperref package / GAPDoc},
@@ -3237,7 +3240,7 @@ a homomorphism in the category \texttt{IsPathAlgebraModuleHomomorphism} from the
 
 
  The arguments \mbox{\texttt{\slshape M}} and \mbox{\texttt{\slshape N}} are two modules over the same algebra (this is checked), and \mbox{\texttt{\slshape mats}} is a list of matrices \texttt{mats[i]}, where \texttt{mats[i]} represents the linear map from \texttt{M[i]} to \texttt{N[i]} with \texttt{i} running through all the vertices in the same order as when the underlying
-quiver was created. If \texttt{DimensionVector(M)[i]} is zero and \texttt{DimensionVector(N)[i]} is non-zero, then \texttt{mats[i]} must be the zero \texttt{1} by \texttt{DimensionVector(N)[i]} matrix. Similarly if the other way around. If both \texttt{DimensionVector(M)[i]} and \texttt{DimensionVector(N)[i]} are zero, then \texttt{mats[i]} must be the \texttt{1} by \texttt{1} zero matrix. The function checks if \mbox{\texttt{\slshape mats}} is a homomorphism from the module \mbox{\texttt{\slshape M}} to the module \mbox{\texttt{\slshape N}} by checking that the matrices given in \mbox{\texttt{\slshape mats}} have the correct size and satisfy the appropriate commutativity conditions
+quiver was created. If both \texttt{DimensionVector(M)[i]} and \texttt{DimensionVector(N)[i]} are non-zero, then \texttt{mats[i]} is a \texttt{DimensionVector(M)[i]} by \texttt{DimensionVector(N)[i]} matrix. If \texttt{DimensionVector(M)[i]} is zero and \texttt{DimensionVector(N)[i]} is non-zero, then \texttt{mats[i]} must be the zero \texttt{1} by \texttt{DimensionVector(N)[i]} matrix. Similarly for the other way around. If both \texttt{DimensionVector(M)[i]} and \texttt{DimensionVector(N)[i]} are zero, then \texttt{mats[i]} must be the \texttt{1} by \texttt{1} zero matrix. The function checks if \mbox{\texttt{\slshape mats}} is a homomorphism from the module \mbox{\texttt{\slshape M}} to the module \mbox{\texttt{\slshape N}} by checking that the matrices given in \mbox{\texttt{\slshape mats}} have the correct size and satisfy the appropriate commutativity conditions
 with the matrices in the modules given by \mbox{\texttt{\slshape M}} and \mbox{\texttt{\slshape N}}. The source (or domain) and the range (or codomain) of the homomorphism
 constructed can by obtained again by \texttt{Range} (\ref{Range}) and by \texttt{Source} (\ref{Source}), respectively. }
 
@@ -3324,7 +3327,7 @@ a preimage of the element \mbox{\texttt{\slshape elem}} in the range (or codomai
 
 
 
- The functions checks if \mbox{\texttt{\slshape elem}} is an element in the range of \mbox{\texttt{\slshape f}}. }
+ The function checks if \mbox{\texttt{\slshape elem}} is an element in the range of \mbox{\texttt{\slshape f}} and returns an error message if not. }
 
  
 
@@ -3343,7 +3346,7 @@ the image of the element \mbox{\texttt{\slshape elem}} in the source (or domain)
 
 
 
- The functions checks if \mbox{\texttt{\slshape elem}} is an element in the source of \mbox{\texttt{\slshape f}}, and it returns an error message otherwise. }
+ The function checks if \mbox{\texttt{\slshape elem}} is an element in the source of \mbox{\texttt{\slshape f}}, and it returns an error message otherwise. }
 
  
 
@@ -3362,7 +3365,7 @@ the non-zero images of a set of elements \mbox{\texttt{\slshape elts}} in the so
 
 
 
- The functions checks if the set of elements \mbox{\texttt{\slshape elts}} consists of elements in the source of \mbox{\texttt{\slshape f}}, and it returns an error message otherwise. }
+ The function checks if the set of elements \mbox{\texttt{\slshape elts}} consists of elements in the source of \mbox{\texttt{\slshape f}}, and it returns an error message otherwise. }
 
  
 \begin{Verbatim}[fontsize=\small,frame=single,label=Example]
@@ -3448,7 +3451,7 @@ the identity map between \mbox{\texttt{\slshape M}} and \mbox{\texttt{\slshape M
  Arguments: \mbox{\texttt{\slshape f}}, \mbox{\texttt{\slshape g}} - two homomorphisms between two modules.
 
  \textbf{\indent Returns:\ }
-true, if \texttt{Source(f)=Source(g)}, \texttt{Range(f)=Range(g)}, the matrices defining the maps \mbox{\texttt{\slshape f}} and \mbox{\texttt{\slshape g}} coincide.
+true, if \texttt{Source(f) = Source(g)}, \texttt{Range(f) = Range(g)}, and the matrices defining the maps \mbox{\texttt{\slshape f}} and \mbox{\texttt{\slshape g}} coincide.
 
 }
 
@@ -3469,7 +3472,7 @@ the sum \mbox{\texttt{\slshape f+g}} of the maps \mbox{\texttt{\slshape f}} and 
 
 
 
-The functions checks if the maps have the same source and the same range, and
+The function checks if the maps have the same source and the same range, and
 returns an error message otherwise. }
 
  
@@ -3491,7 +3494,7 @@ representations.
 
 
 
-The functions checks if the maps are composable, in the first case and in the
+The function checks if the maps are composable, in the first case and in the
 second case it checks if the scalar is in the correct field, and returns an
 error message otherwise. }
 
@@ -3766,7 +3769,7 @@ homomorphism\mbox{\texttt{\slshape f}}.
  Arguments: \mbox{\texttt{\slshape f}} - a homomorphism between two modules.
 
  \textbf{\indent Returns:\ }
-the cokernel of a homomorphism \mbox{\texttt{\slshape f}} between two representations of a quiver.
+the cokernel of a homomorphism \mbox{\texttt{\slshape f}} between two modules.
 
 
 
@@ -3783,10 +3786,10 @@ range of the homomorphism \mbox{\texttt{\slshape f}} to the cokernel of the homo
 }\hfill{\scriptsize (operation)}}\\
 
 
- Arguments: \mbox{\texttt{\slshape }} - a module.
+ Arguments: \mbox{\texttt{\slshape M}} - a module.
 
  \textbf{\indent Returns:\ }
-the endomorphism ring of \mbox{\texttt{\slshape M}} as a subalgebra of the direct sum of the full matrix rings of \mbox{\texttt{\slshape dim{\textunderscore}M[i] x dim{\textunderscore}M[i]}}, where \mbox{\texttt{\slshape i}} runs over all vertices.
+the endomorphism ring of \mbox{\texttt{\slshape M}} as a subalgebra of the direct sum of the full matrix rings of \texttt{DimensionVector(M)[i] x DimensionVector(M)[i]}, where \mbox{\texttt{\slshape i}} runs over all vertices where \texttt{DimensionVector(M)[i]} is non-zero.
 
 
 
@@ -3825,7 +3828,7 @@ support of the element \mbox{\texttt{\slshape m}} to the module \mbox{\texttt{\s
  Arguments: \mbox{\texttt{\slshape M}}, \mbox{\texttt{\slshape N}} - two modules.
 
  \textbf{\indent Returns:\ }
-a basis for the homomorphisms from \mbox{\texttt{\slshape M}} to \mbox{\texttt{\slshape N}}.
+a basis for the vector space of homomorphisms from \mbox{\texttt{\slshape M}} to \mbox{\texttt{\slshape N}}.
 
 
 
@@ -3858,9 +3861,9 @@ the image of a homomorphism \mbox{\texttt{\slshape f}} between two modules.
 
 
 
- The first variant \texttt{Image} returns the image of the homomorphism \mbox{\texttt{\slshape f}} as a representation of the quiver. The second returns the projection from the
-source of \mbox{\texttt{\slshape f}} to the image of the homomorphism \mbox{\texttt{\slshape f}}. The third returns the inclusion of the image into the range of the
-homomorphism \mbox{\texttt{\slshape f}}. The last one returns both the projection and the inclusion. }
+ The first variant \texttt{Image} returns the image of the homomorphism \mbox{\texttt{\slshape f}} as a module. The second returns the projection from the source of \mbox{\texttt{\slshape f}} to the image of the homomorphism \mbox{\texttt{\slshape f}}. The third returns the inclusion of the image into the range of the
+homomorphism \mbox{\texttt{\slshape f}}. The last one returns both the projection and the inclusion as a list of two
+elements (first the projection and then the inclusion). }
 
  
 
@@ -3882,8 +3885,8 @@ the kernel of a homomorphism \mbox{\texttt{\slshape f}} between two modules.
 
 
 
- The first variant \texttt{Kernel} returns the kernel of the homomorphism \mbox{\texttt{\slshape f}} as a representation of the quiver, while the latter one returns the inclusion
-homomorphism of the kernel into the source of the homomorphism \mbox{\texttt{\slshape f}}. }
+ The first variant \texttt{Kernel} returns the kernel of the homomorphism \mbox{\texttt{\slshape f}} as a module, while the latter one returns the inclusion homomorphism of the
+kernel into the source of the homomorphism \mbox{\texttt{\slshape f}}. }
 
  
 
@@ -3898,7 +3901,7 @@ homomorphism of the kernel into the source of the homomorphism \mbox{\texttt{\sl
  Arguments: \mbox{\texttt{\slshape f}} - a homomorphism between two modules.
 
  \textbf{\indent Returns:\ }
- the left minimal version \mbox{\texttt{\slshape f'}} of the homomorphism \mbox{\texttt{\slshape f}} together with the a list \texttt{B} of modules such that the direct sum of the modules, \texttt{Source(f')} and the modules in the list \texttt{B} is isomorphic to \texttt{Source(f)}. 
+ the left minimal version \mbox{\texttt{\slshape f'}} of the homomorphism \mbox{\texttt{\slshape f}} together with the a list \texttt{B} of modules such that the direct sum of the modules, \texttt{Range(f')} and the modules in the list \texttt{B} is isomorphic to \texttt{Range(f)}. 
 
 }
 
@@ -3912,7 +3915,7 @@ homomorphism of the kernel into the source of the homomorphism \mbox{\texttt{\sl
 }\hfill{\scriptsize (operation)}}\\
 
 
- Arguments: \mbox{\texttt{\slshape f}}, \mbox{\texttt{\slshape g}} - two homomorphisms between modules.
+ Arguments: \mbox{\texttt{\slshape f}}, \mbox{\texttt{\slshape g}} - two homomorphisms with common range.
 
  \textbf{\indent Returns:\ }
  a factorization of \mbox{\texttt{\slshape f}} in terms of \mbox{\texttt{\slshape g}}, whenever possible and \texttt{fail} otherwise. 
@@ -3938,7 +3941,7 @@ homomorphism of the kernel into the source of the homomorphism \mbox{\texttt{\sl
 
 
 
- Given two morphisms $f\colon P\to C$ and $g\colon B\to C$, where P is a direct sum of indecomposable projective modules constructed via \texttt{DirectSumOfModules} and \mbox{\texttt{\slshape g}} an epimorphism, this function finds a lifting of \mbox{\texttt{\slshape f}} to $B$. The function checks if $P$ is a direct sum of indecomposable projective modules, if \mbox{\texttt{\slshape g}} is onto and if \mbox{\texttt{\slshape f}} and \mbox{\texttt{\slshape g}} have the same range. }
+ Given two morphisms $f\colon P\to C$ and $g\colon B\to C$, where $P$ is a direct sum of indecomposable projective modules constructed via \texttt{DirectSumOfModules} and \mbox{\texttt{\slshape g}} an epimorphism, this function finds a lifting of \mbox{\texttt{\slshape f}} to $B$. The function checks if $P$ is a direct sum of indecomposable projective modules, if \mbox{\texttt{\slshape g}} is onto and if \mbox{\texttt{\slshape f}} and \mbox{\texttt{\slshape g}} have the same range. }
 
  
 
@@ -4034,26 +4037,26 @@ approximations.
 \subsection{\textcolor{Chapter }{MorphismOnKernel}}
 \logpage{[ 7, 3, 13 ]}\nobreak
 \hyperdef{L}{X87AB8D2E8660869D}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{MorphismOnKernel({\slshape f, g, beta, alpha})\index{MorphismOnKernel@\texttt{MorphismOnKernel}}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{MorphismOnKernel({\slshape f, g, alpha, beta})\index{MorphismOnKernel@\texttt{MorphismOnKernel}}
 \label{MorphismOnKernel}
 }\hfill{\scriptsize (operation)}}\\
-\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{MorphismOnImage({\slshape f, g, beta, alpha})\index{MorphismOnImage@\texttt{MorphismOnImage}}
+\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{MorphismOnImage({\slshape f, g, alpha, beta})\index{MorphismOnImage@\texttt{MorphismOnImage}}
 \label{MorphismOnImage}
 }\hfill{\scriptsize (operation)}}\\
-\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{MorphismOnCoKernel({\slshape f, g, beta, alpha})\index{MorphismOnCoKernel@\texttt{MorphismOnCoKernel}}
+\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{MorphismOnCoKernel({\slshape f, g, alpha, beta})\index{MorphismOnCoKernel@\texttt{MorphismOnCoKernel}}
 \label{MorphismOnCoKernel}
 }\hfill{\scriptsize (operation)}}\\
 
 
- Arguments: \mbox{\texttt{\slshape f}}, \mbox{\texttt{\slshape g}}, \mbox{\texttt{\slshape beta}}, \mbox{\texttt{\slshape alpha}} - four homomorphisms of modules.
+ Arguments: \mbox{\texttt{\slshape f}}, \mbox{\texttt{\slshape g}}, \mbox{\texttt{\slshape alpha}}, \mbox{\texttt{\slshape beta}} - four homomorphisms of modules.
 
  \textbf{\indent Returns:\ }
 the morphism induced on the kernels, the images or the cokernels of the
-morphisms \mbox{\texttt{\slshape f}} and \mbox{\texttt{\slshape g}}, respectively.
+morphisms \mbox{\texttt{\slshape f}} and \mbox{\texttt{\slshape g}}, respectively, whenever $f\colon A\to B$, $\beta\colon B\to B'$, $\alpha\colon A\to A'$ and $g\colon A'\to B'$ forms a commutative diagram.
 
 
 
- It is checked if \mbox{\texttt{\slshape f}}, \mbox{\texttt{\slshape g}}, \mbox{\texttt{\slshape beta}}, \mbox{\texttt{\slshape alpha}} forms a commutative diagram, that is, if $f \alpha - \beta g = 0$. }
+ It is checked if \mbox{\texttt{\slshape f}}, \mbox{\texttt{\slshape g}}, \mbox{\texttt{\slshape alpha}}, \mbox{\texttt{\slshape beta}} forms a commutative diagram, that is, if $f \beta - \alpha g = 0$. }
 
  
 
@@ -4084,7 +4087,7 @@ the projective cover of \mbox{\texttt{\slshape M}}, that is, returns the map \mb
 }\hfill{\scriptsize (operation)}}\\
 
 
- Arguments: \mbox{\texttt{\slshape f}}, \mbox{\texttt{\slshape g}} - two homomorphisms between modules with a common range.
+ Arguments: \mbox{\texttt{\slshape f}}, \mbox{\texttt{\slshape g}} - two homomorphisms with a common range.
 
  \textbf{\indent Returns:\ }
 the pullback of the maps \mbox{\texttt{\slshape f}} and \mbox{\texttt{\slshape g}}.
@@ -4162,10 +4165,10 @@ the inclusion of the socle of the module \mbox{\texttt{\slshape M}} into \mbox{\
 }\hfill{\scriptsize (operation)}}\\
 
 
- Arguments: \mbox{\texttt{\slshape M}} - a module, \mbox{\texttt{\slshape gens}} - elements in \mbox{\texttt{\slshape M}}, .
+ Arguments: \mbox{\texttt{\slshape M}} - a module, \mbox{\texttt{\slshape gens}} - elements in \mbox{\texttt{\slshape M}}.
 
  \textbf{\indent Returns:\ }
-the inclusion of the submodule generated by the generators \mbox{\texttt{\slshape gens}} into the module \mbox{\texttt{\slshape M}}
+the inclusion of the submodule generated by the generators \mbox{\texttt{\slshape gens}} into the module \mbox{\texttt{\slshape M}}.
 
 
 
@@ -4191,6 +4194,36 @@ the projection from the module \mbox{\texttt{\slshape M}} to the top of the modu
 
  The module given by the top of the module \mbox{\texttt{\slshape M}} can be accessed using \texttt{Range} of the homomorphism. }
 
+ 
+\begin{Verbatim}[fontsize=\small,frame=single,label=Example]
+  gap> f := RadicalOfModuleInclusion(N);
+  <mapping: <4-dimensional right-module over AlgebraWithOne( Rationals, 
+  [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+   ] )> -> <7-dimensional right-module over AlgebraWithOne( Rationals, 
+  [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+   ] )> >
+  gap> radN := Source(f);
+  <4-dimensional right-module over <algebra-with-one over Rationals, with 
+  8 generators>>
+  gap> g := SocleOfModuleInclusion(N);
+  <mapping: <3-dimensional right-module over AlgebraWithOne( Rationals, 
+  [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+   ] )> -> <7-dimensional right-module over AlgebraWithOne( Rationals, 
+  [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+   ] )> >
+  gap> U := SubRepresentationInclusion(N,[B[5]+B[6],B[7]]);
+  <mapping: <4-dimensional right-module over AlgebraWithOne( Rationals, 
+  [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+   ] )> -> <7-dimensional right-module over AlgebraWithOne( Rationals, 
+  [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+   ] )> >
+  gap> h := TopOfModuleProjection(N);
+  <mapping: <7-dimensional right-module over AlgebraWithOne( Rationals, 
+  [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+   ] )> -> <3-dimensional right-module over AlgebraWithOne( Rationals, 
+  [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+   ] )> >
+\end{Verbatim}
  }
 
  
@@ -4210,11 +4243,11 @@ the projection from the module \mbox{\texttt{\slshape M}} to the top of the modu
  Arguments: \mbox{\texttt{\slshape M}}, \mbox{\texttt{\slshape N}} - two modules.
 
  \textbf{\indent Returns:\ }
-the map from the first syzygy, \mbox{\texttt{\slshape Omega(M)}} to the projective cover, \mbox{\texttt{\slshape P(M)}} of the module \mbox{\texttt{\slshape M}}, and in addition a basis of $Ext^1(M,N)$ in terms of elements in $Hom(Omega(M),N)$.
+the map from the first syzygy, $\Omega(M)$ to the projective cover, $P(M)$ of the module \mbox{\texttt{\slshape M}}, and in addition a basis of $\Ext^1(M,N)$ in terms of elements in $\Hom(\Omega(M),N)$.
 
 
 
- The function checks if the arguments \mbox{\texttt{\slshape M}} and \mbox{\texttt{\slshape N}} are modules of the same algebra, and returns an error message otherwise. It $Ext^1(M,N)$ is zero, an empty list is returned. }
+ The function checks if the arguments \mbox{\texttt{\slshape M}} and \mbox{\texttt{\slshape N}} are modules of the same algebra, and returns an error message otherwise. It $\Ext^1(M,N)$ is zero, an empty list is returned. }
 
  }
 

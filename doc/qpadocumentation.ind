@@ -2,7 +2,7 @@
 
   \item \texttt  {*}, \hyperpage{18}
   \item \texttt  {\texttt  {\char 92\relax }* (maps)}, \hyperpage{55}
-  \item \texttt  {\texttt  {\char 92\relax }+ (maps)}, \hyperpage{54}
+  \item \texttt  {\texttt  {\char 92\relax }+ (maps)}, \hyperpage{55}
   \item \texttt  {.}, \hyperpage{15}, \hyperpage{22}
   \item \texttt  {/}, \hyperpage{50}
   \item \texttt  {{\textless }}, \hyperpage{19}, \hyperpage{22}, 
@@ -18,7 +18,7 @@
   \item \texttt  {AddNthPowerToRelations}, \hyperpage{25}
   \item \texttt  {AdjacencyMatrixOfQuiver}, \hyperpage{16}
   \item \texttt  {AdmitsFinitelyManyNontips}, \hyperpage{35}
-  \item \texttt  {AlmostSplitSequence}, \hyperpage{63}
+  \item \texttt  {AlmostSplitSequence}, \hyperpage{64}
   \item \texttt  {ArrowsOfQuiver}, \hyperpage{15}
 
   \indexspace
@@ -36,7 +36,7 @@
   \item \texttt  {CommonDirectSummand}, \hyperpage{41}
   \item \texttt  {CompletelyReduce}, \hyperpage{33}
   \item \texttt  {CompletelyReduceGroebnerBasis}, \hyperpage{34}
-  \item \texttt  {Complex}, \hyperpage{65}
+  \item \texttt  {Complex}, \hyperpage{66}
   \item \texttt  {CoxeterMatrix}, \hyperpage{27}
   \item \texttt  {CoxeterPolynomial}, \hyperpage{27}
 
@@ -58,11 +58,11 @@
   \item \texttt  {EndOverAlgebra}, \hyperpage{58}
   \item \texttt  {Enumerator}, \hyperpage{34}
   \item \texttt  {EnvelopingAlgebra}, \hyperpage{31}
-  \item \texttt  {ExtOverAlgebra}, \hyperpage{63}
+  \item \texttt  {ExtOverAlgebra}, \hyperpage{64}
 
   \indexspace
 
-  \item \texttt  {FiniteComplex}, \hyperpage{66}
+  \item \texttt  {FiniteComplex}, \hyperpage{67}
 
   \indexspace
 
@@ -71,7 +71,7 @@
 
   \indexspace
 
-  \item \texttt  {HomFromProjective}, \hyperpage{58}
+  \item \texttt  {HomFromProjective}, \hyperpage{59}
   \item \texttt  {HomOverAlgebra}, \hyperpage{59}
 
   \indexspace
@@ -97,7 +97,7 @@
   \item \texttt  {IsArrow}, \hyperpage{17}
   \item \texttt  {IsCompleteGroebnerBasis}, \hyperpage{33}
   \item \texttt  {IsCompletelyReducedGroebnerBasis}, \hyperpage{33}
-  \item \texttt  {IsComplex}, \hyperpage{64}
+  \item \texttt  {IsComplex}, \hyperpage{65}
   \item \texttt  {IsDirectSummand}, \hyperpage{42}
   \item \texttt  {IsDirectSumOfModules}, \hyperpage{42}
   \item \texttt  {IsElementOfQuotientOfPathAlgebra}, \hyperpage{26}
@@ -134,7 +134,7 @@
   \item \texttt  {IsUniform}, \hyperpage{23}
   \item \texttt  {IsVertex}, \hyperpage{17}
   \item \texttt  {IsZero}, \hyperpage{58}
-  \item \texttt  {IsZeroComplex}, \hyperpage{64}
+  \item \texttt  {IsZeroComplex}, \hyperpage{65}
   \item \texttt  {IsZeroPath}, \hyperpage{17}
   \item \texttt  {Iterator}, \hyperpage{34}
 
@@ -149,7 +149,7 @@
   \item \texttt  {LeadingCoefficient}, \hyperpage{23}
   \item \texttt  {LeadingMonomial}, \hyperpage{24}
   \item \texttt  {LeadingTerm}, \hyperpage{23}
-  \item \texttt  {LeftMinimalVersion}, \hyperpage{59}
+  \item \texttt  {LeftMinimalVersion}, \hyperpage{60}
   \item \texttt  {LengthOfPath}, \hyperpage{18}
   \item \texttt  {LiftingInclusionMorphisms}, \hyperpage{60}
   \item \texttt  {LiftingMorphismFromProjective}, \hyperpage{60}
@@ -163,7 +163,7 @@
   \item \texttt  {MaximalCommonDirectSummand}, \hyperpage{44}
   \item \texttt  {MinimalGeneratingSetOfModule}, \hyperpage{46}
   \item \texttt  {MinimalLeftApproximation}, \hyperpage{60}
-  \item \texttt  {MinimalRightApproximation}, \hyperpage{60}
+  \item \texttt  {MinimalRightApproximation}, \hyperpage{61}
   \item \texttt  {MorphismOnCoKernel}, \hyperpage{61}
   \item \texttt  {MorphismOnImage}, \hyperpage{61}
   \item \texttt  {MorphismOnKernel}, \hyperpage{61}
@@ -195,7 +195,7 @@
   \item \texttt  {PathAlgebra}, \hyperpage{21}
   \item \texttt  {PreImagesRepresentative}, \hyperpage{53}
   \item \texttt  {ProjectFromProductQuiver}, \hyperpage{30}
-  \item \texttt  {ProjectiveCover}, \hyperpage{61}
+  \item \texttt  {ProjectiveCover}, \hyperpage{62}
   \item \texttt  {PullBack}, \hyperpage{62}
   \item \texttt  {PushOut}, \hyperpage{62}
 
@@ -229,7 +229,7 @@
   \item \texttt  {Source}, \hyperpage{53}
   \item \texttt  {SourceOfPath}, \hyperpage{18}
   \item \texttt  {SubRepresentation}, \hyperpage{46}
-  \item \texttt  {SubRepresentationInclusion}, \hyperpage{62}
+  \item \texttt  {SubRepresentationInclusion}, \hyperpage{63}
   \item \texttt  {SupportModuleElement}, \hyperpage{46}
 
   \indexspace
@@ -262,7 +262,7 @@
   \indexspace
 
   \item \texttt  {Zero}, \hyperpage{54}
-  \item \texttt  {ZeroComplex}, \hyperpage{65}
+  \item \texttt  {ZeroComplex}, \hyperpage{66}
   \item \texttt  {ZeroMapping}, \hyperpage{54}
   \item \texttt  {ZeroModule}, \hyperpage{47}
 
