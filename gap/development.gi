@@ -854,20 +854,33 @@ InstallMethod( DirectSumOfModules,
    return fail;
 end
 );
-
+#######################################################################
+##
+#O  PushOut(<f>, <g>)
+##
+##  This function finds the pushout of the homomorphisms 
+##                    f
+##              A ---------> B 
+##              |            |
+##              | g          | g'
+##              |            |
+##              V    f'      V
+##              C ---------> E
+##  in that it returns the homomorphisms  [f', g']. 
+##
 InstallMethod( PushOut,
    "for two homomorphisms starting in a common module over a path algebra",
    [ IsPathAlgebraModuleHomomorphism, IsPathAlgebraModuleHomomorphism ], 0,
    function( f, g ) 
 
-   local B, C, BplusC, inclusions, projections, h;
+   local B, C, CplusB, inclusions, projections, h;
 
    if Source(f) = Source(g) then 
       B := Range(f);
       C := Range(g);
-      BplusC := DirectSumOfModules([B,C]);
-      inclusions := DirectSumInclusions(BplusC);
-      h := f*inclusions[1]-g*inclusions[2];
+      CplusB := DirectSumOfModules([C,B]);
+      inclusions := DirectSumInclusions(CplusB);
+      h := f*inclusions[2]-g*inclusions[1];
       h := CoKernelProjection(h);
 
       return [inclusions[1]*h,inclusions[2]*h];
@@ -877,23 +890,36 @@ InstallMethod( PushOut,
    fi;
 end
 );
-
+#######################################################################
+##
+#O  PullBack(<f>, <g>)
+##
+##  This function finds the pullback of the homomorphisms 
+##                    f'
+##              E ---------> C 
+##              |            |
+##              | g'         | g
+##              |            |
+##              V     f      V
+##              A ---------> B
+##  in that it returns the homomorphisms  [f', g']. 
+##
 InstallMethod( PullBack,
    "for two homomorphisms ending in a common module over a path algebra",
    [ IsPathAlgebraModuleHomomorphism, IsPathAlgebraModuleHomomorphism ], 0,
    function( f, g ) 
 
-   local A, B, AplusB, projections, h;
+   local A, C, AplusC, projections, h;
 
    if Range(f) = Range(g) then 
       A := Source(f);
-      B := Source(g);
-      AplusB := DirectSumOfModules([A,B]);
-      projections := DirectSumProjections(AplusB);
+      C := Source(g);
+      AplusC := DirectSumOfModules([A,C]);
+      projections := DirectSumProjections(AplusC);
       h := projections[1]*f-projections[2]*g;
       h := KernelInclusion(h);
 
-      return [h*projections[1],h*projections[2]];
+      return [h*projections[2],h*projections[1]];
    else
       Print("Error: The two maps entered don't end in the same module.\n");
       return fail;
@@ -1944,7 +1970,7 @@ InstallMethod( AlmostSplitSequence,
 #
 # Constructing the almost split sequence in Ext^1(M,DTrM)
 #
-      ext := PushOut(temp,g);
+      ext := PushOut(g,temp);
 
       return [ext[1],CoKernelProjection(ext[1])];
    fi;

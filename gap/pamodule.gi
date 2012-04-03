@@ -1,6 +1,6 @@
 # GAP Implementation
 # This file was generated from 
-# $Id: pamodule.gi,v 1.14 2012/02/27 12:26:34 sunnyquiver Exp $
+# $Id: pamodule.gi,v 1.15 2012/04/03 09:52:29 sunnyquiver Exp $
 
 ZeroModElement:=function(fam,zero)
   local result,i;
@@ -1149,7 +1149,7 @@ InstallMethod ( MatricesOfPathAlgebraModule,
        Q := QuiverOfPathRing(A);
        num_vert  := Length(VerticesOfQuiver(Q));
        num_arrow := Length(ArrowsOfQuiver(Q));
-       m   := ExtRepOfObj(BasisVectors(CanonicalBasis(M))[1]);
+       m   := ExtRepOfObj(Zero(M));
        fam := FamilyObj(m);
 
        return fam!.matrices{[num_vert+1..num_arrow+num_vert]};
