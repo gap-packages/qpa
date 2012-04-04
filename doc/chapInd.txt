@@ -121,10 +121,10 @@
   [2XLeadingCoefficient[0X  3.5-6
   [2XLeadingMonomial[0X  3.5-7
   [2XLeadingTerm[0X  3.5-5
-  [2XLeftMinimalVersion[0X  7.3-7
+  [2XLeftMinimalVersion[0X  7.3-9
   [2XLengthOfPath[0X  2.7-3
-  [2XLiftingInclusionMorphisms[0X  7.3-8
-  [2XLiftingMorphismFromProjective[0X  7.3-9
+  [2XLiftingInclusionMorphisms[0X  7.3-7
+  [2XLiftingMorphismFromProjective[0X  7.3-8
   [2XLoewyLength[0X  3.9-5
   [2XLoewyLength[0X  6.4-16
   [2XMakeUniformOnRight[0X  3.5-8

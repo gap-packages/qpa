@@ -1,5 +1,5 @@
 # GAP Implementation
-# $Id: homomorphisms.gi,v 1.26 2012/04/03 09:52:29 sunnyquiver Exp $
+# $Id: homomorphisms.gi,v 1.27 2012/04/04 07:54:16 sunnyquiver Exp $
 
 #############################################################################
 ##
@@ -1838,7 +1838,7 @@ InstallMethod ( LiftingMorphismFromProjective,
       projections := DirectSumProjections(P);
       hmap := [];
 #
-#  First construct the lifting from each indecomposable direcct summand of  P.
+#  First construct the lifting from each indecomposable direct summand of  P.
 # 
       for i in [1..Length(inclusions)] do
          m := MinimalGeneratingSetOfModule(Source(inclusions[i]))[1];
@@ -1852,7 +1852,7 @@ InstallMethod ( LiftingMorphismFromProjective,
 #
 #  Make sure that the partial liftings start in the right modules/variables. 
 #
-      hmap := List([1..Length(inclusions)], x -> RightModuleHomOverAlgebra(Source(inclusions[x]),Source(g),hmap[x]!.maps));
+      hmap := List([1..Length(inclusions)], x -> RightModuleHomOverAlgebra(Source(inclusions[x]),Source(f),hmap[x]!.maps));
       return projections*hmap;
    else 
       return fail;
@@ -1886,12 +1886,12 @@ InstallMethod ( LiftingInclusionMorphisms,
 #  Checking if the image of  g  is contained in the image of  f.
 # 
    pi := CoKernelProjection(f);
-   if ( Range(f) = Range(g) ) and ( g*pi = ZeroMapping(Source(g),Range(pi)) ) then 
+   if ( IsInjective(f) and IsInjective(g) ) and ( Range(f) = Range(g) ) and ( g*pi = ZeroMapping(Source(g),Range(pi)) ) then 
 # 
 #
       K := LeftActingDomain(Source(g));
       B := BasisVectors(Basis(Source(g)));
-      B := List(B, x -> PreImagesRepresentative(g,ImageElm(g,x)));
+      B := List(B, x -> PreImagesRepresentative(f,ImageElm(g,x)));
 #
 #  Computing dimension vectors so that we can insert zero matrices of 
 #  the right size. 

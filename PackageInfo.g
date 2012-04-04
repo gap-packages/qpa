@@ -208,9 +208,9 @@ Status := "dev",
 ##  and updating of the package in the GAP distribution.
 #
 README_URL := 
-  "http://quiverspathalg.cvs.sourceforge.net/viewvc/quiverspathalg/qpa/README?view=log",
+  "http://quiverspathalg.cvs.sourceforge.net/viewvc/quiverspathalg/qpa/README",
 PackageInfoURL := 
-  "http://quiverspathalg.cvs.sourceforge.net/viewvc/quiverspathalg/qpa/PackageInfo.g?view=log",
+  "http://quiverspathalg.cvs.sourceforge.net/viewvc/quiverspathalg/qpa/PackageInfo.g",
 
 ##  Here you  must provide a short abstract explaining the package content 
 ##  in HTML format (used on the package overview Web page) and an URL 
@@ -260,12 +260,13 @@ PackageWWWHome := "http://quiverspathalg.cvs.sourceforge.net/viewvc/quiverspatha
 # in case of several help books give a list of such records here:
 PackageDoc := rec(
   # use same as in GAP            
-  BookName  := "QPA",
+  BookName  := "qpa",
   # format/extension can be one of .zoo, .tar.gz, .tar.bz2, -win.zip
   Archive := 
    "http://sourceforge.net/projects/quiverspathalg/files/qpa-version-1.06.tar.gz",
-  ArchiveURLSubset := ["doc", "htm"],
-  HTMLStart := "doc/chap0.htm",
+  #  ArchiveURLSubset := ["doc", "htm"],
+  ArchiveURLSubset := ["doc"],
+  HTMLStart := "doc/chap0.html",
   PDFFile   := "doc/manual.pdf",
   # the path to the .six file used by GAP's help system
   SixFile   := "doc/manual.six",
@@ -277,7 +278,6 @@ PackageDoc := rec(
   # usually be 'true', otherwise say 'false'. 
   Autoload  := true
 ),
-
 
 ##  Are there restrictions on the operating system for this package? Or does
 ##  the package need other packages to be available?

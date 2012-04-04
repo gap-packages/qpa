@@ -280,9 +280,9 @@
       7.3-4 HomOverAlgebra
       7.3-5 Image
       7.3-6 Kernel
-      7.3-7 LeftMinimalVersion
-      7.3-8 LiftingInclusionMorphisms
-      7.3-9 LiftingMorphismFromProjective
+      7.3-7 LiftingInclusionMorphisms
+      7.3-8 LiftingMorphismFromProjective
+      7.3-9 LeftMinimalVersion
       7.3-10 RightMinimalVersion
       7.3-11 MinimalLeftApproximation
       7.3-12 MinimalRightApproximation

@@ -25,6 +25,7 @@
 
 
 \usepackage{amsmath}
+\usepackage[all]{xy}
 \newcommand{\tensor}{\otimes}
 \newcommand{\quiverproduct}{\times}
 \newcommand{\Hom}{\operatorname{Hom}\nolimits}
@@ -3747,6 +3748,19 @@ homomorphism\mbox{\texttt{\slshape f}}.
 
 }
 
+ 
+\begin{Verbatim}[fontsize=\small,frame=single,label=Example]
+  gap> L := RightModuleOverPathAlgebra(A,[["a",[0,1]],["b",[0,1]],
+    ["c",[[0]]],["d",[[1]]],["e",[1,0]]]);
+  <right-module over <algebra-with-one over Rationals, with 8 generators>>
+  gap> f := RightModuleHomOverAlgebra(L,N,[[[0,0,0]], [[1,0]], [[1,2]]]);;
+  gap> IsZero(0*f);
+  true
+  gap> KnownAttributesOfObject(g);
+  [ "Range", "Source", "PathAlgebraOfMatModuleMap", "KernelOfWhat" ]
+  gap> KernelOfWhat(g) = f;
+  true
+\end{Verbatim}
  }
 
  
@@ -3889,9 +3903,190 @@ the kernel of a homomorphism \mbox{\texttt{\slshape f}} between two modules.
 kernel into the source of the homomorphism \mbox{\texttt{\slshape f}}. }
 
  
+\begin{Verbatim}[fontsize=\small,frame=single,label=Example]
+  gap> hom := HomOverAlgebra(N,N);
+  [ <mapping: <7-dimensional right-module over AlgebraWithOne( Rationals, 
+      [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+        [(1)*e] ] )> -> <
+      7-dimensional right-module over AlgebraWithOne( Rationals, 
+      [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+        [(1)*e] ] )> >, 
+    <mapping: <7-dimensional right-module over AlgebraWithOne( Rationals, 
+      [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+        [(1)*e] ] )> -> <
+      7-dimensional right-module over AlgebraWithOne( Rationals, 
+      [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+        [(1)*e] ] )> >, 
+    <mapping: <7-dimensional right-module over AlgebraWithOne( Rationals, 
+      [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+        [(1)*e] ] )> -> <
+      7-dimensional right-module over AlgebraWithOne( Rationals, 
+      [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+        [(1)*e] ] )> >, 
+    <mapping: <7-dimensional right-module over AlgebraWithOne( Rationals, 
+      [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+        [(1)*e] ] )> -> <
+      7-dimensional right-module over AlgebraWithOne( Rationals, 
+      [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+        [(1)*e] ] )> >, 
+    <mapping: <7-dimensional right-module over AlgebraWithOne( Rationals, 
+      [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+        [(1)*e] ] )> -> <
+      7-dimensional right-module over AlgebraWithOne( Rationals, 
+      [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+        [(1)*e] ] )> > ]
+  gap> g := hom[1];
+  <mapping: <7-dimensional right-module over AlgebraWithOne( Rationals, 
+  [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+   ] )> -> <7-dimensional right-module over AlgebraWithOne( Rationals, 
+  [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+   ] )> >
+  gap> M := CoKernel(g);
+  <6-dimensional right-module over <algebra-with-one over Rationals, with 
+  8 generators>>
+  gap> f := CoKernelProjection(g);
+  <mapping: <7-dimensional right-module over AlgebraWithOne( Rationals, 
+  [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+   ] )> -> <6-dimensional right-module over AlgebraWithOne( Rationals, 
+  [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+   ] )> >
+  gap> Range(f) = M;
+  true
+  gap> endo := EndOverAlgebra(N);
+  <algebra-with-one of dimension 5 over Rationals>
+  gap> RadicalOfAlgebra(endo);
+  <algebra of dimension 3 over Rationals>
+  gap> B := BasisVectors(Basis(N));
+  [ [ [ 1, 0, 0 ], [ 0, 0 ], [ 0, 0 ] ], [ [ 0, 1, 0 ], [ 0, 0 ], [ 0, 0 ] ], 
+    [ [ 0, 0, 1 ], [ 0, 0 ], [ 0, 0 ] ], [ [ 0, 0, 0 ], [ 1, 0 ], [ 0, 0 ] ], 
+    [ [ 0, 0, 0 ], [ 0, 1 ], [ 0, 0 ] ], [ [ 0, 0, 0 ], [ 0, 0 ], [ 1, 0 ] ], 
+    [ [ 0, 0, 0 ], [ 0, 0 ], [ 0, 1 ] ] ]
+  gap> p := HomFromProjective(B[1],N);
+  <mapping: <8-dimensional right-module over AlgebraWithOne( Rationals, 
+  [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+   ] )> -> <7-dimensional right-module over AlgebraWithOne( Rationals, 
+  [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+   ] )> >
+  gap> U := Image(p);
+  <5-dimensional right-module over <algebra-with-one over Rationals, with 
+  8 generators>>
+  gap> projinc := ImageProjectionInclusion(p);
+  [ <mapping: <8-dimensional right-module over AlgebraWithOne( Rationals, 
+      [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+        [(1)*e] ] )> -> <
+      5-dimensional right-module over AlgebraWithOne( Rationals, 
+      [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+        [(1)*e] ] )> >, 
+    <mapping: <5-dimensional right-module over AlgebraWithOne( Rationals, 
+      [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+        [(1)*e] ] )> -> <
+      7-dimensional right-module over AlgebraWithOne( Rationals, 
+      [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+        [(1)*e] ] )> > ]
+  gap> U = Range(projinc[1]);                                      
+  true
+  gap> Kernel(p);
+  <3-dimensional right-module over <algebra-with-one over Rationals, with 
+  8 generators>>
+\end{Verbatim}
+ 
+
+\subsection{\textcolor{Chapter }{LiftingInclusionMorphisms}}
+\logpage{[ 7, 3, 7 ]}\nobreak
+\hyperdef{L}{X848B51017E269802}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{LiftingInclusionMorphisms({\slshape f, g})\index{LiftingInclusionMorphisms@\texttt{LiftingInclusionMorphisms}}
+\label{LiftingInclusionMorphisms}
+}\hfill{\scriptsize (operation)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape f}}, \mbox{\texttt{\slshape g}} - two homomorphisms with common range.
+
+ \textbf{\indent Returns:\ }
+ a factorization of \mbox{\texttt{\slshape g}} in terms of \mbox{\texttt{\slshape f}}, whenever possible and \texttt{fail} otherwise. 
+
+
+
+ Given two inclusions $f\colon B\to C$ and $g\colon A\to C$, this function constructs a morphism from $A$ to $B$, whenever the image of \mbox{\texttt{\slshape g}} is contained in the image of \mbox{\texttt{\slshape f}}. Otherwise the function returns fail. The function checks if \mbox{\texttt{\slshape f}} and \mbox{\texttt{\slshape g}} are one-to-one, if they have the same range and if the image of \mbox{\texttt{\slshape g}} is contained in the image of \mbox{\texttt{\slshape f}}. }
+
+ 
+
+\subsection{\textcolor{Chapter }{LiftingMorphismFromProjective}}
+\logpage{[ 7, 3, 8 ]}\nobreak
+\hyperdef{L}{X7A10EF0587ADA535}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{LiftingMorphismFromProjective({\slshape f, g})\index{LiftingMorphismFromProjective@\texttt{LiftingMorphismFromProjective}}
+\label{LiftingMorphismFromProjective}
+}\hfill{\scriptsize (operation)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape f}}, \mbox{\texttt{\slshape g}} - two homomorphisms with common range.
+
+ \textbf{\indent Returns:\ }
+ a factorization of \mbox{\texttt{\slshape g}} in terms of \mbox{\texttt{\slshape f}}, whenever possible and \texttt{fail} otherwise. 
+
+
+
+ Given two morphisms $f\colon B\to C$ and $g\colon P\to C$, where $P$ is a direct sum of indecomposable projective modules constructed via \texttt{DirectSumOfModules} and \mbox{\texttt{\slshape f}} an epimorphism, this function finds a lifting of \mbox{\texttt{\slshape g}} to $B$. The function checks if $P$ is a direct sum of indecomposable projective modules, if \mbox{\texttt{\slshape f}} is onto and if \mbox{\texttt{\slshape f}} and \mbox{\texttt{\slshape g}} have the same range. }
+
+ 
+\begin{Verbatim}[fontsize=\small,frame=single,label=Example]
+  gap> B := BasisVectors(Basis(N));
+  [ [ [ 1, 0, 0 ], [ 0, 0 ], [ 0, 0 ] ], [ [ 0, 1, 0 ], [ 0, 0 ], [ 0, 0 ] ], 
+    [ [ 0, 0, 1 ], [ 0, 0 ], [ 0, 0 ] ], [ [ 0, 0, 0 ], [ 1, 0 ], [ 0, 0 ] ], 
+    [ [ 0, 0, 0 ], [ 0, 1 ], [ 0, 0 ] ], [ [ 0, 0, 0 ], [ 0, 0 ], [ 1, 0 ] ], 
+    [ [ 0, 0, 0 ], [ 0, 0 ], [ 0, 1 ] ] ]
+  gap> g := SubRepresentationInclusion(N,[B[1],B[4]]);
+  <mapping: <5-dimensional right-module over AlgebraWithOne( Rationals, 
+  [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+   ] )> -> <7-dimensional right-module over AlgebraWithOne( Rationals, 
+  [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+   ] )> >
+  gap> f := SubRepresentationInclusion(N,[B[1],B[2]]);
+  <mapping: <6-dimensional right-module over AlgebraWithOne( Rationals, 
+  [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+   ] )> -> <7-dimensional right-module over AlgebraWithOne( Rationals, 
+  [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+   ] )> >
+  gap> LiftingInclusionMorphisms(f,g);
+  <mapping: <5-dimensional right-module over AlgebraWithOne( Rationals, 
+  [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+   ] )> -> <6-dimensional right-module over AlgebraWithOne( Rationals, 
+  [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+   ] )> >
+  gap> S := SimpleModules(A); 
+  [ <right-module over <algebra-with-one over Rationals, with 8 generators>>, 
+    <right-module over <algebra-with-one over Rationals, with 8 generators>>, 
+    <right-module over <algebra-with-one over Rationals, with 8 generators>> ]
+  gap> homNS := HomOverAlgebra(N,S[1]);
+  [ <mapping: <
+      7-dimensional right-module over AlgebraWithOne( Rationals, ... )> -> <
+      1-dimensional right-module over AlgebraWithOne( Rationals, ... )> >, 
+    <mapping: <
+      7-dimensional right-module over AlgebraWithOne( Rationals, ... )> -> <
+      1-dimensional right-module over AlgebraWithOne( Rationals, ... )> >, 
+    <mapping: <
+      7-dimensional right-module over AlgebraWithOne( Rationals, ... )> -> <
+      1-dimensional right-module over AlgebraWithOne( Rationals, ... )> > ]
+  gap> f := homNS[1];
+  <mapping: <
+  7-dimensional right-module over AlgebraWithOne( Rationals, ... )> -> <
+  1-dimensional right-module over AlgebraWithOne( Rationals, ... )> >
+  gap> p := ProjectiveCover(S[1]);
+  <mapping: <8-dimensional right-module over AlgebraWithOne( Rationals, 
+  [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+   ] )> -> <1-dimensional right-module over AlgebraWithOne( Rationals, 
+  [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+   ] )> >
+  gap> LiftingMorphismFromProjective(f,p);
+  <mapping: <8-dimensional right-module over AlgebraWithOne( Rationals, 
+  [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+   ] )> -> <7-dimensional right-module over AlgebraWithOne( Rationals, 
+  [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+   ] )> >
+\end{Verbatim}
+ 
 
 \subsection{\textcolor{Chapter }{LeftMinimalVersion}}
-\logpage{[ 7, 3, 7 ]}\nobreak
+\logpage{[ 7, 3, 9 ]}\nobreak
 \hyperdef{L}{X7F2D09C07F6DDBF8}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{LeftMinimalVersion({\slshape f})\index{LeftMinimalVersion@\texttt{LeftMinimalVersion}}
 \label{LeftMinimalVersion}
@@ -3904,44 +4099,6 @@ kernel into the source of the homomorphism \mbox{\texttt{\slshape f}}. }
  the left minimal version \mbox{\texttt{\slshape f'}} of the homomorphism \mbox{\texttt{\slshape f}} together with the a list \texttt{B} of modules such that the direct sum of the modules, \texttt{Range(f')} and the modules in the list \texttt{B} is isomorphic to \texttt{Range(f)}. 
 
 }
-
- 
-
-\subsection{\textcolor{Chapter }{LiftingInclusionMorphisms}}
-\logpage{[ 7, 3, 8 ]}\nobreak
-\hyperdef{L}{X848B51017E269802}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{LiftingInclusionMorphisms({\slshape f, g})\index{LiftingInclusionMorphisms@\texttt{LiftingInclusionMorphisms}}
-\label{LiftingInclusionMorphisms}
-}\hfill{\scriptsize (operation)}}\\
-
-
- Arguments: \mbox{\texttt{\slshape f}}, \mbox{\texttt{\slshape g}} - two homomorphisms with common range.
-
- \textbf{\indent Returns:\ }
- a factorization of \mbox{\texttt{\slshape f}} in terms of \mbox{\texttt{\slshape g}}, whenever possible and \texttt{fail} otherwise. 
-
-
-
- Given two inclusions $f\colon A\to C$ and $g\colon B\to C$, this function constructs a morphism (inclusion) from $A$ to $B$, whenever the image of \mbox{\texttt{\slshape f}} is contained in the image of \mbox{\texttt{\slshape g}}. Otherwise the function returns fail. The function checks if \mbox{\texttt{\slshape f}} and \mbox{\texttt{\slshape g}} have the same range and if the image of \mbox{\texttt{\slshape f}} is contained in the image of \mbox{\texttt{\slshape g}}. }
-
- 
-
-\subsection{\textcolor{Chapter }{LiftingMorphismFromProjective}}
-\logpage{[ 7, 3, 9 ]}\nobreak
-\hyperdef{L}{X7A10EF0587ADA535}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{LiftingMorphismFromProjective({\slshape f, g})\index{LiftingMorphismFromProjective@\texttt{LiftingMorphismFromProjective}}
-\label{LiftingMorphismFromProjective}
-}\hfill{\scriptsize (operation)}}\\
-
-
- Arguments: \mbox{\texttt{\slshape f}}, \mbox{\texttt{\slshape g}} - two homomorphisms with common range.
-
- \textbf{\indent Returns:\ }
- a factorization of \mbox{\texttt{\slshape f}} in terms of \mbox{\texttt{\slshape g}}, whenever possible and \texttt{fail} otherwise. 
-
-
-
- Given two morphisms $f\colon P\to C$ and $g\colon B\to C$, where $P$ is a direct sum of indecomposable projective modules constructed via \texttt{DirectSumOfModules} and \mbox{\texttt{\slshape g}} an epimorphism, this function finds a lifting of \mbox{\texttt{\slshape f}} to $B$. The function checks if $P$ is a direct sum of indecomposable projective modules, if \mbox{\texttt{\slshape g}} is onto and if \mbox{\texttt{\slshape f}} and \mbox{\texttt{\slshape g}} have the same range. }
 
  
 
@@ -4094,8 +4251,7 @@ the pullback of the maps \mbox{\texttt{\slshape f}} and \mbox{\texttt{\slshape g
 
 
 
- It is checked if \mbox{\texttt{\slshape f}} and \mbox{\texttt{\slshape g}} has the same range. The pullback is returned as two homomorphisms from the
-pullback to the source of \mbox{\texttt{\slshape f}} and to the source of \mbox{\texttt{\slshape g}}. }
+ It is checked if \mbox{\texttt{\slshape f}} and \mbox{\texttt{\slshape g}} have the same range. Given the input $f\colon A\to B$ (horizontal map) and $g\colon C\to B$ (vertical map), the pullback $E$ is returned as the two homomorphisms $[f',g']$, where $f'\colon E\to C$ (horizontal map) and $g'\colon E\to A$ (vertical map). }
 
  
 
@@ -4114,9 +4270,84 @@ the pushout of the maps \mbox{\texttt{\slshape f}} and \mbox{\texttt{\slshape g}
 
 
 
- It is checked if \mbox{\texttt{\slshape f}} and \mbox{\texttt{\slshape g}} has the same source. The pushout is returned as two homomorphisms from the
-range of \mbox{\texttt{\slshape f}} and from the range of \mbox{\texttt{\slshape g}} to the pushout. }
+ It is checked if \mbox{\texttt{\slshape f}} and \mbox{\texttt{\slshape g}} have the same source. Given the input $f\colon A\to B$ (horizontal map) and $g\colon A\to C$ (vertical map), the pushout $E$ is returned as the two homomorphisms $[f',g']$, where $f'\colon C\to E$ (horizontal map) and $g'\colon B\to E$ (vertical map). }
 
+ 
+\begin{Verbatim}[fontsize=\small,frame=single,label=Example]
+  gap> g := MorphismOnKernel(hom[1],hom[2],hom[1],hom[2]);
+  <mapping: <6-dimensional right-module over AlgebraWithOne( Rationals, 
+  [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+   ] )> -> <6-dimensional right-module over AlgebraWithOne( Rationals, 
+  [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+   ] )> >
+  gap> IsomorphicModules(Source(g),Range(g));
+  true
+  gap> p := ProjectiveCover(N);
+  <mapping: <24-dimensional right-module over AlgebraWithOne( Rationals, 
+  [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+   ] )> -> <7-dimensional right-module over AlgebraWithOne( Rationals, 
+  [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+   ] )> >
+  gap> N1 := Kernel(p);
+  <17-dimensional right-module over <algebra-with-one over Rationals, with 
+  8 generators>>
+  gap> pullback := PullBack(p,hom[1]);
+  [ <mapping: <24-dimensional right-module over AlgebraWithOne( Rationals, 
+      [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+        [(1)*e] ] )> -> <
+      7-dimensional right-module over AlgebraWithOne( Rationals, 
+      [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+        [(1)*e] ] )> >, 
+    <mapping: <24-dimensional right-module over AlgebraWithOne( Rationals, 
+      [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+        [(1)*e] ] )> -> <
+      24-dimensional right-module over AlgebraWithOne( Rationals, 
+      [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+        [(1)*e] ] )> > ]
+  gap> Kernel(pullback[1]);
+  <17-dimensional right-module over <algebra-with-one over Rationals, with 
+  8 generators>>
+  gap> IsomorphicModules(N1,Kernel(pullback[1]));
+  true
+  gap> t := LiftingMorphismFromProjective(p,p*hom[1]);
+  <mapping: <24-dimensional right-module over AlgebraWithOne( Rationals, 
+  [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+   ] )> -> <24-dimensional right-module over AlgebraWithOne( Rationals, 
+  [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+   ] )> >
+  gap> s := MorphismOnKernel(p,p,t,hom[1]);    
+  <mapping: <17-dimensional right-module over AlgebraWithOne( Rationals, 
+  [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+   ] )> -> <17-dimensional right-module over AlgebraWithOne( Rationals, 
+  [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+   ] )> >
+  gap> Source(s)=N1;
+  true
+  gap> q := KernelInclusion(p);
+  <mapping: <17-dimensional right-module over AlgebraWithOne( Rationals, 
+  [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+   ] )> -> <24-dimensional right-module over AlgebraWithOne( Rationals, 
+  [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+   ] )> >
+  gap> pushout := PushOut(q,s);
+  [ <mapping: <17-dimensional right-module over AlgebraWithOne( Rationals, 
+      [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+        [(1)*e] ] )> -> <
+      24-dimensional right-module over AlgebraWithOne( Rationals, 
+      [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+        [(1)*e] ] )> >, 
+    <mapping: <24-dimensional right-module over AlgebraWithOne( Rationals, 
+      [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+        [(1)*e] ] )> -> <
+      24-dimensional right-module over AlgebraWithOne( Rationals, 
+      [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+        [(1)*e] ] )> > ]
+  gap> U := CoKernel(pushout[1]);
+  <7-dimensional right-module over <algebra-with-one over Rationals, with 
+  8 generators>>
+  gap> IsomorphicModules(U,N);
+  true
+\end{Verbatim}
  
 
 \subsection{\textcolor{Chapter }{RadicalOfModuleInclusion}}
@@ -4276,6 +4507,66 @@ minimal almost split map.
 
  The range of the right minimal almost split map is not equal to the module \mbox{\texttt{\slshape M}} one started with, but isomorphic. }
 
+ 
+\begin{Verbatim}[fontsize=\small,frame=single,label=Example]
+  gap> S := SimpleModules(A);
+  [ <right-module over <algebra-with-one over Rationals, with 8 generators>>, 
+    <right-module over <algebra-with-one over Rationals, with 8 generators>>, 
+    <right-module over <algebra-with-one over Rationals, with 8 generators>> ]
+  gap> Ext:=ExtOverAlgebra(S[2],S[2]);
+  [ <mapping: <3-dimensional right-module over AlgebraWithOne( Rationals, 
+      [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+        [(1)*e] ] )> -> <
+      4-dimensional right-module over AlgebraWithOne( Rationals, 
+      [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+        [(1)*e] ] )> >, 
+    [ <mapping: <3-dimensional right-module over AlgebraWithOne( Rationals, 
+          [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+            [(1)*e] ] )> -> <
+          1-dimensional right-module over AlgebraWithOne( Rationals, 
+          [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+            [(1)*e] ] )> > ] ]
+  gap> Length(Ext[2]);
+  1
+  gap> # i.e. Ext^1(S[2],S[2]) is 1-dimensional
+  gap> pushout := PushOut(Ext[2][1],Ext[1]);   
+  [ <mapping: <1-dimensional right-module over AlgebraWithOne( Rationals, 
+      [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+        [(1)*e] ] )> -> <
+      2-dimensional right-module over AlgebraWithOne( Rationals, 
+      [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+        [(1)*e] ] )> >, 
+    <mapping: <4-dimensional right-module over AlgebraWithOne( Rationals, 
+      [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+        [(1)*e] ] )> -> <
+      2-dimensional right-module over AlgebraWithOne( Rationals, 
+      [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+        [(1)*e] ] )> > ]
+  gap> f:= CoKernelProjection(pushout[1]);
+  <mapping: <2-dimensional right-module over AlgebraWithOne( Rationals, 
+  [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+   ] )> -> <1-dimensional right-module over AlgebraWithOne( Rationals, 
+  [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+   ] )> >
+  gap> U := Range(pushout[1]);            
+  <2-dimensional right-module over <algebra-with-one over Rationals, with 
+  8 generators>>
+  gap> assU := AlmostSplitSequence(U);
+  [ <mapping: <6-dimensional right-module over AlgebraWithOne( Rationals, 
+      [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+        [(1)*e] ] )> -> <
+      8-dimensional right-module over AlgebraWithOne( Rationals, 
+      [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+        [(1)*e] ] )> >, 
+    <mapping: <8-dimensional right-module over AlgebraWithOne( Rationals, 
+      [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+        [(1)*e] ] )> -> <
+      2-dimensional right-module over AlgebraWithOne( Rationals, 
+      [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+        [(1)*e] ] )> > ]
+  gap> assU[1]*assU[2] = Zero(assU[1]*assU[2]);
+  true
+\end{Verbatim}
  }
 
  }
