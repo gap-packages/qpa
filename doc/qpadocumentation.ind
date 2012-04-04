@@ -2,7 +2,7 @@
 
   \item \texttt  {*}, \hyperpage{18}
   \item \texttt  {\texttt  {\char 92\relax }* (maps)}, \hyperpage{55}
-  \item \texttt  {\texttt  {\char 92\relax }+ (maps)}, \hyperpage{55}
+  \item \texttt  {\texttt  {\char 92\relax }+ (maps)}, \hyperpage{54}
   \item \texttt  {.}, \hyperpage{15}, \hyperpage{22}
   \item \texttt  {/}, \hyperpage{50}
   \item \texttt  {{\textless }}, \hyperpage{19}, \hyperpage{22}, 
@@ -55,7 +55,7 @@
   \indexspace
 
   \item \texttt  {ElementOfQuotientOfPathAlgebra}, \hyperpage{28}
-  \item \texttt  {EndOverAlgebra}, \hyperpage{59}
+  \item \texttt  {EndOverAlgebra}, \hyperpage{58}
   \item \texttt  {Enumerator}, \hyperpage{34}
   \item \texttt  {EnvelopingAlgebra}, \hyperpage{31}
   \item \texttt  {ExtOverAlgebra}, \hyperpage{68}
@@ -140,8 +140,8 @@
 
   \indexspace
 
-  \item \texttt  {Kernel}, \hyperpage{60}
-  \item \texttt  {KernelInclusion}, \hyperpage{60}
+  \item \texttt  {Kernel}, \hyperpage{59}
+  \item \texttt  {KernelInclusion}, \hyperpage{59}
   \item \texttt  {KernelOfWhat}, \hyperpage{58}
 
   \indexspace
@@ -152,7 +152,7 @@
   \item \texttt  {LeftMinimalVersion}, \hyperpage{63}
   \item \texttt  {LengthOfPath}, \hyperpage{18}
   \item \texttt  {LiftingInclusionMorphisms}, \hyperpage{61}
-  \item \texttt  {LiftingMorphismFromProjective}, \hyperpage{62}
+  \item \texttt  {LiftingMorphismFromProjective}, \hyperpage{61}
   \item \texttt  {LoewyLength}, \hyperpage{27}, \hyperpage{44}
 
   \indexspace
@@ -195,8 +195,8 @@
   \item \texttt  {PathAlgebra}, \hyperpage{21}
   \item \texttt  {PreImagesRepresentative}, \hyperpage{53}
   \item \texttt  {ProjectFromProductQuiver}, \hyperpage{30}
-  \item \texttt  {ProjectiveCover}, \hyperpage{65}
-  \item \texttt  {PullBack}, \hyperpage{65}
+  \item \texttt  {ProjectiveCover}, \hyperpage{64}
+  \item \texttt  {PullBack}, \hyperpage{64}
   \item \texttt  {PushOut}, \hyperpage{65}
 
   \indexspace
@@ -209,7 +209,7 @@
   \indexspace
 
   \item \texttt  {RadicalOfModule}, \hyperpage{45}
-  \item \texttt  {RadicalOfModuleInclusion}, \hyperpage{67}
+  \item \texttt  {RadicalOfModuleInclusion}, \hyperpage{66}
   \item \texttt  {RadicalSeries}, \hyperpage{45}
   \item \texttt  {Range}, \hyperpage{52}
   \item \texttt  {RightGroebnerBasis}, \hyperpage{36}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2011.8.11)  4 APR 2012 09:51
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2011.8.11)  4 APR 2012 11:53
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1254,20 +1254,20 @@ Underfull \hbox (badness 10000) in paragraph at lines 3212--3215
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3219--3221
-[][]\OT1/ptm/b/n/10.95 Returns:  \OT1/ptm/m/n/10.95 true or false de-pend-ing o
-n if [] be-longs to the cat-e-gories
+Underfull \hbox (badness 10000) in paragraph at lines 3217--3220
+[]\OT1/ptm/b/n/10.95 Returns:  \OT1/ptm/m/n/10.95 true or false de-pend-ing on 
+if [] be-longs to the cat-e-gories
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3219--3221
+Underfull \hbox (badness 10000) in paragraph at lines 3217--3220
 \OT1/pcr/m/n/10.95 IsAdditiveElementWithZero\OT1/ptm/m/n/10.95 , \OT1/pcr/m/n/1
 0.95 IsAdditiveElementWithInverse\OT1/ptm/m/n/10.95 , \OT1/pcr/m/n/10.95 IsGene
 ralMapping\OT1/ptm/m/n/10.95 ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3219--3221
+Underfull \hbox (badness 10000) in paragraph at lines 3217--3220
 \OT1/pcr/m/n/10.95 RespectsAddition\OT1/ptm/m/n/10.95 , \OT1/pcr/m/n/10.95 Resp
 ectsZero\OT1/ptm/m/n/10.95 , \OT1/pcr/m/n/10.95 RespectsScalarMultiplication\OT
 1/ptm/m/n/10.95 , \OT1/pcr/m/n/10.95 IsTotal \OT1/ptm/m/n/10.95 and
@@ -1276,71 +1276,71 @@ ectsZero\OT1/ptm/m/n/10.95 , \OT1/pcr/m/n/10.95 RespectsScalarMultiplication\OT
 [51
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 3231--3234
+Underfull \hbox (badness 10000) in paragraph at lines 3230--3233
 
  []
 
 
-Underfull \hbox (badness 1184) in paragraph at lines 3243--3247
+Underfull \hbox (badness 1184) in paragraph at lines 3241--3245
 [] \OT1/ptm/m/n/10.95 is a list of ma-tri-ces \OT1/pcr/m/n/10.95 mats[i]\OT1/pt
 m/m/n/10.95 , where \OT1/pcr/m/n/10.95 mats[i] \OT1/ptm/m/n/10.95 rep-re-sents 
 the lin-ear map from \OT1/pcr/m/n/10.95 M[i]
  []
 
 
-Underfull \hbox (badness 1132) in paragraph at lines 3243--3247
+Underfull \hbox (badness 1132) in paragraph at lines 3241--3245
 \OT1/ptm/m/n/10.95 zero, then \OT1/pcr/m/n/10.95 mats[i] \OT1/ptm/m/n/10.95 is 
 a \OT1/pcr/m/n/10.95 DimensionVector(M)[i] \OT1/ptm/m/n/10.95 by \OT1/pcr/m/n/1
 0.95 DimensionVector(N)[i] \OT1/ptm/m/n/10.95 ma-trix. If
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3274--3277
+Underfull \hbox (badness 10000) in paragraph at lines 3272--3275
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 3288--3291
 
  []
 
 [52]
-Underfull \hbox (badness 10000) in paragraph at lines 3291--3294
+Underfull \hbox (badness 10000) in paragraph at lines 3315--3318
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3319--3322
+Underfull \hbox (badness 10000) in paragraph at lines 3333--3336
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3338--3341
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 3357--3360
+Underfull \hbox (badness 10000) in paragraph at lines 3351--3354
 
  []
 
 [53]
-Underfull \hbox (badness 10000) in paragraph at lines 3396--3399
+Underfull \hbox (badness 10000) in paragraph at lines 3389--3392
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3413--3416
+Underfull \hbox (badness 10000) in paragraph at lines 3405--3408
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3430--3433
+Underfull \hbox (badness 10000) in paragraph at lines 3421--3424
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3447--3450
+Underfull \hbox (badness 10000) in paragraph at lines 3437--3440
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3464--3467
+Underfull \hbox (badness 10000) in paragraph at lines 3453--3456
 
  []
 
@@ -1348,24 +1348,29 @@ Underfull \hbox (badness 10000) in paragraph at lines 3464--3467
 F77ECB778E}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.3483 \hyperdef{L}{X7E8438F77ECB778E}{}
+l.3471 \hyperdef{L}{X7E8438F77ECB778E}{}
                                         
-Underfull \hbox (badness 10000) in paragraph at lines 3484--3487
+Underfull \hbox (badness 10000) in paragraph at lines 3472--3475
 
  []
 
 [55]
-Underfull \hbox (badness 10000) in paragraph at lines 3554--3557
+Underfull \hbox (badness 10000) in paragraph at lines 3541--3544
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3571--3574
+Underfull \hbox (badness 10000) in paragraph at lines 3557--3560
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3589--3592
+Underfull \hbox (badness 10000) in paragraph at lines 3574--3577
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 3590--3593
 
  []
 
@@ -1374,180 +1379,174 @@ Underfull \hbox (badness 10000) in paragraph at lines 3606--3609
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 3623--3626
-
- []
-
 [56]
-Underfull \hbox (badness 10000) in paragraph at lines 3667--3670
+Underfull \hbox (badness 10000) in paragraph at lines 3649--3652
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3685--3688
+Underfull \hbox (badness 10000) in paragraph at lines 3666--3669
 
  []
 
 [57]
-Underfull \hbox (badness 10000) in paragraph at lines 3722--3725
+Underfull \hbox (badness 10000) in paragraph at lines 3702--3705
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3739--3742
+Underfull \hbox (badness 10000) in paragraph at lines 3718--3721
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3775--3781
+Underfull \hbox (badness 10000) in paragraph at lines 3753--3759
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 3775--3778
 
  []
 
 [58]
-Underfull \hbox (badness 10000) in paragraph at lines 3798--3801
+Underfull \hbox (badness 10000) in paragraph at lines 3793--3796
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3817--3820
+Underfull \hbox (badness 10000) in paragraph at lines 3812--3815
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3837--3840
+Underfull \hbox (badness 10000) in paragraph at lines 3831--3843
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3857--3869
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 3887--3893
+Underfull \hbox (badness 10000) in paragraph at lines 3860--3866
 
  []
 
 [59] [60]
-Underfull \hbox (badness 10000) in paragraph at lines 3997--4000
-
- []
-
-[61]
-Underfull \hbox (badness 10000) in paragraph at lines 4016--4019
-
- []
-
-[62]
-Underfull \hbox (badness 10000) in paragraph at lines 4091--4094
+Underfull \hbox (badness 10000) in paragraph at lines 3969--3972
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 4108--4111
+Underfull \hbox (badness 10000) in paragraph at lines 3987--3990
+
+ []
+
+[61] [62]
+Underfull \hbox (badness 10000) in paragraph at lines 4061--4064
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 4125--4128
+Underfull \hbox (badness 10000) in paragraph at lines 4077--4080
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 4143--4146
+Underfull \hbox (badness 10000) in paragraph at lines 4093--4096
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4110--4113
 
  []
 
 [63]
-Underfull \hbox (badness 10000) in paragraph at lines 4197--4206
+Underfull \hbox (badness 10000) in paragraph at lines 4163--4172
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 4223--4226
+Underfull \hbox (badness 10000) in paragraph at lines 4188--4191
+
+ []
+
+LaTeX Font Info:    Font shape `OML/pcr/m/sl' in size <10.95> not available
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 4195.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4206--4209
 
  []
 
 [64]
-LaTeX Font Info:    Font shape `OML/pcr/m/sl' in size <10.95> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 4231.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 4242--4245
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 4261--4264
+Underfull \hbox (badness 10000) in paragraph at lines 4224--4227
 
  []
 
 [65]
-Underfull \hbox (badness 10000) in paragraph at lines 4356--4359
+Underfull \hbox (badness 10000) in paragraph at lines 4318--4321
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4336--4339
 
  []
 
 [66]
-Underfull \hbox (badness 10000) in paragraph at lines 4375--4378
+Underfull \hbox (badness 10000) in paragraph at lines 4354--4357
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 4394--4397
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 4414--4417
+Underfull \hbox (badness 10000) in paragraph at lines 4373--4376
 
  []
 
 [67]
-Underfull \hbox (badness 10000) in paragraph at lines 4469--4472
+Underfull \hbox (badness 10000) in paragraph at lines 4427--4430
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 4494--4497
+Underfull \hbox (badness 10000) in paragraph at lines 4451--4454
 
  []
 
 [68] [69]
 Chapter 8.
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/pzccm/m/n' tried instead on input line 4592
+(Font)              Font shape `OMS/pzccm/m/n' tried instead on input line 4548
 .
 
 LaTeX Warning: Reference `SingleObjectComplex' on page 70 undefined on input li
-ne 4593.
+ne 4549.
 
 
 LaTeX Warning: Reference `ShortExactSequence' on page 70 undefined on input lin
-e 4595.
+e 4551.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 4602--4605
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 4614--4617
+Underfull \hbox (badness 10000) in paragraph at lines 4558--4561
 
  []
 
 
-LaTeX Warning: Reference `IsCat' on page 70 undefined on input line 4634.
+Underfull \hbox (badness 10000) in paragraph at lines 4570--4573
+
+ []
+
+
+LaTeX Warning: Reference `IsCat' on page 70 undefined on input line 4590.
 
 [70
 
 ]
 
-LaTeX Warning: Reference `IsCat' on page 71 undefined on input line 4678.
+LaTeX Warning: Reference `IsCat' on page 71 undefined on input line 4634.
 
 [71]
 
-LaTeX Warning: Reference `IsCat' on page 72 undefined on input line 4696.
+LaTeX Warning: Reference `IsCat' on page 72 undefined on input line 4652.
 
 [72]
 Appendix A.
@@ -1568,11 +1567,11 @@ LaTeX Warning: Empty `thebibliography' environment on input line 3.
 ] [76] [77
 
 ])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 4757.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 4757.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 4713.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 4713.
  (./qpadocumentation.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 4757.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 4757.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 4713.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 4713.
 
 Package rerunfilecheck Info: File `qpadocumentation.brf' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
@@ -1594,7 +1593,7 @@ Here is how much of TeX's memory you used:
  12422 multiletter control sequences out of 15000+200000
  51287 words of font info for 113 fonts, out of 3000000 for 9000
  831 hyphenation exceptions out of 8191
- 32i,7n,25p,3252b,609s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 32i,7n,25p,3252b,613s stack positions out of 5000i,500n,10000p,200000b,50000s
 {/usr/lib/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/lib/texlive/te
 xmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/lib/texlive/texmf-dist
 /fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/lib/texlive/texmf-dist/fonts/t
@@ -1608,7 +1607,7 @@ type1/urw/symbol/usyr.pfb></usr/lib/texlive/texmf-dist/fonts/type1/urw/times/ut
 mb8a.pfb></usr/lib/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/li
 b/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/lib/texlive/texmf-d
 ist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on qpadocumentation.pdf (77 pages, 316537 bytes).
+Output written on qpadocumentation.pdf (77 pages, 316200 bytes).
 PDF statistics:
  1509 PDF objects out of 1728 (max. 8388607)
  1401 compressed objects within 15 object streams
