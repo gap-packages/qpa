@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- $Id: qpadocumentation.xml,v 1.31 2012/04/04 09:55:14 sunnyquiver Exp $ -->
+<!-- $Id: qpadocumentation.xml,v 1.32 2012/04/11 12:38:54 wralsen Exp $ -->
 
 <!DOCTYPE Book SYSTEM "gapdoc.dtd">
 <!-- [ <!ENTITY see '<Alt Only="LaTeX">$\to$</Alt><Alt Not="LaTeX">--&gt;</Alt>'>
@@ -319,15 +319,13 @@ constructing quivers in Section <Ref Sect="Constructing Quivers"/>.
 	 Comm="creates a quiver"/>
    <Func Name="Quiver" Arg="adjacencymatrix" 
 	 Comm="creates a quiver"/>
+   <Description>Arguments: First construction: <Arg>N</Arg> -- number of vertices, <Arg>[arrow1, arrow2, ...]</Arg> -- a list of arrows to specify the graph <Math>\Gamma</Math>. Second construction: <Arg>[vertex1, vertex2, ...]</Arg> -- a list of vertex names, <Arg>[arrow1, arrow2, ...]</Arg> -- a list of arrows. Third construction: takes an
+adjacency matrix for the graph <Math>\Gamma</Math>.
+   
+   <Br /></Description>
    <Returns>a quiver, which satisfies the property
    <Ref Prop="IsQuiver"/>.</Returns> 
    <Description>
-The first construction takes the number <Arg>N</Arg> of vertices and a
-list of arrows to specify the graph <Math>\Gamma</Math> and hence the
-quiver.  The second construction takes a list of vertex names and a
-list of arrows for the same purpose.  The third construction takes an
-adjacency matrix for the graph <Math>\Gamma</Math>.<P/>
-
 In the first and third constructions, the vertices are named `v1, v2,
 ...'.  In the second construction, unique vertex names are given as
 strings in the list that is the first parameter.  Each arrow is a list
@@ -392,17 +390,17 @@ v2
   </ManSection>
 
   <ManSection>
-   <Prop Name="IsAcyclicQuiver" Arg="object" Comm="property, whether object
+   <Prop Name="IsAcyclicQuiver" Arg="quiver" Comm="property, whether object
    is a quiver with no cycles"/>
    <Description>
-     is true when <Arg>object</Arg> is a quiver with no cycles.
+     is true when <Arg>quiver</Arg> is a quiver with no cycles.
    </Description>
   </ManSection>
 
   <ManSection>
-   <Prop Name="IsFinite" Arg="object" Comm=""/>
+   <Prop Name="IsFinite" Arg="quiver" Comm=""/>
    <Description>
-     is true when <Arg>object</Arg> is a finite set. Synonymous with
+     is true when <Arg>quiver</Arg> is a finite set. Synonymous with
      `IsAcyclicQuiver'. 
    </Description>
   </ManSection>
@@ -438,11 +436,13 @@ false
 
   <ManSection>
    <Oper Name="." Arg="Q, element" Comm=""/>
-   <Description>
-    The operation <Ref Oper="."/> operates on <Arg>Q</Arg>, a quiver,
-    and an element, a vertex or an arrow, to allow access to
+   <Description> 
+    Arguments: <Arg>Q</Arg> -- a quiver,
+    and <Arg>element</Arg> -- a vertex or an arrow.
+   <P />
+    The operation <Ref Oper="."/> allows access to
     generators of the quiver. If you have named your vertices and
-    arrows the the access looks like `<Arg>Q</Arg>.<Arg>name of
+    arrows then the access looks like `<Arg>Q</Arg>.<Arg>name of
     element</Arg>'.  If you have not named the elements of the quiver
     then the default names are v1, v2, ... and a1, a2, ... in the order
     they are created.
@@ -450,67 +450,67 @@ false
   </ManSection>
 
   <ManSection>
-   <Attr Name="VerticesOfQuiver" Arg="object" Comm=""/>
-   <Description>
-    An attribute. Returns a list of paths that are vertices
-    in <Arg>object</Arg>.
-   </Description>
+   <Attr Name="VerticesOfQuiver" Arg="quiver" Comm=""/>
+   <Returns>
+    a list of paths that are vertices
+    in <Arg>quiver</Arg>.
+   </Returns>
   </ManSection>
 
   <ManSection>
-   <Attr Name="ArrowsOfQuiver" Arg="object" Comm=""/>
-   <Description>
-    An attribute. Returns a list of paths that are arrows
-    in <Arg>object</Arg>.
-   </Description>
+   <Attr Name="ArrowsOfQuiver" Arg="quiver" Comm=""/>
+   <Returns>
+    a list of paths that are arrows
+    in <Arg>quiver</Arg>.
+   </Returns>
   </ManSection>
 
   <ManSection>
-   <Attr Name="AdjacencyMatrixOfQuiver" Arg="object" Comm=""/>
-   <Description>
-    An attribute. Returns the adjacency matrix of <Arg>object</Arg>.
-   </Description>
+   <Attr Name="AdjacencyMatrixOfQuiver" Arg="quiver" Comm=""/>
+   <Returns>
+    the adjacency matrix of <Arg>quiver</Arg>.
+   </Returns>
   </ManSection>
 
   <ManSection>
-   <Attr Name="GeneratorsOfQuiver" Arg="object" Comm=""/>
-   <Description>
-    An attribute. Returns a list of the vertices and the arrows
-    in <Arg>object</Arg>. 
-   </Description>
+   <Attr Name="GeneratorsOfQuiver" Arg="quiver" Comm=""/>
+   <Returns>
+    a list of the vertices and the arrows
+    in <Arg>quiver</Arg>. 
+   </Returns>
   </ManSection>
 
   <ManSection>
-   <Attr Name="NumberOfVertices" Arg="object" Comm=""/>
-   <Description>
-    An attribute. Returns the number of vertices in <Arg>object</Arg>.
-   </Description>
+   <Attr Name="NumberOfVertices" Arg="quiver" Comm=""/>
+   <Returns>
+    the number of vertices in <Arg>quiver</Arg>.
+   </Returns>
   </ManSection>
 
   <ManSection>
-   <Attr Name="NumberOfArrows" Arg="object" Comm=""/>
-   <Description>
-    An attribute. Returns the number of arrows in <Arg>object</Arg>.
-   </Description>
+   <Attr Name="NumberOfArrows" Arg="quiver" Comm=""/>
+   <Returns>
+    the number of arrows in <Arg>quiver</Arg>.
+   </Returns>
   </ManSection>
 
   <ManSection>
-   <Attr Name="OrderingOfQuiver" Arg="object" Comm=""/>
-   <Description>
-    An attribute. Returns the ordering used to order elements
-    in <Arg>object</Arg>. See Section <Ref Sect="qpa:Orderings"/> for
+   <Attr Name="OrderingOfQuiver" Arg="quiver" Comm=""/>
+   <Returns>
+    the ordering used to order elements
+    in <Arg>quiver</Arg>. See Section <Ref Sect="qpa:Orderings"/> for
     more information.
-   </Description>
+   </Returns>
   </ManSection>
 
   <ManSection>
-   <Oper Name="OppositeOfQuiver" Arg="Q" Comm=""/>
-   <Description>
-     This takes the quiver <Arg>Q</Arg> and produces the opposite
-     quiver, where the vertices are labelled "name in original
+   <Oper Name="OppositeOfQuiver" Arg="quiver" Comm=""/>
+   <Returns>
+     the opposite
+     quiver of <Arg>quiver</Arg>, where the vertices are labelled "name in original
      quiver" + "_op" and the arrows are labelled "name in orginal
      quiver" + "_op". 
-   </Description>
+   </Returns>
   </ManSection>
 
 <Example>
@@ -593,47 +593,48 @@ false
 <Section><Heading>Attributes and Operations of Paths</Heading>
 
   <ManSection>
-   <Attr Name="SourceOfPath" Arg="object" Comm=""/>
-   <Description>
-    An attribute. Returns the source (first) vertex of <Arg>object</Arg>.
-   </Description>
+   <Attr Name="SourceOfPath" Arg="path" Comm=""/>
+   <Returns>
+    the source (first) vertex of <Arg>path</Arg>.
+   </Returns>
   </ManSection>
 
   <ManSection>
-   <Attr Name="TargetOfPath" Arg="object" Comm=""/>
-   <Description>
-    An attribute. Returns the target (last) vertex of <Arg>object</Arg>.
-   </Description>
+   <Attr Name="TargetOfPath" Arg="path" Comm=""/>
+   <Returns>
+    the target (last) vertex of <Arg>path</Arg>.
+   </Returns>
   </ManSection>
 
   <ManSection>
-   <Attr Name="LengthOfPath" Arg="object" Comm=""/>
-   <Description>
-    An attribute. Returns the length of <Arg>object</Arg>.
-   </Description>
+   <Attr Name="LengthOfPath" Arg="path" Comm=""/>
+   <Returns>
+    the length of <Arg>path</Arg>.
+   </Returns>
   </ManSection>
 
   <ManSection>
-   <Attr Name="WalkOfPath" Arg="object" Comm=""/>
-   <Description>
-    An attribute. Returns a list of the arrows that
-    constitue <Arg>object</Arg> in order.
-   </Description>
+   <Attr Name="WalkOfPath" Arg="path" Comm=""/>
+   <Returns>
+    a list of the arrows that constitute <Arg>path</Arg> in order.
+   </Returns>
   </ManSection>
 
   <ManSection>
    <Oper Name="*" Arg="p, q" Comm=""/>
-   <Description>
-    The operation <Ref Oper="*"/> operates on <Arg>p</Arg>
-    and <Arg>q</Arg>, which are two paths in the same quiver. It
-    returns the multiplication of the paths. If the paths are not in
+   <Description> 
+    Arguments: <Arg>p</Arg>
+    and <Arg>q</Arg> -- two paths in the same quiver.
+   <Br /></Description>
+   <Returns> 
+    the multiplication of the paths. If the paths are not in
     the same quiver an error is returned. If the target
     of <Arg>p</Arg> differs from the source of <Arg>q</Arg>, then the
     result is the zero path.  Otherwise, if either path is a vertex,
     then the result is the other path.  Finally, if both are paths of
     length at least 1, then the result is the concatenation of the
     walks of the two paths.
-    </Description>
+   </Returns>
   </ManSection>
 
 <Example>
@@ -660,23 +661,24 @@ gap&gt; LengthOfPath(q1.v);
 
   <ManSection>
    <Oper Name="=" Arg="p, q" Comm="equality"/>
-   <Description>
-    The operation <Ref Oper="="/> operates on two paths <Arg>p</Arg>
-    and <Arg>q</Arg>, and compares the paths for equality. Two paths
+   <Description> 
+    Arguments: <Arg>p</Arg> and <Arg>q</Arg> -- two paths in the same quiver.
+   <Br /></Description>
+   <Returns> 
+   true if the two paths are equal. Two paths
     are equal if they have the same source and the same target and if
-    they have the same walks.  The paths <Arg>p</Arg> and <Arg>q</Arg>
-    must be in the same quiver.
-   </Description>
+    they have the same walks.
+   </Returns>
   </ManSection>
 
   <ManSection>
    <Oper Name="&lt;" Arg="p, q" Comm="lessthan"/>
-   <Description>
-    The operation <Ref Oper="&lt;"/> operates on two
-    paths <Arg>p</Arg> and <Arg>q</Arg>, and compares them with
-    respect to the ordering of the quiver. This is meaningful only if
-    <Arg>p</Arg> and <Arg>q</Arg> are in the same quiver.
-   </Description>
+   <Description> 
+    Arguments: <Arg>p</Arg> and <Arg>q</Arg> -- two paths in the same quiver.
+   <Br /></Description>
+   <Returns>
+    a comparison of the two paths with respect to the ordering of the quiver.
+   </Returns>
   </ManSection>
 
 <Example>
@@ -692,45 +694,45 @@ true
 <Section><Heading>Attributes of Vertices</Heading>
 
   <ManSection>
-   <Attr Name="IncomingArrowsOfVertex" Arg="object" Comm=""/>
-   <Description>
-    An attribute. Returns a list of arrows having <Arg>object</Arg> as
-    target. Only meaningful if <Arg>object</Arg> is in a quiver.
-   </Description>
+   <Attr Name="IncomingArrowsOfVertex" Arg="vertex" Comm=""/>
+   <Returns>
+    a list of arrows having <Arg>vertex</Arg> as
+    target. Only meaningful if <Arg>vertex</Arg> is in a quiver.
+   </Returns>
   </ManSection>
 
   <ManSection>
-   <Attr Name="OutgoingArrowsOfVertex" Arg="object" Comm=""/>
-   <Description>
-    An attribute. Returns a list of arrows having <Arg>object</Arg> as
+   <Attr Name="OutgoingArrowsOfVertex" Arg="vertex" Comm=""/>
+   <Returns>
+    a list of arrows having <Arg>vertex</Arg> as
     source.
-   </Description>
+   </Returns>
   </ManSection>
 
   <ManSection>
-   <Attr Name="InDegreeOfVertex" Arg="object" Comm=""/>
-   <Description>
-    An attribute. Returns the number of arrows
-    having <Arg>object</Arg> as target. Only meaningful
-    if <Arg>object</Arg> is in a quiver. 
-   </Description>
+   <Attr Name="InDegreeOfVertex" Arg="vertex" Comm=""/>
+   <Returns>
+    the number of arrows
+    having <Arg>vertex</Arg> as target. Only meaningful
+    if <Arg>vertex</Arg> is in a quiver. 
+   </Returns>
   </ManSection>
 
   <ManSection>
-   <Attr Name="OutDegreeOfVertex" Arg="object" Comm=""/>
-   <Description>
-    An attribute. Returns the number of arrows
-    having <Arg>object</Arg> as source.
-   </Description>
+   <Attr Name="OutDegreeOfVertex" Arg="vertex" Comm=""/>
+   <Returns>
+    the number of arrows
+    having <Arg>vertex</Arg> as source.
+   </Returns>
   </ManSection>
 
   <ManSection>
-   <Attr Name="NeighborsOfVertex" Arg="object" Comm=""/>
-   <Description>
-    An attribute. Returns a list of neighbors of <Arg>object</Arg>,
+   <Attr Name="NeighborsOfVertex" Arg="vertex" Comm=""/>
+   <Returns>
+    a list of neighbors of <Arg>vertex</Arg>,
     that is, vertices that are targets of arrows
-    having <Arg>object</Arg> as source. 
-    </Description>
+    having <Arg>vertex</Arg> as source. 
+    </Returns>
   </ManSection>
 
 <Example>
