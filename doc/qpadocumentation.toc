@@ -40,8 +40,8 @@
 \contentsline {section}{\numberline {2.8}\leavevmode {\color {Chapter }Attributes of Vertices}}{19}{section.2.8}
 \contentsline {subsection}{\numberline {2.8.1}\leavevmode {\color {Chapter }IncomingArrowsOfVertex}}{19}{subsection.2.8.1}
 \contentsline {subsection}{\numberline {2.8.2}\leavevmode {\color {Chapter }OutgoingArrowsOfVertex}}{19}{subsection.2.8.2}
-\contentsline {subsection}{\numberline {2.8.3}\leavevmode {\color {Chapter }InDegreeOfVertex}}{20}{subsection.2.8.3}
-\contentsline {subsection}{\numberline {2.8.4}\leavevmode {\color {Chapter }OutDegreeOfVertex}}{20}{subsection.2.8.4}
+\contentsline {subsection}{\numberline {2.8.3}\leavevmode {\color {Chapter }InDegreeOfVertex}}{19}{subsection.2.8.3}
+\contentsline {subsection}{\numberline {2.8.4}\leavevmode {\color {Chapter }OutDegreeOfVertex}}{19}{subsection.2.8.4}
 \contentsline {subsection}{\numberline {2.8.5}\leavevmode {\color {Chapter }NeighborsOfVertex}}{20}{subsection.2.8.5}
 \contentsline {chapter}{\numberline {3}\leavevmode {\color {Chapter }Path Algebras}}{21}{chapter.3}
 \contentsline {section}{\numberline {3.1}\leavevmode {\color {Chapter }Introduction}}{21}{section.3.1}

@@ -89,7 +89,7 @@
   \item \texttt  {IncomingArrowsOfVertex}, \hyperpage{19}
   \item \texttt  {IndecInjectiveModules}, \hyperpage{47}
   \item \texttt  {IndecProjectiveModules}, \hyperpage{47}
-  \item \texttt  {InDegreeOfVertex}, \hyperpage{20}
+  \item \texttt  {InDegreeOfVertex}, \hyperpage{19}
   \item \texttt  {InfoGroebnerBasis}, \hyperpage{32}
   \item \texttt  {InfoPathAlgebra}, \hyperpage{21}
   \item \texttt  {InfoQuiver}, \hyperpage{13}
@@ -187,7 +187,7 @@
   \item \texttt  {OrderedBy}, \hyperpage{14}, \hyperpage{21}
   \item \texttt  {OrderingOfQuiver}, \hyperpage{16}
   \item \texttt  {OriginalPathAlgebra}, \hyperpage{28}
-  \item \texttt  {OutDegreeOfVertex}, \hyperpage{20}
+  \item \texttt  {OutDegreeOfVertex}, \hyperpage{19}
   \item \texttt  {OutgoingArrowsOfVertex}, \hyperpage{19}
 
   \indexspace

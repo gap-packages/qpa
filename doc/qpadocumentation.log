@@ -1,24 +1,20 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2011.8.11)  4 APR 2012 11:53
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009) (format=pdflatex 2010.5.14)  11 APR 2012 14:40
 entering extended mode
- restricted \write18 enabled.
  %&-line parsing enabled.
 **qpadocumentation
 (./qpadocumentation.tex
-LaTeX2e <2011/06/27>
-Babel <v3.8m> and hyphenation patterns for english, dumylang, nohyphenation, ge
-rman-x-2011-07-01, ngerman-x-2011-07-01, afrikaans, ancientgreek, ibycus, arabi
-c, armenian, basque, bulgarian, catalan, pinyin, coptic, croatian, czech, danis
-h, dutch, ukenglish, usenglishmax, esperanto, estonian, ethiopic, farsi, finnis
-h, french, galician, german, ngerman, swissgerman, monogreek, greek, hungarian,
- icelandic, assamese, bengali, gujarati, hindi, kannada, malayalam, marathi, or
-iya, panjabi, tamil, telugu, indonesian, interlingua, irish, italian, kurmanji,
- lao, latin, latvian, lithuanian, mongolian, mongolianlmc, bokmal, nynorsk, pol
-ish, portuguese, romanian, russian, sanskrit, serbian, serbianc, slovak, sloven
-ian, spanish, swedish, turkish, turkmen, ukrainian, uppersorbian, welsh, loaded
-.
-(/usr/lib/texlive/texmf-dist/tex/latex/base/report.cls
+LaTeX2e <2009/09/24>
+Babel <v3.8l> and hyphenation patterns for english, usenglishmax, dumylang, noh
+yphenation, german-x-2009-06-19, ngerman-x-2009-06-19, ancientgreek, ibycus, ar
+abic, basque, bulgarian, catalan, pinyin, coptic, croatian, czech, danish, dutc
+h, esperanto, estonian, farsi, finnish, french, galician, german, ngerman, mono
+greek, greek, hungarian, icelandic, indonesian, interlingua, irish, italian, ku
+rmanji, latin, latvian, lithuanian, mongolian, mongolian2a, bokmal, nynorsk, po
+lish, portuguese, romanian, russian, sanskrit, serbian, slovak, slovenian, span
+ish, swedish, turkish, ukenglish, ukrainian, uppersorbian, welsh, loaded.
+(/usr/local/texlive/2009/texmf-dist/tex/latex/base/report.cls
 Document Class: report 2007/10/19 v1.4h Standard LaTeX document class
-(/usr/lib/texlive/texmf-dist/tex/latex/base/size11.clo
+(/usr/local/texlive/2009/texmf-dist/tex/latex/base/size11.clo
 File: size11.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 )
 \c@part=\count79
@@ -34,14 +30,16 @@ File: size11.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 \belowcaptionskip=\skip42
 \bibindent=\dimen102
 )
-(/usr/lib/texlive/texmf-dist/tex/latex/a4wide/a4wide.sty
+(/usr/local/texlive/2009/texmf-dist/tex/latex/ltxmisc/a4wide.sty
 Package: a4wide 1994/08/30
 
-(/usr/lib/texlive/texmf-local/tex/latex/local/a4.sty))
-(/usr/lib/texlive/texmf-dist/tex/latex/amsfonts/amssymb.sty
+(/usr/local/texlive/2009/texmf-dist/tex/latex/ntgclass/a4.sty
+Package: a4 2004/04/15 v1.2g A4 based page layout
+))
+(/usr/local/texlive/2009/texmf-dist/tex/latex/amsfonts/amssymb.sty
 Package: amssymb 2009/06/22 v3.00
 
-(/usr/lib/texlive/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+(/usr/local/texlive/2009/texmf-dist/tex/latex/amsfonts/amsfonts.sty
 Package: amsfonts 2009/06/22 v3.00 Basic AMSFonts support
 \@emptytoks=\toks14
 \symAMSa=\mathgroup4
@@ -49,15 +47,15 @@ Package: amsfonts 2009/06/22 v3.00 Basic AMSFonts support
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 96.
 ))
-(/usr/lib/texlive/texmf-dist/tex/latex/base/inputenc.sty
+(/usr/local/texlive/2009/texmf-dist/tex/latex/base/inputenc.sty
 Package: inputenc 2008/03/30 v1.1d Input encoding file
 \inpenc@prehook=\toks15
 \inpenc@posthook=\toks16
 
-(/usr/lib/texlive/texmf-dist/tex/latex/base/latin1.def
+(/usr/local/texlive/2009/texmf-dist/tex/latex/base/latin1.def
 File: latin1.def 2008/03/30 v1.1d Input encoding file
 ))
-(/usr/lib/texlive/texmf-dist/tex/latex/base/makeidx.sty
+(/usr/local/texlive/2009/texmf-dist/tex/latex/base/makeidx.sty
 Package: makeidx 2000/03/29 v1.0m Standard LaTeX package
 )
 \@indexfile=\write3
@@ -65,30 +63,24 @@ Package: makeidx 2000/03/29 v1.0m Standard LaTeX package
 
 
 Writing index file qpadocumentation.idx
-(/usr/lib/texlive/texmf-dist/tex/latex/graphics/color.sty
+(/usr/local/texlive/2009/texmf-dist/tex/latex/graphics/color.sty
 Package: color 2005/11/14 v1.0j Standard LaTeX Color (DPC)
 
-(/usr/lib/texlive/texmf-dist/tex/latex/latexconfig/color.cfg
+(/usr/local/texlive/2009/texmf-dist/tex/latex/latexconfig/color.cfg
 File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
 )
 Package color Info: Driver file: pdftex.def on input line 130.
 
-(/usr/lib/texlive/texmf-dist/tex/latex/pdftex-def/pdftex.def
-File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
-
-(/usr/lib/texlive/texmf-dist/tex/generic/oberdiek/infwarerr.sty
-Package: infwarerr 2010/04/08 v1.3 Providing info/warning/message (HO)
-)
-(/usr/lib/texlive/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
-Package: ltxcmds 2011/04/18 v1.20 LaTeX kernel commands for general use (HO)
-)
+(/usr/local/texlive/2009/texmf-dist/tex/latex/pdftex-def/pdftex.def
+File: pdftex.def 2009/08/25 v0.04m Graphics/color for pdfTeX
 \Gread@gobject=\count88
 ))
-(/usr/lib/texlive/texmf-dist/tex/latex/fancyvrb/fancyvrb.sty
+(/usr/local/texlive/2009/texmf-dist/tex/latex/fancyvrb/fancyvrb.sty
 Package: fancyvrb 2008/02/07
 
 Style option: `fancyvrb' v2.7a, with DG/SPQR fixes, and firstline=lastline fix 
-<2008/02/07> (tvz) (/usr/lib/texlive/texmf-dist/tex/latex/graphics/keyval.sty
+<2008/02/07> (tvz)
+(/usr/local/texlive/2009/texmf-dist/tex/latex/graphics/keyval.sty
 Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
 \KV@toks@=\toks17
 )
@@ -98,7 +90,8 @@ Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
 \c@FancyVerbLine=\count90
 \FV@StepNumber=\count91
 \FV@OutFile=\write4
-) (/usr/lib/texlive/texmf-dist/tex/latex/pslatex/pslatex.sty
+)
+(/usr/local/texlive/2009/texmf-dist/tex/latex/pslatex/pslatex.sty
 Package: pslatex 1996/07/24 v1.2 pslatex emulation (DPC)
 LaTeX Font Info:    Redeclaring symbol font `operators' on input line 65.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
@@ -133,24 +126,24 @@ LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
 (Font)                  OT1/cmr/bx/it --> OT1/ptm/m/it on input line 75.
 )
-(/usr/lib/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty
+(/usr/local/texlive/2009/texmf-dist/tex/latex/amsmath/amsmath.sty
 Package: amsmath 2000/07/18 v2.13 AMS math features
 \@mathmargin=\skip43
 
 For additional information on amsmath, use the `?' option.
-(/usr/lib/texlive/texmf-dist/tex/latex/amsmath/amstext.sty
+(/usr/local/texlive/2009/texmf-dist/tex/latex/amsmath/amstext.sty
 Package: amstext 2000/06/29 v2.01
 
-(/usr/lib/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty
+(/usr/local/texlive/2009/texmf-dist/tex/latex/amsmath/amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0
 \@emptytoks=\toks18
 \ex@=\dimen103
 ))
-(/usr/lib/texlive/texmf-dist/tex/latex/amsmath/amsbsy.sty
+(/usr/local/texlive/2009/texmf-dist/tex/latex/amsmath/amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d
 \pmbraise@=\dimen104
 )
-(/usr/lib/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty
+(/usr/local/texlive/2009/texmf-dist/tex/latex/amsmath/amsopn.sty
 Package: amsopn 1999/12/14 v2.01 operator names
 )
 \inf@bad=\count92
@@ -191,13 +184,14 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 568.
 LaTeX Info: Redefining \[ on input line 2666.
 LaTeX Info: Redefining \] on input line 2667.
 )
-(/usr/lib/texlive/texmf-dist/tex/generic/xypic/xy.sty
-(/usr/lib/texlive/texmf-dist/tex/generic/xypic/xy.tex Bootstrap'ing: catcodes,
-docmode, (/usr/lib/texlive/texmf-dist/tex/generic/xypic/xyrecat.tex)
-(/usr/lib/texlive/texmf-dist/tex/generic/xypic/xyidioms.tex)
+(/usr/local/texlive/2009/texmf-dist/tex/generic/xypic/xy.sty
+(/usr/local/texlive/2009/texmf-dist/tex/generic/xypic/xy.tex Bootstrap'ing:
+catcodes, docmode,
+(/usr/local/texlive/2009/texmf-dist/tex/generic/xypic/xyrecat.tex)
+(/usr/local/texlive/2009/texmf-dist/tex/generic/xypic/xyidioms.tex)
 
- Xy-pic version 3.8.6 <2011/05/27>
- Copyright (c) 1991-2011 by Kristoffer H. Rose <krisrose@tug.org>
+ Xy-pic version 3.7 <1999/02/16>
+ Copyright (c) 1991-1998 by Kristoffer H. Rose <krisrose@ens-lyon.fr>
  Xy-pic is free software: see the User's Guide for details.
 
 Loading kernel: messages; fonts; allocations: state,
@@ -249,16 +243,12 @@ utility macros; pictures: \xy, positions,
  decorations;
 kernel objects: directionals, circles, text; options; algorithms: directions,
 edges, connections;  Xy-pic loaded)
-(/usr/lib/texlive/texmf-dist/tex/generic/oberdiek/ifpdf.sty
-Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
-Package ifpdf Info: pdfTeX in PDF mode is detected.
-)
-Package: xy 2011/05/27 Xy-pic version 3.8.6
+Package: xy 1999/02/16 Xy-pic version 3.7
 
-(/usr/lib/texlive/texmf-dist/tex/generic/xypic/xyall.tex
- Xy-pic option: All features v.3.8
-(/usr/lib/texlive/texmf-dist/tex/generic/xypic/xycurve.tex
- Xy-pic option: Curve and Spline extension v.3.12 curve,
+(/usr/local/texlive/2009/texmf-dist/tex/generic/xypic/xyall.tex
+ Xy-pic option: All features v.3.3
+(/usr/local/texlive/2009/texmf-dist/tex/generic/xypic/xycurve.tex
+ Xy-pic option: Curve and Spline extension v.3.7 curve,
 \crv@cnt@=\count108
 \crvpts@=\toks27
 \splinebox@=\box32
@@ -269,22 +259,22 @@ Package: xy 2011/05/27 Xy-pic version 3.8.6
  circles,
 \L@=\dimen144
  loaded)
-(/usr/lib/texlive/texmf-dist/tex/generic/xypic/xyframe.tex
- Xy-pic option: Frame and Bracket extension v.3.13 loaded)
-(/usr/lib/texlive/texmf-dist/tex/generic/xypic/xycmtip.tex
- Xy-pic option: Computer Modern tip extension v.3.7
-(/usr/lib/texlive/texmf-dist/tex/generic/xypic/xytips.tex
- Xy-pic option: More Tips extension v.3.9 loaded) loaded)
-(/usr/lib/texlive/texmf-dist/tex/generic/xypic/xyline.tex
- Xy-pic option: Line styles extension v.3.10
+(/usr/local/texlive/2009/texmf-dist/tex/generic/xypic/xyframe.tex
+ Xy-pic option: Frame and Bracket extension v.3.7 loaded)
+(/usr/local/texlive/2009/texmf-dist/tex/generic/xypic/xycmtip.tex
+ Xy-pic option: Computer Modern tip extension v.3.3
+(/usr/local/texlive/2009/texmf-dist/tex/generic/xypic/xytips.tex
+ Xy-pic option: More Tips extension v.3.3 loaded) loaded)
+(/usr/local/texlive/2009/texmf-dist/tex/generic/xypic/xyline.tex
+ Xy-pic option: Line styles extension v.3.6
 \xylinethick@=\dimen145
  loaded)
-(/usr/lib/texlive/texmf-dist/tex/generic/xypic/xyrotate.tex
- Xy-pic option: Rotate and Scale extension v.3.8 loaded)
-(/usr/lib/texlive/texmf-dist/tex/generic/xypic/xycolor.tex
- Xy-pic option: Colour extension v.3.11 loaded)
-(/usr/lib/texlive/texmf-dist/tex/generic/xypic/xymatrix.tex
- Xy-pic option: Matrix feature v.3.14
+(/usr/local/texlive/2009/texmf-dist/tex/generic/xypic/xyrotate.tex
+ Xy-pic option: Rotate and Scale extension v.3.3 loaded)
+(/usr/local/texlive/2009/texmf-dist/tex/generic/xypic/xycolor.tex
+ Xy-pic option: Colour extension v.3.3 loaded)
+(/usr/local/texlive/2009/texmf-dist/tex/generic/xypic/xymatrix.tex
+ Xy-pic option: Matrix feature v.3.4
 \Row=\count109
 \Col=\count110
 \queue@=\toks28
@@ -293,141 +283,130 @@ Package: xy 2011/05/27 Xy-pic version 3.8.6
 \qcount@@=\count112
 \matrixsize@=\count113
  loaded)
-(/usr/lib/texlive/texmf-dist/tex/generic/xypic/xyarrow.tex
- Xy-pic option: Arrow and Path feature v.3.9 path, \ar, loaded)
-(/usr/lib/texlive/texmf-dist/tex/generic/xypic/xygraph.tex
- Xy-pic option: Graph feature v.3.11 loaded) loaded)
-(/usr/lib/texlive/texmf-dist/tex/generic/xypic/xypdf.tex
- Xy-pic option: PDF driver v.1.7 Xy-pic pdf driver: `color' extension support
-(/usr/lib/texlive/texmf-dist/tex/generic/xypic/xypdf-co.tex loaded)
-Xy-pic pdf driver: `curve' extension support
-(/usr/lib/texlive/texmf-dist/tex/generic/xypic/xypdf-cu.tex loaded)
-Xy-pic pdf driver: `frame' extension support
-(/usr/lib/texlive/texmf-dist/tex/generic/xypic/xypdf-fr.tex loaded)
-Xy-pic pdf driver: `line' extension support
-(/usr/lib/texlive/texmf-dist/tex/generic/xypic/xypdf-li.tex loaded)
-Xy-pic pdf driver: `rotate' extension support
-(/usr/lib/texlive/texmf-dist/tex/generic/xypic/xypdf-ro.tex loaded) loaded))
-(/usr/lib/texlive/texmf-dist/tex/latex/hyperref/hyperref.sty
-Package: hyperref 2011/04/17 v6.82g Hypertext links for LaTeX
+(/usr/local/texlive/2009/texmf-dist/tex/generic/xypic/xyarrow.tex
+ Xy-pic option: Arrow and Path feature v.3.5 path, \ar, loaded)
+(/usr/local/texlive/2009/texmf-dist/tex/generic/xypic/xygraph.tex
+ Xy-pic option: Graph feature v.3.7 loaded) loaded))
+(/usr/local/texlive/2009/texmf-dist/tex/latex/hyperref/hyperref.sty
+Package: hyperref 2009/10/09 v6.79a Hypertext links for LaTeX
 
-(/usr/lib/texlive/texmf-dist/tex/generic/oberdiek/hobsub-hyperref.sty
-Package: hobsub-hyperref 2011/04/23 v1.4 Bundle oberdiek, subset hyperref (HO)
-
-(/usr/lib/texlive/texmf-dist/tex/generic/oberdiek/hobsub-generic.sty
-Package: hobsub-generic 2011/04/23 v1.4 Bundle oberdiek, subset generic (HO)
-Package: hobsub 2011/04/23 v1.4 Subsetting bundle oberdiek (HO)
-Package hobsub Info: Skipping package `infwarerr' (already loaded).
-Package hobsub Info: Skipping package `ltxcmds' (already loaded).
-Package: ifluatex 2010/03/01 v1.3 Provides the ifluatex switch (HO)
-Package ifluatex Info: LuaTeX not detected.
-Package: ifvtex 2010/03/01 v1.5 Switches for detecting VTeX and its modes (HO)
+(/usr/local/texlive/2009/texmf-dist/tex/generic/oberdiek/ifpdf.sty
+Package: ifpdf 2009/04/10 v2.0 Provides the ifpdf switch (HO)
+Package ifpdf Info: pdfTeX in pdf mode detected.
+)
+(/usr/local/texlive/2009/texmf-dist/tex/generic/oberdiek/ifvtex.sty
+Package: ifvtex 2008/11/04 v1.4 Switches for detecting VTeX and its modes (HO)
 Package ifvtex Info: VTeX not detected.
-Package: intcalc 2007/09/27 v1.1 Expandable integer calculations (HO)
-Package hobsub Info: Skipping package `ifpdf' (already loaded).
-Package: etexcmds 2011/02/16 v1.5 Prefix for e-TeX command names (HO)
-Package etexcmds Info: Could not find \expanded.
-(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
-(etexcmds)             that some package has redefined \expanded.
-(etexcmds)             In the latter case, load this package earlier.
-Package: kvsetkeys 2011/04/07 v1.13 Key value parser (HO)
-Package: kvdefinekeys 2011/04/07 v1.3 Defining keys (HO)
-Package: pdftexcmds 2011/04/22 v0.16 Utilities of pdfTeX for LuaTeX (HO)
-Package pdftexcmds Info: LuaTeX not detected.
-Package pdftexcmds Info: \pdf@primitive is available.
-Package pdftexcmds Info: \pdf@ifprimitive is available.
-Package pdftexcmds Info: \pdfdraftmode found.
-Package: pdfescape 2011/04/04 v1.12 Provides string conversions (HO)
-Package: bigintcalc 2011/01/30 v1.2 Expandable big integer calculations (HO)
-Package: bitset 2011/01/30 v1.1 Data type bit set (HO)
-Package: uniquecounter 2011/01/30 v1.2 Provides unlimited unique counter (HO)
 )
-Package hobsub Info: Skipping package `hobsub' (already loaded).
-Package: letltxmacro 2010/09/02 v1.4 Let assignment for LaTeX macros (HO)
-Package: hopatch 2011/01/30 v1.0 Wrapper for package hooks (HO)
-Package: xcolor-patch 2011/01/30 xcolor patch
-Package: atveryend 2011/04/23 v1.7 Hooks at very end of document (HO)
-Package: atbegshi 2011/01/30 v1.15 At begin shipout hook (HO)
-Package: refcount 2010/12/01 v3.2 Data extraction from references (HO)
-Package: hycolor 2011/01/30 v1.7 Color options of hyperref/bookmark (HO)
+(/usr/local/texlive/2009/texmf-dist/tex/generic/ifxetex/ifxetex.sty
+Package: ifxetex 2009/01/23 v0.5 Provides ifxetex conditional
 )
-(/usr/lib/texlive/texmf-dist/tex/generic/ifxetex/ifxetex.sty
-Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
-)
-(/usr/lib/texlive/texmf-dist/tex/latex/oberdiek/kvoptions.sty
-Package: kvoptions 2010/12/23 v3.10 Keyval support for LaTeX options (HO)
-)
+(/usr/local/texlive/2009/texmf-dist/tex/latex/oberdiek/hycolor.sty
+Package: hycolor 2009/10/02 v1.5 Code for color options of hyperref/bookmark (H
+O)
+
+(/usr/local/texlive/2009/texmf-dist/tex/latex/oberdiek/xcolor-patch.sty
+Package: xcolor-patch 2009/10/02 xcolor patch
+))
 \@linkdim=\dimen146
 \Hy@linkcounter=\count114
 \Hy@pagecounter=\count115
 
-(/usr/lib/texlive/texmf-dist/tex/latex/hyperref/pd1enc.def
-File: pd1enc.def 2011/04/17 v6.82g Hyperref: PDFDocEncoding definition (HO)
+(/usr/local/texlive/2009/texmf-dist/tex/latex/hyperref/pd1enc.def
+File: pd1enc.def 2009/10/09 v6.79a Hyperref: PDFDocEncoding definition (HO)
 )
-\Hy@SavedSpaceFactor=\count116
+(/usr/local/texlive/2009/texmf-dist/tex/generic/oberdiek/etexcmds.sty
+Package: etexcmds 2007/12/12 v1.2 Prefix for e-TeX command names (HO)
 
-(/usr/lib/texlive/texmf-dist/tex/latex/latexconfig/hyperref.cfg
+(/usr/local/texlive/2009/texmf-dist/tex/generic/oberdiek/infwarerr.sty
+Package: infwarerr 2007/09/09 v1.2 Providing info/warning/message (HO)
+)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+)
+(/usr/local/texlive/2009/texmf-dist/tex/latex/latexconfig/hyperref.cfg
 File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
 )
+(/usr/local/texlive/2009/texmf-dist/tex/latex/oberdiek/kvoptions.sty
+Package: kvoptions 2009/08/13 v3.4 Keyval support for LaTeX options (HO)
 
-Package hyperref Warning: Unexpected value for option `pdftex'
-(hyperref)                is ignored on input line 3905.
+(/usr/local/texlive/2009/texmf-dist/tex/generic/oberdiek/kvsetkeys.sty
+Package: kvsetkeys 2009/07/30 v1.5 Key value parser with default handler suppor
+t (HO)
+))
+Package hyperref Info: Option `bookmarks' set `false' on input line 2864.
+Package hyperref Info: Option `colorlinks' set `true' on input line 2864.
+Package hyperref Info: Option `breaklinks' set `true' on input line 2864.
 
-
-Package hyperref Warning: Option `a4paper' is no longer used.
-
-Package hyperref Info: Option `bookmarks' set `false' on input line 3905.
-Package hyperref Info: Option `colorlinks' set `true' on input line 3905.
-Package hyperref Info: Option `breaklinks' set `true' on input line 3905.
 
 Package hyperref Warning: Option `pagecolor' is not available anymore.
 
-Package hyperref Info: Hyper figures OFF on input line 4026.
-Package hyperref Info: Link nesting OFF on input line 4031.
-Package hyperref Info: Hyper index ON on input line 4034.
-Package hyperref Info: Plain pages OFF on input line 4041.
-Package hyperref Info: Backreferencing ON on input line 4044.
-Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
-Package hyperref Info: Bookmarks OFF on input line 4270.
-(/usr/lib/texlive/texmf-dist/tex/latex/hyperref/backref.sty
-Package: backref 2010/08/30 v1.36 Bibliographical back referencing
-
-(/usr/lib/texlive/texmf-dist/tex/latex/oberdiek/rerunfilecheck.sty
-Package: rerunfilecheck 2011/04/15 v1.7 Rerun checks for auxiliary files (HO)
-Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
-82.
-))
-\c@Hy@tempcnt=\count117
-
-(/usr/lib/texlive/texmf-dist/tex/latex/url/url.sty
+Package hyperref Info: Hyper figures OFF on input line 2975.
+Package hyperref Info: Link nesting OFF on input line 2980.
+Package hyperref Info: Hyper index ON on input line 2983.
+Package hyperref Info: Plain pages OFF on input line 2990.
+Package hyperref Info: Backreferencing ON on input line 2993.
+Implicit mode ON; LaTeX internals redefined
+Package hyperref Info: Bookmarks OFF on input line 3197.
+(/usr/local/texlive/2009/texmf-dist/tex/latex/hyperref/backref.sty
+Package: backref 2006/09/05 v1.28 Bibliographical back referencing
+)
+(/usr/local/texlive/2009/texmf-dist/tex/latex/ltxmisc/url.sty
 \Urlmuskip=\muskip11
 Package: url 2006/04/12  ver 3.3  Verb mode for urls, etc.
 )
-LaTeX Info: Redefining \url on input line 4617.
-\Fld@menulength=\count118
+LaTeX Info: Redefining \url on input line 3428.
+
+(/usr/local/texlive/2009/texmf-dist/tex/generic/oberdiek/bitset.sty
+Package: bitset 2007/09/28 v1.0 Data type bit set (HO)
+
+(/usr/local/texlive/2009/texmf-dist/tex/generic/oberdiek/intcalc.sty
+Package: intcalc 2007/09/27 v1.1 Expandable integer calculations (HO)
+)
+(/usr/local/texlive/2009/texmf-dist/tex/generic/oberdiek/bigintcalc.sty
+Package: bigintcalc 2007/11/11 v1.1 Expandable big integer calculations (HO)
+
+(/usr/local/texlive/2009/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
+Package: pdftexcmds 2009/09/23 v0.6 LuaTeX support for pdfTeX utility functions
+ (HO)
+
+(/usr/local/texlive/2009/texmf-dist/tex/generic/oberdiek/ifluatex.sty
+Package: ifluatex 2009/04/17 v1.2 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+)
+(/usr/local/texlive/2009/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
+Package: ltxcmds 2009/08/05 v1.0 Some LaTeX kernel commands for general use (HO
+)
+)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+)))
+\Fld@menulength=\count116
 \Field@Width=\dimen147
 \Fld@charsize=\dimen148
-Package hyperref Info: Hyper figures OFF on input line 5701.
-Package hyperref Info: Link nesting OFF on input line 5706.
-Package hyperref Info: Hyper index ON on input line 5709.
-Package hyperref Info: backreferencing ON on input line 5714.
-Package hyperref Info: Link coloring ON on input line 5719.
-Package hyperref Info: Link coloring with OCG OFF on input line 5726.
-Package hyperref Info: PDF/A mode OFF on input line 5731.
-LaTeX Info: Redefining \ref on input line 5771.
-LaTeX Info: Redefining \pageref on input line 5775.
-\Hy@abspage=\count119
-\c@Item=\count120
-\c@Hfootnote=\count121
+\Field@toks=\toks30
+Package hyperref Info: Hyper figures OFF on input line 4377.
+Package hyperref Info: Link nesting OFF on input line 4382.
+Package hyperref Info: Hyper index ON on input line 4385.
+Package hyperref Info: backreferencing ON on input line 4390.
+Package hyperref Info: Link coloring ON on input line 4395.
+Package hyperref Info: Link coloring with OCG OFF on input line 4402.
+Package hyperref Info: PDF/A mode OFF on input line 4407.
+
+(/usr/local/texlive/2009/texmf-dist/tex/generic/oberdiek/atbegshi.sty
+Package: atbegshi 2008/07/31 v1.9 At begin shipout hook (HO)
 )
-
-Package hyperref Message: Driver: hpdftex.
-
-(/usr/lib/texlive/texmf-dist/tex/latex/hyperref/hpdftex.def
-File: hpdftex.def 2011/04/17 v6.82g Hyperref driver for pdfTeX
-\Fld@listcount=\count122
-\c@bookmark@seq@number=\count123
-\Hy@SectionHShift=\skip46
+\Hy@abspage=\count117
+\c@Item=\count118
+\c@Hfootnote=\count119
+)
+*hyperref using driver hpdftex*
+(/usr/local/texlive/2009/texmf-dist/tex/latex/hyperref/hpdftex.def
+File: hpdftex.def 2009/10/09 v6.79a Hyperref driver for pdfTeX
+\Fld@listcount=\count120
 )
 \pagenrlog=\write6
 \openout6 = `qpadocumentation.pnr'.
@@ -476,7 +455,7 @@ LaTeX Font Info:    ... okay on input line 51.
 LaTeX Font Info:    Checking defaults for OMS/pzccm/m/n on input line 51.
 LaTeX Font Info:    Try loading font information for OMS+pzccm on input line 51
 .
- (/usr/lib/texlive/texmf-dist/tex/latex/psnfss/omspzccm.fd
+ (/usr/local/texlive/2009/texmf-dist/tex/latex/psnfss/omspzccm.fd
 File: omspzccm.fd 2000/01/03 Fontinst v1.801 font definitions for OMS/pzccm.
 )
 LaTeX Font Info:    ... okay on input line 51.
@@ -487,68 +466,31 @@ LaTeX Font Info:    ... okay on input line 51.
 LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 51.
 LaTeX Font Info:    ... okay on input line 51.
 
-(/usr/lib/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
+(/usr/local/texlive/2009/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count124
+\scratchcounter=\count121
 \scratchdimen=\dimen149
 \scratchbox=\box33
-\nofMPsegments=\count125
-\nofMParguments=\count126
-\everyMPshowfont=\toks30
-\MPscratchCnt=\count127
+\nofMPsegments=\count122
+\nofMParguments=\count123
+\everyMPshowfont=\toks31
+\MPscratchCnt=\count124
 \MPscratchDim=\dimen150
-\MPnumerator=\count128
-\makeMPintoPDFobject=\count129
-\everyMPtoPDFconversion=\toks31
+\MPnumerator=\count125
+\everyMPtoPDFconversion=\toks32
 )
-LaTeX Font Info:    Try loading font information for OT1+ptmcm on input line 51
-.
- (/usr/lib/texlive/texmf-dist/tex/latex/psnfss/ot1ptmcm.fd
-File: ot1ptmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OT1/ptmcm.
-)
-LaTeX Font Info:    Try loading font information for OML+ptmcm on input line 51
-.
-
-(/usr/lib/texlive/texmf-dist/tex/latex/psnfss/omlptmcm.fd
-File: omlptmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OML/ptmcm.
-)
-LaTeX Font Info:    Try loading font information for OMX+psycm on input line 51
-.
-
-(/usr/lib/texlive/texmf-dist/tex/latex/psnfss/omxpsycm.fd
-File: omxpsycm.fd 2000/01/03 Fontinst v1.801 font definitions for OMX/psycm.
-)
-LaTeX Font Info:    Try loading font information for U+msa on input line 51.
-
-(/usr/lib/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
-File: umsa.fd 2009/06/22 v3.00 AMS symbols A
-)
-LaTeX Font Info:    Try loading font information for U+msb on input line 51.
-
-(/usr/lib/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
-File: umsb.fd 2009/06/22 v3.00 AMS symbols B
-)
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 51.
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 51.
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 51.
-Package xypdf Info: Line width: 0.43788pt on input line 51.
-\AtBeginShipoutBox=\box34
 Package hyperref Info: Link coloring ON on input line 51.
+ (/usr/local/texlive/2009/texmf-dist/tex/latex/hyperref/nameref.sty
+Package: nameref 2007/05/29 v2.31 Cross-referencing by name of section
 
-(/usr/lib/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
-Package: nameref 2010/04/30 v2.40 Cross-referencing by name of section
-
-(/usr/lib/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
-Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
+(/usr/local/texlive/2009/texmf-dist/tex/latex/oberdiek/refcount.sty
+Package: refcount 2008/08/11 v3.1 Data extraction from references (HO)
 )
-\c@section@level=\count130
+\c@section@level=\count126
 )
 LaTeX Info: Redefining \ref on input line 51.
 LaTeX Info: Redefining \pageref on input line 51.
-LaTeX Info: Redefining \nameref on input line 51.
+\AtBeginShipoutBox=\box34
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <24.88> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 55.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <14.4> not available
@@ -570,6 +512,39 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `\char' on input line 67.
 
+LaTeX Font Info:    Try loading font information for OT1+ptmcm on input line 70
+.
+(/usr/local/texlive/2009/texmf-dist/tex/latex/psnfss/ot1ptmcm.fd
+File: ot1ptmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OT1/ptmcm.
+)
+LaTeX Font Info:    Try loading font information for OML+ptmcm on input line 70
+.
+
+(/usr/local/texlive/2009/texmf-dist/tex/latex/psnfss/omlptmcm.fd
+File: omlptmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OML/ptmcm.
+)
+LaTeX Font Info:    Try loading font information for OMX+psycm on input line 70
+.
+
+(/usr/local/texlive/2009/texmf-dist/tex/latex/psnfss/omxpsycm.fd
+File: omxpsycm.fd 2000/01/03 Fontinst v1.801 font definitions for OMX/psycm.
+)
+LaTeX Font Info:    Try loading font information for U+msa on input line 70.
+
+(/usr/local/texlive/2009/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2009/06/22 v3.00 AMS symbols A
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 70.
+
+(/usr/local/texlive/2009/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2009/06/22 v3.00 AMS symbols B
+)
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 70.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 70.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 70.
 
 Underfull \hbox (badness 10000) in paragraph at lines 74--75
 
@@ -582,7 +557,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 76--79
 
 [1
 
-{/usr/lib/texlive/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+{/usr/local/texlive/2009/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 Underfull \hbox (badness 10000) in paragraph at lines 86--88
 
  []
@@ -615,17 +590,17 @@ Underfull \hbox (badness 10000) in paragraph at lines 112--113
 ]
 LaTeX Font Info:    Try loading font information for OML+ptm on input line 39.
 
-(/usr/lib/texlive/texmf-dist/tex/latex/psnfss/omlptm.fd
+(/usr/local/texlive/2009/texmf-dist/tex/latex/psnfss/omlptm.fd
 File: omlptm.fd 
 )
 LaTeX Font Info:    Font shape `OML/ptm/m/n' in size <10.95> not available
 (Font)              Font shape `OML/cmm/m/it' tried instead on input line 39.
- [4] [5] [6] [7])
+ [4] [5]
+[6] [7])
 \tf@toc=\write7
 \openout7 = `qpadocumentation.toc'.
 
-
-[8]
+ [8]
 Chapter 1.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <20.74> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 121.
@@ -637,6 +612,11 @@ LaTeX Font Info:    Font shape `OT1/phv/m/n' will be
 Chapter 2.
 
 Underfull \hbox (badness 10000) in paragraph at lines 331--334
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 350--359
 
  []
 
@@ -662,149 +642,66 @@ Underfull \hbox (badness 10000) in paragraph at lines 500--503
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 515--518
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 527--530
+[15] [16]
+Underfull \hbox (badness 10000) in paragraph at lines 658--661
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 539--542
-
- []
-
-[15]
-Underfull \hbox (badness 10000) in paragraph at lines 551--554
+Underfull \hbox (badness 10000) in paragraph at lines 670--673
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 563--566
+Underfull \hbox (badness 10000) in paragraph at lines 682--685
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 575--578
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 587--590
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 599--602
-
- []
-
-[16]
-Underfull \hbox (badness 10000) in paragraph at lines 649--652
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 661--664
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 673--676
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 685--688
+Underfull \hbox (badness 10000) in paragraph at lines 694--697
 
  []
 
 [17]
-Underfull \hbox (badness 10000) in paragraph at lines 717--720
+Underfull \hbox (badness 10000) in paragraph at lines 778--781
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 729--732
+Underfull \hbox (badness 10000) in paragraph at lines 819--822
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 741--744
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 753--756
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 765--768
-
- []
-
-[18]pdfTeX warning (ext4): destination with the same identifier (name{L.X812345
-6781234567}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.802 \hyperdef{L}{X8123456781234567}{}
-                                       
-Underfull \hbox (badness 10000) in paragraph at lines 803--806
-
- []
-
+[18]
 
 LaTeX Font Warning: Font shape `OML/ptm/bx/n' undefined
 (Font)              using `OML/ptm/m/it' instead
-(Font)              for symbol `textless' on input line 813.
+(Font)              for symbol `textless' on input line 833.
 
 LaTeX Font Info:    Font shape `OML/ptm/m/it' in size <12> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 813.
-LaTeX Font Info:    Try loading font information for OML+pcr on input line 818.
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 833.
+LaTeX Font Info:    Try loading font information for OML+pcr on input line 838.
 
-(/usr/lib/texlive/texmf-dist/tex/latex/psnfss/omlpcr.fd
+(/usr/local/texlive/2009/texmf-dist/tex/latex/psnfss/omlpcr.fd
 File: omlpcr.fd 
 )
 LaTeX Font Info:    Font shape `OML/pcr/m/n' in size <10.95> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 818.
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 838.
 
-Underfull \hbox (badness 10000) in paragraph at lines 816--819
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 844--847
+Underfull \hbox (badness 10000) in paragraph at lines 836--839
 
  []
 
+[19pdfTeX warning (ext4): destination with the same identifier (name{L.X8123456
+781234567}) has been already used, duplicate ignored
 
-Underfull \hbox (badness 10000) in paragraph at lines 856--859
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 868--871
-
- []
-
-[19]
-Underfull \hbox (badness 10000) in paragraph at lines 880--883
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 892--895
-
- []
-
-[20]
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.928 ...ntsize=\small,frame=single,label=Example]
+                                                  ] [20]
 Chapter 3.
 
-Underfull \hbox (badness 10000) in paragraph at lines 931--934
+Underfull \hbox (badness 10000) in paragraph at lines 959--962
 
  []
 
@@ -812,16 +709,16 @@ pdfTeX warning (ext4): destination with the same identifier (name{L.X83E4980082
 33E2DD}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.974 \hyperdef{L}{X83E498008233E2DD}{}
-                                       
-Underfull \hbox (badness 10000) in paragraph at lines 996--999
+l.1002 \hyperdef{L}{X83E498008233E2DD}{}
+                                        
+Underfull \hbox (badness 10000) in paragraph at lines 1024--1027
 
  []
 
 [21
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 1021--1024
+Underfull \hbox (badness 10000) in paragraph at lines 1049--1052
 
  []
 
@@ -829,132 +726,132 @@ pdfTeX warning (ext4): destination with the same identifier (name{L.X7821AC0978
 21AC09}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.1037 \hyperdef{L}{X7821AC097821AC09}{}
+l.1065 \hyperdef{L}{X7821AC097821AC09}{}
                                         
-Underfull \hbox (badness 10000) in paragraph at lines 1038--1041
+Underfull \hbox (badness 10000) in paragraph at lines 1066--1069
 
  []
 
 LaTeX Font Info:    Font shape `OML/ptm/bx/n' in size <12> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 1061.
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 1089.
 
 pdfTeX warning (ext4): destination with the same identifier (name{L.X871A3B1D87
 1A3B1D}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.1063 \hyperdef{L}{X871A3B1D871A3B1D}{}
+l.1091 \hyperdef{L}{X871A3B1D871A3B1D}{}
                                         
-Underfull \hbox (badness 10000) in paragraph at lines 1064--1067
+Underfull \hbox (badness 10000) in paragraph at lines 1092--1095
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1076--1079
+Underfull \hbox (badness 10000) in paragraph at lines 1104--1107
 
  []
 
 [22]
-Underfull \hbox (badness 10000) in paragraph at lines 1088--1091
+Underfull \hbox (badness 10000) in paragraph at lines 1116--1119
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1100--1103
+Underfull \hbox (badness 10000) in paragraph at lines 1128--1131
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1129--1135
+Underfull \hbox (badness 10000) in paragraph at lines 1157--1163
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1145--1151
+Underfull \hbox (badness 10000) in paragraph at lines 1173--1179
 
  []
 
 [23]
-Underfull \hbox (badness 10000) in paragraph at lines 1160--1166
+Underfull \hbox (badness 10000) in paragraph at lines 1188--1194
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1187--1190
+Underfull \hbox (badness 10000) in paragraph at lines 1215--1218
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1200--1203
+Underfull \hbox (badness 10000) in paragraph at lines 1228--1231
 
  []
 
 [24]
-Underfull \hbox (badness 10000) in paragraph at lines 1259--1262
+Underfull \hbox (badness 10000) in paragraph at lines 1287--1290
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1271--1274
+Underfull \hbox (badness 10000) in paragraph at lines 1299--1302
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1283--1286
+Underfull \hbox (badness 10000) in paragraph at lines 1311--1314
 
  []
 
 [25]
-Underfull \hbox (badness 10000) in paragraph at lines 1325--1328
+Underfull \hbox (badness 10000) in paragraph at lines 1353--1356
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1350--1353
+Underfull \hbox (badness 10000) in paragraph at lines 1378--1381
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1362--1365
+Underfull \hbox (badness 10000) in paragraph at lines 1390--1393
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1383--1386
+Underfull \hbox (badness 10000) in paragraph at lines 1411--1414
 
  []
 
 [26]
-Underfull \hbox (badness 10000) in paragraph at lines 1395--1398
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1409--1412
-
- []
-
-
 Underfull \hbox (badness 10000) in paragraph at lines 1423--1426
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1435--1438
+Underfull \hbox (badness 10000) in paragraph at lines 1437--1440
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1447--1450
+Underfull \hbox (badness 10000) in paragraph at lines 1451--1454
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1459--1462
+Underfull \hbox (badness 10000) in paragraph at lines 1463--1466
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1475--1478
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1487--1490
 
  []
 
 [27]
-Underfull \hbox (badness 10000) in paragraph at lines 1478--1481
+Underfull \hbox (badness 10000) in paragraph at lines 1506--1509
 
  []
 
@@ -962,34 +859,24 @@ pdfTeX warning (ext4): destination with the same identifier (name{L.X871A3B1D87
 1A3B1D}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.1494 \hyperdef{L}{X871A3B1D871A3B1D}{}
+l.1522 \hyperdef{L}{X871A3B1D871A3B1D}{}
                                         
-Underfull \hbox (badness 10000) in paragraph at lines 1495--1498
+Underfull \hbox (badness 10000) in paragraph at lines 1523--1526
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1507--1510
+Underfull \hbox (badness 10000) in paragraph at lines 1535--1538
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1519--1522
+Underfull \hbox (badness 10000) in paragraph at lines 1547--1550
 
  []
 
 [28]
-Underfull \hbox (badness 10000) in paragraph at lines 1581--1584
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1594--1597
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1606--1609
+Underfull \hbox (badness 10000) in paragraph at lines 1609--1612
 
  []
 
@@ -998,132 +885,142 @@ Underfull \hbox (badness 10000) in paragraph at lines 1622--1625
 
  []
 
+
+Underfull \hbox (badness 10000) in paragraph at lines 1634--1637
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1650--1653
+
+ []
+
 [29]
-Underfull \hbox (badness 10000) in paragraph at lines 1638--1641
+Underfull \hbox (badness 10000) in paragraph at lines 1666--1669
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1676--1679
+Underfull \hbox (badness 10000) in paragraph at lines 1704--1707
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1688--1691
+Underfull \hbox (badness 10000) in paragraph at lines 1716--1719
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1700--1703
+Underfull \hbox (badness 10000) in paragraph at lines 1728--1731
 
  []
 
 [30]
-Underfull \hbox (badness 10000) in paragraph at lines 1743--1746
+Underfull \hbox (badness 10000) in paragraph at lines 1771--1774
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1755--1758
+Underfull \hbox (badness 10000) in paragraph at lines 1783--1786
 
  []
 
 [31]
 Chapter 4.
 
-Underfull \hbox (badness 10000) in paragraph at lines 1784--1787
+Underfull \hbox (badness 10000) in paragraph at lines 1812--1815
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1821--1824
+Underfull \hbox (badness 10000) in paragraph at lines 1849--1852
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1837--1840
+Underfull \hbox (badness 10000) in paragraph at lines 1865--1868
 
  []
 
 [32
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 1853--1856
+Underfull \hbox (badness 10000) in paragraph at lines 1881--1884
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1869--1872
+Underfull \hbox (badness 10000) in paragraph at lines 1897--1900
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1885--1888
+Underfull \hbox (badness 10000) in paragraph at lines 1913--1916
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1911--1914
+Underfull \hbox (badness 10000) in paragraph at lines 1939--1942
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1927--1930
+Underfull \hbox (badness 10000) in paragraph at lines 1955--1958
 
  []
 
 [33]
-Underfull \hbox (badness 10000) in paragraph at lines 1946--1949
+Underfull \hbox (badness 10000) in paragraph at lines 1974--1977
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1962--1965
+Underfull \hbox (badness 10000) in paragraph at lines 1990--1993
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1978--1981
+Underfull \hbox (badness 10000) in paragraph at lines 2006--2009
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1996--1999
+Underfull \hbox (badness 10000) in paragraph at lines 2024--2027
 
  []
 
 [34]
-Underfull \hbox (badness 10000) in paragraph at lines 2014--2017
+Underfull \hbox (badness 10000) in paragraph at lines 2042--2045
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2033--2036
+Underfull \hbox (badness 10000) in paragraph at lines 2061--2064
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2051--2054
+Underfull \hbox (badness 10000) in paragraph at lines 2079--2082
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2067--2070
+Underfull \hbox (badness 10000) in paragraph at lines 2095--2098
 
  []
 
 [35]
-Underfull \hbox (badness 10000) in paragraph at lines 2091--2094
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 2107--2110
-
- []
-
-
 Underfull \hbox (badness 10000) in paragraph at lines 2119--2122
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2135--2138
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2147--2150
 
  []
 
@@ -1136,7 +1033,7 @@ Chapter 6.
 [38
 
 ] [39]
-Underfull \hbox (badness 10000) in paragraph at lines 2301--2304
+Underfull \hbox (badness 10000) in paragraph at lines 2329--2332
 
  []
 
@@ -1144,59 +1041,59 @@ pdfTeX warning (ext4): destination with the same identifier (name{L.X8123456781
 234567}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.2323 \hyperdef{L}{X8123456781234567}{}
+l.2351 \hyperdef{L}{X8123456781234567}{}
                                         
-Underfull \hbox (badness 10000) in paragraph at lines 2324--2327
+Underfull \hbox (badness 10000) in paragraph at lines 2352--2355
 
  []
 
 [40] [41]
-Underfull \hbox (badness 1038) in paragraph at lines 2410--2415
+Underfull \hbox (badness 1038) in paragraph at lines 2438--2443
 []\OT1/ptm/b/n/10.95 Returns:  \OT1/ptm/m/n/10.95 the di-men-sion vec-tor of th
 e rep-re-sen-ta-tion []. The ar-gu-ment [] must be a
  []
 
 
-Underfull \hbox (badness 4132) in paragraph at lines 2426--2431
+Underfull \hbox (badness 4132) in paragraph at lines 2454--2459
 []\OT1/ptm/b/n/10.95 Returns:  \OT1/ptm/m/n/10.95 the di-men-sion of the rep-re
 -sen-ta-tion []. The ar-gu-ment [] must be a
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2470--2473
+Underfull \hbox (badness 10000) in paragraph at lines 2498--2501
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2482--2485
+Underfull \hbox (badness 10000) in paragraph at lines 2510--2513
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2495--2498
+Underfull \hbox (badness 10000) in paragraph at lines 2523--2526
 
  []
 
 [42] [43]
-Underfull \hbox (badness 3128) in paragraph at lines 2582--2587
+Underfull \hbox (badness 3128) in paragraph at lines 2610--2615
 []\OT1/ptm/b/n/10.95 Returns:  \OT1/ptm/m/n/10.95 true if the rep-re-sen-ta-tio
 n [] is in-jec-tive. The ar-gu-ment [] must be a
  []
 
 
-Underfull \hbox (badness 2521) in paragraph at lines 2595--2600
+Underfull \hbox (badness 2521) in paragraph at lines 2623--2628
 []\OT1/ptm/b/n/10.95 Returns:  \OT1/ptm/m/n/10.95 true if the rep-re-sen-ta-tio
 n [] is pro-jec-tive. The ar-gu-ment [] must be a
  []
 
 
-Underfull \hbox (badness 1968) in paragraph at lines 2608--2613
+Underfull \hbox (badness 1968) in paragraph at lines 2636--2641
 []\OT1/ptm/b/n/10.95 Returns:  \OT1/ptm/m/n/10.95 true if the rep-re-sen-ta-tio
 n [] is semisim-ple. The ar-gu-ment [] must be a
  []
 
 
-Underfull \hbox (badness 4072) in paragraph at lines 2621--2626
+Underfull \hbox (badness 4072) in paragraph at lines 2649--2654
 []\OT1/ptm/b/n/10.95 Returns:  \OT1/ptm/m/n/10.95 true if the rep-re-sen-ta-tio
 n [] is sim-ple. The ar-gu-ment [] must be a
  []
@@ -1205,14 +1102,14 @@ pdfTeX warning (ext4): destination with the same identifier (name{L.X7BEA44FB81
 9910B6}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.2633 \hyperdef{L}{X7BEA44FB819910B6}{}
+l.2661 \hyperdef{L}{X7BEA44FB819910B6}{}
                                          [44] [45] [46]
-Underfull \hbox (badness 10000) in paragraph at lines 2952--2955
+Underfull \hbox (badness 10000) in paragraph at lines 2980--2983
 
  []
 
 [47]
-Underfull \hbox (badness 10000) in paragraph at lines 2964--2967
+Underfull \hbox (badness 10000) in paragraph at lines 2992--2995
 
  []
 
@@ -1220,9 +1117,9 @@ Underfull \hbox (badness 10000) in paragraph at lines 2964--2967
 6781234567}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.3103 \hyperdef{L}{X8123456781234567}{}
+l.3131 \hyperdef{L}{X8123456781234567}{}
                                         
-Underfull \hbox (badness 10000) in paragraph at lines 3104--3107
+Underfull \hbox (badness 10000) in paragraph at lines 3132--3135
 
  []
 
@@ -1230,9 +1127,9 @@ Underfull \hbox (badness 10000) in paragraph at lines 3104--3107
 1D871A3B1D}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.3121 \hyperdef{L}{X871A3B1D871A3B1D}{}
+l.3149 \hyperdef{L}{X871A3B1D871A3B1D}{}
                                         
-Underfull \hbox (badness 10000) in paragraph at lines 3122--3125
+Underfull \hbox (badness 10000) in paragraph at lines 3150--3153
 
  []
 
@@ -1240,34 +1137,34 @@ pdfTeX warning (ext4): destination with the same identifier (name{L.X8123456781
 234567}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.3139 \hyperdef{L}{X8123456781234567}{}
+l.3167 \hyperdef{L}{X8123456781234567}{}
                                         
-Underfull \hbox (badness 10000) in paragraph at lines 3140--3143
+Underfull \hbox (badness 10000) in paragraph at lines 3168--3171
 
  []
 
 [50]
 Chapter 7.
 
-Underfull \hbox (badness 10000) in paragraph at lines 3212--3215
+Underfull \hbox (badness 10000) in paragraph at lines 3240--3243
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3217--3220
+Underfull \hbox (badness 10000) in paragraph at lines 3245--3248
 []\OT1/ptm/b/n/10.95 Returns:  \OT1/ptm/m/n/10.95 true or false de-pend-ing on 
 if [] be-longs to the cat-e-gories
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3217--3220
+Underfull \hbox (badness 10000) in paragraph at lines 3245--3248
 \OT1/pcr/m/n/10.95 IsAdditiveElementWithZero\OT1/ptm/m/n/10.95 , \OT1/pcr/m/n/1
 0.95 IsAdditiveElementWithInverse\OT1/ptm/m/n/10.95 , \OT1/pcr/m/n/10.95 IsGene
 ralMapping\OT1/ptm/m/n/10.95 ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3217--3220
+Underfull \hbox (badness 10000) in paragraph at lines 3245--3248
 \OT1/pcr/m/n/10.95 RespectsAddition\OT1/ptm/m/n/10.95 , \OT1/pcr/m/n/10.95 Resp
 ectsZero\OT1/ptm/m/n/10.95 , \OT1/pcr/m/n/10.95 RespectsScalarMultiplication\OT
 1/ptm/m/n/10.95 , \OT1/pcr/m/n/10.95 IsTotal \OT1/ptm/m/n/10.95 and
@@ -1276,71 +1173,71 @@ ectsZero\OT1/ptm/m/n/10.95 , \OT1/pcr/m/n/10.95 RespectsScalarMultiplication\OT
 [51
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 3230--3233
+Underfull \hbox (badness 10000) in paragraph at lines 3258--3261
 
  []
 
 
-Underfull \hbox (badness 1184) in paragraph at lines 3241--3245
+Underfull \hbox (badness 1184) in paragraph at lines 3269--3273
 [] \OT1/ptm/m/n/10.95 is a list of ma-tri-ces \OT1/pcr/m/n/10.95 mats[i]\OT1/pt
 m/m/n/10.95 , where \OT1/pcr/m/n/10.95 mats[i] \OT1/ptm/m/n/10.95 rep-re-sents 
 the lin-ear map from \OT1/pcr/m/n/10.95 M[i]
  []
 
 
-Underfull \hbox (badness 1132) in paragraph at lines 3241--3245
+Underfull \hbox (badness 1132) in paragraph at lines 3269--3273
 \OT1/ptm/m/n/10.95 zero, then \OT1/pcr/m/n/10.95 mats[i] \OT1/ptm/m/n/10.95 is 
 a \OT1/pcr/m/n/10.95 DimensionVector(M)[i] \OT1/ptm/m/n/10.95 by \OT1/pcr/m/n/1
 0.95 DimensionVector(N)[i] \OT1/ptm/m/n/10.95 ma-trix. If
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3272--3275
+Underfull \hbox (badness 10000) in paragraph at lines 3300--3303
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3288--3291
+Underfull \hbox (badness 10000) in paragraph at lines 3316--3319
 
  []
 
 [52]
-Underfull \hbox (badness 10000) in paragraph at lines 3315--3318
+Underfull \hbox (badness 10000) in paragraph at lines 3343--3346
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3333--3336
+Underfull \hbox (badness 10000) in paragraph at lines 3361--3364
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3351--3354
+Underfull \hbox (badness 10000) in paragraph at lines 3379--3382
 
  []
 
 [53]
-Underfull \hbox (badness 10000) in paragraph at lines 3389--3392
+Underfull \hbox (badness 10000) in paragraph at lines 3417--3420
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3405--3408
+Underfull \hbox (badness 10000) in paragraph at lines 3433--3436
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3421--3424
+Underfull \hbox (badness 10000) in paragraph at lines 3449--3452
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3437--3440
+Underfull \hbox (badness 10000) in paragraph at lines 3465--3468
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3453--3456
+Underfull \hbox (badness 10000) in paragraph at lines 3481--3484
 
  []
 
@@ -1348,205 +1245,205 @@ Underfull \hbox (badness 10000) in paragraph at lines 3453--3456
 F77ECB778E}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.3471 \hyperdef{L}{X7E8438F77ECB778E}{}
+l.3499 \hyperdef{L}{X7E8438F77ECB778E}{}
                                         
-Underfull \hbox (badness 10000) in paragraph at lines 3472--3475
+Underfull \hbox (badness 10000) in paragraph at lines 3500--3503
 
  []
 
 [55]
-Underfull \hbox (badness 10000) in paragraph at lines 3541--3544
+Underfull \hbox (badness 10000) in paragraph at lines 3569--3572
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3557--3560
+Underfull \hbox (badness 10000) in paragraph at lines 3585--3588
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3574--3577
+Underfull \hbox (badness 10000) in paragraph at lines 3602--3605
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3590--3593
+Underfull \hbox (badness 10000) in paragraph at lines 3618--3621
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3606--3609
+Underfull \hbox (badness 10000) in paragraph at lines 3634--3637
 
  []
 
 [56]
-Underfull \hbox (badness 10000) in paragraph at lines 3649--3652
+Underfull \hbox (badness 10000) in paragraph at lines 3677--3680
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3666--3669
+Underfull \hbox (badness 10000) in paragraph at lines 3694--3697
 
  []
 
 [57]
-Underfull \hbox (badness 10000) in paragraph at lines 3702--3705
+Underfull \hbox (badness 10000) in paragraph at lines 3730--3733
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3718--3721
+Underfull \hbox (badness 10000) in paragraph at lines 3746--3749
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3753--3759
+Underfull \hbox (badness 10000) in paragraph at lines 3781--3787
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3775--3778
+Underfull \hbox (badness 10000) in paragraph at lines 3803--3806
 
  []
 
 [58]
-Underfull \hbox (badness 10000) in paragraph at lines 3793--3796
+Underfull \hbox (badness 10000) in paragraph at lines 3821--3824
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3812--3815
+Underfull \hbox (badness 10000) in paragraph at lines 3840--3843
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3831--3843
+Underfull \hbox (badness 10000) in paragraph at lines 3859--3871
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3860--3866
+Underfull \hbox (badness 10000) in paragraph at lines 3888--3894
 
  []
 
 [59] [60]
-Underfull \hbox (badness 10000) in paragraph at lines 3969--3972
+Underfull \hbox (badness 10000) in paragraph at lines 3997--4000
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3987--3990
+Underfull \hbox (badness 10000) in paragraph at lines 4015--4018
 
  []
 
 [61] [62]
-Underfull \hbox (badness 10000) in paragraph at lines 4061--4064
+Underfull \hbox (badness 10000) in paragraph at lines 4089--4092
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 4077--4080
+Underfull \hbox (badness 10000) in paragraph at lines 4105--4108
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 4093--4096
+Underfull \hbox (badness 10000) in paragraph at lines 4121--4124
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 4110--4113
+Underfull \hbox (badness 10000) in paragraph at lines 4138--4141
 
  []
 
 [63]
-Underfull \hbox (badness 10000) in paragraph at lines 4163--4172
+Underfull \hbox (badness 10000) in paragraph at lines 4191--4200
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 4188--4191
+Underfull \hbox (badness 10000) in paragraph at lines 4216--4219
 
  []
 
 LaTeX Font Info:    Font shape `OML/pcr/m/sl' in size <10.95> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 4195.
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 4223.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 4206--4209
+Underfull \hbox (badness 10000) in paragraph at lines 4234--4237
 
  []
 
 [64]
-Underfull \hbox (badness 10000) in paragraph at lines 4224--4227
+Underfull \hbox (badness 10000) in paragraph at lines 4252--4255
 
  []
 
 [65]
-Underfull \hbox (badness 10000) in paragraph at lines 4318--4321
+Underfull \hbox (badness 10000) in paragraph at lines 4346--4349
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 4336--4339
+Underfull \hbox (badness 10000) in paragraph at lines 4364--4367
 
  []
 
 [66]
-Underfull \hbox (badness 10000) in paragraph at lines 4354--4357
+Underfull \hbox (badness 10000) in paragraph at lines 4382--4385
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 4373--4376
+Underfull \hbox (badness 10000) in paragraph at lines 4401--4404
 
  []
 
 [67]
-Underfull \hbox (badness 10000) in paragraph at lines 4427--4430
+Underfull \hbox (badness 10000) in paragraph at lines 4455--4458
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 4451--4454
+Underfull \hbox (badness 10000) in paragraph at lines 4479--4482
 
  []
 
 [68] [69]
 Chapter 8.
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/pzccm/m/n' tried instead on input line 4548
+(Font)              Font shape `OMS/pzccm/m/n' tried instead on input line 4576
 .
 
 LaTeX Warning: Reference `SingleObjectComplex' on page 70 undefined on input li
-ne 4549.
+ne 4577.
 
 
 LaTeX Warning: Reference `ShortExactSequence' on page 70 undefined on input lin
-e 4551.
+e 4579.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 4558--4561
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 4570--4573
+Underfull \hbox (badness 10000) in paragraph at lines 4586--4589
 
  []
 
 
-LaTeX Warning: Reference `IsCat' on page 70 undefined on input line 4590.
+Underfull \hbox (badness 10000) in paragraph at lines 4598--4601
+
+ []
+
+
+LaTeX Warning: Reference `IsCat' on page 70 undefined on input line 4618.
 
 [70
 
 ]
 
-LaTeX Warning: Reference `IsCat' on page 71 undefined on input line 4634.
+LaTeX Warning: Reference `IsCat' on page 71 undefined on input line 4662.
 
 [71]
 
-LaTeX Warning: Reference `IsCat' on page 72 undefined on input line 4652.
+LaTeX Warning: Reference `IsCat' on page 72 undefined on input line 4680.
 
 [72]
 Appendix A.
@@ -1566,16 +1463,7 @@ LaTeX Warning: Empty `thebibliography' environment on input line 3.
 
 ] [76] [77
 
-])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 4713.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 4713.
- (./qpadocumentation.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 4713.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 4713.
-
-Package rerunfilecheck Info: File `qpadocumentation.brf' has not changed.
-(rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
-
+]) (./qpadocumentation.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
@@ -1587,30 +1475,30 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 9882 strings out of 493629
- 137645 string characters out of 3146270
- 277377 words of memory out of 3000000
- 12422 multiletter control sequences out of 15000+200000
- 51287 words of font info for 113 fonts, out of 3000000 for 9000
- 831 hyphenation exceptions out of 8191
- 32i,7n,25p,3252b,613s stack positions out of 5000i,500n,10000p,200000b,50000s
-{/usr/lib/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/lib/texlive/te
-xmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/lib/texlive/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/lib/texlive/texmf-dist/fonts/t
-ype1/public/amsfonts/cm/cmr10.pfb></usr/lib/texlive/texmf-dist/fonts/type1/publ
-ic/amsfonts/cm/cmsy10.pfb></usr/lib/texlive/texmf-dist/fonts/type1/public/amsfo
-nts/symbols/msam10.pfb></usr/lib/texlive/texmf-dist/fonts/type1/urw/courier/ucr
-b8a.pfb></usr/lib/texlive/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/l
-ib/texlive/texmf-dist/fonts/type1/urw/courier/ucrro8a.pfb></usr/lib/texlive/tex
-mf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/lib/texlive/texmf-dist/fonts/
-type1/urw/symbol/usyr.pfb></usr/lib/texlive/texmf-dist/fonts/type1/urw/times/ut
-mb8a.pfb></usr/lib/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/li
-b/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/lib/texlive/texmf-d
-ist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on qpadocumentation.pdf (77 pages, 316200 bytes).
+ 8727 strings out of 493848
+ 121966 string characters out of 3149207
+ 236668 words of memory out of 3000000
+ 11236 multiletter control sequences out of 15000+200000
+ 51005 words of font info for 111 fonts, out of 3000000 for 9000
+ 714 hyphenation exceptions out of 8191
+ 38i,7n,33p,918b,579s stack positions out of 5000i,500n,10000p,200000b,50000s
+{/usr/local/texlive/2009/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
+exlive/2009/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/te
+xlive/2009/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/tex
+live/2009/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texli
+ve/2009/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texliv
+e/2009/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/te
+xlive/2009/texmf-dist/fonts/type1/urw/courier/ucrb8a.pfb></usr/local/texlive/20
+09/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2009/texmf
+-dist/fonts/type1/urw/courier/ucrro8a.pfb></usr/local/texlive/2009/texmf-dist/f
+onts/type1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/2009/texmf-dist/fonts/ty
+pe1/urw/symbol/usyr.pfb></usr/local/texlive/2009/texmf-dist/fonts/type1/urw/tim
+es/utmb8a.pfb></usr/local/texlive/2009/texmf-dist/fonts/type1/urw/times/utmr8a.
+pfb></usr/local/texlive/2009/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/
+local/texlive/2009/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on qpadocumentation.pdf (77 pages, 477644 bytes).
 PDF statistics:
- 1509 PDF objects out of 1728 (max. 8388607)
- 1401 compressed objects within 15 object streams
+ 1493 PDF objects out of 1728 (max. 8388607)
  579 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

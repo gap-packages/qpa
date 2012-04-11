@@ -97,9 +97,9 @@
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; Quiver</code>( <var class="Arg">N[, arrow1, arrow2, ...]</var> )</td><td class="tdright">( function )</td></tr></table></div>
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; Quiver</code>( <var class="Arg">[vertex1, vertex2, ..., ][arrow1, arrow2, ...]</var> )</td><td class="tdright">( function )</td></tr></table></div>
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; Quiver</code>( <var class="Arg">adjacencymatrix</var> )</td><td class="tdright">( function )</td></tr></table></div>
-<p><b>Returns: </b>a quiver, which satisfies the property <code class="func">IsQuiver</code> (<a href="chap2.html#X7E9C03497FD7778B"><b>2.3-1</b></a>).</p>
+<p>Arguments: First construction: <var class="Arg">N</var> -- number of vertices, <var class="Arg">[arrow1, arrow2, ...]</var> -- a list of arrows to specify the graph $\Gamma$. Second construction: <var class="Arg">[vertex1, vertex2, ...]</var> -- a list of vertex names, <var class="Arg">[arrow1, arrow2, ...]</var> -- a list of arrows. Third construction: takes an adjacency matrix for the graph $\Gamma$. <br /></p>
 
-<p>The first construction takes the number <var class="Arg">N</var> of vertices and a list of arrows to specify the graph $\Gamma$ and hence the quiver. The second construction takes a list of vertex names and a list of arrows for the same purpose. The third construction takes an adjacency matrix for the graph $\Gamma$.</p>
+<p><b>Returns: </b>a quiver, which satisfies the property <code class="func">IsQuiver</code> (<a href="chap2.html#X7E9C03497FD7778B"><b>2.3-1</b></a>).</p>
 
 <p>In the first and third constructions, the vertices are named `v1, v2, ...'. In the second construction, unique vertex names are given as strings in the list that is the first parameter. Each arrow is a list consisting of a source vertex and a target vertex, followed optionally by an arrow name as a string.</p>
 
@@ -159,15 +159,15 @@ v2
 
 <h5>2.3-2 IsAcyclicQuiver</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IsAcyclicQuiver</code>( <var class="Arg">object</var> )</td><td class="tdright">( property )</td></tr></table></div>
-<p>is true when <var class="Arg">object</var> is a quiver with no cycles.</p>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IsAcyclicQuiver</code>( <var class="Arg">quiver</var> )</td><td class="tdright">( property )</td></tr></table></div>
+<p>is true when <var class="Arg">quiver</var> is a quiver with no cycles.</p>
 
 <p><a id="X808A4061809A6E67" name="X808A4061809A6E67"></a></p>
 
 <h5>2.3-3 IsFinite</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IsFinite</code>( <var class="Arg">object</var> )</td><td class="tdright">( property )</td></tr></table></div>
-<p>is true when <var class="Arg">object</var> is a finite set. Synonymous with `IsAcyclicQuiver'.</p>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IsFinite</code>( <var class="Arg">quiver</var> )</td><td class="tdright">( property )</td></tr></table></div>
+<p>is true when <var class="Arg">quiver</var> is a finite set. Synonymous with `IsAcyclicQuiver'.</p>
 
 
 <table class="example">
@@ -206,63 +206,65 @@ false
 <h5>2.5-1 .</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; .</code>( <var class="Arg">Q, element</var> )</td><td class="tdright">( operation )</td></tr></table></div>
-<p>The operation <code class="func">.</code> operates on <var class="Arg">Q</var>, a quiver, and an element, a vertex or an arrow, to allow access to generators of the quiver. If you have named your vertices and arrows the the access looks like `<var class="Arg">Q</var>.<var class="Arg">name of element</var>'. If you have not named the elements of the quiver then the default names are v1, v2, ... and a1, a2, ... in the order they are created.</p>
+<p>Arguments: <var class="Arg">Q</var> -- a quiver, and <var class="Arg">element</var> -- a vertex or an arrow.</p>
+
+<p>The operation <code class="func">.</code> allows access to generators of the quiver. If you have named your vertices and arrows then the access looks like `<var class="Arg">Q</var>.<var class="Arg">name of element</var>'. If you have not named the elements of the quiver then the default names are v1, v2, ... and a1, a2, ... in the order they are created.</p>
 
 <p><a id="X7C82A4BC7FB329D8" name="X7C82A4BC7FB329D8"></a></p>
 
 <h5>2.5-2 VerticesOfQuiver</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; VerticesOfQuiver</code>( <var class="Arg">object</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
-<p>An attribute. Returns a list of paths that are vertices in <var class="Arg">object</var>.</p>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; VerticesOfQuiver</code>( <var class="Arg">quiver</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
+<p><b>Returns: </b>a list of paths that are vertices in <var class="Arg">quiver</var>.</p>
 
 <p><a id="X82C42D7D820D5F9B" name="X82C42D7D820D5F9B"></a></p>
 
 <h5>2.5-3 ArrowsOfQuiver</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; ArrowsOfQuiver</code>( <var class="Arg">object</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
-<p>An attribute. Returns a list of paths that are arrows in <var class="Arg">object</var>.</p>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; ArrowsOfQuiver</code>( <var class="Arg">quiver</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
+<p><b>Returns: </b>a list of paths that are arrows in <var class="Arg">quiver</var>.</p>
 
 <p><a id="X7AF572F081AEFE98" name="X7AF572F081AEFE98"></a></p>
 
 <h5>2.5-4 AdjacencyMatrixOfQuiver</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; AdjacencyMatrixOfQuiver</code>( <var class="Arg">object</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
-<p>An attribute. Returns the adjacency matrix of <var class="Arg">object</var>.</p>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; AdjacencyMatrixOfQuiver</code>( <var class="Arg">quiver</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
+<p><b>Returns: </b>the adjacency matrix of <var class="Arg">quiver</var>.</p>
 
 <p><a id="X7B4A7F0F813E63FC" name="X7B4A7F0F813E63FC"></a></p>
 
 <h5>2.5-5 GeneratorsOfQuiver</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; GeneratorsOfQuiver</code>( <var class="Arg">object</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
-<p>An attribute. Returns a list of the vertices and the arrows in <var class="Arg">object</var>.</p>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; GeneratorsOfQuiver</code>( <var class="Arg">quiver</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
+<p><b>Returns: </b>a list of the vertices and the arrows in <var class="Arg">quiver</var>.</p>
 
 <p><a id="X822BD7F37F8AF016" name="X822BD7F37F8AF016"></a></p>
 
 <h5>2.5-6 NumberOfVertices</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; NumberOfVertices</code>( <var class="Arg">object</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
-<p>An attribute. Returns the number of vertices in <var class="Arg">object</var>.</p>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; NumberOfVertices</code>( <var class="Arg">quiver</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
+<p><b>Returns: </b>the number of vertices in <var class="Arg">quiver</var>.</p>
 
 <p><a id="X7AC77C9C7D069663" name="X7AC77C9C7D069663"></a></p>
 
 <h5>2.5-7 NumberOfArrows</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; NumberOfArrows</code>( <var class="Arg">object</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
-<p>An attribute. Returns the number of arrows in <var class="Arg">object</var>.</p>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; NumberOfArrows</code>( <var class="Arg">quiver</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
+<p><b>Returns: </b>the number of arrows in <var class="Arg">quiver</var>.</p>
 
 <p><a id="X84D1D1AA82689B03" name="X84D1D1AA82689B03"></a></p>
 
 <h5>2.5-8 OrderingOfQuiver</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; OrderingOfQuiver</code>( <var class="Arg">object</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
-<p>An attribute. Returns the ordering used to order elements in <var class="Arg">object</var>. See Section <a href="chap2.html#X78BBB63B828EB9FB"><b>2.4</b></a> for more information.</p>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; OrderingOfQuiver</code>( <var class="Arg">quiver</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
+<p><b>Returns: </b>the ordering used to order elements in <var class="Arg">quiver</var>. See Section <a href="chap2.html#X78BBB63B828EB9FB"><b>2.4</b></a> for more information.</p>
 
 <p><a id="X825050BA7DCC6D43" name="X825050BA7DCC6D43"></a></p>
 
 <h5>2.5-9 OppositeOfQuiver</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; OppositeOfQuiver</code>( <var class="Arg">Q</var> )</td><td class="tdright">( operation )</td></tr></table></div>
-<p>This takes the quiver <var class="Arg">Q</var> and produces the opposite quiver, where the vertices are labelled "name in original quiver" + "_op" and the arrows are labelled "name in orginal quiver" + "_op".</p>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; OppositeOfQuiver</code>( <var class="Arg">quiver</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p><b>Returns: </b>the opposite quiver of <var class="Arg">quiver</var>, where the vertices are labelled "name in original quiver" + "_op" and the arrows are labelled "name in orginal quiver" + "_op".</p>
 
 
 <table class="example">
@@ -352,36 +354,38 @@ false
 
 <h5>2.7-1 SourceOfPath</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; SourceOfPath</code>( <var class="Arg">object</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
-<p>An attribute. Returns the source (first) vertex of <var class="Arg">object</var>.</p>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; SourceOfPath</code>( <var class="Arg">path</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
+<p><b>Returns: </b>the source (first) vertex of <var class="Arg">path</var>.</p>
 
 <p><a id="X86827D3F78F51815" name="X86827D3F78F51815"></a></p>
 
 <h5>2.7-2 TargetOfPath</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; TargetOfPath</code>( <var class="Arg">object</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
-<p>An attribute. Returns the target (last) vertex of <var class="Arg">object</var>.</p>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; TargetOfPath</code>( <var class="Arg">path</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
+<p><b>Returns: </b>the target (last) vertex of <var class="Arg">path</var>.</p>
 
 <p><a id="X7FF179D17C4F9FAC" name="X7FF179D17C4F9FAC"></a></p>
 
 <h5>2.7-3 LengthOfPath</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; LengthOfPath</code>( <var class="Arg">object</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
-<p>An attribute. Returns the length of <var class="Arg">object</var>.</p>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; LengthOfPath</code>( <var class="Arg">path</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
+<p><b>Returns: </b>the length of <var class="Arg">path</var>.</p>
 
 <p><a id="X781A8E06850E47B4" name="X781A8E06850E47B4"></a></p>
 
 <h5>2.7-4 WalkOfPath</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; WalkOfPath</code>( <var class="Arg">object</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
-<p>An attribute. Returns a list of the arrows that constitue <var class="Arg">object</var> in order.</p>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; WalkOfPath</code>( <var class="Arg">path</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
+<p><b>Returns: </b>a list of the arrows that constitute <var class="Arg">path</var> in order.</p>
 
 <p><a id="X8123456781234567" name="X8123456781234567"></a></p>
 
 <h5>2.7-5 *</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; *</code>( <var class="Arg">p, q</var> )</td><td class="tdright">( operation )</td></tr></table></div>
-<p>The operation <code class="func">*</code> operates on <var class="Arg">p</var> and <var class="Arg">q</var>, which are two paths in the same quiver. It returns the multiplication of the paths. If the paths are not in the same quiver an error is returned. If the target of <var class="Arg">p</var> differs from the source of <var class="Arg">q</var>, then the result is the zero path. Otherwise, if either path is a vertex, then the result is the other path. Finally, if both are paths of length at least 1, then the result is the concatenation of the walks of the two paths.</p>
+<p>Arguments: <var class="Arg">p</var> and <var class="Arg">q</var> -- two paths in the same quiver. <br /></p>
+
+<p><b>Returns: </b>the multiplication of the paths. If the paths are not in the same quiver an error is returned. If the target of <var class="Arg">p</var> differs from the source of <var class="Arg">q</var>, then the result is the zero path. Otherwise, if either path is a vertex, then the result is the other path. Finally, if both are paths of length at least 1, then the result is the concatenation of the walks of the two paths.</p>
 
 
 <table class="example">
@@ -412,14 +416,18 @@ gap&gt; LengthOfPath(q1.v);
 <h5>2.7-6 =</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; =</code>( <var class="Arg">p, q</var> )</td><td class="tdright">( operation )</td></tr></table></div>
-<p>The operation <code class="func">=</code> operates on two paths <var class="Arg">p</var> and <var class="Arg">q</var>, and compares the paths for equality. Two paths are equal if they have the same source and the same target and if they have the same walks. The paths <var class="Arg">p</var> and <var class="Arg">q</var> must be in the same quiver.</p>
+<p>Arguments: <var class="Arg">p</var> and <var class="Arg">q</var> -- two paths in the same quiver. <br /></p>
+
+<p><b>Returns: </b>true if the two paths are equal. Two paths are equal if they have the same source and the same target and if they have the same walks.</p>
 
 <p><a id="X871A3B1D871A3B1D" name="X871A3B1D871A3B1D"></a></p>
 
 <h5>2.7-7 &lt;</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; &lt;</code>( <var class="Arg">p, q</var> )</td><td class="tdright">( operation )</td></tr></table></div>
-<p>The operation <code class="func">&lt;</code> operates on two paths <var class="Arg">p</var> and <var class="Arg">q</var>, and compares them with respect to the ordering of the quiver. This is meaningful only if <var class="Arg">p</var> and <var class="Arg">q</var> are in the same quiver.</p>
+<p>Arguments: <var class="Arg">p</var> and <var class="Arg">q</var> -- two paths in the same quiver. <br /></p>
+
+<p><b>Returns: </b>a comparison of the two paths with respect to the ordering of the quiver.</p>
 
 
 <table class="example">
@@ -440,36 +448,36 @@ true
 
 <h5>2.8-1 IncomingArrowsOfVertex</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IncomingArrowsOfVertex</code>( <var class="Arg">object</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
-<p>An attribute. Returns a list of arrows having <var class="Arg">object</var> as target. Only meaningful if <var class="Arg">object</var> is in a quiver.</p>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IncomingArrowsOfVertex</code>( <var class="Arg">vertex</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
+<p><b>Returns: </b>a list of arrows having <var class="Arg">vertex</var> as target. Only meaningful if <var class="Arg">vertex</var> is in a quiver.</p>
 
 <p><a id="X8345D79381E46D73" name="X8345D79381E46D73"></a></p>
 
 <h5>2.8-2 OutgoingArrowsOfVertex</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; OutgoingArrowsOfVertex</code>( <var class="Arg">object</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
-<p>An attribute. Returns a list of arrows having <var class="Arg">object</var> as source.</p>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; OutgoingArrowsOfVertex</code>( <var class="Arg">vertex</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
+<p><b>Returns: </b>a list of arrows having <var class="Arg">vertex</var> as source.</p>
 
 <p><a id="X7C9CD0527CB9E6EF" name="X7C9CD0527CB9E6EF"></a></p>
 
 <h5>2.8-3 InDegreeOfVertex</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; InDegreeOfVertex</code>( <var class="Arg">object</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
-<p>An attribute. Returns the number of arrows having <var class="Arg">object</var> as target. Only meaningful if <var class="Arg">object</var> is in a quiver.</p>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; InDegreeOfVertex</code>( <var class="Arg">vertex</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
+<p><b>Returns: </b>the number of arrows having <var class="Arg">vertex</var> as target. Only meaningful if <var class="Arg">vertex</var> is in a quiver.</p>
 
 <p><a id="X7A09EB648070276D" name="X7A09EB648070276D"></a></p>
 
 <h5>2.8-4 OutDegreeOfVertex</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; OutDegreeOfVertex</code>( <var class="Arg">object</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
-<p>An attribute. Returns the number of arrows having <var class="Arg">object</var> as source.</p>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; OutDegreeOfVertex</code>( <var class="Arg">vertex</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
+<p><b>Returns: </b>the number of arrows having <var class="Arg">vertex</var> as source.</p>
 
 <p><a id="X7A557B4C83B7C601" name="X7A557B4C83B7C601"></a></p>
 
 <h5>2.8-5 NeighborsOfVertex</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; NeighborsOfVertex</code>( <var class="Arg">object</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
-<p>An attribute. Returns a list of neighbors of <var class="Arg">object</var>, that is, vertices that are targets of arrows having <var class="Arg">object</var> as source.</p>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; NeighborsOfVertex</code>( <var class="Arg">vertex</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
+<p><b>Returns: </b>a list of neighbors of <var class="Arg">vertex</var>, that is, vertices that are targets of arrows having <var class="Arg">vertex</var> as source.</p>
 
 
 <table class="example">

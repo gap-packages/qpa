@@ -356,14 +356,14 @@ functions for constructing quivers in Section \ref{Constructing Quivers}.
 \noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{Quiver({\slshape adjacencymatrix})\index{Quiver@\texttt{Quiver}}
 \label{Quiver}
 }\hfill{\scriptsize (function)}}\\
+
+
+Arguments: First construction: \mbox{\texttt{\slshape N}} -- number of vertices, \mbox{\texttt{\slshape [arrow1, arrow2, ...]}} -- a list of arrows to specify the graph $\Gamma$. Second construction: \mbox{\texttt{\slshape [vertex1, vertex2, ...]}} -- a list of vertex names, \mbox{\texttt{\slshape [arrow1, arrow2, ...]}} -- a list of arrows. Third construction: takes an adjacency matrix for the
+graph $\Gamma$. \\
 \textbf{\indent Returns:\ }
 a quiver, which satisfies the property \texttt{IsQuiver} (\ref{IsQuiver}).
 
 
-
- The first construction takes the number \mbox{\texttt{\slshape N}} of vertices and a list of arrows to specify the graph $\Gamma$ and hence the quiver. The second construction takes a list of vertex names and
-a list of arrows for the same purpose. The third construction takes an
-adjacency matrix for the graph $\Gamma$.
 
  In the first and third constructions, the vertices are named `v1, v2, ...'. In
 the second construction, unique vertex names are given as strings in the list
@@ -441,24 +441,24 @@ a copy of \mbox{\texttt{\slshape quiver}} whose elements are ordered by \mbox{\t
 \subsection{\textcolor{Chapter }{IsAcyclicQuiver}}
 \logpage{[ 2, 3, 2 ]}\nobreak
 \hyperdef{L}{X82E99C5F8624BD86}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsAcyclicQuiver({\slshape object})\index{IsAcyclicQuiver@\texttt{IsAcyclicQuiver}}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsAcyclicQuiver({\slshape quiver})\index{IsAcyclicQuiver@\texttt{IsAcyclicQuiver}}
 \label{IsAcyclicQuiver}
 }\hfill{\scriptsize (property)}}\\
 
 
- is true when \mbox{\texttt{\slshape object}} is a quiver with no cycles. }
+ is true when \mbox{\texttt{\slshape quiver}} is a quiver with no cycles. }
 
  
 
 \subsection{\textcolor{Chapter }{IsFinite}}
 \logpage{[ 2, 3, 3 ]}\nobreak
 \hyperdef{L}{X808A4061809A6E67}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsFinite({\slshape object})\index{IsFinite@\texttt{IsFinite}}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsFinite({\slshape quiver})\index{IsFinite@\texttt{IsFinite}}
 \label{IsFinite}
 }\hfill{\scriptsize (property)}}\\
 
 
- is true when \mbox{\texttt{\slshape object}} is a finite set. Synonymous with `IsAcyclicQuiver'. }
+ is true when \mbox{\texttt{\slshape quiver}} is a finite set. Synonymous with `IsAcyclicQuiver'. }
 
  
 \begin{Verbatim}[fontsize=\small,frame=single,label=Example]
@@ -502,9 +502,10 @@ a copy of \mbox{\texttt{\slshape quiver}} whose elements are ordered by \mbox{\t
 }\hfill{\scriptsize (operation)}}\\
 
 
- The operation \texttt{.} operates on \mbox{\texttt{\slshape Q}}, a quiver, and an element, a vertex or an arrow, to allow access to
-generators of the quiver. If you have named your vertices and arrows the the
-access looks like `\mbox{\texttt{\slshape Q}}.\mbox{\texttt{\slshape name of element}}'. If you have not named the elements of the quiver then the default names are
+ Arguments: \mbox{\texttt{\slshape Q}} -- a quiver, and \mbox{\texttt{\slshape element}} -- a vertex or an arrow. 
+
+ The operation \texttt{.} allows access to generators of the quiver. If you have named your vertices and
+arrows then the access looks like `\mbox{\texttt{\slshape Q}}.\mbox{\texttt{\slshape name of element}}'. If you have not named the elements of the quiver then the default names are
 v1, v2, ... and a1, a2, ... in the order they are created. }
 
  
@@ -512,98 +513,106 @@ v1, v2, ... and a1, a2, ... in the order they are created. }
 \subsection{\textcolor{Chapter }{VerticesOfQuiver}}
 \logpage{[ 2, 5, 2 ]}\nobreak
 \hyperdef{L}{X7C82A4BC7FB329D8}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{VerticesOfQuiver({\slshape object})\index{VerticesOfQuiver@\texttt{VerticesOfQuiver}}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{VerticesOfQuiver({\slshape quiver})\index{VerticesOfQuiver@\texttt{VerticesOfQuiver}}
 \label{VerticesOfQuiver}
 }\hfill{\scriptsize (attribute)}}\\
+\textbf{\indent Returns:\ }
+ a list of paths that are vertices in \mbox{\texttt{\slshape quiver}}. 
 
-
- An attribute. Returns a list of paths that are vertices in \mbox{\texttt{\slshape object}}. }
+}
 
  
 
 \subsection{\textcolor{Chapter }{ArrowsOfQuiver}}
 \logpage{[ 2, 5, 3 ]}\nobreak
 \hyperdef{L}{X82C42D7D820D5F9B}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{ArrowsOfQuiver({\slshape object})\index{ArrowsOfQuiver@\texttt{ArrowsOfQuiver}}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{ArrowsOfQuiver({\slshape quiver})\index{ArrowsOfQuiver@\texttt{ArrowsOfQuiver}}
 \label{ArrowsOfQuiver}
 }\hfill{\scriptsize (attribute)}}\\
+\textbf{\indent Returns:\ }
+ a list of paths that are arrows in \mbox{\texttt{\slshape quiver}}. 
 
-
- An attribute. Returns a list of paths that are arrows in \mbox{\texttt{\slshape object}}. }
+}
 
  
 
 \subsection{\textcolor{Chapter }{AdjacencyMatrixOfQuiver}}
 \logpage{[ 2, 5, 4 ]}\nobreak
 \hyperdef{L}{X7AF572F081AEFE98}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{AdjacencyMatrixOfQuiver({\slshape object})\index{AdjacencyMatrixOfQuiver@\texttt{AdjacencyMatrixOfQuiver}}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{AdjacencyMatrixOfQuiver({\slshape quiver})\index{AdjacencyMatrixOfQuiver@\texttt{AdjacencyMatrixOfQuiver}}
 \label{AdjacencyMatrixOfQuiver}
 }\hfill{\scriptsize (attribute)}}\\
+\textbf{\indent Returns:\ }
+ the adjacency matrix of \mbox{\texttt{\slshape quiver}}. 
 
-
- An attribute. Returns the adjacency matrix of \mbox{\texttt{\slshape object}}. }
+}
 
  
 
 \subsection{\textcolor{Chapter }{GeneratorsOfQuiver}}
 \logpage{[ 2, 5, 5 ]}\nobreak
 \hyperdef{L}{X7B4A7F0F813E63FC}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{GeneratorsOfQuiver({\slshape object})\index{GeneratorsOfQuiver@\texttt{GeneratorsOfQuiver}}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{GeneratorsOfQuiver({\slshape quiver})\index{GeneratorsOfQuiver@\texttt{GeneratorsOfQuiver}}
 \label{GeneratorsOfQuiver}
 }\hfill{\scriptsize (attribute)}}\\
+\textbf{\indent Returns:\ }
+ a list of the vertices and the arrows in \mbox{\texttt{\slshape quiver}}. 
 
-
- An attribute. Returns a list of the vertices and the arrows in \mbox{\texttt{\slshape object}}. }
+}
 
  
 
 \subsection{\textcolor{Chapter }{NumberOfVertices}}
 \logpage{[ 2, 5, 6 ]}\nobreak
 \hyperdef{L}{X822BD7F37F8AF016}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{NumberOfVertices({\slshape object})\index{NumberOfVertices@\texttt{NumberOfVertices}}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{NumberOfVertices({\slshape quiver})\index{NumberOfVertices@\texttt{NumberOfVertices}}
 \label{NumberOfVertices}
 }\hfill{\scriptsize (attribute)}}\\
+\textbf{\indent Returns:\ }
+ the number of vertices in \mbox{\texttt{\slshape quiver}}. 
 
-
- An attribute. Returns the number of vertices in \mbox{\texttt{\slshape object}}. }
+}
 
  
 
 \subsection{\textcolor{Chapter }{NumberOfArrows}}
 \logpage{[ 2, 5, 7 ]}\nobreak
 \hyperdef{L}{X7AC77C9C7D069663}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{NumberOfArrows({\slshape object})\index{NumberOfArrows@\texttt{NumberOfArrows}}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{NumberOfArrows({\slshape quiver})\index{NumberOfArrows@\texttt{NumberOfArrows}}
 \label{NumberOfArrows}
 }\hfill{\scriptsize (attribute)}}\\
+\textbf{\indent Returns:\ }
+ the number of arrows in \mbox{\texttt{\slshape quiver}}. 
 
-
- An attribute. Returns the number of arrows in \mbox{\texttt{\slshape object}}. }
+}
 
  
 
 \subsection{\textcolor{Chapter }{OrderingOfQuiver}}
 \logpage{[ 2, 5, 8 ]}\nobreak
 \hyperdef{L}{X84D1D1AA82689B03}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{OrderingOfQuiver({\slshape object})\index{OrderingOfQuiver@\texttt{OrderingOfQuiver}}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{OrderingOfQuiver({\slshape quiver})\index{OrderingOfQuiver@\texttt{OrderingOfQuiver}}
 \label{OrderingOfQuiver}
 }\hfill{\scriptsize (attribute)}}\\
+\textbf{\indent Returns:\ }
+ the ordering used to order elements in \mbox{\texttt{\slshape quiver}}. See Section \ref{qpa:Orderings} for more information. 
 
-
- An attribute. Returns the ordering used to order elements in \mbox{\texttt{\slshape object}}. See Section \ref{qpa:Orderings} for more information. }
+}
 
  
 
 \subsection{\textcolor{Chapter }{OppositeOfQuiver}}
 \logpage{[ 2, 5, 9 ]}\nobreak
 \hyperdef{L}{X825050BA7DCC6D43}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{OppositeOfQuiver({\slshape Q})\index{OppositeOfQuiver@\texttt{OppositeOfQuiver}}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{OppositeOfQuiver({\slshape quiver})\index{OppositeOfQuiver@\texttt{OppositeOfQuiver}}
 \label{OppositeOfQuiver}
 }\hfill{\scriptsize (operation)}}\\
+\textbf{\indent Returns:\ }
+ the opposite quiver of \mbox{\texttt{\slshape quiver}}, where the vertices are labelled "name in original quiver" +
+"{\textunderscore}op" and the arrows are labelled "name in orginal quiver" +
+"{\textunderscore}op". 
 
-
- This takes the quiver \mbox{\texttt{\slshape Q}} and produces the opposite quiver, where the vertices are labelled "name in
-original quiver" + "{\textunderscore}op" and the arrows are labelled "name in
-orginal quiver" + "{\textunderscore}op". }
+}
 
  
 \begin{Verbatim}[fontsize=\small,frame=single,label=Example]
@@ -714,48 +723,52 @@ orginal quiver" + "{\textunderscore}op". }
 \subsection{\textcolor{Chapter }{SourceOfPath}}
 \logpage{[ 2, 7, 1 ]}\nobreak
 \hyperdef{L}{X84D8493C7AAF4ACC}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{SourceOfPath({\slshape object})\index{SourceOfPath@\texttt{SourceOfPath}}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{SourceOfPath({\slshape path})\index{SourceOfPath@\texttt{SourceOfPath}}
 \label{SourceOfPath}
 }\hfill{\scriptsize (attribute)}}\\
+\textbf{\indent Returns:\ }
+ the source (first) vertex of \mbox{\texttt{\slshape path}}. 
 
-
- An attribute. Returns the source (first) vertex of \mbox{\texttt{\slshape object}}. }
+}
 
  
 
 \subsection{\textcolor{Chapter }{TargetOfPath}}
 \logpage{[ 2, 7, 2 ]}\nobreak
 \hyperdef{L}{X86827D3F78F51815}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{TargetOfPath({\slshape object})\index{TargetOfPath@\texttt{TargetOfPath}}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{TargetOfPath({\slshape path})\index{TargetOfPath@\texttt{TargetOfPath}}
 \label{TargetOfPath}
 }\hfill{\scriptsize (attribute)}}\\
+\textbf{\indent Returns:\ }
+ the target (last) vertex of \mbox{\texttt{\slshape path}}. 
 
-
- An attribute. Returns the target (last) vertex of \mbox{\texttt{\slshape object}}. }
+}
 
  
 
 \subsection{\textcolor{Chapter }{LengthOfPath}}
 \logpage{[ 2, 7, 3 ]}\nobreak
 \hyperdef{L}{X7FF179D17C4F9FAC}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{LengthOfPath({\slshape object})\index{LengthOfPath@\texttt{LengthOfPath}}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{LengthOfPath({\slshape path})\index{LengthOfPath@\texttt{LengthOfPath}}
 \label{LengthOfPath}
 }\hfill{\scriptsize (attribute)}}\\
+\textbf{\indent Returns:\ }
+ the length of \mbox{\texttt{\slshape path}}. 
 
-
- An attribute. Returns the length of \mbox{\texttt{\slshape object}}. }
+}
 
  
 
 \subsection{\textcolor{Chapter }{WalkOfPath}}
 \logpage{[ 2, 7, 4 ]}\nobreak
 \hyperdef{L}{X781A8E06850E47B4}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{WalkOfPath({\slshape object})\index{WalkOfPath@\texttt{WalkOfPath}}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{WalkOfPath({\slshape path})\index{WalkOfPath@\texttt{WalkOfPath}}
 \label{WalkOfPath}
 }\hfill{\scriptsize (attribute)}}\\
+\textbf{\indent Returns:\ }
+ a list of the arrows that constitute \mbox{\texttt{\slshape path}} in order. 
 
-
- An attribute. Returns a list of the arrows that constitue \mbox{\texttt{\slshape object}} in order. }
+}
 
  
 
@@ -767,11 +780,14 @@ orginal quiver" + "{\textunderscore}op". }
 }\hfill{\scriptsize (operation)}}\\
 
 
- The operation \texttt{*} operates on \mbox{\texttt{\slshape p}} and \mbox{\texttt{\slshape q}}, which are two paths in the same quiver. It returns the multiplication of the
-paths. If the paths are not in the same quiver an error is returned. If the
-target of \mbox{\texttt{\slshape p}} differs from the source of \mbox{\texttt{\slshape q}}, then the result is the zero path. Otherwise, if either path is a vertex,
+ Arguments: \mbox{\texttt{\slshape p}} and \mbox{\texttt{\slshape q}} -- two paths in the same quiver. \\
+\textbf{\indent Returns:\ }
+ the multiplication of the paths. If the paths are not in the same quiver an
+error is returned. If the target of \mbox{\texttt{\slshape p}} differs from the source of \mbox{\texttt{\slshape q}}, then the result is the zero path. Otherwise, if either path is a vertex,
 then the result is the other path. Finally, if both are paths of length at
-least 1, then the result is the concatenation of the walks of the two paths. }
+least 1, then the result is the concatenation of the walks of the two paths. 
+
+}
 
  
 \begin{Verbatim}[fontsize=\small,frame=single,label=Example]
@@ -805,8 +821,12 @@ least 1, then the result is the concatenation of the walks of the two paths. }
 }\hfill{\scriptsize (operation)}}\\
 
 
- The operation \texttt{=} operates on two paths \mbox{\texttt{\slshape p}} and \mbox{\texttt{\slshape q}}, and compares the paths for equality. Two paths are equal if they have the
-same source and the same target and if they have the same walks. The paths \mbox{\texttt{\slshape p}} and \mbox{\texttt{\slshape q}} must be in the same quiver. }
+ Arguments: \mbox{\texttt{\slshape p}} and \mbox{\texttt{\slshape q}} -- two paths in the same quiver. \\
+\textbf{\indent Returns:\ }
+ true if the two paths are equal. Two paths are equal if they have the same
+source and the same target and if they have the same walks. 
+
+}
 
  
 
@@ -818,8 +838,11 @@ same source and the same target and if they have the same walks. The paths \mbox
 }\hfill{\scriptsize (operation)}}\\
 
 
- The operation \texttt{{\textless}} operates on two paths \mbox{\texttt{\slshape p}} and \mbox{\texttt{\slshape q}}, and compares them with respect to the ordering of the quiver. This is
-meaningful only if \mbox{\texttt{\slshape p}} and \mbox{\texttt{\slshape q}} are in the same quiver. }
+ Arguments: \mbox{\texttt{\slshape p}} and \mbox{\texttt{\slshape q}} -- two paths in the same quiver. \\
+\textbf{\indent Returns:\ }
+ a comparison of the two paths with respect to the ordering of the quiver. 
+
+}
 
  
 \begin{Verbatim}[fontsize=\small,frame=single,label=Example]
@@ -841,60 +864,65 @@ meaningful only if \mbox{\texttt{\slshape p}} and \mbox{\texttt{\slshape q}} are
 \subsection{\textcolor{Chapter }{IncomingArrowsOfVertex}}
 \logpage{[ 2, 8, 1 ]}\nobreak
 \hyperdef{L}{X85E53C177F80E77E}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IncomingArrowsOfVertex({\slshape object})\index{IncomingArrowsOfVertex@\texttt{IncomingArrowsOfVertex}}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IncomingArrowsOfVertex({\slshape vertex})\index{IncomingArrowsOfVertex@\texttt{IncomingArrowsOfVertex}}
 \label{IncomingArrowsOfVertex}
 }\hfill{\scriptsize (attribute)}}\\
+\textbf{\indent Returns:\ }
+ a list of arrows having \mbox{\texttt{\slshape vertex}} as target. Only meaningful if \mbox{\texttt{\slshape vertex}} is in a quiver. 
 
-
- An attribute. Returns a list of arrows having \mbox{\texttt{\slshape object}} as target. Only meaningful if \mbox{\texttt{\slshape object}} is in a quiver. }
+}
 
  
 
 \subsection{\textcolor{Chapter }{OutgoingArrowsOfVertex}}
 \logpage{[ 2, 8, 2 ]}\nobreak
 \hyperdef{L}{X8345D79381E46D73}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{OutgoingArrowsOfVertex({\slshape object})\index{OutgoingArrowsOfVertex@\texttt{OutgoingArrowsOfVertex}}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{OutgoingArrowsOfVertex({\slshape vertex})\index{OutgoingArrowsOfVertex@\texttt{OutgoingArrowsOfVertex}}
 \label{OutgoingArrowsOfVertex}
 }\hfill{\scriptsize (attribute)}}\\
+\textbf{\indent Returns:\ }
+ a list of arrows having \mbox{\texttt{\slshape vertex}} as source. 
 
-
- An attribute. Returns a list of arrows having \mbox{\texttt{\slshape object}} as source. }
+}
 
  
 
 \subsection{\textcolor{Chapter }{InDegreeOfVertex}}
 \logpage{[ 2, 8, 3 ]}\nobreak
 \hyperdef{L}{X7C9CD0527CB9E6EF}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{InDegreeOfVertex({\slshape object})\index{InDegreeOfVertex@\texttt{InDegreeOfVertex}}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{InDegreeOfVertex({\slshape vertex})\index{InDegreeOfVertex@\texttt{InDegreeOfVertex}}
 \label{InDegreeOfVertex}
 }\hfill{\scriptsize (attribute)}}\\
+\textbf{\indent Returns:\ }
+ the number of arrows having \mbox{\texttt{\slshape vertex}} as target. Only meaningful if \mbox{\texttt{\slshape vertex}} is in a quiver. 
 
-
- An attribute. Returns the number of arrows having \mbox{\texttt{\slshape object}} as target. Only meaningful if \mbox{\texttt{\slshape object}} is in a quiver. }
+}
 
  
 
 \subsection{\textcolor{Chapter }{OutDegreeOfVertex}}
 \logpage{[ 2, 8, 4 ]}\nobreak
 \hyperdef{L}{X7A09EB648070276D}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{OutDegreeOfVertex({\slshape object})\index{OutDegreeOfVertex@\texttt{OutDegreeOfVertex}}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{OutDegreeOfVertex({\slshape vertex})\index{OutDegreeOfVertex@\texttt{OutDegreeOfVertex}}
 \label{OutDegreeOfVertex}
 }\hfill{\scriptsize (attribute)}}\\
+\textbf{\indent Returns:\ }
+ the number of arrows having \mbox{\texttt{\slshape vertex}} as source. 
 
-
- An attribute. Returns the number of arrows having \mbox{\texttt{\slshape object}} as source. }
+}
 
  
 
 \subsection{\textcolor{Chapter }{NeighborsOfVertex}}
 \logpage{[ 2, 8, 5 ]}\nobreak
 \hyperdef{L}{X7A557B4C83B7C601}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{NeighborsOfVertex({\slshape object})\index{NeighborsOfVertex@\texttt{NeighborsOfVertex}}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{NeighborsOfVertex({\slshape vertex})\index{NeighborsOfVertex@\texttt{NeighborsOfVertex}}
 \label{NeighborsOfVertex}
 }\hfill{\scriptsize (attribute)}}\\
+\textbf{\indent Returns:\ }
+ a list of neighbors of \mbox{\texttt{\slshape vertex}}, that is, vertices that are targets of arrows having \mbox{\texttt{\slshape vertex}} as source. 
 
-
- An attribute. Returns a list of neighbors of \mbox{\texttt{\slshape object}}, that is, vertices that are targets of arrows having \mbox{\texttt{\slshape object}} as source. }
+}
 
  
 \begin{Verbatim}[fontsize=\small,frame=single,label=Example]

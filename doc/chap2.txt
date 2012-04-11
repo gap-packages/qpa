@@ -31,12 +31,14 @@
   [2X> Quiver( [0X[3XN[, arrow1, arrow2, ...][0X[2X ) _______________________________[0Xfunction
   [2X> Quiver( [0X[3X[vertex1, vertex2, ..., ][arrow1, arrow2, ...][0X[2X ) _________[0Xfunction
   [2X> Quiver( [0X[3Xadjacencymatrix[0X[2X ) ________________________________________[0Xfunction
-  [6XReturns:[0X  a quiver, which satisfies the property [2XIsQuiver[0m ([14X2.3-1[0m).
   
-  The  first  construction takes the number [3XN[0m of vertices and a list of arrows
-  to  specify the graph $\Gamma$ and hence the quiver. The second construction
-  takes  a list of vertex names and a list of arrows for the same purpose. The
-  third construction takes an adjacency matrix for the graph $\Gamma$.
+  Arguments:  First  construction:  [3XN[0m  -- number of vertices, [3X[arrow1, arrow2,
+  ...][0m -- a list of arrows to specify the graph $\Gamma$. Second construction:
+  [3X[vertex1,  vertex2, ...][0m -- a list of vertex names, [3X[arrow1, arrow2, ...][0m --
+  a  list  of  arrows.  Third  construction: takes an adjacency matrix for the
+  graph $\Gamma$.
+  
+  [6XReturns:[0X  a quiver, which satisfies the property [2XIsQuiver[0m ([14X2.3-1[0m).
   
   In  the first and third constructions, the vertices are named `v1, v2, ...'.
   In  the second construction, unique vertex names are given as strings in the
@@ -95,15 +97,15 @@
   
   [1X2.3-2 IsAcyclicQuiver[0m
   
-  [2X> IsAcyclicQuiver( [0X[3Xobject[0X[2X ) ________________________________________[0Xproperty
+  [2X> IsAcyclicQuiver( [0X[3Xquiver[0X[2X ) ________________________________________[0Xproperty
   
-  is true when [3Xobject[0m is a quiver with no cycles.
+  is true when [3Xquiver[0m is a quiver with no cycles.
   
   [1X2.3-3 IsFinite[0m
   
-  [2X> IsFinite( [0X[3Xobject[0X[2X ) _______________________________________________[0Xproperty
+  [2X> IsFinite( [0X[3Xquiver[0X[2X ) _______________________________________________[0Xproperty
   
-  is true when [3Xobject[0m is a finite set. Synonymous with `IsAcyclicQuiver'.
+  is true when [3Xquiver[0m is a finite set. Synonymous with `IsAcyclicQuiver'.
   
   [4X---------------------------  Example  ----------------------------[0X
     [4Xgap> quiver1 := Quiver(2,[[1,2]]);[0X
@@ -136,62 +138,55 @@
   
   [2X> .( [0X[3XQ, element[0X[2X ) _________________________________________________[0Xoperation
   
-  The  operation  [2X.[0m  operates  on  [3XQ[0m, a quiver, and an element, a vertex or an
-  arrow,  to  allow access to generators of the quiver. If you have named your
-  vertices  and  arrows  the the access looks like `[3XQ[0m.[3Xname of element[0m'. If you
-  have not named the elements of the quiver then the default names are v1, v2,
-  ... and a1, a2, ... in the order they are created.
+  Arguments: [3XQ[0m -- a quiver, and [3Xelement[0m -- a vertex or an arrow.
+  
+  The operation [2X.[0m allows access to generators of the quiver. If you have named
+  your  vertices and arrows then the access looks like `[3XQ[0m.[3Xname of element[0m'. If
+  you have not named the elements of the quiver then the default names are v1,
+  v2, ... and a1, a2, ... in the order they are created.
   
   [1X2.5-2 VerticesOfQuiver[0m
   
-  [2X> VerticesOfQuiver( [0X[3Xobject[0X[2X ) ______________________________________[0Xattribute
-  
-  An attribute. Returns a list of paths that are vertices in [3Xobject[0m.
+  [2X> VerticesOfQuiver( [0X[3Xquiver[0X[2X ) ______________________________________[0Xattribute
+  [6XReturns:[0X  a list of paths that are vertices in [3Xquiver[0m.
   
   [1X2.5-3 ArrowsOfQuiver[0m
   
-  [2X> ArrowsOfQuiver( [0X[3Xobject[0X[2X ) ________________________________________[0Xattribute
-  
-  An attribute. Returns a list of paths that are arrows in [3Xobject[0m.
+  [2X> ArrowsOfQuiver( [0X[3Xquiver[0X[2X ) ________________________________________[0Xattribute
+  [6XReturns:[0X  a list of paths that are arrows in [3Xquiver[0m.
   
   [1X2.5-4 AdjacencyMatrixOfQuiver[0m
   
-  [2X> AdjacencyMatrixOfQuiver( [0X[3Xobject[0X[2X ) _______________________________[0Xattribute
-  
-  An attribute. Returns the adjacency matrix of [3Xobject[0m.
+  [2X> AdjacencyMatrixOfQuiver( [0X[3Xquiver[0X[2X ) _______________________________[0Xattribute
+  [6XReturns:[0X  the adjacency matrix of [3Xquiver[0m.
   
   [1X2.5-5 GeneratorsOfQuiver[0m
   
-  [2X> GeneratorsOfQuiver( [0X[3Xobject[0X[2X ) ____________________________________[0Xattribute
-  
-  An attribute. Returns a list of the vertices and the arrows in [3Xobject[0m.
+  [2X> GeneratorsOfQuiver( [0X[3Xquiver[0X[2X ) ____________________________________[0Xattribute
+  [6XReturns:[0X  a list of the vertices and the arrows in [3Xquiver[0m.
   
   [1X2.5-6 NumberOfVertices[0m
   
-  [2X> NumberOfVertices( [0X[3Xobject[0X[2X ) ______________________________________[0Xattribute
-  
-  An attribute. Returns the number of vertices in [3Xobject[0m.
+  [2X> NumberOfVertices( [0X[3Xquiver[0X[2X ) ______________________________________[0Xattribute
+  [6XReturns:[0X  the number of vertices in [3Xquiver[0m.
   
   [1X2.5-7 NumberOfArrows[0m
   
-  [2X> NumberOfArrows( [0X[3Xobject[0X[2X ) ________________________________________[0Xattribute
-  
-  An attribute. Returns the number of arrows in [3Xobject[0m.
+  [2X> NumberOfArrows( [0X[3Xquiver[0X[2X ) ________________________________________[0Xattribute
+  [6XReturns:[0X  the number of arrows in [3Xquiver[0m.
   
   [1X2.5-8 OrderingOfQuiver[0m
   
-  [2X> OrderingOfQuiver( [0X[3Xobject[0X[2X ) ______________________________________[0Xattribute
-  
-  An  attribute.  Returns  the  ordering used to order elements in [3Xobject[0m. See
-  Section [14X2.4[0m for more information.
+  [2X> OrderingOfQuiver( [0X[3Xquiver[0X[2X ) ______________________________________[0Xattribute
+  [6XReturns:[0X  the ordering used to order elements in [3Xquiver[0m. See Section [14X2.4[0m for
+            more information.
   
   [1X2.5-9 OppositeOfQuiver[0m
   
-  [2X> OppositeOfQuiver( [0X[3XQ[0X[2X ) ___________________________________________[0Xoperation
-  
-  This takes the quiver [3XQ[0m and produces the opposite quiver, where the vertices
-  are  labelled  "name in original quiver" + "_op" and the arrows are labelled
-  "name in orginal quiver" + "_op".
+  [2X> OppositeOfQuiver( [0X[3Xquiver[0X[2X ) ______________________________________[0Xoperation
+  [6XReturns:[0X  the  opposite  quiver  of  [3Xquiver[0m, where the vertices are labelled
+            "name  in  original  quiver"  +  "_op" and the arrows are labelled
+            "name in orginal quiver" + "_op".
   
   [4X---------------------------  Example  ----------------------------[0X
     [4Xgap> q1 := Quiver(["u","v"],[["u","u","a"],["u","v","b"],[0X
@@ -269,38 +264,36 @@
   
   [1X2.7-1 SourceOfPath[0m
   
-  [2X> SourceOfPath( [0X[3Xobject[0X[2X ) __________________________________________[0Xattribute
-  
-  An attribute. Returns the source (first) vertex of [3Xobject[0m.
+  [2X> SourceOfPath( [0X[3Xpath[0X[2X ) ____________________________________________[0Xattribute
+  [6XReturns:[0X  the source (first) vertex of [3Xpath[0m.
   
   [1X2.7-2 TargetOfPath[0m
   
-  [2X> TargetOfPath( [0X[3Xobject[0X[2X ) __________________________________________[0Xattribute
-  
-  An attribute. Returns the target (last) vertex of [3Xobject[0m.
+  [2X> TargetOfPath( [0X[3Xpath[0X[2X ) ____________________________________________[0Xattribute
+  [6XReturns:[0X  the target (last) vertex of [3Xpath[0m.
   
   [1X2.7-3 LengthOfPath[0m
   
-  [2X> LengthOfPath( [0X[3Xobject[0X[2X ) __________________________________________[0Xattribute
-  
-  An attribute. Returns the length of [3Xobject[0m.
+  [2X> LengthOfPath( [0X[3Xpath[0X[2X ) ____________________________________________[0Xattribute
+  [6XReturns:[0X  the length of [3Xpath[0m.
   
   [1X2.7-4 WalkOfPath[0m
   
-  [2X> WalkOfPath( [0X[3Xobject[0X[2X ) ____________________________________________[0Xattribute
-  
-  An attribute. Returns a list of the arrows that constitue [3Xobject[0m in order.
+  [2X> WalkOfPath( [0X[3Xpath[0X[2X ) ______________________________________________[0Xattribute
+  [6XReturns:[0X  a list of the arrows that constitute [3Xpath[0m in order.
   
   [1X2.7-5 *[0m
   
   [2X> *( [0X[3Xp, q[0X[2X ) _______________________________________________________[0Xoperation
   
-  The operation [2X*[0m operates on [3Xp[0m and [3Xq[0m, which are two paths in the same quiver.
-  It returns the multiplication of the paths. If the paths are not in the same
-  quiver  an  error is returned. If the target of [3Xp[0m differs from the source of
-  [3Xq[0m,  then the result is the zero path. Otherwise, if either path is a vertex,
-  then  the  result is the other path. Finally, if both are paths of length at
-  least 1, then the result is the concatenation of the walks of the two paths.
+  Arguments: [3Xp[0m and [3Xq[0m -- two paths in the same quiver.
+  
+  [6XReturns:[0X  the  multiplication of the paths. If the paths are not in the same
+            quiver  an  error is returned. If the target of [3Xp[0m differs from the
+            source  of  [3Xq[0m,  then  the  result  is the zero path. Otherwise, if
+            either  path  is  a  vertex,  then  the  result is the other path.
+            Finally,  if  both are paths of length at least 1, then the result
+            is the concatenation of the walks of the two paths.
   
   [4X---------------------------  Example  ----------------------------[0X
     [4Xgap> q1 := Quiver(["u","v"],[["u","u","a"],["u","v","b"],[0X
@@ -328,18 +321,20 @@
   
   [2X> =( [0X[3Xp, q[0X[2X ) _______________________________________________________[0Xoperation
   
-  The  operation  [2X=[0m  operates on two paths [3Xp[0m and [3Xq[0m, and compares the paths for
-  equality.  Two  paths  are  equal  if they have the same source and the same
-  target  and  if  they  have the same walks. The paths [3Xp[0m and [3Xq[0m must be in the
-  same quiver.
+  Arguments: [3Xp[0m and [3Xq[0m -- two paths in the same quiver.
+  
+  [6XReturns:[0X  true  if the two paths are equal. Two paths are equal if they have
+            the  same  source  and  the  same target and if they have the same
+            walks.
   
   [1X2.7-7 <[0m
   
   [2X> <( [0X[3Xp, q[0X[2X ) _______________________________________________________[0Xoperation
   
-  The  operation  [2X<[0m  operates  on  two  paths  [3Xp[0m and [3Xq[0m, and compares them with
-  respect  to  the  ordering of the quiver. This is meaningful only if [3Xp[0m and [3Xq[0m
-  are in the same quiver.
+  Arguments: [3Xp[0m and [3Xq[0m -- two paths in the same quiver.
+  
+  [6XReturns:[0X  a  comparison of the two paths with respect to the ordering of the
+            quiver.
   
   [4X---------------------------  Example  ----------------------------[0X
     [4Xgap> q1.a=q1.b;[0X
@@ -355,36 +350,31 @@
   
   [1X2.8-1 IncomingArrowsOfVertex[0m
   
-  [2X> IncomingArrowsOfVertex( [0X[3Xobject[0X[2X ) ________________________________[0Xattribute
-  
-  An  attribute.  Returns  a  list  of  arrows  having  [3Xobject[0m as target. Only
-  meaningful if [3Xobject[0m is in a quiver.
+  [2X> IncomingArrowsOfVertex( [0X[3Xvertex[0X[2X ) ________________________________[0Xattribute
+  [6XReturns:[0X  a  list  of  arrows  having  [3Xvertex[0m  as target. Only meaningful if
+            [3Xvertex[0m is in a quiver.
   
   [1X2.8-2 OutgoingArrowsOfVertex[0m
   
-  [2X> OutgoingArrowsOfVertex( [0X[3Xobject[0X[2X ) ________________________________[0Xattribute
-  
-  An attribute. Returns a list of arrows having [3Xobject[0m as source.
+  [2X> OutgoingArrowsOfVertex( [0X[3Xvertex[0X[2X ) ________________________________[0Xattribute
+  [6XReturns:[0X  a list of arrows having [3Xvertex[0m as source.
   
   [1X2.8-3 InDegreeOfVertex[0m
   
-  [2X> InDegreeOfVertex( [0X[3Xobject[0X[2X ) ______________________________________[0Xattribute
-  
-  An  attribute.  Returns  the  number of arrows having [3Xobject[0m as target. Only
-  meaningful if [3Xobject[0m is in a quiver.
+  [2X> InDegreeOfVertex( [0X[3Xvertex[0X[2X ) ______________________________________[0Xattribute
+  [6XReturns:[0X  the  number  of arrows having [3Xvertex[0m as target. Only meaningful if
+            [3Xvertex[0m is in a quiver.
   
   [1X2.8-4 OutDegreeOfVertex[0m
   
-  [2X> OutDegreeOfVertex( [0X[3Xobject[0X[2X ) _____________________________________[0Xattribute
-  
-  An attribute. Returns the number of arrows having [3Xobject[0m as source.
+  [2X> OutDegreeOfVertex( [0X[3Xvertex[0X[2X ) _____________________________________[0Xattribute
+  [6XReturns:[0X  the number of arrows having [3Xvertex[0m as source.
   
   [1X2.8-5 NeighborsOfVertex[0m
   
-  [2X> NeighborsOfVertex( [0X[3Xobject[0X[2X ) _____________________________________[0Xattribute
-  
-  An  attribute. Returns a list of neighbors of [3Xobject[0m, that is, vertices that
-  are targets of arrows having [3Xobject[0m as source.
+  [2X> NeighborsOfVertex( [0X[3Xvertex[0X[2X ) _____________________________________[0Xattribute
+  [6XReturns:[0X  a  list of neighbors of [3Xvertex[0m, that is, vertices that are targets
+            of arrows having [3Xvertex[0m as source.
   
   [4X---------------------------  Example  ----------------------------[0X
     [4Xgap> q1 := Quiver(["u","v"],[["u","u","a"],["u","v","b"],[0X
