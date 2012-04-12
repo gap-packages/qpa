@@ -1,6 +1,6 @@
 # GAP Implementation
 # This file was generated from 
-# $Id: pamodule.gi,v 1.15 2012/04/03 09:52:29 sunnyquiver Exp $
+# $Id: pamodule.gi,v 1.16 2012/04/12 08:30:18 sunnyquiver Exp $
 
 ZeroModElement:=function(fam,zero)
   local result,i;
@@ -673,7 +673,9 @@ InstallOtherMethod(RightModuleOverPathAlgebra,
        Fam!.vertices := dim_vector;
        Fam!.matrices := matrices;
        Fam!.pathAlgebra := OriginalPathAlgebra(A);
-       Fam!.quotientAlgebra := A;
+       if IsQuotientOfPathAlgebra(A) then 
+          Fam!.quotientAlgebra := A;
+       fi;       
        if dim_M > 0 then 
           basis := CreateModuleBasis(Fam);
        else 
