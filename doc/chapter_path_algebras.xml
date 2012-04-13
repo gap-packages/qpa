@@ -1,0 +1,866 @@
+<Chapter Label="PathAlgebras">
+<Heading>Path Algebras</Heading>
+
+<Section>
+<Heading>Introduction</Heading> 
+
+A path algebra is an algebra constructed from a field <Math>F</Math>
+[REF] and a quiver <Math>Q</Math>.  The path algebra <Math>FQ</Math>
+contains all finite linear combinations of elements of <Math>Q</Math>.
+This chapter describes the functions in <Package>QPA</Package> that
+deal with path algebras and quotients of path algebras.  Path algebras
+are algebras, so see Chapter [REF]"ref:algebras" for functionality such as
+generators, basis functions, and mappings.
+
+<!-- removed the following, as it does not exist. -->
+<!-- <ManSection> -->
+<!--    <InfoClass Name="InfoPathAlgebra" Comm=""/> -->
+<!--    <Description> -->
+<!--       is the info class for functions dealing with path algebras. -->
+<!--    </Description> -->
+<!-- </ManSection> -->
+
+</Section>
+
+<Section Label="Constructing Paths">
+<Heading>Constructing Path Algebras</Heading> 
+  <ManSection>
+   <Func Name="PathAlgebra" Arg="F, Q" Comm=""/>
+   <Description>Arguments: F -- a field, Q -- a quiver.<Br /></Description>
+   <Returns>the path algebra <Math>FQ</Math> of <Arg>Q</Arg> over the
+   field <Arg>F</Arg>.</Returns>
+   <Description>For construction of fields, see the GAP documentation
+   [REF].  The elements of the path algebra <Math>FQ</Math> will be
+   ordered by left length-lexicographic ordering.
+   </Description>
+  </ManSection>
+
+<Example><![CDATA[
+gap> Q := Quiver( ["u","v"] , [ ["u","u","a"], ["u","v","b"],
+>["v","u","c"], ["v","v","d"] ] );
+<quiver with 2 vertices and 4 arrows>
+gap> F := Rationals;
+Rationals
+gap> FQ := PathAlgebra(F,Q);
+<algebra-with-one over Rationals, with 5 generators> ]]>
+</Example>
+
+<!-- \* NO: the FOLLOWING is not true: -->
+<!--   <ManSection> -->
+<!--    <Func Name="OrderedBy" Arg="path algebra, ordering" Comm="Path Algebras:OrderedBy"/> -->
+<!--    <Returns> a copy of <Arg>path algebra</Arg> whose elements are -->
+<!--       ordered by <Arg>ordering</Arg>.  See Section -->
+<!--       <Ref Sect="qpa:Orderings"/> for more information on -->
+<!--       orderings.</Returns> -->
+<!--    <Description> -->
+<!--    </Description> -->
+<!--   </ManSection> -->
+<!-- </Section> -->
+
+</Section>
+
+<Section>
+<Heading>Categories and Properties of Path Algebras</Heading>
+
+  <ManSection>
+   <Prop Name="IsPathAlgebra" Arg="object" Comm="checks if object is a path algebra"/>
+   <Description>
+     Arguments: <Arg>object</Arg> -- any object in GAP. <Br />
+   </Description>
+   <Returns>true whenever <Arg>object</Arg> is a path algebra.
+   </Returns>
+  </ManSection>
+
+<Example>
+gap&gt; IsPathAlgebra(FQ);
+true
+</Example>
+</Section>
+
+<Section><Heading>Attributes and Operations for Path Algebras</Heading>
+
+  <ManSection>
+   <Attr Name="QuiverOfPathAlgebra" Arg="FQ" Comm=""/>
+   <Description>
+    Arguments: <Arg>FQ</Arg> -- a path algebra. <Br />
+   </Description>
+   <Returns> the quiver from which <Arg>FQ</Arg> was
+    constructed.
+   </Returns>
+  </ManSection>
+
+<Example><![CDATA[
+gap> QuiverOfPathAlgebra(FQ);
+<quiver with 2 vertices and 4 arrows> ]]>
+</Example>
+
+<ManSection>
+  <Attr Name="OrderingOfAlgebra" Arg="FQ" />
+  <Description>
+    Arguments: <Arg>FQ</Arg> -- a path algebra.<Br />
+  </Description>
+  <Returns>
+    the ordering of the quiver of the path algebra.
+  </Returns>
+  <Description><Emph>Note:</Emph> As of the current version
+  of <Package>QPA</Package>, only left length lexicographic ordering
+  is supported.
+  </Description>
+</ManSection>
+
+  <ManSection>
+   <Oper Name="." Arg="FQ, generator" Comm="path algebra record access"/>
+   <Description>
+    Arguments: <Arg>FQ</Arg> -- a path algebra, <Arg>generator</Arg> --
+    a vertex or an arrow in the quiver <Arg>Q</Arg>. <Br />
+   </Description>
+   <Returns> the <Arg>generator</Arg> as an element of the path algebra.
+   </Returns>
+   <Description>Other elements of the path algebra can be constructed
+   as linear combinations of the generators.  For further operations
+   on elements, see below.
+   </Description>
+  </ManSection>
+
+<Example><![CDATA[
+gap> FQ.a;
+(1)*a
+gap> FQ.v;
+(1)*v
+gap> elem := 2*FQ.a - 3*FQ.v;
+(-3)*v+(2)*a ]]>
+</Example>
+
+</Section>
+
+<Section><Heading>Operations on Path Algebra Elements</Heading>
+
+  <ManSection>
+   <Oper Name="&lt;" Arg="a, b" Comm="PathAlgebra:lessthan"/>
+   <Description>
+    Arguments: <Arg>a</Arg> and <Arg>b</Arg> -- two elements of the
+    same path algebra.<Br />
+   </Description>
+   <Returns>
+     True whenever <Arg>a</Arg> is smaller than <Arg>b</Arg>,
+  according to the ordering of the path algebra.
+   </Returns>
+  </ManSection>
+
+  <ManSection>
+   <Oper Name="IsLeftUniform" Arg="element" Comm=""/>
+   <Description>
+     Arguments: <Arg>element</Arg> -- an element of the path
+     algebra.<Br />
+   </Description>
+   <Returns> true if each monomial in <Arg>element</Arg> has the same
+   source vertex, false otherwise.
+   </Returns>
+  </ManSection>
+
+  <ManSection>
+   <Oper Name="IsRightUniform" Arg="element" Comm=""/>
+   <Description>
+     Arguments: <Arg>element</Arg> -- an element of the path
+     algebra.<Br />
+   </Description>
+   <Returns> true if each monomial in <Arg>element</Arg> has the same
+   target vertex, false otherwise.
+   </Returns>
+  </ManSection>
+
+  <ManSection>
+   <Oper Name="IsUniform" Arg="element" Comm=""/>
+   <Description>
+     Arguments: <Arg>element</Arg> -- an element of the path
+     algebra. <Br />
+   </Description>
+   <Returns> true whenever <Arg>element</Arg> is both left and right
+   uniform.
+   </Returns>
+  </ManSection>
+
+<Example><![CDATA[
+gap> IsLeftUniform(elem);
+false
+gap> IsRightUniform(elem);
+false
+gap> IsUniform(elem);
+false
+gap> another := FQ.a*FQ.b + FQ.b*FQ.d*FQ.c*FQ.b*FQ.d;
+(1)*a*b+(1)*b*d*c*b*d
+gap> IsLeftUniform(another);
+true
+gap> IsRightUniform(another);
+true
+gap> IsUniform(another);
+true ]]>
+</Example>
+
+  <ManSection>
+   <Oper Name="LeadingTerm" Arg="element" Comm=""/>
+   <Oper Name="Tip" Arg="element" Comm=""/>
+   <Description>
+     Arguments: <Arg>element</Arg> -- an element of the path
+     algebra. <Br />
+   </Description>
+   <Returns>
+    the term in <Arg>element</Arg> whose monomial is
+    largest among those monomials that have nonzero coefficients
+    (known as the "tip" of <Arg>element</Arg>).
+   </Returns>
+   <Description>
+     <Emph>Note: </Emph> The two operations are equivalent.
+   </Description>
+  </ManSection>
+
+  <ManSection>
+   <Oper Name="LeadingCoefficient" Arg="element" Comm=""/>
+   <Oper Name="TipCoefficient" Arg="element" Comm=""/>
+   <Description>
+     Arguments: <Arg>element</Arg> -- an element of the path
+     algebra. <Br />
+   </Description>
+   <Returns>
+    the coefficient of the tip of <Arg>element</Arg> (which is an
+    element of the field).
+   </Returns>
+   <Description>
+     <Emph>Note: </Emph> The two operations are equivalent.
+   </Description>
+  </ManSection>
+
+  <ManSection>
+   <Oper Name="LeadingMonomial" Arg="element" Comm=""/>
+   <Oper Name="TipMonomial" Arg="element" Comm=""/>
+   <Description>
+     Arguments: <Arg>element</Arg> -- an element of the path
+     algebra. <Br />
+   </Description>
+   <Returns>
+    the monomial of the tip of <Arg>element</Arg> (which is an
+    element of the underlying quiver, not of the path algebra).
+   </Returns>
+   <Description>
+     <Emph>Note: </Emph> The two operations are equivalent.
+   </Description>
+  </ManSection>
+
+<Example><![CDATA[
+gap> elem := FQ.a*FQ.b*FQ.c + FQ.b*FQ.d*FQ.c+FQ.d*FQ.d;
+(1)*d^2+(1)*a*b*c+(1)*b*d*c
+gap> LeadingTerm(elem);
+(1)*b*d*c
+gap> LeadingCoefficient(elem);
+1
+gap> mon := LeadingMonomial(elem);
+b*d*c
+gap> mon in FQ;
+false
+gap> mon in Q;
+true ]]></Example>
+
+
+  <ManSection>
+   <Oper Name="MakeUniformOnRight" Arg="elems" Comm=""/>
+   <Description>
+     Arguments: <Arg>elems</Arg> -- a list of elements in a path
+    algebra.<Br /> 
+   </Description>
+   <Returns> a list of right uniform elements generated by each
+    element of <Arg>elems</Arg>.
+   </Returns>
+  </ManSection>
+
+
+  <ManSection>
+   <Oper Name="MappedExpression" Arg="expr, gens1, gens2"  Comm=""/>
+   <Description>
+     Arguments: <Arg>expr</Arg> -- element of a path
+     algebra, <Arg>gens1</Arg> and <Arg>gens2</Arg> -- equal-length
+     lists of generators for subalgebras.<Br />
+   </Description>
+   <Returns>
+     <Arg>expr</Arg> as an element of the subalgebra generated
+     by <Arg>gens2</Arg>.
+   </Returns>
+   <Description>
+     The element <Arg>expr</Arg> must be in the subalgebra generated
+    by <Arg>gens1</Arg>.  The lists define a mapping of each generator
+    in <Arg>gens1</Arg> to the corresponding generator
+    in <Arg>gens2</Arg>.  The value returned is the evaluation of the
+    mapping at <Arg>expr</Arg>.
+   </Description>
+  </ManSection>
+
+  <ManSection>
+   <Func Name="VertexPosition" Arg="element" Comm=""/>
+   <Description>
+     Arguments: <Arg>element</Arg> -- an element of the path algebra
+     on the form <Math>k*v</Math>, where <Math>v</Math> is a vertex of
+     the underlying quiver and <Math>k</Math> is an element of the
+     field.<Br />
+   </Description>
+   <Returns> the position of the vertex <Arg>v</Arg> in the list of
+   vertices of the quiver.
+   </Returns>  
+  </ManSection>
+
+</Section>
+
+
+<Section>
+<Heading>Constructing Quotients of Path Algebras</Heading>
+See Chapter [REF]"ref:algebras" on how to construct an ideal and a
+quotient of an algebra.  When the quotient is constructed, it is still
+a path algebra and thus the commands introduced for path algebras
+also works with quotients.
+</Section>
+
+<Section><Heading>Ideals</Heading> 
+
+<Subsection Label="IdealsAndOperations"><Heading>Ideals and operations
+    on ideals</Heading>
+</Subsection>
+
+  <ManSection>
+   <Oper Name="Ideal" Arg="FQ, elems" Comm=""/>
+   <Description>Arguments: <Arg>FQ</Arg> -- a path
+    algebra, <Arg>elems</Arg> -- a list of elements
+    in <Arg>FQ</Arg>.<Br />
+   </Description>
+   <Returns>the ideal of <Arg>FQ</Arg> generated by <Arg>elems</Arg>.
+   </Returns>
+   <Description>For more on ideals, see the GAP reference manual [REF].
+   </Description>
+  </ManSection>
+
+<Example><![CDATA[
+gap> I := Ideal(FQ, [FQ.a - FQ.b*FQ.c, FQ.d*FQ.d]); 
+<two-sided ideal in <algebra-with-one over Rationals, with 6
+  generators>, (2 generators)>
+gap> GeneratorsOfIdeal(I);
+[ (1)*a+(-1)*b*c, (1)*d^2 ] ]]></Example>
+
+
+  <ManSection>
+   <Oper Name="NthPowerOfArrowIdeal" Arg="FQ, n" Comm=""/>
+   <Description>
+     Arguments: <Arg>FQ</Arg> -- a path algebra, <Arg>n</Arg> -- a
+    positive integer.<Br />
+   </Description>
+   <Returns>
+    the ideal generated all the paths of length <Arg>n</Arg> in <Arg>FQ</Arg>.
+   </Returns>
+  </ManSection>
+
+  <ManSection>
+   <Oper Name="AddNthPowerToRelations" Arg="FQ, rels, n" Comm=""/>
+   <Description>
+     Arguments: <Arg>FQ</Arg> -- a path algebra, <Arg>rels</Arg> -- a
+     (possibly empty) list of elements in <Arg>FQ</Arg>, <Arg>n</Arg>
+     -- a positive integer.<Br />
+   </Description>
+   <Returns>
+    the list <Arg>rels</Arg> with the paths of length <Arg>n</Arg>
+    of <Arg>FQ</Arg> appended (will change the list <Arg>rels</Arg>).
+   </Returns>
+  </ManSection>
+
+
+
+<Subsection Label="AttributesOfIdeals"><Heading>Attributes of ideals</Heading>
+
+For many of the functions related to quotients, you will need to
+compute a Groebner basis of the ideal.  This is done with the GBNP
+package. The following example shows how to set a Groebner basis for
+an ideal (note that this must be done before the quotient is
+constructed). See the next two chapters for more on Groebner bases.
+
+
+<Example><![CDATA[
+gap> rels := [FQ.a - FQ.b*FQ.c, FQ.d*FQ.d];
+[ (1)*a+(-1)*b*c, (1)*d^2 ]
+gap> gb := GBNPGroebnerBasis(rels, FQ); 
+[ (-1)*a+(1)*b*c, (1)*d^2 ]
+gap> I := Ideal(FQ, gb);
+<two-sided ideal in <algebra-with-one over Rationals, with 6
+  generators>, (2 generators)>
+gap> GroebnerBasis(I, gb);
+<complete two-sided Groebner basis containing 2 elements>
+gap> quot := FQ/I;
+<algebra-with-one over Rationals, with 6 generators> ]]></Example>
+
+</Subsection>
+</Section>
+
+
+<Section>
+<Heading>Categories and Properties of Quotients of Path Algebras</Heading>
+
+  <ManSection>
+   <Prop Name="IsQuotientOfPathAlgebra" Arg="object" Comm="checks if
+   object is a quotient of a path algebra"/>
+   <Description>
+     Argument: <Arg>object</Arg> -- any object in GAP.<Br />
+   </Description>
+   <Returns> true whenever <Arg>object</Arg> is a quotient of a path algebra.
+   </Returns>
+  </ManSection>
+
+<Example><![CDATA[
+gap> quot := FQ/I;
+<algebra-with-one over Rationals, with 6 generators>
+gap> IsQuotientOfPathAlgebra(quot);
+true
+gap> IsQuotientOfPathAlgebra(FQ);   
+false ]]></Example>
+</Section>
+
+<Section><Heading>Attributes and Operations for Quotients of Path
+    Algebras</Heading> 
+
+  <ManSection>
+   <Attr Name="NormalFormFunction" Arg="object" Comm=""/>
+   <Description>
+    is a function that can compute normal forms for elements
+    of <Arg>object</Arg>. It may be supplied by the user.<Br />
+    <Emph>Note: no documentation on this. Remove??</Emph>
+   </Description>
+  </ManSection>
+
+  <ManSection>
+   <Prop Name="IsElementOfQuotientOfPathAlgebra" Arg="object" Comm=""/>
+   <Description>
+     Arguments: <Arg>object</Arg> -- any object in GAP.<Br />
+   </Description>
+   <Returns>
+     true whenever <Arg>object</Arg> is an element of some quotient of a
+     path algebra.
+   </Returns>
+  </ManSection>
+
+<Example><![CDATA[
+gap> elem := quot.a*quot.b;
+[(1)*a*b]
+gap> IsElementOfQuotientOfPathAlgebra(elem);
+true
+gap> IsElementOfQuotientOfPathAlgebra(FQ.a*FQ.b);    
+false ]]></Example>
+
+  <ManSection>
+   <Oper Name="Coefficients" Arg="element" Comm=""/>
+   <Description>
+    The operation <Ref Oper="Coefficients"/> operates on
+    an <Arg>element</Arg> of a quotient of a path algebra, and it
+    returns the coefficients of the <Arg>element</Arg> in terms of its
+    canonical basis. <Br />
+    <Emph>Note: Not in QPA, takes two arguments in GAP.</Emph>
+   </Description>
+  </ManSection>
+
+
+<ManSection>
+   <Oper Name="IsSelfinjectiveAlgebra" Arg="A" Comm=""/>
+   <Description>
+     Arguments: <Arg>A</Arg> -- a path algebra or a quotient of a path
+     algebra.<Br />
+   </Description>
+   <Returns>fail if <Arg>A</Arg> is not finite dimensional. Otherwise
+     it returns true or false according to whether <Arg>A</Arg> is
+     selfinjective or not.
+   </Returns>
+</ManSection>
+
+<ManSection>
+   <Oper Name="LoewyLength" Arg="A" Comm=""/>
+   <Description>
+     Arguments: <Arg>A</Arg> -- a path algebra or a quotient of a path
+     algebra.<Br />
+   </Description>
+   <Returns>
+     fail if <Arg>A</Arg> is not finite dimensional. Otherwise it
+     returns the Loewy length of the algebra <Arg>A</Arg>.
+   </Returns>
+</ManSection>
+
+<ManSection>
+   <Oper Name="CartanMatrix" Arg="A" Comm=""/>
+   <Description>
+     Arguments: <Arg>A</Arg> -- a path algebra or a quotient of a path
+     algebra.<Br />
+   </Description>
+   <Returns>the Cartan matrix of the algebra <Arg>A</Arg>, after
+     having checked that <Arg>A</Arg> is a finite dimensional quotient
+     of a path algebra.
+   </Returns>
+</ManSection>
+
+<ManSection>
+   <Oper Name="CoxeterMatrix" Arg="A" Comm=""/>
+   <Description>
+     Arguments: <Arg>A</Arg> -- a path algebra or a quotient of a path
+     algebra.<Br />
+   </Description>
+   <Returns>
+     the Coxeter matrix of the algebra <Arg>A</Arg>, after having
+     checked that <Arg>A</Arg> is a finite dimensional quotient of a
+     path algebra.
+   </Returns>
+</ManSection>
+
+ <ManSection> 
+    <Oper Name="CoxeterPolynomial" Arg="A" Comm=""/> 
+    <Description> 
+      Arguments: <Arg>A</Arg> -- a path algebra or a quotient of a path 
+      algebra.<Br /> 
+    </Description> 
+    <Returns> 
+      the Coxeter polynomial of the algebra <Arg>A</Arg>, after having 
+      checked that <Arg>A</Arg> is a finite dimensional quotient of a 
+      path algebra. 
+    </Returns> 
+ </ManSection> 
+
+ <ManSection> 
+    <Oper Name="Centre/Center" Arg="A" Comm=""/> 
+    <Description> 
+      Arguments: <Arg>A</Arg> -- a path algebra or a quotient of a path 
+      algebra.<Br /> 
+    </Description> 
+    <Returns> 
+      the centre of the algebra <Arg>A</Arg>, after having checked 
+      that <Arg>A</Arg> is a finite dimensional quotient of a path 
+      algebra (the check is not implemented and also not implemented 
+      for path algebras). 
+    </Returns> 
+ </ManSection> 
+
+</Section>
+
+
+
+<Section><Heading>Attributes and Operations on Elements
+ of Quotients of Path Algebra</Heading>
+
+   <ManSection> 
+    <Oper Name="IsNormalForm" Arg="element" Comm=""/> 
+    <Description> 
+      Arguments: <Arg>element</Arg> -- an element of a path algebra.<Br /> 
+    </Description> 
+    <Returns>true if <Arg>element</Arg> is known to be in normal form. 
+    </Returns> 
+   </ManSection> 
+
+ <Example><![CDATA[ 
+ gap> IsNormalForm(elem);  
+ true  ]]></Example> 
+
+   <ManSection> 
+    <Oper Name="&lt;" Arg="a, b" Comm=""/> 
+    <Description> 
+      Arguments: <Arg>a</Arg> and <Arg>b</Arg> -- elements from a path 
+     algebra.<Br /> 
+    </Description> 
+    <Returns>true whenever <Arg>a</Arg> &lt; <Arg>b</Arg>. 
+    </Returns> 
+   </ManSection> 
+
+  <ManSection>
+   <Oper Name="ElementOfQuotientOfPathAlgebra" Arg="family, element,
+   computenormal" Comm=""/>
+   <Description>
+     Arguments: <Arg>family</Arg> -- a family of
+     ???, <Arg>element</Arg> -- an element of in a path
+     algebra, <Arg>computenormal</Arg> -- true or false.<Br />
+   </Description>
+   <Returns>The projection of <Arg>elem</Arg> into the quotient given
+    by <Arg>family</Arg>.  If <Arg>computenormal</Arg> is true, then
+    the normal form of the projection of <Arg>element</Arg> is
+    returned.
+   </Returns>
+   <Description><Emph>Notes: <Arg>family</Arg> should be a
+   "IsElementOfQuotientOfPathAlgebraFamily", but this category is
+   never declared. Also, the "computenormal" choice is never
+   used.</Emph>
+   </Description>
+  </ManSection>
+
+  <ManSection>
+   <Oper Name="OriginalPathAlgebra" Arg="algebra" Comm="for a quotient
+   of a path algebra"/>
+   <Description>
+     Arguments: <Arg>algebra</Arg> -- an algebra.<Br />
+   </Description>
+   <Returns>a path algebra.</Returns>
+   <Description>If <Arg>algebra</Arg> is a quotient of a path algebra
+    or just a path algebra itself, the returned algebra is the path
+    algebra it was constructed from. Otherwise it returns an error
+    saying that the algebra entered was not a quotient of a path
+    algebra.
+   </Description>
+  </ManSection>
+</Section>
+
+<Section Label="qpa:predefinedalgebras"><Heading>Predefined classes
+  of quotient of path algebras</Heading>
+
+  <ManSection>
+   <Func Name="NakayamaAlgebra" Arg="admiss-seq,field" 
+	 Comm="creates a Nakayama algebra"/>
+   <Description>
+     Arguments: <Arg>admiss-seq</Arg> -- an admissible
+     sequence, <Arg>field</Arg> -- a field.<Br />
+   </Description>
+   <Returns>
+   The Nakayama algebra corresponding to <Arg>admiss-seq</Arg> over
+   the field <Arg>field</Arg>, or <K>the admissible sequence
+   entered</K> (<K>The admissible sequence is not a valid one</K>?) if
+   entered sequence is not an admissible sequence.
+   </Returns>
+   <Description><Emph>Error message??</Emph></Description>
+  </ManSection>
+
+  <ManSection>
+   <Oper Name="TruncatedPathAlgebra" Arg="F, Q, n" 
+	 Comm="creates a truncated path algebra"/>
+   <Description>
+     Arguments: <Arg>F</Arg> -- a field, <Arg>Q</Arg> -- a
+     quiver, <Arg>n</Arg> -- a positive integer.<Br />
+   </Description>
+   <Returns>the truncated path algebra <Arg>KQ/I</Arg>,
+   where <Arg>I</Arg> is the ideal generated by all paths of
+   length <Arg>n</Arg> in <Arg>KQ</Arg>.
+   </Returns>
+  </ManSection>
+</Section>
+
+<Section Label="qpa:patensor">
+  <Heading>Tensor products of path algebras</Heading>
+
+  If <M>\Lambda</M> and <M>\Gamma</M> are quotients of path algebras
+  over the same field <M>F</M>, then their tensor product <M>\Lambda
+  \tensor_F \Gamma</M> is also a quotient of a path algebra
+  over <M>F</M>.<P/>
+
+  The quiver for the tensor product path algebra is the
+  <Ref Oper="QuiverProduct"/> of the quivers of the original
+  algebras.<P/>
+
+  The operation <Ref Oper="TensorProductOfAlgebras"/> computes the
+  tensor products of two quotients of path algebras as a quotient of a
+  path algebra.
+
+  <ManSection>
+    <Oper Name="QuiverProduct" Arg="Q1, Q2"/>
+    <Description>
+      Arguments: <Arg>Q1</Arg> and <Arg>Q2</Arg> -- quivers.<Br />
+    </Description>
+    <Returns>
+      the product quiver <M><Arg>Q1</Arg>
+      \quiverproduct <Arg>Q2</Arg></M>.  
+    </Returns>
+    <Description>
+      A vertex in <M><Arg>Q1</Arg> \quiverproduct <Arg>Q2</Arg></M>
+      which is made by combining a vertex named <C>u</C>
+      in <Arg>Q1</Arg> with a vertex <C>v</C> in <Arg>Q2</Arg> is
+      named <C>u_v</C>.  Arrows are named similarly (they are made by
+      combining an arrow from one quiver with a vertex from the
+      other).
+    </Description>
+  </ManSection>
+
+  <ManSection>
+    <Attr Name="QuiverProductDecomposition" Arg="Q"/>
+    <Description>
+      Arguments: <Arg>Q</Arg> -- a quiver <Br />.
+    </Description>
+    <Returns>
+      the original quivers <Arg>Q</Arg> is a product of,
+      if <Arg>Q</Arg> was created by the <Ref Oper="QuiverProduct"/>
+      operation.  
+    </Returns>
+    <Description>
+      The value of this attribute is an object in the category
+      <Ref Filt="IsQuiverProductDecomposition"/>.
+    </Description>
+  </ManSection>
+
+  <ManSection>
+    <Filt Name="IsQuiverProductDecomposition" Arg="object" Type="category" />
+    <Description>
+      Arguments: <Arg>object</Arg> -- any object in GAP.
+    </Description>
+    <Description>
+      Category for objects containing information about the relation
+      between a product quiver and the quivers it is a product of.
+      The quiver factors can be extracted from the decomposition
+      object by using the [] notation (like accessing elements of a
+      list).  The decomposition object is also used by the operations
+      <Ref Oper="IncludeInProductQuiver"/> and
+      <Ref Oper="ProjectFromProductQuiver"/>.
+    </Description>
+  </ManSection>
+
+  <ManSection>
+    <Oper Name="IncludeInProductQuiver" Arg="L, Q"/>
+    <Description>
+      Arguments: <Arg>L</Arg> -- a list containing the
+      paths <M>q_1</M> and <M>q_2</M>, <M>Q</M> -- a
+      product quiver.<Br />
+    </Description>
+    <Returns>a path in <Arg>Q</Arg>.
+    </Returns>
+    <Description>
+      Includes paths <M>q_1</M> and <M>q_2</M> from two quivers into
+      the product of these quivers, <Arg>Q</Arg>.  If at least one
+      of <M>q_1</M> and <M>q_2</M> is a vertex, there is exactly one
+      possible inclusion.  If they are both non-trivial paths, there
+      are several possibilities.  This operation constructs the path
+      which is the inclusion of <M>q_1</M> at the source of <M>q_2</M>
+      multiplied with the inclusion of <M>q_2</M> at the target
+      of <M>q_1</M>.
+    </Description>
+  </ManSection>
+
+  <ManSection>
+    <Oper Name="ProjectFromProductQuiver" Arg="i, p"/>
+    <Description>
+      Arguments: <Arg>i</Arg> -- a positive integer, <Arg>p</Arg> -- a
+      path in the product quiver.<Br />
+    </Description>
+    <Returns>the projection of the product quiver path <Arg>p</Arg>
+      to one of the factors.  Which factor it should be projected to
+      is specified by the argument <Arg>i</Arg>.
+    </Returns>
+  </ManSection>
+
+  The following example shows how the operations related to quiver
+  products are used.
+
+  <Example><![CDATA[
+gap> q1 := Quiver( [ "u1", "u2" ], [ [ "u1", "u2", "a" ] ] );
+<quiver with 2 vertices and 1 arrows>
+gap> q2 := Quiver( [ "v1", "v2", "v3" ],
+                      [ [ "v1", "v2", "b" ],
+                        [ "v2", "v3", "c" ] ] );
+<quiver with 3 vertices and 2 arrows>
+gap> q1_q2 := QuiverProduct( q1, q2 );
+<quiver with 6 vertices and 7 arrows>
+gap> q1_q2.u1_b * q1_q2.a_v2;
+u1_b*a_v2
+gap> IncludeInProductQuiver( [ q1.a, q2.b * q2.c ], q1_q2 );
+a_v1*u2_b*u2_c
+gap> ProjectFromProductQuiver( 2, q1_q2.a_v1 * q1_q2.u2_b * q1_q2.u2_c );
+b*c
+gap> q1_q2_dec := QuiverProductDecomposition( q1_q2 );
+<object>
+gap> q1_q2_dec[ 1 ];
+<quiver with 2 vertices and 1 arrows>
+gap> q1_q2_dec[ 1 ] = q1;
+true  ]]>
+</Example>
+
+  <ManSection>
+   <Oper Name="TensorProductOfAlgebras" Arg="FQ1, FQ2"/>
+   <Description>
+     Arguments: <Arg>FQ1</Arg> and <Arg>FQ2</Arg> -- (quotients of)
+     path algebras.<Br />
+   </Description>
+   <Returns>
+     The tensor product of <Arg>FQ1</Arg> and <Arg>FQ2</Arg>.
+   </Returns>
+   <Description>
+     The result is a quotient of a path algebra, whose quiver is the
+     <Ref Oper="QuiverProduct"/> of the quivers of the operands.
+   </Description>
+  </ManSection>
+
+  <ManSection>
+    <Oper Name="SimpleTensor" Arg="L, T"/>
+    <Description>
+      Arguments: <Arg>L</Arg> -- a list containing two
+			      elements <M>x</M> and <M>y</M> of two
+			      (quotients of) path
+			      algebras, <Arg>T</Arg> -- the tensor
+			      product of these algebras.<Br />
+    </Description>
+    <Returns>
+      the simple tensor <M>x \tensor y</M>.
+    </Returns>
+    <Description>
+      <M>x \tensor y</M> is in the tensor product <Arg>T</Arg>
+      (produced by <Ref Oper="TensorProductOfAlgebras"/>).
+    </Description>
+  </ManSection>
+
+  <ManSection>
+    <Attr Name="TensorProductDecomposition" Arg="T"/>
+    <Description>
+      Arguments: <Arg>T</Arg> -- a tensor product of path
+      algebras.<Br />
+    </Description>
+    <Returns>a list of the factors in the tensor product.
+    </Returns>
+    <Description><Arg>T</Arg> should be produced by
+      <Ref Oper="TensorProductOfAlgebras"/>).
+    </Description>
+  </ManSection>
+
+  The following example shows how the operations for tensor products
+  of quotients of path algebras are used.
+
+  <Example><![CDATA[
+gap> q1 := Quiver( [ "u1", "u2" ], [ [ "u1", "u2", "a" ] ] );
+<quiver with 2 vertices and 1 arrows>
+gap> q2 := Quiver( [ "v1", "v2", "v3", "v4" ],
+                      [ [ "v1", "v2", "b" ],
+                        [ "v1", "v3", "c" ],
+                        [ "v2", "v4", "d" ],
+                        [ "v3", "v4", "e" ] ] );
+<quiver with 4 vertices and 4 arrows>
+gap> fq1 := PathAlgebra( Rationals, q1 );
+<algebra-with-one over Rationals, with 3 generators>
+gap> fq2 := PathAlgebra( Rationals, q2 );
+<algebra-with-one over Rationals, with 8 generators>
+gap> I := Ideal( fq2, [ fq2.b * fq2.d - fq2.c * fq2.e ] );
+<two-sided ideal in <algebra-with-one over Rationals, with 8 generators>,
+ (1 generators)>
+gap> quot := fq2 / I;
+<algebra-with-one over Rationals, with 8 generators>
+gap> t := TensorProductOfAlgebras( fq1, quot );
+<algebra-with-one over Rationals, with 20 generators>
+gap> SimpleTensor( [ fq1.a, quot.b ], t );
+[(1)*a_v1*u2_b]
+gap> t_dec := TensorProductDecomposition( t );
+[ <algebra-with-one over Rationals, with 3 generators>, 
+  <algebra-with-one over Rationals, with 8 generators> ]
+gap> t_dec[ 1 ] = fq1;
+true ]]>
+</Example>
+
+  <ManSection>
+    <Oper Name="EnvelopingAlgebra" Arg="FQ"/>
+    <Description>
+      Arguments: <Arg>FQ</Arg> -- a (quotient of) a path
+      algebra. <Br /> 
+    </Description>
+    <Returns>the enveloping algebra <M><Arg>FQ</Arg>^\text{e}
+      = <Arg>FQ</Arg> \tensor <Arg>FQ</Arg>^\text{op}</M>
+      of <Arg>FQ</Arg>
+    </Returns>
+  </ManSection>
+
+  <ManSection>
+    <Attr Name="IsEnvelopingAlgebra" Arg="A"/>
+    <Description>
+      Arguments: <Arg>A</Arg> -- an algebra.<Br />
+    </Description>
+    <Returns>true if and only if <Arg>A</Arg> is the result of a call to
+      <Ref Oper="EnvelopingAlgebra"/>.
+    </Returns>
+  </ManSection>
+
+</Section>
+
+</Chapter>
