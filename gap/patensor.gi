@@ -1,5 +1,5 @@
 # GAP Implementation
-# $Id: patensor.gi,v 1.4 2012/02/27 12:26:34 sunnyquiver Exp $
+# $Id: patensor.gi,v 1.5 2012/04/13 08:12:39 kristink Exp $
 
 DeclareRepresentation(
         "IsQuiverProductDecompositionRep",
@@ -323,6 +323,14 @@ InstallMethod( EnvelopingAlgebra,
     envalg := TensorProductOfAlgebras( OppositeAlgebra( pa ), pa );
     SetIsEnvelopingAlgebra( envalg, true );
     return envalg;
+end );
+
+
+InstallMethod( IsEnvelopingAlgebra,
+               "for an algebra",
+               [ IsAlgebra ],
+               function( alg )
+    return false;
 end );
 
 
