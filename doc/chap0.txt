@@ -105,15 +105,14 @@
       2.8-5 NeighborsOfVertex
   3 Path Algebras
     3.1 Introduction
-      3.1-1 InfoPathAlgebra
     3.2 Constructing Path Algebras
       3.2-1 PathAlgebra
-      3.2-2 OrderedBy
     3.3 Categories and Properties of Path Algebras
       3.3-1 IsPathAlgebra
     3.4 Attributes and Operations for Path Algebras
       3.4-1 QuiverOfPathAlgebra
-      3.4-2 .
+      3.4-2 OrderingOfAlgebra
+      3.4-3 .
     3.5 Operations on Path Algebra Elements
       3.5-1 <
       3.5-2 IsLeftUniform
@@ -253,26 +252,27 @@
       7.1-1 IsPathAlgebraModuleHomomorphism
       7.1-2 RightModuleHomOverAlgebra
     7.2 Generalities of homomorphisms
-      7.2-1 Range
-      7.2-2 Source
-      7.2-3 PreImagesRepresentative
-      7.2-4 ImageElm
-      7.2-5 ImagesSet
-      7.2-6 Zero
-      7.2-7 ZeroMapping
-      7.2-8 IdentityMapping
-      7.2-9 \= (maps)
-      7.2-10 \+ (maps)
-      7.2-11 \* (maps)
-      7.2-12 CoKernelOfWhat
-      7.2-13 ImageOfWhat
-      7.2-14 IsInjective
-      7.2-15 IsSurjective
-      7.2-16 IsIsomorphism
-      7.2-17 IsSplitEpimorphism
-      7.2-18 IsSplitMonomorphism
-      7.2-19 IsZero
-      7.2-20 KernelOfWhat
+      7.2-1 MatricesOfPathAlgebraMatModuleHomomorphism
+      7.2-2 Range
+      7.2-3 Source
+      7.2-4 PreImagesRepresentative
+      7.2-5 ImageElm
+      7.2-6 ImagesSet
+      7.2-7 Zero
+      7.2-8 ZeroMapping
+      7.2-9 IdentityMapping
+      7.2-10 \= (maps)
+      7.2-11 \+ (maps)
+      7.2-12 \* (maps)
+      7.2-13 CoKernelOfWhat
+      7.2-14 ImageOfWhat
+      7.2-15 IsInjective
+      7.2-16 IsSurjective
+      7.2-17 IsIsomorphism
+      7.2-18 IsSplitEpimorphism
+      7.2-19 IsSplitMonomorphism
+      7.2-20 IsZero
+      7.2-21 KernelOfWhat
     7.3 Homomorphisms and modules constructed from homomorphisms and modules
       7.3-1 CoKernel
       7.3-2 EndOverAlgebra

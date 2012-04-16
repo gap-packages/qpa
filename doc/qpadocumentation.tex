@@ -48,6 +48,10 @@
 
 \newcommand{\GAP}{\textsf{GAP}}
 
+%% nicer description environments, allows long labels
+\usepackage{enumitem}
+\setdescription{style=nextline}
+
 \begin{document}
 
 \logpage{[ 0, 0, 0 ]}
@@ -945,32 +949,20 @@ source and the same target and if they have the same walks.
 \logpage{[ 3, 0, 0 ]}
 \hyperdef{L}{X7E8A43A484CE0BA8}{}
 {
- 
+  
 \section{\textcolor{Chapter }{Introduction}}\logpage{[ 3, 1, 0 ]}
 \hyperdef{L}{X7DFB63A97E67C0A1}{}
 {
- A path algebra is an algebra constructed from a field $F$ and a quiver $Q$. The path algebra $FQ$ contains all finite linear combinations of elements of $Q$. This chapter describes the functions in \textsf{QPA} that deal with path algebras and quotients of path algebras. Path algebras are
-algebras so see Chapter "ref:algebras" for functionality such as generators,
-basis functions, and mappings. 
-
-\subsection{\textcolor{Chapter }{InfoPathAlgebra}}
-\logpage{[ 3, 1, 1 ]}\nobreak
-\hyperdef{L}{X7C19179882715B18}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{InfoPathAlgebra\index{InfoPathAlgebra@\texttt{InfoPathAlgebra}}
-\label{InfoPathAlgebra}
-}\hfill{\scriptsize (info class)}}\\
-
-
- is the info class for functions dealing with path algebras. }
-
- }
+  A path algebra is an algebra constructed from a field $F$ [REF] and a quiver $Q$. The path algebra $FQ$ contains all finite linear combinations of elements of $Q$. This chapter describes the functions in \textsf{QPA} that deal with path algebras and quotients of path algebras. Path algebras are
+algebras, so see Chapter [REF]"ref:algebras" for functionality such as
+generators, basis functions, and mappings.        }
 
  
 \section{\textcolor{Chapter }{Constructing Path Algebras}}\label{Constructing Paths}
 \logpage{[ 3, 2, 0 ]}
 \hyperdef{L}{X848A225A84A15B1E}{}
 {
- 
+  
 
 \subsection{\textcolor{Chapter }{PathAlgebra}}
 \logpage{[ 3, 2, 1 ]}\nobreak
@@ -978,45 +970,34 @@ basis functions, and mappings.
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{PathAlgebra({\slshape F, Q})\index{PathAlgebra@\texttt{PathAlgebra}}
 \label{PathAlgebra}
 }\hfill{\scriptsize (function)}}\\
+
+
+Arguments: F -- a field, Q -- a quiver.\\
 \textbf{\indent Returns:\ }
-the path algebra $FG$ of \mbox{\texttt{\slshape Q}} over the field \mbox{\texttt{\slshape F}}.
+the path algebra $FQ$ of \mbox{\texttt{\slshape Q}} over the field \mbox{\texttt{\slshape F}}.
 
 
 
- }
+For construction of fields, see the GAP documentation [REF]. The elements of
+the path algebra $FQ$ will be ordered by left length-lexicographic ordering. }
 
  
 \begin{Verbatim}[fontsize=\small,frame=single,label=Example]
-  gap> q := Quiver(["u","v"],[["u","u","a"],["u","v","b"],
-  > ["v","u","c"],["v","v","d"]]);
+  gap> Q := Quiver( ["u","v"] , [ ["u","u","a"], ["u","v","b"],
+  >["v","u","c"], ["v","v","d"] ] );
   <quiver with 2 vertices and 4 arrows>
-  gap> f := FiniteField(23);
-  GF(23)
-  gap> fq := PathAlgebra(f,q);
-  <algebra-with-one over GF(23), with 6 generators>
+  gap> F := Rationals;
+  Rationals
+  gap> FQ := PathAlgebra(F,Q);
+  <algebra-with-one over Rationals, with 5 generators> 
 \end{Verbatim}
- \texttt{\symbol{92}}* NO: the FOLLOWING is not true: 
-
-\subsection{\textcolor{Chapter }{OrderedBy}}
-\logpage{[ 3, 2, 2 ]}\nobreak
-\hyperdef{L}{X83E498008233E2DD}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{OrderedBy({\slshape path, algebra, ordering})\index{OrderedBy@\texttt{OrderedBy}}
-\label{OrderedBy}
-}\hfill{\scriptsize (function)}}\\
-\textbf{\indent Returns:\ }
- a copy of \mbox{\texttt{\slshape path algebra}} whose elements are ordered by \mbox{\texttt{\slshape ordering}}. See Section \ref{qpa:Orderings} for more information on orderings.
-
-
-
- }
-
- }
+            }
 
  
 \section{\textcolor{Chapter }{Categories and Properties of Path Algebras}}\logpage{[ 3, 3, 0 ]}
 \hyperdef{L}{X85A3A8767E7C11AD}{}
 {
- 
+  
 
 \subsection{\textcolor{Chapter }{IsPathAlgebra}}
 \logpage{[ 3, 3, 1 ]}\nobreak
@@ -1026,14 +1007,16 @@ the path algebra $FG$ of \mbox{\texttt{\slshape Q}} over the field \mbox{\texttt
 }\hfill{\scriptsize (property)}}\\
 
 
- is true when \mbox{\texttt{\slshape object}} is a path algebra. }
+ Arguments: \mbox{\texttt{\slshape object}} -- any object in GAP. \\
+ \textbf{\indent Returns:\ }
+true whenever \mbox{\texttt{\slshape object}} is a path algebra. 
+
+}
 
  
 \begin{Verbatim}[fontsize=\small,frame=single,label=Example]
-  gap> IsPathAlgebra(fq);
+  gap> IsPathAlgebra(FQ);
   true
-  gap> IsPathAlgebra(q);
-  false
 \end{Verbatim}
  }
 
@@ -1046,39 +1029,69 @@ the path algebra $FG$ of \mbox{\texttt{\slshape Q}} over the field \mbox{\texttt
 \subsection{\textcolor{Chapter }{QuiverOfPathAlgebra}}
 \logpage{[ 3, 4, 1 ]}\nobreak
 \hyperdef{L}{X83FBA499856580B0}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{QuiverOfPathAlgebra({\slshape object})\index{QuiverOfPathAlgebra@\texttt{QuiverOfPathAlgebra}}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{QuiverOfPathAlgebra({\slshape FQ})\index{QuiverOfPathAlgebra@\texttt{QuiverOfPathAlgebra}}
 \label{QuiverOfPathAlgebra}
 }\hfill{\scriptsize (attribute)}}\\
 
 
- An attribute. Returns the quiver from which \mbox{\texttt{\slshape object}} was constructed. }
+ Arguments: \mbox{\texttt{\slshape FQ}} -- a path algebra. \\
+ \textbf{\indent Returns:\ }
+ the quiver from which \mbox{\texttt{\slshape FQ}} was constructed. 
+
+}
 
  
 \begin{Verbatim}[fontsize=\small,frame=single,label=Example]
-  gap> QuiverOfPathAlgebra(fq);
-  <quiver with 2 vertices and 4 arrows>
+  gap> QuiverOfPathAlgebra(FQ);
+  <quiver with 2 vertices and 4 arrows> 
 \end{Verbatim}
  
 
-\subsection{\textcolor{Chapter }{.}}
+\subsection{\textcolor{Chapter }{OrderingOfAlgebra}}
 \logpage{[ 3, 4, 2 ]}\nobreak
+\hyperdef{L}{X8279084B828E5FD7}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{OrderingOfAlgebra({\slshape FQ})\index{OrderingOfAlgebra@\texttt{OrderingOfAlgebra}}
+\label{OrderingOfAlgebra}
+}\hfill{\scriptsize (attribute)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape FQ}} -- a path algebra.\\
+ \textbf{\indent Returns:\ }
+ the ordering of the quiver of the path algebra. 
+
+
+
+\emph{Note:} As of the current version of \textsf{QPA}, only left length lexicographic ordering is supported. }
+
+ 
+
+\subsection{\textcolor{Chapter }{.}}
+\logpage{[ 3, 4, 3 ]}\nobreak
 \hyperdef{L}{X7821AC097821AC09}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{.({\slshape FQ, element})\index{.@\texttt{.}}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{.({\slshape FQ, generator})\index{.@\texttt{.}}
 \label{.}
 }\hfill{\scriptsize (operation)}}\\
 
 
- The operation \texttt{.} operates on a path algebra \mbox{\texttt{\slshape FQ}} and an element \mbox{\texttt{\slshape element}}, which is a vertex or an arrow in the quiver Q. It returns the generator as
-an element of the path algebra. }
+ Arguments: \mbox{\texttt{\slshape FQ}} -- a path algebra, \mbox{\texttt{\slshape generator}} -- a vertex or an arrow in the quiver \mbox{\texttt{\slshape Q}}. \\
+ \textbf{\indent Returns:\ }
+ the \mbox{\texttt{\slshape generator}} as an element of the path algebra. 
+
+
+
+Other elements of the path algebra can be constructed as linear combinations
+of the generators. For further operations on elements, see below. }
 
  
 \begin{Verbatim}[fontsize=\small,frame=single,label=Example]
-  gap> fq.v;
-  (Z(23)^0)*v
-  gap> fq.b;
-  (Z(23)^0)*b
+  gap> FQ.a;
+  (1)*a
+  gap> FQ.v;
+  (1)*v
+  gap> elem := 2*FQ.a - 3*FQ.v;
+  (-3)*v+(2)*a 
 \end{Verbatim}
- {\textgreater}OrderingOfAlgebra( \mbox{\texttt{\slshape path algebra}} ) returns the ordering of the quiver of the path algebra. }
+ }
 
  
 \section{\textcolor{Chapter }{Operations on Path Algebra Elements}}\logpage{[ 3, 5, 0 ]}
@@ -1094,7 +1107,11 @@ an element of the path algebra. }
 }\hfill{\scriptsize (operation)}}\\
 
 
- The operation \texttt{{\textless}} operates on elements \mbox{\texttt{\slshape a}} and \mbox{\texttt{\slshape b}} of a path algebra $FQ$, and they are compared using the ordering for the path algebra. See Section \ref{qpa:Orderings} for more information on orderings. }
+ Arguments: \mbox{\texttt{\slshape a}} and \mbox{\texttt{\slshape b}} -- two elements of the same path algebra.\\
+ \textbf{\indent Returns:\ }
+ True whenever \mbox{\texttt{\slshape a}} is smaller than \mbox{\texttt{\slshape b}}, according to the ordering of the path algebra. 
+
+}
 
  
 
@@ -1106,7 +1123,11 @@ an element of the path algebra. }
 }\hfill{\scriptsize (operation)}}\\
 
 
- The operation \texttt{IsLeftUniform} operates on an \mbox{\texttt{\slshape element}} in a path algebra, and it returns true if each monomial in \mbox{\texttt{\slshape element}} has the same source vertex. }
+ Arguments: \mbox{\texttt{\slshape element}} -- an element of the path algebra.\\
+ \textbf{\indent Returns:\ }
+ true if each monomial in \mbox{\texttt{\slshape element}} has the same source vertex, false otherwise. 
+
+}
 
  
 
@@ -1118,7 +1139,11 @@ an element of the path algebra. }
 }\hfill{\scriptsize (operation)}}\\
 
 
- The operation \texttt{IsRightUniform} operates on an \mbox{\texttt{\slshape element}} in a path algebra, and it returns true if each monomial in \mbox{\texttt{\slshape element}} has the same target vertex. }
+ Arguments: \mbox{\texttt{\slshape element}} -- an element of the path algebra.\\
+ \textbf{\indent Returns:\ }
+ true if each monomial in \mbox{\texttt{\slshape element}} has the same target vertex, false otherwise. 
+
+}
 
  
 
@@ -1130,7 +1155,11 @@ an element of the path algebra. }
 }\hfill{\scriptsize (operation)}}\\
 
 
- The operation \texttt{IsUniform} operates on an \mbox{\texttt{\slshape element}} in a path algebra, and it returns true if each monomial in \mbox{\texttt{\slshape element}} has both the same source vertex and the same target vertex. }
+ Arguments: \mbox{\texttt{\slshape element}} -- an element of the path algebra. \\
+ \textbf{\indent Returns:\ }
+ true whenever \mbox{\texttt{\slshape element}} is both left and right uniform. 
+
+}
 
  
 \begin{Verbatim}[fontsize=\small,frame=single,label=Example]
@@ -1140,14 +1169,14 @@ an element of the path algebra. }
   false
   gap> IsUniform(elem);
   false
-  gap> another := fq.a*fq.b + fq.b*fq.d*fq.c*fq.b*fq.d;
-  (Z(23)^0)*a*b+(Z(23)^0)*b*d*c*b*d
+  gap> another := FQ.a*FQ.b + FQ.b*FQ.d*FQ.c*FQ.b*FQ.d;
+  (1)*a*b+(1)*b*d*c*b*d
   gap> IsLeftUniform(another);
   true
   gap> IsRightUniform(another);
   true
   gap> IsUniform(another);
-  true
+  true 
 \end{Verbatim}
  
 
@@ -1162,8 +1191,14 @@ an element of the path algebra. }
 }\hfill{\scriptsize (operation)}}\\
 
 
- The operation \texttt{LeadingTerm} or equivalently \texttt{Tip} operates on an \mbox{\texttt{\slshape x}} in a path algebra, and it returns is the term in \mbox{\texttt{\slshape element}} whose monomial is largest among those monomials that have nonzero
-coefficients; this term is known as the *tip* of \mbox{\texttt{\slshape element}}. }
+ Arguments: \mbox{\texttt{\slshape element}} -- an element of the path algebra. \\
+ \textbf{\indent Returns:\ }
+ the term in \mbox{\texttt{\slshape element}} whose monomial is largest among those monomials that have nonzero coefficients
+(known as the "tip" of \mbox{\texttt{\slshape element}}). 
+
+
+
+ \emph{Note: } The two operations are equivalent. }
 
  
 
@@ -1178,7 +1213,13 @@ coefficients; this term is known as the *tip* of \mbox{\texttt{\slshape element}
 }\hfill{\scriptsize (operation)}}\\
 
 
- The operation \texttt{LeadingCoefficient} or equivalently \texttt{TipCoefficient} operates on an \mbox{\texttt{\slshape element}} in a path algebra, and it returns the coefficient of the tip of \mbox{\texttt{\slshape element}}. This is an element of the field. }
+ Arguments: \mbox{\texttt{\slshape element}} -- an element of the path algebra. \\
+ \textbf{\indent Returns:\ }
+ the coefficient of the tip of \mbox{\texttt{\slshape element}} (which is an element of the field). 
+
+
+
+ \emph{Note: } The two operations are equivalent. }
 
  
 
@@ -1193,19 +1234,28 @@ coefficients; this term is known as the *tip* of \mbox{\texttt{\slshape element}
 }\hfill{\scriptsize (operation)}}\\
 
 
- The operation \texttt{LeadingMonomial} or equivalently \texttt{TipMonomial} operates on an \mbox{\texttt{\slshape element}} in a path algebra, and it returns the monomial of the tip of \mbox{\texttt{\slshape element}}; it is the largest monomial occurring in \mbox{\texttt{\slshape element}} with a nonzero coefficient. This is an element of the underlying quiver, not
-of the path algebra. }
+ Arguments: \mbox{\texttt{\slshape element}} -- an element of the path algebra. \\
+ \textbf{\indent Returns:\ }
+ the monomial of the tip of \mbox{\texttt{\slshape element}} (which is an element of the underlying quiver, not of the path algebra). 
+
+
+
+ \emph{Note: } The two operations are equivalent. }
 
  
 \begin{Verbatim}[fontsize=\small,frame=single,label=Example]
-  gap> elem := fq.a*fq.b*fq.c + fq.b*fq.d*fq.c+fq.d*fq.d;
-  (Z(23)^0)*d^2+(Z(23)^0)*a*b*c+(Z(23)^0)*b*d*c
+  gap> elem := FQ.a*FQ.b*FQ.c + FQ.b*FQ.d*FQ.c+FQ.d*FQ.d;
+  (1)*d^2+(1)*a*b*c+(1)*b*d*c
   gap> LeadingTerm(elem);
-  (Z(23)^0)*b*d*c
+  (1)*b*d*c
   gap> LeadingCoefficient(elem);
-  Z(23)^0
-  gap> LeadingMonomial(elem);
+  1
+  gap> mon := LeadingMonomial(elem);
   b*d*c
+  gap> mon in FQ;
+  false
+  gap> mon in Q;
+  true 
 \end{Verbatim}
  
 
@@ -1217,8 +1267,11 @@ of the path algebra. }
 }\hfill{\scriptsize (operation)}}\\
 
 
- The operation \texttt{MakeUniformOnRight} operates on a list \mbox{\texttt{\slshape elems}} of elements in a path algebra, and it returns a list of right uniform elements
-generated by each element of \mbox{\texttt{\slshape elems}}. }
+ Arguments: \mbox{\texttt{\slshape elems}} -- a list of elements in a path algebra.\\
+ \textbf{\indent Returns:\ }
+ a list of right uniform elements generated by each element of \mbox{\texttt{\slshape elems}}. 
+
+}
 
  
 
@@ -1230,22 +1283,29 @@ generated by each element of \mbox{\texttt{\slshape elems}}. }
 }\hfill{\scriptsize (operation)}}\\
 
 
- The operation \texttt{MappedExpression} operates on \mbox{\texttt{\slshape expr}} from a path algebra and and two equal-length lists of generators \mbox{\texttt{\slshape gens1}} and \mbox{\texttt{\slshape gens2}} for subalgebras. The \mbox{\texttt{\slshape expr}} must be in the subalgebra generated by \mbox{\texttt{\slshape gens1}}. The lists define a mapping of each generator in \mbox{\texttt{\slshape gens1}} to the corresponding generator in \mbox{\texttt{\slshape gens2}}. The value returned is the evaluation of the mapping at \mbox{\texttt{\slshape expr}}. }
+ Arguments: \mbox{\texttt{\slshape expr}} -- element of a path algebra, \mbox{\texttt{\slshape gens1}} and \mbox{\texttt{\slshape gens2}} -- equal-length lists of generators for subalgebras.\\
+ \textbf{\indent Returns:\ }
+ \mbox{\texttt{\slshape expr}} as an element of the subalgebra generated by \mbox{\texttt{\slshape gens2}}. 
+
+
+
+ The element \mbox{\texttt{\slshape expr}} must be in the subalgebra generated by \mbox{\texttt{\slshape gens1}}. The lists define a mapping of each generator in \mbox{\texttt{\slshape gens1}} to the corresponding generator in \mbox{\texttt{\slshape gens2}}. The value returned is the evaluation of the mapping at \mbox{\texttt{\slshape expr}}. }
 
  
 
 \subsection{\textcolor{Chapter }{VertexPosition}}
 \logpage{[ 3, 5, 10 ]}\nobreak
 \hyperdef{L}{X849AC0F67A131929}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{VertexPosition({\slshape elm})\index{VertexPosition@\texttt{VertexPosition}}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{VertexPosition({\slshape element})\index{VertexPosition@\texttt{VertexPosition}}
 \label{VertexPosition}
 }\hfill{\scriptsize (function)}}\\
-\textbf{\indent Returns:\ }
-the position of the vertex \mbox{\texttt{\slshape v}} in the list of vertices of which the element \mbox{\texttt{\slshape elm}} is a multiplum of.
 
 
+ Arguments: \mbox{\texttt{\slshape element}} -- an element of the path algebra on the form $k*v$, where $v$ is a vertex of the underlying quiver and $k$ is an element of the field.\\
+ \textbf{\indent Returns:\ }
+ the position of the vertex \mbox{\texttt{\slshape v}} in the list of vertices of the quiver. 
 
- The function assumes that a multiplum of a trivial path is entered. }
+}
 
  }
 
@@ -1253,20 +1313,9 @@ the position of the vertex \mbox{\texttt{\slshape v}} in the list of vertices of
 \section{\textcolor{Chapter }{Constructing Quotients of Path Algebras}}\logpage{[ 3, 6, 0 ]}
 \hyperdef{L}{X7F0D555379C97A6E}{}
 {
- See Chapter "ref:algebras" on how to construct an ideal and a quotient of an
-algebra. When the quotient is constructed, it is still a path algebra and thus
-the same commands may be used with quotients. Also since a quotient is still
-an algebra, refer to "ref:algebras". 
-\begin{Verbatim}[fontsize=\small,frame=single,label=Example]
-  gap> I := Ideal(fq,[fq.a * fq.b, fq.d * fq.d - fq.b * fq.c]);
-  <two-sided ideal in <algebra-with-one over GF(23), with 6 generators>,
-    (2 generators)>
-  gap> GeneratorsOfIdeal(I);
-  [ (Z(23)^0)*a*b, (Z(23)^11)*b*c+(Z(23)^0)*d^2 ]
-  gap> quot := fq/I;
-  <algebra-with-one over GF(23), with 6 generators>
-\end{Verbatim}
- }
+  See Chapter [REF]"ref:algebras" on how to construct an ideal and a quotient of
+an algebra. When the quotient is constructed, it is still a path algebra and
+thus the commands introduced for path algebras also works with quotients. }
 
  
 \section{\textcolor{Chapter }{Ideals}}\logpage{[ 3, 7, 0 ]}
@@ -1284,58 +1333,81 @@ an algebra, refer to "ref:algebras".
 \subsection{\textcolor{Chapter }{Ideal}}
 \logpage{[ 3, 7, 2 ]}\nobreak
 \hyperdef{L}{X82ACACDD7D8E9B25}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{Ideal({\slshape KQ, elems})\index{Ideal@\texttt{Ideal}}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{Ideal({\slshape FQ, elems})\index{Ideal@\texttt{Ideal}}
 \label{Ideal}
 }\hfill{\scriptsize (operation)}}\\
 
 
- The operation \texttt{Ideal} defines the ideal generated by \mbox{\texttt{\slshape elems}} in the path algebra \mbox{\texttt{\slshape KQ}} (See Ideals in the reference manual of GAP). }
+Arguments: \mbox{\texttt{\slshape FQ}} -- a path algebra, \mbox{\texttt{\slshape elems}} -- a list of elements in \mbox{\texttt{\slshape FQ}}.\\
+ \textbf{\indent Returns:\ }
+the ideal of \mbox{\texttt{\slshape FQ}} generated by \mbox{\texttt{\slshape elems}}. 
 
+
+
+For more on ideals, see the GAP reference manual [REF]. }
+
+ 
+\begin{Verbatim}[fontsize=\small,frame=single,label=Example]
+  gap> I := Ideal(FQ, [FQ.a - FQ.b*FQ.c, FQ.d*FQ.d]); 
+  <two-sided ideal in <algebra-with-one over Rationals, with 6
+    generators>, (2 generators)>
+  gap> GeneratorsOfIdeal(I);
+  [ (1)*a+(-1)*b*c, (1)*d^2 ] 
+\end{Verbatim}
  
 
 \subsection{\textcolor{Chapter }{NthPowerOfArrowIdeal}}
 \logpage{[ 3, 7, 3 ]}\nobreak
 \hyperdef{L}{X830187497E0BD4F0}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{NthPowerOfArrowIdeal({\slshape KQ, n})\index{NthPowerOfArrowIdeal@\texttt{NthPowerOfArrowIdeal}}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{NthPowerOfArrowIdeal({\slshape FQ, n})\index{NthPowerOfArrowIdeal@\texttt{NthPowerOfArrowIdeal}}
 \label{NthPowerOfArrowIdeal}
 }\hfill{\scriptsize (operation)}}\\
 
 
- The operation \texttt{NthPowerOfArrowIdeal} defines the ideal generated all the paths of length \mbox{\texttt{\slshape n}} in the path algebra \mbox{\texttt{\slshape KQ}}. }
+ Arguments: \mbox{\texttt{\slshape FQ}} -- a path algebra, \mbox{\texttt{\slshape n}} -- a positive integer.\\
+ \textbf{\indent Returns:\ }
+ the ideal generated all the paths of length \mbox{\texttt{\slshape n}} in \mbox{\texttt{\slshape FQ}}. 
+
+}
 
  
 
 \subsection{\textcolor{Chapter }{AddNthPowerToRelations}}
 \logpage{[ 3, 7, 4 ]}\nobreak
 \hyperdef{L}{X824D550E8371098C}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{AddNthPowerToRelations({\slshape KQ, rels, n})\index{AddNthPowerToRelations@\texttt{AddNthPowerToRelations}}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{AddNthPowerToRelations({\slshape FQ, rels, n})\index{AddNthPowerToRelations@\texttt{AddNthPowerToRelations}}
 \label{AddNthPowerToRelations}
 }\hfill{\scriptsize (operation)}}\\
 
 
- The operation \texttt{AddNthPowerToRelations} append the list \mbox{\texttt{\slshape rels}} the paths of length \mbox{\texttt{\slshape n}} in the path algebra \mbox{\texttt{\slshape KQ}}. The object \mbox{\texttt{\slshape rels}} must be a list of elements in the path algebra \mbox{\texttt{\slshape KQ}}, and \mbox{\texttt{\slshape n}} must be a positive integer. }
+ Arguments: \mbox{\texttt{\slshape FQ}} -- a path algebra, \mbox{\texttt{\slshape rels}} -- a (possibly empty) list of elements in \mbox{\texttt{\slshape FQ}}, \mbox{\texttt{\slshape n}} -- a positive integer.\\
+ \textbf{\indent Returns:\ }
+ the list \mbox{\texttt{\slshape rels}} with the paths of length \mbox{\texttt{\slshape n}} of \mbox{\texttt{\slshape FQ}} appended (will change the list \mbox{\texttt{\slshape rels}}). 
+
+}
 
  
 \subsection{\textcolor{Chapter }{Attributes of ideals}}\label{AttributesOfIdeals}
 \logpage{[ 3, 7, 5 ]}
 \hyperdef{L}{X85D4E72B787B1C49}{}
 {
- Groebner Basis Of an Ideal: For many of the functions related to quotients,
-you will need to compute a Groebner basis of the ideal. Refer to the chapters
-"qpa:groebner basis" and "qpa:using opal with gap" to learn more. 
+ For many of the functions related to quotients, you will need to compute a
+Groebner basis of the ideal. This is done with the GBNP package. The following
+example shows how to set a Groebner basis for an ideal (note that this must be
+done before the quotient is constructed). See the next two chapters for more
+on Groebner bases. 
 \begin{Verbatim}[fontsize=\small,frame=single,label=Example]
-  gap> J := Ideal(fq,[fq.a*fq.b]);
-  <two-sided ideal in <algebra-with-one over GF(23), with 6 generators>,
-    (1 generators)>
-  gap> anotherquot := fq/J;
-  <algebra-with-one over GF(23), with 6 generators>
-  gap> gb := GroebnerBasis(J,[fq.a*fq.b]);
-  <complete two-sided Groebner basis containing 1 elements>
-  gap> SetIsCompleteGroebnerBasis(gb, true);
-  gap> IsCompleteGroebnerBasis(gb);
-  true
-  gap> gb = GroebnerBasisOfIdeal(J);
-  true
+  gap> rels := [FQ.a - FQ.b*FQ.c, FQ.d*FQ.d];
+  [ (1)*a+(-1)*b*c, (1)*d^2 ]
+  gap> gb := GBNPGroebnerBasis(rels, FQ); 
+  [ (-1)*a+(1)*b*c, (1)*d^2 ]
+  gap> I := Ideal(FQ, gb);
+  <two-sided ideal in <algebra-with-one over Rationals, with 6
+    generators>, (2 generators)>
+  gap> GroebnerBasis(I, gb);
+  <complete two-sided Groebner basis containing 2 elements>
+  gap> quot := FQ/I;
+  <algebra-with-one over Rationals, with 6 generators> 
 \end{Verbatim}
  }
 
@@ -1345,7 +1417,7 @@ you will need to compute a Groebner basis of the ideal. Refer to the chapters
 \section{\textcolor{Chapter }{Categories and Properties of Quotients of Path Algebras}}\logpage{[ 3, 8, 0 ]}
 \hyperdef{L}{X7A3CA333873389AD}{}
 {
- 
+  
 
 \subsection{\textcolor{Chapter }{IsQuotientOfPathAlgebra}}
 \logpage{[ 3, 8, 1 ]}\nobreak
@@ -1355,14 +1427,20 @@ you will need to compute a Groebner basis of the ideal. Refer to the chapters
 }\hfill{\scriptsize (property)}}\\
 
 
- is true when \mbox{\texttt{\slshape object}} is a quotient of a path algebra. }
+ Argument: \mbox{\texttt{\slshape object}} -- any object in GAP.\\
+ \textbf{\indent Returns:\ }
+ true whenever \mbox{\texttt{\slshape object}} is a quotient of a path algebra. 
+
+}
 
  
 \begin{Verbatim}[fontsize=\small,frame=single,label=Example]
+  gap> quot := FQ/I;
+  <algebra-with-one over Rationals, with 6 generators>
   gap> IsQuotientOfPathAlgebra(quot);
   true
-  gap> IsQuotientOfPathAlgebra(fq);
-  false
+  gap> IsQuotientOfPathAlgebra(FQ);   
+  false 
 \end{Verbatim}
  }
 
@@ -1380,7 +1458,8 @@ you will need to compute a Groebner basis of the ideal. Refer to the chapters
 }\hfill{\scriptsize (attribute)}}\\
 
 
- is a function that can compute normal forms for elements of \mbox{\texttt{\slshape object}}. It may be supplied by the user. }
+ is a function that can compute normal forms for elements of \mbox{\texttt{\slshape object}}. It may be supplied by the user.\\
+ \emph{Note: no documentation on this. Remove??} }
 
  
 
@@ -1392,16 +1471,20 @@ you will need to compute a Groebner basis of the ideal. Refer to the chapters
 }\hfill{\scriptsize (property)}}\\
 
 
- is true if \mbox{\texttt{\slshape object}} is an element of some quotient of a path algebra. }
+ Arguments: \mbox{\texttt{\slshape object}} -- any object in GAP.\\
+ \textbf{\indent Returns:\ }
+ true whenever \mbox{\texttt{\slshape object}} is an element of some quotient of a path algebra. 
+
+}
 
  
 \begin{Verbatim}[fontsize=\small,frame=single,label=Example]
-  gap> this := anotherquot.a*anotherquot.b;
-  [(Z(23)^0)*a*b]
-  gap> IsElementOfQuotientOfPathAlgebra(this);
+  gap> elem := quot.a*quot.b;
+  [(1)*a*b]
+  gap> IsElementOfQuotientOfPathAlgebra(elem);
   true
-  gap> IsElementOfQuotientOfPathAlgebra(fq);
-  false
+  gap> IsElementOfQuotientOfPathAlgebra(FQ.a*FQ.b);    
+  false 
 \end{Verbatim}
  
 
@@ -1413,7 +1496,8 @@ you will need to compute a Groebner basis of the ideal. Refer to the chapters
 }\hfill{\scriptsize (operation)}}\\
 
 
- The operation \texttt{Coefficients} operates on an \mbox{\texttt{\slshape element}} of a quotient of a path algebra, and it returns the coefficients of the \mbox{\texttt{\slshape element}} in terms of its canonical basis. Question: Does this only take one argument? }
+ The operation \texttt{Coefficients} operates on an \mbox{\texttt{\slshape element}} of a quotient of a path algebra, and it returns the coefficients of the \mbox{\texttt{\slshape element}} in terms of its canonical basis. \\
+ \emph{Note: Not in QPA, takes two arguments in GAP.} }
 
  
 
@@ -1425,9 +1509,12 @@ you will need to compute a Groebner basis of the ideal. Refer to the chapters
 }\hfill{\scriptsize (operation)}}\\
 
 
- This function takes a path algebra or a quotient of a path algebra as an
-argument \mbox{\texttt{\slshape A}}, and returns fail if \mbox{\texttt{\slshape A}} is not finite dimensional. Otherwise it returns true or false according to
-whether \mbox{\texttt{\slshape A}} is selfinjective or not. }
+ Arguments: \mbox{\texttt{\slshape A}} -- a path algebra or a quotient of a path algebra.\\
+ \textbf{\indent Returns:\ }
+fail if \mbox{\texttt{\slshape A}} is not finite dimensional. Otherwise it returns true or false according to
+whether \mbox{\texttt{\slshape A}} is selfinjective or not. 
+
+}
 
  
 
@@ -1439,9 +1526,12 @@ whether \mbox{\texttt{\slshape A}} is selfinjective or not. }
 }\hfill{\scriptsize (operation)}}\\
 
 
- This function takes a pathalgebra or a quotient of a path algebra as an
-argument \mbox{\texttt{\slshape A}}, and returns fail if \mbox{\texttt{\slshape A}} is not finite dimensional. Otherwise it returns the Loewy length of the
-algebra \mbox{\texttt{\slshape A}}. }
+ Arguments: \mbox{\texttt{\slshape A}} -- a path algebra or a quotient of a path algebra.\\
+ \textbf{\indent Returns:\ }
+ fail if \mbox{\texttt{\slshape A}} is not finite dimensional. Otherwise it returns the Loewy length of the
+algebra \mbox{\texttt{\slshape A}}. 
+
+}
 
  
 
@@ -1453,7 +1543,11 @@ algebra \mbox{\texttt{\slshape A}}. }
 }\hfill{\scriptsize (operation)}}\\
 
 
- This function returns the Cartan matrix of the algebra \mbox{\texttt{\slshape A}}, after having checked that \mbox{\texttt{\slshape A}} is a finite dimensional quotient of a path algebra. }
+ Arguments: \mbox{\texttt{\slshape A}} -- a path algebra or a quotient of a path algebra.\\
+ \textbf{\indent Returns:\ }
+the Cartan matrix of the algebra \mbox{\texttt{\slshape A}}, after having checked that \mbox{\texttt{\slshape A}} is a finite dimensional quotient of a path algebra. 
+
+}
 
  
 
@@ -1465,7 +1559,11 @@ algebra \mbox{\texttt{\slshape A}}. }
 }\hfill{\scriptsize (operation)}}\\
 
 
- This function returns the Coxeter matrix of the algebra \mbox{\texttt{\slshape A}}, after having checked that \mbox{\texttt{\slshape A}} is a finite dimensional quotient of a path algebra. }
+ Arguments: \mbox{\texttt{\slshape A}} -- a path algebra or a quotient of a path algebra.\\
+ \textbf{\indent Returns:\ }
+ the Coxeter matrix of the algebra \mbox{\texttt{\slshape A}}, after having checked that \mbox{\texttt{\slshape A}} is a finite dimensional quotient of a path algebra. 
+
+}
 
  
 
@@ -1477,7 +1575,11 @@ algebra \mbox{\texttt{\slshape A}}. }
 }\hfill{\scriptsize (operation)}}\\
 
 
- This function returns the Coxeter polynomial of the algebra \mbox{\texttt{\slshape A}}, after having checked that \mbox{\texttt{\slshape A}} is a finite dimensional quotient of a path algebra. }
+ Arguments: \mbox{\texttt{\slshape A}} -- a path algebra or a quotient of a path algebra.\\
+ \textbf{\indent Returns:\ }
+ the Coxeter polynomial of the algebra \mbox{\texttt{\slshape A}}, after having checked that \mbox{\texttt{\slshape A}} is a finite dimensional quotient of a path algebra. 
+
+}
 
  
 
@@ -1489,8 +1591,12 @@ algebra \mbox{\texttt{\slshape A}}. }
 }\hfill{\scriptsize (operation)}}\\
 
 
- This function returns the centre of the algebra \mbox{\texttt{\slshape A}}, after having checked that \mbox{\texttt{\slshape A}} is a finite dimensional quotient of a path algebra (the check is not
-implemented and also not implemented for path algebras). }
+ Arguments: \mbox{\texttt{\slshape A}} -- a path algebra or a quotient of a path algebra.\\
+ \textbf{\indent Returns:\ }
+ the centre of the algebra \mbox{\texttt{\slshape A}}, after having checked that \mbox{\texttt{\slshape A}} is a finite dimensional quotient of a path algebra (the check is not
+implemented and also not implemented for path algebras). 
+
+}
 
  }
 
@@ -1508,12 +1614,16 @@ implemented and also not implemented for path algebras). }
 }\hfill{\scriptsize (operation)}}\\
 
 
- The operation \texttt{IsNormalForm} operates on an \mbox{\texttt{\slshape element}} from a path algebra, and it is true if \mbox{\texttt{\slshape element}} is known to be in normal form. }
+ Arguments: \mbox{\texttt{\slshape element}} -- an element of a path algebra.\\
+ \textbf{\indent Returns:\ }
+true if \mbox{\texttt{\slshape element}} is known to be in normal form. 
+
+}
 
  
 \begin{Verbatim}[fontsize=\small,frame=single,label=Example]
-  gap> IsNormalForm(this); 
-  false
+   gap> IsNormalForm(elem);  
+   true  
 \end{Verbatim}
  
 
@@ -1525,7 +1635,11 @@ implemented and also not implemented for path algebras). }
 }\hfill{\scriptsize (operation)}}\\
 
 
- The operation \texttt{{\textless}} operates on two elements \mbox{\texttt{\slshape a}} and \mbox{\texttt{\slshape b}} from a path algebra $FQ$, and it compares them using the ordering for the path algebra. }
+ Arguments: \mbox{\texttt{\slshape a}} and \mbox{\texttt{\slshape b}} -- elements from a path algebra.\\
+ \textbf{\indent Returns:\ }
+true whenever \mbox{\texttt{\slshape a}} {\textless} \mbox{\texttt{\slshape b}}. 
+
+}
 
  
 
@@ -1537,7 +1651,14 @@ implemented and also not implemented for path algebras). }
 }\hfill{\scriptsize (operation)}}\\
 
 
- The operation \texttt{ElementOfQuotientOfPathAlgebra} operates on an \mbox{\texttt{\slshape element}} in a path algebra, and it projects it into the quotient given by \mbox{\texttt{\slshape family}}. If \mbox{\texttt{\slshape computenormal}} is true, then the normal form of the projection of \mbox{\texttt{\slshape element}} is returned. }
+ Arguments: \mbox{\texttt{\slshape family}} -- a family of ???, \mbox{\texttt{\slshape element}} -- an element of in a path algebra, \mbox{\texttt{\slshape computenormal}} -- true or false.\\
+ \textbf{\indent Returns:\ }
+The projection of \mbox{\texttt{\slshape elem}} into the quotient given by \mbox{\texttt{\slshape family}}. If \mbox{\texttt{\slshape computenormal}} is true, then the normal form of the projection of \mbox{\texttt{\slshape element}} is returned. 
+
+
+
+\emph{Notes: \mbox{\texttt{\slshape family}} should be a "IsElementOfQuotientOfPathAlgebraFamily", but this category is
+never declared. Also, the "computenormal" choice is never used.} }
 
  
 
@@ -1549,8 +1670,14 @@ implemented and also not implemented for path algebras). }
 }\hfill{\scriptsize (operation)}}\\
 
 
- The operation \texttt{OriginalPathAlgebra} operates on an \mbox{\texttt{\slshape algebra}}. If it is a quotient of a path algebra or just a path algebra itself, it
-returns the path algebra it was constructed from. Otherwise it returns an
+ Arguments: \mbox{\texttt{\slshape algebra}} -- an algebra.\\
+ \textbf{\indent Returns:\ }
+a path algebra.
+
+
+
+If \mbox{\texttt{\slshape algebra}} is a quotient of a path algebra or just a path algebra itself, the returned
+algebra is the path algebra it was constructed from. Otherwise it returns an
 error saying that the algebra entered was not a quotient of a path algebra. }
 
  }
@@ -1568,24 +1695,29 @@ error saying that the algebra entered was not a quotient of a path algebra. }
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{NakayamaAlgebra({\slshape admiss-seq, field})\index{NakayamaAlgebra@\texttt{NakayamaAlgebra}}
 \label{NakayamaAlgebra}
 }\hfill{\scriptsize (function)}}\\
-\textbf{\indent Returns:\ }
-the Nakayama algebra corresponding to the addmissible sequence \mbox{\texttt{\slshape admiss-seq}} over the field \mbox{\texttt{\slshape field}}, or \texttt{the admissible sequence entered} if entered sequence is not an admissible sequence.
+
+
+ Arguments: \mbox{\texttt{\slshape admiss-seq}} -- an admissible sequence, \mbox{\texttt{\slshape field}} -- a field.\\
+ \textbf{\indent Returns:\ }
+ The Nakayama algebra corresponding to \mbox{\texttt{\slshape admiss-seq}} over the field \mbox{\texttt{\slshape field}}, or \texttt{the admissible sequence entered} (\texttt{The admissible sequence is not a valid one}?) if entered sequence is not an admissible sequence. 
 
 
 
- This function creates a Nakayama algebra from an admissible sequence over a
-field. }
+\emph{Error message??}}
 
  
 
 \subsection{\textcolor{Chapter }{TruncatedPathAlgebra}}
 \logpage{[ 3, 11, 2 ]}\nobreak
 \hyperdef{L}{X7EF1AE62790D7486}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{TruncatedPathAlgebra({\slshape K, Q, n})\index{TruncatedPathAlgebra@\texttt{TruncatedPathAlgebra}}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{TruncatedPathAlgebra({\slshape F, Q, n})\index{TruncatedPathAlgebra@\texttt{TruncatedPathAlgebra}}
 \label{TruncatedPathAlgebra}
 }\hfill{\scriptsize (operation)}}\\
-\textbf{\indent Returns:\ }
-the truncated path algebra \mbox{\texttt{\slshape KQ/I}}, where \mbox{\texttt{\slshape I}} is the ideal generated by all paths of length \mbox{\texttt{\slshape n}} in \mbox{\texttt{\slshape KQ}}. The object \mbox{\texttt{\slshape K}} must be a field, \mbox{\texttt{\slshape Q}} a quiver and \mbox{\texttt{\slshape n}} a positive integer.
+
+
+ Arguments: \mbox{\texttt{\slshape F}} -- a field, \mbox{\texttt{\slshape Q}} -- a quiver, \mbox{\texttt{\slshape n}} -- a positive integer.\\
+ \textbf{\indent Returns:\ }
+the truncated path algebra \mbox{\texttt{\slshape KQ/I}}, where \mbox{\texttt{\slshape I}} is the ideal generated by all paths of length \mbox{\texttt{\slshape n}} in \mbox{\texttt{\slshape KQ}}. 
 
 }
 
@@ -1611,7 +1743,13 @@ of a path algebra.
 }\hfill{\scriptsize (operation)}}\\
 
 
- Creates the product quiver $\mbox{\texttt{\slshape Q1}} \quiverproduct \mbox{\texttt{\slshape Q2}}$. A vertex in $\mbox{\texttt{\slshape Q1}} \quiverproduct \mbox{\texttt{\slshape Q2}}$ which is made by combining a vertex named \texttt{u} in \mbox{\texttt{\slshape Q1}} with a vertex \texttt{v} in \mbox{\texttt{\slshape Q2}} is named \texttt{u{\textunderscore}v}. Arrows are named similarly (they are made by combining an arrow from one
+ Arguments: \mbox{\texttt{\slshape Q1}} and \mbox{\texttt{\slshape Q2}} -- quivers.\\
+ \textbf{\indent Returns:\ }
+ the product quiver $\mbox{\texttt{\slshape Q1}} \quiverproduct \mbox{\texttt{\slshape Q2}}$. 
+
+
+
+ A vertex in $\mbox{\texttt{\slshape Q1}} \quiverproduct \mbox{\texttt{\slshape Q2}}$ which is made by combining a vertex named \texttt{u} in \mbox{\texttt{\slshape Q1}} with a vertex \texttt{v} in \mbox{\texttt{\slshape Q2}} is named \texttt{u{\textunderscore}v}. Arrows are named similarly (they are made by combining an arrow from one
 quiver with a vertex from the other). }
 
  
@@ -1624,17 +1762,25 @@ quiver with a vertex from the other). }
 }\hfill{\scriptsize (attribute)}}\\
 
 
- Contains the original quivers \mbox{\texttt{\slshape Q}} is a product of, if \mbox{\texttt{\slshape Q}} was created by the \texttt{QuiverProduct} (\ref{QuiverProduct}) operation. The value of this attribute is an object in the category \texttt{IsQuiverProductDecomposition} (\ref{IsQuiverProductDecomposition}). }
+ Arguments: \mbox{\texttt{\slshape Q}} -- a quiver \\
+. \textbf{\indent Returns:\ }
+ the original quivers \mbox{\texttt{\slshape Q}} is a product of, if \mbox{\texttt{\slshape Q}} was created by the \texttt{QuiverProduct} (\ref{QuiverProduct}) operation. 
+
+
+
+ The value of this attribute is an object in the category \texttt{IsQuiverProductDecomposition} (\ref{IsQuiverProductDecomposition}). }
 
  
 
 \subsection{\textcolor{Chapter }{IsQuiverProductDecomposition}}
 \logpage{[ 3, 12, 3 ]}\nobreak
 \hyperdef{L}{X80E3731882B80106}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsQuiverProductDecomposition\index{IsQuiverProductDecomposition@\texttt{IsQuiverProductDecomposition}}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsQuiverProductDecomposition({\slshape object})\index{IsQuiverProductDecomposition@\texttt{IsQuiverProductDecomposition}}
 \label{IsQuiverProductDecomposition}
-}\hfill{\scriptsize (filter)}}\\
+}\hfill{\scriptsize (category)}}\\
 
+
+ Arguments: \mbox{\texttt{\slshape object}} -- any object in GAP. 
 
  Category for objects containing information about the relation between a
 product quiver and the quivers it is a product of. The quiver factors can be
@@ -1652,11 +1798,15 @@ operations \texttt{IncludeInProductQuiver} (\ref{IncludeInProductQuiver}) and \t
 }\hfill{\scriptsize (operation)}}\\
 
 
- Includes paths $q_1$ and $q_2$ from two quivers into the product of these quivers. If at least one of $q_1$ and $q_2$ is a vertex, there is exactly one possible inclusion. If they are both
-non-trivial paths, there are several possibilities. This operation constructs
-the path which is the inclusion of $q_1$ at the source of $q_2$ multiplied with the inclusion of $q_2$ at the target of $q_1$.
+ Arguments: \mbox{\texttt{\slshape L}} -- a list containing the paths $q_1$ and $q_2$, $Q$ -- a product quiver.\\
+ \textbf{\indent Returns:\ }
+a path in \mbox{\texttt{\slshape Q}}. 
 
- The argument \mbox{\texttt{\slshape L}} is a list containing the paths $q_1$ and $q_2$ to be included; $Q$ is the product quiver to include them in. }
+
+
+ Includes paths $q_1$ and $q_2$ from two quivers into the product of these quivers, \mbox{\texttt{\slshape Q}}. If at least one of $q_1$ and $q_2$ is a vertex, there is exactly one possible inclusion. If they are both
+non-trivial paths, there are several possibilities. This operation constructs
+the path which is the inclusion of $q_1$ at the source of $q_2$ multiplied with the inclusion of $q_2$ at the target of $q_1$. }
 
  
 
@@ -1668,8 +1818,12 @@ the path which is the inclusion of $q_1$ at the source of $q_2$ multiplied with 
 }\hfill{\scriptsize (operation)}}\\
 
 
- Returns the projection of the product quiver path \mbox{\texttt{\slshape p}} to one of the factors. Which factor it should be projected to is specified by
-the argument \mbox{\texttt{\slshape i}}. }
+ Arguments: \mbox{\texttt{\slshape i}} -- a positive integer, \mbox{\texttt{\slshape p}} -- a path in the product quiver.\\
+ \textbf{\indent Returns:\ }
+the projection of the product quiver path \mbox{\texttt{\slshape p}} to one of the factors. Which factor it should be projected to is specified by
+the argument \mbox{\texttt{\slshape i}}. 
+
+}
 
  The following example shows how the operations related to quiver products are
 used. 
@@ -1693,8 +1847,7 @@ used.
   gap> q1_q2_dec[ 1 ];
   <quiver with 2 vertices and 1 arrows>
   gap> q1_q2_dec[ 1 ] = q1;
-  true
-    
+  true  
 \end{Verbatim}
  
 
@@ -1706,7 +1859,13 @@ used.
 }\hfill{\scriptsize (operation)}}\\
 
 
- The operation \texttt{TensorProductOfAlgebras} produces the tensor product of two (quotients of) path algebras \mbox{\texttt{\slshape FQ1}} and \mbox{\texttt{\slshape FQ2}}. The result is a quotient of a path algebra, whose quiver is the \texttt{QuiverProduct} (\ref{QuiverProduct}) of the quivers of the operands. }
+ Arguments: \mbox{\texttt{\slshape FQ1}} and \mbox{\texttt{\slshape FQ2}} -- (quotients of) path algebras.\\
+ \textbf{\indent Returns:\ }
+ The tensor product of \mbox{\texttt{\slshape FQ1}} and \mbox{\texttt{\slshape FQ2}}. 
+
+
+
+ The result is a quotient of a path algebra, whose quiver is the \texttt{QuiverProduct} (\ref{QuiverProduct}) of the quivers of the operands. }
 
  
 
@@ -1718,7 +1877,13 @@ used.
 }\hfill{\scriptsize (operation)}}\\
 
 
- The operation \texttt{SimpleTensor} produces a simple tensor $x \tensor y$ in the tensor product of two path algebras. The argument \mbox{\texttt{\slshape L}} is a list containing the elements $x$ and $y$. These should be elements of two (quotients of) path algebras, and \mbox{\texttt{\slshape T}} the tensor product of these algebras (produced by \texttt{TensorProductOfAlgebras} (\ref{TensorProductOfAlgebras})). }
+ Arguments: \mbox{\texttt{\slshape L}} -- a list containing two elements $x$ and $y$ of two (quotients of) path algebras, \mbox{\texttt{\slshape T}} -- the tensor product of these algebras.\\
+ \textbf{\indent Returns:\ }
+ the simple tensor $x \tensor y$. 
+
+
+
+ $x \tensor y$ is in the tensor product \mbox{\texttt{\slshape T}} (produced by \texttt{TensorProductOfAlgebras} (\ref{TensorProductOfAlgebras})). }
 
  
 
@@ -1730,7 +1895,13 @@ used.
 }\hfill{\scriptsize (attribute)}}\\
 
 
- For a tensor product of quotients of path algebras (produced by \texttt{TensorProductOfAlgebras} (\ref{TensorProductOfAlgebras})), this attribute contains a list of the factors in the tensor product. }
+ Arguments: \mbox{\texttt{\slshape T}} -- a tensor product of path algebras.\\
+ \textbf{\indent Returns:\ }
+a list of the factors in the tensor product. 
+
+
+
+\mbox{\texttt{\slshape T}} should be produced by \texttt{TensorProductOfAlgebras} (\ref{TensorProductOfAlgebras})). }
 
  The following example shows how the operations for tensor products of
 quotients of path algebras are used. 
@@ -1760,8 +1931,7 @@ quotients of path algebras are used.
   [ <algebra-with-one over Rationals, with 3 generators>, 
     <algebra-with-one over Rationals, with 8 generators> ]
   gap> t_dec[ 1 ] = fq1;
-  true
-    
+  true 
 \end{Verbatim}
  
 
@@ -1773,7 +1943,11 @@ quotients of path algebras are used.
 }\hfill{\scriptsize (operation)}}\\
 
 
- Produces the enveloping algebra $\mbox{\texttt{\slshape FQ}}^\text{e} = \mbox{\texttt{\slshape FQ}} \tensor \mbox{\texttt{\slshape FQ}}^\text{op}$ of \mbox{\texttt{\slshape FQ}}, which should be (a quotient of) a path algebra. }
+ Arguments: \mbox{\texttt{\slshape FQ}} -- a (quotient of) a path algebra. \\
+ \textbf{\indent Returns:\ }
+the enveloping algebra $\mbox{\texttt{\slshape FQ}}^\text{e} = \mbox{\texttt{\slshape FQ}} \tensor \mbox{\texttt{\slshape FQ}}^\text{op}$ of \mbox{\texttt{\slshape FQ}} 
+
+}
 
  
 
@@ -1785,7 +1959,11 @@ quotients of path algebras are used.
 }\hfill{\scriptsize (attribute)}}\\
 
 
- True if and only if \mbox{\texttt{\slshape A}} is the result of a call to \texttt{EnvelopingAlgebra} (\ref{EnvelopingAlgebra}). }
+ Arguments: \mbox{\texttt{\slshape A}} -- an algebra.\\
+ \textbf{\indent Returns:\ }
+true if and only if \mbox{\texttt{\slshape A}} is the result of a call to \texttt{EnvelopingAlgebra} (\ref{EnvelopingAlgebra}). 
+
+}
 
  }
 
@@ -3294,12 +3472,28 @@ constructed can by obtained again by \texttt{Range} (\ref{Range}) and by \texttt
 {
  
 
-\subsection{\textcolor{Chapter }{Range}}
+\subsection{\textcolor{Chapter }{MatricesOfPathAlgebraMatModuleHomomorphism}}
 \logpage{[ 7, 2, 1 ]}\nobreak
+\hyperdef{L}{X7B63FBAF84533D75}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{MatricesOfPathAlgebraMatModuleHomomorphism({\slshape f})\index{MatricesOfPathAlgebraMatModuleHomomorphism@\texttt{Matrices}\-\texttt{Of}\-\texttt{Path}\-\texttt{Algebra}\-\texttt{Mat}\-\texttt{Module}\-\texttt{Homomorphism}}
+\label{MatricesOfPathAlgebraMatModuleHomomorphism}
+}\hfill{\scriptsize (operation)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape f}} - a homomorphism between two modules.\\
+ \textbf{\indent Returns:\ }
+the matrices defining the homomorphism \mbox{\texttt{\slshape f}}.
+
+}
+
+ 
+
+\subsection{\textcolor{Chapter }{Range}}
+\logpage{[ 7, 2, 2 ]}\nobreak
 \hyperdef{L}{X829F76BB80BD55DB}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{Range({\slshape f})\index{Range@\texttt{Range}}
 \label{Range}
-}\hfill{\scriptsize (operation)}}\\
+}\hfill{\scriptsize (attribute)}}\\
 
 
  Arguments: \mbox{\texttt{\slshape f}} - a homomorphism between two modules.\\
@@ -3311,11 +3505,11 @@ the range (or codomain) the homomorphism \mbox{\texttt{\slshape f}}.
  
 
 \subsection{\textcolor{Chapter }{Source}}
-\logpage{[ 7, 2, 2 ]}\nobreak
+\logpage{[ 7, 2, 3 ]}\nobreak
 \hyperdef{L}{X7DE8173F80E07AB1}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{Source({\slshape f})\index{Source@\texttt{Source}}
 \label{Source}
-}\hfill{\scriptsize (operation)}}\\
+}\hfill{\scriptsize (attribute)}}\\
 
 
  Arguments: \mbox{\texttt{\slshape f}} - a homomorphism between two modules.\\
@@ -3326,6 +3520,8 @@ the source (or domain) the homomorphism \mbox{\texttt{\slshape f}}.
 
  
 \begin{Verbatim}[fontsize=\small,frame=single,label=Example]
+  gap> MatricesOfPathAlgebraMatModuleHomomorphism(f);
+  [ [ [ 0, 0, 0 ] ], [ [ 1, 0 ] ], [ [ 1, 2 ] ] ]
   gap> Range(f);
   <7-dimensional right-module over <algebra-with-one over Rationals, with 
   8 generators>>
@@ -3338,7 +3534,7 @@ the source (or domain) the homomorphism \mbox{\texttt{\slshape f}}.
  
 
 \subsection{\textcolor{Chapter }{PreImagesRepresentative}}
-\logpage{[ 7, 2, 3 ]}\nobreak
+\logpage{[ 7, 2, 4 ]}\nobreak
 \hyperdef{L}{X7AE24A1586B7DE79}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{PreImagesRepresentative({\slshape f, elem})\index{PreImagesRepresentative@\texttt{PreImagesRepresentative}}
 \label{PreImagesRepresentative}
@@ -3356,7 +3552,7 @@ a preimage of the element \mbox{\texttt{\slshape elem}} in the range (or codomai
  
 
 \subsection{\textcolor{Chapter }{ImageElm}}
-\logpage{[ 7, 2, 4 ]}\nobreak
+\logpage{[ 7, 2, 5 ]}\nobreak
 \hyperdef{L}{X7CFAB0157BFB1806}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{ImageElm({\slshape f, elem})\index{ImageElm@\texttt{ImageElm}}
 \label{ImageElm}
@@ -3374,7 +3570,7 @@ the image of the element \mbox{\texttt{\slshape elem}} in the source (or domain)
  
 
 \subsection{\textcolor{Chapter }{ImagesSet}}
-\logpage{[ 7, 2, 5 ]}\nobreak
+\logpage{[ 7, 2, 6 ]}\nobreak
 \hyperdef{L}{X8781348F7F5796A0}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{ImagesSet({\slshape f, elts})\index{ImagesSet@\texttt{ImagesSet}}
 \label{ImagesSet}
@@ -3412,7 +3608,7 @@ the non-zero images of a set of elements \mbox{\texttt{\slshape elts}} in the so
  
 
 \subsection{\textcolor{Chapter }{Zero}}
-\logpage{[ 7, 2, 6 ]}\nobreak
+\logpage{[ 7, 2, 7 ]}\nobreak
 \hyperdef{L}{X804B376481243046}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{Zero({\slshape f})\index{Zero@\texttt{Zero}}
 \label{Zero}
@@ -3428,7 +3624,7 @@ the zero map between \texttt{Source(f)} and \texttt{Range(f)}.
  
 
 \subsection{\textcolor{Chapter }{ZeroMapping}}
-\logpage{[ 7, 2, 7 ]}\nobreak
+\logpage{[ 7, 2, 8 ]}\nobreak
 \hyperdef{L}{X795FF8DC785F110A}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{ZeroMapping({\slshape M, N})\index{ZeroMapping@\texttt{ZeroMapping}}
 \label{ZeroMapping}
@@ -3444,7 +3640,7 @@ the zero map between \mbox{\texttt{\slshape M}} and \mbox{\texttt{\slshape N}}.
  
 
 \subsection{\textcolor{Chapter }{IdentityMapping}}
-\logpage{[ 7, 2, 8 ]}\nobreak
+\logpage{[ 7, 2, 9 ]}\nobreak
 \hyperdef{L}{X7EBAE0368470A603}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IdentityMapping({\slshape M})\index{IdentityMapping@\texttt{IdentityMapping}}
 \label{IdentityMapping}
@@ -3460,7 +3656,7 @@ the identity map between \mbox{\texttt{\slshape M}} and \mbox{\texttt{\slshape M
  
 
 \subsection{\textcolor{Chapter }{\texttt{\symbol{92}}= (maps)}}
-\logpage{[ 7, 2, 9 ]}\nobreak
+\logpage{[ 7, 2, 10 ]}\nobreak
 \hyperdef{L}{X7E8438F77ECB778E}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{\texttt{\symbol{92}}= (maps)({\slshape f, g})\index{= (maps)@\texttt{\texttt{\symbol{92}}= (maps)}}
 \label{= (maps)}
@@ -3476,7 +3672,7 @@ true, if \texttt{Source(f) = Source(g)}, \texttt{Range(f) = Range(g)}, and the m
  
 
 \subsection{\textcolor{Chapter }{\texttt{\symbol{92}}+ (maps)}}
-\logpage{[ 7, 2, 10 ]}\nobreak
+\logpage{[ 7, 2, 11 ]}\nobreak
 \hyperdef{L}{X7FA09A067BE00277}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{\texttt{\symbol{92}}+ (maps)({\slshape f, g})\index{+ (maps)@\texttt{\texttt{\symbol{92}}+ (maps)}}
 \label{+ (maps)}
@@ -3495,7 +3691,7 @@ returns an error message otherwise. }
  
 
 \subsection{\textcolor{Chapter }{\texttt{\symbol{92}}* (maps)}}
-\logpage{[ 7, 2, 11 ]}\nobreak
+\logpage{[ 7, 2, 12 ]}\nobreak
 \hyperdef{L}{X7E8438F77ECB778E}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{\texttt{\symbol{92}}* (maps)({\slshape f, g})\index{* (maps)@\texttt{\texttt{\symbol{92}}* (maps)}}
 \label{* (maps)}
@@ -3564,7 +3760,7 @@ error message otherwise. }
  
 
 \subsection{\textcolor{Chapter }{CoKernelOfWhat}}
-\logpage{[ 7, 2, 12 ]}\nobreak
+\logpage{[ 7, 2, 13 ]}\nobreak
 \hyperdef{L}{X7F6E2378786AC02A}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{CoKernelOfWhat({\slshape f})\index{CoKernelOfWhat@\texttt{CoKernelOfWhat}}
 \label{CoKernelOfWhat}
@@ -3580,7 +3776,7 @@ error message otherwise. }
  
 
 \subsection{\textcolor{Chapter }{ImageOfWhat}}
-\logpage{[ 7, 2, 13 ]}\nobreak
+\logpage{[ 7, 2, 14 ]}\nobreak
 \hyperdef{L}{X78EE24857C79789E}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{ImageOfWhat({\slshape f})\index{ImageOfWhat@\texttt{ImageOfWhat}}
 \label{ImageOfWhat}
@@ -3597,11 +3793,11 @@ homomorphism \mbox{\texttt{\slshape g}}.
  
 
 \subsection{\textcolor{Chapter }{IsInjective}}
-\logpage{[ 7, 2, 14 ]}\nobreak
+\logpage{[ 7, 2, 15 ]}\nobreak
 \hyperdef{L}{X7F065FD7822C0A12}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsInjective({\slshape f})\index{IsInjective@\texttt{IsInjective}}
 \label{IsInjective}
-}\hfill{\scriptsize (attribute)}}\\
+}\hfill{\scriptsize (property)}}\\
 
 
  Arguments: \mbox{\texttt{\slshape f}} - a homomorphism between two modules.\\
@@ -3613,11 +3809,11 @@ homomorphism \mbox{\texttt{\slshape g}}.
  
 
 \subsection{\textcolor{Chapter }{IsSurjective}}
-\logpage{[ 7, 2, 15 ]}\nobreak
+\logpage{[ 7, 2, 16 ]}\nobreak
 \hyperdef{L}{X784ECE847E005B8F}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsSurjective({\slshape f})\index{IsSurjective@\texttt{IsSurjective}}
 \label{IsSurjective}
-}\hfill{\scriptsize (attribute)}}\\
+}\hfill{\scriptsize (property)}}\\
 
 
  Arguments: \mbox{\texttt{\slshape f}} - a homomorphism between two modules.\\
@@ -3629,11 +3825,11 @@ homomorphism \mbox{\texttt{\slshape g}}.
  
 
 \subsection{\textcolor{Chapter }{IsIsomorphism}}
-\logpage{[ 7, 2, 16 ]}\nobreak
+\logpage{[ 7, 2, 17 ]}\nobreak
 \hyperdef{L}{X7E07BBF57B92BA56}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsIsomorphism({\slshape f})\index{IsIsomorphism@\texttt{IsIsomorphism}}
 \label{IsIsomorphism}
-}\hfill{\scriptsize (attribute)}}\\
+}\hfill{\scriptsize (property)}}\\
 
 
  Arguments: \mbox{\texttt{\slshape f}} - a homomorphism between two modules.\\
@@ -3672,7 +3868,7 @@ homomorphism \mbox{\texttt{\slshape g}}.
  
 
 \subsection{\textcolor{Chapter }{IsSplitEpimorphism}}
-\logpage{[ 7, 2, 17 ]}\nobreak
+\logpage{[ 7, 2, 18 ]}\nobreak
 \hyperdef{L}{X80A66EFA862E56BC}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsSplitEpimorphism({\slshape f})\index{IsSplitEpimorphism@\texttt{IsSplitEpimorphism}}
 \label{IsSplitEpimorphism}
@@ -3682,14 +3878,14 @@ homomorphism \mbox{\texttt{\slshape g}}.
  Arguments: \mbox{\texttt{\slshape f}} - a homomorphism between two modules.\\
  \textbf{\indent Returns:\ }
  \texttt{false} if the homomorphism \mbox{\texttt{\slshape f}} is not a splittable epimorphism, otherwise it returns a splitting of the
-homomorphism\mbox{\texttt{\slshape f}}. 
+homomorphism \mbox{\texttt{\slshape f}}. 
 
 }
 
  
 
 \subsection{\textcolor{Chapter }{IsSplitMonomorphism}}
-\logpage{[ 7, 2, 18 ]}\nobreak
+\logpage{[ 7, 2, 19 ]}\nobreak
 \hyperdef{L}{X7DFACF1F7D7F7EE9}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsSplitMonomorphism({\slshape f})\index{IsSplitMonomorphism@\texttt{IsSplitMonomorphism}}
 \label{IsSplitMonomorphism}
@@ -3699,7 +3895,7 @@ homomorphism\mbox{\texttt{\slshape f}}.
  Arguments: \mbox{\texttt{\slshape f}} - a homomorphism between two modules.\\
  \textbf{\indent Returns:\ }
  \texttt{false} if the homomorphism \mbox{\texttt{\slshape f}} is not a splittable monomorphism, otherwise it returns a splitting of the
-homomorphism\mbox{\texttt{\slshape f}}. 
+homomorphism \mbox{\texttt{\slshape f}}. 
 
 }
 
@@ -3725,7 +3921,7 @@ homomorphism\mbox{\texttt{\slshape f}}.
  
 
 \subsection{\textcolor{Chapter }{IsZero}}
-\logpage{[ 7, 2, 19 ]}\nobreak
+\logpage{[ 7, 2, 20 ]}\nobreak
 \hyperdef{L}{X82BDA47282F9BBA7}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsZero({\slshape f})\index{IsZero@\texttt{IsZero}}
 \label{IsZero}
@@ -3741,7 +3937,7 @@ homomorphism\mbox{\texttt{\slshape f}}.
  
 
 \subsection{\textcolor{Chapter }{KernelOfWhat}}
-\logpage{[ 7, 2, 20 ]}\nobreak
+\logpage{[ 7, 2, 21 ]}\nobreak
 \hyperdef{L}{X7EF520F67BA7F082}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{KernelOfWhat({\slshape f})\index{KernelOfWhat@\texttt{KernelOfWhat}}
 \label{KernelOfWhat}
@@ -4220,7 +4416,7 @@ morphisms \mbox{\texttt{\slshape f}} and \mbox{\texttt{\slshape g}}, respectivel
 
  Arguments: \mbox{\texttt{\slshape M}} - a module.\\
  \textbf{\indent Returns:\ }
-the projective cover of \mbox{\texttt{\slshape M}}, that is, returns the map \mbox{\texttt{\slshape P(M) --{\textgreater} M}}.
+the projective cover of \mbox{\texttt{\slshape M}}, that is, returns the map $P(M)\to M$.
 
 
 
@@ -4384,13 +4580,13 @@ the inclusion of the socle of the module \mbox{\texttt{\slshape M}} into \mbox{\
 }\hfill{\scriptsize (operation)}}\\
 
 
- Arguments: \mbox{\texttt{\slshape M}} - a module, \mbox{\texttt{\slshape gens}} - elements in \mbox{\texttt{\slshape M}}.\\
+ Arguments: \mbox{\texttt{\slshape M}} - a module, \mbox{\texttt{\slshape gens}} - a list of elements in \mbox{\texttt{\slshape M}}.\\
  \textbf{\indent Returns:\ }
 the inclusion of the submodule generated by the generators \mbox{\texttt{\slshape gens}} into the module \mbox{\texttt{\slshape M}}.
 
 
 
- The function checks if \mbox{\texttt{\slshape gens}} are elements in \mbox{\texttt{\slshape M}}, and returns an error message otherwise. The module given by the submodule
+ The function checks if \mbox{\texttt{\slshape gens}} consists of elements in \mbox{\texttt{\slshape M}}, and returns an error message otherwise. The module given by the submodule
 generated by the generators \mbox{\texttt{\slshape gens}} can be accessed using \texttt{Source}. }
 
  
@@ -4489,7 +4685,8 @@ minimal almost split map.
 
 
 
- The range of the right minimal almost split map is not equal to the module \mbox{\texttt{\slshape M}} one started with, but isomorphic. }
+ The range of the right minimal almost split map is not necessarily equal to
+the module \mbox{\texttt{\slshape M}} one started with, but isomorphic. }
 
  
 \begin{Verbatim}[fontsize=\small,frame=single,label=Example]
