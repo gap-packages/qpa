@@ -1,9 +1,9 @@
 # GAP Implementation
 # This file was generated from 
-# $Id: functors.gd,v 1.5 2012/02/27 12:26:34 sunnyquiver Exp $
-DeclareAttribute( "DualOfModule", IsPathAlgebraModule );
-DeclareOperation( "TransposeOfModule", [IsPathAlgebraModule ] );
-DeclareOperation( "DTr", [IsPathAlgebraModule ] );
-DeclareOperation( "TrD", [IsPathAlgebraModule ] );
+# $Id: functors.gd,v 1.6 2012/04/16 09:20:23 sunnyquiver Exp $
+DeclareAttribute( "DualOfModule", IsPathAlgebraMatModule );
+DeclareOperation( "TransposeOfModule", [IsPathAlgebraMatModule ] );
+DeclareOperation( "DTr", [IsPathAlgebraMatModule ] );
+DeclareOperation( "TrD", [IsPathAlgebraMatModule ] );
 DeclareSynonym("DualOfTranspose", DTr);
 DeclareSynonym("TransposeOfDual", TrD);

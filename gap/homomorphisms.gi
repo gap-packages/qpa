@@ -1,5 +1,5 @@
 # GAP Implementation
-# $Id: homomorphisms.gi,v 1.27 2012/04/04 07:54:16 sunnyquiver Exp $
+# $Id: homomorphisms.gi,v 1.28 2012/04/16 09:20:23 sunnyquiver Exp $
 
 #############################################################################
 ##
@@ -7,7 +7,7 @@
 ##
 InstallMethod( ImageElm, 
     "for a map between representations and an element in a representation.",
-    [ IsPathAlgebraModuleHomomorphism, IsAlgebraModuleElement ], 0, 
+    [ IsPathAlgebraMatModuleHomomorphism, IsAlgebraModuleElement ], 0, 
     function( map, elem )
 
     local elt, n, fam, image, temp, zero, new_image;
@@ -33,7 +33,7 @@ end);
 ##
 InstallMethod( ImagesSet, 
     "for a map between representations and a set of elements in a representation.",
-    [ IsPathAlgebraModuleHomomorphism, IsCollection ], 0, 
+    [ IsPathAlgebraMatModuleHomomorphism, IsCollection ], 0, 
     function( map, elms )
 
     local elt, B, images;
@@ -44,7 +44,7 @@ InstallMethod( ImagesSet,
             B := elms;
         fi;
     else
-        if IsPathAlgebraModule(elms) then 
+        if IsPathAlgebraMatModule(elms) then 
             B := BasisVectors(CanonicalBasis(elms));
         else
             Error("input of wrong type,");
@@ -64,7 +64,7 @@ end
 #
 InstallMethod( PreImagesRepresentative, 
     "for a map between representations and an element in a representation.",
-    [ IsPathAlgebraModuleHomomorphism, IsAlgebraModuleElement ], 0, 
+    [ IsPathAlgebraMatModuleHomomorphism, IsAlgebraModuleElement ], 0, 
     function( map, elem )
 
     local elt, m, fam, preimage;
@@ -87,7 +87,7 @@ end);
 
 InstallMethod( RightModuleHomOverAlgebra,
     "for two representations of a quiver",
-    [ IsPathAlgebraModule, IsPathAlgebraModule, IsList ], 0,
+    [ IsPathAlgebraMatModule, IsPathAlgebraMatModule, IsList ], 0,
     function( M, N, linmaps)
 
   local A, K, mat_M, mat_N, map, Fam, dim_M, dim_N, Q, arrows, 
@@ -153,8 +153,8 @@ InstallMethod( RightModuleHomOverAlgebra,
   map := Objectify( NewType( CollectionsFamily( GeneralMappingsFamily(
                                 ElementsFamily( FamilyObj( M ) ),
                                 ElementsFamily( FamilyObj( N ) ) ) ), 
-#          IsPathAlgebraModuleHomomorphismRep ), rec( maps := linmaps ));
-          IsPathAlgebraModuleHomomorphism and IsPathAlgebraModuleHomomorphismRep ), rec( maps := linmaps ));
+#          IsPathAlgebraMatModuleHomomorphismRep ), rec( maps := linmaps ));
+          IsPathAlgebraMatModuleHomomorphism and IsPathAlgebraMatModuleHomomorphismRep ), rec( maps := linmaps ));
   SetPathAlgebraOfMatModuleMap(map, A);
   SetSource(map, M);
   SetRange(map, N);  
@@ -167,7 +167,7 @@ end );
 InstallMethod ( Zero, 
   "for a PathAlgebraMatModuleMap",
   true,
-  [ IsPathAlgebraModuleHomomorphism ],
+  [ IsPathAlgebraMatModuleHomomorphism ],
   0,
   function( f )
       local M, N, K, dim_M, dim_N, i, mats;
@@ -201,7 +201,7 @@ end
 InstallMethod ( ZeroMapping, 
   " between two PathAlgebraMatModule's ",
   true,
-  [ IsPathAlgebraModule, IsPathAlgebraModule ],
+  [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ],
   0,
   function( M, N )
       local A, K, dim_M, dim_N, i, mats;
@@ -238,7 +238,7 @@ end
 InstallMethod ( IdentityMapping, 
   "for a PathAlgebraMatModule",
   true,
-  [ IsPathAlgebraModule ],
+  [ IsPathAlgebraMatModule ],
   0,
   function( M )
       local K, dim_M, i, mats;
@@ -265,7 +265,7 @@ end
 InstallMethod ( \=, 
   "for a PathAlgebraMatModuleMap",
   true,
-  [ IsPathAlgebraModuleHomomorphism, IsPathAlgebraModuleHomomorphism ],
+  [ IsPathAlgebraMatModuleHomomorphism, IsPathAlgebraMatModuleHomomorphism ],
   0,
   function( f, g )
       local a;
@@ -282,7 +282,7 @@ end
 InstallMethod( SubRepresentationInclusion,
   "for a path algebra module and list of its elements",
   true,
-  [IsPathAlgebraModule, IsList], 0,
+  [IsPathAlgebraMatModule, IsList], 0,
   function( M, gen )
 
   local A, q, K, num_vert, basis_M, vertices, arrows_as_path, arrows_of_quiver, 
@@ -459,7 +459,7 @@ end
 InstallMethod( SubRepresentation,
   "for a path algebra module and list of its elements",
   true,
-  [IsPathAlgebraModule, IsList], 0,
+  [IsPathAlgebraMatModule, IsList], 0,
   function( M, gen );
 
   return Source(SubRepresentationInclusion(M,gen));
@@ -470,7 +470,7 @@ end
 InstallMethod( RadicalOfModuleInclusion,
   "for a path algebra module",
   true,
-  [ IsPathAlgebraModule ], 0,
+  [ IsPathAlgebraMatModule ], 0,
   function( M )
 
   local A, q, num_vert, arrows_as_path, basis_M, generators, a, b, run_time; 
@@ -500,7 +500,7 @@ end
 InstallMethod( RadicalOfModule,
   "for a path algebra module",
   true,
-  [ IsPathAlgebraModule ], 0,
+  [ IsPathAlgebraMatModule ], 0,
   function( M )
 
   return Source(RadicalOfModuleInclusion(M));
@@ -510,7 +510,7 @@ end
 InstallOtherMethod ( IsInjective, 
   "for a PathAlgebraMatModuleMap",
   true,
-  [ IsPathAlgebraModuleHomomorphism ],
+  [ IsPathAlgebraMatModuleHomomorphism ],
   0,
   function( f )
       local M, K, V_list, dim_K, dim_M, i, VS_list;
@@ -543,7 +543,7 @@ end
 InstallMethod ( KernelInclusion, 
   "for a PathAlgebraMatModuleMap",
   true,
-  [ IsPathAlgebraModuleHomomorphism ],
+  [ IsPathAlgebraMatModuleHomomorphism ],
   0,
   function( f )
       local M, dim_M, V_list, V_dim, i, dim_K, VS_list, A, K, vertices, 
@@ -638,7 +638,7 @@ end
 InstallMethod ( KernelOfAdditiveGeneralMapping, 
   "for a PathAlgebraMatModuleMap",
   true,
-  [ IsPathAlgebraModuleHomomorphism ],
+  [ IsPathAlgebraMatModuleHomomorphism ],
   0,
   function( f )
 
@@ -649,7 +649,7 @@ end
 InstallMethod ( ImageProjectionInclusion, 
    "for a PathAlgebraMatModuleMap",
    true,
-   [ IsPathAlgebraModuleHomomorphism ],
+   [ IsPathAlgebraMatModuleHomomorphism ],
    0,
    function( f )
       local M, N, image, images, A, K, num_vert, vertices, arrows, gen_list, B, i,fam, n, s, v,
@@ -781,7 +781,7 @@ end
 InstallMethod ( ImageProjection, 
    "for a PathAlgebraMatModuleMap",
    true,
-   [ IsPathAlgebraModuleHomomorphism ],
+   [ IsPathAlgebraMatModuleHomomorphism ],
    0,
    function( f );
 
@@ -792,7 +792,7 @@ end
 InstallMethod ( ImageInclusion, 
    "for a PathAlgebraMatModuleMap",
    true,
-   [ IsPathAlgebraModuleHomomorphism ],
+   [ IsPathAlgebraMatModuleHomomorphism ],
    0,
    function( f );
 
@@ -803,7 +803,7 @@ end
 InstallMethod ( ImagesSource, 
    "for a PathAlgebraMatModuleMap",
    true,
-   [ IsPathAlgebraModuleHomomorphism ],
+   [ IsPathAlgebraMatModuleHomomorphism ],
    0,
    function( f );
 
@@ -814,7 +814,7 @@ end
 InstallMethod ( IsZero, 
    "for a PathAlgebraMatModuleMap",
    true,
-   [ IsPathAlgebraModuleHomomorphism ],
+   [ IsPathAlgebraMatModuleHomomorphism ],
    0,
    function( f );
 
@@ -825,7 +825,7 @@ end
 InstallOtherMethod ( IsSurjective, 
    "for a PathAlgebraMatModuleMap",
    true,
-   [ IsPathAlgebraModuleHomomorphism ],
+   [ IsPathAlgebraMatModuleHomomorphism ],
    0,
    function( f )
       local image, dim_image, K, V;
@@ -852,7 +852,7 @@ end
 InstallMethod ( IsIsomorphism, 
    "for a PathAlgebraMatModuleMap",
    true,
-   [ IsPathAlgebraModuleHomomorphism ],
+   [ IsPathAlgebraMatModuleHomomorphism ],
    0,
    function( f );
 
@@ -863,7 +863,7 @@ end
 InstallMethod ( CoKernelProjection, 
    "for a PathAlgebraMatModuleMap",
    true,
-   [ IsPathAlgebraModuleHomomorphism ],
+   [ IsPathAlgebraMatModuleHomomorphism ],
    0,
    function( f )
       local M, N, image, A, K, num_vert, vertices, arrows, basis_list,i, n, v,
@@ -966,7 +966,7 @@ end
 InstallMethod ( CoKernelOfAdditiveGeneralMapping, 
    "for a PathAlgebraMatModuleMap",
    true,
-   [ IsPathAlgebraModuleHomomorphism ],
+   [ IsPathAlgebraMatModuleHomomorphism ],
    SUM_FLAGS+1,
    function( f )
 
@@ -977,7 +977,7 @@ end
 InstallMethod( TopOfModuleProjection,
   "for a path algebra module",
   true,
-  [ IsPathAlgebraModule ], 0,
+  [ IsPathAlgebraMatModule ], 0,
   function( M )
 
   local map, map2, run_time; 
@@ -995,7 +995,7 @@ end
 InstallMethod( TopOfModule,
   "for a path algebra module",
   true,
-  [ IsPathAlgebraModule ], 0,
+  [ IsPathAlgebraMatModule ], 0,
   function( M );
 
   return Range(TopOfModuleProjection(M));
@@ -1006,8 +1006,8 @@ InstallMethod( \+,
   "for two PathAlgebraMatModuleMap's",
   true,
 #  IsIdenticalObj,
-  [ IsPathAlgebraModuleHomomorphism,
-    IsPathAlgebraModuleHomomorphism ],
+  [ IsPathAlgebraMatModuleHomomorphism,
+    IsPathAlgebraMatModuleHomomorphism ],
   0,
   function( f, g )
      local i, num_vert, x, Fam;
@@ -1026,8 +1026,8 @@ InstallMethod( \+,
 InstallMethod( \*,
   "for two PathAlgebraMatModuleMap's",
   true,
-  [ IsPathAlgebraModuleHomomorphism,
-    IsPathAlgebraModuleHomomorphism ],
+  [ IsPathAlgebraMatModuleHomomorphism,
+    IsPathAlgebraMatModuleHomomorphism ],
   0,
   function( f, g )
      local i, num_vert, x;
@@ -1047,7 +1047,7 @@ InstallOtherMethod( \*,
   "for two PathAlgebraMatModuleMap's",
   true,
   [ IsScalar,
-    IsPathAlgebraModuleHomomorphism ],
+    IsPathAlgebraMatModuleHomomorphism ],
   0,
   function( a, g )
      local K, i, num_vert, x;
@@ -1065,8 +1065,8 @@ InstallOtherMethod( \*,
 );
 
 InstallMethod( AdditiveInverseOp,
-    "for a morphism in IsPathAlgebraModuleHomomorphism",
-    [ IsPathAlgebraModuleHomomorphism ],
+    "for a morphism in IsPathAlgebraMatModuleHomomorphism",
+    [ IsPathAlgebraMatModuleHomomorphism ],
 
     function ( f ) 
 
@@ -1082,7 +1082,7 @@ end
 InstallOtherMethod( \*,
   "for two PathAlgebraMatModuleMap's",
   true,
-  [ IsPathAlgebraModuleHomomorphism, IsScalar ],
+  [ IsPathAlgebraMatModuleHomomorphism, IsScalar ],
   0,
   function( f, a )
      local K, i, num_vert, x;
@@ -1101,7 +1101,7 @@ InstallOtherMethod( \*,
 
 InstallMethod( HomOverAlgebra,
     "for two representations of a quiver",
-    [ IsPathAlgebraModule, IsPathAlgebraModule ], 0,
+    [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ], 0,
   function( M, N )
 
   local A, F, dim_M, dim_N, num_vert, support_M, support_N, num_rows, num_cols, 
@@ -1231,7 +1231,7 @@ InstallMethod( HomOverAlgebra,
          homs[dim_hom] := Objectify( NewType( CollectionsFamily( GeneralMappingsFamily(
                                 ElementsFamily( FamilyObj( M ) ),
                                 ElementsFamily( FamilyObj( N ) ) ) ), 
-                     IsPathAlgebraModuleHomomorphism and IsPathAlgebraModuleHomomorphismRep and IsAttributeStoringRep ), rec( maps := map ));
+                     IsPathAlgebraMatModuleHomomorphism and IsPathAlgebraMatModuleHomomorphismRep and IsAttributeStoringRep ), rec( maps := map ));
          SetPathAlgebraOfMatModuleMap(homs[dim_hom], A);
          SetSource(homs[dim_hom], M);
          SetRange(homs[dim_hom], N);
@@ -1273,7 +1273,7 @@ InstallMethod( HomOverAlgebra,
             homs[i] := Objectify( NewType( CollectionsFamily( GeneralMappingsFamily(
                                 ElementsFamily( FamilyObj( M ) ),
                                 ElementsFamily( FamilyObj( N ) ) ) ), 
-                     IsPathAlgebraModuleHomomorphism and IsPathAlgebraModuleHomomorphismRep and IsAttributeStoringRep ), rec( maps := homs[i] ));
+                     IsPathAlgebraMatModuleHomomorphism and IsPathAlgebraMatModuleHomomorphismRep and IsAttributeStoringRep ), rec( maps := homs[i] ));
             SetPathAlgebraOfMatModuleMap(homs[i], A);
             SetSource(homs[i], M);
             SetRange(homs[i], N);
@@ -1288,7 +1288,7 @@ end
 
 InstallMethod( EndOverAlgebra,
     "for a representations of a quiver",
-    [ IsPathAlgebraModule ], 0,
+    [ IsPathAlgebraMatModule ], 0,
   function( M )
 
   local EndM, R, F, dim_M, alglist, i, j, r, maps, A; 
@@ -1322,7 +1322,7 @@ end
 
 InstallMethod( RightFacApproximation,
     "for a representations of a quiver",
-    [ IsPathAlgebraModule, IsPathAlgebraModule ], 0,
+    [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ], 0,
   function( M, N )
 
   local homMN, i, generators; 
@@ -1339,7 +1339,7 @@ end
 
 InstallMethod( NumberOfNonIsoDirSummands,
     "for a representations of a quiver",
-    [ IsPathAlgebraModule ], 0,
+    [ IsPathAlgebraMatModule ], 0,
   function( M )
 
   local EndM, K, J, gens, I, A, top, AA, B, n,
@@ -1359,7 +1359,7 @@ end
 
 InstallMethod ( DualOfModuleHomomorphism,
     "for a map between representations of a quiver",
-    [ IsPathAlgebraModuleHomomorphism ], 0,
+    [ IsPathAlgebraMatModuleHomomorphism ], 0,
     function( f )
 
     local mats, M, N;
@@ -1375,7 +1375,7 @@ end
 
 InstallMethod ( SocleOfModuleInclusion,
     "for a map between representations of a quiver",
-    [ IsPathAlgebraModule ], 0,
+    [ IsPathAlgebraMatModule ], 0,
     function( M );
 
     return DualOfModuleHomomorphism(TopOfModuleProjection(DualOfModule(M)));    
@@ -1384,7 +1384,7 @@ end
 
 InstallMethod ( SocleOfModule,
     "for a map between representations of a quiver",
-    [ IsPathAlgebraModule ], 0,
+    [ IsPathAlgebraMatModule ], 0,
     function( M );
 
     return Source(DualOfModuleHomomorphism(TopOfModuleProjection(DualOfModule(M))));    
@@ -1393,7 +1393,7 @@ end
 
 InstallMethod( CommonDirectSummand, 
    "for two path algebra matmodules",
-   [ IsPathAlgebraModule, IsPathAlgebraModule  ], 0,
+   [ IsPathAlgebraMatModule, IsPathAlgebraMatModule  ], 0,
    function( M, N ) 
 
    local K, HomMN, HomNM, mn, nm, n, m, i, j,  
@@ -1457,7 +1457,7 @@ end
 
 InstallMethod( MaximalCommonDirectSummand, 
    "for two path algebra matmodules",
-   [ IsPathAlgebraModule, IsPathAlgebraModule  ], 0,
+   [ IsPathAlgebraMatModule, IsPathAlgebraMatModule  ], 0,
    function( M, N ) 
 
    local U, V, maxcommon, L;
@@ -1487,7 +1487,7 @@ end
 
 InstallMethod( IsomorphicModules, 
    "for two path algebra matmodules",
-   [ IsPathAlgebraModule, IsPathAlgebraModule  ], 0,
+   [ IsPathAlgebraMatModule, IsPathAlgebraMatModule  ], 0,
    function( M, N ) 
 
    local L;
@@ -1511,7 +1511,7 @@ end
 
 InstallMethod( IsDirectSummand, 
    "for two path algebra matmodules",
-   [ IsPathAlgebraModule, IsPathAlgebraModule  ], 0,
+   [ IsPathAlgebraMatModule, IsPathAlgebraMatModule  ], 0,
    function( M, N ) 
 
    local L;
@@ -1535,7 +1535,7 @@ end
 
 InstallMethod( IsInAdditiveClosure, 
    "for two path algebra matmodules",
-   [ IsPathAlgebraModule, IsPathAlgebraModule  ], 0,
+   [ IsPathAlgebraMatModule, IsPathAlgebraMatModule  ], 0,
    function( M, N ) 
 
    local K, HomMN, HomNM, MM, i, j, HomMM, V_M;
@@ -1594,7 +1594,7 @@ end
 InstallMethod ( MorphismOnKernel, 
    "for commutative diagram of PathAlgebraMatModuleMaps",
    true,
-   [ IsPathAlgebraModuleHomomorphism, IsPathAlgebraModuleHomomorphism, IsPathAlgebraModuleHomomorphism, IsPathAlgebraModuleHomomorphism ], 
+   [ IsPathAlgebraMatModuleHomomorphism, IsPathAlgebraMatModuleHomomorphism, IsPathAlgebraMatModuleHomomorphism, IsPathAlgebraMatModuleHomomorphism ], 
    0,
    function( f, g, beta, alpha )
 
@@ -1669,7 +1669,7 @@ end
 InstallMethod ( MorphismOnImage, 
    "for commutative diagram of PathAlgebraMatModuleMaps",
    true,
-   [ IsPathAlgebraModuleHomomorphism, IsPathAlgebraModuleHomomorphism, IsPathAlgebraModuleHomomorphism, IsPathAlgebraModuleHomomorphism ], 
+   [ IsPathAlgebraMatModuleHomomorphism, IsPathAlgebraMatModuleHomomorphism, IsPathAlgebraMatModuleHomomorphism, IsPathAlgebraMatModuleHomomorphism ], 
    0,
    function( f, g, beta, alpha )
 
@@ -1744,7 +1744,7 @@ end
 InstallMethod ( MorphismOnCoKernel, 
    "for commutative diagram of PathAlgebraMatModuleMaps",
    true,
-   [ IsPathAlgebraModuleHomomorphism, IsPathAlgebraModuleHomomorphism, IsPathAlgebraModuleHomomorphism, IsPathAlgebraModuleHomomorphism ], 
+   [ IsPathAlgebraMatModuleHomomorphism, IsPathAlgebraMatModuleHomomorphism, IsPathAlgebraMatModuleHomomorphism, IsPathAlgebraMatModuleHomomorphism ], 
    0,
    function( f, g, beta, alpha )
 
@@ -1821,7 +1821,7 @@ end
 InstallMethod ( LiftingMorphismFromProjective, 
    "for two PathAlgebraMatModuleMaps",
    true,
-   [ IsPathAlgebraModuleHomomorphism, IsPathAlgebraModuleHomomorphism ], 
+   [ IsPathAlgebraMatModuleHomomorphism, IsPathAlgebraMatModuleHomomorphism ], 
    0,
    function( f, g )
 
@@ -1877,7 +1877,7 @@ end
 InstallMethod ( LiftingInclusionMorphisms, 
    "for two PathAlgebraMatModuleMaps",
    true,
-   [ IsPathAlgebraModuleHomomorphism, IsPathAlgebraModuleHomomorphism ], 
+   [ IsPathAlgebraMatModuleHomomorphism, IsPathAlgebraMatModuleHomomorphism ], 
    0,
    function( f, g )
 

@@ -49,7 +49,7 @@ end
 
 InstallMethod( LoewyLength, 
    "for a PathAlgebraMatModule",
-   [ IsPathAlgebraModule ], 0,
+   [ IsPathAlgebraMatModule ], 0,
    function( M ) 
 
    local N, i;
@@ -206,7 +206,7 @@ end
 
 InstallMethod( RadicalSeries, 
    "for a PathAlgebraMatModule",
-   [ IsPathAlgebraModule ], 0,
+   [ IsPathAlgebraMatModule ], 0,
    function( M ) 
 
    local N, radlayers, i;
@@ -230,7 +230,7 @@ end
 
 InstallMethod( SocleSeries, 
    "for a PathAlgebraMatModule",
-   [ IsPathAlgebraModule ], 0,
+   [ IsPathAlgebraMatModule ], 0,
    function( M ) 
 
    local N, series, socleseries, i, n;
@@ -259,7 +259,7 @@ end
 
 InstallOtherMethod( Dimension,
    "for a PathAlgebraMatModule",
-   [ IsPathAlgebraModule ], 0,
+   [ IsPathAlgebraMatModule ], 0,
    function( M );
 
    return Sum(DimensionVector(M));
@@ -323,7 +323,7 @@ end
 
 InstallMethod( IsProjectiveModule, 
    "for a module over a quotient of a path algebra",
-   [ IsPathAlgebraModule ], 0,
+   [ IsPathAlgebraMatModule ], 0,
    function( M ) 
 
    local top, dimension, i, P; 
@@ -347,7 +347,7 @@ end
 
 InstallMethod( IsInjectiveModule, 
    "for a module over a quotient of a path algebra",
-   [ IsPathAlgebraModule ], 0,
+   [ IsPathAlgebraMatModule ], 0,
    function( M ) ; 
 
    return IsProjectiveModule(DualOfModule(M));
@@ -356,7 +356,7 @@ end
 
 InstallMethod( IsSimpleModule, 
    "for a module over a quotient of a path algebra",
-   [ IsPathAlgebraModule ], 0,
+   [ IsPathAlgebraMatModule ], 0,
    function( M ) ; 
 
    if Dimension(M) = 1 then 
@@ -369,7 +369,7 @@ end
 
 InstallMethod( IsSemisimpleModule, 
    "for a module over a quotient of a path algebra",
-   [ IsPathAlgebraModule ], 0,
+   [ IsPathAlgebraMatModule ], 0,
    function( M ) ; 
 
    if Dimension(RadicalOfModule(M)) = 0 then 
@@ -477,7 +477,7 @@ end
 
 InstallMethod( 1stSyzygy,
    "for a path algebra",
-   [ IsPathAlgebraModule ], 0,
+   [ IsPathAlgebraMatModule ], 0,
    function( M ) 
 
    local A, Q, K, num_vert, vertices, verticesinalg, arrows, B, BB, B_M, 
@@ -680,7 +680,7 @@ end
 
 InstallMethod( NthSyzygy,
    "for a path algebra module and a positive integer",
-   [ IsPathAlgebraModule, IS_INT ], 0,
+   [ IsPathAlgebraMatModule, IS_INT ], 0,
    function( M, n ) 
 
    local i, result;
@@ -706,7 +706,7 @@ end
 
 InstallMethod( NthSyzygyNC,
    "for a path algebra module and a positive integer",
-   [ IsPathAlgebraModule, IS_INT ], 0,
+   [ IsPathAlgebraMatModule, IS_INT ], 0,
    function( M, n ) 
 
    local i, result;
@@ -739,7 +739,7 @@ InstallMethod( DirectSumOfModules,
    if n > 0 then 
       A := RightActingAlgebra(L[1]);
       K := LeftActingDomain(A);
-      if ForAll(L,IsPathAlgebraModule) and ForAll(L,x -> RightActingAlgebra(x) = A) then 
+      if ForAll(L,IsPathAlgebraMatModule) and ForAll(L,x -> RightActingAlgebra(x) = A) then 
          Q := QuiverOfPathAlgebra(OriginalPathAlgebra(A));
          arrows := ArrowsOfQuiver(Q);
          vertices := VerticesOfQuiver(Q);
@@ -870,7 +870,7 @@ end
 ##
 InstallMethod( PushOut,
    "for two homomorphisms starting in a common module over a path algebra",
-   [ IsPathAlgebraModuleHomomorphism, IsPathAlgebraModuleHomomorphism ], 0,
+   [ IsPathAlgebraMatModuleHomomorphism, IsPathAlgebraMatModuleHomomorphism ], 0,
    function( f, g ) 
 
    local B, C, CplusB, inclusions, projections, h;
@@ -906,7 +906,7 @@ end
 ##
 InstallMethod( PullBack,
    "for two homomorphisms ending in a common module over a path algebra",
-   [ IsPathAlgebraModuleHomomorphism, IsPathAlgebraModuleHomomorphism ], 0,
+   [ IsPathAlgebraMatModuleHomomorphism, IsPathAlgebraMatModuleHomomorphism ], 0,
    function( f, g ) 
 
    local A, C, AplusC, projections, h;
@@ -929,7 +929,7 @@ end
 
 InstallMethod( IsOmegaPeriodic, 
    "for a path algebra matmodule and an integer",
-   [ IsPathAlgebraModule, IS_INT  ], 0,
+   [ IsPathAlgebraMatModule, IS_INT  ], 0,
    function( M, n ) 
 
    local N0, N1, i;
@@ -951,7 +951,7 @@ end
 InstallMethod ( FromHomMMToEndM, 
    "for a subset of EndOverAlgebra to HomOverAlgebra",
    true,
-   [ IsPathAlgebraModuleHomomorphism ],
+   [ IsPathAlgebraMatModuleHomomorphism ],
    0,
    function( f )
 
@@ -975,7 +975,7 @@ end
 InstallMethod ( FromEndMToHomMM, 
    "for a subset of EndOverAlgebra to HomOverAlgebra",
    true,
-   [ IsPathAlgebraModule, IsMatrix ],
+   [ IsPathAlgebraMatModule, IsMatrix ],
    0,
    function( M, mat )
 
@@ -1002,7 +1002,7 @@ end
 InstallMethod ( IsRightMinimal, 
    "for a PathAlgebraMatModuleMap",
    true,
-   [ IsPathAlgebraModuleHomomorphism ],
+   [ IsPathAlgebraMatModuleHomomorphism ],
    0,
    function( f )
 
@@ -1029,7 +1029,7 @@ end
 InstallMethod ( IsLeftMinimal, 
    "for a PathAlgebraMatModuleMap",
    true,
-   [ IsPathAlgebraModuleHomomorphism ],
+   [ IsPathAlgebraMatModuleHomomorphism ],
    0,
    function( f )
 
@@ -1056,7 +1056,7 @@ end
 InstallMethod ( IsSplitMonomorphism, 
    "for a PathAlgebraMatModuleMap",
    true,
-   [ IsPathAlgebraModuleHomomorphism ],
+   [ IsPathAlgebraMatModuleHomomorphism ],
    0,
    function( f )
 
@@ -1095,7 +1095,7 @@ end
 InstallMethod ( IsSplitEpimorphism, 
    "for a PathAlgebraMatModuleMap",
    true,
-   [ IsPathAlgebraModuleHomomorphism ],
+   [ IsPathAlgebraMatModuleHomomorphism ],
    0,
    function( f )
 
@@ -1133,7 +1133,7 @@ end
 InstallMethod ( MoreRightMinimalVersion, 
    "for a PathAlgebraMatModuleMap",
    true,
-   [ IsPathAlgebraModuleHomomorphism ],
+   [ IsPathAlgebraMatModuleHomomorphism ],
    0,
    function( f )
 
@@ -1165,7 +1165,7 @@ end
 InstallMethod ( MoreLeftMinimalVersion, 
    "for a PathAlgebraMatModuleMap",
    true,
-   [ IsPathAlgebraModuleHomomorphism ],
+   [ IsPathAlgebraMatModuleHomomorphism ],
    0,
    function( f )
 
@@ -1198,7 +1198,7 @@ end
 InstallMethod ( RightMinimalVersion, 
    "for a PathAlgebraMatModuleMap",
    true,
-   [ IsPathAlgebraModuleHomomorphism ],
+   [ IsPathAlgebraMatModuleHomomorphism ],
    0,
    function( f )
 
@@ -1224,7 +1224,7 @@ end
 InstallMethod ( LeftMinimalVersion, 
    "for a PathAlgebraMatModuleMap",
    true,
-   [ IsPathAlgebraModuleHomomorphism ],
+   [ IsPathAlgebraMatModuleHomomorphism ],
    0,
    function( f )
 
@@ -1251,7 +1251,7 @@ end
 InstallMethod ( MinimalRightApproximation, 
    "for two PathAlgebraMatModules",
    true,
-   [ IsPathAlgebraModule, IsPathAlgebraModule ],
+   [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ],
    0,
    function( M, C )
 
@@ -1304,7 +1304,7 @@ end
 InstallMethod ( MinimalLeftApproximation, 
    "for two PathAlgebraMatModules",
    true,
-   [ IsPathAlgebraModule, IsPathAlgebraModule ],
+   [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ],
    0,
    function( C, M )
 
@@ -1543,7 +1543,7 @@ end
 InstallMethod ( HomFromProjective, 
    "for an element in a PathAlgebraMatModule and the PathAlgebraMatModule",
    IsElmsColls,
-   [ IsRightAlgebraModuleElement, IsPathAlgebraModule ],
+   [ IsRightAlgebraModuleElement, IsPathAlgebraMatModule ],
    0,
    function( m, M )
 
@@ -1604,7 +1604,7 @@ end
 InstallMethod ( ProjectiveCover, 
    "for a PathAlgebraMatModule",
    true,
-   [ IsPathAlgebraModule ],
+   [ IsPathAlgebraMatModule ],
    0,
    function( M )
 
@@ -1636,7 +1636,7 @@ end
 InstallMethod( ExtOverAlgebra, 
    "for two PathAlgebraMatModule's",
    true, 
-   [ IsPathAlgebraModule, IsPathAlgebraModule ], 0,
+   [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ], 0,
    function( M, N )
 
    local K, f, g, PM, syzygy, G, H, Img1, zero, genssyzygyN, VsyzygyN, 
@@ -1754,7 +1754,7 @@ end
 InstallMethod( ExtOverAlgebraAdd, 
    "for two PathAlgebraMatModule's",
    true, 
-   [ IsPathAlgebraModule, IsPathAlgebraModule ], 0,
+   [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ], 0,
    function( M, N )
 
    local K, f, g, PM, syzygy, G, H, Img1, zero, genssyzygyN, VsyzygyN, 
@@ -1885,7 +1885,7 @@ end
 InstallMethod( AlmostSplitSequence, 
    "for a PathAlgebraMatModule",
    true, 
-   [ IsPathAlgebraModule ], 0,
+   [ IsPathAlgebraMatModule ], 0,
    function( M )
 
    local K, DTrM, f, g, PM, syzygy, G, H, Img1, zero, 

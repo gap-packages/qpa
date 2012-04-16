@@ -1,9 +1,9 @@
 # GAP Implementation
 # This file was generated from 
-# $Id: functors.gi,v 1.6 2012/02/27 12:26:34 sunnyquiver Exp $
+# $Id: functors.gi,v 1.7 2012/04/16 09:20:23 sunnyquiver Exp $
 InstallMethod ( DualOfModule,
     "for a representation of a quiver",
-    [ IsPathAlgebraModule ], 0,
+    [ IsPathAlgebraMatModule ], 0,
     function( M )
 #
 #   M     = a representation of the quiver Q over K with rels
@@ -48,7 +48,7 @@ end
 
 InstallMethod( TransposeOfModule,
    "for a path algebra",
-   [ IsPathAlgebraModule ], 0,
+   [ IsPathAlgebraMatModule ], 0,
    function( M ) 
 
    local A, B, Q, fam, KQ, gens, K, 
@@ -283,7 +283,7 @@ end
 
 InstallMethod( DTr,
    "for a path algebra module",
-   [ IsPathAlgebraModule ], 0,
+   [ IsPathAlgebraMatModule ], 0,
    function( M );
 
    return DualOfModule(TransposeOfModule(M));
@@ -292,7 +292,7 @@ end
 
 InstallMethod( TrD,
    "for a path algebra module",
-   [ IsPathAlgebraModule ], 0,
+   [ IsPathAlgebraMatModule ], 0,
    function( M );
 
    return TransposeOfModule(DualOfModule(M));
@@ -301,7 +301,7 @@ end
 
 InstallOtherMethod( DTr,
    "for a path algebra module",
-   [ IsPathAlgebraModule, IS_INT ], 0,
+   [ IsPathAlgebraMatModule, IS_INT ], 0,
    function( M, n )
 
    local U, i;
@@ -327,7 +327,7 @@ end
 
 InstallOtherMethod( TrD,
    "for a path algebra module",
-   [ IsPathAlgebraModule, IS_INT ], 0,
+   [ IsPathAlgebraMatModule, IS_INT ], 0,
    function( M, n )
 
    local U, i;

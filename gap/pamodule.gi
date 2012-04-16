@@ -1,6 +1,6 @@
 # GAP Implementation
 # This file was generated from 
-# $Id: pamodule.gi,v 1.16 2012/04/12 08:30:18 sunnyquiver Exp $
+# $Id: pamodule.gi,v 1.17 2012/04/16 09:20:23 sunnyquiver Exp $
 
 ZeroModElement:=function(fam,zero)
   local result,i;
@@ -295,7 +295,7 @@ InstallMethod( Coefficients,
 InstallMethod(CanonicalBasis,
   "for a path algebra matrix module",
   true,
-  [IsFreeLeftModule and IsPathAlgebraModule], NICE_FLAGS+1,
+  [IsFreeLeftModule and IsPathAlgebraMatModule], NICE_FLAGS+1,
   function(V)
     local basis, vgens, gens, x, i, fam, zero, MB, Vfam;
 
@@ -520,7 +520,7 @@ InstallMethod(RightModuleOverPathAlgebra,
           dim_vector := List(vlist, x -> 0);
        fi;
        M := RightAlgebraModuleByGenerators(R, \^, basis);
-       SetIsPathAlgebraModule(M,true);
+       SetIsPathAlgebraMatModule(M,true);
        SetIsWholeFamily(M,true);
        SetDimensionVector(M,dim_vector);
 
@@ -682,7 +682,7 @@ InstallOtherMethod(RightModuleOverPathAlgebra,
     	  basis := [ ZeroModElement(Fam, Zero(K)) ];
        fi;
        M := RightAlgebraModuleByGenerators(A, \^, basis);
-       SetIsPathAlgebraModule(M,true);
+       SetIsPathAlgebraMatModule(M,true);
        SetIsWholeFamily(M,true);
        SetDimensionVector(M,dim_vector);
 
@@ -729,7 +729,7 @@ InstallMethod( \in,
 InstallMethod( SubAlgebraModule,
   "for path algebra module and a list of submodule generators",
   IsIdenticalObj,
-  [ IsFreeLeftModule and IsPathAlgebraModule,
+  [ IsFreeLeftModule and IsPathAlgebraMatModule,
     IsAlgebraModuleElementCollection and IsList], 0,
   function( V, gens )
     local sub, ngens, vlist, fam, alggens,x, i;
@@ -752,7 +752,7 @@ InstallMethod( SubAlgebraModule,
                       rec() );
     SetParent( sub, V );
     SetIsAlgebraModule( sub, true );
-    SetIsPathAlgebraModule( sub, true );
+    SetIsPathAlgebraMatModule( sub, true );
     SetLeftActingDomain( sub, LeftActingDomain(V) );
     SetGeneratorsOfAlgebraModule( sub, ngens );
 
@@ -776,7 +776,7 @@ InstallMethod( SubAlgebraModule,
 InstallMethod(SubmoduleAsModule, 
   "for submodules of path algebra matrix modules",
   true, 
-  [IsAlgebraModule and IsPathAlgebraModule], 0,
+  [IsAlgebraModule and IsPathAlgebraMatModule], 0,
   function( N )
 
     local gens, fam, R, F, alist, verts, sdims, vgens, x, i, 
@@ -837,7 +837,7 @@ InstallMethod(SubmoduleAsModule,
 InstallOtherMethod(NaturalHomomorphismBySubAlgebraModule,
   "for modules over path algebras and their submodules",
   true,
-  [IsPathAlgebraModule, IsPathAlgebraModule], 0,
+  [IsPathAlgebraMatModule, IsPathAlgebraMatModule], 0,
   function(M,N)
 
     local pfam, Q, pgens, qgens, sgens, a, alist, R, pmats, qmats, pdims, sdims, qdims, hom,
@@ -1064,8 +1064,8 @@ InstallOtherMethod( Hom,
   "for a path ring, and two right modules over the path ring",
   true,
   [ IsPathRing, 
-    IsPathAlgebraModule,
-    IsPathAlgebraModule ], 0,
+    IsPathAlgebraMatModule,
+    IsPathAlgebraMatModule ], 0,
   function(R, M, N)
     local basis, Mbasis, Nbasis, gens, Msub, Nsub;
 
@@ -1108,7 +1108,7 @@ InstallOtherMethod( Hom,
 InstallOtherMethod( End,
   "for a path ring and a right module",
   true,
-  [IsPathRing, IsPathAlgebraModule], 0,
+  [IsPathRing, IsPathAlgebraMatModule], 0,
   function( R, M )
     local basis, gens, Msub, Mbasis;
 
@@ -1131,7 +1131,7 @@ InstallOtherMethod( End,
 
 InstallMethod ( MatricesOfPathAlgebraModule,
     "for a representation of a quiver",
-    [ IsPathAlgebraModule ], 0,
+    [ IsPathAlgebraMatModule ], 0,
     function( M )
 #
 #   M     = a representation of the quiver Q over K
@@ -1163,7 +1163,7 @@ end
 InstallMethod( MinimalGeneratingSetOfModule,
   "for a path algebra module",
   true,
-  [ IsPathAlgebraModule ], 0,
+  [ IsPathAlgebraMatModule ], 0,
   function( M )
 
   local A, K, q, num_vert, arrows_as_path, basis_M, generators, 
@@ -1250,7 +1250,7 @@ end
 
 InstallMethod( DimensionVectorPartialOrder, 
    "for two path algebra matmodules",
-   [ IsPathAlgebraModule, IsPathAlgebraModule ], 0,
+   [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ], 0,
    function( M, N) 
 
    local L1, L2;

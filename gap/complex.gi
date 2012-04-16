@@ -608,7 +608,7 @@ end );
 
 
 InstallMethod( ProjectiveResolution,
-[ IsPathAlgebraModule ],
+[ IsPathAlgebraMatModule ],
 function( M )
     local nextDifferential, cover;
 
