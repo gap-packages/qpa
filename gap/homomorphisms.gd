@@ -1,13 +1,13 @@
 # GAP Declarations
-# $Id: homomorphisms.gd,v 1.10 2012/04/16 09:20:23 sunnyquiver Exp $
+# $Id: homomorphisms.gd,v 1.11 2012/04/16 09:38:52 sunnyquiver Exp $
 
 DeclareCategory("IsPathAlgebraMatModuleHomomorphism", IsAdditiveElementWithZero and IsAdditiveElementWithInverse and IsGeneralMapping and RespectsAddition and RespectsZero and RespectsScalarMultiplication and IsTotal and IsSingleValued ); 
 DeclareCategoryFamily(  "IsPathAlgebraMatModuleHomomorphism" );
 DeclareCategoryCollections( "IsPathAlgebraMatModuleHomomorphism" );
 DeclareRepresentation("IsPathAlgebraMatModuleHomomorphismRep", IsComponentObjectRep and IsAttributeStoringRep, ["maps"]);
-
 DeclareOperation( "RightModuleHomOverAlgebra", [IsPathAlgebraMatModule, IsPathAlgebraMatModule, IsList] ); 
 DeclareAttribute( "PathAlgebraOfMatModuleMap", IsPathAlgebraMatModuleHomomorphism );
+DeclareOperation( "MatricesOfPathAlgebraMatModuleHomomorphism", [IsPathAlgebraMatModuleHomomorphism ] ); 
 DeclareOperation( "HomOverAlgebra", [IsPathAlgebraMatModule, IsPathAlgebraMatModule ] ); 
 DeclareOperation( "EndOverAlgebra", [IsPathAlgebraMatModule ] ); 
 DeclareOperation( "NumberOfNonIsoDirSummands", [IsPathAlgebraMatModule ] ); 

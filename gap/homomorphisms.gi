@@ -1,5 +1,5 @@
 # GAP Implementation
-# $Id: homomorphisms.gi,v 1.28 2012/04/16 09:20:23 sunnyquiver Exp $
+# $Id: homomorphisms.gi,v 1.29 2012/04/16 09:38:52 sunnyquiver Exp $
 
 #############################################################################
 ##
@@ -163,6 +163,16 @@ InstallMethod( RightModuleHomOverAlgebra,
   return map;
 
 end );
+
+InstallMethod( MatricesOfPathAlgebraMatModuleHomomorphism, 
+  "for a PathAlgebraMatModuleHomomorphism",
+  true,
+  [ IsPathAlgebraMatModuleHomomorphism ],
+  0,
+  function( f )
+  return f!.maps;  
+end
+);
 
 InstallMethod ( Zero, 
   "for a PathAlgebraMatModuleMap",
