@@ -1,5 +1,5 @@
 # GAP Implementation
-# $Id: homomorphisms.gi,v 1.29 2012/04/16 09:38:52 sunnyquiver Exp $
+# $Id: homomorphisms.gi,v 1.30 2012/04/16 10:11:42 sunnyquiver Exp $
 
 #############################################################################
 ##
@@ -1503,7 +1503,9 @@ InstallMethod( IsomorphicModules,
    local L;
 
    if DimensionVector(M) <> DimensionVector(N) then 
-      return false;
+       return false;
+   elif Dimension(M) = 0 and Dimension(N) = 0 then 
+       return true; 
    else 
       L := MaximalCommonDirectSummand(M,N);
       if L = false then 
