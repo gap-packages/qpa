@@ -1,6 +1,6 @@
 # GAP Implementation
 # This file was generated from 
-# $Id: decomp.gi,v 1.3 2012/04/17 05:52:36 sunnyquiver Exp $
+# $Id: decomp.gi,v 1.4 2012/04/17 06:28:39 sunnyquiver Exp $
 InstallMethod(ComplementInFullRowSpace, 
   "Compute the complement vector space of a row space", 
   true, 
@@ -108,22 +108,48 @@ InstallMethod(DecomposeModule,
 
     local genmats, genmaps, basis, endo, idemmats, idemmaps, x;
 
-    basis:=CanonicalBasis(M);
-    endo:=End(ActingAlgebra(M), M);
-    genmaps:=BasisVectors(Basis(endo));
-    genmats:=List(genmaps, x->TransposedMat(x!.matrix));
-    idemmats:=IdempotentsForDecomposition(AlgebraWithOne(LeftActingDomain(M), genmats));
-    idemmaps:=List(idemmats, x->LeftModuleHomomorphismByMatrix(basis, TransposedMat(x), basis));
-
+    basis    := CanonicalBasis(M);
+    endo     := EndOverAlgebra(M);
+    genmaps  := BasisVectors(Basis(endo));
+    genmats  := List(genmaps, x -> TransposedMat(x));
+    idemmats := IdempotentsForDecomposition(AlgebraWithOne(LeftActingDomain(M), genmats));
+    idemmaps := List(idemmats, x -> LeftModuleHomomorphismByMatrix(basis, TransposedMat(x), basis));
     for x in idemmaps do
-      SetFilterObj(x, IsAlgebraModuleHomomorphism);
+        SetFilterObj(x, IsAlgebraModuleHomomorphism);
     od;
-
-    return List(idemmaps, x->Image(x,M));
-
-  end
+    idemmaps := List(idemmaps, x -> FromEndMToHomMM(M,x!.matrix));
+    
+    return List(idemmaps, x -> Image(x));
+end
 );
-
+  
+#
+# Old version of DecomposeModule
+#
+#InstallMethod(DecomposeModule, 
+#  "for a path algebra matrix module", 
+#  true, 
+#  [IsPathAlgebraMatModule], 0, 
+#  function(M)
+#
+#    local genmats, genmaps, basis, endo, idemmats, idemmaps, x;
+#
+#    basis:=CanonicalBasis(M);
+#    endo:=End(ActingAlgebra(M), M);
+#    genmaps:=BasisVectors(Basis(endo));
+#    genmats:=List(genmaps, x->TransposedMat(x!.matrix));
+#    idemmats:=IdempotentsForDecomposition(AlgebraWithOne(LeftActingDomain(M), genmats));
+#    idemmaps:=List(idemmats, x->LeftModuleHomomorphismByMatrix(basis, TransposedMat(x), basis));
+#
+#    for x in idemmaps do
+#      SetFilterObj(x, IsAlgebraModuleHomomorphism);
+#    od;
+#
+#    return List(idemmaps, x->Image(x,M));
+#
+#  end
+#);
+#
 
 InstallMethod(DecomposeModule, 
   "for f. p. path algebra modules",
