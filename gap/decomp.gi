@@ -1,6 +1,6 @@
 # GAP Implementation
 # This file was generated from 
-# $Id: decomp.gi,v 1.2 2012/02/27 12:26:34 sunnyquiver Exp $
+# $Id: decomp.gi,v 1.3 2012/04/17 05:52:36 sunnyquiver Exp $
 InstallMethod(ComplementInFullRowSpace, 
   "Compute the complement vector space of a row space", 
   true, 
@@ -103,7 +103,7 @@ InstallMethod(IdempotentsForDecomposition,
 InstallMethod(DecomposeModule, 
   "for a path algebra matrix module", 
   true, 
-  [IsPathAlgebraModule], 0, 
+  [IsPathAlgebraMatModule], 0, 
   function(M)
 
     local genmats, genmaps, basis, endo, idemmats, idemmaps, x;
