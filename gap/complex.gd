@@ -45,6 +45,16 @@ DeclareOperation( "NegativeRepeatDegrees", [ IsComplex ] );
 DeclareOperation( "Shift", [ IsComplex, IsInt ] );
 DeclareOperation( "YonedaProduct", [ IsComplex, IsComplex ] );
 
+DeclareOperation( "GoodTruncationBelow", [ IsComplex, IsInt ] );
+DeclareOperation( "GoodTruncationAbove", [ IsComplex, IsInt ] );
+DeclareOperation( "GoodTruncation", [ IsComplex, IsInt, IsInt ] );
+DeclareOperation( "BrutalTruncationBelow", [ IsComplex, IsInt ] );
+DeclareOperation( "BrutalTruncationAbove", [ IsComplex, IsInt ] );
+DeclareOperation( "BrutalTruncation", [ IsComplex, IsInt, IsInt ] );
+DeclareOperation( "SyzygyTruncation", [ IsComplex, IsInt ] );
+DeclareOperation( "CosyzygyTruncation", [ IsComplex, IsInt ] );
+DeclareOperation( "SyzygyCosyzygyTruncation", [ IsComplex, IsInt, IsInt ] );
+
 DeclareGlobalFunction( "Complex" );
 # Complex( cat, basePosition, differentials, [ "repeat", [ f, g, h ] ], "zero" );
 # Complex( cat, basePosition, differentials, [ "next", function( d ) ... end ], "zero" );
