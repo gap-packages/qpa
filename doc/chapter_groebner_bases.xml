@@ -1,0 +1,312 @@
+<Chapter Label="Groebner-Basis"><Heading>Groebner Basis</Heading>
+
+This chapter contains the declarations and implementations needed for
+Groebner basis. Currently, we do not provide algorithms to actually
+compute Groebner basis; instead, the declarations and implementations
+are provided here for &GAP; objects and the actual elements of Groebner
+basis are computed by the <Package>GBNP</Package> package.
+
+<Section><Heading>Constructing a Groebner Basis</Heading>
+
+<ManSection>
+   <InfoClass Name="InfoGroebnerBasis" Comm=""/>
+   <Description>
+      is the info class for functions dealing with Groebner basis. 
+   </Description>
+</ManSection>
+
+  <ManSection>
+   <Func Name="GroebnerBasis" Arg="A, rels" 
+	 Comm=""/>
+   <Description>Arguments: <Arg>A</Arg> -- an algebra, <Arg>rels</Arg>
+   -- a list of relations in <Arg>A</Arg>.<Br />
+   </Description>
+   <Returns> an object in the `IsGroebnerBasis' category.</Returns>
+   <Description>
+       There are absolutely no checks for correctness in this
+       function. Giving a set of relations that does not form a
+       Groebner basis may result in incorrect answers or unexpected
+       errors.  This function is intended to be used by packages
+       providing access to external Groebner basis programs.
+   </Description>
+  </ManSection>
+
+</Section>
+
+<Section><Heading>Categories and Properties of Groebner
+    Basis</Heading>
+
+  <ManSection>
+   <Prop Name="IsGroebnerBasis" Arg="object" Comm=""/>
+   <Description>
+     Arguments: <Arg>object</Arg> -- any object in &GAP;. <Br />
+   </Description>
+   <Returns>
+     true when <Arg>object</Arg> is a Groebner basis and false otherwise.
+   </Returns>
+   <Description>The function only returns true for Groebner bases that
+   has been set as such using the <Code>Groebner Basis</Code>
+   function, as illustrated in the following example.
+   </Description>
+  </ManSection>
+
+<Example><![CDATA[ 
+gap> Q := Quiver( 3, [ [1,2,"a"], [2,3,"b"] ] );
+<quiver with 3 vertices and 2 arrows>
+gap> PA := PathAlgebra( Rationals, Q );
+<algebra-with-one over Rationals, with 5 generators>
+gap> rels := [ PA.a*PA.b ];
+[ (1)*a*b ]
+gap> gb := GBNPGroebnerBasis( rels, PA );
+[ (1)*a*b ]
+gap> I := Ideal( PA, gb );
+<two-sided ideal in <algebra-with-one over Rationals, with 5 generators>, 
+  (1 generators)>
+gap> grb := GroebnerBasis( I, gb );
+<complete two-sided Groebner basis containing 1 elements>
+gap> alg := PA/I;
+<algebra-with-one over Rationals, with 5 generators>
+gap> IsGroebnerBasis(gb);
+false
+gap> IsGroebnerBasis(grb);
+true ]]>
+</Example>
+
+   <ManSection> 
+    <Prop Name="IsTipReducedGroebnerBasis" Arg="gb" Comm=""/> 
+    <Description> 
+      Arguments: <Arg>GB</Arg> -- a Groebner Basis.<Br /> 
+    </Description> 
+    <Returns> 
+      true when <Arg>GB</Arg> is a Groebner basis which is tip reduced. 
+    </Returns> 
+   </ManSection> 
+
+   <ManSection> 
+    <Prop Name="IsCompletelyReducedGroebnerBasis" Arg="gb" Comm=""/> 
+    <Description> 
+      Arguments: <Arg>GB</Arg> -- a Groebner basis.<Br /> 
+    </Description> 
+    <Returns> 
+      true when <Arg>GB</Arg> is a Groebner basis which is 
+      completely reduced. 
+    </Returns> 
+   </ManSection> 
+
+   <ManSection> 
+    <Prop Name="IsHomogeneousGroebnerBasis" Arg="gb" Comm=""/> 
+    <Description> 
+      Arguments: <Arg>GB</Arg> -- a Groebner basis.<Br /> 
+    </Description> 
+    <Returns> 
+      true when <Arg>GB</Arg> is a Groebner basis which is homogenous. 
+    </Returns> 
+   </ManSection> 
+
+   <ManSection> 
+    <Prop Name="IsCompleteGroebnerBasis" Arg="gb" Comm=""/> 
+    <Description> 
+      Arguments: <Arg>GB</Arg> -- a Groebner basis.<Br /> 
+    </Description> 
+    <Returns>true when <Arg>GB</Arg> is a complete Groebner basis. 
+    </Returns> 
+    <Description> 
+      While philosophically something that isn't a complete Groebner 
+      basis isn't a Groebner basis at all, this property can be used in 
+      conjuction with other properties to see if the the Groebner basis 
+      contains enough information for computations. An example of a 
+      system that creates incomplete Groebner bases is `Opal'.<Br /> 
+      <Emph>Note:</Emph> The current package used for creating Groebner 
+      bases is <Package>GBNP</Package>, and this package does not 
+      create incomplete Groebner bases. 
+    </Description> 
+   </ManSection> 
+
+</Section>
+
+<Section><Heading>Attributes and Operations for Groebner Basis</Heading>
+
+  <ManSection>
+   <Oper Name="CompletelyReduce" Arg="GB, a" Comm=""/>
+   <Description>
+     Arguments: <Arg>GB</Arg> -- a Groebner basis, <Arg>a</Arg> -- an
+     element in a path algebra.<Br />
+   </Description>
+   <Returns><Arg>a</Arg> reduced by <Arg>GB</Arg>.
+   </Returns>
+   <Description>
+    If <Arg>a</Arg> is already completely
+    reduced, the original element <Arg>a</Arg> is returned.
+   </Description>
+  </ManSection>
+
+  <ManSection>
+   <Oper Name="CompletelyReduceGroebnerBasis" Arg="GB" Comm=""/>
+   <Description>
+     Arguments: <Arg>GB</Arg> -- a Groebner basis.<Br />
+   </Description>
+   <Returns>
+     the completely reduced Groebner basis of the ideal generated
+     by <Arg>GB</Arg>.
+   </Returns>
+   <Description>
+    The operation modifies a Groebner basis <Arg>GB</Arg> such
+    that each relation in <Arg>GB</Arg> is completely reduced.  The
+    <C>IsCompletelyReducedGroebnerBasis</C>
+    and <C>IsTipReducedGroebnerBasis</C> properties are set as a
+    result of this operation. The resulting relations will be placed
+    in sorted order according to the ordering of <Arg>GB</Arg>.
+   </Description>
+  </ManSection>
+
+  <ManSection>
+   <Oper Name="TipReduce" Arg="GB, a" Comm=""/>
+   <Description>
+     Arguments: <Arg>GB</Arg> -- a Groebner basis, <Arg>a</Arg> - an
+     element in a path algebra. <Br />
+   </Description>
+   <Returns>the element <Arg>a</Arg> tip reduced by the Groebner
+   basis.
+   </Returns>
+   <Description>If <Arg>a</Arg> is already tip reduced, then the
+    original <Arg>a</Arg> is returned.
+   </Description>
+  </ManSection>
+
+  <ManSection>
+   <Oper Name="TipReduceGroebnerBasis" Arg="GB" Comm=""/>
+   <Description>
+     Arguments: <Arg>GB</Arg> -- a Groebner basis.<Br />
+   </Description>
+   <Returns>a tip reduced Groebner basis.
+   </Returns>
+   <Description>
+     The returned Groebner basis is equivalent to <Arg>GB</Arg>
+    If <Arg>GB</Arg> is already tip reduced, this function returns
+    the original object <Arg>GB</Arg>, possibly with the addition of
+    the `IsTipReduced`' property set.
+   </Description>
+  </ManSection>
+
+  <ManSection>
+   <Oper Name="Iterator" Arg="GB" Comm=""/>
+   <Description>
+     Arguments: <Arg>GB</Arg> -- a Groebner basis.<Br />
+   </Description>
+   <Returns>an iterator (in the IsIterator category, see the
+   &GAP; manual, chapter 28.7).
+   </Returns>
+   <Description>
+    Creates an iterator that iterates over the relations making up the
+    Groebner basis. These relations are iterated over in ascending
+    order with respect to the ordering for the family the elements are
+    contained in.
+   </Description>
+  </ManSection>
+
+
+  <ManSection>
+   <Oper Name="Enumerator" Arg="GB" Comm=""/>
+   <Description>
+     Arguments: <Arg>GB</Arg> -- a Groebner basis. <Br />
+   </Description>
+   <Returns>an enumerat that enumerates
+    the relations making up the Groebner basis.
+   </Returns>
+   <Description>These relations should be enumerated in ascending
+    order with respect to the ordering for the family the elements are
+    contained in.
+   </Description>
+  </ManSection>
+
+  <ManSection>
+   <Oper Name="Nontips" Arg="GB" Comm=""/>
+   <Description>
+     Arguments: <Arg>GB</Arg> -- a Groebner basis.<Br />
+   </Description>
+   <Returns>a list of nontip elements for <Arg>GB</Arg>.
+   </Returns>
+   <Description>
+    In order to compute the nontip elements, the Groebner basis must
+    be complete and tip reduced, and there must be a finite number of
+    nontips. If there are an infinite number of nontips, the operation
+    returns `fail'.
+   </Description>
+  </ManSection>
+
+  <ManSection>
+   <Oper Name="AdmitsFinitelyManyNontips" Arg="GB" Comm=""/>
+   <Description>
+     Arguments: <Arg>GB</Arg> -- a complete Groebner basis.<Br />
+   </Description>
+   <Returns>true if the Groebner basis admits only finitely many
+    nontips and false otherwise.
+   </Returns>
+   </ManSection>
+
+  <ManSection>
+   <Oper Name="NontipSize" Arg="GB" Comm=""/>
+   <Description>
+     Arguments: <Arg>GB</Arg> -- a complete Groebner basis.<Br />
+   </Description>
+   <Returns>the number of nontips admitted
+    by <Arg>GB</Arg>.
+   </Returns>
+  </ManSection>
+
+  <ManSection>
+   <Oper Name="IsPrefixOfTipInTipIdeal" Arg="GB, R" Comm=""/>
+   <Description>
+     Arguments: <Arg>GB</Arg> -- a Groebner basis, <Arg>R</Arg> -- a
+    relation.<Br />
+   </Description>
+   <Returns>true if the tip of the relation <Arg>R</Arg> is in the
+    tip ideal generated by the tips of <Arg>GB</Arg>. 
+   </Returns>
+   <Description>
+     This is used mainly for the construction of right Groebner basis,
+    but is made available for general use in case there are other
+    unforseen applications.
+   </Description>
+  </ManSection>
+
+</Section>
+
+<Section><Heading>Right Groebner Basis</Heading> 
+
+In this section we support right Groebner basis for two-sided
+ideals with Groebner basis. More general cases may be
+supported in the future.
+
+  <ManSection>
+   <Prop Name="IsRightGroebnerBasis" Arg="object" Comm=""/>
+   <Description>
+     Arguments: <Arg>object</Arg> -- any object in &GAP;.<Br />
+   </Description>
+   <Returns>true when <Arg>object</Arg> a right Groebner basis.
+   </Returns>
+  </ManSection>
+
+  <ManSection>
+   <Attr Name="RightGroebnerBasisOfIdeal" Arg="I" Comm=""/>
+   <Description>
+     Arguments: <Arg>I</Arg> -- a right ideal.<Br />
+   </Description>
+   <Returns>a right Groebner basis of a right
+    ideal, <Arg>I</Arg>, is one has been computed.
+   </Returns>
+  </ManSection>
+
+  <ManSection>
+   <Oper Name="RightGroebnerBasis" Arg="I" Comm=""/>
+   <Description>
+     Arguments: <Arg>I</Arg> -- a right ideal.<Br />
+   </Description>
+   <Returns>a right Groebner basis for <Arg>I</Arg>, which must
+    support a right Groebner basis theory.  Right now, this requires
+    that <Arg>I</Arg> has a complete Groebner basis.
+   </Returns>
+  </ManSection>
+
+</Section>
+</Chapter>
