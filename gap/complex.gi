@@ -529,6 +529,205 @@ function( C1, C2 )
 
 end );
 
+# it is a bug somewhere in here.
+InstallMethod( GoodTruncationBelow,
+[ IsComplex, IsInt ],
+function( C, i )
+    local cat, difflist, truncpart, newpart, zeropart, newdifflist, kerinc;
+
+    cat := CatOfComplex( C );
+    difflist := DifferentialsOfComplex( C );
+    truncpart := PositivePartFrom( difflist, i+2 );
+    kerinc := KernelInclusion( DifferentialOfComplex( C, i ) );
+    newpart := FiniteInfList( i, [ cat.zeroMap( Source(kerinc), cat.zeroObj ),
+                                   LiftingInclusionMorphisms( kerinc, DifferentialOfComplex( C, i+1 ) ) ] );
+    zeropart := NegativePartFrom( DifferentialsOfComplex( ZeroComplex( cat ) ),
+                                  i-1 );
+    newdifflist := InfConcatenation( truncpart, newpart, zeropart );
+    
+    return ComplexByDifferentialList( cat, newdifflist );
+
+end );
+
+# TODO!
+InstallMethod( GoodTruncationAbove,
+ [ IsComplex, IsInt ],
+function( C, i )
+    local cat, difflist, truncpart, newpart, zeropart, newdifflist, factor, factorinclusion,
+          kerinc, factorproj;
+
+    cat := CatOfComplex( C );
+    difflist := DifferentialsOfComplex( C );
+    truncpart := NegativePartFrom( difflist, i-1 );
+    kerinc := KernelInclusion( DifferentialOfComplex( C, i ) );
+    factorproj := CoKernelProjection( kerinc );
+    factor := Range( factorproj );
+    factorinclusion := cat.zeroMap( factor, ObjectOfComplex( C, i-1 ) ); #TODO
+    newpart := FiniteInfList( i, [ factorinclusion, cat.zeroMap( cat.zeroObj, factor ) ] );
+
+    zeropart := NegativePartFrom( DifferentialsOfComplex( ZeroComplex( cat ) ),
+                                  i+2 );
+    newdifflist := InfConcatenation( zeropart, newpart, truncpart );
+    
+    return ComplexByDifferentialList( cat, newdifflist );
+
+end );
+
+# TODO!
+# InstallMethod( GoodTruncation, [ IsComplex, IsInt, IsInt ] );
+
+InstallMethod( BrutalTruncationBelow,
+[ IsComplex, IsInt ],
+function( C, i )
+    local cat, difflist, truncpart, newpart, zeropart, newdifflist;
+    
+    cat := CatOfComplex( C );
+    difflist := DifferentialsOfComplex( C );
+    truncpart := PositivePartFrom( difflist, i+1 );
+    newpart := FiniteInfList( i, [ cat.zeroMap( ObjectOfComplex( C, i), 
+                                                cat.zeroObj) ] );
+    zeropart := NegativePartFrom( DifferentialsOfComplex( ZeroComplex( cat ) ),
+                                  i-1 );
+    newdifflist := InfConcatenation( truncpart, newpart, zeropart );
+    
+    return ComplexByDifferentialList( cat, newdifflist );
+
+end );
+
+
+InstallMethod( BrutalTruncationAbove,
+[ IsComplex, IsInt ],
+function( C, i )
+    local cat, difflist, truncpart, newpart, zeropart, newdifflist;
+    
+    cat := CatOfComplex( C );
+    difflist := DifferentialsOfComplex( C );
+    truncpart := NegativePartFrom( difflist, i );
+    newpart := FiniteInfList( i+1, [ cat.zeroMap( cat.zeroObj,
+                                                ObjectOfComplex( C, i )) ] );
+    zeropart := PositivePartFrom( DifferentialsOfComplex( ZeroComplex( cat ) ),
+                                  i+2 );
+    newdifflist := InfConcatenation( zeropart, newpart, truncpart );
+    
+    return ComplexByDifferentialList( cat, newdifflist );
+
+end );
+
+InstallMethod( BrutalTruncation, 
+[ IsComplex, IsInt, IsInt ],
+function( C, i, j )
+    local cat, difflist, middlediffs, truncpart, newpart1, zeropart1, 
+          newpart2, zeropart2, newdifflist;
+    
+    if( j > i ) then
+        Error( "First input integer must be greater than or equal to the second" );
+    fi;
+
+    cat := CatOfComplex( C );
+    difflist := DifferentialsOfComplex( C );
+    middlediffs := FinitePartAsList( difflist, j+1, i );
+    truncpart := FiniteInfList( j+1, middlediffs );
+    newpart1 := FiniteInfList( i+1, [ cat.zeroMap( cat.zeroObj,
+                                                ObjectOfComplex( C, i ) ) ] );
+    zeropart1 := PositivePartFrom( DifferentialsOfComplex( ZeroComplex( cat ) ),
+                                  i+2 );
+    newpart2 := FiniteInfList( j, [ cat.zeroMap( ObjectOfComplex( C, j ),
+                                                   cat.zeroObj ) ] );
+    zeropart2 := NegativePartFrom( DifferentialsOfComplex( ZeroComplex( cat ) ),
+                                   j-1 );
+    newdifflist := InfConcatenation( zeropart1, newpart1, truncpart, newpart2, zeropart2 );
+    
+    return ComplexByDifferentialList( cat, newdifflist );
+
+end );
+
+InstallMethod( SyzygyTruncation, 
+[ IsComplex, IsInt ],
+function( C, i )
+    local cat, difflist, truncpart, kernelinc, newpart, kernel,
+          zeropart, newdifflist;
+    
+    cat := CatOfComplex( C );
+    difflist := DifferentialsOfComplex( C );
+    truncpart := NegativePartFrom( difflist, i );
+
+    kernelinc := KernelInclusion( DifferentialOfComplex( C, i ) );
+    kernel := Source( kernelinc );
+    newpart := FiniteInfList( i+1, [ kernelinc, 
+                                     cat.zeroMap( cat.zeroObj, kernel ) ] );
+    zeropart := PositivePartFrom( DifferentialsOfComplex( ZeroComplex( cat ) ),
+                                  i+3 );
+
+    newdifflist := InfConcatenation( zeropart, newpart, truncpart );
+
+    return ComplexByDifferentialList( cat, newdifflist );
+
+end );
+
+
+InstallMethod( CosyzygyTruncation, 
+[ IsComplex, IsInt ],
+function( C, i )
+    local cat, difflist, truncpart, newpart,
+          zeropart, newdifflist, cokerproj, coker;
+    
+    cat := CatOfComplex( C );
+    difflist := DifferentialsOfComplex( C );
+    truncpart := PositivePartFrom( difflist, i );
+
+    cokerproj := CoKernelProjection( DifferentialOfComplex( C, i ) );
+    coker := Range( cokerproj );
+    newpart := FiniteInfList( i-2, [ cat.zeroMap( coker, cat.zeroObj ),
+                                     cokerproj ] );
+
+    zeropart := NegativePartFrom( DifferentialsOfComplex( ZeroComplex( cat ) ),
+                                  i-3 );
+
+    newdifflist := InfConcatenation( truncpart, newpart, zeropart );
+
+    return ComplexByDifferentialList( cat, newdifflist );
+
+end );
+
+InstallMethod( SyzygyCosyzygyTruncation, 
+[ IsComplex, IsInt, IsInt ],
+function( C, i, j )
+    local cat, difflist, truncpart, newdifflist, cokerproj, coker, 
+          kernelinc, kernel, newpart1, zeropart1, newpart2, zeropart2, middlediffs;
+    
+    if( j > i ) then
+        Error( "First input integer must be greater than or equal to the second" );
+    fi;
+
+    cat := CatOfComplex( C );
+
+    difflist := DifferentialsOfComplex( C );
+    middlediffs := FinitePartAsList( difflist, j, i );
+    truncpart := FiniteInfList( j, middlediffs );
+
+    kernelinc := KernelInclusion( DifferentialOfComplex( C, i ) );
+    kernel := Source( kernelinc );
+    newpart1 := FiniteInfList( i+1, [ kernelinc, 
+                                     cat.zeroMap( cat.zeroObj, kernel ) ] );
+    zeropart1 := PositivePartFrom( DifferentialsOfComplex( ZeroComplex( cat ) ),
+                                  i+3 );
+
+
+    cokerproj := CoKernelProjection( DifferentialOfComplex( C, j ) );
+    coker := Range( cokerproj );
+    newpart2 := FiniteInfList( j-2, [ cat.zeroMap( coker, cat.zeroObj ),
+                                     cokerproj ] );
+
+    zeropart2 := NegativePartFrom( DifferentialsOfComplex( ZeroComplex( cat ) ),
+                                  j-3 );
+
+    newdifflist := InfConcatenation( zeropart1, newpart1, truncpart, 
+                                     newpart2, zeropart2 );
+
+    return ComplexByDifferentialList( cat, newdifflist );
+  
+end );
+
 InstallGlobalFunction( ComplexByDifferentialList,
 [ IsCat, IsInfList ],
 function( cat, differentials )
