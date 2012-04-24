@@ -1977,3 +1977,95 @@ InstallMethod( AlmostSplitSequence,
 end
 );
 
+#######################################################################
+##
+#P  IsSymmetricAlgebra( <A> )
+##
+##  This function determines if the algebra  A  is a symmetric algebra,
+##  if it is a quotient of a path algebra. 
+##
+InstallMethod( IsSymmetricAlgebra, 
+   "for a quotient of a path algebra",
+   [ IsAlgebra ], 0,
+   function( A ) 
+
+    local Aenv, M, DM, mats, op_name, de_op_name, vertices, arrows, 
+          new_vertices, new_arrows, stringvertices, stringarrows, 
+          vertex_positions, arrow_positions, newdimvector, newmats, 
+          matrices, a, arrowentry, MM;
+    
+    if not IsPathAlgebra(A) and not IsQuotientOfPathAlgebra(A) then 
+       TryNextMethod();
+    fi;    
+    if IsPathAlgebra(A) then 
+        return Length(ArrowsOfQuiver(QuiverOfPathAlgebra(A))) = 0;
+    fi;    
+    Aenv := EnvelopingAlgebra(A);
+    M    := AlgebraAsModuleOfEnvelopingAlgebra(Aenv);
+    DM   := DualOfModule(M);
+    #
+    #   Finding DM as a module over Aenv.
+    #
+    mats    := MatricesOfPathAlgebraModule(DM);
+    op_name := OppositeQuiverNameMap(QuiverOfPathAlgebra(A));        
+    de_op_name := OppositeQuiverNameMap(OppositeQuiver(QuiverOfPathAlgebra(A)));
+    vertices   := VerticesOfQuiver(QuiverOfPathAlgebra(Aenv));
+    arrows     := ArrowsOfQuiver(QuiverOfPathAlgebra(Aenv));
+    new_vertices := List(vertices, x -> Concatenation(op_name(String(ProjectFromProductQuiver(2,x))),"_",de_op_name(String(ProjectFromProductQuiver(1,x)))));
+    new_arrows   := List(arrows, x -> Concatenation(op_name(String(ProjectFromProductQuiver(2,x))),"_",de_op_name(String(ProjectFromProductQuiver(1,x)))));
+    stringvertices := List(vertices, x -> String(x));
+    stringarrows   := List(arrows, x -> String(x));
+    #
+    #   Finding the permutation of the vertices and the arrows.
+    #
+    vertex_positions := List(new_vertices, x -> Position(stringvertices, x));
+    arrow_positions  := List(new_arrows, x -> Position(stringarrows, x));
+    #
+    #   Finding the new dimension vector and the matrices of  DM  as a module over Aenv.
+    #
+    newdimvector := List([1..Length(vertices)], x -> DimensionVector(DM)[vertex_positions[x]]);
+    newmats  := List([1..Length(mats)], x -> mats[arrow_positions[x]]);
+    #
+    #   Creating the input for construction  DM  as a module over Aenv.
+    #
+    matrices := [];
+    for a in arrows do
+        if newdimvector[Position(vertices,SourceOfPath(a))] <> 0 and 
+           newdimvector[Position(vertices,TargetOfPath(a))] <> 0 then 
+            arrowentry := List([1..2], x -> []);
+            arrowentry[1] := String(a);
+            arrowentry[2] := newmats[Position(arrows,a)];
+            Add(matrices, arrowentry);
+        fi;
+    od;
+    MM := RightModuleOverPathAlgebra(Aenv, newdimvector, matrices);
+    
+    return IsomorphicModules(M,MM);
+end
+);
+
+#######################################################################
+##
+#P  IsSymmetricAlgebra( <A> )
+##
+##  This function determines if the algebra  A  is a weakly symmetric 
+##  algebra, if it is a quotient of a path algebra. 
+##
+InstallMethod( IsWeaklySymmetricAlgebra, 
+   "for a quotient of a path algebra",
+   [ IsAlgebra ], 0,
+   function( A ) 
+
+   local P;
+   
+   if not IsPathAlgebra(A) and not IsQuotientOfPathAlgebra(A) then 
+       TryNextMethod();
+   fi;
+   if IsSelfinjectiveAlgebra(A) then
+       P := IndecProjectiveModules(A);
+       return ForAll(P, x -> DimensionVector(SocleOfModule(x)) = DimensionVector(TopOfModule(x)));
+   else   
+       return false; 
+   fi;
+end
+);

@@ -42,3 +42,5 @@ DeclareAttribute( "ProjectiveCover", IsPathAlgebraMatModule );
 DeclareOperation( "ExtOverAlgebra", [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ]);
 DeclareOperation( "AlmostSplitSequence", [ IsPathAlgebraMatModule ]);
 DeclareOperation( "ExtOverAlgebraAdd", [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ]);
+DeclareProperty( "IsSymmetricAlgebra", IsAlgebra );
+DeclareProperty( "IsWeaklySymmetricAlgebra", IsAlgebra );
