@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- $Id: qpadocumentation.xml,v 1.34 2012/04/16 09:52:30 sunnyquiver Exp $ -->
+<!-- $Id: qpadocumentation.xml,v 1.35 2012/05/02 14:21:36 wralsen Exp $ -->
 
 <!DOCTYPE Book SYSTEM "gapdoc.dtd">
 <!-- [ <!ENTITY see '<Alt Only="LaTeX">$\to$</Alt><Alt Not="LaTeX">--&gt;</Alt>'>
@@ -312,15 +312,14 @@ constructing quivers in Section <Ref Sect="Constructing Quivers"/>.
 
 <Section  Label="Constructing Quivers"><Heading>Constructing Quivers</Heading>
   <ManSection>
-   <Func Name="Quiver" Arg="N, [arrow1, arrow2, ... ]" 
+   <Func Name="Quiver" Arg="N, arrows" 
 	 Comm="creates a quiver"/>
-   <Func Name="Quiver" Arg="[vertex1, vertex2, ... ],
-	 [arrow1, arrow2, ... ]" 
+   <Func Name="Quiver" Arg="vertices,
+	 arrows" 
 	 Comm="creates a quiver"/>
    <Func Name="Quiver" Arg="adjacencymatrix" 
 	 Comm="creates a quiver"/>
-   <Description>Arguments: First construction: <Arg>N</Arg> -- number of vertices, <Arg>[arrow1, arrow2, ...]</Arg> -- a list of arrows to specify the graph <Math>\Gamma</Math>. Second construction: <Arg>[vertex1, vertex2, ...]</Arg> -- a list of vertex names, <Arg>[arrow1, arrow2, ...]</Arg> -- a list of arrows. Third construction: takes an
-adjacency matrix for the graph <Math>\Gamma</Math>.
+   <Description>Arguments: First construction: <Arg>N</Arg> -- number of vertices, <Arg>arrows</Arg> -- a list of arrows to specify the graph <Math>\Gamma</Math>. Second construction: <Arg>vertices</Arg> -- a list of vertex names, <Arg>arrows</Arg> -- a list of arrows. Third construction: takes an adjacency matrix for the graph <Math>\Gamma</Math>.
    
    <Br /></Description>
    <Returns>a quiver, which satisfies the property
@@ -384,25 +383,17 @@ v2
   <ManSection>
    <Prop Name="IsQuiver" Arg="object" Comm="property, whether object
    is a quiver"/>
-   <Description>
-     is true when <Arg>object</Arg> is a quiver.
-   </Description>
+   <Returns>
+    true when <Arg>object</Arg> is a quiver.
+   </Returns>
   </ManSection>
 
   <ManSection>
    <Prop Name="IsAcyclicQuiver" Arg="quiver" Comm="property, whether object
    is a quiver with no cycles"/>
-   <Description>
-     is true when <Arg>quiver</Arg> is a quiver with no cycles.
-   </Description>
-  </ManSection>
-
-  <ManSection>
-   <Prop Name="IsFinite" Arg="quiver" Comm=""/>
-   <Description>
-     is true when <Arg>quiver</Arg> is a finite set. Synonymous with
-     `IsAcyclicQuiver'. 
-   </Description>
+   <Returns>
+    true when <Arg>quiver</Arg> is a quiver with no oriented cycles.
+   </Returns>
   </ManSection>
 
 <Example>
@@ -1107,12 +1098,13 @@ dimensions all agree.  We can create a module in this way as follows.<P/>
 	 Comm=""/>
    <Oper Name="RightModuleOverPathAlgebra" Arg="A, dim_vector, gens" 
 	 Comm=""/>
+   <Description> 
+    Arguments: <Arg>A</Arg> -- a (quotient of a) path algebra, <Arg>mats</Arg> -- a list of matrices, <Arg>dim_vector</Arg> -- the dimension vector of the module, <Arg>gens</Arg> -- a list of elements (generators). For further explanations, see below.
+   <Br /></Description>
    <Returns>a module over a path algebra or over a qoutient of a path
    algebra in the second variant.</Returns> 
    <Description>
-      In the first function call, <Arg>A</Arg> is a (quotient of a ) path
-      algebra.  The list of matrices <Arg>mats</Arg> can take on three
-      different forms.<P/>
+      In the first function call, the list of matrices <Arg>mats</Arg> can take on three different forms.<P/>
 
       1) The argument <Arg>mats</Arg> can be a list of blocks of
       matrices where each block is of the form, `["name of
@@ -1149,8 +1141,7 @@ dimensions all agree.  We can create a module in this way as follows.<P/>
       matrices and vector spaces are correct and match, and that each
       arrow has only one matrix assigned to it.<P/>
 
-      In the second function call, the first argument <Arg>A</Arg> is
-      a (quotient of a ) path algebra, the second
+      In the second function call, the second
       argument <Arg>dim_vector</Arg> is the dimension vector of the
       module, and the last argument <Arg>gens</Arg> (maybe an empty
       list []) is a list of elements of the form ["label",matrix].
@@ -1229,6 +1220,8 @@ gap> M := RightModuleOverPathAlgebra(P,[2,3],[]);
 
   <ManSection>
    <Filt Name="IsPathAlgebraModule" Arg="object" Comm=""/>
+   <Returns> 
+   true or false depending on whether <Arg>object</Arg> belongs to the category <Code>IsPathAlgebraModule</Code>.</Returns>
    <Description>
      These matrix modules fall under the category `IsAlgebraModule' with
 the added filter of `IsPathAlgebraModule'.  Operations available
@@ -1246,17 +1239,19 @@ basis and elementwise operations available.
 
   <ManSection>
    <Oper Name="^" Arg="m, p" Comm=""/>
+   <Description> 
+   Arguments: <Arg>m</Arg> -- an element in a module, <Arg>p</Arg> -- a path in a path algebra.
+   <Br /></Description>
+   <Returns> 
+    the element <Arg>m</Arg> multiplied with <Arg>p</Arg>.
+   </Returns>
    <Description>
-    The operation <Ref Oper="^"/> operates on an element <Arg>m</Arg>
-    in a module and a path <Arg>p</Arg> in a path algebra, and it
-    returns the element <Arg>m</Arg> multiplied with <Arg>p</Arg>.
     When you act on an module element <Math>m</Math> by an
     arrow <Math>a</Math> from <Math>v</Math> to <Math>w</Math>, the
     component of <Math>m</Math> from <Math>V</Math> is acted on
     by <Math>L</Math> the transformation associated to <Math>a</Math>
-    and placed in the component <Math>W</Math> .  All other components
-    are given the value
-<Math>0</Math>.
+    and placed in the component <Math>W</Math>.  All other components
+    are given the value <Math>0</Math>.
    </Description>
   </ManSection>
 
@@ -1319,6 +1314,9 @@ gap> N:= RightModuleOverPathAlgebra(A,mat);
 <ManSection>
    <Oper Name="CommonDirectSummand" Arg="M, N" Comm="for two
    PathAlgebraMatModule's"/>
+   <Description> 
+   Arguments: <Arg>M</Arg> and <Arg>N</Arg> -- two path algebra modules.
+   <Br /></Description>
    <Returns>a list of four modules [<Arg>X</Arg>,<Arg>U</Arg>,<Arg>X</Arg>, <Arg>V</Arg>], 
      where <Arg>X</Arg> is one common non-zero direct summand of <Arg>M</Arg> 
      and <Arg>N</Arg>, the sum of <Arg>X</Arg> and <Arg>U</Arg> is  <Arg>M</Arg>
@@ -1333,8 +1331,10 @@ gap> N:= RightModuleOverPathAlgebra(A,mat);
 <ManSection>
    <Oper Name="DimensionVector" Arg="M" Comm="for a
    PathAlgebraMatModule"/>
+   <Description> 
+   Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>).
+   <Br /></Description>
    <Returns>the dimension vector of the representation <Arg>M</Arg>.
-     The argument <Arg>M</Arg> must be a <C>PathAlgebraMatModule</C>.
    </Returns>
    <Description> A shortcoming of this that it is not defined for
      modules of quotients of path algebras.
@@ -1344,14 +1344,19 @@ gap> N:= RightModuleOverPathAlgebra(A,mat);
 <ManSection>
    <Oper Name="Dimension" Arg="M" Comm="for a
    PathAlgebraMatModule"/>
+   <Description> 
+   Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>).
+   <Br /></Description>
    <Returns>the dimension of the representation <Arg>M</Arg>.
-     The argument <Arg>M</Arg> must be a <C>PathAlgebraMatModule</C>.
    </Returns>
 </ManSection>
 
 <ManSection>
    <Oper Name="IsDirectSummand" Arg="M, N" Comm="for two
    PathAlgebraMatModule's"/>
+   <Description> 
+   Arguments: <Arg>M, N</Arg> -- two path algebra modules (<C>PathAlgebraMatModule</C>s).
+   <Br /></Description>
    <Returns>true if <Arg>M</Arg> is isomorphic to a direct summand
      of <Arg>N</Arg>, otherwise false.</Returns>
    <Description>The function checks if <Arg>M</Arg> and <Arg>N</Arg>
@@ -1363,11 +1368,12 @@ gap> N:= RightModuleOverPathAlgebra(A,mat);
 <ManSection>
    <Oper Name="DirectSumOfModules" Arg="L" Comm="for a
    list of PathAlgebraMatModule's"/>
+   <Description> 
+    Arguments: <Arg>L</Arg> -- a list of <C>PathAlgebraMatModule</C>s over the same (quotient of a) path algebra. 
+   <Br /></Description>
    <Returns>the direct sum of the representations contained in the
      list <Arg>L</Arg>.</Returns>
-   <Description>The argument <Arg>L</Arg> must be a list
-     of <C>PathAlgebraMatModule</C>'s over the same (quotient of a)
-     path algebra. In addition three attributes are attached to the
+   <Description>In addition three attributes are attached to the
      result, <C>IsDirectSumOfModules, DirectSumProjections</C>
      and <C>DirectSumInclusions</C>.  
    </Description>
@@ -1375,29 +1381,38 @@ gap> N:= RightModuleOverPathAlgebra(A,mat);
 
 <ManSection>
    <Attr Name="IsDirectSumOfModules" Arg="M" Comm="for a PathAlgebraMatModule"/>
-   <Description>
-    An attribute, returns true is <Arg>M</Arg> is constructed via the
+   <Description> 
+    Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>).
+   <Br /></Description>
+   <Returns>
+    true if <Arg>M</Arg> is constructed via the
     command <C>DirectSumOfModules</C>.
-   </Description>
+   </Returns>
 </ManSection>
 
 <ManSection>
    <Attr Name="DirectSumInclusions" Arg="M" Comm="for a PathAlgebraMatModule"/>
-   <Description>
-    An attribute, returns the list of inclusions from the individual
+   <Description> 
+    Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>).
+   <Br /></Description>
+   <Returns>
+    the list of inclusions from the individual
     modules to their direct sum, when a direct sum has been
     constructed using <C>DirectSumOfModules</C>.
-   </Description>
+   </Returns>
 </ManSection>
 
 <ManSection>
    <Attr Name="DirectSumProjections" Arg="M" Comm="for a PathAlgebraMatModule"/>
-   <Description>
-    An attribute, returns the list of projections from the direct sum
+   <Description> 
+    Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>).
+   <Br /></Description>
+   <Returns>
+    the list of projections from the direct sum
     to the individual modules used to construct direct sum, when a
     direct sum has been constructed
     using <C>DirectSumOfModules</C>.
-   </Description>
+   </Returns>
 </ManSection>
 
 Using the example above.
@@ -1436,15 +1451,20 @@ gap> inc:=DirectSumInclusions(N2);
 <ManSection>
    <Oper Name="1stSyzygy" Arg="M" Comm="for a
    PathAlgebraMatModule"/>
+   <Description>
+    Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>).
+   <Br /></Description>
    <Returns>the first syzygy of the representation <Arg>M</Arg> as a
-     representation. The argument <Arg>M</Arg> must be
-     a <C>PathAlgebraMatModule</C>. 
+     representation. 
    </Returns>
 </ManSection>
 
 <ManSection>
    <Oper Name="IsInAdditiveClosure" Arg="M, N" Comm="for two
    PathAlgebraMatModule's"/>
+   <Description> 
+    Arguments: <Arg>M, N</Arg> -- two path algebra modules (<C>PathAlgebraMatModule</C>s).
+   <Br /></Description>
    <Returns>true if <Arg>M</Arg> is in the additive closure of the module
      <Arg>N</Arg>, otherwise false.</Returns>
    <Description>The function checks if <Arg>M</Arg> and <Arg>N</Arg>
@@ -1456,48 +1476,60 @@ gap> inc:=DirectSumInclusions(N2);
 <ManSection>
    <Oper Name="IsOmegaPeriodic" Arg="M, n" Comm="for a
    PathAlgebraMatModule and a positive integer"/>
+   <Description> 
+    Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>), <Arg>n</Arg> -- be a positive integer.
+   <Br /></Description>
    <Returns><C>i</C>, where <C>i</C> is the smallest positive integer
      less or equal <C>n</C> such that the representation <Arg>M</Arg> is isomorphic
      to the <C>i</C>-th syzygy of <Arg>M</Arg>, and false otherwise.
-     The argument <Arg>M</Arg> must be a <C>PathAlgebraMatModule</C>,
-     and <Arg>n</Arg> must be a positive integer.
    </Returns>
 </ManSection>
 
 <ManSection>
    <Oper Name="IsInjectiveModule" Arg="M" Comm="for a
    PathAlgebraMatModule"/>
+   <Description> 
+    Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>).
+   <Br /></Description>
    <Returns>true if the representation <Arg>M</Arg> is injective.
-     The argument <Arg>M</Arg> must be a <C>PathAlgebraMatModule</C>.
    </Returns>
 </ManSection>
 
 <ManSection>
    <Oper Name="IsProjectiveModule" Arg="M" Comm="for a
    PathAlgebraMatModule"/>
+   <Description> 
+    Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>).
+   <Br /></Description>
    <Returns>true if the representation <Arg>M</Arg> is projective.
-     The argument <Arg>M</Arg> must be a <C>PathAlgebraMatModule</C>.
    </Returns>
 </ManSection>
 
 <ManSection>
    <Oper Name="IsSemisimpleModule" Arg="M" Comm="for a
    PathAlgebraMatModule"/>
+   <Description> 
+    Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>).
+   <Br /></Description>
    <Returns>true if the representation <Arg>M</Arg> is semisimple.
-     The argument <Arg>M</Arg> must be a <C>PathAlgebraMatModule</C>.
    </Returns>
 </ManSection>
 
 <ManSection>
    <Oper Name="IsSimpleModule" Arg="M" Comm="for a
    PathAlgebraMatModule"/>
+   <Description> 
+    Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>).
+   <Br /></Description>
    <Returns>true if the representation <Arg>M</Arg> is simple.
-     The argument <Arg>M</Arg> must be a <C>PathAlgebraMatModule</C>.
    </Returns>
 </ManSection>
 
 <ManSection>
    <Oper Name="LoewyLength" Arg="M" Comm=""/>
+   <Description> 
+    Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>).
+   <Br /></Description>
    <Returns>the Loewy length of the module <Arg>M</Arg>.</Returns>
    <Description>
      The function checks that the module <Arg>M</Arg> is a module over
@@ -1509,6 +1541,9 @@ gap> inc:=DirectSumInclusions(N2);
 <ManSection>
    <Oper Name="MaximalCommonDirectSummand" Arg="M, N" Comm="for two
    PathAlgebraMatModule's"/>
+   <Description> 
+    Arguments: <Arg>M, N</Arg> -- two path algebra modules (<C>PathAlgebraMatModule</C>s).
+   <Br /></Description>
    <Returns>a list of three modules [<Arg>X</Arg>,<Arg>U</Arg>,<Arg>V</Arg>], 
      where <Arg>X</Arg> is a maximal common non-zero direct summand of <Arg>M</Arg> 
      and <Arg>N</Arg>, the sum of <Arg>X</Arg> and <Arg>U</Arg> is  <Arg>M</Arg>
@@ -1522,6 +1557,9 @@ gap> inc:=DirectSumInclusions(N2);
 
 <ManSection>
    <Oper Name="IsomorphicModules" Arg="M, N" Comm=""/>
+   <Description> 
+    Arguments: <Arg>M, N</Arg> -- two path algebra modules (<C>PathAlgebraMatModule</C>s).
+   <Br /></Description>
    <Returns>true or false depending on whether <Arg>M</Arg>
    and <Arg>N</Arg> are isomorphic or not.</Returns> 
    <Description>
@@ -1535,28 +1573,33 @@ gap> inc:=DirectSumInclusions(N2);
 <ManSection>
    <Oper Name="NthSyzygy" Arg="M, n" Comm="for a
    PathAlgebraMatModule"/>
+   <Description> 
+    Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>), <Arg>n</Arg> -- a positive integer.
+   <Br /></Description>
    <Returns>the top of the syzygies until a syzygy is projective or
-     the <Arg>n</Arg>-th syzygy has been computed. The
-     argument <Arg>M</Arg> must be a <C>PathAlgebraMatModule</C>, and
-     the argument <Arg>n</Arg> must be a positive integer.
+     the <Arg>n</Arg>-th syzygy has been computed.
    </Returns>
 </ManSection>
 
 <ManSection>
    <Oper Name="NthSyzygyNC" Arg="M, n" Comm="for a
    PathAlgebraMatModule"/>
+   <Description> 
+    Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>), <Arg>n</Arg> -- a positive integer.
+   <Br /></Description>
    <Returns>the <C>n</C>-th syzygy of the module <Arg>M</Arg>, unless
    the projective dimension of <Arg>M</Arg> is less or equal
    to <C>n-1</C>, in which case it returns the projective dimension of 
    <Arg>M</Arg>. It does not check if the <C>n</C>-th syzygy is
-   projective or not. The argument <Arg>M</Arg> must be
-   a <C>PathAlgebraMatModule</C>, and the argument <Arg>n</Arg> must
-   be a positive integer.
+   projective or not.
    </Returns>
 </ManSection>
 
 <ManSection>
    <Oper Name="RadicalOfModule" Arg="M" Comm=""/>
+   <Description> 
+    Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>).
+   <Br /></Description>
    <Returns>the radical of the module <Arg>M</Arg>.</Returns>
    <Description>
     This returns only the representation given by the radical of the
@@ -1568,6 +1611,9 @@ gap> inc:=DirectSumInclusions(N2);
 
 <ManSection>
    <Oper Name="RadicalSeries" Arg="M" Comm=""/>
+   <Description> 
+    Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>).
+   <Br /></Description>
    <Returns>the radical series of the module <Arg>M</Arg>.</Returns>
    <Description>
      The function gives the radical series as a list of vectors
@@ -1580,6 +1626,9 @@ gap> inc:=DirectSumInclusions(N2);
 
 <ManSection>
    <Oper Name="SocleSeries" Arg="M" Comm=""/>
+   <Description> 
+    Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>).
+   <Br /></Description>
    <Returns>the socle series of the module <Arg>M</Arg>.</Returns>
    <Description>
      The function gives the socle series as a list of vectors
@@ -1592,6 +1641,9 @@ gap> inc:=DirectSumInclusions(N2);
 
 <ManSection>
    <Oper Name="SocleOfModule" Arg="M" Comm=""/>
+   <Description> 
+    Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>).
+   <Br /></Description>
    <Returns>the socle of the module <Arg>M</Arg>.</Returns>
    <Description>
     This operation only return the representation given by the socle
@@ -1603,6 +1655,9 @@ gap> inc:=DirectSumInclusions(N2);
 
 <ManSection>
    <Oper Name="SubRepresentation" Arg="M, gens" Comm=""/>
+   <Description> 
+    Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>), <Arg>gens</Arg> -- elements in <Arg>M</Arg>.
+   <Br /></Description>
    <Returns>the submodule of the module <Arg>M</Arg> generated by the
    elements <Arg>gens</Arg>.</Returns>
    <Description>
@@ -1616,6 +1671,9 @@ gap> inc:=DirectSumInclusions(N2);
 
 <ManSection>
    <Oper Name="SupportModuleElement" Arg="m" Comm=""/>
+   <Description> 
+    Arguments: <Arg>m</Arg> -- an element of a path algebra module.
+   <Br /></Description>
    <Returns>the primitive idempotents <Arg>v</Arg> in the algebra over
    which the module containing the element <Arg>m</Arg> is a module,
    such that <Arg>m^v</Arg> is non-zero.</Returns>
@@ -1628,6 +1686,9 @@ gap> inc:=DirectSumInclusions(N2);
 
 <ManSection>
    <Oper Name="TopOfModule" Arg="M" Comm=""/>
+   <Description> 
+    Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>).
+   <Br /></Description>
    <Returns>the top of the module <Arg>M</Arg>.</Returns>
    <Description>
     This returns only the representation given by the top of the
@@ -1639,6 +1700,9 @@ gap> inc:=DirectSumInclusions(N2);
 
 <ManSection>
    <Attr Name="MinimalGeneratingSetOfModule" Arg="M" Comm=""/>
+   <Description> 
+    Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>).
+   <Br /></Description>
    <Returns>a minimal generator set of the module <Arg>M</Arg> as a
    module of the path algebra it is defined over. </Returns>
 </ManSection>
@@ -1646,10 +1710,12 @@ gap> inc:=DirectSumInclusions(N2);
 <ManSection>
    <Oper Name="MatricesOfPathAlgebraModule" Arg="M" Comm="for a
    PathAlgebraMatModule"/>
+   <Description> 
+    Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>).
+   <Br /></Description>
    <Returns>a list of the matrices that defines the
      representation <Arg>M</Arg> as a right module of the acting path
-     algebra. The argument <Arg>M</Arg> must be
-     a <C>PathAlgebraMatModule</C>.
+     algebra.
    </Returns>
    <Description> 
      The list of matrices that are returned are not the same identical
@@ -1668,10 +1734,12 @@ Here we collect the predefined representations/modules over a finite
 
   <ManSection>
    <Oper Name="BasisOfProjectives" Arg="A" Comm=""/>
+   <Description> 
+    Arguments: <Arg>A</Arg> -- a finite dimensional (quotient of a) path
+    algebra.
+   <Br /></Description>
    <Returns>a list of bases for all the indecomposable projective
-   representations over a finite dimensional (quotient of a) path
-   algebra <Arg>A</Arg>. The basis for each indecomposable projective
-   is given a list of elements in nontips in <Arg>A</Arg>. 
+   representations over <Arg>A</Arg>. The basis for each indecomposable projective is given a list of elements in nontips in <Arg>A</Arg>. 
    </Returns>
    <Description>
      The function checks if the algebra <Arg>A</Arg> is a
@@ -1682,9 +1750,12 @@ Here we collect the predefined representations/modules over a finite
 
   <ManSection>
    <Oper Name="IndecProjectiveModules" Arg="A [, list]" Comm=""/>
+   <Description> 
+    Arguments: <Arg>A</Arg> -- a finite dimensional (quotient of a) path
+    algebra, (optional) <Arg>list</Arg> -- a list of integers.
+   <Br /></Description>
    <Returns>a list of all the indecomposable projective
-   representations over a finite dimensional (quotient of a) path
-   algebra <Arg>A</Arg>, when only one argument is supplied. The
+   representations over <Arg>A</Arg>, when only one argument is supplied. The
    second argument should be a list of integers, for example [1, 3,
    4], which will return the indecomposable projective corresponding
    to vertex 1, 3 and 4, in this order.  
@@ -1698,9 +1769,12 @@ Here we collect the predefined representations/modules over a finite
 
   <ManSection>
    <Oper Name="IndecInjectiveModules" Arg="A [, list]" Comm=""/>
+   <Description> 
+    Arguments: <Arg>A</Arg> -- a finite dimensional (quotient of a) path
+    algebra, (optional) <Arg>list</Arg> -- a list of integers.
+   <Br /></Description>
    <Returns>a list of all the indecomposable injective
-   representations over a finite dimensional (quotient of a) path
-   algebra <Arg>A</Arg>, when only one argument is supplied. The
+   representations over <Arg>A</Arg>, when only one argument is supplied. The
    second argument should be a list of integers, for example [1, 3,
    4], which will return the indecomposable injective corresponding
    to vertex 1, 3 and 4, in this order.
@@ -1714,8 +1788,11 @@ Here we collect the predefined representations/modules over a finite
 
   <ManSection>
    <Oper Name="SimpleModules" Arg="A" Comm=""/>
-   <Returns>a list of all the simple representations over a finite
-   dimensional (quotient of a) path algebra <Arg>A</Arg> .
+   <Description> 
+    Arguments: <Arg>A</Arg> -- a finite dimensional (quotient of a) path
+    algebra.
+   <Br /></Description>
+   <Returns>a list of all the simple representations over <Arg>A</Arg> .
    </Returns>
    <Description>
      The function checks if the algebra <Arg>A</Arg> is a finite
@@ -1726,8 +1803,11 @@ Here we collect the predefined representations/modules over a finite
 
   <ManSection>
    <Oper Name="ZeroModule" Arg="A" Comm=""/>
-   <Returns>the zero representation over a finite dimensional
-   (quotient of a) path algebra <Arg>A</Arg> .
+   <Description> 
+    Arguments: <Arg>A</Arg> -- a finite dimensional (quotient of a) path
+    algebra.
+   <Br /></Description>
+   <Returns>the zero representation over <Arg>A</Arg> .
    </Returns>
    <Description>
      The function checks if the algebra <Arg>A</Arg> is a finite
@@ -1742,21 +1822,22 @@ Here we collect the predefined representations/modules over a finite
 
 <ManSection>
    <Oper Name="DualOfModule" Arg="M" Comm="for a PathAlgebraMatModule"/>
-   <Description>
-     Takes the a representation <Arg>M</Arg> of a path
-     algebra <Math>KQ</Math> and produces the dual of this
-     representation over the opposite path algebra <Arg>KQ_op</Arg>. 
-   </Description>
+   <Description> 
+    Arguments: <Arg>M</Arg> -- a representation of a path algebra <Math>KQ</Math>.
+   <Br /></Description>
+   <Returns>
+    the dual of <Arg>M</Arg> over the opposite path algebra <Arg>KQ_op</Arg>. 
+   </Returns>
 </ManSection>
 
 <ManSection>
    <Oper Name="DualOfModuleHomomorphism" Arg="f" Comm="for a PathAlgebraMatModuleMap"/>
-   <Description>
-     Takes the a map <Arg>f</Arg> between two
-     representations <Arg>M</Arg> and <Arg>N</Arg> over a path
-     algebra <Math>A</Math> and produces the dual of this
-     map over the opposite path algebra <Arg>A^op</Arg>. 
-   </Description>
+   <Description> 
+    Arguments: <Arg>f</Arg> -- a map between two representations <Arg>M</Arg> and <Arg>N</Arg> over a path algebra <Math>A</Math>.
+   <Br /></Description>
+   <Returns>
+    the dual of this map over the opposite path algebra <Arg>A^op</Arg>.
+   </Returns>
 </ManSection>
 
 
@@ -1765,16 +1846,15 @@ Here we collect the predefined representations/modules over a finite
    integer"/>
    <Oper Name="DualOfTranspose" Arg="M, [ n ]" Comm="for a
    PathAlgebraMatModule"/> 
-   <Returns>the dual of the transpose of the module <Arg>M</Arg> when
+   <Description> 
+    Arguments: <Arg>M</Arg> -- a path algebra module, (optional) <Arg>n</Arg> -- an integer.
+   <Br /></Description>
+   <Returns>the dual of the transpose of <Arg>M</Arg> when
    called with only one argument, while it returns the dual of the
    transpose applied to <Arg>M</Arg> <Arg>n</Arg> times
    otherwise. If <Arg>n</Arg> is negative, then powers of <C>TrD</C>
    are computed. <Ref Oper="DualOfTranspose"/> is a synonym for
    <Ref Oper="DTr"/>. </Returns>
-   <Description>
-     The argument <Arg>M</Arg> must be a <C>PathAlgebraMatModule</C>
-     and <Arg>n</Arg> must be an integer. 
-   </Description>
 </ManSection>
 
 <ManSection>
@@ -1782,24 +1862,23 @@ Here we collect the predefined representations/modules over a finite
    <Oper Name="TrD" Arg="M, [n]" Comm="for a PathAlgebraMatModule and an
    integer"/>
    <Oper Name="TransposeOfDual" Arg="M, [n]" Comm="for a PathAlgebraMatModule"/>
-   <Returns>the transpose of the dual of the module <Arg>M</Arg> when
+   <Description> 
+    Arguments: <Arg>M</Arg> -- a path algebra module, (optional) <Arg>n</Arg> -- an integer.
+   <Br /></Description>
+   <Returns>the transpose of the dual of <Arg>M</Arg> when
    called with only one argument, while it returns the transpose of
    the dual applied to <Arg>M</Arg> <Arg>n</Arg> times
    otherwise. If <Arg>n</Arg> is negative, then powers of <C>TrD</C>
    are computed. <Ref Oper="TransposeOfDual"/> is a synonym for
    <Ref Oper="TrD"/>.</Returns>
-   <Description>
-     The argument <Arg>M</Arg> must be a <C>PathAlgebraMatModule</C>
-     and <Arg>n</Arg> must be an integer. 
-   </Description>
 </ManSection>
 
 <ManSection>
    <Oper Name="TransposeOfModule" Arg="M" Comm="for a PathAlgebraMatModule"/>
+   <Description> 
+    Arguments: <Arg>M</Arg> -- a path algebra module.
+   <Br /></Description>
    <Returns>the transpose of the module <Arg>M</Arg>.</Returns>
-   <Description>
-     The argument <Arg>M</Arg> must be a <C>PathAlgebraMatModule</C>. 
-   </Description>
 </ManSection>
 
 </Section>
@@ -1825,12 +1904,14 @@ in <Math>R</Math>.
 <ManSection>
    <Func Name="RightProjectiveModule" Arg="A, verts" 
 	 Comm=""/>
+	 <Description> 
+    Arguments: <Arg>A</Arg> -- a (quotient of a) path algebra, <Arg>verts</Arg> -- a list of vertices.
+   <Br /></Description>
    <Returns> the right projective module over <Arg>A</Arg> which is
       the direct sum of projective modules of the form <Arg>vA</Arg>
-      where the vertices are taken from the list of
-      vertices <Arg>verts</Arg>.</Returns>
+      where the vertices are taken from <Arg>verts</Arg>.</Returns>
    <Description>
-      In this implemenation the algebra can be a quotient of a path
+      In this implementation the algebra can be a quotient of a path
       algebra.  So if the list was
       <Math>[v,w]</Math> then the module created will be the direct
       sum <Math>vA \oplus wA</Math>, in that order.  Elements of the
@@ -1862,7 +1943,10 @@ gap&gt; Dimension(P);
   <ManSection>
    <Func Name="Vectorize" Arg="M, components" 
 	 Comm=""/>
-   <Returns>a vector in the module <Arg>M</Arg> from a list of path
+	 <Description> 
+    Arguments: <Arg>M</Arg> -- a module over a path algebra, <Arg>components</Arg> -- a list of elements of <Arg>M</Arg>.
+   <Br /></Description>
+   <Returns>a vector in <Arg>M</Arg> from a list of path
       algebra elements <Arg>components</Arg>, which defines the
       components in the resulting vector.</Returns>
    <Description>
@@ -1890,10 +1974,13 @@ gap&gt; Dimension(S);
 
   <ManSection>
    <Oper Name="^" Arg="m, a" Comm="Action by a path algebra element"/>
+   <Description> 
+    Arguments: <Arg>m</Arg> -- an element of a path algebra module, <Arg>a</Arg> -- an element of a path algebra.
+   <Br /></Description>
+   <Returns>
+    the element <Arg>m</Arg> multiplied with <Arg>a</Arg>.
+   </Returns>
    <Description>
-    The operation <Ref Oper="^"/> operates on an element <Arg>m</Arg>
-    in a module and an element <Arg>a</Arg> in a path algebra, and it
-    returns the element <Arg>m</Arg> multiplied with <Arg>a</Arg>.
     This action is defined by multiplying each component
     in <Arg>m</Arg> by <Arg>a</Arg> on the right.
    </Description>
@@ -1907,14 +1994,14 @@ gap&gt; p2^(A.c - A.w);
 
   <ManSection>
    <Oper Name="&lt;" Arg="m1, m2" Comm="lessthan"/>
+   <Description> 
+    Arguments: <Arg>m1, m2</Arg> -- two elements of a module over a path algebra (?).
+   <Br /></Description>
+   <Returns>
+    `true' if <Arg>m1</Arg> is less than <Arg>m2</Arg> and false otherwise.
+   </Returns>
    <Description>
-    The operation <Ref Oper="&lt;"/> operates on
-    elements <Arg>m1</Arg> and <Arg>m2</Arg> in ????, and it compares
-    them.  The result is `true' if <Arg>m1</Arg> is less
-    than <Arg>m2</Arg> and false otherwise.  Elements are compared
-    componentwise from left to right using the ordering of the
-    underlying algebra.  The element <Arg>m1</Arg> is less
-    than <Arg>m2</Arg> if the first time components are not equal, the
+    Elements are compared componentwise from left to right using the ordering of the underlying algebra.  The element <Arg>m1</Arg> is less than <Arg>m2</Arg> if the first time components are not equal, the
     component of <Arg>m1</Arg> is less than the corresponding
     component of <Arg>m2</Arg>.
    </Description>
@@ -1927,10 +2014,14 @@ false
 
   <ManSection>
    <Oper Name="/" Arg="M, N" Comm="Factor module"/>
+   <Description> 
+    Arguments: <Arg>M, N</Arg> -- two finite dimensional modules over a path algebra (?).
+   <Br /></Description>
+   <Returns>
+    the factor module <Math>M/N</Math>.
+   </Returns>
    <Description>
-    The operation <Ref Oper="/"/> operates on two finite dimensional
-    modules <Arg>M</Arg> and <Arg>N</Arg> over a path algebra?, and it
-    constructs the factor module <Math>M/N</Math>.  This module is
+    This module is
     again a right algebra module, and all applicable methods and
     operations are available for the resulting factor module.
     Furthermore, the resulting module is a vector space, so operations
