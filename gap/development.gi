@@ -1639,9 +1639,37 @@ InstallMethod( ExtOverAlgebra,
    [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ], 0,
    function( M, N )
 
-   local K, f, g, PM, syzygy, G, H, Img1, zero, genssyzygyN, VsyzygyN, 
-         Img, gensImg, VImg, pi, ext, preimages, homvecs, dimsyz, dimN, vec, t, 
-         l, i, H2;
+   local index, fromflatHomToHom, K, f, g, PM, syzygy, G, H, Img1, zero, 
+         genssyzygyN, VsyzygyN, Img, gensImg, VImg, pi, ext, preimages, 
+         homvecs, dimsyz, dimN, vec, t, l, i, H2;
+#
+# Defining functions for later use.
+#
+    index := function( n )
+   	if n = 0 then 
+            return 1;
+        else
+            return n;
+        fi;
+    end;
+
+    fromflatHomToHom := function( flat, dim, dim2 )
+        local totalmat, matrix, i, start, j, d, d2;
+
+        d := List(dim, index);
+        d2 := List(dim2, index);
+    	start := 0;
+    	totalmat := [];
+    	for i in [1..Length(dim)] do
+            matrix := [];
+            for j in [1..d[i]] do
+            	Add(matrix, flat{[start+1..start+d2[i]]});
+            	start := start+d2[i];
+            od;
+            Add(totalmat,matrix);
+    	od;
+        return totalmat;
+    end;
 #
 # Test of input.
 #
@@ -1706,30 +1734,7 @@ InstallMethod( ExtOverAlgebra,
             homvecs := []; # to store all lists of matrices, one list for each element (homomorphism)
             dimsyz := DimensionVector(syzygy);
             dimN := DimensionVector(N);
-            for vec in preimages do # iterate on each homomorphism
-               t := 0;
-               l := []; # to store the maps for one homomorphism
-               for i in [1..Size(dimsyz)] do    # matrix i in the hom. is a (dimsyz[i] x dimN[i])-matrix
-                  if ( dimsyz[i] = 0 ) then 
-                     if ( dimN[i] = 0 ) then 
-                        Add(l,[vec{[t+1]}]);
-                        t := t + 1;
-                     else
-                        Add(l,[vec{[1..dimN[i]+t]}]);
-                        t := t + dimN[i];
-                     fi;
-                  else
-                     if ( dimN[i] = 0 ) then 
-                        Add(l,List([1..dimsyz[i]], x -> vec{[x+t]}));
-                        t := t + dimsyz[i];
-                     else
-                        Append(l,[List([1..dimsyz[i]],x-> vec{(x-1)*dimN[i]+[1..dimN[i]] + t})]);
-	                    t := t + dimsyz[i]*dimN[i];
-                     fi;
-                  fi;
-               od;
-               Append(homvecs,[l]);
-            od;
+            homvecs := List(preimages, x -> fromflatHomToHom(x,dimsyz,dimN));
 #
 # Making homomorphisms of the elements
 #
@@ -1757,9 +1762,37 @@ InstallMethod( ExtOverAlgebraAdd,
    [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ], 0,
    function( M, N )
 
-   local K, f, g, PM, syzygy, G, H, Img1, zero, genssyzygyN, VsyzygyN, 
-         Img, gensImg, VImg, pi, ext, preimages, homvecs, dimsyz, dimN, vec, t, 
-         l, i, H2, coefficients;
+   local index, fromflatHomToHom, K, f, g, PM, syzygy, G, H, Img1, zero, 
+         genssyzygyN, VsyzygyN, Img, gensImg, VImg, pi, ext, preimages, 
+         homvecs, dimsyz, dimN, vec, t, l, i, H2, coefficients;
+#
+# Defining functions for later use.
+#
+    index := function( n )
+   	if n = 0 then 
+            return 1;
+        else
+            return n;
+        fi;
+    end;
+
+    fromflatHomToHom := function( flat, dim, dim2 )
+        local totalmat, matrix, i, start, j, d, d2;
+
+        d := List(dim, index);
+        d2 := List(dim2, index);
+    	start := 0;
+    	totalmat := [];
+    	for i in [1..Length(dim)] do
+            matrix := [];
+            for j in [1..d[i]] do
+            	Add(matrix, flat{[start+1..start+d2[i]]});
+            	start := start+d2[i];
+            od;
+            Add(totalmat,matrix);
+    	od;
+        return totalmat;
+    end;
 #
 # Test of input.
 #
@@ -1786,7 +1819,7 @@ InstallMethod( ExtOverAlgebraAdd,
 #
       genssyzygyN := List(H, x -> Flat(x!.maps));
       if Length(genssyzygyN) = 0 then
-         return [];
+         return [[],[],[]];
       else
          VsyzygyN := VectorSpace(K, genssyzygyN);
 #
@@ -1812,7 +1845,7 @@ InstallMethod( ExtOverAlgebraAdd,
          pi := NaturalHomomorphismBySubspace(VsyzygyN, VImg);
          ext := Range(pi);
          if Dimension(Range(pi)) = 0 then 
-            return [g,[]];
+            return [g,[],[]];
          else 
 #
 # Sending elements of ext back to Hom(Syz(M),N)
@@ -1824,34 +1857,10 @@ InstallMethod( ExtOverAlgebraAdd,
             homvecs := []; # to store all lists of matrices, one list for each element (homomorphism)
             dimsyz := DimensionVector(syzygy);
             dimN := DimensionVector(N);
-            for vec in preimages do # iterate on each homomorphism
-               t := 0;
-               l := []; # to store the maps for one homomorphism
-               for i in [1..Size(dimsyz)] do    # matrix i in the hom. is a (dimsyz[i] x dimN[i])-matrix
-                  if ( dimsyz[i] = 0 ) then 
-                     if ( dimN[i] = 0 ) then 
-                        Add(l,[vec{[t+1]}]);
-                        t := t + 1;
-                     else
-                        Add(l,[vec{[1..dimN[i]+t]}]);
-                        t := t + dimN[i];
-                     fi;
-                  else
-                     if ( dimN[i] = 0 ) then 
-                        Add(l,List([1..dimsyz[i]], x -> vec{[x+t]}));
-                        t := t + dimsyz[i];
-                     else
-                        Append(l,[List([1..dimsyz[i]],x -> vec{(x-1)*dimN[i]+[1..dimN[i]] + t})]);
-	                    t := t + dimsyz[i]*dimN[i];
-                     fi;
-                  fi;
-               od;
-               Append(homvecs,[l]);
-            od;
+            homvecs := List(preimages, x -> fromflatHomToHom(x,dimsyz,dimN));
 #
 # Making homomorphisms of the elements
 #
-
             H2 := List(homvecs, x -> RightModuleHomOverAlgebra(syzygy,N,x));
 
             coefficients := function( map ) 
