@@ -1,5 +1,5 @@
 # GAP Implementation
-# $Id: specialreps.gi,v 1.9 2012/03/19 08:58:59 sunnyquiver Exp $
+# $Id: specialreps.gi,v 1.10 2012/05/11 15:08:09 sunnyquiver Exp $
 
 # specialreps.gi: Provides special representations of a quiver, 
 # 		  indecomposble projective, indecomposable injective, 
@@ -294,44 +294,25 @@ InstallOtherMethod ( IndecInjectiveModules,
     end
 );
 
-
-
 InstallMethod ( SimpleModules, 
     "for a finite dimensional quotient of a path algebra",
     [ IsAlgebra ], 0,
     function( A )
-        local KQ, arrows, vertices, v, mats, a, simple_rep;
+
+    local KQ, num_vert, simple_rep, zero, v, temp;
 #
     if ( not IsPathAlgebra(A) ) and ( not IsQuotientOfPathAlgebra(A) ) then 
        Error("argument entered is a not (a quotient of) a path algebra,\n");
     fi;
  
     KQ := OriginalPathAlgebra(A); 
-    arrows := ArrowsOfQuiver(QuiverOfPathAlgebra(A));
-    vertices := VerticesOfQuiver(QuiverOfPathAlgebra(A));
+    num_vert := NumberOfVertices(QuiverOfPathAlgebra(A));
     simple_rep := [];
-    for v in vertices do
-        mats := [];
-        for a in arrows do
-            if SourceOfPath(TipMonomial(One(KQ)*a)) <> v then
-                if TargetOfPath(TipMonomial(One(KQ)*a)) <> v then
-                    Add(mats,[a,[0,0]]);
-                else
-                    Add(mats,[a,[0,1]]);
-                fi;
-            else
-                if TargetOfPath(TipMonomial(One(KQ)*a)) <> v then
-                    Add(mats,[a,[1,0]]);
-                else
-                    Add(mats,[a,[[Zero(LeftActingDomain(A))]]]);
-                fi;
-            fi;
-        od;
-        if IsPathAlgebra(A) then
-           Add(simple_rep,RightModuleOverPathAlgebra(A,mats));
-        else
-           Add(simple_rep,RightModuleOverPathAlgebra(A,mats));
-        fi;
+    zero := List([1..num_vert], x -> 0);
+    for v in [1..num_vert] do
+    	temp := ShallowCopy(zero);
+        temp[v] := 1; 
+        Add(simple_rep,RightModuleOverPathAlgebra(A,temp,[]));
     od;
         
     return simple_rep;
@@ -342,22 +323,18 @@ InstallMethod ( ZeroModule,
     "for a finite dimensional quotient of a path algebra",
     [ IsAlgebra ], 0,
     function( A )
-        local KQ, arrows, vertices, v, mats, a, simple_rep;
+
+    local KQ, num_vert, simple_rep, zero, v, temp;
 #
     if ( not IsPathAlgebra(A) ) and ( not IsQuotientOfPathAlgebra(A) ) then 
        Error("argument entered is a not (a quotient of) a path algebra,\n");
     fi;
+ 
     KQ := OriginalPathAlgebra(A); 
-    arrows := ArrowsOfQuiver(QuiverOfPathAlgebra(KQ));
-    mats := [];
-    for a in arrows do
-       Add(mats,[a,[0,0]]);
-    od;
-    if IsPathAlgebra(A) then
-       return RightModuleOverPathAlgebra(A,mats);
-    else
-       return RightModuleOverPathAlgebra(A,mats);
-    fi;
+    num_vert := NumberOfVertices(QuiverOfPathAlgebra(A));
+    zero := List([1..num_vert], x -> 0);
+
+    return RightModuleOverPathAlgebra(A,zero,[]);
 end
 );
 
