@@ -1,5 +1,5 @@
 # GAP Implementation
-# $Id: homomorphisms.gi,v 1.31 2012/05/15 06:58:20 sunnyquiver Exp $
+# $Id: homomorphisms.gi,v 1.32 2012/05/15 07:12:00 sunnyquiver Exp $
 
 #############################################################################
 ##
@@ -59,9 +59,6 @@ InstallMethod( ImagesSet,
 end
 );
 
-# Should be
-# InstallMethod( PreImagesRepresentative, 
-#
 InstallMethod( PreImagesRepresentative, 
     "for a map between representations and an element in a representation.",
     [ IsPathAlgebraMatModuleHomomorphism, IsAlgebraModuleElement ], 0, 
@@ -153,7 +150,6 @@ InstallMethod( RightModuleHomOverAlgebra,
   map := Objectify( NewType( CollectionsFamily( GeneralMappingsFamily(
                                 ElementsFamily( FamilyObj( M ) ),
                                 ElementsFamily( FamilyObj( N ) ) ) ), 
-#          IsPathAlgebraMatModuleHomomorphismRep ), rec( maps := linmaps ));
           IsPathAlgebraMatModuleHomomorphism and IsPathAlgebraMatModuleHomomorphismRep ), rec( maps := linmaps ));
   SetPathAlgebraOfMatModuleMap(map, A);
   SetSource(map, M);

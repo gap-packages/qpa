@@ -1541,56 +1541,56 @@ end
 ##  element  <m>. 
 ##
 InstallMethod ( HomFromProjective, 
-   "for an element in a PathAlgebraMatModule and the PathAlgebraMatModule",
-   IsElmsColls,
-   [ IsRightAlgebraModuleElement, IsPathAlgebraMatModule ],
-   0,
-   function( m, M )
+    "for an element in a PathAlgebraMatModule and the PathAlgebraMatModule",
+    IsElmsColls,
+    [ IsRightAlgebraModuleElement, IsPathAlgebraMatModule ],
+    0,
+    function( m, M )
 
-   local A, K, num_vert, support, pos, P, B, mats, zeros, i, f;
+    local A, K, num_vert, support, pos, P, B, mats, zeros, i, f;
 #
 # Finding the algebra acting on M and the number of vertices.
 #
-   A := RightActingAlgebra(M);
-   K := LeftActingDomain(M);
-   num_vert := Length(m![1]![1]);
+    A := RightActingAlgebra(M);
+    K := LeftActingDomain(M);
+    num_vert := Length(m![1]![1]);
 #   
 # Finding the support of m.
 #
-   support := SupportModuleElement(m);
+    support := SupportModuleElement(m);
 #
 # If the element  m  is uniform, we proceed to find the map.
 # 
-   if Length(support) = 1 then 
+    if Length(support) = 1 then 
 #
 # And we need the "number of" the vertex ...
 #
-      pos := VertexPosition(support[1]);
+        pos := VertexPosition(support[1]);
 #
 # And the basis for the correct projective module, and the proj. module itself
 #
-	  B := BasisOfProjectives(A)[pos];
-	  P := ShallowCopy(IndecProjectiveModules(A)[pos]);
+        B := BasisOfProjectives(A)[pos];
+        P := ShallowCopy(IndecProjectiveModules(A)[pos]);
 #
 # Then we calculate the matrices for the homomorphism
 #
-      mats  := List([1..num_vert],x -> List(B[x], y -> ExtRepOfObj(m^y)![1][x]));
-      zeros := Filtered([1..num_vert], x -> DimensionVector(P)[x] = 0);
-      for i in zeros do 
-         if DimensionVector(M)[i] <> 0 then         
-            mats[i] := NullMat(1,DimensionVector(M)[i],K);
-         else 
-            mats[i] := NullMat(1,1,K);
-         fi;
-      od;
+        mats  := List([1..num_vert],x -> List(B[x], y -> ExtRepOfObj(m^y)![1][x]));
+        zeros := Filtered([1..num_vert], x -> DimensionVector(P)[x] = 0);
+        for i in zeros do 
+            if DimensionVector(M)[i] <> 0 then         
+                mats[i] := NullMat(1,DimensionVector(M)[i],K);
+            else 
+                mats[i] := NullMat(1,1,K);
+            fi;
+        od;
 #
 # Construct the homomorphism
 #
-      f := RightModuleHomOverAlgebra(P,M,mats);
-	  return f;
-   else
-      return fail;
-   fi;
+        f := RightModuleHomOverAlgebra(P,M,mats);
+        return f;
+    else
+        return fail;
+    fi;
 end
 );
 

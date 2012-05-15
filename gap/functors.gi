@@ -1,6 +1,6 @@
 # GAP Implementation
 # This file was generated from 
-# $Id: functors.gi,v 1.8 2012/05/15 06:58:20 sunnyquiver Exp $
+# $Id: functors.gi,v 1.9 2012/05/15 07:12:00 sunnyquiver Exp $
 InstallMethod ( DualOfModule,
     "for a representation of a quiver",
     [ IsPathAlgebraMatModule ], 0,
@@ -282,20 +282,20 @@ end
 );
 
 InstallMethod( DTr,
-   "for a path algebra module",
-   [ IsPathAlgebraMatModule ], 0,
-   function( M );
+    "for a path algebra module",
+    [ IsPathAlgebraMatModule ], 0,
+    function( M );
 
-   return DualOfModule(TransposeOfModule(M));
+    return DualOfModule(TransposeOfModule(M));
 end
 );
 
 InstallMethod( TrD,
-   "for a path algebra module",
-   [ IsPathAlgebraMatModule ], 0,
-   function( M );
+    "for a path algebra module",
+    [ IsPathAlgebraMatModule ], 0,
+    function( M );
 
-   return TransposeOfModule(DualOfModule(M));
+    return TransposeOfModule(DualOfModule(M));
 end
 );
 
