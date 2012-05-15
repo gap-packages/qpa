@@ -1,5 +1,5 @@
 # GAP Implementation
-# $Id: homomorphisms.gi,v 1.32 2012/05/15 07:12:00 sunnyquiver Exp $
+# $Id: homomorphisms.gi,v 1.33 2012/05/15 09:46:53 sunnyquiver Exp $
 
 #############################################################################
 ##
@@ -994,8 +994,8 @@ InstallMethod( TopOfModuleProjection,
    function( M )
 
     local K, A, Q, vertices, num_vert, incomingarrows, mats, arrows, subspaces,
-        i, a, dim_M, Vspaces, Wspaces, naturalprojections, matrixfunction,
-        dim_top, matrices, topofmodule, topofmoduleprojection;
+        i, a, dim_M, Vspaces, Wspaces, naturalprojections, index,
+        dim_top, matrices, topofmodule, topofmoduleprojection, W;
 
     A := RightActingAlgebra(M);
     if Dimension(M) = 0 then 
@@ -1008,7 +1008,6 @@ InstallMethod( TopOfModuleProjection,
         incomingarrows := List([1..num_vert], x -> IncomingArrowsOfVertex(vertices[x]));
         mats := MatricesOfPathAlgebraModule(M);
         arrows := ArrowsOfQuiver(Q);
-
         subspaces := List([1..num_vert], x -> []);
         for i in [1..num_vert] do
             for a in incomingarrows[i] do
@@ -1017,17 +1016,31 @@ InstallMethod( TopOfModuleProjection,
         od;
         dim_M := DimensionVector(M);
         Vspaces := List([1..num_vert], x -> FullRowSpace(Rationals,dim_M[x]));
-        Wspaces := List([1..num_vert], x -> Subspace(Vspaces[x],subspaces[x]));
-        naturalprojections := List([1..num_vert], x -> NaturalHomomorphismBySubspace(Vspaces[x],Wspaces[x]));
-        matrixfunction := function( K, elm )
-            if elm = [] then 
-                return [Zero(K)];
+        Wspaces := List([1..num_vert], x -> []);
+        for i in [1..num_vert] do
+            if dim_M[i] <> 0 then 
+                Wspaces[i] := Subspace(Vspaces[i],subspaces[i]);
             else
-                return elm;
+                Wspaces[i] := Subspace(Vspaces[i],[]);
+            fi;
+        od;
+        naturalprojections := List([1..num_vert], x -> NaturalHomomorphismBySubspace(Vspaces[x],Wspaces[x]));
+        dim_top := List([1..num_vert], x -> Dimension(Range(naturalprojections[x]))); 
+        index := function( n )
+            if n = 0 then 
+                return 1;
+            else
+                return n;
             fi;
         end;
-        dim_top := List([1..num_vert], x -> Dimension(Range(naturalprojections[x]))); 
-        matrices := List([1..num_vert], x -> List(BasisVectors(Basis(Vspaces[x])), y -> matrixfunction(Rationals,ImageElm(naturalprojections[x],y))));
+        matrices := [];
+        for i in [1..num_vert] do
+            if dim_top[i] <> 0 then
+                Add(matrices, List(BasisVectors(Basis(Vspaces[i])), y -> ImageElm(naturalprojections[i],y)));
+            else
+                Add(matrices, NullMat(index(dim_M[i]),1,K));
+            fi;
+        od;
         topofmodule := RightModuleOverPathAlgebra(A,dim_top,[]);
         topofmoduleprojection := RightModuleHomOverAlgebra(M,topofmodule,matrices);
 
@@ -1454,7 +1467,6 @@ InstallMethod( SocleOfModuleInclusion,
         mats := MatricesOfPathAlgebraModule(M);
         arrows := ArrowsOfQuiver(Q);
         dim_M := DimensionVector(M);
-
         subspaces := List([1..num_vert], x -> List([1..dim_M[x]], y -> [])); 
         for i in [1..num_vert] do
             for a in outgoingarrows[i] do
@@ -1463,7 +1475,25 @@ InstallMethod( SocleOfModuleInclusion,
                 od;
             od;
         od;
-        socle := List([1..num_vert], x -> NullspaceMat(subspaces[x]));
+
+#        socle := List([1..num_vert], x -> NullspaceMat(subspaces[x]));        
+        index := function( n )
+            if n = 0 then 
+                return 1;
+            else
+                return n;
+            fi;
+        end; 
+        socle := List([1..num_vert], x -> []);
+        for i in [1..num_vert] do
+            if subspaces[i] = [] then 
+                socle[i] := [];
+            else
+                Print("Subspace in ",i," ",subspaces[i],"\n");
+                socle[i] := NullspaceMat(subspaces[i]);
+            fi;
+        od;
+
         matrixfunction := function( K, n, elm )
             if elm = [] then 
                 return NullMat(1,index(n),K);
@@ -1473,13 +1503,7 @@ InstallMethod( SocleOfModuleInclusion,
         end;
         dim_socle := List(socle, x -> Length(x));
         socleofmodule := RightModuleOverPathAlgebra(A,dim_socle,[]);
-        index := function( n )
-            if n = 0 then 
-                return 1;
-            else
-                return n;
-            fi;
-        end;
+
         socle := List(socle, x -> matrixfunction(K,dim_M[Position(socle,x)],x));
         socleinclusion := RightModuleHomOverAlgebra(socleofmodule,M,socle);
         SetSocleOfModule(M,socleofmodule);
