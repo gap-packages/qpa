@@ -108,9 +108,11 @@ Algebras</span></h3>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; RightModuleOverPathAlgebra</code>( <var class="Arg">A, mats</var> )</td><td class="tdright">( operation )</td></tr></table></div>
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; RightModuleOverPathAlgebra</code>( <var class="Arg">A, dim_vector, gens</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> -- a (quotient of a) path algebra, <var class="Arg">mats</var> -- a list of matrices, <var class="Arg">dim_vector</var> -- the dimension vector of the module, <var class="Arg">gens</var> -- a list of elements (generators). For further explanations, see below. <br /></p>
+
 <p><b>Returns: </b>a module over a path algebra or over a qoutient of a path algebra in the second variant.</p>
 
-<p>In the first function call, <var class="Arg">A</var> is a (quotient of a ) path algebra. The list of matrices <var class="Arg">mats</var> can take on three different forms.</p>
+<p>In the first function call, the list of matrices <var class="Arg">mats</var> can take on three different forms.</p>
 
 <p>1) The argument <var class="Arg">mats</var> can be a list of blocks of matrices where each block is of the form, `["name of arrow",matrix]'. So if you named your arrows when you created the quiver, then you can associate a matrix with that arrow explicitly.</p>
 
@@ -122,7 +124,7 @@ Algebras</span></h3>
 
 <p>A warning though, the function assumes that you do not mix the styles of inputting the matrices/linear transformations associated to the arrows in the quiver. Furthermore, each arrow needs to be assigned a matrix, otherwise an error will be returned. The function verifies that the dimensions of the matrices and vector spaces are correct and match, and that each arrow has only one matrix assigned to it.</p>
 
-<p>In the second function call, the first argument <var class="Arg">A</var> is a (quotient of a ) path algebra, the second argument <var class="Arg">dim_vector</var> is the dimension vector of the module, and the last argument <var class="Arg">gens</var> (maybe an empty list []) is a list of elements of the form ["label",matrix]. This function constructs a right module over a (quotient of a) path algebra <var class="Arg">A</var> with dimension vector <var class="Arg">dim_vector</var>, and where the generators/arrows with a non-zero action is given in the list <var class="Arg">gens</var>. The format of the list <var class="Arg">gens</var> is [["a",[matrix_a]],["b",[matrix_b]],...], where "a" and "b" are labels of arrows used when the underlying quiver was created and matrix_? is the action of the algebra element corresponding to the arrow with label "?". The action of the arrows can be entered in any order. The function checks if the algebra <var class="Arg">A</var> is a (quotient of a) path algebra and if the matrices of the action of the arrows have the correct size according to the dimension vector entered and also whether or not the relations of the algebra are satisfied.</p>
+<p>In the second function call, the second argument <var class="Arg">dim_vector</var> is the dimension vector of the module, and the last argument <var class="Arg">gens</var> (maybe an empty list []) is a list of elements of the form ["label",matrix]. This function constructs a right module over a (quotient of a) path algebra <var class="Arg">A</var> with dimension vector <var class="Arg">dim_vector</var>, and where the generators/arrows with a non-zero action is given in the list <var class="Arg">gens</var>. The format of the list <var class="Arg">gens</var> is [["a",[matrix_a]],["b",[matrix_b]],...], where "a" and "b" are labels of arrows used when the underlying quiver was created and matrix_? is the action of the algebra element corresponding to the arrow with label "?". The action of the arrows can be entered in any order. The function checks if the algebra <var class="Arg">A</var> is a (quotient of a) path algebra and if the matrices of the action of the arrows have the correct size according to the dimension vector entered and also whether or not the relations of the algebra are satisfied.</p>
 
 
 <table class="example">
@@ -187,6 +189,8 @@ gap&gt; M := RightModuleOverPathAlgebra(P,[2,3],[]);
 <h5>6.2-1 IsPathAlgebraModule</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IsPathAlgebraModule</code>( <var class="Arg">object</var> )</td><td class="tdright">( filter )</td></tr></table></div>
+<p><b>Returns: </b>true or false depending on whether <var class="Arg">object</var> belongs to the category <code class="code">IsPathAlgebraModule</code>.</p>
+
 <p>These matrix modules fall under the category `IsAlgebraModule' with the added filter of `IsPathAlgebraModule'. Operations available for algebra modules can be applied to path algebra modules. See "ref:representations of algebras" for more details. These modules are also vector spaces over the field of the path algebra. So refer to "ref:vector spaces" for descriptions of the basis and elementwise operations available.</p>
 
 <p><a id="X862F510485ADBC67" name="X862F510485ADBC67"></a></p>
@@ -198,7 +202,11 @@ gap&gt; M := RightModuleOverPathAlgebra(P,[2,3],[]);
 <h5>6.3-1 ^</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; ^</code>( <var class="Arg">m, p</var> )</td><td class="tdright">( operation )</td></tr></table></div>
-<p>The operation <code class="func">^</code> operates on an element <var class="Arg">m</var> in a module and a path <var class="Arg">p</var> in a path algebra, and it returns the element <var class="Arg">m</var> multiplied with <var class="Arg">p</var>. When you act on an module element $m$ by an arrow $a$ from $v$ to $w$, the component of $m$ from $V$ is acted on by $L$ the transformation associated to $a$ and placed in the component $W$ . All other components are given the value $0$.</p>
+<p>Arguments: <var class="Arg">m</var> -- an element in a module, <var class="Arg">p</var> -- a path in a path algebra. <br /></p>
+
+<p><b>Returns: </b>the element <var class="Arg">m</var> multiplied with <var class="Arg">p</var>.</p>
+
+<p>When you act on an module element $m$ by an arrow $a$ from $v$ to $w$, the component of $m$ from $V$ is acted on by $L$ the transformation associated to $a$ and placed in the component $W$. All other components are given the value $0$.</p>
 
 
 <table class="example">
@@ -266,6 +274,8 @@ gap&gt; N:= RightModuleOverPathAlgebra(A,mat);
 <h5>6.4-1 CommonDirectSummand</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; CommonDirectSummand</code>( <var class="Arg">M, N</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> and <var class="Arg">N</var> -- two path algebra modules. <br /></p>
+
 <p><b>Returns: </b>a list of four modules [<var class="Arg">X</var>,<var class="Arg">U</var>,<var class="Arg">X</var>, <var class="Arg">V</var>], where <var class="Arg">X</var> is one common non-zero direct summand of <var class="Arg">M</var> and <var class="Arg">N</var>, the sum of <var class="Arg">X</var> and <var class="Arg">U</var> is <var class="Arg">M</var> and the sum of <var class="Arg">X</var> and <var class="Arg">V</var> is <var class="Arg">N</var>, if such a non-zero direct summand exists. Otherwise it returns false.</p>
 
 <p>The function checks if <var class="Arg">M</var> and <var class="Arg">N</var> are <code class="code">PathAlgebraMatModule</code>s over the same (quotient of a) path algebra.</p>
@@ -275,7 +285,9 @@ gap&gt; N:= RightModuleOverPathAlgebra(A,mat);
 <h5>6.4-2 DimensionVector</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; DimensionVector</code>( <var class="Arg">M</var> )</td><td class="tdright">( operation )</td></tr></table></div>
-<p><b>Returns: </b>the dimension vector of the representation <var class="Arg">M</var>. The argument <var class="Arg">M</var> must be a <code class="code">PathAlgebraMatModule</code>.</p>
+<p>Arguments: <var class="Arg">M</var> -- a path algebra module (<code class="code">PathAlgebraMatModule</code>). <br /></p>
+
+<p><b>Returns: </b>the dimension vector of the representation <var class="Arg">M</var>.</p>
 
 <p>A shortcoming of this that it is not defined for modules of quotients of path algebras.</p>
 
@@ -284,13 +296,17 @@ gap&gt; N:= RightModuleOverPathAlgebra(A,mat);
 <h5>6.4-3 Dimension</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; Dimension</code>( <var class="Arg">M</var> )</td><td class="tdright">( operation )</td></tr></table></div>
-<p><b>Returns: </b>the dimension of the representation <var class="Arg">M</var>. The argument <var class="Arg">M</var> must be a <code class="code">PathAlgebraMatModule</code>.</p>
+<p>Arguments: <var class="Arg">M</var> -- a path algebra module (<code class="code">PathAlgebraMatModule</code>). <br /></p>
+
+<p><b>Returns: </b>the dimension of the representation <var class="Arg">M</var>.</p>
 
 <p><a id="X7E24DCE07E98E50D" name="X7E24DCE07E98E50D"></a></p>
 
 <h5>6.4-4 IsDirectSummand</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IsDirectSummand</code>( <var class="Arg">M, N</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>Arguments: <var class="Arg">M, N</var> -- two path algebra modules (<code class="code">PathAlgebraMatModule</code>s). <br /></p>
+
 <p><b>Returns: </b>true if <var class="Arg">M</var> is isomorphic to a direct summand of <var class="Arg">N</var>, otherwise false.</p>
 
 <p>The function checks if <var class="Arg">M</var> and <var class="Arg">N</var> are <code class="code">PathAlgebraMatModule</code>s over the same (quotient of a) path algebra.</p>
@@ -300,30 +316,38 @@ gap&gt; N:= RightModuleOverPathAlgebra(A,mat);
 <h5>6.4-5 DirectSumOfModules</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; DirectSumOfModules</code>( <var class="Arg">L</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>Arguments: <var class="Arg">L</var> -- a list of <code class="code">PathAlgebraMatModule</code>s over the same (quotient of a) path algebra. <br /></p>
+
 <p><b>Returns: </b>the direct sum of the representations contained in the list <var class="Arg">L</var>.</p>
 
-<p>The argument <var class="Arg">L</var> must be a list of <code class="code">PathAlgebraMatModule</code>'s over the same (quotient of a) path algebra. In addition three attributes are attached to the result, <code class="code">IsDirectSumOfModules, DirectSumProjections</code> and <code class="code">DirectSumInclusions</code>.</p>
+<p>In addition three attributes are attached to the result, <code class="code">IsDirectSumOfModules, DirectSumProjections</code> and <code class="code">DirectSumInclusions</code>.</p>
 
 <p><a id="X7A50C15B87236111" name="X7A50C15B87236111"></a></p>
 
 <h5>6.4-6 IsDirectSumOfModules</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IsDirectSumOfModules</code>( <var class="Arg">M</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
-<p>An attribute, returns true is <var class="Arg">M</var> is constructed via the command <code class="code">DirectSumOfModules</code>.</p>
+<p>Arguments: <var class="Arg">M</var> -- a path algebra module (<code class="code">PathAlgebraMatModule</code>). <br /></p>
+
+<p><b>Returns: </b>true if <var class="Arg">M</var> is constructed via the command <code class="code">DirectSumOfModules</code>.</p>
 
 <p><a id="X857807CF8560B3C4" name="X857807CF8560B3C4"></a></p>
 
 <h5>6.4-7 DirectSumInclusions</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; DirectSumInclusions</code>( <var class="Arg">M</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
-<p>An attribute, returns the list of inclusions from the individual modules to their direct sum, when a direct sum has been constructed using <code class="code">DirectSumOfModules</code>.</p>
+<p>Arguments: <var class="Arg">M</var> -- a path algebra module (<code class="code">PathAlgebraMatModule</code>). <br /></p>
+
+<p><b>Returns: </b>the list of inclusions from the individual modules to their direct sum, when a direct sum has been constructed using <code class="code">DirectSumOfModules</code>.</p>
 
 <p><a id="X80CFB7E47A785E12" name="X80CFB7E47A785E12"></a></p>
 
 <h5>6.4-8 DirectSumProjections</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; DirectSumProjections</code>( <var class="Arg">M</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
-<p>An attribute, returns the list of projections from the direct sum to the individual modules used to construct direct sum, when a direct sum has been constructed using <code class="code">DirectSumOfModules</code>.</p>
+<p>Arguments: <var class="Arg">M</var> -- a path algebra module (<code class="code">PathAlgebraMatModule</code>). <br /></p>
+
+<p><b>Returns: </b>the list of projections from the direct sum to the individual modules used to construct direct sum, when a direct sum has been constructed using <code class="code">DirectSumOfModules</code>.</p>
 
 <p>Using the example above.</p>
 
@@ -366,13 +390,17 @@ gap&gt; inc:=DirectSumInclusions(N2);
 <h5>6.4-9 1stSyzygy</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; 1stSyzygy</code>( <var class="Arg">M</var> )</td><td class="tdright">( operation )</td></tr></table></div>
-<p><b>Returns: </b>the first syzygy of the representation <var class="Arg">M</var> as a representation. The argument <var class="Arg">M</var> must be a <code class="code">PathAlgebraMatModule</code>.</p>
+<p>Arguments: <var class="Arg">M</var> -- a path algebra module (<code class="code">PathAlgebraMatModule</code>). <br /></p>
+
+<p><b>Returns: </b>the first syzygy of the representation <var class="Arg">M</var> as a representation.</p>
 
 <p><a id="X7E5246D4831DB250" name="X7E5246D4831DB250"></a></p>
 
 <h5>6.4-10 IsInAdditiveClosure</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IsInAdditiveClosure</code>( <var class="Arg">M, N</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>Arguments: <var class="Arg">M, N</var> -- two path algebra modules (<code class="code">PathAlgebraMatModule</code>s). <br /></p>
+
 <p><b>Returns: </b>true if <var class="Arg">M</var> is in the additive closure of the module <var class="Arg">N</var>, otherwise false.</p>
 
 <p>The function checks if <var class="Arg">M</var> and <var class="Arg">N</var> are <code class="code">PathAlgebraMatModule</code>s over the same (quotient of a) path algebra.</p>
@@ -382,41 +410,53 @@ gap&gt; inc:=DirectSumInclusions(N2);
 <h5>6.4-11 IsOmegaPeriodic</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IsOmegaPeriodic</code>( <var class="Arg">M, n</var> )</td><td class="tdright">( operation )</td></tr></table></div>
-<p><b>Returns: </b><code class="code">i</code>, where <code class="code">i</code> is the smallest positive integer less or equal <code class="code">n</code> such that the representation <var class="Arg">M</var> is isomorphic to the <code class="code">i</code>-th syzygy of <var class="Arg">M</var>, and false otherwise. The argument <var class="Arg">M</var> must be a <code class="code">PathAlgebraMatModule</code>, and <var class="Arg">n</var> must be a positive integer.</p>
+<p>Arguments: <var class="Arg">M</var> -- a path algebra module (<code class="code">PathAlgebraMatModule</code>), <var class="Arg">n</var> -- be a positive integer. <br /></p>
+
+<p><b>Returns: </b><code class="code">i</code>, where <code class="code">i</code> is the smallest positive integer less or equal <code class="code">n</code> such that the representation <var class="Arg">M</var> is isomorphic to the <code class="code">i</code>-th syzygy of <var class="Arg">M</var>, and false otherwise.</p>
 
 <p><a id="X803C2799861FFBC5" name="X803C2799861FFBC5"></a></p>
 
 <h5>6.4-12 IsInjectiveModule</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IsInjectiveModule</code>( <var class="Arg">M</var> )</td><td class="tdright">( operation )</td></tr></table></div>
-<p><b>Returns: </b>true if the representation <var class="Arg">M</var> is injective. The argument <var class="Arg">M</var> must be a <code class="code">PathAlgebraMatModule</code>.</p>
+<p>Arguments: <var class="Arg">M</var> -- a path algebra module (<code class="code">PathAlgebraMatModule</code>). <br /></p>
+
+<p><b>Returns: </b>true if the representation <var class="Arg">M</var> is injective.</p>
 
 <p><a id="X8359AC9585777CA1" name="X8359AC9585777CA1"></a></p>
 
 <h5>6.4-13 IsProjectiveModule</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IsProjectiveModule</code>( <var class="Arg">M</var> )</td><td class="tdright">( operation )</td></tr></table></div>
-<p><b>Returns: </b>true if the representation <var class="Arg">M</var> is projective. The argument <var class="Arg">M</var> must be a <code class="code">PathAlgebraMatModule</code>.</p>
+<p>Arguments: <var class="Arg">M</var> -- a path algebra module (<code class="code">PathAlgebraMatModule</code>). <br /></p>
+
+<p><b>Returns: </b>true if the representation <var class="Arg">M</var> is projective.</p>
 
 <p><a id="X7A8BC26E866E44DD" name="X7A8BC26E866E44DD"></a></p>
 
 <h5>6.4-14 IsSemisimpleModule</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IsSemisimpleModule</code>( <var class="Arg">M</var> )</td><td class="tdright">( operation )</td></tr></table></div>
-<p><b>Returns: </b>true if the representation <var class="Arg">M</var> is semisimple. The argument <var class="Arg">M</var> must be a <code class="code">PathAlgebraMatModule</code>.</p>
+<p>Arguments: <var class="Arg">M</var> -- a path algebra module (<code class="code">PathAlgebraMatModule</code>). <br /></p>
+
+<p><b>Returns: </b>true if the representation <var class="Arg">M</var> is semisimple.</p>
 
 <p><a id="X7FB82B3184287362" name="X7FB82B3184287362"></a></p>
 
 <h5>6.4-15 IsSimpleModule</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IsSimpleModule</code>( <var class="Arg">M</var> )</td><td class="tdright">( operation )</td></tr></table></div>
-<p><b>Returns: </b>true if the representation <var class="Arg">M</var> is simple. The argument <var class="Arg">M</var> must be a <code class="code">PathAlgebraMatModule</code>.</p>
+<p>Arguments: <var class="Arg">M</var> -- a path algebra module (<code class="code">PathAlgebraMatModule</code>). <br /></p>
+
+<p><b>Returns: </b>true if the representation <var class="Arg">M</var> is simple.</p>
 
 <p><a id="X7BEA44FB819910B6" name="X7BEA44FB819910B6"></a></p>
 
 <h5>6.4-16 LoewyLength</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; LoewyLength</code>( <var class="Arg">M</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> -- a path algebra module (<code class="code">PathAlgebraMatModule</code>). <br /></p>
+
 <p><b>Returns: </b>the Loewy length of the module <var class="Arg">M</var>.</p>
 
 <p>The function checks that the module <var class="Arg">M</var> is a module over a finite dimensional quotient of a path algebra, and returns fail otherwise (This is not implemented yet).</p>
@@ -426,6 +466,8 @@ gap&gt; inc:=DirectSumInclusions(N2);
 <h5>6.4-17 MaximalCommonDirectSummand</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; MaximalCommonDirectSummand</code>( <var class="Arg">M, N</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>Arguments: <var class="Arg">M, N</var> -- two path algebra modules (<code class="code">PathAlgebraMatModule</code>s). <br /></p>
+
 <p><b>Returns: </b>a list of three modules [<var class="Arg">X</var>,<var class="Arg">U</var>,<var class="Arg">V</var>], where <var class="Arg">X</var> is a maximal common non-zero direct summand of <var class="Arg">M</var> and <var class="Arg">N</var>, the sum of <var class="Arg">X</var> and <var class="Arg">U</var> is <var class="Arg">M</var> and the sum of <var class="Arg">X</var> and <var class="Arg">V</var> is <var class="Arg">N</var>, if such a non-zero maximal direct summand exists. Otherwise it returns false.</p>
 
 <p>The function checks if <var class="Arg">M</var> and <var class="Arg">N</var> are <code class="code">PathAlgebraMatModule</code>s over the same (quotient of a) path algebra.</p>
@@ -435,6 +477,8 @@ gap&gt; inc:=DirectSumInclusions(N2);
 <h5>6.4-18 IsomorphicModules</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IsomorphicModules</code>( <var class="Arg">M, N</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>Arguments: <var class="Arg">M, N</var> -- two path algebra modules (<code class="code">PathAlgebraMatModule</code>s). <br /></p>
+
 <p><b>Returns: </b>true or false depending on whether <var class="Arg">M</var> and <var class="Arg">N</var> are isomorphic or not.</p>
 
 <p>The function first checks if the modules <var class="Arg">M</var> and <var class="Arg">N</var> are modules over the same algebra, and returns fail if not. The function returns true if the modules are isomorphic, otherwise false.</p>
@@ -444,20 +488,26 @@ gap&gt; inc:=DirectSumInclusions(N2);
 <h5>6.4-19 NthSyzygy</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; NthSyzygy</code>( <var class="Arg">M, n</var> )</td><td class="tdright">( operation )</td></tr></table></div>
-<p><b>Returns: </b>the top of the syzygies until a syzygy is projective or the <var class="Arg">n</var>-th syzygy has been computed. The argument <var class="Arg">M</var> must be a <code class="code">PathAlgebraMatModule</code>, and the argument <var class="Arg">n</var> must be a positive integer.</p>
+<p>Arguments: <var class="Arg">M</var> -- a path algebra module (<code class="code">PathAlgebraMatModule</code>), <var class="Arg">n</var> -- a positive integer. <br /></p>
+
+<p><b>Returns: </b>the top of the syzygies until a syzygy is projective or the <var class="Arg">n</var>-th syzygy has been computed.</p>
 
 <p><a id="X870531C67C402A64" name="X870531C67C402A64"></a></p>
 
 <h5>6.4-20 NthSyzygyNC</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; NthSyzygyNC</code>( <var class="Arg">M, n</var> )</td><td class="tdright">( operation )</td></tr></table></div>
-<p><b>Returns: </b>the <code class="code">n</code>-th syzygy of the module <var class="Arg">M</var>, unless the projective dimension of <var class="Arg">M</var> is less or equal to <code class="code">n-1</code>, in which case it returns the projective dimension of <var class="Arg">M</var>. It does not check if the <code class="code">n</code>-th syzygy is projective or not. The argument <var class="Arg">M</var> must be a <code class="code">PathAlgebraMatModule</code>, and the argument <var class="Arg">n</var> must be a positive integer.</p>
+<p>Arguments: <var class="Arg">M</var> -- a path algebra module (<code class="code">PathAlgebraMatModule</code>), <var class="Arg">n</var> -- a positive integer. <br /></p>
+
+<p><b>Returns: </b>the <code class="code">n</code>-th syzygy of the module <var class="Arg">M</var>, unless the projective dimension of <var class="Arg">M</var> is less or equal to <code class="code">n-1</code>, in which case it returns the projective dimension of <var class="Arg">M</var>. It does not check if the <code class="code">n</code>-th syzygy is projective or not.</p>
 
 <p><a id="X7E44920683157DE2" name="X7E44920683157DE2"></a></p>
 
 <h5>6.4-21 RadicalOfModule</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; RadicalOfModule</code>( <var class="Arg">M</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> -- a path algebra module (<code class="code">PathAlgebraMatModule</code>). <br /></p>
+
 <p><b>Returns: </b>the radical of the module <var class="Arg">M</var>.</p>
 
 <p>This returns only the representation given by the radical of the module <var class="Arg">M</var>. The operation <code class="func">RadicalOfModuleInclusion</code> (<a href="chap7.html#X7BF04DAE78E98D9C"><b>7.3-17</b></a>) computes the inclusion of the radical of <var class="Arg">M</var> into <var class="Arg">M</var>.</p>
@@ -467,6 +517,8 @@ gap&gt; inc:=DirectSumInclusions(N2);
 <h5>6.4-22 RadicalSeries</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; RadicalSeries</code>( <var class="Arg">M</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> -- a path algebra module (<code class="code">PathAlgebraMatModule</code>). <br /></p>
+
 <p><b>Returns: </b>the radical series of the module <var class="Arg">M</var>.</p>
 
 <p>The function gives the radical series as a list of vectors <code class="code">[n_1,...,n_s]</code>, where the algebra has $s$ isomorphism classes of simple modules and the numbers give the multiplicity of each simple. The first vector listed corresponds to the top layer, and so on.</p>
@@ -476,6 +528,8 @@ gap&gt; inc:=DirectSumInclusions(N2);
 <h5>6.4-23 SocleSeries</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; SocleSeries</code>( <var class="Arg">M</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> -- a path algebra module (<code class="code">PathAlgebraMatModule</code>). <br /></p>
+
 <p><b>Returns: </b>the socle series of the module <var class="Arg">M</var>.</p>
 
 <p>The function gives the socle series as a list of vectors <code class="code">[n_1,...,n_s]</code>, where the algebra has $s$ isomorphism classes of simple modules and the numbers give the multiplicity of each simple. The last vector listed corresponds to the socle layer, and so on backwards.</p>
@@ -485,6 +539,8 @@ gap&gt; inc:=DirectSumInclusions(N2);
 <h5>6.4-24 SocleOfModule</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; SocleOfModule</code>( <var class="Arg">M</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> -- a path algebra module (<code class="code">PathAlgebraMatModule</code>). <br /></p>
+
 <p><b>Returns: </b>the socle of the module <var class="Arg">M</var>.</p>
 
 <p>This operation only return the representation given by the socle of the module <var class="Arg">M</var>. The inclusion the socle of <var class="Arg">M</var> into <var class="Arg">M</var> can be computed using <code class="func">SocleOfModuleInclusion</code> (<a href="chap7.html#X82EB23337C5F4DBB"><b>7.3-18</b></a>).</p>
@@ -494,6 +550,8 @@ gap&gt; inc:=DirectSumInclusions(N2);
 <h5>6.4-25 SubRepresentation</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; SubRepresentation</code>( <var class="Arg">M, gens</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> -- a path algebra module (<code class="code">PathAlgebraMatModule</code>), <var class="Arg">gens</var> -- elements in <var class="Arg">M</var>. <br /></p>
+
 <p><b>Returns: </b>the submodule of the module <var class="Arg">M</var> generated by the elements <var class="Arg">gens</var>.</p>
 
 <p>The function checks if <var class="Arg">gens</var> are elements in <var class="Arg">M</var>, and returns an error message otherwise. The inclusion of the submodule generated by the elements <var class="Arg">gens</var> into <var class="Arg">M</var> can be computed using <code class="func">SubRepresentationInclusion</code> (<a href="chap7.html#X7E9BF05587D4A86A"><b>7.3-19</b></a>).</p>
@@ -503,6 +561,8 @@ gap&gt; inc:=DirectSumInclusions(N2);
 <h5>6.4-26 SupportModuleElement</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; SupportModuleElement</code>( <var class="Arg">m</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>Arguments: <var class="Arg">m</var> -- an element of a path algebra module. <br /></p>
+
 <p><b>Returns: </b>the primitive idempotents <var class="Arg">v</var> in the algebra over which the module containing the element <var class="Arg">m</var> is a module, such that <var class="Arg">m^v</var> is non-zero.</p>
 
 <p>The function checks if <var class="Arg">m</var> is an element in a module over a (quotient of a) path algebra, and returns fail otherwise.</p>
@@ -512,6 +572,8 @@ gap&gt; inc:=DirectSumInclusions(N2);
 <h5>6.4-27 TopOfModule</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; TopOfModule</code>( <var class="Arg">M</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> -- a path algebra module (<code class="code">PathAlgebraMatModule</code>). <br /></p>
+
 <p><b>Returns: </b>the top of the module <var class="Arg">M</var>.</p>
 
 <p>This returns only the representation given by the top of the module <var class="Arg">M</var>. The operation <code class="func">TopOfModuleProjection</code> (<a href="chap7.html#X804BD7CD804E63C4"><b>7.3-20</b></a>) computes the projection of the module <var class="Arg">M</var> onto the top of the module <var class="Arg">M</var>.</p>
@@ -521,6 +583,8 @@ gap&gt; inc:=DirectSumInclusions(N2);
 <h5>6.4-28 MinimalGeneratingSetOfModule</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; MinimalGeneratingSetOfModule</code>( <var class="Arg">M</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> -- a path algebra module (<code class="code">PathAlgebraMatModule</code>). <br /></p>
+
 <p><b>Returns: </b>a minimal generator set of the module <var class="Arg">M</var> as a module of the path algebra it is defined over.</p>
 
 <p><a id="X81BB198380631A9B" name="X81BB198380631A9B"></a></p>
@@ -528,7 +592,9 @@ gap&gt; inc:=DirectSumInclusions(N2);
 <h5>6.4-29 MatricesOfPathAlgebraModule</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; MatricesOfPathAlgebraModule</code>( <var class="Arg">M</var> )</td><td class="tdright">( operation )</td></tr></table></div>
-<p><b>Returns: </b>a list of the matrices that defines the representation <var class="Arg">M</var> as a right module of the acting path algebra. The argument <var class="Arg">M</var> must be a <code class="code">PathAlgebraMatModule</code>.</p>
+<p>Arguments: <var class="Arg">M</var> -- a path algebra module (<code class="code">PathAlgebraMatModule</code>). <br /></p>
+
+<p><b>Returns: </b>a list of the matrices that defines the representation <var class="Arg">M</var> as a right module of the acting path algebra.</p>
 
 <p>The list of matrices that are returned are not the same identical to the matrices entered to define the representation if there is zero vector space in at least one vertex. Then zero matrices of the appropriate size are returned. A shortcoming of this that it is not defined for modules of quotients of path algebras.</p>
 
@@ -543,7 +609,9 @@ gap&gt; inc:=DirectSumInclusions(N2);
 <h5>6.5-1 BasisOfProjectives</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; BasisOfProjectives</code>( <var class="Arg">A</var> )</td><td class="tdright">( operation )</td></tr></table></div>
-<p><b>Returns: </b>a list of bases for all the indecomposable projective representations over a finite dimensional (quotient of a) path algebra <var class="Arg">A</var>. The basis for each indecomposable projective is given a list of elements in nontips in <var class="Arg">A</var>.</p>
+<p>Arguments: <var class="Arg">A</var> -- a finite dimensional (quotient of a) path algebra. <br /></p>
+
+<p><b>Returns: </b>a list of bases for all the indecomposable projective representations over <var class="Arg">A</var>. The basis for each indecomposable projective is given a list of elements in nontips in <var class="Arg">A</var>.</p>
 
 <p>The function checks if the algebra <var class="Arg">A</var> is a finite dimensional (quotient of a) path algebra, and returns an error message otherwise.</p>
 
@@ -552,7 +620,9 @@ gap&gt; inc:=DirectSumInclusions(N2);
 <h5>6.5-2 IndecProjectiveModules</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IndecProjectiveModules</code>( <var class="Arg">A[, list]</var> )</td><td class="tdright">( operation )</td></tr></table></div>
-<p><b>Returns: </b>a list of all the indecomposable projective representations over a finite dimensional (quotient of a) path algebra <var class="Arg">A</var>, when only one argument is supplied. The second argument should be a list of integers, for example [1, 3, 4], which will return the indecomposable projective corresponding to vertex 1, 3 and 4, in this order.</p>
+<p>Arguments: <var class="Arg">A</var> -- a finite dimensional (quotient of a) path algebra, (optional) <var class="Arg">list</var> -- a list of integers. <br /></p>
+
+<p><b>Returns: </b>a list of all the indecomposable projective representations over <var class="Arg">A</var>, when only one argument is supplied. The second argument should be a list of integers, for example [1, 3, 4], which will return the indecomposable projective corresponding to vertex 1, 3 and 4, in this order.</p>
 
 <p>The function checks if the algebra <var class="Arg">A</var> is a finite dimensional (quotient of a) path algebra, and returns an error message otherwise.</p>
 
@@ -561,7 +631,9 @@ gap&gt; inc:=DirectSumInclusions(N2);
 <h5>6.5-3 IndecInjectiveModules</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IndecInjectiveModules</code>( <var class="Arg">A[, list]</var> )</td><td class="tdright">( operation )</td></tr></table></div>
-<p><b>Returns: </b>a list of all the indecomposable injective representations over a finite dimensional (quotient of a) path algebra <var class="Arg">A</var>, when only one argument is supplied. The second argument should be a list of integers, for example [1, 3, 4], which will return the indecomposable injective corresponding to vertex 1, 3 and 4, in this order.</p>
+<p>Arguments: <var class="Arg">A</var> -- a finite dimensional (quotient of a) path algebra, (optional) <var class="Arg">list</var> -- a list of integers. <br /></p>
+
+<p><b>Returns: </b>a list of all the indecomposable injective representations over <var class="Arg">A</var>, when only one argument is supplied. The second argument should be a list of integers, for example [1, 3, 4], which will return the indecomposable injective corresponding to vertex 1, 3 and 4, in this order.</p>
 
 <p>The function checks if the algebra <var class="Arg">A</var> is a finite dimensional (quotient of a) path algebra, and returns an error message otherwise.</p>
 
@@ -570,7 +642,9 @@ gap&gt; inc:=DirectSumInclusions(N2);
 <h5>6.5-4 SimpleModules</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; SimpleModules</code>( <var class="Arg">A</var> )</td><td class="tdright">( operation )</td></tr></table></div>
-<p><b>Returns: </b>a list of all the simple representations over a finite dimensional (quotient of a) path algebra <var class="Arg">A</var> .</p>
+<p>Arguments: <var class="Arg">A</var> -- a finite dimensional (quotient of a) path algebra. <br /></p>
+
+<p><b>Returns: </b>a list of all the simple representations over <var class="Arg">A</var> .</p>
 
 <p>The function checks if the algebra <var class="Arg">A</var> is a finite dimensional (quotient of a) path algebra, and returns an error message otherwise.</p>
 
@@ -579,7 +653,9 @@ gap&gt; inc:=DirectSumInclusions(N2);
 <h5>6.5-5 ZeroModule</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; ZeroModule</code>( <var class="Arg">A</var> )</td><td class="tdright">( operation )</td></tr></table></div>
-<p><b>Returns: </b>the zero representation over a finite dimensional (quotient of a) path algebra <var class="Arg">A</var> .</p>
+<p>Arguments: <var class="Arg">A</var> -- a finite dimensional (quotient of a) path algebra. <br /></p>
+
+<p><b>Returns: </b>the zero representation over <var class="Arg">A</var> .</p>
 
 <p>The function checks if the algebra <var class="Arg">A</var> is a finite dimensional (quotient of a) path algebra, and returns an error message otherwise.</p>
 
@@ -592,14 +668,18 @@ gap&gt; inc:=DirectSumInclusions(N2);
 <h5>6.6-1 DualOfModule</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; DualOfModule</code>( <var class="Arg">M</var> )</td><td class="tdright">( operation )</td></tr></table></div>
-<p>Takes the a representation <var class="Arg">M</var> of a path algebra $KQ$ and produces the dual of this representation over the opposite path algebra <var class="Arg">KQ_op</var>.</p>
+<p>Arguments: <var class="Arg">M</var> -- a representation of a path algebra $KQ$. <br /></p>
+
+<p><b>Returns: </b>the dual of <var class="Arg">M</var> over the opposite path algebra <var class="Arg">KQ_op</var>.</p>
 
 <p><a id="X847DDC417BFB8515" name="X847DDC417BFB8515"></a></p>
 
 <h5>6.6-2 DualOfModuleHomomorphism</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; DualOfModuleHomomorphism</code>( <var class="Arg">f</var> )</td><td class="tdright">( operation )</td></tr></table></div>
-<p>Takes the a map <var class="Arg">f</var> between two representations <var class="Arg">M</var> and <var class="Arg">N</var> over a path algebra $A$ and produces the dual of this map over the opposite path algebra <var class="Arg">A^op</var>.</p>
+<p>Arguments: <var class="Arg">f</var> -- a map between two representations <var class="Arg">M</var> and <var class="Arg">N</var> over a path algebra $A$. <br /></p>
+
+<p><b>Returns: </b>the dual of this map over the opposite path algebra <var class="Arg">A^op</var>.</p>
 
 <p><a id="X82D31F887C14E921" name="X82D31F887C14E921"></a></p>
 
@@ -607,9 +687,9 @@ gap&gt; inc:=DirectSumInclusions(N2);
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; DTr</code>( <var class="Arg">M[, n]</var> )</td><td class="tdright">( operation )</td></tr></table></div>
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; DualOfTranspose</code>( <var class="Arg">M[, n]</var> )</td><td class="tdright">( operation )</td></tr></table></div>
-<p><b>Returns: </b>the dual of the transpose of the module <var class="Arg">M</var> when called with only one argument, while it returns the dual of the transpose applied to <var class="Arg">M</var> <var class="Arg">n</var> times otherwise. If <var class="Arg">n</var> is negative, then powers of <code class="code">TrD</code> are computed. <code class="func">DualOfTranspose</code> is a synonym for <code class="func">DTr</code>.</p>
+<p>Arguments: <var class="Arg">M</var> -- a path algebra module, (optional) <var class="Arg">n</var> -- an integer. <br /></p>
 
-<p>The argument <var class="Arg">M</var> must be a <code class="code">PathAlgebraMatModule</code> and <var class="Arg">n</var> must be an integer.</p>
+<p><b>Returns: </b>the dual of the transpose of <var class="Arg">M</var> when called with only one argument, while it returns the dual of the transpose applied to <var class="Arg">M</var> <var class="Arg">n</var> times otherwise. If <var class="Arg">n</var> is negative, then powers of <code class="code">TrD</code> are computed. <code class="func">DualOfTranspose</code> is a synonym for <code class="func">DTr</code>.</p>
 
 <p><a id="X7939949279208FA3" name="X7939949279208FA3"></a></p>
 
@@ -617,18 +697,18 @@ gap&gt; inc:=DirectSumInclusions(N2);
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; TrD</code>( <var class="Arg">M[, n]</var> )</td><td class="tdright">( operation )</td></tr></table></div>
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; TransposeOfDual</code>( <var class="Arg">M[, n]</var> )</td><td class="tdright">( operation )</td></tr></table></div>
-<p><b>Returns: </b>the transpose of the dual of the module <var class="Arg">M</var> when called with only one argument, while it returns the transpose of the dual applied to <var class="Arg">M</var> <var class="Arg">n</var> times otherwise. If <var class="Arg">n</var> is negative, then powers of <code class="code">TrD</code> are computed. <code class="func">TransposeOfDual</code> is a synonym for <code class="func">TrD</code>.</p>
+<p>Arguments: <var class="Arg">M</var> -- a path algebra module, (optional) <var class="Arg">n</var> -- an integer. <br /></p>
 
-<p>The argument <var class="Arg">M</var> must be a <code class="code">PathAlgebraMatModule</code> and <var class="Arg">n</var> must be an integer.</p>
+<p><b>Returns: </b>the transpose of the dual of <var class="Arg">M</var> when called with only one argument, while it returns the transpose of the dual applied to <var class="Arg">M</var> <var class="Arg">n</var> times otherwise. If <var class="Arg">n</var> is negative, then powers of <code class="code">TrD</code> are computed. <code class="func">TransposeOfDual</code> is a synonym for <code class="func">TrD</code>.</p>
 
 <p><a id="X79C0B620842128AF" name="X79C0B620842128AF"></a></p>
 
 <h5>6.6-5 TransposeOfModule</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; TransposeOfModule</code>( <var class="Arg">M</var> )</td><td class="tdright">( operation )</td></tr></table></div>
-<p><b>Returns: </b>the transpose of the module <var class="Arg">M</var>.</p>
+<p>Arguments: <var class="Arg">M</var> -- a path algebra module. <br /></p>
 
-<p>The argument <var class="Arg">M</var> must be a <code class="code">PathAlgebraMatModule</code>.</p>
+<p><b>Returns: </b>the transpose of the module <var class="Arg">M</var>.</p>
 
 <p><a id="X8097F19E8228B68C" name="X8097F19E8228B68C"></a></p>
 
@@ -641,9 +721,11 @@ gap&gt; inc:=DirectSumInclusions(N2);
 <h5>6.7-1 RightProjectiveModule</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; RightProjectiveModule</code>( <var class="Arg">A, verts</var> )</td><td class="tdright">( function )</td></tr></table></div>
-<p><b>Returns: </b>the right projective module over <var class="Arg">A</var> which is the direct sum of projective modules of the form <var class="Arg">vA</var> where the vertices are taken from the list of vertices <var class="Arg">verts</var>.</p>
+<p>Arguments: <var class="Arg">A</var> -- a (quotient of a) path algebra, <var class="Arg">verts</var> -- a list of vertices. <br /></p>
 
-<p>In this implemenation the algebra can be a quotient of a path algebra. So if the list was $[v,w]$ then the module created will be the direct sum $vA \oplus wA$, in that order. Elements of the modules are vectors of algebra elements, and in each component, each path begins with the vertex in that position in the list of vertices. Right projective modules are implementated as algebra modules (see "ref:Representations of Algebras") and all operations for algebra modules are applicable to right projective modules. In particular, one can construct submodules using `SubAlgebraModule'.</p>
+<p><b>Returns: </b>the right projective module over <var class="Arg">A</var> which is the direct sum of projective modules of the form <var class="Arg">vA</var> where the vertices are taken from <var class="Arg">verts</var>.</p>
+
+<p>In this implementation the algebra can be a quotient of a path algebra. So if the list was $[v,w]$ then the module created will be the direct sum $vA \oplus wA$, in that order. Elements of the modules are vectors of algebra elements, and in each component, each path begins with the vertex in that position in the list of vertices. Right projective modules are implementated as algebra modules (see "ref:Representations of Algebras") and all operations for algebra modules are applicable to right projective modules. In particular, one can construct submodules using `SubAlgebraModule'.</p>
 
 <p>Here we create the right projective module $P = vA \oplus vA \oplus wA$.</p>
 
@@ -667,7 +749,9 @@ gap&gt; Dimension(P);
 <h5>6.7-2 Vectorize</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; Vectorize</code>( <var class="Arg">M, components</var> )</td><td class="tdright">( function )</td></tr></table></div>
-<p><b>Returns: </b>a vector in the module <var class="Arg">M</var> from a list of path algebra elements <var class="Arg">components</var>, which defines the components in the resulting vector.</p>
+<p>Arguments: <var class="Arg">M</var> -- a module over a path algebra, <var class="Arg">components</var> -- a list of elements of <var class="Arg">M</var>. <br /></p>
+
+<p><b>Returns: </b>a vector in <var class="Arg">M</var> from a list of path algebra elements <var class="Arg">components</var>, which defines the components in the resulting vector.</p>
 
 <p>The returned vector is normalized, so the vector's components may not match the input components.</p>
 
@@ -693,7 +777,11 @@ gap&gt; Dimension(S);
 <h5>6.7-3 ^</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; ^</code>( <var class="Arg">m, a</var> )</td><td class="tdright">( operation )</td></tr></table></div>
-<p>The operation <code class="func">^</code> operates on an element <var class="Arg">m</var> in a module and an element <var class="Arg">a</var> in a path algebra, and it returns the element <var class="Arg">m</var> multiplied with <var class="Arg">a</var>. This action is defined by multiplying each component in <var class="Arg">m</var> by <var class="Arg">a</var> on the right.</p>
+<p>Arguments: <var class="Arg">m</var> -- an element of a path algebra module, <var class="Arg">a</var> -- an element of a path algebra. <br /></p>
+
+<p><b>Returns: </b>the element <var class="Arg">m</var> multiplied with <var class="Arg">a</var>.</p>
+
+<p>This action is defined by multiplying each component in <var class="Arg">m</var> by <var class="Arg">a</var> on the right.</p>
 
 
 <table class="example">
@@ -708,7 +796,11 @@ gap&gt; p2^(A.c - A.w);
 <h5>6.7-4 &lt;</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; &lt;</code>( <var class="Arg">m1, m2</var> )</td><td class="tdright">( operation )</td></tr></table></div>
-<p>The operation <code class="func">&lt;</code> operates on elements <var class="Arg">m1</var> and <var class="Arg">m2</var> in ????, and it compares them. The result is `true' if <var class="Arg">m1</var> is less than <var class="Arg">m2</var> and false otherwise. Elements are compared componentwise from left to right using the ordering of the underlying algebra. The element <var class="Arg">m1</var> is less than <var class="Arg">m2</var> if the first time components are not equal, the component of <var class="Arg">m1</var> is less than the corresponding component of <var class="Arg">m2</var>.</p>
+<p>Arguments: <var class="Arg">m1, m2</var> -- two elements of a module over a path algebra (?). <br /></p>
+
+<p><b>Returns: </b>`true' if <var class="Arg">m1</var> is less than <var class="Arg">m2</var> and false otherwise.</p>
+
+<p>Elements are compared componentwise from left to right using the ordering of the underlying algebra. The element <var class="Arg">m1</var> is less than <var class="Arg">m2</var> if the first time components are not equal, the component of <var class="Arg">m1</var> is less than the corresponding component of <var class="Arg">m2</var>.</p>
 
 
 <table class="example">
@@ -722,7 +814,11 @@ false
 <h5>6.7-5 /</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; /</code>( <var class="Arg">M, N</var> )</td><td class="tdright">( operation )</td></tr></table></div>
-<p>The operation <code class="func">/</code> operates on two finite dimensional modules <var class="Arg">M</var> and <var class="Arg">N</var> over a path algebra?, and it constructs the factor module $M/N$. This module is again a right algebra module, and all applicable methods and operations are available for the resulting factor module. Furthermore, the resulting module is a vector space, so operations for computing bases and dimensions are also available.</p>
+<p>Arguments: <var class="Arg">M, N</var> -- two finite dimensional modules over a path algebra (?). <br /></p>
+
+<p><b>Returns: </b>the factor module $M/N$.</p>
+
+<p>This module is again a right algebra module, and all applicable methods and operations are available for the resulting factor module. Furthermore, the resulting module is a vector space, so operations for computing bases and dimensions are also available.</p>
 
 <p>This</p>
 

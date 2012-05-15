@@ -1,6 +1,6 @@
 # GAP Implementation
 # This file was generated from 
-# $Id: pamodule.gi,v 1.17 2012/04/16 09:20:23 sunnyquiver Exp $
+# $Id: pamodule.gi,v 1.18 2012/05/15 06:58:20 sunnyquiver Exp $
 
 ZeroModElement:=function(fam,zero)
   local result,i;
@@ -1159,92 +1159,22 @@ InstallMethod ( MatricesOfPathAlgebraModule,
 end
 );
 
-
+#######################################################################
+##
+#A  MinimalGeneratingSetOfModule( <M> )
+##
+##  This function computes a minimal generating set of the module M. 
+##
 InstallMethod( MinimalGeneratingSetOfModule,
   "for a path algebra module",
   true,
   [ IsPathAlgebraMatModule ], 0,
   function( M )
 
-  local A, K, q, num_vert, arrows_as_path, basis_M, generators, 
-        n, V, W, f, B, i, j, a, b, dim_vect, interval, min_gen, 
-        fam, run_time, vertices, g, v, span_M; 
+  local f;
 
-#    run_time := Runtime();
-    A := RightActingAlgebra(M);
-    K := LeftActingDomain(M);
-    q := QuiverOfPathAlgebra(A);
-    num_vert := Length(VerticesOfQuiver(q));
-#
-# Finding the radical of the representation M
-#
-    arrows_as_path := List(ArrowsOfQuiver(q), x -> x*One(A));
-    basis_M := Basis(M);
-    generators := [];
-    for a in arrows_as_path do
-       for b in basis_M do 
-          if b^a <> Zero(M) then 
-             Add(generators,b^a);
-          fi;
-       od;
-    od;
-#
-# Translating basis for M and a generating set for rad M into 
-# elements in the vector space K^dim(M)+e, where e is the number
-# of vertices with dim_M = 0. 
-#
-    span_M := List(basis_M,x->Flat(ExtRepOfObj(x![1])));
-    V := VectorSpace(K,span_M,"basis");
-    generators := List(generators,x->Flat(ExtRepOfObj(x![1])));
-    W := Subspace(V,generators); 
-# 
-# Computing the natural projective M -> M/rad M and taking inverse
-# image of a basis for M/rad M
-#
-    f := NaturalHomomorphismBySubspace(V,W);
-    B := CanonicalBasis(Range(f));
-    generators := [];
-    for i in [1..Length(B)] do
-       Add(generators,PreImagesRepresentative(f,B[i]));
-    od;
-#
-# Convert the inverse images found above back to elements in the 
-# representation M
-#
-    dim_vect := DimensionVector(M);
-    n := Length(dim_vect);
-    interval := ListWithIdenticalEntries(n+1,0);
-    interval[1] := 1;
-    for i in [1..n] do
-       if dim_vect[i] <> 0 then 
-          interval[i+1] := interval[i] + dim_vect[i];
-       else
-          interval[i+1] := interval[i] + 1;
-       fi;
-    od;
-    fam := FamilyObj(Zero(M)![1]);
-    min_gen := [];
-    for i in [1..Length(B)] do
-       a := [];
-       for j in [1..n] do
-          Add(a,generators[i]{[interval[j]..interval[j+1]-1]});
-       od;
-       Add(min_gen, Objectify( TypeObj(Zero(M)),[ PathModuleElem(fam,a) ]));
-    od;
-    vertices := List(VerticesOfQuiver(q),x->One(A)*x);
-    for g in min_gen do
-       j := 0;
-       for v in vertices do
-          if g^v <> Zero(M) then
-             j := j + 1;
-          fi;
-       od;
-       if j > 1 then 
-          Print("ERROR: Minimal set of generators are NOT right uniform!!!!\n");
-       fi;
-    od; 
-#    Print("Run time: ",Runtime() - run_time,"\n");
-    return min_gen;
+    f := TopOfModuleProjection(M);
+    return List(BasisVectors(Basis(Range(f))), x -> PreImagesRepresentative(f,x));
 end
 );
 

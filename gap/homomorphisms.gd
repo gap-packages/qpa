@@ -1,5 +1,5 @@
 # GAP Declarations
-# $Id: homomorphisms.gd,v 1.11 2012/04/16 09:38:52 sunnyquiver Exp $
+# $Id: homomorphisms.gd,v 1.12 2012/05/15 06:58:20 sunnyquiver Exp $
 
 DeclareCategory("IsPathAlgebraMatModuleHomomorphism", IsAdditiveElementWithZero and IsAdditiveElementWithInverse and IsGeneralMapping and RespectsAddition and RespectsZero and RespectsScalarMultiplication and IsTotal and IsSingleValued ); 
 DeclareCategoryFamily(  "IsPathAlgebraMatModuleHomomorphism" );
@@ -25,12 +25,12 @@ DeclareOperation( "SubRepresentation", [IsPathAlgebraMatModule, IsList]);
 DeclareOperation( "SubRepresentationInclusion", [IsPathAlgebraMatModule, IsList]);
 DeclareOperation( "RadicalOfModule", [IsPathAlgebraMatModule]);
 DeclareOperation( "RadicalOfModuleInclusion", [IsPathAlgebraMatModule]);
-DeclareOperation( "TopOfModule", [IsPathAlgebraMatModule]);
-DeclareOperation( "TopOfModuleProjection", [IsPathAlgebraMatModule]);
+DeclareAttribute( "TopOfModuleProjection", IsPathAlgebraMatModule);
+DeclareAttribute( "TopOfModule", IsPathAlgebraMatModule);
 DeclareOperation( "RightFacApproximation", [IsPathAlgebraMatModule, IsPathAlgebraMatModule]);
 DeclareOperation( "DualOfModuleHomomorphism", [IsPathAlgebraMatModuleHomomorphism]);
-DeclareOperation( "SocleOfModuleInclusion", [IsPathAlgebraMatModule]);
-DeclareOperation( "SocleOfModule", [IsPathAlgebraMatModule]);
+DeclareAttribute( "SocleOfModuleInclusion", IsPathAlgebraMatModule);
+DeclareAttribute( "SocleOfModule", IsPathAlgebraMatModule);
 DeclareOperation( "CommonDirectSummand", [IsPathAlgebraMatModule, IsPathAlgebraMatModule ] ); 
 DeclareOperation( "MaximalCommonDirectSummand", [IsPathAlgebraMatModule, IsPathAlgebraMatModule ] ); 
 DeclareOperation( "IsomorphicModules", [IsPathAlgebraMatModule, IsPathAlgebraMatModule ] ); 

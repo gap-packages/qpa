@@ -330,10 +330,10 @@ InstallMethod( IsProjectiveModule,
 
    top := TopOfModule(M); 
    dimension := 0; 
+   P := IndecProjectiveModules(RightActingAlgebra(M)); 
    for i in [1..Length(DimensionVector(M))] do 
       if DimensionVector(top)[i] <> 0 then 
-         P := IndecProjectiveModules(RightActingAlgebra(M),[i]); 
-         dimension := dimension + Dimension(P[1])*DimensionVector(top)[i];
+         dimension := dimension + Dimension(P[i])*DimensionVector(top)[i];
       fi;
    od; 
 
@@ -1570,7 +1570,7 @@ InstallMethod ( HomFromProjective,
 # And the basis for the correct projective module, and the proj. module itself
 #
 	  B := BasisOfProjectives(A)[pos];
-	  P := IndecProjectiveModules(A)[pos];
+	  P := ShallowCopy(IndecProjectiveModules(A)[pos]);
 #
 # Then we calculate the matrices for the homomorphism
 #

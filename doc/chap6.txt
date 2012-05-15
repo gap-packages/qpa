@@ -25,11 +25,16 @@
   
   [2X> RightModuleOverPathAlgebra( [0X[3XA, mats[0X[2X ) ___________________________[0Xoperation
   [2X> RightModuleOverPathAlgebra( [0X[3XA, dim_vector, gens[0X[2X ) _______________[0Xoperation
+  
+  Arguments:  [3XA[0m -- a (quotient of a) path algebra, [3Xmats[0m -- a list of matrices,
+  [3Xdim_vector[0m -- the dimension vector of the module, [3Xgens[0m -- a list of elements
+  (generators). For further explanations, see below.
+  
   [6XReturns:[0X  a  module over a path algebra or over a qoutient of a path algebra
             in the second variant.
   
-  In  the  first function call, [3XA[0m is a (quotient of a ) path algebra. The list
-  of matrices [3Xmats[0m can take on three different forms.
+  In  the  first  function  call,  the list of matrices [3Xmats[0m can take on three
+  different forms.
   
   1) The argument [3Xmats[0m can be a list of blocks of matrices where each block is
   of  the  form,  `["name of arrow",matrix]'. So if you named your arrows when
@@ -60,11 +65,10 @@
   matrices  and  vector  spaces are correct and match, and that each arrow has
   only one matrix assigned to it.
   
-  In the second function call, the first argument [3XA[0m is a (quotient of a ) path
-  algebra,  the  second  argument  [3Xdim_vector[0m  is  the dimension vector of the
-  module,  and  the  last  argument [3Xgens[0m (maybe an empty list []) is a list of
-  elements  of  the  form  ["label",matrix].  This function constructs a right
-  module  over  a  (quotient  of  a)  path  algebra  [3XA[0m  with  dimension vector
+  In the second function call, the second argument [3Xdim_vector[0m is the dimension
+  vector of the module, and the last argument [3Xgens[0m (maybe an empty list []) is
+  a  list of elements of the form ["label",matrix]. This function constructs a
+  right  module  over  a  (quotient of a) path algebra [3XA[0m with dimension vector
   [3Xdim_vector[0m,  and where the generators/arrows with a non-zero action is given
   in    the    list    [3Xgens[0m.    The    format    of    the    list   [3Xgens[0m   is
   [["a",[matrix_a]],["b",[matrix_b]],...],  where  "a"  and  "b" are labels of
@@ -133,6 +137,8 @@
   [1X6.2-1 IsPathAlgebraModule[0m
   
   [2X> IsPathAlgebraModule( [0X[3Xobject[0X[2X ) ______________________________________[0Xfilter
+  [6XReturns:[0X  true  or false depending on whether [3Xobject[0m belongs to the category
+            [10XIsPathAlgebraModule[0m.
   
   These  matrix  modules  fall  under  the category `IsAlgebraModule' with the
   added  filter  of  `IsPathAlgebraModule'.  Operations  available for algebra
@@ -148,11 +154,14 @@
   
   [2X> ^( [0X[3Xm, p[0X[2X ) _______________________________________________________[0Xoperation
   
-  The  operation [2X^[0m operates on an element [3Xm[0m in a module and a path [3Xp[0m in a path
-  algebra,  and it returns the element [3Xm[0m multiplied with [3Xp[0m. When you act on an
-  module  element  $m$  by  an arrow $a$ from $v$ to $w$, the component of $m$
-  from  $V$ is acted on by $L$ the transformation associated to $a$ and placed
-  in the component $W$ . All other components are given the value $0$.
+  Arguments: [3Xm[0m -- an element in a module, [3Xp[0m -- a path in a path algebra.
+  
+  [6XReturns:[0X  the element [3Xm[0m multiplied with [3Xp[0m.
+  
+  When  you  act on an module element $m$ by an arrow $a$ from $v$ to $w$, the
+  component  of  $m$ from $V$ is acted on by $L$ the transformation associated
+  to  $a$  and placed in the component $W$. All other components are given the
+  value $0$.
   
   [4X---------------------------  Example  ----------------------------[0X
     [4Xgap> # Using the path algebra P from the above example. [0X
@@ -213,6 +222,9 @@
   [1X6.4-1 CommonDirectSummand[0m
   
   [2X> CommonDirectSummand( [0X[3XM, N[0X[2X ) _____________________________________[0Xoperation
+  
+  Arguments: [3XM[0m and [3XN[0m -- two path algebra modules.
+  
   [6XReturns:[0X  a  list of four modules [[3XX[0m,[3XU[0m,[3XX[0m, [3XV[0m], where [3XX[0m is one common non-zero
             direct  summand of [3XM[0m and [3XN[0m, the sum of [3XX[0m and [3XU[0m is [3XM[0m and the sum of
             [3XX[0m  and [3XV[0m is [3XN[0m, if such a non-zero direct summand exists. Otherwise
@@ -224,8 +236,10 @@
   [1X6.4-2 DimensionVector[0m
   
   [2X> DimensionVector( [0X[3XM[0X[2X ) ____________________________________________[0Xoperation
-  [6XReturns:[0X  the  dimension vector of the representation [3XM[0m. The argument [3XM[0m must
-            be a [10XPathAlgebraMatModule[0m.
+  
+  Arguments: [3XM[0m -- a path algebra module ([10XPathAlgebraMatModule[0m).
+  
+  [6XReturns:[0X  the dimension vector of the representation [3XM[0m.
   
   A  shortcoming  of  this  that it is not defined for modules of quotients of
   path algebras.
@@ -233,12 +247,17 @@
   [1X6.4-3 Dimension[0m
   
   [2X> Dimension( [0X[3XM[0X[2X ) __________________________________________________[0Xoperation
-  [6XReturns:[0X  the  dimension  of  the representation [3XM[0m. The argument [3XM[0m must be a
-            [10XPathAlgebraMatModule[0m.
+  
+  Arguments: [3XM[0m -- a path algebra module ([10XPathAlgebraMatModule[0m).
+  
+  [6XReturns:[0X  the dimension of the representation [3XM[0m.
   
   [1X6.4-4 IsDirectSummand[0m
   
   [2X> IsDirectSummand( [0X[3XM, N[0X[2X ) _________________________________________[0Xoperation
+  
+  Arguments: [3XM, N[0m -- two path algebra modules ([10XPathAlgebraMatModule[0ms).
+  
   [6XReturns:[0X  true if [3XM[0m is isomorphic to a direct summand of [3XN[0m, otherwise false.
   
   The  function  checks  if  [3XM[0m  and  [3XN[0m are [10XPathAlgebraMatModule[0ms over the same
@@ -247,35 +266,42 @@
   [1X6.4-5 DirectSumOfModules[0m
   
   [2X> DirectSumOfModules( [0X[3XL[0X[2X ) _________________________________________[0Xoperation
+  
+  Arguments:  [3XL[0m  -- a list of [10XPathAlgebraMatModule[0ms over the same (quotient of
+  a) path algebra.
+  
   [6XReturns:[0X  the direct sum of the representations contained in the list [3XL[0m.
   
-  The  argument  [3XL[0m  must  be  a  list  of [10XPathAlgebraMatModule[0m's over the same
-  (quotient  of  a) path algebra. In addition three attributes are attached to
-  the      result,      [10XIsDirectSumOfModules,     DirectSumProjections[0m     and
-  [10XDirectSumInclusions[0m.
+  In    addition    three    attributes    are   attached   to   the   result,
+  [10XIsDirectSumOfModules, DirectSumProjections[0m and [10XDirectSumInclusions[0m.
   
   [1X6.4-6 IsDirectSumOfModules[0m
   
   [2X> IsDirectSumOfModules( [0X[3XM[0X[2X ) _______________________________________[0Xattribute
   
-  An   attribute,   returns   true   is  [3XM[0m  is  constructed  via  the  command
-  [10XDirectSumOfModules[0m.
+  Arguments: [3XM[0m -- a path algebra module ([10XPathAlgebraMatModule[0m).
+  
+  [6XReturns:[0X  true if [3XM[0m is constructed via the command [10XDirectSumOfModules[0m.
   
   [1X6.4-7 DirectSumInclusions[0m
   
   [2X> DirectSumInclusions( [0X[3XM[0X[2X ) ________________________________________[0Xattribute
   
-  An  attribute, returns the list of inclusions from the individual modules to
-  their   direct   sum,   when   a  direct  sum  has  been  constructed  using
-  [10XDirectSumOfModules[0m.
+  Arguments: [3XM[0m -- a path algebra module ([10XPathAlgebraMatModule[0m).
+  
+  [6XReturns:[0X  the list of inclusions from the individual modules to their direct
+            sum,    when   a   direct   sum   has   been   constructed   using
+            [10XDirectSumOfModules[0m.
   
   [1X6.4-8 DirectSumProjections[0m
   
   [2X> DirectSumProjections( [0X[3XM[0X[2X ) _______________________________________[0Xattribute
   
-  An  attribute,  returns  the  list of projections from the direct sum to the
-  individual  modules used to construct direct sum, when a direct sum has been
-  constructed using [10XDirectSumOfModules[0m.
+  Arguments: [3XM[0m -- a path algebra module ([10XPathAlgebraMatModule[0m).
+  
+  [6XReturns:[0X  the  list  of  projections  from  the direct sum to the individual
+            modules  used  to construct direct sum, when a direct sum has been
+            constructed using [10XDirectSumOfModules[0m.
   
   Using the example above.
   
@@ -314,12 +340,17 @@
   [1X6.4-9 1stSyzygy[0m
   
   [2X> 1stSyzygy( [0X[3XM[0X[2X ) __________________________________________________[0Xoperation
-  [6XReturns:[0X  the  first syzygy of the representation [3XM[0m as a representation. The
-            argument [3XM[0m must be a [10XPathAlgebraMatModule[0m.
+  
+  Arguments: [3XM[0m -- a path algebra module ([10XPathAlgebraMatModule[0m).
+  
+  [6XReturns:[0X  the first syzygy of the representation [3XM[0m as a representation.
   
   [1X6.4-10 IsInAdditiveClosure[0m
   
   [2X> IsInAdditiveClosure( [0X[3XM, N[0X[2X ) _____________________________________[0Xoperation
+  
+  Arguments: [3XM, N[0m -- two path algebra modules ([10XPathAlgebraMatModule[0ms).
+  
   [6XReturns:[0X  true  if  [3XM[0m  is in the additive closure of the module [3XN[0m, otherwise
             false.
   
@@ -329,38 +360,52 @@
   [1X6.4-11 IsOmegaPeriodic[0m
   
   [2X> IsOmegaPeriodic( [0X[3XM, n[0X[2X ) _________________________________________[0Xoperation
+  
+  Arguments:  [3XM[0m  --  a  path  algebra module ([10XPathAlgebraMatModule[0m), [3Xn[0m -- be a
+  positive integer.
+  
   [6XReturns:[0X  [10Xi[0m,  where  [10Xi[0m is the smallest positive integer less or equal [10Xn[0m such
             that  the  representation [3XM[0m is isomorphic to the [10Xi[0m-th syzygy of [3XM[0m,
-            and    false    otherwise.    The    argument    [3XM[0m   must   be   a
-            [10XPathAlgebraMatModule[0m, and [3Xn[0m must be a positive integer.
+            and false otherwise.
   
   [1X6.4-12 IsInjectiveModule[0m
   
   [2X> IsInjectiveModule( [0X[3XM[0X[2X ) __________________________________________[0Xoperation
-  [6XReturns:[0X  true  if the representation [3XM[0m is injective. The argument [3XM[0m must be
-            a [10XPathAlgebraMatModule[0m.
+  
+  Arguments: [3XM[0m -- a path algebra module ([10XPathAlgebraMatModule[0m).
+  
+  [6XReturns:[0X  true if the representation [3XM[0m is injective.
   
   [1X6.4-13 IsProjectiveModule[0m
   
   [2X> IsProjectiveModule( [0X[3XM[0X[2X ) _________________________________________[0Xoperation
-  [6XReturns:[0X  true if the representation [3XM[0m is projective. The argument [3XM[0m must be
-            a [10XPathAlgebraMatModule[0m.
+  
+  Arguments: [3XM[0m -- a path algebra module ([10XPathAlgebraMatModule[0m).
+  
+  [6XReturns:[0X  true if the representation [3XM[0m is projective.
   
   [1X6.4-14 IsSemisimpleModule[0m
   
   [2X> IsSemisimpleModule( [0X[3XM[0X[2X ) _________________________________________[0Xoperation
-  [6XReturns:[0X  true if the representation [3XM[0m is semisimple. The argument [3XM[0m must be
-            a [10XPathAlgebraMatModule[0m.
+  
+  Arguments: [3XM[0m -- a path algebra module ([10XPathAlgebraMatModule[0m).
+  
+  [6XReturns:[0X  true if the representation [3XM[0m is semisimple.
   
   [1X6.4-15 IsSimpleModule[0m
   
   [2X> IsSimpleModule( [0X[3XM[0X[2X ) _____________________________________________[0Xoperation
-  [6XReturns:[0X  true  if  the representation [3XM[0m is simple. The argument [3XM[0m must be a
-            [10XPathAlgebraMatModule[0m.
+  
+  Arguments: [3XM[0m -- a path algebra module ([10XPathAlgebraMatModule[0m).
+  
+  [6XReturns:[0X  true if the representation [3XM[0m is simple.
   
   [1X6.4-16 LoewyLength[0m
   
   [2X> LoewyLength( [0X[3XM[0X[2X ) ________________________________________________[0Xoperation
+  
+  Arguments: [3XM[0m -- a path algebra module ([10XPathAlgebraMatModule[0m).
+  
   [6XReturns:[0X  the Loewy length of the module [3XM[0m.
   
   The  function checks that the module [3XM[0m is a module over a finite dimensional
@@ -370,6 +415,9 @@
   [1X6.4-17 MaximalCommonDirectSummand[0m
   
   [2X> MaximalCommonDirectSummand( [0X[3XM, N[0X[2X ) ______________________________[0Xoperation
+  
+  Arguments: [3XM, N[0m -- two path algebra modules ([10XPathAlgebraMatModule[0ms).
+  
   [6XReturns:[0X  a  list  of  three  modules  [[3XX[0m,[3XU[0m,[3XV[0m],  where [3XX[0m is a maximal common
             non-zero  direct  summand  of [3XM[0m and [3XN[0m, the sum of [3XX[0m and [3XU[0m is [3XM[0m and
             the sum of [3XX[0m and [3XV[0m is [3XN[0m, if such a non-zero maximal direct summand
@@ -381,6 +429,9 @@
   [1X6.4-18 IsomorphicModules[0m
   
   [2X> IsomorphicModules( [0X[3XM, N[0X[2X ) _______________________________________[0Xoperation
+  
+  Arguments: [3XM, N[0m -- two path algebra modules ([10XPathAlgebraMatModule[0ms).
+  
   [6XReturns:[0X  true or false depending on whether [3XM[0m and [3XN[0m are isomorphic or not.
   
   The  function  first checks if the modules [3XM[0m and [3XN[0m are modules over the same
@@ -390,23 +441,31 @@
   [1X6.4-19 NthSyzygy[0m
   
   [2X> NthSyzygy( [0X[3XM, n[0X[2X ) _______________________________________________[0Xoperation
+  
+  Arguments:  [3XM[0m  --  a  path  algebra  module  ([10XPathAlgebraMatModule[0m),  [3Xn[0m -- a
+  positive integer.
+  
   [6XReturns:[0X  the  top  of the syzygies until a syzygy is projective or the [3Xn[0m-th
-            syzygy   has   been   computed.   The   argument   [3XM[0m   must  be  a
-            [10XPathAlgebraMatModule[0m,  and  the  argument  [3Xn[0m  must  be  a positive
-            integer.
+            syzygy has been computed.
   
   [1X6.4-20 NthSyzygyNC[0m
   
   [2X> NthSyzygyNC( [0X[3XM, n[0X[2X ) _____________________________________________[0Xoperation
+  
+  Arguments:  [3XM[0m  --  a  path  algebra  module  ([10XPathAlgebraMatModule[0m),  [3Xn[0m -- a
+  positive integer.
+  
   [6XReturns:[0X  the  [10Xn[0m-th  syzygy of the module [3XM[0m, unless the projective dimension
             of  [3XM[0m  is  less  or  equal  to  [10Xn-1[0m,  in which case it returns the
             projective dimension of [3XM[0m. It does not check if the [10Xn[0m-th syzygy is
-            projective  or not. The argument [3XM[0m must be a [10XPathAlgebraMatModule[0m,
-            and the argument [3Xn[0m must be a positive integer.
+            projective or not.
   
   [1X6.4-21 RadicalOfModule[0m
   
   [2X> RadicalOfModule( [0X[3XM[0X[2X ) ____________________________________________[0Xoperation
+  
+  Arguments: [3XM[0m -- a path algebra module ([10XPathAlgebraMatModule[0m).
+  
   [6XReturns:[0X  the radical of the module [3XM[0m.
   
   This  returns  only the representation given by the radical of the module [3XM[0m.
@@ -416,6 +475,9 @@
   [1X6.4-22 RadicalSeries[0m
   
   [2X> RadicalSeries( [0X[3XM[0X[2X ) ______________________________________________[0Xoperation
+  
+  Arguments: [3XM[0m -- a path algebra module ([10XPathAlgebraMatModule[0m).
+  
   [6XReturns:[0X  the radical series of the module [3XM[0m.
   
   The  function  gives  the radical series as a list of vectors [10X[n_1,...,n_s][0m,
@@ -426,6 +488,9 @@
   [1X6.4-23 SocleSeries[0m
   
   [2X> SocleSeries( [0X[3XM[0X[2X ) ________________________________________________[0Xoperation
+  
+  Arguments: [3XM[0m -- a path algebra module ([10XPathAlgebraMatModule[0m).
+  
   [6XReturns:[0X  the socle series of the module [3XM[0m.
   
   The  function  gives  the  socle  series as a list of vectors [10X[n_1,...,n_s][0m,
@@ -436,6 +501,9 @@
   [1X6.4-24 SocleOfModule[0m
   
   [2X> SocleOfModule( [0X[3XM[0X[2X ) ______________________________________________[0Xoperation
+  
+  Arguments: [3XM[0m -- a path algebra module ([10XPathAlgebraMatModule[0m).
+  
   [6XReturns:[0X  the socle of the module [3XM[0m.
   
   This  operation  only  return  the  representation given by the socle of the
@@ -445,6 +513,10 @@
   [1X6.4-25 SubRepresentation[0m
   
   [2X> SubRepresentation( [0X[3XM, gens[0X[2X ) ____________________________________[0Xoperation
+  
+  Arguments:  [3XM[0m  --  a  path  algebra  module  ([10XPathAlgebraMatModule[0m), [3Xgens[0m --
+  elements in [3XM[0m.
+  
   [6XReturns:[0X  the submodule of the module [3XM[0m generated by the elements [3Xgens[0m.
   
   The  function checks if [3Xgens[0m are elements in [3XM[0m, and returns an error message
@@ -454,6 +526,9 @@
   [1X6.4-26 SupportModuleElement[0m
   
   [2X> SupportModuleElement( [0X[3Xm[0X[2X ) _______________________________________[0Xoperation
+  
+  Arguments: [3Xm[0m -- an element of a path algebra module.
+  
   [6XReturns:[0X  the  primitive  idempotents [3Xv[0m in the algebra over which the module
             containing the element [3Xm[0m is a module, such that [3Xm^v[0m is non-zero.
   
@@ -463,6 +538,9 @@
   [1X6.4-27 TopOfModule[0m
   
   [2X> TopOfModule( [0X[3XM[0X[2X ) ________________________________________________[0Xoperation
+  
+  Arguments: [3XM[0m -- a path algebra module ([10XPathAlgebraMatModule[0m).
+  
   [6XReturns:[0X  the top of the module [3XM[0m.
   
   This  returns  only the representation given by the top of the module [3XM[0m. The
@@ -472,15 +550,20 @@
   [1X6.4-28 MinimalGeneratingSetOfModule[0m
   
   [2X> MinimalGeneratingSetOfModule( [0X[3XM[0X[2X ) _______________________________[0Xattribute
+  
+  Arguments: [3XM[0m -- a path algebra module ([10XPathAlgebraMatModule[0m).
+  
   [6XReturns:[0X  a  minimal  generator  set of the module [3XM[0m as a module of the path
             algebra it is defined over.
   
   [1X6.4-29 MatricesOfPathAlgebraModule[0m
   
   [2X> MatricesOfPathAlgebraModule( [0X[3XM[0X[2X ) ________________________________[0Xoperation
+  
+  Arguments: [3XM[0m -- a path algebra module ([10XPathAlgebraMatModule[0m).
+  
   [6XReturns:[0X  a  list  of  the  matrices  that defines the representation [3XM[0m as a
-            right  module of the acting path algebra. The argument [3XM[0m must be a
-            [10XPathAlgebraMatModule[0m.
+            right module of the acting path algebra.
   
   The  list  of  matrices  that are returned are not the same identical to the
   matrices  entered to define the representation if there is zero vector space
@@ -497,10 +580,12 @@
   [1X6.5-1 BasisOfProjectives[0m
   
   [2X> BasisOfProjectives( [0X[3XA[0X[2X ) _________________________________________[0Xoperation
+  
+  Arguments: [3XA[0m -- a finite dimensional (quotient of a) path algebra.
+  
   [6XReturns:[0X  a   list   of   bases   for   all  the  indecomposable  projective
-            representations  over  a  finite  dimensional (quotient of a) path
-            algebra [3XA[0m. The basis for each indecomposable projective is given a
-            list of elements in nontips in [3XA[0m.
+            representations   over   [3XA[0m.  The  basis  for  each  indecomposable
+            projective is given a list of elements in nontips in [3XA[0m.
   
   The function checks if the algebra [3XA[0m is a finite dimensional (quotient of a)
   path algebra, and returns an error message otherwise.
@@ -508,12 +593,15 @@
   [1X6.5-2 IndecProjectiveModules[0m
   
   [2X> IndecProjectiveModules( [0X[3XA[, list][0X[2X ) _____________________________[0Xoperation
-  [6XReturns:[0X  a list of all the indecomposable projective representations over a
-            finite  dimensional  (quotient of a) path algebra [3XA[0m, when only one
-            argument  is  supplied.  The  second  argument should be a list of
-            integers,   for   example   [1,  3,  4],  which  will  return  the
-            indecomposable  projective  corresponding to vertex 1, 3 and 4, in
-            this order.
+  
+  Arguments:  [3XA[0m  --  a  finite  dimensional  (quotient  of  a)  path  algebra,
+  (optional) [3Xlist[0m -- a list of integers.
+  
+  [6XReturns:[0X  a  list  of all the indecomposable projective representations over
+            [3XA[0m,  when only one argument is supplied. The second argument should
+            be  a  list  of integers, for example [1, 3, 4], which will return
+            the  indecomposable projective corresponding to vertex 1, 3 and 4,
+            in this order.
   
   The function checks if the algebra [3XA[0m is a finite dimensional (quotient of a)
   path algebra, and returns an error message otherwise.
@@ -521,10 +609,13 @@
   [1X6.5-3 IndecInjectiveModules[0m
   
   [2X> IndecInjectiveModules( [0X[3XA[, list][0X[2X ) ______________________________[0Xoperation
-  [6XReturns:[0X  a  list of all the indecomposable injective representations over a
-            finite  dimensional  (quotient of a) path algebra [3XA[0m, when only one
-            argument  is  supplied.  The  second  argument should be a list of
-            integers,   for   example   [1,  3,  4],  which  will  return  the
+  
+  Arguments:  [3XA[0m  --  a  finite  dimensional  (quotient  of  a)  path  algebra,
+  (optional) [3Xlist[0m -- a list of integers.
+  
+  [6XReturns:[0X  a list of all the indecomposable injective representations over [3XA[0m,
+            when  only one argument is supplied. The second argument should be
+            a  list  of integers, for example [1, 3, 4], which will return the
             indecomposable  injective  corresponding  to vertex 1, 3 and 4, in
             this order.
   
@@ -534,8 +625,10 @@
   [1X6.5-4 SimpleModules[0m
   
   [2X> SimpleModules( [0X[3XA[0X[2X ) ______________________________________________[0Xoperation
-  [6XReturns:[0X  a list of all the simple representations over a finite dimensional
-            (quotient of a) path algebra [3XA[0m .
+  
+  Arguments: [3XA[0m -- a finite dimensional (quotient of a) path algebra.
+  
+  [6XReturns:[0X  a list of all the simple representations over [3XA[0m .
   
   The function checks if the algebra [3XA[0m is a finite dimensional (quotient of a)
   path algebra, and returns an error message otherwise.
@@ -543,8 +636,10 @@
   [1X6.5-5 ZeroModule[0m
   
   [2X> ZeroModule( [0X[3XA[0X[2X ) _________________________________________________[0Xoperation
-  [6XReturns:[0X  the  zero representation over a finite dimensional (quotient of a)
-            path algebra [3XA[0m .
+  
+  Arguments: [3XA[0m -- a finite dimensional (quotient of a) path algebra.
+  
+  [6XReturns:[0X  the zero representation over [3XA[0m .
   
   The function checks if the algebra [3XA[0m is a finite dimensional (quotient of a)
   path algebra, and returns an error message otherwise.
@@ -556,44 +651,50 @@
   
   [2X> DualOfModule( [0X[3XM[0X[2X ) _______________________________________________[0Xoperation
   
-  Takes the a representation [3XM[0m of a path algebra $KQ$ and produces the dual of
-  this representation over the opposite path algebra [3XKQ_op[0m.
+  Arguments: [3XM[0m -- a representation of a path algebra $KQ$.
+  
+  [6XReturns:[0X  the dual of [3XM[0m over the opposite path algebra [3XKQ_op[0m.
   
   [1X6.6-2 DualOfModuleHomomorphism[0m
   
   [2X> DualOfModuleHomomorphism( [0X[3Xf[0X[2X ) ___________________________________[0Xoperation
   
-  Takes  the  a  map [3Xf[0m between two representations [3XM[0m and [3XN[0m over a path algebra
-  $A$ and produces the dual of this map over the opposite path algebra [3XA^op[0m.
+  Arguments:  [3Xf[0m  --  a  map  between  two  representations [3XM[0m and [3XN[0m over a path
+  algebra $A$.
+  
+  [6XReturns:[0X  the dual of this map over the opposite path algebra [3XA^op[0m.
   
   [1X6.6-3 DTr[0m
   
   [2X> DTr( [0X[3XM[, n][0X[2X ) ___________________________________________________[0Xoperation
   [2X> DualOfTranspose( [0X[3XM[, n][0X[2X ) _______________________________________[0Xoperation
-  [6XReturns:[0X  the  dual  of  the transpose of the module [3XM[0m when called with only
-            one  argument,  while it returns the dual of the transpose applied
-            to  [3XM[0m  [3Xn[0m times otherwise. If [3Xn[0m is negative, then powers of [10XTrD[0m are
-            computed. [2XDualOfTranspose[0m is a synonym for [2XDTr[0m.
   
-  The argument [3XM[0m must be a [10XPathAlgebraMatModule[0m and [3Xn[0m must be an integer.
+  Arguments: [3XM[0m -- a path algebra module, (optional) [3Xn[0m -- an integer.
+  
+  [6XReturns:[0X  the dual of the transpose of [3XM[0m when called with only one argument,
+            while  it  returns  the dual of the transpose applied to [3XM[0m [3Xn[0m times
+            otherwise.  If  [3Xn[0m  is  negative,  then powers of [10XTrD[0m are computed.
+            [2XDualOfTranspose[0m is a synonym for [2XDTr[0m.
   
   [1X6.6-4 TrD[0m
   
   [2X> TrD( [0X[3XM[, n][0X[2X ) ___________________________________________________[0Xoperation
   [2X> TransposeOfDual( [0X[3XM[, n][0X[2X ) _______________________________________[0Xoperation
-  [6XReturns:[0X  the  transpose  of  the dual of the module [3XM[0m when called with only
-            one  argument,  while it returns the transpose of the dual applied
-            to  [3XM[0m  [3Xn[0m times otherwise. If [3Xn[0m is negative, then powers of [10XTrD[0m are
-            computed. [2XTransposeOfDual[0m is a synonym for [2XTrD[0m.
   
-  The argument [3XM[0m must be a [10XPathAlgebraMatModule[0m and [3Xn[0m must be an integer.
+  Arguments: [3XM[0m -- a path algebra module, (optional) [3Xn[0m -- an integer.
+  
+  [6XReturns:[0X  the transpose of the dual of [3XM[0m when called with only one argument,
+            while  it  returns  the transpose of the dual applied to [3XM[0m [3Xn[0m times
+            otherwise.  If  [3Xn[0m  is  negative,  then powers of [10XTrD[0m are computed.
+            [2XTransposeOfDual[0m is a synonym for [2XTrD[0m.
   
   [1X6.6-5 TransposeOfModule[0m
   
   [2X> TransposeOfModule( [0X[3XM[0X[2X ) __________________________________________[0Xoperation
-  [6XReturns:[0X  the transpose of the module [3XM[0m.
   
-  The argument [3XM[0m must be a [10XPathAlgebraMatModule[0m.
+  Arguments: [3XM[0m -- a path algebra module.
+  
+  [6XReturns:[0X  the transpose of the module [3XM[0m.
   
   
   [1X6.7 Vertex Projective Presentations[0X
@@ -611,12 +712,15 @@
   [1X6.7-1 RightProjectiveModule[0m
   
   [2X> RightProjectiveModule( [0X[3XA, verts[0X[2X ) ________________________________[0Xfunction
+  
+  Arguments: [3XA[0m -- a (quotient of a) path algebra, [3Xverts[0m -- a list of vertices.
+  
   [6XReturns:[0X  the  right  projective  module  over  [3XA[0m which is the direct sum of
             projective  modules  of  the  form [3XvA[0m where the vertices are taken
-            from the list of vertices [3Xverts[0m.
+            from [3Xverts[0m.
   
-  In this implemenation the algebra can be a quotient of a path algebra. So if
-  the  list  was  $[v,w]$  then  the module created will be the direct sum $vA
+  In  this  implementation the algebra can be a quotient of a path algebra. So
+  if  the  list was $[v,w]$ then the module created will be the direct sum $vA
   \oplus  wA$,  in  that order. Elements of the modules are vectors of algebra
   elements,  and  in  each component, each path begins with the vertex in that
   position in the list of vertices. Right projective modules are implementated
@@ -642,8 +746,12 @@
   [1X6.7-2 Vectorize[0m
   
   [2X> Vectorize( [0X[3XM, components[0X[2X ) _______________________________________[0Xfunction
-  [6XReturns:[0X  a  vector  in  the  module  [3XM[0m from a list of path algebra elements
-            [3Xcomponents[0m, which defines the components in the resulting vector.
+  
+  Arguments:  [3XM[0m  --  a  module  over  a  path algebra, [3Xcomponents[0m -- a list of
+  elements of [3XM[0m.
+  
+  [6XReturns:[0X  a  vector  in  [3XM[0m  from a list of path algebra elements [3Xcomponents[0m,
+            which defines the components in the resulting vector.
   
   The  returned vector is normalized, so the vector's components may not match
   the input components.
@@ -669,9 +777,12 @@
   
   [2X> ^( [0X[3Xm, a[0X[2X ) _______________________________________________________[0Xoperation
   
-  The  operation  [2X^[0m operates on an element [3Xm[0m in a module and an element [3Xa[0m in a
-  path algebra, and it returns the element [3Xm[0m multiplied with [3Xa[0m. This action is
-  defined by multiplying each component in [3Xm[0m by [3Xa[0m on the right.
+  Arguments:  [3Xm[0m  --  an element of a path algebra module, [3Xa[0m -- an element of a
+  path algebra.
+  
+  [6XReturns:[0X  the element [3Xm[0m multiplied with [3Xa[0m.
+  
+  This action is defined by multiplying each component in [3Xm[0m by [3Xa[0m on the right.
   
   [4X---------------------------  Example  ----------------------------[0X
     [4Xgap> p2^(A.c - A.w);[0X
@@ -683,8 +794,10 @@
   
   [2X> <( [0X[3Xm1, m2[0X[2X ) _____________________________________________________[0Xoperation
   
-  The  operation  [2X<[0m  operates  on  elements [3Xm1[0m and [3Xm2[0m in ????, and it compares
-  them.  The  result  is  `true'  if  [3Xm1[0m  is less than [3Xm2[0m and false otherwise.
+  Arguments: [3Xm1, m2[0m -- two elements of a module over a path algebra (?).
+  
+  [6XReturns:[0X  `true' if [3Xm1[0m is less than [3Xm2[0m and false otherwise.
+  
   Elements are compared componentwise from left to right using the ordering of
   the  underlying  algebra.  The  element [3Xm1[0m is less than [3Xm2[0m if the first time
   components are not equal, the component of [3Xm1[0m is less than the corresponding
@@ -699,12 +812,14 @@
   
   [2X> /( [0X[3XM, N[0X[2X ) _______________________________________________________[0Xoperation
   
-  The  operation  [2X/[0m  operates on two finite dimensional modules [3XM[0m and [3XN[0m over a
-  path  algebra?,  and  it  constructs the factor module $M/N$. This module is
-  again  a right algebra module, and all applicable methods and operations are
-  available for the resulting factor module. Furthermore, the resulting module
-  is a vector space, so operations for computing bases and dimensions are also
-  available.
+  Arguments: [3XM, N[0m -- two finite dimensional modules over a path algebra (?).
+  
+  [6XReturns:[0X  the factor module $M/N$.
+  
+  This  module is again a right algebra module, and all applicable methods and
+  operations  are  available for the resulting factor module. Furthermore, the
+  resulting  module  is  a vector space, so operations for computing bases and
+  dimensions are also available.
   
   This
   

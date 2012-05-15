@@ -23,9 +23,9 @@
   [2XAlmostSplitSequence[0X  7.5-1
   [2XArrowsOfQuiver[0X  2.5-3
   [2XBasisOfProjectives[0X  6.5-1
-  [2XCartanMatrix[0X  3.9-6
-  [2XCentre/Center[0X  3.9-9
-  [2XCoefficients[0X  3.9-3
+  [2XCartanMatrix[0X  3.9-5
+  [2XCentre/Center[0X  3.9-8
+  [2XCoefficients[0X  3.9-2
   [2XCoKernel[0X  7.3-1
   [2XCoKernelOfWhat[0X  7.2-13
   [2XCoKernelProjection[0X  7.3-1
@@ -33,8 +33,8 @@
   [2XCompletelyReduce[0X  4.3-1
   [2XCompletelyReduceGroebnerBasis[0X  4.3-2
   [2XComplex[0X  8.2-3
-  [2XCoxeterMatrix[0X  3.9-7
-  [2XCoxeterPolynomial[0X  3.9-8
+  [2XCoxeterMatrix[0X  3.9-6
+  [2XCoxeterPolynomial[0X  3.9-7
   [2XDimension[0X  6.4-3
   [2XDimensionVector[0X  6.4-2
   [2XDirectSumInclusions[0X  6.4-7
@@ -77,9 +77,8 @@
   [2XIsComplex[0X  8.2-1
   [2XIsDirectSummand[0X  6.4-4
   [2XIsDirectSumOfModules[0X  6.4-6
-  [2XIsElementOfQuotientOfPathAlgebra[0X  3.9-2
+  [2XIsElementOfQuotientOfPathAlgebra[0X  3.9-1
   [2XIsEnvelopingAlgebra[0X  3.12-10
-  [2XIsFinite[0X  2.3-3
   [2XIsGroebnerBasis[0X  4.2-1
   [2XIsHomogeneousGroebnerBasis[0X  4.2-4
   [2XIsInAdditiveClosure[0X  6.4-10
@@ -101,7 +100,7 @@
   [2XIsQuotientOfPathAlgebra[0X  3.8-1
   [2XIsRightGroebnerBasis[0X  4.4-1
   [2XIsRightUniform[0X  3.5-3
-  [2XIsSelfinjectiveAlgebra[0X  3.9-4
+  [2XIsSelfinjectiveAlgebra[0X  3.9-3
   [2XIsSemisimpleModule[0X  6.4-14
   [2XIsSimpleModule[0X  6.4-15
   [2XIsSplitEpimorphism[0X  7.2-18
@@ -124,7 +123,7 @@
   [2XLengthOfPath[0X  2.7-3
   [2XLiftingInclusionMorphisms[0X  7.3-7
   [2XLiftingMorphismFromProjective[0X  7.3-8
-  [2XLoewyLength[0X  3.9-5
+  [2XLoewyLength[0X  3.9-4
   [2XLoewyLength[0X  6.4-16
   [2XMakeUniformOnRight[0X  3.5-8
   [2XMappedExpression[0X  3.5-9
@@ -141,7 +140,6 @@
   [2XNeighborsOfVertex[0X  2.8-5
   [2XNontips[0X  4.3-7
   [2XNontipSize[0X  4.3-9
-  [2XNormalFormFunction[0X  3.9-1
   [2XNthPowerOfArrowIdeal[0X  3.7-3
   [2XNthSyzygy[0X  6.4-19
   [2XNthSyzygyNC[0X  6.4-20

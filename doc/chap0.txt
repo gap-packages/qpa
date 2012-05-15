@@ -72,7 +72,6 @@
     2.3 Categories and Properties of Quivers
       2.3-1 IsQuiver
       2.3-2 IsAcyclicQuiver
-      2.3-3 IsFinite
     2.4 Orderings of paths in a quiver
     2.5 Attributes and Operations for Quivers
       2.5-1 .
@@ -134,15 +133,14 @@
     3.8 Categories and Properties of Quotients of Path Algebras
       3.8-1 IsQuotientOfPathAlgebra
     3.9 Attributes and Operations for Quotients of Path Algebras
-      3.9-1 NormalFormFunction
-      3.9-2 IsElementOfQuotientOfPathAlgebra
-      3.9-3 Coefficients
-      3.9-4 IsSelfinjectiveAlgebra
-      3.9-5 LoewyLength
-      3.9-6 CartanMatrix
-      3.9-7 CoxeterMatrix
-      3.9-8 CoxeterPolynomial
-      3.9-9 Centre/Center
+      3.9-1 IsElementOfQuotientOfPathAlgebra
+      3.9-2 Coefficients
+      3.9-3 IsSelfinjectiveAlgebra
+      3.9-4 LoewyLength
+      3.9-5 CartanMatrix
+      3.9-6 CoxeterMatrix
+      3.9-7 CoxeterPolynomial
+      3.9-8 Centre/Center
     3.10 Attributes and Operations on Elements of Quotients of Path Algebra
       3.10-1 IsNormalForm
       3.10-2 <

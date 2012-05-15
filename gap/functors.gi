@@ -1,6 +1,6 @@
 # GAP Implementation
 # This file was generated from 
-# $Id: functors.gi,v 1.7 2012/04/16 09:20:23 sunnyquiver Exp $
+# $Id: functors.gi,v 1.8 2012/05/15 06:58:20 sunnyquiver Exp $
 InstallMethod ( DualOfModule,
     "for a representation of a quiver",
     [ IsPathAlgebraMatModule ], 0,
@@ -214,7 +214,7 @@ else
    PP:= IndecProjectiveModules(A); 
    P_list := [];
    for i in [1..Length(projective_cover)] do
-      Add(P_list,PP[projective_cover[i]]);
+      Add(P_list,ShallowCopy(PP[projective_cover[i]]));
    od;
    P_0:= DirectSumOfModules(P_list); 
 #
@@ -254,7 +254,7 @@ else
 #
 # Constructing the projective cover of the transpose of M.
 #
-   P_0op_list := List(P1_list,x->PPop[x]);
+   P_0op_list := List(P1_list,x -> ShallowCopy(PPop[x]));
    P_0op := DirectSumOfModules(P_0op_list);
 #
 # Constructing the transpose as the coker of the inclusion of the image

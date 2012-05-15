@@ -351,10 +351,10 @@ functions for constructing quivers in Section \ref{Constructing Quivers}.
 \subsection{\textcolor{Chapter }{Quiver}}
 \logpage{[ 2, 2, 1 ]}\nobreak
 \hyperdef{L}{X871563F685BE93A2}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{Quiver({\slshape N[, arrow1, arrow2, ...]})\index{Quiver@\texttt{Quiver}}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{Quiver({\slshape N, arrows})\index{Quiver@\texttt{Quiver}}
 \label{Quiver}
 }\hfill{\scriptsize (function)}}\\
-\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{Quiver({\slshape [vertex1, vertex2, ..., ][arrow1, arrow2, ...]})\index{Quiver@\texttt{Quiver}}
+\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{Quiver({\slshape vertices, arrows})\index{Quiver@\texttt{Quiver}}
 \label{Quiver}
 }\hfill{\scriptsize (function)}}\\
 \noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{Quiver({\slshape adjacencymatrix})\index{Quiver@\texttt{Quiver}}
@@ -362,7 +362,7 @@ functions for constructing quivers in Section \ref{Constructing Quivers}.
 }\hfill{\scriptsize (function)}}\\
 
 
-Arguments: First construction: \mbox{\texttt{\slshape N}} -- number of vertices, \mbox{\texttt{\slshape [arrow1, arrow2, ...]}} -- a list of arrows to specify the graph $\Gamma$. Second construction: \mbox{\texttt{\slshape [vertex1, vertex2, ...]}} -- a list of vertex names, \mbox{\texttt{\slshape [arrow1, arrow2, ...]}} -- a list of arrows. Third construction: takes an adjacency matrix for the
+Arguments: First construction: \mbox{\texttt{\slshape N}} -- number of vertices, \mbox{\texttt{\slshape arrows}} -- a list of arrows to specify the graph $\Gamma$. Second construction: \mbox{\texttt{\slshape vertices}} -- a list of vertex names, \mbox{\texttt{\slshape arrows}} -- a list of arrows. Third construction: takes an adjacency matrix for the
 graph $\Gamma$. \\
 \textbf{\indent Returns:\ }
 a quiver, which satisfies the property \texttt{IsQuiver} (\ref{IsQuiver}).
@@ -436,9 +436,10 @@ a copy of \mbox{\texttt{\slshape quiver}} whose elements are ordered by \mbox{\t
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsQuiver({\slshape object})\index{IsQuiver@\texttt{IsQuiver}}
 \label{IsQuiver}
 }\hfill{\scriptsize (property)}}\\
+\textbf{\indent Returns:\ }
+ true when \mbox{\texttt{\slshape object}} is a quiver. 
 
-
- is true when \mbox{\texttt{\slshape object}} is a quiver. }
+}
 
  
 
@@ -448,21 +449,10 @@ a copy of \mbox{\texttt{\slshape quiver}} whose elements are ordered by \mbox{\t
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsAcyclicQuiver({\slshape quiver})\index{IsAcyclicQuiver@\texttt{IsAcyclicQuiver}}
 \label{IsAcyclicQuiver}
 }\hfill{\scriptsize (property)}}\\
+\textbf{\indent Returns:\ }
+ true when \mbox{\texttt{\slshape quiver}} is a quiver with no oriented cycles. 
 
-
- is true when \mbox{\texttt{\slshape quiver}} is a quiver with no cycles. }
-
- 
-
-\subsection{\textcolor{Chapter }{IsFinite}}
-\logpage{[ 2, 3, 3 ]}\nobreak
-\hyperdef{L}{X808A4061809A6E67}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsFinite({\slshape quiver})\index{IsFinite@\texttt{IsFinite}}
-\label{IsFinite}
-}\hfill{\scriptsize (property)}}\\
-
-
- is true when \mbox{\texttt{\slshape quiver}} is a finite set. Synonymous with `IsAcyclicQuiver'. }
+}
 
  
 \begin{Verbatim}[fontsize=\small,frame=single,label=Example]
@@ -953,9 +943,8 @@ source and the same target and if they have the same walks.
 \section{\textcolor{Chapter }{Introduction}}\logpage{[ 3, 1, 0 ]}
 \hyperdef{L}{X7DFB63A97E67C0A1}{}
 {
-  A path algebra is an algebra constructed from a field $F$ [REF] and a quiver $Q$. The path algebra $FQ$ contains all finite linear combinations of elements of $Q$. This chapter describes the functions in \textsf{QPA} that deal with path algebras and quotients of path algebras. Path algebras are
-algebras, so see Chapter [REF]"ref:algebras" for functionality such as
-generators, basis functions, and mappings.        }
+  A path algebra is an algebra constructed from a field $F$ (see chapter 56 and 57 in the \textsf{GAP} manual for information about fields) and a quiver $Q$. The path algebra $FQ$ contains all finite linear combinations of paths of $Q$. This chapter describes the functions in \textsf{QPA} that deal with path algebras and quotients of path algebras. Path algebras are
+algebras, so see chapter 60: Algebras in the \textsf{GAP} manual for functionality such as generators, basis functions, and mappings.        }
 
  
 \section{\textcolor{Chapter }{Constructing Path Algebras}}\label{Constructing Paths}
@@ -978,8 +967,7 @@ the path algebra $FQ$ of \mbox{\texttt{\slshape Q}} over the field \mbox{\texttt
 
 
 
-For construction of fields, see the GAP documentation [REF]. The elements of
-the path algebra $FQ$ will be ordered by left length-lexicographic ordering. }
+For construction of fields, see the \textsf{GAP} documentation. The elements of the path algebra $FQ$ will be ordered by left length-lexicographic ordering. }
 
  
 \begin{Verbatim}[fontsize=\small,frame=single,label=Example]
@@ -1007,7 +995,7 @@ the path algebra $FQ$ will be ordered by left length-lexicographic ordering. }
 }\hfill{\scriptsize (property)}}\\
 
 
- Arguments: \mbox{\texttt{\slshape object}} -- any object in GAP. \\
+ Arguments: \mbox{\texttt{\slshape object}} -- any object in \textsf{GAP}. \\
  \textbf{\indent Returns:\ }
 true whenever \mbox{\texttt{\slshape object}} is a path algebra. 
 
@@ -1313,9 +1301,9 @@ of the generators. For further operations on elements, see below. }
 \section{\textcolor{Chapter }{Constructing Quotients of Path Algebras}}\logpage{[ 3, 6, 0 ]}
 \hyperdef{L}{X7F0D555379C97A6E}{}
 {
-  See Chapter [REF]"ref:algebras" on how to construct an ideal and a quotient of
-an algebra. When the quotient is constructed, it is still a path algebra and
-thus the commands introduced for path algebras also works with quotients. }
+  See Chapter 60: Algebras in the \textsf{GAP} manual on how to construct an ideal and a quotient of an algebra. When the
+quotient is constructed, it is still a path algebra and thus the commands
+introduced for path algebras also works with quotients. }
 
  
 \section{\textcolor{Chapter }{Ideals}}\logpage{[ 3, 7, 0 ]}
@@ -1344,7 +1332,7 @@ the ideal of \mbox{\texttt{\slshape FQ}} generated by \mbox{\texttt{\slshape ele
 
 
 
-For more on ideals, see the GAP reference manual [REF]. }
+For more on ideals, see the \textsf{GAP} reference manual (chapter 60.6). }
 
  
 \begin{Verbatim}[fontsize=\small,frame=single,label=Example]
@@ -1427,7 +1415,7 @@ on Groebner bases.
 }\hfill{\scriptsize (property)}}\\
 
 
- Argument: \mbox{\texttt{\slshape object}} -- any object in GAP.\\
+ Argument: \mbox{\texttt{\slshape object}} -- any object in \textsf{GAP}.\\
  \textbf{\indent Returns:\ }
  true whenever \mbox{\texttt{\slshape object}} is a quotient of a path algebra. 
 
@@ -1448,30 +1436,17 @@ on Groebner bases.
 \section{\textcolor{Chapter }{Attributes and Operations for Quotients of Path Algebras}}\logpage{[ 3, 9, 0 ]}
 \hyperdef{L}{X86647D317A961513}{}
 {
- 
-
-\subsection{\textcolor{Chapter }{NormalFormFunction}}
-\logpage{[ 3, 9, 1 ]}\nobreak
-\hyperdef{L}{X826641507CFBE943}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{NormalFormFunction({\slshape object})\index{NormalFormFunction@\texttt{NormalFormFunction}}
-\label{NormalFormFunction}
-}\hfill{\scriptsize (attribute)}}\\
-
-
- is a function that can compute normal forms for elements of \mbox{\texttt{\slshape object}}. It may be supplied by the user.\\
- \emph{Note: no documentation on this. Remove??} }
-
- 
+          
 
 \subsection{\textcolor{Chapter }{IsElementOfQuotientOfPathAlgebra}}
-\logpage{[ 3, 9, 2 ]}\nobreak
+\logpage{[ 3, 9, 1 ]}\nobreak
 \hyperdef{L}{X87495684791B5742}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsElementOfQuotientOfPathAlgebra({\slshape object})\index{IsElementOfQuotientOfPathAlgebra@\texttt{IsElementOfQuotientOfPathAlgebra}}
 \label{IsElementOfQuotientOfPathAlgebra}
 }\hfill{\scriptsize (property)}}\\
 
 
- Arguments: \mbox{\texttt{\slshape object}} -- any object in GAP.\\
+ Arguments: \mbox{\texttt{\slshape object}} -- any object in \textsf{GAP}.\\
  \textbf{\indent Returns:\ }
  true whenever \mbox{\texttt{\slshape object}} is an element of some quotient of a path algebra. 
 
@@ -1489,7 +1464,7 @@ on Groebner bases.
  
 
 \subsection{\textcolor{Chapter }{Coefficients}}
-\logpage{[ 3, 9, 3 ]}\nobreak
+\logpage{[ 3, 9, 2 ]}\nobreak
 \hyperdef{L}{X80B32F667BF6AFD8}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{Coefficients({\slshape element})\index{Coefficients@\texttt{Coefficients}}
 \label{Coefficients}
@@ -1497,12 +1472,12 @@ on Groebner bases.
 
 
  The operation \texttt{Coefficients} operates on an \mbox{\texttt{\slshape element}} of a quotient of a path algebra, and it returns the coefficients of the \mbox{\texttt{\slshape element}} in terms of its canonical basis. \\
- \emph{Note: Not in QPA, takes two arguments in GAP.} }
+ \emph{Note: Not in QPA, takes two arguments in \textsf{GAP}.} }
 
  
 
 \subsection{\textcolor{Chapter }{IsSelfinjectiveAlgebra}}
-\logpage{[ 3, 9, 4 ]}\nobreak
+\logpage{[ 3, 9, 3 ]}\nobreak
 \hyperdef{L}{X8555FC6B85FE9C6D}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsSelfinjectiveAlgebra({\slshape A})\index{IsSelfinjectiveAlgebra@\texttt{IsSelfinjectiveAlgebra}}
 \label{IsSelfinjectiveAlgebra}
@@ -1519,7 +1494,7 @@ whether \mbox{\texttt{\slshape A}} is selfinjective or not.
  
 
 \subsection{\textcolor{Chapter }{LoewyLength}}
-\logpage{[ 3, 9, 5 ]}\nobreak
+\logpage{[ 3, 9, 4 ]}\nobreak
 \hyperdef{L}{X7BEA44FB819910B6}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{LoewyLength({\slshape A})\index{LoewyLength@\texttt{LoewyLength}}
 \label{LoewyLength}
@@ -1536,7 +1511,7 @@ algebra \mbox{\texttt{\slshape A}}.
  
 
 \subsection{\textcolor{Chapter }{CartanMatrix}}
-\logpage{[ 3, 9, 6 ]}\nobreak
+\logpage{[ 3, 9, 5 ]}\nobreak
 \hyperdef{L}{X84E3FEF587CB66C3}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{CartanMatrix({\slshape A})\index{CartanMatrix@\texttt{CartanMatrix}}
 \label{CartanMatrix}
@@ -1552,7 +1527,7 @@ the Cartan matrix of the algebra \mbox{\texttt{\slshape A}}, after having checke
  
 
 \subsection{\textcolor{Chapter }{CoxeterMatrix}}
-\logpage{[ 3, 9, 7 ]}\nobreak
+\logpage{[ 3, 9, 6 ]}\nobreak
 \hyperdef{L}{X815CB1D47CB174ED}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{CoxeterMatrix({\slshape A})\index{CoxeterMatrix@\texttt{CoxeterMatrix}}
 \label{CoxeterMatrix}
@@ -1568,7 +1543,7 @@ the Cartan matrix of the algebra \mbox{\texttt{\slshape A}}, after having checke
  
 
 \subsection{\textcolor{Chapter }{CoxeterPolynomial}}
-\logpage{[ 3, 9, 8 ]}\nobreak
+\logpage{[ 3, 9, 7 ]}\nobreak
 \hyperdef{L}{X7F6F526C86052150}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{CoxeterPolynomial({\slshape A})\index{CoxeterPolynomial@\texttt{CoxeterPolynomial}}
 \label{CoxeterPolynomial}
@@ -1584,7 +1559,7 @@ the Cartan matrix of the algebra \mbox{\texttt{\slshape A}}, after having checke
  
 
 \subsection{\textcolor{Chapter }{Centre/Center}}
-\logpage{[ 3, 9, 9 ]}\nobreak
+\logpage{[ 3, 9, 8 ]}\nobreak
 \hyperdef{L}{X80E403A8855F6F7A}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{Centre/Center({\slshape A})\index{Centre/Center@\texttt{Centre/Center}}
 \label{Centre/Center}
@@ -1641,7 +1616,7 @@ true whenever \mbox{\texttt{\slshape a}} {\textless} \mbox{\texttt{\slshape b}}.
 
 }
 
- 
+  
 
 \subsection{\textcolor{Chapter }{ElementOfQuotientOfPathAlgebra}}
 \logpage{[ 3, 10, 3 ]}\nobreak
@@ -1651,14 +1626,13 @@ true whenever \mbox{\texttt{\slshape a}} {\textless} \mbox{\texttt{\slshape b}}.
 }\hfill{\scriptsize (operation)}}\\
 
 
- Arguments: \mbox{\texttt{\slshape family}} -- a family of ???, \mbox{\texttt{\slshape element}} -- an element of in a path algebra, \mbox{\texttt{\slshape computenormal}} -- true or false.\\
+ Arguments: \mbox{\texttt{\slshape family}} -- a family of elements, \mbox{\texttt{\slshape element}} -- an element of a path algebra, \mbox{\texttt{\slshape computenormal}} -- true or false.\\
  \textbf{\indent Returns:\ }
-The projection of \mbox{\texttt{\slshape elem}} into the quotient given by \mbox{\texttt{\slshape family}}. If \mbox{\texttt{\slshape computenormal}} is true, then the normal form of the projection of \mbox{\texttt{\slshape element}} is returned. 
+The projection of \mbox{\texttt{\slshape element}} into the quotient given by \mbox{\texttt{\slshape family}}. If \mbox{\texttt{\slshape computenormal}} is true, then the normal form of the projection of \mbox{\texttt{\slshape element}} is returned. 
 
 
 
-\emph{Notes: \mbox{\texttt{\slshape family}} should be a "IsElementOfQuotientOfPathAlgebraFamily", but this category is
-never declared. Also, the "computenormal" choice is never used.} }
+\mbox{\texttt{\slshape family}} is the ElementsFamily of the family of the algebra \mbox{\texttt{\slshape element}} is in. }
 
  
 
@@ -1697,14 +1671,22 @@ error saying that the algebra entered was not a quotient of a path algebra. }
 }\hfill{\scriptsize (function)}}\\
 
 
- Arguments: \mbox{\texttt{\slshape admiss-seq}} -- an admissible sequence, \mbox{\texttt{\slshape field}} -- a field.\\
+ Arguments: \mbox{\texttt{\slshape admiss-seq}} -- a list of positive integers, \mbox{\texttt{\slshape field}} -- a field.\\
  \textbf{\indent Returns:\ }
- The Nakayama algebra corresponding to \mbox{\texttt{\slshape admiss-seq}} over the field \mbox{\texttt{\slshape field}}, or \texttt{the admissible sequence entered} (\texttt{The admissible sequence is not a valid one}?) if entered sequence is not an admissible sequence. 
+ The Nakayama algebra corresponding to \mbox{\texttt{\slshape admiss-seq}} over the field \mbox{\texttt{\slshape field}}. If the entered sequence is not an admissible sequence, the sequence is
+returned. 
 
 
 
-\emph{Error message??}}
+The \mbox{\texttt{\slshape admiss-seq}} consists of the dimensions of the projective representations.}
 
+ 
+\begin{Verbatim}[fontsize=\small,frame=single,label=Example]
+  gap> alg := NakayamaAlgebra([2,1], Rationals);
+  <algebra-with-one over Rationals, with 3 generators>
+  gap> QuiverOfPathAlgebra(alg);
+  <quiver with 2 vertices and 1 arrows>  
+\end{Verbatim}
  
 
 \subsection{\textcolor{Chapter }{TruncatedPathAlgebra}}
@@ -1762,8 +1744,8 @@ quiver with a vertex from the other). }
 }\hfill{\scriptsize (attribute)}}\\
 
 
- Arguments: \mbox{\texttt{\slshape Q}} -- a quiver \\
-. \textbf{\indent Returns:\ }
+ Arguments: \mbox{\texttt{\slshape Q}} -- a quiver.\\
+ \textbf{\indent Returns:\ }
  the original quivers \mbox{\texttt{\slshape Q}} is a product of, if \mbox{\texttt{\slshape Q}} was created by the \texttt{QuiverProduct} (\ref{QuiverProduct}) operation. 
 
 
@@ -1780,7 +1762,7 @@ quiver with a vertex from the other). }
 }\hfill{\scriptsize (category)}}\\
 
 
- Arguments: \mbox{\texttt{\slshape object}} -- any object in GAP. 
+ Arguments: \mbox{\texttt{\slshape object}} -- any object in \textsf{GAP}. 
 
  Category for objects containing information about the relation between a
 product quiver and the quivers it is a product of. The quiver factors can be
@@ -2402,13 +2384,16 @@ this way as follows.
 \noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{RightModuleOverPathAlgebra({\slshape A, dim{\textunderscore}vector, gens})\index{RightModuleOverPathAlgebra@\texttt{RightModuleOverPathAlgebra}}
 \label{RightModuleOverPathAlgebra}
 }\hfill{\scriptsize (operation)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape A}} -- a (quotient of a) path algebra, \mbox{\texttt{\slshape mats}} -- a list of matrices, \mbox{\texttt{\slshape dim{\textunderscore}vector}} -- the dimension vector of the module, \mbox{\texttt{\slshape gens}} -- a list of elements (generators). For further explanations, see below. \\
 \textbf{\indent Returns:\ }
 a module over a path algebra or over a qoutient of a path algebra in the
 second variant.
 
 
 
- In the first function call, \mbox{\texttt{\slshape A}} is a (quotient of a ) path algebra. The list of matrices \mbox{\texttt{\slshape mats}} can take on three different forms.
+ In the first function call, the list of matrices \mbox{\texttt{\slshape mats}} can take on three different forms.
 
  1) The argument \mbox{\texttt{\slshape mats}} can be a list of blocks of matrices where each block is of the form, `["name
 of arrow",matrix]'. So if you named your arrows when you created the quiver,
@@ -2432,7 +2417,7 @@ error will be returned. The function verifies that the dimensions of the
 matrices and vector spaces are correct and match, and that each arrow has only
 one matrix assigned to it.
 
- In the second function call, the first argument \mbox{\texttt{\slshape A}} is a (quotient of a ) path algebra, the second argument \mbox{\texttt{\slshape dim{\textunderscore}vector}} is the dimension vector of the module, and the last argument \mbox{\texttt{\slshape gens}} (maybe an empty list []) is a list of elements of the form ["label",matrix].
+ In the second function call, the second argument \mbox{\texttt{\slshape dim{\textunderscore}vector}} is the dimension vector of the module, and the last argument \mbox{\texttt{\slshape gens}} (maybe an empty list []) is a list of elements of the form ["label",matrix].
 This function constructs a right module over a (quotient of a) path algebra \mbox{\texttt{\slshape A}} with dimension vector \mbox{\texttt{\slshape dim{\textunderscore}vector}}, and where the generators/arrows with a non-zero action is given in the list \mbox{\texttt{\slshape gens}}. The format of the list \mbox{\texttt{\slshape gens}} is [["a",[matrix{\textunderscore}a]],["b",[matrix{\textunderscore}b]],...],
 where "a" and "b" are labels of arrows used when the underlying quiver was
 created and matrix{\textunderscore}? is the action of the algebra element
@@ -2507,6 +2492,9 @@ also whether or not the relations of the algebra are satisfied. }
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsPathAlgebraModule({\slshape object})\index{IsPathAlgebraModule@\texttt{IsPathAlgebraModule}}
 \label{IsPathAlgebraModule}
 }\hfill{\scriptsize (filter)}}\\
+\textbf{\indent Returns:\ }
+ true or false depending on whether \mbox{\texttt{\slshape object}} belongs to the category \texttt{IsPathAlgebraModule}.
+
 
 
  These matrix modules fall under the category `IsAlgebraModule' with the added
@@ -2532,7 +2520,13 @@ elementwise operations available. }
 }\hfill{\scriptsize (operation)}}\\
 
 
- The operation \texttt{\texttt{\symbol{94}}} operates on an element \mbox{\texttt{\slshape m}} in a module and a path \mbox{\texttt{\slshape p}} in a path algebra, and it returns the element \mbox{\texttt{\slshape m}} multiplied with \mbox{\texttt{\slshape p}}. When you act on an module element $m$ by an arrow $a$ from $v$ to $w$, the component of $m$ from $V$ is acted on by $L$ the transformation associated to $a$ and placed in the component $W$ . All other components are given the value $0$. }
+ Arguments: \mbox{\texttt{\slshape m}} -- an element in a module, \mbox{\texttt{\slshape p}} -- a path in a path algebra. \\
+\textbf{\indent Returns:\ }
+ the element \mbox{\texttt{\slshape m}} multiplied with \mbox{\texttt{\slshape p}}. 
+
+
+
+ When you act on an module element $m$ by an arrow $a$ from $v$ to $w$, the component of $m$ from $V$ is acted on by $L$ the transformation associated to $a$ and placed in the component $W$. All other components are given the value $0$. }
 
  
 \begin{Verbatim}[fontsize=\small,frame=single,label=Example]
@@ -2601,6 +2595,9 @@ elementwise operations available. }
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{CommonDirectSummand({\slshape M, N})\index{CommonDirectSummand@\texttt{CommonDirectSummand}}
 \label{CommonDirectSummand}
 }\hfill{\scriptsize (operation)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape M}} and \mbox{\texttt{\slshape N}} -- two path algebra modules. \\
 \textbf{\indent Returns:\ }
 a list of four modules [\mbox{\texttt{\slshape X}},\mbox{\texttt{\slshape U}},\mbox{\texttt{\slshape X}}, \mbox{\texttt{\slshape V}}], where \mbox{\texttt{\slshape X}} is one common non-zero direct summand of \mbox{\texttt{\slshape M}} and \mbox{\texttt{\slshape N}}, the sum of \mbox{\texttt{\slshape X}} and \mbox{\texttt{\slshape U}} is \mbox{\texttt{\slshape M}} and the sum of \mbox{\texttt{\slshape X}} and \mbox{\texttt{\slshape V}} is \mbox{\texttt{\slshape N}}, if such a non-zero direct summand exists. Otherwise it returns false.
 
@@ -2616,8 +2613,11 @@ The function checks if \mbox{\texttt{\slshape M}} and \mbox{\texttt{\slshape N}}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{DimensionVector({\slshape M})\index{DimensionVector@\texttt{DimensionVector}}
 \label{DimensionVector}
 }\hfill{\scriptsize (operation)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape M}} -- a path algebra module (\texttt{PathAlgebraMatModule}). \\
 \textbf{\indent Returns:\ }
-the dimension vector of the representation \mbox{\texttt{\slshape M}}. The argument \mbox{\texttt{\slshape M}} must be a \texttt{PathAlgebraMatModule}. 
+the dimension vector of the representation \mbox{\texttt{\slshape M}}. 
 
 
 
@@ -2632,8 +2632,11 @@ algebras. }
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{Dimension({\slshape M})\index{Dimension@\texttt{Dimension}}
 \label{Dimension}
 }\hfill{\scriptsize (operation)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape M}} -- a path algebra module (\texttt{PathAlgebraMatModule}). \\
 \textbf{\indent Returns:\ }
-the dimension of the representation \mbox{\texttt{\slshape M}}. The argument \mbox{\texttt{\slshape M}} must be a \texttt{PathAlgebraMatModule}. 
+the dimension of the representation \mbox{\texttt{\slshape M}}. 
 
 }
 
@@ -2645,6 +2648,9 @@ the dimension of the representation \mbox{\texttt{\slshape M}}. The argument \mb
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsDirectSummand({\slshape M, N})\index{IsDirectSummand@\texttt{IsDirectSummand}}
 \label{IsDirectSummand}
 }\hfill{\scriptsize (operation)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape M, N}} -- two path algebra modules (\texttt{PathAlgebraMatModule}s). \\
 \textbf{\indent Returns:\ }
 true if \mbox{\texttt{\slshape M}} is isomorphic to a direct summand of \mbox{\texttt{\slshape N}}, otherwise false.
 
@@ -2660,13 +2666,15 @@ The function checks if \mbox{\texttt{\slshape M}} and \mbox{\texttt{\slshape N}}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{DirectSumOfModules({\slshape L})\index{DirectSumOfModules@\texttt{DirectSumOfModules}}
 \label{DirectSumOfModules}
 }\hfill{\scriptsize (operation)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape L}} -- a list of \texttt{PathAlgebraMatModule}s over the same (quotient of a) path algebra. \\
 \textbf{\indent Returns:\ }
 the direct sum of the representations contained in the list \mbox{\texttt{\slshape L}}.
 
 
 
-The argument \mbox{\texttt{\slshape L}} must be a list of \texttt{PathAlgebraMatModule}'s over the same (quotient of a) path algebra. In addition three attributes
-are attached to the result, \texttt{IsDirectSumOfModules, DirectSumProjections} and \texttt{DirectSumInclusions}. }
+In addition three attributes are attached to the result, \texttt{IsDirectSumOfModules, DirectSumProjections} and \texttt{DirectSumInclusions}. }
 
  
 
@@ -2678,7 +2686,11 @@ are attached to the result, \texttt{IsDirectSumOfModules, DirectSumProjections} 
 }\hfill{\scriptsize (attribute)}}\\
 
 
- An attribute, returns true is \mbox{\texttt{\slshape M}} is constructed via the command \texttt{DirectSumOfModules}. }
+ Arguments: \mbox{\texttt{\slshape M}} -- a path algebra module (\texttt{PathAlgebraMatModule}). \\
+\textbf{\indent Returns:\ }
+ true if \mbox{\texttt{\slshape M}} is constructed via the command \texttt{DirectSumOfModules}. 
+
+}
 
  
 
@@ -2690,8 +2702,12 @@ are attached to the result, \texttt{IsDirectSumOfModules, DirectSumProjections} 
 }\hfill{\scriptsize (attribute)}}\\
 
 
- An attribute, returns the list of inclusions from the individual modules to
-their direct sum, when a direct sum has been constructed using \texttt{DirectSumOfModules}. }
+ Arguments: \mbox{\texttt{\slshape M}} -- a path algebra module (\texttt{PathAlgebraMatModule}). \\
+\textbf{\indent Returns:\ }
+ the list of inclusions from the individual modules to their direct sum, when a
+direct sum has been constructed using \texttt{DirectSumOfModules}. 
+
+}
 
  
 
@@ -2703,9 +2719,12 @@ their direct sum, when a direct sum has been constructed using \texttt{DirectSum
 }\hfill{\scriptsize (attribute)}}\\
 
 
- An attribute, returns the list of projections from the direct sum to the
-individual modules used to construct direct sum, when a direct sum has been
-constructed using \texttt{DirectSumOfModules}. }
+ Arguments: \mbox{\texttt{\slshape M}} -- a path algebra module (\texttt{PathAlgebraMatModule}). \\
+\textbf{\indent Returns:\ }
+ the list of projections from the direct sum to the individual modules used to
+construct direct sum, when a direct sum has been constructed using \texttt{DirectSumOfModules}. 
+
+}
 
  Using the example above. 
 \begin{Verbatim}[fontsize=\small,frame=single,label=Example]
@@ -2747,8 +2766,11 @@ constructed using \texttt{DirectSumOfModules}. }
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{1stSyzygy({\slshape M})\index{1stSyzygy@\texttt{1stSyzygy}}
 \label{1stSyzygy}
 }\hfill{\scriptsize (operation)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape M}} -- a path algebra module (\texttt{PathAlgebraMatModule}). \\
 \textbf{\indent Returns:\ }
-the first syzygy of the representation \mbox{\texttt{\slshape M}} as a representation. The argument \mbox{\texttt{\slshape M}} must be a \texttt{PathAlgebraMatModule}. 
+the first syzygy of the representation \mbox{\texttt{\slshape M}} as a representation. 
 
 }
 
@@ -2760,6 +2782,9 @@ the first syzygy of the representation \mbox{\texttt{\slshape M}} as a represent
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsInAdditiveClosure({\slshape M, N})\index{IsInAdditiveClosure@\texttt{IsInAdditiveClosure}}
 \label{IsInAdditiveClosure}
 }\hfill{\scriptsize (operation)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape M, N}} -- two path algebra modules (\texttt{PathAlgebraMatModule}s). \\
 \textbf{\indent Returns:\ }
 true if \mbox{\texttt{\slshape M}} is in the additive closure of the module \mbox{\texttt{\slshape N}}, otherwise false.
 
@@ -2775,8 +2800,11 @@ The function checks if \mbox{\texttt{\slshape M}} and \mbox{\texttt{\slshape N}}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsOmegaPeriodic({\slshape M, n})\index{IsOmegaPeriodic@\texttt{IsOmegaPeriodic}}
 \label{IsOmegaPeriodic}
 }\hfill{\scriptsize (operation)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape M}} -- a path algebra module (\texttt{PathAlgebraMatModule}), \mbox{\texttt{\slshape n}} -- be a positive integer. \\
 \textbf{\indent Returns:\ }
-\texttt{i}, where \texttt{i} is the smallest positive integer less or equal \texttt{n} such that the representation \mbox{\texttt{\slshape M}} is isomorphic to the \texttt{i}-th syzygy of \mbox{\texttt{\slshape M}}, and false otherwise. The argument \mbox{\texttt{\slshape M}} must be a \texttt{PathAlgebraMatModule}, and \mbox{\texttt{\slshape n}} must be a positive integer. 
+\texttt{i}, where \texttt{i} is the smallest positive integer less or equal \texttt{n} such that the representation \mbox{\texttt{\slshape M}} is isomorphic to the \texttt{i}-th syzygy of \mbox{\texttt{\slshape M}}, and false otherwise. 
 
 }
 
@@ -2788,8 +2816,11 @@ The function checks if \mbox{\texttt{\slshape M}} and \mbox{\texttt{\slshape N}}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsInjectiveModule({\slshape M})\index{IsInjectiveModule@\texttt{IsInjectiveModule}}
 \label{IsInjectiveModule}
 }\hfill{\scriptsize (operation)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape M}} -- a path algebra module (\texttt{PathAlgebraMatModule}). \\
 \textbf{\indent Returns:\ }
-true if the representation \mbox{\texttt{\slshape M}} is injective. The argument \mbox{\texttt{\slshape M}} must be a \texttt{PathAlgebraMatModule}. 
+true if the representation \mbox{\texttt{\slshape M}} is injective. 
 
 }
 
@@ -2801,8 +2832,11 @@ true if the representation \mbox{\texttt{\slshape M}} is injective. The argument
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsProjectiveModule({\slshape M})\index{IsProjectiveModule@\texttt{IsProjectiveModule}}
 \label{IsProjectiveModule}
 }\hfill{\scriptsize (operation)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape M}} -- a path algebra module (\texttt{PathAlgebraMatModule}). \\
 \textbf{\indent Returns:\ }
-true if the representation \mbox{\texttt{\slshape M}} is projective. The argument \mbox{\texttt{\slshape M}} must be a \texttt{PathAlgebraMatModule}. 
+true if the representation \mbox{\texttt{\slshape M}} is projective. 
 
 }
 
@@ -2814,8 +2848,11 @@ true if the representation \mbox{\texttt{\slshape M}} is projective. The argumen
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsSemisimpleModule({\slshape M})\index{IsSemisimpleModule@\texttt{IsSemisimpleModule}}
 \label{IsSemisimpleModule}
 }\hfill{\scriptsize (operation)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape M}} -- a path algebra module (\texttt{PathAlgebraMatModule}). \\
 \textbf{\indent Returns:\ }
-true if the representation \mbox{\texttt{\slshape M}} is semisimple. The argument \mbox{\texttt{\slshape M}} must be a \texttt{PathAlgebraMatModule}. 
+true if the representation \mbox{\texttt{\slshape M}} is semisimple. 
 
 }
 
@@ -2827,8 +2864,11 @@ true if the representation \mbox{\texttt{\slshape M}} is semisimple. The argumen
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsSimpleModule({\slshape M})\index{IsSimpleModule@\texttt{IsSimpleModule}}
 \label{IsSimpleModule}
 }\hfill{\scriptsize (operation)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape M}} -- a path algebra module (\texttt{PathAlgebraMatModule}). \\
 \textbf{\indent Returns:\ }
-true if the representation \mbox{\texttt{\slshape M}} is simple. The argument \mbox{\texttt{\slshape M}} must be a \texttt{PathAlgebraMatModule}. 
+true if the representation \mbox{\texttt{\slshape M}} is simple. 
 
 }
 
@@ -2840,6 +2880,9 @@ true if the representation \mbox{\texttt{\slshape M}} is simple. The argument \m
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{LoewyLength({\slshape M})\index{LoewyLength@\texttt{LoewyLength}}
 \label{LoewyLength}
 }\hfill{\scriptsize (operation)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape M}} -- a path algebra module (\texttt{PathAlgebraMatModule}). \\
 \textbf{\indent Returns:\ }
 the Loewy length of the module \mbox{\texttt{\slshape M}}.
 
@@ -2856,6 +2899,9 @@ fail otherwise (This is not implemented yet). }
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{MaximalCommonDirectSummand({\slshape M, N})\index{MaximalCommonDirectSummand@\texttt{MaximalCommonDirectSummand}}
 \label{MaximalCommonDirectSummand}
 }\hfill{\scriptsize (operation)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape M, N}} -- two path algebra modules (\texttt{PathAlgebraMatModule}s). \\
 \textbf{\indent Returns:\ }
 a list of three modules [\mbox{\texttt{\slshape X}},\mbox{\texttt{\slshape U}},\mbox{\texttt{\slshape V}}], where \mbox{\texttt{\slshape X}} is a maximal common non-zero direct summand of \mbox{\texttt{\slshape M}} and \mbox{\texttt{\slshape N}}, the sum of \mbox{\texttt{\slshape X}} and \mbox{\texttt{\slshape U}} is \mbox{\texttt{\slshape M}} and the sum of \mbox{\texttt{\slshape X}} and \mbox{\texttt{\slshape V}} is \mbox{\texttt{\slshape N}}, if such a non-zero maximal direct summand exists. Otherwise it returns
 false.
@@ -2872,6 +2918,9 @@ The function checks if \mbox{\texttt{\slshape M}} and \mbox{\texttt{\slshape N}}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsomorphicModules({\slshape M, N})\index{IsomorphicModules@\texttt{IsomorphicModules}}
 \label{IsomorphicModules}
 }\hfill{\scriptsize (operation)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape M, N}} -- two path algebra modules (\texttt{PathAlgebraMatModule}s). \\
 \textbf{\indent Returns:\ }
 true or false depending on whether \mbox{\texttt{\slshape M}} and \mbox{\texttt{\slshape N}} are isomorphic or not.
 
@@ -2888,8 +2937,11 @@ returns true if the modules are isomorphic, otherwise false. }
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{NthSyzygy({\slshape M, n})\index{NthSyzygy@\texttt{NthSyzygy}}
 \label{NthSyzygy}
 }\hfill{\scriptsize (operation)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape M}} -- a path algebra module (\texttt{PathAlgebraMatModule}), \mbox{\texttt{\slshape n}} -- a positive integer. \\
 \textbf{\indent Returns:\ }
-the top of the syzygies until a syzygy is projective or the \mbox{\texttt{\slshape n}}-th syzygy has been computed. The argument \mbox{\texttt{\slshape M}} must be a \texttt{PathAlgebraMatModule}, and the argument \mbox{\texttt{\slshape n}} must be a positive integer. 
+the top of the syzygies until a syzygy is projective or the \mbox{\texttt{\slshape n}}-th syzygy has been computed. 
 
 }
 
@@ -2901,8 +2953,11 @@ the top of the syzygies until a syzygy is projective or the \mbox{\texttt{\slsha
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{NthSyzygyNC({\slshape M, n})\index{NthSyzygyNC@\texttt{NthSyzygyNC}}
 \label{NthSyzygyNC}
 }\hfill{\scriptsize (operation)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape M}} -- a path algebra module (\texttt{PathAlgebraMatModule}), \mbox{\texttt{\slshape n}} -- a positive integer. \\
 \textbf{\indent Returns:\ }
-the \texttt{n}-th syzygy of the module \mbox{\texttt{\slshape M}}, unless the projective dimension of \mbox{\texttt{\slshape M}} is less or equal to \texttt{n-1}, in which case it returns the projective dimension of \mbox{\texttt{\slshape M}}. It does not check if the \texttt{n}-th syzygy is projective or not. The argument \mbox{\texttt{\slshape M}} must be a \texttt{PathAlgebraMatModule}, and the argument \mbox{\texttt{\slshape n}} must be a positive integer. 
+the \texttt{n}-th syzygy of the module \mbox{\texttt{\slshape M}}, unless the projective dimension of \mbox{\texttt{\slshape M}} is less or equal to \texttt{n-1}, in which case it returns the projective dimension of \mbox{\texttt{\slshape M}}. It does not check if the \texttt{n}-th syzygy is projective or not. 
 
 }
 
@@ -2914,6 +2969,9 @@ the \texttt{n}-th syzygy of the module \mbox{\texttt{\slshape M}}, unless the pr
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{RadicalOfModule({\slshape M})\index{RadicalOfModule@\texttt{RadicalOfModule}}
 \label{RadicalOfModule}
 }\hfill{\scriptsize (operation)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape M}} -- a path algebra module (\texttt{PathAlgebraMatModule}). \\
 \textbf{\indent Returns:\ }
 the radical of the module \mbox{\texttt{\slshape M}}.
 
@@ -2929,6 +2987,9 @@ the radical of the module \mbox{\texttt{\slshape M}}.
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{RadicalSeries({\slshape M})\index{RadicalSeries@\texttt{RadicalSeries}}
 \label{RadicalSeries}
 }\hfill{\scriptsize (operation)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape M}} -- a path algebra module (\texttt{PathAlgebraMatModule}). \\
 \textbf{\indent Returns:\ }
 the radical series of the module \mbox{\texttt{\slshape M}}.
 
@@ -2945,6 +3006,9 @@ each simple. The first vector listed corresponds to the top layer, and so on. }
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{SocleSeries({\slshape M})\index{SocleSeries@\texttt{SocleSeries}}
 \label{SocleSeries}
 }\hfill{\scriptsize (operation)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape M}} -- a path algebra module (\texttt{PathAlgebraMatModule}). \\
 \textbf{\indent Returns:\ }
 the socle series of the module \mbox{\texttt{\slshape M}}.
 
@@ -2962,6 +3026,9 @@ backwards. }
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{SocleOfModule({\slshape M})\index{SocleOfModule@\texttt{SocleOfModule}}
 \label{SocleOfModule}
 }\hfill{\scriptsize (operation)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape M}} -- a path algebra module (\texttt{PathAlgebraMatModule}). \\
 \textbf{\indent Returns:\ }
 the socle of the module \mbox{\texttt{\slshape M}}.
 
@@ -2977,6 +3044,9 @@ the socle of the module \mbox{\texttt{\slshape M}}.
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{SubRepresentation({\slshape M, gens})\index{SubRepresentation@\texttt{SubRepresentation}}
 \label{SubRepresentation}
 }\hfill{\scriptsize (operation)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape M}} -- a path algebra module (\texttt{PathAlgebraMatModule}), \mbox{\texttt{\slshape gens}} -- elements in \mbox{\texttt{\slshape M}}. \\
 \textbf{\indent Returns:\ }
 the submodule of the module \mbox{\texttt{\slshape M}} generated by the elements \mbox{\texttt{\slshape gens}}.
 
@@ -2993,6 +3063,9 @@ generated by the elements \mbox{\texttt{\slshape gens}} into \mbox{\texttt{\slsh
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{SupportModuleElement({\slshape m})\index{SupportModuleElement@\texttt{SupportModuleElement}}
 \label{SupportModuleElement}
 }\hfill{\scriptsize (operation)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape m}} -- an element of a path algebra module. \\
 \textbf{\indent Returns:\ }
 the primitive idempotents \mbox{\texttt{\slshape v}} in the algebra over which the module containing the element \mbox{\texttt{\slshape m}} is a module, such that \mbox{\texttt{\slshape m\texttt{\symbol{94}}v}} is non-zero.
 
@@ -3009,6 +3082,9 @@ fail otherwise. }
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{TopOfModule({\slshape M})\index{TopOfModule@\texttt{TopOfModule}}
 \label{TopOfModule}
 }\hfill{\scriptsize (operation)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape M}} -- a path algebra module (\texttt{PathAlgebraMatModule}). \\
 \textbf{\indent Returns:\ }
 the top of the module \mbox{\texttt{\slshape M}}.
 
@@ -3024,6 +3100,9 @@ the top of the module \mbox{\texttt{\slshape M}}.
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{MinimalGeneratingSetOfModule({\slshape M})\index{MinimalGeneratingSetOfModule@\texttt{MinimalGeneratingSetOfModule}}
 \label{MinimalGeneratingSetOfModule}
 }\hfill{\scriptsize (attribute)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape M}} -- a path algebra module (\texttt{PathAlgebraMatModule}). \\
 \textbf{\indent Returns:\ }
 a minimal generator set of the module \mbox{\texttt{\slshape M}} as a module of the path algebra it is defined over. 
 
@@ -3037,8 +3116,11 @@ a minimal generator set of the module \mbox{\texttt{\slshape M}} as a module of 
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{MatricesOfPathAlgebraModule({\slshape M})\index{MatricesOfPathAlgebraModule@\texttt{MatricesOfPathAlgebraModule}}
 \label{MatricesOfPathAlgebraModule}
 }\hfill{\scriptsize (operation)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape M}} -- a path algebra module (\texttt{PathAlgebraMatModule}). \\
 \textbf{\indent Returns:\ }
-a list of the matrices that defines the representation \mbox{\texttt{\slshape M}} as a right module of the acting path algebra. The argument \mbox{\texttt{\slshape M}} must be a \texttt{PathAlgebraMatModule}. 
+a list of the matrices that defines the representation \mbox{\texttt{\slshape M}} as a right module of the acting path algebra. 
 
 
 
@@ -3063,9 +3145,11 @@ dimensional quotient of a path algebra.
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{BasisOfProjectives({\slshape A})\index{BasisOfProjectives@\texttt{BasisOfProjectives}}
 \label{BasisOfProjectives}
 }\hfill{\scriptsize (operation)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape A}} -- a finite dimensional (quotient of a) path algebra. \\
 \textbf{\indent Returns:\ }
-a list of bases for all the indecomposable projective representations over a
-finite dimensional (quotient of a) path algebra \mbox{\texttt{\slshape A}}. The basis for each indecomposable projective is given a list of elements in
+a list of bases for all the indecomposable projective representations over \mbox{\texttt{\slshape A}}. The basis for each indecomposable projective is given a list of elements in
 nontips in \mbox{\texttt{\slshape A}}. 
 
 
@@ -3081,9 +3165,11 @@ message otherwise. }
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IndecProjectiveModules({\slshape A[, list]})\index{IndecProjectiveModules@\texttt{IndecProjectiveModules}}
 \label{IndecProjectiveModules}
 }\hfill{\scriptsize (operation)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape A}} -- a finite dimensional (quotient of a) path algebra, (optional) \mbox{\texttt{\slshape list}} -- a list of integers. \\
 \textbf{\indent Returns:\ }
-a list of all the indecomposable projective representations over a finite
-dimensional (quotient of a) path algebra \mbox{\texttt{\slshape A}}, when only one argument is supplied. The second argument should be a list of
+a list of all the indecomposable projective representations over \mbox{\texttt{\slshape A}}, when only one argument is supplied. The second argument should be a list of
 integers, for example [1, 3, 4], which will return the indecomposable
 projective corresponding to vertex 1, 3 and 4, in this order. 
 
@@ -3100,9 +3186,11 @@ message otherwise. }
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IndecInjectiveModules({\slshape A[, list]})\index{IndecInjectiveModules@\texttt{IndecInjectiveModules}}
 \label{IndecInjectiveModules}
 }\hfill{\scriptsize (operation)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape A}} -- a finite dimensional (quotient of a) path algebra, (optional) \mbox{\texttt{\slshape list}} -- a list of integers. \\
 \textbf{\indent Returns:\ }
-a list of all the indecomposable injective representations over a finite
-dimensional (quotient of a) path algebra \mbox{\texttt{\slshape A}}, when only one argument is supplied. The second argument should be a list of
+a list of all the indecomposable injective representations over \mbox{\texttt{\slshape A}}, when only one argument is supplied. The second argument should be a list of
 integers, for example [1, 3, 4], which will return the indecomposable
 injective corresponding to vertex 1, 3 and 4, in this order. 
 
@@ -3119,9 +3207,11 @@ message otherwise. }
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{SimpleModules({\slshape A})\index{SimpleModules@\texttt{SimpleModules}}
 \label{SimpleModules}
 }\hfill{\scriptsize (operation)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape A}} -- a finite dimensional (quotient of a) path algebra. \\
 \textbf{\indent Returns:\ }
-a list of all the simple representations over a finite dimensional (quotient
-of a) path algebra \mbox{\texttt{\slshape A}} . 
+a list of all the simple representations over \mbox{\texttt{\slshape A}} . 
 
 
 
@@ -3136,8 +3226,11 @@ message otherwise. }
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{ZeroModule({\slshape A})\index{ZeroModule@\texttt{ZeroModule}}
 \label{ZeroModule}
 }\hfill{\scriptsize (operation)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape A}} -- a finite dimensional (quotient of a) path algebra. \\
 \textbf{\indent Returns:\ }
-the zero representation over a finite dimensional (quotient of a) path algebra \mbox{\texttt{\slshape A}} . 
+the zero representation over \mbox{\texttt{\slshape A}} . 
 
 
 
@@ -3160,7 +3253,11 @@ message otherwise. }
 }\hfill{\scriptsize (operation)}}\\
 
 
- Takes the a representation \mbox{\texttt{\slshape M}} of a path algebra $KQ$ and produces the dual of this representation over the opposite path algebra \mbox{\texttt{\slshape KQ{\textunderscore}op}}. }
+ Arguments: \mbox{\texttt{\slshape M}} -- a representation of a path algebra $KQ$. \\
+\textbf{\indent Returns:\ }
+ the dual of \mbox{\texttt{\slshape M}} over the opposite path algebra \mbox{\texttt{\slshape KQ{\textunderscore}op}}. 
+
+}
 
  
 
@@ -3172,7 +3269,11 @@ message otherwise. }
 }\hfill{\scriptsize (operation)}}\\
 
 
- Takes the a map \mbox{\texttt{\slshape f}} between two representations \mbox{\texttt{\slshape M}} and \mbox{\texttt{\slshape N}} over a path algebra $A$ and produces the dual of this map over the opposite path algebra \mbox{\texttt{\slshape A\texttt{\symbol{94}}op}}. }
+ Arguments: \mbox{\texttt{\slshape f}} -- a map between two representations \mbox{\texttt{\slshape M}} and \mbox{\texttt{\slshape N}} over a path algebra $A$. \\
+\textbf{\indent Returns:\ }
+ the dual of this map over the opposite path algebra \mbox{\texttt{\slshape A\texttt{\symbol{94}}op}}. 
+
+}
 
  
 
@@ -3185,13 +3286,14 @@ message otherwise. }
 \noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{DualOfTranspose({\slshape M[, n]})\index{DualOfTranspose@\texttt{DualOfTranspose}}
 \label{DualOfTranspose}
 }\hfill{\scriptsize (operation)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape M}} -- a path algebra module, (optional) \mbox{\texttt{\slshape n}} -- an integer. \\
 \textbf{\indent Returns:\ }
-the dual of the transpose of the module \mbox{\texttt{\slshape M}} when called with only one argument, while it returns the dual of the transpose
+the dual of the transpose of \mbox{\texttt{\slshape M}} when called with only one argument, while it returns the dual of the transpose
 applied to \mbox{\texttt{\slshape M}} \mbox{\texttt{\slshape n}} times otherwise. If \mbox{\texttt{\slshape n}} is negative, then powers of \texttt{TrD} are computed. \texttt{DualOfTranspose} is a synonym for \texttt{DTr}. 
 
-
-
- The argument \mbox{\texttt{\slshape M}} must be a \texttt{PathAlgebraMatModule} and \mbox{\texttt{\slshape n}} must be an integer. }
+}
 
  
 
@@ -3204,13 +3306,14 @@ applied to \mbox{\texttt{\slshape M}} \mbox{\texttt{\slshape n}} times otherwise
 \noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{TransposeOfDual({\slshape M[, n]})\index{TransposeOfDual@\texttt{TransposeOfDual}}
 \label{TransposeOfDual}
 }\hfill{\scriptsize (operation)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape M}} -- a path algebra module, (optional) \mbox{\texttt{\slshape n}} -- an integer. \\
 \textbf{\indent Returns:\ }
-the transpose of the dual of the module \mbox{\texttt{\slshape M}} when called with only one argument, while it returns the transpose of the dual
+the transpose of the dual of \mbox{\texttt{\slshape M}} when called with only one argument, while it returns the transpose of the dual
 applied to \mbox{\texttt{\slshape M}} \mbox{\texttt{\slshape n}} times otherwise. If \mbox{\texttt{\slshape n}} is negative, then powers of \texttt{TrD} are computed. \texttt{TransposeOfDual} is a synonym for \texttt{TrD}.
 
-
-
- The argument \mbox{\texttt{\slshape M}} must be a \texttt{PathAlgebraMatModule} and \mbox{\texttt{\slshape n}} must be an integer. }
+}
 
  
 
@@ -3220,12 +3323,13 @@ applied to \mbox{\texttt{\slshape M}} \mbox{\texttt{\slshape n}} times otherwise
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{TransposeOfModule({\slshape M})\index{TransposeOfModule@\texttt{TransposeOfModule}}
 \label{TransposeOfModule}
 }\hfill{\scriptsize (operation)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape M}} -- a path algebra module. \\
 \textbf{\indent Returns:\ }
 the transpose of the module \mbox{\texttt{\slshape M}}.
 
-
-
- The argument \mbox{\texttt{\slshape M}} must be a \texttt{PathAlgebraMatModule}. }
+}
 
  }
 
@@ -3244,12 +3348,15 @@ a \mbox{\texttt{\slshape vertex projective presentation}}. In this case, $M$ is 
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{RightProjectiveModule({\slshape A, verts})\index{RightProjectiveModule@\texttt{RightProjectiveModule}}
 \label{RightProjectiveModule}
 }\hfill{\scriptsize (function)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape A}} -- a (quotient of a) path algebra, \mbox{\texttt{\slshape verts}} -- a list of vertices. \\
 \textbf{\indent Returns:\ }
- the right projective module over \mbox{\texttt{\slshape A}} which is the direct sum of projective modules of the form \mbox{\texttt{\slshape vA}} where the vertices are taken from the list of vertices \mbox{\texttt{\slshape verts}}.
+ the right projective module over \mbox{\texttt{\slshape A}} which is the direct sum of projective modules of the form \mbox{\texttt{\slshape vA}} where the vertices are taken from \mbox{\texttt{\slshape verts}}.
 
 
 
- In this implemenation the algebra can be a quotient of a path algebra. So if
+ In this implementation the algebra can be a quotient of a path algebra. So if
 the list was $[v,w]$ then the module created will be the direct sum $vA \oplus wA$, in that order. Elements of the modules are vectors of algebra elements, and
 in each component, each path begins with the vertex in that position in the
 list of vertices. Right projective modules are implementated as algebra
@@ -3278,8 +3385,11 @@ construct submodules using `SubAlgebraModule'. }
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{Vectorize({\slshape M, components})\index{Vectorize@\texttt{Vectorize}}
 \label{Vectorize}
 }\hfill{\scriptsize (function)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape M}} -- a module over a path algebra, \mbox{\texttt{\slshape components}} -- a list of elements of \mbox{\texttt{\slshape M}}. \\
 \textbf{\indent Returns:\ }
-a vector in the module \mbox{\texttt{\slshape M}} from a list of path algebra elements \mbox{\texttt{\slshape components}}, which defines the components in the resulting vector.
+a vector in \mbox{\texttt{\slshape M}} from a list of path algebra elements \mbox{\texttt{\slshape components}}, which defines the components in the resulting vector.
 
 
 
@@ -3312,7 +3422,13 @@ the two elements as generators.
 }\hfill{\scriptsize (operation)}}\\
 
 
- The operation \texttt{\texttt{\symbol{94}}} operates on an element \mbox{\texttt{\slshape m}} in a module and an element \mbox{\texttt{\slshape a}} in a path algebra, and it returns the element \mbox{\texttt{\slshape m}} multiplied with \mbox{\texttt{\slshape a}}. This action is defined by multiplying each component in \mbox{\texttt{\slshape m}} by \mbox{\texttt{\slshape a}} on the right. }
+ Arguments: \mbox{\texttt{\slshape m}} -- an element of a path algebra module, \mbox{\texttt{\slshape a}} -- an element of a path algebra. \\
+\textbf{\indent Returns:\ }
+ the element \mbox{\texttt{\slshape m}} multiplied with \mbox{\texttt{\slshape a}}. 
+
+
+
+ This action is defined by multiplying each component in \mbox{\texttt{\slshape m}} by \mbox{\texttt{\slshape a}} on the right. }
 
  
 \begin{Verbatim}[fontsize=\small,frame=single,label=Example]
@@ -3330,8 +3446,14 @@ the two elements as generators.
 }\hfill{\scriptsize (operation)}}\\
 
 
- The operation \texttt{{\textless}} operates on elements \mbox{\texttt{\slshape m1}} and \mbox{\texttt{\slshape m2}} in ????, and it compares them. The result is `true' if \mbox{\texttt{\slshape m1}} is less than \mbox{\texttt{\slshape m2}} and false otherwise. Elements are compared componentwise from left to right
-using the ordering of the underlying algebra. The element \mbox{\texttt{\slshape m1}} is less than \mbox{\texttt{\slshape m2}} if the first time components are not equal, the component of \mbox{\texttt{\slshape m1}} is less than the corresponding component of \mbox{\texttt{\slshape m2}}. }
+ Arguments: \mbox{\texttt{\slshape m1, m2}} -- two elements of a module over a path algebra (?). \\
+\textbf{\indent Returns:\ }
+ `true' if \mbox{\texttt{\slshape m1}} is less than \mbox{\texttt{\slshape m2}} and false otherwise. 
+
+
+
+ Elements are compared componentwise from left to right using the ordering of
+the underlying algebra. The element \mbox{\texttt{\slshape m1}} is less than \mbox{\texttt{\slshape m2}} if the first time components are not equal, the component of \mbox{\texttt{\slshape m1}} is less than the corresponding component of \mbox{\texttt{\slshape m2}}. }
 
  
 \begin{Verbatim}[fontsize=\small,frame=single,label=Example]
@@ -3348,7 +3470,13 @@ using the ordering of the underlying algebra. The element \mbox{\texttt{\slshape
 }\hfill{\scriptsize (operation)}}\\
 
 
- The operation \texttt{/} operates on two finite dimensional modules \mbox{\texttt{\slshape M}} and \mbox{\texttt{\slshape N}} over a path algebra?, and it constructs the factor module $M/N$. This module is again a right algebra module, and all applicable methods and
+ Arguments: \mbox{\texttt{\slshape M, N}} -- two finite dimensional modules over a path algebra (?). \\
+\textbf{\indent Returns:\ }
+ the factor module $M/N$. 
+
+
+
+ This module is again a right algebra module, and all applicable methods and
 operations are available for the resulting factor module. Furthermore, the
 resulting module is a vector space, so operations for computing bases and
 dimensions are also available. }

@@ -28,15 +28,14 @@
   
   [1X2.2-1 Quiver[0m
   
-  [2X> Quiver( [0X[3XN[, arrow1, arrow2, ...][0X[2X ) _______________________________[0Xfunction
-  [2X> Quiver( [0X[3X[vertex1, vertex2, ..., ][arrow1, arrow2, ...][0X[2X ) _________[0Xfunction
+  [2X> Quiver( [0X[3XN, arrows[0X[2X ) ______________________________________________[0Xfunction
+  [2X> Quiver( [0X[3Xvertices, arrows[0X[2X ) _______________________________________[0Xfunction
   [2X> Quiver( [0X[3Xadjacencymatrix[0X[2X ) ________________________________________[0Xfunction
   
-  Arguments:  First  construction:  [3XN[0m  -- number of vertices, [3X[arrow1, arrow2,
-  ...][0m -- a list of arrows to specify the graph $\Gamma$. Second construction:
-  [3X[vertex1,  vertex2, ...][0m -- a list of vertex names, [3X[arrow1, arrow2, ...][0m --
-  a  list  of  arrows.  Third  construction: takes an adjacency matrix for the
-  graph $\Gamma$.
+  Arguments:  First construction: [3XN[0m -- number of vertices, [3Xarrows[0m -- a list of
+  arrows  to  specify  the  graph $\Gamma$. Second construction: [3Xvertices[0m -- a
+  list  of vertex names, [3Xarrows[0m -- a list of arrows. Third construction: takes
+  an adjacency matrix for the graph $\Gamma$.
   
   [6XReturns:[0X  a quiver, which satisfies the property [2XIsQuiver[0m ([14X2.3-1[0m).
   
@@ -92,20 +91,12 @@
   [1X2.3-1 IsQuiver[0m
   
   [2X> IsQuiver( [0X[3Xobject[0X[2X ) _______________________________________________[0Xproperty
-  
-  is true when [3Xobject[0m is a quiver.
+  [6XReturns:[0X  true when [3Xobject[0m is a quiver.
   
   [1X2.3-2 IsAcyclicQuiver[0m
   
   [2X> IsAcyclicQuiver( [0X[3Xquiver[0X[2X ) ________________________________________[0Xproperty
-  
-  is true when [3Xquiver[0m is a quiver with no cycles.
-  
-  [1X2.3-3 IsFinite[0m
-  
-  [2X> IsFinite( [0X[3Xquiver[0X[2X ) _______________________________________________[0Xproperty
-  
-  is true when [3Xquiver[0m is a finite set. Synonymous with `IsAcyclicQuiver'.
+  [6XReturns:[0X  true when [3Xquiver[0m is a quiver with no oriented cycles.
   
   [4X---------------------------  Example  ----------------------------[0X
     [4Xgap> quiver1 := Quiver(2,[[1,2]]);[0X

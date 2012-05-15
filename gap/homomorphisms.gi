@@ -1,5 +1,5 @@
 # GAP Implementation
-# $Id: homomorphisms.gi,v 1.30 2012/04/16 10:11:42 sunnyquiver Exp $
+# $Id: homomorphisms.gi,v 1.31 2012/05/15 06:58:20 sunnyquiver Exp $
 
 #############################################################################
 ##
@@ -984,31 +984,77 @@ InstallMethod ( CoKernelOfAdditiveGeneralMapping,
 end
 );
 
-InstallMethod( TopOfModuleProjection,
-  "for a path algebra module",
-  true,
-  [ IsPathAlgebraMatModule ], 0,
-  function( M )
+#######################################################################
+##
+#A  TopOfModuleProjection( <M> )
+##
+##  This function computes the map from  M  to the top of  M, 
+##  M ---> M/rad(M).
+##
+InstallMethod( TopOfModuleProjection, 
+   "for a pathalgebramatmodule",
+   true, 
+   [ IsPathAlgebraMatModule ], 0,
+   function( M )
 
-  local map, map2, run_time; 
+    local K, A, Q, vertices, num_vert, incomingarrows, mats, arrows, subspaces,
+        i, a, dim_M, Vspaces, Wspaces, naturalprojections, matrixfunction,
+        dim_top, matrices, topofmodule, topofmoduleprojection;
 
-  run_time := Runtime();
-  map := RadicalOfModuleInclusion(M);
-#  Print("Finding RadicalOfModuleInclusion: ",Runtime()-run_time,"\n");
-  run_time := Runtime();
-  map2 := CoKernelProjection(map);
-#  Print("Finding CoKernelProjection: ",Runtime()-run_time,"\n");
-  return map2;
+    A := RightActingAlgebra(M);
+    if Dimension(M) = 0 then 
+        return ZeroMapping(M,M);
+    else
+        K := LeftActingDomain(A);
+        Q := QuiverOfPathAlgebra(A);
+        vertices := VerticesOfQuiver(Q);
+        num_vert := Length(vertices);
+        incomingarrows := List([1..num_vert], x -> IncomingArrowsOfVertex(vertices[x]));
+        mats := MatricesOfPathAlgebraModule(M);
+        arrows := ArrowsOfQuiver(Q);
+
+        subspaces := List([1..num_vert], x -> []);
+        for i in [1..num_vert] do
+            for a in incomingarrows[i] do
+                Append(subspaces[i], StructuralCopy(mats[Position(arrows,a)]));
+            od;
+        od;
+        dim_M := DimensionVector(M);
+        Vspaces := List([1..num_vert], x -> FullRowSpace(Rationals,dim_M[x]));
+        Wspaces := List([1..num_vert], x -> Subspace(Vspaces[x],subspaces[x]));
+        naturalprojections := List([1..num_vert], x -> NaturalHomomorphismBySubspace(Vspaces[x],Wspaces[x]));
+        matrixfunction := function( K, elm )
+            if elm = [] then 
+                return [Zero(K)];
+            else
+                return elm;
+            fi;
+        end;
+        dim_top := List([1..num_vert], x -> Dimension(Range(naturalprojections[x]))); 
+        matrices := List([1..num_vert], x -> List(BasisVectors(Basis(Vspaces[x])), y -> matrixfunction(Rationals,ImageElm(naturalprojections[x],y))));
+        topofmodule := RightModuleOverPathAlgebra(A,dim_top,[]);
+        topofmoduleprojection := RightModuleHomOverAlgebra(M,topofmodule,matrices);
+
+        SetTopOfModule(M,topofmodule);
+
+        return topofmoduleprojection;
+    fi;
 end
 );
 
-InstallMethod( TopOfModule,
-  "for a path algebra module",
-  true,
-  [ IsPathAlgebraMatModule ], 0,
-  function( M );
+#######################################################################
+##
+#A  TopOfModule( <M> )
+##
+##  This function computes the top  M/rad(M)  of the module M. 
+##
+InstallMethod( TopOfModule, 
+    "for a pathalgebramatmodule",
+    true, 
+    [ IsPathAlgebraMatModule ], 0,
+    function( M )
 
-  return Range(TopOfModuleProjection(M));
+    return Range(TopOfModuleProjection(M));
 end
 );
 
@@ -1383,21 +1429,81 @@ InstallMethod ( DualOfModuleHomomorphism,
 end
 );
 
-InstallMethod ( SocleOfModuleInclusion,
-    "for a map between representations of a quiver",
-    [ IsPathAlgebraMatModule ], 0,
-    function( M );
+#######################################################################
+##
+#A  SocleOfModuleInclusion( <M> )
+##
+##  This function computes the map from the socle of  M  to the module M, 
+##  soc(M) ---> M.
+##
+InstallMethod( SocleOfModuleInclusion, 
+   "for a pathalgebramatmodule",
+   true, 
+   [ IsPathAlgebraMatModule ], 0,
+   function( M )
 
-    return DualOfModuleHomomorphism(TopOfModuleProjection(DualOfModule(M)));    
+    local A, K, Q, vertices, num_vert, outgoingarrows, mats, arrows, dim_M, 
+        subspaces, i, a, j, socle, matrixfunction, dim_socle, socleofmodule, 
+        index, socleinclusion;
+
+    A := RightActingAlgebra(M);
+    if Dimension(M) = 0 then 
+        return ZeroMapping(M,M);
+    else
+        K := LeftActingDomain(A);
+        Q := QuiverOfPathAlgebra(A);
+        vertices := VerticesOfQuiver(Q);
+        num_vert := Length(vertices);
+        outgoingarrows := List([1..num_vert], x -> OutgoingArrowsOfVertex(vertices[x]));
+        mats := MatricesOfPathAlgebraModule(M);
+        arrows := ArrowsOfQuiver(Q);
+        dim_M := DimensionVector(M);
+
+        subspaces := List([1..num_vert], x -> List([1..dim_M[x]], y -> [])); 
+        for i in [1..num_vert] do
+            for a in outgoingarrows[i] do
+                for j in [1..dim_M[i]] do
+                    Append(subspaces[i][j], StructuralCopy(mats[Position(arrows,a)][j]));
+                od;
+            od;
+        od;
+        socle := List([1..num_vert], x -> NullspaceMat(subspaces[x]));
+        matrixfunction := function( K, n, elm )
+            if elm = [] then 
+                return NullMat(1,index(n),K);
+            else
+                return elm;
+            fi;
+        end;
+        dim_socle := List(socle, x -> Length(x));
+        socleofmodule := RightModuleOverPathAlgebra(A,dim_socle,[]);
+        index := function( n )
+            if n = 0 then 
+                return 1;
+            else
+                return n;
+            fi;
+        end;
+        socle := List(socle, x -> matrixfunction(K,dim_M[Position(socle,x)],x));
+        socleinclusion := RightModuleHomOverAlgebra(socleofmodule,M,socle);
+        SetSocleOfModule(M,socleofmodule);
+        return socleinclusion;
+    fi;
 end
-);
-
-InstallMethod ( SocleOfModule,
-    "for a map between representations of a quiver",
+  );
+#######################################################################
+##
+#A  SocleOfModule( <M> )
+##
+##  This function computes the socle  soc(M)  of the module M. 
+##
+InstallMethod( SocleOfModule, 
+    "for a pathalgebramatmodule",
+    true, 
     [ IsPathAlgebraMatModule ], 0,
-    function( M );
+    function( M )
 
-    return Source(DualOfModuleHomomorphism(TopOfModuleProjection(DualOfModule(M))));    
+    return Source(SocleOfModuleInclusion(M));
 end
 );
 

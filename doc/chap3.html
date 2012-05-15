@@ -70,15 +70,14 @@
 <div class="ContSect"><span class="nocss">&nbsp;</span><a href="chap3.html#X86647D317A961513">3.9 <span class="Heading">Attributes and Operations for Quotients of Path
     Algebras</span></a>
 <div class="ContSSBlock">
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X826641507CFBE943">3.9-1 NormalFormFunction</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X87495684791B5742">3.9-2 IsElementOfQuotientOfPathAlgebra</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X80B32F667BF6AFD8">3.9-3 Coefficients</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X8555FC6B85FE9C6D">3.9-4 IsSelfinjectiveAlgebra</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7BEA44FB819910B6">3.9-5 LoewyLength</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X84E3FEF587CB66C3">3.9-6 CartanMatrix</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X815CB1D47CB174ED">3.9-7 CoxeterMatrix</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7F6F526C86052150">3.9-8 CoxeterPolynomial</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X80E403A8855F6F7A">3.9-9 Centre/Center</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X87495684791B5742">3.9-1 IsElementOfQuotientOfPathAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X80B32F667BF6AFD8">3.9-2 Coefficients</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X8555FC6B85FE9C6D">3.9-3 IsSelfinjectiveAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7BEA44FB819910B6">3.9-4 LoewyLength</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X84E3FEF587CB66C3">3.9-5 CartanMatrix</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X815CB1D47CB174ED">3.9-6 CoxeterMatrix</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7F6F526C86052150">3.9-7 CoxeterPolynomial</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X80E403A8855F6F7A">3.9-8 Centre/Center</a></span>
 </div></div>
 <div class="ContSect"><span class="nocss">&nbsp;</span><a href="chap3.html#X7BD7DB497917893C">3.10 <span class="Heading">Attributes and Operations on Elements
  of Quotients of Path Algebra</span></a>
@@ -115,7 +114,7 @@
 
 <h4>3.1 <span class="Heading">Introduction</span></h4>
 
-<p>A path algebra is an algebra constructed from a field $F$ [REF] and a quiver $Q$. The path algebra $FQ$ contains all finite linear combinations of elements of $Q$. This chapter describes the functions in <strong class="pkg">QPA</strong> that deal with path algebras and quotients of path algebras. Path algebras are algebras, so see Chapter [REF]"ref:algebras" for functionality such as generators, basis functions, and mappings.</p>
+<p>A path algebra is an algebra constructed from a field $F$ (see chapter 56 and 57 in the <strong class="pkg">GAP</strong> manual for information about fields) and a quiver $Q$. The path algebra $FQ$ contains all finite linear combinations of paths of $Q$. This chapter describes the functions in <strong class="pkg">QPA</strong> that deal with path algebras and quotients of path algebras. Path algebras are algebras, so see chapter 60: Algebras in the <strong class="pkg">GAP</strong> manual for functionality such as generators, basis functions, and mappings.</p>
 
 <p><a id="X848A225A84A15B1E" name="X848A225A84A15B1E"></a></p>
 
@@ -130,7 +129,7 @@
 
 <p><b>Returns: </b>the path algebra $FQ$ of <var class="Arg">Q</var> over the field <var class="Arg">F</var>.</p>
 
-<p>For construction of fields, see the GAP documentation [REF]. The elements of the path algebra $FQ$ will be ordered by left length-lexicographic ordering.</p>
+<p>For construction of fields, see the <strong class="pkg">GAP</strong> documentation. The elements of the path algebra $FQ$ will be ordered by left length-lexicographic ordering.</p>
 
 
 <table class="example">
@@ -153,7 +152,7 @@ gap&gt; FQ := PathAlgebra(F,Q);
 <h5>3.3-1 IsPathAlgebra</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IsPathAlgebra</code>( <var class="Arg">object</var> )</td><td class="tdright">( property )</td></tr></table></div>
-<p>Arguments: <var class="Arg">object</var> -- any object in GAP. <br /></p>
+<p>Arguments: <var class="Arg">object</var> -- any object in <strong class="pkg">GAP</strong>. <br /></p>
 
 <p><b>Returns: </b>true whenever <var class="Arg">object</var> is a path algebra.</p>
 
@@ -361,7 +360,7 @@ true </pre></td></tr></table>
 
 <h4>3.6 <span class="Heading">Constructing Quotients of Path Algebras</span></h4>
 
-<p>See Chapter [REF]"ref:algebras" on how to construct an ideal and a quotient of an algebra. When the quotient is constructed, it is still a path algebra and thus the commands introduced for path algebras also works with quotients.</p>
+<p>See Chapter 60: Algebras in the <strong class="pkg">GAP</strong> manual on how to construct an ideal and a quotient of an algebra. When the quotient is constructed, it is still a path algebra and thus the commands introduced for path algebras also works with quotients.</p>
 
 <p><a id="X83629803819C4A6F" name="X83629803819C4A6F"></a></p>
 
@@ -381,7 +380,7 @@ true </pre></td></tr></table>
 
 <p><b>Returns: </b>the ideal of <var class="Arg">FQ</var> generated by <var class="Arg">elems</var>.</p>
 
-<p>For more on ideals, see the GAP reference manual [REF].</p>
+<p>For more on ideals, see the <strong class="pkg">GAP</strong> reference manual (chapter 60.6).</p>
 
 
 <table class="example">
@@ -440,7 +439,7 @@ gap&gt; quot := FQ/I;
 <h5>3.8-1 IsQuotientOfPathAlgebra</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IsQuotientOfPathAlgebra</code>( <var class="Arg">object</var> )</td><td class="tdright">( property )</td></tr></table></div>
-<p>Argument: <var class="Arg">object</var> -- any object in GAP.<br /></p>
+<p>Argument: <var class="Arg">object</var> -- any object in <strong class="pkg">GAP</strong>.<br /></p>
 
 <p><b>Returns: </b>true whenever <var class="Arg">object</var> is a quotient of a path algebra.</p>
 
@@ -459,19 +458,12 @@ false </pre></td></tr></table>
 <h4>3.9 <span class="Heading">Attributes and Operations for Quotients of Path
     Algebras</span></h4>
 
-<p><a id="X826641507CFBE943" name="X826641507CFBE943"></a></p>
-
-<h5>3.9-1 NormalFormFunction</h5>
-
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; NormalFormFunction</code>( <var class="Arg">object</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
-<p>is a function that can compute normal forms for elements of <var class="Arg">object</var>. It may be supplied by the user.<br /> <em>Note: no documentation on this. Remove??</em></p>
-
 <p><a id="X87495684791B5742" name="X87495684791B5742"></a></p>
 
-<h5>3.9-2 IsElementOfQuotientOfPathAlgebra</h5>
+<h5>3.9-1 IsElementOfQuotientOfPathAlgebra</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IsElementOfQuotientOfPathAlgebra</code>( <var class="Arg">object</var> )</td><td class="tdright">( property )</td></tr></table></div>
-<p>Arguments: <var class="Arg">object</var> -- any object in GAP.<br /></p>
+<p>Arguments: <var class="Arg">object</var> -- any object in <strong class="pkg">GAP</strong>.<br /></p>
 
 <p><b>Returns: </b>true whenever <var class="Arg">object</var> is an element of some quotient of a path algebra.</p>
 
@@ -487,14 +479,14 @@ false </pre></td></tr></table>
 
 <p><a id="X80B32F667BF6AFD8" name="X80B32F667BF6AFD8"></a></p>
 
-<h5>3.9-3 Coefficients</h5>
+<h5>3.9-2 Coefficients</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; Coefficients</code>( <var class="Arg">element</var> )</td><td class="tdright">( operation )</td></tr></table></div>
-<p>The operation <code class="func">Coefficients</code> operates on an <var class="Arg">element</var> of a quotient of a path algebra, and it returns the coefficients of the <var class="Arg">element</var> in terms of its canonical basis. <br /> <em>Note: Not in QPA, takes two arguments in GAP.</em></p>
+<p>The operation <code class="func">Coefficients</code> operates on an <var class="Arg">element</var> of a quotient of a path algebra, and it returns the coefficients of the <var class="Arg">element</var> in terms of its canonical basis. <br /> <em>Note: Not in QPA, takes two arguments in <strong class="pkg">GAP</strong>.</em></p>
 
 <p><a id="X8555FC6B85FE9C6D" name="X8555FC6B85FE9C6D"></a></p>
 
-<h5>3.9-4 IsSelfinjectiveAlgebra</h5>
+<h5>3.9-3 IsSelfinjectiveAlgebra</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IsSelfinjectiveAlgebra</code>( <var class="Arg">A</var> )</td><td class="tdright">( operation )</td></tr></table></div>
 <p>Arguments: <var class="Arg">A</var> -- a path algebra or a quotient of a path algebra.<br /></p>
@@ -503,7 +495,7 @@ false </pre></td></tr></table>
 
 <p><a id="X7BEA44FB819910B6" name="X7BEA44FB819910B6"></a></p>
 
-<h5>3.9-5 LoewyLength</h5>
+<h5>3.9-4 LoewyLength</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; LoewyLength</code>( <var class="Arg">A</var> )</td><td class="tdright">( operation )</td></tr></table></div>
 <p>Arguments: <var class="Arg">A</var> -- a path algebra or a quotient of a path algebra.<br /></p>
@@ -512,7 +504,7 @@ false </pre></td></tr></table>
 
 <p><a id="X84E3FEF587CB66C3" name="X84E3FEF587CB66C3"></a></p>
 
-<h5>3.9-6 CartanMatrix</h5>
+<h5>3.9-5 CartanMatrix</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; CartanMatrix</code>( <var class="Arg">A</var> )</td><td class="tdright">( operation )</td></tr></table></div>
 <p>Arguments: <var class="Arg">A</var> -- a path algebra or a quotient of a path algebra.<br /></p>
@@ -521,7 +513,7 @@ false </pre></td></tr></table>
 
 <p><a id="X815CB1D47CB174ED" name="X815CB1D47CB174ED"></a></p>
 
-<h5>3.9-7 CoxeterMatrix</h5>
+<h5>3.9-6 CoxeterMatrix</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; CoxeterMatrix</code>( <var class="Arg">A</var> )</td><td class="tdright">( operation )</td></tr></table></div>
 <p>Arguments: <var class="Arg">A</var> -- a path algebra or a quotient of a path algebra.<br /></p>
@@ -530,7 +522,7 @@ false </pre></td></tr></table>
 
 <p><a id="X7F6F526C86052150" name="X7F6F526C86052150"></a></p>
 
-<h5>3.9-8 CoxeterPolynomial</h5>
+<h5>3.9-7 CoxeterPolynomial</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; CoxeterPolynomial</code>( <var class="Arg">A</var> )</td><td class="tdright">( operation )</td></tr></table></div>
 <p>Arguments: <var class="Arg">A</var> -- a path algebra or a quotient of a path algebra.<br /></p>
@@ -539,7 +531,7 @@ false </pre></td></tr></table>
 
 <p><a id="X80E403A8855F6F7A" name="X80E403A8855F6F7A"></a></p>
 
-<h5>3.9-9 Centre/Center</h5>
+<h5>3.9-8 Centre/Center</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; Centre/Center</code>( <var class="Arg">A</var> )</td><td class="tdright">( operation )</td></tr></table></div>
 <p>Arguments: <var class="Arg">A</var> -- a path algebra or a quotient of a path algebra.<br /></p>
@@ -580,11 +572,11 @@ false </pre></td></tr></table>
 <h5>3.10-3 ElementOfQuotientOfPathAlgebra</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; ElementOfQuotientOfPathAlgebra</code>( <var class="Arg">family, element, computenormal</var> )</td><td class="tdright">( operation )</td></tr></table></div>
-<p>Arguments: <var class="Arg">family</var> -- a family of ???, <var class="Arg">element</var> -- an element of in a path algebra, <var class="Arg">computenormal</var> -- true or false.<br /></p>
+<p>Arguments: <var class="Arg">family</var> -- a family of elements, <var class="Arg">element</var> -- an element of a path algebra, <var class="Arg">computenormal</var> -- true or false.<br /></p>
 
-<p><b>Returns: </b>The projection of <var class="Arg">elem</var> into the quotient given by <var class="Arg">family</var>. If <var class="Arg">computenormal</var> is true, then the normal form of the projection of <var class="Arg">element</var> is returned.</p>
+<p><b>Returns: </b>The projection of <var class="Arg">element</var> into the quotient given by <var class="Arg">family</var>. If <var class="Arg">computenormal</var> is true, then the normal form of the projection of <var class="Arg">element</var> is returned.</p>
 
-<p><em>Notes: <var class="Arg">family</var> should be a "IsElementOfQuotientOfPathAlgebraFamily", but this category is never declared. Also, the "computenormal" choice is never used.</em></p>
+<p><var class="Arg">family</var> is the ElementsFamily of the family of the algebra <var class="Arg">element</var> is in.</p>
 
 <p><a id="X8088721187BA8D82" name="X8088721187BA8D82"></a></p>
 
@@ -607,11 +599,19 @@ false </pre></td></tr></table>
 <h5>3.11-1 NakayamaAlgebra</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; NakayamaAlgebra</code>( <var class="Arg">admiss-seq, field</var> )</td><td class="tdright">( function )</td></tr></table></div>
-<p>Arguments: <var class="Arg">admiss-seq</var> -- an admissible sequence, <var class="Arg">field</var> -- a field.<br /></p>
+<p>Arguments: <var class="Arg">admiss-seq</var> -- a list of positive integers, <var class="Arg">field</var> -- a field.<br /></p>
 
-<p><b>Returns: </b>The Nakayama algebra corresponding to <var class="Arg">admiss-seq</var> over the field <var class="Arg">field</var>, or <code class="keyw">the admissible sequence entered</code> (<code class="keyw">The admissible sequence is not a valid one</code>?) if entered sequence is not an admissible sequence.</p>
+<p><b>Returns: </b>The Nakayama algebra corresponding to <var class="Arg">admiss-seq</var> over the field <var class="Arg">field</var>. If the entered sequence is not an admissible sequence, the sequence is returned.</p>
 
-<p><em>Error message??</em></p>
+<p>The <var class="Arg">admiss-seq</var> consists of the dimensions of the projective representations.</p>
+
+
+<table class="example">
+<tr><td><pre> 
+gap&gt; alg := NakayamaAlgebra([2,1], Rationals);
+&lt;algebra-with-one over Rationals, with 3 generators&gt;
+gap&gt; QuiverOfPathAlgebra(alg);
+&lt;quiver with 2 vertices and 1 arrows&gt;  </pre></td></tr></table>
 
 <p><a id="X7EF1AE62790D7486" name="X7EF1AE62790D7486"></a></p>
 
@@ -648,7 +648,7 @@ false </pre></td></tr></table>
 <h5>3.12-2 QuiverProductDecomposition</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; QuiverProductDecomposition</code>( <var class="Arg">Q</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
-<p>Arguments: <var class="Arg">Q</var> -- a quiver <br /> .</p>
+<p>Arguments: <var class="Arg">Q</var> -- a quiver.<br /></p>
 
 <p><b>Returns: </b>the original quivers <var class="Arg">Q</var> is a product of, if <var class="Arg">Q</var> was created by the <code class="func">QuiverProduct</code> (<a href="chap3.html#X835BBBE18104654A"><b>3.12-1</b></a>) operation.</p>
 
@@ -659,7 +659,7 @@ false </pre></td></tr></table>
 <h5>3.12-3 IsQuiverProductDecomposition</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IsQuiverProductDecomposition</code>( <var class="Arg">object</var> )</td><td class="tdright">( category )</td></tr></table></div>
-<p>Arguments: <var class="Arg">object</var> -- any object in GAP.</p>
+<p>Arguments: <var class="Arg">object</var> -- any object in <strong class="pkg">GAP</strong>.</p>
 
 <p>Category for objects containing information about the relation between a product quiver and the quivers it is a product of. The quiver factors can be extracted from the decomposition object by using the [] notation (like accessing elements of a list). The decomposition object is also used by the operations <code class="func">IncludeInProductQuiver</code> (<a href="chap3.html#X856E8B5B7F550647"><b>3.12-4</b></a>) and <code class="func">ProjectFromProductQuiver</code> (<a href="chap3.html#X8455692C7E282C6C"><b>3.12-5</b></a>).</p>
 

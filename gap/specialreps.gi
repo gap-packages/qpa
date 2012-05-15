@@ -1,5 +1,5 @@
 # GAP Implementation
-# $Id: specialreps.gi,v 1.10 2012/05/11 15:08:09 sunnyquiver Exp $
+# $Id: specialreps.gi,v 1.11 2012/05/15 06:58:20 sunnyquiver Exp $
 
 # specialreps.gi: Provides special representations of a quiver, 
 # 		  indecomposble projective, indecomposable injective, 
@@ -7,9 +7,9 @@
 #
 InstallMethod ( IndecProjectiveModules, 
     "for a finite dimensional quotient of a path algebra",
-    [ IsQuotientOfPathAlgebra, IsList ], 0,
-    function( A, which_proj )
-    local fam, KQ, I, Q, num_vert, num_arrows, i, vertices, 
+    [ IsQuotientOfPathAlgebra ], 0,
+    function( A ) 
+    local which_proj, fam, KQ, I, Q, num_vert, num_arrows, i, vertices, 
           arrows_as_paths, indec_proj, j, indec_proj_list, 
           indec_proj_rep, l, arrow, P, gens, length_B, B, 
           mat, a, source, target, vertices_Q, vector, intervals_of_basis, 
@@ -23,6 +23,7 @@ InstallMethod ( IndecProjectiveModules,
   KQ := OriginalPathAlgebra(A);
   Q := QuiverOfPathAlgebra(KQ);
   num_vert := Length(VerticesOfQuiver(Q));
+  which_proj := [1..num_vert]; 
   if not ForAll(which_proj, x -> x in [1..num_vert]) then 
      Print("The range of projectives entered is wrong.");
      return fail;
@@ -127,21 +128,9 @@ end
 
 InstallOtherMethod ( IndecProjectiveModules, 
     "for a finite dimensional quotient of a path algebra",
-    [ IsQuotientOfPathAlgebra ], 0,
+    [ IsPathAlgebra ], 0,
     function( A )
-    local num_vert; 
-
-    num_vert := NumberOfVertices(QuiverOfPathAlgebra(A));
-
-    return IndecProjectiveModules(A,[1..num_vert]);
-end
-);
-
-InstallOtherMethod ( IndecProjectiveModules, 
-    "for a finite dimensional quotient of a path algebra",
-    [ IsPathAlgebra, IsList ], 0,
-    function( A , which_proj )
-        local KQ, rels, I, groebner, groebner_basis, Q, num_vert, 
+        local which_proj, KQ, rels, I, groebner, groebner_basis, Q, num_vert, 
               num_arrows, i, vertices, arrows_as_paths, j, 
               indec_proj_list, l, arrow, P, gens, 
               length_B, B, intervals_of_basis, mat, a, source, target, 
@@ -155,6 +144,7 @@ InstallOtherMethod ( IndecProjectiveModules,
 #       
      Q := QuiverOfPathAlgebra(A); 
      num_vert := Length(VerticesOfQuiver(Q));
+     which_proj := [1..num_vert];
      if not ForAll(which_proj, x -> x in [1..num_vert]) then 
         Print("The range of projectives entered is wrong.\n");
         return fail;
@@ -165,7 +155,6 @@ InstallOtherMethod ( IndecProjectiveModules,
 #
 #    Finding vertices and arrows as elements of the algebra  A  for later use. 
 #
-
         K := LeftActingDomain(A);
         num_vert   := Length(VerticesOfQuiver(Q));
         num_arrows := Length(ArrowsOfQuiver(Q)); 
@@ -250,47 +239,20 @@ InstallOtherMethod ( IndecProjectiveModules,
 end
 );
 
-InstallOtherMethod ( IndecProjectiveModules, 
-    "for a finite dimensional quotient of a path algebra",
-    [ IsPathAlgebra ], 0,
-    function( A )
-    local num_vert; 
-
-    num_vert := NumberOfVertices(QuiverOfPathAlgebra(A));
-
-    return IndecProjectiveModules(A,[1..num_vert]);
-end
-);
-
 InstallMethod ( IndecInjectiveModules, 
-    "for a finite dimensional quotient of a path algebra",
-    [ IsAlgebra, IsList ], 0,
-    function( A, which_inj )
-        local A_op, P_op, Q, num_vert, indec_inj_list, i; 
-
-        A_op := OppositeAlgebra(A);
-        P_op := IndecProjectiveModules(A_op, which_inj );
-        Q    := QuiverOfPathAlgebra(A); 
-        num_vert := Length(VerticesOfQuiver(Q));        
-        indec_inj_list := [];
-        for i in [1..Length(which_inj)] do
-            Add(indec_inj_list,DualOfModule(P_op[i]));
-        od;
-
-        return indec_inj_list;
-    end
-);
-
-InstallOtherMethod ( IndecInjectiveModules, 
     "for a finite dimensional quotient of a path algebra",
     [ IsAlgebra ], 0,
     function( A )
-        local Q, num_vert; 
+        local A_op, P_op, Q, num_vert, indec_inj_list, i; 
 
+
+        A_op := OppositeAlgebra(A);
         Q    := QuiverOfPathAlgebra(A); 
         num_vert := Length(VerticesOfQuiver(Q));        
+        P_op := IndecProjectiveModules(A_op);
+        indec_inj_list := List([1..num_vert], x -> DualOfModule(P_op[i]));
 
-        return IndecInjectiveModules(A, [1..num_vert]);
+        return indec_inj_list;
     end
 );
 

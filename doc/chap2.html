@@ -32,7 +32,6 @@
 <div class="ContSSBlock">
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X7E9C03497FD7778B">2.3-1 IsQuiver</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X82E99C5F8624BD86">2.3-2 IsAcyclicQuiver</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X808A4061809A6E67">2.3-3 IsFinite</a></span>
 </div></div>
 <div class="ContSect"><span class="nocss">&nbsp;</span><a href="chap2.html#X78BBB63B828EB9FB">2.4 <span class="Heading">Orderings of paths in a
     quiver</span></a>
@@ -102,10 +101,10 @@
 
 <h5>2.2-1 Quiver</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; Quiver</code>( <var class="Arg">N[, arrow1, arrow2, ...]</var> )</td><td class="tdright">( function )</td></tr></table></div>
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; Quiver</code>( <var class="Arg">[vertex1, vertex2, ..., ][arrow1, arrow2, ...]</var> )</td><td class="tdright">( function )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; Quiver</code>( <var class="Arg">N, arrows</var> )</td><td class="tdright">( function )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; Quiver</code>( <var class="Arg">vertices, arrows</var> )</td><td class="tdright">( function )</td></tr></table></div>
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; Quiver</code>( <var class="Arg">adjacencymatrix</var> )</td><td class="tdright">( function )</td></tr></table></div>
-<p>Arguments: First construction: <var class="Arg">N</var> -- number of vertices, <var class="Arg">[arrow1, arrow2, ...]</var> -- a list of arrows to specify the graph $\Gamma$. Second construction: <var class="Arg">[vertex1, vertex2, ...]</var> -- a list of vertex names, <var class="Arg">[arrow1, arrow2, ...]</var> -- a list of arrows. Third construction: takes an adjacency matrix for the graph $\Gamma$. <br /></p>
+<p>Arguments: First construction: <var class="Arg">N</var> -- number of vertices, <var class="Arg">arrows</var> -- a list of arrows to specify the graph $\Gamma$. Second construction: <var class="Arg">vertices</var> -- a list of vertex names, <var class="Arg">arrows</var> -- a list of arrows. Third construction: takes an adjacency matrix for the graph $\Gamma$. <br /></p>
 
 <p><b>Returns: </b>a quiver, which satisfies the property <code class="func">IsQuiver</code> (<a href="chap2.html#X7E9C03497FD7778B"><b>2.3-1</b></a>).</p>
 
@@ -161,21 +160,14 @@ v2
 <h5>2.3-1 IsQuiver</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IsQuiver</code>( <var class="Arg">object</var> )</td><td class="tdright">( property )</td></tr></table></div>
-<p>is true when <var class="Arg">object</var> is a quiver.</p>
+<p><b>Returns: </b>true when <var class="Arg">object</var> is a quiver.</p>
 
 <p><a id="X82E99C5F8624BD86" name="X82E99C5F8624BD86"></a></p>
 
 <h5>2.3-2 IsAcyclicQuiver</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IsAcyclicQuiver</code>( <var class="Arg">quiver</var> )</td><td class="tdright">( property )</td></tr></table></div>
-<p>is true when <var class="Arg">quiver</var> is a quiver with no cycles.</p>
-
-<p><a id="X808A4061809A6E67" name="X808A4061809A6E67"></a></p>
-
-<h5>2.3-3 IsFinite</h5>
-
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IsFinite</code>( <var class="Arg">quiver</var> )</td><td class="tdright">( property )</td></tr></table></div>
-<p>is true when <var class="Arg">quiver</var> is a finite set. Synonymous with `IsAcyclicQuiver'.</p>
+<p><b>Returns: </b>true when <var class="Arg">quiver</var> is a quiver with no oriented cycles.</p>
 
 
 <table class="example">
