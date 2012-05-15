@@ -1,5 +1,5 @@
 # GAP Implementation
-# $Id: homomorphisms.gi,v 1.33 2012/05/15 09:46:53 sunnyquiver Exp $
+# $Id: homomorphisms.gi,v 1.34 2012/05/15 16:41:43 sunnyquiver Exp $
 
 #############################################################################
 ##
@@ -1453,7 +1453,7 @@ InstallMethod( SocleOfModuleInclusion,
 
     local A, K, Q, vertices, num_vert, outgoingarrows, mats, arrows, dim_M, 
         subspaces, i, a, j, socle, matrixfunction, dim_socle, socleofmodule, 
-        index, socleinclusion;
+        index, socleinclusion, V, temp;
 
     A := RightActingAlgebra(M);
     if Dimension(M) = 0 then 
@@ -1464,47 +1464,37 @@ InstallMethod( SocleOfModuleInclusion,
         vertices := VerticesOfQuiver(Q);
         num_vert := Length(vertices);
         outgoingarrows := List([1..num_vert], x -> OutgoingArrowsOfVertex(vertices[x]));
+        dim_M := DimensionVector(M);
         mats := MatricesOfPathAlgebraModule(M);
         arrows := ArrowsOfQuiver(Q);
-        dim_M := DimensionVector(M);
-        subspaces := List([1..num_vert], x -> List([1..dim_M[x]], y -> [])); 
-        for i in [1..num_vert] do
-            for a in outgoingarrows[i] do
-                for j in [1..dim_M[i]] do
-                    Append(subspaces[i][j], StructuralCopy(mats[Position(arrows,a)][j]));
-                od;
-            od;
-        od;
-
-#        socle := List([1..num_vert], x -> NullspaceMat(subspaces[x]));        
-        index := function( n )
-            if n = 0 then 
-                return 1;
-            else
-                return n;
-            fi;
-        end; 
+        dim_socle := List([1..num_vert], x -> 0);
         socle := List([1..num_vert], x -> []);
         for i in [1..num_vert] do
-            if subspaces[i] = [] then 
-                socle[i] := [];
+            if ( Length(outgoingarrows[i]) = 0 ) or ( dim_M[i] = 0 )then
+                dim_socle[i] := dim_M[i];
+                if Length(outgoingarrows[i]) = 0 then 
+                    socle[i] := IdentityMat(dim_M[i],K);
+                else
+                    socle[i] := NullMat(1,1,K);
+                fi;
             else
-                Print("Subspace in ",i," ",subspaces[i],"\n");
-                socle[i] := NullspaceMat(subspaces[i]);
+                subspaces := List([1..dim_M[i]], y -> []);   
+                for a in outgoingarrows[i] do
+                    for j in [1..dim_M[i]] do
+                        Append(subspaces[j], StructuralCopy(mats[Position(arrows,a)][j]));
+                    od;
+                od;
+                V := FullRowSpace(K,dim_M[i]);
+                temp := NullspaceMat(subspaces);
+                dim_socle[i] := Dimension(Subspace(V,temp));
+                if dim_socle[i] = 0 then
+                    socle[i] := NullMat(1,dim_M[i],K);
+                else
+                    socle[i] := temp;
+                fi;
             fi;
         od;
-
-        matrixfunction := function( K, n, elm )
-            if elm = [] then 
-                return NullMat(1,index(n),K);
-            else
-                return elm;
-            fi;
-        end;
-        dim_socle := List(socle, x -> Length(x));
         socleofmodule := RightModuleOverPathAlgebra(A,dim_socle,[]);
-
-        socle := List(socle, x -> matrixfunction(K,dim_M[Position(socle,x)],x));
         socleinclusion := RightModuleHomOverAlgebra(socleofmodule,M,socle);
         SetSocleOfModule(M,socleofmodule);
         return socleinclusion;
