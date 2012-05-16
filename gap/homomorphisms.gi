@@ -1,5 +1,5 @@
 # GAP Implementation
-# $Id: homomorphisms.gi,v 1.34 2012/05/15 16:41:43 sunnyquiver Exp $
+# $Id: homomorphisms.gi,v 1.35 2012/05/16 05:35:29 sunnyquiver Exp $
 
 #############################################################################
 ##
@@ -1453,7 +1453,7 @@ InstallMethod( SocleOfModuleInclusion,
 
     local A, K, Q, vertices, num_vert, outgoingarrows, mats, arrows, dim_M, 
         subspaces, i, a, j, socle, matrixfunction, dim_socle, socleofmodule, 
-        index, socleinclusion, V, temp;
+        socleinclusion, V, temp;
 
     A := RightActingAlgebra(M);
     if Dimension(M) = 0 then 
@@ -1470,12 +1470,12 @@ InstallMethod( SocleOfModuleInclusion,
         dim_socle := List([1..num_vert], x -> 0);
         socle := List([1..num_vert], x -> []);
         for i in [1..num_vert] do
-            if ( Length(outgoingarrows[i]) = 0 ) or ( dim_M[i] = 0 )then
+            if ( Length(outgoingarrows[i]) = 0 ) or ( dim_M[i] = 0 ) then
                 dim_socle[i] := dim_M[i];
-                if Length(outgoingarrows[i]) = 0 then 
-                    socle[i] := IdentityMat(dim_M[i],K);
-                else
+                if  dim_M[i] = 0 then
                     socle[i] := NullMat(1,1,K);
+                else
+                    socle[i] := IdentityMat(dim_M[i],K);
                 fi;
             else
                 subspaces := List([1..dim_M[i]], y -> []);   
@@ -1501,6 +1501,7 @@ InstallMethod( SocleOfModuleInclusion,
     fi;
 end
   );
+
 #######################################################################
 ##
 #A  SocleOfModule( <M> )
