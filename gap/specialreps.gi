@@ -1,5 +1,5 @@
 # GAP Implementation
-# $Id: specialreps.gi,v 1.11 2012/05/15 06:58:20 sunnyquiver Exp $
+# $Id: specialreps.gi,v 1.12 2012/05/22 14:54:46 sunnyquiver Exp $
 
 # specialreps.gi: Provides special representations of a quiver, 
 # 		  indecomposble projective, indecomposable injective, 
@@ -243,16 +243,12 @@ InstallMethod ( IndecInjectiveModules,
     "for a finite dimensional quotient of a path algebra",
     [ IsAlgebra ], 0,
     function( A )
-        local A_op, P_op, Q, num_vert, indec_inj_list, i; 
-
+        local A_op, P_op; 
 
         A_op := OppositeAlgebra(A);
-        Q    := QuiverOfPathAlgebra(A); 
-        num_vert := Length(VerticesOfQuiver(Q));        
         P_op := IndecProjectiveModules(A_op);
-        indec_inj_list := List([1..num_vert], x -> DualOfModule(P_op[i]));
-
-        return indec_inj_list;
+        
+        return List(P_op, x -> DualOfModule(x));
     end
 );
 
