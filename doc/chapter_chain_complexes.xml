@@ -1,6 +1,6 @@
 <Chapter>
 <Heading>Chain complexes</Heading>
-TODO
+(Not completely documentet yet.)
 
 
 <Section>
@@ -326,50 +326,223 @@ gap> ses := ShortExactSequence(cat, f, g);
   </Description>
   <Returns>
     The differentials of the complex, stored as an <C>IsInfList</C>
-    object. (Referanse her??)
+    object.
   </Returns>
 </ManSection>
 
 <ManSection>
-  <Func Name="" Arg="" />
+  <Oper Name="CyclesOfComplex" Arg="C, i" />
   <Description>
-    Arguments: <Br />
+    Arguments: <Arg>C</Arg> -- a complex, <Arg>i</Arg> -- an integer. <Br />
   </Description>
-  <Returns>
+  <Returns>The <Math>i</Math>-cycle of the complex, that is the
+  subobject <Math>Ker(d_i)</Math> of <C>ObjectOfComplex(C,i)</C>.
   </Returns>
   <Description>
   </Description>
 </ManSection>
+
 <ManSection>
-  <Func Name="" Arg="" />
+  <Oper Name="BoundariesOfComplex" Arg="C,i" />
   <Description>
-    Arguments: <Br />
+    Arguments: <Arg>C</Arg> -- a complex, <Arg>i</Arg> -- an integer. <Br />
   </Description>
-  <Returns>
+  <Returns> The <Math>i</Math>-boundary of the complex, that is the
+  subobject <Math>Im(d_{i+1})</Math> of <C>ObjectOfComplex(C,i)</C>.
   </Returns>
   <Description>
   </Description>
 </ManSection>
+
 <ManSection>
-  <Func Name="" Arg="" />
+  <Oper Name="HomologyOfComplex" Arg="C,i" />
   <Description>
-    Arguments: <Br />
+    Arguments:  <Arg>C</Arg> -- a complex, <Arg>i</Arg> -- an integer.<Br />
   </Description>
-  <Returns>
+  <Returns> The <Math>i</Math>th homology of the complex, that
+  is, <Math>Ker(d_i)/Im(d_{i+1})</Math>.
   </Returns>
-  <Description>
+  <Description>Note: this operation is currently not available. When
+  working in the category of right <Math>kQ/I</Math>-modules, it is
+  possible to "cheat" and use the following procedure to compute the
+  homology of a complex:
   </Description>
 </ManSection>
+
+<Example><![CDATA[
+gap> C;                     
+0 -> 4:(0,1) -> 3:(1,0) -> 2:(2,2) -> 1:(1,1) -> 0:(2,2) -> 0
+gap> # Want to compute the homology in degree 2
+gap> f := DifferentialOfComplex(C,3);
+<mapping: <1-dimensional right-module over AlgebraWithOne( Rationals, 
+  [ [(1)*v1], [(1)*v2], [(1)*a], [(1)*b] ] )> ->
+  < 4-dimensional right-module over AlgebraWithOne( Rationals, 
+  [ [(1)*v1], [(1)*v2], [(1)*a], [(1)*b] ] )> >
+gap> g := KernelInclusion(DifferentialOfComplex(C,2));
+  <mapping: <2-dimensional right-module over AlgebraWithOne( Rationals, 
+  [ [(1)*v1], [(1)*v2], [(1)*a], [(1)*b] ] )> ->
+  < 4-dimensional right-module over AlgebraWithOne( Rationals, 
+  [ [(1)*v1], [(1)*v2], [(1)*a], [(1)*b] ] )> >
+gap> # We know that Im f is included in Ker g, so can find the
+gap> # lifting morphism h from C_3 to Ker g.
+gap> h := LiftingInclusionMorphisms(g,f);
+  <mapping: <1-dimensional right-module over AlgebraWithOne( Rationals, 
+  [ [(1)*v1], [(1)*v2], [(1)*a], [(1)*b] ] )> ->
+  < 2-dimensional right-module over AlgebraWithOne( Rationals, 
+  [ [(1)*v1], [(1)*v2], [(1)*a], [(1)*b] ] )> >
+gap> # The cokernel of h is Ker g / Im f 
+gap> Homology := CoKernel(h);
+<1-dimensional right-module over <algebra-with-one over Rationals, with 
+  4 generators>> ]]>
+</Example>
+
 <ManSection>
-  <Func Name="" Arg="" />
+  <Oper Name="IsFiniteComplex" Arg="C" />
   <Description>
-    Arguments: <Br />
+    Arguments: <Arg>C</Arg> -- a complex.<Br />
   </Description>
-  <Returns>
+  <Returns>true if <Arg>C</Arg> is a finite complex, false otherwise.
   </Returns>
   <Description>
   </Description>
 </ManSection>
+
+<ManSection>
+  <Oper Name="UpperBound" Arg="C" />
+  <Description>
+    Arguments: <Arg>C</Arg> -- a complex.<Br />
+  </Description>
+  <Returns>If it exists: The smallest integer <Math>i</Math> such that
+  the object at position <Math>i</Math> is non-zero, but for
+  all <Math>j &gt; i</Math> the object at position <Math>j</Math> is zero.
+  </Returns>
+  <Description>If <Arg>C</Arg> is not a finite complex, the operation
+  will return fail or infinity, depending on how <Arg>C</Arg> was defined.
+  </Description>
+</ManSection>
+
+<ManSection>
+  <Oper Name="LowerBound" Arg="C" />
+  <Description>
+    Arguments: <Arg>C</Arg> -- a complex.<Br />
+  </Description>
+  <Returns>If it exists: The greatest integer <Math>i</Math> such that
+  the object at position <Math>i</Math> is non-zero, but for
+  all <Math>j &lt; i</Math> the object at position <Math>j</Math> is zero.
+  </Returns>
+  <Description>If <Arg>C</Arg> is not a finite complex, the operation
+  will return fail or negative infinity, depending on how <Arg>C</Arg>
+  was defined.
+  </Description>
+</ManSection>
+
+<ManSection>
+  <Oper Name="LengthOfComplex" Arg="C" />
+  <Description>
+    Arguments: <Arg>C</Arg> -- a complex.<Br />
+  </Description>
+  <Returns>the length of the complex.
+  </Returns>
+  <Description>The length is defined as follows: If <Arg>C</Arg> is a
+  zero complex, the length is zero. If <Arg>C</Arg> is a finite
+  complex, the lenght is the upper bound -- the lower bound +
+  1. If <Arg>C</Arg> is an inifinite complex, the lenght is infinity.
+  </Description>
+</ManSection>
+
+<ManSection>
+  <Oper Name="HighestKnownDegree" Arg="C" />
+  <Description>
+    Arguments: <Arg>C</Arg> -- a complex.<Br />
+  </Description>
+  <Returns>The greatest integer <Math>i</Math> such that the object at
+  position <Math>i</Math> is known (or computed).
+  </Returns>
+  <Description>For a finite complex, this will be infinity.
+  </Description>
+</ManSection>
+
+<ManSection>
+  <Oper Name="LowestKnownDegree" Arg="C" />
+  <Description>
+    Arguments: <Arg>C</Arg> -- a complex.<Br />
+  </Description>
+  <Returns>The smallest integer <Math>i</Math> such that the object at
+  position <Math>i</Math> is known (or computed).
+  </Returns>
+  <Description>For a finite complex, this will be negative infinity.
+  </Description>
+</ManSection>
+
+<Example><![CDATA[
+gap> C;
+0 -> 4:(0,1) -> 3:(1,0) -> 2:(2,2) -> 1:(1,1) -> 0:(2,2) -> 0
+gap> IsFiniteComplex(C);
+true
+gap> UpperBound(C);
+4
+gap> LowerBound(C);
+0
+gap> LengthOfComplex(C);
+5
+gap> HighestKnownDegree(C);
++inf
+gap> LowestKnownDegree(C);
+-inf ]]>
+</Example>
+
+<ManSection>
+  <Prop Name="IsExactSequence" Arg="C" />
+  <Description>
+    Arguments: <Arg>C</Arg> -- a complex.<Br />
+  </Description>
+  <Returns>true if <Arg>C</Arg> is exact at every position.
+  </Returns>
+  <Description>If the complex is not finite and not repeating, the
+  function fails.
+  </Description>
+</ManSection>
+
+<ManSection>
+  <Oper Name="IsExactInDegree" Arg="C,i" />
+  <Description>
+    Arguments: <Arg>C</Arg> -- a complex, <Arg>i</Arg> -- an integer.<Br />
+  </Description>
+  <Returns>true if <Arg>C</Arg> is exact at position <Arg>i</Arg>.
+  </Returns>
+  <Description>
+  </Description>
+</ManSection>
+
+<ManSection>
+  <Prop Name="IsShortExactSequence" Arg="C" />
+  <Description>
+    Arguments: <Arg>C</Arg> -- a complex.<Br />
+  </Description>
+  <Returns>true if <Arg>C</Arg> is exact and of the form 
+    <Display>
+      \ldots \rightarrow 0 \rightarrow A \rightarrow B \rightarrow C
+      \rightarrow 0 \rightarrow \ldots
+    </Display>
+    This could be positioned in any degree (as opposed to the
+    construction of a short exact sequence, where <Math>B</Math> will
+    be put in degree zero).
+  </Returns>
+  <Description>
+  </Description>
+</ManSection>
+
+<Example><![CDATA[
+gap> C;                
+0 -> 4:(0,1) -> 3:(1,0) -> 2:(2,2) -> 1:(1,1) -> 0:(2,2) -> 0
+gap> IsExactSequence(C);
+false
+gap> IsExactInDegree(C,1);
+true
+gap> IsExactInDegree(C,2);
+false ]]>
+</Example>
+
 
 
 </Section>
@@ -378,11 +551,126 @@ gap> ses := ShortExactSequence(cat, f, g);
 <Section>
 <Heading>Transforming and combinig complexes</Heading>
 
+<ManSection>
+  <Oper Name="Shift" Arg="C, i" />
+  <Description>
+    Arguments: <Arg>C</Arg> -- a complex, <Arg>i</Arg> -- an integer.<Br />
+  </Description>
+  <Returns>A new complex, which is a shift of <Arg>C</Arg>.
+  </Returns>
+  <Description>If <Arg>i</Arg> &gt; 0, the complex is shifted to the
+  left. If <Arg>i</Arg> &lt; 0, the complex is shifted to the
+  right. Note that shifting might change the differentials: In the
+  shifted complex, <Math>d_{new}</Math> is defined to
+  be <Math>(-1)^i d_{old}</Math>.
+  </Description>
+</ManSection>
+
+<Example><![CDATA[
+gap> C;
+0 -> 4:(0,1) -> 3:(1,0) -> 2:(2,2) -> 1:(1,1) -> 0:(2,2) -> 0
+gap> Shift(C,1);
+0 -> 3:(0,1) -> 2:(1,0) -> 1:(2,2) -> 0:(1,1) -> -1:(2,2) -> 0
+gap> D := Shift(C,-1);
+0 -> 5:(0,1) -> 4:(1,0) -> 3:(2,2) -> 2:(1,1) -> 1:(2,2) -> 0
+gap> dc := DifferentialOfComplex(C,3)!.maps;
+[ [ [ 1, 0 ] ], [ [ 0, 0 ] ] ]
+gap> dd := DifferentialOfComplex(D,4)!.maps;
+[ [ [ -1, 0 ] ], [ [ 0, 0 ] ] ]
+gap> MatricesOfPathAlgebraMatModuleHomomorphism(dc);
+[ [ [ 1, 0 ] ], [ [ 0, 0 ] ] ]
+gap> MatricesOfPathAlgebraMatModuleHomomorphism(dd);
+[ [ [ -1, 0 ] ], [ [ 0, 0 ] ] ] ]]>
+</Example>
+
+<ManSection>
+  <Oper Name="YonedaProduct" Arg="C, D" />
+  <Description>
+    Arguments: <Arg>C</Arg>, <Arg>D</Arg> -- complexes.<Br />
+  </Description>
+  <Returns>The Yoneda product of the two complexes, which is a complex.
+  </Returns>
+  <Description>To compute the Yoneda product, <Arg>C</Arg>
+  and <Arg>D</Arg> must be such that the object in
+  degree <C>LowerBound(C)</C> equals the object in
+  degree <C>UpperBound(D)</C>, that is
+    <Display>
+      \ldots \rightarrow C_{i+1} \rightarrow C_{i} \rightarrow A
+      \rightarrow 0 \rightarrow \ldots
+    </Display>
+    <Display>
+      \ldots \rightarrow 0 \rightarrow A \rightarrow D_{j} \rightarrow D_{j-1}
+      \rightarrow \ldots
+    </Display>
+    The product is of this form:
+    <Display>
+      \ldots \rightarrow C_{i+1} \rightarrow C_{i} \rightarrow D_{j}
+      \rightarrow D_{j-1} \rightarrow \ldots
+    </Display>
+    where the map <Math>C_{i} \rightarrow D_{j}</Math> is the
+    composition of the maps <Math>C_{i} \rightarrow A</Math>
+    and <Math>A \rightarrow D_{j}</Math>. Also, the
+    object <Math>D_{j}</Math> is in degree <Math>j</Math>.
+  </Description>
+</ManSection>
+
+<Example><![CDATA[
+gap> C2;
+0 -> 4:(0,1) -> 3:(1,0) -> 2:(2,2) -> 1:(1,1) -> 0:(0,0) -> 0
+gap> C3;
+0 -> -1:(1,1) -> -2:(2,2) -> -3:(1,1) -> 0
+gap> YonedaProduct(C2,C3);
+0 -> 1:(0,1) -> 0:(1,0) -> -1:(2,2) -> -2:(2,2) -> -3:(1,1) -> 0 ]]>
+</Example>
+
+<ManSection>
+  <Oper Name="BrutalTruncationBelow" Arg="C,i" />
+  <Description>
+    Arguments: <Arg>C</Arg> -- a complex, <Arg>i</Arg> -- an integer.<Br />
+  </Description>
+  <Returns>A newly created complex.
+  </Returns>
+  <Description>Replace all objects with degree <Math>j</Math>
+  &lt; <Math>i</Math> with zero. The differentials affected will
+  also become zero.
+  </Description>
+</ManSection>
+
+<ManSection>
+  <Oper Name="BrutalTruncationAbove" Arg="C,i" />
+  <Description>
+    Arguments: <Arg>C</Arg> -- a complex, <Arg>i</Arg> -- an integer.<Br />
+  </Description>
+  <Returns>A newly created complex.
+  </Returns>
+  <Description>Replace all objects with degree <Math>j</Math>
+  &gt; <Math>i</Math> with zero. The differentials affected will also
+  become zero.
+  </Description>
+</ManSection>
+
+<ManSection>
+  <Oper Name="BrutalTruncation" Arg="C,i,j" />
+  <Description>
+    Arguments: <Arg>C</Arg> -- a complex, <Arg>i, j</Arg> -- integers.<Br />
+  </Description>
+  <Returns>A newly created complex.
+  </Returns>
+  <Description>Brutally truncates in both ends. The integer arguments
+  must be ordered such that <Arg>i</Arg> &gt; <Arg>j</Arg>.
+  </Description>
+</ManSection>
+
+
 </Section>
 
 
 <Section>
 <Heading>Chain maps</Heading>
+
+Work in progress.
+
+
 
 </Section>
 
