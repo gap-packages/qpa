@@ -60,7 +60,7 @@
 \hypersetup{pdftitle=QPA}
 \markright{\scriptsize \mbox{}\hfill QPA \hfill\mbox{}}
 {\Large \textbf{Quivers and Path Algebras\mbox{}}}\\[1cm]
-{Version version 1.4\mbox{}}\\[1cm]
+{Version version 1.07 \mbox{}}\\[1cm]
 {September 2010\mbox{}}\\[1cm]
 \mbox{}\\[2cm]
 {\large \textbf{The QPA-team\\
@@ -1493,8 +1493,42 @@ whether \mbox{\texttt{\slshape A}} is selfinjective or not.
 
  
 
-\subsection{\textcolor{Chapter }{LoewyLength}}
+\subsection{\textcolor{Chapter }{IsSymmetricAlgebra}}
 \logpage{[ 3, 9, 4 ]}\nobreak
+\hyperdef{L}{X79DA912C82D01EE8}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsSymmetricAlgebra({\slshape A})\index{IsSymmetricAlgebra@\texttt{IsSymmetricAlgebra}}
+\label{IsSymmetricAlgebra}
+}\hfill{\scriptsize (operation)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape A}} -- a path algebra or a quotient of a path algebra.\\
+ \textbf{\indent Returns:\ }
+fail if \mbox{\texttt{\slshape A}} is not finite dimensional or does not have a Groebner basis. Otherwise it
+returns true or false according to whether \mbox{\texttt{\slshape A}} is symmetric or not. 
+
+}
+
+ 
+
+\subsection{\textcolor{Chapter }{IsWeaklySymmetricAlgebra}}
+\logpage{[ 3, 9, 5 ]}\nobreak
+\hyperdef{L}{X7EF281F980319375}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsWeaklySymmetricAlgebra({\slshape A})\index{IsWeaklySymmetricAlgebra@\texttt{IsWeaklySymmetricAlgebra}}
+\label{IsWeaklySymmetricAlgebra}
+}\hfill{\scriptsize (operation)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape A}} -- a path algebra or a quotient of a path algebra.\\
+ \textbf{\indent Returns:\ }
+fail if \mbox{\texttt{\slshape A}} is not finite dimensional or does not have a Groebner basis. Otherwise it
+returns true or false according to whether \mbox{\texttt{\slshape A}} is weakly symmetric or not. 
+
+}
+
+ 
+
+\subsection{\textcolor{Chapter }{LoewyLength}}
+\logpage{[ 3, 9, 6 ]}\nobreak
 \hyperdef{L}{X7BEA44FB819910B6}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{LoewyLength({\slshape A})\index{LoewyLength@\texttt{LoewyLength}}
 \label{LoewyLength}
@@ -1511,7 +1545,7 @@ algebra \mbox{\texttt{\slshape A}}.
  
 
 \subsection{\textcolor{Chapter }{CartanMatrix}}
-\logpage{[ 3, 9, 5 ]}\nobreak
+\logpage{[ 3, 9, 7 ]}\nobreak
 \hyperdef{L}{X84E3FEF587CB66C3}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{CartanMatrix({\slshape A})\index{CartanMatrix@\texttt{CartanMatrix}}
 \label{CartanMatrix}
@@ -1527,7 +1561,7 @@ the Cartan matrix of the algebra \mbox{\texttt{\slshape A}}, after having checke
  
 
 \subsection{\textcolor{Chapter }{CoxeterMatrix}}
-\logpage{[ 3, 9, 6 ]}\nobreak
+\logpage{[ 3, 9, 8 ]}\nobreak
 \hyperdef{L}{X815CB1D47CB174ED}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{CoxeterMatrix({\slshape A})\index{CoxeterMatrix@\texttt{CoxeterMatrix}}
 \label{CoxeterMatrix}
@@ -1543,7 +1577,7 @@ the Cartan matrix of the algebra \mbox{\texttt{\slshape A}}, after having checke
  
 
 \subsection{\textcolor{Chapter }{CoxeterPolynomial}}
-\logpage{[ 3, 9, 7 ]}\nobreak
+\logpage{[ 3, 9, 9 ]}\nobreak
 \hyperdef{L}{X7F6F526C86052150}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{CoxeterPolynomial({\slshape A})\index{CoxeterPolynomial@\texttt{CoxeterPolynomial}}
 \label{CoxeterPolynomial}
@@ -1559,7 +1593,7 @@ the Cartan matrix of the algebra \mbox{\texttt{\slshape A}}, after having checke
  
 
 \subsection{\textcolor{Chapter }{Centre/Center}}
-\logpage{[ 3, 9, 8 ]}\nobreak
+\logpage{[ 3, 9, 10 ]}\nobreak
 \hyperdef{L}{X80E403A8855F6F7A}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{Centre/Center({\slshape A})\index{Centre/Center@\texttt{Centre/Center}}
 \label{Centre/Center}

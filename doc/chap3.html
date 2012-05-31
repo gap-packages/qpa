@@ -73,11 +73,13 @@
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X87495684791B5742">3.9-1 IsElementOfQuotientOfPathAlgebra</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X80B32F667BF6AFD8">3.9-2 Coefficients</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X8555FC6B85FE9C6D">3.9-3 IsSelfinjectiveAlgebra</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7BEA44FB819910B6">3.9-4 LoewyLength</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X84E3FEF587CB66C3">3.9-5 CartanMatrix</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X815CB1D47CB174ED">3.9-6 CoxeterMatrix</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7F6F526C86052150">3.9-7 CoxeterPolynomial</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X80E403A8855F6F7A">3.9-8 Centre/Center</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X79DA912C82D01EE8">3.9-4 IsSymmetricAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7EF281F980319375">3.9-5 IsWeaklySymmetricAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7BEA44FB819910B6">3.9-6 LoewyLength</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X84E3FEF587CB66C3">3.9-7 CartanMatrix</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X815CB1D47CB174ED">3.9-8 CoxeterMatrix</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7F6F526C86052150">3.9-9 CoxeterPolynomial</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X80E403A8855F6F7A">3.9-10 Centre/Center</a></span>
 </div></div>
 <div class="ContSect"><span class="nocss">&nbsp;</span><a href="chap3.html#X7BD7DB497917893C">3.10 <span class="Heading">Attributes and Operations on Elements
  of Quotients of Path Algebra</span></a>
@@ -493,9 +495,27 @@ false </pre></td></tr></table>
 
 <p><b>Returns: </b>fail if <var class="Arg">A</var> is not finite dimensional. Otherwise it returns true or false according to whether <var class="Arg">A</var> is selfinjective or not.</p>
 
+<p><a id="X79DA912C82D01EE8" name="X79DA912C82D01EE8"></a></p>
+
+<h5>3.9-4 IsSymmetricAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IsSymmetricAlgebra</code>( <var class="Arg">A</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> -- a path algebra or a quotient of a path algebra.<br /></p>
+
+<p><b>Returns: </b>fail if <var class="Arg">A</var> is not finite dimensional or does not have a Groebner basis. Otherwise it returns true or false according to whether <var class="Arg">A</var> is symmetric or not.</p>
+
+<p><a id="X7EF281F980319375" name="X7EF281F980319375"></a></p>
+
+<h5>3.9-5 IsWeaklySymmetricAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IsWeaklySymmetricAlgebra</code>( <var class="Arg">A</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> -- a path algebra or a quotient of a path algebra.<br /></p>
+
+<p><b>Returns: </b>fail if <var class="Arg">A</var> is not finite dimensional or does not have a Groebner basis. Otherwise it returns true or false according to whether <var class="Arg">A</var> is weakly symmetric or not.</p>
+
 <p><a id="X7BEA44FB819910B6" name="X7BEA44FB819910B6"></a></p>
 
-<h5>3.9-4 LoewyLength</h5>
+<h5>3.9-6 LoewyLength</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; LoewyLength</code>( <var class="Arg">A</var> )</td><td class="tdright">( operation )</td></tr></table></div>
 <p>Arguments: <var class="Arg">A</var> -- a path algebra or a quotient of a path algebra.<br /></p>
@@ -504,7 +524,7 @@ false </pre></td></tr></table>
 
 <p><a id="X84E3FEF587CB66C3" name="X84E3FEF587CB66C3"></a></p>
 
-<h5>3.9-5 CartanMatrix</h5>
+<h5>3.9-7 CartanMatrix</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; CartanMatrix</code>( <var class="Arg">A</var> )</td><td class="tdright">( operation )</td></tr></table></div>
 <p>Arguments: <var class="Arg">A</var> -- a path algebra or a quotient of a path algebra.<br /></p>
@@ -513,7 +533,7 @@ false </pre></td></tr></table>
 
 <p><a id="X815CB1D47CB174ED" name="X815CB1D47CB174ED"></a></p>
 
-<h5>3.9-6 CoxeterMatrix</h5>
+<h5>3.9-8 CoxeterMatrix</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; CoxeterMatrix</code>( <var class="Arg">A</var> )</td><td class="tdright">( operation )</td></tr></table></div>
 <p>Arguments: <var class="Arg">A</var> -- a path algebra or a quotient of a path algebra.<br /></p>
@@ -522,7 +542,7 @@ false </pre></td></tr></table>
 
 <p><a id="X7F6F526C86052150" name="X7F6F526C86052150"></a></p>
 
-<h5>3.9-7 CoxeterPolynomial</h5>
+<h5>3.9-9 CoxeterPolynomial</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; CoxeterPolynomial</code>( <var class="Arg">A</var> )</td><td class="tdright">( operation )</td></tr></table></div>
 <p>Arguments: <var class="Arg">A</var> -- a path algebra or a quotient of a path algebra.<br /></p>
@@ -531,7 +551,7 @@ false </pre></td></tr></table>
 
 <p><a id="X80E403A8855F6F7A" name="X80E403A8855F6F7A"></a></p>
 
-<h5>3.9-8 Centre/Center</h5>
+<h5>3.9-10 Centre/Center</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; Centre/Center</code>( <var class="Arg">A</var> )</td><td class="tdright">( operation )</td></tr></table></div>
 <p>Arguments: <var class="Arg">A</var> -- a path algebra or a quotient of a path algebra.<br /></p>

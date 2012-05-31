@@ -76,28 +76,30 @@
 \contentsline {subsection}{\numberline {3.9.1}\leavevmode {\color {Chapter }IsElementOfQuotientOfPathAlgebra}}{27}{subsection.3.9.1}
 \contentsline {subsection}{\numberline {3.9.2}\leavevmode {\color {Chapter }Coefficients}}{28}{subsection.3.9.2}
 \contentsline {subsection}{\numberline {3.9.3}\leavevmode {\color {Chapter }IsSelfinjectiveAlgebra}}{28}{subsection.3.9.3}
-\contentsline {subsection}{\numberline {3.9.4}\leavevmode {\color {Chapter }LoewyLength}}{28}{subsection.3.9.4}
-\contentsline {subsection}{\numberline {3.9.5}\leavevmode {\color {Chapter }CartanMatrix}}{28}{subsection.3.9.5}
-\contentsline {subsection}{\numberline {3.9.6}\leavevmode {\color {Chapter }CoxeterMatrix}}{28}{subsection.3.9.6}
-\contentsline {subsection}{\numberline {3.9.7}\leavevmode {\color {Chapter }CoxeterPolynomial}}{28}{subsection.3.9.7}
-\contentsline {subsection}{\numberline {3.9.8}\leavevmode {\color {Chapter }Centre/Center}}{29}{subsection.3.9.8}
+\contentsline {subsection}{\numberline {3.9.4}\leavevmode {\color {Chapter }IsSymmetricAlgebra}}{28}{subsection.3.9.4}
+\contentsline {subsection}{\numberline {3.9.5}\leavevmode {\color {Chapter }IsWeaklySymmetricAlgebra}}{28}{subsection.3.9.5}
+\contentsline {subsection}{\numberline {3.9.6}\leavevmode {\color {Chapter }LoewyLength}}{28}{subsection.3.9.6}
+\contentsline {subsection}{\numberline {3.9.7}\leavevmode {\color {Chapter }CartanMatrix}}{28}{subsection.3.9.7}
+\contentsline {subsection}{\numberline {3.9.8}\leavevmode {\color {Chapter }CoxeterMatrix}}{29}{subsection.3.9.8}
+\contentsline {subsection}{\numberline {3.9.9}\leavevmode {\color {Chapter }CoxeterPolynomial}}{29}{subsection.3.9.9}
+\contentsline {subsection}{\numberline {3.9.10}\leavevmode {\color {Chapter }Centre/Center}}{29}{subsection.3.9.10}
 \contentsline {section}{\numberline {3.10}\leavevmode {\color {Chapter }Attributes and Operations on Elements of Quotients of Path Algebra}}{29}{section.3.10}
 \contentsline {subsection}{\numberline {3.10.1}\leavevmode {\color {Chapter }IsNormalForm}}{29}{subsection.3.10.1}
 \contentsline {subsection}{\numberline {3.10.2}\leavevmode {\color {Chapter }{\textless }}}{29}{subsection.3.10.2}
-\contentsline {subsection}{\numberline {3.10.3}\leavevmode {\color {Chapter }ElementOfQuotientOfPathAlgebra}}{29}{subsection.3.10.3}
-\contentsline {subsection}{\numberline {3.10.4}\leavevmode {\color {Chapter }OriginalPathAlgebra}}{29}{subsection.3.10.4}
+\contentsline {subsection}{\numberline {3.10.3}\leavevmode {\color {Chapter }ElementOfQuotientOfPathAlgebra}}{30}{subsection.3.10.3}
+\contentsline {subsection}{\numberline {3.10.4}\leavevmode {\color {Chapter }OriginalPathAlgebra}}{30}{subsection.3.10.4}
 \contentsline {section}{\numberline {3.11}\leavevmode {\color {Chapter }Predefined classes of quotient of path algebras}}{30}{section.3.11}
 \contentsline {subsection}{\numberline {3.11.1}\leavevmode {\color {Chapter }NakayamaAlgebra}}{30}{subsection.3.11.1}
 \contentsline {subsection}{\numberline {3.11.2}\leavevmode {\color {Chapter }TruncatedPathAlgebra}}{30}{subsection.3.11.2}
 \contentsline {section}{\numberline {3.12}\leavevmode {\color {Chapter }Tensor products of path algebras}}{30}{section.3.12}
-\contentsline {subsection}{\numberline {3.12.1}\leavevmode {\color {Chapter }QuiverProduct}}{30}{subsection.3.12.1}
-\contentsline {subsection}{\numberline {3.12.2}\leavevmode {\color {Chapter }QuiverProductDecomposition}}{30}{subsection.3.12.2}
+\contentsline {subsection}{\numberline {3.12.1}\leavevmode {\color {Chapter }QuiverProduct}}{31}{subsection.3.12.1}
+\contentsline {subsection}{\numberline {3.12.2}\leavevmode {\color {Chapter }QuiverProductDecomposition}}{31}{subsection.3.12.2}
 \contentsline {subsection}{\numberline {3.12.3}\leavevmode {\color {Chapter }IsQuiverProductDecomposition}}{31}{subsection.3.12.3}
 \contentsline {subsection}{\numberline {3.12.4}\leavevmode {\color {Chapter }IncludeInProductQuiver}}{31}{subsection.3.12.4}
-\contentsline {subsection}{\numberline {3.12.5}\leavevmode {\color {Chapter }ProjectFromProductQuiver}}{31}{subsection.3.12.5}
+\contentsline {subsection}{\numberline {3.12.5}\leavevmode {\color {Chapter }ProjectFromProductQuiver}}{32}{subsection.3.12.5}
 \contentsline {subsection}{\numberline {3.12.6}\leavevmode {\color {Chapter }TensorProductOfAlgebras}}{32}{subsection.3.12.6}
 \contentsline {subsection}{\numberline {3.12.7}\leavevmode {\color {Chapter }SimpleTensor}}{32}{subsection.3.12.7}
-\contentsline {subsection}{\numberline {3.12.8}\leavevmode {\color {Chapter }TensorProductDecomposition}}{32}{subsection.3.12.8}
+\contentsline {subsection}{\numberline {3.12.8}\leavevmode {\color {Chapter }TensorProductDecomposition}}{33}{subsection.3.12.8}
 \contentsline {subsection}{\numberline {3.12.9}\leavevmode {\color {Chapter }EnvelopingAlgebra}}{33}{subsection.3.12.9}
 \contentsline {subsection}{\numberline {3.12.10}\leavevmode {\color {Chapter }IsEnvelopingAlgebra}}{33}{subsection.3.12.10}
 \contentsline {chapter}{\numberline {4}\leavevmode {\color {Chapter }Groebner Basis}}{34}{chapter.4}

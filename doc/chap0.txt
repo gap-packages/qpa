@@ -6,7 +6,7 @@
                            [1XQuivers and Path Algebras[0m
   
   
-                              Version version 1.4
+                              Version version 1.07
   
   
                                  September 2010
@@ -136,11 +136,13 @@
       3.9-1 IsElementOfQuotientOfPathAlgebra
       3.9-2 Coefficients
       3.9-3 IsSelfinjectiveAlgebra
-      3.9-4 LoewyLength
-      3.9-5 CartanMatrix
-      3.9-6 CoxeterMatrix
-      3.9-7 CoxeterPolynomial
-      3.9-8 Centre/Center
+      3.9-4 IsSymmetricAlgebra
+      3.9-5 IsWeaklySymmetricAlgebra
+      3.9-6 LoewyLength
+      3.9-7 CartanMatrix
+      3.9-8 CoxeterMatrix
+      3.9-9 CoxeterPolynomial
+      3.9-10 Centre/Center
     3.10 Attributes and Operations on Elements of Quotients of Path Algebra
       3.10-1 IsNormalForm
       3.10-2 <

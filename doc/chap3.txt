@@ -372,7 +372,27 @@
   [6XReturns:[0X  fail  if [3XA[0m is not finite dimensional. Otherwise it returns true or
             false according to whether [3XA[0m is selfinjective or not.
   
-  [1X3.9-4 LoewyLength[0m
+  [1X3.9-4 IsSymmetricAlgebra[0m
+  
+  [2X> IsSymmetricAlgebra( [0X[3XA[0X[2X ) _________________________________________[0Xoperation
+  
+  Arguments: [3XA[0m -- a path algebra or a quotient of a path algebra.
+  
+  [6XReturns:[0X  fail  if  [3XA[0m  is not finite dimensional or does not have a Groebner
+            basis.  Otherwise  it returns true or false according to whether [3XA[0m
+            is symmetric or not.
+  
+  [1X3.9-5 IsWeaklySymmetricAlgebra[0m
+  
+  [2X> IsWeaklySymmetricAlgebra( [0X[3XA[0X[2X ) ___________________________________[0Xoperation
+  
+  Arguments: [3XA[0m -- a path algebra or a quotient of a path algebra.
+  
+  [6XReturns:[0X  fail  if  [3XA[0m  is not finite dimensional or does not have a Groebner
+            basis.  Otherwise  it returns true or false according to whether [3XA[0m
+            is weakly symmetric or not.
+  
+  [1X3.9-6 LoewyLength[0m
   
   [2X> LoewyLength( [0X[3XA[0X[2X ) ________________________________________________[0Xoperation
   
@@ -381,7 +401,7 @@
   [6XReturns:[0X  fail  if  [3XA[0m  is  not  finite dimensional. Otherwise it returns the
             Loewy length of the algebra [3XA[0m.
   
-  [1X3.9-5 CartanMatrix[0m
+  [1X3.9-7 CartanMatrix[0m
   
   [2X> CartanMatrix( [0X[3XA[0X[2X ) _______________________________________________[0Xoperation
   
@@ -390,7 +410,7 @@
   [6XReturns:[0X  the Cartan matrix of the algebra [3XA[0m, after having checked that [3XA[0m is
             a finite dimensional quotient of a path algebra.
   
-  [1X3.9-6 CoxeterMatrix[0m
+  [1X3.9-8 CoxeterMatrix[0m
   
   [2X> CoxeterMatrix( [0X[3XA[0X[2X ) ______________________________________________[0Xoperation
   
@@ -399,7 +419,7 @@
   [6XReturns:[0X  the  Coxeter  matrix of the algebra [3XA[0m, after having checked that [3XA[0m
             is a finite dimensional quotient of a path algebra.
   
-  [1X3.9-7 CoxeterPolynomial[0m
+  [1X3.9-9 CoxeterPolynomial[0m
   
   [2X> CoxeterPolynomial( [0X[3XA[0X[2X ) __________________________________________[0Xoperation
   
@@ -408,7 +428,7 @@
   [6XReturns:[0X  the Coxeter polynomial of the algebra [3XA[0m, after having checked that
             [3XA[0m is a finite dimensional quotient of a path algebra.
   
-  [1X3.9-8 Centre/Center[0m
+  [1X3.9-10 Centre/Center[0m
   
   [2X> Centre/Center( [0X[3XA[0X[2X ) ______________________________________________[0Xoperation
   

@@ -43,8 +43,8 @@
   \item \texttt  {CompletelyReduce}, \hyperpage{36}
   \item \texttt  {CompletelyReduceGroebnerBasis}, \hyperpage{36}
   \item \texttt  {Complex}, \hyperpage{76}
-  \item \texttt  {CoxeterMatrix}, \hyperpage{28}
-  \item \texttt  {CoxeterPolynomial}, \hyperpage{28}
+  \item \texttt  {CoxeterMatrix}, \hyperpage{29}
+  \item \texttt  {CoxeterPolynomial}, \hyperpage{29}
   \item \texttt  {CyclesOfComplex}, \hyperpage{78}
 
   \indexspace
@@ -63,7 +63,7 @@
 
   \indexspace
 
-  \item \texttt  {ElementOfQuotientOfPathAlgebra}, \hyperpage{29}
+  \item \texttt  {ElementOfQuotientOfPathAlgebra}, \hyperpage{30}
   \item \texttt  {EndOverAlgebra}, \hyperpage{63}
   \item \texttt  {Enumerator}, \hyperpage{37}
   \item \texttt  {EnvelopingAlgebra}, \hyperpage{33}
@@ -144,9 +144,11 @@
   \item \texttt  {IsSplitEpimorphism}, \hyperpage{61}
   \item \texttt  {IsSplitMonomorphism}, \hyperpage{61}
   \item \texttt  {IsSurjective}, \hyperpage{60}
+  \item \texttt  {IsSymmetricAlgebra}, \hyperpage{28}
   \item \texttt  {IsTipReducedGroebnerBasis}, \hyperpage{35}
   \item \texttt  {IsUniform}, \hyperpage{24}
   \item \texttt  {IsVertex}, \hyperpage{18}
+  \item \texttt  {IsWeaklySymmetricAlgebra}, \hyperpage{28}
   \item \texttt  {IsZero}, \hyperpage{62}
   \item \texttt  {IsZeroComplex}, \hyperpage{76}
   \item \texttt  {IsZeroPath}, \hyperpage{18}
@@ -206,7 +208,7 @@
   \item \texttt  {OrderedBy}, \hyperpage{15}
   \item \texttt  {OrderingOfAlgebra}, \hyperpage{23}
   \item \texttt  {OrderingOfQuiver}, \hyperpage{17}
-  \item \texttt  {OriginalPathAlgebra}, \hyperpage{29}
+  \item \texttt  {OriginalPathAlgebra}, \hyperpage{30}
   \item \texttt  {OutDegreeOfVertex}, \hyperpage{20}
   \item \texttt  {OutgoingArrowsOfVertex}, \hyperpage{20}
 
@@ -214,7 +216,7 @@
 
   \item \texttt  {PathAlgebra}, \hyperpage{22}
   \item \texttt  {PreImagesRepresentative}, \hyperpage{57}
-  \item \texttt  {ProjectFromProductQuiver}, \hyperpage{31}
+  \item \texttt  {ProjectFromProductQuiver}, \hyperpage{32}
   \item \texttt  {ProjectiveCover}, \hyperpage{69}
   \item \texttt  {PullBack}, \hyperpage{69}
   \item \texttt  {PushOut}, \hyperpage{69}
@@ -223,8 +225,8 @@
 
   \item \texttt  {Quiver}, \hyperpage{14}
   \item \texttt  {QuiverOfPathAlgebra}, \hyperpage{23}
-  \item \texttt  {QuiverProduct}, \hyperpage{30}
-  \item \texttt  {QuiverProductDecomposition}, \hyperpage{30}
+  \item \texttt  {QuiverProduct}, \hyperpage{31}
+  \item \texttt  {QuiverProductDecomposition}, \hyperpage{31}
 
   \indexspace
 
@@ -258,7 +260,7 @@
   \indexspace
 
   \item \texttt  {TargetOfPath}, \hyperpage{18}
-  \item \texttt  {TensorProductDecomposition}, \hyperpage{32}
+  \item \texttt  {TensorProductDecomposition}, \hyperpage{33}
   \item \texttt  {TensorProductOfAlgebras}, \hyperpage{32}
   \item \texttt  {Tip}, \hyperpage{24}
   \item \texttt  {TipCoefficient}, \hyperpage{25}

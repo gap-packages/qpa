@@ -27,10 +27,10 @@
   [2XBrutalTruncation[0X  8.4-5
   [2XBrutalTruncationAbove[0X  8.4-4
   [2XBrutalTruncationBelow[0X  8.4-3
-  [2XCartanMatrix[0X  3.9-5
+  [2XCartanMatrix[0X  3.9-7
   [2XCatOfComplex[0X  8.3-1
   [2XCatOfRightAlgebraModules[0X  8.1-2
-  [2XCentre/Center[0X  3.9-8
+  [2XCentre/Center[0X  3.9-10
   [2XCoefficients[0X  3.9-2
   [2XCoKernel[0X  7.3-1
   [2XCoKernelOfWhat[0X  7.2-13
@@ -39,8 +39,8 @@
   [2XCompletelyReduce[0X  4.3-1
   [2XCompletelyReduceGroebnerBasis[0X  4.3-2
   [2XComplex[0X  8.2-3
-  [2XCoxeterMatrix[0X  3.9-6
-  [2XCoxeterPolynomial[0X  3.9-7
+  [2XCoxeterMatrix[0X  3.9-8
+  [2XCoxeterPolynomial[0X  3.9-9
   [2XCyclesOfComplex[0X  8.3-5
   [2XDifferentialOfComplex[0X  8.3-3
   [2XDifferentialsOfComplex[0X  8.3-4
@@ -122,9 +122,11 @@
   [2XIsSplitEpimorphism[0X  7.2-18
   [2XIsSplitMonomorphism[0X  7.2-19
   [2XIsSurjective[0X  7.2-16
+  [2XIsSymmetricAlgebra[0X  3.9-4
   [2XIsTipReducedGroebnerBasis[0X  4.2-2
   [2XIsUniform[0X  3.5-4
   [2XIsVertex[0X  2.6-2
+  [2XIsWeaklySymmetricAlgebra[0X  3.9-5
   [2XIsZero[0X  7.2-20
   [2XIsZeroComplex[0X  8.2-2
   [2XIsZeroPath[0X  2.6-4
@@ -140,7 +142,7 @@
   [2XLengthOfPath[0X  2.7-3
   [2XLiftingInclusionMorphisms[0X  7.3-7
   [2XLiftingMorphismFromProjective[0X  7.3-8
-  [2XLoewyLength[0X  3.9-4
+  [2XLoewyLength[0X  3.9-6
   [2XLoewyLength[0X  6.4-16
   [2XLowerBound[0X  8.3-10
   [2XLowestKnownDegree[0X  8.3-13
