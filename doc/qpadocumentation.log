@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2011.8.11)  3 MAY 2012 08:21
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2011.8.11)  31 MAY 2012 07:21
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -625,20 +625,20 @@ File: omlptm.fd
 )
 LaTeX Font Info:    Font shape `OML/ptm/m/n' in size <10.95> not available
 (Font)              Font shape `OML/cmm/m/it' tried instead on input line 38.
- [4] [5] [6] [7])
+ [4] [5] [6] [7]
+[8])
 \tf@toc=\write7
 \openout7 = `qpadocumentation.toc'.
 
-
-[8]
+ [9]
 Chapter 1.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <20.74> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 125.
 LaTeX Font Info:    Font shape `OT1/phv/m/n' will be
 (Font)              scaled to size 9.85492pt on input line 129.
-[9
+[10
 
-] [10] [11] [12]
+] [11] [12] [13]
 Chapter 2.
 
 Underfull \hbox (badness 10000) in paragraph at lines 335--338
@@ -650,19 +650,19 @@ Underfull \hbox (badness 10000) in paragraph at lines 354--363
 
  []
 
-[13
+[14
 
-] [14]
+] [15]
 Underfull \hbox (badness 10000) in paragraph at lines 494--497
 
  []
 
-[15]
+[16]
 Underfull \hbox (badness 10000) in paragraph at lines 652--655
 
  []
 
-[16]
+[17]
 Underfull \hbox (badness 10000) in paragraph at lines 664--667
 
  []
@@ -677,7 +677,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 688--691
 
  []
 
-[17]
+[18]
 Underfull \hbox (badness 10000) in paragraph at lines 772--775
 
  []
@@ -706,14 +706,14 @@ Underfull \hbox (badness 10000) in paragraph at lines 830--833
 
  []
 
-[18pdfTeX warning (ext4): destination with the same identifier (name{L.X8123456
+[19pdfTeX warning (ext4): destination with the same identifier (name{L.X8123456
 781234567}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
 l.835  A
         rguments: \mbox{\texttt{\slshape p}} and \mbox{\texttt{\slshape q}} ...
-] [19] [20]
+] [20] [21]
 Chapter 3.
 
 Underfull \hbox (badness 10000) in paragraph at lines 959--962
@@ -725,7 +725,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 993--996
 
  []
 
-[21
+[22
 
 ]
 Underfull \hbox (badness 10000) in paragraph at lines 1020--1023
@@ -760,7 +760,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 1093--1096
 
  []
 
-[22]
+[23]
 Underfull \hbox (badness 10000) in paragraph at lines 1109--1112
 
  []
@@ -785,7 +785,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 1196--1202
 
  []
 
-[23]
+[24]
 Underfull \hbox (badness 10000) in paragraph at lines 1217--1223
 
  []
@@ -805,7 +805,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 1287--1290
 
  []
 
-[24]
+[25]
 Underfull \hbox (badness 10000) in paragraph at lines 1324--1327
 
  []
@@ -820,7 +820,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 1366--1369
 
  []
 
-[25]
+[26]
 Underfull \hbox (badness 10000) in paragraph at lines 1413--1416
 
  []
@@ -835,7 +835,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 1469--1472
 
  []
 
-[26]
+[27]
 LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <10.95> not available
 (Font)              Font shape `OT1/phv/m/sl' tried instead on input line 1475.
 
@@ -871,7 +871,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 1564--1567
 
  []
 
-[27]
+[28]
 Underfull \hbox (badness 10000) in paragraph at lines 1587--1590
 
  []
@@ -901,7 +901,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 1669--1672
 
  []
 
-[28]
+[29]
 Underfull \hbox (badness 10000) in paragraph at lines 1695--1698
 
  []
@@ -916,7 +916,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 1742--1745
 
  []
 
-[29]
+[30]
 Underfull \hbox (badness 10000) in paragraph at lines 1760--1763
 
  []
@@ -931,7 +931,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 1798--1801
 
  []
 
-[30]
+[31]
 Underfull \hbox (badness 10000) in paragraph at lines 1839--1842
 
  []
@@ -946,7 +946,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 1875--1878
 
  []
 
-[31]
+[32]
 Underfull \hbox (badness 10000) in paragraph at lines 1923--1926
 
  []
@@ -956,10 +956,15 @@ Underfull \hbox (badness 10000) in paragraph at lines 1939--1942
 
  []
 
-[32]
+[33]
 Chapter 4.
 
-Underfull \hbox (badness 10000) in paragraph at lines 1972--1975
+Underfull \hbox (badness 10000) in paragraph at lines 1970--1973
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1982--1985
 
  []
 
@@ -968,65 +973,55 @@ Underfull \hbox (badness 10000) in paragraph at lines 2009--2012
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 2025--2028
-
- []
-
-[33
+[34
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 2041--2044
+Underfull \hbox (badness 10000) in paragraph at lines 2050--2053
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2057--2060
+Underfull \hbox (badness 10000) in paragraph at lines 2066--2069
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2073--2076
+Underfull \hbox (badness 10000) in paragraph at lines 2082--2085
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2099--2102
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 2115--2118
-
- []
-
-[34]
-Underfull \hbox (badness 10000) in paragraph at lines 2134--2137
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 2150--2153
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 2166--2169
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 2184--2187
+Underfull \hbox (badness 10000) in paragraph at lines 2098--2101
 
  []
 
 [35]
-Underfull \hbox (badness 10000) in paragraph at lines 2202--2205
+Underfull \hbox (badness 10000) in paragraph at lines 2127--2130
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2221--2224
+Underfull \hbox (badness 10000) in paragraph at lines 2145--2148
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2164--2167
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2182--2185
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2200--2203
+
+ []
+
+[36]
+Underfull \hbox (badness 10000) in paragraph at lines 2220--2223
 
  []
 
@@ -1036,40 +1031,50 @@ Underfull \hbox (badness 10000) in paragraph at lines 2239--2242
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2255--2258
-
- []
-
-[36]
-Underfull \hbox (badness 10000) in paragraph at lines 2279--2282
+Underfull \hbox (badness 10000) in paragraph at lines 2259--2262
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2295--2298
+Underfull \hbox (badness 10000) in paragraph at lines 2276--2279
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2307--2310
+Underfull \hbox (badness 10000) in paragraph at lines 2292--2295
 
  []
 
 [37]
+Underfull \hbox (badness 10000) in paragraph at lines 2318--2321
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2334--2337
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2350--2353
+
+ []
+
+[38]
 Chapter 5.
-[38
+[39
 
 ]
 Chapter 6.
 
-Underfull \hbox (badness 10000) in paragraph at lines 2381--2387
+Underfull \hbox (badness 10000) in paragraph at lines 2427--2433
 
  []
 
-[39
+[40
 
-] [40]
-Underfull \hbox (badness 5147) in paragraph at lines 2492--2497
+] [41]
+Underfull \hbox (badness 5147) in paragraph at lines 2538--2543
 []\OT1/ptm/b/n/10.95 Returns:  \OT1/ptm/m/n/10.95 true or false de-pend-ing on 
 whether [] be-longs to the cat-e-gory
  []
@@ -1078,235 +1083,235 @@ pdfTeX warning (ext4): destination with the same identifier (name{L.X8123456781
 234567}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.2517 \hyperdef{L}{X8123456781234567}{}
+l.2563 \hyperdef{L}{X8123456781234567}{}
                                         
-Underfull \hbox (badness 10000) in paragraph at lines 2518--2521
-
- []
-
-[41]
-Underfull \hbox (badness 10000) in paragraph at lines 2595--2598
+Underfull \hbox (badness 10000) in paragraph at lines 2564--2567
 
  []
 
 [42]
-Underfull \hbox (badness 10000) in paragraph at lines 2613--2616
+Underfull \hbox (badness 10000) in paragraph at lines 2641--2644
+
+ []
+
+[43]
+Underfull \hbox (badness 10000) in paragraph at lines 2659--2662
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2632--2635
+Underfull \hbox (badness 10000) in paragraph at lines 2678--2681
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2648--2651
+Underfull \hbox (badness 10000) in paragraph at lines 2694--2697
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2666--2669
+Underfull \hbox (badness 10000) in paragraph at lines 2712--2715
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2677--2678
+Underfull \hbox (badness 10000) in paragraph at lines 2723--2724
 []\OT1/ptm/m/n/10.95 In ad-di-tion three at-tributes are at-tached to the re-su
 lt, \OT1/pcr/m/n/10.95 IsDirectSumOfModules,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2684--2687
-
- []
-
-[43]
-Underfull \hbox (badness 10000) in paragraph at lines 2700--2703
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 2717--2720
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 2766--2769
+Underfull \hbox (badness 10000) in paragraph at lines 2730--2733
 
  []
 
 [44]
-Underfull \hbox (badness 10000) in paragraph at lines 2782--2785
+Underfull \hbox (badness 10000) in paragraph at lines 2746--2749
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2800--2803
+Underfull \hbox (badness 10000) in paragraph at lines 2763--2766
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2816--2819
+Underfull \hbox (badness 10000) in paragraph at lines 2812--2815
+
+ []
+
+[45]
+Underfull \hbox (badness 10000) in paragraph at lines 2828--2831
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2832--2835
+Underfull \hbox (badness 10000) in paragraph at lines 2846--2849
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2848--2851
+Underfull \hbox (badness 10000) in paragraph at lines 2862--2865
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2864--2867
+Underfull \hbox (badness 10000) in paragraph at lines 2878--2881
 
  []
 
-[45]pdfTeX warning (ext4): destination with the same identifier (name{L.X7BEA44
+
+Underfull \hbox (badness 10000) in paragraph at lines 2894--2897
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2910--2913
+
+ []
+
+[46]pdfTeX warning (ext4): destination with the same identifier (name{L.X7BEA44
 FB819910B6}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.2879 \hyperdef{L}{X7BEA44FB819910B6}{}
+l.2925 \hyperdef{L}{X7BEA44FB819910B6}{}
                                         
-Underfull \hbox (badness 10000) in paragraph at lines 2880--2883
+Underfull \hbox (badness 10000) in paragraph at lines 2926--2929
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2899--2902
+Underfull \hbox (badness 10000) in paragraph at lines 2945--2948
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2918--2921
+Underfull \hbox (badness 10000) in paragraph at lines 2964--2967
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2937--2940
+Underfull \hbox (badness 10000) in paragraph at lines 2983--2986
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2953--2956
-
- []
-
-[46]
-Underfull \hbox (badness 10000) in paragraph at lines 2969--2972
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 2987--2990
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 3006--3009
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 3026--3029
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 3044--3047
+Underfull \hbox (badness 10000) in paragraph at lines 2999--3002
 
  []
 
 [47]
-Underfull \hbox (badness 10000) in paragraph at lines 3063--3066
+Underfull \hbox (badness 10000) in paragraph at lines 3015--3018
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3082--3085
+Underfull \hbox (badness 10000) in paragraph at lines 3033--3036
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3100--3103
+Underfull \hbox (badness 10000) in paragraph at lines 3052--3055
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3116--3119
+Underfull \hbox (badness 10000) in paragraph at lines 3072--3075
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 3090--3093
 
  []
 
 [48]
-Underfull \hbox (badness 10000) in paragraph at lines 3145--3148
+Underfull \hbox (badness 10000) in paragraph at lines 3109--3112
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3165--3168
+Underfull \hbox (badness 10000) in paragraph at lines 3128--3131
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3186--3189
+Underfull \hbox (badness 10000) in paragraph at lines 3146--3149
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3207--3210
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 3226--3229
+Underfull \hbox (badness 10000) in paragraph at lines 3162--3165
 
  []
 
 [49]
-Underfull \hbox (badness 10000) in paragraph at lines 3251--3254
+Underfull \hbox (badness 10000) in paragraph at lines 3191--3194
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3267--3270
+Underfull \hbox (badness 10000) in paragraph at lines 3211--3214
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3283--3289
+Underfull \hbox (badness 10000) in paragraph at lines 3232--3235
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3303--3309
+Underfull \hbox (badness 10000) in paragraph at lines 3253--3256
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3323--3326
+Underfull \hbox (badness 10000) in paragraph at lines 3272--3275
 
  []
 
 [50]
-Underfull \hbox (badness 10000) in paragraph at lines 3348--3351
+Underfull \hbox (badness 10000) in paragraph at lines 3297--3300
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3385--3388
+Underfull \hbox (badness 10000) in paragraph at lines 3313--3316
 
  []
 
-[51]pdfTeX warning (ext4): destination with the same identifier (name{L.X812345
+
+Underfull \hbox (badness 10000) in paragraph at lines 3329--3335
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 3349--3355
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 3369--3372
+
+ []
+
+[51]
+Underfull \hbox (badness 10000) in paragraph at lines 3394--3397
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 3431--3434
+
+ []
+
+[52]pdfTeX warning (ext4): destination with the same identifier (name{L.X812345
 6781234567}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.3419 \hyperdef{L}{X8123456781234567}{}
+l.3465 \hyperdef{L}{X8123456781234567}{}
                                         
-Underfull \hbox (badness 10000) in paragraph at lines 3420--3423
+Underfull \hbox (badness 10000) in paragraph at lines 3466--3469
 
  []
 
@@ -1314,9 +1319,9 @@ pdfTeX warning (ext4): destination with the same identifier (name{L.X871A3B1D87
 1A3B1D}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.3443 \hyperdef{L}{X871A3B1D871A3B1D}{}
+l.3489 \hyperdef{L}{X871A3B1D871A3B1D}{}
                                         
-Underfull \hbox (badness 10000) in paragraph at lines 3444--3447
+Underfull \hbox (badness 10000) in paragraph at lines 3490--3493
 
  []
 
@@ -1324,112 +1329,112 @@ pdfTeX warning (ext4): destination with the same identifier (name{L.X8123456781
 234567}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.3467 \hyperdef{L}{X8123456781234567}{}
+l.3513 \hyperdef{L}{X8123456781234567}{}
                                         
-Underfull \hbox (badness 10000) in paragraph at lines 3468--3471
+Underfull \hbox (badness 10000) in paragraph at lines 3514--3517
 
  []
 
-[52] [53]
+[53] [54]
 Chapter 7.
 
-Underfull \hbox (badness 10000) in paragraph at lines 3546--3549
+Underfull \hbox (badness 10000) in paragraph at lines 3592--3595
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3551--3554
+Underfull \hbox (badness 10000) in paragraph at lines 3597--3600
 []\OT1/ptm/b/n/10.95 Returns:  \OT1/ptm/m/n/10.95 true or false de-pend-ing on 
 if [] be-longs to the cat-e-gories
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3551--3554
+Underfull \hbox (badness 10000) in paragraph at lines 3597--3600
 \OT1/pcr/m/n/10.95 IsAdditiveElementWithZero\OT1/ptm/m/n/10.95 , \OT1/pcr/m/n/1
 0.95 IsAdditiveElementWithInverse\OT1/ptm/m/n/10.95 , \OT1/pcr/m/n/10.95 IsGene
 ralMapping\OT1/ptm/m/n/10.95 ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3551--3554
+Underfull \hbox (badness 10000) in paragraph at lines 3597--3600
 \OT1/pcr/m/n/10.95 RespectsAddition\OT1/ptm/m/n/10.95 , \OT1/pcr/m/n/10.95 Resp
 ectsZero\OT1/ptm/m/n/10.95 , \OT1/pcr/m/n/10.95 RespectsScalarMultiplication\OT
 1/ptm/m/n/10.95 , \OT1/pcr/m/n/10.95 IsTotal \OT1/ptm/m/n/10.95 and
  []
 
-[54
+[55
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 3564--3567
+Underfull \hbox (badness 10000) in paragraph at lines 3610--3613
 
  []
 
 
-Underfull \hbox (badness 1184) in paragraph at lines 3575--3579
+Underfull \hbox (badness 1184) in paragraph at lines 3621--3625
 [] \OT1/ptm/m/n/10.95 is a list of ma-tri-ces \OT1/pcr/m/n/10.95 mats[i]\OT1/pt
 m/m/n/10.95 , where \OT1/pcr/m/n/10.95 mats[i] \OT1/ptm/m/n/10.95 rep-re-sents 
 the lin-ear map from \OT1/pcr/m/n/10.95 M[i]
  []
 
 
-Underfull \hbox (badness 1132) in paragraph at lines 3575--3579
+Underfull \hbox (badness 1132) in paragraph at lines 3621--3625
 \OT1/ptm/m/n/10.95 zero, then \OT1/pcr/m/n/10.95 mats[i] \OT1/ptm/m/n/10.95 is 
 a \OT1/pcr/m/n/10.95 DimensionVector(M)[i] \OT1/ptm/m/n/10.95 by \OT1/pcr/m/n/1
 0.95 DimensionVector(N)[i] \OT1/ptm/m/n/10.95 ma-trix. If
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3606--3609
+Underfull \hbox (badness 10000) in paragraph at lines 3652--3655
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3622--3625
-
- []
-
-[55]
-Underfull \hbox (badness 10000) in paragraph at lines 3638--3641
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 3667--3670
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 3685--3688
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 3703--3706
+Underfull \hbox (badness 10000) in paragraph at lines 3668--3671
 
  []
 
 [56]
-Underfull \hbox (badness 10000) in paragraph at lines 3741--3744
+Underfull \hbox (badness 10000) in paragraph at lines 3684--3687
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3757--3760
+Underfull \hbox (badness 10000) in paragraph at lines 3713--3716
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3773--3776
+Underfull \hbox (badness 10000) in paragraph at lines 3731--3734
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3789--3792
+Underfull \hbox (badness 10000) in paragraph at lines 3749--3752
 
  []
 
 [57]
-Underfull \hbox (badness 10000) in paragraph at lines 3805--3808
+Underfull \hbox (badness 10000) in paragraph at lines 3787--3790
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 3803--3806
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 3819--3822
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 3835--3838
+
+ []
+
+[58]
+Underfull \hbox (badness 10000) in paragraph at lines 3851--3854
 
  []
 
@@ -1437,235 +1442,342 @@ pdfTeX warning (ext4): destination with the same identifier (name{L.X7E8438F77E
 CB778E}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.3823 \hyperdef{L}{X7E8438F77ECB778E}{}
+l.3869 \hyperdef{L}{X7E8438F77ECB778E}{}
                                         
-Underfull \hbox (badness 10000) in paragraph at lines 3824--3827
-
- []
-
-[58]
-Underfull \hbox (badness 10000) in paragraph at lines 3893--3896
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 3909--3912
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 3926--3929
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 3942--3945
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 3958--3961
+Underfull \hbox (badness 10000) in paragraph at lines 3870--3873
 
  []
 
 [59]
-Underfull \hbox (badness 10000) in paragraph at lines 4001--4004
+Underfull \hbox (badness 10000) in paragraph at lines 3939--3942
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 4018--4021
+Underfull \hbox (badness 10000) in paragraph at lines 3955--3958
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 3972--3975
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 3988--3991
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4004--4007
 
  []
 
 [60]
-Underfull \hbox (badness 10000) in paragraph at lines 4054--4057
+Underfull \hbox (badness 10000) in paragraph at lines 4047--4050
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 4070--4073
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 4105--4111
+Underfull \hbox (badness 10000) in paragraph at lines 4064--4067
 
  []
 
 [61]
-Underfull \hbox (badness 10000) in paragraph at lines 4127--4130
+Underfull \hbox (badness 10000) in paragraph at lines 4100--4103
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 4145--4148
+Underfull \hbox (badness 10000) in paragraph at lines 4116--4119
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 4164--4167
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 4183--4195
+Underfull \hbox (badness 10000) in paragraph at lines 4151--4157
 
  []
 
 [62]
-Underfull \hbox (badness 10000) in paragraph at lines 4212--4218
+Underfull \hbox (badness 10000) in paragraph at lines 4173--4176
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4191--4194
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4210--4213
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4229--4241
 
  []
 
 [63]
-Underfull \hbox (badness 10000) in paragraph at lines 4321--4324
+Underfull \hbox (badness 10000) in paragraph at lines 4258--4264
 
  []
 
 [64]
-Underfull \hbox (badness 10000) in paragraph at lines 4339--4342
+Underfull \hbox (badness 10000) in paragraph at lines 4367--4370
 
  []
 
 [65]
-Underfull \hbox (badness 10000) in paragraph at lines 4413--4416
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 4429--4432
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 4445--4448
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 4462--4465
+Underfull \hbox (badness 10000) in paragraph at lines 4385--4388
 
  []
 
 [66]
-Underfull \hbox (badness 10000) in paragraph at lines 4515--4524
+Underfull \hbox (badness 10000) in paragraph at lines 4459--4462
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4475--4478
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4491--4494
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4508--4511
 
  []
 
 [67]
-Underfull \hbox (badness 10000) in paragraph at lines 4540--4543
+Underfull \hbox (badness 10000) in paragraph at lines 4561--4570
+
+ []
+
+[68]
+Underfull \hbox (badness 10000) in paragraph at lines 4586--4589
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 4558--4561
+Underfull \hbox (badness 10000) in paragraph at lines 4604--4607
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 4576--4579
+Underfull \hbox (badness 10000) in paragraph at lines 4622--4625
 
  []
 
-[68] [69]
-Underfull \hbox (badness 10000) in paragraph at lines 4670--4673
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 4688--4691
+[69] [70]
+Underfull \hbox (badness 10000) in paragraph at lines 4716--4719
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 4706--4709
+Underfull \hbox (badness 10000) in paragraph at lines 4734--4737
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 4725--4728
-
- []
-
-[70]
-Underfull \hbox (badness 10000) in paragraph at lines 4779--4782
+Underfull \hbox (badness 10000) in paragraph at lines 4752--4755
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 4803--4806
+Underfull \hbox (badness 10000) in paragraph at lines 4771--4774
 
  []
 
-[71] [72]
+[71]
+Underfull \hbox (badness 10000) in paragraph at lines 4825--4828
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4849--4852
+
+ []
+
+[72] [73]
 Chapter 8.
+
+Underfull \hbox (badness 10000) in paragraph at lines 4944--4947
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4959--4962
+
+ []
+
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/pzccm/m/n' tried instead on input line 4901
+(Font)              Font shape `OMS/pzccm/m/n' tried instead on input line 4973
 .
-
-LaTeX Warning: Reference `SingleObjectComplex' on page 73 undefined on input li
-ne 4902.
-
-
-LaTeX Warning: Reference `ShortExactSequence' on page 73 undefined on input lin
-e 4904.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 4911--4914
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 4923--4926
-
- []
-
-
-LaTeX Warning: Reference `IsCat' on page 73 undefined on input line 4943.
-
-[73
+[74
 
 ]
+Underfull \hbox (badness 10000) in paragraph at lines 5030--5033
 
-LaTeX Warning: Reference `IsCat' on page 74 undefined on input line 4987.
+ []
 
-[74]
 
-LaTeX Warning: Reference `IsCat' on page 75 undefined on input line 5005.
+Underfull \hbox (badness 10000) in paragraph at lines 5042--5045
 
-[75]
+ []
+
+[75] [76]
+Underfull \hbox (badness 10000) in paragraph at lines 5148--5151
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 5171--5174
+
+ []
+
+[77]
+Underfull \hbox (badness 10000) in paragraph at lines 5215--5218
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 5233--5236
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 5251--5254
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 5267--5270
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 5285--5288
+
+ []
+
+[78]
+Underfull \hbox (badness 10000) in paragraph at lines 5290--5293
+[]\OT1/ptm/b/n/10.95 Returns:  \OT1/ptm/m/n/10.95 The $\OML/ptmcm/m/it/10.95 i$
+\OT1/ptm/m/n/10.95 -boundary of the com-plex, that is the sub-ob-ject $\OML/ptm
+cm/m/it/10.95 Im\OT1/ptmcm/m/n/10.95 (\OML/ptmcm/m/it/10.95 d[]\OT1/ptmcm/m/n/1
+0.95 )$ \OT1/ptm/m/n/10.95 of
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 5303--5306
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 5350--5353
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 5368--5371
+
+ []
+
+[79]
+Underfull \hbox (badness 10000) in paragraph at lines 5387--5390
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 5406--5409
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 5424--5427
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 5442--5445
+
+ []
+
+[80]
+Underfull \hbox (badness 10000) in paragraph at lines 5477--5480
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 5495--5498
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 5513--5516
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 5552--5555
+
+ []
+
+[81]
+Underfull \hbox (badness 10000) in paragraph at lines 5588--5591
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 5624--5627
+
+ []
+
+[82]
+Underfull \hbox (badness 10000) in paragraph at lines 5642--5645
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 5660--5663
+
+ []
+
+[83]
 Appendix A.
 (./qpadocumentation.bbl (./qpadocumentation.brf)
 \tf@brf=\write8
 \openout8 = `qpadocumentation.brf'.
 
- [76
+ [84
 
 ]
 
 LaTeX Warning: Empty `thebibliography' environment on input line 3.
 
-) (./qpadocumentation.ind [77
+) (./qpadocumentation.ind [85
 
-] [78
+] [86
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 160--162
+Underfull \hbox (badness 10000) in paragraph at lines 179--181
 []\OT1/pcr/m/n/10.95 Matrices\OT1/ptm/m/n/10.95 -\OT1/pcr/m/n/10.95 Of\OT1/ptm/
 m/n/10.95 -\OT1/pcr/m/n/10.95 Path\OT1/ptm/m/n/10.95 -\OT1/pcr/m/n/10.95 Algebr
 a\OT1/ptm/m/n/10.95 -\OT1/pcr/m/n/10.95 Mat\OT1/ptm/m/n/10.95 -\OT1/pcr/m/n/10.
 95 Module\OT1/ptm/m/n/10.95 -
  []
 
-[79] [80
-
-])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 5066.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 5066.
+[87] [88])
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 5712.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 5712.
  (./qpadocumentation.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 5066.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 5066.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 5712.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 5712.
 
 Package rerunfilecheck Info: File `qpadocumentation.brf' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
@@ -1674,17 +1786,14 @@ Package rerunfilecheck Info: File `qpadocumentation.brf' has not changed.
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 
-LaTeX Warning: There were undefined references.
-
-
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 10156 strings out of 493629
- 142240 string characters out of 3146270
- 283823 words of memory out of 3000000
- 12690 multiletter control sequences out of 15000+200000
+ 10237 strings out of 493629
+ 143586 string characters out of 3146270
+ 285455 words of memory out of 3000000
+ 12713 multiletter control sequences out of 15000+200000
  53173 words of font info for 115 fonts, out of 3000000 for 9000
  831 hyphenation exceptions out of 8191
  32i,7n,25p,3252b,613s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -1702,10 +1811,10 @@ bol/usyr.pfb></usr/lib/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></us
 r/lib/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/lib/texlive/tex
 mf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/lib/texlive/texmf-dist/fonts/typ
 e1/urw/times/utmri8a.pfb>
-Output written on qpadocumentation.pdf (80 pages, 320846 bytes).
+Output written on qpadocumentation.pdf (88 pages, 338305 bytes).
 PDF statistics:
- 1517 PDF objects out of 1728 (max. 8388607)
- 1405 compressed objects within 15 object streams
- 579 named destinations out of 1000 (max. 500000)
+ 1667 PDF objects out of 1728 (max. 8388607)
+ 1546 compressed objects within 16 object streams
+ 637 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

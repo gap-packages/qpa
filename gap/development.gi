@@ -1,52 +1,67 @@
+#######################################################################
+##
+#O  IsSelfinjectiveAlgebra ( <A> )
+##
+##  This function returns fail if the algebra  A  is not a finite  
+##  dimensional quotient of a path algebra, otherwise it returns
+##  true or false depending on whether or not the algebra is 
+##  selfinjective.
+##
 InstallMethod( IsSelfinjectiveAlgebra, 
    "for a finite dimension quotient of a path algebra",
-   [ IsQuotientOfPathAlgebra ], 0,
+   [ IsAlgebra ], 0,
    function( A ) 
 
-   local fam, KQ, rels, I, B, gb, gbb, Inj, T, num_vert, total, i;
-
+   local Q, fam, KQ, rels, I, B, gb, gbb, Inj, T, num_vert, total, i;
+   
+   if not IsPathAlgebra(A) and not IsQuotientOfPathAlgebra(A) then
+       TryNextMethod();
+   fi;
+   #
+   # If the algebra is a path algebra.
+   #
+   if IsPathAlgebra(A) then 
+       Q := QuiverOfPathAlgebra(A);
+       if IsAcyclicQuiver(Q) then 
+           if NumberOfArrows(Q) > 0 then 
+               return false;
+           else
+               return true;
+           fi;
+       else
+           return fail;
+       fi;
+   fi;
+   #
+   # By now we know that the algebra is a quotient of a path algebra.
+   #
    fam := ElementsFamily(FamilyObj(A));
    if HasGroebnerBasisOfIdeal(fam!.ideal) and 
-          AdmitsFinitelyManyNontips(GroebnerBasisOfIdeal(fam!.ideal)) then 
-      Inj := IndecInjectiveModules(A);
-      T := List(Inj, M -> DimensionVector(TopOfModule(M)));
-      num_vert := Length(T);
-      total := List([1..num_vert], x -> 0);
-      for i in [1..num_vert] do
-         total := total + T[i];
-      od;
-   
-      if ( num_vert = Sum(total) ) and ( ForAll(total, x -> x > 0) )  then
-         return true;
-      else
-         return false;
-      fi;
+              AdmitsFinitelyManyNontips(GroebnerBasisOfIdeal(fam!.ideal)) then 
+       Inj := IndecInjectiveModules(A);
+       T := List(Inj, M -> DimensionVector(TopOfModule(M)));
+       num_vert := Length(T);
+       total := List([1..num_vert], x -> 0);
+       for i in [1..num_vert] do
+           total := total + T[i];
+       od;
+       if ( num_vert = Sum(total) ) and ( ForAll(total, x -> x > 0) )  then
+           return true;
+       else
+           return false;
+       fi;
    else
-      return fail;
-   fi;   
-end
-);
-
-InstallOtherMethod( IsSelfinjectiveAlgebra,
-   "for a path algebra",
-   [ IsPathAlgebra ], 0,
-   function( A )
-
-   local Q;
-
-   Q := QuiverOfPathAlgebra(A);
-   if IsAcyclicQuiver(Q) then 
-      if NumberOfArrows(Q) > 0 then 
-         return false;
-      else
-         return true;
-      fi;
-   else
-      return fail;
+       return fail;
    fi;
 end
 );
-
+#######################################################################
+##
+#O  LoewyLength ( <M> )
+##
+##  This function returns the Loewy length of the module  M, for a 
+##  module over a (quotient of a) path algebra.
+##
 InstallMethod( LoewyLength, 
    "for a PathAlgebraMatModule",
    [ IsPathAlgebraMatModule ], 0,
@@ -203,7 +218,15 @@ InstallOtherMethod( CoxeterPolynomial,
 end
 );
 
-
+#######################################################################
+##
+#O  RadicalSeries ( <M> )
+##
+##  This function returns the radical series of the module  M, for a 
+##  module over a (quotient of a) path algebra. It returns a list of 
+##  dimension vectors of the modules: [ M/rad M, rad M/rad^2 M, 
+##  rad^2 M/rad^3 M, .....].
+##
 InstallMethod( RadicalSeries, 
    "for a PathAlgebraMatModule",
    [ IsPathAlgebraMatModule ], 0,
@@ -227,13 +250,21 @@ InstallMethod( RadicalSeries,
    fi;
 end
 );
-
+#######################################################################
+##
+#O  SocleSeries ( <M> )
+##
+##  This function returns the socle series of the module  M, for a 
+##  module over a (quotient of a) path algebra. It returns a list of 
+##  dimension vectors of the modules: [..., soc(M/soc^3 M), 
+##  soc(M/soc^2 M), soc(M/soc M), soc M].
+##
 InstallMethod( SocleSeries, 
    "for a PathAlgebraMatModule",
    [ IsPathAlgebraMatModule ], 0,
    function( M ) 
 
-   local N, series, socleseries, i, n;
+   local N, series, i;
 
    if Dimension(M) = 0 then 
       return DimensionVector(M);
@@ -247,12 +278,8 @@ InstallMethod( SocleSeries,
          i := i + 1;
       until
          Dimension(N) = 0;
-      n := Length(DimensionVector(M));
-      socleseries := [];
-      for n in [1..i] do
-         socleseries[n] := series[i-n+1];
-      od;
-      return socleseries;
+      
+      return Reversed(series);
    fi;
 end
 );
@@ -1991,14 +2018,14 @@ end
 #P  IsSymmetricAlgebra( <A> )
 ##
 ##  This function determines if the algebra  A  is a symmetric algebra,
-##  if it is a quotient of a path algebra. 
+##  if it is a (quotient of a) path algebra. 
 ##
 InstallMethod( IsSymmetricAlgebra, 
    "for a quotient of a path algebra",
    [ IsAlgebra ], 0,
    function( A ) 
 
-    local Aenv, M, DM, mats, op_name, de_op_name, vertices, arrows, 
+    local Q, fam, Aenv, M, DM, mats, op_name, de_op_name, vertices, arrows, 
           new_vertices, new_arrows, stringvertices, stringarrows, 
           vertex_positions, arrow_positions, newdimvector, newmats, 
           matrices, a, arrowentry, MM;
@@ -2006,9 +2033,25 @@ InstallMethod( IsSymmetricAlgebra,
     if not IsPathAlgebra(A) and not IsQuotientOfPathAlgebra(A) then 
        TryNextMethod();
     fi;    
-    if IsPathAlgebra(A) then 
-        return Length(ArrowsOfQuiver(QuiverOfPathAlgebra(A))) = 0;
+    if IsPathAlgebra(A) then
+        Q := QuiverOfPathAlgebra(A);
+        if IsAcyclicQuiver(Q) then
+            return Length(ArrowsOfQuiver(QuiverOfPathAlgebra(A))) = 0;
+        else
+            return fail;
+        fi;
     fi;    
+    #
+    # By now we know that the algebra is a quotient of a path algebra.
+    #
+    fam := ElementsFamily(FamilyObj(A));
+    if not (HasGroebnerBasisOfIdeal(fam!.ideal) and 
+              AdmitsFinitelyManyNontips(GroebnerBasisOfIdeal(fam!.ideal))) then 
+        return fail;
+    fi;
+    #
+    # By now we know that the algebra is finite dimensional.
+    #
     Aenv := EnvelopingAlgebra(A);
     M    := AlgebraAsModuleOfEnvelopingAlgebra(Aenv);
     DM   := DualOfModule(M);
@@ -2055,10 +2098,10 @@ end
 
 #######################################################################
 ##
-#P  IsSymmetricAlgebra( <A> )
+#P  IsWeaklySymmetricAlgebra( <A> )
 ##
 ##  This function determines if the algebra  A  is a weakly symmetric 
-##  algebra, if it is a quotient of a path algebra. 
+##  algebra, if it is a (quotient of a) path algebra. 
 ##
 InstallMethod( IsWeaklySymmetricAlgebra, 
    "for a quotient of a path algebra",

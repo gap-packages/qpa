@@ -56,7 +56,7 @@
 
 <h3>4 <span class="Heading">Groebner Basis</span></h3>
 
-<p>This chapter contains the declarations and implementations needed for Groebner basis. Currently, we do not provide algorithms to actually compute Groebner basis; instead, the declarations and implementations are provided here for GAP objects and the actual elements of Groebner basis are expected to be computed by external packages such as `Opal' and `Groebner'.</p>
+<p>This chapter contains the declarations and implementations needed for Groebner basis. Currently, we do not provide algorithms to actually compute Groebner basis; instead, the declarations and implementations are provided here for <strong class="pkg">GAP</strong> objects and the actual elements of Groebner basis are computed by the <strong class="pkg">GBNP</strong> package.</p>
 
 <p><a id="X850B47047FD4D709" name="X850B47047FD4D709"></a></p>
 
@@ -74,9 +74,11 @@
 <h5>4.1-2 GroebnerBasis</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; GroebnerBasis</code>( <var class="Arg">A, rels</var> )</td><td class="tdright">( function )</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> -- an algebra, <var class="Arg">rels</var> -- a list of relations in <var class="Arg">A</var>.<br /></p>
+
 <p><b>Returns: </b>an object in the `IsGroebnerBasis' category.</p>
 
-<p>The `GroebnerBasis' global function takes an algebra $A$ and a list of relations $rels \in A$ and creates an object in the `IsGroebnerBasis' category. There are absolutely no checks for correctness in this function. Giving a set of relations that does not form a Groebner basis may result in incorrect answers or unexpected errors. This function is intended to be used by packages providing access to external Groebner basis programs.</p>
+<p>There are absolutely no checks for correctness in this function. Giving a set of relations that does not form a Groebner basis may result in incorrect answers or unexpected errors. This function is intended to be used by packages providing access to external Groebner basis programs.</p>
 
 <p><a id="X79C7DC5D873A14D0" name="X79C7DC5D873A14D0"></a></p>
 
@@ -88,65 +90,73 @@
 <h5>4.2-1 IsGroebnerBasis</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IsGroebnerBasis</code>( <var class="Arg">object</var> )</td><td class="tdright">( property )</td></tr></table></div>
-<p>is true when <var class="Arg">object</var> is a Groebner basis and 'false' otherwise.</p>
+<p>Arguments: <var class="Arg">object</var> -- any object in <strong class="pkg">GAP</strong>. <br /></p>
+
+<p><b>Returns: </b>true when <var class="Arg">object</var> is a Groebner basis and false otherwise.</p>
+
+<p>The function only returns true for Groebner bases that has been set as such using the <code class="code">Groebner Basis</code> function, as illustrated in the following example.</p>
 
 
 <table class="example">
 <tr><td><pre> 
-gap&gt;
+gap&gt; Q := Quiver( 3, [ [1,2,"a"], [2,3,"b"] ] );
+&lt;quiver with 3 vertices and 2 arrows&gt;
+gap&gt; PA := PathAlgebra( Rationals, Q );
+&lt;algebra-with-one over Rationals, with 5 generators&gt;
+gap&gt; rels := [ PA.a*PA.b ];
+[ (1)*a*b ]
+gap&gt; gb := GBNPGroebnerBasis( rels, PA );
+[ (1)*a*b ]
+gap&gt; I := Ideal( PA, gb );
+&lt;two-sided ideal in &lt;algebra-with-one over Rationals, with 5 generators&gt;, 
+  (1 generators)&gt;
+gap&gt; grb := GroebnerBasis( I, gb );
+&lt;complete two-sided Groebner basis containing 1 elements&gt;
+gap&gt; alg := PA/I;
+&lt;algebra-with-one over Rationals, with 5 generators&gt;
+gap&gt; IsGroebnerBasis(gb);
+false
+gap&gt; IsGroebnerBasis(grb);
+true 
 </pre></td></tr></table>
 
 <p><a id="X8592E4C87E41A15A" name="X8592E4C87E41A15A"></a></p>
 
 <h5>4.2-2 IsTipReducedGroebnerBasis</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IsTipReducedGroebnerBasis</code>( <var class="Arg">object</var> )</td><td class="tdright">( property )</td></tr></table></div>
-<p>is true when <var class="Arg">object</var> is a Groebner basis which is tip reduced.</p>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IsTipReducedGroebnerBasis</code>( <var class="Arg">gb</var> )</td><td class="tdright">( property )</td></tr></table></div>
+<p>Arguments: <var class="Arg">GB</var> -- a Groebner Basis.<br /></p>
 
-
-<table class="example">
-<tr><td><pre> 
-gap&gt;
-</pre></td></tr></table>
+<p><b>Returns: </b>true when <var class="Arg">GB</var> is a Groebner basis which is tip reduced.</p>
 
 <p><a id="X85C0C1CD87C70AAA" name="X85C0C1CD87C70AAA"></a></p>
 
 <h5>4.2-3 IsCompletelyReducedGroebnerBasis</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IsCompletelyReducedGroebnerBasis</code>( <var class="Arg">object</var> )</td><td class="tdright">( property )</td></tr></table></div>
-<p>is true when <var class="Arg">object</var> is a Groebner basis which is completely reduced.</p>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IsCompletelyReducedGroebnerBasis</code>( <var class="Arg">gb</var> )</td><td class="tdright">( property )</td></tr></table></div>
+<p>Arguments: <var class="Arg">GB</var> -- a Groebner basis.<br /></p>
 
-
-<table class="example">
-<tr><td><pre> 
-gap&gt;
-</pre></td></tr></table>
+<p><b>Returns: </b>true when <var class="Arg">GB</var> is a Groebner basis which is completely reduced.</p>
 
 <p><a id="X799FD421784D1FFC" name="X799FD421784D1FFC"></a></p>
 
 <h5>4.2-4 IsHomogeneousGroebnerBasis</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IsHomogeneousGroebnerBasis</code>( <var class="Arg">object</var> )</td><td class="tdright">( property )</td></tr></table></div>
-<p>is true when <var class="Arg">object</var> is a Groebnerbasis which is homogenous.</p>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IsHomogeneousGroebnerBasis</code>( <var class="Arg">gb</var> )</td><td class="tdright">( property )</td></tr></table></div>
+<p>Arguments: <var class="Arg">GB</var> -- a Groebner basis.<br /></p>
 
-
-<table class="example">
-<tr><td><pre> 
-gap&gt;
-</pre></td></tr></table>
+<p><b>Returns: </b>true when <var class="Arg">GB</var> is a Groebner basis which is homogenous.</p>
 
 <p><a id="X86E7D0AE87CA048D" name="X86E7D0AE87CA048D"></a></p>
 
 <h5>4.2-5 IsCompleteGroebnerBasis</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IsCompleteGroebnerBasis</code>( <var class="Arg">object</var> )</td><td class="tdright">( property )</td></tr></table></div>
-<p>is true when <var class="Arg">object</var> is a complete Groebner basis. While philosophically something that isn't a complete Groebner basis isn't a Groebner basis at all, this property can be used in conjuction with other properties to see if the the Groebner basis contains enough information for computations. An example of a system that creates incomplete Groebner basis is `Opal'.</p>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IsCompleteGroebnerBasis</code>( <var class="Arg">gb</var> )</td><td class="tdright">( property )</td></tr></table></div>
+<p>Arguments: <var class="Arg">GB</var> -- a Groebner basis.<br /></p>
 
+<p><b>Returns: </b>true when <var class="Arg">GB</var> is a complete Groebner basis.</p>
 
-<table class="example">
-<tr><td><pre> 
-gap&gt;
-</pre></td></tr></table>
+<p>While philosophically something that isn't a complete Groebner basis isn't a Groebner basis at all, this property can be used in conjuction with other properties to see if the the Groebner basis contains enough information for computations. An example of a system that creates incomplete Groebner bases is `Opal'.<br /> <em>Note:</em> The current package used for creating Groebner bases is <strong class="pkg">GBNP</strong>, and this package does not create incomplete Groebner bases.</p>
 
 <p><a id="X84EF455882169920" name="X84EF455882169920"></a></p>
 
@@ -157,130 +167,106 @@ gap&gt;
 <h5>4.3-1 CompletelyReduce</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; CompletelyReduce</code>( <var class="Arg">GB, a</var> )</td><td class="tdright">( operation )</td></tr></table></div>
-<p>The operation <code class="func">CompletelyReduce</code> operates on an element <var class="Arg">a</var> in a path algebra, and it reduces <var class="Arg">a</var> by the Groebner basis <var class="Arg">GB</var>. The reduced element is returned. If <var class="Arg">a</var> is already completely reduced, the original element <var class="Arg">a</var> is returned.</p>
+<p>Arguments: <var class="Arg">GB</var> -- a Groebner basis, <var class="Arg">a</var> -- an element in a path algebra.<br /></p>
 
+<p><b>Returns: </b><var class="Arg">a</var> reduced by <var class="Arg">GB</var>.</p>
 
-<table class="example">
-<tr><td><pre> 
-gap&gt;
-</pre></td></tr></table>
+<p>If <var class="Arg">a</var> is already completely reduced, the original element <var class="Arg">a</var> is returned.</p>
 
 <p><a id="X7FF28B7B80759D24" name="X7FF28B7B80759D24"></a></p>
 
 <h5>4.3-2 CompletelyReduceGroebnerBasis</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; CompletelyReduceGroebnerBasis</code>( <var class="Arg">GB</var> )</td><td class="tdright">( operation )</td></tr></table></div>
-<p>The operation <code class="func">CompletelyReduceGroebnerBasis</code> operates on a Groebner basis <var class="Arg">GB</var>, and it modifies a Groebner basis $GB$ such that each relation in $GB$ is completely reduced. The `IsCompletelyReducedGroebnerBasis' and `IsTipReducedGroebnerBasis' properties are set as a result of this operation. The resulting relations will be placed in sorted order according to the ordering of $GB$.</p>
+<p>Arguments: <var class="Arg">GB</var> -- a Groebner basis.<br /></p>
 
+<p><b>Returns: </b>the completely reduced Groebner basis of the ideal generated by <var class="Arg">GB</var>.</p>
 
-<table class="example">
-<tr><td><pre> 
-gap&gt;
-</pre></td></tr></table>
+<p>The operation modifies a Groebner basis <var class="Arg">GB</var> such that each relation in <var class="Arg">GB</var> is completely reduced. The <code class="code">IsCompletelyReducedGroebnerBasis</code> and <code class="code">IsTipReducedGroebnerBasis</code> properties are set as a result of this operation. The resulting relations will be placed in sorted order according to the ordering of <var class="Arg">GB</var>.</p>
 
 <p><a id="X7C6CD739788E7F59" name="X7C6CD739788E7F59"></a></p>
 
 <h5>4.3-3 TipReduce</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; TipReduce</code>( <var class="Arg">GB, a</var> )</td><td class="tdright">( operation )</td></tr></table></div>
-<p>The operation <code class="func">TipReduce</code> operates on an element <var class="Arg">a</var> in a path algebra, and it tip reduced by the Groebner basis $GB$. If $a$ is already tip reduced, then the original $a$ is returned.</p>
+<p>Arguments: <var class="Arg">GB</var> -- a Groebner basis, <var class="Arg">a</var> - an element in a path algebra. <br /></p>
 
+<p><b>Returns: </b>the element <var class="Arg">a</var> tip reduced by the Groebner basis.</p>
 
-<table class="example">
-<tr><td><pre> 
-gap&gt;
-</pre></td></tr></table>
+<p>If <var class="Arg">a</var> is already tip reduced, then the original <var class="Arg">a</var> is returned.</p>
 
 <p><a id="X7B4F38D6852DF8B6" name="X7B4F38D6852DF8B6"></a></p>
 
 <h5>4.3-4 TipReduceGroebnerBasis</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; TipReduceGroebnerBasis</code>( <var class="Arg">GB</var> )</td><td class="tdright">( operation )</td></tr></table></div>
-<p>The operation <code class="func">TipReduceGroebnerBasis</code> operates on Groebner basis <var class="Arg">GB</var>, and it returns an equivalent Groebner basis to $GB$ such that each relation generating $GB$ is tip reduced. If $GB$ is already tip reduced, this function returns the original object $GB$, possibly with the addition of the `IsTipReduced`' property set.</p>
+<p>Arguments: <var class="Arg">GB</var> -- a Groebner basis.<br /></p>
 
+<p><b>Returns: </b>a tip reduced Groebner basis.</p>
 
-<table class="example">
-<tr><td><pre> 
-gap&gt;
-</pre></td></tr></table>
+<p>The returned Groebner basis is equivalent to <var class="Arg">GB</var> If <var class="Arg">GB</var> is already tip reduced, this function returns the original object <var class="Arg">GB</var>, possibly with the addition of the `IsTipReduced`' property set.</p>
 
 <p><a id="X83ADF8287ED0668E" name="X83ADF8287ED0668E"></a></p>
 
 <h5>4.3-5 Iterator</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; Iterator</code>( <var class="Arg">GB</var> )</td><td class="tdright">( operation )</td></tr></table></div>
-<p>The operation <code class="func">Iterator</code> operates on a Groebner basis <var class="Arg">GB</var>, and it creates an iterator that iterates over the relations making up the Groebner basis. These relations are iterated over in ascending order with respect to the ordering for the family the elements are contained in.</p>
+<p>Arguments: <var class="Arg">GB</var> -- a Groebner basis.<br /></p>
 
+<p><b>Returns: </b>an iterator (in the IsIterator category, see the <strong class="pkg">GAP</strong> manual, chapter 28.7).</p>
 
-<table class="example">
-<tr><td><pre> 
-gap&gt;
-</pre></td></tr></table>
+<p>Creates an iterator that iterates over the relations making up the Groebner basis. These relations are iterated over in ascending order with respect to the ordering for the family the elements are contained in.</p>
 
 <p><a id="X7EF8910F82B45EC7" name="X7EF8910F82B45EC7"></a></p>
 
 <h5>4.3-6 Enumerator</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; Enumerator</code>( <var class="Arg">GB</var> )</td><td class="tdright">( operation )</td></tr></table></div>
-<p>The operation <code class="func">Enumerator</code> operates on a Groebner basis <var class="Arg">GB</var>, and it creates an enumerator that enumerates the relations making up the Groebner basis. These relations should are enumerated in ascending order with respect to the ordering for the family the elements are contained in.</p>
+<p>Arguments: <var class="Arg">GB</var> -- a Groebner basis. <br /></p>
 
+<p><b>Returns: </b>an enumerat that enumerates the relations making up the Groebner basis.</p>
 
-<table class="example">
-<tr><td><pre> 
-gap&gt;
-</pre></td></tr></table>
+<p>These relations should be enumerated in ascending order with respect to the ordering for the family the elements are contained in.</p>
 
 <p><a id="X7EAA029F8071ACC6" name="X7EAA029F8071ACC6"></a></p>
 
 <h5>4.3-7 Nontips</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; Nontips</code>( <var class="Arg">GB</var> )</td><td class="tdright">( operation )</td></tr></table></div>
-<p>The operation <code class="func">Nontips</code> operates on a Groebner basis <var class="Arg">GB</var>, and it returns a list of nontip elements for a Groebner basis. In order to compute the nontip elements, the Groebner basis must be complete and tip reduced, and there must be a finite number of nontips. If there are an infinite number of nontips, the operation returns `fail'.</p>
+<p>Arguments: <var class="Arg">GB</var> -- a Groebner basis.<br /></p>
 
+<p><b>Returns: </b>a list of nontip elements for <var class="Arg">GB</var>.</p>
 
-<table class="example">
-<tr><td><pre> 
-gap&gt;
-</pre></td></tr></table>
+<p>In order to compute the nontip elements, the Groebner basis must be complete and tip reduced, and there must be a finite number of nontips. If there are an infinite number of nontips, the operation returns `fail'.</p>
 
 <p><a id="X8722C1577C236116" name="X8722C1577C236116"></a></p>
 
 <h5>4.3-8 AdmitsFinitelyManyNontips</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; AdmitsFinitelyManyNontips</code>( <var class="Arg">GB</var> )</td><td class="tdright">( operation )</td></tr></table></div>
-<p>The operation <code class="func">AdmitsFinitelyManyNontips</code> operates on a Groebner basis <var class="Arg">GB</var>, and it returns `true' if the Groebner basis admits only finitely many nontips and `false' otherwise. This operation only applies to complete Groebner basis.</p>
+<p>Arguments: <var class="Arg">GB</var> -- a complete Groebner basis.<br /></p>
 
-
-<table class="example">
-<tr><td><pre> 
-gap&gt;
-</pre></td></tr></table>
+<p><b>Returns: </b>true if the Groebner basis admits only finitely many nontips and false otherwise.</p>
 
 <p><a id="X7840F54D8240C288" name="X7840F54D8240C288"></a></p>
 
 <h5>4.3-9 NontipSize</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; NontipSize</code>( <var class="Arg">GB</var> )</td><td class="tdright">( operation )</td></tr></table></div>
-<p>The operation <code class="func">NontipSize</code> operates on a Groebner basis <var class="Arg">GB</var>, and it returns the number of nontips admitted by the Groebner basis $GB$. This operation is available only to complete basis.</p>
+<p>Arguments: <var class="Arg">GB</var> -- a complete Groebner basis.<br /></p>
 
-
-<table class="example">
-<tr><td><pre> 
-gap&gt;
-</pre></td></tr></table>
+<p><b>Returns: </b>the number of nontips admitted by <var class="Arg">GB</var>.</p>
 
 <p><a id="X8137C99A7934C1CA" name="X8137C99A7934C1CA"></a></p>
 
 <h5>4.3-10 IsPrefixOfTipInTipIdeal</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IsPrefixOfTipInTipIdeal</code>( <var class="Arg">GB, R</var> )</td><td class="tdright">( operation )</td></tr></table></div>
-<p>The operation <code class="func">IsPrefixOfTipInTipIdeal</code> operates on a Groebner basis <var class="Arg">GB</var> and a relation <var class="Arg">R</var>, and it checks the tip of a relation $R$ to see if it is in the tip ideal generated by the tips of $GB$. This is used mainly for the construction of right Groebner basis, but is made available for general use in case there are other unforseen applications.</p>
+<p>Arguments: <var class="Arg">GB</var> -- a Groebner basis, <var class="Arg">R</var> -- a relation.<br /></p>
 
+<p><b>Returns: </b>true if the tip of the relation <var class="Arg">R</var> is in the tip ideal generated by the tips of <var class="Arg">GB</var>.</p>
 
-<table class="example">
-<tr><td><pre> 
-gap&gt;
-</pre></td></tr></table>
+<p>This is used mainly for the construction of right Groebner basis, but is made available for general use in case there are other unforseen applications.</p>
 
 <p><a id="X82C1C09486934532" name="X82C1C09486934532"></a></p>
 
@@ -293,27 +279,27 @@ gap&gt;
 <h5>4.4-1 IsRightGroebnerBasis</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IsRightGroebnerBasis</code>( <var class="Arg">object</var> )</td><td class="tdright">( property )</td></tr></table></div>
-<p>is true when <var class="Arg">object</var> a right Groebner basis.</p>
+<p>Arguments: <var class="Arg">object</var> -- any object in <strong class="pkg">GAP</strong>.<br /></p>
 
-
-<table class="example">
-<tr><td><pre> 
-gap&gt;
-</pre></td></tr></table>
+<p><b>Returns: </b>true when <var class="Arg">object</var> a right Groebner basis.</p>
 
 <p><a id="X812BFF79867FF73A" name="X812BFF79867FF73A"></a></p>
 
 <h5>4.4-2 RightGroebnerBasisOfIdeal</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; RightGroebnerBasisOfIdeal</code>( <var class="Arg">object</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
-<p>An attribute. Stores a right Groebner basis of a right ideal, <var class="Arg">object</var>, is one has been computed.</p>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; RightGroebnerBasisOfIdeal</code>( <var class="Arg">I</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
+<p>Arguments: <var class="Arg">I</var> -- a right ideal.<br /></p>
+
+<p><b>Returns: </b>a right Groebner basis of a right ideal, <var class="Arg">I</var>, is one has been computed.</p>
 
 <p><a id="X7B29B9207D20EA9E" name="X7B29B9207D20EA9E"></a></p>
 
 <h5>4.4-3 RightGroebnerBasis</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; RightGroebnerBasis</code>( <var class="Arg">R</var> )</td><td class="tdright">( operation )</td></tr></table></div>
-<p>The operation <code class="func">RightGroebnerBasis</code> operates on a right ideal <var class="Arg">R</var> in a path algebra, and it constructs a right Groebner basis for the right ideal, $R$, which must support a right Groebner basis theory. Right now, this requires that R have a complete Groebner basis.</p>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; RightGroebnerBasis</code>( <var class="Arg">I</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>Arguments: <var class="Arg">I</var> -- a right ideal.<br /></p>
+
+<p><b>Returns: </b>a right Groebner basis for <var class="Arg">I</var>, which must support a right Groebner basis theory. Right now, this requires that <var class="Arg">I</var> has a complete Groebner basis.</p>
 
 
 <div class="chlinkprevnextbot">&nbsp;<a href="chap0.html">Top of Book</a>&nbsp;  &nbsp;<a href="chap3.html">Previous Chapter</a>&nbsp;  &nbsp;<a href="chap5.html">Next Chapter</a>&nbsp;  </div>

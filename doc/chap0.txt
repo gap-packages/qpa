@@ -298,14 +298,39 @@
       7.5-1 AlmostSplitSequence
   8 Chain complexes
     8.1 Representation of categories
+      8.1-1 IsCat
+      8.1-2 CatOfRightAlgebraModules
     8.2 Making a complex
       8.2-1 IsComplex
       8.2-2 IsZeroComplex
       8.2-3 Complex
       8.2-4 ZeroComplex
       8.2-5 FiniteComplex
+      8.2-6 StalkComplex
+      8.2-7 ShortExactSequence
     8.3 Information about a complex
+      8.3-1 CatOfComplex
+      8.3-2 ObjectOfComplex
+      8.3-3 DifferentialOfComplex
+      8.3-4 DifferentialsOfComplex
+      8.3-5 CyclesOfComplex
+      8.3-6 BoundariesOfComplex
+      8.3-7 HomologyOfComplex
+      8.3-8 IsFiniteComplex
+      8.3-9 UpperBound
+      8.3-10 LowerBound
+      8.3-11 LengthOfComplex
+      8.3-12 HighestKnownDegree
+      8.3-13 LowestKnownDegree
+      8.3-14 IsExactSequence
+      8.3-15 IsExactInDegree
+      8.3-16 IsShortExactSequence
     8.4 Transforming and combinig complexes
+      8.4-1 Shift
+      8.4-2 YonedaProduct
+      8.4-3 BrutalTruncationBelow
+      8.4-4 BrutalTruncationAbove
+      8.4-5 BrutalTruncation
     8.5 Chain maps
   A An Appendix
   

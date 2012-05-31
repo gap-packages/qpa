@@ -1958,9 +1958,7 @@ true if and only if \mbox{\texttt{\slshape A}} is the result of a call to \textt
 {
  This chapter contains the declarations and implementations needed for Groebner
 basis. Currently, we do not provide algorithms to actually compute Groebner
-basis; instead, the declarations and implementations are provided here for GAP
-objects and the actual elements of Groebner basis are expected to be computed
-by external packages such as `Opal' and `Groebner'. 
+basis; instead, the declarations and implementations are provided here for \textsf{GAP} objects and the actual elements of Groebner basis are computed by the \textsf{GBNP} package. 
 \section{\textcolor{Chapter }{Constructing a Groebner Basis}}\logpage{[ 4, 1, 0 ]}
 \hyperdef{L}{X850B47047FD4D709}{}
 {
@@ -1984,16 +1982,18 @@ by external packages such as `Opal' and `Groebner'.
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{GroebnerBasis({\slshape A, rels})\index{GroebnerBasis@\texttt{GroebnerBasis}}
 \label{GroebnerBasis}
 }\hfill{\scriptsize (function)}}\\
-\textbf{\indent Returns:\ }
+
+
+Arguments: \mbox{\texttt{\slshape A}} -- an algebra, \mbox{\texttt{\slshape rels}} -- a list of relations in \mbox{\texttt{\slshape A}}.\\
+ \textbf{\indent Returns:\ }
  an object in the `IsGroebnerBasis' category.
 
 
 
- The `GroebnerBasis' global function takes an algebra $A$ and a list of relations $rels \in A$ and creates an object in the `IsGroebnerBasis' category. There are absolutely
-no checks for correctness in this function. Giving a set of relations that
-does not form a Groebner basis may result in incorrect answers or unexpected
-errors. This function is intended to be used by packages providing access to
-external Groebner basis programs. }
+ There are absolutely no checks for correctness in this function. Giving a set
+of relations that does not form a Groebner basis may result in incorrect
+answers or unexpected errors. This function is intended to be used by packages
+providing access to external Groebner basis programs. }
 
  }
 
@@ -2011,80 +2011,108 @@ external Groebner basis programs. }
 }\hfill{\scriptsize (property)}}\\
 
 
- is true when \mbox{\texttt{\slshape object}} is a Groebner basis and 'false' otherwise. }
+ Arguments: \mbox{\texttt{\slshape object}} -- any object in \textsf{GAP}. \\
+ \textbf{\indent Returns:\ }
+ true when \mbox{\texttt{\slshape object}} is a Groebner basis and false otherwise. 
+
+
+
+The function only returns true for Groebner bases that has been set as such
+using the \texttt{Groebner Basis} function, as illustrated in the following example. }
 
  
 \begin{Verbatim}[fontsize=\small,frame=single,label=Example]
-  gap>
+  gap> Q := Quiver( 3, [ [1,2,"a"], [2,3,"b"] ] );
+  <quiver with 3 vertices and 2 arrows>
+  gap> PA := PathAlgebra( Rationals, Q );
+  <algebra-with-one over Rationals, with 5 generators>
+  gap> rels := [ PA.a*PA.b ];
+  [ (1)*a*b ]
+  gap> gb := GBNPGroebnerBasis( rels, PA );
+  [ (1)*a*b ]
+  gap> I := Ideal( PA, gb );
+  <two-sided ideal in <algebra-with-one over Rationals, with 5 generators>, 
+    (1 generators)>
+  gap> grb := GroebnerBasis( I, gb );
+  <complete two-sided Groebner basis containing 1 elements>
+  gap> alg := PA/I;
+  <algebra-with-one over Rationals, with 5 generators>
+  gap> IsGroebnerBasis(gb);
+  false
+  gap> IsGroebnerBasis(grb);
+  true 
 \end{Verbatim}
  
 
 \subsection{\textcolor{Chapter }{IsTipReducedGroebnerBasis}}
 \logpage{[ 4, 2, 2 ]}\nobreak
 \hyperdef{L}{X8592E4C87E41A15A}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsTipReducedGroebnerBasis({\slshape object})\index{IsTipReducedGroebnerBasis@\texttt{IsTipReducedGroebnerBasis}}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsTipReducedGroebnerBasis({\slshape gb})\index{IsTipReducedGroebnerBasis@\texttt{IsTipReducedGroebnerBasis}}
 \label{IsTipReducedGroebnerBasis}
 }\hfill{\scriptsize (property)}}\\
 
 
- is true when \mbox{\texttt{\slshape object}} is a Groebner basis which is tip reduced. }
+ Arguments: \mbox{\texttt{\slshape GB}} -- a Groebner Basis.\\
+ \textbf{\indent Returns:\ }
+ true when \mbox{\texttt{\slshape GB}} is a Groebner basis which is tip reduced. 
 
- 
-\begin{Verbatim}[fontsize=\small,frame=single,label=Example]
-  gap>
-\end{Verbatim}
+}
+
  
 
 \subsection{\textcolor{Chapter }{IsCompletelyReducedGroebnerBasis}}
 \logpage{[ 4, 2, 3 ]}\nobreak
 \hyperdef{L}{X85C0C1CD87C70AAA}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsCompletelyReducedGroebnerBasis({\slshape object})\index{IsCompletelyReducedGroebnerBasis@\texttt{IsCompletelyReducedGroebnerBasis}}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsCompletelyReducedGroebnerBasis({\slshape gb})\index{IsCompletelyReducedGroebnerBasis@\texttt{IsCompletelyReducedGroebnerBasis}}
 \label{IsCompletelyReducedGroebnerBasis}
 }\hfill{\scriptsize (property)}}\\
 
 
- is true when \mbox{\texttt{\slshape object}} is a Groebner basis which is completely reduced. }
+ Arguments: \mbox{\texttt{\slshape GB}} -- a Groebner basis.\\
+ \textbf{\indent Returns:\ }
+ true when \mbox{\texttt{\slshape GB}} is a Groebner basis which is completely reduced. 
 
- 
-\begin{Verbatim}[fontsize=\small,frame=single,label=Example]
-  gap>
-\end{Verbatim}
+}
+
  
 
 \subsection{\textcolor{Chapter }{IsHomogeneousGroebnerBasis}}
 \logpage{[ 4, 2, 4 ]}\nobreak
 \hyperdef{L}{X799FD421784D1FFC}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsHomogeneousGroebnerBasis({\slshape object})\index{IsHomogeneousGroebnerBasis@\texttt{IsHomogeneousGroebnerBasis}}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsHomogeneousGroebnerBasis({\slshape gb})\index{IsHomogeneousGroebnerBasis@\texttt{IsHomogeneousGroebnerBasis}}
 \label{IsHomogeneousGroebnerBasis}
 }\hfill{\scriptsize (property)}}\\
 
 
- is true when \mbox{\texttt{\slshape object}} is a Groebnerbasis which is homogenous. }
+ Arguments: \mbox{\texttt{\slshape GB}} -- a Groebner basis.\\
+ \textbf{\indent Returns:\ }
+ true when \mbox{\texttt{\slshape GB}} is a Groebner basis which is homogenous. 
 
- 
-\begin{Verbatim}[fontsize=\small,frame=single,label=Example]
-  gap>
-\end{Verbatim}
+}
+
  
 
 \subsection{\textcolor{Chapter }{IsCompleteGroebnerBasis}}
 \logpage{[ 4, 2, 5 ]}\nobreak
 \hyperdef{L}{X86E7D0AE87CA048D}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsCompleteGroebnerBasis({\slshape object})\index{IsCompleteGroebnerBasis@\texttt{IsCompleteGroebnerBasis}}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsCompleteGroebnerBasis({\slshape gb})\index{IsCompleteGroebnerBasis@\texttt{IsCompleteGroebnerBasis}}
 \label{IsCompleteGroebnerBasis}
 }\hfill{\scriptsize (property)}}\\
 
 
- is true when \mbox{\texttt{\slshape object}} is a complete Groebner basis. While philosophically something that isn't a
-complete Groebner basis isn't a Groebner basis at all, this property can be
-used in conjuction with other properties to see if the the Groebner basis
-contains enough information for computations. An example of a system that
-creates incomplete Groebner basis is `Opal'. }
+ Arguments: \mbox{\texttt{\slshape GB}} -- a Groebner basis.\\
+ \textbf{\indent Returns:\ }
+true when \mbox{\texttt{\slshape GB}} is a complete Groebner basis. 
 
- 
-\begin{Verbatim}[fontsize=\small,frame=single,label=Example]
-  gap>
-\end{Verbatim}
+
+
+ While philosophically something that isn't a complete Groebner basis isn't a
+Groebner basis at all, this property can be used in conjuction with other
+properties to see if the the Groebner basis contains enough information for
+computations. An example of a system that creates incomplete Groebner bases is
+`Opal'.\\
+ \emph{Note:} The current package used for creating Groebner bases is \textsf{GBNP}, and this package does not create incomplete Groebner bases. }
+
  }
 
  
@@ -2101,12 +2129,14 @@ creates incomplete Groebner basis is `Opal'. }
 }\hfill{\scriptsize (operation)}}\\
 
 
- The operation \texttt{CompletelyReduce} operates on an element \mbox{\texttt{\slshape a}} in a path algebra, and it reduces \mbox{\texttt{\slshape a}} by the Groebner basis \mbox{\texttt{\slshape GB}}. The reduced element is returned. If \mbox{\texttt{\slshape a}} is already completely reduced, the original element \mbox{\texttt{\slshape a}} is returned. }
+ Arguments: \mbox{\texttt{\slshape GB}} -- a Groebner basis, \mbox{\texttt{\slshape a}} -- an element in a path algebra.\\
+ \textbf{\indent Returns:\ }
+\mbox{\texttt{\slshape a}} reduced by \mbox{\texttt{\slshape GB}}. 
 
- 
-\begin{Verbatim}[fontsize=\small,frame=single,label=Example]
-  gap>
-\end{Verbatim}
+
+
+ If \mbox{\texttt{\slshape a}} is already completely reduced, the original element \mbox{\texttt{\slshape a}} is returned. }
+
  
 
 \subsection{\textcolor{Chapter }{CompletelyReduceGroebnerBasis}}
@@ -2117,15 +2147,15 @@ creates incomplete Groebner basis is `Opal'. }
 }\hfill{\scriptsize (operation)}}\\
 
 
- The operation \texttt{CompletelyReduceGroebnerBasis} operates on a Groebner basis \mbox{\texttt{\slshape GB}}, and it modifies a Groebner basis $GB$ such that each relation in $GB$ is completely reduced. The `IsCompletelyReducedGroebnerBasis' and
-`IsTipReducedGroebnerBasis' properties are set as a result of this operation.
-The resulting relations will be placed in sorted order according to the
-ordering of $GB$. }
+ Arguments: \mbox{\texttt{\slshape GB}} -- a Groebner basis.\\
+ \textbf{\indent Returns:\ }
+ the completely reduced Groebner basis of the ideal generated by \mbox{\texttt{\slshape GB}}. 
 
- 
-\begin{Verbatim}[fontsize=\small,frame=single,label=Example]
-  gap>
-\end{Verbatim}
+
+
+ The operation modifies a Groebner basis \mbox{\texttt{\slshape GB}} such that each relation in \mbox{\texttt{\slshape GB}} is completely reduced. The \texttt{IsCompletelyReducedGroebnerBasis} and \texttt{IsTipReducedGroebnerBasis} properties are set as a result of this operation. The resulting relations will
+be placed in sorted order according to the ordering of \mbox{\texttt{\slshape GB}}. }
+
  
 
 \subsection{\textcolor{Chapter }{TipReduce}}
@@ -2136,12 +2166,14 @@ ordering of $GB$. }
 }\hfill{\scriptsize (operation)}}\\
 
 
- The operation \texttt{TipReduce} operates on an element \mbox{\texttt{\slshape a}} in a path algebra, and it tip reduced by the Groebner basis $GB$. If $a$ is already tip reduced, then the original $a$ is returned. }
+ Arguments: \mbox{\texttt{\slshape GB}} -- a Groebner basis, \mbox{\texttt{\slshape a}} - an element in a path algebra. \\
+ \textbf{\indent Returns:\ }
+the element \mbox{\texttt{\slshape a}} tip reduced by the Groebner basis. 
 
- 
-\begin{Verbatim}[fontsize=\small,frame=single,label=Example]
-  gap>
-\end{Verbatim}
+
+
+If \mbox{\texttt{\slshape a}} is already tip reduced, then the original \mbox{\texttt{\slshape a}} is returned. }
+
  
 
 \subsection{\textcolor{Chapter }{TipReduceGroebnerBasis}}
@@ -2152,12 +2184,14 @@ ordering of $GB$. }
 }\hfill{\scriptsize (operation)}}\\
 
 
- The operation \texttt{TipReduceGroebnerBasis} operates on Groebner basis \mbox{\texttt{\slshape GB}}, and it returns an equivalent Groebner basis to $GB$ such that each relation generating $GB$ is tip reduced. If $GB$ is already tip reduced, this function returns the original object $GB$, possibly with the addition of the `IsTipReduced`' property set. }
+ Arguments: \mbox{\texttt{\slshape GB}} -- a Groebner basis.\\
+ \textbf{\indent Returns:\ }
+a tip reduced Groebner basis. 
 
- 
-\begin{Verbatim}[fontsize=\small,frame=single,label=Example]
-  gap>
-\end{Verbatim}
+
+
+ The returned Groebner basis is equivalent to \mbox{\texttt{\slshape GB}} If \mbox{\texttt{\slshape GB}} is already tip reduced, this function returns the original object \mbox{\texttt{\slshape GB}}, possibly with the addition of the `IsTipReduced`' property set. }
+
  
 
 \subsection{\textcolor{Chapter }{Iterator}}
@@ -2168,14 +2202,16 @@ ordering of $GB$. }
 }\hfill{\scriptsize (operation)}}\\
 
 
- The operation \texttt{Iterator} operates on a Groebner basis \mbox{\texttt{\slshape GB}}, and it creates an iterator that iterates over the relations making up the
-Groebner basis. These relations are iterated over in ascending order with
-respect to the ordering for the family the elements are contained in. }
+ Arguments: \mbox{\texttt{\slshape GB}} -- a Groebner basis.\\
+ \textbf{\indent Returns:\ }
+an iterator (in the IsIterator category, see the \textsf{GAP} manual, chapter 28.7). 
 
- 
-\begin{Verbatim}[fontsize=\small,frame=single,label=Example]
-  gap>
-\end{Verbatim}
+
+
+ Creates an iterator that iterates over the relations making up the Groebner
+basis. These relations are iterated over in ascending order with respect to
+the ordering for the family the elements are contained in. }
+
  
 
 \subsection{\textcolor{Chapter }{Enumerator}}
@@ -2186,14 +2222,15 @@ respect to the ordering for the family the elements are contained in. }
 }\hfill{\scriptsize (operation)}}\\
 
 
- The operation \texttt{Enumerator} operates on a Groebner basis \mbox{\texttt{\slshape GB}}, and it creates an enumerator that enumerates the relations making up the
-Groebner basis. These relations should are enumerated in ascending order with
-respect to the ordering for the family the elements are contained in. }
+ Arguments: \mbox{\texttt{\slshape GB}} -- a Groebner basis. \\
+ \textbf{\indent Returns:\ }
+an enumerat that enumerates the relations making up the Groebner basis. 
 
- 
-\begin{Verbatim}[fontsize=\small,frame=single,label=Example]
-  gap>
-\end{Verbatim}
+
+
+These relations should be enumerated in ascending order with respect to the
+ordering for the family the elements are contained in. }
+
  
 
 \subsection{\textcolor{Chapter }{Nontips}}
@@ -2204,15 +2241,16 @@ respect to the ordering for the family the elements are contained in. }
 }\hfill{\scriptsize (operation)}}\\
 
 
- The operation \texttt{Nontips} operates on a Groebner basis \mbox{\texttt{\slshape GB}}, and it returns a list of nontip elements for a Groebner basis. In order to
-compute the nontip elements, the Groebner basis must be complete and tip
-reduced, and there must be a finite number of nontips. If there are an
+ Arguments: \mbox{\texttt{\slshape GB}} -- a Groebner basis.\\
+ \textbf{\indent Returns:\ }
+a list of nontip elements for \mbox{\texttt{\slshape GB}}. 
+
+
+
+ In order to compute the nontip elements, the Groebner basis must be complete
+and tip reduced, and there must be a finite number of nontips. If there are an
 infinite number of nontips, the operation returns `fail'. }
 
- 
-\begin{Verbatim}[fontsize=\small,frame=single,label=Example]
-  gap>
-\end{Verbatim}
  
 
 \subsection{\textcolor{Chapter }{AdmitsFinitelyManyNontips}}
@@ -2223,14 +2261,13 @@ infinite number of nontips, the operation returns `fail'. }
 }\hfill{\scriptsize (operation)}}\\
 
 
- The operation \texttt{AdmitsFinitelyManyNontips} operates on a Groebner basis \mbox{\texttt{\slshape GB}}, and it returns `true' if the Groebner basis admits only finitely many
-nontips and `false' otherwise. This operation only applies to complete
-Groebner basis. }
+ Arguments: \mbox{\texttt{\slshape GB}} -- a complete Groebner basis.\\
+ \textbf{\indent Returns:\ }
+true if the Groebner basis admits only finitely many nontips and false
+otherwise. 
 
- 
-\begin{Verbatim}[fontsize=\small,frame=single,label=Example]
-  gap>
-\end{Verbatim}
+}
+
  
 
 \subsection{\textcolor{Chapter }{NontipSize}}
@@ -2241,12 +2278,12 @@ Groebner basis. }
 }\hfill{\scriptsize (operation)}}\\
 
 
- The operation \texttt{NontipSize} operates on a Groebner basis \mbox{\texttt{\slshape GB}}, and it returns the number of nontips admitted by the Groebner basis $GB$. This operation is available only to complete basis. }
+ Arguments: \mbox{\texttt{\slshape GB}} -- a complete Groebner basis.\\
+ \textbf{\indent Returns:\ }
+the number of nontips admitted by \mbox{\texttt{\slshape GB}}. 
 
- 
-\begin{Verbatim}[fontsize=\small,frame=single,label=Example]
-  gap>
-\end{Verbatim}
+}
+
  
 
 \subsection{\textcolor{Chapter }{IsPrefixOfTipInTipIdeal}}
@@ -2257,13 +2294,15 @@ Groebner basis. }
 }\hfill{\scriptsize (operation)}}\\
 
 
- The operation \texttt{IsPrefixOfTipInTipIdeal} operates on a Groebner basis \mbox{\texttt{\slshape GB}} and a relation \mbox{\texttt{\slshape R}}, and it checks the tip of a relation $R$ to see if it is in the tip ideal generated by the tips of $GB$. This is used mainly for the construction of right Groebner basis, but is
-made available for general use in case there are other unforseen applications. }
+ Arguments: \mbox{\texttt{\slshape GB}} -- a Groebner basis, \mbox{\texttt{\slshape R}} -- a relation.\\
+ \textbf{\indent Returns:\ }
+true if the tip of the relation \mbox{\texttt{\slshape R}} is in the tip ideal generated by the tips of \mbox{\texttt{\slshape GB}}. 
 
- 
-\begin{Verbatim}[fontsize=\small,frame=single,label=Example]
-  gap>
-\end{Verbatim}
+
+
+ This is used mainly for the construction of right Groebner basis, but is made
+available for general use in case there are other unforseen applications. }
+
  }
 
  
@@ -2281,37 +2320,44 @@ Groebner basis. More general cases may be supported in the future.
 }\hfill{\scriptsize (property)}}\\
 
 
- is true when \mbox{\texttt{\slshape object}} a right Groebner basis. }
+ Arguments: \mbox{\texttt{\slshape object}} -- any object in \textsf{GAP}.\\
+ \textbf{\indent Returns:\ }
+true when \mbox{\texttt{\slshape object}} a right Groebner basis. 
 
- 
-\begin{Verbatim}[fontsize=\small,frame=single,label=Example]
-  gap>
-\end{Verbatim}
+}
+
  
 
 \subsection{\textcolor{Chapter }{RightGroebnerBasisOfIdeal}}
 \logpage{[ 4, 4, 2 ]}\nobreak
 \hyperdef{L}{X812BFF79867FF73A}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{RightGroebnerBasisOfIdeal({\slshape object})\index{RightGroebnerBasisOfIdeal@\texttt{RightGroebnerBasisOfIdeal}}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{RightGroebnerBasisOfIdeal({\slshape I})\index{RightGroebnerBasisOfIdeal@\texttt{RightGroebnerBasisOfIdeal}}
 \label{RightGroebnerBasisOfIdeal}
 }\hfill{\scriptsize (attribute)}}\\
 
 
- An attribute. Stores a right Groebner basis of a right ideal, \mbox{\texttt{\slshape object}}, is one has been computed. }
+ Arguments: \mbox{\texttt{\slshape I}} -- a right ideal.\\
+ \textbf{\indent Returns:\ }
+a right Groebner basis of a right ideal, \mbox{\texttt{\slshape I}}, is one has been computed. 
+
+}
 
  
 
 \subsection{\textcolor{Chapter }{RightGroebnerBasis}}
 \logpage{[ 4, 4, 3 ]}\nobreak
 \hyperdef{L}{X7B29B9207D20EA9E}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{RightGroebnerBasis({\slshape R})\index{RightGroebnerBasis@\texttt{RightGroebnerBasis}}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{RightGroebnerBasis({\slshape I})\index{RightGroebnerBasis@\texttt{RightGroebnerBasis}}
 \label{RightGroebnerBasis}
 }\hfill{\scriptsize (operation)}}\\
 
 
- The operation \texttt{RightGroebnerBasis} operates on a right ideal \mbox{\texttt{\slshape R}} in a path algebra, and it constructs a right Groebner basis for the right
-ideal, $R$, which must support a right Groebner basis theory. Right now, this requires
-that R have a complete Groebner basis. }
+ Arguments: \mbox{\texttt{\slshape I}} -- a right ideal.\\
+ \textbf{\indent Returns:\ }
+a right Groebner basis for \mbox{\texttt{\slshape I}}, which must support a right Groebner basis theory. Right now, this requires
+that \mbox{\texttt{\slshape I}} has a complete Groebner basis. 
+
+}
 
  }
 
@@ -4884,13 +4930,86 @@ the module \mbox{\texttt{\slshape M}} one started with, but isomorphic. }
 \chapter{\textcolor{Chapter }{Chain complexes}}\logpage{[ 8, 0, 0 ]}
 \hyperdef{L}{X7A06103979B92808}{}
 {
-  TODO 
+  (Not completely documentet yet.) 
 \section{\textcolor{Chapter }{Representation of categories}}\logpage{[ 8, 1, 0 ]}
 \hyperdef{L}{X7CAF603281B94AC8}{}
 {
   A chain complex consists of objects and morphisms from some category. In QPA,
 this category will usually be the category of right modules over some quotient
-of a path algebra. (TODO) }
+of a path algebra. 
+
+\subsection{\textcolor{Chapter }{IsCat}}
+\logpage{[ 8, 1, 1 ]}\nobreak
+\hyperdef{L}{X7F0E546178977963}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsCat\index{IsCat@\texttt{IsCat}}
+\label{IsCat}
+}\hfill{\scriptsize (Category)}}\\
+
+
+ The category for categories. A category is a record, storing a number of
+properties that is specified within each category. Two categories can be
+compared using \texttt{=}. Currently, the only implemented category is the one of right modules over a
+(quotient of a) path algebra. }
+
+ 
+
+\subsection{\textcolor{Chapter }{CatOfRightAlgebraModules}}
+\logpage{[ 8, 1, 2 ]}\nobreak
+\hyperdef{L}{X7BB9B02E7E76FF9C}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{CatOfRightAlgebraModules({\slshape A})\index{CatOfRightAlgebraModules@\texttt{CatOfRightAlgebraModules}}
+\label{CatOfRightAlgebraModules}
+}\hfill{\scriptsize (operation)}}\\
+
+
+Arguments: \mbox{\texttt{\slshape A}} -- a (quotient of a) path algebra.\\
+ \textbf{\indent Returns:\ }
+The category mod $A$. 
+
+
+
+ mod $A$ has several properties, which can be accessed using the \texttt{.} mark. Some of the properties store functions. All properties are demonstrated
+in the following example. 
+\begin{itemize}
+\item \texttt{zeroObj} -- returns the zero module of mod $A$.
+\item \texttt{isZeroObj} -- returns true if the given module is zero.
+\item \texttt{zeroMap} -- returns the ZeroMapping function.
+\item \texttt{isZeroMapping} -- returns the IsZero test.
+\item \texttt{composeMaps} -- returns the composition of the two given maps.
+\item \texttt{ker} -- returns the Kernel function.
+\item \texttt{im} -- returns the Image function.
+\item \texttt{isExact} -- returns true if two consecutive maps are exact. 
+\end{itemize}
+ }
+
+ 
+\begin{Verbatim}[fontsize=\small,frame=single,label=Example]
+  gap> alg;
+  <algebra-with-one over Rationals, with 7 generators>
+  gap> # L, M, and N are alg-modules
+  gap> # f: L --> M and g: M --> N are non-zero morphisms
+  gap> cat := CatOfRightAlgebraModules(alg);
+  <cat: right modules over algebra>
+  gap> cat.zeroObj;
+  <right-module over <algebra-with-one over Rationals, with 7 generators>>
+  gap> cat.isZeroObj(M);
+  false
+  gap> cat.zeroMap(M,N);
+  <mapping: <3-dimensional right-module over AlgebraWithOne( Rationals, 
+  [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*v4], [(1)*a], [(1)*b], [(1)*c] ])> -> 
+    <1-dimensional right-module over AlgebraWithOne( Rationals,
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*v4], [(1)*a], [(1)*b], [(1)*c] ] )> >
+  gap> cat.composeMaps(g,f);
+  <mapping: <1-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*v4], [(1)*a], [(1)*b], [(1)*c]]
+    -> <1-dimensional right-module over AlgebraWithOne( Rationals,
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*v4], [(1)*a], [(1)*b], [(1)*c] ] )> >
+  gap> cat.ker(g);
+  <2-dimensional right-module over <algebra-with-one over Rationals,
+    with 7 generators>>
+  gap> cat.isExact(g,f);
+  false 
+\end{Verbatim}
+ }
 
  
 \section{\textcolor{Chapter }{Making a complex}}\logpage{[ 8, 2, 0 ]}
@@ -4899,7 +5018,7 @@ of a path algebra. (TODO) }
   The most general constructor for complexes is the function \texttt{Complex} (\ref{Complex}). In addition to this, there are constructors for common special cases: 
 \begin{itemize}
 \item \texttt{ZeroComplex} (\ref{ZeroComplex})
-\item \texttt{SingleObjectComplex} (\ref{SingleObjectComplex})
+\item \texttt{StalkComplex} (\ref{StalkComplex})
 \item \texttt{FiniteComplex} (\ref{FiniteComplex})
 \item \texttt{ShortExactSequence} (\ref{ShortExactSequence})
 \end{itemize}
@@ -5013,25 +5132,552 @@ differentials are placed in degrees $\mbox{\texttt{\slshape baseDegree}}+1$, and
 \[ \mbox{\texttt{\slshape baseDegree}} - 1,\quad \mbox{\texttt{\slshape baseDegree}},\quad \ldots \quad \mbox{\texttt{\slshape baseDegree}} + \text{Length}(\mbox{\texttt{\slshape differentials}}). \]
  All other objects in the complex are zero. }
 
+ 
+\begin{Verbatim}[fontsize=\small,frame=single,label=Example]
+  gap> # L, M and N are modules over the same algebra A
+  gap> # cat is the category mod A
+  gap> # f: L --> M and g: M --> N maps
+  gap> C := FiniteComplex(cat, 1, [g,f]);
+  0 -> 2:(1,0) -> 1:(2,2) -> 0:(1,1) -> 0 
+\end{Verbatim}
+ 
+
+\subsection{\textcolor{Chapter }{StalkComplex}}
+\logpage{[ 8, 2, 6 ]}\nobreak
+\hyperdef{L}{X80B47D78785F6859}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{StalkComplex({\slshape cat, obj, degree})\index{StalkComplex@\texttt{StalkComplex}}
+\label{StalkComplex}
+}\hfill{\scriptsize (function)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape cat}} -- a category, \mbox{\texttt{\slshape obj}} -- an object in \mbox{\texttt{\slshape cat}}, \mbox{\texttt{\slshape degree}} -- the degree \mbox{\texttt{\slshape obj}} should be placed in.\\
+ \textbf{\indent Returns:\ }
+a newly created complex. 
+
+
+
+ The new complex is a stalk complex with \mbox{\texttt{\slshape obj}} in position \mbox{\texttt{\slshape degree}}, and zero elsewhere. }
+
+ 
+\begin{Verbatim}[fontsize=\small,frame=single,label=Example]
+  gap> Ms := StalkComplex(cat, M, 3);
+  0 -> 3:(2,2) -> 0 
+\end{Verbatim}
+ 
+
+\subsection{\textcolor{Chapter }{ShortExactSequence}}
+\logpage{[ 8, 2, 7 ]}\nobreak
+\hyperdef{L}{X7A685484784087FE}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{ShortExactSequence({\slshape cat, f, g})\index{ShortExactSequence@\texttt{ShortExactSequence}}
+\label{ShortExactSequence}
+}\hfill{\scriptsize (function)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape cat}} -- a category, \mbox{\texttt{\slshape f}} and \mbox{\texttt{\slshape g}} -- maps in \mbox{\texttt{\slshape cat}}, where \mbox{\texttt{\slshape f}}: $A \rightarrow B$ and \mbox{\texttt{\slshape g}}: $B \rightarrow C$.\\
+ \textbf{\indent Returns:\ }
+a newly created complex. 
+
+
+
+If the sequence $0 \rightarrow A \rightarrow B \rightarrow C \rightarrow 0$ is exact, this complex (with $B$ in degree 0) is returned. }
+
+ 
+\begin{Verbatim}[fontsize=\small,frame=single,label=Example]
+  gap> ses := ShortExactSequence(cat, f, g);
+  0 -> 1:(0,0,1,0) -> 0:(0,1,1,1) -> -1:(0,1,0,1) -> 0 
+\end{Verbatim}
  }
 
  
 \section{\textcolor{Chapter }{Information about a complex}}\logpage{[ 8, 3, 0 ]}
 \hyperdef{L}{X7F7E0C197FA31B29}{}
 {
-  }
+  
+
+\subsection{\textcolor{Chapter }{CatOfComplex}}
+\logpage{[ 8, 3, 1 ]}\nobreak
+\hyperdef{L}{X7BBF131485F3C792}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{CatOfComplex({\slshape C})\index{CatOfComplex@\texttt{CatOfComplex}}
+\label{CatOfComplex}
+}\hfill{\scriptsize (attribute)}}\\
+\textbf{\indent Returns:\ }
+ The category the objects of the complex \mbox{\texttt{\slshape C}} live in. 
+
+
+
+ }
+
+ 
+
+\subsection{\textcolor{Chapter }{ObjectOfComplex}}
+\logpage{[ 8, 3, 2 ]}\nobreak
+\hyperdef{L}{X8239596E87830A51}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{ObjectOfComplex({\slshape C, i})\index{ObjectOfComplex@\texttt{ObjectOfComplex}}
+\label{ObjectOfComplex}
+}\hfill{\scriptsize (operation)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape C}} -- a complex, \mbox{\texttt{\slshape i}} -- an integer.\\
+ \textbf{\indent Returns:\ }
+ The object at position \mbox{\texttt{\slshape i}} in the complex. 
+
+
+
+ }
+
+ 
+
+\subsection{\textcolor{Chapter }{DifferentialOfComplex}}
+\logpage{[ 8, 3, 3 ]}\nobreak
+\hyperdef{L}{X7B597AC77A3D71F9}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{DifferentialOfComplex({\slshape C, i})\index{DifferentialOfComplex@\texttt{DifferentialOfComplex}}
+\label{DifferentialOfComplex}
+}\hfill{\scriptsize (operation)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape C}} -- a complex, \mbox{\texttt{\slshape i}} -- an integer.\\
+ \textbf{\indent Returns:\ }
+ The map in \mbox{\texttt{\slshape C}} between objects at positions $i$ and $i-1$. 
+
+
+
+ }
+
+ 
+
+\subsection{\textcolor{Chapter }{DifferentialsOfComplex}}
+\logpage{[ 8, 3, 4 ]}\nobreak
+\hyperdef{L}{X858D2D1A8674D2EC}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{DifferentialsOfComplex({\slshape C})\index{DifferentialsOfComplex@\texttt{DifferentialsOfComplex}}
+\label{DifferentialsOfComplex}
+}\hfill{\scriptsize (attribute)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape C}} -- a complex\\
+ \textbf{\indent Returns:\ }
+ The differentials of the complex, stored as an \texttt{IsInfList} object. 
+
+}
+
+ 
+
+\subsection{\textcolor{Chapter }{CyclesOfComplex}}
+\logpage{[ 8, 3, 5 ]}\nobreak
+\hyperdef{L}{X85FBFD9C8382C93B}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{CyclesOfComplex({\slshape C, i})\index{CyclesOfComplex@\texttt{CyclesOfComplex}}
+\label{CyclesOfComplex}
+}\hfill{\scriptsize (operation)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape C}} -- a complex, \mbox{\texttt{\slshape i}} -- an integer. \\
+ \textbf{\indent Returns:\ }
+The $i$-cycle of the complex, that is the subobject $Ker(d_i)$ of \texttt{ObjectOfComplex(C,i)}. 
+
+
+
+ }
+
+ 
+
+\subsection{\textcolor{Chapter }{BoundariesOfComplex}}
+\logpage{[ 8, 3, 6 ]}\nobreak
+\hyperdef{L}{X8168D8CC7805FE30}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{BoundariesOfComplex({\slshape C, i})\index{BoundariesOfComplex@\texttt{BoundariesOfComplex}}
+\label{BoundariesOfComplex}
+}\hfill{\scriptsize (operation)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape C}} -- a complex, \mbox{\texttt{\slshape i}} -- an integer. \\
+ \textbf{\indent Returns:\ }
+ The $i$-boundary of the complex, that is the subobject $Im(d_{i+1})$ of \texttt{ObjectOfComplex(C,i)}. 
+
+
+
+ }
+
+ 
+
+\subsection{\textcolor{Chapter }{HomologyOfComplex}}
+\logpage{[ 8, 3, 7 ]}\nobreak
+\hyperdef{L}{X7F8D61447AB57EF3}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{HomologyOfComplex({\slshape C, i})\index{HomologyOfComplex@\texttt{HomologyOfComplex}}
+\label{HomologyOfComplex}
+}\hfill{\scriptsize (operation)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape C}} -- a complex, \mbox{\texttt{\slshape i}} -- an integer.\\
+ \textbf{\indent Returns:\ }
+ The $i$th homology of the complex, that is, $Ker(d_i)/Im(d_{i+1})$. 
+
+
+
+Note: this operation is currently not available. When working in the category
+of right $kQ/I$-modules, it is possible to "cheat" and use the following procedure to compute
+the homology of a complex: }
+
+ 
+\begin{Verbatim}[fontsize=\small,frame=single,label=Example]
+  gap> C;                     
+  0 -> 4:(0,1) -> 3:(1,0) -> 2:(2,2) -> 1:(1,1) -> 0:(2,2) -> 0
+  gap> # Want to compute the homology in degree 2
+  gap> f := DifferentialOfComplex(C,3);
+  <mapping: <1-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*a], [(1)*b] ] )> ->
+    < 4-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*a], [(1)*b] ] )> >
+  gap> g := KernelInclusion(DifferentialOfComplex(C,2));
+    <mapping: <2-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*a], [(1)*b] ] )> ->
+    < 4-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*a], [(1)*b] ] )> >
+  gap> # We know that Im f is included in Ker g, so can find the
+  gap> # lifting morphism h from C_3 to Ker g.
+  gap> h := LiftingInclusionMorphisms(g,f);
+    <mapping: <1-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*a], [(1)*b] ] )> ->
+    < 2-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*a], [(1)*b] ] )> >
+  gap> # The cokernel of h is Ker g / Im f 
+  gap> Homology := CoKernel(h);
+  <1-dimensional right-module over <algebra-with-one over Rationals, with 
+    4 generators>> 
+\end{Verbatim}
+ 
+
+\subsection{\textcolor{Chapter }{IsFiniteComplex}}
+\logpage{[ 8, 3, 8 ]}\nobreak
+\hyperdef{L}{X7DCBCF7682DC87FC}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsFiniteComplex({\slshape C})\index{IsFiniteComplex@\texttt{IsFiniteComplex}}
+\label{IsFiniteComplex}
+}\hfill{\scriptsize (operation)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape C}} -- a complex.\\
+ \textbf{\indent Returns:\ }
+true if \mbox{\texttt{\slshape C}} is a finite complex, false otherwise. 
+
+
+
+ }
+
+ 
+
+\subsection{\textcolor{Chapter }{UpperBound}}
+\logpage{[ 8, 3, 9 ]}\nobreak
+\hyperdef{L}{X7A5CB74485184FEE}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{UpperBound({\slshape C})\index{UpperBound@\texttt{UpperBound}}
+\label{UpperBound}
+}\hfill{\scriptsize (operation)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape C}} -- a complex.\\
+ \textbf{\indent Returns:\ }
+If it exists: The smallest integer $i$ such that the object at position $i$ is non-zero, but for all $j > i$ the object at position $j$ is zero. 
+
+
+
+If \mbox{\texttt{\slshape C}} is not a finite complex, the operation will return fail or infinity, depending
+on how \mbox{\texttt{\slshape C}} was defined. }
+
+ 
+
+\subsection{\textcolor{Chapter }{LowerBound}}
+\logpage{[ 8, 3, 10 ]}\nobreak
+\hyperdef{L}{X807CC5AD7FDFA4E3}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{LowerBound({\slshape C})\index{LowerBound@\texttt{LowerBound}}
+\label{LowerBound}
+}\hfill{\scriptsize (operation)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape C}} -- a complex.\\
+ \textbf{\indent Returns:\ }
+If it exists: The greatest integer $i$ such that the object at position $i$ is non-zero, but for all $j < i$ the object at position $j$ is zero. 
+
+
+
+If \mbox{\texttt{\slshape C}} is not a finite complex, the operation will return fail or negative infinity,
+depending on how \mbox{\texttt{\slshape C}} was defined. }
+
+ 
+
+\subsection{\textcolor{Chapter }{LengthOfComplex}}
+\logpage{[ 8, 3, 11 ]}\nobreak
+\hyperdef{L}{X7C1F81277A5AC8B4}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{LengthOfComplex({\slshape C})\index{LengthOfComplex@\texttt{LengthOfComplex}}
+\label{LengthOfComplex}
+}\hfill{\scriptsize (operation)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape C}} -- a complex.\\
+ \textbf{\indent Returns:\ }
+the length of the complex. 
+
+
+
+The length is defined as follows: If \mbox{\texttt{\slshape C}} is a zero complex, the length is zero. If \mbox{\texttt{\slshape C}} is a finite complex, the lenght is the upper bound -- the lower bound + 1. If \mbox{\texttt{\slshape C}} is an inifinite complex, the lenght is infinity. }
+
+ 
+
+\subsection{\textcolor{Chapter }{HighestKnownDegree}}
+\logpage{[ 8, 3, 12 ]}\nobreak
+\hyperdef{L}{X82D615CD796C9C0A}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{HighestKnownDegree({\slshape C})\index{HighestKnownDegree@\texttt{HighestKnownDegree}}
+\label{HighestKnownDegree}
+}\hfill{\scriptsize (operation)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape C}} -- a complex.\\
+ \textbf{\indent Returns:\ }
+The greatest integer $i$ such that the object at position $i$ is known (or computed). 
+
+
+
+For a finite complex, this will be infinity. }
+
+ 
+
+\subsection{\textcolor{Chapter }{LowestKnownDegree}}
+\logpage{[ 8, 3, 13 ]}\nobreak
+\hyperdef{L}{X868105FF86FA1B6E}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{LowestKnownDegree({\slshape C})\index{LowestKnownDegree@\texttt{LowestKnownDegree}}
+\label{LowestKnownDegree}
+}\hfill{\scriptsize (operation)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape C}} -- a complex.\\
+ \textbf{\indent Returns:\ }
+The smallest integer $i$ such that the object at position $i$ is known (or computed). 
+
+
+
+For a finite complex, this will be negative infinity. }
+
+ 
+\begin{Verbatim}[fontsize=\small,frame=single,label=Example]
+  gap> C;
+  0 -> 4:(0,1) -> 3:(1,0) -> 2:(2,2) -> 1:(1,1) -> 0:(2,2) -> 0
+  gap> IsFiniteComplex(C);
+  true
+  gap> UpperBound(C);
+  4
+  gap> LowerBound(C);
+  0
+  gap> LengthOfComplex(C);
+  5
+  gap> HighestKnownDegree(C);
+  +inf
+  gap> LowestKnownDegree(C);
+  -inf 
+\end{Verbatim}
+ 
+
+\subsection{\textcolor{Chapter }{IsExactSequence}}
+\logpage{[ 8, 3, 14 ]}\nobreak
+\hyperdef{L}{X793465497B435197}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsExactSequence({\slshape C})\index{IsExactSequence@\texttt{IsExactSequence}}
+\label{IsExactSequence}
+}\hfill{\scriptsize (property)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape C}} -- a complex.\\
+ \textbf{\indent Returns:\ }
+true if \mbox{\texttt{\slshape C}} is exact at every position. 
+
+
+
+If the complex is not finite and not repeating, the function fails. }
+
+ 
+
+\subsection{\textcolor{Chapter }{IsExactInDegree}}
+\logpage{[ 8, 3, 15 ]}\nobreak
+\hyperdef{L}{X7A6AE1C378E2EEE2}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsExactInDegree({\slshape C, i})\index{IsExactInDegree@\texttt{IsExactInDegree}}
+\label{IsExactInDegree}
+}\hfill{\scriptsize (operation)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape C}} -- a complex, \mbox{\texttt{\slshape i}} -- an integer.\\
+ \textbf{\indent Returns:\ }
+true if \mbox{\texttt{\slshape C}} is exact at position \mbox{\texttt{\slshape i}}. 
+
+
+
+ }
+
+ 
+
+\subsection{\textcolor{Chapter }{IsShortExactSequence}}
+\logpage{[ 8, 3, 16 ]}\nobreak
+\hyperdef{L}{X87ADD4F685457000}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsShortExactSequence({\slshape C})\index{IsShortExactSequence@\texttt{IsShortExactSequence}}
+\label{IsShortExactSequence}
+}\hfill{\scriptsize (property)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape C}} -- a complex.\\
+ \textbf{\indent Returns:\ }
+true if \mbox{\texttt{\slshape C}} is exact and of the form 
+\[ \ldots \rightarrow 0 \rightarrow A \rightarrow B \rightarrow C \rightarrow 0
+\rightarrow \ldots \]
+ This could be positioned in any degree (as opposed to the construction of a
+short exact sequence, where $B$ will be put in degree zero). 
+
+
+
+ }
+
+ 
+\begin{Verbatim}[fontsize=\small,frame=single,label=Example]
+  gap> C;                
+  0 -> 4:(0,1) -> 3:(1,0) -> 2:(2,2) -> 1:(1,1) -> 0:(2,2) -> 0
+  gap> IsExactSequence(C);
+  false
+  gap> IsExactInDegree(C,1);
+  true
+  gap> IsExactInDegree(C,2);
+  false 
+\end{Verbatim}
+ }
 
  
 \section{\textcolor{Chapter }{Transforming and combinig complexes}}\logpage{[ 8, 4, 0 ]}
 \hyperdef{L}{X7CA0FC4E80154A0B}{}
 {
-  }
+  
+
+\subsection{\textcolor{Chapter }{Shift}}
+\logpage{[ 8, 4, 1 ]}\nobreak
+\hyperdef{L}{X81F7B0AB84D6319B}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{Shift({\slshape C, i})\index{Shift@\texttt{Shift}}
+\label{Shift}
+}\hfill{\scriptsize (operation)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape C}} -- a complex, \mbox{\texttt{\slshape i}} -- an integer.\\
+ \textbf{\indent Returns:\ }
+A new complex, which is a shift of \mbox{\texttt{\slshape C}}. 
+
+
+
+If \mbox{\texttt{\slshape i}} {\textgreater} 0, the complex is shifted to the left. If \mbox{\texttt{\slshape i}} {\textless} 0, the complex is shifted to the right. Note that shifting might
+change the differentials: In the shifted complex, $d_{new}$ is defined to be $(-1)^i d_{old}$. }
+
+ 
+\begin{Verbatim}[fontsize=\small,frame=single,label=Example]
+  gap> C;
+  0 -> 4:(0,1) -> 3:(1,0) -> 2:(2,2) -> 1:(1,1) -> 0:(2,2) -> 0
+  gap> Shift(C,1);
+  0 -> 3:(0,1) -> 2:(1,0) -> 1:(2,2) -> 0:(1,1) -> -1:(2,2) -> 0
+  gap> D := Shift(C,-1);
+  0 -> 5:(0,1) -> 4:(1,0) -> 3:(2,2) -> 2:(1,1) -> 1:(2,2) -> 0
+  gap> dc := DifferentialOfComplex(C,3)!.maps;
+  [ [ [ 1, 0 ] ], [ [ 0, 0 ] ] ]
+  gap> dd := DifferentialOfComplex(D,4)!.maps;
+  [ [ [ -1, 0 ] ], [ [ 0, 0 ] ] ]
+  gap> MatricesOfPathAlgebraMatModuleHomomorphism(dc);
+  [ [ [ 1, 0 ] ], [ [ 0, 0 ] ] ]
+  gap> MatricesOfPathAlgebraMatModuleHomomorphism(dd);
+  [ [ [ -1, 0 ] ], [ [ 0, 0 ] ] ] 
+\end{Verbatim}
+ 
+
+\subsection{\textcolor{Chapter }{YonedaProduct}}
+\logpage{[ 8, 4, 2 ]}\nobreak
+\hyperdef{L}{X7897A65085171913}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{YonedaProduct({\slshape C, D})\index{YonedaProduct@\texttt{YonedaProduct}}
+\label{YonedaProduct}
+}\hfill{\scriptsize (operation)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape C}}, \mbox{\texttt{\slshape D}} -- complexes.\\
+ \textbf{\indent Returns:\ }
+The Yoneda product of the two complexes, which is a complex. 
+
+
+
+To compute the Yoneda product, \mbox{\texttt{\slshape C}} and \mbox{\texttt{\slshape D}} must be such that the object in degree \texttt{LowerBound(C)} equals the object in degree \texttt{UpperBound(D)}, that is 
+\[ \ldots \rightarrow C_{i+1} \rightarrow C_{i} \rightarrow A \rightarrow 0
+\rightarrow \ldots \]
+ 
+\[ \ldots \rightarrow 0 \rightarrow A \rightarrow D_{j} \rightarrow D_{j-1}
+\rightarrow \ldots \]
+ The product is of this form: 
+\[ \ldots \rightarrow C_{i+1} \rightarrow C_{i} \rightarrow D_{j} \rightarrow
+D_{j-1} \rightarrow \ldots \]
+ where the map $C_{i} \rightarrow D_{j}$ is the composition of the maps $C_{i} \rightarrow A$ and $A \rightarrow D_{j}$. Also, the object $D_{j}$ is in degree $j$. }
+
+ 
+\begin{Verbatim}[fontsize=\small,frame=single,label=Example]
+  gap> C2;
+  0 -> 4:(0,1) -> 3:(1,0) -> 2:(2,2) -> 1:(1,1) -> 0:(0,0) -> 0
+  gap> C3;
+  0 -> -1:(1,1) -> -2:(2,2) -> -3:(1,1) -> 0
+  gap> YonedaProduct(C2,C3);
+  0 -> 1:(0,1) -> 0:(1,0) -> -1:(2,2) -> -2:(2,2) -> -3:(1,1) -> 0 
+\end{Verbatim}
+ 
+
+\subsection{\textcolor{Chapter }{BrutalTruncationBelow}}
+\logpage{[ 8, 4, 3 ]}\nobreak
+\hyperdef{L}{X87E1CA507EB6B86E}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{BrutalTruncationBelow({\slshape C, i})\index{BrutalTruncationBelow@\texttt{BrutalTruncationBelow}}
+\label{BrutalTruncationBelow}
+}\hfill{\scriptsize (operation)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape C}} -- a complex, \mbox{\texttt{\slshape i}} -- an integer.\\
+ \textbf{\indent Returns:\ }
+A newly created complex. 
+
+
+
+Replace all objects with degree $j$ {\textless} $i$ with zero. The differentials affected will also become zero. }
+
+ 
+
+\subsection{\textcolor{Chapter }{BrutalTruncationAbove}}
+\logpage{[ 8, 4, 4 ]}\nobreak
+\hyperdef{L}{X7CE9481684DD304E}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{BrutalTruncationAbove({\slshape C, i})\index{BrutalTruncationAbove@\texttt{BrutalTruncationAbove}}
+\label{BrutalTruncationAbove}
+}\hfill{\scriptsize (operation)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape C}} -- a complex, \mbox{\texttt{\slshape i}} -- an integer.\\
+ \textbf{\indent Returns:\ }
+A newly created complex. 
+
+
+
+Replace all objects with degree $j$ {\textgreater} $i$ with zero. The differentials affected will also become zero. }
+
+ 
+
+\subsection{\textcolor{Chapter }{BrutalTruncation}}
+\logpage{[ 8, 4, 5 ]}\nobreak
+\hyperdef{L}{X8547C51781BBB48F}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{BrutalTruncation({\slshape C, i, j})\index{BrutalTruncation@\texttt{BrutalTruncation}}
+\label{BrutalTruncation}
+}\hfill{\scriptsize (operation)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape C}} -- a complex, \mbox{\texttt{\slshape i, j}} -- integers.\\
+ \textbf{\indent Returns:\ }
+A newly created complex. 
+
+
+
+Brutally truncates in both ends. The integer arguments must be ordered such
+that \mbox{\texttt{\slshape i}} {\textgreater} \mbox{\texttt{\slshape j}}. }
+
+ }
 
  
 \section{\textcolor{Chapter }{Chain maps}}\logpage{[ 8, 5, 0 ]}
 \hyperdef{L}{X85F418EB859E7597}{}
 {
-  }
+  Work in progress. }
 
  }
 

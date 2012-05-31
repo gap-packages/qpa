@@ -23,7 +23,13 @@
   [2XAlmostSplitSequence[0X  7.5-1
   [2XArrowsOfQuiver[0X  2.5-3
   [2XBasisOfProjectives[0X  6.5-1
+  [2XBoundariesOfComplex[0X  8.3-6
+  [2XBrutalTruncation[0X  8.4-5
+  [2XBrutalTruncationAbove[0X  8.4-4
+  [2XBrutalTruncationBelow[0X  8.4-3
   [2XCartanMatrix[0X  3.9-5
+  [2XCatOfComplex[0X  8.3-1
+  [2XCatOfRightAlgebraModules[0X  8.1-2
   [2XCentre/Center[0X  3.9-8
   [2XCoefficients[0X  3.9-2
   [2XCoKernel[0X  7.3-1
@@ -35,6 +41,9 @@
   [2XComplex[0X  8.2-3
   [2XCoxeterMatrix[0X  3.9-6
   [2XCoxeterPolynomial[0X  3.9-7
+  [2XCyclesOfComplex[0X  8.3-5
+  [2XDifferentialOfComplex[0X  8.3-3
+  [2XDifferentialsOfComplex[0X  8.3-4
   [2XDimension[0X  6.4-3
   [2XDimensionVector[0X  6.4-2
   [2XDirectSumInclusions[0X  6.4-7
@@ -52,7 +61,9 @@
   [2XFiniteComplex[0X  8.2-5
   [2XGeneratorsOfQuiver[0X  2.5-5
   [2XGroebnerBasis[0X  4.1-2
+  [2XHighestKnownDegree[0X  8.3-12
   [2XHomFromProjective[0X  7.3-3
+  [2XHomologyOfComplex[0X  8.3-7
   [2XHomOverAlgebra[0X  7.3-4
   [2XIdeal[0X  3.7-2
   [2XIdentityMapping[0X  7.2-9
@@ -72,6 +83,7 @@
   [2XInfoQuiver[0X  2.1-1
   [2XIsAcyclicQuiver[0X  2.3-2
   [2XIsArrow[0X  2.6-3
+  [2XIsCat[0X  8.1-1
   [2XIsCompleteGroebnerBasis[0X  4.2-5
   [2XIsCompletelyReducedGroebnerBasis[0X  4.2-3
   [2XIsComplex[0X  8.2-1
@@ -79,6 +91,9 @@
   [2XIsDirectSumOfModules[0X  6.4-6
   [2XIsElementOfQuotientOfPathAlgebra[0X  3.9-1
   [2XIsEnvelopingAlgebra[0X  3.12-10
+  [2XIsExactInDegree[0X  8.3-15
+  [2XIsExactSequence[0X  8.3-14
+  [2XIsFiniteComplex[0X  8.3-8
   [2XIsGroebnerBasis[0X  4.2-1
   [2XIsHomogeneousGroebnerBasis[0X  4.2-4
   [2XIsInAdditiveClosure[0X  6.4-10
@@ -102,6 +117,7 @@
   [2XIsRightUniform[0X  3.5-3
   [2XIsSelfinjectiveAlgebra[0X  3.9-3
   [2XIsSemisimpleModule[0X  6.4-14
+  [2XIsShortExactSequence[0X  8.3-16
   [2XIsSimpleModule[0X  6.4-15
   [2XIsSplitEpimorphism[0X  7.2-18
   [2XIsSplitMonomorphism[0X  7.2-19
@@ -120,11 +136,14 @@
   [2XLeadingMonomial[0X  3.5-7
   [2XLeadingTerm[0X  3.5-5
   [2XLeftMinimalVersion[0X  7.3-9
+  [2XLengthOfComplex[0X  8.3-11
   [2XLengthOfPath[0X  2.7-3
   [2XLiftingInclusionMorphisms[0X  7.3-7
   [2XLiftingMorphismFromProjective[0X  7.3-8
   [2XLoewyLength[0X  3.9-4
   [2XLoewyLength[0X  6.4-16
+  [2XLowerBound[0X  8.3-10
+  [2XLowestKnownDegree[0X  8.3-13
   [2XMakeUniformOnRight[0X  3.5-8
   [2XMappedExpression[0X  3.5-9
   [2XMatricesOfPathAlgebraMatModuleHomomorphism[0X  7.2-1
@@ -145,6 +164,7 @@
   [2XNthSyzygyNC[0X  6.4-20
   [2XNumberOfArrows[0X  2.5-7
   [2XNumberOfVertices[0X  2.5-6
+  [2XObjectOfComplex[0X  8.3-2
   [2XOppositeOfQuiver[0X  2.5-9
   [2XOrderedBy[0X  2.2-2
   [2XOrderingOfAlgebra[0X  3.4-2
@@ -175,6 +195,8 @@
   [2XRightModuleOverPathAlgebra[0X  6.1-1
   [2XRightModuleOverPathAlgebra[0X  6.1-1
   [2XRightProjectiveModule[0X  6.7-1
+  [2XShift[0X  8.4-1
+  [2XShortExactSequence[0X  8.2-7
   [2XSimpleModules[0X  6.5-4
   [2XSimpleTensor[0X  3.12-7
   [2XSocleOfModule[0X  6.4-24
@@ -182,6 +204,7 @@
   [2XSocleSeries[0X  6.4-23
   [2XSource[0X  7.2-3
   [2XSourceOfPath[0X  2.7-1
+  [2XStalkComplex[0X  8.2-6
   [2XSubRepresentation[0X  6.4-25
   [2XSubRepresentationInclusion[0X  7.3-19
   [2XSupportModuleElement[0X  6.4-26
@@ -199,10 +222,12 @@
   [2XTransposeOfModule[0X  6.6-5
   [2XTrD[0X  6.6-4
   [2XTruncatedPathAlgebra[0X  3.11-2
+  [2XUpperBound[0X  8.3-9
   [2XVectorize[0X  6.7-2
   [2XVertexPosition[0X  3.5-10
   [2XVerticesOfQuiver[0X  2.5-2
   [2XWalkOfPath[0X  2.7-4
+  [2XYonedaProduct[0X  8.4-2
   [2XZero[0X  7.2-7
   [2XZeroComplex[0X  8.2-4
   [2XZeroMapping[0X  7.2-8

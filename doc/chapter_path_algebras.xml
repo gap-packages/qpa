@@ -476,6 +476,30 @@ false ]]></Example>
 </ManSection>
 
 <ManSection>
+   <Oper Name="IsSymmetricAlgebra" Arg="A" Comm=""/>
+   <Description>
+     Arguments: <Arg>A</Arg> -- a path algebra or a quotient of a path
+     algebra.<Br />
+   </Description>
+   <Returns>fail if <Arg>A</Arg> is not finite dimensional or does not
+     have a Groebner basis. Otherwise it returns true or false
+     according to whether <Arg>A</Arg> is symmetric or not.
+   </Returns>
+</ManSection>
+
+<ManSection>
+   <Oper Name="IsWeaklySymmetricAlgebra" Arg="A" Comm=""/>
+   <Description>
+     Arguments: <Arg>A</Arg> -- a path algebra or a quotient of a path
+     algebra.<Br />
+   </Description>
+   <Returns>fail if <Arg>A</Arg> is not finite dimensional or does not
+     have a Groebner basis. Otherwise it returns true or false
+     according to whether <Arg>A</Arg> is weakly symmetric or not.
+   </Returns>
+</ManSection>
+
+<ManSection>
    <Oper Name="LoewyLength" Arg="A" Comm=""/>
    <Description>
      Arguments: <Arg>A</Arg> -- a path algebra or a quotient of a path
