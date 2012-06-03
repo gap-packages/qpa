@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- $Id: qpadocumentation.xml,v 1.36 2012/05/22 15:07:05 kristink Exp $ -->
+<!-- $Id: qpadocumentation.xml,v 1.37 2012/06/03 06:01:20 sunnyquiver Exp $ -->
 
 <!DOCTYPE Book SYSTEM "gapdoc.dtd">
 <!-- [ <!ENTITY see '<Alt Only="LaTeX">$\to$</Alt><Alt Not="LaTeX">--&gt;</Alt>'>
@@ -2874,18 +2874,37 @@ gap> h := TopOfModuleProjection(N);
 
 <ManSection>
    <Oper Name="ExtOverAlgebra" Arg="M, N" Comm=""/>
+   <Oper Name="ExtOverAlgebraAdd" Arg="M, N" Comm=""/>
    <Description>
      Arguments: <Arg>M</Arg>, <Arg>N</Arg> - two modules.<Br />
    </Description>
-   <Returns>the map from the first syzygy, <M>\Omega(M)</M> to the
-   projective cover, <M>P(M)</M> of the module <Arg>M</Arg>, and
-   in addition a basis of <Math>\Ext^1(M,N)</Math> in terms of elements
-   in <Math>\Hom(\Omega(M),N)</Math>.</Returns>
+   <Returns>a list of two elements <Ref Oper="ExtOverAlgebra"/> or
+   three elements <Ref Oper="ExtOverAlgebraAdd"/>, where the first
+   element is the map from the first syzygy, <M>\Omega(M)</M> to the
+   projective cover, <M>P(M)</M> of the module <Arg>M</Arg>, the
+   second element is a basis of <Math>\Ext^1(M,N)</Math> in terms of
+   elements in <Math>\Hom(\Omega(M),N)</Math> and the third element is
+   a function which preforms the addition
+   in <Math>\Ext^1(M,N)</Math>.</Returns>
    <Description>
     The function checks if the arguments <Arg>M</Arg> and <Arg>N</Arg>
     are modules of the same algebra, and returns an error message
     otherwise. It <Math>\Ext^1(M,N)</Math> is zero, an empty list is
     returned.
+   </Description>
+
+<ManSection>
+   <Oper Name="ExtAlgebraGenerators" Arg="M, N" Comm=""/>
+   <Description>
+     Arguments: <Arg>M</Arg> - a module, <Arg>n</Arg> - a positive integer.<Br />
+   </Description>
+   <Returns>returns a list of three elements, where the first element
+     is the dimensions of Ext^[0..n](M,M), the second element is the number
+     of minimal generators in the degrees [0..n], and the third element is
+     the generators in these degrees.
+   <Description>
+     This function computes the generators of the Ext-algebra
+     <Math>Ext^*(M,M)</Math> up to degree  <Arg>n</Arg>.
    </Description>
 </ManSection>
 
