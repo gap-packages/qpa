@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- $Id: qpadocumentation.xml,v 1.38 2012/06/03 06:06:39 sunnyquiver Exp $ -->
+<!-- $Id: qpadocumentation.xml,v 1.39 2012/06/03 06:10:31 sunnyquiver Exp $ -->
 
 <!DOCTYPE Book SYSTEM "gapdoc.dtd">
 <!-- [ <!ENTITY see '<Alt Only="LaTeX">$\to$</Alt><Alt Not="LaTeX">--&gt;</Alt>'>
@@ -2895,7 +2895,7 @@ gap> h := TopOfModuleProjection(N);
 </ManSection>
 
 <ManSection>
-   <Oper Name="ExtAlgebraGenerators" Arg="M, N" Comm=""/>
+   <Oper Name="ExtAlgebraGenerators" Arg="M, n" Comm=""/>
    <Description>
      Arguments: <Arg>M</Arg> - a module, <Arg>n</Arg> - a positive integer.<Br />
    </Description>
