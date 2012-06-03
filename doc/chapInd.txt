@@ -57,7 +57,9 @@
   [2XEndOverAlgebra[0X  7.3-2
   [2XEnumerator[0X  4.3-6
   [2XEnvelopingAlgebra[0X  3.12-9
+  [2XExtAlgebraGenerators[0X  7.4-2
   [2XExtOverAlgebra[0X  7.4-1
+  [2XExtOverAlgebraAdd[0X  7.4-1
   [2XFiniteComplex[0X  8.2-5
   [2XGeneratorsOfQuiver[0X  2.5-5
   [2XGroebnerBasis[0X  4.1-2

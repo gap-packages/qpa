@@ -296,6 +296,7 @@
       7.3-20 TopOfModuleProjection
     7.4 Homological algebra
       7.4-1 ExtOverAlgebra
+      7.4-2 ExtAlgebraGenerators
     7.5 Auslander-Reiten theory
       7.5-1 AlmostSplitSequence
   8 Chain complexes

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2011.8.11)  31 MAY 2012 08:34
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2011.8.11)  3 JUN 2012 08:05
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1604,79 +1604,84 @@ Underfull \hbox (badness 10000) in paragraph at lines 4805--4808
  []
 
 [71]
-Underfull \hbox (badness 10000) in paragraph at lines 4859--4862
+Underfull \hbox (badness 10000) in paragraph at lines 4859--4865
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 4883--4886
+Underfull \hbox (badness 10000) in paragraph at lines 4880--4883
 
  []
 
-[72] [73]
+
+Underfull \hbox (badness 10000) in paragraph at lines 4907--4910
+
+ []
+
+[72] [73] [74]
 Chapter 8.
 
-Underfull \hbox (badness 10000) in paragraph at lines 4978--4981
+Underfull \hbox (badness 10000) in paragraph at lines 5002--5005
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 4993--4996
+Underfull \hbox (badness 10000) in paragraph at lines 5017--5020
 
  []
 
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/pzccm/m/n' tried instead on input line 5007
+(Font)              Font shape `OMS/pzccm/m/n' tried instead on input line 5031
 .
-[74
+[75
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 5064--5067
+Underfull \hbox (badness 10000) in paragraph at lines 5088--5091
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 5076--5079
+Underfull \hbox (badness 10000) in paragraph at lines 5100--5103
 
  []
 
-[75] [76]
-Underfull \hbox (badness 10000) in paragraph at lines 5182--5185
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 5205--5208
-
- []
-
-[77]
-Underfull \hbox (badness 10000) in paragraph at lines 5249--5252
+[76] [77]
+Underfull \hbox (badness 10000) in paragraph at lines 5206--5209
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 5267--5270
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 5285--5288
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 5301--5304
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 5319--5322
+Underfull \hbox (badness 10000) in paragraph at lines 5229--5232
 
  []
 
 [78]
-Underfull \hbox (badness 10000) in paragraph at lines 5324--5327
+Underfull \hbox (badness 10000) in paragraph at lines 5273--5276
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 5291--5294
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 5309--5312
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 5325--5328
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 5343--5346
+
+ []
+
+[79]
+Underfull \hbox (badness 10000) in paragraph at lines 5348--5351
 []\OT1/ptm/b/n/10.95 Returns:  \OT1/ptm/m/n/10.95 The $\OML/ptmcm/m/it/10.95 i$
 \OT1/ptm/m/n/10.95 -boundary of the com-plex, that is the sub-ob-ject $\OML/ptm
 cm/m/it/10.95 Im\OT1/ptmcm/m/n/10.95 (\OML/ptmcm/m/it/10.95 d[]\OT1/ptmcm/m/n/1
@@ -1684,110 +1689,110 @@ cm/m/it/10.95 Im\OT1/ptmcm/m/n/10.95 (\OML/ptmcm/m/it/10.95 d[]\OT1/ptmcm/m/n/1
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 5337--5340
+Underfull \hbox (badness 10000) in paragraph at lines 5361--5364
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 5384--5387
+Underfull \hbox (badness 10000) in paragraph at lines 5408--5411
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 5402--5405
-
- []
-
-[79]
-Underfull \hbox (badness 10000) in paragraph at lines 5421--5424
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 5440--5443
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 5458--5461
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 5476--5479
+Underfull \hbox (badness 10000) in paragraph at lines 5426--5429
 
  []
 
 [80]
-Underfull \hbox (badness 10000) in paragraph at lines 5511--5514
+Underfull \hbox (badness 10000) in paragraph at lines 5445--5448
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 5529--5532
+Underfull \hbox (badness 10000) in paragraph at lines 5464--5467
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 5547--5550
+Underfull \hbox (badness 10000) in paragraph at lines 5482--5485
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 5586--5589
+Underfull \hbox (badness 10000) in paragraph at lines 5500--5503
 
  []
 
 [81]
-Underfull \hbox (badness 10000) in paragraph at lines 5622--5625
+Underfull \hbox (badness 10000) in paragraph at lines 5535--5538
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 5658--5661
+Underfull \hbox (badness 10000) in paragraph at lines 5553--5556
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 5571--5574
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 5610--5613
 
  []
 
 [82]
-Underfull \hbox (badness 10000) in paragraph at lines 5676--5679
+Underfull \hbox (badness 10000) in paragraph at lines 5646--5649
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 5694--5697
+Underfull \hbox (badness 10000) in paragraph at lines 5682--5685
 
  []
 
 [83]
+Underfull \hbox (badness 10000) in paragraph at lines 5700--5703
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 5718--5721
+
+ []
+
+[84]
 Appendix A.
 (./qpadocumentation.bbl (./qpadocumentation.brf)
 \tf@brf=\write8
 \openout8 = `qpadocumentation.brf'.
 
- [84
+ [85
 
 ]
 
 LaTeX Warning: Empty `thebibliography' environment on input line 3.
 
-) (./qpadocumentation.ind [85
+) (./qpadocumentation.ind [86
 
-] [86
+] [87
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 181--183
+Underfull \hbox (badness 10000) in paragraph at lines 183--185
 []\OT1/pcr/m/n/10.95 Matrices\OT1/ptm/m/n/10.95 -\OT1/pcr/m/n/10.95 Of\OT1/ptm/
 m/n/10.95 -\OT1/pcr/m/n/10.95 Path\OT1/ptm/m/n/10.95 -\OT1/pcr/m/n/10.95 Algebr
 a\OT1/ptm/m/n/10.95 -\OT1/pcr/m/n/10.95 Mat\OT1/ptm/m/n/10.95 -\OT1/pcr/m/n/10.
 95 Module\OT1/ptm/m/n/10.95 -
  []
 
-[87] [88])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 5746.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 5746.
+[88] [89])
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 5770.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 5770.
  (./qpadocumentation.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 5746.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 5746.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 5770.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 5770.
 
 Package rerunfilecheck Info: File `qpadocumentation.brf' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
@@ -1800,10 +1805,10 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 10243 strings out of 493629
- 143703 string characters out of 3146270
- 285597 words of memory out of 3000000
- 12715 multiletter control sequences out of 15000+200000
+ 10248 strings out of 493629
+ 143786 string characters out of 3146270
+ 285729 words of memory out of 3000000
+ 12717 multiletter control sequences out of 15000+200000
  53173 words of font info for 115 fonts, out of 3000000 for 9000
  831 hyphenation exceptions out of 8191
  32i,7n,25p,3252b,613s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -1821,10 +1826,10 @@ bol/usyr.pfb></usr/lib/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></us
 r/lib/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/lib/texlive/tex
 mf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/lib/texlive/texmf-dist/fonts/typ
 e1/urw/times/utmri8a.pfb>
-Output written on qpadocumentation.pdf (88 pages, 338824 bytes).
+Output written on qpadocumentation.pdf (89 pages, 340383 bytes).
 PDF statistics:
- 1675 PDF objects out of 1728 (max. 8388607)
- 1554 compressed objects within 16 object streams
- 641 named destinations out of 1000 (max. 500000)
+ 1685 PDF objects out of 1728 (max. 8388607)
+ 1563 compressed objects within 16 object streams
+ 644 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

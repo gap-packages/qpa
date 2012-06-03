@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- $Id: qpadocumentation.xml,v 1.37 2012/06/03 06:01:20 sunnyquiver Exp $ -->
+<!-- $Id: qpadocumentation.xml,v 1.38 2012/06/03 06:06:39 sunnyquiver Exp $ -->
 
 <!DOCTYPE Book SYSTEM "gapdoc.dtd">
 <!-- [ <!ENTITY see '<Alt Only="LaTeX">$\to$</Alt><Alt Not="LaTeX">--&gt;</Alt>'>
@@ -2892,6 +2892,7 @@ gap> h := TopOfModuleProjection(N);
     otherwise. It <Math>\Ext^1(M,N)</Math> is zero, an empty list is
     returned.
    </Description>
+</ManSection>
 
 <ManSection>
    <Oper Name="ExtAlgebraGenerators" Arg="M, N" Comm=""/>
@@ -2901,7 +2902,7 @@ gap> h := TopOfModuleProjection(N);
    <Returns>returns a list of three elements, where the first element
      is the dimensions of Ext^[0..n](M,M), the second element is the number
      of minimal generators in the degrees [0..n], and the third element is
-     the generators in these degrees.
+     the generators in these degrees.</Returns>
    <Description>
      This function computes the generators of the Ext-algebra
      <Math>Ext^*(M,M)</Math> up to degree  <Arg>n</Arg>.

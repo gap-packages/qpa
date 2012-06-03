@@ -18,22 +18,22 @@
   \item \texttt  {AddNthPowerToRelations}, \hyperpage{26}
   \item \texttt  {AdjacencyMatrixOfQuiver}, \hyperpage{16}
   \item \texttt  {AdmitsFinitelyManyNontips}, \hyperpage{37}
-  \item \texttt  {AlmostSplitSequence}, \hyperpage{72}
+  \item \texttt  {AlmostSplitSequence}, \hyperpage{73}
   \item \texttt  {ArrowsOfQuiver}, \hyperpage{16}
 
   \indexspace
 
   \item \texttt  {BasisOfProjectives}, \hyperpage{50}
-  \item \texttt  {BoundariesOfComplex}, \hyperpage{79}
-  \item \texttt  {BrutalTruncation}, \hyperpage{83}
-  \item \texttt  {BrutalTruncationAbove}, \hyperpage{83}
-  \item \texttt  {BrutalTruncationBelow}, \hyperpage{83}
+  \item \texttt  {BoundariesOfComplex}, \hyperpage{80}
+  \item \texttt  {BrutalTruncation}, \hyperpage{84}
+  \item \texttt  {BrutalTruncationAbove}, \hyperpage{84}
+  \item \texttt  {BrutalTruncationBelow}, \hyperpage{84}
 
   \indexspace
 
   \item \texttt  {CartanMatrix}, \hyperpage{28}
-  \item \texttt  {CatOfComplex}, \hyperpage{78}
-  \item \texttt  {CatOfRightAlgebraModules}, \hyperpage{74}
+  \item \texttt  {CatOfComplex}, \hyperpage{79}
+  \item \texttt  {CatOfRightAlgebraModules}, \hyperpage{75}
   \item \texttt  {Centre/Center}, \hyperpage{29}
   \item \texttt  {Coefficients}, \hyperpage{28}
   \item \texttt  {CoKernel}, \hyperpage{62}
@@ -42,15 +42,15 @@
   \item \texttt  {CommonDirectSummand}, \hyperpage{44}
   \item \texttt  {CompletelyReduce}, \hyperpage{36}
   \item \texttt  {CompletelyReduceGroebnerBasis}, \hyperpage{36}
-  \item \texttt  {Complex}, \hyperpage{76}
+  \item \texttt  {Complex}, \hyperpage{77}
   \item \texttt  {CoxeterMatrix}, \hyperpage{29}
   \item \texttt  {CoxeterPolynomial}, \hyperpage{29}
-  \item \texttt  {CyclesOfComplex}, \hyperpage{78}
+  \item \texttt  {CyclesOfComplex}, \hyperpage{79}
 
   \indexspace
 
-  \item \texttt  {DifferentialOfComplex}, \hyperpage{78}
-  \item \texttt  {DifferentialsOfComplex}, \hyperpage{78}
+  \item \texttt  {DifferentialOfComplex}, \hyperpage{79}
+  \item \texttt  {DifferentialsOfComplex}, \hyperpage{79}
   \item \texttt  {Dimension}, \hyperpage{44}
   \item \texttt  {DimensionVector}, \hyperpage{44}
   \item \texttt  {DirectSumInclusions}, \hyperpage{45}
@@ -67,11 +67,13 @@
   \item \texttt  {EndOverAlgebra}, \hyperpage{63}
   \item \texttt  {Enumerator}, \hyperpage{37}
   \item \texttt  {EnvelopingAlgebra}, \hyperpage{33}
+  \item \texttt  {ExtAlgebraGenerators}, \hyperpage{72}
   \item \texttt  {ExtOverAlgebra}, \hyperpage{72}
+  \item \texttt  {ExtOverAlgebraAdd}, \hyperpage{72}
 
   \indexspace
 
-  \item \texttt  {FiniteComplex}, \hyperpage{77}
+  \item \texttt  {FiniteComplex}, \hyperpage{78}
 
   \indexspace
 
@@ -80,9 +82,9 @@
 
   \indexspace
 
-  \item \texttt  {HighestKnownDegree}, \hyperpage{80}
+  \item \texttt  {HighestKnownDegree}, \hyperpage{81}
   \item \texttt  {HomFromProjective}, \hyperpage{63}
-  \item \texttt  {HomologyOfComplex}, \hyperpage{79}
+  \item \texttt  {HomologyOfComplex}, \hyperpage{80}
   \item \texttt  {HomOverAlgebra}, \hyperpage{63}
 
   \indexspace
@@ -105,17 +107,17 @@
   \item \texttt  {InfoQuiver}, \hyperpage{14}
   \item \texttt  {IsAcyclicQuiver}, \hyperpage{15}
   \item \texttt  {IsArrow}, \hyperpage{18}
-  \item \texttt  {IsCat}, \hyperpage{74}
+  \item \texttt  {IsCat}, \hyperpage{75}
   \item \texttt  {IsCompleteGroebnerBasis}, \hyperpage{35}
   \item \texttt  {IsCompletelyReducedGroebnerBasis}, \hyperpage{35}
-  \item \texttt  {IsComplex}, \hyperpage{75}
+  \item \texttt  {IsComplex}, \hyperpage{76}
   \item \texttt  {IsDirectSummand}, \hyperpage{44}
   \item \texttt  {IsDirectSumOfModules}, \hyperpage{44}
   \item \texttt  {IsElementOfQuotientOfPathAlgebra}, \hyperpage{27}
   \item \texttt  {IsEnvelopingAlgebra}, \hyperpage{33}
-  \item \texttt  {IsExactInDegree}, \hyperpage{81}
-  \item \texttt  {IsExactSequence}, \hyperpage{81}
-  \item \texttt  {IsFiniteComplex}, \hyperpage{79}
+  \item \texttt  {IsExactInDegree}, \hyperpage{82}
+  \item \texttt  {IsExactSequence}, \hyperpage{82}
+  \item \texttt  {IsFiniteComplex}, \hyperpage{80}
   \item \texttt  {IsGroebnerBasis}, \hyperpage{34}
   \item \texttt  {IsHomogeneousGroebnerBasis}, \hyperpage{35}
   \item \texttt  {IsInAdditiveClosure}, \hyperpage{46}
@@ -139,7 +141,7 @@
   \item \texttt  {IsRightUniform}, \hyperpage{24}
   \item \texttt  {IsSelfinjectiveAlgebra}, \hyperpage{28}
   \item \texttt  {IsSemisimpleModule}, \hyperpage{46}
-  \item \texttt  {IsShortExactSequence}, \hyperpage{81}
+  \item \texttt  {IsShortExactSequence}, \hyperpage{82}
   \item \texttt  {IsSimpleModule}, \hyperpage{47}
   \item \texttt  {IsSplitEpimorphism}, \hyperpage{61}
   \item \texttt  {IsSplitMonomorphism}, \hyperpage{61}
@@ -150,7 +152,7 @@
   \item \texttt  {IsVertex}, \hyperpage{18}
   \item \texttt  {IsWeaklySymmetricAlgebra}, \hyperpage{28}
   \item \texttt  {IsZero}, \hyperpage{62}
-  \item \texttt  {IsZeroComplex}, \hyperpage{76}
+  \item \texttt  {IsZeroComplex}, \hyperpage{77}
   \item \texttt  {IsZeroPath}, \hyperpage{18}
   \item \texttt  {Iterator}, \hyperpage{37}
 
@@ -166,13 +168,13 @@
   \item \texttt  {LeadingMonomial}, \hyperpage{25}
   \item \texttt  {LeadingTerm}, \hyperpage{24}
   \item \texttt  {LeftMinimalVersion}, \hyperpage{67}
-  \item \texttt  {LengthOfComplex}, \hyperpage{80}
+  \item \texttt  {LengthOfComplex}, \hyperpage{81}
   \item \texttt  {LengthOfPath}, \hyperpage{19}
   \item \texttt  {LiftingInclusionMorphisms}, \hyperpage{65}
   \item \texttt  {LiftingMorphismFromProjective}, \hyperpage{66}
   \item \texttt  {LoewyLength}, \hyperpage{28}, \hyperpage{47}
-  \item \texttt  {LowerBound}, \hyperpage{80}
-  \item \texttt  {LowestKnownDegree}, \hyperpage{80}
+  \item \texttt  {LowerBound}, \hyperpage{81}
+  \item \texttt  {LowestKnownDegree}, \hyperpage{81}
 
   \indexspace
 
@@ -203,7 +205,7 @@
 
   \indexspace
 
-  \item \texttt  {ObjectOfComplex}, \hyperpage{78}
+  \item \texttt  {ObjectOfComplex}, \hyperpage{79}
   \item \texttt  {OppositeOfQuiver}, \hyperpage{17}
   \item \texttt  {OrderedBy}, \hyperpage{15}
   \item \texttt  {OrderingOfAlgebra}, \hyperpage{23}
@@ -243,8 +245,8 @@
 
   \indexspace
 
-  \item \texttt  {Shift}, \hyperpage{82}
-  \item \texttt  {ShortExactSequence}, \hyperpage{78}
+  \item \texttt  {Shift}, \hyperpage{83}
+  \item \texttt  {ShortExactSequence}, \hyperpage{79}
   \item \texttt  {SimpleModules}, \hyperpage{50}
   \item \texttt  {SimpleTensor}, \hyperpage{32}
   \item \texttt  {SocleOfModule}, \hyperpage{48}
@@ -252,7 +254,7 @@
   \item \texttt  {SocleSeries}, \hyperpage{48}
   \item \texttt  {Source}, \hyperpage{57}
   \item \texttt  {SourceOfPath}, \hyperpage{18}
-  \item \texttt  {StalkComplex}, \hyperpage{77}
+  \item \texttt  {StalkComplex}, \hyperpage{78}
   \item \texttt  {SubRepresentation}, \hyperpage{48}
   \item \texttt  {SubRepresentationInclusion}, \hyperpage{71}
   \item \texttt  {SupportModuleElement}, \hyperpage{49}
@@ -276,7 +278,7 @@
 
   \indexspace
 
-  \item \texttt  {UpperBound}, \hyperpage{80}
+  \item \texttt  {UpperBound}, \hyperpage{81}
 
   \indexspace
 
@@ -290,12 +292,12 @@
 
   \indexspace
 
-  \item \texttt  {YonedaProduct}, \hyperpage{82}
+  \item \texttt  {YonedaProduct}, \hyperpage{83}
 
   \indexspace
 
   \item \texttt  {Zero}, \hyperpage{58}
-  \item \texttt  {ZeroComplex}, \hyperpage{77}
+  \item \texttt  {ZeroComplex}, \hyperpage{78}
   \item \texttt  {ZeroMapping}, \hyperpage{58}
   \item \texttt  {ZeroModule}, \hyperpage{51}
 
