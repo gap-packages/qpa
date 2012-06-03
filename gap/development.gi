@@ -1908,6 +1908,106 @@ end
 
 #######################################################################
 ##
+#O  ExtAlgebraGenerators(<M>,<n>)
+##
+##  This function computes the generators of the Ext-algebra Ext^*(M,M)
+##  up to degree  <n>. It returns a list of three elements, where the  
+##  first element is the dimensions of Ext^[0..n](M,M), the second element
+##  is the number of minimal generators in the degrees [0..n], and the 
+##  third element is the generators in these degrees.
+##
+InstallMethod( ExtAlgebraGenerators, 
+    "for a module over a quotient of a path algebra",
+    [ IsPathAlgebraMatModule, IS_INT ], 0,
+    function( M, n ) 
+
+    local N, projcovers, f, i, EndM, J, gens, extgroups, dim_ext_groups, 
+          generators, productelements, j, induced, k, liftings, products, 
+          l, m, productsinbasis, W, V, K, extalggenerators, p, tempgens, 
+          I, g; 
+
+    K := LeftActingDomain(M);
+    N := M;
+    projcovers := [];
+    for i in [1..n] do
+        f := ProjectiveCover(N);
+        Add(projcovers,f);
+        N := Kernel(f);
+    od;
+    extgroups := [];
+    #
+    #   Computing Ext^i(M,M) for i = 0, 1, 2,...., n. 
+    #
+    for i in [0..n] do 
+        if i = 0 then 
+            EndM := EndOverAlgebra(M); 
+            J := RadicalOfAlgebra(EndM);
+            gens := GeneratorsOfAlgebra(J);
+            Add(extgroups, [[],List(gens, x -> FromEndMToHomMM(M,x))]);
+        elif i = 1 then 
+            Add(extgroups, ExtOverAlgebraAdd(M,M)); 
+        else
+            Add(extgroups, ExtOverAlgebraAdd(Kernel(projcovers[i-1]),M)); 
+        fi;
+    od;
+    dim_ext_groups := List(extgroups, x -> Length(x[2]));
+    Print(Dimension(EndM) - Dimension(J)," generators in degree 0.\n");    
+    #
+    #   Computing Ext^j(M,M) x Ext^(i-j)(M,M) for j = 1..i-1 and i = 2..n.
+    #
+    generators := List([1..n + 1], x -> 0);
+    extalggenerators := List([1..n + 1], x -> []);
+    for i in [1..n] do
+        productelements := [];
+        for j in [0..i] do
+            if ( dim_ext_groups[i+1] <> 0 ) and ( dim_ext_groups[j+1] <> 0 ) and ( dim_ext_groups[i-j+1] <> 0 ) then 
+                induced := ShallowCopy(extgroups[i-j+1][2]);
+                for k in [1..j] do
+                    liftings := List([1..dim_ext_groups[i-j+1]], x -> projcovers[i-j+k]*induced[x]);
+                    liftings := List([1..dim_ext_groups[i-j+1]], x -> LiftingMorphismFromProjective(projcovers[k],liftings[x]));
+                    induced  := List([1..dim_ext_groups[i-j+1]], x -> MorphismOnKernel(projcovers[i-j+k],projcovers[k],liftings[x],induced[x]));
+                od;
+                products := [];
+                for l in [1..dim_ext_groups[j+1]] do
+                    for m in [1..dim_ext_groups[i-j+1]] do 
+                        Add(products,induced[m]*extgroups[j+1][2][l]);
+                    od;
+                od;
+                productsinbasis := List(products, x -> extgroups[i+1][3](x));
+                productsinbasis := Filtered(productsinbasis, x -> x <> Zero(x));
+                if Length(productsinbasis) <> 0 then
+                    Append(productelements,productsinbasis);
+                fi;
+            fi;
+        od;
+        if Length(productelements) <> 0 then 
+            W := FullRowSpace(K,Length(extgroups[i+1][2]));            
+            V := Subspace(W,productelements);
+            if dim_ext_groups[i+1] > Dimension(V) then
+                generators[i+1] := Length(extgroups[i+1][2]) - Dimension(V); 
+                p := NaturalHomomorphismBySubspace(W,V);
+                tempgens := List(BasisVectors(Basis(Range(p))), x -> PreImagesRepresentative(p,x));
+                extalggenerators[i+1] := List(tempgens, x -> LinearCombination(extgroups[i+1][2],x));                 
+                Print(Length(extgroups[i+1][2]) - Dimension(V)," new generator(s) in degree ",i,".\n");
+            fi;
+        elif dim_ext_groups[i+1] <> 0 then 
+            generators[i+1] := Length(extgroups[i+1][2]); 
+            extalggenerators[i+1] := extgroups[i+1][2];                 
+            Print(Length(extgroups[i+1][2])," new generator(s) in degree ",i,".\n");
+        fi;
+    od; 
+    dim_ext_groups[1] := Dimension(EndM);
+    generators[1] := Dimension(EndM) - Dimension(J);
+    I := Ideal(EndM,gens);
+    g := NaturalHomomorphismByIdeal(EndM,I);
+    extalggenerators[1] := List(BasisVectors(Basis(Range(g))), x -> FromEndMToHomMM(M,PreImagesRepresentative(g,x)));
+    return [dim_ext_groups,generators,extalggenerators];
+end
+);
+
+
+#######################################################################
+##
 #O  AlmostSplitSequence(<M>,<N>)
 ##
 ##  This function finds the almost split sequence ending in the module

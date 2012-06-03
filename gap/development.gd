@@ -44,3 +44,4 @@ DeclareOperation( "AlmostSplitSequence", [ IsPathAlgebraMatModule ]);
 DeclareOperation( "ExtOverAlgebraAdd", [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ]);
 DeclareProperty( "IsSymmetricAlgebra", IsAlgebra );
 DeclareProperty( "IsWeaklySymmetricAlgebra", IsAlgebra );
+DeclareOperation( "ExtAlgebraGenerators", [ IsPathAlgebraMatModule, IS_INT ] );
