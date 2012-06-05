@@ -1924,7 +1924,7 @@ InstallMethod( ExtAlgebraGenerators,
     local N, projcovers, f, i, EndM, J, gens, extgroups, dim_ext_groups, 
           generators, productelements, j, induced, k, liftings, products, 
           l, m, productsinbasis, W, V, K, extalggenerators, p, tempgens, 
-          I, g; 
+          I, g, templist, idealsquare; 
 
     K := LeftActingDomain(M);
     N := M;
@@ -1997,10 +1997,23 @@ InstallMethod( ExtAlgebraGenerators,
         fi;
     od; 
     dim_ext_groups[1] := Dimension(EndM);
-    generators[1] := Dimension(EndM) - Dimension(J);
-    I := Ideal(EndM,gens);
+    templist := [];
+    for i in [1..Length(gens)] do
+        for j in [1..Dimension(EndM)] do
+            Add(templist,BasisVectors(Basis(EndM))[j]*gens[i]);
+        od;
+    od;
+    templist := Filtered(templist, x -> x <> Zero(x));
+    idealsquare := [];
+    for i in [1..Length(templist)] do
+        for j in [1..Length(gens)] do
+            Add(idealsquare,gens[j]*templist[i]);
+        od;
+    od;
+    I := Ideal(EndM,idealsquare);
     g := NaturalHomomorphismByIdeal(EndM,I);
     extalggenerators[1] := List(BasisVectors(Basis(Range(g))), x -> FromEndMToHomMM(M,PreImagesRepresentative(g,x)));
+    generators[1] := Length(extalggenerators[1]);
     return [dim_ext_groups,generators,extalggenerators];
 end
 );
