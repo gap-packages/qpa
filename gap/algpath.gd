@@ -1,6 +1,6 @@
 # GAP Declarations
 # This file was generated from
-# $Id: algpath.gd,v 1.5 2012/02/27 12:26:34 sunnyquiver Exp $
+# $Id: algpath.gd,v 1.6 2012/06/06 17:11:53 andrzejmroz Exp $
 DeclareProperty( "IsPathRing", IsMagmaRingModuloSpanOfZero );
 DeclareProperty( "IsPathRing", IsAlgebra );
 DeclareSynonym( "IsPathAlgebra", IsAlgebra and IsPathRing );
@@ -41,6 +41,10 @@ DeclareAttribute( "NormalFormFunction", IsFamily );
 DeclareOperation( "ElementOfQuotientOfPathAlgebra", 
     [ IsElementOfQuotientOfPathAlgebraFamily, IsRingElement, IsBool ] );
 
+DeclareOperation( "ElementOfPathAlgebra", 
+    [ IsPathAlgebra, IsPath ] ); 	
+	
+	
 DeclareHandlingByNiceBasis( "IsFpPathAlgebraElementsSpace",
     "for spaces of f.p. path algebras" );  
 

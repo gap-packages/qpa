@@ -1,6 +1,6 @@
 # GAP Implementation
 # This file was generated from
-# $Id: algpath.gi,v 1.5 2012/02/27 12:26:34 sunnyquiver Exp $
+# $Id: algpath.gi,v 1.6 2012/06/06 17:11:53 andrzejmroz Exp $
 
 
 InstallMethod( IsPathRing,
@@ -872,6 +872,26 @@ InstallMethod( ElementOfQuotientOfPathAlgebra,
     fi;
   end
 );
+
+
+# Embeds a path (element of a quiver) into a path algebra (of the same quiver)
+InstallMethod( ElementOfPathAlgebra, 
+  "for a path algebra  and a path = element of a quiver",
+  true,
+  [ IsPathAlgebra, IsPath  ], 0,
+  function( PA, path )
+      local F;
+	  
+	  if not path in QuiverOfPathAlgebra(PA) then
+	    Print("<path> should be an element of the quiver of the algebra <PA>\n");
+		return false;
+	  fi;
+	  
+	  F := LeftActingDomain(PA);
+      return ElementOfMagmaRing(FamilyObj(Zero(PA)),Zero(F),[One(F)],[path]);
+  end
+);	
+
 
 
 InstallMethod( ExtRepOfObj,
