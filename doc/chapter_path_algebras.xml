@@ -608,10 +608,21 @@ false ]]></Example>
     returned.
    </Returns>
    <Description><Arg>family</Arg> is the ElementsFamily of the family
-   of the algebra <Arg>element</Arg> is in.
+   of the algebra <Arg>element</Arg> is projected into.
    </Description>
   </ManSection>
 
+  <ManSection>
+   <Oper Name="ElementOfPathAlgebra" Arg="PA, path" Comm=""/>
+   <Description>
+     Arguments: <Arg>PA</Arg> -- a path algebra, <Arg>path</Arg> -- a path in the quiver from which PA was constructed.<Br />
+   </Description>
+   <Returns>The embedding of <Arg>path</Arg> into the path algebra <Arg>PA</Arg>, or
+it returns false if  <Arg>path</Arg> is not an element of the quiver from which PA was constructed.  
+   </Returns>
+
+  </ManSection>
+  
   <ManSection>
    <Oper Name="OriginalPathAlgebra" Arg="algebra" Comm="for a quotient
    of a path algebra"/>
