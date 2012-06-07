@@ -18,8 +18,8 @@ basis are computed by the <Package>GBNP</Package> package.
   <ManSection>
    <Func Name="GroebnerBasis" Arg="A, rels" 
 	 Comm=""/>
-   <Description>Arguments: <Arg>A</Arg> -- an algebra, <Arg>rels</Arg>
-   -- a list of relations in <Arg>A</Arg>.<Br />
+   <Description>Arguments: <Arg>I</Arg> -- an ideal, <Arg>rels</Arg>
+   -- a list of relations generating <Arg>I</Arg>.<Br />
    </Description>
    <Returns> an object in the `IsGroebnerBasis' category.</Returns>
    <Description>
