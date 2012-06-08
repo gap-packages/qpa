@@ -21,13 +21,17 @@ basis are computed by the <Package>GBNP</Package> package.
    <Description>Arguments: <Arg>I</Arg> -- an ideal, <Arg>rels</Arg>
    -- a list of relations generating <Arg>I</Arg>.<Br />
    </Description>
-   <Returns> an object in the `IsGroebnerBasis' category.</Returns>
+   <Returns> an object <Arg>GB</Arg> in the `IsGroebnerBasis' category with `IsCompleteGroebnerBasis' property set on true.</Returns>
    <Description>
-       There are absolutely no checks for correctness in this
-       function. Giving a set of relations that does not form a
+       Sets  also <Arg>GB</Arg> as a value of the attribute GroebnerBasisOfIdeal for <Arg>I</Arg>
+       (so one has an access to it by calling GroebnerBasisOfIdeal(<Arg>I</Arg>)).<Br />
+       
+       There are absolutely no computations and no checks for correctness in this
+       function.  Giving a set of relations that does not form a
        Groebner basis may result in incorrect answers or unexpected
        errors.  This function is intended to be used by packages
-       providing access to external Groebner basis programs.
+       providing access to external Groebner basis programs and should 
+       be invoked before further computations on Groebner basis or ideal I.
    </Description>
   </ManSection>
 
@@ -37,7 +41,7 @@ basis are computed by the <Package>GBNP</Package> package.
     Basis</Heading>
 
   <ManSection>
-   <Prop Name="IsGroebnerBasis" Arg="object" Comm=""/>
+   <Filt Name="IsGroebnerBasis" Arg="object" Comm="" Type="category"/>
    <Description>
      Arguments: <Arg>object</Arg> -- any object in &GAP;. <Br />
    </Description>
@@ -82,6 +86,8 @@ true ]]>
     </Returns> 
    </ManSection> 
 
+   
+   
    <ManSection> 
     <Prop Name="IsCompletelyReducedGroebnerBasis" Arg="gb" Comm=""/> 
     <Description> 
