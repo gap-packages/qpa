@@ -122,12 +122,14 @@ This is the Colophon page. \mbox{}}\\[1cm]
 \newpage
 
  
-\chapter{\textcolor{Chapter }{Quick Start}}\label{Quickstart}
+\chapter{\textcolor{Chapter }{Introduction/Quick Start}}\label{Introduction/Quickstart}
 \logpage{[ 1, 0, 0 ]}
-\hyperdef{L}{X7EB860EC84DFC71E}{}
+\hyperdef{L}{X7D7CD01E7DAFA776}{}
 {
- This chapter is intended for those who would like to get started with \textsf{QPA} right away by playing with a few examples. A simple example is presented
-first:  
+ This chapter is intended for those who would like to get started with \textsf{QPA} right away by playing with a few examples. An important feature to be aware of
+concerning using the software is how to display the results one is obtaining.
+Here there are three basic ways of doing this, through \texttt{View}, \texttt{Print} or \texttt{Display}. The command \texttt{View(M)} prints a short information about the object \texttt{M}, the command \texttt{Print(M)} prints a longer information about the object \texttt{M}, and finally The command \texttt{Display(M)} prints an even fuller information about the object \texttt{M}, in general. However, for some objects these may all coincide. First we
+present a simple example:  
 \section{\textcolor{Chapter }{Example 1}}\label{Example 1}
 \logpage{[ 1, 1, 0 ]}
 \hyperdef{L}{X8388E29680F31ABD}{}
@@ -1666,12 +1668,28 @@ The projection of \mbox{\texttt{\slshape element}} into the quotient given by \m
 
 
 
-\mbox{\texttt{\slshape family}} is the ElementsFamily of the family of the algebra \mbox{\texttt{\slshape element}} is in. }
+\mbox{\texttt{\slshape family}} is the ElementsFamily of the family of the algebra \mbox{\texttt{\slshape element}} is projected into. }
+
+ 
+
+\subsection{\textcolor{Chapter }{ElementOfPathAlgebra}}
+\logpage{[ 3, 10, 4 ]}\nobreak
+\hyperdef{L}{X841C00E87E19528E}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{ElementOfPathAlgebra({\slshape PA, path})\index{ElementOfPathAlgebra@\texttt{ElementOfPathAlgebra}}
+\label{ElementOfPathAlgebra}
+}\hfill{\scriptsize (operation)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape PA}} -- a path algebra, \mbox{\texttt{\slshape path}} -- a path in the quiver from which PA was constructed.\\
+ \textbf{\indent Returns:\ }
+The embedding of \mbox{\texttt{\slshape path}} into the path algebra \mbox{\texttt{\slshape PA}}, or it returns false if \mbox{\texttt{\slshape path}} is not an element of the quiver from which PA was constructed. 
+
+}
 
  
 
 \subsection{\textcolor{Chapter }{OriginalPathAlgebra}}
-\logpage{[ 3, 10, 4 ]}\nobreak
+\logpage{[ 3, 10, 5 ]}\nobreak
 \hyperdef{L}{X8088721187BA8D82}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{OriginalPathAlgebra({\slshape algebra})\index{OriginalPathAlgebra@\texttt{OriginalPathAlgebra}}
 \label{OriginalPathAlgebra}
@@ -2018,16 +2036,19 @@ basis; instead, the declarations and implementations are provided here for \text
 }\hfill{\scriptsize (function)}}\\
 
 
-Arguments: \mbox{\texttt{\slshape A}} -- an algebra, \mbox{\texttt{\slshape rels}} -- a list of relations in \mbox{\texttt{\slshape A}}.\\
+Arguments: \mbox{\texttt{\slshape I}} -- an ideal, \mbox{\texttt{\slshape rels}} -- a list of relations generating \mbox{\texttt{\slshape I}}.\\
  \textbf{\indent Returns:\ }
- an object in the `IsGroebnerBasis' category.
+ an object \mbox{\texttt{\slshape GB}} in the `IsGroebnerBasis' category with `IsCompleteGroebnerBasis' property set
+on true.
 
 
 
- There are absolutely no checks for correctness in this function. Giving a set
-of relations that does not form a Groebner basis may result in incorrect
-answers or unexpected errors. This function is intended to be used by packages
-providing access to external Groebner basis programs. }
+ Sets also \mbox{\texttt{\slshape GB}} as a value of the attribute GroebnerBasisOfIdeal for \mbox{\texttt{\slshape I}} (so one has an access to it by calling GroebnerBasisOfIdeal(\mbox{\texttt{\slshape I}})).\\
+ There are absolutely no computations and no checks for correctness in this
+function. Giving a set of relations that does not form a Groebner basis may
+result in incorrect answers or unexpected errors. This function is intended to
+be used by packages providing access to external Groebner basis programs and
+should be invoked before further computations on Groebner basis or ideal I. }
 
  }
 
@@ -2042,7 +2063,7 @@ providing access to external Groebner basis programs. }
 \hyperdef{L}{X7BFD28E687AADFBB}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsGroebnerBasis({\slshape object})\index{IsGroebnerBasis@\texttt{IsGroebnerBasis}}
 \label{IsGroebnerBasis}
-}\hfill{\scriptsize (property)}}\\
+}\hfill{\scriptsize (category)}}\\
 
 
  Arguments: \mbox{\texttt{\slshape object}} -- any object in \textsf{GAP}. \\

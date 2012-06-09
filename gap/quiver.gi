@@ -1,6 +1,6 @@
 # GAP Implementation
 # This file was generated from
-# $Id: quiver.gi,v 1.4 2012/02/27 12:26:34 sunnyquiver Exp $
+# $Id: quiver.gi,v 1.5 2012/06/09 07:51:54 sunnyquiver Exp $
 
 InstallGlobalFunction(
   Path,
@@ -1013,20 +1013,19 @@ InstallMethod( NextPath,
   end
 );
 
-
 InstallMethod( ViewObj,
   "for quiver",
   true,
-  [ IsQuiver ], 0,
+  [ IsQuiver ], NICE_FLAGS + 1,
   function( Q )
+
     Print( "<quiver with " );
     Print( NumberOfVertices(Q) );
     Print( " vertices and " );
     Print( NumberOfArrows(Q) );
     Print( " arrows>" );
-  end
-);
-
+end
+);  
 
 InstallMethod( PrintObj,
   "for quiver",

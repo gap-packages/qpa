@@ -3,7 +3,7 @@ Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: qpadocumentation.aux
 The style file: alpha.bst
 I couldn't open database file .bib
----line 560 of file qpadocumentation.aux
+---line 562 of file qpadocumentation.aux
  : \bibdata{
  :          }
 I'm skipping whatever remains of this command

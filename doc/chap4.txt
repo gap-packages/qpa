@@ -20,21 +20,26 @@
   
   [2X> GroebnerBasis( [0X[3XA, rels[0X[2X ) _________________________________________[0Xfunction
   
-  Arguments: [3XA[0m -- an algebra, [3Xrels[0m -- a list of relations in [3XA[0m.
+  Arguments: [3XI[0m -- an ideal, [3Xrels[0m -- a list of relations generating [3XI[0m.
   
-  [6XReturns:[0X  an object in the `IsGroebnerBasis' category.
+  [6XReturns:[0X  an    object   [3XGB[0m   in   the   `IsGroebnerBasis'   category   with
+            `IsCompleteGroebnerBasis' property set on true.
   
-  There  are  absolutely  no checks for correctness in this function. Giving a
-  set of relations that does not form a Groebner basis may result in incorrect
-  answers  or  unexpected  errors.  This  function  is  intended to be used by
-  packages providing access to external Groebner basis programs.
+  Sets  also [3XGB[0m as a value of the attribute GroebnerBasisOfIdeal for [3XI[0m (so one
+  has an access to it by calling GroebnerBasisOfIdeal([3XI[0m)).
+  There  are  absolutely no computations and no checks for correctness in this
+  function.  Giving a set of relations that does not form a Groebner basis may
+  result  in incorrect answers or unexpected errors. This function is intended
+  to  be used by packages providing access to external Groebner basis programs
+  and should be invoked before further computations on Groebner basis or ideal
+  I.
   
   
   [1X4.2 Categories and Properties of Groebner Basis[0X
   
   [1X4.2-1 IsGroebnerBasis[0m
   
-  [2X> IsGroebnerBasis( [0X[3Xobject[0X[2X ) ________________________________________[0Xproperty
+  [2X> IsGroebnerBasis( [0X[3Xobject[0X[2X ) ________________________________________[0Xcategory
   
   Arguments: [3Xobject[0m -- any object in [5XGAP[0m.
   

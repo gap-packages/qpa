@@ -53,6 +53,7 @@
   [2XDualOfModule[0X  6.6-1
   [2XDualOfModuleHomomorphism[0X  6.6-2
   [2XDualOfTranspose[0X  6.6-3
+  [2XElementOfPathAlgebra[0X  3.10-4
   [2XElementOfQuotientOfPathAlgebra[0X  3.10-3
   [2XEndOverAlgebra[0X  7.3-2
   [2XEnumerator[0X  4.3-6
@@ -173,7 +174,7 @@
   [2XOrderedBy[0X  2.2-2
   [2XOrderingOfAlgebra[0X  3.4-2
   [2XOrderingOfQuiver[0X  2.5-8
-  [2XOriginalPathAlgebra[0X  3.10-4
+  [2XOriginalPathAlgebra[0X  3.10-5
   [2XOutDegreeOfVertex[0X  2.8-4
   [2XOutgoingArrowsOfVertex[0X  2.8-2
   [2XPathAlgebra[0X  3.2-1

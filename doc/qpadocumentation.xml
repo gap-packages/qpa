@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- $Id: qpadocumentation.xml,v 1.39 2012/06/03 06:10:31 sunnyquiver Exp $ -->
+<!-- $Id: qpadocumentation.xml,v 1.40 2012/06/09 07:51:54 sunnyquiver Exp $ -->
 
 <!DOCTYPE Book SYSTEM "gapdoc.dtd">
 <!-- [ <!ENTITY see '<Alt Only="LaTeX">$\to$</Alt><Alt Not="LaTeX">--&gt;</Alt>'>
@@ -62,11 +62,22 @@ GBNP interface (for Groebner bases),</Item></Row>
 
 <Body>
 
-<Chapter Label="Quickstart"><Heading>Quick Start</Heading>
+<Chapter Label="Introduction/Quickstart"><Heading>Introduction/Quick Start</Heading>
 
 This chapter is intended for those who would like to get started with
-<Package>QPA</Package> right away by playing with a few examples.  A
-simple example is presented first:
+<Package>QPA</Package> right away by playing with a few examples.  An
+important feature to be aware of concerning using the software is how
+to display the results one is obtaining. Here there are three basic
+ways of doing this, through <C>View</C>, <C>Print</C>
+or <C>Display</C>. The command <C>View(M)</C> prints a short
+information about the object <C>M</C>, the command <C>Print(M)</C>
+prints a longer information about the object <C>M</C>, and finally The
+command <C>Display(M)</C> prints an even fuller information about the
+object <C>M</C>, in general. However, for some objects these may all
+coincide. 
+
+
+First we present a simple example:
 
 <!-- Example 9 from GBNP: -->
 <Section Label="Example 1"><Heading>Example 1</Heading>

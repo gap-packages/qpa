@@ -1,6 +1,6 @@
 # GAP Implementation
 # This file was generated from
-# $Id: algpath.gi,v 1.6 2012/06/06 17:11:53 andrzejmroz Exp $
+# $Id: algpath.gi,v 1.7 2012/06/09 07:51:54 sunnyquiver Exp $
 
 
 InstallMethod( IsPathRing,
@@ -65,7 +65,6 @@ InstallGlobalFunction( PathAlgebra,
   end
 );
 
-
 InstallMethod( QuiverOfPathRing,
     "for a path ring",
     true,
@@ -73,6 +72,39 @@ InstallMethod( QuiverOfPathRing,
     RQ -> UnderlyingMagma(RQ)
 );
 
+InstallMethod( ViewObj,
+    "for a path algebra",
+    true,
+    [ IsPathAlgebra ], NICE_FLAGS + 1,
+    function( A )
+
+    Print("<");
+    View(LeftActingDomain(A));
+    Print("[");
+    View(QuiverOfPathAlgebra(A));
+    Print("]>");
+end
+);
+
+InstallMethod( PrintObj,
+    "for a path algebra",
+    true,
+    [ IsPathAlgebra ], NICE_FLAGS + 1,
+    function( A )
+
+    local Q;
+
+    Print("<Path algebra of the quiver ");
+    if HasName(QuiverOfPathAlgebra(A)) then
+        Print(Name(QuiverOfPathAlgebra(A)));
+    else
+        View(QuiverOfPathAlgebra(A));
+    fi;
+    Print(" over the field ");
+    View(LeftActingDomain(A));
+    Print(">");
+end
+);
 
 InstallMethod( CanonicalBasis,
   "for path algebras",
@@ -305,6 +337,41 @@ InstallMethod( \.,
   end
 );
 
+InstallMethod( ViewObj,
+    "for a quotient of a path algebra",
+    true,
+    [ IsQuotientOfPathAlgebra ], NICE_FLAGS + 1,
+    function( A )
+
+    local fam;
+
+    fam := ElementsFamily(FamilyObj(A));
+    Print("<");
+    View(LeftActingDomain(A));
+    Print("[");
+    View(QuiverOfPathAlgebra(A));
+    Print("]/");
+    View(fam!.ideal);
+    Print(">");
+end
+);
+
+InstallMethod( PrintObj,
+    "for a quotient of a path algebra",
+    true,
+    [ IsQuotientOfPathAlgebra ], NICE_FLAGS + 1,
+    function( A )
+
+    local fam;
+
+    fam := ElementsFamily(FamilyObj(A));
+    Print("<A quotient of the path algebra ");
+    View(OriginalPathAlgebra(A));
+    Print(" modulo the ideal ");
+    View(fam!.ideal);
+    Print(">");
+end
+);
 
 InstallMethod( \<,
   "for path algebra elements",

@@ -1,5 +1,5 @@
 # GAP Implementation
-# $Id: homomorphisms.gi,v 1.35 2012/05/16 05:35:29 sunnyquiver Exp $
+# $Id: homomorphisms.gi,v 1.36 2012/06/09 07:51:54 sunnyquiver Exp $
 
 #############################################################################
 ##
@@ -169,6 +169,47 @@ InstallMethod( MatricesOfPathAlgebraMatModuleHomomorphism,
   return f!.maps;  
 end
 );
+
+InstallMethod( ViewObj, 
+    "for a PathAlgebraMatModuleHomomorphism",
+    true,
+    [ IsPathAlgebraMatModuleHomomorphism ], NICE_FLAGS+1,
+    function ( f );
+
+    Print("<");
+    View(Source(f));
+    Print(" ---> ");
+    View(Range(f));
+    Print(">\n");
+end
+); 
+  
+InstallMethod( PrintObj, 
+    "for a PathAlgebraMatModuleHomomorphism",
+    true,
+    [ IsPathAlgebraMatModuleHomomorphism ], NICE_FLAGS + 1,
+    function ( f );
+
+    Print("<",Source(f)," ---> ",Range(f),">\n");
+end
+); 
+  
+InstallMethod( Display, 
+    "for a PathAlgebraMatModuleHomomorphism",
+    true,
+    [ IsPathAlgebraMatModuleHomomorphism ], NICE_FLAGS + 1,
+    function ( f )
+    
+    local i;
+
+    Print(f);
+    Print("with ");
+    for i in [1..Length(DimensionVector(Source(f)))] do
+        Print("linear map for vertex number ",i,":\n");
+        PrintArray(f!.maps[i]);
+    od;
+end
+); 
 
 InstallMethod ( Zero, 
   "for a PathAlgebraMatModuleMap",

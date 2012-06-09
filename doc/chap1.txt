@@ -1,9 +1,15 @@
   
-  [1X1 Quick Start[0X
+  [1X1 Introduction/Quick Start[0X
   
   This  chapter  is  intended for those who would like to get started with [5XQPA[0m
-  right  away  by  playing  with a few examples. A simple example is presented
-  first:
+  right  away by playing with a few examples. An important feature to be aware
+  of  concerning  using  the  software  is  how  to display the results one is
+  obtaining.  Here  there  are  three  basic ways of doing this, through [10XView[0m,
+  [10XPrint[0m  or  [10XDisplay[0m. The command [10XView(M)[0m prints a short information about the
+  object  [10XM[0m, the command [10XPrint(M)[0m prints a longer information about the object
+  [10XM[0m,  and  finally  The  command  [10XDisplay(M)[0m prints an even fuller information
+  about  the  object  [10XM[0m,  in  general. However, for some objects these may all
+  coincide. First we present a simple example:
   
   
   [1X1.1 Example 1[0X

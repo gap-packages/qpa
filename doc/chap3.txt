@@ -473,9 +473,21 @@
             [3Xcomputenormal[0m  is  true, then the normal form of the projection of
             [3Xelement[0m is returned.
   
-  [3Xfamily[0m is the ElementsFamily of the family of the algebra [3Xelement[0m is in.
+  [3Xfamily[0m  is  the  ElementsFamily  of  the  family  of  the algebra [3Xelement[0m is
+  projected into.
   
-  [1X3.10-4 OriginalPathAlgebra[0m
+  [1X3.10-4 ElementOfPathAlgebra[0m
+  
+  [2X> ElementOfPathAlgebra( [0X[3XPA, path[0X[2X ) ________________________________[0Xoperation
+  
+  Arguments:  [3XPA[0m -- a path algebra, [3Xpath[0m -- a path in the quiver from which PA
+  was constructed.
+  
+  [6XReturns:[0X  The  embedding  of  [3Xpath[0m  into  the path algebra [3XPA[0m, or it returns
+            false  if  [3Xpath[0m  is not an element of the quiver from which PA was
+            constructed.
+  
+  [1X3.10-5 OriginalPathAlgebra[0m
   
   [2X> OriginalPathAlgebra( [0X[3Xalgebra[0X[2X ) __________________________________[0Xoperation
   

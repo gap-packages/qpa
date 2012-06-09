@@ -74,11 +74,11 @@
 <h5>4.1-2 GroebnerBasis</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; GroebnerBasis</code>( <var class="Arg">A, rels</var> )</td><td class="tdright">( function )</td></tr></table></div>
-<p>Arguments: <var class="Arg">A</var> -- an algebra, <var class="Arg">rels</var> -- a list of relations in <var class="Arg">A</var>.<br /></p>
+<p>Arguments: <var class="Arg">I</var> -- an ideal, <var class="Arg">rels</var> -- a list of relations generating <var class="Arg">I</var>.<br /></p>
 
-<p><b>Returns: </b>an object in the `IsGroebnerBasis' category.</p>
+<p><b>Returns: </b>an object <var class="Arg">GB</var> in the `IsGroebnerBasis' category with `IsCompleteGroebnerBasis' property set on true.</p>
 
-<p>There are absolutely no checks for correctness in this function. Giving a set of relations that does not form a Groebner basis may result in incorrect answers or unexpected errors. This function is intended to be used by packages providing access to external Groebner basis programs.</p>
+<p>Sets also <var class="Arg">GB</var> as a value of the attribute GroebnerBasisOfIdeal for <var class="Arg">I</var> (so one has an access to it by calling GroebnerBasisOfIdeal(<var class="Arg">I</var>)).<br /> There are absolutely no computations and no checks for correctness in this function. Giving a set of relations that does not form a Groebner basis may result in incorrect answers or unexpected errors. This function is intended to be used by packages providing access to external Groebner basis programs and should be invoked before further computations on Groebner basis or ideal I.</p>
 
 <p><a id="X79C7DC5D873A14D0" name="X79C7DC5D873A14D0"></a></p>
 
@@ -89,7 +89,7 @@
 
 <h5>4.2-1 IsGroebnerBasis</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IsGroebnerBasis</code>( <var class="Arg">object</var> )</td><td class="tdright">( property )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; IsGroebnerBasis</code>( <var class="Arg">object</var> )</td><td class="tdright">( category )</td></tr></table></div>
 <p>Arguments: <var class="Arg">object</var> -- any object in <strong class="pkg">GAP</strong>. <br /></p>
 
 <p><b>Returns: </b>true when <var class="Arg">object</var> is a Groebner basis and false otherwise.</p>

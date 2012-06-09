@@ -1,6 +1,6 @@
 # GAP Implementation
 # This file was generated from 
-# $Id: pamodule.gi,v 1.18 2012/05/15 06:58:20 sunnyquiver Exp $
+# $Id: pamodule.gi,v 1.19 2012/06/09 07:51:54 sunnyquiver Exp $
 
 ZeroModElement:=function(fam,zero)
   local result,i;
@@ -693,23 +693,51 @@ InstallOtherMethod(RightModuleOverPathAlgebra,
    fi;
 end
 );
-
+  
 InstallMethod( ViewObj, 
-  "for modules over path algebras",
-  true,
-  [ IsRightModule and IsPathModuleElemCollection ], 0,
-  function (M)
-    local fam, i;
+    "for a PathAlgebraMatModule",
+    true,
+    [ IsPathAlgebraMatModule ], NICE_FLAGS + 1,
+    function (M);
 
-    Print("<Module over path algebra ");
-    fam:= ElementsFamily(FamilyObj(M));
-    View(fam!.pathAlgebra);
-    Print(" with ", Length(GeneratorsOfRightModule(M)), " generators ");
-    Print(">");
-
-  end
+    Print("<",DimensionVector(M),">");
+end
 );
+  
+InstallMethod( PrintObj, 
+    "for a PathAlgebraMatModule",
+    true,
+    [ IsPathAlgebraMatModule ], NICE_FLAGS + 1,
+    function (M)
 
+    local A;
+
+    A := RightActingAlgebra(M);
+    Print("<Module over ");
+    View(A);
+    Print(" with dimension vector ", DimensionVector(M),">");
+end
+); 
+
+InstallMethod( Display, 
+    "for a PathAlgebraMatModule",
+    true,
+    [ IsPathAlgebraMatModule ], NICE_FLAGS+1,
+    function ( M )
+    
+    local Q, arrows, a;
+
+    Print(M);
+    Print(" and linear maps given by\n");
+    Q := QuiverOfPathAlgebra(RightActingAlgebra(M));
+    arrows := ArrowsOfQuiver(Q);
+    for a in arrows do
+        Print("for arrow ",a,":\n");
+        PrintArray(MatricesOfPathAlgebraModule(M)[Position(arrows,a)]);
+    od;
+end
+); 
+ 
 InstallMethod( \in, 
   "for a path module elem and a path algebra matrix module",
   IsElmsColls,
