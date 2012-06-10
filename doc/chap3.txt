@@ -501,9 +501,37 @@
   path algebra.
   
   
-  [1X3.11 Predefined classes of quotient of path algebras[0X
+  [1X3.11 Predefined classes of (quotients of) path algebras[0X
   
-  [1X3.11-1 NakayamaAlgebra[0m
+  [1X3.11-1 CanonicalAlgebra[0m
+  
+  [2X> CanonicalAlgebra( [0X[3Xfield, weights[, relcoeff][0X[2X ) __________________[0Xoperation
+  
+  Arguments:  [3Xfield[0m  --  a  field,  [3Xweights[0m -- a list of positive integers, [,
+  relcoeff -- a list of non-zero elements in the field.
+  
+  [6XReturns:[0X  the  canonical algebra over the [3Xfield[0m with the quiver given by the
+            weight   sequence   [3Xweights[0m   and   the  relations  given  by  the
+            coefficients [3Xrelcoeff[0m.
+  
+  It  function  checks  if  all  the  [3Xweights[0m are greater or equal to two, the
+  number  of weights is at least two, the number of coefficients is the number
+  of  [3Xweights[0m  -  2,  the  coefficients  for  the  relations  are in field and
+  non-zero.  If  only  the  two  first arguments are given, then the number of
+  weights must be two.
+  
+  [1X3.11-2 KroneckerAlgebra[0m
+  
+  [2X> KroneckerAlgebra( [0X[3Xfield, n[0X[2X ) ____________________________________[0Xoperation
+  
+  Arguments: [3Xfield[0m -- a field, [3Xn[0m -- a positive integer.
+  
+  [6XReturns:[0X  the [3Xn[0m-Kronecker algebra over the field [3Xfield[0m.
+  
+  It  function checks if the number [3Xn[0m of arrows is greater or equal to two and
+  returns an error message if not.
+  
+  [1X3.11-3 NakayamaAlgebra[0m
   
   [2X> NakayamaAlgebra( [0X[3Xadmiss-seq, field[0X[2X ) _____________________________[0Xfunction
   
@@ -522,7 +550,7 @@
     [4X<quiver with 2 vertices and 1 arrows>  [0X
   [4X------------------------------------------------------------------[0X
   
-  [1X3.11-2 TruncatedPathAlgebra[0m
+  [1X3.11-4 TruncatedPathAlgebra[0m
   
   [2X> TruncatedPathAlgebra( [0X[3XF, Q, n[0X[2X ) _________________________________[0Xoperation
   

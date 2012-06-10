@@ -149,9 +149,11 @@
       3.10-3 ElementOfQuotientOfPathAlgebra
       3.10-4 ElementOfPathAlgebra
       3.10-5 OriginalPathAlgebra
-    3.11 Predefined classes of quotient of path algebras
-      3.11-1 NakayamaAlgebra
-      3.11-2 TruncatedPathAlgebra
+    3.11 Predefined classes of (quotients of) path algebras
+      3.11-1 CanonicalAlgebra
+      3.11-2 KroneckerAlgebra
+      3.11-3 NakayamaAlgebra
+      3.11-4 TruncatedPathAlgebra
     3.12 Tensor products of path algebras
       3.12-1 QuiverProduct
       3.12-2 QuiverProductDecomposition

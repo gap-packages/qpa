@@ -640,7 +640,44 @@ it returns false if  <Arg>path</Arg> is not an element of the quiver from which 
 </Section>
 
 <Section Label="qpa:predefinedalgebras"><Heading>Predefined classes
-  of quotient of path algebras</Heading>
+  of (quotients of) path algebras</Heading>
+
+  <ManSection>
+   <Oper Name="CanonicalAlgebra" Arg="field, weights [, relcoeff]" 
+         Comm="creates a canonical algebra"/>
+   <Description>
+     Arguments: <Arg>field</Arg> -- a field, <Arg>weights</Arg> -- a
+     list of positive integers, [, relcoeff -- a list of non-zero
+     elements in the field.<Br />
+   </Description>
+   <Returns>the canonical algebra over the <Arg>field</Arg> with the
+   quiver given by the weight sequence <Arg>weights</Arg> and the
+   relations given by the coefficients <Arg>relcoeff</Arg>.
+   </Returns>
+   <Description>It function checks if all the <Arg>weights</Arg> are
+   greater or equal to two, the number of weights is at least two, the
+   number of coefficients is the number of <Arg>weights</Arg> - 2, the
+   coefficients for the relations are in field and non-zero. If only
+   the two first arguments are given, then the number of weights must
+   be two.
+   </Description>
+  </ManSection>
+
+  <ManSection>
+   <Oper Name="KroneckerAlgebra" Arg="field, n" 
+         Comm="creates a Kronecker algebra"/>
+   <Description>
+     Arguments: <Arg>field</Arg> -- a field, <Arg>n</Arg> -- a
+     positive integer.<Br />
+   </Description>
+   <Returns>the <Arg>n</Arg>-Kronecker algebra over the field 
+   <Arg>field</Arg>.
+   </Returns>
+   <Description>It function checks if the number <Arg>n</Arg> of
+   arrows is greater or equal to two and returns an error message
+   if not. 
+   </Description>
+  </ManSection>
 
   <ManSection>
    <Func Name="NakayamaAlgebra" Arg="admiss-seq,field" 

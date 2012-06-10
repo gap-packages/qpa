@@ -89,19 +89,21 @@
 \contentsline {subsection}{\numberline {3.10.3}\leavevmode {\color {Chapter }ElementOfQuotientOfPathAlgebra}}{30}{subsection.3.10.3}
 \contentsline {subsection}{\numberline {3.10.4}\leavevmode {\color {Chapter }ElementOfPathAlgebra}}{30}{subsection.3.10.4}
 \contentsline {subsection}{\numberline {3.10.5}\leavevmode {\color {Chapter }OriginalPathAlgebra}}{30}{subsection.3.10.5}
-\contentsline {section}{\numberline {3.11}\leavevmode {\color {Chapter }Predefined classes of quotient of path algebras}}{30}{section.3.11}
-\contentsline {subsection}{\numberline {3.11.1}\leavevmode {\color {Chapter }NakayamaAlgebra}}{30}{subsection.3.11.1}
-\contentsline {subsection}{\numberline {3.11.2}\leavevmode {\color {Chapter }TruncatedPathAlgebra}}{30}{subsection.3.11.2}
+\contentsline {section}{\numberline {3.11}\leavevmode {\color {Chapter }Predefined classes of (quotients of) path algebras}}{30}{section.3.11}
+\contentsline {subsection}{\numberline {3.11.1}\leavevmode {\color {Chapter }CanonicalAlgebra}}{30}{subsection.3.11.1}
+\contentsline {subsection}{\numberline {3.11.2}\leavevmode {\color {Chapter }KroneckerAlgebra}}{30}{subsection.3.11.2}
+\contentsline {subsection}{\numberline {3.11.3}\leavevmode {\color {Chapter }NakayamaAlgebra}}{31}{subsection.3.11.3}
+\contentsline {subsection}{\numberline {3.11.4}\leavevmode {\color {Chapter }TruncatedPathAlgebra}}{31}{subsection.3.11.4}
 \contentsline {section}{\numberline {3.12}\leavevmode {\color {Chapter }Tensor products of path algebras}}{31}{section.3.12}
 \contentsline {subsection}{\numberline {3.12.1}\leavevmode {\color {Chapter }QuiverProduct}}{31}{subsection.3.12.1}
-\contentsline {subsection}{\numberline {3.12.2}\leavevmode {\color {Chapter }QuiverProductDecomposition}}{31}{subsection.3.12.2}
-\contentsline {subsection}{\numberline {3.12.3}\leavevmode {\color {Chapter }IsQuiverProductDecomposition}}{31}{subsection.3.12.3}
-\contentsline {subsection}{\numberline {3.12.4}\leavevmode {\color {Chapter }IncludeInProductQuiver}}{31}{subsection.3.12.4}
+\contentsline {subsection}{\numberline {3.12.2}\leavevmode {\color {Chapter }QuiverProductDecomposition}}{32}{subsection.3.12.2}
+\contentsline {subsection}{\numberline {3.12.3}\leavevmode {\color {Chapter }IsQuiverProductDecomposition}}{32}{subsection.3.12.3}
+\contentsline {subsection}{\numberline {3.12.4}\leavevmode {\color {Chapter }IncludeInProductQuiver}}{32}{subsection.3.12.4}
 \contentsline {subsection}{\numberline {3.12.5}\leavevmode {\color {Chapter }ProjectFromProductQuiver}}{32}{subsection.3.12.5}
-\contentsline {subsection}{\numberline {3.12.6}\leavevmode {\color {Chapter }TensorProductOfAlgebras}}{32}{subsection.3.12.6}
-\contentsline {subsection}{\numberline {3.12.7}\leavevmode {\color {Chapter }SimpleTensor}}{32}{subsection.3.12.7}
+\contentsline {subsection}{\numberline {3.12.6}\leavevmode {\color {Chapter }TensorProductOfAlgebras}}{33}{subsection.3.12.6}
+\contentsline {subsection}{\numberline {3.12.7}\leavevmode {\color {Chapter }SimpleTensor}}{33}{subsection.3.12.7}
 \contentsline {subsection}{\numberline {3.12.8}\leavevmode {\color {Chapter }TensorProductDecomposition}}{33}{subsection.3.12.8}
-\contentsline {subsection}{\numberline {3.12.9}\leavevmode {\color {Chapter }EnvelopingAlgebra}}{33}{subsection.3.12.9}
+\contentsline {subsection}{\numberline {3.12.9}\leavevmode {\color {Chapter }EnvelopingAlgebra}}{34}{subsection.3.12.9}
 \contentsline {subsection}{\numberline {3.12.10}\leavevmode {\color {Chapter }IsEnvelopingAlgebra}}{34}{subsection.3.12.10}
 \contentsline {chapter}{\numberline {4}\leavevmode {\color {Chapter }Groebner Basis}}{35}{chapter.4}
 \contentsline {section}{\numberline {4.1}\leavevmode {\color {Chapter }Constructing a Groebner Basis}}{35}{section.4.1}

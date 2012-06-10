@@ -31,6 +31,7 @@
 
   \indexspace
 
+  \item \texttt  {CanonicalAlgebra}, \hyperpage{30}
   \item \texttt  {CartanMatrix}, \hyperpage{28}
   \item \texttt  {CatOfComplex}, \hyperpage{80}
   \item \texttt  {CatOfRightAlgebraModules}, \hyperpage{76}
@@ -67,7 +68,7 @@
   \item \texttt  {ElementOfQuotientOfPathAlgebra}, \hyperpage{30}
   \item \texttt  {EndOverAlgebra}, \hyperpage{64}
   \item \texttt  {Enumerator}, \hyperpage{38}
-  \item \texttt  {EnvelopingAlgebra}, \hyperpage{33}
+  \item \texttt  {EnvelopingAlgebra}, \hyperpage{34}
   \item \texttt  {ExtAlgebraGenerators}, \hyperpage{73}
   \item \texttt  {ExtOverAlgebra}, \hyperpage{73}
   \item \texttt  {ExtOverAlgebraAdd}, \hyperpage{73}
@@ -99,7 +100,7 @@
   \item \texttt  {ImageProjection}, \hyperpage{64}
   \item \texttt  {ImageProjectionInclusion}, \hyperpage{64}
   \item \texttt  {ImagesSet}, \hyperpage{58}
-  \item \texttt  {IncludeInProductQuiver}, \hyperpage{31}
+  \item \texttt  {IncludeInProductQuiver}, \hyperpage{32}
   \item \texttt  {IncomingArrowsOfVertex}, \hyperpage{20}
   \item \texttt  {IndecInjectiveModules}, \hyperpage{51}
   \item \texttt  {IndecProjectiveModules}, \hyperpage{51}
@@ -136,7 +137,7 @@
   \item \texttt  {IsPrefixOfTipInTipIdeal}, \hyperpage{38}
   \item \texttt  {IsProjectiveModule}, \hyperpage{47}
   \item \texttt  {IsQuiver}, \hyperpage{15}
-  \item \texttt  {IsQuiverProductDecomposition}, \hyperpage{31}
+  \item \texttt  {IsQuiverProductDecomposition}, \hyperpage{32}
   \item \texttt  {IsQuotientOfPathAlgebra}, \hyperpage{27}
   \item \texttt  {IsRightGroebnerBasis}, \hyperpage{39}
   \item \texttt  {IsRightUniform}, \hyperpage{24}
@@ -162,6 +163,7 @@
   \item \texttt  {Kernel}, \hyperpage{65}
   \item \texttt  {KernelInclusion}, \hyperpage{65}
   \item \texttt  {KernelOfWhat}, \hyperpage{63}
+  \item \texttt  {KroneckerAlgebra}, \hyperpage{30}
 
   \indexspace
 
@@ -194,7 +196,7 @@
 
   \indexspace
 
-  \item \texttt  {NakayamaAlgebra}, \hyperpage{30}
+  \item \texttt  {NakayamaAlgebra}, \hyperpage{31}
   \item \texttt  {NeighborsOfVertex}, \hyperpage{20}
   \item \texttt  {Nontips}, \hyperpage{38}
   \item \texttt  {NontipSize}, \hyperpage{38}
@@ -229,7 +231,7 @@
   \item \texttt  {Quiver}, \hyperpage{14}
   \item \texttt  {QuiverOfPathAlgebra}, \hyperpage{23}
   \item \texttt  {QuiverProduct}, \hyperpage{31}
-  \item \texttt  {QuiverProductDecomposition}, \hyperpage{31}
+  \item \texttt  {QuiverProductDecomposition}, \hyperpage{32}
 
   \indexspace
 
@@ -249,7 +251,7 @@
   \item \texttt  {Shift}, \hyperpage{84}
   \item \texttt  {ShortExactSequence}, \hyperpage{80}
   \item \texttt  {SimpleModules}, \hyperpage{51}
-  \item \texttt  {SimpleTensor}, \hyperpage{32}
+  \item \texttt  {SimpleTensor}, \hyperpage{33}
   \item \texttt  {SocleOfModule}, \hyperpage{49}
   \item \texttt  {SocleOfModuleInclusion}, \hyperpage{72}
   \item \texttt  {SocleSeries}, \hyperpage{49}
@@ -264,7 +266,7 @@
 
   \item \texttt  {TargetOfPath}, \hyperpage{18}
   \item \texttt  {TensorProductDecomposition}, \hyperpage{33}
-  \item \texttt  {TensorProductOfAlgebras}, \hyperpage{32}
+  \item \texttt  {TensorProductOfAlgebras}, \hyperpage{33}
   \item \texttt  {Tip}, \hyperpage{24}
   \item \texttt  {TipCoefficient}, \hyperpage{25}
   \item \texttt  {TipMonomial}, \hyperpage{25}
@@ -275,7 +277,7 @@
   \item \texttt  {TransposeOfDual}, \hyperpage{52}
   \item \texttt  {TransposeOfModule}, \hyperpage{53}
   \item \texttt  {TrD}, \hyperpage{52}
-  \item \texttt  {TruncatedPathAlgebra}, \hyperpage{30}
+  \item \texttt  {TruncatedPathAlgebra}, \hyperpage{31}
 
   \indexspace
 

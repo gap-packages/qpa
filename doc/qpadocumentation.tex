@@ -1709,14 +1709,53 @@ error saying that the algebra entered was not a quotient of a path algebra. }
  }
 
  
-\section{\textcolor{Chapter }{Predefined classes of quotient of path algebras}}\label{qpa:predefinedalgebras}
+\section{\textcolor{Chapter }{Predefined classes of (quotients of) path algebras}}\label{qpa:predefinedalgebras}
 \logpage{[ 3, 11, 0 ]}
-\hyperdef{L}{X7E7FA56079CF78D1}{}
+\hyperdef{L}{X7E36CEF47FB42031}{}
 {
  
 
-\subsection{\textcolor{Chapter }{NakayamaAlgebra}}
+\subsection{\textcolor{Chapter }{CanonicalAlgebra}}
 \logpage{[ 3, 11, 1 ]}\nobreak
+\hyperdef{L}{X7E63A4F37856A075}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{CanonicalAlgebra({\slshape field, weights[, relcoeff]})\index{CanonicalAlgebra@\texttt{CanonicalAlgebra}}
+\label{CanonicalAlgebra}
+}\hfill{\scriptsize (operation)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape field}} -- a field, \mbox{\texttt{\slshape weights}} -- a list of positive integers, [, relcoeff -- a list of non-zero elements in
+the field.\\
+ \textbf{\indent Returns:\ }
+the canonical algebra over the \mbox{\texttt{\slshape field}} with the quiver given by the weight sequence \mbox{\texttt{\slshape weights}} and the relations given by the coefficients \mbox{\texttt{\slshape relcoeff}}. 
+
+
+
+It function checks if all the \mbox{\texttt{\slshape weights}} are greater or equal to two, the number of weights is at least two, the number
+of coefficients is the number of \mbox{\texttt{\slshape weights}} - 2, the coefficients for the relations are in field and non-zero. If only the
+two first arguments are given, then the number of weights must be two. }
+
+ 
+
+\subsection{\textcolor{Chapter }{KroneckerAlgebra}}
+\logpage{[ 3, 11, 2 ]}\nobreak
+\hyperdef{L}{X83498D3D856CC08A}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{KroneckerAlgebra({\slshape field, n})\index{KroneckerAlgebra@\texttt{KroneckerAlgebra}}
+\label{KroneckerAlgebra}
+}\hfill{\scriptsize (operation)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape field}} -- a field, \mbox{\texttt{\slshape n}} -- a positive integer.\\
+ \textbf{\indent Returns:\ }
+the \mbox{\texttt{\slshape n}}-Kronecker algebra over the field \mbox{\texttt{\slshape field}}. 
+
+
+
+It function checks if the number \mbox{\texttt{\slshape n}} of arrows is greater or equal to two and returns an error message if not. }
+
+ 
+
+\subsection{\textcolor{Chapter }{NakayamaAlgebra}}
+\logpage{[ 3, 11, 3 ]}\nobreak
 \hyperdef{L}{X7C678A08836F77CC}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{NakayamaAlgebra({\slshape admiss-seq, field})\index{NakayamaAlgebra@\texttt{NakayamaAlgebra}}
 \label{NakayamaAlgebra}
@@ -1742,7 +1781,7 @@ The \mbox{\texttt{\slshape admiss-seq}} consists of the dimensions of the projec
  
 
 \subsection{\textcolor{Chapter }{TruncatedPathAlgebra}}
-\logpage{[ 3, 11, 2 ]}\nobreak
+\logpage{[ 3, 11, 4 ]}\nobreak
 \hyperdef{L}{X7EF1AE62790D7486}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{TruncatedPathAlgebra({\slshape F, Q, n})\index{TruncatedPathAlgebra@\texttt{TruncatedPathAlgebra}}
 \label{TruncatedPathAlgebra}

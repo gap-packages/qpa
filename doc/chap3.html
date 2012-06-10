@@ -90,11 +90,13 @@
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X841C00E87E19528E">3.10-4 ElementOfPathAlgebra</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X8088721187BA8D82">3.10-5 OriginalPathAlgebra</a></span>
 </div></div>
-<div class="ContSect"><span class="nocss">&nbsp;</span><a href="chap3.html#X7E7FA56079CF78D1">3.11 <span class="Heading">Predefined classes
-  of quotient of path algebras</span></a>
+<div class="ContSect"><span class="nocss">&nbsp;</span><a href="chap3.html#X7E36CEF47FB42031">3.11 <span class="Heading">Predefined classes
+  of (quotients of) path algebras</span></a>
 <div class="ContSSBlock">
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7C678A08836F77CC">3.11-1 NakayamaAlgebra</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7EF1AE62790D7486">3.11-2 TruncatedPathAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7E63A4F37856A075">3.11-1 CanonicalAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X83498D3D856CC08A">3.11-2 KroneckerAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7C678A08836F77CC">3.11-3 NakayamaAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7EF1AE62790D7486">3.11-4 TruncatedPathAlgebra</a></span>
 </div></div>
 <div class="ContSect"><span class="nocss">&nbsp;</span><a href="chap3.html#X842527EC7F90C8C5">3.12 <span class="Heading">Tensor products of path algebras</span></a>
 <div class="ContSSBlock">
@@ -619,14 +621,36 @@ false </pre></td></tr></table>
 
 <p>If <var class="Arg">algebra</var> is a quotient of a path algebra or just a path algebra itself, the returned algebra is the path algebra it was constructed from. Otherwise it returns an error saying that the algebra entered was not a quotient of a path algebra.</p>
 
-<p><a id="X7E7FA56079CF78D1" name="X7E7FA56079CF78D1"></a></p>
+<p><a id="X7E36CEF47FB42031" name="X7E36CEF47FB42031"></a></p>
 
 <h4>3.11 <span class="Heading">Predefined classes
-  of quotient of path algebras</span></h4>
+  of (quotients of) path algebras</span></h4>
+
+<p><a id="X7E63A4F37856A075" name="X7E63A4F37856A075"></a></p>
+
+<h5>3.11-1 CanonicalAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; CanonicalAlgebra</code>( <var class="Arg">field, weights[, relcoeff]</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>Arguments: <var class="Arg">field</var> -- a field, <var class="Arg">weights</var> -- a list of positive integers, [, relcoeff -- a list of non-zero elements in the field.<br /></p>
+
+<p><b>Returns: </b>the canonical algebra over the <var class="Arg">field</var> with the quiver given by the weight sequence <var class="Arg">weights</var> and the relations given by the coefficients <var class="Arg">relcoeff</var>.</p>
+
+<p>It function checks if all the <var class="Arg">weights</var> are greater or equal to two, the number of weights is at least two, the number of coefficients is the number of <var class="Arg">weights</var> - 2, the coefficients for the relations are in field and non-zero. If only the two first arguments are given, then the number of weights must be two.</p>
+
+<p><a id="X83498D3D856CC08A" name="X83498D3D856CC08A"></a></p>
+
+<h5>3.11-2 KroneckerAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; KroneckerAlgebra</code>( <var class="Arg">field, n</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>Arguments: <var class="Arg">field</var> -- a field, <var class="Arg">n</var> -- a positive integer.<br /></p>
+
+<p><b>Returns: </b>the <var class="Arg">n</var>-Kronecker algebra over the field <var class="Arg">field</var>.</p>
+
+<p>It function checks if the number <var class="Arg">n</var> of arrows is greater or equal to two and returns an error message if not.</p>
 
 <p><a id="X7C678A08836F77CC" name="X7C678A08836F77CC"></a></p>
 
-<h5>3.11-1 NakayamaAlgebra</h5>
+<h5>3.11-3 NakayamaAlgebra</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; NakayamaAlgebra</code>( <var class="Arg">admiss-seq, field</var> )</td><td class="tdright">( function )</td></tr></table></div>
 <p>Arguments: <var class="Arg">admiss-seq</var> -- a list of positive integers, <var class="Arg">field</var> -- a field.<br /></p>
@@ -645,7 +669,7 @@ gap&gt; QuiverOfPathAlgebra(alg);
 
 <p><a id="X7EF1AE62790D7486" name="X7EF1AE62790D7486"></a></p>
 
-<h5>3.11-2 TruncatedPathAlgebra</h5>
+<h5>3.11-4 TruncatedPathAlgebra</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&gt; TruncatedPathAlgebra</code>( <var class="Arg">F, Q, n</var> )</td><td class="tdright">( operation )</td></tr></table></div>
 <p>Arguments: <var class="Arg">F</var> -- a field, <var class="Arg">Q</var> -- a quiver, <var class="Arg">n</var> -- a positive integer.<br /></p>
