@@ -1,6 +1,6 @@
 # GAP Implementation
 # This file was generated from
-# $Id: algpath.gi,v 1.7 2012/06/09 07:51:54 sunnyquiver Exp $
+# $Id: algpath.gi,v 1.8 2012/06/18 16:00:57 andrzejmroz Exp $
 
 
 InstallMethod( IsPathRing,
@@ -811,43 +811,80 @@ InstallMethod( RelatorsOfFpAlgebra,
 );
 
 
+
+################################################################
+# Property IsFiniteDimensional for quotients of path algebras
+# (analogue for path algebras uses standard GAP method)
+# It uses Groebner bases machinery (computes G.b. only in case
+# it has not been computed).
+
 InstallMethod( IsFiniteDimensional,
   "for quotients of path algebras",
   true,
   [IsQuotientOfPathAlgebra and IsFullFpPathAlgebra], 0,
   function( A )
-    local gb, fam;
-
+    local gb, fam, I, rels;
+  
     fam := ElementsFamily(FamilyObj(A));
-    gb := GroebnerBasisOfIdeal(fam!.ideal);
-    if IsCompleteGroebnerBasis(gb) then
-        return AdmitsFinitelyManyNontips(gb);
-    elif IsFiniteDimensional(fam!.pathRing) then
-        return true;
+    I := fam!.ideal;
+
+    if HasGroebnerBasisOfIdeal(I) then
+      gb := GroebnerBasisOfIdeal(I);
     else
-        TryNextMethod();
+      rels := GeneratorsOfIdeal(I);     
+      gb := GBNPGroebnerBasis(rels, fam!.pathAlgebra);
+      gb := GroebnerBasis(I, gb);
+    fi;
+    
+    if IsCompleteGroebnerBasis(gb) then
+      return AdmitsFinitelyManyNontips(gb);
+    elif IsFiniteDimensional(fam!.pathAlgebra) then
+      return true;
+    else
+      TryNextMethod();
     fi;
   end
-);
+); # IsFiniteDimensional
 
+
+################################################################
+# Attribute Dimension for quotients of path algebras
+# (analogue for path algebras uses standard GAP method,
+# note that for infinite dimensional path algebras can fail!)
+# It uses Groebner bases machinery (computes G.b. only in case
+# it has not been computed).
+# It returns "infinity" for infinite dimensional algebra.
 
 InstallMethod( Dimension,
   "for quotients of path algebras",
   true,
   [IsQuotientOfPathAlgebra and IsFullFpPathAlgebra], 0,
   function( A )
-    local gb, fam;
+    local gb, fam, I, rels;
 
     fam := ElementsFamily(FamilyObj(A));
-    gb := GroebnerBasisOfIdeal(fam!.ideal);
-Print(gb,"\n");
-    if IsCompleteGroebnerBasis(gb) then
-        return NontipSize(gb);
+    I := fam!.ideal;
+    
+    if HasGroebnerBasisOfIdeal(I) then
+      gb := GroebnerBasisOfIdeal(I);
     else
-        TryNextMethod();
+      rels := GeneratorsOfIdeal(I);     
+      gb := GBNPGroebnerBasis(rels, fam!.pathAlgebra);
+      gb := GroebnerBasis(I, gb);
+    fi;
+
+    if IsCompleteGroebnerBasis(gb) then
+      return NontipSize(gb);
+    else
+      TryNextMethod();
     fi;
   end
-);
+); # Dimension
+
+
+
+
+
 
 
 InstallMethod( CanonicalBasis,
