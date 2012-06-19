@@ -3,3 +3,5 @@
 # (created A. Mroz, 07.06.2012)
 
 DeclareProperty( "IsIdealInPathAlgebra", IsFLMLOR );
+DeclareProperty( "IsAdmissibleIdeal",  IsIdealInPathAlgebra );
+DeclareProperty( "IsMonomialIdeal", IsIdealInPathAlgebra );
