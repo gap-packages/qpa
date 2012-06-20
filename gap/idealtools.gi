@@ -9,7 +9,7 @@
 # TwoSidedIdealByGenerators (synonym IdealByGenerators)
 # which is called by standard GAP global function TwoSidedIdeal
 # (synonym Ideal). This is exactly the same code as original
-# method + added SetIsIdealInPathAlgebra(I, true);
+# method + added SetIsIdealInPathAlgebra(I, true); and the trivial case.
 # Now we can distinguish the ideals in path algebras.
 
 InstallMethod( TwoSidedIdealByGenerators,
@@ -28,7 +28,10 @@ InstallMethod( TwoSidedIdealByGenerators,
       SetLeftActingRingOfIdeal( I, A );
       SetRightActingRingOfIdeal( I, A );
       
-      # The only difference    
+      # The only difference
+      if ForAll(gens, x -> IsZero(x)) then # to avoid bugs for "boundary" situations for \in etc.!
+        SetIsTrivial(I, true);
+      fi;
       SetIsIdealInPathAlgebra(I, true);
       
       CheckForHandlingByNiceBasis( lad, gens, I, false );
@@ -40,7 +43,7 @@ InstallMethod( TwoSidedIdealByGenerators,
 # In order to include trivial ideals, i.e. obtained
 # by invoking Ideal(A, [])
 InstallTrueMethod( IsIdealInPathAlgebra, 
-                      IsRing and IsTrivial and HasLeftActingRingOfIdeal);
+                      IsFLMLOR and IsTrivial and HasLeftActingRingOfIdeal);
 
 
 
@@ -64,12 +67,28 @@ InstallMethod(\in,
 	function( elt, I )
 		local GB, rels, A;
 		
-		A := LeftActingRingOfIdeal(I);
+    if IsZero(elt) then 
+      return true;
+    fi;
+    if HasIsTrivial(I) and IsTrivial(I) then
+      return false;
+    fi;
+    
+    if HasLeftActingRingOfIdeal(I) then
+      A := LeftActingRingOfIdeal(I);
+    else 
+      TryNextMethod();
+    fi;
+    
     
     if HasGroebnerBasisOfIdeal(I) then
       GB := GroebnerBasisOfIdeal(I);
     else
-      rels := GeneratorsOfIdeal(I);  
+      if HasGeneratorsOfIdeal(I) then
+        rels := GeneratorsOfIdeal(I);
+      else
+        TryNextMethod();
+      fi;      
       GB := GBNPGroebnerBasis(rels, A);
       GB := GroebnerBasis(I, GB);
     fi;
@@ -108,6 +127,10 @@ InstallMethod( IsAdmissibleIdeal,
   function(I)
     local rels, i, Monomials, A;
 
+    if HasIsTrivial(I) and IsTrivial(I) then
+      return IsFiniteDimensional(LeftActingRingOfIdeal(I)); # <=> (arrow ideal)^n \subset I, for some n
+    fi;
+    
     # returns the list of monomials appearing in elt
     Monomials := function(elt)
       local terms;
@@ -151,11 +174,18 @@ InstallMethod( IsMonomialIdeal,
   function(I)
     local GB, A, rels;
 
+    if HasIsTrivial(I) and IsTrivial(I) then
+      return true;
+    fi;
+    
     # Compute Groebner basis if necessary
     if HasGroebnerBasisOfIdeal(I) then
       GB := GroebnerBasisOfIdeal(I);
     else
-      rels := GeneratorsOfIdeal(I);  
+      if HasGeneratorsOfIdeal(I) then
+        rels := GeneratorsOfIdeal(I);  
+      else return fail;
+      fi;
       GB := GBNPGroebnerBasis(rels, LeftActingRingOfIdeal(I));
       GB := GroebnerBasis(I, GB);
     fi;
