@@ -163,7 +163,8 @@ InstallMethod( IsAdmissibleIdeal,
 #  (which sometimes can cause an infinite loop or another bugs!).
 #  It uses the observation: <I> is a monomial ideal <=> Groebner basis 
 #  of <I> is a set of monomials.
-#  It computes G.b. only in case it has not been computed yet.
+#  It computes G.b. only in case it has not been computed yet and
+#  usual generators of <I> are not monomials.
 
 
 InstallMethod( IsMonomialIdeal,
@@ -178,14 +179,22 @@ InstallMethod( IsMonomialIdeal,
       return true;
     fi;
     
+    # First check if usual generators are just monomials
+    if HasGeneratorsOfIdeal(I) then
+      rels := GeneratorsOfIdeal(I);  
+      if ForAll(rels, r -> (Length(CoefficientsAndMagmaElements(r)) = 2) ) then
+        Print("Zwykle!\n");
+        return true;
+      fi;
+    else return fail;    
+    fi;
+    
+    Print("Idziem dalej, zwykle nie sa monomialy!\n");
+    # Now we have to check if Groebner basis is a set of monomials
     # Compute Groebner basis if necessary
     if HasGroebnerBasisOfIdeal(I) then
       GB := GroebnerBasisOfIdeal(I);
     else
-      if HasGeneratorsOfIdeal(I) then
-        rels := GeneratorsOfIdeal(I);  
-      else return fail;
-      fi;
       GB := GBNPGroebnerBasis(rels, LeftActingRingOfIdeal(I));
       GB := GroebnerBasis(I, GB);
     fi;
