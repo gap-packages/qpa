@@ -1,6 +1,6 @@
 # GAP Implementation
 # This file was generated from 
-# $Id: predefalgs.gi,v 1.4 2012/06/10 08:19:10 sunnyquiver Exp $
+# $Id: predefalgs.gi,v 1.5 2012/06/20 17:00:31 andrzejmroz Exp $
 InstallMethod ( NakayamaAlgebra,
     "for an admissible sequence and a field",
     [IsList, IsField], 0,
@@ -309,3 +309,185 @@ InstallMethod ( KroneckerAlgebra,
     return KQ;
 end
 );
+
+
+#################################################################
+##
+#P  IsSpecialBiserialQuiver( <Q> ) 
+## 
+##  It tests if every vertex in quiver <Q> is a source (resp. target) 
+##  of at most 2 arrows.
+##
+##  NOTE: e.g. path algebra of one loop IS NOT special biserial, but
+##        one loop IS special biserial quiver.
+##
+
+InstallMethod( IsSpecialBiserialQuiver,
+  "for quivers",
+  true,
+  [ IsQuiver ], 0,
+  function ( Q )
+    local vertex_list, v;
+    
+    vertex_list := VerticesOfQuiver(Q);
+    for v in vertex_list do
+     
+      if OutDegreeOfVertex(v) > 2 then
+        return false;
+      fi;
+      if InDegreeOfVertex(v) > 2 then
+        return false;
+      fi;
+      
+    od;
+    
+    return true;
+
+  end
+); # IsSpecialBiserialQuiver
+
+
+#################################################################
+##
+#P  IsSpecialBiserialAlgebra( <A> ) 
+##  <A> = a path algebra
+##
+##  It tests if a path algebra <A> is an algebra of  a quiver Q which is
+##  (IsSpecialBiserialQuiver and IsAcyclicQuiver) and the ideal 0 satisfies
+##  the "special biserial" conditions (cf. comment below).
+##  
+##  NOTE: e.g. path algebra of one loop IS NOT special biserial, but
+##        one loop IS special biserial quiver.
+##		
+
+InstallMethod( IsSpecialBiserialAlgebra,
+  "for path algebras",
+  true,
+  [ IsPathAlgebra ], 0,
+  function ( A )
+    local Q, alpha; 
+    
+    Q := QuiverOfPathAlgebra(A);
+    if not IsSpecialBiserialQuiver(Q) then
+      return false;
+    fi;
+    
+    for alpha in ArrowsOfQuiver(Q) do
+       
+      if OutDegreeOfVertex(TargetOfPath(alpha)) > 1 then
+          return false;
+      fi;          
+      if InDegreeOfVertex(SourceOfPath(alpha)) > 1 then  
+          return false;
+      fi;
+       
+    od;
+    
+    return IsAcyclicQuiver(Q);  # <=> 0 is an admissible ideal
+  end
+); # IsSpecialBiserialAlgebra for IsPathAlgebra
+
+
+########################################################################
+##
+#P  IsSpecialBiserialAlgebra( <A> ) 
+##  <A> = a quotient of a path algebra
+##
+##  It tests if an original path algebra is an algebra of a quiver Q which is
+##  IsSpecialBiserialQuiver, I is an admissible ideal and I satisfies 
+##  the "special biserial" conditions, i.e.:
+##  for any arrow a there exists at most one arrow b such that ab\notin I
+##  and there exists at most one arrow c such that ca\notin I.
+##
+  
+InstallMethod( IsSpecialBiserialAlgebra,
+  "for quotients of path algebras",
+  true,
+  [ IsQuotientOfPathAlgebra ], 0,
+  function ( A )
+    local Q, PA, I, v, alpha, beta, not_in_ideal;
+    
+    PA := OriginalPathAlgebra(A);
+    Q := QuiverOfPathAlgebra(PA);
+    if not IsSpecialBiserialQuiver(Q) then
+      return false;
+    fi;
+    
+    I := ElementsFamily(FamilyObj(A))!.ideal;
+    
+    if not IsAdmissibleIdeal(I) then
+      return false;
+    fi;
+    
+    for alpha in ArrowsOfQuiver(Q) do
+       
+       not_in_ideal := 0;
+       for beta in OutgoingArrowsOfVertex(TargetOfPath(alpha)) do
+         if not ElementOfPathAlgebra(PA, alpha*beta) in I then
+           not_in_ideal := not_in_ideal + 1;
+         fi;
+       od;
+       if not_in_ideal > 1 then
+          return false;
+       fi;          
+       
+       not_in_ideal := 0;
+       for beta in IncomingArrowsOfVertex(SourceOfPath(alpha)) do
+         if not ElementOfPathAlgebra(PA, beta*alpha) in I then
+           not_in_ideal := not_in_ideal + 1;
+         fi;
+       od;
+       if not_in_ideal > 1 then
+          return false;
+       fi;
+       
+    od;
+    
+    return true;
+  end
+); # IsSpecialBiserialAlgebra for IsQuotientOfPathAlgebra
+
+
+#################################################################
+##
+#P  IsStringAlgebra( <A> )
+##  <A> = a path algebra
+##
+##  Note: A path algebra is a string algebra <=> it is a special biserial algebra
+##
+		
+InstallMethod( IsStringAlgebra,
+  "for quotients of path algebras",
+  true,
+  [ IsPathAlgebra ], 0,
+  function ( A )
+    return IsSpecialBiserialAlgebra(A);
+  end
+); # IsStringAlgebra for IsPathAlgebra                      
+
+
+#################################################################
+##
+#P  IsStringAlgebra( <A> )
+##  <A> = a quotient of a path algebra
+##
+##  Note: kQ/I is a string algebra <=> kQ/I is a special biserial algebra
+##                                     and I is a monomial ideal.                      
+                      
+InstallMethod( IsStringAlgebra,
+  "for quotients of path algebras",
+  true,
+  [ IsQuotientOfPathAlgebra ], 0,
+  function ( A )
+    local I;
+    
+    if not IsSpecialBiserialAlgebra(A) then
+      return false;
+    fi;
+    
+    I := ElementsFamily(FamilyObj(A))!.ideal;
+    return IsMonomialIdeal(I);
+  end
+); # IsStringAlgebra for IsQuotientOfPathAlgebra 
+
+
