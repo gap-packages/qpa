@@ -43,6 +43,7 @@ DeclareOperation( "PositiveRepeatDegrees", [ IsComplex ] );
 DeclareOperation( "NegativeRepeatDegrees", [ IsComplex ] );
 
 DeclareOperation( "Shift", [ IsComplex, IsInt ] );
+DeclareOperation( "ShiftUnsigned", [ IsComplex, IsInt ] );
 DeclareOperation( "YonedaProduct", [ IsComplex, IsComplex ] );
 
 DeclareOperation( "GoodTruncationBelow", [ IsComplex, IsInt ] );
@@ -63,7 +64,7 @@ DeclareGlobalFunction( "Complex" );
 
 DeclareGlobalFunction( "FiniteComplex" );
 DeclareGlobalFunction( "ZeroComplex" );
-DeclareGlobalFunction( "SingleObjectComplex" );
+DeclareGlobalFunction( "StalkComplex" );
 DeclareGlobalFunction( "ShortExactSequence" );
 DeclareGlobalFunction( "ComplexByDifferentialList" );
 

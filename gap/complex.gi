@@ -80,7 +80,7 @@ function( cat )
     return C;
 end );
 
-InstallGlobalFunction( SingleObjectComplex,
+InstallGlobalFunction( StalkComplex,
 function( cat, obj, degree )
     return FiniteComplex( cat, degree,
                           [ cat.zeroMap( obj, cat.zeroObj ),
@@ -497,6 +497,17 @@ function( C, shift )
 
 end );
 
+# non-algebraic shift
+InstallMethod( ShiftUnsigned,
+[ IsComplex, IsInt ],
+function( C, shift )
+    local newDifferentials;
+    
+    newDifferentials := Shift( DifferentialsOfComplex( C ), shift );
+    return ComplexByDifferentialList( CatOfComplex( C ), newDifferentials );
+
+end );
+
 InstallMethod( YonedaProduct,
 [ IsComplex, IsComplex ],
 function( C1, C2 )
@@ -622,22 +633,24 @@ function( C, i, j )
     if( j > i ) then
         Error( "First input integer must be greater than or equal to the second" );
     fi;
-
-    cat := CatOfComplex( C );
-    difflist := DifferentialsOfComplex( C );
-    middlediffs := FinitePartAsList( difflist, j+1, i );
-    truncpart := FiniteInfList( j+1, middlediffs );
-    newpart1 := FiniteInfList( i+1, [ cat.zeroMap( cat.zeroObj,
-                                                ObjectOfComplex( C, i ) ) ] );
-    zeropart1 := PositivePartFrom( DifferentialsOfComplex( ZeroComplex( cat ) ),
-                                  i+2 );
-    newpart2 := FiniteInfList( j, [ cat.zeroMap( ObjectOfComplex( C, j ),
-                                                   cat.zeroObj ) ] );
-    zeropart2 := NegativePartFrom( DifferentialsOfComplex( ZeroComplex( cat ) ),
-                                   j-1 );
-    newdifflist := InfConcatenation( zeropart1, newpart1, truncpart, newpart2, zeropart2 );
     
-    return ComplexByDifferentialList( cat, newdifflist );
+    return BrutalTruncationAbove( BrutalTruncationBelow( C, j ), i );
+
+    # cat := CatOfComplex( C );
+    # difflist := DifferentialsOfComplex( C );
+    # middlediffs := FinitePartAsList( difflist, j+1, i );
+    # truncpart := FiniteInfList( j+1, middlediffs );
+    # newpart1 := FiniteInfList( i+1, [ cat.zeroMap( cat.zeroObj,
+    #                                             ObjectOfComplex( C, i ) ) ] );
+    # zeropart1 := PositivePartFrom( DifferentialsOfComplex( ZeroComplex( cat ) ),
+    #                               i+2 );
+    # newpart2 := FiniteInfList( j, [ cat.zeroMap( ObjectOfComplex( C, j ),
+    #                                                cat.zeroObj ) ] );
+    # zeropart2 := NegativePartFrom( DifferentialsOfComplex( ZeroComplex( cat ) ),
+    #                                j-1 );
+    # newdifflist := InfConcatenation( zeropart1, newpart1, truncpart, newpart2, zeropart2 );
+    
+    # return ComplexByDifferentialList( cat, newdifflist );
 
 end );
 
