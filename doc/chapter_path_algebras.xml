@@ -912,6 +912,130 @@ false
   
 </Section>
 
+
+
+<Section Label="qpa:opposite">
+  <Heading>Opposite algebras</Heading>
+
+
+
+  <ManSection>
+    <Attr Name="OppositeQuiver" Arg="Q"/>
+    <Description>
+      Arguments: <Arg>Q</Arg> -- a quiver.<Br />
+    </Description>
+    <Returns>
+      the opposite quiver <M><Arg>Q</Arg>^\text{op}</M>.
+    </Returns>
+    <Description>
+      This attribute contains the opposite quiver of a quiver, that
+      is, a quiver which is the same except that every arrow goes in
+      the opposite direction.<P/>
+
+      The operation <Ref Oper="OppositePath"/> takes a path in a
+      quiver to the corresponding path in the opposite quiver.<P/>
+
+      The opposite of the opposite of a quiver <M>Q</M> is isomorphic
+      to <M>Q</M>.  In QPA, we regard these two quivers to be the
+      same, so the call <Code>OppositeQuiver(OppositeQuiver(Q))</Code>
+      returns the object <Code>Q</Code>.
+    </Description>
+  </ManSection>
+  
+  <ManSection>
+    <Oper Name="OppositePath" Arg="p"/>
+    <Description>
+      Arguments: <Arg>p</Arg> -- a path.<Br />
+    </Description>
+    <Returns>
+      the path corresponding to <Arg>p</Arg> in the opposite quiver.
+    </Returns>
+  </ManSection>
+  
+  The following example illustrates the use of
+  <Ref Attr="OppositeQuiver"/> and <Ref Oper="OppositePath"/>.
+
+  <Example><![CDATA[
+gap> Q := Quiver( [ "u", "v" ], [ [ "u", "u", "a" ], [ "u", "v", "b" ] ] );
+<quiver with 2 vertices and 2 arrows>
+gap> Qop := OppositeQuiver(Q);
+<quiver with 2 vertices and 2 arrows>
+gap> VerticesOfQuiver( Qop );
+[ u_op, v_op ]
+gap> ArrowsOfQuiver( Qop );
+[ a_op, b_op ]
+gap> OppositePath( Q.a * Q.b );
+b_op*a_op
+gap> IsIdenticalObj( Q, OppositeQuiver( Qop ) );
+true
+gap> OppositePath( Qop.b_op * Qop.a_op );
+a*b
+]]>
+</Example>
+
+  
+  <ManSection>
+    <Attr Name="OppositePathAlgebra" Arg="A"/>
+    <Description>
+      Arguments: <Arg>A</Arg> -- a path algebra or quotient of path algebra.<Br />
+    </Description>
+    <Returns>
+      the opposite algebra <M><Arg>A</Arg>^\text{op}</M>.
+    </Returns>
+    <Description>
+      This attribute contains the opposite algebra of an algebra.<P/>
+
+      The opposite algebra of a path algebra is the path algebra
+      over the opposite quiver (as given by
+      <Ref Attr="OppositeQuiver"/>).  The opposite algebra of a
+      quotient of a path algebra has the opposite quiver and the
+      opposite relations of the original algebra.<P/>
+
+      The function <Ref Oper="OppositePathAlgebraElement"/> takes an
+      algebra element to the corresponding element in the opposite
+      algebra.<P/>
+
+      The opposite of the opposite of an algebra <M>A</M> is
+      isomorphic to <M>A</M>.  In QPA, we regard these two algebras to
+      be the same, so the
+      call <Code>OppositePathAlgebra(OppositePathAlgebra(A))</Code>
+      returns the object <Code>A</Code>.
+    </Description>
+  </ManSection>
+  
+  <ManSection>
+    <Func Name="OppositePathAlgebraElement" Arg="x"/>
+    <Description>
+      Arguments: <Arg>x</Arg> -- a path.<Br />
+    </Description>
+    <Returns>
+      the element corresponding to <Arg>x</Arg> in the opposite algebra.
+    </Returns>
+  </ManSection>
+
+  The following example illustrates the use of
+  <Ref Attr="OppositePathAlgebra"/> and
+  <Ref Oper="OppositePathAlgebraElement"/>.
+
+  <Example><![CDATA[
+gap> Q := Quiver( [ "u", "v" ], [ [ "u", "u", "a" ], [ "u", "v", "b" ] ] );
+<quiver with 2 vertices and 2 arrows>
+gap> A := PathAlgebra( Rationals, Q );
+<Rationals[<quiver with 2 vertices and 2 arrows>]>
+gap> OppositePathAlgebra( A );
+<Rationals[<quiver with 2 vertices and 2 arrows>]>
+gap> OppositePathAlgebraElement( A.u + 2*A.a + 5*A.a*A.b );
+(1)*u_op+(2)*a_op+(5)*b_op*a_op
+gap> IsIdenticalObj( A, OppositePathAlgebra( OppositePathAlgebra( A ) ) );
+true
+]]>
+</Example>
+
+</Section>
+
+
+
+
 <Section Label="qpa:patensor">
   <Heading>Tensor products of path algebras</Heading>
 
