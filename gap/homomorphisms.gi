@@ -1,5 +1,5 @@
 # GAP Implementation
-# $Id: homomorphisms.gi,v 1.36 2012/06/09 07:51:54 sunnyquiver Exp $
+# $Id: homomorphisms.gi,v 1.37 2012/06/27 19:51:21 sunnyquiver Exp $
 
 #############################################################################
 ##
@@ -1056,7 +1056,7 @@ InstallMethod( TopOfModuleProjection,
             od;
         od;
         dim_M := DimensionVector(M);
-        Vspaces := List([1..num_vert], x -> FullRowSpace(Rationals,dim_M[x]));
+        Vspaces := List([1..num_vert], x -> FullRowSpace(K,dim_M[x]));
         Wspaces := List([1..num_vert], x -> []);
         for i in [1..num_vert] do
             if dim_M[i] <> 0 then 
