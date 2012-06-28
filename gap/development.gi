@@ -882,6 +882,16 @@ InstallMethod( DirectSumOfModules,
 end
 );
 
+
+#######################################################################
+##
+#P  IsDirectSumOfModules( <M> )
+##
+##  <M> is a module over a path algebra. The function checks if the
+##  property "IsDirectSumOfModules" is set to true for M, and returns
+##  true if it is, and false if it is not. (Note that this is NOT a
+##  check for indecomposability.)
+##
 InstallMethod( IsDirectSumOfModules,
    "for a module over a path algebra",
    [ IsPathAlgebraMatModule ], 0,
