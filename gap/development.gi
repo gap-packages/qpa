@@ -881,6 +881,18 @@ InstallMethod( DirectSumOfModules,
    return fail;
 end
 );
+
+InstallMethod( IsDirectSumOfModules,
+   "for a module over a path algebra",
+   [ IsPathAlgebraMatModule ], 0,
+   function( M )
+   
+   return "IsDirectSumOfModules" in KnownTruePropertiesOfObject(M);
+
+end
+);
+   
+
 #######################################################################
 ##
 #O  PushOut(<f>, <g>)
