@@ -183,13 +183,11 @@ InstallMethod( IsMonomialIdeal,
     if HasGeneratorsOfIdeal(I) then
       rels := GeneratorsOfIdeal(I);  
       if ForAll(rels, r -> (Length(CoefficientsAndMagmaElements(r)) = 2) ) then
-        Print("Zwykle!\n");
         return true;
       fi;
     else return fail;    
     fi;
     
-    Print("Idziem dalej, zwykle nie sa monomialy!\n");
     # Now we have to check if Groebner basis is a set of monomials
     # Compute Groebner basis if necessary
     if HasGroebnerBasisOfIdeal(I) then
