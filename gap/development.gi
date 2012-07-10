@@ -85,20 +85,20 @@ end
 );
 
 InstallOtherMethod( LoewyLength, 
-   "for a SubalgebraFpPathAlgebra",
+   "for a QuotientOfPathAlgebra",
    [ IsQuotientOfPathAlgebra ], 0,
    function( A ) 
 
-   local fam, gb, N;
+   local fam, N;
 
    fam := ElementsFamily(FamilyObj(A));
    if HasGroebnerBasisOfIdeal(fam!.ideal) and
           AdmitsFinitelyManyNontips(GroebnerBasisOfIdeal(fam!.ideal)) then
-      gb := GroebnerBasisOfIdeal(fam!.ideal);
-      N := List(Nontips(gb), x -> LengthOfPath(x));
-      return Maximum(N)+1;
+       N := IndecProjectiveModules(A);
+       N := List(N, x -> LoewyLength(x));
+       return Maximum(N);
    else
-      return fail;
+       return fail;
    fi;
 end
 );
