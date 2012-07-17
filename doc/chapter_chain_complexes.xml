@@ -549,7 +549,7 @@ false ]]>
 
 
 <Section>
-<Heading>Transforming and combinig complexes</Heading>
+<Heading>Transforming and combining complexes</Heading>
 
 <ManSection>
   <Oper Name="Shift" Arg="C, i" />
@@ -668,8 +668,301 @@ gap> YonedaProduct(C2,C3);
 <Section>
 <Heading>Chain maps</Heading>
 
-Work in progress.
+An <Ref Filt="IsChainMap"/> object represents a chain map between two
+complexes over the same category.
 
+<ManSection>
+<Filt Type="Category" Name="IsChainMap"/>
+<Description>
+The category for chain maps.
+</Description>
+</ManSection>
+
+<ManSection>
+<Func Name="ChainMap"
+      Arg="source, range, basePosition, middle, positive, negative"/>
+  <Description>
+    Arguments:
+    <Arg>source</Arg>, <Arg>range</Arg> -- complexes,
+    <Arg>basePosition</Arg> -- an integer,
+    <Arg>middle</Arg> -- a list of morphisms,
+    <Arg>positive</Arg> -- a list or the string <Code>"zero"</Code>,
+    <Arg>negative</Arg> -- a list or the string <Code>"zero"</Code>.
+    <Br />
+  </Description>
+<Returns>A newly created chain map</Returns>
+<Description>
+The arguments <Arg>source</Arg> and <Arg>range</Arg> are the complexes
+which the new chain map should map between.<P/>
+
+The rest of the arguments describe the individual morphisms which
+constitute the chain map, in a similar way to the last four arguments
+to the <Ref Func="Complex"/> function.<P/>
+
+The morphisms of the chain map are divided into three parts: one
+finite (<Q>middle</Q>) and two infinite (<Q>positive</Q>
+and <Q>negative</Q>).  The positive part contains all morphisms in
+degrees higher than those in the middle part, and the negative part
+contains all morphisms in degrees lower than those in the middle
+part.  (The middle part may be placed anywhere, so the positive part
+can -- despite its name -- contain some morphisms of negative
+degree.  Conversely, the negative part can contain some morphisms
+of positive degree.)<P/>
+
+The argument <Arg>middle</Arg> is a list containing the morphisms
+for the middle part.  The argument <Arg>baseDegree</Arg> gives the
+degree of the first morphism in this list.  The second
+morphism is placed in degree <M><Arg>baseDegree</Arg>+1</M>, and
+so on.  Thus, the middle part consists of the degrees
+<Display>
+<Arg>baseDegree</Arg>,\quad
+<Arg>baseDegree</Arg> + 1,\quad
+\ldots\quad
+<Arg>baseDegree</Arg> + \text{Length}(<Arg>middle</Arg>) - 1.
+</Display>
+
+Each of the arguments <Arg>positive</Arg> and <Arg>negative</Arg> can
+be one of the following:
+<List>
+<Item>The string <Code>"zero"</Code>, meaning that the part contains
+  only zero morphisms.</Item>
+<Item>A list of the form <Code>[ "repeat", L ]</Code>,
+  where <Code>L</Code> is a list of morphisms.  The part will contain
+  the morphisms in <Code>L</Code> repeated infinitely many times.  The
+  convention for the order of elements in <Code>L</Code> is
+  that <Code>L[1]</Code> is the morphism which is closest to the
+  middle part, and <Code>L[Length(L)]</Code> is farthest away from the
+  middle part.  (Using this only makes sense if the objects of both
+  the source and range complex repeat in a compatible way.)</Item>
+<Item>A list of the form <Code>[ "pos", f ]</Code> or <Code>[ "pos",
+  f, store ]</Code>, where <Code>f</Code> is a function of two
+  arguments, and <Code>store</Code> (if included) is a boolean.  The
+  function <Code>f</Code> is used to compute the morphisms in this
+  part.  The function <Code>f</Code> is not called immediately by
+  the <Code>ChainMap</Code> constructor, but will be called later as
+  the morphisms in this part are needed.  The function
+  call <Code>f(M,i)</Code> (where <Code>M</Code> is the chain map
+  and <Code>i</Code> an integer) should produce the morphism in
+  degree <Code>i</Code>.  The function may use <Code>M</Code> to look
+  up other morphisms in the chain map (and to access the source and
+  range complexes), as long as this does not cause an infinite loop.
+  If <Code>store</Code> is <Code>true</Code> (or not specified), each
+  computed morphism is stored, and they are computed in order from the
+  one closest to the middle part, regardless of which order they are
+  requested in.</Item>
+<Item>A list of the form <Code>[ "next", f, init ]</Code>,
+  where <Code>f</Code> is a function of one argument,
+  and <Code>init</Code> is a morphism.  The function <Code>f</Code> is
+  used to compute the morphisms in this part.  For the first
+  morphism in the part (that is, the one closest to the middle
+  part), <Code>f</Code> is called with <Code>init</Code> as
+  argument.  For the next morphism, <Code>f</Code> is called with
+  the first morphism as argument, and so on.  Thus, the
+  morphisms are
+  <Display>
+    f(\text{init}),\quad
+    f^2(\text{init}),\quad
+    f^3(\text{init}),\quad \ldots
+  </Display>
+  Each morphism is stored when it has been computed.
+</Item>
+</List>
+</Description>
+</ManSection>
+
+<ManSection>
+<Func Name="ZeroChainMap" Arg="source, range"/>
+<Returns>A newly created zero chain map</Returns>
+<Description>
+This function creates a zero chain map (a chain map in which every
+morphism is zero) from the complex <Arg>source</Arg> to the
+complex <Arg>range</Arg>.<P/>
+
+(TODO: this function is not implemented.)
+</Description>
+</ManSection>
+
+<ManSection>
+<Func Name="FiniteChainMap" Arg="source, range, baseDegree, morphisms"/>
+<Returns>A newly created chain map</Returns>
+<Description>
+This function creates a complex where all but finitely many morphisms
+are zero.<P/>
+
+The arguments <Arg>source</Arg> and <Arg>range</Arg> are the complexes
+which the new chain map should map between.<P/>
+
+The argument <Arg>morphisms</Arg> is a list of morphisms.  The
+argument <Arg>baseDegree</Arg> gives the degree for the first morphism
+in this list.  The subsequent morphisms are placed in
+degrees <M><Arg>baseDegree</Arg>+1</M>, and so on.<P/>
+
+This means that the <Arg>morphisms</Arg> argument specifies the
+morphisms in degrees
+<Display>
+<Arg>baseDegree</Arg>,\quad
+<Arg>baseDegree</Arg> + 1,\quad
+\ldots \quad
+<Arg>baseDegree</Arg> + \text{Length}(<Arg>morphisms</Arg>) - 1.
+</Display>
+All other morphisms in the chain map are zero.<P/>
+
+(TODO: this function is not implemented.)
+</Description>
+</ManSection>
+
+<ManSection>
+<Func Name="ComplexAndChainMaps"
+      Arg="sourceComplexes, rangeComplexes, basePosition, middle, positive, negative"/>
+  <Description>
+    Arguments:
+    <Arg>sourceComplexes</Arg> -- a list of complexes,
+    <Arg>rangeComplexes</Arg> -- a list of complexes,
+    <Arg>basePosition</Arg> -- an integer,
+    <Arg>middle</Arg> -- a list of morphisms,
+    <Arg>positive</Arg> -- a list or the string <Code>"zero"</Code>,
+    <Arg>negative</Arg> -- a list or the string <Code>"zero"</Code>.
+    <Br />
+  </Description>
+<Returns>A list consisting of a newly created complex, and one or
+  more newly created chain maps.</Returns>
+<Description>
+This is a combined constructor to make one complex and a set of chain
+maps at the same time.  All the chain maps will have the new complex
+as either source or range.<P/>
+
+The argument <Arg>sourceComplexes</Arg> is a list of the complexes
+to be sources of the chain maps which have the new complex as range.
+The argument <Arg>rangeComplexes</Arg> is a list of the complexes
+to be ranges of the chain maps which have the new complex as source.<P/>
+
+Let <M>S</M> and <M>R</M> stand for the lengths of the
+lists <Arg>sourceComplexes</Arg> and <Arg>rangeComplexes</Arg>,
+respectively.  Then the number of new chain maps which are created
+is <M>S+R</M>.<P/>
+
+The last four arguments describe the individual differentials of the
+new complex, as well as the inidividual morphisms which constitute
+each of the new chain maps.  These arguments are treated in a similar
+way to the last four arguments to the <Ref Func="Complex"/> and
+<Ref Func="ChainMap"/> constructors.  In those constructors, the last
+four arguments describe, for each degree, how to get the differential
+or morphism for that degree.  Here, we for each degree need both a
+differential for the complex, and one morphism for each chain map.  So
+for each degree <M>i</M>, we will have a list
+<Display>
+L_i =
+[ d_i,
+  m_i^1, \ldots, m_i^S,
+  n_i^1, \ldots, n_i^R ],
+</Display>
+where <M>d_i</M> is the differential for the new complex in
+degree <M>i</M>, <M>m_i^j</M> is the morphism in degree <M>i</M> of
+the chain map from <Code>sourceComplexes[j]</Code> to the new complex,
+and <M>n_i^j</M> is the morphism in degree <M>i</M> of the chain map
+from the new complex to <Code>rangeComplexes[j]</Code>.<P/>
+
+The degrees of the new complex and chain maps are divided into three
+parts: one finite (<Q>middle</Q>) and two infinite (<Q>positive</Q>
+and <Q>negative</Q>).  The positive part contains all degrees higher
+than those in the middle part, and the negative part contains all
+degrees lower than those in the middle part.<P/>
+
+The argument <Arg>middle</Arg> is a list containing the
+lists <M>L_i</M> for the middle part.  The
+argument <Arg>baseDegree</Arg> gives the degree of the first morphism
+in this list.  The second morphism is placed in
+degree <M><Arg>baseDegree</Arg>+1</M>, and so on.  Thus, the middle
+part consists of the degrees
+<Display>
+<Arg>baseDegree</Arg>,\quad
+<Arg>baseDegree</Arg> + 1,\quad
+\ldots\quad
+<Arg>baseDegree</Arg> + \text{Length}(<Arg>middle</Arg>) - 1.
+</Display>
+
+Each of the arguments <Arg>positive</Arg> and <Arg>negative</Arg> can
+be one of the following:
+<List>
+<Item>The string <Code>"zero"</Code>, meaning that the part contains
+  only zero morphisms.</Item>
+<Item>A list of the form <Code>[ "repeat", L ]</Code>,
+  where <Code>L</Code> is a list of morphisms.  The part will contain
+  the morphisms in <Code>L</Code> repeated infinitely many times.  The
+  convention for the order of elements in <Code>L</Code> is
+  that <Code>L[1]</Code> is the morphism which is closest to the
+  middle part, and <Code>L[Length(L)]</Code> is farthest away from the
+  middle part.  (Using this only makes sense if the objects of both
+  the source and range complex repeat in a compatible way.)</Item>
+<Item>A list of the form <Code>[ "pos", f ]</Code> or <Code>[ "pos",
+  f, store ]</Code>, where <Code>f</Code> is a function of two
+  arguments, and <Code>store</Code> (if included) is a boolean.  The
+  function <Code>f</Code> is used to compute the morphisms in this
+  part.  The function <Code>f</Code> is not called immediately by
+  the <Code>ChainMap</Code> constructor, but will be called later as
+  the morphisms in this part are needed.  The function
+  call <Code>f(M,i)</Code> (where <Code>M</Code> is the chain map
+  and <Code>i</Code> an integer) should produce the morphism in
+  degree <Code>i</Code>.  The function may use <Code>M</Code> to look
+  up other morphisms in the chain map (and to access the source and
+  range complexes), as long as this does not cause an infinite loop.
+  If <Code>store</Code> is <Code>true</Code> (or not specified), each
+  computed morphism is stored, and they are computed in order from the
+  one closest to the middle part, regardless of which order they are
+  requested in.</Item>
+<Item>A list of the form <Code>[ "next", f, init ]</Code>,
+  where <Code>f</Code> is a function of one argument,
+  and <Code>init</Code> is a morphism.  The function <Code>f</Code> is
+  used to compute the morphisms in this part.  For the first
+  morphism in the part (that is, the one closest to the middle
+  part), <Code>f</Code> is called with <Code>init</Code> as
+  argument.  For the next morphism, <Code>f</Code> is called with
+  the first morphism as argument, and so on.  Thus, the
+  morphisms are
+  <Display>
+    f(\text{init}),\quad
+    f^2(\text{init}),\quad
+    f^3(\text{init}),\quad \ldots
+  </Display>
+  Each morphism is stored when it has been computed.
+</Item>
+</List>
+
+The return value of the <Code>ComplexAndChainMaps</Code> constructor
+is a list
+<Display>
+[ C,
+  M_1, \ldots, M_S,
+  N_1, \ldots, N_R ],
+</Display>
+where <M>C</M> is the new complex, <M>M_1,\ldots,M_S</M> are the new
+chain maps with <M>C</M> as range, and <M>N_1,\ldots,N_R</M> are the
+new chain maps with <M>C</M> as source.
+</Description>
+</ManSection>
+
+<ManSection>
+  <Oper Name="MorphismOfChainMap" Arg="M, i" />
+  <Description>
+    Arguments: <Arg>M</Arg> -- a chain map, <Arg>i</Arg> -- an integer.<Br />
+  </Description>
+  <Returns>
+    The morphism at position <Arg>i</Arg> in the chain map.
+  </Returns>
+  <Description>
+  </Description>
+</ManSection>
+
+<ManSection>
+  <Attr Name="MorphismsOfChainMap" Arg="M" />
+  <Description>
+    Arguments: <Arg>M</Arg> -- a chain map<Br />
+  </Description>
+  <Returns>
+    The morphisms of the chain map, stored as an <Ref Filt="IsInfList"/>
+    object.
+  </Returns>
+</ManSection>
 
 
 </Section>
