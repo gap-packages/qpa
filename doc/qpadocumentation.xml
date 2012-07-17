@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- $Id: qpadocumentation.xml,v 1.40 2012/06/09 07:51:54 sunnyquiver Exp $ -->
+<!-- $Id: qpadocumentation.xml,v 1.41 2012/07/17 12:00:19 kristink Exp $ -->
 
 <!DOCTYPE Book SYSTEM "gapdoc.dtd">
 <!-- [ <!ENTITY see '<Alt Only="LaTeX">$\to$</Alt><Alt Not="LaTeX">--&gt;</Alt>'>
@@ -14,6 +14,7 @@
 \newcommand{\Hom}{\operatorname{Hom}\nolimits}
 \newcommand{\End}{\operatorname{End}\nolimits}
 \newcommand{\Ext}{\operatorname{Ext}\nolimits}
+\DeclareMathOperator{\modc}{mod}
 "?>
 
 <Book Name="QPA documentation">
@@ -3003,7 +3004,7 @@ true
 </Chapter>
 
 <#Include SYSTEM "chapter_chain_complexes.xml">
-
+<#Include SYSTEM "chapter_proj_and_derived.xml">
 
 </Body>
 

@@ -1,0 +1,188 @@
+<Chapter>
+<Heading>Projective resolutions and the bounded derived category</Heading>
+
+<Section>
+<Heading>Projective and injective complexes</Heading>
+Not finished yet! Some bugs and stuff to be fixed, both in the
+documentation and in the code …
+<ManSection>
+  <Prop Name="IsProjectiveComplex" Arg="C" />
+  <Description>
+    Arguments: <Arg>C</Arg> -- a complex.<Br />
+  </Description>
+  <Returns>true if <Arg>C</Arg> is either a finite complex of
+  projectives or an infinite complex of projectives constructed as a
+  projective resolution (<Ref Func="ProjectiveResolutionOfComplex"/>),
+  false otherwise.
+  </Returns>
+  <Description>A complex for which this property is true, will be
+  printed in a different manner than ordinary complexes. Instead of
+  writing the dimension vector of the objects in each degree, the
+  indecomposable direct summands are listed (for
+  instance <C>P1</C>, <C>P2</C> … , where <Math>P_i</Math> is the
+  indecomposable projective module corresponding to
+  vertex <Math>i</Math> of the quiver). Note that if a complex is both
+  projective and injective, it is printed as a projective complex.
+  </Description>
+</ManSection>
+
+<ManSection>
+  <Prop Name="IsInjectiveComplex" Arg="C" />
+  <Description>
+    Arguments: <Arg>C</Arg> -- a complex.<Br />
+  </Description>
+  <Returns>true if <Arg>C</Arg> is either a finite complex of
+  injectives or an infinite complex of injectives constructed
+  as <Math>D\mathrm{Hom}_{A}(-,A)</Math> of a projective complex
+  (<Ref Func="ProjectiveToInjectiveComplex"/>), false otherwise.
+  </Returns>
+  <Description>A complex for which this property is true, will be
+  printed in a different manner than ordinary complexes. Instead of
+  writing the dimension vector of the objects in each degree, the
+  indecomposable direct summands are listed (for
+  instance <C>I1</C>, <C>I2</C> … , where <Math>I_i</Math> is the
+  indecomposable injective module corresponding to
+  vertex <Math>i</Math> of the quiver). Note that if a complex is both
+  projective and injective, it is printed as a projective complex.
+  </Description>
+</ManSection>
+
+<ManSection>
+  <Oper Name="ProjectiveResolution" Arg="M" />
+  <Description>
+    Arguments: <Arg>M</Arg> -- a module.<Br />
+  </Description>
+  <Returns>The projective resolution of <Arg>M</Arg> with <Arg>M</Arg>
+  in degree <Math>-1</Math>.
+  </Returns>
+  <Description>
+  </Description>
+</ManSection>
+
+</Section>
+
+<Section>
+<Heading>The bounded derived category</Heading> 
+Let <Math>\mathcal{D}^{b}( \modc A )</Math> denote the bounded
+derived category. If <Math>C</Math> is an element
+of <Math>\mathcal{D}^{b}( \modc A )</Math>, that is, a
+bounded complex of <Math>A</Math>-modules, there exists a projective
+resolution <Math>P</Math> of <Math>C</Math> which is a complex of
+projective <Math>A</Math>-modules quasi-isomorphic
+to <Math>C</Math>. Moreover, there exists such a <Math>P</Math> with
+the following properties:
+<List>
+  <Item><Math>P</Math> is minimal (in the homotopy category).</Item>
+  <Item><Math>C</Math> is bounded, so <Math>C_i = 0</Math> for <Math>i
+  &lt; k</Math> for a lower bound <Math>k</Math> and <Math>C_i =
+  0</Math> for <Math>i &gt; j</Math> for an upper
+  bound <Math>j</Math>. Then <Math>P_i = 0</Math> for <Math>i &lt;
+  k</Math>, and <Math>P</Math> is exact in degree <Math>i</Math>
+  for <Math>i &gt; j</Math>.</Item>
+</List>
+The function <C>ProjectiveResolutionOfComplex</C> computes such a
+projective resolution of any bounded complex. If <Math>A</Math> has
+finite global dimension, then <Math>\mathcal{D}^{b}( \modc A )</Math>
+has AR-triangles, and there exists an algorithm for computing the
+AR-translation of a complex <Math>C \in \mathcal{D}^{b}( \modc A
+)</Math>:
+<List>
+  <Item>Compute a projective resolution <Math>P'</Math>
+  of <Math>C</Math>.</Item>
+  <Item>Shift <Math>P'</Math> one degree to the right.</Item>
+  <Item>Compute <Math>I = D\mathrm{Hom}_{A}(P',A)</Math> to get a
+  complex of injectives.</Item>
+  <Item>Compute a projective resolution <Math>P</Math> of <Math>I</Math>.</Item>
+</List>
+Then <Math>P</Math> is the AR-translation of <Math>C</Math>, sometimes
+written <Math>\tau(C)</Math>.
+
+The following documents the <Package>QPA</Package> functions for
+working with complexes in the derived category.
+
+
+
+<ManSection>
+  <Oper Name="ProjectiveResolutionOfComplex" Arg="C" />
+  <Description>
+    Arguments: <Arg>C</Arg> -- a finite complex.<Br />
+  </Description>
+  <Returns>A projective complex <Math>P</Math> which is the projective
+  resolution of <Math>C</Math>, as described in the introduction to
+  this section.
+  </Returns>
+  <Description>If the algebra has infinite global dimension, the
+  projective resolution of <Math>C</Math> could possibly be infinite.
+  </Description>
+</ManSection>
+
+<ManSection>
+  <Oper Name="ProjectiveToInjectiveComplex" Arg="P" />
+  <Description>
+    Arguments: <Arg>P</Arg> -- a bounded below projective complex.<Br />
+  </Description>
+  <Returns>An injective complex <Math>I = D\mathrm{Hom}_{A}(P,A)</Math>.
+  </Returns>
+  <Description><Math>P</Math> and <Math>I</Math> will always have the
+  same length. Especially, if <Math>P</Math> is unbounded above, then so
+  is <Math>I</Math>. 
+  </Description>
+</ManSection>
+
+<ManSection>
+  <Oper Name="TauOfComplex" Arg="C" />
+  <Description>
+    Arguments: <Arg>C</Arg> -- a finite complex over an algebra of
+    finite global dimension.<Br />
+  </Description>
+  <Returns>A projective complex <Math>P</Math> which is the
+  AR-translation of <Arg>C</Arg>.
+  </Returns>
+  <Description>This function only works when the algebra has finite
+  global dimension. It will always assume that both the projective
+  resolutions computed are finite.
+  </Description>
+</ManSection>
+
+<Subsection>
+<Heading>Example</Heading>
+The following example illustrates the above mentioned functions and
+properties. Note that both <C>ProjectiveResolutionOfComplex</C>
+and <C>ProjectiveToInjectiveComplex</C> return complexes with a
+nonzero <E>positive</E> part, whereas <C>TauOfComplex</C> always
+returns a complex for which <C>IsFiniteComplex</C> returns true. Also
+note that after the complex <C>C</C> in the example is found to have
+the <C>IsInjectiveComplex</C> property, the printing of the complex
+changes. <P />
+
+The algebra in the example is <Math>kQ/I</Math>, where <Math>Q</Math>
+is the quiver <Math>1 \longrightarrow 2 \longrightarrow 3</Math>
+and <Math>I</Math> is generated by the composition of the arrows. We
+construct <Math>C</Math> as the stalk complex with the
+injective <Math>I_1</Math> in degree 0.
+
+<Example><![CDATA[
+gap> alg;
+<Rationals[<quiver with 3 vertices and 2 arrows>]/
+<two-sided ideal in <Rationals[<quiver with 3 vertices and 2 arrows>]>, (1 generators)>>
+gap> cat := CatOfRightAlgebraModules(alg);
+<cat: right modules over algebra>
+gap> C := StalkComplex(cat, IndecInjectiveModules(alg)[1], 0);
+0 -> 0:(1,0,0) -> 0
+gap> ProjC := ProjectiveResolutionOfComplex(C);
+--- -> 0: P1 -> 0
+gap> InjC := ProjectiveToInjectiveComplex(ProjC);
+--- -> 1: I2 -> 0: I1 -> 0
+gap> TauC := TauOfComplex(C);
+0 -> 1: P3 -> 0
+gap> IsProjectiveComplex(C);
+false
+gap> IsInjectiveComplex(C);
+true
+gap> C;
+0 -> 0: I1 -> 0 ]]>
+</Example>
+</Subsection>
+
+</Section>
+</Chapter>
