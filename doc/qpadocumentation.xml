@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- $Id: qpadocumentation.xml,v 1.42 2012/08/01 16:01:09 sunnyquiver Exp $ -->
+<!-- $Id: qpadocumentation.xml,v 1.43 2012/08/01 20:29:02 sunnyquiver Exp $ -->
 
 <!DOCTYPE Book SYSTEM "gapdoc.dtd">
 <!-- [ <!ENTITY see '<Alt Only="LaTeX">$\to$</Alt><Alt Not="LaTeX">--&gt;</Alt>'>
@@ -1038,10 +1038,6 @@ gap> N:= RightModuleOverPathAlgebra(A,mat);
      the finite dimensional algebra over which <Arg>M</Arg> is a
      module.
    </Returns>
-   <Description>The function checks if <Arg>M</Arg> and <Arg>N</Arg>
-     are <C>PathAlgebraMatModule</C>s over the same (quotient of a)
-     path algebra. 
-   </Description>
 </ManSection>
 
 <ManSection>
@@ -3089,6 +3085,23 @@ gap> h := TopOfModuleProjection(N);
    <Description>
     The range of the right minimal almost split map is not necessarily
     equal to the module <Arg>M</Arg> one started with, but isomorphic.
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Oper Name="PredecessorOfModule" Arg="M, n" Comm=""/>
+   <Description>
+     Arguments: <Arg>M</Arg> - an indecomposable non-projective module
+     and <Arg>n</Arg> - a positive integer.<Br />
+   </Description>
+   <Returns>the predecessors of the module <Arg>M</Arg> in the
+    AR-quiver of the algebra <Arg>M</Arg> is given over of distance
+    less or equal to <Arg>n</Arg>. 
+   </Returns>
+   <Description>
+    It returns two lists, the first is the indecomposable modules in
+    the different layers and the second is the valuations for the
+    arrows in the AR-quiver.
    </Description>
 </ManSection>
 

@@ -271,57 +271,58 @@
 \contentsline {subsection}{\numberline {7.4.2}\leavevmode {\color {Chapter }ExtAlgebraGenerators}}{81}{subsection.7.4.2}
 \contentsline {section}{\numberline {7.5}\leavevmode {\color {Chapter }Auslander-Reiten theory}}{81}{section.7.5}
 \contentsline {subsection}{\numberline {7.5.1}\leavevmode {\color {Chapter }AlmostSplitSequence}}{81}{subsection.7.5.1}
-\contentsline {chapter}{\numberline {8}\leavevmode {\color {Chapter }Chain complexes}}{83}{chapter.8}
-\contentsline {section}{\numberline {8.1}\leavevmode {\color {Chapter }Representation of categories}}{83}{section.8.1}
-\contentsline {subsection}{\numberline {8.1.1}\leavevmode {\color {Chapter }IsCat}}{83}{subsection.8.1.1}
-\contentsline {subsection}{\numberline {8.1.2}\leavevmode {\color {Chapter }CatOfRightAlgebraModules}}{83}{subsection.8.1.2}
-\contentsline {section}{\numberline {8.2}\leavevmode {\color {Chapter }Making a complex}}{84}{section.8.2}
-\contentsline {subsection}{\numberline {8.2.1}\leavevmode {\color {Chapter }IsComplex}}{84}{subsection.8.2.1}
-\contentsline {subsection}{\numberline {8.2.2}\leavevmode {\color {Chapter }IsZeroComplex}}{85}{subsection.8.2.2}
-\contentsline {subsection}{\numberline {8.2.3}\leavevmode {\color {Chapter }Complex}}{85}{subsection.8.2.3}
-\contentsline {subsection}{\numberline {8.2.4}\leavevmode {\color {Chapter }ZeroComplex}}{86}{subsection.8.2.4}
-\contentsline {subsection}{\numberline {8.2.5}\leavevmode {\color {Chapter }FiniteComplex}}{86}{subsection.8.2.5}
-\contentsline {subsection}{\numberline {8.2.6}\leavevmode {\color {Chapter }StalkComplex}}{86}{subsection.8.2.6}
-\contentsline {subsection}{\numberline {8.2.7}\leavevmode {\color {Chapter }ShortExactSequence}}{87}{subsection.8.2.7}
-\contentsline {section}{\numberline {8.3}\leavevmode {\color {Chapter }Information about a complex}}{87}{section.8.3}
-\contentsline {subsection}{\numberline {8.3.1}\leavevmode {\color {Chapter }CatOfComplex}}{87}{subsection.8.3.1}
-\contentsline {subsection}{\numberline {8.3.2}\leavevmode {\color {Chapter }ObjectOfComplex}}{87}{subsection.8.3.2}
-\contentsline {subsection}{\numberline {8.3.3}\leavevmode {\color {Chapter }DifferentialOfComplex}}{87}{subsection.8.3.3}
-\contentsline {subsection}{\numberline {8.3.4}\leavevmode {\color {Chapter }DifferentialsOfComplex}}{87}{subsection.8.3.4}
-\contentsline {subsection}{\numberline {8.3.5}\leavevmode {\color {Chapter }CyclesOfComplex}}{87}{subsection.8.3.5}
-\contentsline {subsection}{\numberline {8.3.6}\leavevmode {\color {Chapter }BoundariesOfComplex}}{88}{subsection.8.3.6}
-\contentsline {subsection}{\numberline {8.3.7}\leavevmode {\color {Chapter }HomologyOfComplex}}{88}{subsection.8.3.7}
-\contentsline {subsection}{\numberline {8.3.8}\leavevmode {\color {Chapter }IsFiniteComplex}}{88}{subsection.8.3.8}
-\contentsline {subsection}{\numberline {8.3.9}\leavevmode {\color {Chapter }UpperBound}}{89}{subsection.8.3.9}
-\contentsline {subsection}{\numberline {8.3.10}\leavevmode {\color {Chapter }LowerBound}}{89}{subsection.8.3.10}
-\contentsline {subsection}{\numberline {8.3.11}\leavevmode {\color {Chapter }LengthOfComplex}}{89}{subsection.8.3.11}
-\contentsline {subsection}{\numberline {8.3.12}\leavevmode {\color {Chapter }HighestKnownDegree}}{89}{subsection.8.3.12}
-\contentsline {subsection}{\numberline {8.3.13}\leavevmode {\color {Chapter }LowestKnownDegree}}{89}{subsection.8.3.13}
-\contentsline {subsection}{\numberline {8.3.14}\leavevmode {\color {Chapter }IsExactSequence}}{90}{subsection.8.3.14}
-\contentsline {subsection}{\numberline {8.3.15}\leavevmode {\color {Chapter }IsExactInDegree}}{90}{subsection.8.3.15}
-\contentsline {subsection}{\numberline {8.3.16}\leavevmode {\color {Chapter }IsShortExactSequence}}{90}{subsection.8.3.16}
-\contentsline {section}{\numberline {8.4}\leavevmode {\color {Chapter }Transforming and combining complexes}}{91}{section.8.4}
-\contentsline {subsection}{\numberline {8.4.1}\leavevmode {\color {Chapter }Shift}}{91}{subsection.8.4.1}
-\contentsline {subsection}{\numberline {8.4.2}\leavevmode {\color {Chapter }YonedaProduct}}{91}{subsection.8.4.2}
-\contentsline {subsection}{\numberline {8.4.3}\leavevmode {\color {Chapter }BrutalTruncationBelow}}{92}{subsection.8.4.3}
-\contentsline {subsection}{\numberline {8.4.4}\leavevmode {\color {Chapter }BrutalTruncationAbove}}{92}{subsection.8.4.4}
-\contentsline {subsection}{\numberline {8.4.5}\leavevmode {\color {Chapter }BrutalTruncation}}{92}{subsection.8.4.5}
-\contentsline {section}{\numberline {8.5}\leavevmode {\color {Chapter }Chain maps}}{92}{section.8.5}
-\contentsline {subsection}{\numberline {8.5.1}\leavevmode {\color {Chapter }IsChainMap}}{92}{subsection.8.5.1}
-\contentsline {subsection}{\numberline {8.5.2}\leavevmode {\color {Chapter }ChainMap}}{92}{subsection.8.5.2}
-\contentsline {subsection}{\numberline {8.5.3}\leavevmode {\color {Chapter }ZeroChainMap}}{93}{subsection.8.5.3}
-\contentsline {subsection}{\numberline {8.5.4}\leavevmode {\color {Chapter }FiniteChainMap}}{94}{subsection.8.5.4}
-\contentsline {subsection}{\numberline {8.5.5}\leavevmode {\color {Chapter }ComplexAndChainMaps}}{94}{subsection.8.5.5}
-\contentsline {subsection}{\numberline {8.5.6}\leavevmode {\color {Chapter }MorphismOfChainMap}}{95}{subsection.8.5.6}
-\contentsline {subsection}{\numberline {8.5.7}\leavevmode {\color {Chapter }MorphismsOfChainMap}}{96}{subsection.8.5.7}
-\contentsline {chapter}{\numberline {9}\leavevmode {\color {Chapter }Projective resolutions and the bounded derived category}}{97}{chapter.9}
-\contentsline {section}{\numberline {9.1}\leavevmode {\color {Chapter }Projective and injective complexes}}{97}{section.9.1}
-\contentsline {subsection}{\numberline {9.1.1}\leavevmode {\color {Chapter }IsProjectiveComplex}}{97}{subsection.9.1.1}
-\contentsline {subsection}{\numberline {9.1.2}\leavevmode {\color {Chapter }IsInjectiveComplex}}{97}{subsection.9.1.2}
-\contentsline {subsection}{\numberline {9.1.3}\leavevmode {\color {Chapter }ProjectiveResolution}}{98}{subsection.9.1.3}
-\contentsline {section}{\numberline {9.2}\leavevmode {\color {Chapter }The bounded derived category}}{98}{section.9.2}
-\contentsline {subsection}{\numberline {9.2.1}\leavevmode {\color {Chapter }ProjectiveResolutionOfComplex}}{98}{subsection.9.2.1}
-\contentsline {subsection}{\numberline {9.2.2}\leavevmode {\color {Chapter }ProjectiveToInjectiveComplex}}{98}{subsection.9.2.2}
-\contentsline {subsection}{\numberline {9.2.3}\leavevmode {\color {Chapter }TauOfComplex}}{99}{subsection.9.2.3}
-\contentsline {subsection}{\numberline {9.2.4}\leavevmode {\color {Chapter }Example}}{99}{subsection.9.2.4}
-\contentsline {chapter}{\numberline {A}\leavevmode {\color {Chapter }An Appendix}}{100}{appendix.A}
+\contentsline {subsection}{\numberline {7.5.2}\leavevmode {\color {Chapter }PredecessorOfModule}}{81}{subsection.7.5.2}
+\contentsline {chapter}{\numberline {8}\leavevmode {\color {Chapter }Chain complexes}}{84}{chapter.8}
+\contentsline {section}{\numberline {8.1}\leavevmode {\color {Chapter }Representation of categories}}{84}{section.8.1}
+\contentsline {subsection}{\numberline {8.1.1}\leavevmode {\color {Chapter }IsCat}}{84}{subsection.8.1.1}
+\contentsline {subsection}{\numberline {8.1.2}\leavevmode {\color {Chapter }CatOfRightAlgebraModules}}{84}{subsection.8.1.2}
+\contentsline {section}{\numberline {8.2}\leavevmode {\color {Chapter }Making a complex}}{85}{section.8.2}
+\contentsline {subsection}{\numberline {8.2.1}\leavevmode {\color {Chapter }IsComplex}}{85}{subsection.8.2.1}
+\contentsline {subsection}{\numberline {8.2.2}\leavevmode {\color {Chapter }IsZeroComplex}}{86}{subsection.8.2.2}
+\contentsline {subsection}{\numberline {8.2.3}\leavevmode {\color {Chapter }Complex}}{86}{subsection.8.2.3}
+\contentsline {subsection}{\numberline {8.2.4}\leavevmode {\color {Chapter }ZeroComplex}}{87}{subsection.8.2.4}
+\contentsline {subsection}{\numberline {8.2.5}\leavevmode {\color {Chapter }FiniteComplex}}{87}{subsection.8.2.5}
+\contentsline {subsection}{\numberline {8.2.6}\leavevmode {\color {Chapter }StalkComplex}}{87}{subsection.8.2.6}
+\contentsline {subsection}{\numberline {8.2.7}\leavevmode {\color {Chapter }ShortExactSequence}}{88}{subsection.8.2.7}
+\contentsline {section}{\numberline {8.3}\leavevmode {\color {Chapter }Information about a complex}}{88}{section.8.3}
+\contentsline {subsection}{\numberline {8.3.1}\leavevmode {\color {Chapter }CatOfComplex}}{88}{subsection.8.3.1}
+\contentsline {subsection}{\numberline {8.3.2}\leavevmode {\color {Chapter }ObjectOfComplex}}{88}{subsection.8.3.2}
+\contentsline {subsection}{\numberline {8.3.3}\leavevmode {\color {Chapter }DifferentialOfComplex}}{88}{subsection.8.3.3}
+\contentsline {subsection}{\numberline {8.3.4}\leavevmode {\color {Chapter }DifferentialsOfComplex}}{88}{subsection.8.3.4}
+\contentsline {subsection}{\numberline {8.3.5}\leavevmode {\color {Chapter }CyclesOfComplex}}{88}{subsection.8.3.5}
+\contentsline {subsection}{\numberline {8.3.6}\leavevmode {\color {Chapter }BoundariesOfComplex}}{89}{subsection.8.3.6}
+\contentsline {subsection}{\numberline {8.3.7}\leavevmode {\color {Chapter }HomologyOfComplex}}{89}{subsection.8.3.7}
+\contentsline {subsection}{\numberline {8.3.8}\leavevmode {\color {Chapter }IsFiniteComplex}}{89}{subsection.8.3.8}
+\contentsline {subsection}{\numberline {8.3.9}\leavevmode {\color {Chapter }UpperBound}}{90}{subsection.8.3.9}
+\contentsline {subsection}{\numberline {8.3.10}\leavevmode {\color {Chapter }LowerBound}}{90}{subsection.8.3.10}
+\contentsline {subsection}{\numberline {8.3.11}\leavevmode {\color {Chapter }LengthOfComplex}}{90}{subsection.8.3.11}
+\contentsline {subsection}{\numberline {8.3.12}\leavevmode {\color {Chapter }HighestKnownDegree}}{90}{subsection.8.3.12}
+\contentsline {subsection}{\numberline {8.3.13}\leavevmode {\color {Chapter }LowestKnownDegree}}{90}{subsection.8.3.13}
+\contentsline {subsection}{\numberline {8.3.14}\leavevmode {\color {Chapter }IsExactSequence}}{91}{subsection.8.3.14}
+\contentsline {subsection}{\numberline {8.3.15}\leavevmode {\color {Chapter }IsExactInDegree}}{91}{subsection.8.3.15}
+\contentsline {subsection}{\numberline {8.3.16}\leavevmode {\color {Chapter }IsShortExactSequence}}{91}{subsection.8.3.16}
+\contentsline {section}{\numberline {8.4}\leavevmode {\color {Chapter }Transforming and combining complexes}}{92}{section.8.4}
+\contentsline {subsection}{\numberline {8.4.1}\leavevmode {\color {Chapter }Shift}}{92}{subsection.8.4.1}
+\contentsline {subsection}{\numberline {8.4.2}\leavevmode {\color {Chapter }YonedaProduct}}{92}{subsection.8.4.2}
+\contentsline {subsection}{\numberline {8.4.3}\leavevmode {\color {Chapter }BrutalTruncationBelow}}{93}{subsection.8.4.3}
+\contentsline {subsection}{\numberline {8.4.4}\leavevmode {\color {Chapter }BrutalTruncationAbove}}{93}{subsection.8.4.4}
+\contentsline {subsection}{\numberline {8.4.5}\leavevmode {\color {Chapter }BrutalTruncation}}{93}{subsection.8.4.5}
+\contentsline {section}{\numberline {8.5}\leavevmode {\color {Chapter }Chain maps}}{93}{section.8.5}
+\contentsline {subsection}{\numberline {8.5.1}\leavevmode {\color {Chapter }IsChainMap}}{93}{subsection.8.5.1}
+\contentsline {subsection}{\numberline {8.5.2}\leavevmode {\color {Chapter }ChainMap}}{93}{subsection.8.5.2}
+\contentsline {subsection}{\numberline {8.5.3}\leavevmode {\color {Chapter }ZeroChainMap}}{94}{subsection.8.5.3}
+\contentsline {subsection}{\numberline {8.5.4}\leavevmode {\color {Chapter }FiniteChainMap}}{95}{subsection.8.5.4}
+\contentsline {subsection}{\numberline {8.5.5}\leavevmode {\color {Chapter }ComplexAndChainMaps}}{95}{subsection.8.5.5}
+\contentsline {subsection}{\numberline {8.5.6}\leavevmode {\color {Chapter }MorphismOfChainMap}}{96}{subsection.8.5.6}
+\contentsline {subsection}{\numberline {8.5.7}\leavevmode {\color {Chapter }MorphismsOfChainMap}}{97}{subsection.8.5.7}
+\contentsline {chapter}{\numberline {9}\leavevmode {\color {Chapter }Projective resolutions and the bounded derived category}}{98}{chapter.9}
+\contentsline {section}{\numberline {9.1}\leavevmode {\color {Chapter }Projective and injective complexes}}{98}{section.9.1}
+\contentsline {subsection}{\numberline {9.1.1}\leavevmode {\color {Chapter }IsProjectiveComplex}}{98}{subsection.9.1.1}
+\contentsline {subsection}{\numberline {9.1.2}\leavevmode {\color {Chapter }IsInjectiveComplex}}{98}{subsection.9.1.2}
+\contentsline {subsection}{\numberline {9.1.3}\leavevmode {\color {Chapter }ProjectiveResolution}}{99}{subsection.9.1.3}
+\contentsline {section}{\numberline {9.2}\leavevmode {\color {Chapter }The bounded derived category}}{99}{section.9.2}
+\contentsline {subsection}{\numberline {9.2.1}\leavevmode {\color {Chapter }ProjectiveResolutionOfComplex}}{99}{subsection.9.2.1}
+\contentsline {subsection}{\numberline {9.2.2}\leavevmode {\color {Chapter }ProjectiveToInjectiveComplex}}{99}{subsection.9.2.2}
+\contentsline {subsection}{\numberline {9.2.3}\leavevmode {\color {Chapter }TauOfComplex}}{100}{subsection.9.2.3}
+\contentsline {subsection}{\numberline {9.2.4}\leavevmode {\color {Chapter }Example}}{100}{subsection.9.2.4}
+\contentsline {chapter}{\numberline {A}\leavevmode {\color {Chapter }An Appendix}}{101}{appendix.A}

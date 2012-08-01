@@ -228,9 +228,6 @@
   [6XReturns:[0X  a  basis  of  the  annihilator  of  the  module  [3XM[0m  in  the finite
             dimensional algebra over which [3XM[0m is a module.
   
-  The  function  checks  if  [3XM[0m  and  [3XN[0m are [10XPathAlgebraMatModule[0ms over the same
-  (quotient of a) path algebra.
-  
   [1X6.4-2 CommonDirectSummand[0m
   
   [2X> CommonDirectSummand( [0X[3XM, N[0X[2X ) _____________________________________[0Xoperation

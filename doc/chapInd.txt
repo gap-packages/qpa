@@ -212,6 +212,7 @@
   [2XOutDegreeOfVertex[0X  2.8-4
   [2XOutgoingArrowsOfVertex[0X  2.8-2
   [2XPathAlgebra[0X  3.2-1
+  [2XPredecessorOfModule[0X  7.5-2
   [2XPreImagesRepresentative[0X  7.2-4
   [2XProductOfIdeals[0X  3.9-1
   [2XProjectFromProductQuiver[0X  3.16-5

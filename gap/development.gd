@@ -41,6 +41,7 @@ DeclareOperation( "HomFromProjective", [ IsRightAlgebraModuleElement, IsPathAlge
 DeclareAttribute( "ProjectiveCover", IsPathAlgebraMatModule );
 DeclareOperation( "ExtOverAlgebra", [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ]);
 DeclareAttribute( "AlmostSplitSequence", IsPathAlgebraMatModule );
+DeclareOperation( "PredecessorsOfModule", [ IsPathAlgebraMatModule, IS_INT ]) ;
 DeclareOperation( "ExtOverAlgebraAdd", [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ]);
 DeclareProperty( "IsSymmetricAlgebra", IsAlgebra );
 DeclareProperty( "IsWeaklySymmetricAlgebra", IsAlgebra );

@@ -331,6 +331,7 @@
       7.4-2 ExtAlgebraGenerators
     7.5 Auslander-Reiten theory
       7.5-1 AlmostSplitSequence
+      7.5-2 PredecessorOfModule
   8 Chain complexes
     8.1 Representation of categories
       8.1-1 IsCat

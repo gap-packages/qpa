@@ -3166,9 +3166,7 @@ and elementwise operations available. }
 \textbf{\indent Returns:\ }
 a basis of the annihilator of the module \mbox{\texttt{\slshape M}} in the finite dimensional algebra over which \mbox{\texttt{\slshape M}} is a module. 
 
-
-
-The function checks if \mbox{\texttt{\slshape M}} and \mbox{\texttt{\slshape N}} are \texttt{PathAlgebraMatModule}s over the same (quotient of a) path algebra. }
+}
 
  
 
@@ -5568,6 +5566,25 @@ minimal almost split map.
 
  The range of the right minimal almost split map is not necessarily equal to
 the module \mbox{\texttt{\slshape M}} one started with, but isomorphic. }
+
+ 
+
+\subsection{\textcolor{Chapter }{PredecessorOfModule}}
+\logpage{[ 7, 5, 2 ]}\nobreak
+\hyperdef{L}{X81A363848166449D}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{PredecessorOfModule({\slshape M, n})\index{PredecessorOfModule@\texttt{PredecessorOfModule}}
+\label{PredecessorOfModule}
+}\hfill{\scriptsize (operation)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape M}} - an indecomposable non-projective module and \mbox{\texttt{\slshape n}} - a positive integer.\\
+ \textbf{\indent Returns:\ }
+the predecessors of the module \mbox{\texttt{\slshape M}} in the AR-quiver of the algebra \mbox{\texttt{\slshape M}} is given over of distance less or equal to \mbox{\texttt{\slshape n}}. 
+
+
+
+ It returns two lists, the first is the indecomposable modules in the different
+layers and the second is the valuations for the arrows in the AR-quiver. }
 
  
 \begin{Verbatim}[fontsize=\small,frame=single,label=Example]
