@@ -1,5 +1,5 @@
 # GAP Declarations
-# $Id: specialreps.gd,v 1.5 2012/05/15 06:58:20 sunnyquiver Exp $
+# $Id: specialreps.gd,v 1.6 2012/08/01 16:01:10 sunnyquiver Exp $
 
 # specialreps.gd: Provides special representations of a quiver, 
 # 		  indecomposble projective, indecomposable injective, 
@@ -7,5 +7,5 @@
 
 DeclareAttribute( "IndecProjectiveModules", IsQuotientOfPathAlgebra ); 
 DeclareAttribute( "IndecInjectiveModules", IsAlgebra ); 
-DeclareOperation( "SimpleModules", [IsAlgebra] ); 
-DeclareOperation( "ZeroModule", [IsAlgebra] ); 
+DeclareAttribute( "SimpleModules", IsAlgebra ); 
+DeclareAttribute( "ZeroModule", IsAlgebra ); 

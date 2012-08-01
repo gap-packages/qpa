@@ -1,6 +1,6 @@
 # GAP Implementation
 # This file was generated from 
-# $Id: predefalgs.gi,v 1.5 2012/06/20 17:00:31 andrzejmroz Exp $
+# $Id: predefalgs.gi,v 1.6 2012/08/01 16:01:10 sunnyquiver Exp $
 InstallMethod ( NakayamaAlgebra,
     "for an admissible sequence and a field",
     [IsList, IsField], 0,
@@ -136,14 +136,14 @@ InstallMethod ( NakayamaAlgebra,
 #
             fi;
             if Length(rels) = 0 then 
-               SetFilterObj(KQ, IsNakayamaAlgebras and IsPathAlgebra );
+               SetFilterObj(KQ, IsNakayamaAlgebra and IsPathAlgebra );
                return KQ;
             else
                I := Ideal(KQ,rels);
                gb := GBNPGroebnerBasis(rels,KQ);
                gbb := GroebnerBasis(I,gb);
                A := KQ/I;
-               SetFilterObj(A, IsNakayamaAlgebras and IsQuotientOfPathAlgebra );               return A;
+               SetFilterObj(A, IsNakayamaAlgebra and IsQuotientOfPathAlgebra );               return A;
             fi; 
         else
 #
@@ -224,7 +224,7 @@ InstallMethod ( CanonicalAlgebra,
     # and quotient of the path algbra just constructed.
     #
     if n = 2 then 
-        SetFilterObj(KQ, IsCanonicalAlgebras and IsPathAlgebra );
+        SetFilterObj(KQ, IsCanonicalAlgebra and IsPathAlgebra );
         return KQ;
     else
     # 
@@ -257,7 +257,7 @@ InstallMethod ( CanonicalAlgebra,
         gb := GBNPGroebnerBasis(relations,KQ);
         gbb := GroebnerBasis(I,gb);
         A := KQ/I;
-        SetFilterObj(A, IsCanonicalAlgebras and IsQuotientOfPathAlgebra );
+        SetFilterObj(A, IsCanonicalAlgebra and IsQuotientOfPathAlgebra );
         return A;
     fi;
 end
@@ -305,7 +305,7 @@ InstallMethod ( KroneckerAlgebra,
     od;
     Q := Quiver(2,arrows);
     KQ := PathAlgebra(K,Q);
-    SetFilterObj(KQ,IsKroneckerAlgebras and IsPathAlgebra);
+    SetFilterObj(KQ,IsKroneckerAlgebra and IsPathAlgebra);
     return KQ;
 end
 );

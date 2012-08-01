@@ -22,5 +22,9 @@
   
   [1X5.4 Communicating with GBNP[0X
   
-  in progress...
+  [1X5.4-1 GBNPGroebnerBasis[0m
+  
+  [2X> GBNPGroebnerBasis( [0X[3Xrels, KQ[0X[2X ) ___________________________________[0Xoperation
+  [6XReturns:[0X  a  Groebner  basis  of  the  ideal  generated  by [3Xrels[0m in the path
+            algebra [3XKQ[0m.
   

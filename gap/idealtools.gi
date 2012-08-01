@@ -202,3 +202,46 @@ InstallMethod( IsMonomialIdeal,
 
   end
 ); # IsMonomialIdeal
+  
+#######################################################################
+##
+#O  ProductOfIdeals( <I>, <J> )
+##
+##  Given two ideals  I  and  J  in a path algebra  A, this function  
+##  computes the product  I*J  of the ideal  I  and  J, if the ideal 
+##  if  J  admits finitely many nontips in  A. 
+##
+InstallMethod ( ProductOfIdeals, 
+    "for two IdealInPathAlgebra",
+    true,
+    [ IsIdealInPathAlgebra, IsIdealInPathAlgebra ], 
+    0,
+    function( I, J )
+
+    local A, rgb, gens_I, gens_IJ, a, b;
+#
+#   Checking the input
+#
+    A := LeftActingRingOfIdeal(I);
+    if LeftActingRingOfIdeal(J) <> A then
+        Error("the ideals are not ideals in the same ring,");
+    fi;
+#
+#   If the ideal  J  admits finitely many nontips in A (that is,
+#   if A/J is finite dimensional, then do the computations.
+#
+    if AdmitsFinitelyManyNontips(GroebnerBasisOfIdeal(J)) then 
+        rgb := RightGroebnerBasis(J);
+        gens_I := GeneratorsOfTwoSidedIdeal(I);
+        gens_IJ := [];
+        for a in gens_I do
+            for b in rgb do
+                Add(gens_IJ, a*b);
+            od;
+        od;
+        return Ideal(A,gens_IJ);
+    else
+        Error("the second argument does not admit finitely many nontips,");
+    fi;
+end
+);

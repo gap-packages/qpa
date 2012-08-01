@@ -113,58 +113,77 @@
       3.4-2 OrderingOfAlgebra
       3.4-3 .
     3.5 Operations on Path Algebra Elements
-      3.5-1 <
-      3.5-2 IsLeftUniform
-      3.5-3 IsRightUniform
-      3.5-4 IsUniform
-      3.5-5 LeadingTerm
-      3.5-6 LeadingCoefficient
-      3.5-7 LeadingMonomial
-      3.5-8 MakeUniformOnRight
-      3.5-9 MappedExpression
-      3.5-10 VertexPosition
+      3.5-1 ElementOfPathAlgebra
+      3.5-2 <
+      3.5-3 IsLeftUniform
+      3.5-4 IsRightUniform
+      3.5-5 IsUniform
+      3.5-6 LeadingTerm
+      3.5-7 LeadingCoefficient
+      3.5-8 LeadingMonomial
+      3.5-9 MakeUniformOnRight
+      3.5-10 MappedExpression
+      3.5-11 VertexPosition
     3.6 Constructing Quotients of Path Algebras
-    3.7 Ideals
-      3.7-1 Ideals and operations on ideals
-      3.7-2 Ideal
-      3.7-3 NthPowerOfArrowIdeal
-      3.7-4 AddNthPowerToRelations
-      3.7-5 Attributes of ideals
-    3.8 Categories and Properties of Quotients of Path Algebras
-      3.8-1 IsQuotientOfPathAlgebra
-    3.9 Attributes and Operations for Quotients of Path Algebras
-      3.9-1 IsElementOfQuotientOfPathAlgebra
-      3.9-2 Coefficients
-      3.9-3 IsSelfinjectiveAlgebra
-      3.9-4 IsSymmetricAlgebra
-      3.9-5 IsWeaklySymmetricAlgebra
-      3.9-6 LoewyLength
-      3.9-7 CartanMatrix
-      3.9-8 CoxeterMatrix
-      3.9-9 CoxeterPolynomial
-      3.9-10 Centre/Center
-    3.10 Attributes and Operations on Elements of Quotients of Path Algebra
-      3.10-1 IsNormalForm
-      3.10-2 <
-      3.10-3 ElementOfQuotientOfPathAlgebra
-      3.10-4 ElementOfPathAlgebra
-      3.10-5 OriginalPathAlgebra
-    3.11 Predefined classes of (quotients of) path algebras
-      3.11-1 CanonicalAlgebra
-      3.11-2 KroneckerAlgebra
-      3.11-3 NakayamaAlgebra
-      3.11-4 TruncatedPathAlgebra
-    3.12 Tensor products of path algebras
-      3.12-1 QuiverProduct
-      3.12-2 QuiverProductDecomposition
-      3.12-3 IsQuiverProductDecomposition
-      3.12-4 IncludeInProductQuiver
-      3.12-5 ProjectFromProductQuiver
-      3.12-6 TensorProductOfAlgebras
-      3.12-7 SimpleTensor
-      3.12-8 TensorProductDecomposition
-      3.12-9 EnvelopingAlgebra
-      3.12-10 IsEnvelopingAlgebra
+    3.7 Ideals and operations on ideals
+      3.7-1 Ideal
+      3.7-2 NthPowerOfArrowIdeal
+      3.7-3 AddNthPowerToRelations
+      3.7-4 \in (elt. in path alg. and ideal)
+    3.8 Categories and properties of ideals
+      3.8-1 IsIdealInPathAlgebra
+      3.8-2 IsAdmissibleIdeal
+      3.8-3 IsMonomialIdeal
+      3.8-4 IsQuadraticIdeal
+    3.9 Operations on ideals
+      3.9-1 ProductOfIdeals
+      3.9-2 QuadraticPerpOfPathAlgebraIdeal
+    3.10 Attributes of ideals
+    3.11 Categories and Properties of Quotients of Path Algebras
+      3.11-1 IsQuotientOfPathAlgebra
+      3.11-2 IsFiniteDimensional
+    3.12 Attributes and Operations for Quotients of Path Algebras
+      3.12-1 Dimension
+      3.12-2 IsSelfinjectiveAlgebra
+      3.12-3 IsSymmetricAlgebra
+      3.12-4 IsWeaklySymmetricAlgebra
+      3.12-5 LoewyLength
+      3.12-6 CartanMatrix
+      3.12-7 CoxeterMatrix
+      3.12-8 CoxeterPolynomial
+      3.12-9 Centre/Center
+    3.13 Attributes and Operations on Elements of Quotients of Path Algebra
+      3.13-1 IsElementOfQuotientOfPathAlgebra
+      3.13-2 Coefficients
+      3.13-3 IsNormalForm
+      3.13-4 <
+      3.13-5 ElementOfQuotientOfPathAlgebra
+      3.13-6 OriginalPathAlgebra
+    3.14 Predefined classes of (quotients of) path algebras
+      3.14-1 CanonicalAlgebra
+      3.14-2 KroneckerAlgebra
+      3.14-3 NakayamaAlgebra
+      3.14-4 TruncatedPathAlgebra
+      3.14-5 IsSpecialBiserialQuiver
+      3.14-6 IsSpecialBiserialAlgebra
+      3.14-7 IsStringAlgebra
+    3.15 Opposite algebras
+      3.15-1 OppositeQuiver
+      3.15-2 OppositePath
+      3.15-3 OppositePathAlgebra
+      3.15-4 OppositePathAlgebraElement
+    3.16 Tensor products of path algebras
+      3.16-1 QuiverProduct
+      3.16-2 QuiverProductDecomposition
+      3.16-3 IsQuiverProductDecomposition
+      3.16-4 IncludeInProductQuiver
+      3.16-5 ProjectFromProductQuiver
+      3.16-6 TensorProductOfAlgebras
+      3.16-7 SimpleTensor
+      3.16-8 TensorProductDecomposition
+      3.16-9 EnvelopingAlgebra
+      3.16-10 IsEnvelopingAlgebra
+      3.16-11 AlgebraAsModuleOfEnvelopingAlgebra
   4 Groebner Basis
     4.1 Constructing a Groebner Basis
       4.1-1 InfoGroebnerBasis
@@ -195,43 +214,49 @@
     5.2 Setting up GBNP
     5.3 Relevant GBNP internals
     5.4 Communicating with GBNP
+      5.4-1 GBNPGroebnerBasis
   6 Right Modules over Path Algebras
     6.1 Matrix Modules
       6.1-1 RightModuleOverPathAlgebra
     6.2 Categories Of Matrix Modules
-      6.2-1 IsPathAlgebraModule
+      6.2-1 IsPathAlgebraMatModule
     6.3 Acting on Module Elements
       6.3-1 ^
     6.4 Operations on representations
-      6.4-1 CommonDirectSummand
-      6.4-2 DimensionVector
-      6.4-3 Dimension
-      6.4-4 IsDirectSummand
-      6.4-5 DirectSumOfModules
-      6.4-6 IsDirectSumOfModules
-      6.4-7 DirectSumInclusions
-      6.4-8 DirectSumProjections
-      6.4-9 1stSyzygy
-      6.4-10 IsInAdditiveClosure
-      6.4-11 IsOmegaPeriodic
-      6.4-12 IsInjectiveModule
-      6.4-13 IsProjectiveModule
-      6.4-14 IsSemisimpleModule
-      6.4-15 IsSimpleModule
-      6.4-16 LoewyLength
-      6.4-17 MaximalCommonDirectSummand
-      6.4-18 IsomorphicModules
-      6.4-19 NthSyzygy
-      6.4-20 NthSyzygyNC
-      6.4-21 RadicalOfModule
-      6.4-22 RadicalSeries
-      6.4-23 SocleSeries
-      6.4-24 SocleOfModule
-      6.4-25 SubRepresentation
-      6.4-26 SupportModuleElement
-      6.4-27 TopOfModule
-      6.4-28 MinimalGeneratingSetOfModule
-      6.4-29 MatricesOfPathAlgebraModule
+      6.4-1 AnnihilatorOfModule
+      6.4-2 CommonDirectSummand
+      6.4-3 DecomposeModule
+      6.4-4 DecomposeModuleWithMultiplicities
+      6.4-5 DimensionVector
+      6.4-6 Dimension
+      6.4-7 IsDirectSummand
+      6.4-8 DirectSumOfModules
+      6.4-9 IsDirectSumOfModules
+      6.4-10 DirectSumInclusions
+      6.4-11 DirectSumProjections
+      6.4-12 1stSyzygy
+      6.4-13 IntersectionOfSubmodules
+      6.4-14 IsInAdditiveClosure
+      6.4-15 IsOmegaPeriodic
+      6.4-16 IsInjectiveModule
+      6.4-17 IsProjectiveModule
+      6.4-18 IsSemisimpleModule
+      6.4-19 IsSimpleModule
+      6.4-20 LoewyLength
+      6.4-21 MaximalCommonDirectSummand
+      6.4-22 IsomorphicModules
+      6.4-23 NthSyzygy
+      6.4-24 NthSyzygyNC
+      6.4-25 RadicalOfModule
+      6.4-26 RadicalSeries
+      6.4-27 SocleSeries
+      6.4-28 SocleOfModule
+      6.4-29 SubRepresentation
+      6.4-30 SumOfSubmodules
+      6.4-31 SupportModuleElement
+      6.4-32 TopOfModule
+      6.4-33 MinimalGeneratingSetOfModule
+      6.4-34 MatricesOfPathAlgebraModule
     6.5 Special representations
       6.5-1 BasisOfProjectives
       6.5-2 IndecProjectiveModules
@@ -272,31 +297,35 @@
       7.2-15 IsInjective
       7.2-16 IsSurjective
       7.2-17 IsIsomorphism
-      7.2-18 IsSplitEpimorphism
-      7.2-19 IsSplitMonomorphism
-      7.2-20 IsZero
-      7.2-21 KernelOfWhat
+      7.2-18 IsLeftMinimal
+      7.2-19 IsRightMinimal
+      7.2-20 IsSplitEpimorphism
+      7.2-21 IsSplitMonomorphism
+      7.2-22 IsZero
+      7.2-23 KernelOfWhat
     7.3 Homomorphisms and modules constructed from homomorphisms and modules
       7.3-1 CoKernel
       7.3-2 EndOverAlgebra
-      7.3-3 HomFromProjective
-      7.3-4 HomOverAlgebra
-      7.3-5 Image
-      7.3-6 Kernel
-      7.3-7 LiftingInclusionMorphisms
-      7.3-8 LiftingMorphismFromProjective
-      7.3-9 LeftMinimalVersion
-      7.3-10 RightMinimalVersion
-      7.3-11 MinimalLeftApproximation
-      7.3-12 MinimalRightApproximation
-      7.3-13 MorphismOnKernel
-      7.3-14 ProjectiveCover
-      7.3-15 PullBack
-      7.3-16 PushOut
-      7.3-17 RadicalOfModuleInclusion
-      7.3-18 SocleOfModuleInclusion
-      7.3-19 SubRepresentationInclusion
-      7.3-20 TopOfModuleProjection
+      7.3-3 FromEndMToHomMM
+      7.3-4 FromHomMMToEndM
+      7.3-5 HomFromProjective
+      7.3-6 HomOverAlgebra
+      7.3-7 Image
+      7.3-8 Kernel
+      7.3-9 LiftingInclusionMorphisms
+      7.3-10 LiftingMorphismFromProjective
+      7.3-11 LeftMinimalVersion
+      7.3-12 RightMinimalVersion
+      7.3-13 MinimalLeftApproximation
+      7.3-14 MinimalRightApproximation
+      7.3-15 MorphismOnKernel
+      7.3-16 ProjectiveCover
+      7.3-17 PullBack
+      7.3-18 PushOut
+      7.3-19 RadicalOfModuleInclusion
+      7.3-20 SocleOfModuleInclusion
+      7.3-21 SubRepresentationInclusion
+      7.3-22 TopOfModuleProjection
     7.4 Homological algebra
       7.4-1 ExtOverAlgebra
       7.4-2 ExtAlgebraGenerators
@@ -331,13 +360,30 @@
       8.3-14 IsExactSequence
       8.3-15 IsExactInDegree
       8.3-16 IsShortExactSequence
-    8.4 Transforming and combinig complexes
+    8.4 Transforming and combining complexes
       8.4-1 Shift
       8.4-2 YonedaProduct
       8.4-3 BrutalTruncationBelow
       8.4-4 BrutalTruncationAbove
       8.4-5 BrutalTruncation
     8.5 Chain maps
+      8.5-1 IsChainMap
+      8.5-2 ChainMap
+      8.5-3 ZeroChainMap
+      8.5-4 FiniteChainMap
+      8.5-5 ComplexAndChainMaps
+      8.5-6 MorphismOfChainMap
+      8.5-7 MorphismsOfChainMap
+  9 Projective resolutions and the bounded derived category
+    9.1 Projective and injective complexes
+      9.1-1 IsProjectiveComplex
+      9.1-2 IsInjectiveComplex
+      9.1-3 ProjectiveResolution
+    9.2 The bounded derived category
+      9.2-1 ProjectiveResolutionOfComplex
+      9.2-2 ProjectiveToInjectiveComplex
+      9.2-3 TauOfComplex
+      9.2-4 Example
   A An Appendix
   
   

@@ -226,7 +226,7 @@ true ]]>
   </ManSection>
 
   <ManSection>
-   <Oper Name="Nontips" Arg="GB" Comm=""/>
+   <Attr Name="Nontips" Arg="GB" Comm=""/>
    <Description>
      Arguments: <Arg>GB</Arg> -- a Groebner basis.<Br />
    </Description>

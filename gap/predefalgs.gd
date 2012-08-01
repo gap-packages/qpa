@@ -1,12 +1,12 @@
 # GAP Implementation
 # This file was generated from 
-# $Id: predefalgs.gd,v 1.4 2012/06/20 17:00:31 andrzejmroz Exp $
+# $Id: predefalgs.gd,v 1.5 2012/08/01 16:01:10 sunnyquiver Exp $
 DeclareOperation( "NakayamaAlgebra", [IsList, IsField] );
 DeclareOperation( "CanonicalAlgebra", [IsField, IsList, IsList] );
 DeclareOperation( "KroneckerAlgebra", [IsField, IS_INT] );
-DeclareCategory("IsNakayamaAlgebras", IsAlgebra );
-DeclareCategory("IsCanonicalAlgebras", IsAlgebra );
-DeclareCategory("IsKroneckerAlgebras", IsAlgebra );
+DeclareProperty("IsNakayamaAlgebra", IsAlgebra );
+DeclareProperty("IsCanonicalAlgebra", IsAlgebra );
+DeclareProperty("IsKroneckerAlgebra", IsAlgebra );
 
 DeclareProperty("IsSpecialBiserialQuiver", IsQuiver);
 DeclareProperty("IsSpecialBiserialAlgebra", IsPathAlgebra);

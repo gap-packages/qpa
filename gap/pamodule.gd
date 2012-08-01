@@ -1,6 +1,6 @@
 # GAP Declarations
 # This file was generated from
-# $Id: pamodule.gd,v 1.7 2012/04/16 09:20:23 sunnyquiver Exp $
+# $Id: pamodule.gd,v 1.8 2012/08/01 16:01:10 sunnyquiver Exp $
 DeclareCategory("IsPathModuleElem", IsVector);
 DeclareCategoryFamily( "IsPathModuleElem" );
 DeclareCategoryCollections( "IsPathModuleElem" );
@@ -17,3 +17,4 @@ DeclareAttribute( "DimensionVector", IsPathAlgebraMatModule );
 DeclareAttribute( "MinimalGeneratingSetOfModule", IsPathAlgebraMatModule );
 DeclareFilter( "IsAlgebraModuleHomomorphism", IsLeftModuleGeneralMapping );
 DeclareOperation( "DimensionVectorPartialOrder", [IsPathAlgebraMatModule, IsPathAlgebraMatModule ] );
+DeclareAttribute( "AnnihilatorOfModule", IsPathAlgebraMatModule );

@@ -1,6 +1,6 @@
 # GAP Implementation
 # This file was generated from 
-# $Id: decomp.gi,v 1.4 2012/04/17 06:28:39 sunnyquiver Exp $
+# $Id: decomp.gi,v 1.5 2012/08/01 16:01:10 sunnyquiver Exp $
 InstallMethod(ComplementInFullRowSpace, 
   "Compute the complement vector space of a row space", 
   true, 
@@ -173,4 +173,70 @@ InstallMethod(DecomposeModule,
     return List(idemmaps, x->Image(x,V));
 
   end
+);
+  
+#######################################################################
+##
+#O  DecomposeModuleWithMultiplicities( <M> )
+##
+##  Given a PathAlgebraMatModule this function decomposes the module 
+##  M  into indecomposable modules with multiplicities. First 
+##  decomposing the module  M = M_1 + M_2 + ... + M_t, then checking
+##  if  M_i  is isomorphic to M_1 for  i in [2..t], removing those
+##  indices from [2..t] which are isomorphic to M_1, call this set 
+##  rest, take the minimum from this, call it current, remove it from
+##  rest, and continue as above until rest is empty. 
+##
+InstallMethod ( DecomposeModuleWithMultiplicities, 
+    "for a IsPathAlgebraMatModule",
+    true,
+    [ IsPathAlgebraMatModule ], 
+    0,
+    function( M )
+
+    local L, current, non_iso_summands, rest, basic_summands, 
+          multiplicities, temprest, i;
+
+    if Dimension(M) = 0 then
+        return fail; 
+    fi;
+#
+#   Decompose the module  M.
+#
+    L := DecomposeModule(M);
+#
+#   Do the initial setup.
+#
+    current := 1;
+    non_iso_summands := 1;
+    rest := [2..Length(L)];
+    basic_summands := [];
+    multiplicities := [];
+    Add(basic_summands,L[1]);
+    Add(multiplicities,1);
+# 
+#   Go through the algorithm above to find the multiplicities.
+#   
+    while Length(rest) > 0 do
+        temprest := ShallowCopy(rest);
+        for i in temprest do
+            if DimensionVector(L[current]) = DimensionVector(L[i]) then
+                if CommonDirectSummand(L[current],L[i]) <> false then
+                    multiplicities[non_iso_summands] := 
+                        multiplicities[non_iso_summands] + 1;
+                    RemoveSet(rest,i);
+                fi;
+            fi;
+        od;
+        if Length(rest) > 0 then 
+            current := Minimum(rest);
+            non_iso_summands := non_iso_summands + 1;
+            Add(basic_summands,L[current]);
+            RemoveSet(rest,current);
+            Add(multiplicities,1);
+        fi;
+    od;
+
+    return [basic_summands,multiplicities];
+end
 );

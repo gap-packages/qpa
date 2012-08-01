@@ -1,6 +1,6 @@
 # GAP Implementation
 # This file was generated from 
-# $Id: pamodule.gi,v 1.19 2012/06/09 07:51:54 sunnyquiver Exp $
+# $Id: pamodule.gi,v 1.20 2012/08/01 16:01:10 sunnyquiver Exp $
 
 ZeroModElement:=function(fam,zero)
   local result,i;
@@ -1217,5 +1217,68 @@ InstallMethod( DimensionVectorPartialOrder,
    L2 := DimensionVector(N);
 
    return ForAll(L2-L1,x->(x>=0));
+end
+);
+
+#######################################################################
+##
+#A  AnnihilatorOfModule( <M> )
+##
+##  Given a module  M  over a (quotient of a) path algebra  A, this 
+##  function computes a vectorspace basis for the annihilator of  M
+##  in  A. 
+##
+InstallMethod ( AnnihilatorOfModule, 
+    "for a PathAlgebraMatModule",
+    true,
+    [ IsPathAlgebraMatModule ], 
+    0,
+    function( M )
+
+    local A, B, fam, gb, nontips, matrix, n, temp, m,
+          solutions, annihilator;
+
+    A := RightActingAlgebra(M);
+    #   
+    #  If the module  M  is zero, return the whole algebra.
+    #
+    if Dimension(M) = 0 then 
+        return BasisVectors(Basis(A));
+    fi;
+    B := BasisVectors(Basis(M));
+    #
+    #  Setting things up right according to the input.
+    #
+    if IsPathAlgebra(A) then 
+        nontips := BasisVectors(Basis(A));
+    elif IsQuotientOfPathAlgebra(A) then 
+        fam := ElementsFamily(FamilyObj(A));
+        gb := GroebnerBasisOfIdeal(fam!.ideal);
+        nontips := List(Nontips(gb), x -> x*One(A));
+    else
+        Error("the module is not a module over a (quotient of a) path algebra,");
+    fi;
+    #
+    #  Computing the linear system to solve in order to find the annihilator
+    #  of the module  M.
+    #
+    matrix := [];
+    for n in nontips do
+        temp := [];
+        for m in B do
+            Add(temp,ExtRepOfObj(ExtRepOfObj(m^n)));
+        od;
+        Add(matrix,temp);
+    od;
+
+    matrix := List(matrix, x -> Flat(x));
+    #
+    #  Finding the solutions of the linear system, and creating the solutions
+    #  as elements of the algebra  A.
+    #
+    solutions := NullspaceMat(matrix);
+    annihilator := List(solutions, x -> LinearCombination(nontips,x));
+
+    return annihilator;
 end
 );

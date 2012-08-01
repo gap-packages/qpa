@@ -5,3 +5,4 @@
 DeclareProperty( "IsIdealInPathAlgebra", IsFLMLOR );
 DeclareProperty( "IsAdmissibleIdeal",  IsIdealInPathAlgebra );
 DeclareProperty( "IsMonomialIdeal", IsIdealInPathAlgebra );
+DeclareOperation( "ProductOfIdeals", [ IsIdealInPathAlgebra, IsIdealInPathAlgebra ]);

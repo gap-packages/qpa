@@ -187,7 +187,7 @@
   
   [1X4.3-7 Nontips[0m
   
-  [2X> Nontips( [0X[3XGB[0X[2X ) ___________________________________________________[0Xoperation
+  [2X> Nontips( [0X[3XGB[0X[2X ) ___________________________________________________[0Xattribute
   
   Arguments: [3XGB[0m -- a Groebner basis.
   
