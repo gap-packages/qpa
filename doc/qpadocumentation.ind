@@ -4,7 +4,7 @@
   \item \texttt  {\texttt  {\char 92\relax }* (maps)}, \hyperpage{67}
   \item \texttt  {\texttt  {\char 92\relax }+ (maps)}, \hyperpage{67}
   \item \texttt  {.}, \hyperpage{17}, \hyperpage{24}
-  \item \texttt  {/}, \hyperpage{62}
+  \item \texttt  {/}, \hyperpage{61}
   \item \texttt  {{\textless }}, \hyperpage{21}, \hyperpage{25}, 
 		\hyperpage{33}, \hyperpage{61}
   \item \texttt  {=}, \hyperpage{20}
@@ -58,7 +58,7 @@
   \item \texttt  {DecomposeModuleWithMultiplicities}, \hyperpage{51}
   \item \texttt  {DifferentialOfComplex}, \hyperpage{88}
   \item \texttt  {DifferentialsOfComplex}, \hyperpage{88}
-  \item \texttt  {Dimension}, \hyperpage{30}, \hyperpage{52}
+  \item \texttt  {Dimension}, \hyperpage{30}, \hyperpage{51}
   \item \texttt  {DimensionVector}, \hyperpage{51}
   \item \texttt  {DirectSumInclusions}, \hyperpage{52}
   \item \texttt  {DirectSumOfModules}, \hyperpage{52}
@@ -139,7 +139,7 @@
   \item \texttt  {IsGroebnerBasis}, \hyperpage{41}
   \item \texttt  {IsHomogeneousGroebnerBasis}, \hyperpage{42}
   \item \texttt  {IsIdealInPathAlgebra}, \hyperpage{28}
-  \item \texttt  {IsInAdditiveClosure}, \hyperpage{54}
+  \item \texttt  {IsInAdditiveClosure}, \hyperpage{53}
   \item \texttt  {IsInjective}, \hyperpage{68}
   \item \texttt  {IsInjectiveComplex}, \hyperpage{98}
   \item \texttt  {IsInjectiveModule}, \hyperpage{54}
@@ -201,7 +201,7 @@
   \item \texttt  {LengthOfPath}, \hyperpage{20}
   \item \texttt  {LiftingInclusionMorphisms}, \hyperpage{74}
   \item \texttt  {LiftingMorphismFromProjective}, \hyperpage{74}
-  \item \texttt  {LoewyLength}, \hyperpage{31}, \hyperpage{55}
+  \item \texttt  {LoewyLength}, \hyperpage{31}, \hyperpage{54}
   \item \texttt  {LowerBound}, \hyperpage{90}
   \item \texttt  {LowestKnownDegree}, \hyperpage{90}
 
@@ -211,9 +211,9 @@
   \item \texttt  {MappedExpression}, \hyperpage{27}
   \item \texttt  {Matrices}\discretionary {-}{}{}\texttt  {Of}\discretionary {-}{}{}\texttt  {Path}\discretionary {-}{}{}\texttt  {Algebra}\discretionary {-}{}{}\texttt  {Mat}\discretionary {-}{}{}\texttt  {Module}\discretionary {-}{}{}\texttt  {Homomorphism}, 
 		\hyperpage{64}
-  \item \texttt  {MatricesOfPathAlgebraModule}, \hyperpage{57}
+  \item \texttt  {MatricesOfPathAlgebraModule}, \hyperpage{55}
   \item \texttt  {MaximalCommonDirectSummand}, \hyperpage{55}
-  \item \texttt  {MinimalGeneratingSetOfModule}, \hyperpage{57}
+  \item \texttt  {MinimalGeneratingSetOfModule}, \hyperpage{55}
   \item \texttt  {MinimalLeftApproximation}, \hyperpage{76}
   \item \texttt  {MinimalRightApproximation}, \hyperpage{76}
   \item \texttt  {MorphismOfChainMap}, \hyperpage{96}
@@ -230,7 +230,7 @@
   \item \texttt  {NontipSize}, \hyperpage{44}
   \item \texttt  {NthPowerOfArrowIdeal}, \hyperpage{28}
   \item \texttt  {NthSyzygy}, \hyperpage{55}
-  \item \texttt  {NthSyzygyNC}, \hyperpage{55}
+  \item \texttt  {NthSyzygyNC}, \hyperpage{56}
   \item \texttt  {NumberOfArrows}, \hyperpage{18}
   \item \texttt  {NumberOfVertices}, \hyperpage{18}
 
@@ -296,7 +296,7 @@
   \item \texttt  {Source}, \hyperpage{65}
   \item \texttt  {SourceOfPath}, \hyperpage{19}
   \item \texttt  {StalkComplex}, \hyperpage{87}
-  \item \texttt  {SubRepresentation}, \hyperpage{56}
+  \item \texttt  {SubRepresentation}, \hyperpage{57}
   \item \texttt  {SubRepresentationInclusion}, \hyperpage{80}
   \item \texttt  {SumOfSubmodules}, \hyperpage{57}
   \item \texttt  {SupportModuleElement}, \hyperpage{57}
@@ -315,7 +315,7 @@
   \item \texttt  {TopOfModule}, \hyperpage{57}
   \item \texttt  {TopOfModuleProjection}, \hyperpage{80}
   \item \texttt  {TransposeOfDual}, \hyperpage{59}
-  \item \texttt  {TransposeOfModule}, \hyperpage{60}
+  \item \texttt  {TransposeOfModule}, \hyperpage{59}
   \item \texttt  {TrD}, \hyperpage{59}
   \item \texttt  {TruncatedPathAlgebra}, \hyperpage{34}
 
@@ -325,7 +325,7 @@
 
   \indexspace
 
-  \item \texttt  {Vectorize}, \hyperpage{61}
+  \item \texttt  {Vectorize}, \hyperpage{60}
   \item \texttt  {VertexPosition}, \hyperpage{27}
   \item \texttt  {VerticesOfQuiver}, \hyperpage{17}
 
@@ -343,6 +343,6 @@
   \item \texttt  {ZeroChainMap}, \hyperpage{94}
   \item \texttt  {ZeroComplex}, \hyperpage{87}
   \item \texttt  {ZeroMapping}, \hyperpage{66}
-  \item \texttt  {ZeroModule}, \hyperpage{59}
+  \item \texttt  {ZeroModule}, \hyperpage{58}
 
 \end{theindex}

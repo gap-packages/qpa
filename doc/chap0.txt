@@ -227,13 +227,13 @@
       6.4-2 CommonDirectSummand
       6.4-3 DecomposeModule
       6.4-4 DecomposeModuleWithMultiplicities
-      6.4-5 DimensionVector
-      6.4-6 Dimension
-      6.4-7 IsDirectSummand
-      6.4-8 DirectSumOfModules
-      6.4-9 IsDirectSumOfModules
-      6.4-10 DirectSumInclusions
-      6.4-11 DirectSumProjections
+      6.4-5 Dimension
+      6.4-6 DimensionVector
+      6.4-7 DirectSumOfModules
+      6.4-8 DirectSumInclusions
+      6.4-9 DirectSumProjections
+      6.4-10 IsDirectSummand
+      6.4-11 IsDirectSumOfModules
       6.4-12 1stSyzygy
       6.4-13 IntersectionOfSubmodules
       6.4-14 IsInAdditiveClosure
@@ -245,22 +245,22 @@
       6.4-20 LoewyLength
       6.4-21 MaximalCommonDirectSummand
       6.4-22 IsomorphicModules
-      6.4-23 NthSyzygy
-      6.4-24 NthSyzygyNC
-      6.4-25 RadicalOfModule
-      6.4-26 RadicalSeries
-      6.4-27 SocleSeries
-      6.4-28 SocleOfModule
-      6.4-29 SubRepresentation
-      6.4-30 SumOfSubmodules
-      6.4-31 SupportModuleElement
-      6.4-32 TopOfModule
-      6.4-33 MinimalGeneratingSetOfModule
-      6.4-34 MatricesOfPathAlgebraModule
+      6.4-23 MinimalGeneratingSetOfModule
+      6.4-24 MatricesOfPathAlgebraModule
+      6.4-25 NthSyzygy
+      6.4-26 NthSyzygyNC
+      6.4-27 RadicalOfModule
+      6.4-28 RadicalSeries
+      6.4-29 SocleSeries
+      6.4-30 SocleOfModule
+      6.4-31 SubRepresentation
+      6.4-32 SumOfSubmodules
+      6.4-33 SupportModuleElement
+      6.4-34 TopOfModule
     6.5 Special representations
       6.5-1 BasisOfProjectives
-      6.5-2 IndecProjectiveModules
-      6.5-3 IndecInjectiveModules
+      6.5-2 IndecInjectiveModules
+      6.5-3 IndecProjectiveModules
       6.5-4 SimpleModules
       6.5-5 ZeroModule
     6.6 Functors on representations

@@ -3228,27 +3228,8 @@ properly over finite fields. }
 
  
 
-\subsection{\textcolor{Chapter }{DimensionVector}}
-\logpage{[ 6, 4, 5 ]}\nobreak
-\hyperdef{L}{X7B5EA4B0820DE28C}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{DimensionVector({\slshape M})\index{DimensionVector@\texttt{DimensionVector}}
-\label{DimensionVector}
-}\hfill{\scriptsize (operation)}}\\
-
-
- Arguments: \mbox{\texttt{\slshape M}} -- a path algebra module (\texttt{PathAlgebraMatModule}). \\
-\textbf{\indent Returns:\ }
-the dimension vector of the representation \mbox{\texttt{\slshape M}}. 
-
-
-
- A shortcoming of this that it is not defined for modules of quotients of path
-algebras. }
-
- 
-
 \subsection{\textcolor{Chapter }{Dimension}}
-\logpage{[ 6, 4, 6 ]}\nobreak
+\logpage{[ 6, 4, 5 ]}\nobreak
 \hyperdef{L}{X7E6926C6850E7C4E}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{Dimension({\slshape M})\index{Dimension@\texttt{Dimension}}
 \label{Dimension}
@@ -3263,26 +3244,24 @@ the dimension of the representation \mbox{\texttt{\slshape M}}.
 
  
 
-\subsection{\textcolor{Chapter }{IsDirectSummand}}
-\logpage{[ 6, 4, 7 ]}\nobreak
-\hyperdef{L}{X7E24DCE07E98E50D}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsDirectSummand({\slshape M, N})\index{IsDirectSummand@\texttt{IsDirectSummand}}
-\label{IsDirectSummand}
-}\hfill{\scriptsize (operation)}}\\
+\subsection{\textcolor{Chapter }{DimensionVector}}
+\logpage{[ 6, 4, 6 ]}\nobreak
+\hyperdef{L}{X7B5EA4B0820DE28C}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{DimensionVector({\slshape M})\index{DimensionVector@\texttt{DimensionVector}}
+\label{DimensionVector}
+}\hfill{\scriptsize (attribute)}}\\
 
 
- Arguments: \mbox{\texttt{\slshape M, N}} -- two path algebra modules (\texttt{PathAlgebraMatModule}s). \\
+ Arguments: \mbox{\texttt{\slshape M}} -- a path algebra module (\texttt{PathAlgebraMatModule}). \\
 \textbf{\indent Returns:\ }
-true if \mbox{\texttt{\slshape M}} is isomorphic to a direct summand of \mbox{\texttt{\slshape N}}, otherwise false.
+the dimension vector of the representation \mbox{\texttt{\slshape M}}. 
 
-
-
-The function checks if \mbox{\texttt{\slshape M}} and \mbox{\texttt{\slshape N}} are \texttt{PathAlgebraMatModule}s over the same (quotient of a) path algebra. }
+}
 
  
 
 \subsection{\textcolor{Chapter }{DirectSumOfModules}}
-\logpage{[ 6, 4, 8 ]}\nobreak
+\logpage{[ 6, 4, 7 ]}\nobreak
 \hyperdef{L}{X879541298181840D}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{DirectSumOfModules({\slshape L})\index{DirectSumOfModules@\texttt{DirectSumOfModules}}
 \label{DirectSumOfModules}
@@ -3299,24 +3278,8 @@ In addition three attributes are attached to the result, \texttt{IsDirectSumOfMo
 
  
 
-\subsection{\textcolor{Chapter }{IsDirectSumOfModules}}
-\logpage{[ 6, 4, 9 ]}\nobreak
-\hyperdef{L}{X7A50C15B87236111}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsDirectSumOfModules({\slshape M})\index{IsDirectSumOfModules@\texttt{IsDirectSumOfModules}}
-\label{IsDirectSumOfModules}
-}\hfill{\scriptsize (attribute)}}\\
-
-
- Arguments: \mbox{\texttt{\slshape M}} -- a path algebra module (\texttt{PathAlgebraMatModule}). \\
-\textbf{\indent Returns:\ }
- true if \mbox{\texttt{\slshape M}} is constructed via the command \texttt{DirectSumOfModules}. 
-
-}
-
- 
-
 \subsection{\textcolor{Chapter }{DirectSumInclusions}}
-\logpage{[ 6, 4, 10 ]}\nobreak
+\logpage{[ 6, 4, 8 ]}\nobreak
 \hyperdef{L}{X857807CF8560B3C4}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{DirectSumInclusions({\slshape M})\index{DirectSumInclusions@\texttt{DirectSumInclusions}}
 \label{DirectSumInclusions}
@@ -3333,7 +3296,7 @@ direct sum has been constructed using \texttt{DirectSumOfModules}.
  
 
 \subsection{\textcolor{Chapter }{DirectSumProjections}}
-\logpage{[ 6, 4, 11 ]}\nobreak
+\logpage{[ 6, 4, 9 ]}\nobreak
 \hyperdef{L}{X80CFB7E47A785E12}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{DirectSumProjections({\slshape M})\index{DirectSumProjections@\texttt{DirectSumProjections}}
 \label{DirectSumProjections}
@@ -3344,6 +3307,40 @@ direct sum has been constructed using \texttt{DirectSumOfModules}.
 \textbf{\indent Returns:\ }
  the list of projections from the direct sum to the individual modules used to
 construct direct sum, when a direct sum has been constructed using \texttt{DirectSumOfModules}. 
+
+}
+
+ 
+
+\subsection{\textcolor{Chapter }{IsDirectSummand}}
+\logpage{[ 6, 4, 10 ]}\nobreak
+\hyperdef{L}{X7E24DCE07E98E50D}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsDirectSummand({\slshape M, N})\index{IsDirectSummand@\texttt{IsDirectSummand}}
+\label{IsDirectSummand}
+}\hfill{\scriptsize (operation)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape M, N}} -- two path algebra modules (\texttt{PathAlgebraMatModule}s). \\
+\textbf{\indent Returns:\ }
+true if \mbox{\texttt{\slshape M}} is isomorphic to a direct summand of \mbox{\texttt{\slshape N}}, otherwise false.
+
+
+
+The function checks if \mbox{\texttt{\slshape M}} and \mbox{\texttt{\slshape N}} are \texttt{PathAlgebraMatModule}s over the same (quotient of a) path algebra. }
+
+ 
+
+\subsection{\textcolor{Chapter }{IsDirectSumOfModules}}
+\logpage{[ 6, 4, 11 ]}\nobreak
+\hyperdef{L}{X7A50C15B87236111}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IsDirectSumOfModules({\slshape M})\index{IsDirectSumOfModules@\texttt{IsDirectSumOfModules}}
+\label{IsDirectSumOfModules}
+}\hfill{\scriptsize (attribute)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape M}} -- a path algebra module (\texttt{PathAlgebraMatModule}). \\
+\textbf{\indent Returns:\ }
+ true if \mbox{\texttt{\slshape M}} is constructed via the command \texttt{DirectSumOfModules}. 
 
 }
 
@@ -3573,8 +3570,46 @@ returns true if the modules are isomorphic, otherwise false. }
 
  
 
-\subsection{\textcolor{Chapter }{NthSyzygy}}
+\subsection{\textcolor{Chapter }{MinimalGeneratingSetOfModule}}
 \logpage{[ 6, 4, 23 ]}\nobreak
+\hyperdef{L}{X821FA104861FF19B}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{MinimalGeneratingSetOfModule({\slshape M})\index{MinimalGeneratingSetOfModule@\texttt{MinimalGeneratingSetOfModule}}
+\label{MinimalGeneratingSetOfModule}
+}\hfill{\scriptsize (attribute)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape M}} -- a path algebra module (\texttt{PathAlgebraMatModule}). \\
+\textbf{\indent Returns:\ }
+a minimal generator set of the module \mbox{\texttt{\slshape M}} as a module of the path algebra it is defined over. 
+
+}
+
+ 
+
+\subsection{\textcolor{Chapter }{MatricesOfPathAlgebraModule}}
+\logpage{[ 6, 4, 24 ]}\nobreak
+\hyperdef{L}{X81BB198380631A9B}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{MatricesOfPathAlgebraModule({\slshape M})\index{MatricesOfPathAlgebraModule@\texttt{MatricesOfPathAlgebraModule}}
+\label{MatricesOfPathAlgebraModule}
+}\hfill{\scriptsize (operation)}}\\
+
+
+ Arguments: \mbox{\texttt{\slshape M}} -- a path algebra module (\texttt{PathAlgebraMatModule}). \\
+\textbf{\indent Returns:\ }
+a list of the matrices that defines the representation \mbox{\texttt{\slshape M}} as a right module of the acting path algebra. 
+
+
+
+ The list of matrices that are returned are not the same identical to the
+matrices entered to define the representation if there is zero vector space in
+at least one vertex. Then zero matrices of the appropriate size are returned.
+A shortcoming of this that it is not defined for modules of quotients of path
+algebras. }
+
+ 
+
+\subsection{\textcolor{Chapter }{NthSyzygy}}
+\logpage{[ 6, 4, 25 ]}\nobreak
 \hyperdef{L}{X7EB51A487B5B239D}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{NthSyzygy({\slshape M, n})\index{NthSyzygy@\texttt{NthSyzygy}}
 \label{NthSyzygy}
@@ -3590,7 +3625,7 @@ the top of the syzygies until a syzygy is projective or the \mbox{\texttt{\slsha
  
 
 \subsection{\textcolor{Chapter }{NthSyzygyNC}}
-\logpage{[ 6, 4, 24 ]}\nobreak
+\logpage{[ 6, 4, 26 ]}\nobreak
 \hyperdef{L}{X870531C67C402A64}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{NthSyzygyNC({\slshape M, n})\index{NthSyzygyNC@\texttt{NthSyzygyNC}}
 \label{NthSyzygyNC}
@@ -3606,7 +3641,7 @@ the \texttt{n}-th syzygy of the module \mbox{\texttt{\slshape M}}, unless the pr
  
 
 \subsection{\textcolor{Chapter }{RadicalOfModule}}
-\logpage{[ 6, 4, 25 ]}\nobreak
+\logpage{[ 6, 4, 27 ]}\nobreak
 \hyperdef{L}{X7E44920683157DE2}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{RadicalOfModule({\slshape M})\index{RadicalOfModule@\texttt{RadicalOfModule}}
 \label{RadicalOfModule}
@@ -3624,7 +3659,7 @@ the radical of the module \mbox{\texttt{\slshape M}}.
  
 
 \subsection{\textcolor{Chapter }{RadicalSeries}}
-\logpage{[ 6, 4, 26 ]}\nobreak
+\logpage{[ 6, 4, 28 ]}\nobreak
 \hyperdef{L}{X7929281B848A9FBE}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{RadicalSeries({\slshape M})\index{RadicalSeries@\texttt{RadicalSeries}}
 \label{RadicalSeries}
@@ -3643,7 +3678,7 @@ each simple. The first vector listed corresponds to the top layer, and so on. }
  
 
 \subsection{\textcolor{Chapter }{SocleSeries}}
-\logpage{[ 6, 4, 27 ]}\nobreak
+\logpage{[ 6, 4, 29 ]}\nobreak
 \hyperdef{L}{X84A724267E6F136D}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{SocleSeries({\slshape M})\index{SocleSeries@\texttt{SocleSeries}}
 \label{SocleSeries}
@@ -3663,7 +3698,7 @@ backwards. }
  
 
 \subsection{\textcolor{Chapter }{SocleOfModule}}
-\logpage{[ 6, 4, 28 ]}\nobreak
+\logpage{[ 6, 4, 30 ]}\nobreak
 \hyperdef{L}{X79DF34618798E866}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{SocleOfModule({\slshape M})\index{SocleOfModule@\texttt{SocleOfModule}}
 \label{SocleOfModule}
@@ -3681,7 +3716,7 @@ the socle of the module \mbox{\texttt{\slshape M}}.
  
 
 \subsection{\textcolor{Chapter }{SubRepresentation}}
-\logpage{[ 6, 4, 29 ]}\nobreak
+\logpage{[ 6, 4, 31 ]}\nobreak
 \hyperdef{L}{X858AC23C83AC843E}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{SubRepresentation({\slshape M, gens})\index{SubRepresentation@\texttt{SubRepresentation}}
 \label{SubRepresentation}
@@ -3700,7 +3735,7 @@ generated by the elements \mbox{\texttt{\slshape gens}} into \mbox{\texttt{\slsh
  
 
 \subsection{\textcolor{Chapter }{SumOfSubmodules}}
-\logpage{[ 6, 4, 30 ]}\nobreak
+\logpage{[ 6, 4, 32 ]}\nobreak
 \hyperdef{L}{X8653599686499CD6}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{SumOfSubmodules({\slshape list})\index{SumOfSubmodules@\texttt{SumOfSubmodules}}
 \label{SumOfSubmodules}
@@ -3721,7 +3756,7 @@ to the sum of the subrepresentations to $X$. }
  
 
 \subsection{\textcolor{Chapter }{SupportModuleElement}}
-\logpage{[ 6, 4, 31 ]}\nobreak
+\logpage{[ 6, 4, 33 ]}\nobreak
 \hyperdef{L}{X856EA09A83A5A636}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{SupportModuleElement({\slshape m})\index{SupportModuleElement@\texttt{SupportModuleElement}}
 \label{SupportModuleElement}
@@ -3740,7 +3775,7 @@ fail otherwise. }
  
 
 \subsection{\textcolor{Chapter }{TopOfModule}}
-\logpage{[ 6, 4, 32 ]}\nobreak
+\logpage{[ 6, 4, 34 ]}\nobreak
 \hyperdef{L}{X87F571327E43AFB4}{}
 {\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{TopOfModule({\slshape M})\index{TopOfModule@\texttt{TopOfModule}}
 \label{TopOfModule}
@@ -3754,44 +3789,6 @@ the top of the module \mbox{\texttt{\slshape M}}.
 
 
  This returns only the representation given by the top of the module \mbox{\texttt{\slshape M}}. The operation \texttt{TopOfModuleProjection} (\ref{TopOfModuleProjection}) computes the projection of the module \mbox{\texttt{\slshape M}} onto the top of the module \mbox{\texttt{\slshape M}}. }
-
- 
-
-\subsection{\textcolor{Chapter }{MinimalGeneratingSetOfModule}}
-\logpage{[ 6, 4, 33 ]}\nobreak
-\hyperdef{L}{X821FA104861FF19B}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{MinimalGeneratingSetOfModule({\slshape M})\index{MinimalGeneratingSetOfModule@\texttt{MinimalGeneratingSetOfModule}}
-\label{MinimalGeneratingSetOfModule}
-}\hfill{\scriptsize (attribute)}}\\
-
-
- Arguments: \mbox{\texttt{\slshape M}} -- a path algebra module (\texttt{PathAlgebraMatModule}). \\
-\textbf{\indent Returns:\ }
-a minimal generator set of the module \mbox{\texttt{\slshape M}} as a module of the path algebra it is defined over. 
-
-}
-
- 
-
-\subsection{\textcolor{Chapter }{MatricesOfPathAlgebraModule}}
-\logpage{[ 6, 4, 34 ]}\nobreak
-\hyperdef{L}{X81BB198380631A9B}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{MatricesOfPathAlgebraModule({\slshape M})\index{MatricesOfPathAlgebraModule@\texttt{MatricesOfPathAlgebraModule}}
-\label{MatricesOfPathAlgebraModule}
-}\hfill{\scriptsize (operation)}}\\
-
-
- Arguments: \mbox{\texttt{\slshape M}} -- a path algebra module (\texttt{PathAlgebraMatModule}). \\
-\textbf{\indent Returns:\ }
-a list of the matrices that defines the representation \mbox{\texttt{\slshape M}} as a right module of the acting path algebra. 
-
-
-
- The list of matrices that are returned are not the same identical to the
-matrices entered to define the representation if there is zero vector space in
-at least one vertex. Then zero matrices of the appropriate size are returned.
-A shortcoming of this that it is not defined for modules of quotients of path
-algebras. }
 
  }
 
@@ -3822,19 +3819,17 @@ message otherwise. }
 
  
 
-\subsection{\textcolor{Chapter }{IndecProjectiveModules}}
+\subsection{\textcolor{Chapter }{IndecInjectiveModules}}
 \logpage{[ 6, 5, 2 ]}\nobreak
-\hyperdef{L}{X85EDCFE27F66093F}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IndecProjectiveModules({\slshape A[, list]})\index{IndecProjectiveModules@\texttt{IndecProjectiveModules}}
-\label{IndecProjectiveModules}
-}\hfill{\scriptsize (operation)}}\\
+\hyperdef{L}{X87741234871B1F5C}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IndecInjectiveModules({\slshape A})\index{IndecInjectiveModules@\texttt{IndecInjectiveModules}}
+\label{IndecInjectiveModules}
+}\hfill{\scriptsize (attribute)}}\\
 
 
  Arguments: \mbox{\texttt{\slshape A}} -- a finite dimensional (quotient of a) path algebra, (optional) \mbox{\texttt{\slshape list}} -- a list of integers. \\
 \textbf{\indent Returns:\ }
-a list of all the indecomposable projective representations over \mbox{\texttt{\slshape A}}, when only one argument is supplied. The second argument should be a list of
-integers, for example [1, 3, 4], which will return the indecomposable
-projective corresponding to vertex 1, 3 and 4, in this order. 
+a list of all the non-isomorphic indecomposable injective representations over \mbox{\texttt{\slshape A}}. 
 
 
 
@@ -3843,19 +3838,18 @@ message otherwise. }
 
  
 
-\subsection{\textcolor{Chapter }{IndecInjectiveModules}}
+\subsection{\textcolor{Chapter }{IndecProjectiveModules}}
 \logpage{[ 6, 5, 3 ]}\nobreak
-\hyperdef{L}{X87741234871B1F5C}{}
-{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IndecInjectiveModules({\slshape A[, list]})\index{IndecInjectiveModules@\texttt{IndecInjectiveModules}}
-\label{IndecInjectiveModules}
-}\hfill{\scriptsize (operation)}}\\
+\hyperdef{L}{X85EDCFE27F66093F}{}
+{\noindent\textcolor{FuncColor}{$\Diamond$\ \texttt{IndecProjectiveModules({\slshape A})\index{IndecProjectiveModules@\texttt{IndecProjectiveModules}}
+\label{IndecProjectiveModules}
+}\hfill{\scriptsize (attribute)}}\\
 
 
- Arguments: \mbox{\texttt{\slshape A}} -- a finite dimensional (quotient of a) path algebra, (optional) \mbox{\texttt{\slshape list}} -- a list of integers. \\
+ Arguments: \mbox{\texttt{\slshape A}} -- a finite dimensional (quotient of a) path algebra. \\
 \textbf{\indent Returns:\ }
-a list of all the indecomposable injective representations over \mbox{\texttt{\slshape A}}, when only one argument is supplied. The second argument should be a list of
-integers, for example [1, 3, 4], which will return the indecomposable
-injective corresponding to vertex 1, 3 and 4, in this order. 
+a list of all the non-isomorphic indecomposable projective representations
+over \mbox{\texttt{\slshape A}}. 
 
 
 

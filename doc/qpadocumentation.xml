@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- $Id: qpadocumentation.xml,v 1.43 2012/08/01 20:29:02 sunnyquiver Exp $ -->
+<!-- $Id: qpadocumentation.xml,v 1.44 2012/08/02 10:10:22 sunnyquiver Exp $ -->
 
 <!DOCTYPE Book SYSTEM "gapdoc.dtd">
 <!-- [ <!ENTITY see '<Alt Only="LaTeX">$\to$</Alt><Alt Not="LaTeX">--&gt;</Alt>'>
@@ -1088,19 +1088,6 @@ gap> N:= RightModuleOverPathAlgebra(A,mat);
 </ManSection>
 
 <ManSection>
-   <Oper Name="DimensionVector" Arg="M" Comm="for a
-   PathAlgebraMatModule"/>
-   <Description> 
-   Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>).
-   <Br /></Description>
-   <Returns>the dimension vector of the representation <Arg>M</Arg>.
-   </Returns>
-   <Description> A shortcoming of this that it is not defined for
-     modules of quotients of path algebras.
-   </Description>
-</ManSection>
-
-<ManSection>
    <Oper Name="Dimension" Arg="M" Comm="for a
    PathAlgebraMatModule"/>
    <Description> 
@@ -1111,17 +1098,13 @@ gap> N:= RightModuleOverPathAlgebra(A,mat);
 </ManSection>
 
 <ManSection>
-   <Oper Name="IsDirectSummand" Arg="M, N" Comm="for two
-   PathAlgebraMatModule's"/>
+   <Attr Name="DimensionVector" Arg="M" Comm="for a
+   PathAlgebraMatModule"/>
    <Description> 
-   Arguments: <Arg>M, N</Arg> -- two path algebra modules (<C>PathAlgebraMatModule</C>s).
+   Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>).
    <Br /></Description>
-   <Returns>true if <Arg>M</Arg> is isomorphic to a direct summand
-     of <Arg>N</Arg>, otherwise false.</Returns>
-   <Description>The function checks if <Arg>M</Arg> and <Arg>N</Arg>
-     are <C>PathAlgebraMatModule</C>s over the same (quotient of a)
-     path algebra. 
-   </Description>
+   <Returns>the dimension vector of the representation <Arg>M</Arg>.
+   </Returns>
 </ManSection>
 
 <ManSection>
@@ -1136,17 +1119,6 @@ gap> N:= RightModuleOverPathAlgebra(A,mat);
      result, <C>IsDirectSumOfModules, DirectSumProjections</C>
      and <C>DirectSumInclusions</C>.  
    </Description>
-</ManSection>
-
-<ManSection>
-   <Attr Name="IsDirectSumOfModules" Arg="M" Comm="for a PathAlgebraMatModule"/>
-   <Description> 
-    Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>).
-   <Br /></Description>
-   <Returns>
-    true if <Arg>M</Arg> is constructed via the
-    command <C>DirectSumOfModules</C>.
-   </Returns>
 </ManSection>
 
 <ManSection>
@@ -1171,6 +1143,31 @@ gap> N:= RightModuleOverPathAlgebra(A,mat);
     to the individual modules used to construct direct sum, when a
     direct sum has been constructed
     using <C>DirectSumOfModules</C>.
+   </Returns>
+</ManSection>
+
+<ManSection>
+   <Oper Name="IsDirectSummand" Arg="M, N" Comm="for two
+   PathAlgebraMatModule's"/>
+   <Description> 
+   Arguments: <Arg>M, N</Arg> -- two path algebra modules (<C>PathAlgebraMatModule</C>s).
+   <Br /></Description>
+   <Returns>true if <Arg>M</Arg> is isomorphic to a direct summand
+     of <Arg>N</Arg>, otherwise false.</Returns>
+   <Description>The function checks if <Arg>M</Arg> and <Arg>N</Arg>
+     are <C>PathAlgebraMatModule</C>s over the same (quotient of a)
+     path algebra. 
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Attr Name="IsDirectSumOfModules" Arg="M" Comm="for a PathAlgebraMatModule"/>
+   <Description> 
+    Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>).
+   <Br /></Description>
+   <Returns>
+    true if <Arg>M</Arg> is constructed via the
+    command <C>DirectSumOfModules</C>.
    </Returns>
 </ManSection>
 
@@ -1356,6 +1353,34 @@ gap> inc:=DirectSumInclusions(N2);
 </ManSection>
 
 <ManSection>
+   <Attr Name="MinimalGeneratingSetOfModule" Arg="M" Comm=""/>
+   <Description> 
+    Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>).
+   <Br /></Description>
+   <Returns>a minimal generator set of the module <Arg>M</Arg> as a
+   module of the path algebra it is defined over. </Returns>
+</ManSection>
+
+<ManSection>
+   <Oper Name="MatricesOfPathAlgebraModule" Arg="M" Comm="for a
+   PathAlgebraMatModule"/>
+   <Description> 
+    Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>).
+   <Br /></Description>
+   <Returns>a list of the matrices that defines the
+     representation <Arg>M</Arg> as a right module of the acting path
+     algebra.
+   </Returns>
+   <Description> 
+     The list of matrices that are returned are not the same identical
+     to the matrices entered to define the representation if there is
+     zero vector space in at least one vertex. Then zero matrices of
+     the appropriate size are returned. A shortcoming of this that it
+     is not defined for modules of quotients of path algebras. 
+   </Description>
+</ManSection>
+
+<ManSection>
    <Oper Name="NthSyzygy" Arg="M, n" Comm="for a
    PathAlgebraMatModule"/>
    <Description> 
@@ -1511,33 +1536,6 @@ gap> inc:=DirectSumInclusions(N2);
    </Description>
 </ManSection>
 
-<ManSection>
-   <Attr Name="MinimalGeneratingSetOfModule" Arg="M" Comm=""/>
-   <Description> 
-    Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>).
-   <Br /></Description>
-   <Returns>a minimal generator set of the module <Arg>M</Arg> as a
-   module of the path algebra it is defined over. </Returns>
-</ManSection>
-
-<ManSection>
-   <Oper Name="MatricesOfPathAlgebraModule" Arg="M" Comm="for a
-   PathAlgebraMatModule"/>
-   <Description> 
-    Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>).
-   <Br /></Description>
-   <Returns>a list of the matrices that defines the
-     representation <Arg>M</Arg> as a right module of the acting path
-     algebra.
-   </Returns>
-   <Description> 
-     The list of matrices that are returned are not the same identical
-     to the matrices entered to define the representation if there is
-     zero vector space in at least one vertex. Then zero matrices of
-     the appropriate size are returned. A shortcoming of this that it
-     is not defined for modules of quotients of path algebras. 
-   </Description>
-</ManSection>
 
 </Section>
 
@@ -1562,40 +1560,34 @@ Here we collect the predefined representations/modules over a finite
   </ManSection>
 
   <ManSection>
-   <Oper Name="IndecProjectiveModules" Arg="A [, list]" Comm=""/>
+   <Attr Name="IndecInjectiveModules" Arg="A" Comm="for an algebra"/>
    <Description> 
     Arguments: <Arg>A</Arg> -- a finite dimensional (quotient of a) path
     algebra, (optional) <Arg>list</Arg> -- a list of integers.
    <Br /></Description>
-   <Returns>a list of all the indecomposable projective
-   representations over <Arg>A</Arg>, when only one argument is supplied. The
-   second argument should be a list of integers, for example [1, 3,
-   4], which will return the indecomposable projective corresponding
-   to vertex 1, 3 and 4, in this order.  
-   </Returns>
-   <Description>
-     The function checks if the algebra <Arg>A</Arg> is a
-     finite dimensional (quotient of a) path algebra, and returns an 
-     error message otherwise. 
-   </Description>
-  </ManSection>
-
-  <ManSection>
-   <Oper Name="IndecInjectiveModules" Arg="A [, list]" Comm=""/>
-   <Description> 
-    Arguments: <Arg>A</Arg> -- a finite dimensional (quotient of a) path
-    algebra, (optional) <Arg>list</Arg> -- a list of integers.
-   <Br /></Description>
-   <Returns>a list of all the indecomposable injective
-   representations over <Arg>A</Arg>, when only one argument is supplied. The
-   second argument should be a list of integers, for example [1, 3,
-   4], which will return the indecomposable injective corresponding
-   to vertex 1, 3 and 4, in this order.
+   <Returns>a list of all the non-isomorphic indecomposable injective
+   representations over <Arg>A</Arg>. 
    </Returns>
    <Description>
      The function checks if the algebra <Arg>A</Arg> is a finite
      dimensional (quotient of a) path algebra, and returns an error
      message otherwise. 
+   </Description>
+  </ManSection>
+
+  <ManSection>
+   <Attr Name="IndecProjectiveModules" Arg="A" Comm="for an algebra"/>
+   <Description> 
+    Arguments: <Arg>A</Arg> -- a finite dimensional (quotient of a) path
+    algebra.
+   <Br /></Description>
+   <Returns>a list of all the non-isomorphic indecomposable projective
+   representations over <Arg>A</Arg>. 
+   </Returns>
+   <Description>
+     The function checks if the algebra <Arg>A</Arg> is a
+     finite dimensional (quotient of a) path algebra, and returns an 
+     error message otherwise. 
    </Description>
   </ManSection>
 
@@ -1652,7 +1644,6 @@ Here we collect the predefined representations/modules over a finite
     the dual of this map over the opposite path algebra <Arg>A^op</Arg>.
    </Returns>
 </ManSection>
-
 
 <ManSection>
    <Oper Name="DTr" Arg="M, [ n ]" Comm="for a PathAlgebraMatModule and an
