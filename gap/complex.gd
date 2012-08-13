@@ -55,6 +55,8 @@ DeclareOperation( "BrutalTruncation", [ IsComplex, IsInt, IsInt ] );
 DeclareOperation( "SyzygyTruncation", [ IsComplex, IsInt ] );
 DeclareOperation( "CosyzygyTruncation", [ IsComplex, IsInt ] );
 DeclareOperation( "SyzygyCosyzygyTruncation", [ IsComplex, IsInt, IsInt ] );
+DeclareOperation( "CutComplexAbove", [ IsComplex ] );
+DeclareOperation( "CutComplexBelow", [ IsComplex ] );
 
 DeclareGlobalFunction( "Complex" );
 # Complex( cat, basePosition, differentials, [ "repeat", [ f, g, h ] ], "zero" );

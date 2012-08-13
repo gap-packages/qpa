@@ -741,6 +741,49 @@ function( C, i, j )
   
 end );
 
+# for a bounded below complex C which is stored as an infinite complex, 
+# but is known to be finite.
+InstallMethod( CutComplexAbove,
+[ IsComplex ],
+function( C )
+    local i, obj;
+    if (IsInt(UpperBound(C))) then
+        return C;
+    else
+       i := LowerBound(C);
+       while true do
+           obj := ObjectOfComplex(C, i);
+           if (IsZero(DimensionVector(obj))) then
+               return BrutalTruncationAbove(C, i-1);
+           fi;
+           i := i+1;
+       od;
+   fi;
+
+end );               
+
+# for a bounded above complex C which is stored as an infinite complex, 
+# but is known to be finite.
+InstallMethod( CutComplexBelow,
+[ IsComplex ],
+function( C )
+    local i, obj;
+    if (IsInt(LowerBound(C))) then
+        return C;
+    else
+       i := UpperBound(C);
+       while true do
+           obj := ObjectOfComplex(C, i);
+           if (IsZero(DimensionVector(obj))) then
+               return BrutalTruncationBelow(C, i+1);
+           fi;
+           i := i-1;
+       od;
+   fi;
+
+end );               
+
+
 InstallGlobalFunction( ComplexByDifferentialList,
 [ IsCat, IsInfList ],
 function( cat, differentials )
