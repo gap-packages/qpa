@@ -1,6 +1,6 @@
 # GAP Implementation
 # This file was generated from 
-# $Id: decomp.gi,v 1.5 2012/08/01 16:01:10 sunnyquiver Exp $
+# $Id: decomp.gi,v 1.6 2012/08/15 07:34:50 sunnyquiver Exp $
 InstallMethod(ComplementInFullRowSpace, 
   "Compute the complement vector space of a row space", 
   true, 
@@ -151,29 +151,29 @@ end
 #);
 #
 
-InstallMethod(DecomposeModule, 
-  "for f. p. path algebra modules",
-  true, 
-  [IsFpPathAlgebraModule], 0,
-  function(V)
-    local endo, idemmats, idemmaps, dbasis, rbasis, x, genmats, genmaps;
-
-    endo:=End(ActingAlgebra(V), V);
-    genmaps:=BasisVectors(Basis(endo));
-    genmats:=List(genmaps, x->TransposedMat(x!.matrix));
-    dbasis:=genmaps[1]!.basissource;
-    rbasis:=genmaps[1]!.basisrange;
-    idemmats:=IdempotentsForDecomposition(AlgebraWithOne(LeftActingDomain(V),genmats));
-    idemmaps:=List(idemmats, x->LeftModuleHomomorphismByMatrix(dbasis, TransposedMat(x), rbasis));
-
-    for x in idemmaps do
-      SetFilterObj(x, IsAlgebraModuleHomomorphism);
-    od;
-
-    return List(idemmaps, x->Image(x,V));
-
-  end
-);
+#InstallMethod(DecomposeModule, 
+#  "for f. p. path algebra modules",
+#  true, 
+#  [IsFpPathAlgebraModule], 0,
+#  function(V)
+#    local endo, idemmats, idemmaps, dbasis, rbasis, x, genmats, genmaps;
+#
+#    endo:=End(ActingAlgebra(V), V);
+#    genmaps:=BasisVectors(Basis(endo));
+#    genmats:=List(genmaps, x->TransposedMat(x!.matrix));
+#    dbasis:=genmaps[1]!.basissource;
+#    rbasis:=genmaps[1]!.basisrange;
+#    idemmats:=IdempotentsForDecomposition(AlgebraWithOne(LeftActingDomain(V),genmats));
+#    idemmaps:=List(idemmats, x->LeftModuleHomomorphismByMatrix(dbasis, TransposedMat(x), rbasis));
+#
+#    for x in idemmaps do
+#      SetFilterObj(x, IsAlgebraModuleHomomorphism);
+#    od;
+#
+#    return List(idemmaps, x->Image(x,V));
+#
+#  end
+#);
   
 #######################################################################
 ##
