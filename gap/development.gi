@@ -1973,7 +1973,7 @@ InstallMethod( ExtAlgebraGenerators,
         fi;
     od;
     dim_ext_groups := List(extgroups, x -> Length(x[2]));
-    Print(Dimension(EndM) - Dimension(J)," generators in degree 0.\n");    
+#    Print(Dimension(EndM) - Dimension(J)," generators in degree 0.\n");    
     #
     #   Computing Ext^j(M,M) x Ext^(i-j)(M,M) for j = 1..i-1 and i = 2..n.
     #
@@ -2010,12 +2010,12 @@ InstallMethod( ExtAlgebraGenerators,
                 p := NaturalHomomorphismBySubspace(W,V);
                 tempgens := List(BasisVectors(Basis(Range(p))), x -> PreImagesRepresentative(p,x));
                 extalggenerators[i+1] := List(tempgens, x -> LinearCombination(extgroups[i+1][2],x));                 
-                Print(Length(extgroups[i+1][2]) - Dimension(V)," new generator(s) in degree ",i,".\n");
+#                Print(Length(extgroups[i+1][2]) - Dimension(V)," new generator(s) in degree ",i,".\n");
             fi;
         elif dim_ext_groups[i+1] <> 0 then 
             generators[i+1] := Length(extgroups[i+1][2]); 
             extalggenerators[i+1] := extgroups[i+1][2];                 
-            Print(Length(extgroups[i+1][2])," new generator(s) in degree ",i,".\n");
+#            Print(Length(extgroups[i+1][2])," new generator(s) in degree ",i,".\n");
         fi;
     od; 
     dim_ext_groups[1] := Dimension(EndM);
@@ -2178,23 +2178,23 @@ InstallMethod ( PredecessorsOfModule,
     #
     # Initializing the data structures.
     #
-    layers := [];
+    layers := List([1..n + 2], x -> []);
     valuation := List([1..n], x -> []);
     #
     # Layer number 1 is the entered module.
     #
-    Add(layers,[M]);
+    Add(layers[1],M);
     #
     # Layer number 2 is the indecomposable modules in the 
     # middel term of the almost split sequence ending in  M.
     #
     L := AlmostSplitSequence(M);
     middleterm := DecomposeModuleWithMultiplicities(Range(L[1]));
-    Add(layers,middleterm[1]);
+    Append(layers[2],middleterm[1]);
     #
     # First entry in the third layer is  DTr(M).
     #
-    Add(layers,[Source(L[1])]);
+    Add(layers[3],Source(L[1]));
     #
     # Adding the valuation of the irreducible maps from layer
     # 2 to layer 1 and from the one module  DTr(M)  in layer 3 
@@ -2210,6 +2210,9 @@ InstallMethod ( PredecessorsOfModule,
     i := 2;
     while ( i in [2..n-1] ) and ( Length(layers) >= i ) do 
         for N in layers[i] do
+            if not IsPathAlgebraMatModule(N) then 
+                Error("not PathAlgebraMatModule.");
+            fi;
             if not IsProjectiveModule(N) then 
     #
     # Computing the almost split sequence ending in  N.
@@ -2222,11 +2225,7 @@ InstallMethod ( PredecessorsOfModule,
     #
     # Adding  DTr(N)  to the  (i + 2)-th layer.
     #
-                if Length(layers) = i + 1 then 
-                    Add(layers,[Source(L[1])]);
-                else
-                    Add(layers[i+2],Source(L[1]));
-                fi;
+                Add(layers[i+2],Source(L[1]));
     #
     # Adding the middel term to the  (i + 1)-th layer.
     #
