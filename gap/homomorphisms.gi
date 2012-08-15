@@ -1,5 +1,5 @@
 # GAP Implementation
-# $Id: homomorphisms.gi,v 1.38 2012/08/01 16:01:10 sunnyquiver Exp $
+# $Id: homomorphisms.gi,v 1.39 2012/08/15 07:44:48 sunnyquiver Exp $
 
 #############################################################################
 ##
@@ -1995,7 +1995,7 @@ InstallMethod ( LiftingMorphismFromProjective,
    0,
    function( f, g )
 
-   local K, B, inclusions, projections, i, m, hmap; 
+   local P, K, B, inclusions, projections, i, m, hmap; 
 #
 #  Checking if the input is as required
 # 
