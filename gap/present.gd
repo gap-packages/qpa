@@ -1,6 +1,6 @@
 # GAP Declarations
 # This file was generated from
-# $Id: present.gd,v 1.1 2010/05/07 13:30:13 sunnyquiver Exp $
+# $Id: present.gd,v 1.2 2012/09/03 07:06:45 sunnyquiver Exp $
 DeclareInfoClass( "InfoPathAlgebraModule" );
 
 DeclareProperty( "IsPathAlgebraModule", IsAlgebraModule );
@@ -31,7 +31,7 @@ DeclareCategory( "IsBasisOfPathAlgebraVectorSpace", IsBasis );
 DeclareOperation( "RightProjectiveModule", [IsRing, IsObject] );
 DeclareAttribute( "UniformGeneratorsOfModule", IsPathAlgebraModule );
 DeclareAttribute( "RightGroebnerBasisOfModule", IsPathAlgebraModule );
-
+DeclareOperation( "RightGroebnerBasisOfModule", [IsRing, IsHomogeneousList] );
 DeclareCategory( "IsPathAlgebraModuleGroebnerBasis", IsObject );
 DeclareProperty( "IsRightPathAlgebraModuleGroebnerBasis",
                  IsPathAlgebraModuleGroebnerBasis );

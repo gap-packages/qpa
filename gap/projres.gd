@@ -1,17 +1,18 @@
 # Projective Resolutions File
 # This file was generated from
-# $Id: projres.gd,v 1.2 2010/08/05 17:39:37 uid414323 Exp $
+# $Id: projres.gd,v 1.3 2012/09/03 07:06:45 sunnyquiver Exp $
 DeclareInfoClass( "InfoProjectiveResolutionFpPathAlgebraModule" );
 
 DeclareCategory("IsProjectiveResolutionFpPathAlgebraModule",IsObject);
-DeclareAttribute("ParentAlgebra", IsProjectiveResolutionFpPathAlgebraModule);
-DeclareAttribute("Maps", IsProjectiveResolutionFpPathAlgebraModule);
 DeclareAttribute("Module", IsProjectiveResolutionFpPathAlgebraModule);
-DeclareAttribute("Projectives", IsProjectiveResolutionFpPathAlgebraModule);
-DeclareAttribute("RProjectives", IsProjectiveResolutionFpPathAlgebraModule);
-DeclareAttribute("ProjectivesVertexList", IsProjectiveResolutionFpPathAlgebraModule);
-DeclareAttribute("ProjectivesFList", IsProjectiveResolutionFpPathAlgebraModule);
-DeclareAttribute("ProjectivesFPrimeList", IsProjectiveResolutionFpPathAlgebraModule);
+DeclareAttribute("ParentAlgebra", IsProjectiveResolutionFpPathAlgebraModule);
+DeclareAttribute("RingIdeal", IsProjectiveResolutionFpPathAlgebraModule);
+DeclareAttribute("Maps", IsProjectiveResolutionFpPathAlgebraModule,"mutable");
+DeclareAttribute("Projectives", IsProjectiveResolutionFpPathAlgebraModule,"mutable");
+DeclareAttribute("RProjectives", IsProjectiveResolutionFpPathAlgebraModule,"mutable");
+DeclareAttribute("RProjectivesVertexList", IsProjectiveResolutionFpPathAlgebraModule,"mutable");
+DeclareAttribute("ProjectivesFList", IsProjectiveResolutionFpPathAlgebraModule,"mutable");
+DeclareAttribute("ProjectivesFPrimeList", IsProjectiveResolutionFpPathAlgebraModule,"mutable");
 
 #############################################################################
 ##
@@ -41,7 +42,13 @@ DeclareOperation("ProjectiveResolutionFpPathAlgebraModule",
     IsPosInt ]
 );
 
-#DeclareOperation("ProjectiveResolutionFpPathAlgebraModule", [IsAlgebra,IsMatrix]);
+DeclareOperation("FindNextRProjective",
+  [ IsProjectiveResolutionFpPathAlgebraModule, IsRing, IsPosInt ]
+);
+
+DeclareOperation("FindNextSyzygy",
+  [ IsProjectiveResolutionFpPathAlgebraModule, IsPosInt ]
+);
 
 DeclareOperation("XSetOfPathAlgebraVector",
   [ IsVertexProjectiveModule,

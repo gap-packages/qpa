@@ -1,6 +1,6 @@
 # GAP Implementation
 # This file was generated from 
-# $Id: present.gi,v 1.4 2012/02/27 12:26:34 sunnyquiver Exp $
+# $Id: present.gi,v 1.5 2012/09/03 07:06:45 sunnyquiver Exp $
 InstallMethod( IsNormalForm,
   "for path algebra vectors",
   true,
@@ -763,9 +763,50 @@ InstallMethod( \in,
 #
 # RightProjectiveModule
 #
-# dependencies:
-#   present.gi
 #
+
+InstallMethod( RightProjectiveModule,
+  "for path algebra A and list of uniform elements of A",
+  IsIdenticalObj,
+  [ IsPathAlgebra, IsHomogeneousList ], 0,
+  function( A, els )
+    local i, fam, zero, gen, gens, M;
+
+    if not ( ForAll(els, IsUniform) and ForAll(els, x-> \in(x, A)) ) then
+      TryNextMethod();
+      Error("<els> should be a list of right uniform elements in ",A,"\n");
+    fi;
+
+    fam := NewFamily( "IsPathAlgebraVectorFamily", IsPathAlgebraVector );
+    fam!.defaultType := NewType( fam, IsPathAlgebraVectorDefaultRep
+                                      and IsNormalForm );
+    fam!.vectorLen := Length(els);
+    fam!.elements := Immutable(els);
+    fam!.componentFam := FamilyObj(A);
+    fam!.zeroPath := Zero(QuiverOfPathAlgebra(A));
+    zero := Zero(A);
+    fam!.zeroVector := PathAlgebraVectorNC(fam,
+        ListWithIdenticalEntries(fam!.vectorLen, zero),
+        fam!.vectorLen + 1, true);
+
+    gens := [];
+    for i in [1..fam!.vectorLen] do
+      gen := ListWithIdenticalEntries(fam!.vectorLen, zero);
+      gen[i] := els[i];
+      Add(gens, PathAlgebraVectorNC( fam, gen, i, true));
+    od;
+
+    M := RightAlgebraModuleByGenerators( A, \^, gens );
+    SetIsPathAlgebraModule( M, true );
+    SetIsVertexProjectiveModule( M, true );
+    SetIsWholeFamily( M, true );
+    fam!.wholeModule := M;
+
+    return M;
+
+  end
+);
+
 
 InstallMethod( RightProjectiveModule,
   "for path algebra and list of vertices",
@@ -779,6 +820,7 @@ InstallMethod( RightProjectiveModule,
                                     and One(TipCoefficient(x)) = TipCoefficient(x);
                          end )
     then
+      TryNextMethod();
       Error("<verts> should be a list of embedded vertices");
     fi;
 
