@@ -1,6 +1,6 @@
 # GAP Implementation
 # This file was generated from 
-# $Id: present.gi,v 1.5 2012/09/03 07:06:45 sunnyquiver Exp $
+# $Id: present.gi,v 1.6 2012/09/11 12:05:26 sunnyquiver Exp $
 InstallMethod( IsNormalForm,
   "for path algebra vectors",
   true,
@@ -868,6 +868,7 @@ InstallMethod( RightProjectiveModule,
                            and One(TipCoefficient(x)) = TipCoefficient(x);
                          end )
     then
+      TryNextMethod();
       Error("<verts> should be a list of embedded vertices");
     fi;
 

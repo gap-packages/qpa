@@ -1,6 +1,6 @@
 # GAP Implementation
 # This file was generated from
-# $Id: projres.gi,v 1.4 2012/09/03 07:06:45 sunnyquiver Exp $
+# $Id: projres.gi,v 1.5 2012/09/11 12:05:26 sunnyquiver Exp $
 #
 
 
@@ -173,6 +173,7 @@ InstallMethod( ProjectiveResolutionFpPathAlgebraModule,
 
     # Convert vertex set from 'lverts', create P^2 and L^2:
     rverts := List(lverts, x -> x*One(R));
+#Print("rverts: Convert vertex set from 'lverts', create P^2 and L^2: ", rverts,"\n");    
     P[2] := RightProjectiveModule( R, rverts );
 
     lverts := List(lverts, x -> x*One(A));
@@ -218,6 +219,7 @@ InstallMethod( ProjectiveResolutionFpPathAlgebraModule,
 
     # Convert vertex set from 'lverts', create P^3:
     rverts := List(lverts, x -> x*One(R));
+#Print("rverts: Convert vertex set from 'lverts', create P^3: ", rverts,"\n");        
     P[3] := RightProjectiveModule( R, rverts );
 
     # Hmmm...
@@ -269,6 +271,7 @@ InstallMethod( ProjectiveResolutionFpPathAlgebraModule,
 
         # Convert vertex set from 'lverts', create P^(k+1):
         rverts := List(lverts, x -> x*One(R));
+#Print("rverts: Convert vertex set from 'lverts', create P^(k+1): ", rverts,"\n");            
         P[k+1] := RightProjectiveModule( R, rverts );
 
         lverts := List(lverts, x -> x*One(A));
@@ -557,7 +560,7 @@ InstallMethod( ProjectiveResolutionFpPathAlgebraModule,
     for el in maps[2] do
       XSet := XSetOfPathAlgebraVector(P[2], I,Vectorize(P[2], el)![1]);
 
-Print("XSet: ",XSet,"\n");
+#Print("XSet: ",XSet,"\n");
 
       for el2 in XSet[1] do
         tmp := Vectorize(P[2],el)![1]^el2[2] - el2[1]![1]; 
@@ -584,13 +587,13 @@ Print("XSet: ",XSet,"\n");
    for el in maps[3] do
       XSet := XSetOfPathAlgebraVector(P[3], I,Vectorize(P[3], el)![1]);
 
-Print("XSet: ",XSet,"\n");
+#Print("XSet: ",XSet,"\n");
 
       for el2 in XSet[1] do
         tmp := Vectorize(P[3],el)![1]^el2[2] - el2[1]![1]; 
-Print("\ttmp: ",tmp,"\n");
+#Print("\ttmp: ",tmp,"\n");
         if not IsZero(tmp) then
-Print("firstpart: ",FirstPart(mapstmp,tmp),"\n");
+#Print("firstpart: ",FirstPart(mapstmp,tmp),"\n");
 
           maps[4][i] := FirstPart(mapstmp,tmp);
           f[4][i] := tmp;
@@ -751,9 +754,9 @@ InstallMethod( XSetOfPathAlgebraVector,
 
 #Print("\t\t\tsyzygy: ",el![1]*p-tmpel,"\n");
                     # Only include nonzero elements:
-                    if not IsZero(el![1]*p-tmpel) then
+#                    if not IsZero(el![1]*p-tmpel) then
                       Add(OSet, [Vectorize(P,el![1]*p-tmpel),p]);
-                    fi;
+#                    fi;
                   fi;
 
                 fi;
