@@ -1,6 +1,6 @@
 # Projective Resolutions File
 # This file was generated from
-# $Id: projres.gd,v 1.3 2012/09/03 07:06:45 sunnyquiver Exp $
+# $Id: projres.gd,v 1.4 2012/09/22 06:38:13 sunnyquiver Exp $
 DeclareInfoClass( "InfoProjectiveResolutionFpPathAlgebraModule" );
 
 DeclareCategory("IsProjectiveResolutionFpPathAlgebraModule",IsObject);
@@ -51,13 +51,13 @@ DeclareOperation("FindNextSyzygy",
 );
 
 DeclareOperation("XSetOfPathAlgebraVector",
-  [ IsVertexProjectiveModule,
+  [ IsHomogeneousList, IsHomogeneousList,
     IsRing and HasGroebnerBasisOfIdeal,
-    IsPathAlgebraVector]
+    IsPathAlgebraVector ]
 );
 
 DeclareOperation("FirstPart",
-  [ IsHomogeneousList, IsPathAlgebraVector ]
+  [ IsHomogeneousList, IsHomogeneousList, IsPathAlgebraVector ]
 );
 
 DeclareOperation("TipReduce",

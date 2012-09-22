@@ -1,6 +1,6 @@
 # GAP Implementation
 # This file was generated from
-# $Id: projres.gi,v 1.5 2012/09/11 12:05:26 sunnyquiver Exp $
+# $Id: projres.gi,v 1.6 2012/09/22 06:38:13 sunnyquiver Exp $
 #
 
 
@@ -10,37 +10,35 @@ InstallMethod( ProjectiveResolutionFpPathAlgebraModule,
   [ IsAlgebra, IsRing and HasGroebnerBasisOfIdeal, IsRingElementTable, IsPosInt ], 0,
   function(A,I,presentation_map, termint)
     local Res, gen, len, verts, gVerts, rverts, paverts, lverts, RelementsFam, el, el2,
-          f, fprime, i, j, k, tmp, L, P, N, M, R, X1, Y1, G, rtG, rtGBofN, maps,
-          II, rtGBofII, XSet, perm, mapstmp;
-
-    # R-projectives:
-    P := [];
-
-    # R/I-projectives:
-    L := [];
-
-    # f list:
-    f := [];
-
-    # resolution maps:
-    maps := [];
-
+          f, fprime, fprev, fprevprime, i, j, k, m, tmp, L, P, N, M, R, X1, Y1, G, rtG, rtGBofN, maps,
+          II, rtGBofII, XSet, perm, mapstmp, finf0, fprimeinf0, temp, temp2;
+    #
+    # Initializing variables
+    #
+    P := [];       # R-projectives:
+    L := [];       # R/I-projectives:
+    finf0 := [];
+    fprimeinf0 :=[];
+    maps := [];    # resolution maps:
+    #
+    # Checking input
+    #
     if not (IsPathAlgebra(A) or IsQuotientOfPathAlgebra(A)) then
         TryNextMethod();
     fi;
 
     # Make sure generators are not empty
     if IsEmpty(presentation_map) then
-        Error("Usage: ProjectiveResolutionFpPathAlgebraModule( <A>, <I>, <presentation_map> )",
+        Error("Usage: ProjectiveResolutionFpPathAlgebraModule( <A>, <I>, <presentation_map>, <n> )",
               " <presentation_map> must be nonempty.");
     fi;
 
     # Make sure all entries are left uniform
     for gen in presentation_map do
-      if not ForAll(gen, IsLeftUniform) then
-        Error("Usage: ProjectiveResolutionFpPathAlgebraModule( <A>, <I>, <presentation_map> )",
+        if not ForAll(gen, IsLeftUniform) then
+            Error("Usage: ProjectiveResolutionFpPathAlgebraModule( <A>, <I>, <presentation_map>, <n> )",
               " entries in <presentation_map> must be left uniform.");
-      fi;
+        fi;
     od;
 
     # Get the starting vertex of each element in first row:
@@ -51,21 +49,20 @@ InstallMethod( ProjectiveResolutionFpPathAlgebraModule,
 
     # Verify we really have proper presentation:
     for gen in presentation_map do 
-      gVerts := List(gen, x -> SourceVertex(LeadingMonomial(x)));
-      
-      for i in [1..Length(verts)] do
-        if IsZeroPath(verts[i]) and not IsZeroPath(gVerts[i]) then
-          verts[i] := gVerts[i];
-        elif verts[i] <> gVerts[i] and not IsZeroPath(gVerts[i]) then
-          Error("Usage: ProjectiveResolutionFpPathAlgebraModule( <A>, <I>, <presentation_map> )",
+        gVerts := List(gen, x -> SourceVertex(LeadingMonomial(x)));
+        for i in [1..Length(verts)] do
+            if IsZeroPath(verts[i]) and not IsZeroPath(gVerts[i]) then
+                verts[i] := gVerts[i];
+            elif verts[i] <> gVerts[i] and not IsZeroPath(gVerts[i]) then
+                Error("Usage: ProjectiveResolutionFpPathAlgebraModule( <A>, <I>, <presentation_map>, <n> )",
                 " <presentation_map> contains mismatched starting vertices.");
-        fi;     
-      od;
+            fi;     
+        od;
     od;
     
     # Check columns are non-zero:
     if not ForAll(verts, x -> not IsZeroPath(x)) then
-      Error("Usage: ProjectiveResolutionFpPathAlgebraModule( <A>, <I>, <presentation_map> )",
+        Error("Usage: ProjectiveResolutionFpPathAlgebraModule( <A>, <I>, <presentation_map>, <n> )",
             " <presentation_map> contains all zeroes in some column.");
     fi;
 
@@ -74,216 +71,210 @@ InstallMethod( ProjectiveResolutionFpPathAlgebraModule,
 
     # Get right groebner basis for ideal:
     rtG := RightGroebnerBasis(I);
-#Print("rtG: ",rtG!.relations,"\n");
 
     # Get family for ring:
     RelementsFam := ElementsFamily(FamilyObj(R));
 
     # Create vertex set (all in the path algebra) from 'verts':
-#Print("verts: ",verts,"\n");
     paverts := List(verts, x -> x*One(A));
-#Print("paverts: ",paverts,"\n");
 
     # Create vertex set (all in the ring) from 'verts':
     rverts := List(verts, x -> x*One(R));
-#Print("rverts: ", rverts,"\n");
 
     # Ok, everything is good, construct the module L^0 from vertices in first row:
     L[1] := RightProjectiveModule( A, paverts );
     P[1] := RightProjectiveModule( R, rverts );
+    finf0[1] := GeneratorsOfAlgebraModule(P[1]); # f0's
+    fprimeinf0[1] := [];  # f0prime's
+#    Print("finf0[1]: ",finf0[1],"\n");
 
     # Convert elements in map from elements in R/I to elements in R:
     X1 := [];
     i := 1;
     for i in [1..Length(presentation_map)] do
-      X1[i] := List(presentation_map[i], x -> ObjByExtRep(RelementsFam,ExtRepOfObj(x)));
+        X1[i] := List(presentation_map[i], x -> ObjByExtRep(RelementsFam,ExtRepOfObj(x)));
     od;
-#Print("X1 (prevectors): ",X1,"\n");
 
     # first map:
     maps[1] := ShallowCopy(X1);
 
     X1 := List( X1, x -> Vectorize(P[1], x) );
-#Print("X1: ",X1,"\n");
 
     # Create set Y1 to union with X1 for the lift:
     Y1 := [];
     for i in [1..Length(rverts)] do
-      for el in rtG!.relations do
-        if not IsZero(rverts[i]*el) then
-          tmp := List([1..Length(rverts)], x->Zero(R));
-          tmp[i] := rverts[i]*el;
-          Add(Y1,tmp);
-        fi;
-      od;
+        for el in rtG!.relations do
+            if not IsZero(rverts[i]*el) then
+                tmp := List([1..Length(rverts)], x->Zero(R));
+                tmp[i] := rverts[i]*el;
+                Add(Y1,tmp);
+            fi;
+        od;
     od;   
 
-#Print("Y1 (prevectors): ",Y1,"\n");
     Y1 := List( Y1, x -> Vectorize(P[1], x) );
-#Print("Y1: ",Y1,"\n");
-
-#Print("X1 Union Y1: ",Concatenation(X1,Y1),"\n");
 
     # Determine the submodule of the algebra module P[1] generated by the elements
     #  of X1 union Y1 (which are the rows of the presentation_map).
     N := SubAlgebraModule(P[1], Concatenation(X1,Y1));
-
     II := SubAlgebraModule(P[1], Y1);
-
     rtGBofN := RightGroebnerBasisOfModule(N);
-#    rtGBofN := RightGroebnerBasisOfModule(R, Concatenation(X1,Y1));
-#Print("Right Groebner Basis of Module N: ",BasisVectors(rtGBofN),"\n");
-
     rtGBofII := RightGroebnerBasisOfModule(II);
 
     # Determine f1's and f1primes:
-    f := [];
-    fprime := [];
-    f[1] := [];
-    fprime[1] := [];
+    finf0[2] := []; # f1's
+    fprimeinf0[2] :=[]; # f1prime's
     i := 1;
     j := 1;
     for el in BasisVectors(rtGBofN) do
-      tmp := CompletelyReduce(rtGBofII,el);
-      if IsZero(tmp) then
-        fprime[1][i] := el;
-        i := i + 1;
-      else
-        f[1][j] := el;
-        j := j + 1;
-      fi;
+        tmp := CompletelyReduce(rtGBofII,el);
+        if IsZero(tmp) then
+            fprimeinf0[2][i] := el;
+            i := i + 1;
+        else
+            finf0[2][j] := el;
+            j := j + 1;
+        fi;
     od;
-
-#Print( "f[1]: ", f[1], "\n");
-#Print( "fprime[1]: ", fprime[1], "\n");
-
-    # Sort the f1's, largest Tip first:
-    Sort(f[1],\<);
-    f[1] := Reversed(f[1]);
+    # Sort the f1's and the f1prime's, largest Tip first:
+    Sort(finf0[2],\<);
+    Sort(fprimeinf0[2],\<);
+    finf0[2] := Reversed(finf0[2]);
+    fprimeinf0[2] := Reversed(fprimeinf0[2]);
+   
+#Print( "finf0[2]: ", finf0[2], "\n");
+#Print( "fprimeinf0[2]: ", fprimeinf0[2], "\n");
 
     # Since all f1's should be right uniform, get the vertices for the vertex projective P[2]:
     lverts := [];
-    for el in f[1] do
-      if IsRightUniform(el![1]) then
-        Add(lverts,TargetVertex(el![1]));
-      else
-        Error("The f1's are not right uniform. \n");
-      fi;
+    for el in finf0[2] do
+        if IsRightUniform(el![1]) then
+            Add(lverts,TargetVertex(el![1]));
+        else
+            Error("The f1's are not right uniform. \n");
+        fi;
     od;
 
     # Convert vertex set from 'lverts', create P^2 and L^2:
     rverts := List(lverts, x -> x*One(R));
-#Print("rverts: Convert vertex set from 'lverts', create P^2 and L^2: ", rverts,"\n");    
     P[2] := RightProjectiveModule( R, rverts );
-
     lverts := List(lverts, x -> x*One(A));
     L[2] := RightProjectiveModule( A, lverts );
-
 
 ## form f2's if necessary:  NEED TO CHECK FOR NONEMPTY SET
 
     # create f2's:
-    f[2] := [];
+    finf0[3] := [];
+    fprimeinf0[3] := [];
     maps[2] := [];
     i := 1;
 
     # Determine the OSet and NSet for our f2's:
-    for el in f[1] do
-      XSet := XSetOfPathAlgebraVector(P[1], I, el![1]);
-#Print("XSet: ",XSet,"\n");
-      for el2 in XSet[1] do
-        tmp := el![1]^el2[2] - el2[1]![1];
-
-        # we can build the map here:
-
-        if not IsZero(tmp) then
-#Print("firstpart: ",FirstPart(f[1],tmp),"\n");
-#Print("\ttmp: ",tmp,"\n");
-          maps[2][i] := FirstPart(f[1],tmp);
-          f[2][i] := tmp;
-          i := i + 1;
-        fi;
-      od;
+    for el in finf0[2] do
+        XSet := XSetOfPathAlgebraVector(finf0[1],fprimeinf0[1], I, el![1]);
+#        Print("XSet: ",XSet,"\n");
+        for el2 in XSet[1] do
+            tmp := finf0[1][el2[2]]^(el2[3]*el2[4]);
+#            Print("\tfirstpart: ",FirstPart(finf0[2],fprimeinf0[2],tmp![1]),"\n");
+#            Print("\t\ttmp: ",tmp,"\n");
+#            Print("\t\t\tf1: ",el,"\n");
+            maps[2][i] := FirstPart(finf0[2],fprimeinf0[2],tmp![1]);
+            temp := ShallowCopy(Zero(P[1]));
+            for j in [1..Length(finf0[2])] do
+                temp := temp + finf0[2][j]^maps[2][i][j];
+            od;
+            finf0[3][i] := ShallowCopy(temp);
+            i := i + 1;
+        od;
+#        if Length(XSet[2]) > 0 then 
+#            Print("NSet for k = 2: ",XSet[2],"\n");
+#            Print("\tel i finf0[2]: ",el,"\n");
+#        fi;
+        for el2 in XSet[2] do
+#            Print("\t\tel2: ",el2,"\n");
+            Add(fprimeinf0[3],(el^el2[2])^el2[3]);
+        od;
     od;
-
-
+#    Print("maps[2]: ",maps[2],"\n");
+#    Print("finf0[3]'s: ",finf0[3],"\n");    
+#    Print("fprimeinf0[3]'s: ",fprimeinf0[3],"\n"); 
+          
     # Since all f2's should be right uniform, get the vertices for the vertex projective P[3]:
     lverts := [];
-    for el in f[2] do
-      if IsRightUniform(el) then
-        Add(lverts,TargetVertex(el));
-      else
-        Error("The f1's are not right uniform. \n");
-      fi;
+    for el in finf0[3] do
+        if IsRightUniform(el![1]) then
+            Add(lverts,TargetVertex(el![1]));
+        else
+            Error("The f2's are not right uniform. \n");
+        fi;
     od;
 
     # Convert vertex set from 'lverts', create P^3:
     rverts := List(lverts, x -> x*One(R));
-#Print("rverts: Convert vertex set from 'lverts', create P^3: ", rverts,"\n");        
     P[3] := RightProjectiveModule( R, rverts );
 
-    # Hmmm...
     lverts := List(lverts, x -> x*One(A));
     L[3] := RightProjectiveModule( A, lverts );
 
 
 ## START REPEATING HERE
-
+#    Print("Groebner basis: ",GroebnerBasisOfIdeal(I)!.relations,"\n");
+    
     for k in [3..termint] do
-      f[k] := [];
-      maps[k] := [];
-      i := 1;
+        finf0[k+1] := [];
+        fprimeinf0[k+1] := [];
+        maps[k] := [];
+        i := 1;
 
       ###  NEED to Vectorize elements in maps[k-1]:
-      mapstmp := List( maps[k-1], x -> Vectorize(P[k-1], x) );
-
-      for el in maps[k-1] do
-        XSet := XSetOfPathAlgebraVector(P[k-1], I,Vectorize(P[k-1], el)![1]);
-#        Print("XSet: ",XSet,"\n"); 
-
-        for el2 in XSet[1] do
-          tmp := Vectorize(P[k-1],el)![1]^el2[2] - el2[1]![1];
-#          Print("\ttmp: ",tmp,"\n");
-          if not IsZero(tmp) then
-#            Print("firstpart: ",FirstPart(mapstmp,tmp),"\n");
-            maps[k][i] := FirstPart(mapstmp,tmp);
-            f[k][i] := tmp;
-            i := i + 1;
-          fi;
+        
+        for el in finf0[k] do
+            XSet := XSetOfPathAlgebraVector(finf0[k-1],fprimeinf0[k-1], I, el![1]);            
+#            Print("OSet for k=",k," and element ",el,": ",XSet[1],"\n");
+            for el2 in XSet[1] do
+                tmp := finf0[k - 1][el2[2]]^(el2[3]*el2[4]);
+#                Print("\ttmp is now: ",tmp,"\n");
+                if not IsZero(tmp) then
+                    maps[k][i] := FirstPart(finf0[k],fprimeinf0[k],tmp![1]);
+#                    Print("\t\tfirstpart: ",maps[k][i],"\n");                    
+                    temp := Zero(P[1]);
+                    for j in [1..Length(maps[k][i])] do
+                        temp := temp + finf0[k][j]^maps[k][i][j];
+                    od;
+                    finf0[k + 1][i] := temp;
+                    i := i + 1;
+                fi;
+            od;
+#            Print("NSet for k=",k,": ",XSet[2],"\n");         
+            for el2 in XSet[2] do
+                Add(fprimeinf0[k + 1],(el^el2[2])^el2[3]);                
+            od;
         od;
-      od;
 
-      if Length(maps[k]) < 1 then
-        Print("finite at projective: ",k,"\n");
-        break;
-      else
+        if Length(maps[k]) < 1 then
+            Print("finite at projective: ",k,"\n");
+            break;
+        else
         # create vertex projectives
 
-        # Since all f2's should be right uniform, get the vertices for the vertex projective P[3]:
-        lverts := [];
-        for el in f[k] do
-          if IsRightUniform(el) then
-            Add(lverts,TargetVertex(el));
-          else
-            Error("The f",k,"'s are not right uniform. \n");
-          fi;
-        od;
-
-        # Convert vertex set from 'lverts', create P^(k+1):
-        rverts := List(lverts, x -> x*One(R));
-#Print("rverts: Convert vertex set from 'lverts', create P^(k+1): ", rverts,"\n");            
-        P[k+1] := RightProjectiveModule( R, rverts );
-
-        lverts := List(lverts, x -> x*One(A));
-        L[k+1] := RightProjectiveModule( A, lverts );
-      fi;
+        # Since all fk's should be right uniform, get the vertices for the vertex projective P[3]:
+            lverts := [];
+            for el in finf0[k + 1] do
+                if IsRightUniform(el![1]) then
+                    Add(lverts,TargetVertex(el![1]));
+                else
+                    Error("The f",k,"'s are not right uniform. \n");
+                fi;
+            od;
+        
+            # Convert vertex set from 'lverts', create P^(k+1):
+            rverts := List(lverts, x -> x*One(R));
+            P[k+1] := RightProjectiveModule( R, rverts );
+            lverts := List(lverts, x -> x*One(A));
+            L[k+1] := RightProjectiveModule( A, lverts );
+        fi;
     od;
 
-#   
-#   
-#    # Form quotient module:
-##    M :=  P[1]/N;
-#   
 #   Create the (initial) resolution:
 
     Res := Objectify(NewType(ProjectiveResolutionFpPathAlgebraModuleFamily,
@@ -295,500 +286,104 @@ InstallMethod( ProjectiveResolutionFpPathAlgebraModule,
     SetProjectives(Res,L);
     SetRProjectives(Res,P);
     SetMaps(Res,maps);
-    SetProjectivesFList(Res,f);
+    SetProjectivesFList(Res,[finf0,fprimeinf0]);
     SetRingIdeal(Res,I);
 
     return Res;
-          
-  end     
+end     
 );   
-
-
-InstallMethod( ProjectiveResolutionFpPathAlgebraModule,
-  "for algebras",
-  true,
-  [ IsAlgebra, IsRing and HasGroebnerBasisOfIdeal, IsRingElementTable ], 0,
-  function(A,I,presentation_map)
-    local Res, gen, len, verts, gVerts, rverts, paverts, lverts, RelementsFam, el, el2,
-          f, fprime, i, j, tmp, L, P, N, M, R, X1, Y1, G, rtG, rtGBofN, maps, Mzero,
-          II, rtGBofII, XSet, perm, mapstmp;
-
-    # R-projectives:
-    P := [];
-
-    # R/I-projectives:
-    L := [];
-
-    # f list:
-    f := [];
-
-    # resolution maps:
-    maps := [];
-
-    if not (IsPathAlgebra(A) or IsQuotientOfPathAlgebra(A)) then
-        TryNextMethod();
-    fi;
-
-    # Make sure generators are not empty
-    if IsEmpty(presentation_map) then
-        Error("Usage: ProjectiveResolutionFpPathAlgebraModule( <A>, <I>, <presentation_map> )",
-              " <presentation_map> must be nonempty.");
-    fi;
-
-    # Make sure all entries are left uniform
-    for gen in presentation_map do
-      if not ForAll(gen, IsLeftUniform) then
-        Error("Usage: ProjectiveResolutionFpPathAlgebraModule( <A>, <I>, <presentation_map> )",
-              " entries in <presentation_map> must be left uniform.");
-      fi;
-    od;
-
-    # Get the starting vertex of each element in first row:
-    #  (These vertices will allow us to form L^0, the first right projective
-    #   module in the projective resolution).
-    verts := List(presentation_map[1], x -> SourceVertex(LeadingMonomial(x)));
-
-    # Verify we really have proper presentation:
-    for gen in presentation_map do
-      gVerts := List(gen, x -> SourceVertex(LeadingMonomial(x)));
-
-      for i in [1..Length(verts)] do
-        if IsZeroPath(verts[i]) and not IsZeroPath(gVerts[i]) then
-          verts[i] := gVerts[i];
-        elif verts[i] <> gVerts[i] and not IsZeroPath(gVerts[i]) then
-          Error("Usage: ProjectiveResolutionFpPathAlgebraModule( <A>, <I>, <presentation_map> )",
-                " <presentation_map> contains mismatched starting vertices.");
-        fi;
-      od;
-    od;
-
-    # Check columns are non-zero:
-    if not ForAll(verts, x -> not IsZeroPath(x)) then
-      Error("Usage: ProjectiveResolutionFpPathAlgebraModule( <A>, <I>, <presentation_map> )",
-            " <presentation_map> contains all zeroes in some column.");
-    fi;
-
-    # Get the parent ring R for ideal I (where above A = R/I):
-    R := LeftActingRingOfIdeal(I);
-
-    # Get right groebner basis for ideal:
-    rtG := RightGroebnerBasis(I);
-#Print("rtG: ",rtG!.relations,"\n");
-
-    # Get family for ring:
-    RelementsFam := ElementsFamily(FamilyObj(R));
-
-    # Create vertex set (all in the path algebra) from 'verts':
-#Print("verts: ",verts,"\n");
-    paverts := List(verts, x -> x*One(A));
-#Print("paverts: ",paverts,"\n");
-
-    # Create vertex set (all in the ring) from 'verts':
-    rverts := List(verts, x -> x*One(R));
-#Print("rverts: ", rverts,"\n");
-
-    # Ok, everything is good, construct the module L^0 from vertices in first row:
-#    L[1] := RightProjectiveModule( A, paverts );
-    P[1] := RightProjectiveModule( R, rverts );
-
-
-    # Convert elements in map from elements in R/I to elements in R:
-    X1 := [];
-    i := 1;
-    for i in [1..Length(presentation_map)] do
-      X1[i] := List(presentation_map[i], x -> ObjByExtRep(RelementsFam,ExtRepOfObj(x))); 
-    od;
-#Print("X1 (prevectors): ",X1,"\n");
-
-    # first map:
-    maps[1] := ShallowCopy(X1);
-
-    X1 := List( X1, x -> Vectorize(P[1], x) );
-#Print("X1: ",X1,"\n");
-
-    # Create set Y1 to union with X1 for the lift:
-    Y1 := [];
-    for i in [1..Length(rverts)] do
-      for el in rtG!.relations do
-        if not IsZero(rverts[i]*el) then
-          tmp := List([1..Length(rverts)], x->Zero(R));
-          tmp[i] := rverts[i]*el;
-          Add(Y1,tmp);
-        fi;
-      od;
-    od;    
-
-#Print("Y1 (prevectors): ",Y1,"\n");
-# We no longer want to vectorize:
-    Y1 := List( Y1, x -> Vectorize(P[1], x) );
-#Print("Y1: ",Y1,"\n");
-
-#Print("X1 Union Y1: ",Concatenation(X1,Y1),"\n");
-
-# At this point we need two things:
-#  1) Possibly a new list object with ordering and operations (like module stuff)
-#  2) right groebner basis (reduction) of such list objects (under an order?)
-
-    # Determine the submodule of the algebra module P[1] generated by the elements
-    #  of X1 union Y1 (which are the rows of the presentation_map).
-    N := SubAlgebraModule(P[1], Concatenation(X1,Y1));
-
-    II := SubAlgebraModule(P[1], Y1);
-
-    rtGBofN := RightGroebnerBasisOfModule(N);
-#    rtGBofN := RightGroebnerBasisOfModule(R, Concatenation(X1,Y1));
-#Print("Right Groebner Basis of Module N: ",BasisVectors(rtGBofN),"\n");
-
-    rtGBofII := RightGroebnerBasisOfModule(II);
-#Print("Right Groebner Basis of Module II: ",BasisVectors(rtGBofII),"\n\n");
-
-    # Determine f1's and f1primes:
-    f := [];
-    fprime := [];
-    f[1] := [];
-    fprime[1] := [];
-    i := 1;
-    j := 1;
-    for el in BasisVectors(rtGBofN) do
-      tmp := CompletelyReduce(rtGBofII,el);
-      if IsZero(tmp) then
-        fprime[1][i] := el;
-        i := i + 1;
-      else
-        f[1][j] := el;
-        j := j + 1;
-      fi;
-    od;
-
-#Print( "f[1]: ", f[1], "\n");
-#Print( "fprime[1]: ", fprime[1], "\n");
-
-    # Sort the f1's, largest Tip first:
-    Sort(f[1],\<);
-    f[1] := Reversed(f[1]);
-
-    # Since all f1's should be right uniform, get the vertices for the vertex projective P[2]:
-    lverts := [];
-    for el in f[1] do
-#Print("el![1]: ",el![1],"\n");
-      if IsRightUniform(el![1]) then
-#Print("target vertex: ", TargetVertex(el![1]),"\n");
-        Add(lverts,TargetVertex(el![1]));
-      else
-        Error("The f1's are not right uniform. \n");
-      fi;
-    od;
-
-#Print("lverts: ",lverts,"\n");
-
-    # Convert vertex set from 'lverts', create P^2:
-    rverts := List(lverts, x -> x*One(R)); 
-    P[2] := RightProjectiveModule( R, rverts );
-
-    # Hmmm...
-    lverts := List(lverts, x -> x*One(A)); 
-    L[2] := RightProjectiveModule( A, lverts );
-
-
-    # create f2's:
-    f[2] := [];
-    maps[2] := [];
-    i := 1;
-
-#    # Determine the OSet and NSet for our f1's:
-    for el in f[1] do
-#Print("el: ",el,"\n");
-##Print(IsRing(I), " ",HasGroebnerBasisOfIdeal(I),"\n");
-##Print("el IsPathAlgebraVector: ",IsPathAlgebraVector(el),"\n");
-##Print("el![1] IsPathAlgebraVector: ",IsPathAlgebraVector(el![1]),"\n");
-      XSet := XSetOfPathAlgebraVector(P[1], I, el![1]);
-#Print("XSet: ",XSet,"\n");
-      for el2 in XSet[1] do
-#Print("el2: ",el2,"\n");
-##Print("el2 IsPathAlgebraVector: ",IsPathAlgebraVector(el2),"\n");
-##Print("el2![1] IsPathAlgebraVector: ",IsPathAlgebraVector(el2![1]),"\n");
-##        if not IsZero(el2[1]) then
-##          tmp := el![1]^el2[2] - TipReduce(List(f[1],x -> x![1]), el2[1]![1]); 
-        tmp := el![1]^el2[2] - el2[1]![1]; 
-
-        # we can build the map here:
-        
-        if not IsZero(tmp) then
-#Print("firstpart: ",FirstPart(f[1],tmp),"\n");
-#Print("\ttmp: ",tmp,"\n");
-          maps[2][i] := FirstPart(f[1],tmp);
-          f[2][i] := tmp;
-          i := i + 1;
-        fi; 
-##        fi;
-      od;
-    od;
-
-
-    # Since all f1's should be right uniform, get the vertices for the vertex projective P[3]:
-    lverts := [];
-    for el in f[2] do
-#Print("el![1]: ",el![1],"\n");
-      if IsRightUniform(el) then
-#Print("target vertex: ", TargetVertex(el![1]),"\n");
-        Add(lverts,TargetVertex(el));
-      else
-        Error("The f1's are not right uniform. \n");
-      fi;
-    od;
-
-#Print("lverts: ",lverts,"\n");
-
-    # Convert vertex set from 'lverts', create P^3:
-    rverts := List(lverts, x -> x*One(R)); 
-    P[3] := RightProjectiveModule( R, rverts );
-
-    # Hmmm...
-    lverts := List(lverts, x -> x*One(A)); 
-    L[3] := RightProjectiveModule( A, lverts );
-
-
-
-    # Now, do it all again, create f3's:
-    f[3] := [];
-    maps[3] := [];
-    i := 1;
-
-    ###  NEED to Vectorize elements in maps[2]:
-    mapstmp := List( maps[2], x -> Vectorize(P[2], x) );
-
-    for el in maps[2] do
-      XSet := XSetOfPathAlgebraVector(P[2], I,Vectorize(P[2], el)![1]);
-
-#Print("XSet: ",XSet,"\n");
-
-      for el2 in XSet[1] do
-        tmp := Vectorize(P[2],el)![1]^el2[2] - el2[1]![1]; 
-#Print("\ttmp: ",tmp,"\n");
-        if not IsZero(tmp) then
-#Print("firstpart: ",FirstPart(mapstmp,tmp),"\n");
-
-          maps[3][i] := FirstPart(mapstmp,tmp);
-          f[3][i] := tmp;
-          i := i + 1;
-        fi; 
-      od;
-    od;
-
-
-    # create f4's:
-    f[4] := [];
-    maps[4] := [];
-    i := 1;
-
-    ###  NEED to Vectorize elements in maps[3]:
-    mapstmp := List( maps[3], x -> Vectorize(P[3], x) );
-
-   for el in maps[3] do
-      XSet := XSetOfPathAlgebraVector(P[3], I,Vectorize(P[3], el)![1]);
-
-#Print("XSet: ",XSet,"\n");
-
-      for el2 in XSet[1] do
-        tmp := Vectorize(P[3],el)![1]^el2[2] - el2[1]![1]; 
-#Print("\ttmp: ",tmp,"\n");
-        if not IsZero(tmp) then
-#Print("firstpart: ",FirstPart(mapstmp,tmp),"\n");
-
-          maps[4][i] := FirstPart(mapstmp,tmp);
-          f[4][i] := tmp;
-          i := i + 1;
-        fi; 
-      od;
-    od;
-
-
-#
-#
-#    # Form quotient module:
-##    M :=  P[1]/N;
-#
-#    # Create the (initial) resolution:
-    Res := Objectify(NewType(ProjectiveResolutionFpPathAlgebraModuleFamily,
-                             IsProjectiveResolutionFpPathAlgebraModuleDefaultRep),
-                             rec());
-    SetName(Res,"ProjectiveResolutionFpPathAlgebraModule");
-    SetParentAlgebra(Res,A);
-##    SetModule(Res,M);
-    SetProjectives(Res,L);
-    SetRProjectives(Res,P);
-    SetMaps(Res,maps);
-    SetProjectivesFList(Res,f);
-    SetRingIdeal(Res,I);
-
-    return Res;
-
-  end
-);
-
-
+  
 # Two lists returned, list 1 is OSet, list 2 is NSet.
 # OSet is a list of elements, each of which is a list of the form:
 #   [ ??? ]
 InstallMethod( XSetOfPathAlgebraVector,
   "for path algebra vectors",
   true, 
-  [ IsVertexProjectiveModule,
-    IsRing and HasGroebnerBasisOfIdeal,
+  [ IsHomogeneousList, IsHomogeneousList,
+    IsRing and HasGroebnerBasisOfIdeal, 
     IsPathAlgebraVector ],
   0,
-  function( P, I, el )
-    local a, path, fam, t, OSet, NSet, XSet, outarrows, nonzeroflag, tippath, tippathlen,
-          tipcoeff, gbel, tmpel,
-          gbeltip, gbeltipcoeff, productwalk, gbtipwalk, YSet, Yflag, GB, p, pwalk, qwalk,
-          qprime, gbellen, qprimewalk, qlen;
-
+  function( finf0, fprimeinf0, I, fn )
+    local rightgb, rightgbtips, i, divides, j, tippath, tipcoeff, coeffs, position, redtippath,
+          redtippathlength, testset, fam, gb, walkoftipsgb, OSet, NSet, XSet, t, rightgbtip, 
+          rightgbtipcoeff, rightgbtipwalk, qlength, found, gindex, glength, zwalk, zpath, qprimewalk, 
+          qprimepath;
+    
+    rightgb := RightGroebnerBasis(I)!.relations;
+    rightgbtips := [];
+    for i in [1..Length(rightgb)] do
+        rightgbtips[i] := [TipMonomial(rightgb[i]), i];
+    od;
+    divides := List([1..Length(rightgb)], x -> false);
+    for i in [1..Length(rightgb)] do
+        for j in [1..Length(rightgb)] do
+            if ( i <> j ) and ( divides[j] = false ) then 
+                if PositionSublist(WalkOfPath(rightgbtips[j][1]),WalkOfPath(rightgbtips[i][1])) = 1 then 
+                    divides[j] := true;
+                fi;
+            fi;
+        od;
+    od;
+    rightgbtips := Filtered(rightgbtips, x -> divides[Position(rightgbtips,x)] = false);
+    tippath := TipMonomial(fn![1][fn![2]]);
+    tipcoeff := TipCoefficient(fn![1][fn![2]]);
+    # write fn in terms of f^(n-1)'s
+    coeffs := FirstPart(finf0,fprimeinf0,fn);
+    position := List([1..Length(finf0)], x -> PositionSublist(WalkOfPath(tippath),WalkOfPath(TipMonomial(finf0[x]![1]![1][finf0[x]![1]![2]]))));
+#    Print("position: ",position,"\n");
+    position := Position(position, 1);
+    redtippath := TipMonomial(coeffs[position]);
+    redtippathlength := LengthOfPath(redtippath);
+    testset := Filtered(rightgbtips, x -> PositionSublist(WalkOfPath(x[1]),WalkOfPath(redtippath))=1);
+    fam := FamilyObj(rightgb[1]);
+    gb := GroebnerBasisOfIdeal(I);
+    walkoftipsgb := List(gb!.relations, x -> Reversed(WalkOfPath(TipMonomial(x))));
+    
     # Initialize our N and O sets:
     OSet := [];
     NSet := [];
-    XSet := [];
-    YSet := [];
-    outarrows := [];
+    for t in testset do
+        rightgbtip := TipMonomial(rightgb[t[2]]);
+        rightgbtipcoeff := TipCoefficient(rightgb[t[2]]);
+        rightgbtipwalk := WalkOfPath(rightgbtip);
+        qlength := Length(rightgbtipwalk); 
+        found := false;
+        gindex := 1;
+        while not found do
+            if PositionSublist(Reversed(rightgbtipwalk),walkoftipsgb[gindex]) = 1 then
+                found := true;
+            else
+                gindex := gindex + 1;
+            fi;
+        od;
+        glength := Length(walkoftipsgb[gindex]);
 
-    # tippath of el:
-    tippath := TipMonomial(el![1][el![2]]);
-    tipcoeff := TipCoefficient(el![1][el![2]]);
-    tippathlen := Length(ExtRepOfObj(tippath));
-# Print("tipext: ",ExtRepOfObj(tippath),"\n");
-    XSet := [ tippath ];
-
-    # Get Groebner basis:
-    GB := GroebnerBasisOfIdeal(I);
-#Print("tippath: ", tippath,"\n");
-
-# Print("GB: ", GB!.relations,"\n");
-
-    fam := FamilyObj(el![1][el![2]]);
-
-    # create a tuple that should work in the module:
-#    elzero := List([1..Length(el![1])], x -> Zero(el![1][el![2]]));
-
-    # calculate all paths starting with el until all successive are nonzero:
-    nonzeroflag := true;
-
-    while nonzeroflag do
-
-      nonzeroflag := false;
-
-      for path in XSet do
-
-        # Get target vertex, then outgoing arrows, of tippath of given pa module vector:
-        t := TargetOfPath(path); 
-        outarrows := OutgoingArrowsOfVertex(t);
-        # translate arrows to paths:
-        outarrows := List(outarrows, x->ElementOfMagmaRing(fam,fam!.zeroRing,[One(fam!.zeroRing)],[x]));
-
-        # We only examine paths that are properly larger than el: 
-        for a in outarrows do 
-
-          Yflag := true;
-
-          # Assert: all products path*a should be nonzero here since
-          #         using only outgoing arrows from path.
-          for gbel in GB!.relations do
-              gbeltip := TipMonomial(gbel);
-              gbeltipcoeff := TipCoefficient(gbel);
-              gbtipwalk := WalkOfPath(gbeltip);
-              productwalk := WalkOfPath(TipMonomial(path*a));
-#Print("productwalk: ", productwalk, ", gbtipwalk: ", gbtipwalk, "\n");
-#Print("product: ", path, " * ", a, " = ", path*a, "\n");
-              if (PositionSublist(Reversed(productwalk),Reversed(gbtipwalk)) = 1) then
-
-#Print("\t gbeltip ", gbeltip, " right divides ", path*a, "\n");
-#Print("\t\tlength of ",tippath, " = ", Length(WalkOfPath(tippath)),"\n");
-#Print("\t\tlength of ",gbeltip, " = ", Length(WalkOfPath(gbeltip)),"\n");
-#Print("\t\tlength of ",path*a, " = ", Length(WalkOfPath(path))+1,"\n");
-
-                # Determine if OSet element or NSet:
-                if (tippathlen + Length(WalkOfPath(gbeltip))) <= (Length(WalkOfPath(path))+1) then
-                  if (tippathlen+Length(WalkOfPath(gbeltip))) = (Length(WalkOfPath(path))+1) then
-                    Add(NSet, [path*a, One(path*a), gbel]);
-                  else
-                    qwalk := ExtRepOfObj(path*a);
-                    qlen := Length(qwalk[2][1]);
-                    gbellen := Length(gbtipwalk);
-                    qwalk := [qwalk[1],[ qwalk[2][1]{[tippathlen+1..(qlen-gbellen)]}, qwalk[2][2]]];
-
-                    Add(NSet, [path*a, One(path*a), gbel]);
-                  fi;
-                else
-
-                  # create external rep of, and then element that is subpath in path*a after tippath.
-                  qwalk := ExtRepOfObj(path*a);
-                  qlen := Length(qwalk[2][1]);
-                  pwalk := [qwalk[1],[ qwalk[2][1]{[tippathlen+1..qlen]}, qwalk[2][2]]];
-                  p := ObjByExtRep(fam,pwalk);
-
-# Print("\t\t\tpwalk: ",pwalk,"\n");
-# Print("\t\t\tp: ",p,"\n");
-
-                  # create external rep of, and then element that is subpath in path*a before gbeltip.
-                  gbellen := Length(gbtipwalk);
-
-                  # If tip gbel is equal to path*a, no (prefix) subpath qprime:
-                  if gbellen = qlen then
-
-                    # create element in module to use for the module 'syzygy':
-                    tmpel := ShallowCopy(Zero(P)![1]![1]);
-                    tmpel[el![2]] := (tipcoeff/gbeltipcoeff)*gbel;
-
-#Print("\t\t\tsyzygy: ",el![1]*p-tmpel,"\n");
-                    Add(OSet, [Vectorize(P,el![1]*p-tmpel),p]);
-
-                  else
-
-                    qprimewalk := [qwalk[1],[ qwalk[2][1]{[1..(qlen-gbellen)]}, qwalk[2][2]]];
-                    qprime := ObjByExtRep(fam,qprimewalk);
-#Print("\t\t\tqprimewalk: ",qprimewalk,"\n");
-#Print("\t\t\tqprime: ",qprime,"\n");
-                    # create element in module to use for the module 'syzygy':
-                    tmpel := ShallowCopy(Zero(P)![1]![1]);
-#Print("\t\t\ttmpel[el![2]]: ",tmpel[el![2]],"\n");
-#Print("\t\t\tqprime: ",qprime,"\n");
-                    tmpel[el![2]] := (tipcoeff/gbeltipcoeff)*qprime*gbel;
-
-#Print("\t\t\tsyzygy: ",el![1]*p-tmpel,"\n");
-                    # Only include nonzero elements:
-#                    if not IsZero(el![1]*p-tmpel) then
-                      Add(OSet, [Vectorize(P,el![1]*p-tmpel),p]);
-#                    fi;
-                  fi;
-
-                fi;
-              
-                Yflag := false;
-                break;
-              fi;
-          od;
-
-          if Yflag then
-            Add(YSet, TipMonomial(path*a));
-          fi;
-
-        od;   # outgoing arrows loop.
-
-      od;     # paths in XSet loop.
-
-      if (Length(YSet) > 0) then
-        nonzeroflag := true;
-        XSet := ShallowCopy(YSet);
-        YSet := [];
-      fi;
-
+        # Determine if OSet element or NSet:
+        if ( redtippathlength <= qlength - glength ) then
+            if ( redtippathlength = qlength - glength ) then
+                zpath := One(rightgb[1]);
+            else
+                zwalk := ExtRepOfObj(rightgbtip*One(rightgb[1]));
+                zwalk := [zwalk[1], [zwalk[2][1]{[(redtippathlength + 1)..(qlength - glength)]}, zwalk[2][2]]];
+                zpath := ObjByExtRep(fam,zwalk);
+#                Print("zwalk: ",ObjByExtRep(fam,zwalk),"\n");
+            fi;
+            Add(NSet, [t[1], zpath, gb!.relations[gindex]]);
+        else
+            if qlength = glength then 
+                qprimepath := (tipcoeff/TipCoefficient(gb!.relations[gindex]))*One(rightgb[1]);
+            else 
+                qprimewalk := ExtRepOfObj(rightgbtip*One(rightgb[1]));
+                qprimewalk := [qprimewalk[1], [ qprimewalk[2][1]{[1..(qlength - glength)]}, qprimewalk[2][2]]];
+                qprimepath := (tipcoeff/TipCoefficient(gb!.relations[gindex]))*ObjByExtRep(fam,qprimewalk);
+            fi;
+            Add(OSet, [t[1], position, qprimepath, gb!.relations[gindex]]);
+        fi;
     od;
-
-#Print("YSet: ", YSet,"\n");
-
+    
     return [OSet,NSet];
-
-  end
+end
 );
-
 
 InstallMethod( TipReduce,
   "tip reduce set of elements from path algebra module",
@@ -882,39 +477,46 @@ InstallMethod( TipReduce,
 
 # returns a list of algebra elements:
 InstallMethod( FirstPart,
-  "writes a module element as a finite sum of given module elements",
-  true, 
-  [IsHomogeneousList, IsPathAlgebraVector], 0,
-  function( f, v )
-    local i, retvec, fam, flen, tmp, div;
-
-    flen := Length(f);
+    "writes a module element as a finite sum of given module elements",
+    true, 
+    [IsHomogeneousList, IsHomogeneousList, IsPathAlgebraVector], 0,
+    function( f, fprime, v )
+    local fUfprime, newfUfprime, i, retvec, fam, flen, tmp, div, newretvec,
+          permutation;
+    
+    fUfprime := Concatenation(f,fprime); 
+    fUfprime := List(fUfprime, x -> x![1]);
+    flen := Length(fUfprime);
+    newfUfprime := ShallowCopy(fUfprime);
+    Sort(newfUfprime);
+    newfUfprime := Reversed(newfUfprime);
+    permutation := List(fUfprime, x -> Position(newfUfprime, x));
+    
     fam := FamilyObj(v![1][v![2]]);
     retvec := ListWithIdenticalEntries( flen, Zero(v![1][v![2]]) );
-
-#Print("v: ",v,"\n");
-
     tmp := ShallowCopy(v);
-
-    for i in [1..flen] do
-      # Tip divide tmp by element f[i]:
-#Print("f[i]![1]: ",f[i]![1],"\n");
-#Print("tmp: ",tmp,"\n");
-      if (not IsZero(tmp)) and (not IsZero(f[i]![1])) then
-        div := LeftDivision(tmp, f[i]![1]); 
-        if (not (div = false)) then
-          retvec[i] := div;
-          tmp := tmp - f[i]![1]^div;
-        fi;
-      fi;
+    while not IsZero(tmp) do
+        for i in [1..flen] do
+            if (not IsZero(tmp)) and (not IsZero(newfUfprime[i])) then
+                div := LeftDivision(tmp, newfUfprime[i]); 
+                if ( div <> false ) then
+                    retvec[i] := retvec[i] + div;
+                    tmp := tmp - newfUfprime[i]^div;
+#                    Print("tmp after reducing: ",tmp," with factor: ",div,"\n");
+                fi;
+            fi;
+        od;
+    od;    
+    
+    newretvec := ListWithIdenticalEntries( flen, Zero(v![1][v![2]]) ){[1..Length(f)]};
+    for i in [1..Length(f)] do
+        newretvec[i] := retvec[permutation[i]];
     od;
-
-#Print("retvec: ",retvec,"\n");
-    return retvec;
-  end
-);
-
-
+    
+    return newretvec;
+end
+);  
+  
 # operation that returns right factor if y divides x.
 InstallMethod( LeftDivision,
   "for path algebra vectors",
@@ -981,5 +583,3 @@ InstallMethod( LeftDivision,
 
   end
 );
-
-

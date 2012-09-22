@@ -1,13 +1,20 @@
 # GAP Implementation
 # This file was generated from 
-# $Id: present.gi,v 1.6 2012/09/11 12:05:26 sunnyquiver Exp $
+# $Id: present.gi,v 1.7 2012/09/22 06:38:13 sunnyquiver Exp $
 InstallMethod( IsNormalForm,
   "for path algebra vectors",
   true,
   [IsPathAlgebraVector], 0,
   ReturnFalse
 );
-
+###################################################################
+#
+# creates a PathAlgebraVector, where the tip is computed using the 
+# following order: the tip is computed for each coordinate, if the 
+# largest of these occur as a tip of several coordinates, then the 
+# coordinate with the smallest index from 1 to the length of vector
+# is chosen.
+#
 InstallMethod( PathAlgebraVector,
   "for families of path algebra vectors and hom. list",
   true,
@@ -387,14 +394,39 @@ InstallMethod( \<,
 
     fam := FamilyObj(x);
 
-    if x![2] = y![2] then
-      return x![1]{[x![2]..fam!.vectorLen]} < y![1]{[y![2]..fam!.vectorLen]};
-        else
-      return y![2] < x![2];
-    fi;
-
-  end
+    if TipMonomial(x![1][x![2]]) < TipMonomial(y![1][y![2]]) then
+	return true;
+    elif TipMonomial(x![1][x![2]]) = TipMonomial(y![1][y![2]]) then
+	return x![2] > y![2];
+    else
+	return false;
+    fi; 
+end
 );
+
+# Old version.
+#InstallMethod( \<,
+#  "for path algebra vectors",
+#  IsIdenticalObj,
+#  [IsPathAlgebraVector 
+#     and IsPathAlgebraVectorDefaultRep
+#     and IsNormalForm,
+#   IsPathAlgebraVector 
+#     and IsPathAlgebraVectorDefaultRep
+#     and IsNormalForm], 0,
+#  function(x, y)
+#    local fam;
+#
+#    fam := FamilyObj(x);
+#
+#    if x![2] = y![2] then
+#      return x![1]{[x![2]..fam!.vectorLen]} < y![1]{[y![2]..fam!.vectorLen]};
+#        else
+#      return y![2] < x![2];
+#    fi;
+#
+#  end
+#);
 
 
 InstallMethod( \=,
@@ -1015,15 +1047,15 @@ InstallOtherMethod( \^,
     components := x![1]*a;
     pos := fam!.vectorLen+1;
 
-    for i in [x![2]..fam!.vectorLen] do
-      if not IsZero(components[i]) then
-        pos := i;
-        break;
-      fi;
-    od;
+#    for i in [x![2]..fam!.vectorLen] do
+#      if not IsZero(components[i]) then
+#        pos := i;
+#        break;
+#      fi;
+#    od;
 
-    return PathAlgebraVectorNC(FamilyObj(x), components, pos, false);
-
+#    return PathAlgebraVectorNC(FamilyObj(x), components, pos, false);
+    return PathAlgebraVector(FamilyObj(x), components);
 end
 );
 
