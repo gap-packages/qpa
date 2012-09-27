@@ -1,6 +1,6 @@
 # Projective Resolutions File
 # This file was generated from
-# $Id: projres.gd,v 1.4 2012/09/22 06:38:13 sunnyquiver Exp $
+# $Id: projres.gd,v 1.5 2012/09/27 08:55:07 sunnyquiver Exp $
 DeclareInfoClass( "InfoProjectiveResolutionFpPathAlgebraModule" );
 
 DeclareCategory("IsProjectiveResolutionFpPathAlgebraModule",IsObject);
@@ -40,6 +40,10 @@ DeclareOperation("ProjectiveResolutionFpPathAlgebraModule",
     IsRing and HasGroebnerBasisOfIdeal,
     IsRingElementTable,
     IsPosInt ]
+        );
+
+DeclareOperation("ProjectiveResolutionOfPathAlgebraModule",
+  [ IsPathAlgebraMatModule, IsPosInt ]
 );
 
 DeclareOperation("FindNextRProjective",

@@ -1,6 +1,6 @@
 # GAP Declarations
 # This file was generated from
-# $Id: present.gd,v 1.2 2012/09/03 07:06:45 sunnyquiver Exp $
+# $Id: present.gd,v 1.3 2012/09/27 08:55:07 sunnyquiver Exp $
 DeclareInfoClass( "InfoPathAlgebraModule" );
 
 DeclareProperty( "IsPathAlgebraModule", IsAlgebraModule );
@@ -56,3 +56,5 @@ DeclareOperation( "VertexProjectivePresentation",
 DeclareOperation( "NewBasis",[ IsFreeLeftModule, IsList ]);
 
 DeclareOperation( "BasisOfDomain", [IsFreeLeftModule and IsPathAlgebraVectorCollection]);
+DeclareOperation( "CompletelyReduceGroebnerBasisForModule", [IsPathAlgebraModuleGroebnerBasis ] );
+DeclareOperation( "ProjectivePathAlgebraPresentation", [IsPathAlgebraMatModule ] );

@@ -1,6 +1,6 @@
 # GAP Implementation
 # This file was generated from 
-# $Id: present.gi,v 1.7 2012/09/22 06:38:13 sunnyquiver Exp $
+# $Id: present.gi,v 1.8 2012/09/27 08:55:07 sunnyquiver Exp $
 InstallMethod( IsNormalForm,
   "for path algebra vectors",
   true,
@@ -1999,4 +1999,147 @@ InstallMethod( ImagesSource,
       return SubAlgebraModule(Range(map), images);
     fi;
   end
+);
+  
+InstallMethod( CompletelyReduceGroebnerBasisForModule,
+        "for complete groebner bases",
+        true,
+        [IsPathAlgebraModuleGroebnerBasis], 0,
+        function( GB )
+    local grb, i, n, tip, rel;
+
+    grb := TipReduce(BasisVectors(GB));
+    # now completely reduce each relation
+    n := Length(grb);
+    for i in [1..n] do
+        rel := grb[i];
+        tip := LeadingTerm(rel);
+        grb[i] := tip + CompletelyReduce(GB, rel - tip);
+    od;
+    SetIsCompletelyReducedGroebnerBasis(grb, true);
+
+    return grb;
+end
+);
+  
+InstallMethod( ProjectivePathAlgebraPresentation,
+        "for a finite dimensional module over a path algebra",
+        true, 
+        [ IsPathAlgebraMatModule ], 0,
+        function( M ) 
+
+    local A, B, Q, fam, KQ, gens, I, gb, gbb, rtgbofI, K, 
+          num_vert, verticesinpathalg, vertices,  verticesinalg, 
+          arrows, BB, i, j, B_M, G, MM, projective_cover, r, 
+          test, vertex_list, P, PI_list, zero_in_P, g, temp, 
+          matrix, solutions, Solutions, projective_vector, s, 
+          a, syzygyoverKQ, U, RG, f0, f1, run_time, rad, 
+          vector, part, newpart, zero, BBnew, mat;
+
+    A := RightActingAlgebra(M);
+    B := CanonicalBasis(A);
+    Q := QuiverOfPathAlgebra(A); 
+    fam  := ElementsFamily(FamilyObj( UnderlyingLeftModule( B ) ));
+    KQ   := OriginalPathAlgebra(A);
+    gens := GeneratorsOfTwoSidedIdeal(fam!.ideal);
+    K    := LeftActingDomain(A);
+    I    := Ideal(KQ,gens);
+    gb   := GBNPGroebnerBasis(gens,KQ);
+    gbb  := GroebnerBasis(I,gb);
+    rtgbofI := RightGroebnerBasis(I);
+
+    num_vert := NumberOfVertices(Q);
+    verticesinpathalg := GeneratorsOfAlgebra(KQ){[1..num_vert]};
+    vertices := VerticesOfQuiver(Q);
+    if IsPathAlgebra(A) then 
+        verticesinalg := GeneratorsOfAlgebra(A){[1..num_vert]};
+        arrows   := GeneratorsOfAlgebra(A){[1+num_vert..num_vert+NumberOfArrows(Q)]};  
+    else 
+        verticesinalg := GeneratorsOfAlgebra(A){[2..1+num_vert]};
+        arrows   := GeneratorsOfAlgebra(A){[2+num_vert..1+num_vert+NumberOfArrows(Q)]};
+    fi;
+
+    BB := BasisOfProjectives(A);
+    BB := List(BB, x -> List(x, y -> Flat(y)));
+    BB := List(BB, x -> Flat(x));
+    
+    B_M := CanonicalBasis(M);
+    G := MinimalGeneratingSetOfModule(M);
+#
+# Finding the products of the generators of M and the basis of the projective covering
+# this generator.
+#
+    MM := [];
+    projective_cover := List(G, x -> VertexPosition(SupportModuleElement(x)![1]));
+    for i in [1..Length(G)] do
+        r := projective_cover[i];
+        for j in [1..Length(BB[r])] do 
+            Add(MM,G[i]^BB[r][j]); 
+        od;
+    od;
+#
+#  Viewing the module as a vector space, flattening the vectors into K^dim(M).
+#
+    matrix := NullMat(Length(MM),Dimension(M),K);
+    for i in [1..Length(MM)] do
+        matrix[i] := Flat(ExtRepOfObj(MM[i])![1]);
+    od;
+#
+#  Finding the kernel of the projective cover as a vectorspace 
+#  
+    solutions := NullspaceMat(matrix);
+#
+#  Finding the kernel of the projective cover as a submodule of the 
+#  projective cover. 
+#
+    Solutions := [];
+    for i in [1..Length(solutions)] do
+        projective_vector := [];
+        s := 0;
+        for j in [1..Length(projective_cover)] do
+            r := Length(BB[projective_cover[j]]);
+            Add(projective_vector,LinearCombination(BB[projective_cover[j]],solutions[i]{[s+1..s+r]}));
+            s := s + Length(BB[projective_cover[j]]);
+        od;
+        Add(Solutions,projective_vector);
+    od;
+#  
+#  Finding the projective  P  over KQ inducing the projective cover.
+#
+    vertex_list := List(G, x -> SupportModuleElement(x)![1]![1]);
+    P := RightProjectiveModule(KQ,vertex_list);
+    f0 := GeneratorsOfAlgebraModule(P);
+#
+#  Finding  PI
+#
+    PI_list := [];
+    zero_in_P := List(vertex_list, x -> Zero(KQ));
+    for i in [1..Length(vertex_list)] do
+        for g in rtgbofI do
+            if vertex_list[i]*g <> Zero(KQ) then
+                temp := ShallowCopy(zero_in_P);
+                temp[i] := vertex_list[i];
+                Add(PI_list,Vectorize(P,temp*g));
+            fi;
+        od;
+    od;
+#
+#  Constructing the syzygy over KQ.
+#
+    syzygyoverKQ := List(Solutions, x -> List(x, y -> y![1]));
+    syzygyoverKQ := List(syzygyoverKQ, x -> Vectorize(P,x));
+    Append(syzygyoverKQ,PI_list);
+    
+    if Length(syzygyoverKQ) = 0 then
+        return [P,[],[],[],[]];
+    else 
+        fam := ElementsFamily(FamilyObj(P));
+        U   := SubAlgebraModule(P,syzygyoverKQ);
+        RG  := RightGroebnerBasisOfModule(U);
+        f1 := CompletelyReduceGroebnerBasisForModule(RG);
+        f1 := List(f1, x -> ObjByExtRep(fam, x));
+        mat := TransposedMat(List(f1, x -> x![1]![1]));
+        return [P,U,f0,f1,mat];
+    fi;
+end
 );
