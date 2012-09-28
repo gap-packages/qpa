@@ -308,24 +308,26 @@
       7.3-2 EndOverAlgebra
       7.3-3 FromEndMToHomMM
       7.3-4 FromHomMMToEndM
-      7.3-5 HomFromProjective
-      7.3-6 HomOverAlgebra
-      7.3-7 Image
-      7.3-8 Kernel
-      7.3-9 LiftingInclusionMorphisms
-      7.3-10 LiftingMorphismFromProjective
-      7.3-11 LeftMinimalVersion
-      7.3-12 RightMinimalVersion
-      7.3-13 MinimalLeftApproximation
-      7.3-14 MinimalRightApproximation
-      7.3-15 MorphismOnKernel
-      7.3-16 ProjectiveCover
-      7.3-17 PullBack
-      7.3-18 PushOut
-      7.3-19 RadicalOfModuleInclusion
-      7.3-20 SocleOfModuleInclusion
-      7.3-21 SubRepresentationInclusion
-      7.3-22 TopOfModuleProjection
+      7.3-5 EndModuloProjOverAlgebra
+      7.3-6 HomFromProjective
+      7.3-7 HomOverAlgebra
+      7.3-8 HomFactoringThroughProjOverAlgebra
+      7.3-9 Image
+      7.3-10 Kernel
+      7.3-11 LiftingInclusionMorphisms
+      7.3-12 LiftingMorphismFromProjective
+      7.3-13 LeftMinimalVersion
+      7.3-14 RightMinimalVersion
+      7.3-15 MinimalLeftApproximation
+      7.3-16 MinimalRightApproximation
+      7.3-17 MorphismOnKernel
+      7.3-18 ProjectiveCover
+      7.3-19 PullBack
+      7.3-20 PushOut
+      7.3-21 RadicalOfModuleInclusion
+      7.3-22 SocleOfModuleInclusion
+      7.3-23 SubRepresentationInclusion
+      7.3-24 TopOfModuleProjection
     7.4 Homological algebra
       7.4-1 ExtOverAlgebra
       7.4-2 ExtAlgebraGenerators

@@ -248,30 +248,32 @@
 \contentsline {subsection}{\numberline {7.3.2}\leavevmode {\color {Chapter }EndOverAlgebra}}{71}{subsection.7.3.2}
 \contentsline {subsection}{\numberline {7.3.3}\leavevmode {\color {Chapter }FromEndMToHomMM}}{71}{subsection.7.3.3}
 \contentsline {subsection}{\numberline {7.3.4}\leavevmode {\color {Chapter }FromHomMMToEndM}}{71}{subsection.7.3.4}
-\contentsline {subsection}{\numberline {7.3.5}\leavevmode {\color {Chapter }HomFromProjective}}{72}{subsection.7.3.5}
-\contentsline {subsection}{\numberline {7.3.6}\leavevmode {\color {Chapter }HomOverAlgebra}}{72}{subsection.7.3.6}
-\contentsline {subsection}{\numberline {7.3.7}\leavevmode {\color {Chapter }Image}}{72}{subsection.7.3.7}
-\contentsline {subsection}{\numberline {7.3.8}\leavevmode {\color {Chapter }Kernel}}{72}{subsection.7.3.8}
-\contentsline {subsection}{\numberline {7.3.9}\leavevmode {\color {Chapter }LiftingInclusionMorphisms}}{74}{subsection.7.3.9}
-\contentsline {subsection}{\numberline {7.3.10}\leavevmode {\color {Chapter }LiftingMorphismFromProjective}}{74}{subsection.7.3.10}
-\contentsline {subsection}{\numberline {7.3.11}\leavevmode {\color {Chapter }LeftMinimalVersion}}{76}{subsection.7.3.11}
-\contentsline {subsection}{\numberline {7.3.12}\leavevmode {\color {Chapter }RightMinimalVersion}}{76}{subsection.7.3.12}
-\contentsline {subsection}{\numberline {7.3.13}\leavevmode {\color {Chapter }MinimalLeftApproximation}}{76}{subsection.7.3.13}
-\contentsline {subsection}{\numberline {7.3.14}\leavevmode {\color {Chapter }MinimalRightApproximation}}{76}{subsection.7.3.14}
-\contentsline {subsection}{\numberline {7.3.15}\leavevmode {\color {Chapter }MorphismOnKernel}}{77}{subsection.7.3.15}
-\contentsline {subsection}{\numberline {7.3.16}\leavevmode {\color {Chapter }ProjectiveCover}}{77}{subsection.7.3.16}
-\contentsline {subsection}{\numberline {7.3.17}\leavevmode {\color {Chapter }PullBack}}{77}{subsection.7.3.17}
-\contentsline {subsection}{\numberline {7.3.18}\leavevmode {\color {Chapter }PushOut}}{78}{subsection.7.3.18}
-\contentsline {subsection}{\numberline {7.3.19}\leavevmode {\color {Chapter }RadicalOfModuleInclusion}}{79}{subsection.7.3.19}
-\contentsline {subsection}{\numberline {7.3.20}\leavevmode {\color {Chapter }SocleOfModuleInclusion}}{79}{subsection.7.3.20}
-\contentsline {subsection}{\numberline {7.3.21}\leavevmode {\color {Chapter }SubRepresentationInclusion}}{80}{subsection.7.3.21}
-\contentsline {subsection}{\numberline {7.3.22}\leavevmode {\color {Chapter }TopOfModuleProjection}}{80}{subsection.7.3.22}
+\contentsline {subsection}{\numberline {7.3.5}\leavevmode {\color {Chapter }EndModuloProjOverAlgebra}}{72}{subsection.7.3.5}
+\contentsline {subsection}{\numberline {7.3.6}\leavevmode {\color {Chapter }HomFromProjective}}{72}{subsection.7.3.6}
+\contentsline {subsection}{\numberline {7.3.7}\leavevmode {\color {Chapter }HomOverAlgebra}}{72}{subsection.7.3.7}
+\contentsline {subsection}{\numberline {7.3.8}\leavevmode {\color {Chapter }HomFactoringThroughProjOverAlgebra}}{72}{subsection.7.3.8}
+\contentsline {subsection}{\numberline {7.3.9}\leavevmode {\color {Chapter }Image}}{72}{subsection.7.3.9}
+\contentsline {subsection}{\numberline {7.3.10}\leavevmode {\color {Chapter }Kernel}}{73}{subsection.7.3.10}
+\contentsline {subsection}{\numberline {7.3.11}\leavevmode {\color {Chapter }LiftingInclusionMorphisms}}{75}{subsection.7.3.11}
+\contentsline {subsection}{\numberline {7.3.12}\leavevmode {\color {Chapter }LiftingMorphismFromProjective}}{75}{subsection.7.3.12}
+\contentsline {subsection}{\numberline {7.3.13}\leavevmode {\color {Chapter }LeftMinimalVersion}}{76}{subsection.7.3.13}
+\contentsline {subsection}{\numberline {7.3.14}\leavevmode {\color {Chapter }RightMinimalVersion}}{76}{subsection.7.3.14}
+\contentsline {subsection}{\numberline {7.3.15}\leavevmode {\color {Chapter }MinimalLeftApproximation}}{76}{subsection.7.3.15}
+\contentsline {subsection}{\numberline {7.3.16}\leavevmode {\color {Chapter }MinimalRightApproximation}}{77}{subsection.7.3.16}
+\contentsline {subsection}{\numberline {7.3.17}\leavevmode {\color {Chapter }MorphismOnKernel}}{77}{subsection.7.3.17}
+\contentsline {subsection}{\numberline {7.3.18}\leavevmode {\color {Chapter }ProjectiveCover}}{78}{subsection.7.3.18}
+\contentsline {subsection}{\numberline {7.3.19}\leavevmode {\color {Chapter }PullBack}}{78}{subsection.7.3.19}
+\contentsline {subsection}{\numberline {7.3.20}\leavevmode {\color {Chapter }PushOut}}{78}{subsection.7.3.20}
+\contentsline {subsection}{\numberline {7.3.21}\leavevmode {\color {Chapter }RadicalOfModuleInclusion}}{80}{subsection.7.3.21}
+\contentsline {subsection}{\numberline {7.3.22}\leavevmode {\color {Chapter }SocleOfModuleInclusion}}{80}{subsection.7.3.22}
+\contentsline {subsection}{\numberline {7.3.23}\leavevmode {\color {Chapter }SubRepresentationInclusion}}{80}{subsection.7.3.23}
+\contentsline {subsection}{\numberline {7.3.24}\leavevmode {\color {Chapter }TopOfModuleProjection}}{80}{subsection.7.3.24}
 \contentsline {section}{\numberline {7.4}\leavevmode {\color {Chapter }Homological algebra}}{81}{section.7.4}
 \contentsline {subsection}{\numberline {7.4.1}\leavevmode {\color {Chapter }ExtOverAlgebra}}{81}{subsection.7.4.1}
 \contentsline {subsection}{\numberline {7.4.2}\leavevmode {\color {Chapter }ExtAlgebraGenerators}}{81}{subsection.7.4.2}
-\contentsline {section}{\numberline {7.5}\leavevmode {\color {Chapter }Auslander-Reiten theory}}{81}{section.7.5}
-\contentsline {subsection}{\numberline {7.5.1}\leavevmode {\color {Chapter }AlmostSplitSequence}}{81}{subsection.7.5.1}
-\contentsline {subsection}{\numberline {7.5.2}\leavevmode {\color {Chapter }PredecessorOfModule}}{81}{subsection.7.5.2}
+\contentsline {section}{\numberline {7.5}\leavevmode {\color {Chapter }Auslander-Reiten theory}}{82}{section.7.5}
+\contentsline {subsection}{\numberline {7.5.1}\leavevmode {\color {Chapter }AlmostSplitSequence}}{82}{subsection.7.5.1}
+\contentsline {subsection}{\numberline {7.5.2}\leavevmode {\color {Chapter }PredecessorOfModule}}{82}{subsection.7.5.2}
 \contentsline {chapter}{\numberline {8}\leavevmode {\color {Chapter }Chain complexes}}{84}{chapter.8}
 \contentsline {section}{\numberline {8.1}\leavevmode {\color {Chapter }Representation of categories}}{84}{section.8.1}
 \contentsline {subsection}{\numberline {8.1.1}\leavevmode {\color {Chapter }IsCat}}{84}{subsection.8.1.1}

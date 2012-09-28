@@ -19,7 +19,7 @@
   \item \texttt  {AdjacencyMatrixOfQuiver}, \hyperpage{17}
   \item \texttt  {AdmitsFinitelyManyNontips}, \hyperpage{44}
   \item \texttt  {AlgebraAsModuleOfEnvelopingAlgebra}, \hyperpage{40}
-  \item \texttt  {AlmostSplitSequence}, \hyperpage{81}
+  \item \texttt  {AlmostSplitSequence}, \hyperpage{82}
   \item \texttt  {AnnihilatorOfModule}, \hyperpage{51}
   \item \texttt  {ArrowsOfQuiver}, \hyperpage{17}
 
@@ -72,6 +72,7 @@
 
   \item \texttt  {ElementOfPathAlgebra}, \hyperpage{24}
   \item \texttt  {ElementOfQuotientOfPathAlgebra}, \hyperpage{33}
+  \item \texttt  {EndModuloProjOverAlgebra}, \hyperpage{72}
   \item \texttt  {EndOverAlgebra}, \hyperpage{71}
   \item \texttt  {Enumerator}, \hyperpage{44}
   \item \texttt  {EnvelopingAlgebra}, \hyperpage{40}
@@ -95,6 +96,7 @@
   \indexspace
 
   \item \texttt  {HighestKnownDegree}, \hyperpage{90}
+  \item \texttt  {HomFactoringThroughProjOverAlgebra}, \hyperpage{72}
   \item \texttt  {HomFromProjective}, \hyperpage{72}
   \item \texttt  {HomologyOfComplex}, \hyperpage{89}
   \item \texttt  {HomOverAlgebra}, \hyperpage{72}
@@ -186,8 +188,8 @@
 
   \indexspace
 
-  \item \texttt  {Kernel}, \hyperpage{72}
-  \item \texttt  {KernelInclusion}, \hyperpage{72}
+  \item \texttt  {Kernel}, \hyperpage{73}
+  \item \texttt  {KernelInclusion}, \hyperpage{73}
   \item \texttt  {KernelOfWhat}, \hyperpage{70}
   \item \texttt  {KroneckerAlgebra}, \hyperpage{34}
 
@@ -199,8 +201,8 @@
   \item \texttt  {LeftMinimalVersion}, \hyperpage{76}
   \item \texttt  {LengthOfComplex}, \hyperpage{90}
   \item \texttt  {LengthOfPath}, \hyperpage{20}
-  \item \texttt  {LiftingInclusionMorphisms}, \hyperpage{74}
-  \item \texttt  {LiftingMorphismFromProjective}, \hyperpage{74}
+  \item \texttt  {LiftingInclusionMorphisms}, \hyperpage{75}
+  \item \texttt  {LiftingMorphismFromProjective}, \hyperpage{75}
   \item \texttt  {LoewyLength}, \hyperpage{31}, \hyperpage{54}
   \item \texttt  {LowerBound}, \hyperpage{90}
   \item \texttt  {LowestKnownDegree}, \hyperpage{90}
@@ -215,7 +217,7 @@
   \item \texttt  {MaximalCommonDirectSummand}, \hyperpage{55}
   \item \texttt  {MinimalGeneratingSetOfModule}, \hyperpage{55}
   \item \texttt  {MinimalLeftApproximation}, \hyperpage{76}
-  \item \texttt  {MinimalRightApproximation}, \hyperpage{76}
+  \item \texttt  {MinimalRightApproximation}, \hyperpage{77}
   \item \texttt  {MorphismOfChainMap}, \hyperpage{96}
   \item \texttt  {MorphismOnCoKernel}, \hyperpage{77}
   \item \texttt  {MorphismOnImage}, \hyperpage{77}
@@ -252,15 +254,15 @@
   \indexspace
 
   \item \texttt  {PathAlgebra}, \hyperpage{23}
-  \item \texttt  {PredecessorOfModule}, \hyperpage{81}
+  \item \texttt  {PredecessorOfModule}, \hyperpage{82}
   \item \texttt  {PreImagesRepresentative}, \hyperpage{65}
   \item \texttt  {ProductOfIdeals}, \hyperpage{29}
   \item \texttt  {ProjectFromProductQuiver}, \hyperpage{38}
-  \item \texttt  {ProjectiveCover}, \hyperpage{77}
+  \item \texttt  {ProjectiveCover}, \hyperpage{78}
   \item \texttt  {ProjectiveResolution}, \hyperpage{99}
   \item \texttt  {ProjectiveResolutionOfComplex}, \hyperpage{99}
   \item \texttt  {ProjectiveToInjectiveComplex}, \hyperpage{99}
-  \item \texttt  {PullBack}, \hyperpage{77}
+  \item \texttt  {PullBack}, \hyperpage{78}
   \item \texttt  {PushOut}, \hyperpage{78}
 
   \indexspace
@@ -274,7 +276,7 @@
   \indexspace
 
   \item \texttt  {RadicalOfModule}, \hyperpage{56}
-  \item \texttt  {RadicalOfModuleInclusion}, \hyperpage{79}
+  \item \texttt  {RadicalOfModuleInclusion}, \hyperpage{80}
   \item \texttt  {RadicalSeries}, \hyperpage{56}
   \item \texttt  {Range}, \hyperpage{65}
   \item \texttt  {RightGroebnerBasis}, \hyperpage{45}
@@ -291,7 +293,7 @@
   \item \texttt  {SimpleModules}, \hyperpage{58}
   \item \texttt  {SimpleTensor}, \hyperpage{39}
   \item \texttt  {SocleOfModule}, \hyperpage{56}
-  \item \texttt  {SocleOfModuleInclusion}, \hyperpage{79}
+  \item \texttt  {SocleOfModuleInclusion}, \hyperpage{80}
   \item \texttt  {SocleSeries}, \hyperpage{56}
   \item \texttt  {Source}, \hyperpage{65}
   \item \texttt  {SourceOfPath}, \hyperpage{19}

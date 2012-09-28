@@ -1,5 +1,5 @@
 # GAP Declarations
-# $Id: homomorphisms.gd,v 1.13 2012/08/01 16:01:10 sunnyquiver Exp $
+# $Id: homomorphisms.gd,v 1.14 2012/09/28 12:57:10 sunnyquiver Exp $
 
 DeclareCategory("IsPathAlgebraMatModuleHomomorphism", IsAdditiveElementWithZero and IsAdditiveElementWithInverse and IsGeneralMapping and RespectsAddition and RespectsZero and RespectsScalarMultiplication and IsTotal and IsSingleValued ); 
 DeclareCategoryFamily(  "IsPathAlgebraMatModuleHomomorphism" );
@@ -43,3 +43,5 @@ DeclareOperation( "LiftingMorphismFromProjective", [ IsPathAlgebraMatModuleHomom
 DeclareOperation( "LiftingInclusionMorphisms", [ IsPathAlgebraMatModuleHomomorphism, IsPathAlgebraMatModuleHomomorphism ] );
 DeclareOperation( "IntersectionOfSubmodules", [ IsDenseList ]);
 DeclareOperation( "SumOfSubmodules", [ IsDenseList ]);
+DeclareOperation( "HomFactoringThroughProjOverAlgebra", [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ]);
+DeclareOperation( "EndModuloProjOverAlgebra", [ IsPathAlgebraMatModule ]);
