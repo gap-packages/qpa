@@ -1,4 +1,4 @@
-
+Print("Foooooooooooo!!!!!\n");
 
 
 # projective and injective complexes -- property and printing
@@ -642,12 +642,12 @@ InstallMethod( ProjectiveToInjectiveFiniteComplex,
     fi;
     
     # the first injective
-    inj1 := Filtered(injectives, x -> Position(injectives, x) in
-                     descr[1]);
+    inj1 := List(descr[1], x -> injectives[x]);
     inj1 := DirectSumOfModules(inj1);
 
 
     for i in [(start+1)..stop] do
+#        Print("ser nå på avbildningen i grad ", i , ".\n");
         f := DifferentialOfComplex(PCompl, i);
         u := StarOfMapBetweenProjectives(f,descr[i+1-start],descr[i-start]);
         mats := MatricesOfDualMap(u);
@@ -724,49 +724,62 @@ InstallMethod( StarOfMapBetweenIndecProjectives,
 
     local A, BP, e_i, elem, BasisOfVertex, eleminalg,
           A_op, P_op, a_op, e_i_op, e_i_op_a_op, s, u,
-          vertices, jvertices, supportList,
-          u_list, source, projections;
- 
+          vertices, jvertice, support,
+          u_list, source, projections,
+	  summands, summand, k;
+    
     # finding the algebra and the indec projectives
     A := RightActingAlgebra(Source(f));
     BP := BasisOfProjectives(A);
-    
-    # constructing f(e_i) as an element in the path algebra
-    e_i := Filtered(MinimalGeneratingSetOfModule(Source(f)),
-                    m -> not(IsZero(m![1]![1][i])))[1];
-    elem := ImageElm(f, e_i);
-    
-    BasisOfVertex := Union(List(j_list, j -> BP[j][i]));
-    
-    eleminalg := LinearCombination(BasisOfVertex, elem![1]![1][i]);
-    
-    # moving everything to the oppsite algebra
+ 
+    # the opposite algebra
     A_op := OppositeAlgebra(A);
     P_op := IndecProjectiveModules(A_op);
-    a_op := OppositePathAlgebraElement(eleminalg);
-    
-    # aop as element in the module
-    e_i_op :=  Filtered(MinimalGeneratingSetOfModule(P_op[i]),
-                        m -> not(IsZero(m![1]![1][i])))[1];
-    e_i_op_a_op := e_i_op^a_op;
-
-    
-    # the map Qj* --> Pi*
-    vertices := VerticesOfPathAlgebra(A_op);
-    jvertices := List(j_list, j -> vertices[j]);
-    supportList := List(jvertices, j -> e_i_op_a_op^j);
-
-    # zero maps must also be included
+	  
     u_list := [];
-    for s in [1..Length(supportList)] do
-        if (IsZero(supportList[s])) then
-            u := ZeroMapping(P_op[j_list[s]],P_op[i]);
-        else
-            u := HomFromProjective(supportList[s], P_op[i]);
-        fi;
-        Append(u_list, [u]);
-    od;
+    
+    # in case Range(f) is not a direct sum:
+    if not IsDirectSumOfModules(Range(f)) then
+        summands := [f];
+    else
+        summands := f*DirectSumProjections(Range(f));
+    fi;
 
+    for k in [1..Length(j_list)] do
+#        Print("avbildning fra P",i," til P",j_list[k],":\n");
+        if(IsZero(summands[k])) then
+            Append(u_list,[ZeroMapping(P_op[j_list[k]],P_op[i])]);
+#            Print("... var 0 \n");
+        else
+#            Print("... var ikke 0\n");
+
+        # constructing f(e_i) as an element in the path algebra
+            e_i := MinimalGeneratingSetOfModule(Source(summands[k]))[1];
+            elem := ImageElm(summands[k], e_i);
+            BasisOfVertex := BP[j_list[k]][i];
+            eleminalg := LinearCombination(BasisOfVertex, elem![1]![1][i]);
+            a_op := OppositePathAlgebraElement(eleminalg);
+    
+        # aop as element in the module
+            e_i_op :=  Filtered(MinimalGeneratingSetOfModule(P_op[i]),
+                                m -> not(IsZero(m![1]![1][i])))[1];
+            e_i_op_a_op := e_i_op^a_op;
+         # the map Qj* --> Pi*
+            vertices := VerticesOfPathAlgebra(A_op);
+            jvertice := vertices[j_list[k]]; #?
+            support := e_i_op_a_op^jvertice;
+            
+        # zero maps must also be included
+#            Print(support, "\n");
+            if (IsZero(support)) then
+#                Print("fikk likevel 0 til slutt\n");
+                u := ZeroMapping(P_op[j_list[k]],P_op[i]);
+            else
+                u := HomFromProjective(support, P_op[i]);
+            fi;
+            Append(u_list, [u]);
+        fi;
+    od;
     source := List(u_list, u -> Source(u));
     source := DirectSumOfModules(source);
     projections := DirectSumProjections(source);
@@ -793,68 +806,31 @@ InstallMethod( StarOfMapBetweenDecompProjectives,
                     [ IsPathAlgebraMatModuleHomomorphism, IsList, IsList ],
                     function( f, i_list, j_list )
 
-    local A, BP, e_i, elem, BasisOfVertex, eleminalg,
-          A_op, P_op, a_op, e_i_op, e_i_op_a_op, s, u,
-          vertices, jvertices, supportList,
-          u_list, source, projections, maplist, i,
-          range, inclusions;
+    local maplist, i, range, m, inclusions, i_inclusions, A, BP, A_op, P_op, g, summands,
+          k, u_list, e_i, elem, BasisOfVertex, eleminalg, a_op, e_i_op, e_i_op_a_op,
+          vertices, jvertices, j, supportList, s, u, source, projections;
 
     maplist := [];
+    i_inclusions := DirectSumInclusions(Source(f));
 
-    # finding the algebra and the indec projectives
-    A := RightActingAlgebra(Source(f));
-    BP := BasisOfProjectives(A);
-    
-    # iterating through i_list and find maps 
-    for i in i_list do
-         # constructing f(e_i) as an element in the path algebra
-        e_i := Filtered(MinimalGeneratingSetOfModule(Source(f)),
-                        m -> not(IsZero(m![1]![1][i])))[1];
-        elem := ImageElm(f, e_i);
-    
-        # first difference from above method:
-        BasisOfVertex := Union(List(j_list, j -> BP[j][i]));
-
-        eleminalg := LinearCombination(BasisOfVertex, elem![1]![1][i]);
-    
-        # moving everything to the oppsite algebra
-        A_op := OppositeAlgebra(A);
-        P_op := IndecProjectiveModules(A_op);
-        a_op := OppositePathAlgebraElement(eleminalg);
-        
-        # aop as element in the module
-        e_i_op :=  Filtered(MinimalGeneratingSetOfModule(P_op[i]),
-                            m -> not(IsZero(m![1]![1][i])))[1];
-        e_i_op_a_op := e_i_op^a_op;
-        
-        # the map Qj* --> Pi*
-        # (second difference from above method)
-        vertices := VerticesOfPathAlgebra(A_op);
-        jvertices := List(j_list, j -> vertices[j]);
-        supportList := List(jvertices, j -> e_i_op_a_op^j);
-    
-        u_list := [];
-        for s in [1..Length(supportList)] do
-            if (IsZero(supportList[s])) then
-                u := ZeroMapping(P_op[j_list[s]],P_op[i]);
-            else
-                u := HomFromProjective(supportList[s], P_op[i]);
-            fi;
-            Append(u_list, [u]);
-        od;
-        Append(maplist, [u_list]);
+    for i in [1..Length(i_list)] do
+        g := i_inclusions[i]*f;
+        Append(maplist, [StarOfMapBetweenIndecProjectives(g, i_list[i], j_list)]);
 
     od;
 
-    source := List(j_list, j -> P_op[j]);
-    source := DirectSumOfModules(source);
-    projections := DirectSumProjections(source);
+    # cheating to get same source of the maps:
+    if (Length(maplist) > 1) then
+        for j in [2..Length(maplist)] do
+            maplist[j] := DirectSumProjections(Source(maplist[1]))*
+                          DirectSumInclusions(Source(maplist[j]))*maplist[j];
+       od;
+    fi;
 
-    range := List(i_list, i -> P_op[i]);
+    range := List(maplist, m-> Range(m));
     range := DirectSumOfModules(range);
     inclusions := DirectSumInclusions(range);
-
-    return MultiplyListsOfMaps(projections, maplist, inclusions);
+    return maplist*inclusions;
 
 end);
 
