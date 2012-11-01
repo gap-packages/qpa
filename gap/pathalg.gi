@@ -1428,3 +1428,547 @@ InstallMethod( AddNthPowerToRelations,
 
 end
 );
+
+InstallMethod( OppositePathAlgebra,
+        "for a path algebra",
+        [ IsPathAlgebra ],
+        function( PA )
+    local PA_op, field, quiver_op;
+
+    field := LeftActingDomain( PA );
+    quiver_op := OppositeQuiver( QuiverOfPathAlgebra( PA ) );
+    PA_op := PathAlgebra( field, quiver_op );
+
+    SetOppositePathAlgebra( PA_op, PA );
+
+    return PA_op;
+end );
+
+
+InstallMethod( OppositeAlgebra,
+        "for a path algebra",
+        [ IsPathAlgebra ],
+        OppositePathAlgebra );
+
+
+InstallGlobalFunction( OppositePathAlgebraElement,
+        function( elem )
+    local PA, PA_op, terms, op_term;
+
+    PA := PathAlgebraContainingElement( elem );
+    PA_op := OppositePathAlgebra( PA );
+
+    if elem = Zero(PA) then 
+       return Zero(PA_op);
+    else 
+       op_term :=
+       function( t )
+          return t.coeff * One( PA_op ) * OppositePath( t.monom );
+       end;
+
+       terms := PathAlgebraElementTerms( elem );
+       return Sum( terms, op_term );
+    fi;
+end );
+
+
+InstallMethod( OppositeRelations,
+        "for a list of relations",
+        [ IsDenseList ],
+        function( rels )
+    return List( rels, OppositePathAlgebraElement );
+end );
+        
+        
+InstallMethod( OppositePathAlgebra,
+        "for a quotient of a path algebra",
+        [ IsQuotientOfPathAlgebra ],
+        function( quot )
+    local PA, PA_op, rels, rels_op, I_op, gb, gbb, quot_op;
+
+    PA := OriginalPathAlgebra( quot );
+    PA_op := OppositePathAlgebra( PA );
+    rels  := RelatorsOfFpAlgebra( quot );
+    rels_op := OppositeRelations( rels );
+    I_op := Ideal( PA_op, rels_op );
+    gb   := GBNPGroebnerBasis(rels_op,PA_op);
+    gbb  := GroebnerBasis(I_op,gb);
+    quot_op := PA_op / I_op;
+
+    SetOppositePathAlgebra( quot_op, quot );
+
+    return quot_op;
+end );
+
+
+InstallMethod( OppositeAlgebra,
+        "for a quotient of a path algebra",
+        [ IsQuotientOfPathAlgebra ],
+        OppositePathAlgebra );
+
+InstallMethod( Centre,
+   "for a path algebra",
+   [ IsQuotientOfPathAlgebra ], 0,
+   function( A ) 
+
+   local Q, K, num_vert, vertices, arrows, B, cycle_list, i, j, b, 
+         pos, commutators, center, zero_count, a, c, x, cycles, matrix,
+         data, coeffs, fam, elms, solutions, gbb;
+
+   B := CanonicalBasis(A);
+   Q := QuiverOfPathAlgebra(A); 
+   K := LeftActingDomain(A);
+   num_vert := NumberOfVertices(Q);
+   vertices := VerticesOfQuiver(Q);
+   arrows   := GeneratorsOfAlgebra(A){[2+num_vert..1+num_vert+NumberOfArrows(Q)]};
+  
+   cycle_list := [];
+   for b in B do
+      if SourceOfPath(TipMonomial(b)) = TargetOfPath(TipMonomial(b)) then 
+         Add(cycle_list,b);
+      fi;
+   od;
+   commutators := [];
+   center := [];
+   cycles := Length(cycle_list);
+   for c in cycle_list do
+      for a in arrows do
+         Add(commutators,c*a-a*c);
+      od;
+   od;
+
+   matrix := NullMat(cycles,Length(B)*NumberOfArrows(Q),K);
+
+   for j in [1..cycles] do
+      for i in [1..NumberOfArrows(Q)] do
+         matrix[j]{[Length(B)*(i-1)+1..Length(B)*i]} := Coefficients(B,commutators[i+(j-1)*NumberOfArrows(Q)]); 
+      od;
+   od;
+
+   solutions := NullspaceMat(matrix);
+
+   center := [];
+   for i in [1..Length(solutions)] do
+      x := Zero(A);
+      for j in [1..cycles] do 
+         if solutions[i][j] <> Zero(K) then 
+            x := x + solutions[i][j]*cycle_list[j];
+         fi;
+      od;
+      center[i] := x;
+   od;
+   return center;
+end
+);
+
+
+
+#######################################################################
+##
+#O  VertexPosition(<elm>)
+##
+##  This function assumes that the input is a residue class of a trivial
+##  path in finite dimensional quotient of a path algebra, and it finds  
+##  the position of this trivial path/vertex in the list of vertices for
+##  the quiver used to define the algebra.
+##
+InstallMethod ( VertexPosition, 
+   "for an element in a quotient of a path algebra",
+   true,
+   [ IsElementOfQuotientOfPathAlgebra ],
+   0,
+   function( elm )
+
+   return elm![1]![2][1]!.gen_pos;
+end
+);
+
+#######################################################################
+##
+#O  VertexPosition(<elm>)
+##
+##  This function assumes that the input is a trivial path in finite 
+##  dimensional a path algebra, and it finds the position of this 
+##  trivial path/vertex in the list of vertices for the quiver used 
+##  to define the algebra.
+##
+InstallOtherMethod ( VertexPosition, 
+   "for an element in a PathAlgebra",
+   true,
+   [ IsElementOfMagmaRingModuloRelations ],
+   0,
+   function( elm )
+
+   if "pathRing" in NamesOfComponents(FamilyObj(elm)) then 
+      return elm![2][1]!.gen_pos;
+   else
+      return false;
+   fi;
+end
+);
+
+#######################################################################
+##
+#O  IsSelfinjectiveAlgebra ( <A> )
+##
+##  This function returns fail if the algebra  A  is not a finite  
+##  dimensional quotient of a path algebra, otherwise it returns
+##  true or false depending on whether or not the algebra is 
+##  selfinjective.
+##
+InstallMethod( IsSelfinjectiveAlgebra, 
+   "for a finite dimension quotient of a path algebra",
+   [ IsAlgebra ], 0,
+   function( A ) 
+
+   local Q, fam, KQ, rels, I, B, gb, gbb, Inj, T, num_vert, total, i;
+   
+   if not IsPathAlgebra(A) and not IsQuotientOfPathAlgebra(A) then
+       TryNextMethod();
+   fi;
+   #
+   # If the algebra is a path algebra.
+   #
+   if IsPathAlgebra(A) then 
+       Q := QuiverOfPathAlgebra(A);
+       if IsAcyclicQuiver(Q) then 
+           if NumberOfArrows(Q) > 0 then 
+               return false;
+           else
+               return true;
+           fi;
+       else
+           return fail;
+       fi;
+   fi;
+   #
+   # By now we know that the algebra is a quotient of a path algebra.
+   #
+   fam := ElementsFamily(FamilyObj(A));
+   if HasGroebnerBasisOfIdeal(fam!.ideal) and 
+              AdmitsFinitelyManyNontips(GroebnerBasisOfIdeal(fam!.ideal)) then 
+       Inj := IndecInjectiveModules(A);
+       T := List(Inj, M -> DimensionVector(TopOfModule(M)));
+       num_vert := Length(T);
+       total := List([1..num_vert], x -> 0);
+       for i in [1..num_vert] do
+           total := total + T[i];
+       od;
+       if ( num_vert = Sum(total) ) and ( ForAll(total, x -> x > 0) )  then
+           return true;
+       else
+           return false;
+       fi;
+   else
+       return fail;
+   fi;
+end
+);
+
+InstallOtherMethod( CartanMatrix, 
+   "for a PathAlgebra",
+   [ IsPathAlgebra ], 0,
+   function( A ) 
+
+   local P, C, i;
+
+   P := IndecProjectiveModules(A);
+   C := [];
+   for i in [1..Length(P)] do
+      Add(C,DimensionVector(P[i]));
+   od;
+
+   return C;
+end
+);
+
+InstallOtherMethod( CartanMatrix, 
+   "for a SubalgebraFpPathAlgebra",
+   [ IsQuotientOfPathAlgebra ], 0,
+   function( A ) 
+
+   local P, C, i;
+
+   P := IndecProjectiveModules(A);
+   C := [];
+   for i in [1..Length(P)] do
+      Add(C,DimensionVector(P[i]));
+   od;
+
+   return C;
+end
+);
+
+InstallMethod( CoxeterMatrix, 
+   "for a PathAlgebra",
+   [ IsPathAlgebra ], 0,
+   function( A ) 
+
+   local P, C, i;
+
+   C := CartanMatrix(A);
+   if DeterminantMat(C) <> 0 then 
+      return (-1)*C^(-1)*TransposedMat(C);
+   else
+      return fail;
+   fi;
+end
+);
+
+InstallOtherMethod( CoxeterMatrix, 
+   "for a PathAlgebra",
+   [ IsQuotientOfPathAlgebra ], 0,
+   function( A ) 
+
+   local C;
+
+   C := CartanMatrix(A);
+   if DeterminantMat(C) <> 0 then 
+      return (-1)*C^(-1)*TransposedMat(C);
+   else
+      return fail;
+   fi;
+end
+);
+
+InstallMethod( CoxeterPolynomial, 
+   "for a PathAlgebra",
+   [ IsPathAlgebra ], 0,
+   function( A ) 
+
+   local P, C, i;
+
+   C := CartanMatrix(A);
+   if C <> fail then 
+      return CharacteristicPolynomial(C);
+   else
+      return fail;
+   fi;
+end
+);
+
+InstallOtherMethod( CoxeterPolynomial, 
+   "for a PathAlgebra",
+   [ IsQuotientOfPathAlgebra ], 0,
+   function( A ) 
+
+   local P, C, i;
+
+   C := CartanMatrix(A);
+   if C <> fail then 
+      return CharacteristicPolynomial(C);
+   else
+      return fail;
+   fi;
+end
+);
+
+
+
+
+InstallMethod( TipMonomialandCoefficientOfVector, 
+   "for a path algebra",
+   [ IsAlgebra, IsCollection ], 0,
+   function( A, x ) 
+
+   local pos, tipmonomials, sortedtipmonomials, tippath, i, n;
+
+   pos := 1;
+   tipmonomials := List(x,TipMonomial);
+   sortedtipmonomials := ShallowCopy(tipmonomials);
+   Sort(sortedtipmonomials,\<);
+
+   if Length(tipmonomials) > 0 then
+      tippath := sortedtipmonomials[Length(sortedtipmonomials)];
+      pos := Minimum(Positions(tipmonomials,tippath));
+   fi;
+
+   return [pos,TipMonomial(x[pos]),TipCoefficient(x[pos])];
+end
+);
+
+
+InstallMethod( TipReduceVectors, 
+   "for a path algebra",
+   [ IsAlgebra, IsCollection ], 0,
+   function( A, x ) 
+
+   local i, j, k, n, y, s, t, pos_m, z, stop;
+
+   n := Length(x);
+   if n > 0 then 
+      for k in [1..n] do
+      	 for j in [1..n] do
+            if j <> k then  
+               s := TipMonomialandCoefficientOfVector(A,x[k]);
+               t := TipMonomialandCoefficientOfVector(A,x[j]); 
+               if ( s <> fail ) and ( t <> fail ) then
+                  if ( s[1] = t[1] ) and ( s[2] = t[2] ) and 
+                     ( s[3] <> Zero(LeftActingDomain(A)) ) then 
+               	     x[j] := x[j] - (t[3]/s[3])*x[k];
+                  fi;
+               fi;
+            fi;
+      	 od;
+      od;
+      return x;
+   fi;
+end
+);
+
+#
+# This has a bug !!!!!!!!!!!!!!!!!!!
+#
+InstallMethod( CoefficientsOfVectors, 
+   "for a path algebra",
+   [ IsAlgebra, IsCollection, IsList ], 0,
+   function( A, x, y ) 
+
+   local i, j, n, s, t, tiplist, vector, K, zero_vector, z;
+
+   tiplist := [];
+   for i in [1..Length(x)] do 
+      Add(tiplist,TipMonomialandCoefficientOfVector(A,x[i]){[1..2]});
+   od;
+
+   vector := []; 
+   K := LeftActingDomain(A);
+   for i in [1..Length(x)] do
+      Add(vector,Zero(K));
+   od;
+   zero_vector := [];
+   for i in [1..Length(y)] do
+      Add(zero_vector,Zero(A));
+   od;
+
+   z := y;
+   if z = zero_vector then
+      return vector;
+   else 
+      repeat
+         s := TipMonomialandCoefficientOfVector(A,z);
+         j := Position(tiplist,s{[1..2]});
+         if j = fail then 
+            return [x,y];
+         fi;
+         t := TipMonomialandCoefficientOfVector(A,x[j]); 
+         z := z - (s[3]/t[3])*x[j];
+         vector[j] := vector[j] + (s[3]/t[3]);
+      until 
+         z = zero_vector;
+      return vector;
+   fi;
+end
+);
+
+
+
+
+#######################################################################
+##
+#P  IsSymmetricAlgebra( <A> )
+##
+##  This function determines if the algebra  A  is a symmetric algebra,
+##  if it is a (quotient of a) path algebra. 
+##
+InstallMethod( IsSymmetricAlgebra, 
+   "for a quotient of a path algebra",
+   [ IsAlgebra ], 0,
+   function( A ) 
+
+    local Q, fam, Aenv, M, DM, mats, op_name, de_op_name, vertices, arrows, 
+          new_vertices, new_arrows, stringvertices, stringarrows, 
+          vertex_positions, arrow_positions, newdimvector, newmats, 
+          matrices, a, arrowentry, MM;
+    
+    if not IsPathAlgebra(A) and not IsQuotientOfPathAlgebra(A) then 
+       TryNextMethod();
+    fi;    
+    if IsPathAlgebra(A) then
+        Q := QuiverOfPathAlgebra(A);
+        if IsAcyclicQuiver(Q) then
+            return Length(ArrowsOfQuiver(QuiverOfPathAlgebra(A))) = 0;
+        else
+            return fail;
+        fi;
+    fi;    
+    #
+    # By now we know that the algebra is a quotient of a path algebra.
+    #
+    fam := ElementsFamily(FamilyObj(A));
+    if not (HasGroebnerBasisOfIdeal(fam!.ideal) and 
+              AdmitsFinitelyManyNontips(GroebnerBasisOfIdeal(fam!.ideal))) then 
+        return fail;
+    fi;
+    #
+    # By now we know that the algebra is finite dimensional.
+    #
+    Aenv := EnvelopingAlgebra(A);
+    M    := AlgebraAsModuleOfEnvelopingAlgebra(Aenv);
+    DM   := DualOfModule(M);
+    #
+    #   Finding DM as a module over Aenv.
+    #
+    mats    := MatricesOfPathAlgebraModule(DM);
+    op_name := OppositeQuiverNameMap(QuiverOfPathAlgebra(A));        
+    de_op_name := OppositeQuiverNameMap(OppositeQuiver(QuiverOfPathAlgebra(A)));
+    vertices   := VerticesOfQuiver(QuiverOfPathAlgebra(Aenv));
+    arrows     := ArrowsOfQuiver(QuiverOfPathAlgebra(Aenv));
+    new_vertices := List(vertices, x -> Concatenation(op_name(String(ProjectFromProductQuiver(2,x))),"_",de_op_name(String(ProjectFromProductQuiver(1,x)))));
+    new_arrows   := List(arrows, x -> Concatenation(op_name(String(ProjectFromProductQuiver(2,x))),"_",de_op_name(String(ProjectFromProductQuiver(1,x)))));
+    stringvertices := List(vertices, x -> String(x));
+    stringarrows   := List(arrows, x -> String(x));
+    #
+    #   Finding the permutation of the vertices and the arrows.
+    #
+    vertex_positions := List(new_vertices, x -> Position(stringvertices, x));
+    arrow_positions  := List(new_arrows, x -> Position(stringarrows, x));
+    #
+    #   Finding the new dimension vector and the matrices of  DM  as a module over Aenv.
+    #
+    newdimvector := List([1..Length(vertices)], x -> DimensionVector(DM)[vertex_positions[x]]);
+    newmats  := List([1..Length(mats)], x -> mats[arrow_positions[x]]);
+    #
+    #   Creating the input for construction  DM  as a module over Aenv.
+    #
+    matrices := [];
+    for a in arrows do
+        if newdimvector[Position(vertices,SourceOfPath(a))] <> 0 and 
+           newdimvector[Position(vertices,TargetOfPath(a))] <> 0 then 
+            arrowentry := List([1..2], x -> []);
+            arrowentry[1] := String(a);
+            arrowentry[2] := newmats[Position(arrows,a)];
+            Add(matrices, arrowentry);
+        fi;
+    od;
+    MM := RightModuleOverPathAlgebra(Aenv, newdimvector, matrices);
+    
+    return IsomorphicModules(M,MM);
+end
+);
+
+#######################################################################
+##
+#P  IsWeaklySymmetricAlgebra( <A> )
+##
+##  This function determines if the algebra  A  is a weakly symmetric 
+##  algebra, if it is a (quotient of a) path algebra. 
+##
+InstallMethod( IsWeaklySymmetricAlgebra, 
+   "for a quotient of a path algebra",
+   [ IsAlgebra ], 0,
+   function( A ) 
+
+   local P;
+   
+   if not IsPathAlgebra(A) and not IsQuotientOfPathAlgebra(A) then 
+       TryNextMethod();
+   fi;
+   if IsSelfinjectiveAlgebra(A) then
+       P := IndecProjectiveModules(A);
+       return ForAll(P, x -> DimensionVector(SocleOfModule(x)) = DimensionVector(TopOfModule(x)));
+   else   
+       return false; 
+   fi;
+end
+);

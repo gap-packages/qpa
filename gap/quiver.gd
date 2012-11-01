@@ -52,3 +52,7 @@ DeclareOperation( "QuiverContainingPath", [ IsPath ] );
 DeclareOperation( "VertexIndex", [ IsVertex ] );
 DeclareOperation( "ArrowIndex", [ IsArrow ] );
 DeclareOperation( "GeneratorIndex", [ IsPath ] );
+
+DeclareAttribute( "OppositeQuiver", IsQuiver );
+DeclareOperation( "OppositePath", [ IsPath ] );
+DeclareAttribute( "OppositeQuiverNameMap", IsQuiver );

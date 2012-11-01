@@ -2417,3 +2417,367 @@ InstallMethod ( EndModuloProjOverAlgebra,
 end
 );
 
+InstallMethod ( FromHomMMToEndM, 
+   "for a subset of EndOverAlgebra to HomOverAlgebra",
+   true,
+   [ IsPathAlgebraMatModuleHomomorphism ],
+   0,
+   function( f )
+
+   local K, dim_vect, end_f, r, j;
+
+   K := LeftActingDomain(Source(f));
+   dim_vect := DimensionVector(Source(f));
+   end_f := NullMat(Dimension(Source(f)),Dimension(Source(f)),K);
+   r := 1; 
+   for j in [1..Length(dim_vect)] do 
+      if dim_vect[j] <> 0 then 
+         end_f{[r..r+dim_vect[j]-1]}{[r..r+dim_vect[j]-1]} := f!.maps[j];
+         r := r + dim_vect[j];
+      fi;
+   od; 
+
+   return end_f;
+end
+);
+
+InstallMethod ( FromEndMToHomMM, 
+   "for a subset of EndOverAlgebra to HomOverAlgebra",
+   true,
+   [ IsPathAlgebraMatModule, IsMatrix ],
+   0,
+   function( M, mat )
+
+   local K, dim_vect, maps, i, r;
+
+   K := LeftActingDomain(M); 
+   dim_vect := DimensionVector(M);
+
+   maps := [];
+   r := 1;
+   for i in [1..Length(dim_vect)] do
+      if dim_vect[i] = 0 then 
+         Add(maps,NullMat(1,1,K));
+      else
+         Add(maps,mat{[r..r+dim_vect[i]-1]}{[r..r+dim_vect[i]-1]});
+         r := r + dim_vect[i];
+      fi;
+   od;
+
+   return RightModuleHomOverAlgebra(M,M,maps);
+end
+);
+
+InstallMethod ( IsRightMinimal, 
+   "for a PathAlgebraMatModuleMap",
+   true,
+   [ IsPathAlgebraMatModuleHomomorphism ],
+   0,
+   function( f )
+
+   local B, C, BB, mat, Ann_f, radEndB;
+
+   B   := Source(f);
+   C   := Range(f);
+   BB  := HomOverAlgebra(B,B);
+   mat := List(BB, x -> x*f);
+   mat   := List(mat,x -> Flat(x!.maps));
+   Ann_f := NullspaceMat(mat);
+   Ann_f := List(Ann_f,x -> LinearCombination(BB,x));
+   radEndB := RadicalOfAlgebra(EndOverAlgebra(B)); 
+   Ann_f := List(Ann_f, x -> FromHomMMToEndM(x));
+
+   if ForAll(Ann_f, x -> x in radEndB) then 
+      return true;
+   else
+      return false;
+   fi;
+end
+);
+
+InstallMethod ( IsLeftMinimal, 
+   "for a PathAlgebraMatModuleMap",
+   true,
+   [ IsPathAlgebraMatModuleHomomorphism ],
+   0,
+   function( f )
+
+   local A, B, BB, mat, Ann_f, radEndB;
+
+   A   := Source(f);
+   B   := Range(f);
+   BB  := HomOverAlgebra(B,B);
+   mat := List(BB, x -> f*x );
+   mat   := List(mat,x -> Flat(x!.maps));
+   Ann_f := NullspaceMat(mat);
+   Ann_f := List(Ann_f,x -> LinearCombination(BB,x));
+   radEndB := RadicalOfAlgebra(EndOverAlgebra(B)); 
+   Ann_f := List(Ann_f, x -> FromHomMMToEndM(x));
+
+   if ForAll(Ann_f, x -> x in radEndB) then 
+      return true;
+   else
+      return false;
+   fi;
+end
+);
+
+InstallMethod ( IsSplitMonomorphism, 
+   "for a PathAlgebraMatModuleMap",
+   true,
+   [ IsPathAlgebraMatModuleHomomorphism ],
+   0,
+   function( f )
+
+   local B, C, CB, id_B, mat, flat_id_B, split_f;
+
+   B   := Source(f);
+   C   := Range(f);
+   if IsInjective(f) then 
+      CB  := HomOverAlgebra(C,B);
+      if Length(CB) = 0 then 
+         return false;
+      else 
+         mat := [];
+         mat := List(CB, x -> f*x);
+         id_B := IdentityMapping(B); 
+         mat   := List(mat,x -> Flat(x!.maps));
+         flat_id_B := Flat(id_B!.maps); 
+         split_f := SolutionMat(mat,flat_id_B);
+
+         if split_f <> fail then 
+            split_f := LinearCombination(CB,split_f);
+            SetIsSplitEpimorphism(split_f,f);
+            SetIsSplitMonomorphism(f,split_f);
+            return split_f;
+         else
+            SetIsSplitMonomorphism(f,false);
+            return false;
+         fi;
+      fi;
+   else
+      return false;
+   fi;
+end
+);
+
+InstallMethod ( IsSplitEpimorphism, 
+   "for a PathAlgebraMatModuleMap",
+   true,
+   [ IsPathAlgebraMatModuleHomomorphism ],
+   0,
+   function( f )
+
+   local B, C, CB, id_C, mat, flat_id_C, split_f;
+
+   B   := Source(f);
+   C   := Range(f);
+   if IsSurjective(f) then 
+      CB  := HomOverAlgebra(C,B);
+      if Length(CB) = 0 then 
+         return false;
+      else 
+         mat := List(CB, x -> x*f );
+         id_C := IdentityMapping(C); 
+         mat   := List(mat,x -> Flat(x!.maps));
+         flat_id_C := Flat(id_C!.maps); 
+         split_f := SolutionMat(mat,flat_id_C);
+
+         if split_f <> fail then 
+            split_f := LinearCombination(CB,split_f);
+            SetIsSplitMonomorphism(split_f,f);
+            SetIsSplitEpimorphism(f,split_f);
+            return split_f;
+         else
+            SetIsSplitEpimorphism(f,false);
+            return false;
+         fi;
+      fi;
+   else
+      return false;
+   fi;
+end
+);
+
+InstallMethod ( MoreRightMinimalVersion, 
+   "for a PathAlgebraMatModuleMap",
+   true,
+   [ IsPathAlgebraMatModuleHomomorphism ],
+   0,
+   function( f )
+
+   local B, g, A, HomBA, HomAA, n, i, j, gg, hh;
+
+   B := Source(f);
+   g := KernelInclusion(f);
+   A := Source(g);
+   HomBA  := HomOverAlgebra(B,A);
+   if Length(HomBA) = 0 then 
+      return f;
+   else 
+      HomAA  := HomOverAlgebra(A,A);
+      n := Maximum(Concatenation(DimensionVector(A),DimensionVector(B)));
+      for i in [1..Length(HomBA)] do 
+         for j in [1..Length(HomAA)] do
+            gg := (g*HomBA[i]*HomAA[j])^n;
+            if gg <> ZeroMapping(A,A) then
+               hh :=  (HomBA[i]*HomAA[j]*g)^n;
+               return [KernelInclusion(hh)*f,ImageInclusion(hh)*f];
+            fi;
+         od;
+      od;
+      return f;
+   fi;
+end
+);
+
+InstallMethod ( MoreLeftMinimalVersion, 
+   "for a PathAlgebraMatModuleMap",
+   true,
+   [ IsPathAlgebraMatModuleHomomorphism ],
+   0,
+   function( f )
+
+   local B, g, C, HomCB, HomCC, n, i, j, gg, hh, t;
+
+   B := Range(f);
+   g := CoKernelProjection(f);
+   C := Range(g);
+   HomCB  := HomOverAlgebra(C,B);
+   if Length(HomCB) = 0 then 
+      return f;
+   else 
+      HomCC  := HomOverAlgebra(C,C);
+      n := Maximum(Concatenation(DimensionVector(B),DimensionVector(C)));
+      for i in [1..Length(HomCC)] do 
+         for j in [1..Length(HomCB)] do
+            gg := (HomCC[i]*HomCB[j]*g)^n;
+            if gg <> ZeroMapping(C,C) then
+               hh :=  (g*HomCC[i]*HomCB[j])^n;
+               t := IsSplitMonomorphism(KernelInclusion(hh));
+               return [f*t,f*ImageProjection(hh)];
+            fi;
+         od;
+      od;
+      return f;
+   fi;
+end
+);
+
+InstallMethod ( RightMinimalVersion, 
+   "for a PathAlgebraMatModuleMap",
+   true,
+   [ IsPathAlgebraMatModuleHomomorphism ],
+   0,
+   function( f )
+
+   local Bprime, g, L;
+
+   Bprime := [];
+   g := f;
+   repeat
+      L := MoreRightMinimalVersion(g);
+      if L <> g then 
+         g := L[1];
+         Add(Bprime,Source(L[2]));
+      fi;
+   until 
+      L = g;
+
+   SetIsRightMinimal(g,true);
+
+   return [g,Bprime];
+end
+);
+
+InstallMethod ( LeftMinimalVersion, 
+   "for a PathAlgebraMatModuleMap",
+   true,
+   [ IsPathAlgebraMatModuleHomomorphism ],
+   0,
+   function( f )
+
+   local Bprime, g, L;
+
+   Bprime := [];
+   g := f;
+   repeat
+      L := MoreLeftMinimalVersion(g);
+      if L <> g then 
+         g := L[1];
+         Add(Bprime,Range(L[2]));
+      fi;
+   until 
+      L = g;
+
+   SetIsLeftMinimal(g,true);
+
+   return [g,Bprime];
+end
+);
+
+#######################################################################
+##
+#O  HomFromProjective(<m>,<M>)
+##
+##  This function checks if the element  <m>  is an element of  <M>  and
+##  if the element  <m>  is uniform. If so, the function constructs the 
+##  map from the indecomposable projective generated by the vertex of 
+##  support to the module  <M>  given by sending the vertex to the 
+##  element  <m>. 
+##
+InstallMethod ( HomFromProjective, 
+    "for an element in a PathAlgebraMatModule and the PathAlgebraMatModule",
+    IsElmsColls,
+    [ IsRightAlgebraModuleElement, IsPathAlgebraMatModule ],
+    0,
+    function( m, M )
+
+    local A, K, num_vert, support, pos, P, B, mats, zeros, i, f;
+#
+# Finding the algebra acting on M and the number of vertices.
+#
+    A := RightActingAlgebra(M);
+    K := LeftActingDomain(M);
+    num_vert := Length(m![1]![1]);
+#   
+# Finding the support of m.
+#
+    support := SupportModuleElement(m);
+#
+# If the element  m  is uniform, we proceed to find the map.
+# 
+    if Length(support) = 1 then 
+#
+# And we need the "number of" the vertex ...
+#
+        pos := VertexPosition(support[1]);
+#
+# And the basis for the correct projective module, and the proj. module itself
+#
+        B := BasisOfProjectives(A)[pos];
+        P := ShallowCopy(IndecProjectiveModules(A)[pos]);
+#
+# Then we calculate the matrices for the homomorphism
+#
+        mats  := List([1..num_vert],x -> List(B[x], y -> ExtRepOfObj(m^y)![1][x]));
+        zeros := Filtered([1..num_vert], x -> DimensionVector(P)[x] = 0);
+        for i in zeros do 
+            if DimensionVector(M)[i] <> 0 then         
+                mats[i] := NullMat(1,DimensionVector(M)[i],K);
+            else 
+                mats[i] := NullMat(1,1,K);
+            fi;
+        od;
+#
+# Construct the homomorphism
+#
+        f := RightModuleHomOverAlgebra(P,M,mats);
+        return f;
+    else
+        return fail;
+    fi;
+end
+);
+
+

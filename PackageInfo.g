@@ -40,11 +40,11 @@ Subtitle := "Quivers and Path Algebras",
 ##  See '?Extending: Version Numbers' in GAP help for an explanation
 ##  of valid version numbers. For an automatic package distribution update
 ##  you must provide a new version number even after small changes.
-Version := "1.07",
+Version := "1.09",
 
 ##  Release date of the current version in dd/mm/yyyy format.
 # 
-Date := "19/04/2012",
+Date := "19/10/2012",
 
 ##  URL of the archive(s) of the current package release, but *without*
 ##  the format extension(s), like '.zoo', which are given next.
@@ -55,7 +55,7 @@ Date := "19/04/2012",
 ##  example/init.g, ...    or  example-1.3/init.g, ...  )
 # 
 ArchiveURL := 
-        "http://sourceforge.net/projects/quiverspathalg/files/qpa-version-1.07",
+        "http://sourceforge.net/projects/quiverspathalg/files/qpa-version-1.09.tar.gz",
 
 ##  All provided formats as list of file extensions, separated by white
 ##  space or commas.
@@ -136,13 +136,14 @@ Persons := [
     IsMaintainer  := true,
     Email         := "rcone@vt.edu",
     WWWHome       := "http://www.math.vt.edu/people/rcone",
-    PostalAddress := Concatenation( [
-		       "Department of Mathematics\n",
-		       "Virginia Polytechnic Institute and State  University\n",
-		       "Blacksburg, Virginia\n",
-                       "U.S.A." ] ),
-    Place         := "Blacksburg",
-    Institution   := "Virginia Polytechnic Institute and State  University"
+           PostalAddress := Concatenation( [
+                   "Mathematics Education and Resource Center\n",
+                   "402 Mallory Hall\n",
+                   "Virginia Military Institute\n",
+                   "Lexington, VA  24450\n",
+                   "U.S.A." ] ),
+    Place         := "Lexington",
+    Institution   := "Virginia Military Institute"
   ),
   rec( 
     LastName      := "Green",
@@ -208,9 +209,9 @@ Status := "dev",
 ##  and updating of the package in the GAP distribution.
 #
 README_URL := 
-  "http://quiverspathalg.cvs.sourceforge.net/viewvc/quiverspathalg/qpa/README",
+  "http://sourceforge.net/p/quiverspathalg/qpa/ci/4ed6c9451261635d20cc38908bfd83dd2c447e27/tree/README",
 PackageInfoURL := 
-  "http://quiverspathalg.cvs.sourceforge.net/viewvc/quiverspathalg/qpa/PackageInfo.g",
+  "http://sourceforge.net/p/quiverspathalg/qpa/ci/4ed6c9451261635d20cc38908bfd83dd2c447e27/tree/PackageInfo.g",
 
 ##  Here you  must provide a short abstract explaining the package content 
 ##  in HTML format (used on the package overview Web page) and an URL 
@@ -229,7 +230,7 @@ AbstractHTML := "The <span class=\"pkgname\">QPA</span> package provides data st
                    quotients of path algebras, and modules, homomorphisms and complexes of \
                    modules over quotients of path algebras.",
                    
-PackageWWWHome := "http://quiverspathalg.cvs.sourceforge.net/viewvc/quiverspathalg/qpa/",
+                   PackageWWWHome := "http://http://sourceforge.net/projects/quiverspathalg/",
                
 ##  Here is the information on the help books of the package, used for
 ##  loading into GAP's online help and maybe for an online copy of the 
@@ -262,8 +263,7 @@ PackageDoc := rec(
   # use same as in GAP            
   BookName  := "qpa",
   # format/extension can be one of .zoo, .tar.gz, .tar.bz2, -win.zip
-  Archive := 
-   "http://sourceforge.net/projects/quiverspathalg/files/qpa-version-1.07.tar.gz",
+  Archive := "http://sourceforge.net/projects/quiverspathalg/files/qpa-version-1.09.tar.gz",
   #  ArchiveURLSubset := ["doc", "htm"],
   ArchiveURLSubset := ["doc"],
   HTMLStart := "doc/chap0.html",
@@ -362,5 +362,3 @@ TestFile := "testall.g",
 # Keywords := ["Smith normal form", "p-adic", "rational matrix inversion"]
 Keywords := ["quiver","path algebra"]
 ));
-
-

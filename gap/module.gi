@@ -1282,3 +1282,394 @@ InstallMethod ( AnnihilatorOfModule,
     return annihilator;
 end
 );
+
+#######################################################################
+##
+#O  LoewyLength ( <M> )
+##
+##  This function returns the Loewy length of the module  M, for a 
+##  module over a (quotient of a) path algebra.
+##
+InstallMethod( LoewyLength, 
+   "for a PathAlgebraMatModule",
+   [ IsPathAlgebraMatModule ], 0,
+   function( M ) 
+
+   local N, i;
+
+   N := M;
+   i := 0;
+   if Dimension(M) = 0 then 
+      return 0;
+   else
+      repeat 
+         N := RadicalOfModule(N);
+         i := i + 1;
+      until
+         Dimension(N) = 0;
+      return i;
+   fi;
+end
+);
+
+InstallOtherMethod( LoewyLength, 
+   "for a QuotientOfPathAlgebra",
+   [ IsQuotientOfPathAlgebra ], 0,
+   function( A ) 
+
+   local fam, N;
+
+   fam := ElementsFamily(FamilyObj(A));
+   if HasGroebnerBasisOfIdeal(fam!.ideal) and
+          AdmitsFinitelyManyNontips(GroebnerBasisOfIdeal(fam!.ideal)) then
+       N := IndecProjectiveModules(A);
+       N := List(N, x -> LoewyLength(x));
+       return Maximum(N);
+   else
+       return fail;
+   fi;
+end
+);
+
+InstallOtherMethod( LoewyLength, 
+   "for a PathAlgebra",
+   [ IsPathAlgebra ], 0,
+   function( A ) 
+
+   local N, i;
+
+   if IsAcyclicQuiver(QuiverOfPathAlgebra(A)) then 
+      N := IndecProjectiveModules(A);
+      N := List(N, x -> LoewyLength(x));
+      return Maximum(N);
+   else
+      return fail;
+   fi;
+end
+);
+
+#######################################################################
+##
+#O  RadicalSeries ( <M> )
+##
+##  This function returns the radical series of the module  M, for a 
+##  module over a (quotient of a) path algebra. It returns a list of 
+##  dimension vectors of the modules: [ M/rad M, rad M/rad^2 M, 
+##  rad^2 M/rad^3 M, .....].
+##
+InstallMethod( RadicalSeries, 
+   "for a PathAlgebraMatModule",
+   [ IsPathAlgebraMatModule ], 0,
+   function( M ) 
+
+   local N, radlayers, i;
+
+   if Dimension(M) = 0 then 
+      return DimensionVector(M);
+   else
+      radlayers := [];
+      i := 0;
+      N := M;
+      repeat     
+         Add(radlayers,DimensionVector(TopOfModule(N)));
+         N := RadicalOfModule(N);
+         i := i + 1;
+      until
+         Dimension(N) = 0;
+      return radlayers;
+   fi;
+end
+);
+#######################################################################
+##
+#O  SocleSeries ( <M> )
+##
+##  This function returns the socle series of the module  M, for a 
+##  module over a (quotient of a) path algebra. It returns a list of 
+##  dimension vectors of the modules: [..., soc(M/soc^3 M), 
+##  soc(M/soc^2 M), soc(M/soc M), soc M].
+##
+InstallMethod( SocleSeries, 
+   "for a PathAlgebraMatModule",
+   [ IsPathAlgebraMatModule ], 0,
+   function( M ) 
+
+   local N, series, i;
+
+   if Dimension(M) = 0 then 
+      return DimensionVector(M);
+   else
+      series := [];
+      i := 0;
+      N := DualOfModule(M);
+      repeat     
+         Add(series,DimensionVector(TopOfModule(N)));
+         N := RadicalOfModule(N);
+         i := i + 1;
+      until
+         Dimension(N) = 0;
+      
+      return Reversed(series);
+   fi;
+end
+);
+
+InstallOtherMethod( Dimension,
+   "for a PathAlgebraMatModule",
+   [ IsPathAlgebraMatModule ], 0,
+   function( M );
+
+   return Sum(DimensionVector(M));
+end
+);
+
+InstallMethod( IsProjectiveModule, 
+   "for a module over a quotient of a path algebra",
+   [ IsPathAlgebraMatModule ], 0,
+   function( M ) 
+
+   local top, dimension, i, P; 
+
+   top := TopOfModule(M); 
+   dimension := 0; 
+   P := IndecProjectiveModules(RightActingAlgebra(M)); 
+   for i in [1..Length(DimensionVector(M))] do 
+      if DimensionVector(top)[i] <> 0 then 
+         dimension := dimension + Dimension(P[i])*DimensionVector(top)[i];
+      fi;
+   od; 
+
+   if dimension = Dimension(M) then 
+      return true;
+   else 
+      return false;
+   fi;
+end
+);
+
+InstallMethod( IsInjectiveModule, 
+   "for a module over a quotient of a path algebra",
+   [ IsPathAlgebraMatModule ], 0,
+   function( M ) ; 
+
+   return IsProjectiveModule(DualOfModule(M));
+end
+);
+
+InstallMethod( IsSimpleModule, 
+   "for a module over a quotient of a path algebra",
+   [ IsPathAlgebraMatModule ], 0,
+   function( M ) ; 
+
+   if Dimension(M) = 1 then 
+      return true;
+   else
+      return false;
+   fi;
+end
+);
+
+InstallMethod( IsSemisimpleModule, 
+   "for a module over a quotient of a path algebra",
+   [ IsPathAlgebraMatModule ], 0,
+   function( M ) ; 
+
+   if Dimension(RadicalOfModule(M)) = 0 then 
+      return true;
+   else
+      return false;
+   fi;
+end
+);
+
+InstallMethod( DirectSumOfModules,
+   "for a list of modules over a path algebra",
+   [ IsList ], 0,
+   function( L ) 
+
+   local n, A, K, Q, arrows, vertices, dim_list, dim_vect, i, 
+         temp, j, big_mat, a, mat, origin, target, r, row_pos,
+         col_pos, direct_sum, dimension, list_of_projs, 
+         list_of_incls, map, maps; 
+
+   n := Length(L);
+   if n > 0 then 
+      A := RightActingAlgebra(L[1]);
+      K := LeftActingDomain(A);
+      if ForAll(L,IsPathAlgebraMatModule) and ForAll(L,x -> RightActingAlgebra(x) = A) then 
+         Q := QuiverOfPathAlgebra(OriginalPathAlgebra(A));
+         arrows := ArrowsOfQuiver(Q);
+         vertices := VerticesOfQuiver(Q);
+         dim_list := List(L,DimensionVector);
+         dim_vect := [];
+
+         for i in [1..Length(dim_list[1])] do
+            temp := 0; 
+            for j in [1..Length(dim_list)] do
+               temp := temp + dim_list[j][i];
+            od;
+            Add(dim_vect,temp);
+         od;
+         big_mat := [];
+         i := 0;
+         for a in arrows do
+            i := i + 1;
+            origin := Position(vertices,SourceOfPath(a));
+            target := Position(vertices,TargetOfPath(a));
+            mat := [];
+            if dim_vect[origin] <> 0 and dim_vect[target] <> 0 then 
+               mat := NullMat(dim_vect[origin],dim_vect[target], K);
+               row_pos := 1;
+               col_pos := 1;
+               for r in [1..n] do
+                  if dim_list[r][origin] <> 0 and dim_list[r][target] <> 0 then
+                     mat{[row_pos..(row_pos+dim_list[r][origin]-1)]}{[col_pos..(col_pos+dim_list[r][target]-1)]} := 
+                     MatricesOfPathAlgebraModule(L[r])[i];
+                  fi;
+                  row_pos := row_pos + dim_list[r][origin];
+                  col_pos := col_pos + dim_list[r][target]; 
+               od;
+               mat := [a,mat];
+            else 
+               mat := [a,[dim_vect[origin],dim_vect[target]]];
+            fi;
+            Add(big_mat,mat);
+         od;
+      fi;
+      if IsPathAlgebra(A) then 
+         direct_sum := RightModuleOverPathAlgebra(A,big_mat);
+      else
+         direct_sum := RightModuleOverPathAlgebra(A,big_mat); 
+      fi; 
+
+      list_of_projs := [];
+      for i in [1..n] do 
+         map := [];
+         maps := [];
+         for j in [1..Length(dim_vect)] do
+            if dim_vect[j] = 0 then 
+               if dim_list[i][j] = 0 then 
+                  map := NullMat(1,1,K);
+               else
+                  map := NullMat(1,dim_list[i][j],K);
+               fi;
+            else
+               if dim_list[i][j] = 0 then 
+                  map := NullMat(dim_vect[j],1,K);
+               else
+                  dimension := 0;
+                  if i > 1 then 
+                     for r in [1..i-1] do 
+                        dimension := dimension + dim_list[r][j];
+                     od;
+                  fi;
+                  map := NullMat(dim_vect[j],dim_list[i][j],K);
+                  map{[dimension + 1..dimension + dim_list[i][j]]}{[1..dim_list[i][j]]} := IdentityMat(dim_list[i][j],K);
+               fi;
+            fi;
+            Add(maps,map);
+         od;
+         Add(list_of_projs,RightModuleHomOverAlgebra(direct_sum,L[i],maps));
+      od;
+
+      list_of_incls := [];
+      for i in [1..n] do 
+         map := [];
+         maps := [];
+         for j in [1..Length(dim_vect)] do
+            if dim_vect[j] = 0 then 
+               map := NullMat(1,1,K);
+            else
+               if dim_list[i][j] = 0 then 
+                  map := NullMat(1,dim_vect[j],K);
+               else
+                  dimension := 0;
+                  if i > 1 then 
+                     for r in [1..i-1] do 
+                        dimension := dimension + dim_list[r][j];
+                     od;
+                  fi;
+                  map := NullMat(dim_list[i][j],dim_vect[j],K);
+                  map{[1..dim_list[i][j]]}{[dimension + 1..dimension + dim_list[i][j]]} := IdentityMat(dim_list[i][j],K);
+               fi;
+            fi;
+            Add(maps,map);
+         od;
+         Add(list_of_incls,RightModuleHomOverAlgebra(L[i],direct_sum,maps));
+      od;
+
+      if Sum(dim_vect) <> 0 then 
+         SetIsDirectSumOfModules(direct_sum,true);
+         SetDirectSumProjections(direct_sum,list_of_projs);
+         SetDirectSumInclusions(direct_sum,list_of_incls);
+      else 
+         SetIsDirectSumOfModules(direct_sum,false);         
+      fi;
+      return direct_sum;
+   fi;
+
+   return fail;
+end
+);
+
+
+#######################################################################
+##
+#P  IsDirectSumOfModules( <M> )
+##
+##  <M> is a module over a path algebra. The function checks if the
+##  property "IsDirectSumOfModules" is set to true for M, and returns
+##  true if it is, and false if it is not. (Note that this is NOT a
+##  check for indecomposability.)
+##
+InstallMethod( IsDirectSumOfModules,
+   "for a module over a path algebra",
+   [ IsPathAlgebraMatModule ], 0,
+   function( M )
+   
+   return "IsDirectSumOfModules" in KnownTruePropertiesOfObject(M);
+
+end
+);
+
+#######################################################################
+##
+#O  SupportModuleElement(<m>)
+##
+##  Given an element  <m>  in a PathAlgebraMatModule, this function
+##  finds in which vertices this element is support, that is, has 
+##  non-zero coordinates. 
+##
+InstallMethod ( SupportModuleElement, 
+   "for an element in a PathAlgebraMatModule",
+   true,
+   [ IsRightAlgebraModuleElement ],
+   0,
+   function( m )
+
+   local fam, A, Q, idempotents, support;
+#
+#  Finding the algebra over which the module  M, in which  m is an 
+#  element, is a module over. 
+# 
+   if IsPathModuleElem(ExtRepOfObj(m)) then 
+      fam := CollectionsFamily(FamilyObj(m))!.rightAlgebraElementsFam;   
+      if "wholeAlgebra" in NamesOfComponents(fam) then 
+         A := fam!.wholeAlgebra;
+      elif "pathRing" in NamesOfComponents(fam) then 
+         A := fam!.pathRing;
+      fi;
+   else 
+      return fail;
+   fi;
+#
+#  Finding the support of m.
+#
+   Q := QuiverOfPathAlgebra(OriginalPathAlgebra(A));
+   idempotents := List(VerticesOfQuiver(Q), x -> x*One(A));
+   support := Filtered(idempotents, x -> m^x <> Zero(m));
+
+   return support;
+end
+);
+

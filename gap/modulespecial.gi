@@ -296,3 +296,93 @@ InstallMethod ( ZeroModule,
 end
 );
 
+#######################################################################
+##
+#O  BasisOfProjectives(<A>)
+##
+##  Given a finite dimensional qoutient of a path algebra  <A>, this 
+##  function finds in the basis of each indecomposable projective 
+##  in terms of paths (nontips of the ideal  I defining  A).
+##
+InstallMethod ( BasisOfProjectives, 
+    "for a finite dimensional quotient of a path algebra",
+    [ IsQuotientOfPathAlgebra ], 0,
+    function( A )
+
+    local Q, num_vert, fam, vertices, basis_of_projs, 
+          v, basis_of_proj, P, B, i, j;
+#
+#    Testing input if finite dimensional.
+#       
+   fam := ElementsFamily(FamilyObj(A));
+   if HasGroebnerBasisOfIdeal(fam!.ideal) and 
+          AdmitsFinitelyManyNontips(GroebnerBasisOfIdeal(fam!.ideal)) then 
+#
+      Q := QuiverOfPathAlgebra(OriginalPathAlgebra(A));
+      num_vert := NumberOfVertices(Q); 
+      vertices := List(VerticesOfQuiver(Q), x -> x*One(A));
+      basis_of_projs := [];
+      for v in vertices do
+         basis_of_proj := List([1..num_vert], x -> []);
+         P := RightIdeal(A,[v]);
+         B := CanonicalBasis(P);
+         for i in [1..Length(B)] do
+            for j in [1..num_vert] do
+               if ( B[i]*vertices[j] <> Zero(A) ) then
+                   Add(basis_of_proj[j],B[i]);
+               fi;
+            od;
+         od;
+         Add(basis_of_projs,basis_of_proj);
+      od;
+      return basis_of_projs;
+   else
+      Print("Need to have a finite dimensional quotient of a path algebra as argument.\n");
+      return fail;      
+   fi;
+end
+);
+
+#######################################################################
+##
+#O  BasisOfProjectives(<A>)
+##
+##  Given a finite dimensional path algebra  <A>, this function finds 
+##  in the basis of each indecomposable projective in terms of paths.
+##
+InstallOtherMethod ( BasisOfProjectives, 
+   "for a finite dimensional quotient of a path algebra",
+   [ IsPathAlgebra ], 0,
+   function( A )
+   
+   local Q, num_vert, fam, vertices, basis_of_projs, 
+          v, basis_of_proj, P, B, i, j;
+#
+#  Testing input if finite dimensional.
+#       
+   Q := QuiverOfPathAlgebra(A); 
+   num_vert := NumberOfVertices(Q);
+   if not IsAcyclicQuiver(Q)  then
+      Print("Need to have a finite dimensional path algebra as argument.\n");
+      return fail;
+   else
+      vertices := List(VerticesOfQuiver(Q), x -> x*One(A));
+      basis_of_projs := [];
+      for v in vertices do
+         basis_of_proj := List([1..num_vert], x -> []);
+         P := RightIdeal(A,[v]);
+         B := CanonicalBasis(P);
+         for i in [1..Length(B)] do
+            for j in [1..num_vert] do
+               if ( B[i]*vertices[j] <> Zero(A) ) then
+                  Add(basis_of_proj[j],B[i]);
+               fi;
+            od;
+         od;
+         Add(basis_of_projs,basis_of_proj);
+      od;
+   fi;
+  
+   return basis_of_projs;
+end
+);

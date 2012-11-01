@@ -8,4 +8,5 @@
 DeclareAttribute( "IndecProjectiveModules", IsQuotientOfPathAlgebra ); 
 DeclareAttribute( "IndecInjectiveModules", IsAlgebra ); 
 DeclareAttribute( "SimpleModules", IsAlgebra ); 
-DeclareAttribute( "ZeroModule", IsAlgebra ); 
+DeclareAttribute( "ZeroModule", IsAlgebra );
+DeclareAttribute( "BasisOfProjectives", IsQuotientOfPathAlgebra );  

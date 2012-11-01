@@ -61,3 +61,17 @@ DeclareOperation( "GeneratorsTimesArrowsOnRight", [ IsHomogeneousList ] );
 DeclareOperation( "NthPowerOfArrowIdeal", [ IsPathAlgebra, IS_INT ] );
 DeclareOperation( "TruncatedPathAlgebra", [ IsField, IsQuiver, IS_INT ] );
 DeclareOperation( "AddNthPowerToRelations", [ IsPathAlgebra, IsHomogeneousList, IS_INT ] );
+
+DeclareAttribute( "OppositePathAlgebra", IsAlgebra );
+DeclareGlobalFunction( "OppositePathAlgebraElement"); # should be operation with args [ IsElementOfPathAlgebra ]
+DeclareOperation( "OppositeRelations", [ IsDenseList ] );
+DeclareOperation( "VertexPosition", [ IsElementOfQuotientOfPathAlgebra ] );
+
+DeclareProperty( "IsSelfinjectiveAlgebra",  IsAlgebra ); 
+DeclareProperty( "IsSymmetricAlgebra", IsAlgebra );
+DeclareProperty( "IsWeaklySymmetricAlgebra", IsAlgebra );
+DeclareAttribute( "CoxeterPolynomial",  IsPathAlgebra  ); 
+DeclareAttribute( "CoxeterMatrix", IsPathAlgebra ); 
+DeclareOperation( "TipMonomialandCoefficientOfVector", [ IsAlgebra, IsCollection ] );
+DeclareOperation( "TipReduceVectors", [ IsAlgebra, IsCollection ] );
+DeclareOperation( "CoefficientsOfVectors", [ IsAlgebra, IsCollection, IsList ] );

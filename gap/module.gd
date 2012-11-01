@@ -18,3 +18,17 @@ DeclareAttribute( "MinimalGeneratingSetOfModule", IsPathAlgebraMatModule );
 DeclareFilter( "IsAlgebraModuleHomomorphism", IsLeftModuleGeneralMapping );
 DeclareOperation( "DimensionVectorPartialOrder", [IsPathAlgebraMatModule, IsPathAlgebraMatModule ] );
 DeclareAttribute( "AnnihilatorOfModule", IsPathAlgebraMatModule );
+DeclareAttribute( "LoewyLength", IsPathAlgebraMatModule  ); 
+DeclareAttribute( "RadicalSeries",  IsPathAlgebraMatModule ); 
+DeclareAttribute( "SocleSeries", IsPathAlgebraMatModule ); 
+#DeclareOperation( "Dimension", [ IsPathAlgebraMatModule ] ); 
+DeclareProperty( "IsProjectiveModule",  IsPathAlgebraMatModule ); 
+DeclareProperty( "IsInjectiveModule", IsPathAlgebraMatModule ); 
+DeclareProperty( "IsSimpleModule", IsPathAlgebraMatModule ); 
+DeclareProperty( "IsSemisimpleModule", IsPathAlgebraMatModule );
+DeclareOperation( "DirectSumOfModules", [ IsList] );
+DeclareAttribute( "IsDirectSumOfModules", IsPathAlgebraMatModule );
+DeclareAttribute( "DirectSumProjections", IsPathAlgebraMatModule );
+DeclareAttribute( "DirectSumInclusions", IsPathAlgebraMatModule );
+DeclareOperation( "SupportModuleElement", [ IsRightAlgebraModuleElement ] );
+
