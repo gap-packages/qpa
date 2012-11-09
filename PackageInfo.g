@@ -1,4 +1,4 @@
-#############################################################################
+P#############################################################################
 ##  
 ##  PackageInfo.g for the package `Example'                     Werner Nickel
 ##                                                                Greg Gamble
@@ -211,7 +211,7 @@ Status := "dev",
 README_URL := 
   "http://sourceforge.net/p/quiverspathalg/qpa/ci/4ed6c9451261635d20cc38908bfd83dd2c447e27/tree/README",
 PackageInfoURL := 
-  "http://sourceforge.net/p/quiverspathalg/qpa/ci/4ed6c9451261635d20cc38908bfd83dd2c447e27/tree/PackageInfo.g",
+  "http://sourceforge.net/p/quiverspathalg/qpa/ci/4ed6c9451261635d20cc38908bfd83dd2c447e27/tree/PackageInfo.g?format=raw",
 
 ##  Here you  must provide a short abstract explaining the package content 
 ##  in HTML format (used on the package overview Web page) and an URL 
