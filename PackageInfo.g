@@ -55,7 +55,7 @@ Date := "19/10/2012",
 ##  example/init.g, ...    or  example-1.3/init.g, ...  )
 # 
 ArchiveURL := 
-        "http://sourceforge.net/projects/quiverspathalg/files/qpa-version-1.09.tar.gz",
+        "http://sourceforge.net/projects/quiverspathalg/files/qpa-version-1.09",
 
 ##  All provided formats as list of file extensions, separated by white
 ##  space or commas.
@@ -230,7 +230,7 @@ AbstractHTML := "The <span class=\"pkgname\">QPA</span> package provides data st
                    quotients of path algebras, and modules, homomorphisms and complexes of \
                    modules over quotients of path algebras.",
                    
-                   PackageWWWHome := "http://http://sourceforge.net/projects/quiverspathalg/",
+PackageWWWHome := "http://sourceforge.net/projects/quiverspathalg/",
                
 ##  Here is the information on the help books of the package, used for
 ##  loading into GAP's online help and maybe for an online copy of the 
@@ -263,7 +263,7 @@ PackageDoc := rec(
   # use same as in GAP            
   BookName  := "qpa",
   # format/extension can be one of .zoo, .tar.gz, .tar.bz2, -win.zip
-  Archive := "http://sourceforge.net/projects/quiverspathalg/files/qpa-version-1.09.tar.gz",
+  #  Archive := "http://sourceforge.net/projects/quiverspathalg/files/qpa-version-1.09",
   #  ArchiveURLSubset := ["doc", "htm"],
   ArchiveURLSubset := ["doc"],
   HTMLStart := "doc/chap0.html",
