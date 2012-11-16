@@ -1,0 +1,463 @@
+<Chapter Label="Quivers"><Heading>Quivers</Heading>
+
+<Section><Heading>Information class, Quivers</Heading>
+
+A quiver <Math>Q</Math> is a set derived from a labeled directed
+multigraph with loops <Math>\Gamma</Math>.  An element
+of <Math>Q</Math> is called a *path*, and falls into one of three
+classes.  The first class is the set of *vertices* of
+<Math>\Gamma</Math>.  The second class is the set of *walks*
+in <Math>\Gamma</Math> of length at least one, each of which is
+represented by the corresponding sequence of *arrows*
+in <Math>\Gamma</Math>.  The third class is the singleton set
+containing the distinguished *zero path*, usually
+denoted <Math>0</Math>.  An associative multiplication is defined
+on <Math>Q</Math>.<P/>
+
+This chapter describes the functions in <Package>QPA</Package> that
+deal with paths and quivers.  The functions for constructing paths in
+Section <Ref Sect="Constructing Paths"/> are normally not useful in
+isolation; typically, they are invoked by the functions for
+constructing quivers in Section <Ref Sect="Constructing Quivers"/>.
+
+  <ManSection>
+   <InfoClass Name="InfoQuiver" Comm="InfoClass for functions dealing
+   with quivers"/> 
+   <Description>
+     is the info class for functions dealing with quivers.
+   </Description>
+  </ManSection>
+
+<!-- The quiver functionality was designed and implemented by Craig --
+  -- A. Struble. --> 
+</Section> 
+
+<Section  Label="Constructing Quivers"><Heading>Constructing Quivers</Heading>
+  <ManSection>
+   <Func Name="Quiver" Arg="N, arrows" 
+	 Comm="creates a quiver"/>
+   <Func Name="Quiver" Arg="vertices,
+	 arrows" 
+	 Comm="creates a quiver"/>
+   <Func Name="Quiver" Arg="adjacencymatrix" 
+	 Comm="creates a quiver"/>
+   <Description>Arguments: First construction: <Arg>N</Arg> -- number of vertices, <Arg>arrows</Arg> -- a list of arrows to specify the graph <Math>\Gamma</Math>. Second construction: <Arg>vertices</Arg> -- a list of vertex names, <Arg>arrows</Arg> -- a list of arrows. Third construction: takes an adjacency matrix for the graph <Math>\Gamma</Math>.
+   
+   <Br /></Description>
+   <Returns>a quiver, which satisfies the property
+   <Ref Prop="IsQuiver"/>.</Returns> 
+   <Description>
+In the first and third constructions, the vertices are named `v1, v2,
+...'.  In the second construction, unique vertex names are given as
+strings in the list that is the first parameter.  Each arrow is a list
+consisting of a source vertex and a target vertex, followed optionally
+by an arrow name as a string.<P/>
+
+Vertices and arrows are referenced as record components using the dot
+(`.') operator.
+   </Description>
+  </ManSection>
+
+<Example> 
+gap&gt; q1 := Quiver(["u","v"],[["u","u","a"],["u","v","b"],
+&gt; ["v","u","c"],["v","v","d"]]);
+&lt;quiver with 2 vertices and 4 arrows&gt;
+gap&gt; VerticesOfQuiver(q1);
+[ u, v ]
+gap&gt; ArrowsOfQuiver(q1);
+[ a, b, c, d ]
+gap&gt; q2 := Quiver(2,[[1,1],[2,1],[1,2]]);
+&lt;quiver with 2 vertices and 3 arrows&gt;
+gap&gt; ArrowsOfQuiver(q2);
+[ a1, a2, a3 ]
+gap&gt; VerticesOfQuiver(q2);
+[ v1, v2 ]
+gap&gt; q3 := Quiver(2,[[1,1,"a"],[2,1,"b"],[1,2,"c"]]);
+&lt;quiver with 2 vertices and 3 arrows&gt;
+gap&gt; ArrowsOfQuiver(q3);
+[ a, b, c ]
+gap&gt; q4 := Quiver([[1,1],[2,1]]);
+&lt;quiver with 2 vertices and 5 arrows&gt;
+gap&gt; VerticesOfQuiver(q4);
+[ v1, v2 ]
+gap&gt; ArrowsOfQuiver(q4);
+[ a1, a2, a3, a4, a5 ]
+gap&gt; SourceOfPath(q4.a2);
+v1
+gap&gt; TargetOfPath(q4.a2);
+v2
+</Example>
+
+  <ManSection>
+   <Func Name="OrderedBy" Arg="quiver, ordering" 
+	 Comm="Quivers:OrderedBy"/>
+   <Returns>a copy of <Arg>quiver</Arg> whose elements are ordered
+     by <Arg>ordering</Arg>. The default ordering of a quiver is
+     length left lexicographic.  See Section
+     <Ref Sect="qpa:Orderings"/> for more information.</Returns>
+   <Description>
+   </Description>
+  </ManSection>
+</Section>
+
+<Section><Heading>Categories and Properties of Quivers</Heading>
+
+  <ManSection>
+   <Prop Name="IsQuiver" Arg="object" Comm="property, whether object
+   is a quiver"/>
+   <Returns>
+    true when <Arg>object</Arg> is a quiver.
+   </Returns>
+  </ManSection>
+
+  <ManSection>
+   <Prop Name="IsAcyclicQuiver" Arg="quiver" Comm="property, whether object
+   is a quiver with no cycles"/>
+   <Returns>
+    true when <Arg>quiver</Arg> is a quiver with no oriented cycles.
+   </Returns>
+  </ManSection>
+
+<Example>
+gap&gt; quiver1 := Quiver(2,[[1,2]]);
+&lt;quiver with 2 vertices and 1 arrows&gt;
+gap&gt; IsQuiver("v1");
+false
+gap&gt; IsQuiver(quiver1);
+true
+gap&gt; IsAcyclicQuiver(quiver1);
+true
+gap&gt; quiver2 := Quiver(["u","v"],[["u","v"],["v","u"]]);
+&lt;quiver with 2 vertices and 2 arrows&gt;
+gap&gt; IsAcyclicQuiver(quiver2);
+false
+gap&gt; IsFinite(quiver1);
+true
+gap&gt; IsFinite(quiver2);
+false
+</Example>
+</Section>
+
+<Section Label="qpa:Orderings"><Heading>Orderings of paths in a
+    quiver</Heading> 
+
+  To be written. 
+
+</Section>
+
+<Section><Heading>Attributes and Operations for Quivers</Heading>
+
+  <ManSection>
+   <Oper Name="." Arg="Q, element" Comm=""/>
+   <Description> 
+    Arguments: <Arg>Q</Arg> -- a quiver,
+    and <Arg>element</Arg> -- a vertex or an arrow.
+   <P />
+    The operation <Ref Oper="."/> allows access to
+    generators of the quiver. If you have named your vertices and
+    arrows then the access looks like `<Arg>Q</Arg>.<Arg>name of
+    element</Arg>'.  If you have not named the elements of the quiver
+    then the default names are v1, v2, ... and a1, a2, ... in the order
+    they are created.
+   </Description>
+  </ManSection>
+
+  <ManSection>
+   <Attr Name="VerticesOfQuiver" Arg="quiver" Comm=""/>
+   <Returns>
+    a list of paths that are vertices
+    in <Arg>quiver</Arg>.
+   </Returns>
+  </ManSection>
+
+  <ManSection>
+   <Attr Name="ArrowsOfQuiver" Arg="quiver" Comm=""/>
+   <Returns>
+    a list of paths that are arrows
+    in <Arg>quiver</Arg>.
+   </Returns>
+  </ManSection>
+
+  <ManSection>
+   <Attr Name="AdjacencyMatrixOfQuiver" Arg="quiver" Comm=""/>
+   <Returns>
+    the adjacency matrix of <Arg>quiver</Arg>.
+   </Returns>
+  </ManSection>
+
+  <ManSection>
+   <Attr Name="GeneratorsOfQuiver" Arg="quiver" Comm=""/>
+   <Returns>
+    a list of the vertices and the arrows
+    in <Arg>quiver</Arg>. 
+   </Returns>
+  </ManSection>
+
+  <ManSection>
+   <Attr Name="NumberOfVertices" Arg="quiver" Comm=""/>
+   <Returns>
+    the number of vertices in <Arg>quiver</Arg>.
+   </Returns>
+  </ManSection>
+
+  <ManSection>
+   <Attr Name="NumberOfArrows" Arg="quiver" Comm=""/>
+   <Returns>
+    the number of arrows in <Arg>quiver</Arg>.
+   </Returns>
+  </ManSection>
+
+  <ManSection>
+   <Attr Name="OrderingOfQuiver" Arg="quiver" Comm=""/>
+   <Returns>
+    the ordering used to order elements
+    in <Arg>quiver</Arg>. See Section <Ref Sect="qpa:Orderings"/> for
+    more information.
+   </Returns>
+  </ManSection>
+
+  <ManSection>
+   <Oper Name="OppositeOfQuiver" Arg="quiver" Comm=""/>
+   <Returns>
+     the opposite
+     quiver of <Arg>quiver</Arg>, where the vertices are labelled "name in original
+     quiver" + "_op" and the arrows are labelled "name in orginal
+     quiver" + "_op". 
+   </Returns>
+  </ManSection>
+
+<Example>
+gap&gt; q1 := Quiver(["u","v"],[["u","u","a"],["u","v","b"],
+&gt; ["v","u","c"],["v","v","d"]]);
+&lt;quiver with 2 vertices and 4 arrows&gt;
+gap&gt; q1.a;
+a
+gap&gt; q1.v;
+v
+gap&gt; VerticesOfQuiver(q1);
+[ u, v ]
+gap&gt; ArrowsOfQuiver(q1);
+[ a, b, c, d ]
+gap&gt; AdjacencyMatrixOfQuiver(q1);
+[ [ 1, 1 ], [ 1, 1 ] ]
+gap&gt; GeneratorsOfQuiver(q1);
+[ u, v, a, b, c, d ]
+gap&gt; NumberOfVertices(q1);
+2
+gap&gt; NumberOfArrows(q1);
+4
+gap&gt; OrderingOfQuiver(q1);
+&lt;length left lexicographic ordering&gt;
+gap&gt; q1_op := OppositeOfQuiver(q1);
+&lt;quiver with 2 vertices and 4 arrows&gt;
+gap&gt; VerticesOfQuiver(q1);
+[ u_op, v_op ]
+gap&gt; ArrowsOfQuiver(q1);
+[ a_op, b_op, c_op, d_op ]
+</Example>
+</Section>
+
+<Section><Heading>Categories and Properties of Paths</Heading>
+
+<ManSection>
+   <Filt Name="IsPath" Arg="object" Comm="" Type="category"/>
+   <Description>
+      All path objects are in this category.
+   </Description>
+  </ManSection>
+
+<ManSection>
+   <Filt Name="IsVertex" Arg="object" Comm="" Type="category"/>
+   <Description>
+      All vertices are in this category.
+   </Description>
+  </ManSection>
+
+<ManSection>
+   <Filt Name="IsArrow" Arg="object" Comm="" Type="category"/>
+   <Description>
+      All arrows are in this category.
+   </Description>
+  </ManSection>
+
+
+  <ManSection>
+   <Prop Name="IsZeroPath" Arg="object" Comm="checks if object is zero"/>
+   <Description>
+     is true when <Arg>object</Arg> is the zero path.
+   </Description>
+  </ManSection>
+
+<Example>
+gap&gt; q1 := Quiver(["u","v"],[["u","u","a"],["u","v","b"],
+&gt; ["v","u","c"],["v","v","d"]]);
+&lt;quiver with 2 vertices and 4 arrows&gt;
+gap&gt; IsPath(q1.b);
+true
+gap&gt; IsPath(q1.u);
+true
+gap&gt; IsVertex(q1.c);
+false
+gap&gt; IsZeroPath(q1.d);
+false
+</Example>
+</Section>
+
+<Section><Heading>Attributes and Operations of Paths</Heading>
+
+  <ManSection>
+   <Attr Name="SourceOfPath" Arg="path" Comm=""/>
+   <Returns>
+    the source (first) vertex of <Arg>path</Arg>.
+   </Returns>
+  </ManSection>
+
+  <ManSection>
+   <Attr Name="TargetOfPath" Arg="path" Comm=""/>
+   <Returns>
+    the target (last) vertex of <Arg>path</Arg>.
+   </Returns>
+  </ManSection>
+
+  <ManSection>
+   <Attr Name="LengthOfPath" Arg="path" Comm=""/>
+   <Returns>
+    the length of <Arg>path</Arg>.
+   </Returns>
+  </ManSection>
+
+  <ManSection>
+   <Attr Name="WalkOfPath" Arg="path" Comm=""/>
+   <Returns>
+    a list of the arrows that constitute <Arg>path</Arg> in order.
+   </Returns>
+  </ManSection>
+
+  <ManSection>
+   <Oper Name="*" Arg="p, q" Comm=""/>
+   <Description> 
+    Arguments: <Arg>p</Arg>
+    and <Arg>q</Arg> -- two paths in the same quiver.
+   <Br /></Description>
+   <Returns> 
+    the multiplication of the paths. If the paths are not in
+    the same quiver an error is returned. If the target
+    of <Arg>p</Arg> differs from the source of <Arg>q</Arg>, then the
+    result is the zero path.  Otherwise, if either path is a vertex,
+    then the result is the other path.  Finally, if both are paths of
+    length at least 1, then the result is the concatenation of the
+    walks of the two paths.
+   </Returns>
+  </ManSection>
+
+<Example>
+gap&gt; q1 := Quiver(["u","v"],[["u","u","a"],["u","v","b"],
+&gt; ["v","u","c"],["v","v","d"]]);
+&lt;quiver with 2 vertices and 4 arrows&gt;
+gap&gt; SourceOfPath(q1.v);                                                       
+v
+gap&gt; p1:=q1.a*q1.b*q1.d*q1.d;
+a*b*d^2
+gap&gt; TargetOfPath(p1);
+v
+gap&gt; p2:=q1.b*q1.b;
+0
+gap&gt; WalkOfPath(p1);
+[ a, b, d, d ]
+gap&gt; WalkOfPath(q1.a);
+[ a ]
+gap&gt; LengthOfPath(p1);
+4
+gap&gt; LengthOfPath(q1.v);
+0
+</Example>
+
+  <ManSection>
+   <Oper Name="=" Arg="p, q" Comm="equality"/>
+   <Description> 
+    Arguments: <Arg>p</Arg> and <Arg>q</Arg> -- two paths in the same quiver.
+   <Br /></Description>
+   <Returns> 
+   true if the two paths are equal. Two paths
+    are equal if they have the same source and the same target and if
+    they have the same walks.
+   </Returns>
+  </ManSection>
+
+  <ManSection>
+   <Oper Name="&lt;" Arg="p, q" Comm="lessthan"/>
+   <Description> 
+    Arguments: <Arg>p</Arg> and <Arg>q</Arg> -- two paths in the same quiver.
+   <Br /></Description>
+   <Returns>
+    a comparison of the two paths with respect to the ordering of the quiver.
+   </Returns>
+  </ManSection>
+
+<Example>
+gap&gt; q1.a=q1.b;
+false
+gap&gt; q1.a &lt; q1.v;
+false
+gap&gt; q1.a &lt; q1.c;
+true
+</Example>
+</Section>
+
+<Section><Heading>Attributes of Vertices</Heading>
+
+  <ManSection>
+   <Attr Name="IncomingArrowsOfVertex" Arg="vertex" Comm=""/>
+   <Returns>
+    a list of arrows having <Arg>vertex</Arg> as
+    target. Only meaningful if <Arg>vertex</Arg> is in a quiver.
+   </Returns>
+  </ManSection>
+
+  <ManSection>
+   <Attr Name="OutgoingArrowsOfVertex" Arg="vertex" Comm=""/>
+   <Returns>
+    a list of arrows having <Arg>vertex</Arg> as
+    source.
+   </Returns>
+  </ManSection>
+
+  <ManSection>
+   <Attr Name="InDegreeOfVertex" Arg="vertex" Comm=""/>
+   <Returns>
+    the number of arrows
+    having <Arg>vertex</Arg> as target. Only meaningful
+    if <Arg>vertex</Arg> is in a quiver. 
+   </Returns>
+  </ManSection>
+
+  <ManSection>
+   <Attr Name="OutDegreeOfVertex" Arg="vertex" Comm=""/>
+   <Returns>
+    the number of arrows
+    having <Arg>vertex</Arg> as source.
+   </Returns>
+  </ManSection>
+
+  <ManSection>
+   <Attr Name="NeighborsOfVertex" Arg="vertex" Comm=""/>
+   <Returns>
+    a list of neighbors of <Arg>vertex</Arg>,
+    that is, vertices that are targets of arrows
+    having <Arg>vertex</Arg> as source. 
+    </Returns>
+  </ManSection>
+
+<Example>
+gap&gt; q1 := Quiver(["u","v"],[["u","u","a"],["u","v","b"],
+&gt; ["v","u","c"],["v","v","d"]]);
+&lt;quiver with 2 vertices and 4 arrows&gt;
+gap&gt; OutgoingArrowsOfVertex(q1.u);
+[ a, b ]
+gap&gt; InDegreeOfVertex(q1.u);
+2
+gap&gt; NeighborsOfVertex(q1.v);
+[ u, v ]
+</Example>
+</Section>
+</Chapter>

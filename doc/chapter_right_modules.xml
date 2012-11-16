@@ -1,0 +1,1066 @@
+<Chapter Label="Right-Modules"><Heading>Right Modules over Path
+Algebras</Heading>
+
+There are two implementations of right modules over path algebras.
+The first type are matrix modules that are defined by vector spaces and
+linear transformations.  The second type are presentations defined by
+vertex projective modules.
+
+<Section><Heading>Matrix Modules</Heading> 
+The first implementation of right modules over path algebras views
+them as a collection of vector spaces and linear transformations.
+Each vertex in the path algebra is associated with a vector space over
+the field of the algebra.  For each vertex <Math>v</Math> of the
+algebra there is a vector space <Math>V</Math>.  Arrows of the algebra
+are then associated with linear transformations which map the vector
+space of the source vertex to the vector space of the target vertex.
+For example, if <Math>a</Math> is an arrow from <Math>v</Math>
+to <Math>w</Math> then there is a transformation from vector
+space <Math>V</Math> to <Math>W</Math>.  In practice when creating the
+modules all we need to know is the transformations and we can create
+the vector spaces of the correct dimension, and check to make sure the
+dimensions all agree.  We can create a module in this way as follows.<P/>
+
+  <ManSection>
+   <Oper Name="RightModuleOverPathAlgebra" Arg="A, mats" 
+	 Comm=""/>
+   <Oper Name="RightModuleOverPathAlgebra" Arg="A, dim_vector, gens" 
+	 Comm=""/>
+   <Description> 
+    Arguments: <Arg>A</Arg> -- a (quotient of a) path algebra, <Arg>mats</Arg> -- a list of matrices, <Arg>dim_vector</Arg> -- the dimension vector of the module, <Arg>gens</Arg> -- a list of elements (generators). For further explanations, see below.
+   <Br /></Description>
+   <Returns>a module over a path algebra or over a qoutient of a path
+   algebra in the second variant.</Returns> 
+   <Description>
+      In the first function call, the list of matrices <Arg>mats</Arg> can take on three different forms.<P/>
+
+      1) The argument <Arg>mats</Arg> can be a list of blocks of
+      matrices where each block is of the form, `["name of
+      arrow",matrix]'.  So if you named your arrows when you created
+      the quiver, then you can associate a matrix with that arrow
+      explicitly.<P/> 
+
+      2) The argument <Arg>mats</Arg> is just a list of matrices, and
+      the matrices will be associated to the arrows in the order of
+      arrow creation.  If when creating the quiver, the
+      arrow <Math>a</Math> was created first, then <Math>a</Math>
+      would be associated with the first matrix.<P/>
+
+      3) The method is very much the same as the second
+      method. If <Arg>arrows</Arg> is a list of the arrows of the
+      quiver (obtained for instance through <C>arrows :=
+      ArrowsOfQuiver(Q);</C>), the argument <Arg>mats</Arg> can have
+      the
+      format <C>[[arrows[1],matrix_1],[arrows[2],matrix_2],.... ].</C><P/>
+
+      If you would like the trivial vector space at any vertex, then
+      for each incoming arrow "a", associate it with a list of the
+      form <C>["a",[n,0]]</C> where n is the dimension of the vector
+      space at the source vertex of the arrow.  Likewise for all
+      outgoing arrows "b", associate them to a block of
+      form <C>["b",[0,n]]</C> where n is the dimension of the vector
+      space at the target vertex of the arrow.<P/>
+
+      A warning though, the function assumes that you do not mix the
+      styles of inputting the matrices/linear transformations
+      associated to the arrows in the quiver. Furthermore, each arrow
+      needs to be assigned a matrix, otherwise an error will be
+      returned. The function verifies that the dimensions of the
+      matrices and vector spaces are correct and match, and that each
+      arrow has only one matrix assigned to it.<P/>
+
+      In the second function call, the second
+      argument <Arg>dim_vector</Arg> is the dimension vector of the
+      module, and the last argument <Arg>gens</Arg> (maybe an empty
+      list []) is a list of elements of the form ["label",matrix].
+      This function constructs a right module over a (quotient of a)
+      path algebra <Arg>A</Arg> with dimension
+      vector <Arg>dim_vector</Arg>, and where the generators/arrows
+      with a non-zero action is given in the list
+      <Arg>gens</Arg>. The format of the list <Arg>gens</Arg> is
+      [["a",[matrix_a]],["b",[matrix_b]],...], where "a" and "b" are
+      labels of arrows used when the underlying quiver was created and
+      matrix_? is the action of the algebra element corresponding to
+      the arrow with label "?". The action of the arrows can be
+      entered in any order. The function checks if the
+      algebra <Arg>A</Arg> is a (quotient of a) path algebra and if
+      the matrices of the action of the arrows have the correct size
+      according to the dimension vector entered and also whether or
+      not the relations of the algebra are satisfied.  
+   </Description>
+  </ManSection>
+
+<Example><![CDATA[
+gap&gt; Q := Quiver(2, [[1, 2, "a"], [2, 1, "b"],[1, 1, "c"]]); 
+&lt;quiver with 2 vertices and 3 arrows&gt;
+gap&gt; P := PathAlgebra(Rationals, Q);
+&lt;algebra-with-one over Rationals, with 5 generators&gt;
+gap&gt; matrices := [["a", [[1,0,0],[0,1,0]]], ["b", [[0,1],[1,0],[0,1]]],
+&gt; ["c", [[0,0],[1,0]]]];
+[ [ "a", [ [ 1, 0, 0 ], [ 0, 1, 0 ] ] ],
+  [ "b", [ [ 0, 1 ], [ 1, 0 ], [ 0, 1 ] ] ],
+  [ "c", [ [ 0, 0 ], [ 1, 0 ] ] ] ]
+gap&gt; M := RightModuleOverPathAlgebra(P,matrices);
+&lt;right-module over &lt;algebra-with-one over Rationals, with 5
+generators&gt;&gt; 
+gap&gt; mats := [ [[1,0,0], [0,1,0]], [[0,1],[1,0],[0,1]], [[0,0],[1,0]] ];; 
+gap&gt; N := RightModuleOverPathAlgebra(P,mats); 
+&lt;right-module over &lt;algebra-with-one over Rationals, with 5
+generators&gt;&gt; 
+gap&gt; arrows := ArrowsOfQuiver(Q);
+[ a, b, c ]
+gap&gt; mats := [[arrows[1], [[1,0,0],[0,1,0]]], 
+&gt; [arrows[2], [[0,1],[1,0],[0,1]]], [arrows[3], [[0,0],[1,0]]]];;
+gap&gt; N := RightModuleOverPathAlgebra(P,mats); 
+&lt;right-module over &lt;algebra-with-one over Rationals, with 5
+generators&gt;&gt;
+gap&gt; # Next we give the vertex simple associate to vertex 1. 
+gap&gt; M :=
+RightModuleOverPathAlgebra(P,[["a",[1,0]],["b",[0,1]],["c",[[0]]]]);
+&lt;right-module over &lt;algebra-with-one over Rationals, with 5
+					generators&gt;&gt; 
+gap&gt; # Finally, the next defines the zero representation of the quiver.
+gap&gt; M :=
+RightModuleOverPathAlgebra(P,[["a",[0,0]],["b",[0,0]],["c",[0,0]]]);
+&lt;right-module over &lt;algebra-with-one over Rationals, with 5
+					generators&gt;&gt; 
+gap&gt; Dimension(M);
+0
+gap&gt; Basis(M);
+Basis( &lt;
+0-dimensional right-module over &lt;algebra-with-one over Rationals, with 
+5 generators&gt;&gt;, [  ] )
+gap> # Using the above example.  
+gap> matrices := [["a", [[1,0,0],[0,1,0]]], ["b",
+[[0,1],[1,0],[0,1]]], ["c", [[0,0],[1,0]]]];
+[ [ "a", [ [ 1, 0, 0 ], [ 0, 1, 0 ] ] ], 
+  [ "b", [ [ 0, 1 ], [ 1, 0 ], [ 0, 1 ] ] ], [ "c", [ [ 0, 0 ], [ 1, 0 ] ] ] ]
+gap> M := RightModuleOverPathAlgebra(P,[2,3],matrices);
+<right-module over <algebra-with-one over Rationals, with 5 generators>>
+gap> M := RightModuleOverPathAlgebra(P,[2,3],[]);      
+<right-module over <algebra-with-one over Rationals, with 5 generators>>
+]]>
+</Example>
+
+</Section>
+
+<Section><Heading>Categories Of Matrix Modules</Heading>
+
+  <ManSection>
+   <Filt Name="IsPathAlgebraMatModule" Arg="object" Comm=""/>
+   <Returns> 
+   true or false depending on whether <Arg>object</Arg> belongs to the category <Code>IsPathAlgebraMatModule</Code>.</Returns>
+   <Description>
+     These matrix modules fall under the category `IsAlgebraModule' with
+the added filter of `IsPathAlgebraMatModule'.  Operations available
+for algebra modules can be applied to path algebra modules.  See
+"ref:representations of algebras" for more details.
+
+     These modules are also vector spaces over the field of the path
+algebra.  So refer to "ref:vector spaces" for descriptions of the
+basis and elementwise operations available.
+   </Description>
+  </ManSection> 
+</Section>
+
+<Section><Heading>Acting on Module Elements</Heading>
+
+  <ManSection>
+   <Oper Name="^" Arg="m, p" Comm=""/>
+   <Description> 
+   Arguments: <Arg>m</Arg> -- an element in a module, <Arg>p</Arg> -- a path in a path algebra.
+   <Br /></Description>
+   <Returns> 
+    the element <Arg>m</Arg> multiplied with <Arg>p</Arg>.
+   </Returns>
+   <Description>
+    When you act on an module element <Math>m</Math> by an
+    arrow <Math>a</Math> from <Math>v</Math> to <Math>w</Math>, the
+    component of <Math>m</Math> from <Math>V</Math> is acted on
+    by <Math>L</Math> the transformation associated to <Math>a</Math>
+    and placed in the component <Math>W</Math>.  All other components
+    are given the value <Math>0</Math>.
+   </Description>
+  </ManSection>
+
+<Example>
+gap&gt; # Using the path algebra P from the above example. 
+gap&gt; matrices := [["a", [[1,0,0],[0,1,0]]], ["b", [[0,1],[1,0],[0,1]]],
+&gt; ["c", [[0,0],[1,0]]]];
+[ [ "a", [ [ 1, 0, 0 ], [ 0, 1, 0 ] ] ],
+  [ "b", [ [ 0, 1 ], [ 1, 0 ], [ 0, 1 ] ] ],
+  [ "c", [ [ 0, 0 ], [ 1, 0 ] ] ] ]
+gap&gt; M := RightModuleOverPathAlgebra(P,matrices);
+&lt;right-module over &lt;algebra-with-one over Rationals, with 5
+generators&gt;&gt; 
+gap&gt; B:=BasisVectors(Basis(M));
+[ [ [ 1, 0 ], [ 0, 0, 0 ] ], [ [ 0, 1 ], [ 0, 0, 0 ] ], 
+  [ [ 0, 0 ], [ 1, 0, 0 ] ], [ [ 0, 0 ], [ 0, 1, 0 ] ], 
+  [ [ 0, 0 ], [ 0, 0, 1 ] ] ]
+gap&gt; B[1]+B[3];
+[ [ 1, 0 ], [ 1, 0, 0 ] ]
+gap&gt; 4*B[2];
+[ [ 0, 4 ], [ 0, 0, 0 ] ]
+gap&gt; m:=5*B[1]+2*B[4]+B[5];
+[ [ 5, 0 ], [ 0, 2, 1 ] ]
+gap&gt; m^(P.a*P.b-P.c);
+[ [ 0, 5 ], [ 0, 0, 0 ] ]
+gap&gt; B[1]^P.a;
+[ [ 0, 0 ], [ 1, 0, 0 ] ]
+gap&gt; B[2]^P.b;
+[ [ 0, 0 ], [ 0, 0, 0 ] ]
+gap&gt; B[4]^(P.b*P.c);
+[ [ 0, 0 ], [ 0, 0, 0 ] ]
+</Example>
+</Section>
+
+<Section><Heading>Operations on representations</Heading>
+
+<Example><![CDATA[
+gap> Q  := Quiver(3,[[1,2,"a"],[1,2,"b"],[2,2,"c"],[2,3,"d"],[3,1,"e"]]);
+<quiver with 3 vertices and 5 arrows>
+gap> KQ := PathAlgebra(Rationals, Q);
+<algebra-with-one over Rationals, with 8 generators>
+gap> gens := GeneratorsOfAlgebra(KQ);
+[ (1)*v1, (1)*v2, (1)*v3, (1)*a, (1)*b, (1)*c, (1)*d, (1)*e ]
+gap> u := gens[1];; v := gens[2];;
+gap> w := gens[3];; a := gens[4];;
+gap> b := gens[5];; c := gens[6];;
+gap> d := gens[7];; e := gens[8];;
+gap> rels := [d*e,c^2,a*c*d-b*d,e*a];;
+gap> I:= Ideal(KQ,rels);;
+gap> gb:= GBNPGroebnerBasis(rels,KQ);;
+gap> gbb:= GroebnerBasis(I,gb);;
+gap> A:= KQ/I;
+<algebra-with-one over Rationals, with 8 generators>
+gap> mat:=[["a",[[1,2],[0,3],[1,5]]],["b",[[2,0],[3,0],[5,0]]],
+["c",[[0,0],[1,0]]],["d",[[1,2],[0,1]]],["e",[[0,0,0],[0,0,0]]]];;
+gap> N:= RightModuleOverPathAlgebra(A,mat);                         
+<right-module over <algebra-with-one over Rationals, with 8 generators>>
+]]></Example>
+
+<ManSection>
+   <Oper Name="AnnihilatorOfModule" Arg="M" Comm="for a   
+         PathAlgebraMatModule"/>
+   <Description> 
+   Arguments: <Arg>M</Arg> -- a path algebra module.
+   <Br /></Description>
+   <Returns>a basis of the annihilator of the module <Arg>M</Arg> in
+     the finite dimensional algebra over which <Arg>M</Arg> is a
+     module.
+   </Returns>
+</ManSection>
+
+<ManSection>
+   <Oper Name="CommonDirectSummand" Arg="M, N" Comm="for two
+   PathAlgebraMatModule's"/>
+   <Description> 
+   Arguments: <Arg>M</Arg> and <Arg>N</Arg> -- two path algebra modules.
+   <Br /></Description>
+   <Returns>a list of four modules [<Arg>X</Arg>,<Arg>U</Arg>,<Arg>X</Arg>, <Arg>V</Arg>], 
+     where <Arg>X</Arg> is one common non-zero direct summand of <Arg>M</Arg> 
+     and <Arg>N</Arg>, the sum of <Arg>X</Arg> and <Arg>U</Arg> is  <Arg>M</Arg>
+     and the sum of  <Arg>X</Arg> and <Arg>V</Arg> is  <Arg>N</Arg>, 
+     if such a non-zero direct summand exists. Otherwise it returns false.</Returns>
+   <Description>The function checks if <Arg>M</Arg> and <Arg>N</Arg>
+     are <C>PathAlgebraMatModule</C>s over the same (quotient of a)
+     path algebra. 
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Oper Name="DecomposeModule" Arg="M" Comm="for a
+   PathAlgebraMatModule"/>
+   <Description> 
+   Arguments: <Arg>M</Arg> -- a path algebra module.
+   <Br /></Description>
+   <Returns>a list of indecomposable modules whose direct sum is
+     isomorphic to the module <Arg>M</Arg>. 
+   </Returns>
+   <Description>Warning: the function is not properly tested and it at
+     best only works properly over finite fields. 
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Oper Name="DecomposeModuleWithMultiplicities" Arg="M" Comm="for a
+   PathAlgebraMatModule"/>
+   <Description> 
+   Arguments: <Arg>M</Arg> -- a path algebra module.
+   <Br /></Description>
+   <Returns>a list of length two, where the first entry is a list of
+     all indecomposable non-isomorphic direct summands of <Arg>M</Arg>
+     and the second entry is the list of the multiplicities of these
+     direct summand in the module <Arg>M</Arg>. 
+   </Returns>
+   <Description>Warning: the function is not properly tested and it at
+     best only works properly over finite fields. 
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Oper Name="Dimension" Arg="M" Comm="for a
+   PathAlgebraMatModule"/>
+   <Description> 
+   Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>).
+   <Br /></Description>
+   <Returns>the dimension of the representation <Arg>M</Arg>.
+   </Returns>
+</ManSection>
+
+<ManSection>
+   <Attr Name="DimensionVector" Arg="M" Comm="for a
+   PathAlgebraMatModule"/>
+   <Description> 
+   Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>).
+   <Br /></Description>
+   <Returns>the dimension vector of the representation <Arg>M</Arg>.
+   </Returns>
+</ManSection>
+
+<ManSection>
+   <Oper Name="DirectSumOfModules" Arg="L" Comm="for a
+   list of PathAlgebraMatModule's"/>
+   <Description> 
+    Arguments: <Arg>L</Arg> -- a list of <C>PathAlgebraMatModule</C>s over the same (quotient of a) path algebra. 
+   <Br /></Description>
+   <Returns>the direct sum of the representations contained in the
+     list <Arg>L</Arg>.</Returns>
+   <Description>In addition three attributes are attached to the
+     result, <C>IsDirectSumOfModules, DirectSumProjections</C>
+     and <C>DirectSumInclusions</C>.  
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Attr Name="DirectSumInclusions" Arg="M" Comm="for a PathAlgebraMatModule"/>
+   <Description> 
+    Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>).
+   <Br /></Description>
+   <Returns>
+    the list of inclusions from the individual
+    modules to their direct sum, when a direct sum has been
+    constructed using <C>DirectSumOfModules</C>.
+   </Returns>
+</ManSection>
+
+<ManSection>
+   <Attr Name="DirectSumProjections" Arg="M" Comm="for a PathAlgebraMatModule"/>
+   <Description> 
+    Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>).
+   <Br /></Description>
+   <Returns>
+    the list of projections from the direct sum
+    to the individual modules used to construct direct sum, when a
+    direct sum has been constructed
+    using <C>DirectSumOfModules</C>.
+   </Returns>
+</ManSection>
+
+<ManSection>
+   <Oper Name="IsDirectSummand" Arg="M, N" Comm="for two
+   PathAlgebraMatModule's"/>
+   <Description> 
+   Arguments: <Arg>M, N</Arg> -- two path algebra modules (<C>PathAlgebraMatModule</C>s).
+   <Br /></Description>
+   <Returns>true if <Arg>M</Arg> is isomorphic to a direct summand
+     of <Arg>N</Arg>, otherwise false.</Returns>
+   <Description>The function checks if <Arg>M</Arg> and <Arg>N</Arg>
+     are <C>PathAlgebraMatModule</C>s over the same (quotient of a)
+     path algebra. 
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Attr Name="IsDirectSumOfModules" Arg="M" Comm="for a PathAlgebraMatModule"/>
+   <Description> 
+    Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>).
+   <Br /></Description>
+   <Returns>
+    true if <Arg>M</Arg> is constructed via the
+    command <C>DirectSumOfModules</C>.
+   </Returns>
+</ManSection>
+
+Using the example above.
+<Example><![CDATA[
+gap> N2:=DirectSumOfModules([N,N]);
+<14-dimensional right-module over <algebra-with-one of dimension 
+17 over Rationals>>
+gap> proj:=DirectSumProjections(N2);
+[ <mapping: <14-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> -> <
+    7-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> >, 
+  <mapping: <14-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> -> <
+    7-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> > ]
+gap> inc:=DirectSumInclusions(N2);  
+[ <mapping: <7-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> -> <
+    14-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> >, 
+  <mapping: <7-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> -> <
+    14-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> > ]
+]]></Example>
+
+<ManSection>
+   <Attr Name="1stSyzygy" Arg="M" Comm="for a
+   PathAlgebraMatModule"/>
+   <Description>
+    Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>).
+   <Br /></Description>
+   <Returns>the first syzygy of the representation <Arg>M</Arg> as a
+     representation. 
+   </Returns>
+</ManSection>
+
+<ManSection>
+   <Oper Name="IntersectionOfSubmodules" Arg="list" Comm="for a list
+   of PathAlgebraMatModule submodules"/>
+   <Description> 
+    Arguments: <Arg>f, g</Arg> or <Arg>list</Arg> -- two homomorphisms
+    of PathAlgebraMatModules or a list of such.
+   <Br /></Description>
+   <Returns>the subrepresentation given by the intersection of all the
+   submodules given by the inclusions  <Arg>f, g</Arg>
+   or <Arg>list</Arg>.
+   </Returns>
+   <Description>The function checks if <Arg>list</Arg> is non-empty
+     and if <Math><Arg>f</Arg>\colon M\to X</Math>
+     and <Math><Arg>g</Arg>\colon N\to X</Math> or all the
+     homomorphism in <Arg>list</Arg> have the same range and if they
+     all are inclusions. If the function is given two
+     arguments <Arg>f</Arg> and <Arg>g</Arg>, then it
+     returns <Math>[f',g',g'*f]</Math>, where <Math>f'\colon E\to
+     N</Math>, <Math>g'\colon E\to M</Math>, <Math>E</Math> is the
+     pullback of <Arg>f</Arg> and <Arg>g</Arg>. For a list of
+     inclusions it returns a monomorphism from a module isomorphic
+     to the intersection to <Math>X</Math>. 
+   </Description>
+</ManSection>
+
+
+<ManSection>
+   <Oper Name="IsInAdditiveClosure" Arg="M, N" Comm="for two
+   PathAlgebraMatModule's"/>
+   <Description> 
+    Arguments: <Arg>M, N</Arg> -- two path algebra modules (<C>PathAlgebraMatModule</C>s).
+   <Br /></Description>
+   <Returns>true if <Arg>M</Arg> is in the additive closure of the module
+     <Arg>N</Arg>, otherwise false.</Returns>
+   <Description>The function checks if <Arg>M</Arg> and <Arg>N</Arg>
+     are <C>PathAlgebraMatModule</C>s over the same (quotient of a)
+     path algebra. 
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Oper Name="IsOmegaPeriodic" Arg="M, n" Comm="for a
+   PathAlgebraMatModule and a positive integer"/>
+   <Description> 
+    Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>), <Arg>n</Arg> -- be a positive integer.
+   <Br /></Description>
+   <Returns><C>i</C>, where <C>i</C> is the smallest positive integer
+     less or equal <C>n</C> such that the representation <Arg>M</Arg> is isomorphic
+     to the <C>i</C>-th syzygy of <Arg>M</Arg>, and false otherwise.
+   </Returns>
+</ManSection>
+
+<ManSection>
+   <Prop Name="IsInjectiveModule" Arg="M" Comm="for a
+   PathAlgebraMatModule"/>
+   <Description> 
+    Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>).
+   <Br /></Description>
+   <Returns>true if the representation <Arg>M</Arg> is injective.
+   </Returns>
+</ManSection>
+
+<ManSection>
+   <Prop Name="IsProjectiveModule" Arg="M" Comm="for a
+   PathAlgebraMatModule"/>
+   <Description> 
+    Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>).
+   <Br /></Description>
+   <Returns>true if the representation <Arg>M</Arg> is projective.
+   </Returns>
+</ManSection>
+
+<ManSection>
+   <Prop Name="IsSemisimpleModule" Arg="M" Comm="for a
+   PathAlgebraMatModule"/>
+   <Description> 
+    Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>).
+   <Br /></Description>
+   <Returns>true if the representation <Arg>M</Arg> is semisimple.
+   </Returns>
+</ManSection>
+
+<ManSection>
+   <Prop Name="IsSimpleModule" Arg="M" Comm="for a
+   PathAlgebraMatModule"/>
+   <Description> 
+    Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>).
+   <Br /></Description>
+   <Returns>true if the representation <Arg>M</Arg> is simple.
+   </Returns>
+</ManSection>
+
+<ManSection>
+   <Attr Name="LoewyLength" Arg="M" Comm=""/>
+   <Description> 
+    Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>).
+   <Br /></Description>
+   <Returns>the Loewy length of the module <Arg>M</Arg>.</Returns>
+   <Description>
+     The function checks that the module <Arg>M</Arg> is a module over
+    a finite dimensional quotient of a path algebra, and returns fail
+    otherwise (This is not implemented yet). 
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Oper Name="MaximalCommonDirectSummand" Arg="M, N" Comm="for two
+   PathAlgebraMatModule's"/>
+   <Description> 
+    Arguments: <Arg>M, N</Arg> -- two path algebra modules (<C>PathAlgebraMatModule</C>s).
+   <Br /></Description>
+   <Returns>a list of three modules [<Arg>X</Arg>,<Arg>U</Arg>,<Arg>V</Arg>], 
+     where <Arg>X</Arg> is a maximal common non-zero direct summand of <Arg>M</Arg> 
+     and <Arg>N</Arg>, the sum of <Arg>X</Arg> and <Arg>U</Arg> is  <Arg>M</Arg>
+     and the sum of  <Arg>X</Arg> and <Arg>V</Arg> is  <Arg>N</Arg>, 
+     if such a non-zero maximal direct summand exists. Otherwise it returns false.</Returns>
+   <Description>The function checks if <Arg>M</Arg> and <Arg>N</Arg>
+     are <C>PathAlgebraMatModule</C>s over the same (quotient of a)
+     path algebra. 
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Oper Name="IsomorphicModules" Arg="M, N" Comm=""/>
+   <Description> 
+    Arguments: <Arg>M, N</Arg> -- two path algebra modules (<C>PathAlgebraMatModule</C>s).
+   <Br /></Description>
+   <Returns>true or false depending on whether <Arg>M</Arg>
+   and <Arg>N</Arg> are isomorphic or not.</Returns> 
+   <Description>
+    The function first checks if the modules <Arg>M</Arg>
+    and <Arg>N</Arg> are modules over the same algebra, and returns fail
+    if not. The function returns true if the modules are
+    isomorphic, otherwise false. 
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Attr Name="MinimalGeneratingSetOfModule" Arg="M" Comm=""/>
+   <Description> 
+    Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>).
+   <Br /></Description>
+   <Returns>a minimal generator set of the module <Arg>M</Arg> as a
+   module of the path algebra it is defined over. </Returns>
+</ManSection>
+
+<ManSection>
+   <Oper Name="MatricesOfPathAlgebraModule" Arg="M" Comm="for a
+   PathAlgebraMatModule"/>
+   <Description> 
+    Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>).
+   <Br /></Description>
+   <Returns>a list of the matrices that defines the
+     representation <Arg>M</Arg> as a right module of the acting path
+     algebra.
+   </Returns>
+   <Description> 
+     The list of matrices that are returned are not the same identical
+     to the matrices entered to define the representation if there is
+     zero vector space in at least one vertex. Then zero matrices of
+     the appropriate size are returned. A shortcoming of this that it
+     is not defined for modules of quotients of path algebras. 
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Oper Name="NthSyzygy" Arg="M, n" Comm="for a
+   PathAlgebraMatModule"/>
+   <Description> 
+    Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>), <Arg>n</Arg> -- a positive integer.
+   <Br /></Description>
+   <Returns>the top of the syzygies until a syzygy is projective or
+     the <Arg>n</Arg>-th syzygy has been computed.
+   </Returns>
+</ManSection>
+
+<ManSection>
+   <Oper Name="NthSyzygyNC" Arg="M, n" Comm="for a
+   PathAlgebraMatModule"/>
+   <Description> 
+    Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>), <Arg>n</Arg> -- a positive integer.
+   <Br /></Description>
+   <Returns>the <C>n</C>-th syzygy of the module <Arg>M</Arg>, unless
+   the projective dimension of <Arg>M</Arg> is less or equal
+   to <C>n-1</C>, in which case it returns the projective dimension of 
+   <Arg>M</Arg>. It does not check if the <C>n</C>-th syzygy is
+   projective or not.
+   </Returns>
+</ManSection>
+
+<ManSection>
+   <Attr Name="RadicalOfModule" Arg="M" Comm=""/>
+   <Description> 
+    Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>).
+   <Br /></Description>
+   <Returns>the radical of the module <Arg>M</Arg>.</Returns>
+   <Description>
+    This returns only the representation given by the radical of the
+    module <Arg>M</Arg>. The operation
+    <Ref Attr="RadicalOfModuleInclusion"/> computes the inclusion of the
+    radical of <Arg>M</Arg> into <Arg>M</Arg>.
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Attr Name="RadicalSeries" Arg="M" Comm=""/>
+   <Description> 
+    Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>).
+   <Br /></Description>
+   <Returns>the radical series of the module <Arg>M</Arg>.</Returns>
+   <Description>
+     The function gives the radical series as a list of vectors
+     <Code>[n_1,...,n_s]</Code>, where the algebra has <Math>s</Math>
+     isomorphism classes of simple modules and the numbers give the
+     multiplicity of each simple. The first vector listed corresponds
+     to the top layer, and so on.  
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Attr Name="SocleSeries" Arg="M" Comm=""/>
+   <Description> 
+    Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>).
+   <Br /></Description>
+   <Returns>the socle series of the module <Arg>M</Arg>.</Returns>
+   <Description>
+     The function gives the socle series as a list of vectors
+     <Code>[n_1,...,n_s]</Code>, where the algebra has <Math>s</Math>
+     isomorphism classes of simple modules and the numbers give the
+     multiplicity of each simple. The last vector listed corresponds
+     to the socle layer, and so on backwards.  
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Attr Name="SocleOfModule" Arg="M" Comm=""/>
+   <Description> 
+    Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>).
+   <Br /></Description>
+   <Returns>the socle of the module <Arg>M</Arg>.</Returns>
+   <Description>
+    This operation only return the representation given by the socle
+    of the module <Arg>M</Arg>.  The inclusion the socle
+    of <Arg>M</Arg> into <Arg>M</Arg> can be computed using
+    <Ref Oper="SocleOfModuleInclusion"/>.
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Oper Name="SubRepresentation" Arg="M, gens" Comm=""/>
+   <Description> 
+    Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>), <Arg>gens</Arg> -- elements in <Arg>M</Arg>.
+   <Br /></Description>
+   <Returns>the submodule of the module <Arg>M</Arg> generated by the
+   elements <Arg>gens</Arg>.</Returns>
+   <Description>
+    The function checks if <Arg>gens</Arg> are elements
+    in <Arg>M</Arg>, and returns an error message otherwise. The
+    inclusion of the submodule generated by the
+    elements <Arg>gens</Arg> into <Arg>M</Arg> can be computed using
+    <Ref Oper="SubRepresentationInclusion"/>.   
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Oper Name="SumOfSubmodules" Arg="list" Comm="for a list
+   of PathAlgebraMatModule submodules"/>
+   <Description> 
+    Arguments: <Arg>f, g</Arg> or <Arg>list</Arg> -- two homomorphisms
+    of PathAlgebraMatModules or a list of such.
+   <Br /></Description>
+   <Returns>the subrepresentation given by the sum of all the
+   submodules given by the inclusions  <Arg>f, g</Arg>
+   or <Arg>list</Arg>.
+   </Returns>
+   <Description>The function checks if <Arg>list</Arg> is non-empty
+     and if <Math><Arg>f</Arg>\colon M\to X</Math>
+     and <Math><Arg>g</Arg>\colon N\to X</Math> or all the
+     homomorphism in <Arg>list</Arg> have the same range and if they
+     all are inclusions. If the function is given two
+     arguments <Arg>f</Arg> and <Arg>g</Arg>, then it
+     returns <Math>[h,f',g']</Math>, where <Math>h\colon M + N\to
+     X</Math>, <Math>f'\colon M\to M + N</Math> and <Math>g'\colon
+     N\to M + N</Math>. For a list of
+     inclusions it returns a monomorphism from a module isomorphic
+     to the sum of the subrepresentations to <Math>X</Math>. 
+   </Description>
+</ManSection>
+
+
+
+
+<ManSection>
+   <Oper Name="SupportModuleElement" Arg="m" Comm=""/>
+   <Description> 
+    Arguments: <Arg>m</Arg> -- an element of a path algebra module.
+   <Br /></Description>
+   <Returns>the primitive idempotents <Arg>v</Arg> in the algebra over
+   which the module containing the element <Arg>m</Arg> is a module,
+   such that <Arg>m^v</Arg> is non-zero.</Returns>
+   <Description>
+    The function checks if <Arg>m</Arg> is an element in a module 
+    over a (quotient of a) path algebra, and returns fail otherwise. 
+   </Description>
+</ManSection>
+
+
+<ManSection>
+   <Oper Name="TopOfModule" Arg="M" Comm=""/>
+   <Description> 
+    Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>).
+   <Br /></Description>
+   <Returns>the top of the module <Arg>M</Arg>.</Returns>
+   <Description>
+    This returns only the representation given by the top of the
+    module <Arg>M</Arg>. The operation
+    <Ref Oper="TopOfModuleProjection"/> computes the projection of the
+    module <Arg>M</Arg> onto the top of the module <Arg>M</Arg>. 
+   </Description>
+</ManSection>
+
+
+</Section>
+
+<Section><Heading>Special representations</Heading>
+Here we collect the predefined representations/modules over a finite
+  dimensional quotient of a path algebra. 
+
+  <ManSection>
+   <Oper Name="BasisOfProjectives" Arg="A" Comm=""/>
+   <Description> 
+    Arguments: <Arg>A</Arg> -- a finite dimensional (quotient of a) path
+    algebra.
+   <Br /></Description>
+   <Returns>a list of bases for all the indecomposable projective
+   representations over <Arg>A</Arg>. The basis for each indecomposable projective is given a list of elements in nontips in <Arg>A</Arg>. 
+   </Returns>
+   <Description>
+     The function checks if the algebra <Arg>A</Arg> is a
+     finite dimensional (quotient of a) path algebra, and returns an 
+     error message otherwise. 
+   </Description>
+  </ManSection>
+
+  <ManSection>
+   <Attr Name="IndecInjectiveModules" Arg="A" Comm="for an algebra"/>
+   <Description> 
+    Arguments: <Arg>A</Arg> -- a finite dimensional (quotient of a) path
+    algebra, (optional) <Arg>list</Arg> -- a list of integers.
+   <Br /></Description>
+   <Returns>a list of all the non-isomorphic indecomposable injective
+   representations over <Arg>A</Arg>. 
+   </Returns>
+   <Description>
+     The function checks if the algebra <Arg>A</Arg> is a finite
+     dimensional (quotient of a) path algebra, and returns an error
+     message otherwise. 
+   </Description>
+  </ManSection>
+
+  <ManSection>
+   <Attr Name="IndecProjectiveModules" Arg="A" Comm="for an algebra"/>
+   <Description> 
+    Arguments: <Arg>A</Arg> -- a finite dimensional (quotient of a) path
+    algebra.
+   <Br /></Description>
+   <Returns>a list of all the non-isomorphic indecomposable projective
+   representations over <Arg>A</Arg>. 
+   </Returns>
+   <Description>
+     The function checks if the algebra <Arg>A</Arg> is a
+     finite dimensional (quotient of a) path algebra, and returns an 
+     error message otherwise. 
+   </Description>
+  </ManSection>
+
+  <ManSection>
+   <Attr Name="SimpleModules" Arg="A" Comm=""/>
+   <Description> 
+    Arguments: <Arg>A</Arg> -- a finite dimensional (quotient of a) path
+    algebra.
+   <Br /></Description>
+   <Returns>a list of all the simple representations over <Arg>A</Arg> .
+   </Returns>
+   <Description>
+     The function checks if the algebra <Arg>A</Arg> is a finite
+     dimensional (quotient of a) path algebra, and returns an error
+     message otherwise. 
+   </Description>
+  </ManSection>
+
+  <ManSection>
+   <Attr Name="ZeroModule" Arg="A" Comm=""/>
+   <Description> 
+    Arguments: <Arg>A</Arg> -- a finite dimensional (quotient of a) path
+    algebra.
+   <Br /></Description>
+   <Returns>the zero representation over <Arg>A</Arg> .
+   </Returns>
+   <Description>
+     The function checks if the algebra <Arg>A</Arg> is a finite
+     dimensional (quotient of a) path algebra, and returns an error
+     message otherwise. 
+   </Description>
+  </ManSection>
+</Section>
+
+
+<Section><Heading>Functors on representations</Heading>
+
+<ManSection>
+   <Attr Name="DualOfModule" Arg="M" Comm="for a PathAlgebraMatModule"/>
+   <Description> 
+    Arguments: <Arg>M</Arg> -- a representation of a path algebra <Math>KQ</Math>.
+   <Br /></Description>
+   <Returns>
+    the dual of <Arg>M</Arg> over the opposite path algebra <Arg>KQ_op</Arg>. 
+   </Returns>
+</ManSection>
+
+<ManSection>
+   <Attr Name="DualOfModuleHomomorphism" Arg="f" Comm="for a PathAlgebraMatModuleMap"/>
+   <Description> 
+    Arguments: <Arg>f</Arg> -- a map between two representations <Arg>M</Arg> and <Arg>N</Arg> over a path algebra <Math>A</Math>.
+   <Br /></Description>
+   <Returns>
+    the dual of this map over the opposite path algebra <Arg>A^op</Arg>.
+   </Returns>
+</ManSection>
+
+<ManSection>
+   <Oper Name="DTr" Arg="M, [ n ]" Comm="for a PathAlgebraMatModule and an
+   integer"/>
+   <Oper Name="DualOfTranspose" Arg="M, [ n ]" Comm="for a
+   PathAlgebraMatModule"/> 
+   <Description> 
+    Arguments: <Arg>M</Arg> -- a path algebra module, (optional) <Arg>n</Arg> -- an integer.
+   <Br /></Description>
+   <Returns>the dual of the transpose of <Arg>M</Arg> when
+   called with only one argument, while it returns the dual of the
+   transpose applied to <Arg>M</Arg> <Arg>n</Arg> times
+   otherwise. If <Arg>n</Arg> is negative, then powers of <C>TrD</C>
+   are computed. <Ref Oper="DualOfTranspose"/> is a synonym for
+   <Ref Oper="DTr"/>. </Returns>
+</ManSection>
+
+<ManSection>
+
+   <Oper Name="TrD" Arg="M, [n]" Comm="for a PathAlgebraMatModule and an
+   integer"/>
+   <Oper Name="TransposeOfDual" Arg="M, [n]" Comm="for a PathAlgebraMatModule"/>
+   <Description> 
+    Arguments: <Arg>M</Arg> -- a path algebra module, (optional) <Arg>n</Arg> -- an integer.
+   <Br /></Description>
+   <Returns>the transpose of the dual of <Arg>M</Arg> when
+   called with only one argument, while it returns the transpose of
+   the dual applied to <Arg>M</Arg> <Arg>n</Arg> times
+   otherwise. If <Arg>n</Arg> is negative, then powers of <C>TrD</C>
+   are computed. <Ref Oper="TransposeOfDual"/> is a synonym for
+   <Ref Oper="TrD"/>.</Returns>
+</ManSection>
+
+<ManSection>
+   <Attr Name="TransposeOfModule" Arg="M" Comm="for a PathAlgebraMatModule"/>
+   <Description> 
+    Arguments: <Arg>M</Arg> -- a path algebra module.
+   <Br /></Description>
+   <Returns>the transpose of the module <Arg>M</Arg>.</Returns>
+</ManSection>
+
+</Section>
+
+<Section><Heading>Vertex Projective Presentations</Heading> 
+In general, if <Math>R</Math> is a ring and <Math>e</Math> is an
+idempotent of <Math>R</Math> then <Math>eR</Math> is a projective
+module of <Math>R</Math>.  Then we can form a direct sum of these
+projective modules together to form larger projective module.
+
+One can construct more general modules by providing a <Arg>vertex
+projective presentation</Arg>.  In this case, <Math>M</Math> is the
+cokernel as given by the following exact sequence:
+
+<Math>\oplus_{j=1}^{r} w(j)R \rightarrow \oplus_{i=1}^{g} v(i)R
+\rightarrow{M} \rightarrow 0</Math>
+
+for some map between <Math>\oplus_{j=1}^{r} w(j)R</Math>
+and <Math>\oplus_{i=1}^{g} v(i)R</Math>.  The maps <Math>w</Math>
+and <Math>v</Math> map the integers to some idempotent
+in <Math>R</Math>.
+
+<ManSection>
+   <Func Name="RightProjectiveModule" Arg="A, verts" 
+	 Comm=""/>
+	 <Description> 
+    Arguments: <Arg>A</Arg> -- a (quotient of a) path algebra, <Arg>verts</Arg> -- a list of vertices.
+   <Br /></Description>
+   <Returns> the right projective module over <Arg>A</Arg> which is
+      the direct sum of projective modules of the form <Arg>vA</Arg>
+      where the vertices are taken from <Arg>verts</Arg>.</Returns>
+   <Description>
+      In this implementation the algebra can be a quotient of a path
+      algebra.  So if the list was
+      <Math>[v,w]</Math> then the module created will be the direct
+      sum <Math>vA \oplus wA</Math>, in that order.  Elements of the
+      modules are vectors of algebra elements, and in each component,
+      each path begins with the vertex in that position in the list of
+      vertices.  Right projective modules are implementated as algebra
+      modules (see "ref:Representations of Algebras") and all
+      operations for algebra modules are applicable to right
+      projective modules.  In particular, one can construct submodules
+      using `SubAlgebraModule'.
+   </Description>
+</ManSection>
+Here we create the right projective module <Math>P = vA \oplus vA
+    \oplus wA</Math>. 
+
+<Example>
+gap&gt; F:=GF(11);
+GF(11)
+gap&gt; Q:=Quiver(["v","w", "x"],[["v","w","a"],["v","w","b"],["w","x","c"]]);
+&lt;quiver with 3 vertices and 3 arrows&gt;
+gap&gt; A:=PathAlgebra(F,Q);
+&lt;algebra-with-one over GF(11), with 6 generators&gt;
+gap&gt; P:=RightProjectiveModule(A,[A.v,A.v,A.w]);
+&lt;right-module over &lt;algebra-with-one over GF(11), with 6 generators&gt;&gt;
+gap&gt; Dimension(P);
+12
+</Example>
+
+  <ManSection>
+   <Func Name="Vectorize" Arg="M, components" 
+	 Comm=""/>
+	 <Description> 
+    Arguments: <Arg>M</Arg> -- a module over a path algebra, <Arg>components</Arg> -- a list of elements of <Arg>M</Arg>.
+   <Br /></Description>
+   <Returns>a vector in <Arg>M</Arg> from a list of path
+      algebra elements <Arg>components</Arg>, which defines the
+      components in the resulting vector.</Returns>
+   <Description>
+      The returned vector is normalized, so the vector's components
+      may not match the input components.
+   </Description>
+  </ManSection>
+
+In the following example, we create two elements in <Math>P</Math>,
+perform some elementwise operations, and then construct a submodule
+using the two elements as generators.<P/>
+
+<Example>
+gap&gt; p1:=Vectorize(P,[A.b*A.c,A.a*A.c,A.c]);
+[ (Z(11)^0)*b*c, (Z(11)^0)*a*c, (Z(11)^0)*c ]
+gap&gt; p2:=Vectorize(P,[A.a,A.b,A.w]);
+[ (Z(11)^0)*a, (Z(11)^0)*b, (Z(11)^0)*w ]
+gap&gt; 2*p1 + p2;
+[ (Z(11)^0)*a+(Z(11))*b*c, (Z(11)^0)*b+(Z(11))*a*c, (Z(11)^0)*w+(Z(11))*c ]
+gap&gt; S:=SubAlgebraModule(P,[p1,p2]);
+&lt;right-module over &lt;algebra-with-one of dimension 8 over GF(11)&gt;&gt;
+gap&gt; Dimension(S);
+3
+</Example>
+
+  <ManSection>
+   <Oper Name="^" Arg="m, a" Comm="Action by a path algebra element"/>
+   <Description> 
+    Arguments: <Arg>m</Arg> -- an element of a path algebra module, <Arg>a</Arg> -- an element of a path algebra.
+   <Br /></Description>
+   <Returns>
+    the element <Arg>m</Arg> multiplied with <Arg>a</Arg>.
+   </Returns>
+   <Description>
+    This action is defined by multiplying each component
+    in <Arg>m</Arg> by <Arg>a</Arg> on the right.
+   </Description>
+  </ManSection>
+
+<Example>
+gap&gt; p2^(A.c - A.w);
+[ (Z(11)^5)*a+(Z(11)^0)*a*c, (Z(11)^5)*b+(Z(11)^0)*b*c, 
+  (Z(11)^5)*w+(Z(11)^0)*c ]
+</Example>
+
+  <ManSection>
+   <Oper Name="&lt;" Arg="m1, m2" Comm="lessthan"/>
+   <Description> 
+    Arguments: <Arg>m1, m2</Arg> -- two elements of a module over a path algebra (?).
+   <Br /></Description>
+   <Returns>
+    `true' if <Arg>m1</Arg> is less than <Arg>m2</Arg> and false otherwise.
+   </Returns>
+   <Description>
+    Elements are compared componentwise from left to right using the ordering of the underlying algebra.  The element <Arg>m1</Arg> is less than <Arg>m2</Arg> if the first time components are not equal, the
+    component of <Arg>m1</Arg> is less than the corresponding
+    component of <Arg>m2</Arg>.
+   </Description>
+  </ManSection>
+
+<Example>
+gap&gt; p1 &lt; p2;
+false
+</Example>
+
+  <ManSection>
+   <Oper Name="/" Arg="M, N" Comm="Factor module"/>
+   <Description> 
+    Arguments: <Arg>M, N</Arg> -- two finite dimensional modules over a path algebra (?).
+   <Br /></Description>
+   <Returns>
+    the factor module <Math>M/N</Math>.
+   </Returns>
+   <Description>
+    This module is
+    again a right algebra module, and all applicable methods and
+    operations are available for the resulting factor module.
+    Furthermore, the resulting module is a vector space, so operations
+    for computing bases and dimensions are also available.
+   </Description>
+  </ManSection>
+This 
+
+<Example>
+gap&gt; PS := P/S;
+&lt;9-dimensional right-module over &lt;algebra-with-one of dimension
+8 over GF(11)&gt;&gt; 
+gap&gt; Basis(PS);
+Basis( &lt;9-dimensional right-module over &lt;algebra-with-one of dimension 
+8 over GF(11)&gt;&gt;, [ [ [ &lt;zero&gt; of ..., &lt;zero&gt; of ...,
+(Z(11)^0)*w ] ],  
+  [ [ &lt;zero&gt; of ..., &lt;zero&gt; of ..., (Z(11)^0)*c ] ], 
+  [ [ &lt;zero&gt; of ..., (Z(11)^0)*v, &lt;zero&gt; of ... ] ], 
+  [ [ &lt;zero&gt; of ..., (Z(11)^0)*a, &lt;zero&gt; of ... ] ], 
+  [ [ &lt;zero&gt; of ..., (Z(11)^0)*b, &lt;zero&gt; of ... ] ], 
+  [ [ &lt;zero&gt; of ..., (Z(11)^0)*a*c, &lt;zero&gt; of ... ] ], 
+  [ [ &lt;zero&gt; of ..., (Z(11)^0)*b*c, &lt;zero&gt; of ... ] ], 
+  [ [ (Z(11)^0)*v, &lt;zero&gt; of ..., &lt;zero&gt; of ... ] ], 
+  [ [ (Z(11)^0)*b, &lt;zero&gt; of ..., &lt;zero&gt; of ... ] ] ] )
+</Example>
+</Section>
+</Chapter>

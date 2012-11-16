@@ -1,0 +1,224 @@
+<Chapter Label="Introduction/Quickstart"><Heading>Introduction/Quick Start</Heading>
+
+This chapter is intended for those who would like to get started with
+<Package>QPA</Package> right away by playing with a few examples.  An
+important feature to be aware of concerning using the software is how
+to display the results one is obtaining. Here there are three basic
+ways of doing this, through <C>View</C>, <C>Print</C>
+or <C>Display</C>. The command <C>View(M)</C> prints a short
+information about the object <C>M</C>, the command <C>Print(M)</C>
+prints a longer information about the object <C>M</C>, and finally The
+command <C>Display(M)</C> prints an even fuller information about the
+object <C>M</C>, in general. However, for some objects these may all
+coincide. 
+
+
+First we present a simple example:
+
+<!-- Example 9 from GBNP: -->
+<Section Label="Example 1"><Heading>Example 1</Heading>
+
+We construct a quiver <Math>q</Math>, i.e. a finite directed graph, with one
+vertex and two loops:
+
+<Example><![CDATA[
+gap> q := Quiver(["u"],[["u","u","a"],["u","u","b"]]);
+<quiver with 1 vertices and 2 arrows>
+]]></Example>
+
+We can request the list of vertices and the list of arrows
+for <Math>q</Math>:
+
+<Example> 
+gap&gt; VerticesOfQuiver(q);
+[ u ]
+gap&gt; ArrowsOfQuiver(q);
+[ a, b ]
+</Example>
+
+Next we create the path algebra <Math>pa</Math> from <Math>q</Math>
+over the rational numbers:
+
+<Example> 
+gap&gt; pa := PathAlgebra(Rationals,q);
+&lt;algebra-with-one over Rationals, with 3 generators&gt;
+</Example>
+
+In this case it is interesting to note that we've created an algebra
+isomorphic to the free algebra on two generators.  We now retrieve and
+label the generators and multiplicative identity for <Math>pa</Math>:
+
+<Example>
+gap&gt; gens := GeneratorsOfAlgebra(pa);
+[ (1)*u, (1)*a, (1)*b ]
+gap&gt; u := gens[1];
+(1)*u
+gap&gt; a := gens[2];
+(1)*a
+gap&gt; b := gens[3];
+(1)*b
+gap&gt; id := One(pa);
+(1)*u
+</Example>
+
+As we expect, in this case, the multiplicative identity
+for <Math>pa</Math> and the single vertex <Math>u</Math> are one in
+the same:
+
+<Example> 
+gap&gt; u = id;
+true
+</Example>
+
+We now create a list of generators for an ideal and ask for its
+Groebner basis: 
+<Example>
+gap&gt; polys := [a*b*a-b,b*a*b-b];
+[ (-1)*b+(1)*a*b*a, (-1)*b+(1)*b*a*b ]
+gap&gt; gb := GBNPGroebnerBasis(polys,pa);
+[ (-1)*a*b+(1)*b*a, (-1)*a*b+(1)*b^2, (-1)*b+(1)*a^2*b ]
+</Example>
+
+Next, we create an ideal <Math>I</Math> in {\GAP} using the Groebner
+basis <Math>gb</Math> found above, and then the
+quotient <Math>pa/I</Math>:
+<Example>
+gap&gt; I := Ideal(pa,gb);
+&lt;two-sided ideal in &lt;algebra-with-one over Rationals, with 3
+generators&gt;, 
+ (3 generators)&gt;
+</Example>
+
+Once we have the generators for a Groebner basis, we set the
+appropriate property for the ideal <Math>I</Math>:
+<Example>
+gap&gt; grb := GroebnerBasis(I,gb);    
+&lt;partial two-sided Groebner basis containing 3 elements&gt;
+</Example>
+</Section>
+
+<Section><Heading>Example 2</Heading>
+
+In this next example we create another path algebra that is
+essentially the free algebra on six generators.  We then find the
+Groebner basis for a commutative example from (create bibliographic
+reference here) the book "Some Tapas of Computer Algebra" by
+A.M. Cohen, H. Cuypers, H. Sterk.
+
+We create the underlying quiver, and from it the path algebra over
+the rational numbers:
+<Example> 
+gap&gt; q := Quiver(["u"],[["u","u","a"],["u","u","b"], ["u","u","c"],
+&gt;                    ["u","u","d"],["u","u","e"],["u","u","f"]]);
+&lt;quiver with 1 vertices and 6 arrows&gt;
+gap&gt; fq := PathAlgebra(Rationals,q);
+&lt;algebra-with-one over Rationals, with 7 generators&gt;
+</Example>
+
+Next, the generators are labeled and the list of polynomials is
+entered:
+<Example>
+gap&gt; gens := GeneratorsOfAlgebra(fq);
+[ (1)*u, (1)*a, (1)*b, (1)*c, (1)*d, (1)*e, (1)*f ]
+gap&gt; u := gens[1];; a := gens[2];; b := gens[3];; c := gens[4];;
+gap&gt; d := gens[5];; e := gens[6];; f := gens[7];;
+gap&gt; polys := [ e*a,
+&gt;            a^3 + f*a,
+&gt;            a^9 + c*a^3,
+&gt;            a^81 + c*a^9 + d*a^3,
+&gt;            a^27 + d*a^81 + e*a^9 + f*a^3,
+&gt;            b + c*a^27 + e*a^81 + f*a^9,
+&gt;            c*b + d*a^27 + f*a^81,
+&gt;            a + d*b + e*a^27,
+&gt;            c*a + e*b + f*a^27,
+&gt;            d*a + f*b,
+&gt;            b^3 - b,
+&gt;            a*b - b*a, a*c - c*a,
+&gt;            a*d - d*a, a*e - e*a,
+&gt;            a*f - f*a, b*c - c*b,
+&gt;            b*d - d*b, b*e - e*b,
+&gt;            b*f - f*b, c*d - d*c,
+&gt;            c*e - e*c, c*f - f*c,
+&gt;            d*e - e*d, d*f - f*d,
+&gt;            e*f - f*e
+&gt; ];;
+</Example>
+
+Finally, the Groebner basis is found:
+<Example>
+gap&gt; gb := GBNPGroebnerBasis(polys,fq);
+[ (1)*a, (1)*b, (-1)*c*d+(1)*d*c, (-1)*c*e+(1)*e*c, (-1)*d*e+(1)*e*d,
+  (-1)*c*f+(1)*f*c, (-1)*d*f+(1)*f*d, (-1)*e*f+(1)*f*e ]
+</Example>
+</Section>
+
+<Section><Heading>Example 3</Heading>
+
+The next example is from B. Keller's PhD thesis, p. 26:
+
+<Example>
+gap&gt; q := Quiver(["u","v"],[["u","v","c"],["u","u","b"],["u","u","a"]]);
+&lt;quiver with 2 vertices and 3 arrows&gt;
+gap&gt; pa := PathAlgebra(Rationals,q);
+&lt;algebra-with-one over Rationals, with 5 generators&gt;
+gap&gt; 
+gap&gt; # Get generators of path algebra:
+gap&gt; gens := GeneratorsOfAlgebra(pa);
+[ (1)*u, (1)*v, (1)*c, (1)*b, (1)*a ]
+gap&gt; u := gens[1];; v := gens[2];; c := gens[3];;
+gap&gt; b := gens[4];; a := gens[5];; id := One(pa);;
+gap&gt; 
+gap&gt; polys := [a*b*c+b*a*b+a+c];
+[ (1)*c+(1)*a+(1)*b*a*b+(1)*a*b*c ]
+gap&gt; gb := GBNPGroebnerBasis(polys,pa);
+[ (-1)*b*c+(1)*a*c, (1)*a+(1)*b*a*b, (1)*c+(1)*a*b*c, (-1)*b*a^2+(1)*a^2*b ]
+</Example>
+</Section>
+
+<Section><Heading>Example 4</Heading>
+
+Here's an example that doesn't meet our necessary criteria that all
+elements in a generating set have monomials in the arrow ideal.  Since
+the given path algebra is isomorphic to a free algebra, the single
+vertex is sent to the identity and there are no complications.
+
+First, we set up the algebra and generating set:
+<Example>
+gap&gt; q := Quiver(["u"],[["u","u","x"],["u","u","y"]]);
+&lt;quiver with 1 vertices and 2 arrows&gt;
+gap&gt; f := Rationals;
+Rationals
+gap&gt; fq := PathAlgebra(f,q);
+&lt;algebra-with-one over Rationals, with 3 generators&gt;
+gap&gt; 
+gap&gt; # Get generators of path algebra:
+gap&gt; gens := GeneratorsOfAlgebra(fq);
+[ (1)*u, (1)*x, (1)*y ]
+gap&gt; u := gens[1];; x := gens[2];; y := gens[3];; id := One(fq);;
+gap&gt; polys := [x*y-y*x,x^2*y-id,x*y^2-id];
+[ (1)*x*y+(-1)*y*x, (-1)*u+(1)*x^2*y, (-1)*u+(1)*x*y^2 ]
+</Example>
+
+Then we ask GBNP for its Groebner basis:
+
+<Example>
+gap&gt; gb := GBNPGroebnerBasisNC(polys,fq);
+The given path algebra is isomorphic to a free algebra.
+[ (-1)*x+(1)*y, (-1)*u+(1)*x^3 ]
+</Example>
+
+NOTE: It is important to realize that we've used the routine
+`GBNPGroebnerBasisNC' which doesn't check that all elements in a given
+list have non-vertex monomials.
+
+So, if we run the standard <Package>QPA</Package> Groebner basis
+routine on this example, we get the following:
+
+<Example>
+gap&gt; GBNPGroebnerBasis(polys,pa);
+Please make sure all elements are in the given path algebra, 
+and each summand of each element is not (only) a vertex.
+false
+</Example>
+</Section>
+</Chapter>

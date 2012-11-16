@@ -1,0 +1,1331 @@
+<Chapter Label="Homomorphisms"><Heading>Homomorphisms of Right Modules
+    over Path Algebras</Heading>
+
+This chapter describes the categories, representations, attributes,
+  and operations on homomorphisms between representations of
+  quivers.<P /> 
+
+Given two homorphisms <Math>f\colon L\to M</Math> and <Math>g\colon
+  M\to N</Math>, then the composition is written <Math>f*g</Math>. The
+  elements in the modules or the representations of a quiver are row
+  vectors. Therefore the homomorphisms between two modules are acting
+  on these row vectors, that is, if <Math>m_i</Math> is
+  in <Math>M[i]</Math> and <Math>g_i\colon M[i]\to N[i]</Math>
+  represents the linear map, then the value of <Math>g</Math> applied
+  to <Math>m_i</Math> is the matrix product <Math>m_i*g_i</Math>.<P />
+
+The example used throughout this chapter is the following.
+<Example><![CDATA[
+gap> Q:= Quiver(3,[[1,2,"a"],[1,2,"b"],[2,2,"c"],[2,3,"d"],[3,1,"e"]]);;
+gap> KQ:= PathAlgebra(Rationals, Q);;
+gap> gen:= GeneratorsOfAlgebra(KQ);;
+gap> a:= gen[4];;
+gap> b:= gen[5];;
+gap> c:= gen[6];;
+gap> d:= gen[7];;
+gap> e:= gen[8];;
+gap> rels:= [d*e,c^2,a*c*d-b*d,e*a];;
+gap> I:= Ideal(KQ,rels);;
+gap> gb:= GBNPGroebnerBasis(rels,KQ);;
+gap> gbb:= GroebnerBasis(I,gb);;
+gap> A:= KQ/I;;
+gap> mat:=[["a",[[1,2],[0,3],[1,5]]],["b",[[2,0],[3,0],[5,0]]],["c",[[0,0],[1,0]]],
+["d",[[1,2],[0,1]]],["e",[[0,0,0],[0,0,0]]]];;
+gap> N:= RightModuleOverPathAlgebra(A,mat);;
+]]></Example>
+
+
+<Section><Heading>Categories and representation of homomorphisms</Heading>
+
+<ManSection>
+   <Filt Name="IsPathAlgebraModuleHomomorphism" Arg="f" Comm="category"/>
+   <Description>
+     Arguments: <Arg>f</Arg> - any object in GAP.<Br />
+   </Description>
+   <Returns> true or false depending on if <Arg>f</Arg> belongs to the
+     categories <Code>IsAdditiveElementWithZero</Code>, <C>IsAdditiveElementWithInverse</C>,
+     <Code>IsGeneralMapping</Code>, <C>RespectsAddition</C>, <C>RespectsZero</C>, 
+     <Code>RespectsScalarMultiplication</Code>,
+     <Code>IsTotal</Code> and <Code>IsSingleValued</Code> or not.
+   </Returns>
+   <Description>
+     This defines the category
+     <Ref Filt="IsPathAlgebraModuleHomomorphism"/>. 
+   </Description>
+</ManSection> 
+
+<ManSection>
+   <Oper Name="RightModuleHomOverAlgebra" Arg="M, N, mats" Comm=""/>
+   <Description>
+     Arguments: <Arg>M</Arg>, <Arg>N</Arg> - two modules over the same
+     (quotient of a) path algebra, <Arg>mats</Arg> - a list of
+     matrices, one for each vertex in the quiver of the path
+     algebra.<Br />
+   </Description>
+   <Returns>a homomorphism in the
+   category <C>IsPathAlgebraModuleHomomorphism</C> from the module <Arg>M</Arg> to the
+   module <Arg>N</Arg> given by the matrices <Arg>mats</Arg>.</Returns>
+   <Description>
+     The arguments <Arg>M</Arg> and <Arg>N</Arg> are two modules over
+     the same algebra (this is checked), and <Arg>mats</Arg> is a list
+     of matrices <C>mats[i]</C>, where <C>mats[i]</C> represents the
+     linear map from <C>M[i]</C> to <C>N[i]</C> with <Code>i</Code>
+     running through all the vertices in the same order as when the
+     underlying quiver was created. If
+     both <Code>DimensionVector(M)[i]</Code>
+     and <Code>DimensionVector(N)[i]</Code> are non-zero,
+     then <C>mats[i]</C> is a <Code>DimensionVector(M)[i]</Code>
+     by <Code>DimensionVector(N)[i]</Code> matrix. If
+     <Code>DimensionVector(M)[i]</Code> is zero 
+     and <Code>DimensionVector(N)[i]</Code> is non-zero, then
+     <C>mats[i]</C> must be the zero <Code>1</Code>
+     by <Code>DimensionVector(N)[i]</Code> matrix. Similarly for the 
+     other way around. If both <Code>DimensionVector(M)[i]</Code>
+     and <Code>DimensionVector(N)[i]</Code> are zero,
+     then <C>mats[i]</C> must be the <Code>1</Code> by <Code>1</Code>
+     zero matrix. The function checks if <Arg>mats</Arg> is a
+     homomorphism from the module <Arg>M</Arg> to the
+     module <Arg>N</Arg> by checking that the matrices given
+     in <Arg>mats</Arg> have the correct size and satisfy the
+     appropriate commutativity conditions with the matrices in the
+     modules given by <Arg>M</Arg> and <Arg>N</Arg>. The source (or
+     domain) and the range (or codomain) of the homomorphism
+     constructed can by obtained again by <Ref Oper="Range"/> and by
+     <Ref Oper="Source"/>, respectively.
+   </Description>
+</ManSection>
+
+<Example><![CDATA[
+gap> L := RightModuleOverPathAlgebra(A,[["a",[0,1]],["b",[0,1]],
+["c",[[0]]],["d",[[1]]],["e",[1,0]]]);
+<right-module over <algebra-with-one over Rationals, with 8 generators>>
+gap> DimensionVector(L);
+[ 0, 1, 1 ]
+gap> f := RightModuleHomOverAlgebra(L,N,[[[0,0,0]], [[1,0]], [[1,2]]]);
+<mapping: <2-dimensional right-module over AlgebraWithOne( Rationals,
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d],
+[(1)*e] ] )> -> <7-dimensional right-module over AlgebraWithOne(Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] ] )> >
+gap> IsPathAlgebraModuleHomomorphism(f);
+true
+]]></Example>
+
+</Section>
+
+<Section><Heading>Generalities of homomorphisms</Heading>
+
+<ManSection>
+   <Oper Name="MatricesOfPathAlgebraMatModuleHomomorphism" Arg="f" Comm=""/>
+   <Description>
+     Arguments: <Arg>f</Arg> - a homomorphism between two modules.<Br />
+   </Description>
+   <Returns>the matrices defining the homomorphism <Arg>f</Arg>.</Returns>
+</ManSection>
+
+<ManSection>
+   <Attr Name="Range" Arg="f" Comm=""/>
+   <Description>
+     Arguments: <Arg>f</Arg> - a homomorphism between two modules.<Br />
+   </Description>
+   <Returns>the range (or codomain) the homomorphism <Arg>f</Arg>.</Returns>
+</ManSection>
+
+<ManSection>
+   <Attr Name="Source" Arg="f" Comm=""/>
+   <Description>
+     Arguments: <Arg>f</Arg> - a homomorphism between two modules.<Br />
+   </Description>
+   <Returns>the source (or domain) the homomorphism <Arg>f</Arg>.</Returns>
+</ManSection>
+
+<Example><![CDATA[
+gap> MatricesOfPathAlgebraMatModuleHomomorphism(f);
+[ [ [ 0, 0, 0 ] ], [ [ 1, 0 ] ], [ [ 1, 2 ] ] ]
+gap> Range(f);
+<7-dimensional right-module over <algebra-with-one over Rationals, with 
+8 generators>>
+gap> Source(f);
+<2-dimensional right-module over <algebra-with-one over Rationals, with 
+8 generators>>
+gap> Source(f) = L;
+true
+]]></Example>
+
+<ManSection>
+   <Oper Name="PreImagesRepresentative" Arg="f, elem" Comm=""/>
+   <Description>
+     Arguments: <Arg>f</Arg> - a homomorphism between two
+     modules, <Arg>elem</Arg> - an element in the range of <Arg>f</Arg>.<Br />
+   </Description>
+   <Returns>a preimage of the element <Arg>elem</Arg> in the range (or
+   codomain) the homomorphism <Arg>f</Arg> if a preimage exists,
+   otherwise it returns <C>fail</C>.</Returns>
+   <Description>
+     The function checks if <Arg>elem</Arg> is an element in the
+     range of <Arg>f</Arg> and returns an error message if
+     not. 
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Oper Name="ImageElm" Arg="f, elem" Comm=""/>
+   <Description>
+     Arguments: <Arg>f</Arg> - a homomorphism between two
+     modules, <Arg>elem</Arg> - an element in the source of <Arg>f</Arg>.<Br />
+   </Description>
+   <Returns>the image of the element <Arg>elem</Arg> in the source (or
+   domain) of the homomorphism <Arg>f</Arg>.</Returns>
+   <Description>
+     The function checks if <Arg>elem</Arg> is an element in the
+     source of <Arg>f</Arg>, and it returns an error message
+     otherwise. 
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Oper Name="ImagesSet" Arg="f, elts" Comm=""/>
+   <Description>
+     Arguments: <Arg>f</Arg> - a homomorphism between two
+     modules, <Arg>elts</Arg> - an element in the source
+     of <Arg>f</Arg>, or the source of <Arg>f</Arg>.<Br />
+   </Description>
+   <Returns>the non-zero images of a set of elements <Arg>elts</Arg>
+   in the source of the homomorphism <Arg>f</Arg>, or
+   if <Arg>elts</Arg> is  the source of <Arg>f</Arg>, it
+   returns a basis of the image.</Returns>
+   <Description>
+     The function checks if the set of elements <Arg>elts</Arg>
+     consists of elements in the source of <Arg>f</Arg>, and it
+     returns an error message otherwise.
+   </Description>
+</ManSection>
+
+<Example><![CDATA[
+B:=BasisVectors(Basis(N)); 
+[ [ [ 1, 0, 0 ], [ 0, 0 ], [ 0, 0 ] ], [ [ 0, 1, 0 ], [ 0, 0 ], [ 0, 0 ] ], 
+  [ [ 0, 0, 1 ], [ 0, 0 ], [ 0, 0 ] ], [ [ 0, 0, 0 ], [ 1, 0 ], [ 0, 0 ] ], 
+  [ [ 0, 0, 0 ], [ 0, 1 ], [ 0, 0 ] ], [ [ 0, 0, 0 ], [ 0, 0 ], [ 1, 0 ] ], 
+  [ [ 0, 0, 0 ], [ 0, 0 ], [ 0, 1 ] ] ]
+gap> PreImagesRepresentative(f,B[4]);     
+[ [ 0 ], [ 1 ], [ 0 ] ]
+gap> PreImagesRepresentative(f,B[5]);
+fail
+gap> BL:=BasisVectors(Basis(L));
+[ [ [ 0 ], [ 1 ], [ 0 ] ], [ [ 0 ], [ 0 ], [ 1 ] ] ]
+gap> ImageElm(f,BL[1]);
+[ [ 0, 0, 0 ], [ 1, 0 ], [ 0, 0 ] ]
+gap> ImagesSet(f,L);
+[ [ [ 0, 0, 0 ], [ 1, 0 ], [ 0, 0 ] ], [ [ 0, 0, 0 ], [ 0, 0 ], [ 1, 2 ] ] ]
+gap> ImagesSet(f,BL);
+[ [ [ 0, 0, 0 ], [ 1, 0 ], [ 0, 0 ] ], [ [ 0, 0, 0 ], [ 0, 0 ], [ 1, 2 ] ] ]
+]]></Example>
+
+<ManSection>
+   <Oper Name="Zero" Arg="f" Comm=""/>
+   <Description>
+     Arguments: <Arg>f</Arg> - a homomorphism between two modules.<Br />
+   </Description>
+   <Returns>the zero map between <Code>Source(f)</Code>
+   and <Code>Range(f)</Code>.</Returns>
+</ManSection>
+
+<ManSection>
+   <Oper Name="ZeroMapping" Arg="M, N" Comm=""/>
+   <Description>
+     Arguments: <Arg>M</Arg>, <Arg>N</Arg> - two modules.<Br />
+   </Description>
+   <Returns>the zero map between <Arg>M</Arg> and <Arg>N</Arg>.</Returns>
+</ManSection>
+
+<ManSection>
+   <Oper Name="IdentityMapping" Arg="M" Comm=""/>
+   <Description>
+     Arguments: <Arg>M</Arg> - a module.<Br />
+   </Description>
+   <Returns>the identity map between <Arg>M</Arg> and <Arg>M</Arg>.</Returns>
+</ManSection>
+
+<ManSection>
+   <Oper Name="\= (maps)" Arg="f,g " Comm=""/>
+   <Description>
+     Arguments: <Arg>f</Arg>, <Arg>g</Arg> - two homomorphisms between
+     two modules.<Br />
+   </Description>
+   <Returns>true, if <Code>Source(f) =
+   Source(g)</Code>, <Code>Range(f) = Range(g)</Code>, and the
+   matrices defining the maps <Arg>f</Arg> and <Arg>g</Arg>
+   coincide.</Returns>
+</ManSection>
+
+<ManSection>
+   <Oper Name="\+ (maps)" Arg="f,g " Comm=""/>
+   <Description>
+     Arguments: <Arg>f</Arg>, <Arg>g</Arg> - two homomorphisms between
+     two modules.<Br />
+   </Description>
+   <Returns>the sum <Arg>f+g</Arg> of the maps <Arg>f</Arg>
+   and <Arg>g</Arg>.</Returns>
+   <Description>The function checks if the maps have the same source
+   and the same range, and returns an error message otherwise. 
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Oper Name="\* (maps)" Arg="f,g " Comm=""/>
+   <Description>
+     Arguments: <Arg>f</Arg>, <Arg>g</Arg> - two homomorphisms between
+     two modules, or one scalar and one homomorphism between modules.<Br />
+   </Description>
+   <Returns>the composition <Arg>fg</Arg> of the maps <Arg>f</Arg>
+   and <Arg>g</Arg>, if the input are maps between representations of
+   the same quivers. If <Arg>f</Arg> or <Arg>g</Arg> is a 
+   scalar, it returns the natural action of scalars on the maps
+   between representations.</Returns>
+   <Description>The function checks if the maps are composable, in
+   the first case and in the second case it checks if the scalar is in
+   the correct field, and returns an error message otherwise.
+   </Description>
+</ManSection>
+
+<Example><![CDATA[
+gap> z:=Zero(f);
+<mapping: <2-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> -> <7-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> >
+gap> f = z;
+false
+gap> Range(f) = Range(z);
+true
+gap> y := ZeroMapping(L,N); 
+<mapping: <2-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> -> <7-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> >
+gap> y = z;            
+true
+gap> id := IdentityMapping(N);  
+<mapping: <7-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> -> <7-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> >
+gap> f*id;
+<mapping: <2-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> -> <7-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> >
+gap> id*f;
+Error, codomain of the first argument is not equal to the domain of the second\
+ argument,  called from
+<function>( <arguments> ) called from read-eval-loop
+Entering break read-eval-print loop ...
+you can 'quit;' to quit to outer loop, or
+you can 'return;' to continue
+brk> 
+gap> 2*f + z;
+<mapping: <2-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> -> <7-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> >
+]]></Example>
+
+<ManSection>
+   <Attr Name="CoKernelOfWhat" Arg="f" Comm=""/>
+   <Description>
+     Arguments: <Arg>f</Arg> - a homomorphism between
+     two modules.<Br />
+   </Description>
+   <Returns>
+     a homomorphism <Arg>g</Arg>, if <Arg>f</Arg> has been computed as the
+     cokernel of the homomorphism <Arg>g</Arg>.
+   </Returns>
+</ManSection>
+
+<ManSection>
+   <Attr Name="ImageOfWhat" Arg="f" Comm=""/>
+   <Description>
+     Arguments: <Arg>f</Arg> - a homomorphism between two
+     modules.<Br />
+   </Description>
+   <Returns>
+     a homomorphism <Arg>g</Arg>, if <Arg>f</Arg> has been computed as the
+     image projection or the image inclusion of the homomorphism <Arg>g</Arg>.
+   </Returns>
+</ManSection>
+
+<ManSection>
+   <Prop Name="IsInjective" Arg="f" Comm=""/>
+   <Description>
+     Arguments: <Arg>f</Arg> - a homomorphism between two
+     modules.<Br />
+   </Description>
+   <Returns>
+     <Code>true</Code> if the homomorphism <Arg>f</Arg> is one-to-one.
+   </Returns>
+</ManSection>
+
+<ManSection>
+   <Prop Name="IsSurjective" Arg="f" Comm=""/>
+   <Description>
+     Arguments: <Arg>f</Arg> - a homomorphism between two
+     modules.<Br />
+   </Description>
+   <Returns>
+     <Code>true</Code> if the homomorphism <Arg>f</Arg> is onto.
+   </Returns>
+</ManSection>
+
+<ManSection>
+   <Prop Name="IsIsomorphism" Arg="f" Comm=""/>
+   <Description>
+     Arguments: <Arg>f</Arg> - a homomorphism between two
+     modules.<Br />
+   </Description>
+   <Returns>
+     <Code>true</Code> if the homomorphism <Arg>f</Arg> is an isomorphism.
+   </Returns>
+</ManSection>
+
+<ManSection>
+   <Prop Name="IsLeftMinimal" Arg="f" Comm=""/>
+   <Description>
+     Arguments: <Arg>f</Arg> - a homomorphism between two modules.<Br />
+   </Description>
+   <Returns>
+     <Code>true</Code> if the homomorphism <Arg>f</Arg> is left minimal.
+   </Returns>
+</ManSection>
+
+<ManSection>
+   <Prop Name="IsRightMinimal" Arg="f" Comm=""/>
+   <Description>
+     Arguments: <Arg>f</Arg> - a homomorphism between two
+     modules.<Br />
+   </Description>
+   <Returns>
+     <Code>true</Code> if the homomorphism <Arg>f</Arg> is right minimal.
+   </Returns>
+</ManSection>
+
+<Example><![CDATA[
+gap> L := RightModuleOverPathAlgebra(A,[["a",[0,1]],["b",[0,1]], 
+     ["c",[[0]]],["d",[[1]]],["e",[1,0]]]);;
+gap> f := RightModuleHomOverAlgebra(L,N,[[[0,0,0]], [[1,0]], [[1,2]]]);;
+gap> g := CoKernelProjection(f);                                       
+<mapping: <7-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> -> <5-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> >
+gap> CoKernelOfWhat(g) = f;
+true
+gap> h := ImageProjection(f);
+<mapping: <2-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> -> <2-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> >
+gap> ImageOfWhat(h) = f;
+true
+gap> IsInjective(f); IsSurjective(f); IsIsomorphism(f); IsIsomorphism(h);
+true
+false
+false
+true
+]]></Example>
+
+<ManSection>
+   <Attr Name="IsSplitEpimorphism" Arg="f" Comm=""/>
+   <Description>
+     Arguments: <Arg>f</Arg> - a homomorphism between two
+     modules.<Br />
+   </Description>
+   <Returns>
+     <Code>false</Code> if the homomorphism <Arg>f</Arg>
+     is not a splittable epimorphism, otherwise it returns a
+     splitting of the homomorphism <Arg>f</Arg>.
+   </Returns>
+</ManSection>
+
+<ManSection>
+   <Attr Name="IsSplitMonomorphism" Arg="f" Comm=""/>
+   <Description>
+     Arguments: <Arg>f</Arg> - a homomorphism between two
+     modules.<Br />
+   </Description>
+   <Returns>
+     <Code>false</Code> if the homomorphism <Arg>f</Arg>
+     is not a splittable monomorphism, otherwise it returns a
+     splitting of the homomorphism <Arg>f</Arg>.
+   </Returns>
+</ManSection>
+
+<Example><![CDATA[
+gap> S := SimpleModules(A)[1];;
+gap> H := HomOverAlgebra(N,S);; 
+gap> IsSplitMonomorphism(H[1]);  
+false      
+gap> f := IsSplitEpimorphism(H[1]);
+<mapping: <1-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> -> <7-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> >
+gap> IsSplitMonomorphism(f);
+<mapping: <7-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> -> <1-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> >
+]]></Example>
+
+<ManSection>
+   <Prop Name="IsZero" Arg="f" Comm=""/>
+   <Description>
+     Arguments: <Arg>f</Arg> - a homomorphism between two
+     modules.<Br />
+   </Description>
+   <Returns>
+     <Code>true</Code> if the homomorphism <Arg>f</Arg>
+     is a zero homomorphism.
+   </Returns>
+</ManSection>
+
+<ManSection>
+   <Attr Name="KernelOfWhat" Arg="f" Comm=""/>
+   <Description>
+     Arguments: <Arg>f</Arg> - a homomorphism between two
+     modules.<Br />
+   </Description>
+   <Returns>
+     a homomorphism <Arg>g</Arg>, if <Arg>f</Arg> has been computed as the
+     kernel of the homomorphism <Arg>g</Arg>.
+   </Returns>
+</ManSection>
+
+<Example><![CDATA[
+gap> L := RightModuleOverPathAlgebra(A,[["a",[0,1]],["b",[0,1]],
+  ["c",[[0]]],["d",[[1]]],["e",[1,0]]]);
+<right-module over <algebra-with-one over Rationals, with 8 generators>>
+gap> f := RightModuleHomOverAlgebra(L,N,[[[0,0,0]], [[1,0]], [[1,2]]]);;
+gap> IsZero(0*f);
+true
+gap> KnownAttributesOfObject(g);
+[ "Range", "Source", "PathAlgebraOfMatModuleMap", "KernelOfWhat" ]
+gap> KernelOfWhat(g) = f;
+true
+]]></Example>
+</Section>
+
+<Section><Heading>Homomorphisms and modules constructed from homomorphisms and modules</Heading>
+
+<ManSection>
+   <Attr Name="CoKernel" Arg="f" Comm=""/>
+   <Attr Name="CoKernelProjection" Arg="f" Comm=""/>
+   <Description>
+     Arguments: <Arg>f</Arg> - a homomorphism between two
+     modules.<Br />
+   </Description>
+   <Returns>the cokernel of a homomorphism <Arg>f</Arg> between two
+   modules.</Returns>
+   <Description>
+    The first variant <Ref Oper="CoKernel"/> returns the cokernel of
+    the homomorphism <Arg>f</Arg> as a module, while the latter one
+    returns the projection homomorphism from the range of the
+    homomorphism <Arg>f</Arg> to the cokernel of the
+    homomorphism <Arg>f</Arg>.
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Attr Name="EndOverAlgebra" Arg="M" Comm=""/>
+   <Description>
+     Arguments: <Arg>M</Arg> - a module.<Br />
+   </Description>
+   <Returns>the endomorphism ring of <Arg>M</Arg> as a subalgebra of
+   the direct sum of the full matrix rings of <C>DimensionVector(M)[i] x
+   DimensionVector(M)[i]</C>, where <Arg>i</Arg> runs over all
+   vertices where <C>DimensionVector(M)[i]</C> is non-zero.</Returns>
+   <Description>
+    The endomorphism is an algebra with one, and one can apply for
+    example <Code>RadicalOfAlgebra</Code> to find the radical of the
+    endomorphism ring. 
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Oper Name="FromEndMToHomMM" Arg="f" Comm=""/>
+   <Description>
+     Arguments: <Arg>f</Arg> -- an element in EndOverAlgebra(M).<Br />
+   </Description>
+   <Returns>the homomorphism from <Arg>M</Arg> to <Arg>M</Arg>
+   corresponding to the element <Arg>f</Arg> in the endomorphism ring
+   <Code>EndOverAlgebra(M)</Code> of <Arg>M</Arg>.</Returns>
+</ManSection>
+
+<ManSection>
+   <Oper Name="FromHomMMToEndM" Arg="f" Comm=""/>
+   <Description>
+     Arguments: <Arg>f</Arg> -- an element in HomOverAlgebra(M,M).<Br />
+   </Description>
+   <Returns>the element <Arg>f</Arg> in the endomorphism ring
+   <Code>EndOverAlgebra(M)</Code> of <Arg>M</Arg> corresponding to the
+   the homomorphism from <Arg>M</Arg> to <Arg>M</Arg> given by <Arg>f</Arg>.
+   </Returns>
+</ManSection>
+
+<ManSection>
+   <Oper Name="EndModuloProjOverAlgebra" Arg="M" Comm=""/>
+   <Description>
+     Arguments: <Arg>M</Arg> - a module.<Br />
+   </Description>
+   <Returns>the natural homomorphism from the endomorphism ring
+     of <Arg>M</Arg> to the endomorphism ring of <Arg>M</Arg> modulo
+     the ideal generated by those endomorphisms of <Arg>M</Arg> which
+     factor through a projective module.</Returns>
+   <Description>
+     The operation returns an error message if the zero module is
+     entered as an argument. 
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Oper Name="HomFromProjective" Arg="m, M" Comm=""/>
+   <Description>
+     Arguments: <Arg>m</Arg>, <Arg>M</Arg> - an element and a module.<Br />
+   </Description>
+   <Returns>the homomorphism from the indecomposable projective
+   module defined by the support of the element <Arg>m</Arg>
+   to the module <Arg>M</Arg>.</Returns>
+   <Description>
+    The function checks if <Arg>m</Arg> is an elememt in <Arg>M</Arg>
+    and if the element <Arg>m</Arg> is supported in only one
+    vertex. Otherwise it returns fail.
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Oper Name="HomOverAlgebra" Arg="M, N" Comm=""/>
+   <Description>
+     Arguments: <Arg>M</Arg>, <Arg>N</Arg> - two modules.<Br />
+   </Description>
+   <Returns>a basis for the vector space of homomorphisms from <Arg>M</Arg>
+   to <Arg>N</Arg>.</Returns>
+   <Description>
+    The function checks if <Arg>M</Arg> and <Arg>N</Arg> are modules
+    over the same algebra, and returns an error message and fail
+    otherwise. 
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Oper Name="HomFactoringThroughProjOverAlgebra" Arg="M, N" Comm=""/>
+   <Description>
+     Arguments: <Arg>M</Arg>, <Arg>N</Arg> - two modules.<Br />
+   </Description>
+   <Returns>a basis for the vector space of homomorphisms from <Arg>M</Arg>
+   to <Arg>N</Arg> which factors through a projective module.</Returns>
+   <Description>
+    The funct ion checks if <Arg>M</Arg> and <Arg>N</Arg> are modules
+    over the same algebra, and returns an error message otherwise. 
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Attr Name="Image" Arg="f" Comm=""/>
+   <Attr Name="ImageProjection" Arg="f" Comm=""/>
+   <Attr Name="ImageInclusion" Arg="f" Comm=""/>
+   <Attr Name="ImageProjectionInclusion" Arg="f" Comm=""/>
+   <Description>
+     Arguments: <Arg>f</Arg> - a homomorphism between two
+     modules.<Br />
+   </Description>
+   <Returns>the image of a homomorphism <Arg>f</Arg> between two modules.</Returns>
+   <Description>
+    The first variant <Ref Attr="Image"/> returns the image of the
+    homomorphism <Arg>f</Arg> as a module. The
+    second returns the projection from the source of <Arg>f</Arg> to
+    the image of the homomorphism <Arg>f</Arg>. The third returns the
+    inclusion of the image into the range of the
+    homomorphism <Arg>f</Arg>. The last one returns both the
+    projection and the inclusion as a list of two elements (first the
+    projection and then the inclusion).
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Attr Name="Kernel" Arg="f" Comm=""/>
+   <Attr Name="KernelInclusion" Arg="f" Comm=""/>
+   <Description>
+     Arguments: <Arg>f</Arg> - a homomorphism between two
+     modules.<Br />
+   </Description>
+   <Returns>the kernel of a homomorphism <Arg>f</Arg> between two
+   modules.</Returns>
+   <Description>
+    The first variant <Ref Attr="Kernel"/> returns the kernel of the
+    homomorphism <Arg>f</Arg> as a module, while the latter one
+    returns the inclusion homomorphism of the kernel into the source
+    of the homomorphism <Arg>f</Arg>.
+   </Description>
+</ManSection>
+
+
+<Example><![CDATA[
+gap> hom := HomOverAlgebra(N,N);
+[ <mapping: <7-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> -> <
+    7-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> >, 
+  <mapping: <7-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> -> <
+    7-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> >, 
+  <mapping: <7-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> -> <
+    7-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> >, 
+  <mapping: <7-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> -> <
+    7-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> >, 
+  <mapping: <7-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> -> <
+    7-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> > ]
+gap> g := hom[1];
+<mapping: <7-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> -> <7-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> >
+gap> M := CoKernel(g);
+<6-dimensional right-module over <algebra-with-one over Rationals, with 
+8 generators>>
+gap> f := CoKernelProjection(g);
+<mapping: <7-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> -> <6-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> >
+gap> Range(f) = M;
+true
+gap> endo := EndOverAlgebra(N);
+<algebra-with-one of dimension 5 over Rationals>
+gap> RadicalOfAlgebra(endo);
+<algebra of dimension 3 over Rationals>
+gap> B := BasisVectors(Basis(N));
+[ [ [ 1, 0, 0 ], [ 0, 0 ], [ 0, 0 ] ], [ [ 0, 1, 0 ], [ 0, 0 ], [ 0, 0 ] ], 
+  [ [ 0, 0, 1 ], [ 0, 0 ], [ 0, 0 ] ], [ [ 0, 0, 0 ], [ 1, 0 ], [ 0, 0 ] ], 
+  [ [ 0, 0, 0 ], [ 0, 1 ], [ 0, 0 ] ], [ [ 0, 0, 0 ], [ 0, 0 ], [ 1, 0 ] ], 
+  [ [ 0, 0, 0 ], [ 0, 0 ], [ 0, 1 ] ] ]
+gap> p := HomFromProjective(B[1],N);
+<mapping: <8-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> -> <7-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> >
+gap> U := Image(p);
+<5-dimensional right-module over <algebra-with-one over Rationals, with 
+8 generators>>
+gap> projinc := ImageProjectionInclusion(p);
+[ <mapping: <8-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> -> <
+    5-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> >, 
+  <mapping: <5-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> -> <
+    7-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> > ]
+gap> U = Range(projinc[1]);                                      
+true
+gap> Kernel(p);
+<3-dimensional right-module over <algebra-with-one over Rationals, with 
+8 generators>>
+]]></Example>
+
+<ManSection>
+   <Oper Name="LiftingInclusionMorphisms" Arg="f, g" Comm=""/>
+   <Description>
+     Arguments: <Arg>f</Arg>, <Arg>g</Arg> - two homomorphisms with
+     common range.<Br />
+   </Description>
+   <Returns>
+     a factorization of <Arg>g</Arg> in terms of <Arg>f</Arg>, whenever
+     possible and <C>fail</C> otherwise.
+   </Returns>
+   <Description>
+    Given two inclusions <Math>f\colon B\to C</Math> and <Math>g\colon
+    A\to C</Math>, this function constructs a morphism
+    from <Math>A</Math> to <Math>B</Math>, whenever the image
+    of <Arg>g</Arg> is contained in the image of <Arg>f</Arg>.
+    Otherwise the function returns fail. The function checks
+    if <Arg>f</Arg> and <Arg>g</Arg> are one-to-one, if they have
+    the same range and if the image of <Arg>g</Arg> is contained in
+    the image of <Arg>f</Arg>.
+   </Description>
+</ManSection>
+
+
+<ManSection>
+   <Oper Name="LiftingMorphismFromProjective" Arg="f, g" Comm=""/>
+   <Description>
+     Arguments: <Arg>f</Arg>, <Arg>g</Arg> - two homomorphisms with
+     common range.<Br />
+   </Description>
+   <Returns>
+     a factorization of <Arg>g</Arg> in terms of <Arg>f</Arg>, whenever
+     possible and <C>fail</C> otherwise.
+   </Returns>
+   <Description>
+    Given two morphisms <Math>f\colon B\to C</Math> and <Math>g\colon
+    P\to C</Math>, where <Math>P</Math> is a direct sum of
+    indecomposable projective modules constructed
+    via <Code>DirectSumOfModules</Code> and <Arg>f</Arg> an
+    epimorphism, this function finds a lifting of <Arg>g</Arg>
+    to <Math>B</Math>. The function checks if <Math>P</Math> is a
+    direct sum of indecomposable projective modules, if <Arg>f</Arg>
+    is onto and if <Arg>f</Arg> and <Arg>g</Arg> have the same range.
+   </Description>
+</ManSection>
+
+<Example><![CDATA[
+gap> B := BasisVectors(Basis(N));
+[ [ [ 1, 0, 0 ], [ 0, 0 ], [ 0, 0 ] ], [ [ 0, 1, 0 ], [ 0, 0 ], [ 0, 0 ] ], 
+  [ [ 0, 0, 1 ], [ 0, 0 ], [ 0, 0 ] ], [ [ 0, 0, 0 ], [ 1, 0 ], [ 0, 0 ] ], 
+  [ [ 0, 0, 0 ], [ 0, 1 ], [ 0, 0 ] ], [ [ 0, 0, 0 ], [ 0, 0 ], [ 1, 0 ] ], 
+  [ [ 0, 0, 0 ], [ 0, 0 ], [ 0, 1 ] ] ]
+gap> g := SubRepresentationInclusion(N,[B[1],B[4]]);
+<mapping: <5-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> -> <7-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> >
+gap> f := SubRepresentationInclusion(N,[B[1],B[2]]);
+<mapping: <6-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> -> <7-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> >
+gap> LiftingInclusionMorphisms(f,g);
+<mapping: <5-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> -> <6-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> >
+gap> S := SimpleModules(A); 
+[ <right-module over <algebra-with-one over Rationals, with 8 generators>>, 
+  <right-module over <algebra-with-one over Rationals, with 8 generators>>, 
+  <right-module over <algebra-with-one over Rationals, with 8 generators>> ]
+gap> homNS := HomOverAlgebra(N,S[1]);
+[ <mapping: <
+    7-dimensional right-module over AlgebraWithOne( Rationals, ... )> -> <
+    1-dimensional right-module over AlgebraWithOne( Rationals, ... )> >, 
+  <mapping: <
+    7-dimensional right-module over AlgebraWithOne( Rationals, ... )> -> <
+    1-dimensional right-module over AlgebraWithOne( Rationals, ... )> >, 
+  <mapping: <
+    7-dimensional right-module over AlgebraWithOne( Rationals, ... )> -> <
+    1-dimensional right-module over AlgebraWithOne( Rationals, ... )> > ]
+gap> f := homNS[1];
+<mapping: <
+7-dimensional right-module over AlgebraWithOne( Rationals, ... )> -> <
+1-dimensional right-module over AlgebraWithOne( Rationals, ... )> >
+gap> p := ProjectiveCover(S[1]);
+<mapping: <8-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> -> <1-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> >
+gap> LiftingMorphismFromProjective(f,p);
+<mapping: <8-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> -> <7-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> >
+]]></Example>
+
+<ManSection>
+   <Attr Name="LeftMinimalVersion" Arg="f" Comm=""/>
+   <Description>
+     Arguments: <Arg>f</Arg> - a homomorphism between two
+     modules.<Br />
+   </Description>
+   <Returns>
+     the left minimal version <Arg>f'</Arg> of the
+     homomorphism <Arg>f</Arg> together with the a list <Code>B</Code>
+     of modules such that the direct sum of the
+     modules, <Code>Range(f')</Code> and the modules in the
+     list <Code>B</Code> is isomorphic to <Code>Range(f)</Code>.
+   </Returns>
+</ManSection>
+
+<ManSection>
+   <Attr Name="RightMinimalVersion" Arg="f" Comm=""/>
+   <Description>
+     Arguments: <Arg>f</Arg> - a homomorphism between two
+     modules.<Br />
+   </Description>
+   <Returns>
+     the right minimal version <Arg>f'</Arg> of the
+     homomorphism <Arg>f</Arg> together with the a list <Code>B</Code>
+     of modules such that the direct sum of the
+     modules, <Code>Source(f')</Code> and the modules on the
+     list <Code>B</Code> is isomorphic to <Code>Source(f)</Code>.
+   </Returns>
+</ManSection>
+
+<ManSection>
+   <Attr Name="MinimalLeftApproximation" Arg="C, M" Comm=""/>
+   <Description>
+     Arguments: <Arg>C</Arg>, <Arg>M</Arg> - two modules.<Br />
+   </Description>
+   <Returns>
+     the minimal left <Code>add M</Code>-approximation of the
+     module <Arg>C</Arg>. Note: The order of the arguments is opposite
+     of the order for minimal right approximations.
+   </Returns>
+</ManSection>
+
+<ManSection>
+   <Attr Name="MinimalRightApproximation" Arg="M, C" Comm=""/>
+   <Description>
+     Arguments: <Arg>M</Arg>, <Arg>C</Arg> - two modules.<Br />
+   </Description>
+   <Returns>
+     the minimal right <Code>add M</Code>-approximation of the
+     module <Arg>C</Arg>. Note: The order of the arguments is opposite
+     of the order for minimal left approximations.
+   </Returns>
+</ManSection>
+
+<Example><![CDATA[
+gap> H:= HomOverAlgebra(N,N);;
+gap> RightMinimalVersion(H[1]);   
+[ <mapping: <1-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> -> <
+    7-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> >, 
+  [ <6-dimensional right-module over <algebra-with-one of dimension 
+        17 over Rationals>> ] ]
+gap> LeftMinimalVersion(H[1]);             
+[ <mapping: <7-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> -> <
+    1-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> >, 
+  [ <6-dimensional right-module over <algebra-with-one of dimension 
+        17 over Rationals>> ] ]
+gap> S:=SimpleModules(A)[1];;
+gap> MinimalRightApproximation(N,S);
+<mapping: <1-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> -> <1-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> >
+gap> S:=SimpleModules(A)[3];;
+gap> MinimalLeftApproximation(S,N);        
+<mapping: <1-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> -> <6-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> >
+]]></Example>
+
+<ManSection>
+   <Oper Name="MorphismOnKernel" Arg="f, g,  alpha, beta" Comm="for a
+   commutative diagram of maps"/>
+   <Oper Name="MorphismOnImage" Arg="f, g,  alpha, beta" Comm="for a
+   commutative diagram of maps"/>
+   <Oper Name="MorphismOnCoKernel" Arg="f, g, alpha, beta" Comm="for a
+   commutative diagram of maps"/>
+   <Description>
+     Arguments: <Arg>f</Arg>, <Arg>g</Arg>, <Arg>alpha</Arg>, <Arg>beta</Arg>
+     - four homomorphisms of modules.<Br />
+   </Description>
+   <Returns>the morphism induced on the kernels, the images or the
+   cokernels of the morphisms <Arg>f</Arg> and <Arg>g</Arg>,
+   respectively, whenever <M>f\colon A\to B</M>, <M>\beta\colon B\to
+   B'</M>, <M>\alpha\colon A\to A'</M> and <M>g\colon A'\to B'</M>
+   forms a commutative diagram.</Returns>
+   <Description>
+    It is checked
+    if <Arg>f</Arg>, <Arg>g</Arg>, <Arg>alpha</Arg>, <Arg>beta</Arg>
+    forms a commutative diagram, that is, if <Math>f \beta - \alpha g
+    = 0</Math>.
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Oper Name="ProjectiveCover" Arg="M" Comm="for a PathAlgebraMatModule"/>
+   <Description>
+     Arguments: <Arg>M</Arg> - a module.<Br />
+   </Description>
+   <Returns>the projective cover of <Arg>M</Arg>, that is, returns the
+   map <Math>P(M)\to M</Math>.</Returns>
+   <Description>
+     If the module <Arg>M</Arg> is zero, then the zero map
+     to <Arg>M</Arg> is returned. 
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Oper Name="PullBack" Arg="f, g" Comm="for two maps between modules
+   with common target"/>
+   <Description>
+     Arguments: <Arg>f</Arg>, <Arg>g</Arg> - two homomorphisms with a common range.<Br />
+   </Description>
+   <Returns>the pullback of the maps <Arg>f</Arg> and <Arg>g</Arg>.</Returns>
+   <Description>
+    It is checked if <Arg>f</Arg> and <Arg>g</Arg> have the same range.
+    Given the input <Math>f\colon A\to B</Math> (horizontal map)
+    and <Math>g\colon C\to B</Math> (vertical map), the
+    pullback <Math>E</Math> is returned as the two
+    homomorphisms <Math>[f',g']</Math>, where <Math>f'\colon E\to
+    C</Math> (horizontal map) and <Math>g'\colon E\to A</Math>
+    (vertical map).
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Oper Name="PushOut" Arg="f, g" Comm="for two maps between modules
+   with common source"/>
+   <Description>
+     Arguments: <Arg>f</Arg>, <Arg>g</Arg> - two homomorphisms between
+     modules with a common source.<Br />
+   </Description>
+   <Returns>the pushout of the maps <Arg>f</Arg> and <Arg>g</Arg>.</Returns>
+   <Description>
+    It is checked if <Arg>f</Arg> and <Arg>g</Arg> have the same
+    source. Given the input <Math>f\colon A\to B</Math> (horizontal
+    map) and <Math>g\colon A\to C</Math> (vertical map), the
+    pushout <Math>E</Math> is returned as the two
+    homomorphisms <Math>[f',g']</Math>, where <Math>f'\colon C\to
+    E</Math> (horizontal map) and <Math>g'\colon B\to E</Math>
+    (vertical map).
+   </Description>
+</ManSection>
+
+<Example><![CDATA[
+gap> g := MorphismOnKernel(hom[1],hom[2],hom[1],hom[2]);
+<mapping: <6-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> -> <6-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> >
+gap> IsomorphicModules(Source(g),Range(g));
+true
+gap> p := ProjectiveCover(N);
+<mapping: <24-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> -> <7-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> >
+gap> N1 := Kernel(p);
+<17-dimensional right-module over <algebra-with-one over Rationals, with 
+8 generators>>
+gap> pullback := PullBack(p,hom[1]);
+[ <mapping: <24-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> -> <
+    7-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> >, 
+  <mapping: <24-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> -> <
+    24-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> > ]
+gap> Kernel(pullback[1]);
+<17-dimensional right-module over <algebra-with-one over Rationals, with 
+8 generators>>
+gap> IsomorphicModules(N1,Kernel(pullback[1]));
+true
+gap> t := LiftingMorphismFromProjective(p,p*hom[1]);
+<mapping: <24-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> -> <24-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> >
+gap> s := MorphismOnKernel(p,p,t,hom[1]);    
+<mapping: <17-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> -> <17-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> >
+gap> Source(s)=N1;
+true
+gap> q := KernelInclusion(p);
+<mapping: <17-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> -> <24-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> >
+gap> pushout := PushOut(q,s);
+[ <mapping: <17-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> -> <
+    24-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> >, 
+  <mapping: <24-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> -> <
+    24-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> > ]
+gap> U := CoKernel(pushout[1]);
+<7-dimensional right-module over <algebra-with-one over Rationals, with 
+8 generators>>
+gap> IsomorphicModules(U,N);
+true
+]]></Example>
+
+<ManSection>
+   <Attr Name="RadicalOfModuleInclusion" Arg="M" Comm=""/>
+   <Description>
+     Arguments: <Arg>M</Arg> - a module.<Br />
+   </Description>
+   <Returns>the inclusion of the radical of the module <Arg>M</Arg>
+   into <Arg>M</Arg>.</Returns>
+   <Description>
+    The radical of <Arg>M</Arg> can be accessed
+    using <Code>Source</Code>, or it can be computed directly via the
+    command <Ref Attr="RadicalOfModule"/>. 
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Oper Name="SocleOfModuleInclusion" Arg="M" Comm=""/>
+   <Description>
+     Arguments: <Arg>M</Arg> - a module.<Br />
+   </Description>
+   <Returns>the inclusion of the socle of the module <Arg>M</Arg>
+   into <Arg>M</Arg>.</Returns>
+   <Description>
+    The socle of <Arg>M</Arg> can be accessed
+    using <Code>Source</Code>, or it can be computed directly via the
+    command <Ref Oper="SocleOfModule"/>.
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Oper Name="SubRepresentationInclusion" Arg="M, gens" Comm=""/>
+   <Description>
+     Arguments: <Arg>M</Arg> - a module, <Arg>gens</Arg> - a list of elements in
+     <Arg>M</Arg>.<Br />
+   </Description>
+   <Returns>the inclusion of the submodule generated by the
+   generators <Arg>gens</Arg> into the module <Arg>M</Arg>.</Returns>
+   <Description>
+    The function checks if <Arg>gens</Arg> consists of elements
+    in <Arg>M</Arg>, and returns an error message otherwise. The
+    module given by the submodule generated by the
+    generators <Arg>gens</Arg> can be accessed using <Code>Source</Code>.
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Oper Name="TopOfModuleProjection" Arg="M" Comm=""/>
+   <Description>
+     Arguments: <Arg>M</Arg> - a module.<Br />
+   </Description>
+   <Returns>the projection from the module <Arg>M</Arg> to the top of
+   the module <Arg>M</Arg>.</Returns>
+   <Description>
+    The module given by the top of the module <Arg>M</Arg> can
+    be accessed using <Code>Range</Code> of the homomorphism.
+   </Description>
+</ManSection>
+
+<Example><![CDATA[
+gap> f := RadicalOfModuleInclusion(N);
+<mapping: <4-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> -> <7-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> >
+gap> radN := Source(f);
+<4-dimensional right-module over <algebra-with-one over Rationals, with 
+8 generators>>
+gap> g := SocleOfModuleInclusion(N);
+<mapping: <3-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> -> <7-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> >
+gap> U := SubRepresentationInclusion(N,[B[5]+B[6],B[7]]);
+<mapping: <4-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> -> <7-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> >
+gap> h := TopOfModuleProjection(N);
+<mapping: <7-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> -> <3-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> >
+]]></Example>
+</Section>
+
+<Section><Heading>Homological algebra</Heading>
+
+<ManSection>
+   <Oper Name="ExtOverAlgebra" Arg="M, N" Comm=""/>
+   <Oper Name="ExtOverAlgebraAdd" Arg="M, N" Comm=""/>
+   <Description>
+     Arguments: <Arg>M</Arg>, <Arg>N</Arg> - two modules.<Br />
+   </Description>
+   <Returns>a list of two elements <Ref Oper="ExtOverAlgebra"/> or
+   three elements <Ref Oper="ExtOverAlgebraAdd"/>, where the first
+   element is the map from the first syzygy, <M>\Omega(M)</M> to the
+   projective cover, <M>P(M)</M> of the module <Arg>M</Arg>, the
+   second element is a basis of <Math>\Ext^1(M,N)</Math> in terms of
+   elements in <Math>\Hom(\Omega(M),N)</Math> and the third element is
+   a function which preforms the addition
+   in <Math>\Ext^1(M,N)</Math>.</Returns>
+   <Description>
+    The function checks if the arguments <Arg>M</Arg> and <Arg>N</Arg>
+    are modules of the same algebra, and returns an error message
+    otherwise. It <Math>\Ext^1(M,N)</Math> is zero, an empty list is
+    returned.
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Oper Name="ExtAlgebraGenerators" Arg="M, n" Comm=""/>
+   <Description>
+     Arguments: <Arg>M</Arg> - a module, <Arg>n</Arg> - a positive integer.<Br />
+   </Description>
+   <Returns>returns a list of three elements, where the first element
+     is the dimensions of Ext^[0..n](M,M), the second element is the number
+     of minimal generators in the degrees [0..n], and the third element is
+     the generators in these degrees.</Returns>
+   <Description>
+     This function computes the generators of the Ext-algebra
+     <Math>Ext^*(M,M)</Math> up to degree  <Arg>n</Arg>.
+   </Description>
+</ManSection>
+
+</Section>
+
+<Section><Heading>Auslander-Reiten theory</Heading>
+
+<ManSection>
+   <Attr Name="AlmostSplitSequence" Arg="M" Comm=""/>
+   <Description>
+     Arguments: <Arg>M</Arg> - an indecomposable non-projective module.<Br />
+   </Description>
+   <Returns>the almost split sequence ending in the
+   module <Arg>M</Arg> if it is indecomposable and not projective. It
+   returns the almost split sequence in terms of two maps, a left
+   minimal almost split map and a right minimal almost split map.
+   </Returns>
+   <Description>
+    The range of the right minimal almost split map is not necessarily
+    equal to the module <Arg>M</Arg> one started with, but isomorphic.
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Oper Name="PredecessorOfModule" Arg="M, n" Comm=""/>
+   <Description>
+     Arguments: <Arg>M</Arg> - an indecomposable non-projective module
+     and <Arg>n</Arg> - a positive integer.<Br />
+   </Description>
+   <Returns>the predecessors of the module <Arg>M</Arg> in the
+    AR-quiver of the algebra <Arg>M</Arg> is given over of distance
+    less or equal to <Arg>n</Arg>. 
+   </Returns>
+   <Description>
+    It returns two lists, the first is the indecomposable modules in
+    the different layers and the second is the valuations for the
+    arrows in the AR-quiver.
+   </Description>
+</ManSection>
+
+<Example><![CDATA[
+gap> S := SimpleModules(A);
+[ <right-module over <algebra-with-one over Rationals, with 8 generators>>, 
+  <right-module over <algebra-with-one over Rationals, with 8 generators>>, 
+  <right-module over <algebra-with-one over Rationals, with 8 generators>> ]
+gap> Ext:=ExtOverAlgebra(S[2],S[2]);
+[ <mapping: <3-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> -> <
+    4-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> >, 
+  [ <mapping: <3-dimensional right-module over AlgebraWithOne( Rationals, 
+        [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+          [(1)*e] ] )> -> <
+        1-dimensional right-module over AlgebraWithOne( Rationals, 
+        [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+          [(1)*e] ] )> > ] ]
+gap> Length(Ext[2]);
+1
+gap> # i.e. Ext^1(S[2],S[2]) is 1-dimensional
+gap> pushout := PushOut(Ext[2][1],Ext[1]);   
+[ <mapping: <1-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> -> <
+    2-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> >, 
+  <mapping: <4-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> -> <
+    2-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> > ]
+gap> f:= CoKernelProjection(pushout[1]);
+<mapping: <2-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> -> <1-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> >
+gap> U := Range(pushout[1]);            
+<2-dimensional right-module over <algebra-with-one over Rationals, with 
+8 generators>>
+gap> assU := AlmostSplitSequence(U);
+[ <mapping: <6-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> -> <
+    8-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> >, 
+  <mapping: <8-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> -> <
+    2-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> > ]
+gap> assU[1]*assU[2] = Zero(assU[1]*assU[2]);
+true
+]]></Example>
+</Section>
+</Chapter>
