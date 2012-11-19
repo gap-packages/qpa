@@ -1,0 +1,414 @@
+<Chapter Label="HomologicalAlgebra"><Heading>Homological algebra</Heading>
+
+This chapter describes the homological algebra that is implemented in QPA.<P/> 
+
+<Section><Heading>Homological algebra</Heading>
+
+<ManSection>
+   <Attr Name="1stSyzygy" Arg="M" Comm="for a
+   PathAlgebraMatModule"/>
+   <Description>
+    Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>).
+   <Br /></Description>
+   <Returns>the first syzygy of the representation <Arg>M</Arg> as a
+     representation. 
+   </Returns>
+</ManSection>
+
+<ManSection>
+   <Oper Name="ExtOverAlgebra" Arg="M, N" Comm=""/>
+   <Oper Name="ExtOverAlgebraAdd" Arg="M, N" Comm=""/>
+   <Description>
+     Arguments: <Arg>M</Arg>, <Arg>N</Arg> - two modules.<Br />
+   </Description>
+   <Returns>a list of two elements <Ref Oper="ExtOverAlgebra"/> or
+   three elements <Ref Oper="ExtOverAlgebraAdd"/>, where the first
+   element is the map from the first syzygy, <M>\Omega(M)</M> to the
+   projective cover, <M>P(M)</M> of the module <Arg>M</Arg>, the
+   second element is a basis of <Math>\Ext^1(M,N)</Math> in terms of
+   elements in <Math>\Hom(\Omega(M),N)</Math> and the third element is
+   a function which preforms the addition
+   in <Math>\Ext^1(M,N)</Math>.</Returns>
+   <Description>
+    The function checks if the arguments <Arg>M</Arg> and <Arg>N</Arg>
+    are modules of the same algebra, and returns an error message
+    otherwise. It <Math>\Ext^1(M,N)</Math> is zero, an empty list is
+    returned.
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Oper Name="ExtAlgebraGenerators" Arg="M, n" Comm=""/>
+   <Description>
+     Arguments: <Arg>M</Arg> - a module, <Arg>n</Arg> - a positive integer.<Br />
+   </Description>
+   <Returns>returns a list of three elements, where the first element
+     is the dimensions of Ext^[0..n](M,M), the second element is the number
+     of minimal generators in the degrees [0..n], and the third element is
+     the generators in these degrees.</Returns>
+   <Description>
+     This function computes the generators of the Ext-algebra
+     <Math>Ext^*(M,M)</Math> up to degree  <Arg>n</Arg>.
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Oper Name="IsOmegaPeriodic" Arg="M, n" Comm="for a
+   PathAlgebraMatModule and a positive integer"/>
+   <Description> 
+    Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>), <Arg>n</Arg> -- be a positive integer.
+   <Br /></Description>
+   <Returns><C>i</C>, where <C>i</C> is the smallest positive integer
+     less or equal <C>n</C> such that the representation <Arg>M</Arg> is isomorphic
+     to the <C>i</C>-th syzygy of <Arg>M</Arg>, and false otherwise.
+   </Returns>
+</ManSection>
+
+<ManSection>
+   <Oper Name="LiftingInclusionMorphisms" Arg="f, g" Comm=""/>
+   <Description>
+     Arguments: <Arg>f</Arg>, <Arg>g</Arg> - two homomorphisms with
+     common range.<Br />
+   </Description>
+   <Returns>
+     a factorization of <Arg>g</Arg> in terms of <Arg>f</Arg>, whenever
+     possible and <C>fail</C> otherwise.
+   </Returns>
+   <Description>
+    Given two inclusions <Math>f\colon B\to C</Math> and <Math>g\colon
+    A\to C</Math>, this function constructs a morphism
+    from <Math>A</Math> to <Math>B</Math>, whenever the image
+    of <Arg>g</Arg> is contained in the image of <Arg>f</Arg>.
+    Otherwise the function returns fail. The function checks
+    if <Arg>f</Arg> and <Arg>g</Arg> are one-to-one, if they have
+    the same range and if the image of <Arg>g</Arg> is contained in
+    the image of <Arg>f</Arg>.
+   </Description>
+</ManSection>
+
+
+<ManSection>
+   <Oper Name="LiftingMorphismFromProjective" Arg="f, g" Comm=""/>
+   <Description>
+     Arguments: <Arg>f</Arg>, <Arg>g</Arg> - two homomorphisms with
+     common range.<Br />
+   </Description>
+   <Returns>
+     a factorization of <Arg>g</Arg> in terms of <Arg>f</Arg>, whenever
+     possible and <C>fail</C> otherwise.
+   </Returns>
+   <Description>
+    Given two morphisms <Math>f\colon B\to C</Math> and <Math>g\colon
+    P\to C</Math>, where <Math>P</Math> is a direct sum of
+    indecomposable projective modules constructed
+    via <Code>DirectSumOfModules</Code> and <Arg>f</Arg> an
+    epimorphism, this function finds a lifting of <Arg>g</Arg>
+    to <Math>B</Math>. The function checks if <Math>P</Math> is a
+    direct sum of indecomposable projective modules, if <Arg>f</Arg>
+    is onto and if <Arg>f</Arg> and <Arg>g</Arg> have the same range.
+   </Description>
+</ManSection>
+
+<Example><![CDATA[
+gap> B := BasisVectors(Basis(N));
+[ [ [ 1, 0, 0 ], [ 0, 0 ], [ 0, 0 ] ], [ [ 0, 1, 0 ], [ 0, 0 ], [ 0, 0 ] ], 
+  [ [ 0, 0, 1 ], [ 0, 0 ], [ 0, 0 ] ], [ [ 0, 0, 0 ], [ 1, 0 ], [ 0, 0 ] ], 
+  [ [ 0, 0, 0 ], [ 0, 1 ], [ 0, 0 ] ], [ [ 0, 0, 0 ], [ 0, 0 ], [ 1, 0 ] ], 
+  [ [ 0, 0, 0 ], [ 0, 0 ], [ 0, 1 ] ] ]
+gap> g := SubRepresentationInclusion(N,[B[1],B[4]]);
+<mapping: <5-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> -> <7-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> >
+gap> f := SubRepresentationInclusion(N,[B[1],B[2]]);
+<mapping: <6-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> -> <7-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> >
+gap> LiftingInclusionMorphisms(f,g);
+<mapping: <5-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> -> <6-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> >
+gap> S := SimpleModules(A); 
+[ <right-module over <algebra-with-one over Rationals, with 8 generators>>, 
+  <right-module over <algebra-with-one over Rationals, with 8 generators>>, 
+  <right-module over <algebra-with-one over Rationals, with 8 generators>> ]
+gap> homNS := HomOverAlgebra(N,S[1]);
+[ <mapping: <
+    7-dimensional right-module over AlgebraWithOne( Rationals, ... )> -> <
+    1-dimensional right-module over AlgebraWithOne( Rationals, ... )> >, 
+  <mapping: <
+    7-dimensional right-module over AlgebraWithOne( Rationals, ... )> -> <
+    1-dimensional right-module over AlgebraWithOne( Rationals, ... )> >, 
+  <mapping: <
+    7-dimensional right-module over AlgebraWithOne( Rationals, ... )> -> <
+    1-dimensional right-module over AlgebraWithOne( Rationals, ... )> > ]
+gap> f := homNS[1];
+<mapping: <
+7-dimensional right-module over AlgebraWithOne( Rationals, ... )> -> <
+1-dimensional right-module over AlgebraWithOne( Rationals, ... )> >
+gap> p := ProjectiveCover(S[1]);
+<mapping: <8-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> -> <1-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> >
+gap> LiftingMorphismFromProjective(f,p);
+<mapping: <8-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> -> <7-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> >
+]]></Example>
+
+<ManSection>
+   <Attr Name="MinimalLeftApproximation" Arg="C, M" Comm=""/>
+   <Description>
+     Arguments: <Arg>C</Arg>, <Arg>M</Arg> - two modules.<Br />
+   </Description>
+   <Returns>
+     the minimal left <Code>add M</Code>-approximation of the
+     module <Arg>C</Arg>. Note: The order of the arguments is opposite
+     of the order for minimal right approximations.
+   </Returns>
+</ManSection>
+
+<ManSection>
+   <Attr Name="MinimalRightApproximation" Arg="M, C" Comm=""/>
+   <Description>
+     Arguments: <Arg>M</Arg>, <Arg>C</Arg> - two modules.<Br />
+   </Description>
+   <Returns>
+     the minimal right <Code>add M</Code>-approximation of the
+     module <Arg>C</Arg>. Note: The order of the arguments is opposite
+     of the order for minimal left approximations.
+   </Returns>
+</ManSection>
+
+<ManSection>
+   <Oper Name="MorphismOnKernel" Arg="f, g,  alpha, beta" Comm="for a
+   commutative diagram of maps"/>
+   <Oper Name="MorphismOnImage" Arg="f, g,  alpha, beta" Comm="for a
+   commutative diagram of maps"/>
+   <Oper Name="MorphismOnCoKernel" Arg="f, g, alpha, beta" Comm="for a
+   commutative diagram of maps"/>
+   <Description>
+     Arguments: <Arg>f</Arg>, <Arg>g</Arg>, <Arg>alpha</Arg>, <Arg>beta</Arg>
+     - four homomorphisms of modules.<Br />
+   </Description>
+   <Returns>the morphism induced on the kernels, the images or the
+   cokernels of the morphisms <Arg>f</Arg> and <Arg>g</Arg>,
+   respectively, whenever <M>f\colon A\to B</M>, <M>\beta\colon B\to
+   B'</M>, <M>\alpha\colon A\to A'</M> and <M>g\colon A'\to B'</M>
+   forms a commutative diagram.</Returns>
+   <Description>
+    It is checked
+    if <Arg>f</Arg>, <Arg>g</Arg>, <Arg>alpha</Arg>, <Arg>beta</Arg>
+    forms a commutative diagram, that is, if <Math>f \beta - \alpha g
+    = 0</Math>.
+   </Description>
+</ManSection>
+
+
+<Example><![CDATA[
+gap> g := MorphismOnKernel(hom[1],hom[2],hom[1],hom[2]);
+<mapping: <6-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> -> <6-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> >
+gap> IsomorphicModules(Source(g),Range(g));
+true
+gap> p := ProjectiveCover(N);
+<mapping: <24-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> -> <7-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> >
+gap> N1 := Kernel(p);
+<17-dimensional right-module over <algebra-with-one over Rationals, with 
+8 generators>>
+gap> pullback := PullBack(p,hom[1]);
+[ <mapping: <24-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> -> <
+    7-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> >, 
+  <mapping: <24-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> -> <
+    24-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> > ]
+gap> Kernel(pullback[1]);
+<17-dimensional right-module over <algebra-with-one over Rationals, with 
+8 generators>>
+gap> IsomorphicModules(N1,Kernel(pullback[1]));
+true
+gap> t := LiftingMorphismFromProjective(p,p*hom[1]);
+<mapping: <24-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> -> <24-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> >
+gap> s := MorphismOnKernel(p,p,t,hom[1]);    
+<mapping: <17-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> -> <17-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> >
+gap> Source(s)=N1;
+true
+gap> q := KernelInclusion(p);
+<mapping: <17-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> -> <24-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> >
+gap> pushout := PushOut(q,s);
+[ <mapping: <17-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> -> <
+    24-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> >, 
+  <mapping: <24-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> -> <
+    24-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> > ]
+gap> U := CoKernel(pushout[1]);
+<7-dimensional right-module over <algebra-with-one over Rationals, with 
+8 generators>>
+gap> IsomorphicModules(U,N);
+true
+]]></Example>
+
+<ManSection>
+   <Oper Name="NthSyzygy" Arg="M, n" Comm="for a
+   PathAlgebraMatModule"/>
+   <Description> 
+    Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>), <Arg>n</Arg> -- a positive integer.
+   <Br /></Description>
+   <Returns>the top of the syzygies until a syzygy is projective or
+     the <Arg>n</Arg>-th syzygy has been computed.
+   </Returns>
+</ManSection>
+
+<ManSection>
+   <Oper Name="NthSyzygyNC" Arg="M, n" Comm="for a
+   PathAlgebraMatModule"/>
+   <Description> 
+    Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>), <Arg>n</Arg> -- a positive integer.
+   <Br /></Description>
+   <Returns>the <C>n</C>-th syzygy of the module <Arg>M</Arg>, unless
+   the projective dimension of <Arg>M</Arg> is less or equal
+   to <C>n-1</C>, in which case it returns the projective dimension of 
+   <Arg>M</Arg>. It does not check if the <C>n</C>-th syzygy is
+   projective or not.
+   </Returns>
+</ManSection>
+
+<ManSection>
+   <Oper Name="ProjectiveCover" Arg="M" Comm="for a PathAlgebraMatModule"/>
+   <Description>
+     Arguments: <Arg>M</Arg> - a module.<Br />
+   </Description>
+   <Returns>the projective cover of <Arg>M</Arg>, that is, returns the
+   map <Math>P(M)\to M</Math>.</Returns>
+   <Description>
+     If the module <Arg>M</Arg> is zero, then the zero map
+     to <Arg>M</Arg> is returned. 
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Oper Name="PullBack" Arg="f, g" Comm="for two maps between modules
+   with common target"/>
+   <Description>
+     Arguments: <Arg>f</Arg>, <Arg>g</Arg> - two homomorphisms with a common range.<Br />
+   </Description>
+   <Returns>the pullback of the maps <Arg>f</Arg> and <Arg>g</Arg>.</Returns>
+   <Description>
+    It is checked if <Arg>f</Arg> and <Arg>g</Arg> have the same range.
+    Given the input <Math>f\colon A\to B</Math> (horizontal map)
+    and <Math>g\colon C\to B</Math> (vertical map), the
+    pullback <Math>E</Math> is returned as the two
+    homomorphisms <Math>[f',g']</Math>, where <Math>f'\colon E\to
+    C</Math> (horizontal map) and <Math>g'\colon E\to A</Math>
+    (vertical map).
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Oper Name="PushOut" Arg="f, g" Comm="for two maps between modules
+   with common source"/>
+   <Description>
+     Arguments: <Arg>f</Arg>, <Arg>g</Arg> - two homomorphisms between
+     modules with a common source.<Br />
+   </Description>
+   <Returns>the pushout of the maps <Arg>f</Arg> and <Arg>g</Arg>.</Returns>
+   <Description>
+    It is checked if <Arg>f</Arg> and <Arg>g</Arg> have the same
+    source. Given the input <Math>f\colon A\to B</Math> (horizontal
+    map) and <Math>g\colon A\to C</Math> (vertical map), the
+    pushout <Math>E</Math> is returned as the two
+    homomorphisms <Math>[f',g']</Math>, where <Math>f'\colon C\to
+    E</Math> (horizontal map) and <Math>g'\colon B\to E</Math>
+    (vertical map).
+   </Description>
+</ManSection>
+
+<Example><![CDATA[
+gap> S := SimpleModules(A);
+[ <right-module over <algebra-with-one over Rationals, with 8 generators>>, 
+  <right-module over <algebra-with-one over Rationals, with 8 generators>>, 
+  <right-module over <algebra-with-one over Rationals, with 8 generators>> ]
+gap> Ext:=ExtOverAlgebra(S[2],S[2]);
+[ <mapping: <3-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> -> <
+    4-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> >, 
+  [ <mapping: <3-dimensional right-module over AlgebraWithOne( Rationals, 
+        [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+          [(1)*e] ] )> -> <
+        1-dimensional right-module over AlgebraWithOne( Rationals, 
+        [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+          [(1)*e] ] )> > ] ]
+gap> Length(Ext[2]);
+1
+gap> # i.e. Ext^1(S[2],S[2]) is 1-dimensional
+gap> pushout := PushOut(Ext[2][1],Ext[1]);   
+[ <mapping: <1-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> -> <
+    2-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> >, 
+  <mapping: <4-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> -> <
+    2-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> > ]
+gap> f:= CoKernelProjection(pushout[1]);
+<mapping: <2-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> -> <1-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
+ ] )> >
+gap> U := Range(pushout[1]);            
+<2-dimensional right-module over <algebra-with-one over Rationals, with 
+8 generators>>
+]]></Example>
+</Section>
+
+</Chapter>

@@ -1,0 +1,61 @@
+<Chapter Label="AR-theory"><Heading>Auslander-Reiten theory</Heading>
+
+This chapter describes the functions implemented for almost split sequences and 
+Auslander-Reiten theory in QPA.<P/> 
+
+<Section><Heading>Auslander-Reiten theory</Heading>
+
+<ManSection>
+   <Attr Name="AlmostSplitSequence" Arg="M" Comm=""/>
+   <Description>
+     Arguments: <Arg>M</Arg> - an indecomposable non-projective module.<Br />
+   </Description>
+   <Returns>the almost split sequence ending in the
+   module <Arg>M</Arg> if it is indecomposable and not projective. It
+   returns the almost split sequence in terms of two maps, a left
+   minimal almost split map and a right minimal almost split map.
+   </Returns>
+   <Description>
+    The range of the right minimal almost split map is not necessarily
+    equal to the module <Arg>M</Arg> one started with, but isomorphic. 
+    The function assumes that the module <Arg>M</Arg> is indecomposable. 
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Oper Name="PredecessorOfModule" Arg="M, n" Comm=""/>
+   <Description>
+     Arguments: <Arg>M</Arg> - an indecomposable non-projective module
+     and <Arg>n</Arg> - a positive integer.<Br />
+   </Description>
+   <Returns>the predecessors of the module <Arg>M</Arg> in the
+    AR-quiver of the algebra <Arg>M</Arg> is given over of distance
+    less or equal to <Arg>n</Arg>. 
+   </Returns>
+   <Description>
+    It returns two lists, the first is the indecomposable modules in
+    the different layers and the second is the valuations for the
+    arrows in the AR-quiver. The function assumses that the module 
+    <Arg>M</Arg> is indecomposable. 
+   </Description>
+</ManSection>
+
+<Example><![CDATA[
+gap> assU := AlmostSplitSequence(U);
+[ <mapping: <6-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> -> <
+    8-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> >, 
+  <mapping: <8-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> -> <
+    2-dimensional right-module over AlgebraWithOne( Rationals, 
+    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+      [(1)*e] ] )> > ]
+gap> assU[1]*assU[2] = Zero(assU[1]*assU[2]);
+true
+]]></Example>
+</Section>
+</Chapter>
