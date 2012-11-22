@@ -77,6 +77,10 @@ GBNP interface (for Groebner bases),</Item></Row>
 
 <#Include SYSTEM "chapter_homomorphisms.xml">
 
+<#Include SYSTEM "chapter_homological_algebra.xml">
+
+<#Include SYSTEM "chapter_AR-theory.xml">
+
 <#Include SYSTEM "chapter_chain_complexes.xml">
 
 <#Include SYSTEM "chapter_proj_and_derived.xml">

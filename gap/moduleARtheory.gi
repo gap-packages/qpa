@@ -3,105 +3,105 @@
 #O  AlmostSplitSequence(<M>,<N>)
 ##
 ##  This function finds the almost split sequence ending in the module
-##  <M>, if the module is not projective. It returns fail otherwise. 
-##  The almost split sequence is returned as a pair of maps, the 
-##  monomorphism and the epimorphism. The function assumes that the 
-##  module  <M>  is indecomposable, and the range of the epimorphism
-##  is a module that is isomorphic to the input, not necessarily 
-##  identical. 
+##  <M>, if the module is indecomposable and not projective. It returns 
+##  fail if the module is projective. The almost split sequence is 
+##  returned as a pair of maps, the monomorphism and the epimorphism. 
+##  The function assumes that the module  <M>  is indecomposable, and 
+##  the range of the epimorphism is a module that is isomorphic to the 
+##  input, not necessarily identical. 
 ##
 InstallMethod( AlmostSplitSequence, 
-   "for a PathAlgebraMatModule",
-   true, 
-   [ IsPathAlgebraMatModule ], 0,
-   function( M )
+    "for a PathAlgebraMatModule",
+    true, 
+    [ IsPathAlgebraMatModule ], 0,
+    function( M )
 
-   local K, DTrM, f, g, PM, syzygy, G, H, Img1, zero, 
-         genssyzygyDTrM, VsyzygyDTrM, Img, gensImg, VImg, 
-         stop, test, ext, preimages, homvecs, dimsyz, dimDTrM, 
-         EndDTrM, radEndDTrM, nonzeroext, temp, L, pos, i;
+    local K, DTrM, f, g, PM, syzygy, G, H, Img1, zero, 
+          genssyzygyDTrM, VsyzygyDTrM, Img, gensImg, VImg, 
+          stop, test, ext, preimages, homvecs, dimsyz, dimDTrM, 
+          EndDTrM, radEndDTrM, nonzeroext, temp, L, pos, i;
 #
-# Add test of input.
+# ToDo: Add test of input with respect to being indecomposable.
 #
-   K := LeftActingDomain(M);
-   if IsProjectiveModule(M) then 
-      return fail;
-   else 
-      DTrM := DTr(M);
+    K := LeftActingDomain(M);
+    if IsProjectiveModule(M) then 
+        return fail;
+    else 
+        DTrM := DTr(M);
 #
 # creating a short exact sequence 0 -> Syz(M) -> P(M) -> M -> 0
 # f: P(M) -> M, g: Syz(M) -> P(M)  
 #
-      f := ProjectiveCover(M);
-      g := KernelInclusion(f);
-      PM := Source(f);
-      syzygy := Source(g);
+        f := ProjectiveCover(M);
+        g := KernelInclusion(f);
+        PM := Source(f);
+        syzygy := Source(g);
 #
 # using Hom(-,DTrM) on the s.e.s. above
 #
-      G := HomOverAlgebra(PM,DTrM);
-      H := HomOverAlgebra(syzygy,DTrM);
+        G := HomOverAlgebra(PM,DTrM);
+        H := HomOverAlgebra(syzygy,DTrM);
 #
 # Making a vector space of Hom(Syz(M),DTrM)
 # by first rewriting the maps as vectors
 #
-      genssyzygyDTrM := List(H, x -> Flat(x!.maps));
-      VsyzygyDTrM := VectorSpace(K, genssyzygyDTrM);
+        genssyzygyDTrM := List(H, x -> Flat(x!.maps));
+        VsyzygyDTrM := VectorSpace(K, genssyzygyDTrM);
 #
 # finding a basis for im(g*)
 # first, find a generating set of im(g*)
 # 
-      Img1 := g*G;
+        Img1 := g*G;
 #
 # removing 0 maps by comparing to zero = Zeromap(syzygy,DTrM)
 #
-      zero := ZeroMapping(syzygy,DTrM);
-      Img  := Filtered(Img1, x -> x <> zero);
+        zero := ZeroMapping(syzygy,DTrM);
+        Img  := Filtered(Img1, x -> x <> zero);
 #
 # Rewriting the maps as vectors
 #
-      gensImg := List(Img, x -> Flat(x!.maps));
+        gensImg := List(Img, x -> Flat(x!.maps));
 #
 # Making a vector space of <Im g*>
-      VImg := Subspace(VsyzygyDTrM, gensImg);  
+        VImg := Subspace(VsyzygyDTrM, gensImg);  
 #
 # Finding a non-zero element in Ext1(M,DTrM)
 #
-      i := 1;
-      stop := false;
-      repeat 
-         test := Flat(H[i]!.maps) in VImg;
-         if test then 
-            i := i + 1;
-         else 
-            stop := true;
-         fi;
-      until stop;
-      nonzeroext := H[i];
+        i := 1;
+        stop := false;
+        repeat 
+            test := Flat(H[i]!.maps) in VImg;
+            if test then 
+                i := i + 1;
+            else 
+                stop := true;
+            fi;
+        until stop;
+        nonzeroext := H[i];
 #
 # Finding the radical of End(DTrM)
 #
-      EndDTrM := EndOverAlgebra(DTrM);
-      radEndDTrM := RadicalOfAlgebra(EndDTrM);
-      radEndDTrM := List(BasisVectors(Basis(radEndDTrM)), x -> FromEndMToHomMM(DTrM,x));
+        EndDTrM := EndOverAlgebra(DTrM);
+        radEndDTrM := RadicalOfAlgebra(EndDTrM);
+        radEndDTrM := List(BasisVectors(Basis(radEndDTrM)), x -> FromEndMToHomMM(DTrM,x));
 #
 # Finding an element in the socle of Ext^1(M,DTrM)
 #
-      temp := nonzeroext;
+        temp := nonzeroext;
 
-      L := List(temp*radEndDTrM, x -> Flat(x!.maps) in VImg);
-      while not ForAll(L, x -> x = true) do
-         pos := Position(L,false);
-         temp := temp*radEndDTrM[pos];
-         L := List(temp*radEndDTrM, x -> Flat(x!.maps) in VImg);
-      od;
+        L := List(temp*radEndDTrM, x -> Flat(x!.maps) in VImg);
+        while not ForAll(L, x -> x = true) do
+            pos := Position(L,false);
+            temp := temp*radEndDTrM[pos];
+            L := List(temp*radEndDTrM, x -> Flat(x!.maps) in VImg);
+        od;
 #
 # Constructing the almost split sequence in Ext^1(M,DTrM)
 #
-      ext := PushOut(g,temp);
+        ext := PushOut(g,temp);
 
-      return [ext[1],CoKernelProjection(ext[1])];
-   fi;
+        return [ext[1],CoKernelProjection(ext[1])];
+    fi;
 end
 );
 
@@ -114,7 +114,8 @@ end
 ##  AR-quiver of the algebra  M  is given over of distance less or 
 ##  equal to  n. It returns two lists, the first is the indecomposable
 ##  modules in the different layers and the second is the valuations
-##  for the arrows in the AR-quiver.
+##  for the arrows in the AR-quiver. The function assumes that the 
+##  entered module  M  is indecomposable.
 ##
 InstallMethod ( PredecessorsOfModule, 
     "for a IsPathAlgebraMatModule and a positive integer",
@@ -125,7 +126,9 @@ InstallMethod ( PredecessorsOfModule,
 
     local layers, valuation, L, middleterm, i, N, j, m, 
           tempval, s, inlayer_i_plus_1;
-
+#
+# ToDo: Add test of input with respect to being indecomposable.
+#
     if IsProjectiveModule(M) then
         Error("entered module is projective,");
     fi;

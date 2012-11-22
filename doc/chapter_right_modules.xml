@@ -416,17 +416,6 @@ gap> inc:=DirectSumInclusions(N2);
 ]]></Example>
 
 <ManSection>
-   <Attr Name="1stSyzygy" Arg="M" Comm="for a
-   PathAlgebraMatModule"/>
-   <Description>
-    Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>).
-   <Br /></Description>
-   <Returns>the first syzygy of the representation <Arg>M</Arg> as a
-     representation. 
-   </Returns>
-</ManSection>
-
-<ManSection>
    <Oper Name="IntersectionOfSubmodules" Arg="list" Comm="for a list
    of PathAlgebraMatModule submodules"/>
    <Description> 
@@ -451,7 +440,6 @@ gap> inc:=DirectSumInclusions(N2);
    </Description>
 </ManSection>
 
-
 <ManSection>
    <Oper Name="IsInAdditiveClosure" Arg="M, N" Comm="for two
    PathAlgebraMatModule's"/>
@@ -464,18 +452,6 @@ gap> inc:=DirectSumInclusions(N2);
      are <C>PathAlgebraMatModule</C>s over the same (quotient of a)
      path algebra. 
    </Description>
-</ManSection>
-
-<ManSection>
-   <Oper Name="IsOmegaPeriodic" Arg="M, n" Comm="for a
-   PathAlgebraMatModule and a positive integer"/>
-   <Description> 
-    Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>), <Arg>n</Arg> -- be a positive integer.
-   <Br /></Description>
-   <Returns><C>i</C>, where <C>i</C> is the smallest positive integer
-     less or equal <C>n</C> such that the representation <Arg>M</Arg> is isomorphic
-     to the <C>i</C>-th syzygy of <Arg>M</Arg>, and false otherwise.
-   </Returns>
 </ManSection>
 
 <ManSection>
@@ -589,31 +565,6 @@ gap> inc:=DirectSumInclusions(N2);
      the appropriate size are returned. A shortcoming of this that it
      is not defined for modules of quotients of path algebras. 
    </Description>
-</ManSection>
-
-<ManSection>
-   <Oper Name="NthSyzygy" Arg="M, n" Comm="for a
-   PathAlgebraMatModule"/>
-   <Description> 
-    Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>), <Arg>n</Arg> -- a positive integer.
-   <Br /></Description>
-   <Returns>the top of the syzygies until a syzygy is projective or
-     the <Arg>n</Arg>-th syzygy has been computed.
-   </Returns>
-</ManSection>
-
-<ManSection>
-   <Oper Name="NthSyzygyNC" Arg="M, n" Comm="for a
-   PathAlgebraMatModule"/>
-   <Description> 
-    Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>), <Arg>n</Arg> -- a positive integer.
-   <Br /></Description>
-   <Returns>the <C>n</C>-th syzygy of the module <Arg>M</Arg>, unless
-   the projective dimension of <Arg>M</Arg> is less or equal
-   to <C>n-1</C>, in which case it returns the projective dimension of 
-   <Arg>M</Arg>. It does not check if the <C>n</C>-th syzygy is
-   projective or not.
-   </Returns>
 </ManSection>
 
 <ManSection>

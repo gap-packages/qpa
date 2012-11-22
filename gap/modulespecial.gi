@@ -1,15 +1,20 @@
 # GAP Implementation
 # $Id: specialreps.gi,v 1.12 2012/05/22 14:54:46 sunnyquiver Exp $
 
-# specialreps.gi: Provides special representations of a quiver, 
-# 		  indecomposble projective, indecomposable injective, 
-# 		  and vertex simple representations. 
-#
+#######################################################################
+##
+#A  IndecProjectiveModules( <A> )
+##
+##  This function constructs all the indecomposable projective modules
+##  over a finite dimensional path algebra or quotient of path algebra. 
+##  It returns all the indecomposable projective modules as a list of 
+##  modules corresponding to the numbering of the vertices. 
+##
 InstallMethod ( IndecProjectiveModules, 
     "for a finite dimensional quotient of a path algebra",
     [ IsQuotientOfPathAlgebra ], 0,
     function( A ) 
-    local which_proj, fam, KQ, I, Q, num_vert, num_arrows, i, vertices, 
+    local fam, KQ, I, Q, num_vert, num_arrows, i, vertices, 
           arrows_as_paths, indec_proj, j, indec_proj_list, 
           indec_proj_rep, l, arrow, P, gens, length_B, B, 
           mat, a, source, target, vertices_Q, vector, intervals_of_basis, 
@@ -20,41 +25,32 @@ InstallMethod ( IndecProjectiveModules,
 #
 #    Testing input
 #       
-  KQ := OriginalPathAlgebra(A);
-  Q := QuiverOfPathAlgebra(KQ);
-  num_vert := Length(VerticesOfQuiver(Q));
-  which_proj := [1..num_vert]; 
-  if not ForAll(which_proj, x -> x in [1..num_vert]) then 
-     Print("The range of projectives entered is wrong.");
-     return fail;
-  else
-     fam := ElementsFamily(FamilyObj(A));
-     if HasGroebnerBasisOfIdeal(fam!.ideal) and 
-          AdmitsFinitelyManyNontips(GroebnerBasisOfIdeal(fam!.ideal)) then 
-
+    KQ := OriginalPathAlgebra(A);
+    Q := QuiverOfPathAlgebra(KQ);
+    num_vert := Length(VerticesOfQuiver(Q));
+    fam := ElementsFamily(FamilyObj(A));
+    if HasGroebnerBasisOfIdeal(fam!.ideal) and 
+       AdmitsFinitelyManyNontips(GroebnerBasisOfIdeal(fam!.ideal)) then 
 #
 #    Finding vertices and arrows as elements of the algebra  A  for later use. 
 #
-
         K := LeftActingDomain(KQ);
-
         num_arrows := Length(ArrowsOfQuiver(Q)); 
-        vertices   := GeneratorsOfAlgebra(A){[2..num_vert+1]};
-        arrows_as_paths := 
-            GeneratorsOfAlgebra(A){[num_vert+2..num_arrows+num_vert+1]}; 
+        vertices := GeneratorsOfAlgebra(A){[2..num_vert+1]};
+        arrows_as_paths :=  GeneratorsOfAlgebra(A){[num_vert+2..num_arrows+num_vert+1]}; 
 #
 #
 #
         mat_list := [];
         list_of_min_gen := [];
-        for p in which_proj do
+        for p in [1..num_vert] do
+            #
+            #   Finding a K-basis for indecomposable projective associated with vertex  p.
+            #
             P := RightIdeal(A,[vertices[p]]);
             B := CanonicalBasis(P);
             length_B := Length(B);
-            intervals_of_basis := [];
-            for i in [1..num_vert] do
-                Add(intervals_of_basis,[]);
-            od;
+            intervals_of_basis := List([1..num_vert], x -> []);
             for i in [1..Length(B)] do
                 for j in [1..num_vert] do
                     if ( B[i]*vertices[j] <> Zero(A) ) then
@@ -62,7 +58,9 @@ InstallMethod ( IndecProjectiveModules,
                     fi;
                 od;
             od;
-
+            #  
+            #   Finding where the indecomposable projective has no support.
+            #
             zero_vertices := [];
             for i in [1..num_vert] do
                 if ( Length(intervals_of_basis[i]) = 0 ) then
@@ -70,6 +68,9 @@ InstallMethod ( IndecProjectiveModules,
                 fi;
             od;
             vertices_Q := VerticesOfQuiver(Q); 
+            # 
+            #   Finding the matrices defining the representation
+            # 
             mat := [];
             for a in arrows_as_paths do
                 partial_mat := [];
@@ -93,36 +94,40 @@ InstallMethod ( IndecProjectiveModules,
                 fi;
             od;
             Add(mat_list,mat);
+            #
+            #   Constructing a generator for each indecomposable projective
+            #
             for i in [1..Length(intervals_of_basis)] do
-               if intervals_of_basis[i] = [] then
-                  intervals_of_basis[i] := [Zero(K)];
-               else 
-                  for j in [1..Length(intervals_of_basis[i])] do
-                     if intervals_of_basis[i][j] > 1 then 
-                        intervals_of_basis[i][j] := Zero(K);
-                     else
-                        intervals_of_basis[i][j] := One(K);
-                     fi;
-                  od;
-               fi;
+                if intervals_of_basis[i] = [] then
+                    intervals_of_basis[i] := [Zero(K)];
+                else 
+                    for j in [1..Length(intervals_of_basis[i])] do
+                        if intervals_of_basis[i][j] > 1 then 
+                            intervals_of_basis[i][j] := Zero(K);
+                        else
+                            intervals_of_basis[i][j] := One(K);
+                        fi;
+                    od;
+                fi;
             od;
             Add(list_of_min_gen,intervals_of_basis);
         od;
+        #
+        #   Construct the indecomposable projectives and set the generating set
+        # 
         indec_proj_list := [];
-        for i in [1..Length(which_proj)] do
+        for i in [1..num_vert] do
+
             Add(indec_proj_list,RightModuleOverPathAlgebra(A,mat_list[i]));
             list_of_min_gen[i] := PathModuleElem(FamilyObj(Zero(indec_proj_list[i])![1]),list_of_min_gen[i]); 
-            
             list_of_min_gen[i] := Objectify( TypeObj( Zero(indec_proj_list[i]) ), [ list_of_min_gen[i] ] );
             SetMinimalGeneratingSetOfModule(indec_proj_list[i],[list_of_min_gen[i]]);
-
         od;
         return indec_proj_list;
-     else
+    else
         Print("Compute a Groebner basis of the ideal you are factoring out with before you form the quotient algebra, or you have entered an algebra which is not finite dimensional.\n");
         return fail;
-     fi;
-  fi;
+    fi;
 end
 );
 
@@ -130,43 +135,37 @@ InstallOtherMethod ( IndecProjectiveModules,
     "for a finite dimensional quotient of a path algebra",
     [ IsPathAlgebra ], 0,
     function( A )
-        local which_proj, KQ, rels, I, groebner, groebner_basis, Q, num_vert, 
-              num_arrows, i, vertices, arrows_as_paths, j, 
-              indec_proj_list, l, arrow, P, gens, 
-              length_B, B, intervals_of_basis, mat, a, source, target, 
-              vertices_Q, vector, source_index, target_index, mat_index,
-              p, mat_list, zero_vertices, rows, cols, K, partial_mat,
-              list_of_min_gen; 
+    local KQ, rels, I, groebner, groebner_basis, Q, num_vert, num_arrows, 
+          i, vertices, arrows_as_paths, j, indec_proj_list, l, arrow, P, 
+          gens, length_B, B, intervals_of_basis, mat, a, source, target, 
+          vertices_Q, vector, source_index, target_index, mat_index, p, 
+          mat_list, zero_vertices, rows, cols, K, partial_mat,
+          list_of_min_gen; 
 #
 #    A = KQ
 #
 #    Testing input
 #       
-     Q := QuiverOfPathAlgebra(A); 
-     num_vert := Length(VerticesOfQuiver(Q));
-     which_proj := [1..num_vert];
-     if not ForAll(which_proj, x -> x in [1..num_vert]) then 
-        Print("The range of projectives entered is wrong.\n");
-        return fail;
-     elif not IsAcyclicQuiver(Q)  then
+    Q := QuiverOfPathAlgebra(A); 
+    num_vert := Length(VerticesOfQuiver(Q));
+    if not IsAcyclicQuiver(Q)  then
         Print("Need to have a finite dimensional path algebra as argument.\n");
         return fail;
-     else
+    else
 #
 #    Finding vertices and arrows as elements of the algebra  A  for later use. 
 #
         K := LeftActingDomain(A);
-        num_vert   := Length(VerticesOfQuiver(Q));
+        num_vert := Length(VerticesOfQuiver(Q));
         num_arrows := Length(ArrowsOfQuiver(Q)); 
-        vertices   := GeneratorsOfAlgebra(A){[1..num_vert]};
-        arrows_as_paths := 
-            GeneratorsOfAlgebra(A){[num_vert+1..num_arrows+num_vert]}; 
-#
-#
-#
+        vertices := GeneratorsOfAlgebra(A){[1..num_vert]};
+        arrows_as_paths := GeneratorsOfAlgebra(A){[num_vert+1..num_arrows+num_vert]}; 
         mat_list := [];
         list_of_min_gen := [];
-        for p in which_proj do
+        for p in [1..num_vert] do
+            #
+            #   Finding a K-basis for indecomposable projective associated with vertex  p.
+            #
             P := RightIdeal(A,[vertices[p]]);
             B := CanonicalBasis(P);
             length_B := Length(B);
@@ -181,6 +180,9 @@ InstallOtherMethod ( IndecProjectiveModules,
                     fi;
                 od;
             od;
+            #  
+            #   Finding where the indecomposable projective has no support.
+            #
             zero_vertices := [];
             for i in [1..num_vert] do
                 if ( Length(intervals_of_basis[i]) = 0 ) then
@@ -188,6 +190,9 @@ InstallOtherMethod ( IndecProjectiveModules,
                 fi;
             od;
             vertices_Q := VerticesOfQuiver(Q); 
+            # 
+            #   Finding the matrices defining the representation
+            #             
             mat := [];
             for a in arrows_as_paths do
                 partial_mat := [];
@@ -210,6 +215,9 @@ InstallOtherMethod ( IndecProjectiveModules,
                     Add(mat,[arrow,partial_mat]);
                 fi;
             od;
+            #
+            #   Constructing a generator for each indecomposable projective
+            #        
             Add(mat_list,mat);
             for i in [1..Length(intervals_of_basis)] do
                if intervals_of_basis[i] = [] then
@@ -226,19 +234,30 @@ InstallOtherMethod ( IndecProjectiveModules,
             od;
             Add(list_of_min_gen,intervals_of_basis);
         od;
+        #
+        #   Construct the indecomposable projectives and set the generating set
+        #    
         indec_proj_list := [];
-        for i in [1..Length(which_proj)] do
+        for i in [1..Length([1..num_vert])] do
             Add(indec_proj_list,RightModuleOverPathAlgebra(A,mat_list[i]));
-            list_of_min_gen[i] := PathModuleElem(FamilyObj(Zero(indec_proj_list[i])![1]),list_of_min_gen[i]); 
-            
+            list_of_min_gen[i] := PathModuleElem(FamilyObj(Zero(indec_proj_list[i])![1]),list_of_min_gen[i]);            
             list_of_min_gen[i] := Objectify( TypeObj( Zero(indec_proj_list[i]) ), [ list_of_min_gen[i] ] );
             SetMinimalGeneratingSetOfModule(indec_proj_list[i],[list_of_min_gen[i]]);
         od;
         return indec_proj_list;
-     fi;
+    fi;
 end
 );
 
+#######################################################################
+##
+#A  IndecInjectiveModules( <A> )
+##
+##  This function constructs all the indecomposable injective modules
+##  over a finite dimensional path algebra or quotient of path algebra. 
+##  It returns all the indecomposable injective modules as a list of 
+##  modules corresponding to the numbering of the vertices. 
+##
 InstallMethod ( IndecInjectiveModules, 
     "for a finite dimensional quotient of a path algebra",
     [ IsAlgebra ], 0,
@@ -251,7 +270,16 @@ InstallMethod ( IndecInjectiveModules,
         return List(P_op, x -> DualOfModule(x));
     end
 );
-
+    
+#######################################################################
+##
+#A  SimpleModules( <A> )
+##
+##  This function constructs all the simple modules over a finite 
+##  dimensional path algebra or quotient of path algebra. It returns 
+##  all the simple modules as a list of modules corresponding to the 
+##  numbering of the vertices. 
+##
 InstallMethod ( SimpleModules, 
     "for a finite dimensional quotient of a path algebra",
     [ IsAlgebra ], 0,
@@ -277,12 +305,19 @@ InstallMethod ( SimpleModules,
 end
 );
 
+#######################################################################
+##
+#A  ZeroModule( <A> )
+##
+##  This function constructs all the zero module over a finite 
+##  dimensional path algebra or quotient of path algebra. 
+##
 InstallMethod ( ZeroModule, 
     "for a finite dimensional quotient of a path algebra",
     [ IsAlgebra ], 0,
     function( A )
 
-    local KQ, num_vert, simple_rep, zero, v, temp;
+    local KQ, num_vert, zero;
 #
     if ( not IsPathAlgebra(A) ) and ( not IsQuotientOfPathAlgebra(A) ) then 
        Error("argument entered is a not (a quotient of) a path algebra,\n");
