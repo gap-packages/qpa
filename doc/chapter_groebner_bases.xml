@@ -16,7 +16,7 @@ basis are computed by the <Package>GBNP</Package> package.
 </ManSection>
 
   <ManSection>
-   <Func Name="GroebnerBasis" Arg="A, rels" 
+   <Oper Name="GroebnerBasis" Arg="A, rels" 
 	 Comm=""/>
    <Description>Arguments: <Arg>I</Arg> -- an ideal, <Arg>rels</Arg>
    -- a list of relations generating <Arg>I</Arg>.<Br />
