@@ -34,6 +34,7 @@ InstallMethod( PushOut,
    fi;
 end
 );
+
 #######################################################################
 ##
 #O  PullBack(<f>, <g>)
@@ -71,6 +72,14 @@ InstallMethod( PullBack,
 end
 );
 
+#######################################################################
+##
+#O  IsOmegaPeriodic( <M>, <n> )
+##
+##  This function tests if the module  <M>  is \Omega-periodic, that is,
+##  if  M \simeq \Omega^i(M)  when  i  ranges over the set {1,2,...,n}.
+##  Otherwise it returns false.
+##
 InstallMethod( IsOmegaPeriodic, 
    "for a path algebra matmodule and an integer",
    [ IsPathAlgebraMatModule, IS_INT  ], 0,
@@ -92,6 +101,15 @@ InstallMethod( IsOmegaPeriodic,
 end
 );
 
+#######################################################################
+##
+#O  1stSyzygy( <M> )
+##
+##  This function computes the first syzygy of the module  <M>  by first
+##  finding a minimal set of generators for  <M>, then finding the 
+##  projective cover and computing the first syzygy as a submodule of 
+##  this module.
+##
 InstallMethod( 1stSyzygy,
    "for a path algebra",
    [ IsPathAlgebraMatModule ], 0,
@@ -295,6 +313,18 @@ InstallMethod( 1stSyzygy,
 end
 );
 
+#######################################################################
+##
+#O  NthSyzygy( <M>, <n> )
+##
+##  This functions computes the  <n>-th syzygy of the module  <M> by 
+##  successively computing first, second, third, ... syzygy of  <M> 
+##  using the operation  1stSyzygy  and at each stage checking if the 
+##  syzygy is a projective module. It returns the  <n>-th syzygy if 
+##  no previous syzygy is projective, and if  <M>  has projective 
+##  dimension less than  <n>, then it returns the last non-zero 
+##  projective syzygy. 
+##
 InstallMethod( NthSyzygy,
    "for a path algebra module and a positive integer",
    [ IsPathAlgebraMatModule, IS_INT ], 0,
@@ -321,6 +351,16 @@ InstallMethod( NthSyzygy,
 end
 );
 
+#######################################################################
+##
+#O  NthSyzygyNC( <M>, <n> )
+##
+##  This function computes the  <n>-th syzygy of the module  <M>  by 
+##  successively computing first, second, third, ... syzygy of  <M>
+##  using the operation  1stSyzygy. If the module  <M>  has projective
+##  dimension less than  <n>, then it prints the projective dimension 
+##  of the module.
+##
 InstallMethod( NthSyzygyNC,
    "for a path algebra module and a positive integer",
    [ IsPathAlgebraMatModule, IS_INT ], 0,
@@ -342,6 +382,14 @@ InstallMethod( NthSyzygyNC,
 end
 );
 
+#######################################################################
+##
+#O  MinimalRightApproximation( <M>, <C> )
+##
+##  This function computes the minimal right add<M>-approximation of the
+##  module  <C>.  TODO/CHECK: If one can modify the algorithm as indicated
+##  below with ####.
+##
 InstallMethod ( MinimalRightApproximation, 
    "for two PathAlgebraMatModules",
    true,
@@ -378,15 +426,15 @@ InstallMethod ( MinimalRightApproximation,
          B := BasisVectors(Basis(VoverW));
          gens := List(B, x -> PreImagesRepresentative(f,x)); 
          gens := List(gens, x -> Coefficients(BB,x));
-         gens := List(gens, x -> LinearCombination(HomMC,x));
+         gens := List(gens, x -> LinearCombination(HomMC,x));         
+####         gens := List(gens, x -> RightMinimalVersion(x)[1]);
          approx := List(gens, x -> Source(x));
          approx := DirectSumOfModules(approx);
          approxmap := ShallowCopy(DirectSumProjections(approx));
-         for i in [1..Length(approxmap)] do
-            approxmap[i] := approxmap[i]*gens[i];
-         od;
+         approxmap := List([1..Length(approxmap)], x -> approxmap[x]*gens[x]);         
          approxmap := Sum(approxmap);
          return RightMinimalVersion(approxmap)[1];
+####         return approxmap;
       fi;
    else
       Error(" the two modules entered into MinimalRightApproximation are not modules over the same algebra.");
@@ -395,6 +443,14 @@ InstallMethod ( MinimalRightApproximation,
 end
 );
 
+#######################################################################
+##
+#O   MinimalLeftApproximation( <M>, <C> )
+##
+##  This function computes the minimal left add<M>-approximation of the
+##  module  <C>.  TODO/CHECK: If one can modify the algorithm similarly 
+##  as indicated in MinimalRightApproximation above with ####.
+##
 InstallMethod ( MinimalLeftApproximation, 
    "for two PathAlgebraMatModules",
    true,
@@ -738,11 +794,13 @@ end
 ##
 #O  ExtAlgebraGenerators(<M>,<n>)
 ##
-##  This function computes the generators of the Ext-algebra Ext^*(M,M)
+##  This function computes a set of generators of the Ext-algebra Ext^*(M,M)
 ##  up to degree  <n>. It returns a list of three elements, where the  
 ##  first element is the dimensions of Ext^[0..n](M,M), the second element
-##  is the number of minimal generators in the degrees [0..n], and the 
-##  third element is the generators in these degrees.
+##  is the number of a set generators in the degrees [0..n], and the 
+##  third element is the generators in these degrees. TODO: Create a 
+##  minimal set of generators. Needs to take the radical of the degree
+##  zero part into account.
 ##
 InstallMethod( ExtAlgebraGenerators, 
     "for a module over a quotient of a path algebra",
