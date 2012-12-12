@@ -1,6 +1,3 @@
-Print("Foooooooooooo!!!!!\n");
-
-
 # projective and injective complexes -- property and printing
 
 ###################################################
@@ -58,8 +55,16 @@ end);
 
 # print methods
 
-# value 1: complex which is both projective and injective should be
-# printed as projective.
+###################################################
+##
+#O PrintObj( <C> )
+##
+## For a projective complex <C>
+## Prints a projective complex such that the objects
+## are displayed as "Pi" for the correct vertex i
+##
+## value 1: ensures that a complex which is both 
+## projective and injective should be printed as projective.
 InstallMethod( PrintObj,
                "for a projective complex",
                [ IsProjectiveComplex ],
@@ -113,6 +118,16 @@ InstallMethod( PrintObj,
 
 end);
 
+###################################################
+##
+#O PrintObj( <C> )
+##
+## For an injective complex <C>
+## Prints an injective complex such that the objects
+## are displayed as "Ii" for the correct vertex i
+##
+## value 0: ensures that a complex which is both 
+## projective and injective should be printed as projective.
 InstallMethod( PrintObj,
                "for an injective complex",
                [ IsInjectiveComplex ],
@@ -746,12 +761,9 @@ InstallMethod( StarOfMapBetweenIndecProjectives,
     fi;
 
     for k in [1..Length(j_list)] do
-#        Print("avbildning fra P",i," til P",j_list[k],":\n");
         if(IsZero(summands[k])) then
             Append(u_list,[ZeroMapping(P_op[j_list[k]],P_op[i])]);
-#            Print("... var 0 \n");
         else
-#            Print("... var ikke 0\n");
 
         # constructing f(e_i) as an element in the path algebra
             e_i := MinimalGeneratingSetOfModule(Source(summands[k]))[1];
@@ -770,9 +782,7 @@ InstallMethod( StarOfMapBetweenIndecProjectives,
             support := e_i_op_a_op^jvertice;
             
         # zero maps must also be included
-#            Print(support, "\n");
             if (IsZero(support)) then
-#                Print("fikk likevel 0 til slutt\n");
                 u := ZeroMapping(P_op[j_list[k]],P_op[i]);
             else
                 u := HomFromProjective(support, P_op[i]);
