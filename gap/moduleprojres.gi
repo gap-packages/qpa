@@ -4,18 +4,19 @@
 #
 
 #########################################################################
-#
-#O ProjectiveResolutionFpPathAlgebraModule( <A>, <I>, <presentation_map>, <n> )
-#
-# Given a finite dimension quotient  A=KQ/I  of a path algebra KQ and an ideal  I, 
-# this function computes the fn's and fnprime's in the GSZ-resolution for the module
-# over  A  given by projective presentation over A via the matrix  <presentation_map>.
-# 
+##
+#O  ProjectiveResolutionFpPathAlgebraModule( <A>, <I>, <presentation_map>, <n> )
+##
+##  Given a finite dimension quotient  A=KQ/I  of a path algebra KQ and an ideal  I, 
+##  this function computes the fn's and fnprime's in the GSZ-resolution for the module
+##  over  A  given by projective presentation over A via the matrix  <presentation_map>.
+## 
 InstallMethod( ProjectiveResolutionFpPathAlgebraModule,
-  "for algebras",
-  true,
-  [ IsAlgebra, IsRing and HasGroebnerBasisOfIdeal, IsRingElementTable, IsPosInt ], 0,
-  function(A,I,presentation_map, termint)
+    "for algebras",
+    true,
+    [ IsAlgebra, IsRing and HasGroebnerBasisOfIdeal, IsRingElementTable, IsPosInt ], 0,
+    function(A,I,presentation_map, termint)
+    
     local Res, gen, len, verts, gVerts, rverts, paverts, lverts, RelementsFam, el, el2,
           f, fprime, fprev, fprevprime, i, j, k, m, tmp, L, P, N, M, R, X1, Y1, G, rtG, rtGBofN, maps,
           II, rtGBofII, XSet, perm, mapstmp, finf0, fprimeinf0, temp, temp2;
@@ -25,7 +26,7 @@ InstallMethod( ProjectiveResolutionFpPathAlgebraModule,
     P := [];       # R-projectives:
     L := [];       # R/I-projectives:
     finf0 := [];
-    fprimeinf0 :=[];
+    fprimeinf0 := [];
     maps := [];    # resolution maps:
     #
     # Checking input
@@ -93,7 +94,6 @@ InstallMethod( ProjectiveResolutionFpPathAlgebraModule,
     P[1] := RightProjectiveModule( R, rverts );
     finf0[1] := GeneratorsOfAlgebraModule(P[1]); # f0's
     fprimeinf0[1] := [];  # f0prime's
-#    Print("finf0[1]: ",finf0[1],"\n");
 
     # Convert elements in map from elements in R/I to elements in R:
     X1 := [];
@@ -130,7 +130,7 @@ InstallMethod( ProjectiveResolutionFpPathAlgebraModule,
 
     # Determine f1's and f1primes:
     finf0[2] := []; # f1's
-    fprimeinf0[2] :=[]; # f1prime's
+    fprimeinf0[2] := []; # f1prime's
     i := 1;
     j := 1;
     for el in BasisVectors(rtGBofN) do
@@ -179,12 +179,8 @@ InstallMethod( ProjectiveResolutionFpPathAlgebraModule,
     # Determine the OSet and NSet for our f2's:
     for el in finf0[2] do
         XSet := XSetOfPathAlgebraVector(finf0[1],fprimeinf0[1], I, el![1]);
-#        Print("XSet: ",XSet,"\n");
         for el2 in XSet[1] do
             tmp := finf0[1][el2[2]]^(el2[3]*el2[4]);
-#            Print("\tfirstpart: ",FirstPart(finf0[2],fprimeinf0[2],tmp![1]),"\n");
-#            Print("\t\ttmp: ",tmp,"\n");
-#            Print("\t\t\tf1: ",el,"\n");
             maps[2][i] := FirstPart(finf0[2],fprimeinf0[2],tmp![1]);
             temp := ShallowCopy(Zero(P[1]));
             for j in [1..Length(finf0[2])] do
@@ -193,19 +189,10 @@ InstallMethod( ProjectiveResolutionFpPathAlgebraModule,
             finf0[3][i] := ShallowCopy(temp);
             i := i + 1;
         od;
-#        if Length(XSet[2]) > 0 then 
-#            Print("NSet for k = 2: ",XSet[2],"\n");
-#            Print("\tel i finf0[2]: ",el,"\n");
-#        fi;
         for el2 in XSet[2] do
-#            Print("\t\tel2: ",el2,"\n");
             Add(fprimeinf0[3],(el^el2[2])^el2[3]);
         od;
     od;
-#    Print("maps[2]: ",maps[2],"\n");
-#    Print("finf0[3]'s: ",finf0[3],"\n");    
-#    Print("fprimeinf0[3]'s: ",fprimeinf0[3],"\n"); 
-          
     # Since all f2's should be right uniform, get the vertices for the vertex projective P[3]:
     lverts := [];
     for el in finf0[3] do
@@ -225,7 +212,6 @@ InstallMethod( ProjectiveResolutionFpPathAlgebraModule,
 
 
 ## START REPEATING HERE
-#    Print("Groebner basis: ",GroebnerBasisOfIdeal(I)!.relations,"\n");
     
     for k in [3..termint] do
         finf0[k+1] := [];
@@ -237,13 +223,10 @@ InstallMethod( ProjectiveResolutionFpPathAlgebraModule,
         
         for el in finf0[k] do
             XSet := XSetOfPathAlgebraVector(finf0[k-1],fprimeinf0[k-1], I, el![1]);            
-#            Print("OSet for k=",k," and element ",el,": ",XSet[1],"\n");
             for el2 in XSet[1] do
                 tmp := finf0[k - 1][el2[2]]^(el2[3]*el2[4]);
-#                Print("\ttmp is now: ",tmp,"\n");
                 if not IsZero(tmp) then
                     maps[k][i] := FirstPart(finf0[k],fprimeinf0[k],tmp![1]);
-#                    Print("\t\tfirstpart: ",maps[k][i],"\n");                    
                     temp := Zero(P[1]);
                     for j in [1..Length(maps[k][i])] do
                         temp := temp + finf0[k][j]^maps[k][i][j];
@@ -252,7 +235,6 @@ InstallMethod( ProjectiveResolutionFpPathAlgebraModule,
                     i := i + 1;
                 fi;
             od;
-#            Print("NSet for k=",k,": ",XSet[2],"\n");         
             for el2 in XSet[2] do
                 Add(fprimeinf0[k + 1],(el^el2[2])^el2[3]);                
             od;
@@ -301,18 +283,19 @@ end
 );   
 
 #########################################################################
-#
-#O ProjectiveResolutionOfPathAlgebraModule( <M>, <n> )
-#
-# Given a finite dimension quotient of a path algebra and a module  M  over 
-# it this function computes the f^i's and f^iprime's in the GSZ-resolution 
-# for the module  M out to step  <n>.
-# 
+##
+#O  ProjectiveResolutionOfPathAlgebraModule( <M>, <n> )
+##
+##  Given a finite dimension quotient of a path algebra and a module  M  over 
+##  it this function computes the f^i's and f^iprime's in the GSZ-resolution 
+##  for the module  M out to step  <n>.
+## 
 InstallMethod( ProjectiveResolutionOfPathAlgebraModule,
-  "for a PathAlgebraMatModule and a positive integer",
-  true,
-  [ IsPathAlgebraMatModule, IsPosInt ], 0,
-  function( M, termint )
+    "for a PathAlgebraMatModule and a positive integer",
+    true,
+    [ IsPathAlgebraMatModule, IsPosInt ], 0,
+    function( M, termint )
+    
     local A, fam, I, Res, gen, len, verts, gVerts, ProjPres, rverts, paverts, lverts, RelementsFam, el, el2,
           f, fprime, fprev, fprevprime, i, j, k, m, tmp, L, P, N, R, X1, Y1, G, rtG, rtGBofN, maps,
           II, rtGBofII, XSet, perm, mapstmp, finf0, fprimeinf0, temp, temp2, fones;
@@ -381,8 +364,6 @@ InstallMethod( ProjectiveResolutionOfPathAlgebraModule,
     Sort(fprimeinf0[2],\<);
     finf0[2] := Reversed(finf0[2]);
     fprimeinf0[2] := Reversed(fprimeinf0[2]);
-#    Print("f1's: ",finf0[2],"\n");
-#    Print("f1primes's: ",fprimeinf0[2],"\n");
     maps[1] := ProjPres[5]; # the first map
     
     # Since all f1's should be right uniform, get the vertices for the vertex projective P[2]:
@@ -419,13 +400,11 @@ InstallMethod( ProjectiveResolutionOfPathAlgebraModule,
                         temp := temp + finf0[k][j]^maps[k][i][j];
                     od;
                     finf0[k + 1][i] := temp;
-#                    Print("New f^(k+1): ",temp,"\n");
                     i := i + 1;
                 fi;
             od;
             for el2 in XSet[2] do
                 Add(fprimeinf0[k + 1],(el^el2[2])^el2[3]);
-#                Print("New fprime^(k+1): ",(el^el2[2])^el2[3],"\n");
             od;
         od;
 
@@ -468,22 +447,23 @@ end
 );   
 
 #########################################################################
-#
-#O XSetOfPathAlebraVector( <fn>, <fnprime>, <I>, <v> )
-# 
-# For a set of  f^n's and f^nprime  for a projective GSZ-resolution of a 
-# module, the function returns two lists: list 1 is the OSet and list 2 
-# is the NSet. The definition of the OSet and the NSet are given in the 
-# paper Green-Solberg-Zacharia.
-# 
+##
+#O  XSetOfPathAlebraVector( <fn>, <fnprime>, <I>, <v> )
+## 
+##  For a set of  f^n's and f^nprime  for a projective GSZ-resolution of a 
+##  module, the function returns two lists: list 1 is the OSet and list 2 
+##  is the NSet. The definition of the OSet and the NSet are given in the 
+##  paper Green-Solberg-Zacharia.
+## 
 InstallMethod( XSetOfPathAlgebraVector,
-  "for path algebra vectors",
-  true, 
-  [ IsHomogeneousList, IsHomogeneousList,
+    "for path algebra vectors",
+    true, 
+    [ IsHomogeneousList, IsHomogeneousList,
     IsRing and HasGroebnerBasisOfIdeal, 
     IsPathAlgebraVector ],
-  0,
-  function( finf0, fprimeinf0, I, fn )
+    0,
+    function( finf0, fprimeinf0, I, fn )
+    
     local rightgb, rightgbtips, i, divides, j, tippath, tipcoeff, coeffs, position, redtippath,
           redtippathlength, testset, fam, gb, walkoftipsgb, OSet, NSet, XSet, t, rightgbtip, 
           rightgbtipcoeff, rightgbtipwalk, qlength, found, gindex, glength, zwalk, zpath, qprimewalk, 
@@ -509,18 +489,12 @@ InstallMethod( XSetOfPathAlgebraVector,
     tipcoeff := TipCoefficient(fn![1][fn![2]]);
     # write fn in terms of f^(n-1)'s
     coeffs := FirstPart(finf0,fprimeinf0,fn);
-#    Print("coeffs: ",coeffs,"\n");
-#    Print("\ttippath: ",tippath,"\n");
     positions := Filtered([1..Length(finf0)], x -> PositionSublist(WalkOfPath(tippath),WalkOfPath(TipMonomial(finf0[x]![1]![1][finf0[x]![1]![2]]))) = 1);    
-#    Print("1-positions: ",positions,"\n");
     positions := Filtered(positions, x -> not IsZeroPath(TipMonomial(coeffs[x])));
-#    Print("2-positions: ",positions,"\n");
     coeffstips := List(positions, x -> TipMonomial(coeffs[x]));
     maxtip := Maximum(coeffstips);
     position := positions[Position(coeffstips,maxtip)];
     redtippath := TipMonomial(coeffs[position]);
-#    Print("\t\t\t\tfn: ",fn,"\n");
-#    Print("\t\t\t\t\tredtipppath: ",redtippath,"\n");
     redtippathlength := LengthOfPath(redtippath);
     testset := Filtered(rightgbtips, x -> PositionSublist(WalkOfPath(x[1]),WalkOfPath(redtippath))=1);
     fam := FamilyObj(rightgb[1]);
@@ -554,7 +528,6 @@ InstallMethod( XSetOfPathAlgebraVector,
                 zwalk := ExtRepOfObj(rightgbtip*One(rightgb[1]));
                 zwalk := [zwalk[1], [zwalk[2][1]{[(redtippathlength + 1)..(qlength - glength)]}, zwalk[2][2]]];
                 zpath := ObjByExtRep(fam,zwalk);
-#                Print("zwalk: ",ObjByExtRep(fam,zwalk),"\n");
             fi;
             Add(NSet, [t[1], zpath, gb!.relations[gindex]]);
         else
@@ -573,15 +546,23 @@ InstallMethod( XSetOfPathAlgebraVector,
 end
 );
 
+#######################################################################
+##
+#O  TipReduce( <M> )
+##
+##  This function tip reduces a set of elements  <M>  for a path algebra
+##  module. 
+##
 InstallMethod( TipReduce,
-  "tip reduce set of elements from path algebra module",
-  true, 
-  [IsHomogeneousList], 0,
-  function( M )
+    "tip reduce set of elements from path algebra module",
+    true, 
+    [IsHomogeneousList], 0,
+    function( M )
+    
     local i, j, H, Hlen, reducible, redset;
 
     if ( not IsRightAlgebraModuleElementCollection(M) ) then
-      TryNextMethod();
+        TryNextMethod();
     fi;
 
     H := List(M, ExtRepOfObj );
@@ -589,42 +570,44 @@ InstallMethod( TipReduce,
     # Tip reduce H to create a Right Groebner Basis:
     reducible := true;
     while reducible do
-
-      # remove zeros:
-      H := Filtered(H, x -> not IsZero(x));
-
-      reducible := false;
-
-      Hlen := Length(H);
-
-      for i in [1..Hlen] do
-        redset := Difference([1..Hlen],[i]);
-        for j in redset do
-          # if H[j] divides H[i]:
-          if IsLeftDivisible(H[i], H[j]) then
-            H[i] := ReduceRightModuleElement( H[i], H[j] );
-            reducible := true;
-            break;
-          fi;
+        # remove zeros:
+        H := Filtered(H, x -> not IsZero(x));
+        reducible := false;
+        Hlen := Length(H);
+        for i in [1..Hlen] do
+            redset := Difference([1..Hlen],[i]);
+            for j in redset do
+            # if H[j] divides H[i]:
+                if IsLeftDivisible(H[i], H[j]) then
+                    H[i] := ReduceRightModuleElement( H[i], H[j] );
+                    reducible := true;
+                    break;
+                fi;
+            od;
+            if reducible then
+                break;
+            fi;
         od;
-        if reducible then
-          break;
-        fi;
-      od;
-
     od;
 
     return H;
-
-  end
+end
 );
 
-
+#######################################################################
+##
+#O  TipReduce( <H>, <el> )
+##
+##  Given an element  <el>  in a path algebra module, this function 
+##  tip reduces the element modulo the set of path algebra vectors
+##  <H>. 
+##
 InstallMethod( TipReduce,
-  "tip reduce path algebra vector by set of path algebra vectors",
-  true, 
-  [IsHomogeneousList, IsPathAlgebraVector], 0,
-  function( H, el )
+    "tip reduce path algebra vector by set of path algebra vectors",
+    true, 
+    [IsHomogeneousList, IsPathAlgebraVector], 0,
+    function( H, el )
+    
     local i, reducible, rlen, redset;
 
     # Tip reduce el to by set redset:
@@ -634,32 +617,34 @@ InstallMethod( TipReduce,
     redset := List(H, ExtRepOfObj );
  
     while reducible and (not IsZero(el)) do
-
-      reducible := false;
-
-      i := 1;
-      rlen := Length(redset);
-      while i <= rlen do
-
-#Print("\t",i," el:", el,"\n");
-        # if redset[i] divides el:
-        if IsLeftDivisible(el, redset[i]) then
-#Print("\t\thit\n");
-          el := ReduceRightModuleElement( el, redset[i] );
-          reducible := true;
-          break;
-        else
-          i := i + 1;    
-        fi;
-      od;
+        reducible := false;
+        i := 1;
+        rlen := Length(redset);
+        while i <= rlen do
+            if IsLeftDivisible(el, redset[i]) then
+                el := ReduceRightModuleElement( el, redset[i] );
+                reducible := true;
+                break;
+            else
+                i := i + 1;    
+            fi;
+        od;
     od;
 
     return el;
-
-  end
+end
 );
 
-# returns a list of algebra elements:
+
+#######################################################################
+##
+#O  FirstPart( <f>, <fprime, v )
+##
+##  Given an element  <v>  in a module which is spanned by  <f>  and 
+##  <fprime>, this function computes the coefficients used to write 
+##  <v>  in terms of  <f>  and  <fprime>  and returns the coefficients
+##  for  <f>. 
+##
 InstallMethod( FirstPart,
     "writes a module element as a finite sum of given module elements",
     true, 
@@ -669,8 +654,6 @@ InstallMethod( FirstPart,
     
     fUfprime := Concatenation(f,fprime); 
     fUfprime := List(fUfprime, x -> x![1]);
-#    Print("fUfprime: ",fUfprime,"\n");
-#    Print("v : ",v,"\n");
     flen := Length(fUfprime);
     
     fam := FamilyObj(v![1][v![2]]);
@@ -699,66 +682,61 @@ end
 );  
   
 # operation that returns right factor if y divides x.
+#######################################################################
+##
+#O  LeftDivision( <x>, <y> )
+##
+##  Given two path algebra vectors  <x>  and  <y>, this functions 
+##  returns true if the tip of  <y>  left divides the tip of  <x>. 
+##
 InstallMethod( LeftDivision,
-  "for path algebra vectors",
-  true,
-  [ IsPathAlgebraVector,
-    IsPathAlgebraVector], 0,
-  function( x, y )
+    "for path algebra vectors",
+    true,
+    [ IsPathAlgebraVector,
+      IsPathAlgebraVector], 0,
+    function( x, y )
+    
     local xTipPos, xLeadingTerm, xCoeff, xMon, xWalk,
           yTipPos, yLeadingTerm, yCoeff, yMon, yWalk,
           fam, rightfactor, rfrep, xrep;
 
     if (IsZero(x) or IsZero(y)) then
-      Error("don't send me zeroes, please.\n");
+        Error("don't send me zeroes, please.\n");
     else
-      fam := FamilyObj(x![1][x![2]]);
-      rightfactor := One(x![1][x![2]]);
+        fam := FamilyObj(x![1][x![2]]);
+        rightfactor := One(x![1][x![2]]);
+        
+        # Word to be divided:
+        xTipPos := x![2];
+        xLeadingTerm := LeadingTerm(x)![1][xTipPos];
+        xMon := TipMonomial(xLeadingTerm);
+        xCoeff := TipCoefficient(xLeadingTerm);
+        xWalk := WalkOfPath(xMon);
 
-      # Word to be divided:
-      xTipPos := x![2];
-#Print("tipcoord: ",x![2],"\n");
-#Print("LeadingTerm: ",LeadingTerm(x),"\n");
-      xLeadingTerm := LeadingTerm(x)![1][xTipPos];
-      xMon := TipMonomial(xLeadingTerm);
-      xCoeff := TipCoefficient(xLeadingTerm);
-#Print("xMon: ",xMon,"\n");
-      xWalk := WalkOfPath(xMon);
+        # Dividing word:
+        yTipPos := y![2];
+        yLeadingTerm := LeadingTerm(y)![1][yTipPos];
+        yMon := TipMonomial(yLeadingTerm);
+        yCoeff := TipCoefficient(yLeadingTerm);
+        yWalk := WalkOfPath(yMon);
 
-      # Dividing word:
-      yTipPos := y![2];
-      yLeadingTerm := LeadingTerm(y)![1][yTipPos];
-      yMon := TipMonomial(yLeadingTerm);
-      yCoeff := TipCoefficient(yLeadingTerm);
-      yWalk := WalkOfPath(yMon);
-
-      if ((xTipPos = yTipPos) and (PositionSublist(xWalk, yWalk) = 1)) then
-        # Create right factor:
-        if ( Length(yWalk) <> Length(xWalk) ) then
-          xrep := ExtRepOfObj(xLeadingTerm);
-#Print("xrep: ",xrep,"\n");
-#Print("xCoeff: ",xCoeff,"\n");
-#Print("yCoeff: ",yCoeff,"\n");
-
-          # Note: creating the external rep of object here, complete with
-          #       appropriate coefficient:
-          #          xCoeff == (xCoeff/yCoeff)*yCoeff.
-          rfrep := [xrep[1],[ xrep[2][1]{[(Length(yWalk)+1)..Length(xWalk)]}, xCoeff/yCoeff]];
-          rightfactor := ObjByExtRep(fam,rfrep);
-#          rightfactor := (xCoeff/yCoeff)*rightfactor;
+        if ((xTipPos = yTipPos) and (PositionSublist(xWalk, yWalk) = 1)) then
+            # Create right factor:
+            if ( Length(yWalk) <> Length(xWalk) ) then
+                xrep := ExtRepOfObj(xLeadingTerm);
+                # Note: creating the external rep of object here, complete with
+                #       appropriate coefficient:
+                #          xCoeff == (xCoeff/yCoeff)*yCoeff.
+                rfrep := [xrep[1],[ xrep[2][1]{[(Length(yWalk)+1)..Length(xWalk)]}, xCoeff/yCoeff]];
+                rightfactor := ObjByExtRep(fam,rfrep);
+            else
+                rightfactor := (xCoeff/yCoeff)*One(x![1][x![2]])*TargetVertex(xMon);
+            fi;
         else
-#Print(TargetVertex(xMon),"\n");
-          rightfactor := (xCoeff/yCoeff)*One(x![1][x![2]])*TargetVertex(xMon);
-#          rightfactor := (xCoeff/yCoeff)*rightfactor;
+            return false;
         fi;
 
-      else
-        return false;
-      fi;
-
-#Print("rightfactor: ",rightfactor,"\n");
-      return rightfactor;
+        return rightfactor;
     fi;
-
-  end
+end
 );
