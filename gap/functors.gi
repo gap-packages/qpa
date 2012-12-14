@@ -1,6 +1,16 @@
 # GAP Implementation
 # This file was generated from 
 # $Id: functors.gi,v 1.9 2012/05/15 07:12:00 sunnyquiver Exp $
+
+
+#######################################################################
+##
+#O  DualOfModule(<M>)
+##
+##  This function computes the dual DM of the module <M>, that is, 
+##  it computes Hom_k(M, k). If <M> is a module over A, then DM is a
+##  module over the opposite algebra of A.
+##
 InstallMethod ( DualOfModule,
     "for a representation of a quiver",
     [ IsPathAlgebraMatModule ], 0,
@@ -46,6 +56,17 @@ fi;
 end
 );
 
+#######################################################################
+##
+#O  TransposeOfModule(<M>)
+##
+##  This function computes the transpose Tr(M) of the module <M>, that is, 
+##  if  P1 ---> P0 ---> M ---> 0 is a projective presentation of <M>,
+##  and <M> is a module over an algebra A, then Tr(M) is the cokernel
+##  of the map
+##
+##    Hom_A(P0,A) ---> Hom_A(P1,A)
+##
 InstallMethod( TransposeOfModule,
    "for a path algebra",
    [ IsPathAlgebraMatModule ], 0,
@@ -281,6 +302,14 @@ fi;
 end
 );
 
+#######################################################################
+##
+#O  DTr(<M>)
+##
+##  This function returns the dual of the transpose of a module <M>,
+##  sometimes denoted by "tau". It uses the previous methods DualOfModule
+##  and TransposeOfModule.
+##  
 InstallMethod( DTr,
     "for a path algebra module",
     [ IsPathAlgebraMatModule ], 0,
@@ -290,6 +319,14 @@ InstallMethod( DTr,
 end
 );
 
+#######################################################################
+##
+#O  TrD(<M>)
+##
+##  This function returns the transpose of the dual of a module <M>,
+##  sometimes denoted by "tau inverse". It uses the previous methods DualOfModule
+##  and TransposeOfModule.
+##  
 InstallMethod( TrD,
     "for a path algebra module",
     [ IsPathAlgebraMatModule ], 0,
@@ -299,6 +336,14 @@ InstallMethod( TrD,
 end
 );
 
+#######################################################################
+##
+#O  DTr(<M>, <n>)
+##
+##  This function returns returns DTr^n(<M>) of a module <M>.
+##  It will also print "Computing step i ..." when computing the ith 
+##  DTr. <n> must be an integer.
+##  
 InstallOtherMethod( DTr,
    "for a path algebra module",
    [ IsPathAlgebraMatModule, IS_INT ], 0,
@@ -325,6 +370,15 @@ InstallOtherMethod( DTr,
 end
 );
 
+#######################################################################
+##
+#O  TrD(<M>, <n>)
+##  
+##  This function returns returns TrD^n(<M>) of a module <M>.
+##  It will also print "Computing step i ..." when computing the ith 
+##  TrD. <n> must be an integer.
+##  
+##
 InstallOtherMethod( TrD,
    "for a path algebra module",
    [ IsPathAlgebraMatModule, IS_INT ], 0,
