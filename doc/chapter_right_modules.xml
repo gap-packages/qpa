@@ -706,81 +706,81 @@ Here we collect the predefined representations/modules over a finite
   dimensional quotient of a path algebra. 
 
   <ManSection>
-   <Oper Name="BasisOfProjectives" Arg="A" Comm=""/>
-   <Description> 
-    Arguments: <Arg>A</Arg> -- a finite dimensional (quotient of a) path
-    algebra.
-   <Br /></Description>
-   <Returns>a list of bases for all the indecomposable projective
-   representations over <Arg>A</Arg>. The basis for each indecomposable projective is given a list of elements in nontips in <Arg>A</Arg>. 
-   </Returns>
-   <Description>
-     The function checks if the algebra <Arg>A</Arg> is a
-     finite dimensional (quotient of a) path algebra, and returns an 
-     error message otherwise. 
-   </Description>
+    <Attr Name="BasisOfProjectives" Arg="A" Comm=""/>
+    <Description> 
+      Arguments: <Arg>A</Arg> -- a finite dimensional (quotient of a) path
+      algebra.
+    <Br /></Description>
+    <Returns>a list of bases for all the indecomposable projective
+    representations over <Arg>A</Arg>. The basis for each indecomposable projective is given a list of elements in nontips in <Arg>A</Arg>. 
+    </Returns>
+    <Description>
+      The function checks if the algebra <Arg>A</Arg> is a
+      finite dimensional (quotient of a) path algebra, and returns an 
+      error message otherwise. 
+    </Description>
   </ManSection>
 
   <ManSection>
-   <Attr Name="IndecInjectiveModules" Arg="A" Comm="for an algebra"/>
-   <Description> 
-    Arguments: <Arg>A</Arg> -- a finite dimensional (quotient of a) path
-    algebra, (optional) <Arg>list</Arg> -- a list of integers.
-   <Br /></Description>
-   <Returns>a list of all the non-isomorphic indecomposable injective
-   representations over <Arg>A</Arg>. 
-   </Returns>
-   <Description>
-     The function checks if the algebra <Arg>A</Arg> is a finite
-     dimensional (quotient of a) path algebra, and returns an error
-     message otherwise. 
-   </Description>
+    <Attr Name="IndecInjectiveModules" Arg="A" Comm="for an algebra"/>
+    <Description> 
+      Arguments: <Arg>A</Arg> -- a finite dimensional (quotient of a) path
+      algebra.
+    <Br /></Description>
+    <Returns>a list of all the non-isomorphic indecomposable injective
+    representations over <Arg>A</Arg>. 
+    </Returns>
+    <Description>
+      The function checks if the algebra <Arg>A</Arg> is a finite
+      dimensional (quotient of a) path algebra, and returns an error
+      message otherwise. 
+    </Description>
+  </ManSection>
+  
+  <ManSection>
+    <Attr Name="IndecProjectiveModules" Arg="A" Comm="for an algebra"/>
+    <Description> 
+      Arguments: <Arg>A</Arg> -- a finite dimensional (quotient of a) path
+      algebra.
+    <Br /></Description>
+    <Returns>a list of all the non-isomorphic indecomposable projective
+    representations over <Arg>A</Arg>. 
+    </Returns>
+    <Description>
+      The function checks if the algebra <Arg>A</Arg> is a
+      finite dimensional (quotient of a) path algebra, and returns an 
+      error message otherwise. 
+    </Description>
   </ManSection>
 
   <ManSection>
-   <Attr Name="IndecProjectiveModules" Arg="A" Comm="for an algebra"/>
-   <Description> 
-    Arguments: <Arg>A</Arg> -- a finite dimensional (quotient of a) path
-    algebra.
-   <Br /></Description>
-   <Returns>a list of all the non-isomorphic indecomposable projective
-   representations over <Arg>A</Arg>. 
-   </Returns>
-   <Description>
-     The function checks if the algebra <Arg>A</Arg> is a
-     finite dimensional (quotient of a) path algebra, and returns an 
-     error message otherwise. 
-   </Description>
+    <Attr Name="SimpleModules" Arg="A" Comm=""/>
+    <Description> 
+      Arguments: <Arg>A</Arg> -- a finite dimensional (quotient of a) path
+      algebra.
+    <Br /></Description>
+    <Returns>a list of all the simple representations over <Arg>A</Arg> .
+    </Returns>
+    <Description>
+      The function checks if the algebra <Arg>A</Arg> is a finite
+      dimensional (quotient of a) path algebra, and returns an error
+      message otherwise. 
+    </Description>
   </ManSection>
-
+  
   <ManSection>
-   <Attr Name="SimpleModules" Arg="A" Comm=""/>
-   <Description> 
-    Arguments: <Arg>A</Arg> -- a finite dimensional (quotient of a) path
-    algebra.
-   <Br /></Description>
-   <Returns>a list of all the simple representations over <Arg>A</Arg> .
-   </Returns>
-   <Description>
-     The function checks if the algebra <Arg>A</Arg> is a finite
-     dimensional (quotient of a) path algebra, and returns an error
-     message otherwise. 
-   </Description>
-  </ManSection>
-
-  <ManSection>
-   <Attr Name="ZeroModule" Arg="A" Comm=""/>
-   <Description> 
-    Arguments: <Arg>A</Arg> -- a finite dimensional (quotient of a) path
-    algebra.
-   <Br /></Description>
-   <Returns>the zero representation over <Arg>A</Arg> .
-   </Returns>
-   <Description>
-     The function checks if the algebra <Arg>A</Arg> is a finite
-     dimensional (quotient of a) path algebra, and returns an error
-     message otherwise. 
-   </Description>
+    <Attr Name="ZeroModule" Arg="A" Comm=""/>
+    <Description> 
+      Arguments: <Arg>A</Arg> -- a finite dimensional (quotient of a) path
+      algebra.
+    <Br /></Description>
+    <Returns>the zero representation over <Arg>A</Arg> .
+    </Returns>
+    <Description>
+      The function checks if the algebra <Arg>A</Arg> is a finite
+      dimensional (quotient of a) path algebra, and returns an error
+      message otherwise. 
+    </Description>
   </ManSection>
 </Section>
 
