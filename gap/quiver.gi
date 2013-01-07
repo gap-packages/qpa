@@ -763,6 +763,69 @@ InstallMethod( IsAcyclicQuiver,
 );
 
 
+
+#############################################################################
+##
+#P  IsConnectedQuiver(<Q>)
+##
+##  This function returns true if a quiver <Q> is a connected graph
+##  (i.e. each pair of vertices is connected by an unoriented path).
+##
+InstallMethod( IsConnectedQuiver,
+  "for quivers",
+  true,
+  [ IsQuiver ], 0,
+  function ( Q )
+    local BackNeighborsOfVertex, Visit, color, GRAY, BLACK, WHITE,
+          vertex_list, res, vert;
+    
+    WHITE := 0; GRAY := 1; BLACK := -1;
+    
+    
+    Visit := function(v)
+      local adj, uPos, result, vertex, arrow; 
+        
+      color[v] := GRAY;
+        
+      adj := List(NeighborsOfVertex(vertex_list[v]),
+                  x -> Position(vertex_list, x));
+      for arrow in IncomingArrowsOfVertex(vertex_list[v]) do
+        vertex := Position(vertex_list, SourceOfPath(arrow));
+        if not (vertex in adj) then
+          Add(adj, vertex);
+        fi;
+      od; # Now adj contains all vertices adjacent to v (by arrows outgoing from and incoming to v)
+      
+      for vertex in adj do
+        if color[vertex] = WHITE then
+          Visit(vertex);
+        fi;
+      od;
+      color[v] := BLACK;
+      
+      return true;
+    end;
+    
+    color := [];
+    vertex_list := VerticesOfQuiver(Q);
+
+    if Length(vertex_list) = 0 then
+      return true;
+    fi;
+    
+    for vert in [1 .. Length(vertex_list) ] do
+      color[vert] := WHITE;
+    od;
+    
+    Visit(1);
+    
+    return not (WHITE in color);
+
+  end
+); #IsConnectedQuiver
+
+
+
 InstallMethod( IsFinite,
   "for quivers",
   true,
