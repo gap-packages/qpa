@@ -41,7 +41,6 @@ DeclareOperation("DescriptionOfFiniteInjComplex", [IsComplex]);
 
 # "help functions"
 DeclareOperation("MultiplyListsOfMaps", [IsList, IsList, IsList]);
-DeclareOperation("InverseOfIsomorphism", [ IsPathAlgebraMatModuleHomomorphism ]);
 DeclareOperation("MatricesOfDualMap", [IsPathAlgebraMatModuleHomomorphism]);
 DeclareOperation("FindAllMapComponents", [ IsPathAlgebraMatModuleHomomorphism ]);
 DeclareOperation("DirectSumMinusSummands", [IsPathAlgebraMatModule, IsList]);

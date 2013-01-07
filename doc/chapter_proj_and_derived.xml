@@ -1,10 +1,16 @@
 <Chapter>
 <Heading>Projective resolutions and the bounded derived category</Heading>
 
+What is implemented so far for working with the bounded derived
+category <Math>\mathcal{D}^{b}( \modc A )</Math>. We use the
+isomorphism <Math>\mathcal{D}^{b}( \modc A ) \cong
+\mathcal{K}^{-,b}(\proj A)</Math>, and will hence need a way to
+describe complexes where all objectives are projective (or, dually,
+injective).
+
 <Section>
 <Heading>Projective and injective complexes</Heading>
-Not finished yet! Some bugs and stuff to be fixed, both in the
-documentation and in the code …
+
 <ManSection>
   <Prop Name="IsProjectiveComplex" Arg="C" />
   <Description>
@@ -118,14 +124,17 @@ working with complexes in the derived category.
 
 <ManSection>
   <Oper Name="ProjectiveToInjectiveComplex" Arg="P" />
+  <Oper Name="ProjectiveToInjectiveFiniteComplex" Arg="P" />
   <Description>
     Arguments: <Arg>P</Arg> -- a bounded below projective complex.<Br />
   </Description>
   <Returns>An injective complex <Math>I = D\mathrm{Hom}_{A}(P,A)</Math>.
   </Returns>
   <Description><Math>P</Math> and <Math>I</Math> will always have the
-  same length. Especially, if <Math>P</Math> is unbounded above, then so
-  is <Math>I</Math>. 
+  same length. Especially, if <Math>P</Math> is unbounded above, then
+  so is <Math>I</Math>. If <Math>P</Math> is a finite complex (that
+  is; <C>LengthOfComplex(P)</C> is an integer) then the simpler method
+  <C>ProjectiveToInjectiveFiniteComplex</C> is used.
   </Description>
 </ManSection>
 
@@ -164,7 +173,8 @@ injective <Math>I_1</Math> in degree 0.
 <Example><![CDATA[
 gap> alg;
 <Rationals[<quiver with 3 vertices and 2 arrows>]/
-<two-sided ideal in <Rationals[<quiver with 3 vertices and 2 arrows>]>, (1 generators)>>
+<two-sided ideal in <Rationals[<quiver with 3 vertices and 2 arrows>]>, 
+  (1 generators)>>
 gap> cat := CatOfRightAlgebraModules(alg);
 <cat: right modules over algebra>
 gap> C := StalkComplex(cat, IndecInjectiveModules(alg)[1], 0);
@@ -182,7 +192,35 @@ true
 gap> C;
 0 -> 0: I1 -> 0 ]]>
 </Example>
+
 </Subsection>
+
+<ManSection>
+  <Oper Name="StarOfMapBetweenProjectives" Arg="f, list_i, list_j" />
+  <Oper Name="StarOfMapBetweenIndecProjectives" Arg="f, i, list_j" />
+  <Oper Name="StarOfMapBetweenDecompProjectives" Arg="f, list_i, list_j" />
+  <Description>
+    Arguments: <Arg>f</Arg> -- a map between to projective modules
+    <Math>P = \bigoplus P_i</Math> and <Math>Q = \bigoplus Q_j</Math>,
+    each of which were constructed as direct sums of indecomposable
+    projective modules; <Arg>list_i</Arg> -- describes the summands of
+    <Math>P</Math>; <Arg>list_j</Arg> -- describes the summands of
+    <Math>Q</Math>.  If <Math>P = P_1 \oplus P_3 \oplus P_3</Math>
+    (where <Math>P_i</Math> is the indecomposable projective
+    representation in vertex <Math>i</Math>), then <Arg>list_i</Arg>
+    is [1,3,3].<Br />
+  </Description>
+  <Returns>The map <Math>f^* = \Hom_A(f,A): \Hom_A(Q,A) \rightarrow \Hom_A(P,A)</Math>
+  in <Math>A^{\mathrm{op}}</Math> (where <Math>A</Math> is the
+  original algebra).
+  </Returns>
+  <Description>The function <C>StarOfMapBetweenProjectives</C> is supposed to
+  be called from within the <C>ProjectiveToInjectiveComplex</C> method, and
+  might not do as expected when called from somewhere else. <P />
+
+  The other similarly named functions are called from within the first.
+  </Description>
+</ManSection>
 
 </Section>
 </Chapter>
