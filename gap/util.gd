@@ -27,7 +27,7 @@ DeclareOperation( "PositionsNonzero", [ IsList ] );
 
 # Returns the square of the number x.
 
-DeclareOperation( "Square", [ IsRat ] );
+# DeclareOperation( "Square", [ IsRat ] );
 
 
 # NullList( length, field )
