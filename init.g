@@ -36,5 +36,6 @@ ReadPackage("QPA", "gap/modulehomalg.gd");
 ReadPackage("QPA", "gap/util.gd");
 ReadPackage("QPA", "gap/complex.gd");
 ReadPackage("QPA", "gap/derivedcat.gd");
+ReadPackage("QPA", "gap/pathalgreptype.gd");
 
 #E  init.g . . . . . . . . . . . . . . . . . . . . . . . . . . . .  ends here
