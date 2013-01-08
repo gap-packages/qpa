@@ -825,6 +825,26 @@ InstallMethod( IsConnectedQuiver,
 ); #IsConnectedQuiver
 
 
+#############################################################################
+##
+#P  IsTreeQuiver(<Q>)
+##
+##  This function returns true if a quiver <Q> is a tree as a graph
+##  (i.e. it is connected and contains no unoriented cycles).
+##
+InstallMethod( IsTreeQuiver,
+  "for quivers",
+  true,
+  [ IsQuiver ], 0,
+  function ( Q )
+    
+    return (NumberOfArrows(Q) = NumberOfVertices(Q) - 1) and IsConnectedQuiver(Q);
+
+  end
+); #IsTreeQuiver
+
+
+
 
 InstallMethod( IsFinite,
   "for quivers",

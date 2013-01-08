@@ -38,6 +38,7 @@ DeclareAttribute("AdjacencyMatrixOfQuiver", IsQuiver);
 DeclareSynonymAttr( "GeneratorsOfQuiver", GeneratorsOfMagma);
 DeclareProperty("IsAcyclicQuiver", IsQuiver);
 DeclareProperty("IsConnectedQuiver", IsQuiver);
+DeclareProperty("IsTreeQuiver", IsQuiver); # better name??
 InstallImmediateMethod(IsFinite, IsQuiver and HasIsAcyclicQuiver, 0, IsAcyclicQuiver);
 DeclareAttribute("NumberOfVertices", IsQuiver);
 DeclareAttribute("NumberOfArrows", IsQuiver);
