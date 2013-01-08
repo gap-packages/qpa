@@ -56,3 +56,4 @@ DeclareOperation( "MoreLeftMinimalVersion", [ IsPathAlgebraMatModuleHomomorphism
 DeclareAttribute( "RightMinimalVersion", IsPathAlgebraMatModuleHomomorphism );
 DeclareAttribute( "LeftMinimalVersion", IsPathAlgebraMatModuleHomomorphism );
 DeclareOperation( "HomFromProjective", [ IsRightAlgebraModuleElement, IsPathAlgebraMatModule ] );
+DeclareOperation("InverseOfIsomorphism", [ IsPathAlgebraMatModuleHomomorphism ]);

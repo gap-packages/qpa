@@ -28,10 +28,10 @@ InstallMethod( PositionsNonzero,
 end );
 
 
-InstallMethod( Square,
-        "for a rational number",
-        [ IsRat ],
-        function( x ) return x * x; end);
+#InstallMethod( Square,
+#        "for a rational number",
+#        [ IsRat ],
+#        function( x ) return x * x; end);
         
         
 InstallMethod( NullList,

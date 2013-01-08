@@ -15,6 +15,7 @@
 \newcommand{\End}{\operatorname{End}\nolimits}
 \newcommand{\Ext}{\operatorname{Ext}\nolimits}
 \DeclareMathOperator{\modc}{mod}
+\DeclareMathOperator{\proj}{proj}
 "?>
 
 <Book Name="QPA documentation">

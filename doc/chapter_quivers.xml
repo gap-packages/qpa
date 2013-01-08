@@ -117,6 +117,15 @@ v2
     true when <Arg>quiver</Arg> is a quiver with no oriented cycles.
    </Returns>
   </ManSection>
+  
+  <ManSection>
+   <Prop Name="IsConnectedQuiver" Arg="quiver" Comm="property, whether object
+   is a connected quiver"/>
+   <Returns>
+    true when <Arg>quiver</Arg> is a connected quiver (i.e. each pair of vertices
+    is connected by an unoriented path in <Arg>quiver</Arg>).
+   </Returns>
+  </ManSection>
 
 <Example>
 gap&gt; quiver1 := Quiver(2,[[1,2]]);
@@ -127,6 +136,8 @@ gap&gt; IsQuiver(quiver1);
 true
 gap&gt; IsAcyclicQuiver(quiver1);
 true
+gap&gt; IsConnectedQuiver(quiver1);
+true
 gap&gt; quiver2 := Quiver(["u","v"],[["u","v"],["v","u"]]);
 &lt;quiver with 2 vertices and 2 arrows&gt;
 gap&gt; IsAcyclicQuiver(quiver2);
@@ -134,6 +145,10 @@ false
 gap&gt; IsFinite(quiver1);
 true
 gap&gt; IsFinite(quiver2);
+false
+gap&gt; quiver3 := Quiver(2, []);
+&lt;quiver with 2 vertices and 0 arrows&gt;
+gap&gt; IsConnectedQuiver(quiver3);
 false
 </Example>
 </Section>

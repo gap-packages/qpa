@@ -1176,34 +1176,7 @@ InstallMethod( MatricesOfDualMap,
     return maps;
 end);
 
-######################################################
-##
-#O InverseOfIsomorphism( <f> )
-##
-## <f> is a map which is iso. 
-##
-## Output is the map f^(-1), or the inverse of f.
-##
-InstallMethod( InverseOfIsomorphism,
-               [ IsPathAlgebraMatModuleHomomorphism ],
-               function( f )
-    local maps, invmaps, m;
-    if not(IsIsomorphism(f)) then
-        Error("entered map is not an isomorphism");
-    fi;
-    maps := f!.maps;
-    invmaps := [];
-    for m in maps do
-        if IsZero(m) then
-            Append(invmaps, [m]);
-        else
-            Append(invmaps, [Inverse(m)]);
-        fi;
-    od;
 
-    return RightModuleHomOverAlgebra(Range(f), Source(f), invmaps);
-
-end);
 
 ######################################################
 ##
