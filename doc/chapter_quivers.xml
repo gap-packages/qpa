@@ -126,29 +126,45 @@ v2
     is connected by an unoriented path in <Arg>quiver</Arg>).
    </Returns>
   </ManSection>
+  
+  <ManSection>
+   <Prop Name="IsTreeQuiver" Arg="quiver" Comm="property, whether object
+   is a tree quiver"/>
+   <Returns>
+    true when <Arg>quiver</Arg> is a tree as a graph
+   (i.e. it is connected and contains no unoriented cycles).
+   </Returns>
+  </ManSection>
 
 <Example>
-gap&gt; quiver1 := Quiver(2,[[1,2]]);
+gap&gt; q1 := Quiver(2,[[1,2]]);
 &lt;quiver with 2 vertices and 1 arrows&gt;
 gap&gt; IsQuiver("v1");
 false
-gap&gt; IsQuiver(quiver1);
+gap&gt; IsQuiver(q1);
 true
-gap&gt; IsAcyclicQuiver(quiver1);
+gap&gt; IsAcyclicQuiver(q1); IsConnectedQuiver(q1); IsTreeQuiver(q1);
 true
-gap&gt; IsConnectedQuiver(quiver1);
 true
-gap&gt; quiver2 := Quiver(["u","v"],[["u","v"],["v","u"]]);
+true
+gap&gt; q2 := Quiver(["u","v"],[["u","v"],["v","u"]]);
 &lt;quiver with 2 vertices and 2 arrows&gt;
-gap&gt; IsAcyclicQuiver(quiver2);
+gap&gt; IsAcyclicQuiver(q2); IsConnectedQuiver(q2); IsTreeQuiver(q2);
 false
-gap&gt; IsFinite(quiver1);
 true
-gap&gt; IsFinite(quiver2);
 false
-gap&gt; quiver3 := Quiver(2, []);
+gap&gt; IsFinite(q1); IsFinite(q2);
+true
+false
+gap&gt; q3 := Quiver(["u","v"],[["u","v"],["u","v"]]);
+&lt;quiver with 2 vertices and 2 arrows&gt;
+gap&gt; IsAcyclicQuiver(q3); IsConnectedQuiver(q3); IsTreeQuiver(q3);
+true
+true
+false
+gap&gt; q4 := Quiver(2, []);
 &lt;quiver with 2 vertices and 0 arrows&gt;
-gap&gt; IsConnectedQuiver(quiver3);
+gap&gt; IsConnectedQuiver(q4);
 false
 </Example>
 </Section>

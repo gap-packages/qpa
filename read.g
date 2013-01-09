@@ -36,5 +36,6 @@ ReadPackage("QPA", "gap/moduleARtheory.gi");
 ReadPackage("QPA", "gap/util.gi");
 ReadPackage("QPA", "gap/complex.gi");
 ReadPackage("QPA", "gap/derivedcat.gi");
+ReadPackage("QPA", "gap/pathalgreptype.gi");
 
 #E  read.g . . . . . . . . . . . . . . . . . . . . . . . . . . . .  ends here
