@@ -1,224 +1,296 @@
-<Chapter Label="Introduction/Quickstart"><Heading>Introduction/Quick Start</Heading>
+<Chapter Label="Introduction"><Heading>Introduction</Heading>
 
 This chapter is intended for those who would like to get started with
-<Package>QPA</Package> right away by playing with a few examples.  An
-important feature to be aware of concerning using the software is how
-to display the results one is obtaining. Here there are three basic
-ways of doing this, through <C>View</C>, <C>Print</C>
-or <C>Display</C>. The command <C>View(M)</C> prints a short
-information about the object <C>M</C>, the command <C>Print(M)</C>
-prints a longer information about the object <C>M</C>, and finally The
-command <C>Display(M)</C> prints an even fuller information about the
-object <C>M</C>, in general. However, for some objects these may all
-coincide. 
+<Package>QPA</Package> right away by playing with a few examples.  We
+assume that the user is familiar with <Package>GAP</Package> syntage,
+for instance the different ways to display various
+<Package>GAP</Package> objects: <C>View</C>, <C>Print</C> and
+<C>Display</C>.  These features are all implemented for the objects
+defined in <Package>QPA</Package>, and by using <C>Display</C> on an
+object, you will get a complete description of it.
 
-
-First we present a simple example:
+The following examples show how to create the most fundamental
+algebraic structures featured in <Package>QPA</Package>, namely
+quivers, path algebras and quotients of path algebras, modules and
+module homomorphisms. Sometimes, there is more than one way of
+constructing such objects. See their respective chapter in the
+documentation for more on this. The code from the examples can be
+found in the <C>examples/</C> directory.
 
 <!-- Example 9 from GBNP: -->
-<Section Label="Example 1"><Heading>Example 1</Heading>
+<Section Label="Example 1"><Heading>Example 1 -- quivers, path
+algebras and quotients of path algebras</Heading>
 
-We construct a quiver <Math>q</Math>, i.e. a finite directed graph, with one
-vertex and two loops:
+We construct a quiver <Math>Q</Math>, i.e. a finite directed graph,
+with one vertex and two loops:
 
 <Example><![CDATA[
-gap> q := Quiver(["u"],[["u","u","a"],["u","u","b"]]);
-<quiver with 1 vertices and 2 arrows>
+gap> Q := Quiver( 1, [ [1,1,"a"], [1,1,"b"] ] );
+<quiver with 2 vertices and 2 arrows>
+gap> Display(Q);
+Quiver( ["v1"], [["v1","v1","a"],["v1","v1","b"]] )
 ]]></Example>
 
-We can request the list of vertices and the list of arrows
-for <Math>q</Math>:
+When displaying <Math>Q</Math>, we observe that the vertice has been
+named "v1", and that this name is used when describing the
+arrows. (The "Display" style of viewing a quiver can also be used in
+construction, i.e., we could have written <C>Q := Quiver( ["v1"],
+[["v1","v1","a"],["v1","v1","b"]] )</C> to get the same object.)
 
-<Example> 
-gap&gt; VerticesOfQuiver(q);
-[ u ]
-gap&gt; ArrowsOfQuiver(q);
+If we want to know the number and names of the vertices and arrows,
+without getting the structure of <Math>Q</Math>, we can request this
+information as shown below. We can also access the vertices and arrows
+directly.
+
+<Example> <![CDATA[
+gap> VerticesOfQuiver(Q);
+[ v1 ]
+gap> ArrowsOfQuiver(Q);
 [ a, b ]
-</Example>
+gap> Q.a;
+a
+]]></Example>
 
-Next we create the path algebra <Math>pa</Math> from <Math>q</Math>
-over the rational numbers:
+The next step is to create the path algebra <Math>kQ</Math> from
+<Math>Q</Math>, where <Math>k</Math> is the rational numbers (in
+general, one can chose any field implemented in
+<Package>GAP</Package>).
 
-<Example> 
-gap&gt; pa := PathAlgebra(Rationals,q);
-&lt;algebra-with-one over Rationals, with 3 generators&gt;
-</Example>
+<Example> <![CDATA[
+gap> kQ := PathAlgebra(Rationals, Q);
+<Rationals[<quiver with 1 vertices and 2 arrows>]>
+gap> Display(kQ);
+<Path algebra of the quiver <quiver with 1 vertices and 
+2 arrows> over the field Rationals>
+]]></Example>
 
-In this case it is interesting to note that we've created an algebra
-isomorphic to the free algebra on two generators.  We now retrieve and
-label the generators and multiplicative identity for <Math>pa</Math>:
+We know that this algebra has three generators, with the vertex
+<Math>v_1</Math> as the identity. This can be verified by
+<Package>QPA</Package>. For convenience, we introduce new variables
+<C>v1</C>, <C>a</C> and <C>b</C> to get easier access to the
+generators.
 
-<Example>
-gap&gt; gens := GeneratorsOfAlgebra(pa);
-[ (1)*u, (1)*a, (1)*b ]
-gap&gt; u := gens[1];
-(1)*u
-gap&gt; a := gens[2];
+<Example><![CDATA[
+gap> gens := GeneratorsOfAlgebra(kQ);
+[ (1)*v1, (1)*a, (1)*b ]
+gap> v1 := gens[1];
+(1)*v1
+gap> a := gens[2];
 (1)*a
-gap&gt; b := gens[3];
+gap> b := gens[3];
 (1)*b
-gap&gt; id := One(pa);
-(1)*u
-</Example>
-
-As we expect, in this case, the multiplicative identity
-for <Math>pa</Math> and the single vertex <Math>u</Math> are one in
-the same:
-
-<Example> 
-gap&gt; u = id;
+gap> id := One(kQ);
+(1)*v1
+gap> v1 = id;
 true
-</Example>
+]]></Example>
 
-We now create a list of generators for an ideal and ask for its
-Groebner basis: 
-<Example>
-gap&gt; polys := [a*b*a-b,b*a*b-b];
+Now, we want to construct a finite dimensional algebra, by dividing
+out some ideal. The generators of the ideal (the relations) are given
+in terms of paths, and it is important to know the convention of
+writing paths used in <Package>QPA</Package>. If we first go the arrow
+<Math>a</Math> and then the arrow <Math>b</Math>, the path is written
+as <Math>a*b</Math>. <P/>
+
+Say that we want our ideal to be generated by the relations
+<Math>\{a*b*a - b, b*a*b - b\}</Math>. Then we make a list consisting
+of these relations. To create the ideal, however, we need the Gröbner
+basis of the ideal generated by the relations in <Math>kQ</Math> (yes,
+it seems like we are going in circles here. Remember, then, that an
+ideal in the "mathematical sense" may exist independetly of the a
+corresponding <C>Ideal</C> object in <Package>GAP</Package>. Also,
+Gröbner bases in <Package>QPA</Package> are handled by the
+<Package>GBNP</Package> package, with constructor methods not
+dependent on <C>Ideal</C> objects). After creating the ideal
+<Math>I</Math>, we need to perform yet another Gröbner basis
+operation. If we ommit this, we can still construct the quotient
+<Math>kQ/I</Math>, but then we are typically not allowed to perform
+all the operations we want on this algebra later.
+
+<Example><![CDATA[
+gap> relations := [a*b*a-b, b*a*b-b];
 [ (-1)*b+(1)*a*b*a, (-1)*b+(1)*b*a*b ]
-gap&gt; gb := GBNPGroebnerBasis(polys,pa);
+gap> gb := GBNPGroebnerBasis(relations, kQ);
 [ (-1)*a*b+(1)*b*a, (-1)*a*b+(1)*b^2, (-1)*b+(1)*a^2*b ]
-</Example>
+gap> I := Ideal(kQ, gb);
+<two-sided ideal in <Rationals[<quiver with 1 vertices and 2 arrows>]>, 
+  (3 generators)>
+gap> grb := GroebnerBasis(I, gb);
+<complete two-sided Groebner basis containing 3 elements>
+gap> A := kQ/I;
+<Rationals[<quiver with 1 vertices and 2 arrows>]/
+<two-sided ideal in <Rationals[<quiver with 1 vertices and 2 arrows>]>, 
+  (3 generators)>>
+]]></Example>
 
-Next, we create an ideal <Math>I</Math> in {\GAP} using the Groebner
-basis <Math>gb</Math> found above, and then the
-quotient <Math>pa/I</Math>:
-<Example>
-gap&gt; I := Ideal(pa,gb);
-&lt;two-sided ideal in &lt;algebra-with-one over Rationals, with 3
-generators&gt;, 
- (3 generators)&gt;
-</Example>
-
-Once we have the generators for a Groebner basis, we set the
-appropriate property for the ideal <Math>I</Math>:
-<Example>
-gap&gt; grb := GroebnerBasis(I,gb);    
-&lt;partial two-sided Groebner basis containing 3 elements&gt;
-</Example>
+Most <Package>QPA</Package> operations working on algebras handle
+path algebras and quotients of path algebras in the same way (when
+this makes sense). However, there are still a few operations which
+does not work properly when given a quotient of a path algebra. (Gjør
+litt research her kanskje.)
 </Section>
 
-<Section><Heading>Example 2</Heading>
+<Section><Heading>Example 2 -- Introducing modules</Heading>
 
-In this next example we create another path algebra that is
-essentially the free algebra on six generators.  We then find the
-Groebner basis for a commutative example from (create bibliographic
-reference here) the book "Some Tapas of Computer Algebra" by
-A.M. Cohen, H. Cuypers, H. Sterk.
+In representation theory, there are several conventions for expressing
+modules of path algebras, and again it is useful to comment on the
+convention used in <Package>QPA</Package>. A module (or
+representation) of an algebra <Math>A = kQ/I</Math> is, briefly
+explained, a picture of <Math>Q</Math> where the vertices are finite
+dimensional <Math>k</Math>-vectorspaces, and the arrows are linear
+transformations between the vector spaces respecting the relations of
+<Math>I</Math>.  The modules are <E>right</E> modules, and a linear
+transformation from <Math>k^n</Math> to <Math>k^m</Math> is
+represented by a <Math>n \times m</Math>-matrix. <P />
 
-We create the underlying quiver, and from it the path algebra over
-the rational numbers:
-<Example> 
-gap&gt; q := Quiver(["u"],[["u","u","a"],["u","u","b"], ["u","u","c"],
-&gt;                    ["u","u","d"],["u","u","e"],["u","u","f"]]);
-&lt;quiver with 1 vertices and 6 arrows&gt;
-gap&gt; fq := PathAlgebra(Rationals,q);
-&lt;algebra-with-one over Rationals, with 7 generators&gt;
-</Example>
+There are several ways of constructing modules in
+<Math>QPA</Math>. First, we will explore some modules which
+<Math>QPA</Math> gives us for free, namely the indecomposable
+projectives. We start by constructing a new algebra. The underlying
+quiver has three vertices and three arrows and looks like an
+<Math>A_3</Math> quiver with both arrows pointing to the right, and
+one additional loop in the final vertex. The only relation is to go
+this loop twice.
 
-Next, the generators are labeled and the list of polynomials is
-entered:
-<Example>
-gap&gt; gens := GeneratorsOfAlgebra(fq);
-[ (1)*u, (1)*a, (1)*b, (1)*c, (1)*d, (1)*e, (1)*f ]
-gap&gt; u := gens[1];; a := gens[2];; b := gens[3];; c := gens[4];;
-gap&gt; d := gens[5];; e := gens[6];; f := gens[7];;
-gap&gt; polys := [ e*a,
-&gt;            a^3 + f*a,
-&gt;            a^9 + c*a^3,
-&gt;            a^81 + c*a^9 + d*a^3,
-&gt;            a^27 + d*a^81 + e*a^9 + f*a^3,
-&gt;            b + c*a^27 + e*a^81 + f*a^9,
-&gt;            c*b + d*a^27 + f*a^81,
-&gt;            a + d*b + e*a^27,
-&gt;            c*a + e*b + f*a^27,
-&gt;            d*a + f*b,
-&gt;            b^3 - b,
-&gt;            a*b - b*a, a*c - c*a,
-&gt;            a*d - d*a, a*e - e*a,
-&gt;            a*f - f*a, b*c - c*b,
-&gt;            b*d - d*b, b*e - e*b,
-&gt;            b*f - f*b, c*d - d*c,
-&gt;            c*e - e*c, c*f - f*c,
-&gt;            d*e - e*d, d*f - f*d,
-&gt;            e*f - f*e
-&gt; ];;
-</Example>
+<Example><![CDATA[
+gap> Q := Quiver( 3, [ [1,2,"a"], [2,3,"b"], [3,3,"c"] ]);
+<quiver with 3 vertices and 3 arrows>
+gap> kQ := PathAlgebra(Rationals, Q);
+<Rationals[<quiver with 3 vertices and 3 arrows>]>
+gap> relations := [kQ.c*kQ.c];
+[ (1)*c^2 ]
+gap> gb := GBNPGroebnerBasis(relations, kQ);
+[ (1)*c^2 ]
+gap> I := Ideal(kQ,gb);
+<two-sided ideal in <Rationals[<quiver with 3 vertices and 3 arrows>]>, 
+  (1 generators)>
+gap> grb := GroebnerBasis(I, gb);
+<complete two-sided Groebner basis containing 1 elements> # NB SJEKK DENNE!
+gap> A := kQ/I;
+<Rationals[<quiver with 3 vertices and 3 arrows>]/
+<two-sided ideal in <Rationals[<quiver with 3 vertices and 3 arrows>]>, 
+  (1 generators)>>
+]]></Example>
 
-Finally, the Groebner basis is found:
-<Example>
-gap&gt; gb := GBNPGroebnerBasis(polys,fq);
-[ (1)*a, (1)*b, (-1)*c*d+(1)*d*c, (-1)*c*e+(1)*e*c, (-1)*d*e+(1)*e*d,
-  (-1)*c*f+(1)*f*c, (-1)*d*f+(1)*f*d, (-1)*e*f+(1)*f*e ]
-</Example>
-</Section>
+The indecomposable projectives are easily created with one command. We
+use <C>Display</C> to explore the modules.
 
-<Section><Heading>Example 3</Heading>
+<Example><![CDATA[
+gap> projectives := IndecProjectiveModules(A);
+[ <[ 1, 1, 2 ]>, <[ 0, 1, 2 ]>, <[ 0, 0, 2 ]> ]
+gap> proj1 := projectives[1];
+<[ 1, 1, 2 ]>      # this is the dimension vector
+gap> Display(proj1);
+<Module over <Rationals[<quiver with 3 vertices and 3 arrows>]/
+<two-sided ideal in <Rationals[<quiver with 3 vertices and 3 arrows>]>, 
+  (1 generators)>> with dimension vector [ 1, 1, 2 ]> and linear maps given by
+for arrow a:
+[ [  1 ] ]
+for arrow b:
+[ [  1,  0 ] ]
+for arrow c:
+[ [  0,  1 ],
+  [  0,  0 ] ]
+]]></Example>
 
-The next example is from B. Keller's PhD thesis, p. 26:
+If we, for some reason, want to use the maps of this module, we can
+get the matrices directly by using the command
+<C>MatricesOfPathAlgebraModule(proj1)</C>:
 
-<Example>
-gap&gt; q := Quiver(["u","v"],[["u","v","c"],["u","u","b"],["u","u","a"]]);
-&lt;quiver with 2 vertices and 3 arrows&gt;
-gap&gt; pa := PathAlgebra(Rationals,q);
-&lt;algebra-with-one over Rationals, with 5 generators&gt;
-gap&gt; 
-gap&gt; # Get generators of path algebra:
-gap&gt; gens := GeneratorsOfAlgebra(pa);
-[ (1)*u, (1)*v, (1)*c, (1)*b, (1)*a ]
-gap&gt; u := gens[1];; v := gens[2];; c := gens[3];;
-gap&gt; b := gens[4];; a := gens[5];; id := One(pa);;
-gap&gt; 
-gap&gt; polys := [a*b*c+b*a*b+a+c];
-[ (1)*c+(1)*a+(1)*b*a*b+(1)*a*b*c ]
-gap&gt; gb := GBNPGroebnerBasis(polys,pa);
-[ (-1)*b*c+(1)*a*c, (1)*a+(1)*b*a*b, (1)*c+(1)*a*b*c, (-1)*b*a^2+(1)*a^2*b ]
-</Example>
-</Section>
+<Example><![CDATA[
+gap> M := MatricesOfPathAlgebraModule(proj1);
+[ [ [ 1 ] ], [ [ 1, 0 ] ], [ [ 0, 1 ], [ 0, 0 ] ] ]
+gap> M[1];
+[ [ 1 ] ]
+]]></Example>
 
-<Section><Heading>Example 4</Heading>
+Naturally, the indecomposable injective modules are just as easily
+constructed, and so are the simple modules.
 
-Here's an example that doesn't meet our necessary criteria that all
-elements in a generating set have monomials in the arrow ideal.  Since
-the given path algebra is isomorphic to a free algebra, the single
-vertex is sent to the identity and there are no complications.
+<Example><![CDATA[
+gap> injectives := IndecInjectiveModules(A);
+[ <[ 1, 0, 0 ]>, <[ 1, 1, 0 ]>, <[ 2, 2, 2 ]> ]
+gap> simples := SimpleModules(A);
+[ <[ 1, 0, 0 ]>, <[ 0, 1, 0 ]>, <[ 0, 0, 1 ]> ]
+]]></Example>
 
-First, we set up the algebra and generating set:
-<Example>
-gap&gt; q := Quiver(["u"],[["u","u","x"],["u","u","y"]]);
-&lt;quiver with 1 vertices and 2 arrows&gt;
-gap&gt; f := Rationals;
-Rationals
-gap&gt; fq := PathAlgebra(f,q);
-&lt;algebra-with-one over Rationals, with 3 generators&gt;
-gap&gt; 
-gap&gt; # Get generators of path algebra:
-gap&gt; gens := GeneratorsOfAlgebra(fq);
-[ (1)*u, (1)*x, (1)*y ]
-gap&gt; u := gens[1];; x := gens[2];; y := gens[3];; id := One(fq);;
-gap&gt; polys := [x*y-y*x,x^2*y-id,x*y^2-id];
-[ (1)*x*y+(-1)*y*x, (-1)*u+(1)*x^2*y, (-1)*u+(1)*x*y^2 ]
-</Example>
+We know for a fact that the simple module in vertex 1 and the
+indecomposable injective module in vertex 1 coincide. Let us look at
+this relationship in <Package>QPA</Package>:
 
-Then we ask GBNP for its Groebner basis:
-
-<Example>
-gap&gt; gb := GBNPGroebnerBasisNC(polys,fq);
-The given path algebra is isomorphic to a free algebra.
-[ (-1)*x+(1)*y, (-1)*u+(1)*x^3 ]
-</Example>
-
-NOTE: It is important to realize that we've used the routine
-`GBNPGroebnerBasisNC' which doesn't check that all elements in a given
-list have non-vertex monomials.
-
-So, if we run the standard <Package>QPA</Package> Groebner basis
-routine on this example, we get the following:
-
-<Example>
-gap&gt; GBNPGroebnerBasis(polys,pa);
-Please make sure all elements are in the given path algebra, 
-and each summand of each element is not (only) a vertex.
+<Example><![CDATA[
+gap> s1 := simples[1];  
+<[ 1, 0, 0 ]>
+gap> inj1 := injectives[1];
+<[ 1, 0, 0 ]>
+gap> s1 = inj1;
 false
-</Example>
+gap> IsomorphicModules(s1,inj1);
+true
+]]></Example>
+
+We observe that <Package>QPA</Package> recognizes the modules
+as "the same" (that is, isomorphic); however, they are <E>not</E>
+the same instance and hence the simplest test for equality fails. This
+is important to bear in mind -- objects which are isomorphic and
+regarded as the same in the "real world", are not necessarily the same
+in <Package>GAP</Package>.
+
+</Section>
+
+<Section><Heading>Example 3 -- Constructing modules and module homomorphisms</Heading>
+
+Assume we want to construct the following <Math>A</Math>-module
+<Math>M</Math>, where <Math>A</Math> is the same algebra as in the
+previous example [BILDE!!!]. This module is neither projective,
+indecomposable nor simple, so we need to do the dirty work
+ourselves. Usually, the easiest way to construct a module is to state
+the dimension vector and the non-zero maps. Here, there is only one
+non-zero map, and we write
+
+<Example><![CDATA[
+gap> M := RightModuleOverPathAlgebra( A, [0,1,1], [ ["b", [[1]] ] ] );
+<[ 0, 1, 1 ]>
+]]></Example>
+
+To make sure we got everything right, we can use <C>Display(M)</C> to
+view the maps. The most tricky thing is usually to get the correct
+numbers of brackets. Here is a slightly bigger example [BILDE]:
+
+<Example><![CDATA[
+gap> N := RightModuleOverPathAlgebra( A, [1,2,2], [ ["a",[[1,1]] ], 
+   ["b", [[1,0], [-1,0]] ], ["c", [[0,0],[1,0]] ] ] );
+<[ 1, 2, 2 ]>
+]]></Example>
+
+Now we want to construct a map between the two modules, say <Math>f: M
+\rightarrow N</Math>, which is non-zero only in vertex 2. This is done by
+
+<Example><![CDATA[
+gap> f := RightModuleHomOverAlgebra(M,N, [ [[0]], [[1,1]], NullMat(1,2,Rationals)]);
+<<[ 0, 1, 1 ]> ---> <[ 1, 2, 2 ]>>
+gap> Display(f);
+<<Module over <Rationals[<quiver with 3 vertices and 3 arrows>]/
+<two-sided ideal in <Rationals[<quiver with 3 vertices and 3 arrows>]>, 
+  (1 generators)>> with dimension vector 
+[ 0, 1, 1 ]> ---> <Module over <Rationals[<quiver with 3 vertices and 3 arrows>]/
+<two-sided ideal in <Rationals[<quiver with 3 vertices and 3 arrows>]>, 
+  (1 generators)>> with dimension vector [ 1, 2, 2 ]>>
+with linear map for vertex number 1:
+[ [  0 ] ]
+linear map for vertex number 2:
+[ [  1,  1 ] ]
+linear map for vertex number 3:
+[ [  0,  0 ] ]
+]]></Example>
+
+Note the two different ways of writing zero maps. Again, we can
+retrieve the matrices describing <Math>f</Math>:
+
+<Example><![CDATA[
+gap> MatricesOfPathAlgebraMatModuleHomomorphism(f);
+[ [ [ 0 ] ], [ [ 1, 1 ] ], [ [ 0, 0 ] ] ]
+]]></Example>
+
 </Section>
 </Chapter>
