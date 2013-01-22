@@ -138,7 +138,7 @@ InstallMethod ( PredecessorsOfModule,
     #
     # Initializing the data structures.
     #
-    layers := List([1..n + 2], x -> []);
+    layers := List([1..n + 1], x -> []);
     valuation := List([1..n], x -> []);
     #
     # Layer number 1 is the entered module.
