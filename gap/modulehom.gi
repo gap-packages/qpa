@@ -1801,7 +1801,7 @@ InstallMethod( SocleOfModuleInclusion,
         od;
         socleofmodule := RightModuleOverPathAlgebra(A,dim_socle,[]);
         socleinclusion := RightModuleHomOverAlgebra(socleofmodule,M,socle);
-        SetSocleOfModule(M,socleofmodule);
+#        SetSocleOfModule(M,socleofmodule);
         return socleinclusion;
     fi;
 end
