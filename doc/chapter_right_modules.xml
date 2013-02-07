@@ -558,15 +558,14 @@ gap> inc:=DirectSumInclusions(N2);
 </ManSection>
 
 <ManSection>
-   <Oper Name="NumberOfNonIsoDirSummands" Arg="M" Comm="for a
-   PathAlgebraMatModule's"/>
+   <Oper Name="NumberOfNonIsoDirSummands" Arg="M" Comm="for a PathAlgebraMatModule's"/>
    <Description> 
     Arguments: <Arg>M</Arg> -- a path algebra modules (<C>PathAlgebraMatModule</C>s).
    <Br /></Description>
    <Returns>a list with two elements: (1) the number of non-isomorphic
    indecomposable direct summands of the module <Arg>M</Arg> and (2)
    the dimensions of the simple blocks of the semisimple ring
-   <Math>End(M)/rad End(M)</Math>.
+   <Math>End(M)/rad End(M)</Math>.</Returns>
 </ManSection>
 
 <ManSection>

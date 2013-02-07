@@ -40,7 +40,7 @@ This chapter describes the homological algebra that is implemented in QPA.<P/>
    projective cover, <M>P(M)</M> of the module <Arg>M</Arg>, the
    second element is a basis of <Math>\Ext^1(M,N)</Math> in terms of
    elements in <Math>\Hom(\Omega(M),N)</Math> and the third element is
-   a function that takes as an argument a homomorphism in  <C>Hom(Omega(<M>),<N>)</C>
+   a function that takes as an argument a homomorphism in  <C>Hom(Omega(M),N)</C>
    and returns the coefficients of this element when written in 
    terms of the basis of <Math>Ext^1(M,N)</Math>.</Returns>
    <Description>
