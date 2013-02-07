@@ -535,139 +535,20 @@ InstallMethod ( ProjectiveCover,
 end
 );
 
+
 #######################################################################
 ##
 #O  ExtOverAlgebra(<M>,<N>)
 ##
-##  This function returns the kernel of the projective cover 
-##  Omega(<M>) --> P(M) and a basis of Ext^1(<M>,<N>) inside 
-##  Hom(Omega(<M>),<N>) if the group is non-zero, otherwise it returns
-##  an empty list.
+##  This function returns a list of three elements: (1) the kernel of 
+##  the projective cover  Omega(<M>) --> P(M), (2) a basis of 
+##  Ext^1(<M>,<N>)  inside  Hom(Omega(<M>),<N>)  and (3) a function 
+##  that takes as an argument a homomorphism in  Hom(Omega(<M>),<N>)
+##  and returns the coefficients of this element when written in 
+##  terms of the basis of  Ext^1(<M>,<N>), if the group is non-zero. 
+##  Otherwise it returns an empty list. 
 ##
 InstallMethod( ExtOverAlgebra, 
-   "for two PathAlgebraMatModule's",
-   true, 
-   [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ], 0,
-   function( M, N )
-
-   local index, fromflatHomToHom, K, f, g, PM, syzygy, G, H, Img1, zero, 
-         genssyzygyN, VsyzygyN, Img, gensImg, VImg, pi, ext, preimages, 
-         homvecs, dimsyz, dimN, vec, t, l, i, H2;
-#
-# Defining functions for later use.
-#
-    index := function( n )
-   	if n = 0 then 
-            return 1;
-        else
-            return n;
-        fi;
-    end;
-
-    fromflatHomToHom := function( flat, dim, dim2 )
-        local totalmat, matrix, i, start, j, d, d2;
-
-        d := List(dim, index);
-        d2 := List(dim2, index);
-    	start := 0;
-    	totalmat := [];
-    	for i in [1..Length(dim)] do
-            matrix := [];
-            for j in [1..d[i]] do
-            	Add(matrix, flat{[start+1..start+d2[i]]});
-            	start := start+d2[i];
-            od;
-            Add(totalmat,matrix);
-    	od;
-        return totalmat;
-    end;
-#
-# Test of input.
-#
-   if RightActingAlgebra(M) <> RightActingAlgebra(N) then 
-      Error(" the two modules entered are not modules over the same algebra.\n"); 
-   else  
-      K := LeftActingDomain(M);
-#
-# creating a short exact sequence 0 -> Syz(M) -> P(M) -> M -> 0
-# f: P(M) -> M, g: Syz(M) -> P(M)  
-#
-      f := ProjectiveCover(M);
-      g := KernelInclusion(f);
-      PM := Source(f);
-      syzygy := Source(g);
-#
-# using Hom(-,N) on the s.e.s. above
-#
-      G := HomOverAlgebra(PM,N);
-      H := HomOverAlgebra(syzygy,N);
-#
-# Making a vector space of Hom(Syz(M),N)
-# by first rewriting the maps as vectors
-#
-      genssyzygyN := List(H, x -> Flat(x!.maps));
-      if Length(genssyzygyN) = 0 then
-         return [];
-      else
-         VsyzygyN := VectorSpace(K, genssyzygyN);
-#
-# finding a basis for im(g*)
-# first, find a generating set of im(g*)
-# 
-         Img1 := g*G;
-#
-# removing 0 maps by comparing to zero = Zeromap(syzygy,N)
-#
-         zero := ZeroMapping(syzygy,N);
-         Img  := Filtered(Img1, x -> x <> zero);
-#
-# Rewriting the maps as vectors
-#
-         gensImg := List(Img, x -> Flat(x!.maps));
-#
-# Making a vector space of <Im g*>
-         VImg := Subspace(VsyzygyN, gensImg);  
-#
-# Making the vector space Ext1(M,N)
-#
-         pi := NaturalHomomorphismBySubspace(VsyzygyN, VImg);
-         ext := Range(pi);
-         if Dimension(Range(pi)) = 0 then 
-            return [];
-         else 
-#
-# Sending elements of ext back to Hom(Syz(M),N)
-#
-            preimages := List(BasisVectors(Basis(ext)), x -> PreImagesRepresentative(pi,x));
-#
-# need to put the parentheses back in place
-#
-            homvecs := []; # to store all lists of matrices, one list for each element (homomorphism)
-            dimsyz := DimensionVector(syzygy);
-            dimN := DimensionVector(N);
-            homvecs := List(preimages, x -> fromflatHomToHom(x,dimsyz,dimN));
-#
-# Making homomorphisms of the elements
-#
-            H2 := List(homvecs, x -> RightModuleHomOverAlgebra(syzygy,N,x));
-
-            return [g,H2];
-         fi;
-      fi;
-   fi;
-end
-);
-
-#######################################################################
-##
-#O  ExtOverAlgebraAdd(<M>,<N>)
-##
-##  This function returns the kernel of the projective cover 
-##  Omega(<M>) --> P(M) and a basis of Ext^1(<M>,<N>) inside 
-##  Hom(Omega(<M>),<N>) if the group is non-zero, otherwise it returns
-##  an empty list.
-##
-InstallMethod( ExtOverAlgebraAdd, 
    "for two PathAlgebraMatModule's",
    true, 
    [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ], 0,
@@ -831,9 +712,9 @@ InstallMethod( ExtAlgebraGenerators,
             gens := GeneratorsOfAlgebra(J);
             Add(extgroups, [[],List(gens, x -> FromEndMToHomMM(M,x))]);
         elif i = 1 then 
-            Add(extgroups, ExtOverAlgebraAdd(M,M)); 
+            Add(extgroups, ExtOverAlgebra(M,M)); 
         else
-            Add(extgroups, ExtOverAlgebraAdd(Kernel(projcovers[i-1]),M)); 
+            Add(extgroups, ExtOverAlgebra(Kernel(projcovers[i-1]),M)); 
         fi;
     od;
     dim_ext_groups := List(extgroups, x -> Length(x[2]));

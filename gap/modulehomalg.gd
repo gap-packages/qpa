@@ -8,5 +8,4 @@ DeclareOperation( "MinimalRightApproximation", [ IsPathAlgebraMatModule, IsPathA
 DeclareOperation( "MinimalLeftApproximation", [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ]);
 DeclareAttribute( "ProjectiveCover", IsPathAlgebraMatModule );
 DeclareOperation( "ExtOverAlgebra", [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ]);
-DeclareOperation( "ExtOverAlgebraAdd", [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ]);
 DeclareOperation( "ExtAlgebraGenerators", [ IsPathAlgebraMatModule, IS_INT ] );

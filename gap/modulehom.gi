@@ -1695,9 +1695,10 @@ end
 ##
 #O  NumberOfNonIsoDirSummands( <M> )
 ##
-##  This function computes number of non-isomorphic direct summands of 
-##  the module  <M>, and in addition returns the dimensions of the 
-##  simple blocks of the semisimple ring  End(M)/rad End(M). 
+##  This function computes the number of non-isomorphic indecomposable 
+##  direct summands of the module  <M>, and in addition returns the 
+##  dimensions of the simple blocks of the semisimple ring  
+##  End(M)/rad End(M). 
 ##
 InstallMethod( NumberOfNonIsoDirSummands,
     "for a representations of a quiver",
