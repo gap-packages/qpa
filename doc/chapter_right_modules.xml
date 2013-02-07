@@ -350,11 +350,35 @@ gap> N:= RightModuleOverPathAlgebra(A,mat);
     Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>).
    <Br /></Description>
    <Returns>
-    the list of projections from the direct sum
-    to the individual modules used to construct direct sum, when a
-    direct sum has been constructed
-    using <C>DirectSumOfModules</C>.
+    the list of projections from the direct sum to the individual
+    modules used to construct direct sum, when a direct sum has been
+    constructed using <Ref Oper="DirectSumOfModules"/>.
    </Returns>
+</ManSection>
+
+<ManSection>
+   <Oper Name="IntersectionOfSubmodules" Arg="list" Comm="for a list
+   of PathAlgebraMatModule submodules"/>
+   <Description> 
+    Arguments: <Arg>f, g</Arg> or <Arg>list</Arg> -- two homomorphisms
+    of PathAlgebraMatModules or a list of such.
+   <Br /></Description>
+   <Returns>the subrepresentation given by the intersection of all the
+   submodules given by the inclusions  <Arg>f, g</Arg>
+   or <Arg>list</Arg>.
+   </Returns>
+   <Description>The function checks if <Arg>list</Arg> is non-empty
+     and if <Math><Arg>f</Arg>\colon M\to X</Math>
+     and <Math><Arg>g</Arg>\colon N\to X</Math> or all the
+     homomorphism in <Arg>list</Arg> have the same range and if they
+     all are inclusions. If the function is given two
+     arguments <Arg>f</Arg> and <Arg>g</Arg>, then it
+     returns <Math>[f',g',g'*f]</Math>, where <Math>f'\colon E\to
+     N</Math>, <Math>g'\colon E\to M</Math>, <Math>E</Math> is the
+     pullback of <Arg>f</Arg> and <Arg>g</Arg>. For a list of
+     inclusions it returns a monomorphism from a module isomorphic
+     to the intersection to <Math>X</Math>. 
+   </Description>
 </ManSection>
 
 <ManSection>
@@ -377,8 +401,8 @@ gap> N:= RightModuleOverPathAlgebra(A,mat);
     Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>).
    <Br /></Description>
    <Returns>
-    true if <Arg>M</Arg> is constructed via the
-    command <C>DirectSumOfModules</C>.
+    true if <Arg>M</Arg> is constructed via the command <Ref
+    Oper="DirectSumOfModules"/>.
    </Returns>
 </ManSection>
 
@@ -416,31 +440,6 @@ gap> inc:=DirectSumInclusions(N2);
 ]]></Example>
 
 <ManSection>
-   <Oper Name="IntersectionOfSubmodules" Arg="list" Comm="for a list
-   of PathAlgebraMatModule submodules"/>
-   <Description> 
-    Arguments: <Arg>f, g</Arg> or <Arg>list</Arg> -- two homomorphisms
-    of PathAlgebraMatModules or a list of such.
-   <Br /></Description>
-   <Returns>the subrepresentation given by the intersection of all the
-   submodules given by the inclusions  <Arg>f, g</Arg>
-   or <Arg>list</Arg>.
-   </Returns>
-   <Description>The function checks if <Arg>list</Arg> is non-empty
-     and if <Math><Arg>f</Arg>\colon M\to X</Math>
-     and <Math><Arg>g</Arg>\colon N\to X</Math> or all the
-     homomorphism in <Arg>list</Arg> have the same range and if they
-     all are inclusions. If the function is given two
-     arguments <Arg>f</Arg> and <Arg>g</Arg>, then it
-     returns <Math>[f',g',g'*f]</Math>, where <Math>f'\colon E\to
-     N</Math>, <Math>g'\colon E\to M</Math>, <Math>E</Math> is the
-     pullback of <Arg>f</Arg> and <Arg>g</Arg>. For a list of
-     inclusions it returns a monomorphism from a module isomorphic
-     to the intersection to <Math>X</Math>. 
-   </Description>
-</ManSection>
-
-<ManSection>
    <Oper Name="IsInAdditiveClosure" Arg="M, N" Comm="for two
    PathAlgebraMatModule's"/>
    <Description> 
@@ -462,6 +461,21 @@ gap> inc:=DirectSumInclusions(N2);
    <Br /></Description>
    <Returns>true if the representation <Arg>M</Arg> is injective.
    </Returns>
+</ManSection>
+
+<ManSection>
+   <Oper Name="IsomorphicModules" Arg="M, N" Comm=""/>
+   <Description> 
+    Arguments: <Arg>M, N</Arg> -- two path algebra modules (<C>PathAlgebraMatModule</C>s).
+   <Br /></Description>
+   <Returns>true or false depending on whether <Arg>M</Arg>
+   and <Arg>N</Arg> are isomorphic or not.</Returns> 
+   <Description>
+    The function first checks if the modules <Arg>M</Arg>
+    and <Arg>N</Arg> are modules over the same algebra, and returns fail
+    if not. The function returns true if the modules are
+    isomorphic, otherwise false. 
+   </Description>
 </ManSection>
 
 <ManSection>
@@ -508,47 +522,6 @@ gap> inc:=DirectSumInclusions(N2);
 </ManSection>
 
 <ManSection>
-   <Oper Name="MaximalCommonDirectSummand" Arg="M, N" Comm="for two
-   PathAlgebraMatModule's"/>
-   <Description> 
-    Arguments: <Arg>M, N</Arg> -- two path algebra modules (<C>PathAlgebraMatModule</C>s).
-   <Br /></Description>
-   <Returns>a list of three modules [<Arg>X</Arg>,<Arg>U</Arg>,<Arg>V</Arg>], 
-     where <Arg>X</Arg> is a maximal common non-zero direct summand of <Arg>M</Arg> 
-     and <Arg>N</Arg>, the sum of <Arg>X</Arg> and <Arg>U</Arg> is  <Arg>M</Arg>
-     and the sum of  <Arg>X</Arg> and <Arg>V</Arg> is  <Arg>N</Arg>, 
-     if such a non-zero maximal direct summand exists. Otherwise it returns false.</Returns>
-   <Description>The function checks if <Arg>M</Arg> and <Arg>N</Arg>
-     are <C>PathAlgebraMatModule</C>s over the same (quotient of a)
-     path algebra. 
-   </Description>
-</ManSection>
-
-<ManSection>
-   <Oper Name="IsomorphicModules" Arg="M, N" Comm=""/>
-   <Description> 
-    Arguments: <Arg>M, N</Arg> -- two path algebra modules (<C>PathAlgebraMatModule</C>s).
-   <Br /></Description>
-   <Returns>true or false depending on whether <Arg>M</Arg>
-   and <Arg>N</Arg> are isomorphic or not.</Returns> 
-   <Description>
-    The function first checks if the modules <Arg>M</Arg>
-    and <Arg>N</Arg> are modules over the same algebra, and returns fail
-    if not. The function returns true if the modules are
-    isomorphic, otherwise false. 
-   </Description>
-</ManSection>
-
-<ManSection>
-   <Attr Name="MinimalGeneratingSetOfModule" Arg="M" Comm=""/>
-   <Description> 
-    Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>).
-   <Br /></Description>
-   <Returns>a minimal generator set of the module <Arg>M</Arg> as a
-   module of the path algebra it is defined over. </Returns>
-</ManSection>
-
-<ManSection>
    <Oper Name="MatricesOfPathAlgebraModule" Arg="M" Comm="for a
    PathAlgebraMatModule"/>
    <Description> 
@@ -568,7 +541,45 @@ gap> inc:=DirectSumInclusions(N2);
 </ManSection>
 
 <ManSection>
-   <Attr Name="RadicalOfModule" Arg="M" Comm=""/>
+   <Oper Name="MaximalCommonDirectSummand" Arg="M, N" Comm="for two
+   PathAlgebraMatModule's"/>
+   <Description> 
+    Arguments: <Arg>M, N</Arg> -- two path algebra modules (<C>PathAlgebraMatModule</C>s).
+   <Br /></Description>
+   <Returns>a list of three modules [<Arg>X</Arg>,<Arg>U</Arg>,<Arg>V</Arg>], 
+     where <Arg>X</Arg> is a maximal common non-zero direct summand of <Arg>M</Arg> 
+     and <Arg>N</Arg>, the sum of <Arg>X</Arg> and <Arg>U</Arg> is  <Arg>M</Arg>
+     and the sum of  <Arg>X</Arg> and <Arg>V</Arg> is  <Arg>N</Arg>, 
+     if such a non-zero maximal direct summand exists. Otherwise it returns false.</Returns>
+   <Description>The function checks if <Arg>M</Arg> and <Arg>N</Arg>
+     are <C>PathAlgebraMatModule</C>s over the same (quotient of a)
+     path algebra. 
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Oper Name="NumberOfNonIsoDirSummands" Arg="M" Comm="for a
+   PathAlgebraMatModule's"/>
+   <Description> 
+    Arguments: <Arg>M</Arg> -- a path algebra modules (<C>PathAlgebraMatModule</C>s).
+   <Br /></Description>
+   <Returns>a list with two elements: (1) the number of non-isomorphic
+   indecomposable direct summands of the module <Arg>M</Arg> and (2)
+   the dimensions of the simple blocks of the semisimple ring
+   <Math>End(M)/rad End(M)</Math>.
+</ManSection>
+
+<ManSection>
+   <Attr Name="MinimalGeneratingSetOfModule" Arg="M" Comm=""/>
+   <Description> 
+    Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>).
+   <Br /></Description>
+   <Returns>a minimal generator set of the module <Arg>M</Arg> as a
+   module of the path algebra it is defined over. </Returns>
+</ManSection>
+
+<ManSection>
+   <Oper Name="RadicalOfModule" Arg="M" Comm=""/>
    <Description> 
     Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>).
    <Br /></Description>
@@ -576,13 +587,13 @@ gap> inc:=DirectSumInclusions(N2);
    <Description>
     This returns only the representation given by the radical of the
     module <Arg>M</Arg>. The operation
-    <Ref Attr="RadicalOfModuleInclusion"/> computes the inclusion of the
+    <Ref Oper="RadicalOfModuleInclusion"/> computes the inclusion of the
     radical of <Arg>M</Arg> into <Arg>M</Arg>.
    </Description>
 </ManSection>
 
 <ManSection>
-   <Attr Name="RadicalSeries" Arg="M" Comm=""/>
+   <Oper Name="RadicalSeries" Arg="M" Comm=""/>
    <Description> 
     Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>).
    <Br /></Description>
@@ -597,7 +608,7 @@ gap> inc:=DirectSumInclusions(N2);
 </ManSection>
 
 <ManSection>
-   <Attr Name="SocleSeries" Arg="M" Comm=""/>
+   <Oper Name="SocleSeries" Arg="M" Comm=""/>
    <Description> 
     Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>).
    <Br /></Description>
@@ -612,7 +623,7 @@ gap> inc:=DirectSumInclusions(N2);
 </ManSection>
 
 <ManSection>
-   <Attr Name="SocleOfModule" Arg="M" Comm=""/>
+   <Oper Name="SocleOfModule" Arg="M" Comm=""/>
    <Description> 
     Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>).
    <Br /></Description>
@@ -666,9 +677,6 @@ gap> inc:=DirectSumInclusions(N2);
    </Description>
 </ManSection>
 
-
-
-
 <ManSection>
    <Oper Name="SupportModuleElement" Arg="m" Comm=""/>
    <Description> 
@@ -683,7 +691,6 @@ gap> inc:=DirectSumInclusions(N2);
    </Description>
 </ManSection>
 
-
 <ManSection>
    <Oper Name="TopOfModule" Arg="M" Comm=""/>
    <Description> 
@@ -697,15 +704,13 @@ gap> inc:=DirectSumInclusions(N2);
     module <Arg>M</Arg> onto the top of the module <Arg>M</Arg>. 
    </Description>
 </ManSection>
-
-
 </Section>
 
 <Section><Heading>Special representations</Heading>
 Here we collect the predefined representations/modules over a finite
   dimensional quotient of a path algebra. 
 
-  <ManSection>
+<ManSection>
     <Attr Name="BasisOfProjectives" Arg="A" Comm=""/>
     <Description> 
       Arguments: <Arg>A</Arg> -- a finite dimensional (quotient of a) path
@@ -824,7 +829,6 @@ Here we collect the predefined representations/modules over a finite
 </ManSection>
 
 <ManSection>
-
    <Oper Name="TrD" Arg="M, [n]" Comm="for a PathAlgebraMatModule and an
    integer"/>
    <Oper Name="TransposeOfDual" Arg="M, [n]" Comm="for a PathAlgebraMatModule"/>
@@ -906,7 +910,16 @@ gap&gt; Dimension(P);
 12
 </Example>
 
-  <ManSection>
+<ManSection>
+   <Oper Name="LeftDivision" Arg="x, y" Comm="for two PathAlgebraVector's"/>
+   <Description> 
+    Arguments: <Arg>x, y</Arg> -- two path algebra vectors.
+   <Br /></Description>
+   <Returns>true if the tip of  <Arg>y</Arg>  left divides the tip of  <Arg>x</Arg>.  
+   False otherwise.</Returns>
+</ManSection>
+
+<ManSection>
    <Func Name="Vectorize" Arg="M, components" 
 	 Comm=""/>
 	 <Description> 

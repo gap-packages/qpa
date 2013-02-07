@@ -494,6 +494,15 @@ true
 ]]></Example>
 
 <ManSection>
+   <Attr Name="PathAlgebraOfMatModuleMap" Arg="f" Comm=""/>
+   <Description> 
+    Arguments: <Arg>f</Arg> -- a homomorphism between two path algebra modules (<C>PathAlgebraMatModule</C>).
+   <Br /></Description>
+   <Returns>the algebra over which the range and the source of the
+   homomorphism <Arg>f</Arg> is defined.</Returns>
+</ManSection>
+
+<ManSection>
    <Attr Name="Range" Arg="f" Comm=""/>
    <Description>
      Arguments: <Arg>f</Arg> - a homomorphism between two modules.<Br />

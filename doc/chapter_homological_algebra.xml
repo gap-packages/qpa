@@ -16,28 +16,6 @@ This chapter describes the homological algebra that is implemented in QPA.<P/>
 </ManSection>
 
 <ManSection>
-   <Oper Name="ExtOverAlgebra" Arg="M, N" Comm=""/>
-   <Oper Name="ExtOverAlgebraAdd" Arg="M, N" Comm=""/>
-   <Description>
-     Arguments: <Arg>M</Arg>, <Arg>N</Arg> - two modules.<Br />
-   </Description>
-   <Returns>a list of two elements <Ref Oper="ExtOverAlgebra"/> or
-   three elements <Ref Oper="ExtOverAlgebraAdd"/>, where the first
-   element is the map from the first syzygy, <M>\Omega(M)</M> to the
-   projective cover, <M>P(M)</M> of the module <Arg>M</Arg>, the
-   second element is a basis of <Math>\Ext^1(M,N)</Math> in terms of
-   elements in <Math>\Hom(\Omega(M),N)</Math> and the third element is
-   a function which preforms the addition
-   in <Math>\Ext^1(M,N)</Math>.</Returns>
-   <Description>
-    The function checks if the arguments <Arg>M</Arg> and <Arg>N</Arg>
-    are modules of the same algebra, and returns an error message
-    otherwise. It <Math>\Ext^1(M,N)</Math> is zero, an empty list is
-    returned.
-   </Description>
-</ManSection>
-
-<ManSection>
    <Oper Name="ExtAlgebraGenerators" Arg="M, n" Comm=""/>
    <Description>
      Arguments: <Arg>M</Arg> - a module, <Arg>n</Arg> - a positive integer.<Br />
@@ -49,6 +27,27 @@ This chapter describes the homological algebra that is implemented in QPA.<P/>
    <Description>
      This function computes the generators of the Ext-algebra
      <Math>Ext^*(M,M)</Math> up to degree  <Arg>n</Arg>.
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Oper Name="ExtOverAlgebra" Arg="M, N" Comm=""/>
+   <Description>
+     Arguments: <Arg>M</Arg>, <Arg>N</Arg> - two modules.<Br />
+   </Description>
+   <Returns>a list of three elements <Ref Oper="ExtOverAlgebra"/>, where the first
+   element is the map from the first syzygy, <M>\Omega(M)</M> to the
+   projective cover, <M>P(M)</M> of the module <Arg>M</Arg>, the
+   second element is a basis of <Math>\Ext^1(M,N)</Math> in terms of
+   elements in <Math>\Hom(\Omega(M),N)</Math> and the third element is
+   a function that takes as an argument a homomorphism in  <C>Hom(Omega(<M>),<N>)</C>
+   and returns the coefficients of this element when written in 
+   terms of the basis of <Math>Ext^1(M,N)</Math>.</Returns>
+   <Description>
+    The function checks if the arguments <Arg>M</Arg> and <Arg>N</Arg>
+    are modules of the same algebra, and returns an error message
+    otherwise. It <Math>\Ext^1(M,N)</Math> is zero, an empty list is
+    returned.
    </Description>
 </ManSection>
 
@@ -325,6 +324,27 @@ true
    <Description>
      If the module <Arg>M</Arg> is zero, then the zero map
      to <Arg>M</Arg> is returned. 
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Oper Name="ProjectiveResolutionOfPathAlgebraModule" Arg="M" Comm="for a PathAlgebraMatModule"/>
+   <Description>
+     Arguments: <Arg>M</Arg> - a path algebra module (<C>PathAlgebraMatModule</C>).<Br />
+   </Description>
+   <Returns>in terms of attributes <C>RProjectives</C>,
+   <C>ProjectivesFList</C> and <C>Maps</C> a projective resolution of
+   <Arg>M</Arg>, where <C>RProjectives</C> are the projectives in the
+   resolution lifted up to projectives over the path algebra,
+   <C>ProjectivesFList</C> are the generators of the projective
+   modules given in <C>RProjectives</C> in terms of elements in the
+   first projective in the resolution and <C>Maps</C> contains the
+   information about the maps in the resolution.</Returns>
+   <Description>
+     The algorithm for computing this projective resolution is based
+     on the a paper by Green-Solberg-Zacharia. In addition, the
+     algebra over which the modules are defined is available via the
+     attribute <C>ParentAlgebra</C>. 
    </Description>
 </ManSection>
 
