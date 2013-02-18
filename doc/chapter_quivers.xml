@@ -119,6 +119,15 @@ v2
   </ManSection>
   
   <ManSection>
+   <Prop Name="IsUAcyclicQuiver" Arg="quiver" Comm="property, whether object
+   is an unoriented acyclic quiver"/>
+   <Returns>
+    true when <Arg>quiver</Arg> is a quiver with no unoriented cycles.
+    Note: an oriented cycle is also an unoriented cycle!
+   </Returns>
+  </ManSection>
+  
+  <ManSection>
    <Prop Name="IsConnectedQuiver" Arg="quiver" Comm="property, whether object
    is a connected quiver"/>
    <Returns>
@@ -143,13 +152,15 @@ gap&gt; IsQuiver("v1");
 false
 gap&gt; IsQuiver(q1);
 true
-gap&gt; IsAcyclicQuiver(q1); IsConnectedQuiver(q1); IsTreeQuiver(q1);
+gap&gt; IsAcyclicQuiver(q1); IsUAcyclicQuiver(q1); IsConnectedQuiver(q1); IsTreeQuiver(q1);
+true
 true
 true
 true
 gap&gt; q2 := Quiver(["u","v"],[["u","v"],["v","u"]]);
 &lt;quiver with 2 vertices and 2 arrows&gt;
-gap&gt; IsAcyclicQuiver(q2); IsConnectedQuiver(q2); IsTreeQuiver(q2);
+gap&gt; IsAcyclicQuiver(q2); IsUAcyclicQuiver(q2); IsConnectedQuiver(q2); IsTreeQuiver(q2);
+false
 false
 true
 false
@@ -158,13 +169,17 @@ true
 false
 gap&gt; q3 := Quiver(["u","v"],[["u","v"],["u","v"]]);
 &lt;quiver with 2 vertices and 2 arrows&gt;
-gap&gt; IsAcyclicQuiver(q3); IsConnectedQuiver(q3); IsTreeQuiver(q3);
+gap&gt; IsAcyclicQuiver(q3); IsUAcyclicQuiver(q3); IsConnectedQuiver(q3); IsTreeQuiver(q3); 
 true
+false
 true
 false
 gap&gt; q4 := Quiver(2, []);
 &lt;quiver with 2 vertices and 0 arrows&gt;
-gap&gt; IsConnectedQuiver(q4);
+gap&gt; IsAcyclicQuiver(q4); IsUAcyclicQuiver(q4); IsConnectedQuiver(q4); IsTreeQuiver(q4);
+true
+true
+false
 false
 </Example>
 </Section>

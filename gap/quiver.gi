@@ -776,7 +776,7 @@ InstallMethod( IsConnectedQuiver,
   true,
   [ IsQuiver ], 0,
   function ( Q )
-    local BackNeighborsOfVertex, Visit, color, GRAY, BLACK, WHITE,
+    local  Visit, color, GRAY, BLACK, WHITE,
           vertex_list, res, vert;
     
     WHITE := 0; GRAY := 1; BLACK := -1;
@@ -823,6 +823,88 @@ InstallMethod( IsConnectedQuiver,
 
   end
 ); #IsConnectedQuiver
+
+
+
+
+#############################################################################
+##
+#P  IsUAcyclicQuiver(<Q>)
+##
+##  This function returns true if a quiver <Q>  does not 
+##  contain an unoriented cycle. 
+##  Note: an oriented cycle is also an unoriented cycle
+##
+InstallMethod( IsUAcyclicQuiver,
+  "for quivers",
+  true,
+  [ IsQuiver ], 0,
+  function ( Q )
+    local Visit, color, GRAY, BLACK, WHITE,
+          vertex_list, res, vert, WhitenAllVertices;
+    
+    WHITE := 0; GRAY := 1; BLACK := -1;
+    
+    WhitenAllVertices := function()
+      local i;
+      for i in [1 .. Length(vertex_list) ] do
+      color[i] := WHITE;
+      od;
+    end;
+    
+    Visit := function(v)
+      local adj, result, vertex, arrow; 
+        
+      color[v] := GRAY;
+        
+      adj := [];
+      for arrow in OutgoingArrowsOfVertex(vertex_list[v]) do
+        vertex := Position(vertex_list, TargetOfPath(arrow));
+        Add(adj, vertex);
+      od; # Now adj contains all vertices adjacent to v by arrows outgoing from v 
+          # and with repetitions if there are multiple arrows!
+      
+      for vertex in adj do
+        if color[vertex] = WHITE then
+           result := Visit(vertex);
+           if not result then return false; fi;
+        else 
+          return false; # GRAY = oriented cycle, BLACK = unoriented cycle
+         fi;
+      od;
+      
+      color[v] := BLACK;
+      
+      return true;
+    end;
+    
+    color := [];
+    vertex_list := VerticesOfQuiver(Q);
+
+    if Length(vertex_list) = 0 then
+      return true;
+    fi;
+    
+    for vert in [1 .. Length(vertex_list) ] do
+      WhitenAllVertices();
+      res := Visit(vert);
+      if not res then
+        return false;
+      fi;
+    od;
+    
+    return true;
+
+  end
+); #IsUAcyclicQuiver
+
+
+
+
+
+
+
+
 
 
 #############################################################################
