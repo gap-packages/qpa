@@ -252,6 +252,51 @@ gap> N:= RightModuleOverPathAlgebra(A,mat);
 </ManSection>
 
 <ManSection>
+   <Oper Name="BasicVersionOfModule" Arg="M" Comm="for a   
+         PathAlgebraMatModule"/>
+   <Description> 
+   Arguments: <Arg>M</Arg> -- a path algebra module.
+   <Br /></Description>
+   <Returns> a basic version of the entered module <Arg>M</Arg>, that
+   is, if <Math>M \simeq M_1^{n_1} \oplus \cdots \oplus
+   M_t^{n_t},</Math> where <Math>M_i</Math> is indecomposable, then
+   <Math>M_1\oplus \cdots \oplus M_t</Math> is returned. At
+   present, this function only work at best for finite dimensional
+   (quotients of a) path algebra over a finite field. If <Arg>M</Arg> is
+   zero, then <Arg>M</Arg> is returned.
+   </Returns>
+</ManSection>
+
+<ManSection>
+   <Oper Name="BlockDecompositionOfModule" Arg="M" Comm="for a   
+         PathAlgebraMatModule"/>
+   <Description> 
+   Arguments: <Arg>M</Arg> -- a path algebra module.
+   <Br /></Description>
+   <Returns>a set of modules <Math>\{M_1,..., M_t\}</Math> such that
+   <Math>M \simeq M_1\oplus \cdots \oplus M_t,</Math> where each
+   <Math>M_i</Math> is isomorphic to <Math>X_i^{n_i}</Math> for some
+   decomposable module <Math>X_i</Math> and positive integer
+   <Math>n_i</Math> for all <Math>i</Math>.
+   </Returns>
+</ManSection>
+
+<ManSection>
+   <Oper Name="BlockSplittingIdempotents" Arg="M" Comm="for a   
+         PathAlgebraMatModule"/>
+   <Description> 
+   Arguments: <Arg>M</Arg> -- a path algebra module.
+   <Br /></Description>
+   <Returns>a set <Math>\{e_1,..., e_t\}</Math> of idempotents in the
+   endomorphism of <Arg>M</Arg> such that <Math>M \simeq Im e_1\oplus
+   \cdots \oplus Im e_t,</Math> where each <Math>\Im e_i</Math> is
+   isomorphic to <Math>X_i^{n_i}</Math> for some module
+   <Math>X_i</Math> and positive integer <Math>n_i</Math> for all
+   <Math>i</Math>.
+   </Returns>
+</ManSection>
+
+<ManSection>
    <Oper Name="CommonDirectSummand" Arg="M, N" Comm="for two
    PathAlgebraMatModule's"/>
    <Description> 
@@ -852,7 +897,7 @@ Here we collect the predefined representations/modules over a finite
 
 </Section>
 
-<Section><Heading>Vertex Projective Presentations</Heading> 
+<Section><Heading>Vertex projective modules and submodules thereof</Heading> 
 In general, if <Math>R</Math> is a ring and <Math>e</Math> is an
 idempotent of <Math>R</Math> then <Math>eR</Math> is a projective
 module of <Math>R</Math>.  Then we can form a direct sum of these
@@ -910,11 +955,42 @@ gap&gt; Dimension(P);
 </Example>
 
 <ManSection>
-   <Oper Name="LeftDivision" Arg="x, y" Comm="for two PathAlgebraVector's"/>
+   <Func Name="CompletelyReduceGroebnerBasisForModule" Arg="GB" Comm="for a right Groebner basis of a module"/>
+	 <Description> 
+    Arguments: <Arg>GB</Arg> -- an right Groebner basis for a (submodule of a) vertex projective module over a path algebra. 
+   <Br /></Description>
+   <Returns>a completely reduced right Groebner basis from the entered Groebner basis <Arg>GB</Arg>.</Returns>
+   <Description>
+     This function takes as input an right Groebner basis for a vertex
+     projective module or a submodule thereof, an constructs
+     completely reduced right Groebner from it.
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Prop Name="IsLeftDivisible" Arg="x, y" Comm="for two PathAlgebraVector's"/>
    <Description> 
     Arguments: <Arg>x, y</Arg> -- two path algebra vectors.
    <Br /></Description>
    <Returns>true if the tip of  <Arg>y</Arg>  left divides the tip of  <Arg>x</Arg>.  
+   False otherwise.</Returns>
+   <Description>
+     Given two PathAlgebraVectors <Arg>x</Arg> and <Arg>y</Arg>, then
+     <Arg>y</Arg> is said to left divide <Arg>x</Arg>, if the tip of
+     <Arg>x</Arg> and the tip of <Arg>y</Arg> occur in the same
+     coordinate, and the tipmonomial of the tip of <Arg>y</Arg>
+     leftdivides the tipmonomial of the tip of <Arg>x</Arg>.
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Oper Name="LeftDivision" Arg="x, y" Comm="for two PathAlgebraVector's"/>
+   <Description> 
+    Arguments: <Arg>x, y</Arg> -- two path algebra vectors.
+   <Br /></Description>
+   <Returns>a scalar multiple of a path, say <Math>\lambda</Math> such
+   that the tips of <Math>y*p</Math> and <Math>x</Math> are the same,
+   if the tip of <Arg>y</Arg> left divides the tip of <Arg>x</Arg>.
    False otherwise.</Returns>
 </ManSection>
 
@@ -1025,5 +1101,51 @@ Basis( &lt;9-dimensional right-module over &lt;algebra-with-one of dimension
   [ [ (Z(11)^0)*v, &lt;zero&gt; of ..., &lt;zero&gt; of ... ] ], 
   [ [ (Z(11)^0)*b, &lt;zero&gt; of ..., &lt;zero&gt; of ... ] ] ] )
 </Example>
+
+<ManSection>
+   <Oper Name="ProjectivePathAlgebraPresentation" Arg="M" Comm="projective presentation of a PathAlgebraMatModule"/>
+   <Description> 
+    Arguments: <Arg>M</Arg> -- a finite dimensional module over a (quotient of a) path algebra.
+   <Br /></Description>
+   <Returns>a projective presentation of the entered module
+   <Arg>M</Arg> over a (qoutient of a) path algebra
+   <Math>A</Math>. The projective presentation, or resolution is over
+   the path algebra form which <Math>A</Math> was constructed.
+   </Returns>
+   <Description>
+     This function takes as input a PathAlgebraMatModule and
+     constructs a projetive presentation of this module over the path
+     algebra over which it is defined, ie. a projetive resolution of
+     length 1. It returns a list of five elements: (1) a projective
+     module <Math>P</Math> over the path algebra, which modulo the
+     relations induced the projective cover of <Arg>M</Arg>, (2) a
+     submodule <Math>U</Math> of <Math>P</Math> such that
+     <Math>P/U</Math> is isomorphic to <Arg>M</Arg>, (3) module
+     generators of <Math>P</Math>, (4) module generators for
+     <Math>U</Math> which forms a completely reduced right Groebner
+     basis for <Math>U</Math>, and (5) a matrix with enteries in the
+     path algebra which gives the map from <Math>U</Math> to
+     <Math>P</Math>, if <Math>U</Math> were considered a direct sum of
+     vertex projective modules over the path algebra.
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Oper Name="TargetVertex" Arg="v" Comm="for a PathAlgebraVector element"/>
+   <Description> 
+    Arguments: <Arg>v</Arg> -- a PathAlgebraVector.
+   <Br /></Description>
+   <Returns>a vertex <Math>w</Math> such that <Math>v*w = v</Math>, if
+   such a vertex exists, and fail otherwise.
+   </Returns>
+   <Description>
+     Given a PathAlgebraVector <Arg>v</Arg>, if <Arg>v</Arg> is right
+     uniform, this function finds the vertex <Math>w</Math> such that
+     <Math>v*w = v</Math> whenever <Arg>v</Arg> is non-zero, and
+     returns the zero path otherwise. If <Arg>v</Arg> is not right
+     uniform it returns fail.
+   </Description>
+</ManSection>
+
 </Section>
 </Chapter>

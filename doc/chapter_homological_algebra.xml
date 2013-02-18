@@ -64,6 +64,18 @@ This chapter describes the homological algebra that is implemented in QPA.<P/>
 </ManSection>
 
 <ManSection>
+   <Oper Name="IyamaGenerator" Arg="M" Comm="for a PathAlgebraMatModule"/>
+   <Description> 
+    Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>).
+   <Br /></Description>
+   <Returns>a module <Math>N</Math> such that <Arg>M</Arg> is a direct
+   summand of <Math>N</Math> and such that the global dimension of the
+   endomorphism ring of <Math>N</Math> is finite using the algorithm
+   provided by Osamu Iyama (add reference here).
+   </Returns>
+</ManSection>
+
+<ManSection>
    <Oper Name="LiftingInclusionMorphisms" Arg="f, g" Comm=""/>
    <Description>
      Arguments: <Arg>f</Arg>, <Arg>g</Arg> - two homomorphisms with

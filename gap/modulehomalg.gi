@@ -785,3 +785,70 @@ InstallMethod( ExtAlgebraGenerators,
 end
 );
 
+#######################################################################
+##
+#O  PartialIyamaGenerator( <M> )
+##
+##  Given a module  <M>  this function returns the submodule of  <M>
+##  given by the radical of the endomorphism ring of  <M>  times <M>.
+##  If  <M>  is zero, then  <M>  is returned.
+##
+InstallMethod( PartialIyamaGenerator,
+    "for a path algebra",
+    [ IsPathAlgebraMatModule ], 0,
+    function( M ) 
+
+    local B, EndM, radEndM, Brad, subgens, b, r; 
+
+    if Dimension(M) = 0 then 
+        return M;
+    fi;
+    B := CanonicalBasis(M); 
+    EndM := EndOverAlgebra(M);
+    radEndM := RadicalOfAlgebra(EndM);  
+    Brad := BasisVectors(Basis(radEndM));
+    Brad := List(Brad, x -> FromEndMToHomMM(M,x));
+    subgens := [];
+    for b in B do
+        for r in Brad do
+            Add(subgens, ImageElm(r,b));
+        od;
+    od;
+
+    return SubRepresentation(M,subgens);
+end
+);
+
+#######################################################################
+##
+#O  IyamaGenerator( <M> )
+##
+##  Given a module  <M> this function returns a module  N  such that
+##  <M>  is a direct summand of  N  and such that the global dimension
+##  of the endomorphism ring of  N  is finite. 
+##
+InstallMethod( IyamaGenerator,
+    "for a path algebra",
+    [ IsPathAlgebraMatModule ], 0,
+    function( M ) 
+
+    local iyamagen, N, IG, L; 
+
+    iyamagen := [];
+    N := M;
+    repeat 
+        Add(iyamagen,N);
+        N := PartialIyamaGenerator(N);
+    until
+        Dimension(N) = 0;
+
+    IG := DirectSumOfModules(iyamagen);
+    if IsFinite(LeftActingDomain(M)) then 
+        L := DecomposeModuleWithMultiplicities(IG);
+        IG := DirectSumOfModules(L[1]);
+    fi;
+
+    return IG;
+end
+);
+

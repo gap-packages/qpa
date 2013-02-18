@@ -1,20 +1,23 @@
 # GAP Implementation
-# This file was generated from 
 # $Id: present.gi,v 1.8 2012/09/27 08:55:07 sunnyquiver Exp $
+
 InstallMethod( IsNormalForm,
   "for path algebra vectors",
   true,
   [IsPathAlgebraVector], 0,
   ReturnFalse
 );
-###################################################################
-#
-# creates a PathAlgebraVector, where the tip is computed using the 
-# following order: the tip is computed for each coordinate, if the 
-# largest of these occur as a tip of several coordinates, then the 
-# coordinate with the smallest index from 1 to the length of vector
-# is chosen.
-#
+
+#######################################################################
+##
+#O  PathAlgebraVector( <fam>, <components> ) 
+##
+##  This function constructs a PathAlgebraVector, where the tip is 
+##  computed using the following order: the tip is computed for each 
+##  coordinate, if the largest of these occur as a tip of several 
+##  coordinates, then the coordinate with the smallest index from 1 to 
+##  the length of vector is chosen.
+##
 InstallMethod( PathAlgebraVector,
   "for families of path algebra vectors and hom. list",
   true,
@@ -133,7 +136,13 @@ InstallMethod( PathAlgebraVectorNC,
   end
 );
 
-
+#######################################################################
+##
+#O  Vectorize( <M>, <vector> ) 
+##
+##  This function constructs an element in the module  <M>, which is a  
+##  PathAlgebraModule, from the entered vector <vector>.
+##  
 InstallOtherMethod( Vectorize,
   "for path algebra modules and a homogeneous list",
   true,
@@ -148,7 +157,12 @@ InstallOtherMethod( Vectorize,
   end
 );
 
-
+#######################################################################
+##
+#O  \+ ( <u>, <v> ) 
+##
+##  This function implements the addition of two PathAlgebraVectors.
+## 
 InstallMethod( \+,
   "for two path algebra vectors",
   IsIdenticalObj,
@@ -177,7 +191,12 @@ InstallMethod( \+,
 end
 );
 
-
+#######################################################################
+##
+#O  \- ( <u>, <v> ) 
+##
+##  This function implements the difference of two PathAlgebraVectors.
+## 
 InstallMethod( \-,
   "for two path algebra vectors",
   IsIdenticalObj,
@@ -206,7 +225,12 @@ InstallMethod( \-,
 end
 );
 
-
+#######################################################################
+##
+#O  AdditiveInverseOp ( <x> ) 
+##
+##  This functionimplements the addition inverse of a PathAlgebraVector.
+## 
 InstallMethod( AdditiveInverseOp,
   "for path algebra vectors",
   true,
@@ -217,7 +241,13 @@ InstallMethod( AdditiveInverseOp,
 end
 );
 
-
+#######################################################################
+##
+#O  ZeroOp ( <x> ) 
+##
+##  This function returns zero element of the module where a 
+##  PathAlgebraVector lives.
+##
 InstallMethod( ZeroOp,
   "for path algebra vectors",
   true,
@@ -227,7 +257,12 @@ InstallMethod( ZeroOp,
   end
 );
 
-
+#######################################################################
+##
+#O  \* ( <n>, <x> ) 
+##
+##  This function implements scalar multiplication from the left.
+##
 InstallOtherMethod( \*,
   "for path algebra vectors and field element",
   true,
@@ -245,7 +280,12 @@ InstallOtherMethod( \*,
   end
 );
 
-
+#######################################################################
+##
+#O  \* ( <x>, <n> ) 
+##
+##  This function implements scalar multiplication from the right.
+##
 InstallMethod( \*,
   "for path algebra vectors and field element",
   true,
@@ -263,8 +303,6 @@ InstallMethod( \*,
 );
 
 
-
-
 InstallMethod( PrintObj,
   "for path algebra vectors",
   true,
@@ -274,7 +312,17 @@ InstallMethod( PrintObj,
   end
 );
 
-
+#######################################################################
+##
+#O  LeadingTerm ( <x> ) 
+##
+##  This function finds the leading term/tip of a PathAlgebraVector, where
+##  the tip is computed using the following order: the tip is computed
+##  for each coordinate, if the largest of these occur as a tip of 
+##  several coordinates, then the coordinate with the smallest index 
+##  from 1 to the length of vector is chosen. The position of the tip
+##  was computed when the PathAlgebraVector was created. 
+##  
 InstallOtherMethod( LeadingTerm,
   "for path algebra vectors",
   true,
@@ -294,15 +342,19 @@ InstallOtherMethod( LeadingTerm,
       return PathAlgebraVectorNC(FamilyObj(x), elem, pos,
                                  IsNormalForm(x));
     else
-Print("YEEEOUCH!\n");
-
-      return x;
+        Print("YEEEOUCH!\n");
+        return x;
     fi;
-
-  end
+end
 );
 
-
+#######################################################################
+##
+#O  LeadingCoefficient ( <x> ) 
+##
+##  The LeadingCoefficient of a PathAlgebraVector  <x>  is the leading
+##  coefficient of the tip of the PathAlgebraVector  <x>.
+##  
 InstallOtherMethod( LeadingCoefficient,
   "for path algebra vectors",
   true,
@@ -317,10 +369,18 @@ InstallOtherMethod( LeadingCoefficient,
     else
       return LeadingCoefficient(x![1][1]);
     fi;
-  end
+end
 );
 
-
+#######################################################################
+##
+#A  TargetVertex( <v> ) 
+##
+##  Given a PathAlgebraVector  <v>, if  <v>  is right uniform, this 
+##  function finds the vertex  w  such that  <v>*w = <v>  whenever <v>  
+##  is non-zero, and returns the zero path otherwise. If  <v>  is not 
+##  right uniform it returns fail. 
+##  
 InstallOtherMethod( TargetVertex,
   "for path algebra vectors",
   true,
@@ -337,7 +397,17 @@ InstallOtherMethod( TargetVertex,
   end
 );
 
-
+#######################################################################
+##  Don't understand what this function really is supposed to do.
+##  Cannot see that it is used.
+##  
+#A  SourceVertex( <v> ) 
+##
+##  Given a PathAlgebraVector  <v>, if  <v>  is right uniform, this 
+##  function finds the vertex  w  such that  w*LeadingTerm(<v> = 
+##  LeadingTerm(<v>)  whenever <v> is non-zero, and returns the zero 
+##  path otherwise. If  <v>  is not right uniform it returns fail.
+## 
 InstallOtherMethod( SourceVertex,
   "for path algebra vectors",
   true,
@@ -352,11 +422,18 @@ InstallOtherMethod( SourceVertex,
     fi;
 
     return fail;
-
-  end
+end
 );
 
-
+#######################################################################
+##
+#A  LeadingComponent( <v> ) 
+##
+##  Given a PathAlgebraVector  <v>, if  <v>  is right uniform, this 
+##  function finds the vertex  w  such that  w*LeadingTerm(<v> = 
+##  LeadingTerm(<v>)  whenever <v> is non-zero, and returns the zero 
+##  path otherwise. If  <v>  is not right uniform it returns fail.
+## 
 InstallMethod( LeadingComponent,
   "for path algebra vectors",
   true,
@@ -369,7 +446,13 @@ InstallMethod( LeadingComponent,
   end
 );
 
-
+#######################################################################
+##
+#A  LeadingPosition( <v> ) 
+##
+##  Given a PathAlgebraVector  <v>, the LeadingPosition is in which 
+##  coordinate the tip of the vector is.
+## 
 InstallMethod( LeadingPosition,
   "for path algebra vectors",
   true,
@@ -379,7 +462,18 @@ InstallMethod( LeadingPosition,
   end
 );
 
-
+#######################################################################
+##
+#O  \< ( <x>, <y> ) 
+##
+##  This operation defined the ordering on the elements of a 
+##  PathAlgebraModule: (1) If the tipmonomial of the leading term of  
+##  <x>  is strictly less than that of  <y>, then  <x> < <y>, (2) if 
+##  the tipmonomial of the leading term of  <x>  and of  <y>  are 
+##  identical, then if the position in which coordinate they occor  
+##  is strictly larger for  <x>  than  for  <y>, then  <x> < <y>, (3)
+##  otherwise  <x>  is not less than  <y>.  
+## 
 InstallMethod( \<,
   "for path algebra vectors",
   IsIdenticalObj,
@@ -404,31 +498,13 @@ InstallMethod( \<,
 end
 );
 
-# Old version.
-#InstallMethod( \<,
-#  "for path algebra vectors",
-#  IsIdenticalObj,
-#  [IsPathAlgebraVector 
-#     and IsPathAlgebraVectorDefaultRep
-#     and IsNormalForm,
-#   IsPathAlgebraVector 
-#     and IsPathAlgebraVectorDefaultRep
-#     and IsNormalForm], 0,
-#  function(x, y)
-#    local fam;
-#
-#    fam := FamilyObj(x);
-#
-#    if x![2] = y![2] then
-#      return x![1]{[x![2]..fam!.vectorLen]} < y![1]{[y![2]..fam!.vectorLen]};
-#        else
-#      return y![2] < x![2];
-#    fi;
-#
-#  end
-#);
-
-
+#######################################################################
+##
+#O  \=( <x>, <y> ) 
+##
+##  Given two PathAlgebraVectors  <x>  and  <y>, then they are considered
+##  equal if all the coordinates are the same.
+##  
 InstallMethod( \=,
   "for path algebra vectors",
   IsIdenticalObj,
@@ -442,8 +518,16 @@ InstallMethod( \=,
     return x![1] = y![1];
   end
 );
-
-# operation that returns true if y divides x.
+  
+#######################################################################
+##
+#O  IsLeftDivisible( <x>, <y> ) 
+##
+##  Given two PathAlgebraVectors  <x>  and  <y>,  then  <y>  is said to 
+##  left divide  <x>, if the tip of  <x>  and the tip of  <y>  occur in
+##  the same coordinate, and the tipmonomial of the tip of  <y>  left-
+##  divides the tipmonomial of the tip of  <x>. 
+##
 InstallMethod( IsLeftDivisible,
   "for path algebra vectors",
   IsIdenticalObj,
@@ -467,7 +551,13 @@ InstallMethod( IsLeftDivisible,
   end
 );
 
-
+#######################################################################
+##
+#O  IsLeftUniform( <v> ) 
+##
+##  Given a PathAlgebraVectors  <v>, this function tests if there is a
+##  vertex  <e>  such that  <e>*<v> = <v>.
+##
 InstallOtherMethod( IsLeftUniform,
   "for path algebra vectors",
   true,
@@ -494,10 +584,16 @@ InstallOtherMethod( IsLeftUniform,
     fi;
 
     return false;        
-  end
+end
 );
 
-
+#######################################################################
+##
+#O  IsRightUniform( <v> ) 
+##
+##  Given a PathAlgebraVectors  <v>, this function tests if there is a
+##  vertex  <e>  such that  <v>*<e> = <v>.
+##
 InstallOtherMethod( IsRightUniform,
   "for path algebra vectors",
   true,
@@ -528,7 +624,14 @@ InstallOtherMethod( IsRightUniform,
   end
 );
 
-
+#######################################################################
+##
+#O  IsUniform( <v> ) 
+##
+##  Given a PathAlgebraVectors  <v>, this function tests if there is a
+##  vertex  <e>  such that  <e>*<v> = <v> = <v>*<e>, that is, if  <v> 
+##  is both left and right uniform.
+##
 InstallOtherMethod( IsUniform,
   "for path algebra vectors",
   true,
@@ -541,8 +644,7 @@ InstallOtherMethod( IsUniform,
     fi;
 
     return IsLeftUniform(v) and IsRightUniform(v);
-
-  end
+end
 );
 
 
@@ -725,7 +827,7 @@ InstallMethod( Basis,
   end
 );
 
-
+#O
 InstallMethod( Coefficients,
   "for basis of path alg. vec, and path alg. vec.",
   true,
@@ -791,12 +893,18 @@ InstallMethod( \in,
 );
 
 
-#####
-#
-# RightProjectiveModule
-#
-#
 
+#######################################################################
+##
+#O  RightProjectiveModule( <A>, <els> )
+##
+##  This function takes as input a  PathAlgebra  <A>  and a list of 
+##  uniform elements  <els>  in  <A>, and constructs the projective 
+##  <A>-module  <Math>\oplus_{e \in els} eA</Math>. The filters 
+##  IsPathAlgebraModule and IsVertexProjectiveModule are set true for 
+##  the output. Given an element  x  in module constructed by this 
+##  command, then  ExtRepOfObj(x)  is a PathAlgebraVector.  
+##
 InstallMethod( RightProjectiveModule,
   "for path algebra A and list of uniform elements of A",
   IsIdenticalObj,
@@ -839,78 +947,87 @@ InstallMethod( RightProjectiveModule,
   end
 );
 
-
+#######################################################################
+##
+#O  RightProjectiveModule( <A>, <els> )
+##
+##  This function takes as input a  PathAlgebra  <A>  and a list of 
+##  trivial paths in  <A>, and constructs the projective <A>-module  
+##  <Math>\oplus_{e \in els} eA</Math>. The filters IsPathAlgebraModule
+##  and IsVertexProjectiveModule are set true for the output. Given an 
+##  element  x  in module constructed by this command, then  
+##  ExtRepOfObj(x)  is a PathAlgebraVector.  
+##
 InstallMethod( RightProjectiveModule,
-  "for path algebra and list of vertices",
-  IsIdenticalObj,
-  [ IsPathAlgebra, IsHomogeneousList ], 0,
-  function( A, verts )
+    "for path algebra and list of vertices",
+    IsIdenticalObj,
+    [ IsPathAlgebra, IsHomogeneousList ], 0,
+    function( A, verts )
     local i, fam, zero, gen, gens, M;
 
     if not ForAll(verts, function(x)
-                           return x = Tip(x) and IsVertex(TipMonomial(x))
-                                    and One(TipCoefficient(x)) = TipCoefficient(x);
-                         end )
-    then
-      TryNextMethod();
-      Error("<verts> should be a list of embedded vertices");
-    fi;
+        return x = Tip(x) and IsVertex(TipMonomial(x))
+               and One(TipCoefficient(x)) = TipCoefficient(x);
+         end ) then
+         TryNextMethod();
+         Error("<verts> should be a list of embedded vertices");
+     fi;
 
-    fam := NewFamily( "IsPathAlgebraVectorFamily", IsPathAlgebraVector );
-    fam!.defaultType := NewType( fam, IsPathAlgebraVectorDefaultRep
-                                      and IsNormalForm );
-    fam!.vectorLen := Length(verts);
-    fam!.vertices := Immutable(List(verts, TipMonomial));
-    fam!.componentFam := FamilyObj(A);
-    fam!.zeroPath := Zero(QuiverOfPathAlgebra(A));
-    zero := Zero(A);
-    fam!.zeroVector := PathAlgebraVectorNC(fam,
-        ListWithIdenticalEntries(fam!.vectorLen, zero),
-        fam!.vectorLen + 1, true);
-
-    gens := [];
-    for i in [1..fam!.vectorLen] do
-      gen := ListWithIdenticalEntries(fam!.vectorLen, zero);
-      gen[i] := verts[i];
-      Add(gens, PathAlgebraVectorNC( fam, gen, i, true));
-    od;
-
-    M := RightAlgebraModuleByGenerators( A, \^, gens );
-    SetIsPathAlgebraModule( M, true );
-    SetIsVertexProjectiveModule( M, true );
-    SetIsWholeFamily( M, true );
-    fam!.wholeModule := M;
-
-    return M;
-
-  end
+     fam := NewFamily( "IsPathAlgebraVectorFamily", IsPathAlgebraVector );
+     fam!.defaultType := NewType( fam, IsPathAlgebraVectorDefaultRep
+                                 and IsNormalForm );
+     fam!.vectorLen := Length(verts);
+     fam!.vertices := Immutable(List(verts, TipMonomial));
+     fam!.componentFam := FamilyObj(A);
+     fam!.zeroPath := Zero(QuiverOfPathAlgebra(A));
+     zero := Zero(A);
+     fam!.zeroVector := PathAlgebraVectorNC(fam,
+                                ListWithIdenticalEntries(fam!.vectorLen, zero),
+                                fam!.vectorLen + 1, true);
+     
+     gens := [];
+     for i in [1..fam!.vectorLen] do
+         gen := ListWithIdenticalEntries(fam!.vectorLen, zero);
+         gen[i] := verts[i];
+         Add(gens, PathAlgebraVectorNC( fam, gen, i, true));
+     od;
+     
+     M := RightAlgebraModuleByGenerators( A, \^, gens );
+     SetIsPathAlgebraModule( M, true );
+     SetIsVertexProjectiveModule( M, true );
+     SetIsWholeFamily( M, true );
+     fam!.wholeModule := M;
+     
+     return M;
+end
 );
 
-
+#
+#  Not sure what this version is doing.
+#
 InstallMethod( RightProjectiveModule,
-  "for f.p. path algebras and vertices",
-  IsIdenticalObj,
-  [ IsQuotientOfPathAlgebra, IsHomogeneousList ], 0,
-  function( A, verts )
+    "for f.p. path algebras and vertices",
+    IsIdenticalObj,
+    [ IsQuotientOfPathAlgebra, IsHomogeneousList ], 0,
+    function( A, verts )
     local i, fam, zero, gen, gens, M;
 
     if not ForAll(verts, function(x)
-                           return x = Tip(x)
-                           and IsVertex(TipMonomial(x))
-                           and One(TipCoefficient(x)) = TipCoefficient(x);
-                         end )
-    then
-      TryNextMethod();
-      Error("<verts> should be a list of embedded vertices");
+        return x = Tip(x)
+               and IsVertex(TipMonomial(x))
+               and One(TipCoefficient(x)) = TipCoefficient(x);
+        end ) then
+        TryNextMethod();
+        Error("<verts> should be a list of embedded vertices");
     fi;
 
     fam := NewFamily( "IsPathAlgebraVectorFamily", IsPathAlgebraVector );
-
+    
     if HasNormalFormFunction(ElementsFamily(FamilyObj(A))) then
-      fam!.defaultType := NewType( fam, IsPathAlgebraVectorDefaultRep
+        fam!.defaultType := NewType( fam, IsPathAlgebraVectorDefaultRep
                                         and IsNormalForm );
     else
-      fam!.defaultType := NewType( fam, IsPathAlgebraVectorDefaultRep );
+        fam!.defaultType := NewType( fam, IsPathAlgebraVectorDefaultRep );
     fi;
 
     fam!.vectorLen := Length(verts);
@@ -920,25 +1037,24 @@ InstallMethod( RightProjectiveModule,
     zero := Zero(A);
 
     fam!.zeroVector := PathAlgebraVectorNC(fam,
-        ListWithIdenticalEntries(fam!.vectorLen, zero),
-        fam!.vectorLen + 1, true);
-
+                               ListWithIdenticalEntries(fam!.vectorLen, zero),
+                               fam!.vectorLen + 1, true);
+    
     gens := [];
     for i in [1..fam!.vectorLen] do
-      gen := ListWithIdenticalEntries(fam!.vectorLen, zero);
-      gen[i] := verts[i];
-      Add(gens, PathAlgebraVectorNC( fam, gen, i, true));
+        gen := ListWithIdenticalEntries(fam!.vectorLen, zero);
+        gen[i] := verts[i];
+        Add(gens, PathAlgebraVectorNC( fam, gen, i, true));
     od;
-
+    
     M := RightAlgebraModuleByGenerators( A, \^, gens );
     SetIsPathAlgebraModule( M, true );
     SetIsWholeFamily( M, true );
     SetIsVertexProjectiveModule( M, true );
     fam!.wholeModule := M;
-
+    
     return M;
-
-  end
+end
 );
 
 
@@ -1003,12 +1119,13 @@ InstallOtherMethod( SubAlgebraModule,
   end
 );
 
-
+  
+#P
 InstallMethod( IsVertexProjectiveModule,
-  "for a path algebra module",
-  true,
-  [ IsPathAlgebraModule ], 0,
-  function( M )
+    "for a path algebra module",
+    true,
+    [ IsPathAlgebraModule ], 0,
+    function( M )
     local vecFam, A, verts, gen, zero, i, vs;
 
     A := ActingAlgebra( M );
@@ -1017,20 +1134,18 @@ InstallMethod( IsVertexProjectiveModule,
     verts := vecFam!.vertices;
 
     for i in [1..vecFam!.vectorLen] do
-      gen := ListWithIdenticalEntries(vecFam!.vectorLen, zero);
-      gen[i] := verts[i]*One(A);
-      gen := PathAlgebraVectorNC(vecFam, gen, i, true);
-      vs := UnderlyingLeftModule(Basis(M)!.delegateBasis);
+        gen := ListWithIdenticalEntries(vecFam!.vectorLen, zero);
+        gen[i] := verts[i]*One(A);
+        gen := PathAlgebraVectorNC(vecFam, gen, i, true);
+        vs := UnderlyingLeftModule(Basis(M)!.delegateBasis);
 
-      if not gen in vs then
-        return false;
-      fi;
-
+        if not gen in vs then
+            return false;
+        fi;
     od;
 
     return true;
-
-  end
+end
 );
 
 
@@ -1136,7 +1251,7 @@ InstallMethod( Basis,
   end
 );
 
-
+#A
 InstallMethod( UniformGeneratorsOfModule,
   "for path algebra modules",
   true,
@@ -1158,8 +1273,7 @@ InstallMethod( UniformGeneratorsOfModule,
     od;
 
     return uniformGens;
-
-  end
+end
 );
 
 
@@ -1194,7 +1308,10 @@ ReduceRightModuleElement := function(x, y)
   return x;
 end;
 
-
+########################################################
+#
+#  Doesn't seem to be used anywhere.
+#
 NormalizeRightModuleElement := function(G, x)
   local g, newX, reduced;
 
@@ -1219,10 +1336,15 @@ NormalizeRightModuleElement := function(G, x)
   od;
 
   return newX;
-
 end;
 
-
+#######################################################################
+##
+#A/O  RightGroebnerBasisOfModule( <M> ) 
+##
+##  This function takes as input a  PathAlgebraModule  and constructs
+##  a right Groebner basis. 
+##  
 InstallMethod( RightGroebnerBasisOfModule,
   "for a path algebra module",
   true,
@@ -1302,8 +1424,7 @@ InstallMethod( RightGroebnerBasisOfModule,
     SetIsRightPathAlgebraModuleGroebnerBasis(gb, true);
 
     return gb;
-
-  end
+end
 );
 
 
@@ -1334,7 +1455,14 @@ InstallMethod( ViewObj,
   end
 );
 
-
+#######################################################################
+##
+#O  CompletelyReduce( <gb>, <v> ) 
+##
+##  This function takes as input a right Groebner basis for a module 
+##  constructed by  RightProjectiveModule  and an element thereof, and 
+##  completely reduces the element  <v>  modulo this Groebner basis. 
+##
 InstallOtherMethod( CompletelyReduce,
   "for a path algebra module Groebner basis",
   IsCollsElms,
@@ -1351,7 +1479,16 @@ InstallOtherMethod( CompletelyReduce,
   end
 );
 
-
+#######################################################################
+##
+#O  CompletelyReduce( <gb>, <v> ) 
+##
+##  This function takes as input a right Groebner basis  <gb>  for a 
+##  module constructed by  RightProjectiveModule  and an element  <v>  
+##  in the underlying  PathAlgebraModule  and completely reduces the 
+##  element  <v> modulo this Groebner basis. This is the companion of 
+##  operation defined above.   
+##
 InstallOtherMethod( CompletelyReduce,
   "for a path algebra module Groebner basis",
   true,
@@ -1390,7 +1527,7 @@ InstallOtherMethod( CompletelyReduce,
 
     return newVec;
 
-  end
+end
 );
 
 
@@ -1404,7 +1541,7 @@ InstallMethod( PrintObj,
   end
 );
 
-
+#O
 InstallMethod( LiftPathAlgebraModule,
   "for a right path algebra module over a f.p. path algebra",
   true,
@@ -1481,7 +1618,10 @@ InstallMethod( LiftPathAlgebraModule,
   end
 );
 
-
+#######################################
+#  
+#  Doesn't seem to be used.   
+##  
 InstallMethod( NaturalHomomorphismBySubAlgebraModule,
   "for vertex projective path algebra module and path algebra module",
   IsIdenticalObj,
@@ -1598,8 +1738,9 @@ InstallMethod( NaturalHomomorphismBySubAlgebraModule,
 );
 
 
-#####
-#
+#################################################################################
+#  Does not seemed to be used!
+#  
 # VertexProjectivePresentation
 #
 # dependencies:
@@ -1682,10 +1823,10 @@ InstallMethod( VertexProjectivePresentation,
 
   end
 );
-#
-#####
 
-
+###############################################################  
+#  Does not seem to be used!
+#  
 InstallOtherMethod( VertexProjectivePresentation,
   "For a path algebra and a list of lists of path algebra elements",
   function(F1, F2, F3) 
@@ -1753,7 +1894,9 @@ InstallOtherMethod( VertexProjectivePresentation,
   end
 );
 
-
+###############################################################  
+#  Maybe not used?
+# 
 InstallOtherMethod( Vectorize,
   "for path algebra modules and a homogeneous list",
   true,
@@ -1769,7 +1912,9 @@ InstallOtherMethod( Vectorize,
 );
 
 
-
+###############################################################  
+#  Not gotten it to work. Unsure about what to input.
+# 
 HOPF_FpPathAlgebraModuleHom := function(A, M, N)
   local B, bv, F, Q, verts, partVec, vec, mon, i, j, k, l, rt,
       arrows, src, tgt, map, maps, Mfam, mapArrows, eqns, uGens,
@@ -1928,7 +2073,9 @@ HOPF_FpPathAlgebraModuleHom := function(A, M, N)
   return gens;
 end;
 
-
+###############################################################  
+#  Not gotten it to work. Unsure about what to input.
+# 
 InstallMethod(Hom,
   "for a path algebra and two f.p. path algebra modules",
   true,
@@ -1947,7 +2094,9 @@ InstallMethod(Hom,
   end
 );
 
-
+###############################################################  
+#  Not gotten it to work. Unsure about what to input.
+# 
 InstallMethod( End,
   "for a path algebra and a path algebra module",
   true,
@@ -1966,7 +2115,9 @@ InstallMethod( End,
   end
 );
 
-
+###############################################################  
+#  Doesn't seem to be used!
+# 
 InstallMethod( ImagesSource,
   "for a linear g.m.b.i that is an algebra module homomorphism",
   true,
@@ -1981,7 +2132,9 @@ InstallMethod( ImagesSource,
   end
 );
 
-
+###############################################################  
+#  Doesn't seem to be used!
+# 
 InstallMethod( ImagesSource,
   "for a linear g.m.b.i that is an algebra module homomorphism",
   true,
@@ -2001,6 +2154,14 @@ InstallMethod( ImagesSource,
   end
 );
   
+#######################################################################
+##
+#O  CompletelyReduceGroebnerBasisForModule( <GB> ) 
+##
+##  This function takes as input an right Groebner basis for a vertex 
+##  projective module or a submodule thereof, an constructs completely
+##  reduced right Groebner from it.
+##  
 InstallMethod( CompletelyReduceGroebnerBasisForModule,
         "for complete groebner bases",
         true,
@@ -2021,7 +2182,23 @@ InstallMethod( CompletelyReduceGroebnerBasisForModule,
     return grb;
 end
 );
-  
+
+#######################################################################
+##
+#O  ProjectivePathAlgebraPresentation( <M> ) 
+##
+##  This function takes as input a  PathAlgebraMatModule  and constructs
+##  a projetive presentation of this module over the path algebra over
+##  which it is defined, ie. a projetive resolution of length 1. It 
+##  returns a list of five elements: (1) a projective module  P  over 
+##  the path algebra, which modulo the relations induced the projective 
+##  cover of  <M>, (2) a submodule  U  of  P  such that P/U is isomorphic
+##  to  <M>, (3) module generators of  P, (4) module generators for  U
+##  which forms a completely reduced right Groebner basis for  U, and 
+##  (5) a matrix with enteries in the path algebra which gives the map 
+##  from  U  to  P, if  U  were considered a direct sum of vertex projective
+##  modules over the path algebra. 
+##
 InstallMethod( ProjectivePathAlgebraPresentation,
         "for a finite dimensional module over a path algebra",
         true, 

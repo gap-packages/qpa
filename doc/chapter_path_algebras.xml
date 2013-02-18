@@ -1353,4 +1353,21 @@ true ]]>
   </ManSection>
 
 </Section>
+
+<Section Label="qpa:moregeneralalgebrastuff">
+  <Heading>Primitive idempotents</Heading>
+
+<ManSection>
+    <Oper Name="PrimitiveIdempotents" Arg="A"/>
+    <Description>
+      Arguments: <Arg>A</Arg> - a finite dimension semisimple algebra over a finite field.<Br />
+    </Description>
+    <Returns> a complete set of primitive idempotents <Math>\{ e_i
+    \}</Math> such that <Math>A \simeq Ae_1 + ... + Ae_n</Math>.
+    </Returns> 
+    <Description>
+      TODO: Understand what this function actually does.
+    </Description>
+  </ManSection>
+</Section>
 </Chapter>

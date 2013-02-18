@@ -9,3 +9,5 @@ DeclareOperation( "MinimalLeftApproximation", [ IsPathAlgebraMatModule, IsPathAl
 DeclareAttribute( "ProjectiveCover", IsPathAlgebraMatModule );
 DeclareOperation( "ExtOverAlgebra", [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ]);
 DeclareOperation( "ExtAlgebraGenerators", [ IsPathAlgebraMatModule, IS_INT ] );
+DeclareOperation( "PartialIyamaGenerator", [IsPathAlgebraMatModule ] );
+DeclareOperation( "IyamaGenerator", [IsPathAlgebraMatModule ] );
