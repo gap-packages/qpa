@@ -31,11 +31,11 @@ InstallMethod( IsFiniteTypeAlgebra,
     Q := QuiverOfPathAlgebra(A);
     
     if IsSpecialBiserialAlgebra(A) then
-      if IsTreeQuiver(Q) then 
+      if IsUAcyclicQuiver(Q) then 
         # Follows from [A. Skowronski, J.Waschb¨usch. Representation-finite biserial algebras. 
         # Journal f¨ur Mathematik. Band 345, 1983.]: Special biserial algebra is of fin. rep. type
         # <=> it contains no "primitive strings".
-        # TODO: full application of above thm, i.e. not only for trees.
+        # TODO: full application of above thm, i.e. not only for quivers with no unoriented cycles.
         # But even now it covers quite large class of "simple" algebras of finite type.
         return true;
       fi;
@@ -77,11 +77,11 @@ InstallMethod( IsFiniteTypeAlgebra,
     I := ElementsFamily(FamilyObj(A))!.ideal;
     
     if IsSpecialBiserialAlgebra(A) then
-      if IsTreeQuiver(Q) then
+      if IsUAcyclicQuiver(Q) then
         # Follows from [A. Skowronski, J.Waschb¨usch. Representation-finite biserial algebras. 
         # Journal f¨ur Mathematik. Band 345, 1983.]: Special biserial algebra is of fin. rep. type
         # <=> it contains no "primitive strings".
-        # TODO: full application of above thm, i.e. not only for trees.
+        # TODO: full application of above thm, i.e. not only for quivers with no unoriented cycles.
         # But even now it covers quite large class of "simple" algebras of finite type.
         return true;
       fi;
