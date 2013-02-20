@@ -841,36 +841,43 @@ InstallMethod( IsUAcyclicQuiver,
   [ IsQuiver ], 0,
   function ( Q )
     local Visit, color, GRAY, BLACK, WHITE,
-          vertex_list, res, vert, WhitenAllVertices;
+          vertex_list, res, vert, i;
     
     WHITE := 0; GRAY := 1; BLACK := -1;
     
-    WhitenAllVertices := function()
-      local i;
-      for i in [1 .. Length(vertex_list) ] do
-      color[i] := WHITE;
-      od;
-    end;
     
-    Visit := function(v)
+    Visit := function(v, predecessor)
       local adj, result, vertex, arrow; 
         
       color[v] := GRAY;
         
       adj := [];
+      for arrow in IncomingArrowsOfVertex(vertex_list[v]) do
+        vertex := Position(vertex_list, SourceOfPath(arrow));
+        if vertex in adj then
+          return false; # (un)oriented cycle of length 1 or 2 detected!
+        fi;
+        Add(adj, vertex);
+      od;
       for arrow in OutgoingArrowsOfVertex(vertex_list[v]) do
         vertex := Position(vertex_list, TargetOfPath(arrow));
+        if vertex in adj then
+          return false; # (un)oriented cycle of length 1 or 2 detected!
+        fi;
         Add(adj, vertex);
-      od; # Now adj contains all vertices adjacent to v by arrows outgoing from v 
-          # and with repetitions if there are multiple arrows!
+      od; 
+      # Now adj contains all vertices adjacent to v by arrows incoming to v and outgoing from v 
       
       for vertex in adj do
+        if (color[vertex] = GRAY) and (predecessor <> vertex) then
+          #cycle detected!
+          return false;
+        fi;
         if color[vertex] = WHITE then
-           result := Visit(vertex);
-           if not result then return false; fi;
-        else 
-          return false; # GRAY = oriented cycle, BLACK = unoriented cycle
-         fi;
+          if not Visit(vertex, v) then
+            return false; 
+          fi;
+        fi;
       od;
       
       color[v] := BLACK;
@@ -880,16 +887,16 @@ InstallMethod( IsUAcyclicQuiver,
     
     color := [];
     vertex_list := VerticesOfQuiver(Q);
-
-    if Length(vertex_list) = 0 then
-      return true;
-    fi;
     
+    for i in [1 .. Length(vertex_list) ] do
+      color[i] := WHITE;
+    od;
+     
     for vert in [1 .. Length(vertex_list) ] do
-      WhitenAllVertices();
-      res := Visit(vert);
-      if not res then
-        return false;
+      if color[vert] = WHITE then
+        if not Visit(vert, -1) then
+          return false;
+        fi;
       fi;
     od;
     
