@@ -7,3 +7,5 @@ DeclareProperty("IsConnectedQuiver", IsQuiver);
 DeclareProperty("IsTreeQuiver", IsQuiver); # better name??
 DeclareProperty("IsUAcyclicQuiver", IsQuiver); # better name??
 DeclareProperty("IsDynkinQuiver", IsQuiver);
+
+InstallImmediateMethod(IsFinite, IsQuiver and HasIsAcyclicQuiver, 0, IsAcyclicQuiver);
