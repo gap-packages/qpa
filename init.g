@@ -37,5 +37,6 @@ ReadPackage("QPA", "gap/util.gd");
 ReadPackage("QPA", "gap/complex.gd");
 ReadPackage("QPA", "gap/derivedcat.gd");
 ReadPackage("QPA", "gap/pathalgreptype.gd");
+ReadPackage("QPA", "gap/quivergraphalgorithms.gd");
 
 #E  init.g . . . . . . . . . . . . . . . . . . . . . . . . . . . .  ends here
