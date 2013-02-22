@@ -3,9 +3,12 @@
 # (created A. Mroz, 21.02.2013)
 
 DeclareProperty("IsAcyclicQuiver", IsQuiver);
+InstallImmediateMethod(IsFinite, IsQuiver and HasIsAcyclicQuiver, 0, IsAcyclicQuiver);
 DeclareProperty("IsConnectedQuiver", IsQuiver);
 DeclareProperty("IsTreeQuiver", IsQuiver); # better name??
 DeclareProperty("IsUAcyclicQuiver", IsQuiver); # better name??
 DeclareProperty("IsDynkinQuiver", IsQuiver);
 
-InstallImmediateMethod(IsFinite, IsQuiver and HasIsAcyclicQuiver, 0, IsAcyclicQuiver);
+DeclareOperation("FullSubquiver", [IsQuiver, IsList]);
+DeclareOperation("ConnectedComponents", [IsQuiver]);
+

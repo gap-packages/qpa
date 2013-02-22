@@ -292,9 +292,12 @@ InstallMethod( IsDynkinQuiver,
       return counter;
     end; # GoThrough
     
-    
-    if not IsTreeQuiver(Q) then
-      Print("Not a tree quiver (i.e. not connected or contains an (un)oriented cycle).\n");
+    if not IsConnectedQuiver(Q) then
+      Print("Quiver is not connected.\n");
+      return false;
+    fi;
+    if not (NumberOfArrows(Q) = NumberOfVertices(Q) - 1) then
+      Print("Quiver contains an (un)oriented cycle.\n");
       return false;
     fi;
     
@@ -348,3 +351,113 @@ InstallMethod( IsDynkinQuiver,
     end
 ); #IsDynkinQuiver
 
+
+
+
+######################################################
+##
+#O FullSubquiver( <Q> , <L>)
+##
+## This function returns a quiver which is a fullsubquiver
+## of a quiver <Q> induced by the list of vertices <L>.
+## Note: the names of vertices and arrows in resulting (sub)quiver 
+## can differ from the original ones.
+##
+InstallMethod( FullSubquiver,
+               
+  [ IsQuiver, IsList ],
+  function( Q, L )
+    local i, arr, vertices, arrows, result, src, trg;
+    
+    if not ForAll(L, x -> (IsVertex(x) and (x in Q)) ) then
+      Error("L should be a list of vertices of Q!");
+    fi;
+    
+    vertices := [];
+    for i in [1..Length(L)] do
+      Add(vertices, Concatenation("nv",String(i)) );
+    od;
+    
+    arrows := [];
+    i := 0;
+    for arr in ArrowsOfQuiver(Q) do
+      src := SourceOfPath(arr);
+      trg := TargetOfPath(arr);
+      if (src in L) and (trg in L) then
+        i := i + 1;
+        Add(arrows, [ Concatenation("nv",String(Position(L, src))),
+                      Concatenation("nv",String(Position(L, trg))),
+                      Concatenation("na",String(i)) ] );
+      fi;
+    od;
+    
+    result := Quiver(vertices,arrows);
+    
+    return result;
+  
+  end
+); # FullSubquiver
+
+
+
+
+######################################################
+##
+#O ConnectedComponents( <Q> )
+##
+## This function returns a list of quivers which are 
+## the all connected components a quiver <Q>.
+##
+InstallMethod( ConnectedComponents,
+               
+  [ IsQuiver ],
+  function( Q )
+    local  Visit, color, GRAY, BLACK, WHITE,
+          vertex_list, components, comp_q, vert, comp_verts;
+    
+    WHITE := 0; GRAY := 1; BLACK := -1;
+    
+    Visit := function(v)
+      local adj, result, vertex, arrow; 
+        
+      color[v] := GRAY;
+        
+      adj := List(NeighborsOfVertex(vertex_list[v]),
+                  x -> Position(vertex_list, x));
+      for arrow in IncomingArrowsOfVertex(vertex_list[v]) do
+        vertex := Position(vertex_list, SourceOfPath(arrow));
+        if not (vertex in adj) then
+          Add(adj, vertex);
+        fi;
+      od; # Now adj contains all vertices adjacent to v (by arrows outgoing from and incoming to v)
+      
+      for vertex in adj do
+        if color[vertex] = WHITE then
+          Visit(vertex);
+        fi;
+      od;
+      color[v] := BLACK;
+      Add(comp_verts, vertex_list[v]);
+      
+      return true;
+    end;
+    
+    color := [];
+    vertex_list := VerticesOfQuiver(Q);
+    components := [];
+   
+    for vert in [1 .. Length(vertex_list) ] do
+      color[vert] := WHITE;
+    od;
+    
+    for vert in [1 .. Length(vertex_list) ] do
+      if color[vert] = WHITE then
+        comp_verts := [];
+        Visit(vert);
+        Add(components, FullSubquiver(Q, comp_verts) );
+      fi;
+    od;
+    
+    return components;
+  end
+); # ConnectedComponents
