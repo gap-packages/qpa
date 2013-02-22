@@ -44,8 +44,8 @@ constructing quivers in Section <Ref Sect="Constructing Quivers"/>.
    <Description>Arguments: First construction: <Arg>N</Arg> -- number of vertices, <Arg>arrows</Arg> -- a list of arrows to specify the graph <Math>\Gamma</Math>. Second construction: <Arg>vertices</Arg> -- a list of vertex names, <Arg>arrows</Arg> -- a list of arrows. Third construction: takes an adjacency matrix for the graph <Math>\Gamma</Math>.
    
    <Br /></Description>
-   <Returns>a quiver, which satisfies the property
-   <Ref Prop="IsQuiver"/>.</Returns> 
+   <Returns>a quiver, which is an object from the category
+   <Ref Filt="IsQuiver"/>.</Returns> 
    <Description>
 In the first and third constructions, the vertices are named `v1, v2,
 ...'.  In the second construction, unique vertex names are given as
@@ -103,7 +103,7 @@ v2
 <Section><Heading>Categories and Properties of Quivers</Heading>
 
   <ManSection>
-   <Prop Name="IsQuiver" Arg="object" Comm="property, whether object
+   <Filt Name="IsQuiver" Arg="object" Type="category" Comm="category, whether object
    is a quiver"/>
    <Returns>
     true when <Arg>object</Arg> is a quiver.
@@ -180,6 +180,39 @@ gap&gt; IsAcyclicQuiver(q4); IsUAcyclicQuiver(q4); IsConnectedQuiver(q4); IsTree
 true
 true
 false
+false
+</Example>
+
+<ManSection>
+   <Prop Name="IsDynkinQuiver" Arg="quiver" Comm="property, whether object
+   is a Dynkin quiver"/>
+   <Returns>
+    true when <Arg>quiver</Arg> is a Dynkin quiver
+   (more precisely, when underlying undirected graph of <Arg>quiver</Arg> is a Dynkin diagram).
+   </Returns>
+   <Description>
+   This function prints an additional information. If it returns true, it prints
+   the Dynkin type of <Arg>quiver</Arg>, i.e. A_n, D_m, E_6, E_7 or E_8.
+   Moreover, in case <Arg>quiver</Arg> is not connected or 
+   contains an unoriented cycle,
+   the function also prints a respective info. 
+   </Description>
+  </ManSection>
+  
+  <Example>
+gap&gt; q1 := Quiver(4,[[1,4],[4,2],[3,4]]);
+&lt;quiver with 4 vertices and 3 arrows&gt;
+gap&gt; IsDynkinQuiver(q1);
+D_4
+true
+gap&gt; q2 := Quiver(2,[[1,2],[1,2]]);
+&lt;quiver with 2 vertices and 2 arrows&gt;
+gap&gt; IsDynkinQuiver(q2);
+Quiver contains an (un)oriented cycle.
+false
+gap&gt; q3 := Quiver(5,[[1,5],[2,5],[3,5],[4,5]]);
+&lt;quiver with 5 vertices and 4 arrows&gt;
+gap&gt; IsDynkinQuiver(q3);
 false
 </Example>
 </Section>
