@@ -119,7 +119,7 @@ InstallMethod( IsConnectedQuiver,
     
     color := [];
     vertex_list := VerticesOfQuiver(Q);
-
+    
     if Length(vertex_list) = 0 then
       return true;
     fi;
@@ -406,7 +406,7 @@ InstallMethod( FullSubquiver,
 #O ConnectedComponents( <Q> )
 ##
 ## This function returns a list of quivers which are 
-## the all connected components a quiver <Q>.
+##  all connected components a quiver <Q>.
 ##
 InstallMethod( ConnectedComponents,
                
@@ -454,7 +454,9 @@ InstallMethod( ConnectedComponents,
       if color[vert] = WHITE then
         comp_verts := [];
         Visit(vert);
-        Add(components, FullSubquiver(Q, comp_verts) );
+        comp_q := FullSubquiver(Q, comp_verts);
+        SetIsConnectedQuiver(comp_q, true);
+        Add(components, comp_q );
       fi;
     od;
     

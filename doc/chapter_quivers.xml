@@ -215,6 +215,10 @@ gap&gt; q3 := Quiver(5,[[1,5],[2,5],[3,5],[4,5]]);
 gap&gt; IsDynkinQuiver(q3);
 false
 </Example>
+
+
+  
+  
 </Section>
 
 <Section Label="qpa:Orderings"><Heading>Orderings of paths in a
@@ -334,6 +338,45 @@ gap&gt; VerticesOfQuiver(q1);
 gap&gt; ArrowsOfQuiver(q1);
 [ a_op, b_op, c_op, d_op ]
 </Example>
+
+<ManSection>
+   <Oper Name="FullSubquiver" Arg="quiver, list" Comm="operation creating a full subquiver of a quiver"/>
+   <Returns>
+    This function returns a quiver which is a full subquiver
+ of a <Arg>quiver</Arg> induced by the <Arg>list</Arg> of its vertices.
+   </Returns>
+   <Description>
+   The names of vertices and arrows in a resulting (sub)quiver 
+   can differ from the original ones. The function checks if <Arg>list</Arg>
+   consists of vertices of <Arg>quiver</Arg>.
+   </Description>
+ </ManSection>
+ 
+<ManSection>
+   <Oper Name="ConnectedComponents" Arg="quiver" Comm="operation creating a list of all connected components of a quiver"/>
+   <Returns>
+    This function returns a list of quivers which are 
+   all connected components of a <Arg>quiver</Arg>.
+   </Returns>
+   <Description>
+   The names of vertices and arrows in quivers from resulting list 
+   can differ from the original ones. The function sets the property
+   <Ref Prop="IsConnectedQuiver"/> to true for all the components. 
+   </Description>
+</ManSection> 
+ 
+<Example>
+gap&gt; Q := Quiver(6, [ [1,2],[1,1],[3,2],[4,5],[4,5] ]);
+&lt;quiver with 6 vertices and 5 arrows&gt;
+gap&gt; VerticesOfQuiver(Q);
+[ v1, v2, v3, v4, v5, v6 ]
+gap&gt; FullSubquiver(Q, [Q.v1, Q.v2]);
+&lt;quiver with 2 vertices and 2 arrows&gt;
+gap&gt; ConnectedComponents(Q);
+[ &lt;quiver with 3 vertices and 3 arrows&gt;, &lt;quiver with 2 vertices and 2 arrows&gt;
+    , &lt;quiver with 1 vertices and 0 arrows&gt; ]
+</Example>
+
 </Section>
 
 <Section><Heading>Categories and Properties of Paths</Heading>
