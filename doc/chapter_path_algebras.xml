@@ -577,37 +577,7 @@ false ]]></Example>
    </Description>
   </ManSection>
   
-</Section>
-
-<Section><Heading>Attributes and Operations for Quotients of Path
-    Algebras</Heading> 
-
-<!-- Is never used -->
-  <!-- <ManSection> -->
-  <!--  <Attr Name="NormalFormFunction" Arg="object" Comm=""/> -->
-  <!--  <Description> -->
-  <!--   is a function that can compute normal forms for elements -->
-  <!--   of <Arg>object</Arg>. It may be supplied by the user.<Br /> -->
-  <!--   <Emph>Note: no documentation on this. Remove??</Emph> -->
-  <!--  </Description> -->
-  <!-- </ManSection> -->
-
-<ManSection>
-  <Attr Name="Dimension" Arg="A" Comm="computes the dimension of A"/>
-  <Description>
-    Arguments: <Arg>A</Arg> -- a path algebra or a quotient of a path algebra.<Br />
-  </Description>
-  <Returns>
-    the dimension of the algebra <Arg>A</Arg> or <Emph>infinity</Emph> in case <Arg>A</Arg> is an infinite dimensional algebra.
-  </Returns>
-  <Description><Emph>Technical note:</Emph> For a path algebra it uses a standard &GAP; method
-  (it breaks for infinite dimensional case!).
-  For a quotient of a path algebra it uses Groebner bases machinery
-  (it computes Groebner basis for the ideal only in case it has not been computed yet).
-  </Description>
-</ManSection>
-
-<ManSection>
+  <ManSection>
    <Prop Name="IsCanonicalAlgebra" Arg="A" Comm=""/>
    <Description>
      Arguments: <Arg>A</Arg> -- a path algebra or a quotient of a path
@@ -686,7 +656,7 @@ false ]]></Example>
 </ManSection>
 
 <ManSection>
-   <Oper Name="IsSymmetricAlgebra" Arg="A" Comm=""/>
+   <Prop Name="IsSymmetricAlgebra" Arg="A" Comm=""/>
    <Description>
      Arguments: <Arg>A</Arg> -- a path algebra or a quotient of a path
      algebra.<Br />
@@ -698,7 +668,7 @@ false ]]></Example>
 </ManSection>
 
 <ManSection>
-   <Oper Name="IsWeaklySymmetricAlgebra" Arg="A" Comm=""/>
+   <Prop Name="IsWeaklySymmetricAlgebra" Arg="A" Comm=""/>
    <Description>
      Arguments: <Arg>A</Arg> -- a path algebra or a quotient of a path
      algebra.<Br />
@@ -708,6 +678,71 @@ false ]]></Example>
      according to whether <Arg>A</Arg> is weakly symmetric or not.
    </Returns>
 </ManSection>
+
+<ManSection>
+   <Prop Name="IsFiniteTypeAlgebra" Arg="A" Comm="test for finite type"/>
+   <Description>
+     Arguments: <Arg>A</Arg> -- a path algebra or a quotient of a path
+     algebra.<Br />
+   </Description>
+   <Returns>Returns true if <Arg>A</Arg> is of finite representation type.
+  Returns false if <Arg>A</Arg> is of infinite representation type.
+  Returns fail if we can not determine the representation type
+  (i.e. it impossible from theoretical/algorithmic point of view
+  or a suitable criterion has not been implemented yet; the implementation is in progress).
+  Note: in case <Arg>A</Arg> is a path algebra the function is completely 
+  implemented.
+   </Returns>
+</ManSection>
+
+<Example><![CDATA[
+gap> Q := Quiver(5, [ [1,2,"a"], [2,4,"b"], [3,2,"c"], [2,5,"d"] ]);
+<quiver with 5 vertices and 4 arrows>
+gap> A := PathAlgebra(Rationals, Q);
+<Rationals[<quiver with 5 vertices and 4 arrows>]>
+gap> IsFiniteTypeAlgebra(A);
+Infinite type!
+Quiver is not a (union of) Dynkin quiver(s).
+false
+gap> quo := A/Ideal(A, [A.a*A.b, A.c*A.d]);
+<Rationals[<quiver with 5 vertices and 4 arrows>]/
+<two-sided ideal in <Rationals[<quiver with 5 vertices and 4 arrows>]>,
+  (2 generators)>>
+gap> IsFiniteTypeAlgebra(quo);
+Finite type!
+Special biserial algebra with no unoriented cycles in Q.
+true ]]></Example>
+  
+</Section>
+
+<Section><Heading>Attributes and Operations for Quotients of Path
+    Algebras</Heading> 
+
+<!-- Is never used -->
+  <!-- <ManSection> -->
+  <!--  <Attr Name="NormalFormFunction" Arg="object" Comm=""/> -->
+  <!--  <Description> -->
+  <!--   is a function that can compute normal forms for elements -->
+  <!--   of <Arg>object</Arg>. It may be supplied by the user.<Br /> -->
+  <!--   <Emph>Note: no documentation on this. Remove??</Emph> -->
+  <!--  </Description> -->
+  <!-- </ManSection> -->
+
+<ManSection>
+  <Attr Name="Dimension" Arg="A" Comm="computes the dimension of A"/>
+  <Description>
+    Arguments: <Arg>A</Arg> -- a path algebra or a quotient of a path algebra.<Br />
+  </Description>
+  <Returns>
+    the dimension of the algebra <Arg>A</Arg> or <Emph>infinity</Emph> in case <Arg>A</Arg> is an infinite dimensional algebra.
+  </Returns>
+  <Description><Emph>Technical note:</Emph> For a path algebra it uses a standard &GAP; method
+  (it breaks for infinite dimensional case!).
+  For a quotient of a path algebra it uses Groebner bases machinery
+  (it computes Groebner basis for the ideal only in case it has not been computed yet).
+  </Description>
+</ManSection>
+
 
 <ManSection>
    <Attr Name="LoewyLength" Arg="A" Comm=""/>
