@@ -16,14 +16,16 @@ basis are computed by the <Package>GBNP</Package> package.
 </ManSection>
 
   <ManSection>
-   <Oper Name="GroebnerBasis" Arg="A, rels" 
+   <Oper Name="GroebnerBasis" Arg="I, rels" 
 	 Comm=""/>
    <Description>Arguments: <Arg>I</Arg> -- an ideal, <Arg>rels</Arg>
    -- a list of relations generating <Arg>I</Arg>.<Br />
    </Description>
-   <Returns> an object <Arg>GB</Arg> in the `IsGroebnerBasis' category with `IsCompleteGroebnerBasis' property set on true.</Returns>
+   <Returns> an object <Arg>GB</Arg> in the <Ref Filt="IsGroebnerBasis"/> category with 
+   <Ref Prop="IsCompleteGroebnerBasis"/> property set on true.</Returns>
    <Description>
-       Sets  also <Arg>GB</Arg> as a value of the attribute GroebnerBasisOfIdeal for <Arg>I</Arg>
+       Sets  also <Arg>GB</Arg> as a value of the attribute 
+       <Ref Attr="GroebnerBasisOfIdeal"/> for <Arg>I</Arg>
        (so one has an access to it by calling GroebnerBasisOfIdeal(<Arg>I</Arg>)).<Br />
        
        There are absolutely no computations and no checks for correctness in this
@@ -31,7 +33,8 @@ basis are computed by the <Package>GBNP</Package> package.
        Groebner basis may result in incorrect answers or unexpected
        errors.  This function is intended to be used by packages
        providing access to external Groebner basis programs and should 
-       be invoked before further computations on Groebner basis or ideal I.
+       be invoked before further computations on Groebner basis or ideal I (cf. also
+       <Ref Prop="IsCompleteGroebnerBasis"/>).
    </Description>
   </ManSection>
 
@@ -132,6 +135,7 @@ true ]]>
 
 <Section><Heading>Attributes and Operations for Groebner Basis</Heading>
 
+  
   <ManSection>
    <Oper Name="CompletelyReduce" Arg="GB, a" Comm=""/>
    <Description>

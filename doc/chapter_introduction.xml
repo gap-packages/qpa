@@ -101,9 +101,10 @@ ideal in the "mathematical sense" may exist independetly of the a
 corresponding <C>Ideal</C> object in <Package>GAP</Package>. Also,
 Gröbner bases in <Package>QPA</Package> are handled by the
 <Package>GBNP</Package> package, with constructor methods not
-dependent on <C>Ideal</C> objects). After creating the ideal
+dependent on <C>Ideal</C> objects. After creating the ideal
 <Math>I</Math>, we need to perform yet another Gröbner basis
-operation. If we ommit this, we can still construct the quotient
+operation which just set a respective attribute for <Math>I</Math>, see <Ref Oper="GroebnerBasis"/>. 
+If we omit this, we can still construct the quotient
 <Math>kQ/I</Math>, but then we are typically not allowed to perform
 all the operations we want on this algebra later.
 
@@ -122,6 +123,28 @@ gap> A := kQ/I;
 <two-sided ideal in <Rationals[<quiver with 1 vertices and 2 arrows>]>, 
   (3 generators)>>
 ]]></Example>
+
+Nevertheless, as we said before, one can create quotient of path algebras in 
+much simpler way, by just typing:
+
+<Example><![CDATA[
+gap> relations := [a*b*a-b, b*a*b-b];
+[ (-1)*b+(1)*a*b*a, (-1)*b+(1)*b*a*b ]
+gap> I := Ideal(kQ, relations);
+<two-sided ideal in <Rationals[<quiver with 1 vertices and 2 arrows>]>, 
+  (2 generators)>
+gap> A := kQ/I;
+<Rationals[<quiver with 1 vertices and 2 arrows>]/
+<two-sided ideal in <Rationals[<quiver with 1 vertices and 2 arrows>]>, 
+  (2 generators)>>
+]]></Example>
+
+And then, functions like <Ref Prop="IsFiniteDimensional"/>, 
+<Ref Attr="Dimension"/>, <Ref Prop="IsSpecialBiserialAlgebra"/> or a membership test
+<Ref Oper="\in (elt. in path alg. and ideal)"/> will work properly. 
+They simply compute the Groebner basis
+if it is necessary. But some "older" functions (like <Ref Prop="IsSymmetricAlgebra"/>)
+can fail!
 
 Most <Package>QPA</Package> operations working on algebras handle
 path algebras and quotients of path algebras in the same way (when

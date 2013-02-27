@@ -541,6 +541,19 @@ gap> GroebnerBasis(I, gb);
 gap> quot := FQ/I;
 <algebra-with-one over Rationals, with 6 generators> 
 ]]></Example>
+
+<ManSection>
+   <Attr Name="GroebnerBasisOfIdeal" Arg="I" Comm=""/>
+   <Description>
+     Arguments: <Arg>I</Arg> -- an ideal in path algebra.<Br />
+   </Description>
+   <Returns>a Groebner basis of ideal <Arg>I</Arg> (if it has been already computed!).
+   </Returns>
+   <Description>
+    This attribute is set only by an operation <Ref Oper="GroebnerBasis"/>.
+   </Description>
+</ManSection>
+
 </Section>
 
 <Section>
