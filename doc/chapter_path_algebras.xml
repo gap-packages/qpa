@@ -327,11 +327,12 @@ true ]]></Example>
 
 
 <Section>
-<Heading>Constructing Quotients of Path Algebras</Heading> See Chapter
+<Heading>Constructing Quotients of Path Algebras</Heading> 
+Recall that there are three main ways of constructing 
+a quotient of a path algebra we described in Introduction
+(cf. also Chapter
 60: Algebras in the &GAP; manual on how to construct an ideal and a
-quotient of an algebra.  When the quotient is constructed, it is still
-a path algebra [?!] and thus the commands introduced for path algebras also
-works with quotients.
+quotient of an algebra).  
 </Section>
 
 <Section Label="IdealsAndOperations"><Heading>Ideals and operations

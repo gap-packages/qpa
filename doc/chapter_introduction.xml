@@ -124,8 +124,20 @@ gap> A := kQ/I;
   (3 generators)>>
 ]]></Example>
 
-Nevertheless, as we said before, one can create quotient of path algebras in 
-much simpler way, by just typing:
+Exactly the same behaviour as above in constructing a quotient of a path algebra
+can be achieved by using the following abbreviated form:
+
+<Example><![CDATA[
+gap> relations := [a*b*a-b, b*a*b-b];
+[ (-1)*b+(1)*a*b*a, (-1)*b+(1)*b*a*b ]
+gap> A := kQ/relations;
+<Rationals[<quiver with 1 vertices and 2 arrows>]/
+<two-sided ideal in <Rationals[<quiver with 1 vertices and 2 arrows>]>, 
+  (3 generators)>>
+]]></Example>
+
+Nevertheless, as we said before, one can create quotient of path algebra in 
+a more natural for GAP way, without computing the Groebner basis, by typing:
 
 <Example><![CDATA[
 gap> relations := [a*b*a-b, b*a*b-b];
@@ -139,18 +151,19 @@ gap> A := kQ/I;
   (2 generators)>>
 ]]></Example>
 
-And then, functions like <Ref Prop="IsFiniteDimensional"/>, 
+And then, functions which use Groebner bases like <Ref Prop="IsFiniteDimensional"/>, 
 <Ref Attr="Dimension"/>, <Ref Prop="IsSpecialBiserialAlgebra"/> or a membership test
-<Ref Oper="\in (elt. in path alg. and ideal)"/> will work properly. 
-They simply compute the Groebner basis
-if it is necessary. But some "older" functions (like <Ref Prop="IsSymmetricAlgebra"/>)
-can fail!
+<Ref Oper="\in (elt. in path alg. and ideal)"/> will work properly 
+(they simply compute the Groebner basis
+if it is necessary). But some "older" functions (like <Ref Prop="IsSymmetricAlgebra"/>)
+can fail! This way of constructing a quotient of a path algebra can be useful
+e.g. if we know that computing a Groebner basis will take a long time and we do not need this
+because we want to deal only with modules.<P/>
 
 Most <Package>QPA</Package> operations working on algebras handle
 path algebras and quotients of path algebras in the same way (when
 this makes sense). However, there are still a few operations which
-does not work properly when given a quotient of a path algebra. (Gjør
-litt research her kanskje.)
+does not work properly when given a quotient of a path algebra. 
 </Section>
 
 <Section><Heading>Example 2 -- Introducing modules</Heading>
