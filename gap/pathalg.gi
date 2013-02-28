@@ -1972,3 +1972,22 @@ InstallMethod( IsWeaklySymmetricAlgebra,
    fi;
 end
 );
+
+InstallOtherMethod( \/,
+    "for PathAlgebra and a list of generators",
+    IsIdenticalObj,
+    [ IsPathAlgebra, IsList ],
+    function( KQ, relators )
+    
+    local gb, I;
+    
+    if not ForAll(relators, x -> ( x in KQ ) ) then
+        Error("the entered list of elements should be in the path algebra!");
+    fi;
+    gb := GBNPGroebnerBasis(relators, KQ);
+    I := Ideal(KQ,gb);
+    GroebnerBasis(I,gb);
+
+    return KQ/I;
+end 
+); 
