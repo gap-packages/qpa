@@ -70,6 +70,7 @@ DeclareOperation( "VertexPosition", [ IsElementOfQuotientOfPathAlgebra ] );
 DeclareProperty( "IsSelfinjectiveAlgebra",  IsAlgebra ); 
 DeclareProperty( "IsSymmetricAlgebra", IsAlgebra );
 DeclareProperty( "IsWeaklySymmetricAlgebra", IsAlgebra );
+DeclareProperty( "IsSchurianAlgebra", IsAlgebra );
 DeclareAttribute( "CoxeterPolynomial",  IsPathAlgebra  ); 
 DeclareAttribute( "CoxeterMatrix", IsPathAlgebra ); 
 DeclareOperation( "TipMonomialandCoefficientOfVector", [ IsAlgebra, IsCollection ] );

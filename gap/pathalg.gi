@@ -1991,3 +1991,23 @@ InstallOtherMethod( \/,
     return KQ/I;
 end 
 ); 
+
+InstallMethod( IsSchurianAlgebra,
+    "for PathAlgebra or QuotientOfPathAlgebra",
+    true,
+    [ IsAlgebra ],
+    function( A )
+    
+    local Q, test;
+    
+    if not IsPathAlgebra(A) and not IsQuotientOfPathAlgebra(A) then 
+       TryNextMethod();
+    fi;
+    if IsFiniteDimensional(A) then
+        test := Flat(List(IndecProjectiveModules(A), x -> DimensionVector(x)));
+        return ForAll(test, x -> ( x <= 1 ) );
+    else
+        Error("the entered algebra is not finite dimensional,\n");
+    fi;    
+end 
+); 
