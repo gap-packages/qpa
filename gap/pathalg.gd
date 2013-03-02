@@ -71,6 +71,8 @@ DeclareProperty( "IsSelfinjectiveAlgebra",  IsAlgebra );
 DeclareProperty( "IsSymmetricAlgebra", IsAlgebra );
 DeclareProperty( "IsWeaklySymmetricAlgebra", IsAlgebra );
 DeclareProperty( "IsSchurianAlgebra", IsAlgebra );
+DeclareProperty("IsSemicommutativeAlgebra", IsPathAlgebra);
+DeclareProperty("IsSemicommutativeAlgebra", IsQuotientOfPathAlgebra);
 DeclareAttribute( "CoxeterPolynomial",  IsPathAlgebra  ); 
 DeclareAttribute( "CoxeterMatrix", IsPathAlgebra ); 
 DeclareOperation( "TipMonomialandCoefficientOfVector", [ IsAlgebra, IsCollection ] );

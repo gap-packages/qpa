@@ -1992,6 +1992,17 @@ InstallOtherMethod( \/,
 end 
 ); 
 
+########################################################################
+##
+#P  IsSchurianAlgebra( <A> ) 
+##  <A> = a path algebra or a quotient of a path algebra
+##
+##  It tests if an algebra <A> is a schurian  algebra.
+##  By definition it means that:
+##  for all x,y\in Q_0 dim A(x,y)<=1.
+##  Note: This method fail when a Groebner basis
+##  for ideal has not been computed before creating q quotient!
+##
 InstallMethod( IsSchurianAlgebra,
     "for PathAlgebra or QuotientOfPathAlgebra",
     true,
@@ -2011,3 +2022,115 @@ InstallMethod( IsSchurianAlgebra,
     fi;    
 end 
 ); 
+
+
+
+
+
+#################################################################
+##
+#P  IsSemicommutativeAlgebra( <A> ) 
+##  <A> = a path algebra
+##
+##  It tests if a path algebra <A> is a semicommutative  algebra. 
+##  Note that for a path algebra it is an empty condition
+##  (when <A> is schurian + acyclic, cf. description for quotients below).
+##		
+InstallMethod( IsSemicommutativeAlgebra,
+    "for path algebras",
+    true,
+    [ IsPathAlgebra ], 0,
+    function ( A )
+    
+    local Q; 
+    
+    if not IsSchurianAlgebra(A) then
+        return false;
+    fi;
+    
+    Q := QuiverOfPathAlgebra(A);
+    return IsAcyclicQuiver(Q);  
+end
+); # IsSemicommutativeAlgebra for IsPathAlgebra
+
+
+########################################################################
+##
+#P  IsSemicommutativeAlgebra( <A> ) 
+##  <A> = a quotient of a path algebra
+##
+##  It tests if a quotient of a path algebra <A>=kQ/I is a semicommutative  algebra.
+##  By definition it means that:
+##  1. A is schurian (i.e. for all x,y\in Q_0 dim A(x,y)<=1).
+##  2. Quiver Q of A is acyclic.
+##  3. For all pairs of vertices (x,y) the following condition is satisfied:
+##     for every two paths P,P' from x to y:
+##     P\in I <=> P'\in I
+##
+  
+InstallMethod( IsSemicommutativeAlgebra,
+    "for quotients of path algebras",
+    true,
+    [ IsQuotientOfPathAlgebra ], 0,
+    function ( A )
+    
+    local Q, PA, I, vertices, vertex, v, vt,
+          paths, path, p,
+          noofverts, noofpaths,
+          eA, pp,
+          inI, notinI;
+    
+    PA := OriginalPathAlgebra(A);
+    Q := QuiverOfPathAlgebra(PA);
+    if (not IsAcyclicQuiver(Q)) 
+      or (not IsSchurianAlgebra(A))
+      then
+        return false;
+    fi;
+    
+    I := ElementsFamily(FamilyObj(A))!.ideal;
+    
+    vertices := VerticesOfQuiver(Q);
+    paths := [];
+    for path in Q do
+      if LengthOfPath(path) > 0 then
+        Add(paths, path);
+      fi;
+    od;
+    noofverts := Length(vertices);
+    noofpaths := Length(paths);
+    eA := [];
+    for v in [1..noofverts] do
+      eA[v] := []; # here will be all paths starting from v
+      for p in [1..noofpaths] do
+        pp := vertices[v]*paths[p];
+        if pp <> Zero(Q) then
+          Add(eA[v], pp);
+        fi;  
+      od;
+    od;
+    
+    for v in [1..noofverts] do
+      for vt in [1..noofverts] do
+        # checking all paths from v to vt if they belong to I
+        inI := 0;
+        notinI := 0;
+        for pp in eA[v] do # now pp is a path starting from v
+          pp := pp*vertices[vt];
+          if pp <> Zero(Q) then
+            if ElementOfPathAlgebra(PA, pp) in I then
+              inI := inI + 1;
+            else
+              notinI := notinI + 1;
+            fi;
+            if (inI > 0) and (notinI > 0) then
+              return false;
+            fi;
+          fi;
+        od;
+      od;
+    od;
+    
+    return true;
+end
+); # IsSemicommutativeAlgebra for IsQuotientOfPathAlgebra
