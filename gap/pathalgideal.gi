@@ -140,7 +140,7 @@ InstallMethod( IsAdmissibleIdeal,
   [IsIdealInPathAlgebra],
   0,
   function(I)
-    local rels, i, Monomials, A;
+    local rels, i, Monomials, A, B, N, JtotheN;
 
     if HasIsTrivial(I) and IsTrivial(I) then
       return IsFiniteDimensional(LeftActingRingOfIdeal(I)); # <=> (arrow ideal)^n \subset I, for some n
@@ -160,10 +160,15 @@ InstallMethod( IsAdmissibleIdeal,
     fi;
     
     A := LeftActingRingOfIdeal(I);
-  
-    return IsFiniteDimensional(A/I); # <=> (arrow ideal)^n \subset I, for some n
-
-  end
+    B := A/I;
+    if IsFiniteDimensional(B) then
+        N := Length(PowerSubalgebraSeries(RadicalOfAlgebra(B)));
+        JtotheN := NthPowerOfArrowIdeal(A,N);
+        return ForAll(JtotheN, x -> x in I);
+    else
+        return false;
+    fi;
+end
 ); # IsAdmissibleIdeal
 
 

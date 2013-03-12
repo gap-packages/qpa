@@ -340,18 +340,19 @@ true
 </ManSection>
 
 <ManSection>
-   <Oper Name="ProjectiveResolutionOfPathAlgebraModule" Arg="M" Comm="for a PathAlgebraMatModule"/>
+   <Oper Name="ProjectiveResolutionOfPathAlgebraModule" Arg="M, n" Comm="for a PathAlgebraMatModule and an integer"/>
    <Description>
-     Arguments: <Arg>M</Arg> - a path algebra module (<C>PathAlgebraMatModule</C>).<Br />
+     Arguments: <Arg>M</Arg> - a path algebra module (<C>PathAlgebraMatModule</C>), <Arg>n</Arg> - a positive integer.<Br />
    </Description>
    <Returns>in terms of attributes <C>RProjectives</C>,
    <C>ProjectivesFList</C> and <C>Maps</C> a projective resolution of
-   <Arg>M</Arg>, where <C>RProjectives</C> are the projectives in the
-   resolution lifted up to projectives over the path algebra,
-   <C>ProjectivesFList</C> are the generators of the projective
-   modules given in <C>RProjectives</C> in terms of elements in the
-   first projective in the resolution and <C>Maps</C> contains the
-   information about the maps in the resolution.</Returns>
+   <Arg>M</Arg> out to stage <Arg>n</Arg>, where <C>RProjectives</C>
+   are the projectives in the resolution lifted up to projectives over
+   the path algebra, <C>ProjectivesFList</C> are the generators of the
+   projective modules given in <C>RProjectives</C> in terms of
+   elements in the first projective in the resolution and <C>Maps</C>
+   contains the information about the maps in the
+   resolution.</Returns>
    <Description>
      The algorithm for computing this projective resolution is based
      on the a paper by Green-Solberg-Zacharia. In addition, the
