@@ -90,56 +90,75 @@ dimensions all agree.  We can create a module in this way as follows.<P/>
    </Description>
   </ManSection>
 
+  <ManSection>
+   <Oper Name="RightAlgebraModuleToPathAlgebraMatModule" Arg="M" Comm=""/>
+   <Description> 
+    Arguments: <Arg>M</Arg> -- a right module over an algebra. 
+   <Br /></Description>
+   <Returns>a module over a (qoutient of a) path algebra.</Returns> 
+   <Description>
+     This function constructs a right module over a (quotient of a)
+     path algebra <M>A</M> from a RightAlgebraModule over the same
+     algebra <M>A</M>. The function checks if <M>A</M> actually is a
+     quotient of a path algebra and if the module <M>M</M> is finite
+     dimensional and if not, it returns an error message.
+   </Description>
+  </ManSection> 
+
 <Example><![CDATA[
-gap&gt; Q := Quiver(2, [[1, 2, "a"], [2, 1, "b"],[1, 1, "c"]]); 
-&lt;quiver with 2 vertices and 3 arrows&gt;
-gap&gt; P := PathAlgebra(Rationals, Q);
-&lt;algebra-with-one over Rationals, with 5 generators&gt;
-gap&gt; matrices := [["a", [[1,0,0],[0,1,0]]], ["b", [[0,1],[1,0],[0,1]]],
-&gt; ["c", [[0,0],[1,0]]]];
-[ [ "a", [ [ 1, 0, 0 ], [ 0, 1, 0 ] ] ],
-  [ "b", [ [ 0, 1 ], [ 1, 0 ], [ 0, 1 ] ] ],
-  [ "c", [ [ 0, 0 ], [ 1, 0 ] ] ] ]
-gap&gt; M := RightModuleOverPathAlgebra(P,matrices);
-&lt;right-module over &lt;algebra-with-one over Rationals, with 5
-generators&gt;&gt; 
-gap&gt; mats := [ [[1,0,0], [0,1,0]], [[0,1],[1,0],[0,1]], [[0,0],[1,0]] ];; 
-gap&gt; N := RightModuleOverPathAlgebra(P,mats); 
-&lt;right-module over &lt;algebra-with-one over Rationals, with 5
-generators&gt;&gt; 
-gap&gt; arrows := ArrowsOfQuiver(Q);
-[ a, b, c ]
-gap&gt; mats := [[arrows[1], [[1,0,0],[0,1,0]]], 
-&gt; [arrows[2], [[0,1],[1,0],[0,1]]], [arrows[3], [[0,0],[1,0]]]];;
-gap&gt; N := RightModuleOverPathAlgebra(P,mats); 
-&lt;right-module over &lt;algebra-with-one over Rationals, with 5
-generators&gt;&gt;
-gap&gt; # Next we give the vertex simple associate to vertex 1. 
-gap&gt; M :=
-RightModuleOverPathAlgebra(P,[["a",[1,0]],["b",[0,1]],["c",[[0]]]]);
-&lt;right-module over &lt;algebra-with-one over Rationals, with 5
-					generators&gt;&gt; 
-gap&gt; # Finally, the next defines the zero representation of the quiver.
-gap&gt; M :=
-RightModuleOverPathAlgebra(P,[["a",[0,0]],["b",[0,0]],["c",[0,0]]]);
-&lt;right-module over &lt;algebra-with-one over Rationals, with 5
-					generators&gt;&gt; 
-gap&gt; Dimension(M);
-0
-gap&gt; Basis(M);
-Basis( &lt;
-0-dimensional right-module over &lt;algebra-with-one over Rationals, with 
-5 generators&gt;&gt;, [  ] )
-gap> # Using the above example.  
-gap> matrices := [["a", [[1,0,0],[0,1,0]]], ["b",
-[[0,1],[1,0],[0,1]]], ["c", [[0,0],[1,0]]]];
+gap> Q := Quiver(2, [[1, 2, "a"], [2, 1, "b"],[1, 1, "c"]]);
+<quiver with 2 vertices and 3 arrows>
+gap> P := PathAlgebra(Rationals, Q);
+<Rationals[<quiver with 2 vertices and 3 arrows>]>
+gap> matrices := [["a", [[1,0,0],[0,1,0]]], 
+> ["b", [[0,1],[1,0],[0,1]]],
+> ["c", [[0,0],[1,0]]]];
 [ [ "a", [ [ 1, 0, 0 ], [ 0, 1, 0 ] ] ], 
-  [ "b", [ [ 0, 1 ], [ 1, 0 ], [ 0, 1 ] ] ], [ "c", [ [ 0, 0 ], [ 1, 0 ] ] ] ]
-gap> M := RightModuleOverPathAlgebra(P,[2,3],matrices);
-<right-module over <algebra-with-one over Rationals, with 5 generators>>
-gap> M := RightModuleOverPathAlgebra(P,[2,3],[]);      
-<right-module over <algebra-with-one over Rationals, with 5 generators>>
+[ "b", [ [ 0, 1 ], [ 1, 0 ], [ 0, 1 ] ] ], 
+[ "c", [ [ 0, 0 ], [ 1, 0 ] ] ] ]
+gap> M := RightModuleOverPathAlgebra(P,matrices);
+<[ 2, 3 ]>
+gap> mats := [ [[1,0,0], [0,1,0]], [[0,1],[1,0],[0,1]], [[0,0],[1,0]] ];; 
+gap> N := RightModuleOverPathAlgebra(P,mats); 
+<[ 2, 3 ]>
+gap> arrows := ArrowsOfQuiver(Q);
+[ a, b, c ]
+gap>  mats := [[arrows[1], [[1,0,0],[0,1,0]]], 
+> [arrows[2], [[0,1],[1,0],[0,1]]], [arrows[3], [[0,0],[1,0]]]];;
+gap> N := RightModuleOverPathAlgebra(P,mats); 
+<[ 2, 3 ]>
+gap> # Next we give the vertex simple associate to vertex 1. 
+gap>  M := RightModuleOverPathAlgebra(P,[["a",[1,0]],["b",[0,1]],["c",[[0]]]]);
+<[ 1, 0 ]>
+gap> # The zero module. 
+gap> M := RightModuleOverPathAlgebra(P,[["a",[0,0]],["b",[0,0]],["c",[0,0]]]);
+<[ 0, 0 ]>
+gap> Dimension(M);
+0
+gap> Basis(M);
+Basis( <[ 0, 0 ]>, ... )
+gap> matrices := [["a", [[1,0,0],[0,1,0]]], ["b",
+> [[0,1],[1,0],[0,1]]], ["c", [[0,0],[1,0]]]];
+[ [ "a", [ [ 1, 0, 0 ], [ 0, 1, 0 ] ] ], 
+[ "b", [ [ 0, 1 ], [ 1, 0 ], [ 0, 1 ] ] ], 
+[ "c", [ [ 0, 0 ], [ 1, 0 ] ] ] ]
+gap>  M := RightModuleOverPathAlgebra(P,[2,3],matrices);
+<[ 2, 3 ]>
+gap>  M := RightModuleOverPathAlgebra(P,[2,3],[]);  
+<[ 2, 3 ]>
+gap> A := P/[P.c^2 - P.a*P.b, P.a*P.b*P.c, P.b*P.c];         
+<Rationals[<quiver with 2 vertices and 3 arrows>]/<two-sided ideal in 
+<Rationals[<quiver with 2 vertices and 3 arrows>]>, (4 generators)>>
+gap> Dimension(A);
+9
+gap> Amod:=RightAlgebraModule(A,\*,A);                       
+<9-dimensional right-module over <Rationals[<quiver with 2 vertices and 
+3 arrows>]/<two-sided ideal in <Rationals[<quiver with 2 vertices and 3
+ arrows>]>, (4 generators)>>>
+gap> RightAlgebraModuleToPathAlgebraMatModule(Amod);
+<[ 4, 5 ]>
 ]]>
+
 </Example>
 
 </Section>

@@ -1673,3 +1673,83 @@ InstallMethod ( SupportModuleElement,
 end
 );
 
+#######################################################################
+##
+#O  RightAlgebraModuleToPathAlgebraMatModule( <M> ) 
+##  
+##  This function constructs a right module over a (quotient of a) path
+##  algebra  A  from a RightAlgebraModule over the same algebra  A. The
+##  function checks if  A  actually is a quotient of a path algebra and 
+##  if the module  M  is finite dimensional. In either cases it returns
+##  an error message. 
+##
+InstallMethod ( RightAlgebraModuleToPathAlgebraMatModule, 
+    "for an RightAlgebraModule",
+    true,
+    [ IsRightAlgebraModuleElementCollection ],
+    0,
+    function( M )
+
+    local A, vertices, num_vert, B, arrows, generators_in_vertices, 
+          vertexwise_basis, i, j, vertices_Q, mat, arrows_as_paths, 
+          a, partial_mat, source, target, source_index, target_index, 
+          rows, cols, arrow, b, vector;
+    
+    if not IsFiniteDimensional(M) then
+        Error("the entered module is not finite dimensional,\n");
+    fi;
+    A := RightActingAlgebra(M); 
+    if not ( IsPathAlgebra(A) or IsQuotientOfPathAlgebra(A) ) then 
+        Error("the entered module is not a module over a quotient of a path algebra,\n");
+    fi;
+    vertices := VerticesOfQuiver(QuiverOfPathAlgebra(A));
+    vertices := List(vertices, x -> x*One(A));
+    num_vert := Length(vertices); 
+    B := BasisVectors(Basis(M));
+    arrows := ArrowsOfQuiver(QuiverOfPathAlgebra(A));
+    arrows := List(arrows, x -> x*One(A));    
+    #
+    #  Constructing a uniform basis of  M. 
+    #
+    generators_in_vertices := List(vertices, x -> []); 
+    for i in [1..Length(B)] do
+        for j in [1..num_vert] do
+            if ( B[i]^vertices[j] <> Zero(M) ) then
+                Add(generators_in_vertices[j],B[i]^vertices[j]);
+            fi;
+        od;
+    od;    
+    #
+    #   Finding a K-basis of M in each vertex.
+    #    
+    vertexwise_basis := List(generators_in_vertices, x -> Basis(Subspace(M,x)));
+    # 
+    #   Finding the matrices defining the representation
+    # 
+    mat := [];
+    vertices_Q:= VerticesOfQuiver(QuiverOfPathAlgebra(A)); 
+    arrows_as_paths := List(ArrowsOfQuiver(QuiverOfPathAlgebra(A)), x -> One(A)*x);
+    for a in arrows_as_paths do
+        partial_mat := [];
+        source := SourceOfPath(TipMonomial(a));
+        target := TargetOfPath(TipMonomial(a));
+        source_index := Position(vertices_Q,source);
+        target_index := Position(vertices_Q,target);
+        rows := Length(BasisVectors(vertexwise_basis[source_index]));
+        cols := Length(BasisVectors(vertexwise_basis[target_index]));
+        arrow := TipMonomial(a);
+        if ( rows = 0 or cols = 0 ) then
+            partial_mat := [arrow,[rows,cols]];
+            Add(mat,partial_mat);
+        else 
+            for b in BasisVectors(vertexwise_basis[source_index]) do
+                vector := Coefficients(vertexwise_basis[target_index], b^a); 
+                Add(partial_mat,vector);
+            od;
+            Add(mat,[arrow,partial_mat]);
+        fi;
+    od;
+    
+    return RightModuleOverPathAlgebra(A,mat);
+end
+);

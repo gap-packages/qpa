@@ -31,4 +31,5 @@ DeclareAttribute( "IsDirectSumOfModules", IsPathAlgebraMatModule );
 DeclareAttribute( "DirectSumProjections", IsPathAlgebraMatModule );
 DeclareAttribute( "DirectSumInclusions", IsPathAlgebraMatModule );
 DeclareOperation( "SupportModuleElement", [ IsRightAlgebraModuleElement ] );
+DeclareOperation( "RightAlgebraModuleToPathAlgebraMatModule", [ IsRightAlgebraModuleElementCollection ]);
 
