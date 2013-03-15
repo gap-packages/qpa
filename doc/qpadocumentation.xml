@@ -25,16 +25,14 @@
   <Subtitle>Quivers and Path Algebras</Subtitle>
   <Version>Version <#Include SYSTEM "../version"></Version>
   <TitleComment>
-  We can add a comment here.
   </TitleComment>
   <Author>The QPA-team<Br/>
-          <URL>http://sourceforge.net/projects/quiverspathalg/</URL><Br/>
-          (See also <URL>http://www.math.ntnu.no/~oyvinso/QPA/</URL>) 
+          <URL>http://sourceforge.net/projects/quiverspathalg/</URL>
   </Author>
-  <Date>September 2010</Date>
+  <Date>March 2013</Date>
   <Address>
-  Virginia Tech, Blacksburg, USA<Br/>
   NTNU, Trondheim, Norway<Br/> 
+  Virginia Tech, Blacksburg, USA<Br/>
   </Address>
   <Abstract>
     
@@ -55,9 +53,9 @@ GBNP interface (for Groebner bases),</Item></Row>
 <Row><Item>George Yuhasz</Item><Item>User documentation, matrix
     representations of path algebras</Item></Row>
 </Table>
-  </Acknowledgements>
-  <Colophon>This is the Colophon page.
-  </Colophon>
+</Acknowledgements>
+<!--  <Colophon>
+  </Colophon> -->
 </TitlePage>
 
 <TableOfContents/>
@@ -71,8 +69,6 @@ GBNP interface (for Groebner bases),</Item></Row>
 <#Include SYSTEM "chapter_path_algebras.xml">
 
 <#Include SYSTEM "chapter_groebner_bases.xml">
-
-<#Include SYSTEM "chapter_gbnp.xml">
 
 <#Include SYSTEM "chapter_right_modules.xml">
 
