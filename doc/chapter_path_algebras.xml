@@ -391,7 +391,7 @@ which just set a respective attribute for <Math>I</Math>, see <Ref
 Oper="GroebnerBasis"/>.  
 
 <Example><![CDATA[
-ap> gb := GBNPGroebnerBasis(relations,kQ);
+gap> gb := GBNPGroebnerBasis(relations,kQ);
 [ (1)*a^2, (-1)*a*b+(1)*b*a, (1)*b^2 ]
 gap> I := Ideal(kQ,gb);                    
 <two-sided ideal in <Rationals[<quiver with 1 vertices and 2 arrows>]>, 
@@ -407,6 +407,9 @@ gap> A := kQ/I;
 gap> IndecProjectiveModules(A);
 [ <[ 4 ]> ]
 ]]></Example>
+
+Note that the instruction <C>A := kQ/relations;</C> used in Introduction
+is exactly an abbreviation for a sequence of instructions with Groebner basis as in above example.<P/>
 
 Most <Package>QPA</Package> operations working on algebras handle
 path algebras and quotients of path algebras in the same way (when
