@@ -8,3 +8,4 @@ DeclareCategoryFamily( "IsOppositeAlgebraElement" );
 DeclareProperty("IsOppositeAlgebra", IsAlgebra);
 DeclareAttribute("UnderlyingAlgebra", IsOppositeAlgebra);
 DeclareOperation("OppositeAlgebra", [IsAlgebra]);
+DeclareAttribute( "RadicalSeriesOfAlgebra", IsAlgebra );

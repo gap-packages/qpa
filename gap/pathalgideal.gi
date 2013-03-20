@@ -130,9 +130,8 @@ InstallMethod(\in,
 ##  This function returns true if <I> is an admissible ideal, i.e. 
 ##  I\subset R^2 and R^n \subset I, for some n (cf. the code), where R 
 ##  is the arrow ideal.
-##  Note: the second condition is checked by verifying if A/I
-##  is a finite dimensional algebra. This uses Groebner bases machinery,
-##  which sometimes can cause an infinite loop or another bugs!
+##  Note: the second condition is checked by first computing to which power
+##  n  of the radical of  A/I  is zero, then if  R^n  is contained in  I. 
 ##
 InstallMethod( IsAdmissibleIdeal,
   "for an ideal in a path algebra",
@@ -162,17 +161,14 @@ InstallMethod( IsAdmissibleIdeal,
     A := LeftActingRingOfIdeal(I);
     B := A/I;
     if IsFiniteDimensional(B) then
-        N := Length(PowerSubalgebraSeries(RadicalOfAlgebra(B)));
-        JtotheN := NthPowerOfArrowIdeal(A,N);
+        N := Length(RadicalSeriesOfAlgebra(B));
+        JtotheN := NthPowerOfArrowIdeal(A, N - 1);
         return ForAll(JtotheN, x -> x in I);
     else
         return false;
     fi;
 end
 ); # IsAdmissibleIdeal
-
-
-
 
 ######################################################################
 ##

@@ -78,3 +78,4 @@ DeclareAttribute( "CoxeterMatrix", IsPathAlgebra );
 DeclareOperation( "TipMonomialandCoefficientOfVector", [ IsAlgebra, IsCollection ] );
 DeclareOperation( "TipReduceVectors", [ IsAlgebra, IsCollection ] );
 DeclareOperation( "CoefficientsOfVectors", [ IsAlgebra, IsCollection, IsList ] );
+DeclareProperty( "IsDistributiveAlgebra", IsQuotientOfPathAlgebra );

@@ -2134,3 +2134,116 @@ InstallMethod( IsSemicommutativeAlgebra,
     return true;
 end
 ); # IsSemicommutativeAlgebra for IsQuotientOfPathAlgebra
+
+#######################################################################
+##
+#P  IsDistributiveAlgebra( <A> ) 
+##  
+##  This function returns true if the algebra  <A>  is finite 
+##  dimensional and distributive. Otherwise it returns false.
+##
+InstallMethod ( IsDistributiveAlgebra, 
+    "for an QuotientOfPathAlgebra",
+    true,
+    [ IsQuotientOfPathAlgebra ],
+    0,
+    function( A )
+
+    local pids, localrings, radicalseries, uniserialtest, radlocalrings, 
+          i, j, module, testspace, flag, radtestspace;
+    
+    if not IsFiniteDimensional(A) then 
+        Error("the entered algebra is not finite dimensional,\n");
+    fi;
+    #  Finding a complete set of primitive idempotents in  A.
+    pids := List(VerticesOfQuiver(QuiverOfPathAlgebra(A)), v -> v*One(A));
+    #  
+    #  For each primitive idempotent e, compute eAe and check if 
+    #  eAe is a uniserial algebra for all e.
+    localrings := List(pids, e -> Subalgebra(A,e*BasisVectors(Basis(A))*e));  
+    # 
+    #  Check if all algebras in  localrings  are unisersial.
+    #
+    radicalseries := List(localrings, R -> RadicalSeriesOfAlgebra(R));
+    uniserialtest := Flat(List(radicalseries, series -> List([1..Length(series) - 1], i -> Dimension(series[i]) - Dimension(series[i+1]))));
+    if not ForAll(uniserialtest, x -> x = 1) then 
+        Error("some algebra  eAe  is not a uniserial algebra,\n");
+    fi;
+    #  Check if the eAe-module eAf is uniserial or 
+    #  the fAf-module eAf is uniserial for all pair
+    #  of primitive idempotents e and f. 
+    radlocalrings := List(localrings, R -> BasisVectors(Basis(RadicalOfAlgebra(R))));
+    for i in [1..Length(pids)] do
+        for j in [1..Length(pids)] do 
+            if i <> j then 
+                module := LeftAlgebraModule(localrings[i],\*,Subspace(A,pids[i]*BasisVectors(Basis(A))*pids[j]));
+                # compute the radical series of this module over localrings[i] and 
+                # check if all layers are one dimensional.
+                testspace := ShallowCopy(BasisVectors(Basis(module))); 
+                flag := true;
+                while Length(testspace) <> 0 and flag do
+                    if Length(radlocalrings[i]) = 0 then
+                        radtestspace := [];
+                    else
+                        radtestspace := Filtered(Flat(List(testspace, t -> radlocalrings[i]*t)), x -> x <> Zero(x));
+                    fi;
+                    if Length(radtestspace) = 0 then
+                        if Length(testspace) <> 1 then 
+                            flag := false;
+                        else
+                            testspace := radtestspace;
+                        fi;
+                    else
+                        radtestspace := Subspace(module, radtestspace); 
+                        if Length(testspace) - Dimension(radtestspace) <> 1 then
+                            flag := false;
+                        else
+                            testspace := ShallowCopy(BasisVectors(Basis(radtestspace)));
+                        fi;
+                    fi;
+                od;
+                if not flag then 
+                    module := RightAlgebraModule(localrings[j],\*,Subspace(A,pids[i]*BasisVectors(Basis(A))*pids[j]));
+                    # compute the radical series of this module over localrings[j] and
+                    # check if all layers are one dimensional.
+                    testspace := ShallowCopy(BasisVectors(Basis(module))); 
+                    while Length(testspace) <> 0 do
+                        if Length(radlocalrings[i]) = 0 then
+                            radtestspace := [];
+                        else
+                            radtestspace := Filtered(Flat(List(testspace, t -> t*radlocalrings[j])), x -> x <> Zero(x));
+                        fi;
+                        if Length(radtestspace) = 0 then
+                            if Length(testspace) <> 1 then 
+                                return false;
+                            else
+                                testspace := radtestspace;
+                            fi;
+                        else
+                            radtestspace := Subspace(module, radtestspace); 
+                            if Length(testspace) - Dimension(radtestspace) <> 1 then
+                                return false;
+                            else
+                                testspace := ShallowCopy(BasisVectors(Basis(radtestspace)));
+                            fi;
+                        fi;
+                    od;
+                fi;
+            fi;
+        od;
+    od;
+    
+    return true;
+end 
+);          
+
+InstallOtherMethod ( IsDistributiveAlgebra, 
+    "for an PathAlgebra",
+    true,
+    [ IsPathAlgebra ],
+    0,
+    function( A );
+    
+    return IsTreeQuiver(QuiverOfPathAlgebra(A));
+end
+);

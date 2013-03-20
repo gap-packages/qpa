@@ -686,6 +686,18 @@ false ]]></Example>
 </ManSection>
 
 <ManSection>
+   <Prop Name="IsDistributiveAlgebra" Arg="A" Comm=""/>
+   <Description>
+     Arguments: <Arg>A</Arg> -- a path algebra or a quotient of a path
+     algebra.<Br />
+   </Description>
+   <Returns>
+     true if <Arg>A</Arg> is finite dimensional and distributive. Otherwise it 
+     returns false.
+   </Returns>
+</ManSection>
+
+<ManSection>
    <Prop Name="IsKroneckerAlgebra" Arg="A" Comm=""/>
    <Description>
      Arguments: <Arg>A</Arg> -- a path algebra or a quotient of a path
@@ -939,8 +951,18 @@ true ]]></Example>
     </Returns> 
  </ManSection> 
 
+ <ManSection> 
+    <Attr Name="RadicalSeriesOfAlgebra" Arg="A" Comm=""/> 
+    <Description> 
+      Arguments: <Arg>A</Arg> -- an algebra.<Br /> 
+    </Description> 
+    <Returns> 
+      the radical series of the algebra  <Arg>A</Arg> in a 
+      list, where the first element is the algebra  <Arg>A</Arg> itself, then 
+      radical of <Arg>A</Arg>, radical square of <Arg>A</Arg>, and so on.
+    </Returns> 
+ </ManSection> 
 </Section>
-
 
 
 <Section><Heading>Attributes and Operations on Elements
