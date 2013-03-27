@@ -357,6 +357,8 @@ not need this because we want to deal only with modules.<P/>
 <Example><![CDATA[
 gap> Q := Quiver( 1, [ [1,1,"a"], [1,1,"b"] ] );
 <quiver with 1 vertices and 2 arrows>
+gap> kQ := PathAlgebra(Rationals, Q);
+<Rationals[<quiver with 1 vertices and 2 arrows>]>
 gap> gens := GeneratorsOfAlgebra(kQ);
 [ (1)*v1, (1)*a, (1)*b ]
 gap> a := gens[2];
