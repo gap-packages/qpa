@@ -944,21 +944,23 @@ in <Math>R</Math>.
       the direct sum of projective modules of the form <Arg>vA</Arg>
       where the vertices are taken from <Arg>verts</Arg>.</Returns>
    <Description>
-      In this implementation the algebra can be a quotient of a path
-      algebra.  So if the list was
-      <Math>[v,w]</Math> then the module created will be the direct
-      sum <Math>vA \oplus wA</Math>, in that order.  Elements of the
-      modules are vectors of algebra elements, and in each component,
-      each path begins with the vertex in that position in the list of
-      vertices.  Right projective modules are implementated as algebra
-      modules (see "ref:Representations of Algebras") and all
-      operations for algebra modules are applicable to right
-      projective modules.  In particular, one can construct submodules
-      using `SubAlgebraModule'.
+     The module created is in the category <C>IsPathAlgebraModule</C>. 
+
+     In this implementation the algebra can be a quotient of a path
+     algebra.  So if the list was
+     <Math>[v,w]</Math> then the module created will be the direct
+     sum <Math>vA \oplus wA</Math>, in that order.  Elements of the
+     modules are vectors of algebra elements, and in each component,
+     each path begins with the vertex in that position in the list of
+     vertices.  Right projective modules are implementated as algebra
+     modules (see "ref:Representations of Algebras") and all
+     operations for algebra modules are applicable to right
+     projective modules.  In particular, one can construct submodules
+     using `SubAlgebraModule'.
    </Description>
 </ManSection>
 Here we create the right projective module <Math>P = vA \oplus vA
-    \oplus wA</Math>. 
+\oplus wA</Math>. 
 
 <Example>
 gap&gt; F:=GF(11);
@@ -1003,6 +1005,70 @@ gap&gt; Dimension(P);
 </ManSection>
 
 <ManSection>
+   <Prop Name="IsPathAlgebraModule" Arg="P" Comm="an object"/>
+   <Description> 
+    Arguments: <Arg>P</Arg> -- any object.
+   <Br /></Description>
+   <Returns>true if the argument <Arg>M</Arg> is in the category <C>IsPathAlgebraModule</C>.</Returns>
+</ManSection>
+
+<ManSection>
+   <Prop Name="IsPathAlgebraVector" Arg="v" Comm="for a PathAlgebraVector"/>
+   <Description> 
+    Arguments: <Arg>v</Arg> -- a path algebra vector.
+   <Br /></Description>
+   <Returns>true if <Arg>v</Arg> has been constructed as a PathAlgebraVector.
+   Otherwise it returns false.</Returns>
+</ManSection>
+
+<ManSection>
+  <Oper Name="LeadingCoefficient (of PathAlgebraVector)" Arg="x" Comm="for a PathAlgebraVector"/>
+  <Description> 
+    Arguments: <Arg>x</Arg> -- an element in a PathAlgebraModule. 
+  <Br /></Description>
+  <Returns>the coefficient of the leading term/tip of a <C>PathAlgebraVector</C>.</Returns>
+  <Description>
+    The tip of the element <Arg>x</Arg> can by found by applying the 
+    command <Ref Oper="LeadingTerm (of PathAlgebraVector)"/>. 
+  </Description>
+</ManSection>
+
+<ManSection>
+   <Oper Name="LeadingComponent" Arg="v" Comm="for a PathAlgebraVector"/>
+   <Description> 
+    Arguments: <Arg>v</Arg> -- a path algebra vector.
+   <Br /></Description>
+   <Returns><C>v[pos]</C>, where <C>pos</C> is the coordinate for the tip 
+   of the vector, whenever <Arg>v</Arg> is non-zero. That is, it returns the coordinate
+   of the vector <Arg>v</Arg> where the tip occors. It returns zero otherwise.</Returns>
+</ManSection>
+
+<ManSection>
+   <Oper Name="LeadingPosition" Arg="v" Comm="for a PathAlgebraVector"/>
+   <Description> 
+    Arguments: <Arg>v</Arg> -- a path algebra vector.
+   <Br /></Description>
+   <Returns>the coordinate in which the tip of the vector occurs.</Returns>
+</ManSection>
+
+<ManSection>
+  <Oper Name="LeadingTerm (of PathAlgebraVector)" Arg="x" 
+	Comm=""/>
+  <Description> 
+    Arguments: <Arg>x</Arg> -- an element in a PathAlgebraModule. 
+  <Br /></Description>
+  <Returns>the leading term/tip of a <C>PathAlgebraVector</C>.</Returns>
+  <Description>
+    The tip of the element <Arg>x</Arg> is computed using the
+    following order: the tip is computed for each coordinate, if the
+    largest of these occur as a tip of several coordinates, then the
+    coordinate with the smallest index from 1 to the length of vector
+    is chosen. The position of the tip was computed when the
+    <C>PathAlgebraVector</C> was created.
+  </Description>
+</ManSection>
+
+<ManSection>
    <Oper Name="LeftDivision" Arg="x, y" Comm="for two PathAlgebraVector's"/>
    <Description> 
     Arguments: <Arg>x, y</Arg> -- two path algebra vectors.
@@ -1013,20 +1079,7 @@ gap&gt; Dimension(P);
    False otherwise.</Returns>
 </ManSection>
 
-<ManSection>
-   <Func Name="Vectorize" Arg="M, components" 
-	 Comm=""/>
-	 <Description> 
-    Arguments: <Arg>M</Arg> -- a module over a path algebra, <Arg>components</Arg> -- a list of elements of <Arg>M</Arg>.
-   <Br /></Description>
-   <Returns>a vector in <Arg>M</Arg> from a list of path
-      algebra elements <Arg>components</Arg>, which defines the
-      components in the resulting vector.</Returns>
-   <Description>
-      The returned vector is normalized, so the vector's components
-      may not match the input components.
-   </Description>
-  </ManSection>
+
 
 In the following example, we create two elements in <Math>P</Math>,
 perform some elementwise operations, and then construct a submodule
@@ -1122,6 +1175,26 @@ Basis( &lt;9-dimensional right-module over &lt;algebra-with-one of dimension
 </Example>
 
 <ManSection>
+   <Oper Name="PathAlgebraVector" Arg="fam, components" Comm="for a PathAlgebraVectorFamily and a list"/>
+   <Description> 
+    Arguments: <Arg>fam</Arg> -- a PathAlgebraVectorFamily, <Arg>components</Arg> -- a homogeneous list of elements. 
+   <Br /></Description>
+   <Returns>a PathAlgebraVector in the PathAlgebraVectorFamily <Arg>fam</Arg> with the components of the vector being 
+   equal to <Arg>components</Arg>. 
+   </Returns>
+   <Description>
+     This function is typically used when constructing elements of a module 
+     constructed by the command <C>RightProjectiveModule</C>. If <C>P</C> is 
+     constructed as say, <C>P := RightProjectiveModule(KQ, [KQ.v1, KQ.v1, KQ.v2])</C>, 
+     then <C>ExtRepOfObj(p)</C>, where <C>p</C> is an element if <C>P</C> is
+     a <C>PathAlgebraVector</C>. The tip is computed using the following 
+     ordering: the tip is computed for each coordinate, if the largest of 
+     these occur as a tip of several coordinates, then the coordinate with 
+     the smallest index from 1 to the length of vector is chosen.
+   </Description>
+</ManSection>
+
+<ManSection>
    <Oper Name="ProjectivePathAlgebraPresentation" Arg="M" Comm="projective presentation of a PathAlgebraMatModule"/>
    <Description> 
     Arguments: <Arg>M</Arg> -- a finite dimensional module over a (quotient of a) path algebra.
@@ -1150,6 +1223,22 @@ Basis( &lt;9-dimensional right-module over &lt;algebra-with-one of dimension
 </ManSection>
 
 <ManSection>
+  <Attr Name="RightGroebnerBasisOfModule" Arg="M" Comm="for a PathAlgebraModule"/>
+  <Description> 
+    Arguments: <Arg>M</Arg> -- a PathAlgebraModule. 
+  <Br /></Description>
+  <Returns>a right Groebner basis for the module <Arg>M</Arg>.</Returns>
+  <Description>
+    It checks if the acting algebra on the module <Arg>M</Arg> is a path algebra, 
+    and it returns an error message otherwise. The elements in the right Groebner
+    basis that is constructed, can be retrieved by the command <C>BasisVectors</C>. 
+    The underlying module is likewise returned by the command <C>UnderlyingModule</C>. 
+    The output of the function is satisfying the filter/category 
+    <C>IsRightPathAlgebraModuleGroebnerBasis</C>. 
+  </Description>
+</ManSection>
+
+<ManSection>
    <Oper Name="TargetVertex" Arg="v" Comm="for a PathAlgebraVector element"/>
    <Description> 
     Arguments: <Arg>v</Arg> -- a PathAlgebraVector.
@@ -1164,6 +1253,31 @@ Basis( &lt;9-dimensional right-module over &lt;algebra-with-one of dimension
      returns the zero path otherwise. If <Arg>v</Arg> is not right
      uniform it returns fail.
    </Description>
+</ManSection>
+
+<ManSection>
+   <Attr Name="UniformGeneratorsOfModule" Arg="M" Comm="for a PathAlgebraModule"/>
+   <Description> 
+   Arguments: <Arg>M</Arg> -- a <C>PathAlgebraModule</C>.
+   <Br /></Description>
+   <Returns>a set of right uniform generators of the mdoule <Arg>M</Arg>.  If  
+   <Arg>M</Arg> is the zero module, then it returns an empty list. 
+   </Returns>
+</ManSection>
+
+<ManSection>
+  <Func Name="Vectorize" Arg="M, components" 
+	Comm=""/>
+  <Description> 
+    Arguments: <Arg>M</Arg> -- a module over a path algebra, <Arg>components</Arg> -- a list of elements of <Arg>M</Arg>.
+  <Br /></Description>
+  <Returns>a vector in <Arg>M</Arg> from a list of path
+  algebra elements <Arg>components</Arg>, which defines the
+  components in the resulting vector.</Returns>
+  <Description>
+    The returned vector is normalized, so the vector's components
+    may not match the input components.
+  </Description>
 </ManSection>
 
 </Section>
