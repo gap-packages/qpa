@@ -26,20 +26,52 @@
   <Version>Version <#Include SYSTEM "../version"></Version>
   <TitleComment>
   </TitleComment>
-  <Author>The QPA-team<Br/>
-          <URL>http://sourceforge.net/projects/quiverspathalg/</URL>
+  <Author>The QPA-team
+          <Email>oyvind.solberg@math.ntnu.no</Email>
+	      <Homepage>http://sourceforge.net/projects/quiverspathalg/</Homepage>
+          <Address>
+            Department of Mathematical Sciences<Br/>
+            NTNU<Br/>
+            N-7491 Trondheim<Br/>
+            Norway
+          </Address> 
   </Author>
-  <Date>March 2013</Date>
-  <Address>
-  NTNU, Trondheim, Norway<Br/> 
-  Virginia Tech, Blacksburg, USA<Br/>
-  </Address>
+
+  <Date>March 2013</Date> 
+
   <Abstract>
-    
-      
+    The GAP4 deposited package QPA extends the GAP functionality for
+    computations with finite dimensional quotients of path
+    algebras. QPA has data structures for quivers, quotients of path
+    algebras, representations of quivers with relations and complexes
+    of modules. Basic operations on representations of quivers are
+    implemented as well as contructing minimal projective resolutions
+    of modules (using using linear algebra). A not necessarily minimal
+    projective resolution constructed by using Groebner basis theory
+    and a paper by Green-Solberg-Zacharia, "Minimal projective
+    resolutions", has been implemented. A goal is to have a test for
+    finite representation type. This work has started, but there is a
+    long way left. Part of this work is to implement/port the
+    functionality and data structures that was available in CREP.
   </Abstract>
-  <Copyright>&copyright; 2010-2020 The QPA-team. 
+  <Copyright>&copyright; 2010-2020 by The QPA-team.<P/>
+
+  QPA is free software; you can redistribute it and/or modify it under
+  the terms of the GNU General Public License as published by the Free
+  Software Foundation; either version 2 of the License, or (at your
+  option) any later version. For details, see the FSF’s own site
+  (<URL>http://www.gnu.org/licenses/gpl.html</URL>).<P/>
+
+  If you obtained <Package>QPA</Package>, we would be grateful for
+  a short notification sent to one of members of the QPA-team. If you
+  publish a result which was partially obtained with the usage of
+  <Package>QPA</Package>, please cite it in the following form:<P/>
+  
+  The QPA-team, <Package>QPA</Package> - Quivers, path algebras and
+  representations, Version 1.10; 2013
+  (<URL>http://sourceforge.net/projects/quiverspathalg/</URL>)
   </Copyright>
+
   <Acknowledgements>The system design of <Package>QPA</Package> was initiated by
 Edward L. Green, Lenwood S. Heath, and Craig A. Struble.  It was
 continued and completed by Randall Cone and Edward Green.  We would
@@ -63,6 +95,8 @@ GBNP interface (for Groebner bases),</Item></Row>
 <Body>
 
 <#Include SYSTEM "chapter_introduction.xml">
+
+<#Include SYSTEM "chapter_quickstart.xml">
 
 <#Include SYSTEM "chapter_quivers.xml">
 
