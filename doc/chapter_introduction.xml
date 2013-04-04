@@ -24,7 +24,9 @@ on computational representation theory of finite dimensional algebras.
 <Package>QPA</Package> does not use external binaries and, therefore,
 works without restrictions on the type of the operating system. This
 version of the package is designed for GAP >= 4.4.12 and no
-compatibility with previous releases of GAP 4 is guaranteed.<P/>  
+compatibility with previous releases of GAP 4 is guaranteed. However,
+<Package>QPA</Package> depend on the Groebner basis GAP-package
+<Package>GBNP</Package>.<P/>
 
 To use the <Package>QPA</Package> online help it is necessary to
 install the GAP 4 package <Package>GAPDoc</Package> by Frank Lübeck
@@ -36,7 +38,8 @@ and Max Neunhöffer, which is available from the GAP site or from
 and can be obtained from
 <URL>http://sourceforge.net/projects/quiverspathalg/</URL>.  To
 install the package, unpack its archive in the pkg subdirectory of
-your GAP installation.<P/> 
+your GAP installation. In a similar way install the GAP-package
+<Package>GBNP</Package> which is available from the GAP site.<P/>
 
 For more detailed installation information and an alternative way for
 downloading <Package>QPA</Package> see
