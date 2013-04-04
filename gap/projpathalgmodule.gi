@@ -18,6 +18,12 @@ InstallMethod( IsNormalForm,
 ##  coordinates, then the coordinate with the smallest index from 1 to 
 ##  the length of vector is chosen.
 ##
+##  This function is typically used when constructing elements of a module 
+##  constructed by the command <C>RightProjectiveModule</C>. If <C>P</C> is 
+##  constructed as say, <C>P := RightProjectiveModule(KQ, [KQ.v1, KQ.v1, KQ.v2])</C>, 
+##  then <C>ExtRepOfObj(p)</C>, where <C>p</C> is an element if <C>P</C> is
+##  a <C>PathAlgebraVector</C>. 
+##
 InstallMethod( PathAlgebraVector,
   "for families of path algebra vectors and hom. list",
   true,
@@ -429,10 +435,9 @@ end
 ##
 #A  LeadingComponent( <v> ) 
 ##
-##  Given a PathAlgebraVector  <v>, if  <v>  is right uniform, this 
-##  function finds the vertex  w  such that  w*LeadingTerm(<v> = 
-##  LeadingTerm(<v>)  whenever <v> is non-zero, and returns the zero 
-##  path otherwise. If  <v>  is not right uniform it returns fail.
+##  Given a PathAlgebraVector  <v>, this function finds the vertex 
+##  coordinate  pos  where the tip of the vector occurs, and returns
+##  v[pos], whenever <v> is non-zero. It returns the zero otherwise. 
 ## 
 InstallMethod( LeadingComponent,
   "for path algebra vectors",
@@ -451,7 +456,7 @@ InstallMethod( LeadingComponent,
 #A  LeadingPosition( <v> ) 
 ##
 ##  Given a PathAlgebraVector  <v>, the LeadingPosition is in which 
-##  coordinate the tip of the vector is.
+##  coordinate the tip of the vector occurs.
 ## 
 InstallMethod( LeadingPosition,
   "for path algebra vectors",
@@ -1248,10 +1253,18 @@ InstallMethod( Basis,
 
     return NewBasis( M, newbVecs );
 
-  end
+end
 );
 
 #A
+#######################################################################
+##
+#A  UniformGeneratorsOfModule( <M> )
+##
+##  This function takes as input a  PathAlgebraModule  <M>  and 
+##  constructs a set of right uniform generators of the module  <M>. 
+##  If  <M>  is the zero module, then it returns an empty list.
+##
 InstallMethod( UniformGeneratorsOfModule,
   "for path algebra modules",
   true,
@@ -1340,7 +1353,7 @@ end;
 
 #######################################################################
 ##
-#A/O  RightGroebnerBasisOfModule( <M> ) 
+#A  RightGroebnerBasisOfModule( <M> ) 
 ##
 ##  This function takes as input a  PathAlgebraModule  and constructs
 ##  a right Groebner basis. 
@@ -2216,13 +2229,13 @@ InstallMethod( ProjectivePathAlgebraPresentation,
     A := RightActingAlgebra(M);
     B := CanonicalBasis(A);
     Q := QuiverOfPathAlgebra(A); 
-    fam  := ElementsFamily(FamilyObj( UnderlyingLeftModule( B ) ));
-    KQ   := OriginalPathAlgebra(A);
+    fam := ElementsFamily(FamilyObj( UnderlyingLeftModule( B ) ));
+    KQ := OriginalPathAlgebra(A);
     gens := GeneratorsOfTwoSidedIdeal(fam!.ideal);
-    K    := LeftActingDomain(A);
-    I    := Ideal(KQ,gens);
-    gb   := GBNPGroebnerBasis(gens,KQ);
-    gbb  := GroebnerBasis(I,gb);
+    K := LeftActingDomain(A);
+    I := Ideal(KQ,gens);
+    gb := GBNPGroebnerBasis(gens,KQ);
+    gbb := GroebnerBasis(I,gb);
     rtgbofI := RightGroebnerBasis(I);
 
     num_vert := NumberOfVertices(Q);
@@ -2230,10 +2243,10 @@ InstallMethod( ProjectivePathAlgebraPresentation,
     vertices := VerticesOfQuiver(Q);
     if IsPathAlgebra(A) then 
         verticesinalg := GeneratorsOfAlgebra(A){[1..num_vert]};
-        arrows   := GeneratorsOfAlgebra(A){[1+num_vert..num_vert+NumberOfArrows(Q)]};  
+        arrows := GeneratorsOfAlgebra(A){[1+num_vert..num_vert+NumberOfArrows(Q)]};  
     else 
         verticesinalg := GeneratorsOfAlgebra(A){[2..1+num_vert]};
-        arrows   := GeneratorsOfAlgebra(A){[2+num_vert..1+num_vert+NumberOfArrows(Q)]};
+        arrows := GeneratorsOfAlgebra(A){[2+num_vert..1+num_vert+NumberOfArrows(Q)]};
     fi;
 
     BB := BasisOfProjectives(A);
@@ -2311,8 +2324,8 @@ InstallMethod( ProjectivePathAlgebraPresentation,
         return [P,[],[],[],[]];
     else 
         fam := ElementsFamily(FamilyObj(P));
-        U   := SubAlgebraModule(P,syzygyoverKQ);
-        RG  := RightGroebnerBasisOfModule(U);
+        U := SubAlgebraModule(P,syzygyoverKQ);
+        RG := RightGroebnerBasisOfModule(U);
         f1 := CompletelyReduceGroebnerBasisForModule(RG);
         f1 := List(f1, x -> ObjByExtRep(fam, x));
         mat := TransposedMat(List(f1, x -> x![1]![1]));
