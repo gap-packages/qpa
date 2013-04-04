@@ -1,3 +1,19 @@
+#######################################################################
+##
+#F  Cat( <identity>, <properties> ) 
+##
+##  Constructs a category object from two pieces of data:
+##  -- <identity>, a list with information identifying the category, 
+##     f.ex. a name and some object the cat is constructed from.
+##  -- <properties>, a record with the following entries:
+##     name (will be used for printing a categeory), zeroObj (the zero
+##     object of the cat), isZeroObj (a test function), zeroMap (an 
+##     operation on two objects of the cat), isZeroMapping (a test
+##     function), composeMaps (an operation on two maps of the cat), 
+##     ker (an operation on the maps of the cat), im (an operation on
+##     the maps of the cat), isExact (an operation on two maps of the 
+##     cat) and objStr (a function printing the objects of the cat).
+##  
 InstallGlobalFunction( Cat,
 function( identity, properties )
     return Objectify( NewType( NewFamily( "CatFamily", IsCat ),
@@ -6,30 +22,63 @@ function( identity, properties )
                            properties := properties ) );
 end );
 
+#######################################################################
+##
+#M  \.( <cat>, <propName> ) 
+##
+##  Method for retrieving properties from a category, where <propName>
+##  is one of the properties listed in the Cat() documentation above.
+##  
 InstallMethod( \.,
 [ IsCat, IsPosInt ],
 function( cat, propName )
     return cat!.properties.( NameRNam( propName ) );
 end );
 
+#######################################################################
+##
+#M  \=( <cat1>, <cat2> ) 
+##
+##  Equality test for two categories. Two categories are equal if
+##  and only if their identity are the same.
+##  
 InstallMethod( \=,
 [ IsCat, IsCat ],
 function( cat1, cat2 )
     return cat1!.identity = cat2!.identity;
 end );
 
+#######################################################################
+##
+#M  PrintObj( <cat> ) 
+##
+##  Printing a category, using its name.
+##  
 InstallMethod( PrintObj,
 [ IsCat ],
 function( cat )
     Print( "<cat: ", cat.name, ">" );
 end );
 
+#######################################################################
+##
+#M  ViewObj( <cat> ) 
+##
+##  Viewing a cateory, adding no more information than the PrintObj.
+##  
 InstallMethod( ViewObj,
 [ IsCat ],
 function( cat )
     Print( cat );
 end );
 
+#######################################################################
+##
+#M  CatOfRightAlgebraModules( <A> ) 
+##
+##  Returns the category of right modules over some (quotient of a) 
+##  path algebra <A>.
+##  
 InstallMethod( CatOfRightAlgebraModules,
 [ IsAlgebra ],
 function( A )
@@ -62,12 +111,27 @@ function( A )
 end );
 
 
-
+#######################################################################
+##
+#F  FiniteComplex( <cat>, <basePosition>, <differentials> ) 
+##
+##  This function returns a finite complex with objects in <cat>.  The
+##  differentials are given in the list <differentials> = [d1, ..., dN],
+##  an <basePosition> is some integer i. The returned complex has the 
+##  map d1 from degree (i) to degree (i-1).
+##  
 InstallGlobalFunction( FiniteComplex,
 function( cat, basePosition, differentials )
     return Complex( cat, basePosition, differentials, "zero", "zero" );
 end );
 
+#######################################################################
+##
+#F  ZeroComplex( <cat> ) 
+##
+##  Returns the complex in which all objects are the zero object in
+##  <cat>.
+##  
 InstallGlobalFunction( ZeroComplex,
 function( cat )
     local fam, C;
@@ -80,6 +144,13 @@ function( cat )
     return C;
 end );
 
+#######################################################################
+##
+#F  StalkComplex( <cat>, <obj>, <degree> ) 
+##
+##  Returns the stalk complex with the object <obj> from <cat> in
+##  degree <degree>.
+##  
 InstallGlobalFunction( StalkComplex,
 function( cat, obj, degree )
     return FiniteComplex( cat, degree,
@@ -87,6 +158,16 @@ function( cat, obj, degree )
                             cat.zeroMap( cat.zeroObj, obj ) ] );
 end );
 
+#######################################################################
+##
+#F  ShortExactSequence( <cat>, <f>, <g> ) 
+##
+##  Returns a complex with three non-zero consecutive objects, and zero
+##  objects elsewhere, such that the complex is exact: The image of <f>
+##  should be the kernel of <g>, and <f> should be injective, and <g>
+##  should be surjective. The function checks that this is the case, 
+##  and returns an error otherwise.
+##  
 InstallGlobalFunction( ShortExactSequence,
 function( cat, f, g )
     local SES;
@@ -97,6 +178,13 @@ function( cat, f, g )
     return SES;
 end );
 
+#######################################################################
+##
+#F  Complex( <cat>, <basePosition>, <middle>, <positive>, <negative> ) 
+##
+##  Constructs a complex, not necessarily finite, from the given data.
+##  See the QPA manual for detailed information on the input data.
+##  
 InstallGlobalFunction( Complex,
 function( cat, basePosition, middle, positive, negative )
     local checkDifferentials, checkDifferentialList, checkDifferentialListWithRepeat,
@@ -104,6 +192,7 @@ function( cat, basePosition, middle, positive, negative )
           fam, C, basePositionL, middleL, positiveL, negativeL,
           firstMiddleObj, lastMiddleObj, checkNewDifferential;
 
+    # check that all consecutive differentials compose to zero
     checkDifferentials := function( topDegree, indices, lists, listNames )
         local degrees, diffs, diffNames;
         degrees := [ topDegree, topDegree - 1 ];
@@ -260,18 +349,36 @@ function( cat, basePosition, middle, positive, negative )
 
 end );
 
+#######################################################################
+##
+#M  DifferentialOfComplex( <C>, <i> ) 
+##
+##  Returns the differential in degree <i> of the complex <C>.
+##  
 InstallMethod( DifferentialOfComplex,
 [ IsComplex, IsInt ],
 function( C, i )
     return DifferentialsOfComplex( C )^i;
 end );
 
+#######################################################################
+##
+#M  ObjectOfComplex( <C>, <i> ) 
+##
+##  Returns the object in degree <i> of the complex <C>.
+##  
 InstallMethod( ObjectOfComplex,
 [ IsComplex, IsInt ],
 function( C, i )
     return Source( DifferentialOfComplex( C, i ) );
 end );
 
+#######################################################################
+##
+#M  \^( <C>, <i> ) 
+##
+##  Is this in use??
+##  
 InstallMethod( \^,
 [ IsComplex, IsInt ],
 function( C, i )
