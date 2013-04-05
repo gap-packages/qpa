@@ -543,7 +543,17 @@ gap> IsExactInDegree(C,2);
 false ]]>
 </Example>
 
-
+<ManSection>
+  <Oper Name="ForEveryDegree" Arg="C,func" />
+  <Description>
+    Arguments: <Arg>C</Arg> -- a complex, <Arg>func</Arg> -- a
+    function operating on two consecutive maps.<Br />
+  </Description>
+  <Returns>true if <Arg>func</Arg> returns true for any two
+  consecutive differentials, fail if this can not be decided, false
+  otherwise.
+  </Returns>
+</ManSection>
 
 </Section>
 
@@ -582,6 +592,21 @@ gap> MatricesOfPathAlgebraMatModuleHomomorphism(dc);
 gap> MatricesOfPathAlgebraMatModuleHomomorphism(dd);
 [ [ [ -1, 0 ] ], [ [ 0, 0 ] ] ] ]]>
 </Example>
+
+<ManSection>
+  <Oper Name="ShiftUnsigned" Arg="C, i" />
+  <Description>
+    Arguments: <Arg>C</Arg> -- a complex, <Arg>i</Arg> -- an integer.<Br />
+  </Description>
+  <Returns>A new complex, which is a shift of <Arg>C</Arg>.
+  </Returns>
+  <Description>Does the same as <C>Shift</C>, except it does not
+  change the sign of the differential. Although this is a
+  non-mathematical definition of shift, it is still useful for
+  technical purposes, when manipulating and creating complexes.
+  </Description>
+</ManSection>
+
 
 <ManSection>
   <Oper Name="YonedaProduct" Arg="C, D" />
@@ -660,6 +685,47 @@ gap> YonedaProduct(C2,C3);
   must be ordered such that <Arg>i</Arg> &gt; <Arg>j</Arg>.
   </Description>
 </ManSection>
+
+<ManSection>
+  <Oper Name="SyzygyTruncation" Arg="C,i" />
+  <Description>
+    Arguments: <Arg>C</Arg> -- a complex, <Arg>i</Arg> -- an integer.<Br />
+  </Description>
+  <Returns>A newly created complex.
+  </Returns>
+  <Description>Replace the object in degree <Math>i</Math> with the
+  kernel of <Math>d_i</Math>, and <M>d_{i+1}</M> with the natural
+  inclusion. All objects in degree <M>j &gt; i+1</M> are replaced with
+  zero.
+  </Description>
+</ManSection>
+
+<ManSection>
+  <Oper Name="CosyzygyTruncation" Arg="C,i" />
+  <Description>
+    Arguments: <Arg>C</Arg> -- a complex, <Arg>i</Arg> -- an integer.<Br />
+  </Description>
+  <Returns>A newly created complex.
+  </Returns>
+  <Description>Replace the object in degree <Math>i-2</Math> with the
+  cokernel of <Math>d_i</Math>, and <M>d_{i-1}</M> with the natural
+  projection. All objects in degree <M>j &lt; i-2</M> are replaced with
+  zero.
+  </Description>
+</ManSection>
+
+<ManSection>
+  <Oper Name="SyzygyCosyzygyTruncation" Arg="C,i,j" />
+  <Description>
+    Arguments: <Arg>C</Arg> -- a complex, <Arg>i</Arg> -- an integer.<Br />
+  </Description>
+  <Returns>A newly created complex.
+  </Returns>
+  <Description>Performs both the above truncations. The integer
+  arguments must be ordered such that <Arg>i</Arg> &gt; <Arg>j</Arg>.
+  </Description>
+</ManSection>
+
 
 
 </Section>

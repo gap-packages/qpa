@@ -385,24 +385,53 @@ function( C, i )
     return DifferentialOfComplex( C, i );
 end );
 
+#######################################################################
+##
+#M  CyclesOfComplex( <C>, <i> ) 
+##
+##  For a complex <C> and an integer <i>. Returns the i-cycle of the
+##  complex, that is the subobject Ker(d_i) of the object in degree i.
+##  
 InstallMethod( CyclesOfComplex,
 [ IsComplex, IsInt ],
 function( C, i )
     return Kernel( DifferentialOfComplex( C, i ) );
 end );
 
+#######################################################################
+##
+#M  BoundariesOfComplex( <C>, <i> ) 
+##
+##  For a complex <C> and an integer <i>. Returns the i-boundary of the
+##  complex, that is the subobject Im(d_{i+1}) of the object in degree i.
+##  
 InstallMethod( BoundariesOfComplex,
 [ IsComplex, IsInt ],
 function( C, i )
     return Image( DifferentialOfComplex( C, i + 1 ) );
 end );
 
+#######################################################################
+##
+#M  HomologyOfComplex( <C>, <i> ) 
+##
+##  For a complex <C> and an integer <i>. Returns the ith homology of 
+##  the complex.
+##
+##  TODO: Does not currently work (see the documentation).
+##  
 InstallMethod( HomologyOfComplex, # TODO: this does not work
 [ IsComplex, IsInt ],
 function( C, i )
     return CyclesOfComplex( C, i ) / BoundariesOfComplex( C, i );
 end );
 
+#######################################################################
+##
+#M  IsFiniteComplex( <C> ) 
+##
+##  Returns true if the complex <C> is a finite complex, false otherwise.
+##  
 InstallMethod( IsFiniteComplex,
 [ IsComplex ],
 function( C )
@@ -422,6 +451,15 @@ function( C )
     fi;
 end );
 
+#######################################################################
+##
+#M  LengthOfComplex( <C> ) 
+##
+##  Returns the length of the complex <C>. If C is a zero complex, then
+##  the length is zero. If C is a finite complex, the length is the
+##  upper bound - the lower bound + 1. If C is an infinite complex, the
+##  lenght is infinity.
+##  
 InstallMethod( LengthOfComplex,
 [ IsComplex ],
 function( C )
@@ -438,24 +476,52 @@ function( C )
     fi;
 end );
 
+#######################################################################
+##
+#M  HighestKnownDegree( <C> ) 
+##
+##  Returns the greatest integer i such that the object at position i 
+##  is known (or computed). For a finite complex, this will be infinity.
+##  
 InstallMethod( HighestKnownDegree,
 [ IsComplex ],
 function( C )
     return HighestKnownPosition( DifferentialsOfComplex( C ) );
 end );
 
+#######################################################################
+##
+#M  LowestKnownDegree( <C> ) 
+##
+##  Returns the smallest integer i such that the object at position i 
+##  is known (or computed). For a finite complex, this will be negative
+##  infinity.
+##  
 InstallMethod( LowestKnownDegree,
 [ IsComplex ],
 function( C )
     return LowestKnownPosition( DifferentialsOfComplex( C ) );
 end );
 
+#######################################################################
+##
+#M  IsExactSequence( <C> ) 
+##
+##  True if the complex <C> is exact in every degree. If the complex
+##  is not finite and not repeating, the function fails.
+##  
 InstallMethod( IsExactSequence,
 [ IsComplex ],
 function( C )
     return ForEveryDegree( C, CatOfComplex( C ).isExact );
 end );
 
+#######################################################################
+##
+#M  IsExactInDegree( <C>, <i> ) 
+##
+##  Returns true if the complex <C> is exact in degree <i>.
+##  
 InstallMethod( IsExactInDegree,
 [ IsComplex, IsInt ],
 function( C, i )
@@ -463,6 +529,13 @@ function( C, i )
                                       DifferentialOfComplex( C, i + 1 ) );
 end );
 
+#######################################################################
+##
+#M  IsShortExactSequence( <C> ) 
+##
+##  Returns true if the complex <C> is exact and has only three non-zero
+##  objects, which are consecutive.
+##  
 InstallMethod( IsShortExactSequence,
 [ IsComplex ],
 function( C )
@@ -476,6 +549,16 @@ function( C )
     fi;
 end );
 
+#######################################################################
+##
+#M  ForEveryDegree( <C>, <func> ) 
+##
+##  <C> is a complex, and <func> is a function operating on two conse-
+##  cutive differentials, returning either true or false.
+##
+##  Returns true if func(d_i, d_{i+1}) is true for all i. Fails if this
+##  is uknown, i.e. if the complex is infinite and not repeating.
+##  
 InstallMethod( ForEveryDegree, # TODO: misleading name?
 [ IsComplex, IsFunction ],
 function( C, func )
@@ -496,6 +579,16 @@ function( C, func )
     return true;
 end );
 
+#######################################################################
+##
+#M  UpperBound( <C> ) 
+##
+##  Returns: 
+##  If it exists: The smallest integer i such that the object at 
+##  position i is non-zero, but for all j > i the object at position j 
+##  is zero. If C is not a finite complex, the operation will return 
+##  fail or infinity, depending on how C was defined.
+##  
 InstallMethod( UpperBound,
 [ IsComplex ],
 function( C )
@@ -524,6 +617,16 @@ function( C )
     fi;
 end );
 
+#######################################################################
+##
+#M  LowerBound( <C> ) 
+##
+##  Returns:
+##  If it exists: The greatest integer i such that the object at 
+##  position i is non-zero, but for all j < i the object at position j 
+##  is zero. If C is not a finite complex, the operation will return 
+##  fail or negative infinity, depending on how C was defined.
+##
 InstallMethod( LowerBound,
 [ IsComplex ],
 function( C )
@@ -552,18 +655,43 @@ function( C )
     fi;
 end );
 
+#######################################################################
+##
+#M  IsPositiveRepeating( <C> ) 
+##
+##  Returns true if the positive part of the differential list of the
+##  complex <C> is repeating.
+##
 InstallMethod( IsPositiveRepeating,
 [ IsComplex ],
 function( C )
     return IsRepeating( PositivePart( DifferentialsOfComplex( C ) ) );
 end );
 
+#######################################################################
+##
+#M  IsNegativeRepeating( <C> ) 
+##
+##  Returns true if the negative part of the differential list of the
+##  complex <C> is repeating.
+##
 InstallMethod( IsNegativeRepeating,
 [ IsComplex ],
 function( C )
     return IsRepeating( NegativePart( DifferentialsOfComplex( C ) ) );
 end );
 
+#######################################################################
+##
+#M  PositiveRepeatDegrees( <C> ) 
+##
+##  Returns a list describing the positions of the positive repeating
+##  differentials.  The returned list is of the form [first .. last], 
+##  where 'first' is the smallest degree such that the differential
+##  ending there is in the positive repeating part. After the degree 
+##  'last', the same differentials start repeating. Fails if
+##  IsPositiveRepeating(C) is false.
+##
 InstallMethod( PositiveRepeatDegrees,
 [ IsComplex ],
 function( C )
@@ -577,6 +705,17 @@ function( C )
     return [ first .. last ];
 end );
 
+#######################################################################
+##
+#M  NegativeRepeatDegrees( <C> ) 
+##
+##  Returns a list describing the positions of the negative repeating
+##  differentials.  The returned list is of the form [last .. first], 
+##  where 'last' is the greatest degree such that the differential
+##  starting there is in the negative repeating part. After the degree 
+##  'first', the same differentials start repeating. Fails if
+##  IsNegativeRepeating(C) is false.
+##
 InstallMethod( NegativeRepeatDegrees,
 [ IsComplex ],
 function( C )
@@ -590,6 +729,13 @@ function( C )
     return [ last .. first ];
 end );
 
+#######################################################################
+##
+#M  Shift( <C>, <i> ) 
+##
+##  Returns the complex C[i].  Note that the signs of the differentials
+##  change if i is odd.
+##
 InstallMethod( Shift,
 [ IsComplex, IsInt ],
 function( C, shift )
@@ -604,7 +750,14 @@ function( C, shift )
 
 end );
 
-# non-algebraic shift
+#######################################################################
+##
+#M  ShiftUnsigned( <C>, <i> ) 
+##
+##  Returns a complex with the same objects as C[i], but with the 
+##  differentials of C shifted without changing the signs.  A 'non-
+##  algebraic' operation, but useful for manipulating complexes.
+##
 InstallMethod( ShiftUnsigned,
 [ IsComplex, IsInt ],
 function( C, shift )
@@ -615,6 +768,15 @@ function( C, shift )
 
 end );
 
+#######################################################################
+##
+#M  YonedaProduct( <C1>, <C2> ) 
+##
+##  <C1> and <C2> are complexes such that the object in degree LowerBound(C)
+##  equals the object in degree UpperBound(D).  The returned complex
+##  is the Yoneda product of <C1> and <C2> (see the QPA documentation
+##  for a more precise definition).
+##  
 InstallMethod( YonedaProduct,
 [ IsComplex, IsComplex ],
 function( C1, C2 )
@@ -647,7 +809,18 @@ function( C1, C2 )
 
 end );
 
-# it is a bug somewhere in here.
+#######################################################################
+##
+#M  GoodTruncationBelow( <C>, <i> ) 
+##
+##  Not working at the moment.  Suppose that C is a complex
+##    ... --> C_{i+1} --> C_i --> C_{i-1} --> ...
+##
+##  then the function should return the complex
+##    ... --> C_{i+1} --> Z_i --> 0 --> 0 --> ...
+##
+##  where Z_i is the i-cycle of C.
+##  
 InstallMethod( GoodTruncationBelow,
 [ IsComplex, IsInt ],
 function( C, i )
@@ -667,7 +840,18 @@ function( C, i )
 
 end );
 
-# TODO!
+#######################################################################
+##
+#M  GoodTruncationAbove( <C>, <i> ) 
+##
+##  Not working at the moment.  Suppose that C is a complex
+##    ... --> C_{i+1} --> C_i --> C_{i-1} --> ...
+##
+##  then the function should return the complex
+##    ... --> 0 --> C_i/Z_i --> C_{i-1} --> 0 --> ...
+##
+##  where Z_i is the i-cycle of C.
+##  
 InstallMethod( GoodTruncationAbove,
  [ IsComplex, IsInt ],
 function( C, i )
@@ -694,6 +878,16 @@ end );
 # TODO!
 # InstallMethod( GoodTruncation, [ IsComplex, IsInt, IsInt ] );
 
+#######################################################################
+##
+#M  BrutalTruncationBelow( <C>, <i> ) 
+##
+##  Suppose that C is a complex
+##    ... --> C_{i+1} --> C_i --> C_{i-1} --> ...
+##
+##  then the function returns the complex
+##    ... --> C_{i+1} --> C_i --> 0 --> 0 --> ...
+##
 InstallMethod( BrutalTruncationBelow,
 [ IsComplex, IsInt ],
 function( C, i )
@@ -712,7 +906,16 @@ function( C, i )
 
 end );
 
-
+#######################################################################
+##
+#M  BrutalTruncationAbove( <C>, <i> ) 
+##
+##  Suppose that C is a complex
+##    ... --> C_{i+1} --> C_i --> C_{i-1} --> ...
+##
+##  then the function returns the complex
+##    ... --> 0 --> C_i --> C_{i-1} --> 
+##
 InstallMethod( BrutalTruncationAbove,
 [ IsComplex, IsInt ],
 function( C, i )
@@ -731,6 +934,16 @@ function( C, i )
 
 end );
 
+#######################################################################
+##
+#M  BrutalTruncation( <C>, <i>, <j> ) 
+##
+##  Suppose that C is a complex
+##    ... --> C_{i+1} --> C_i --> C_{i-1} --> ...
+##
+##  then the function returns the complex
+##    ... --> 0 --> C_i --> C_{i-1} --> ... --> C_j --> 0 --> ...
+##
 InstallMethod( BrutalTruncation, 
 [ IsComplex, IsInt, IsInt ],
 function( C, i, j )
@@ -742,25 +955,18 @@ function( C, i, j )
     fi;
     
     return BrutalTruncationAbove( BrutalTruncationBelow( C, j ), i );
-
-    # cat := CatOfComplex( C );
-    # difflist := DifferentialsOfComplex( C );
-    # middlediffs := FinitePartAsList( difflist, j+1, i );
-    # truncpart := FiniteInfList( j+1, middlediffs );
-    # newpart1 := FiniteInfList( i+1, [ cat.zeroMap( cat.zeroObj,
-    #                                             ObjectOfComplex( C, i ) ) ] );
-    # zeropart1 := PositivePartFrom( DifferentialsOfComplex( ZeroComplex( cat ) ),
-    #                               i+2 );
-    # newpart2 := FiniteInfList( j, [ cat.zeroMap( ObjectOfComplex( C, j ),
-    #                                                cat.zeroObj ) ] );
-    # zeropart2 := NegativePartFrom( DifferentialsOfComplex( ZeroComplex( cat ) ),
-    #                                j-1 );
-    # newdifflist := InfConcatenation( zeropart1, newpart1, truncpart, newpart2, zeropart2 );
-    
-    # return ComplexByDifferentialList( cat, newdifflist );
-
 end );
 
+#######################################################################
+##
+#O  SyzygyTruncation( <C>, <i> ) 
+##
+##  Suppose that C is a complex
+##    ... --> C_{i+1} --> C_i --> C_{i-1} --> ...
+##
+##  then the function returns the complex
+##    ... --> 0 --> ker(d_i) --> C_i --> C_{i-1} --> ...
+##
 InstallMethod( SyzygyTruncation, 
 [ IsComplex, IsInt ],
 function( C, i )
@@ -784,7 +990,16 @@ function( C, i )
 
 end );
 
-
+#######################################################################
+##
+#O  CosyzygyTruncation( <C>, <i> ) 
+##
+##  Suppose that C is a complex
+##    ... --> C_{i+1} --> C_i --> C_{i-1} --> ...
+##
+##  then the function returns the complex
+##    ... --> C_i --> C_{i-1} --> cok(d_i) --> 0 --> ...
+##
 InstallMethod( CosyzygyTruncation, 
 [ IsComplex, IsInt ],
 function( C, i )
@@ -809,6 +1024,16 @@ function( C, i )
 
 end );
 
+#######################################################################
+##
+#O  SyzygyCosyzygyTruncation( <C>, <i>, <j> ) 
+##
+##  Suppose that C is a complex
+##    ... --> C_{i+1} --> C_i --> C_{i-1} --> ...
+##
+##  then the function returns the complex
+##    ... --> 0 --> ker(d_i) --> C_i --> ... --> C_{j+1} --> cok(d_j) --> 0 --> ...
+##
 InstallMethod( SyzygyCosyzygyTruncation, 
 [ IsComplex, IsInt, IsInt ],
 function( C, i, j )
@@ -848,8 +1073,14 @@ function( C, i, j )
   
 end );
 
-# for a bounded below complex C which is stored as an infinite complex, 
-# but is known to be finite.
+#######################################################################
+##
+#O  CutComplexAbove( <C> ) 
+##
+##  For a bounded below complex C which is stored as an infinite complex,
+##  but is known to be finite. Returns the same complex, but represented
+##  as a finite complex.
+##
 InstallMethod( CutComplexAbove,
 [ IsComplex ],
 function( C )
@@ -869,8 +1100,14 @@ function( C )
 
 end );               
 
-# for a bounded above complex C which is stored as an infinite complex, 
-# but is known to be finite.
+#######################################################################
+##
+#O  CutComplexBelow( <C> ) 
+##
+##  For a bounded above complex C which is stored as an infinite complex,
+##  but is known to be finite. Returns the same complex, but represented
+##  as a finite complex.
+##
 InstallMethod( CutComplexBelow,
 [ IsComplex ],
 function( C )
@@ -890,7 +1127,13 @@ function( C )
 
 end );               
 
-
+#######################################################################
+##
+#O  ComplexByDifferentialList( <cat>, <differentials> ) 
+##
+##  <cat> is a category, and <differentials> is an InfList of
+##  differentials.
+##  
 InstallGlobalFunction( ComplexByDifferentialList,
 [ IsCat, IsInfList ],
 function( cat, differentials )
@@ -906,12 +1149,24 @@ function( cat, differentials )
 
 end );
 
+#######################################################################
+##
+#O  PrintObj( <C> ) 
+##
+##  Prints the zero complex
+##  
 InstallMethod( PrintObj,
 [ IsZeroComplex ],
 function( C )
     Print( "0 -> 0" );
 end );
 
+#######################################################################
+##
+#O  PrintObj( <C> ) 
+##
+##  Prints a non-zero complex
+##  
 InstallMethod( PrintObj,
 [ IsComplex ],
 function( C )
@@ -968,7 +1223,12 @@ function( C )
     fi;
 end );
 
-
+#######################################################################
+##
+#O  ProjectiveResolution( <M> ) 
+##
+##  Returns the projective resolution of M, including M in degree -1.
+##  
 InstallMethod( ProjectiveResolution,
 [ IsPathAlgebraMatModule ],
 function( M )
@@ -988,7 +1248,12 @@ function( M )
 end );
 
 
-
+#######################################################################
+##
+#F  ChainMap( <M>, <v> ) 
+##
+##  TODO: documentation for all chain map-functions
+##  
 InstallGlobalFunction( "ChainMap",
 function( source, range, basePosition, middle, positive, negative )
     local cat, fam, map, positiveL, negativeL, numZeroMaps, i,
