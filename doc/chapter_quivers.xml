@@ -34,12 +34,12 @@ constructing quivers in Section <Ref Sect="Constructing Quivers"/>.
 
 <Section  Label="Constructing Quivers"><Heading>Constructing Quivers</Heading>
   <ManSection>
-   <Func Name="Quiver" Arg="N, arrows" 
+   <Func Name="Quiver" Label="no. of arrows and arrows" Arg="N, arrows" 
 	 Comm="creates a quiver"/>
-   <Func Name="Quiver" Arg="vertices,
+   <Func Name="Quiver" Label="vertices and arrows" Arg="vertices,
 	 arrows" 
 	 Comm="creates a quiver"/>
-   <Func Name="Quiver" Arg="adjacencymatrix" 
+   <Func Name="Quiver" Label="adjacenymatrix" Arg="adjacencymatrix" 
 	 Comm="creates a quiver"/>
    <Description>Arguments: First construction: <Arg>N</Arg> -- number of vertices, <Arg>arrows</Arg> -- a list of arrows to specify the graph <Math>\Gamma</Math>. Second construction: <Arg>vertices</Arg> -- a list of vertex names, <Arg>arrows</Arg> -- a list of arrows. Third construction: takes an adjacency matrix for the graph <Math>\Gamma</Math>.
    
@@ -224,7 +224,17 @@ false
 <Section Label="qpa:Orderings"><Heading>Orderings of paths in a
     quiver</Heading> 
 
-  To be written. 
+The only supported ordering on the paths in a quiver is length left
+lexicographic ordering. The reason for this is that
+<Package>QPA</Package> does not have its own functions for computing
+Groebner basis. Instead they are computed using the &GAP;-package
+<Package>GBNP</Package>. The interface with this package, which is
+provided by the <Package>QPA</Package>, only supports the length left
+lexicographic ordering, even though <Package>GBNP</Package> supports 
+more orderings.<P/>
+
+For constructing a quiver, there are three different methods. TODO:
+Explain how the vertices and arrows are ordered.<P/>
 
 </Section>
 
@@ -507,7 +517,7 @@ gap&gt; LengthOfPath(q1.v);
   </ManSection>
 
   <ManSection>
-   <Oper Name="&lt;" Arg="p, q" Comm="lessthan"/>
+   <Oper Name="&lt;" Label="for two paths in a quiver" Arg="p, q" Comm="lessthan"/>
    <Description> 
     Arguments: <Arg>p</Arg> and <Arg>q</Arg> -- two paths in the same quiver.
    <Br /></Description>
