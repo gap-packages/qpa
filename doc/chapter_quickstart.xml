@@ -215,11 +215,14 @@ in <Package>GAP</Package>.
 
 Assume we want to construct the following <Math>A</Math>-module
 <Math>M</Math>, where <Math>A</Math> is the same algebra as in the
-previous example [BILDE!!!]. This module is neither projective,
-indecomposable nor simple, so we need to do the dirty work
-ourselves. Usually, the easiest way to construct a module is to state
-the dimension vector and the non-zero maps. Here, there is only one
-non-zero map, and we write
+previous example
+<M>
+\xymatrix{0\ar[r]^0 &amp; &QQ;\ar[r]^1 &amp; &QQ; \ar@(ur,dr)^0}
+</M>. 
+This module is neither indecomposable projective or injective, nor
+simple, so we need to do the dirty work ourselves. Usually, the
+easiest way to construct a module is to state the dimension vector and
+the non-zero maps. Here, there is only one non-zero map, and we write
 
 <Example><![CDATA[
 gap> M := RightModuleOverPathAlgebra( A, [0,1,1], [ ["b", [[1]] ] ] );
@@ -228,7 +231,12 @@ gap> M := RightModuleOverPathAlgebra( A, [0,1,1], [ ["b", [[1]] ] ] );
 
 To make sure we got everything right, we can use <C>Display(M)</C> to
 view the maps. The most tricky thing is usually to get the correct
-numbers of brackets. Here is a slightly bigger example [BILDE]:
+numbers of brackets. Here is a slightly bigger example:
+<M>
+\xymatrix{&QQ;\ar[r]^{\left(\begin{smallmatrix}0 &amp; 0\end{smallmatrix}\right)} &amp; 
+&QQ;^2\ar[r]^{\left(\begin{smallmatrix}1 &amp; 0\\ -1 &amp; 0\end{smallmatrix}\right)} &amp; 
+&QQ;^2\ar@(ur,dr)^{\left(\begin{smallmatrix}0 &amp; 0\\ 1 &amp; 0\end{smallmatrix}\right)}}
+</M>.
 
 <Example><![CDATA[
 gap> N := RightModuleOverPathAlgebra( A, [1,2,2], [ ["a",[[1,1]] ], 

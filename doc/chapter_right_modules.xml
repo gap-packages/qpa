@@ -22,9 +22,9 @@ the vector spaces of the correct dimension, and check to make sure the
 dimensions all agree.  We can create a module in this way as follows.<P/>
 
   <ManSection>
-   <Oper Name="RightModuleOverPathAlgebra" Arg="A, mats" 
+   <Oper Name="RightModuleOverPathAlgebra" Label="no dimension vector" Arg="A, mats" 
 	 Comm=""/>
-   <Oper Name="RightModuleOverPathAlgebra" Arg="A, dim_vector, gens" 
+   <Oper Name="RightModuleOverPathAlgebra" Label="with dimension vector" Arg="A, dim_vector, gens" 
 	 Comm=""/>
    <Description> 
     Arguments: <Arg>A</Arg> -- a (quotient of a) path algebra, <Arg>mats</Arg> -- a list of matrices, <Arg>dim_vector</Arg> -- the dimension vector of the module, <Arg>gens</Arg> -- a list of elements (generators). For further explanations, see below.
@@ -185,7 +185,7 @@ basis and elementwise operations available.
 <Section><Heading>Acting on Module Elements</Heading>
 
   <ManSection>
-   <Oper Name="^" Arg="m, p" Comm=""/>
+   <Oper Name="^" Label="a PathAlgebraMatModule element and a PathAlgebra element" Arg="m, p" Comm=""/>
    <Description> 
    Arguments: <Arg>m</Arg> -- an element in a module, <Arg>p</Arg> -- a path in a path algebra.
    <Br /></Description>
@@ -363,7 +363,7 @@ gap> N:= RightModuleOverPathAlgebra(A,mat);
 </ManSection>
 
 <ManSection>
-   <Oper Name="Dimension" Arg="M" Comm="for a
+   <Oper Name="Dimension" Label="for a PathAlgebraMatModule" Arg="M" Comm="for a
    PathAlgebraMatModule"/>
    <Description> 
    Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>).
@@ -573,7 +573,7 @@ gap> inc:=DirectSumInclusions(N2);
 </ManSection>
 
 <ManSection>
-   <Attr Name="LoewyLength" Arg="M" Comm=""/>
+   <Attr Name="LoewyLength" Label="for a PathAlgebraMatModule" Arg="M" Comm=""/>
    <Description> 
     Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>).
    <Br /></Description>
@@ -1099,7 +1099,7 @@ gap&gt; Dimension(S);
 </Example>
 
   <ManSection>
-   <Oper Name="^" Arg="m, a" Comm="Action by a path algebra element"/>
+   <Oper Name="^" Label="a PathAlgebraModule element and a PathAlgebra element" Arg="m, a" Comm="Action by a path algebra element"/>
    <Description> 
     Arguments: <Arg>m</Arg> -- an element of a path algebra module, <Arg>a</Arg> -- an element of a path algebra.
    <Br /></Description>
@@ -1119,9 +1119,9 @@ gap&gt; p2^(A.c - A.w);
 </Example>
 
   <ManSection>
-   <Oper Name="&lt;" Arg="m1, m2" Comm="lessthan"/>
+   <Oper Name="&lt;" Label="for two elements in a PathAlgebraModule" Arg="m1, m2" Comm="lessthan"/>
    <Description> 
-    Arguments: <Arg>m1, m2</Arg> -- two elements of a module over a path algebra (?).
+    Arguments: <Arg>m1, m2</Arg> -- two elements of a PathAlgebraModule.
    <Br /></Description>
    <Returns>
     `true' if <Arg>m1</Arg> is less than <Arg>m2</Arg> and false otherwise.

@@ -88,8 +88,7 @@ GBNP interface (for Groebner bases),</Item></Row>
     representations of path algebras</Item></Row>
 </Table>
 </Acknowledgements>
-<!--  <Colophon>
-  </Colophon> -->
+
 </TitlePage>
 
 <TableOfContents/>
@@ -120,14 +119,15 @@ GBNP interface (for Groebner bases),</Item></Row>
 
 </Body>
 
-<Appendix Label="Appendix">
+<!-- <Appendix Label="Appendix">
 <Heading>An Appendix</Heading>
 <Label Name="ElevenBack"/>
 
 This is an appendix. 
-</Appendix>
+</Appendix> -->
 
-<Bibliography Databases="" Style="alpha"/>
+<Bibliography Databases="qpadocumentation" Style="alpha"/>
+
 <TheIndex/>
 
 </Book>
