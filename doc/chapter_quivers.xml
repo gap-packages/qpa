@@ -231,7 +231,7 @@ false
 <Section><Heading>Attributes and Operations for Quivers</Heading>
 
   <ManSection>
-   <Oper Name="." Arg="Q, element" Comm=""/>
+   <Oper Name="." Label="for quiver" Arg="Q, element" Comm=""/>
    <Description> 
     Arguments: <Arg>Q</Arg> -- a quiver,
     and <Arg>element</Arg> -- a vertex or an arrow.
