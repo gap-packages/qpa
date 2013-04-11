@@ -61,3 +61,4 @@ DeclareAttribute( "EnvelopingAlgebra", IsAlgebra );
 DeclareProperty( "IsEnvelopingAlgebra", IsAlgebra );
 
 DeclareAttribute( "AlgebraAsModuleOverEnvelopingAlgebra", IsAlgebra );
+DeclareSynonym( "AlgebraAsModuleOfEnvelopingAlgebra", AlgebraAsModuleOverEnvelopingAlgebra );
