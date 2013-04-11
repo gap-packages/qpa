@@ -7,12 +7,16 @@
 ##
 #F  PrimitiveIdempotents( <A> )
 ##
-##  This function takes as an argument a finite dimensional semisimple 
+##  This function takes as an argument a finite dimensional simple 
 ##  algebra  <A>  for a finite field and returns a complete set of 
 ##  primitive idempotents  { e_i }  such that  
 ##                     A \simeq  Ae_1 + ... + Ae_n.
 ##
-##  TODO: Understand what this function actually does.
+##  This function is based on Eberly, W., "Decomposition of algebras 
+##  over finite fields and number fields", Computational Complexity 1 
+##  (1991), 183–210. See page 84 in Craig A. Struble, "Analysis and 
+##  implementation of algorithms for noncommutative algebra", PhD-
+##  thesis, Virginia Tech, 2000. 
 ##
 InstallGlobalFunction("PrimitiveIdempotents",
     function(A)
@@ -80,15 +84,17 @@ end
 ##
 #F  HOPF_ZeroDivisor( <A> )
 ##
-##  This function takes as an argument a finite dimensional semisimple 
+##  This function takes as an argument a finite dimensional simple 
 ##  algebra  <A>  over a finite field and returns a list of two elements  
 ##  [a, b]  in  <A>  such that  a*b = 0  in <A>, if  <A> is not 
 ##  commutative. If  <A>  is commutative, it returns an empty list.
 ##
-##  TODO: When  <A>  is commutative, check if the number of central
-##  idempotents are than 1, if so return [e, 1-e] for a central idempotent
-##  e.  If the number of central idempotents are 1, then  <A>  is a field
-##  and therefore has no non-zero zero divisor and return an empty list.
+##  This function is based on Ronyai, L., "Simple algebras are difficult", 
+##  In 19th ACM Symposium on Theory of Computing (1987), pp. 398–408, and 
+##  Ro ́nyai, L., "Computing the structure of finite algebras", Journal of 
+##  Symbolic Computation 9 (1990), 355–373. See page 83 in Craig A. Struble,
+##  "Analysis and implementation of algorithms for noncommutative algebra", 
+##  PhD-thesis, Virginia Tech, 2000. 
 ##   
 InstallGlobalFunction(HOPF_ZeroDivisor,
   function(A)
@@ -162,10 +168,15 @@ end
 ##
 #F  HOPF_SingularIdempotent( <A> )
 ##
-##  This function takes as an argument a finite dimensional semisimple 
+##  This function takes as an argument a finite dimensional simple 
 ##  algebra  <A>  and returns a primitive idempotent for  <A>?   
-##  
-##  TODO: Understand what this function actually does.
+## 
+##  This function is based on Ronyai, L., "Simple algebras are difficult", 
+##  In 19th ACM Symposium on Theory of Computing (1987), pp. 398–408, and 
+##  Ro ́nyai, L., "Computing the structure of finite algebras", Journal of 
+##  Symbolic Computation 9 (1990), 355–373. See page 82 in Craig A. Struble,
+##  "Analysis and implementation of algorithms for noncommutative algebra", 
+##  PhD-thesis, Virginia Tech, 2000. 
 ##
 InstallGlobalFunction(HOPF_SingularIdempotent,
   function(A)
