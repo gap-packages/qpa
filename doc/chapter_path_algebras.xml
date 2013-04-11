@@ -1111,20 +1111,21 @@ false ]]></Example>
   <Func Name="NakayamaAlgebra" Arg="admiss-seq,field" 
 	Comm="creates a Nakayama algebra"/>
   <Description>
-    Arguments: <Arg>admiss-seq</Arg> -- a list of positive
-    integers, <Arg>field</Arg> -- a field.<Br />
+    Arguments: <Arg>field</Arg> -- a field, <Arg>admiss-seq</Arg> -- a list of positive
+    integers.<Br />
   </Description>
   <Returns>
-    The Nakayama algebra corresponding to <Arg>admiss-seq</Arg> over
-    the field <Arg>field</Arg>. If the entered sequence is not an
-    admissible sequence, the sequence is returned.
+    the Nakayama algebra corresponding to the admissible sequence
+    <Arg>admiss-seq</Arg> over the field <Arg>field</Arg>. If the
+    entered sequence is not an admissible sequence, the sequence is
+    returned.
   </Returns>
   <Description>The <Arg>admiss-seq</Arg> consists of the dimensions
   of the projective representations.</Description>
 </ManSection>
 
 <Example><![CDATA[ 
-gap> alg := NakayamaAlgebra([2,1], Rationals);
+gap> alg := NakayamaAlgebra(Rationals, [2,1]);
 <algebra-with-one over Rationals, with 3 generators>
 gap> QuiverOfPathAlgebra(alg);
 <quiver with 2 vertices and 1 arrows>  

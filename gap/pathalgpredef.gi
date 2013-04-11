@@ -4,15 +4,15 @@
 
 #######################################################################
 ##
-#O  NakayamaAlgebra( <admiss_seq>, <K> )
+#O  NakayamaAlgebra( K, <admiss_seq> )
 ##
-##  Given an admissible sequence  <admiss_seq>  and a field  <K>  this 
+##  Given a field  <K>  and an admissible sequence  <admiss_seq>  this 
 ##  function constructs a Nakayama algebra with this data. 
 ##
 InstallMethod ( NakayamaAlgebra,
-    "for an admissible sequence and a field",
-    [IsList, IsField], 0,
-    function( admiss_seq , K)
+    "for a field and an admissible sequence",
+    [IsField, IsList], 0,
+    function( K, admiss_seq )
     
     local num_vert, # number of vertices in the quiver we are creating.
           test,     # the result of the test of being an admissible seq.
@@ -162,6 +162,15 @@ InstallMethod ( NakayamaAlgebra,
         return admiss_seq;
     fi; 
     
+end
+);
+
+InstallOtherMethod ( NakayamaAlgebra,
+    "for an admissible sequence and a field",
+    [IsList, IsField], 0,
+        function( admiss_seq , K)
+    
+    return NakayamaAlgebra(K,admiss_seq);
 end
 );
 
