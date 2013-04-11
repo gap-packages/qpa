@@ -1538,7 +1538,7 @@ true ]]>
   </ManSection>
 
   <ManSection>
-    <Attr Name="AlgebraAsModuleOfEnvelopingAlgebra" Arg=" Aenv "/>
+    <Attr Name="AlgebraAsModuleOverEnvelopingAlgebra" Arg=" Aenv "/>
     <Description>
       Arguments: <Arg>Aenv</Arg> -- the enveloping algebra of a
       (quotient of) a path algebra <Arg>A</Arg>. <Br />

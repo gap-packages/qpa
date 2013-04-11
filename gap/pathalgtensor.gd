@@ -60,4 +60,4 @@ DeclareAttribute( "TensorProductDecomposition", IsAlgebra );
 DeclareAttribute( "EnvelopingAlgebra", IsAlgebra );
 DeclareProperty( "IsEnvelopingAlgebra", IsAlgebra );
 
-DeclareAttribute( "AlgebraAsModuleOfEnvelopingAlgebra", IsAlgebra );
+DeclareAttribute( "AlgebraAsModuleOverEnvelopingAlgebra", IsAlgebra );

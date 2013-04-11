@@ -334,7 +334,7 @@ InstallMethod( IsEnvelopingAlgebra,
 end );
 
 
-InstallMethod( AlgebraAsModuleOfEnvelopingAlgebra,
+InstallMethod( AlgebraAsModuleOverEnvelopingAlgebra,
         "for an enveloping algebra of a path algebra",
         [ IsQuotientOfPathAlgebra ],
         function ( env )

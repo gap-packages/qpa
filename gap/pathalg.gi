@@ -1904,7 +1904,7 @@ InstallMethod( IsSymmetricAlgebra,
     # By now we know that the algebra is finite dimensional.
     #
     Aenv := EnvelopingAlgebra(A);
-    M    := AlgebraAsModuleOfEnvelopingAlgebra(Aenv);
+    M    := AlgebraAsModuleOverEnvelopingAlgebra(Aenv);
     DM   := DualOfModule(M);
     #
     #   Finding DM as a module over Aenv.
