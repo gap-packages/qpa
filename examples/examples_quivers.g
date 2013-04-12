@@ -41,7 +41,7 @@ GeneratorsOfQuiver(q1);
 NumberOfVertices(q1);
 NumberOfArrows(q1);
 OrderingOfQuiver(q1);
-q1_op := OppositeOfQuiver(q1);
+q1_op := OppositeQuiver(q1);
 VerticesOfQuiver(q1);
 ArrowsOfQuiver(q1);
 ##############

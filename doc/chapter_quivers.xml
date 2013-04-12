@@ -310,7 +310,7 @@ Explain how the vertices and arrows are ordered.<P/>
   </ManSection>
 
   <ManSection>
-   <Oper Name="OppositeOfQuiver" Arg="quiver" Comm=""/>
+   <Oper Name="OppositeQuiver" Arg="quiver" Comm=""/>
    <Returns>
      the opposite
      quiver of <Arg>quiver</Arg>, where the vertices are labelled "name in original
@@ -341,7 +341,7 @@ gap&gt; NumberOfArrows(q1);
 4
 gap&gt; OrderingOfQuiver(q1);
 &lt;length left lexicographic ordering&gt;
-gap&gt; q1_op := OppositeOfQuiver(q1);
+gap&gt; q1_op := OppositeQuiver(q1);
 &lt;quiver with 2 vertices and 4 arrows&gt;
 gap&gt; VerticesOfQuiver(q1);
 [ u_op, v_op ]
