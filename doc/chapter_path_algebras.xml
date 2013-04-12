@@ -350,8 +350,7 @@ with commands in &GAP; (cf. also Chapter 60: Algebras
 in the &GAP; manual on how to construct an ideal and a quotient of an
 algebra). Functions which use Groebner bases like <Ref
 Prop="IsFiniteDimensional"/>, <Ref Attr="Dimension"/>, <Ref
-Prop="IsSpecialBiserialAlgebra"/> or a membership test <Ref Oper="\in
-(elt. in path alg. and ideal)"/> will work properly (they simply
+Prop="IsSpecialBiserialAlgebra"/> or a membership test <Ref Oper="\in (elt. in path alg. and ideal)"/> will work properly (they simply
 compute the Groebner basis if it is necessary). But some "older"
 functions (like <Ref Prop="IndecProjectiveModules"/>) can fail! This way
 of constructing a quotient of a path algebra can be useful e.g. if we
@@ -855,10 +854,7 @@ gap> IsFiniteTypeAlgebra(A);
 Infinite type!
 Quiver is not a (union of) Dynkin quiver(s).
 false
-gap> quo := A/Ideal(A, [A.a*A.b, A.c*A.d]);
-<Rationals[<quiver with 5 vertices and 4 arrows>]/
-<two-sided ideal in <Rationals[<quiver with 5 vertices and 4 arrows>]>,
-  (2 generators)>>
+gap> quo := A/[A.a*A.b, A.c*A.d];;
 gap> IsFiniteTypeAlgebra(quo);
 Finite type!
 Special biserial algebra with no unoriented cycles in Q.
@@ -880,7 +876,7 @@ true ]]></Example>
   <!-- </ManSection> -->
 
 <ManSection>
-  <Attr Name="Dimension" Label="for a (quotient of a) path algebra" Arg="A" Comm="computes the dimension of A"/>
+  <Attr Name="Dimension"  Arg="A" Comm="computes the dimension of A"/>
   <Description>
     Arguments: <Arg>A</Arg> -- a path algebra or a quotient of a path algebra.<Br />
   </Description>
@@ -1170,25 +1166,25 @@ false
 false
 gap> rel1 := [A.a*A.b, A.a^2, A.b^2];  
 [ (1)*a*b, (1)*a^2, (1)*b^2 ]
-gap> I1 := Ideal(A, rel1);;  quo1 := A/I1;;
+gap> quo1 := A/rel1;;
 gap> IsSpecialBiserialAlgebra(quo1); IsStringAlgebra(quo1);
 true
 true
 gap> rel2 := [A.a*A.b-A.b*A.a, A.a^2, A.b^2];  
 [ (1)*a*b+(-1)*b*a, (1)*a^2, (1)*b^2 ]
-gap> I2 := Ideal(A, rel2);; quo2 := A/I2;;
+gap> quo2 := A/rel2;;
 gap> IsSpecialBiserialAlgebra(quo2); IsStringAlgebra(quo2);
 true
 false
 gap> rel3 := [A.a*A.b+A.b*A.a, A.a^2, A.b^2, A.b*A.a];   
 [ (1)*a*b+(1)*b*a, (1)*a^2, (1)*b^2, (1)*b*a ]
-gap> I3 := Ideal(A, rel3);; quo3 := A/I3;;
+gap> quo3 := A/rel3;;
 gap> IsSpecialBiserialAlgebra(quo3); IsStringAlgebra(quo3);
 true
 true
 gap> rel4 := [A.a*A.b, A.a^2, A.b^3]; 
 [ (1)*a*b, (1)*a^2, (1)*b^3 ]
-gap> I4 := Ideal(A, rel4);; quo4 := A/I4;;
+gap> quo4 := A/rel4;;
 gap> IsSpecialBiserialAlgebra(quo4); IsStringAlgebra(quo4);
 false
 false 
