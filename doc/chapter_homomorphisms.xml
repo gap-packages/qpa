@@ -16,24 +16,20 @@ Given two homorphisms <Math>f\colon L\to M</Math> and <Math>g\colon
 
 The example used throughout this chapter is the following.
 <Example><![CDATA[
-gap> Q:= Quiver(3,[[1,2,"a"],[1,2,"b"],[2,2,"c"],[2,3,"d"],[3,1,"e"]]);;
-gap> KQ:= PathAlgebra(Rationals, Q);;
-gap> gen:= GeneratorsOfAlgebra(KQ);;
-gap> a:= gen[4];;
-gap> b:= gen[5];;
-gap> c:= gen[6];;
-gap> d:= gen[7];;
-gap> e:= gen[8];;
-gap> rels:= [d*e,c^2,a*c*d-b*d,e*a];;
-gap> I:= Ideal(KQ,rels);;
-gap> gb:= GBNPGroebnerBasis(rels,KQ);;
-gap> gbb:= GroebnerBasis(I,gb);;
-gap> A:= KQ/I;;
-gap> mat:=[["a",[[1,2],[0,3],[1,5]]],["b",[[2,0],[3,0],[5,0]]],["c",[[0,0],[1,0]]],
-["d",[[1,2],[0,1]]],["e",[[0,0,0],[0,0,0]]]];;
-gap> N:= RightModuleOverPathAlgebra(A,mat);;
+gap> Q := Quiver(3,[[1,2,"a"],[1,2,"b"],[2,2,"c"],[2,3,"d"],[3,1,"e"]]);;
+gap> KQ := PathAlgebra(Rationals, Q);;
+gap> gen := GeneratorsOfAlgebra(KQ);;
+gap> a := gen[4];;
+gap> b := gen[5];;
+gap> c := gen[6];;
+gap> d := gen[7];;
+gap> e := gen[8];;
+gap> rels := [d*e,c^2,a*c*d-b*d,e*a];;
+gap> A := KQ/rels;;
+gap> mat :=[["a",[[1,2],[0,3],[1,5]]],["b",[[2,0],[3,0],[5,0]]],
+> ["c",[[0,0],[1,0]]],["d",[[1,2],[0,1]]],["e",[[0,0,0],[0,0,0]]]];;
+gap> N := RightModuleOverPathAlgebra(A,mat);;
 ]]></Example>
-
 
 <Section><Heading>Categories and representation of homomorphisms</Heading>
 
@@ -97,16 +93,14 @@ gap> N:= RightModuleOverPathAlgebra(A,mat);;
 
 <Example><![CDATA[
 gap> L := RightModuleOverPathAlgebra(A,[["a",[0,1]],["b",[0,1]],
-["c",[[0]]],["d",[[1]]],["e",[1,0]]]);
-<right-module over <algebra-with-one over Rationals, with 8 generators>>
+> ["c",[[0]]],["d",[[1]]],["e",[1,0]]]);
+<[ 0, 1, 1 ]>
 gap> DimensionVector(L);
 [ 0, 1, 1 ]
-gap> f := RightModuleHomOverAlgebra(L,N,[[[0,0,0]], [[1,0]], [[1,2]]]);
-<mapping: <2-dimensional right-module over AlgebraWithOne( Rationals,
-[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d],
-[(1)*e] ] )> -> <7-dimensional right-module over AlgebraWithOne(Rationals, 
-[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] ] )> >
-gap> IsPathAlgebraModuleHomomorphism(f);
+gap> $2]]]);                                                         
+<<[ 0, 1, 1 ]> ---> <[ 3, 2, 2 ]>>
+
+gap> IsPathAlgebraMatModuleHomomorphism(f);
 true
 ]]></Example>
 
@@ -210,74 +204,61 @@ true
 </ManSection>
 
 <Example><![CDATA[
-B:=BasisVectors(Basis(N)); 
-[ [ [ 1, 0, 0 ], [ 0, 0 ], [ 0, 0 ] ], [ [ 0, 1, 0 ], [ 0, 0 ], [ 0, 0 ] ], 
-  [ [ 0, 0, 1 ], [ 0, 0 ], [ 0, 0 ] ], [ [ 0, 0, 0 ], [ 1, 0 ], [ 0, 0 ] ], 
-  [ [ 0, 0, 0 ], [ 0, 1 ], [ 0, 0 ] ], [ [ 0, 0, 0 ], [ 0, 0 ], [ 1, 0 ] ], 
+gap> B := BasisVectors(Basis(N)); 
+[ [ [ 1, 0, 0 ], [ 0, 0 ], [ 0, 0 ] ], 
+  [ [ 0, 1, 0 ], [ 0, 0 ], [ 0, 0 ] ], 
+  [ [ 0, 0, 1 ], [ 0, 0 ], [ 0, 0 ] ], 
+  [ [ 0, 0, 0 ], [ 1, 0 ], [ 0, 0 ] ], 
+  [ [ 0, 0, 0 ], [ 0, 1 ], [ 0, 0 ] ], 
+  [ [ 0, 0, 0 ], [ 0, 0 ], [ 1, 0 ] ], 
   [ [ 0, 0, 0 ], [ 0, 0 ], [ 0, 1 ] ] ]
 gap> PreImagesRepresentative(f,B[4]);     
 [ [ 0 ], [ 1 ], [ 0 ] ]
 gap> PreImagesRepresentative(f,B[5]);
 fail
-gap> BL:=BasisVectors(Basis(L));
+gap> BL := BasisVectors(Basis(L));
 [ [ [ 0 ], [ 1 ], [ 0 ] ], [ [ 0 ], [ 0 ], [ 1 ] ] ]
 gap> ImageElm(f,BL[1]);
 [ [ 0, 0, 0 ], [ 1, 0 ], [ 0, 0 ] ]
 gap> ImagesSet(f,L);
-[ [ [ 0, 0, 0 ], [ 1, 0 ], [ 0, 0 ] ], [ [ 0, 0, 0 ], [ 0, 0 ], [ 1, 2 ] ] ]
+[ [ [ 0, 0, 0 ], [ 1, 0 ], [ 0, 0 ] ], 
+  [ [ 0, 0, 0 ], [ 0, 0 ], [ 1, 2 ] ] ]
 gap> ImagesSet(f,BL);
-[ [ [ 0, 0, 0 ], [ 1, 0 ], [ 0, 0 ] ], [ [ 0, 0, 0 ], [ 0, 0 ], [ 1, 2 ] ] ]
+[ [ [ 0, 0, 0 ], [ 1, 0 ], [ 0, 0 ] ], 
+  [ [ 0, 0, 0 ], [ 0, 0 ], [ 1, 2 ] ] ]
 ]]></Example>
 
-
-
 <Example><![CDATA[
-gap> z:=Zero(f);
-<mapping: <2-dimensional right-module over AlgebraWithOne( Rationals, 
-[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
- ] )> -> <7-dimensional right-module over AlgebraWithOne( Rationals, 
-[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
- ] )> >
+gap> z := Zero(f);
+<<[ 0, 1, 1 ]> ---> <[ 3, 2, 2 ]>>
+
 gap> f = z;
 false
 gap> Range(f) = Range(z);
 true
 gap> y := ZeroMapping(L,N); 
-<mapping: <2-dimensional right-module over AlgebraWithOne( Rationals, 
-[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
- ] )> -> <7-dimensional right-module over AlgebraWithOne( Rationals, 
-[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
- ] )> >
+<<[ 0, 1, 1 ]> ---> <[ 3, 2, 2 ]>>
+
 gap> y = z;            
 true
 gap> id := IdentityMapping(N);  
-<mapping: <7-dimensional right-module over AlgebraWithOne( Rationals, 
-[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
- ] )> -> <7-dimensional right-module over AlgebraWithOne( Rationals, 
-[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
- ] )> >
+<<[ 3, 2, 2 ]> ---> <[ 3, 2, 2 ]>>
+
 gap> f*id;
-<mapping: <2-dimensional right-module over AlgebraWithOne( Rationals, 
-[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
- ] )> -> <7-dimensional right-module over AlgebraWithOne( Rationals, 
-[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
- ] )> >
+<<[ 0, 1, 1 ]> ---> <[ 3, 2, 2 ]>>
+
+gap> #This causes an error!
 gap> id*f;
-Error, codomain of the first argument is not equal to the domain of the second\
- argument,  called from
+Error, codomain of the first argument is not equal to the domain of th\
+e second argument,  called from
 <function>( <arguments> ) called from read-eval-loop
 Entering break read-eval-print loop ...
 you can 'quit;' to quit to outer loop, or
 you can 'return;' to continue
-brk> 
+brk> quit;;
 gap> 2*f + z;
-<mapping: <2-dimensional right-module over AlgebraWithOne( Rationals, 
-[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
- ] )> -> <7-dimensional right-module over AlgebraWithOne( Rationals, 
-[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
- ] )> >
+<<[ 0, 1, 1 ]> ---> <[ 3, 2, 2 ]>>
 ]]></Example>
-
 
 
 <ManSection>
@@ -336,32 +317,29 @@ gap> 2*f + z;
 </ManSection>
 
 <Example><![CDATA[
-gap> L := RightModuleOverPathAlgebra(A,[["a",[0,1]],["b",[0,1]], 
-     ["c",[[0]]],["d",[[1]]],["e",[1,0]]]);;
-gap> f := RightModuleHomOverAlgebra(L,N,[[[0,0,0]], [[1,0]], [[1,2]]]);;
-gap> g := CoKernelProjection(f);                                       
-<mapping: <7-dimensional right-module over AlgebraWithOne( Rationals, 
-[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
- ] )> -> <5-dimensional right-module over AlgebraWithOne( Rationals, 
-[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
- ] )> >
+gap> L := RightModuleOverPathAlgebra(A,[["a",[0,1]],["b",[0,1]],
+> ["c",[[0]]],["d",[[1]]],["e",[1,0]]]);;
+gap> f := RightModuleHomOverAlgebra(L,N,[[[0,0,0]], [[1,0]], 
+> [[1,2]]]);
+<<[ 0, 1, 1 ]> ---> <[ 3, 2, 2 ]>>
+
+gap> g := CoKernelProjection(f);
+<<[ 3, 2, 2 ]> ---> <[ 3, 1, 1 ]>>
+
 gap> CoKernelOfWhat(g) = f;
 true
 gap> h := ImageProjection(f);
-<mapping: <2-dimensional right-module over AlgebraWithOne( Rationals, 
-[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
- ] )> -> <2-dimensional right-module over AlgebraWithOne( Rationals, 
-[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
- ] )> >
+<<[ 0, 1, 1 ]> ---> <[ 0, 1, 1 ]>>
+
 gap> ImageOfWhat(h) = f;
 true
-gap> IsInjective(f); IsSurjective(f); IsIsomorphism(f); IsIsomorphism(h);
+gap> IsInjective(f); IsSurjective(f); IsIsomorphism(f); 
 true
 false
 false
+gap> IsIsomorphism(h);
 true
 ]]></Example>
-
 
 <ManSection>
    <Attr Name="IsSplitEpimorphism" Arg="f" Comm=""/>
@@ -393,19 +371,12 @@ true
 gap> S := SimpleModules(A)[1];;
 gap> H := HomOverAlgebra(N,S);; 
 gap> IsSplitMonomorphism(H[1]);  
-false      
+false
 gap> f := IsSplitEpimorphism(H[1]);
-<mapping: <1-dimensional right-module over AlgebraWithOne( Rationals, 
-[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
- ] )> -> <7-dimensional right-module over AlgebraWithOne( Rationals, 
-[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
- ] )> >
+<<[ 1, 0, 0 ]> ---> <[ 3, 2, 2 ]>>
+
 gap> IsSplitMonomorphism(f);
-<mapping: <7-dimensional right-module over AlgebraWithOne( Rationals, 
-[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
- ] )> -> <1-dimensional right-module over AlgebraWithOne( Rationals, 
-[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
- ] )> >
+<<[ 3, 2, 2 ]> ---> <[ 1, 0, 0 ]>>
 ]]></Example>
 
 <ManSection>
@@ -445,11 +416,15 @@ gap> IsSplitMonomorphism(f);
 
 <Example><![CDATA[
 gap> L := RightModuleOverPathAlgebra(A,[["a",[0,1]],["b",[0,1]],
-  ["c",[[0]]],["d",[[1]]],["e",[1,0]]]);
-<right-module over <algebra-with-one over Rationals, with 8 generators>>
-gap> f := RightModuleHomOverAlgebra(L,N,[[[0,0,0]], [[1,0]], [[1,2]]]);;
+> ["c",[[0]]],["d",[[1]]],["e",[1,0]]]);
+<[ 0, 1, 1 ]>
+gap> f := RightModuleHomOverAlgebra(L,N,[[[0,0,0]], [[1,0]], 
+> [[1,2]]]);;
 gap> IsZero(0*f);
 true
+gap> g := KernelInclusion(f);
+<<[ 0, 0, 0 ]> ---> <[ 0, 1, 1 ]>>
+
 gap> KnownAttributesOfObject(g);
 [ "Range", "Source", "PathAlgebraOfMatModuleMap", "KernelOfWhat" ]
 gap> KernelOfWhat(g) = f;
@@ -468,11 +443,9 @@ true
 gap> MatricesOfPathAlgebraMatModuleHomomorphism(f);
 [ [ [ 0, 0, 0 ] ], [ [ 1, 0 ] ], [ [ 1, 2 ] ] ]
 gap> Range(f);
-<7-dimensional right-module over <algebra-with-one over Rationals, with 
-8 generators>>
+<[ 3, 2, 2 ]>
 gap> Source(f);
-<2-dimensional right-module over <algebra-with-one over Rationals, with 
-8 generators>>
+<[ 0, 1, 1 ]>
 gap> Source(f) = L;
 true
 ]]></Example>
@@ -718,51 +691,20 @@ true
 
 <Example><![CDATA[
 gap> hom := HomOverAlgebra(N,N);
-[ <mapping: <7-dimensional right-module over AlgebraWithOne( Rationals, 
-    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
-      [(1)*e] ] )> -> <
-    7-dimensional right-module over AlgebraWithOne( Rationals, 
-    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
-      [(1)*e] ] )> >, 
-  <mapping: <7-dimensional right-module over AlgebraWithOne( Rationals, 
-    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
-      [(1)*e] ] )> -> <
-    7-dimensional right-module over AlgebraWithOne( Rationals, 
-    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
-      [(1)*e] ] )> >, 
-  <mapping: <7-dimensional right-module over AlgebraWithOne( Rationals, 
-    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
-      [(1)*e] ] )> -> <
-    7-dimensional right-module over AlgebraWithOne( Rationals, 
-    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
-      [(1)*e] ] )> >, 
-  <mapping: <7-dimensional right-module over AlgebraWithOne( Rationals, 
-    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
-      [(1)*e] ] )> -> <
-    7-dimensional right-module over AlgebraWithOne( Rationals, 
-    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
-      [(1)*e] ] )> >, 
-  <mapping: <7-dimensional right-module over AlgebraWithOne( Rationals, 
-    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
-      [(1)*e] ] )> -> <
-    7-dimensional right-module over AlgebraWithOne( Rationals, 
-    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
-      [(1)*e] ] )> > ]
+[ <<[ 3, 2, 2 ]> ---> <[ 3, 2, 2 ]>>
+    , <<[ 3, 2, 2 ]> ---> <[ 3, 2, 2 ]>>
+    , <<[ 3, 2, 2 ]> ---> <[ 3, 2, 2 ]>>
+    , <<[ 3, 2, 2 ]> ---> <[ 3, 2, 2 ]>>
+    , <<[ 3, 2, 2 ]> ---> <[ 3, 2, 2 ]>>
+     ]
 gap> g := hom[1];
-<mapping: <7-dimensional right-module over AlgebraWithOne( Rationals, 
-[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
- ] )> -> <7-dimensional right-module over AlgebraWithOne( Rationals, 
-[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
- ] )> >
+<<[ 3, 2, 2 ]> ---> <[ 3, 2, 2 ]>>
+
 gap> M := CoKernel(g);
-<6-dimensional right-module over <algebra-with-one over Rationals, with 
-8 generators>>
+<[ 2, 2, 2 ]>
 gap> f := CoKernelProjection(g);
-<mapping: <7-dimensional right-module over AlgebraWithOne( Rationals, 
-[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
- ] )> -> <6-dimensional right-module over AlgebraWithOne( Rationals, 
-[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
- ] )> >
+<<[ 3, 2, 2 ]> ---> <[ 2, 2, 2 ]>>
+
 gap> Range(f) = M;
 true
 gap> endo := EndOverAlgebra(N);
@@ -770,40 +712,27 @@ gap> endo := EndOverAlgebra(N);
 gap> RadicalOfAlgebra(endo);
 <algebra of dimension 3 over Rationals>
 gap> B := BasisVectors(Basis(N));
-[ [ [ 1, 0, 0 ], [ 0, 0 ], [ 0, 0 ] ], [ [ 0, 1, 0 ], [ 0, 0 ], [ 0, 0 ] ], 
-  [ [ 0, 0, 1 ], [ 0, 0 ], [ 0, 0 ] ], [ [ 0, 0, 0 ], [ 1, 0 ], [ 0, 0 ] ], 
-  [ [ 0, 0, 0 ], [ 0, 1 ], [ 0, 0 ] ], [ [ 0, 0, 0 ], [ 0, 0 ], [ 1, 0 ] ], 
+[ [ [ 1, 0, 0 ], [ 0, 0 ], [ 0, 0 ] ], 
+  [ [ 0, 1, 0 ], [ 0, 0 ], [ 0, 0 ] ], 
+  [ [ 0, 0, 1 ], [ 0, 0 ], [ 0, 0 ] ], 
+  [ [ 0, 0, 0 ], [ 1, 0 ], [ 0, 0 ] ], 
+  [ [ 0, 0, 0 ], [ 0, 1 ], [ 0, 0 ] ], 
+  [ [ 0, 0, 0 ], [ 0, 0 ], [ 1, 0 ] ], 
   [ [ 0, 0, 0 ], [ 0, 0 ], [ 0, 1 ] ] ]
 gap> p := HomFromProjective(B[1],N);
-<mapping: <8-dimensional right-module over AlgebraWithOne( Rationals, 
-[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
- ] )> -> <7-dimensional right-module over AlgebraWithOne( Rationals, 
-[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
- ] )> >
+<<[ 1, 4, 3 ]> ---> <[ 3, 2, 2 ]>>
+
 gap> U := Image(p);
-<5-dimensional right-module over <algebra-with-one over Rationals, with 
-8 generators>>
+<[ 1, 2, 2 ]>
 gap> projinc := ImageProjectionInclusion(p);
-[ <mapping: <8-dimensional right-module over AlgebraWithOne( Rationals, 
-    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
-      [(1)*e] ] )> -> <
-    5-dimensional right-module over AlgebraWithOne( Rationals, 
-    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
-      [(1)*e] ] )> >, 
-  <mapping: <5-dimensional right-module over AlgebraWithOne( Rationals, 
-    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
-      [(1)*e] ] )> -> <
-    7-dimensional right-module over AlgebraWithOne( Rationals, 
-    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
-      [(1)*e] ] )> > ]
+[ <<[ 1, 4, 3 ]> ---> <[ 1, 2, 2 ]>>
+    , <<[ 1, 2, 2 ]> ---> <[ 3, 2, 2 ]>>
+     ]
 gap> U = Range(projinc[1]);                                      
 true
 gap> Kernel(p);
-<3-dimensional right-module over <algebra-with-one over Rationals, with 
-8 generators>>
+<[ 0, 2, 1 ]>
 ]]></Example>
-
-
 
 <ManSection>
    <Attr Name="LeftMinimalVersion" Arg="f" Comm=""/>
@@ -835,44 +764,22 @@ gap> Kernel(p);
    </Returns>
 </ManSection>
 
-
 <Example><![CDATA[
 gap> H:= HomOverAlgebra(N,N);;
 gap> RightMinimalVersion(H[1]);   
-[ <mapping: <1-dimensional right-module over AlgebraWithOne( Rationals, 
-    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
-      [(1)*e] ] )> -> <
-    7-dimensional right-module over AlgebraWithOne( Rationals, 
-    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
-      [(1)*e] ] )> >, 
-  [ <6-dimensional right-module over <algebra-with-one of dimension 
-        17 over Rationals>> ] ]
+[ <<[ 1, 0, 0 ]> ---> <[ 3, 2, 2 ]>>
+    , [ <[ 2, 2, 2 ]> ] ]
 gap> LeftMinimalVersion(H[1]);             
-[ <mapping: <7-dimensional right-module over AlgebraWithOne( Rationals, 
-    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
-      [(1)*e] ] )> -> <
-    1-dimensional right-module over AlgebraWithOne( Rationals, 
-    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
-      [(1)*e] ] )> >, 
-  [ <6-dimensional right-module over <algebra-with-one of dimension 
-        17 over Rationals>> ] ]
-gap> S:=SimpleModules(A)[1];;
+[ <<[ 3, 2, 2 ]> ---> <[ 1, 0, 0 ]>>
+    , [ <[ 2, 2, 2 ]> ] ]
+gap> S := SimpleModules(A)[1];;
 gap> MinimalRightApproximation(N,S);
-<mapping: <1-dimensional right-module over AlgebraWithOne( Rationals, 
-[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
- ] )> -> <1-dimensional right-module over AlgebraWithOne( Rationals, 
-[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
- ] )> >
-gap> S:=SimpleModules(A)[3];;
-gap> MinimalLeftApproximation(S,N);        
-<mapping: <1-dimensional right-module over AlgebraWithOne( Rationals, 
-[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
- ] )> -> <6-dimensional right-module over AlgebraWithOne( Rationals, 
-[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
- ] )> >
+<<[ 1, 0, 0 ]> ---> <[ 1, 0, 0 ]>>
+
+gap> S := SimpleModules(A)[3];;
+gap> MinimalLeftApproximation(S,N);   
+<<[ 0, 0, 1 ]> ---> <[ 2, 2, 2 ]>>
 ]]></Example>
-
-
 
 <ManSection>
    <Attr Name="RadicalOfModuleInclusion" Arg="M" Comm=""/>
@@ -933,36 +840,18 @@ gap> MinimalLeftApproximation(S,N);
 
 <Example><![CDATA[
 gap> f := RadicalOfModuleInclusion(N);
-<mapping: <4-dimensional right-module over AlgebraWithOne( Rationals, 
-[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
- ] )> -> <7-dimensional right-module over AlgebraWithOne( Rationals, 
-[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
- ] )> >
+<<[ 0, 2, 2 ]> ---> <[ 3, 2, 2 ]>>
+
 gap> radN := Source(f);
-<4-dimensional right-module over <algebra-with-one over Rationals, with 
-8 generators>>
+<[ 0, 2, 2 ]>
 gap> g := SocleOfModuleInclusion(N);
-<mapping: <3-dimensional right-module over AlgebraWithOne( Rationals, 
-[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
- ] )> -> <7-dimensional right-module over AlgebraWithOne( Rationals, 
-[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
- ] )> >
+<<[ 1, 0, 2 ]> ---> <[ 3, 2, 2 ]>>
+
 gap> U := SubRepresentationInclusion(N,[B[5]+B[6],B[7]]);
-<mapping: <4-dimensional right-module over AlgebraWithOne( Rationals, 
-[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
- ] )> -> <7-dimensional right-module over AlgebraWithOne( Rationals, 
-[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
- ] )> >
+<<[ 0, 2, 2 ]> ---> <[ 3, 2, 2 ]>>
+
 gap> h := TopOfModuleProjection(N);
-<mapping: <7-dimensional right-module over AlgebraWithOne( Rationals, 
-[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
- ] )> -> <3-dimensional right-module over AlgebraWithOne( Rationals, 
-[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
- ] )> >
+<<[ 3, 2, 2 ]> ---> <[ 3, 0, 0 ]>>
 ]]></Example>
 </Section>
-
-
-
-
 </Chapter>
