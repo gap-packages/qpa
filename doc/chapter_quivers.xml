@@ -246,7 +246,7 @@ Explain how the vertices and arrows are ordered.<P/>
     Arguments: <Arg>Q</Arg> -- a quiver,
     and <Arg>element</Arg> -- a vertex or an arrow.
    <P />
-    The operation <Ref Oper="."/> allows access to
+    The operation <Ref Oper="." Label="for quiver"/> allows access to
     generators of the quiver. If you have named your vertices and
     arrows then the access looks like `<Arg>Q</Arg>.<Arg>name of
     element</Arg>'.  If you have not named the elements of the quiver
@@ -310,13 +310,25 @@ Explain how the vertices and arrows are ordered.<P/>
   </ManSection>
 
   <ManSection>
-   <Oper Name="OppositeQuiver" Arg="quiver" Comm=""/>
+   <Attr Name="OppositeQuiver" Arg="quiver" Comm=""/>
    <Returns>
-     the opposite
-     quiver of <Arg>quiver</Arg>, where the vertices are labelled "name in original
-     quiver" + "_op" and the arrows are labelled "name in orginal
-     quiver" + "_op". 
+     the opposite quiver of <Arg>quiver</Arg>, where the vertices are
+     labelled "name in original quiver" + "_op" and the arrows are
+     labelled "name in orginal quiver" + "_op".
    </Returns>
+   <Description>
+     This attribute contains the opposite quiver of a quiver, that
+     is, a quiver which is the same except that every arrow goes in
+     the opposite direction.<P/>
+    
+     The operation <Ref Oper="OppositePath"/> takes a path in a
+     quiver to the corresponding path in the opposite quiver.<P/>
+    
+     The opposite of the opposite of a quiver <M>Q</M> is isomorphic
+     to <M>Q</M>.  In QPA, we regard these two quivers to be the
+     same, so the call <Code>OppositeQuiver(OppositeQuiver(Q))</Code>
+     returns the object <Code>Q</Code>.
+   </Description> 
   </ManSection>
 
 <Example>

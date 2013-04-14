@@ -2,6 +2,24 @@
 
 This chapter describes the homological algebra that is implemented in QPA.<P/> 
 
+The example used throughout this chapter is the following.
+<Example><![CDATA[
+gap> Q := Quiver(3,[[1,2,"a"],[1,2,"b"],[2,2,"c"],[2,3,"d"],
+> [3,1,"e"]]);;
+gap> KQ := PathAlgebra(Rationals, Q);;
+gap> gen := GeneratorsOfAlgebra(KQ);;
+gap> a := gen[4];;
+gap> b := gen[5];;
+gap> c := gen[6];;
+gap> d := gen[7];;
+gap> e := gen[8];;
+gap> rels := [d*e,c^2,a*c*d-b*d,e*a];;
+gap> A := KQ/rels;;
+gap> mat := [["a",[[1,2],[0,3],[1,5]]],["b",[[2,0],[3,0],[5,0]]],
+> ["c",[[0,0],[1,0]]],["d",[[1,2],[0,1]]],["e",[[0,0,0],[0,0,0]]]];;
+gap> N := RightModuleOverPathAlgebra(A,mat);;
+]]></Example>
+
 <Section><Heading>Homological algebra</Heading>
 
 <ManSection>
@@ -122,56 +140,37 @@ This chapter describes the homological algebra that is implemented in QPA.<P/>
 
 <Example><![CDATA[
 gap> B := BasisVectors(Basis(N));
-[ [ [ 1, 0, 0 ], [ 0, 0 ], [ 0, 0 ] ], [ [ 0, 1, 0 ], [ 0, 0 ], [ 0, 0 ] ], 
-  [ [ 0, 0, 1 ], [ 0, 0 ], [ 0, 0 ] ], [ [ 0, 0, 0 ], [ 1, 0 ], [ 0, 0 ] ], 
-  [ [ 0, 0, 0 ], [ 0, 1 ], [ 0, 0 ] ], [ [ 0, 0, 0 ], [ 0, 0 ], [ 1, 0 ] ], 
+[ [ [ 1, 0, 0 ], [ 0, 0 ], [ 0, 0 ] ], 
+  [ [ 0, 1, 0 ], [ 0, 0 ], [ 0, 0 ] ], 
+  [ [ 0, 0, 1 ], [ 0, 0 ], [ 0, 0 ] ], 
+  [ [ 0, 0, 0 ], [ 1, 0 ], [ 0, 0 ] ], 
+  [ [ 0, 0, 0 ], [ 0, 1 ], [ 0, 0 ] ], 
+  [ [ 0, 0, 0 ], [ 0, 0 ], [ 1, 0 ] ], 
   [ [ 0, 0, 0 ], [ 0, 0 ], [ 0, 1 ] ] ]
 gap> g := SubRepresentationInclusion(N,[B[1],B[4]]);
-<mapping: <5-dimensional right-module over AlgebraWithOne( Rationals, 
-[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
- ] )> -> <7-dimensional right-module over AlgebraWithOne( Rationals, 
-[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
- ] )> >
+<<[ 1, 2, 2 ]> ---> <[ 3, 2, 2 ]>>
+
 gap> f := SubRepresentationInclusion(N,[B[1],B[2]]);
-<mapping: <6-dimensional right-module over AlgebraWithOne( Rationals, 
-[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
- ] )> -> <7-dimensional right-module over AlgebraWithOne( Rationals, 
-[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
- ] )> >
+<<[ 2, 2, 2 ]> ---> <[ 3, 2, 2 ]>>
+
 gap> LiftingInclusionMorphisms(f,g);
-<mapping: <5-dimensional right-module over AlgebraWithOne( Rationals, 
-[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
- ] )> -> <6-dimensional right-module over AlgebraWithOne( Rationals, 
-[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
- ] )> >
+<<[ 1, 2, 2 ]> ---> <[ 2, 2, 2 ]>>
+
 gap> S := SimpleModules(A); 
-[ <right-module over <algebra-with-one over Rationals, with 8 generators>>, 
-  <right-module over <algebra-with-one over Rationals, with 8 generators>>, 
-  <right-module over <algebra-with-one over Rationals, with 8 generators>> ]
+[ <[ 1, 0, 0 ]>, <[ 0, 1, 0 ]>, <[ 0, 0, 1 ]> ]
 gap> homNS := HomOverAlgebra(N,S[1]);
-[ <mapping: <
-    7-dimensional right-module over AlgebraWithOne( Rationals, ... )> -> <
-    1-dimensional right-module over AlgebraWithOne( Rationals, ... )> >, 
-  <mapping: <
-    7-dimensional right-module over AlgebraWithOne( Rationals, ... )> -> <
-    1-dimensional right-module over AlgebraWithOne( Rationals, ... )> >, 
-  <mapping: <
-    7-dimensional right-module over AlgebraWithOne( Rationals, ... )> -> <
-    1-dimensional right-module over AlgebraWithOne( Rationals, ... )> > ]
+[ <<[ 3, 2, 2 ]> ---> <[ 1, 0, 0 ]>>
+    , <<[ 3, 2, 2 ]> ---> <[ 1, 0, 0 ]>>
+    , <<[ 3, 2, 2 ]> ---> <[ 1, 0, 0 ]>>
+     ]
 gap> f := homNS[1];
-<mapping: <
-7-dimensional right-module over AlgebraWithOne( Rationals, ... )> -> <
-1-dimensional right-module over AlgebraWithOne( Rationals, ... )> >
+<<[ 3, 2, 2 ]> ---> <[ 1, 0, 0 ]>>
+
 gap> p := ProjectiveCover(S[1]);
-<mapping: <8-dimensional right-module over AlgebraWithOne( Rationals, 
-[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
- ] )> -> <1-dimensional right-module over AlgebraWithOne( Rationals, 
-[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
- ] )> >
+<<[ 1, 4, 3 ]> ---> <[ 1, 0, 0 ]>>
+
 gap> LiftingMorphismFromProjective(f,p);
-<mapping: <8-dimensional right-module over AlgebraWithOne( Rationals, 
-[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
- ] )> -> <7-dimensional right-module over AlgebraWithOne( Rationals, 
+<<[ 1, 4, 3 ]> ---> <[ 3, 2, 2 ]>>
 [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
  ] )> >
 ]]></Example>
@@ -226,77 +225,48 @@ gap> LiftingMorphismFromProjective(f,p);
 
 
 <Example><![CDATA[
+gap> hom := HomOverAlgebra(N,N);
+[ <<[ 3, 2, 2 ]> ---> <[ 3, 2, 2 ]>>
+    , <<[ 3, 2, 2 ]> ---> <[ 3, 2, 2 ]>>
+    , <<[ 3, 2, 2 ]> ---> <[ 3, 2, 2 ]>>
+    , <<[ 3, 2, 2 ]> ---> <[ 3, 2, 2 ]>>
+    , <<[ 3, 2, 2 ]> ---> <[ 3, 2, 2 ]>>
+     ]
 gap> g := MorphismOnKernel(hom[1],hom[2],hom[1],hom[2]);
-<mapping: <6-dimensional right-module over AlgebraWithOne( Rationals, 
-[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
- ] )> -> <6-dimensional right-module over AlgebraWithOne( Rationals, 
-[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
- ] )> >
+<<[ 2, 2, 2 ]> ---> <[ 2, 2, 2 ]>>
+
 gap> IsomorphicModules(Source(g),Range(g));
 true
 gap> p := ProjectiveCover(N);
-<mapping: <24-dimensional right-module over AlgebraWithOne( Rationals, 
-[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
- ] )> -> <7-dimensional right-module over AlgebraWithOne( Rationals, 
-[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
- ] )> >
+<<[ 3, 12, 9 ]> ---> <[ 3, 2, 2 ]>>
+
 gap> N1 := Kernel(p);
-<17-dimensional right-module over <algebra-with-one over Rationals, with 
-8 generators>>
+<[ 0, 10, 7 ]>
 gap> pullback := PullBack(p,hom[1]);
-[ <mapping: <24-dimensional right-module over AlgebraWithOne( Rationals, 
-    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
-      [(1)*e] ] )> -> <
-    7-dimensional right-module over AlgebraWithOne( Rationals, 
-    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
-      [(1)*e] ] )> >, 
-  <mapping: <24-dimensional right-module over AlgebraWithOne( Rationals, 
-    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
-      [(1)*e] ] )> -> <
-    24-dimensional right-module over AlgebraWithOne( Rationals, 
-    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
-      [(1)*e] ] )> > ]
+[ <<[ 3, 12, 9 ]> ---> <[ 3, 2, 2 ]>>
+    , <<[ 3, 12, 9 ]> ---> <[ 3, 12, 9 ]>>
+     ]
 gap> Kernel(pullback[1]);
-<17-dimensional right-module over <algebra-with-one over Rationals, with 
-8 generators>>
+<[ 0, 10, 7 ]>
 gap> IsomorphicModules(N1,Kernel(pullback[1]));
 true
 gap> t := LiftingMorphismFromProjective(p,p*hom[1]);
-<mapping: <24-dimensional right-module over AlgebraWithOne( Rationals, 
-[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
- ] )> -> <24-dimensional right-module over AlgebraWithOne( Rationals, 
-[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
- ] )> >
+<<[ 3, 12, 9 ]> ---> <[ 3, 12, 9 ]>>
+
 gap> s := MorphismOnKernel(p,p,t,hom[1]);    
-<mapping: <17-dimensional right-module over AlgebraWithOne( Rationals, 
-[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
- ] )> -> <17-dimensional right-module over AlgebraWithOne( Rationals, 
-[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
- ] )> >
-gap> Source(s)=N1;
+<<[ 0, 10, 7 ]> ---> <[ 0, 10, 7 ]>>
+
+gap> Source(s) = N1;
 true
 gap> q := KernelInclusion(p);
-<mapping: <17-dimensional right-module over AlgebraWithOne( Rationals, 
-[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
- ] )> -> <24-dimensional right-module over AlgebraWithOne( Rationals, 
-[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
- ] )> >
+<<[ 0, 10, 7 ]> ---> <[ 3, 12, 9 ]>>
+
 gap> pushout := PushOut(q,s);
-[ <mapping: <17-dimensional right-module over AlgebraWithOne( Rationals, 
-    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
-      [(1)*e] ] )> -> <
-    24-dimensional right-module over AlgebraWithOne( Rationals, 
-    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
-      [(1)*e] ] )> >, 
-  <mapping: <24-dimensional right-module over AlgebraWithOne( Rationals, 
-    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
-      [(1)*e] ] )> -> <
-    24-dimensional right-module over AlgebraWithOne( Rationals, 
-    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
-      [(1)*e] ] )> > ]
+[ <<[ 0, 10, 7 ]> ---> <[ 3, 12, 9 ]>>
+    , <<[ 3, 12, 9 ]> ---> <[ 3, 12, 9 ]>>
+     ]
 gap> U := CoKernel(pushout[1]);
-<7-dimensional right-module over <algebra-with-one over Rationals, with 
-8 generators>>
+<[ 3, 2, 2 ]>
 gap> IsomorphicModules(U,N);
 true
 ]]></Example>
@@ -400,47 +370,23 @@ true
 
 <Example><![CDATA[
 gap> S := SimpleModules(A);
-[ <right-module over <algebra-with-one over Rationals, with 8 generators>>, 
-  <right-module over <algebra-with-one over Rationals, with 8 generators>>, 
-  <right-module over <algebra-with-one over Rationals, with 8 generators>> ]
-gap> Ext:=ExtOverAlgebra(S[2],S[2]);
-[ <mapping: <3-dimensional right-module over AlgebraWithOne( Rationals, 
-    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
-      [(1)*e] ] )> -> <
-    4-dimensional right-module over AlgebraWithOne( Rationals, 
-    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
-      [(1)*e] ] )> >, 
-  [ <mapping: <3-dimensional right-module over AlgebraWithOne( Rationals, 
-        [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
-          [(1)*e] ] )> -> <
-        1-dimensional right-module over AlgebraWithOne( Rationals, 
-        [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
-          [(1)*e] ] )> > ] ]
+[ <[ 1, 0, 0 ]>, <[ 0, 1, 0 ]>, <[ 0, 0, 1 ]> ]
+gap> Ext := ExtOverAlgebra(S[2],S[2]);
+[ <<[ 0, 1, 2 ]> ---> <[ 0, 2, 2 ]>>
+    , [ <<[ 0, 1, 2 ]> ---> <[ 0, 1, 0 ]>>
+         ], function( map ) ... end ]
 gap> Length(Ext[2]);
 1
 gap> # i.e. Ext^1(S[2],S[2]) is 1-dimensional
 gap> pushout := PushOut(Ext[2][1],Ext[1]);   
-[ <mapping: <1-dimensional right-module over AlgebraWithOne( Rationals, 
-    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
-      [(1)*e] ] )> -> <
-    2-dimensional right-module over AlgebraWithOne( Rationals, 
-    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
-      [(1)*e] ] )> >, 
-  <mapping: <4-dimensional right-module over AlgebraWithOne( Rationals, 
-    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
-      [(1)*e] ] )> -> <
-    2-dimensional right-module over AlgebraWithOne( Rationals, 
-    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
-      [(1)*e] ] )> > ]
-gap> f:= CoKernelProjection(pushout[1]);
-<mapping: <2-dimensional right-module over AlgebraWithOne( Rationals, 
-[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
- ] )> -> <1-dimensional right-module over AlgebraWithOne( Rationals, 
-[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] 
- ] )> >
-gap> U := Range(pushout[1]);            
-<2-dimensional right-module over <algebra-with-one over Rationals, with 
-8 generators>>
+[ <<[ 0, 2, 2 ]> ---> <[ 0, 2, 0 ]>>
+    , <<[ 0, 1, 0 ]> ---> <[ 0, 2, 0 ]>>
+     ]
+gap> f := CoKernelProjection(pushout[1]);
+<<[ 0, 2, 0 ]> ---> <[ 0, 0, 0 ]>>
+
+gap> U := Range(pushout[1]); 
+<[ 0, 2, 0 ]>
 ]]></Example>
 </Section>
 

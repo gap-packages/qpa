@@ -115,42 +115,65 @@ true
 <Section><Heading>Generalities of homomorphisms</Heading>
 
 <ManSection>
-   <Oper Name="MatricesOfPathAlgebraMatModuleHomomorphism" Arg="f" Comm=""/>
+   <Oper Name="\= (maps)" Arg="f,g " Comm=""/>
    <Description>
-     Arguments: <Arg>f</Arg> - a homomorphism between two modules.<Br />
+     Arguments: <Arg>f</Arg>, <Arg>g</Arg> - two homomorphisms between
+     two modules.<Br />
    </Description>
-   <Returns>the matrices defining the homomorphism <Arg>f</Arg>.</Returns>
+   <Returns>true, if <Code>Source(f) =
+   Source(g)</Code>, <Code>Range(f) = Range(g)</Code>, and the
+   matrices defining the maps <Arg>f</Arg> and <Arg>g</Arg>
+   coincide.</Returns>
 </ManSection>
 
-
-
-<Example><![CDATA[
-gap> MatricesOfPathAlgebraMatModuleHomomorphism(f);
-[ [ [ 0, 0, 0 ] ], [ [ 1, 0 ] ], [ [ 1, 2 ] ] ]
-gap> Range(f);
-<7-dimensional right-module over <algebra-with-one over Rationals, with 
-8 generators>>
-gap> Source(f);
-<2-dimensional right-module over <algebra-with-one over Rationals, with 
-8 generators>>
-gap> Source(f) = L;
-true
-]]></Example>
+<ManSection>
+   <Oper Name="\+ (maps)" Arg="f,g " Comm=""/>
+   <Description>
+     Arguments: <Arg>f</Arg>, <Arg>g</Arg> - two homomorphisms between
+     two modules.<Br />
+   </Description>
+   <Returns>the sum <Arg>f+g</Arg> of the maps <Arg>f</Arg>
+   and <Arg>g</Arg>.</Returns>
+   <Description>The function checks if the maps have the same source
+   and the same range, and returns an error message otherwise. 
+   </Description>
+</ManSection>
 
 <ManSection>
-   <Oper Name="PreImagesRepresentative" Arg="f, elem" Comm=""/>
+   <Oper Name="\* (maps)" Arg="f,g " Comm=""/>
    <Description>
-     Arguments: <Arg>f</Arg> - a homomorphism between two
-     modules, <Arg>elem</Arg> - an element in the range of <Arg>f</Arg>.<Br />
+     Arguments: <Arg>f</Arg>, <Arg>g</Arg> - two homomorphisms between
+     two modules, or one scalar and one homomorphism between modules.<Br />
    </Description>
-   <Returns>a preimage of the element <Arg>elem</Arg> in the range (or
-   codomain) the homomorphism <Arg>f</Arg> if a preimage exists,
-   otherwise it returns <C>fail</C>.</Returns>
+   <Returns>the composition <Arg>fg</Arg> of the maps <Arg>f</Arg>
+   and <Arg>g</Arg>, if the input are maps between representations of
+   the same quivers. If <Arg>f</Arg> or <Arg>g</Arg> is a 
+   scalar, it returns the natural action of scalars on the maps
+   between representations.</Returns>
+   <Description>The function checks if the maps are composable, in
+   the first case and in the second case it checks if the scalar is in
+   the correct field, and returns an error message otherwise.
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Attr Name="CoKernelOfWhat" Arg="f" Comm=""/>
    <Description>
-     The function checks if <Arg>elem</Arg> is an element in the
-     range of <Arg>f</Arg> and returns an error message if
-     not. 
+     Arguments: <Arg>f</Arg> - a homomorphism between
+     two modules.<Br />
    </Description>
+   <Returns>
+     a homomorphism <Arg>g</Arg>, if <Arg>f</Arg> has been computed as the
+     cokernel of the homomorphism <Arg>g</Arg>.
+   </Returns>
+</ManSection>
+
+<ManSection>
+   <Oper Name="IdentityMapping" Arg="M" Comm=""/>
+   <Description>
+     Arguments: <Arg>M</Arg> - a module.<Br />
+   </Description>
+   <Returns>the identity map between <Arg>M</Arg> and <Arg>M</Arg>.</Returns>
 </ManSection>
 
 <ManSection>
@@ -206,55 +229,7 @@ gap> ImagesSet(f,BL);
 [ [ [ 0, 0, 0 ], [ 1, 0 ], [ 0, 0 ] ], [ [ 0, 0, 0 ], [ 0, 0 ], [ 1, 2 ] ] ]
 ]]></Example>
 
-<ManSection>
-   <Oper Name="IdentityMapping" Arg="M" Comm=""/>
-   <Description>
-     Arguments: <Arg>M</Arg> - a module.<Br />
-   </Description>
-   <Returns>the identity map between <Arg>M</Arg> and <Arg>M</Arg>.</Returns>
-</ManSection>
 
-<ManSection>
-   <Oper Name="\= (maps)" Arg="f,g " Comm=""/>
-   <Description>
-     Arguments: <Arg>f</Arg>, <Arg>g</Arg> - two homomorphisms between
-     two modules.<Br />
-   </Description>
-   <Returns>true, if <Code>Source(f) =
-   Source(g)</Code>, <Code>Range(f) = Range(g)</Code>, and the
-   matrices defining the maps <Arg>f</Arg> and <Arg>g</Arg>
-   coincide.</Returns>
-</ManSection>
-
-<ManSection>
-   <Oper Name="\+ (maps)" Arg="f,g " Comm=""/>
-   <Description>
-     Arguments: <Arg>f</Arg>, <Arg>g</Arg> - two homomorphisms between
-     two modules.<Br />
-   </Description>
-   <Returns>the sum <Arg>f+g</Arg> of the maps <Arg>f</Arg>
-   and <Arg>g</Arg>.</Returns>
-   <Description>The function checks if the maps have the same source
-   and the same range, and returns an error message otherwise. 
-   </Description>
-</ManSection>
-
-<ManSection>
-   <Oper Name="\* (maps)" Arg="f,g " Comm=""/>
-   <Description>
-     Arguments: <Arg>f</Arg>, <Arg>g</Arg> - two homomorphisms between
-     two modules, or one scalar and one homomorphism between modules.<Br />
-   </Description>
-   <Returns>the composition <Arg>fg</Arg> of the maps <Arg>f</Arg>
-   and <Arg>g</Arg>, if the input are maps between representations of
-   the same quivers. If <Arg>f</Arg> or <Arg>g</Arg> is a 
-   scalar, it returns the natural action of scalars on the maps
-   between representations.</Returns>
-   <Description>The function checks if the maps are composable, in
-   the first case and in the second case it checks if the scalar is in
-   the correct field, and returns an error message otherwise.
-   </Description>
-</ManSection>
 
 <Example><![CDATA[
 gap> z:=Zero(f);
@@ -303,17 +278,7 @@ gap> 2*f + z;
  ] )> >
 ]]></Example>
 
-<ManSection>
-   <Attr Name="CoKernelOfWhat" Arg="f" Comm=""/>
-   <Description>
-     Arguments: <Arg>f</Arg> - a homomorphism between
-     two modules.<Br />
-   </Description>
-   <Returns>
-     a homomorphism <Arg>g</Arg>, if <Arg>f</Arg> has been computed as the
-     cokernel of the homomorphism <Arg>g</Arg>.
-   </Returns>
-</ManSection>
+
 
 <ManSection>
    <Attr Name="ImageOfWhat" Arg="f" Comm=""/>
@@ -337,8 +302,6 @@ gap> 2*f + z;
      <Code>true</Code> if the homomorphism <Arg>f</Arg> is one-to-one.
    </Returns>
 </ManSection>
-
-
 
 <ManSection>
    <Prop Name="IsIsomorphism" Arg="f" Comm=""/>
@@ -494,12 +457,49 @@ true
 ]]></Example>
 
 <ManSection>
+   <Oper Name="MatricesOfPathAlgebraMatModuleHomomorphism" Arg="f" Comm=""/>
+   <Description>
+     Arguments: <Arg>f</Arg> - a homomorphism between two modules.<Br />
+   </Description>
+   <Returns>the matrices defining the homomorphism <Arg>f</Arg>.</Returns>
+</ManSection>
+
+<Example><![CDATA[
+gap> MatricesOfPathAlgebraMatModuleHomomorphism(f);
+[ [ [ 0, 0, 0 ] ], [ [ 1, 0 ] ], [ [ 1, 2 ] ] ]
+gap> Range(f);
+<7-dimensional right-module over <algebra-with-one over Rationals, with 
+8 generators>>
+gap> Source(f);
+<2-dimensional right-module over <algebra-with-one over Rationals, with 
+8 generators>>
+gap> Source(f) = L;
+true
+]]></Example>
+
+<ManSection>
    <Attr Name="PathAlgebraOfMatModuleMap" Arg="f" Comm=""/>
    <Description> 
     Arguments: <Arg>f</Arg> -- a homomorphism between two path algebra modules (<C>PathAlgebraMatModule</C>).
    <Br /></Description>
    <Returns>the algebra over which the range and the source of the
    homomorphism <Arg>f</Arg> is defined.</Returns>
+</ManSection>
+
+<ManSection>
+   <Oper Name="PreImagesRepresentative" Arg="f, elem" Comm=""/>
+   <Description>
+     Arguments: <Arg>f</Arg> - a homomorphism between two
+     modules, <Arg>elem</Arg> - an element in the range of <Arg>f</Arg>.<Br />
+   </Description>
+   <Returns>a preimage of the element <Arg>elem</Arg> in the range (or
+   codomain) the homomorphism <Arg>f</Arg> if a preimage exists,
+   otherwise it returns <C>fail</C>.</Returns>
+   <Description>
+     The function checks if <Arg>elem</Arg> is an element in the
+     range of <Arg>f</Arg> and returns an error message if
+     not. 
+   </Description>
 </ManSection>
 
 <ManSection>
@@ -601,7 +601,7 @@ true
 <ManSection>
    <Oper Name="FromEndMToHomMM" Arg="f" Comm=""/>
    <Description>
-     Arguments: <Arg>f</Arg> -- an element in EndOverAlgebra(M).<Br />
+     Arguments: <Arg>f</Arg> -- an element in <C>EndOverAlgebra(M)</C>.<Br />
    </Description>
    <Returns>the homomorphism from <Arg>M</Arg> to <Arg>M</Arg>
    corresponding to the element <Arg>f</Arg> in the endomorphism ring
@@ -611,7 +611,7 @@ true
 <ManSection>
    <Oper Name="FromHomMMToEndM" Arg="f" Comm=""/>
    <Description>
-     Arguments: <Arg>f</Arg> -- an element in HomOverAlgebra(M,M).<Br />
+     Arguments: <Arg>f</Arg> -- an element in <C>HomOverAlgebra(M,M)</C>.<Br />
    </Description>
    <Returns>the element <Arg>f</Arg> in the endomorphism ring
    <Code>EndOverAlgebra(M)</Code> of <Arg>M</Arg> corresponding to the
@@ -627,7 +627,7 @@ true
    <Returns>a basis for the vector space of homomorphisms from <Arg>M</Arg>
    to <Arg>N</Arg> which factors through a projective module.</Returns>
    <Description>
-    The funct ion checks if <Arg>M</Arg> and <Arg>N</Arg> are modules
+    The function checks if <Arg>M</Arg> and <Arg>N</Arg> are modules
     over the same algebra, and returns an error message otherwise. 
    </Description>
 </ManSection>

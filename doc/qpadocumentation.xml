@@ -14,6 +14,9 @@
 \newcommand{\Hom}{\operatorname{Hom}\nolimits}
 \newcommand{\End}{\operatorname{End}\nolimits}
 \newcommand{\Ext}{\operatorname{Ext}\nolimits}
+\newcommand{\rad}{\operatorname{rad}\nolimits}
+\newcommand{\op}{{\operatorname{op}\nolimits}}
+\renewcommand{\Im}{\operatorname{Im}\nolimits}
 \DeclareMathOperator{\modc}{mod}
 \DeclareMathOperator{\proj}{proj}
 "?>

@@ -1196,29 +1196,6 @@ false
   <Heading>Opposite algebras</Heading>
 
 <ManSection>
-  <Attr Name="OppositeQuiver" Arg="Q"/>
-  <Description>
-    Arguments: <Arg>Q</Arg> -- a quiver.<Br />
-  </Description>
-  <Returns>
-    the opposite quiver <M><Arg>Q</Arg>^\text{op}</M>.
-  </Returns>
-  <Description>
-    This attribute contains the opposite quiver of a quiver, that
-    is, a quiver which is the same except that every arrow goes in
-    the opposite direction.<P/>
-    
-    The operation <Ref Oper="OppositePath"/> takes a path in a
-    quiver to the corresponding path in the opposite quiver.<P/>
-    
-    The opposite of the opposite of a quiver <M>Q</M> is isomorphic
-    to <M>Q</M>.  In QPA, we regard these two quivers to be the
-    same, so the call <Code>OppositeQuiver(OppositeQuiver(Q))</Code>
-    returns the object <Code>Q</Code>.
-  </Description>
-</ManSection>
-
-<ManSection>
   <Oper Name="OppositePath" Arg="p"/>
   <Description>
     Arguments: <Arg>p</Arg> -- a path.<Br />
