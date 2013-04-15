@@ -85,7 +85,7 @@ gap> PredecessorsOfModule(S,5);
       [ [ 1, 1, [ 1, 1 ] ], [ 2, 1, [ 1, 1 ] ], [ 2, 2, [ 1, 1 ] ], 
           [ 3, 2, [ 1, false ] ] ], 
       [ [ 1, 1, [ false, 1 ] ], [ 1, 2, [ false, 1 ] ], 
-          [ 2, 2, [ false, 1 ] ], [ 2, 3, [ false, 1 ] ] ] ] ]
-]]></Example>
+          [ 2, 2, [ false, 1 ] ], [ 2, 3, [ false, 1 ] ] ] ] ] ]]>
+</Example>
 </Section>
 </Chapter>

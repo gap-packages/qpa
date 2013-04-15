@@ -58,34 +58,34 @@ Vertices and arrows are referenced as record components using the dot
    </Description>
   </ManSection>
 
-<Example> 
-gap&gt; q1 := Quiver(["u","v"],[["u","u","a"],["u","v","b"],
-&gt; ["v","u","c"],["v","v","d"]]);
-&lt;quiver with 2 vertices and 4 arrows&gt;
-gap&gt; VerticesOfQuiver(q1);
+<Example><![CDATA[
+gap> q1 := Quiver(["u","v"],[["u","u","a"],["u","v","b"], 
+>               ["v","u","c"],["v","v","d"]]);
+<quiver with 2 vertices and 4 arrows>
+gap> VerticesOfQuiver(q1);
 [ u, v ]
-gap&gt; ArrowsOfQuiver(q1);
+gap> ArrowsOfQuiver(q1);
 [ a, b, c, d ]
-gap&gt; q2 := Quiver(2,[[1,1],[2,1],[1,2]]);
-&lt;quiver with 2 vertices and 3 arrows&gt;
-gap&gt; ArrowsOfQuiver(q2);
+gap> q2 := Quiver(2,[[1,1],[2,1],[1,2]]);
+<quiver with 2 vertices and 3 arrows>
+gap> ArrowsOfQuiver(q2);
 [ a1, a2, a3 ]
-gap&gt; VerticesOfQuiver(q2);
+gap> VerticesOfQuiver(q2);
 [ v1, v2 ]
-gap&gt; q3 := Quiver(2,[[1,1,"a"],[2,1,"b"],[1,2,"c"]]);
-&lt;quiver with 2 vertices and 3 arrows&gt;
-gap&gt; ArrowsOfQuiver(q3);
+gap> q3 := Quiver(2,[[1,1,"a"],[2,1,"b"],[1,2,"c"]]);
+<quiver with 2 vertices and 3 arrows>
+gap> ArrowsOfQuiver(q3);
 [ a, b, c ]
-gap&gt; q4 := Quiver([[1,1],[2,1]]);
-&lt;quiver with 2 vertices and 5 arrows&gt;
-gap&gt; VerticesOfQuiver(q4);
+gap> q4 := Quiver([[1,1],[2,1]]);
+<quiver with 2 vertices and 5 arrows>
+gap> VerticesOfQuiver(q4);
 [ v1, v2 ]
-gap&gt; ArrowsOfQuiver(q4);
+gap> ArrowsOfQuiver(q4);
 [ a1, a2, a3, a4, a5 ]
-gap&gt; SourceOfPath(q4.a2);
+gap> SourceOfPath(q4.a2);
 v1
-gap&gt; TargetOfPath(q4.a2);
-v2
+gap> TargetOfPath(q4.a2);
+v2]]>
 </Example>
 
   <ManSection>
@@ -145,42 +145,46 @@ v2
    </Returns>
   </ManSection>
 
-<Example>
-gap&gt; q1 := Quiver(2,[[1,2]]);
-&lt;quiver with 2 vertices and 1 arrows&gt;
-gap&gt; IsQuiver("v1");
+<Example><![CDATA[
+gap> q1 := Quiver(2,[[1,2]]);
+<quiver with 2 vertices and 1 arrows>
+gap> IsQuiver("v1");
 false
-gap&gt; IsQuiver(q1);
+gap> IsQuiver(q1);
 true
-gap&gt; IsAcyclicQuiver(q1); IsUAcyclicQuiver(q1); IsConnectedQuiver(q1); IsTreeQuiver(q1);
-true
-true
+gap> IsAcyclicQuiver(q1); IsUAcyclicQuiver(q1); 
 true
 true
-gap&gt; q2 := Quiver(["u","v"],[["u","v"],["v","u"]]);
-&lt;quiver with 2 vertices and 2 arrows&gt;
-gap&gt; IsAcyclicQuiver(q2); IsUAcyclicQuiver(q2); IsConnectedQuiver(q2); IsTreeQuiver(q2);
-false
-false
-true
-false
-gap&gt; IsFinite(q1); IsFinite(q2);
-true
-false
-gap&gt; q3 := Quiver(["u","v"],[["u","v"],["u","v"]]);
-&lt;quiver with 2 vertices and 2 arrows&gt;
-gap&gt; IsAcyclicQuiver(q3); IsUAcyclicQuiver(q3); IsConnectedQuiver(q3); IsTreeQuiver(q3); 
-true
-false
-true
-false
-gap&gt; q4 := Quiver(2, []);
-&lt;quiver with 2 vertices and 0 arrows&gt;
-gap&gt; IsAcyclicQuiver(q4); IsUAcyclicQuiver(q4); IsConnectedQuiver(q4); IsTreeQuiver(q4);
+gap> IsConnectedQuiver(q1); IsTreeQuiver(q1);
 true
 true
+gap> q2 := Quiver(["u","v"],[["u","v"],["v","u"]]);
+<quiver with 2 vertices and 2 arrows>
+gap> IsAcyclicQuiver(q2); IsUAcyclicQuiver(q2); 
 false
 false
+gap> IsConnectedQuiver(q2); IsTreeQuiver(q2);
+true
+false
+gap> IsFinite(q1); IsFinite(q2);
+true
+false
+gap> q3 := Quiver(["u","v"],[["u","v"],["u","v"]]);
+<quiver with 2 vertices and 2 arrows>
+gap> IsAcyclicQuiver(q3); IsUAcyclicQuiver(q3); 
+true
+false
+gap> IsConnectedQuiver(q3); IsTreeQuiver(q3); 
+true
+false
+gap> q4 := Quiver(2, []);
+<quiver with 2 vertices and 0 arrows>
+gap> IsAcyclicQuiver(q4); IsUAcyclicQuiver(q4); 
+true
+true
+gap> IsConnectedQuiver(q4); IsTreeQuiver(q4);
+false
+false]]>
 </Example>
 
 <ManSection>
@@ -199,26 +203,20 @@ false
    </Description>
   </ManSection>
   
-  <Example>
-gap&gt; q1 := Quiver(4,[[1,4],[4,2],[3,4]]);
-&lt;quiver with 4 vertices and 3 arrows&gt;
-gap&gt; IsDynkinQuiver(q1);
+  <Example><![CDATA[
+gap> q1 := Quiver(4,[[1,4],[4,2],[3,4]]);
+<quiver with 4 vertices and 3 arrows>
+gap> IsDynkinQuiver(q1);
 D_4
 true
-gap&gt; q2 := Quiver(2,[[1,2],[1,2]]);
-&lt;quiver with 2 vertices and 2 arrows&gt;
-gap&gt; IsDynkinQuiver(q2);
+gap> q2 := Quiver(2,[[1,2],[1,2]]);
+<quiver with 2 vertices and 2 arrows>
+gap> IsDynkinQuiver(q2);
 Quiver contains an (un)oriented cycle.
 false
-gap&gt; q3 := Quiver(5,[[1,5],[2,5],[3,5],[4,5]]);
-&lt;quiver with 5 vertices and 4 arrows&gt;
-gap&gt; IsDynkinQuiver(q3);
-false
-</Example>
-
-
-  
-  
+gap> q3 := Quiver(5,[[1,5],[2,5],[3,5],[4,5]]);
+<quiver with 5 vertices and 4 arrows>]]>
+</Example>  
 </Section>
 
 <Section Label="qpa:Orderings"><Heading>Orderings of paths in a
@@ -331,34 +329,34 @@ Explain how the vertices and arrows are ordered.<P/>
    </Description> 
   </ManSection>
 
-<Example>
-gap&gt; q1 := Quiver(["u","v"],[["u","u","a"],["u","v","b"],
-&gt; ["v","u","c"],["v","v","d"]]);
-&lt;quiver with 2 vertices and 4 arrows&gt;
-gap&gt; q1.a;
+<Example><![CDATA[
+gap> q1 := Quiver(["u","v"],[["u","u","a"],["u","v","b"],
+>               ["v","u","c"],["v","v","d"]]);
+<quiver with 2 vertices and 4 arrows>
+gap> q1.a;
 a
-gap&gt; q1.v;
+gap> q1.v;
 v
-gap&gt; VerticesOfQuiver(q1);
+gap> VerticesOfQuiver(q1);
 [ u, v ]
-gap&gt; ArrowsOfQuiver(q1);
+gap> ArrowsOfQuiver(q1);
 [ a, b, c, d ]
-gap&gt; AdjacencyMatrixOfQuiver(q1);
+gap> AdjacencyMatrixOfQuiver(q1);
 [ [ 1, 1 ], [ 1, 1 ] ]
-gap&gt; GeneratorsOfQuiver(q1);
+gap> GeneratorsOfQuiver(q1);
 [ u, v, a, b, c, d ]
-gap&gt; NumberOfVertices(q1);
+gap> NumberOfVertices(q1);
 2
-gap&gt; NumberOfArrows(q1);
+gap> NumberOfArrows(q1);
 4
-gap&gt; OrderingOfQuiver(q1);
-&lt;length left lexicographic ordering&gt;
-gap&gt; q1_op := OppositeQuiver(q1);
-&lt;quiver with 2 vertices and 4 arrows&gt;
-gap&gt; VerticesOfQuiver(q1);
+gap> OrderingOfQuiver(q1);
+<length left lexicographic ordering>
+gap> q1_op := OppositeQuiver(q1);
+<quiver with 2 vertices and 4 arrows>
+gap> VerticesOfQuiver(q1_op);
 [ u_op, v_op ]
-gap&gt; ArrowsOfQuiver(q1);
-[ a_op, b_op, c_op, d_op ]
+gap> ArrowsOfQuiver(q1_op);
+[ a_op, b_op, c_op, d_op ]]]>
 </Example>
 
 <ManSection>
@@ -387,18 +385,18 @@ gap&gt; ArrowsOfQuiver(q1);
    </Description>
 </ManSection> 
  
-<Example>
-gap&gt; Q := Quiver(6, [ [1,2],[1,1],[3,2],[4,5],[4,5] ]);
-&lt;quiver with 6 vertices and 5 arrows&gt;
-gap&gt; VerticesOfQuiver(Q);
+<Example><![CDATA[
+gap> Q := Quiver(6, [ [1,2],[1,1],[3,2],[4,5],[4,5] ]);
+<quiver with 6 vertices and 5 arrows>
+gap> VerticesOfQuiver(Q);
 [ v1, v2, v3, v4, v5, v6 ]
-gap&gt; FullSubquiver(Q, [Q.v1, Q.v2]);
-&lt;quiver with 2 vertices and 2 arrows&gt;
-gap&gt; ConnectedComponents(Q);
-[ &lt;quiver with 3 vertices and 3 arrows&gt;, &lt;quiver with 2 vertices and 2 arrows&gt;
-    , &lt;quiver with 1 vertices and 0 arrows&gt; ]
+gap> FullSubquiver(Q, [Q.v1, Q.v2]);
+<quiver with 2 vertices and 2 arrows>
+gap> ConnectedComponents(Q);
+[ <quiver with 3 vertices and 3 arrows>, 
+  <quiver with 2 vertices and 2 arrows>, 
+  <quiver with 1 vertices and 0 arrows> ]]]>
 </Example>
-
 </Section>
 
 <Section><Heading>Categories and Properties of Paths</Heading>
@@ -432,18 +430,18 @@ gap&gt; ConnectedComponents(Q);
    </Description>
   </ManSection>
 
-<Example>
-gap&gt; q1 := Quiver(["u","v"],[["u","u","a"],["u","v","b"],
-&gt; ["v","u","c"],["v","v","d"]]);
-&lt;quiver with 2 vertices and 4 arrows&gt;
-gap&gt; IsPath(q1.b);
+<Example><![CDATA[
+gap> q1 := Quiver(["u","v"],[["u","u","a"],["u","v","b"],
+>               ["v","u","c"],["v","v","d"]]);
+<quiver with 2 vertices and 4 arrows>
+gap> IsPath(q1.b);
 true
-gap&gt; IsPath(q1.u);
+gap> IsPath(q1.u);
 true
-gap&gt; IsVertex(q1.c);
+gap> IsVertex(q1.c);
 false
-gap&gt; IsZeroPath(q1.d);
-false
+gap> IsZeroPath(q1.d);
+false]]>
 </Example>
 </Section>
 
@@ -494,26 +492,26 @@ false
    </Returns>
   </ManSection>
 
-<Example>
-gap&gt; q1 := Quiver(["u","v"],[["u","u","a"],["u","v","b"],
-&gt; ["v","u","c"],["v","v","d"]]);
-&lt;quiver with 2 vertices and 4 arrows&gt;
-gap&gt; SourceOfPath(q1.v);                                                       
+<Example><![CDATA[
+gap> q1 := Quiver(["u","v"],[["u","u","a"],["u","v","b"],
+>               ["v","u","c"],["v","v","d"]]);
+<quiver with 2 vertices and 4 arrows>
+gap> SourceOfPath(q1.v);
 v
-gap&gt; p1:=q1.a*q1.b*q1.d*q1.d;
+gap> p1:=q1.a*q1.b*q1.d*q1.d;
 a*b*d^2
-gap&gt; TargetOfPath(p1);
+gap> TargetOfPath(p1);
 v
-gap&gt; p2:=q1.b*q1.b;
+gap> p2:=q1.b*q1.b;
 0
-gap&gt; WalkOfPath(p1);
+gap> WalkOfPath(p1);
 [ a, b, d, d ]
-gap&gt; WalkOfPath(q1.a);
+gap> WalkOfPath(q1.a);
 [ a ]
-gap&gt; LengthOfPath(p1);
+gap> LengthOfPath(p1);
 4
-gap&gt; LengthOfPath(q1.v);
-0
+gap> LengthOfPath(q1.v);
+0]]>
 </Example>
 
   <ManSection>
@@ -537,15 +535,6 @@ gap&gt; LengthOfPath(q1.v);
     a comparison of the two paths with respect to the ordering of the quiver.
    </Returns>
   </ManSection>
-
-<Example>
-gap&gt; q1.a=q1.b;
-false
-gap&gt; q1.a &lt; q1.v;
-false
-gap&gt; q1.a &lt; q1.c;
-true
-</Example>
 </Section>
 
 <Section><Heading>Attributes of Vertices</Heading>
@@ -592,16 +581,16 @@ true
     </Returns>
   </ManSection>
 
-<Example>
-gap&gt; q1 := Quiver(["u","v"],[["u","u","a"],["u","v","b"],
-&gt; ["v","u","c"],["v","v","d"]]);
-&lt;quiver with 2 vertices and 4 arrows&gt;
-gap&gt; OutgoingArrowsOfVertex(q1.u);
+<Example><![CDATA[
+gap> q1 := Quiver(["u","v"],[["u","u","a"],["u","v","b"],
+>               ["v","u","c"],["v","v","d"]]);
+<quiver with 2 vertices and 4 arrows>
+gap> OutgoingArrowsOfVertex(q1.u);
 [ a, b ]
-gap&gt; InDegreeOfVertex(q1.u);
+gap> InDegreeOfVertex(q1.u);
 2
-gap&gt; NeighborsOfVertex(q1.v);
-[ u, v ]
+gap> NeighborsOfVertex(q1.v);
+[ u, v ]]]>
 </Example>
 </Section>
 </Chapter>

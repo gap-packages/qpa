@@ -101,18 +101,20 @@ basis are computed by the <Package>GBNP</Package> package.
 gap> Q := Quiver( 3, [ [1,2,"a"], [2,3,"b"] ] );
 <quiver with 3 vertices and 2 arrows>
 gap> PA := PathAlgebra( Rationals, Q );
-<algebra-with-one over Rationals, with 5 generators>
+<Rationals[<quiver with 3 vertices and 2 arrows>]>
 gap> rels := [ PA.a*PA.b ];
 [ (1)*a*b ]
 gap> gb := GBNPGroebnerBasis( rels, PA );
 [ (1)*a*b ]
 gap> I := Ideal( PA, gb );
-<two-sided ideal in <algebra-with-one over Rationals, with 5 generators>, 
-  (1 generators)>
+<two-sided ideal in <Rationals[<quiver with 3 vertices and 2 arrows>]>
+    , (1 generators)>
 gap> grb := GroebnerBasis( I, gb );
 <complete two-sided Groebner basis containing 1 elements>
 gap> alg := PA/I;
-<algebra-with-one over Rationals, with 5 generators>
+<Rationals[<quiver with 3 vertices and 2 arrows>]/
+<two-sided ideal in <Rationals[<quiver with 3 vertices and 2 arrows>]>
+    , (1 generators)>>
 gap> IsGroebnerBasis(gb);
 false
 gap> IsGroebnerBasis(grb);

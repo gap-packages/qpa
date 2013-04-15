@@ -8,14 +8,15 @@ d := gen[7];;
 e := gen[8];;
 rels := [d*e,c^2,a*c*d-b*d,e*a];;
 A := KQ/rels;;
-mat :=[["a",[[1,2],[0,3],[1,5]]],["b",[[2,0],[3,0],[5,0]]],
+mat := [["a",[[1,2],[0,3],[1,5]]],["b",[[2,0],[3,0],[5,0]]],
 ["c",[[0,0],[1,0]]],["d",[[1,2],[0,1]]],["e",[[0,0,0],[0,0,0]]]];;
 N := RightModuleOverPathAlgebra(A,mat);;
 ###########
 L := RightModuleOverPathAlgebra(A,[["a",[0,1]],["b",[0,1]],
 ["c",[[0]]],["d",[[1]]],["e",[1,0]]]);
 DimensionVector(L);
-f := RightModuleHomOverAlgebra(L,N,[[[0,0,0]], [[1,0]], [[1,2]]]);
+f := RightModuleHomOverAlgebra(L,N,[[[0,0,0]], [[1,0]], 
+[[1,2]]]);
 IsPathAlgebraMatModuleHomomorphism(f);
 ###########
 B := BasisVectors(Basis(N)); 

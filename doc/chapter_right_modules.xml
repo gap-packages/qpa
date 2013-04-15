@@ -115,54 +115,58 @@ gap> Q := Quiver(2, [[1, 2, "a"], [2, 1, "b"],[1, 1, "c"]]);
 gap> P := PathAlgebra(Rationals, Q);
 <Rationals[<quiver with 2 vertices and 3 arrows>]>
 gap> matrices := [["a", [[1,0,0],[0,1,0]]], 
-> ["b", [[0,1],[1,0],[0,1]]],
-> ["c", [[0,0],[1,0]]]];
+>  ["b", [[0,1],[1,0],[0,1]]],
+>  ["c", [[0,0],[1,0]]]];
 [ [ "a", [ [ 1, 0, 0 ], [ 0, 1, 0 ] ] ], 
-[ "b", [ [ 0, 1 ], [ 1, 0 ], [ 0, 1 ] ] ], 
-[ "c", [ [ 0, 0 ], [ 1, 0 ] ] ] ]
+  [ "b", [ [ 0, 1 ], [ 1, 0 ], [ 0, 1 ] ] ], 
+  [ "c", [ [ 0, 0 ], [ 1, 0 ] ] ] ]
 gap> M := RightModuleOverPathAlgebra(P,matrices);
 <[ 2, 3 ]>
-gap> mats := [ [[1,0,0], [0,1,0]], [[0,1],[1,0],[0,1]], [[0,0],[1,0]] ];; 
+gap> mats := [ [[1,0,0], [0,1,0]], [[0,1],[1,0],[0,1]], 
+>           [[0,0],[1,0]] ];; 
 gap> N := RightModuleOverPathAlgebra(P,mats); 
 <[ 2, 3 ]>
 gap> arrows := ArrowsOfQuiver(Q);
 [ a, b, c ]
-gap>  mats := [[arrows[1], [[1,0,0],[0,1,0]]], 
-> [arrows[2], [[0,1],[1,0],[0,1]]], [arrows[3], [[0,0],[1,0]]]];;
+gap> mats := [[arrows[1], [[1,0,0],[0,1,0]]],
+>          [arrows[2], [[0,1],[1,0],[0,1]]], 
+>          [arrows[3], [[0,0],[1,0]]]];;
 gap> N := RightModuleOverPathAlgebra(P,mats); 
 <[ 2, 3 ]>
 gap> # Next we give the vertex simple associate to vertex 1. 
-gap>  M := RightModuleOverPathAlgebra(P,[["a",[1,0]],["b",[0,1]],["c",[[0]]]]);
+gap> M := RightModuleOverPathAlgebra(P,[["a",[1,0]],["b",[0,1]],
+>              ["c",[[0]]]]);
 <[ 1, 0 ]>
 gap> # The zero module. 
-gap> M := RightModuleOverPathAlgebra(P,[["a",[0,0]],["b",[0,0]],["c",[0,0]]]);
+gap> M := RightModuleOverPathAlgebra(P,[["a",[0,0]],["b",[0,0]],
+>              ["c",[0,0]]]);
 <[ 0, 0 ]>
 gap> Dimension(M);
 0
 gap> Basis(M);
 Basis( <[ 0, 0 ]>, ... )
 gap> matrices := [["a", [[1,0,0],[0,1,0]]], ["b",
-> [[0,1],[1,0],[0,1]]], ["c", [[0,0],[1,0]]]];
+>  [[0,1],[1,0],[0,1]]], ["c", [[0,0],[1,0]]]];
 [ [ "a", [ [ 1, 0, 0 ], [ 0, 1, 0 ] ] ], 
-[ "b", [ [ 0, 1 ], [ 1, 0 ], [ 0, 1 ] ] ], 
-[ "c", [ [ 0, 0 ], [ 1, 0 ] ] ] ]
-gap>  M := RightModuleOverPathAlgebra(P,[2,3],matrices);
+  [ "b", [ [ 0, 1 ], [ 1, 0 ], [ 0, 1 ] ] ], 
+  [ "c", [ [ 0, 0 ], [ 1, 0 ] ] ] ]
+gap> M := RightModuleOverPathAlgebra(P,[2,3],matrices);
 <[ 2, 3 ]>
-gap>  M := RightModuleOverPathAlgebra(P,[2,3],[]);  
+gap> M := RightModuleOverPathAlgebra(P,[2,3],[]);  
 <[ 2, 3 ]>
 gap> A := P/[P.c^2 - P.a*P.b, P.a*P.b*P.c, P.b*P.c];         
-<Rationals[<quiver with 2 vertices and 3 arrows>]/<two-sided ideal in 
-<Rationals[<quiver with 2 vertices and 3 arrows>]>, (4 generators)>>
+<Rationals[<quiver with 2 vertices and 3 arrows>]/
+<two-sided ideal in <Rationals[<quiver with 2 vertices and 3 arrows>]>
+    , (4 generators)>>
 gap> Dimension(A);
 9
-gap> Amod:=RightAlgebraModule(A,\*,A);                       
-<9-dimensional right-module over <Rationals[<quiver with 2 vertices and 
-3 arrows>]/<two-sided ideal in <Rationals[<quiver with 2 vertices and 3
- arrows>]>, (4 generators)>>>
+gap> Amod := RightAlgebraModule(A,\*,A);                       
+<9-dimensional right-module over <Rationals[<quiver with 
+2 vertices and 3 arrows>]/
+<two-sided ideal in <Rationals[<quiver with 2 vertices and 3 arrows>]>
+    , (4 generators)>>>
 gap> RightAlgebraModuleToPathAlgebraMatModule(Amod);
-<[ 4, 5 ]>
-]]>
-
+<[ 4, 5 ]> ]]>
 </Example>
 
 </Section>
@@ -206,44 +210,44 @@ basis and elementwise operations available.
    </Description>
   </ManSection>
 
-<Example>
-gap&gt; # Using the path algebra P from the above example. 
-gap&gt; matrices := [["a", [[1,0,0],[0,1,0]]], ["b", [[0,1],[1,0],[0,1]]],
-&gt; ["c", [[0,0],[1,0]]]];
-[ [ "a", [ [ 1, 0, 0 ], [ 0, 1, 0 ] ] ],
-  [ "b", [ [ 0, 1 ], [ 1, 0 ], [ 0, 1 ] ] ],
+<Example><![CDATA[
+gap> # Using the path algebra P from the above example. 
+gap> matrices := [["a", [[1,0,0],[0,1,0]]], 
+> ["b", [[0,1],[1,0],[0,1]]], ["c", [[0,0],[1,0]]]];
+[ [ "a", [ [ 1, 0, 0 ], [ 0, 1, 0 ] ] ], 
+  [ "b", [ [ 0, 1 ], [ 1, 0 ], [ 0, 1 ] ] ], 
   [ "c", [ [ 0, 0 ], [ 1, 0 ] ] ] ]
-gap&gt; M := RightModuleOverPathAlgebra(P,matrices);
-&lt;right-module over &lt;algebra-with-one over Rationals, with 5
-generators&gt;&gt; 
-gap&gt; B:=BasisVectors(Basis(M));
+gap> M := RightModuleOverPathAlgebra(P,matrices);
+<[ 2, 3 ]>
+gap> B:=BasisVectors(Basis(M));
 [ [ [ 1, 0 ], [ 0, 0, 0 ] ], [ [ 0, 1 ], [ 0, 0, 0 ] ], 
   [ [ 0, 0 ], [ 1, 0, 0 ] ], [ [ 0, 0 ], [ 0, 1, 0 ] ], 
   [ [ 0, 0 ], [ 0, 0, 1 ] ] ]
-gap&gt; B[1]+B[3];
+gap> B[1] + B[3];
 [ [ 1, 0 ], [ 1, 0, 0 ] ]
-gap&gt; 4*B[2];
+gap> 4*B[2];
 [ [ 0, 4 ], [ 0, 0, 0 ] ]
-gap&gt; m:=5*B[1]+2*B[4]+B[5];
+gap> m := 5*B[1] + 2*B[4]+B[5];
 [ [ 5, 0 ], [ 0, 2, 1 ] ]
-gap&gt; m^(P.a*P.b-P.c);
+gap> m^(P.a*P.b-P.c);
 [ [ 0, 5 ], [ 0, 0, 0 ] ]
-gap&gt; B[1]^P.a;
+gap> B[1]^P.a;
 [ [ 0, 0 ], [ 1, 0, 0 ] ]
-gap&gt; B[2]^P.b;
+gap> B[2]^P.b;
 [ [ 0, 0 ], [ 0, 0, 0 ] ]
-gap&gt; B[4]^(P.b*P.c);
-[ [ 0, 0 ], [ 0, 0, 0 ] ]
+gap> B[4]^(P.b*P.c);
+[ [ 0, 0 ], [ 0, 0, 0 ] ] ]]>
 </Example>
 </Section>
 
 <Section><Heading>Operations on representations</Heading>
 
 <Example><![CDATA[
-gap> Q  := Quiver(3,[[1,2,"a"],[1,2,"b"],[2,2,"c"],[2,3,"d"],[3,1,"e"]]);
+gap> Q  := Quiver(3,[[1,2,"a"],[1,2,"b"],[2,2,"c"],[2,3,"d"],
+> [3,1,"e"]]);
 <quiver with 3 vertices and 5 arrows>
 gap> KQ := PathAlgebra(Rationals, Q);
-<algebra-with-one over Rationals, with 8 generators>
+<Rationals[<quiver with 3 vertices and 5 arrows>]>
 gap> gens := GeneratorsOfAlgebra(KQ);
 [ (1)*v1, (1)*v2, (1)*v3, (1)*a, (1)*b, (1)*c, (1)*d, (1)*e ]
 gap> u := gens[1];; v := gens[2];;
@@ -251,16 +255,15 @@ gap> w := gens[3];; a := gens[4];;
 gap> b := gens[5];; c := gens[6];;
 gap> d := gens[7];; e := gens[8];;
 gap> rels := [d*e,c^2,a*c*d-b*d,e*a];;
-gap> I:= Ideal(KQ,rels);;
-gap> gb:= GBNPGroebnerBasis(rels,KQ);;
-gap> gbb:= GroebnerBasis(I,gb);;
-gap> A:= KQ/I;
-<algebra-with-one over Rationals, with 8 generators>
-gap> mat:=[["a",[[1,2],[0,3],[1,5]]],["b",[[2,0],[3,0],[5,0]]],
-["c",[[0,0],[1,0]]],["d",[[1,2],[0,1]]],["e",[[0,0,0],[0,0,0]]]];;
-gap> N:= RightModuleOverPathAlgebra(A,mat);                         
-<right-module over <algebra-with-one over Rationals, with 8 generators>>
-]]></Example>
+gap> A := KQ/rels;
+<Rationals[<quiver with 3 vertices and 5 arrows>]/
+<two-sided ideal in <Rationals[<quiver with 3 vertices and 5 arrows>]>
+    , (5 generators)>>
+gap> mat := [["a",[[1,2],[0,3],[1,5]]],["b",[[2,0],[3,0],[5,0]]],
+> ["c",[[0,0],[1,0]]],["d",[[1,2],[0,1]]],["e",[[0,0,0],[0,0,0]]]];;
+gap> N := RightModuleOverPathAlgebra(A,mat);   
+<[ 3, 2, 2 ]> ]]>
+</Example>
 
 <ManSection>
    <Oper Name="AnnihilatorOfModule" Arg="M" Comm="for a   
@@ -477,36 +480,17 @@ gap> N:= RightModuleOverPathAlgebra(A,mat);
 
 Using the example above.
 <Example><![CDATA[
-gap> N2:=DirectSumOfModules([N,N]);
-<14-dimensional right-module over <algebra-with-one of dimension 
-17 over Rationals>>
-gap> proj:=DirectSumProjections(N2);
-[ <mapping: <14-dimensional right-module over AlgebraWithOne( Rationals, 
-    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
-      [(1)*e] ] )> -> <
-    7-dimensional right-module over AlgebraWithOne( Rationals, 
-    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
-      [(1)*e] ] )> >, 
-  <mapping: <14-dimensional right-module over AlgebraWithOne( Rationals, 
-    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
-      [(1)*e] ] )> -> <
-    7-dimensional right-module over AlgebraWithOne( Rationals, 
-    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
-      [(1)*e] ] )> > ]
-gap> inc:=DirectSumInclusions(N2);  
-[ <mapping: <7-dimensional right-module over AlgebraWithOne( Rationals, 
-    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
-      [(1)*e] ] )> -> <
-    14-dimensional right-module over AlgebraWithOne( Rationals, 
-    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
-      [(1)*e] ] )> >, 
-  <mapping: <7-dimensional right-module over AlgebraWithOne( Rationals, 
-    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
-      [(1)*e] ] )> -> <
-    14-dimensional right-module over AlgebraWithOne( Rationals, 
-    [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
-      [(1)*e] ] )> > ]
-]]></Example>
+gap> N2 := DirectSumOfModules([N,N]);
+<[ 6, 4, 4 ]>
+gap> proj := DirectSumProjections(N2);
+[ <<[ 6, 4, 4 ]> ---> <[ 3, 2, 2 ]>>
+    , <<[ 6, 4, 4 ]> ---> <[ 3, 2, 2 ]>>
+     ]
+gap> inc := DirectSumInclusions(N2);
+[ <<[ 3, 2, 2 ]> ---> <[ 6, 4, 4 ]>>
+    , <<[ 3, 2, 2 ]> ---> <[ 6, 4, 4 ]>>
+     ] ]]>
+</Example>
 
 <ManSection>
    <Oper Name="IsInAdditiveClosure" Arg="M, N" Comm="for two
@@ -967,17 +951,18 @@ in <Math>R</Math>.
 Here we create the right projective module <Math>P = vA \oplus vA
 \oplus wA</Math>. 
 
-<Example>
-gap&gt; F:=GF(11);
+<Example><![CDATA[
+gap> F := GF(11);
 GF(11)
-gap&gt; Q:=Quiver(["v","w", "x"],[["v","w","a"],["v","w","b"],["w","x","c"]]);
-&lt;quiver with 3 vertices and 3 arrows&gt;
-gap&gt; A:=PathAlgebra(F,Q);
-&lt;algebra-with-one over GF(11), with 6 generators&gt;
-gap&gt; P:=RightProjectiveModule(A,[A.v,A.v,A.w]);
-&lt;right-module over &lt;algebra-with-one over GF(11), with 6 generators&gt;&gt;
-gap&gt; Dimension(P);
-12
+gap> Q := Quiver(["v","w", "x"],[["v","w","a"],["v","w","b"],
+> ["w","x","c"]]);
+<quiver with 3 vertices and 3 arrows>
+gap> A := PathAlgebra(F,Q);
+<GF(11)[<quiver with 3 vertices and 3 arrows>]>
+gap> P := RightProjectiveModule(A,[A.v,A.v,A.w]);
+<right-module over <GF(11)[<quiver with 3 vertices and 3 arrows>]>>
+gap> Dimension(P);
+12 ]]>
 </Example>
 
 <ManSection>
@@ -1088,17 +1073,18 @@ In the following example, we create two elements in <Math>P</Math>,
 perform some elementwise operations, and then construct a submodule
 using the two elements as generators.<P/>
 
-<Example>
-gap&gt; p1:=Vectorize(P,[A.b*A.c,A.a*A.c,A.c]);
+<Example><![CDATA[
+gap> p1 := Vectorize(P,[A.b*A.c,A.a*A.c,A.c]);
 [ (Z(11)^0)*b*c, (Z(11)^0)*a*c, (Z(11)^0)*c ]
-gap&gt; p2:=Vectorize(P,[A.a,A.b,A.w]);
+gap> p2 := Vectorize(P,[A.a,A.b,A.w]);
 [ (Z(11)^0)*a, (Z(11)^0)*b, (Z(11)^0)*w ]
-gap&gt; 2*p1 + p2;
-[ (Z(11)^0)*a+(Z(11))*b*c, (Z(11)^0)*b+(Z(11))*a*c, (Z(11)^0)*w+(Z(11))*c ]
-gap&gt; S:=SubAlgebraModule(P,[p1,p2]);
-&lt;right-module over &lt;algebra-with-one of dimension 8 over GF(11)&gt;&gt;
-gap&gt; Dimension(S);
-3
+gap> 2*p1 + p2;
+[ (Z(11)^0)*a+(Z(11))*b*c, (Z(11)^0)*b+(Z(11))*a*c, 
+  (Z(11)^0)*w+(Z(11))*c ]
+gap> S := SubAlgebraModule(P,[p1,p2]);
+<right-module over <GF(11)[<quiver with 3 vertices and 3 arrows>]>>
+gap> Dimension(S);
+3 ]]>
 </Example>
 
   <ManSection>
@@ -1115,10 +1101,10 @@ gap&gt; Dimension(S);
    </Description>
   </ManSection>
 
-<Example>
-gap&gt; p2^(A.c - A.w);
+<Example><![CDATA[
+gap> p2^(A.c - A.w);
 [ (Z(11)^5)*a+(Z(11)^0)*a*c, (Z(11)^5)*b+(Z(11)^0)*b*c, 
-  (Z(11)^5)*w+(Z(11)^0)*c ]
+  (Z(11)^5)*w+(Z(11)^0)*c ] ]]>
 </Example>
 
   <ManSection>
@@ -1136,9 +1122,9 @@ gap&gt; p2^(A.c - A.w);
    </Description>
   </ManSection>
 
-<Example>
-gap&gt; p1 &lt; p2;
-false
+<Example><![CDATA[
+gap> p1 < p2;
+false ]]>
 </Example>
 
   <ManSection>
@@ -1159,22 +1145,22 @@ false
   </ManSection>
 This 
 
-<Example>
-gap&gt; PS := P/S;
-&lt;9-dimensional right-module over &lt;algebra-with-one of dimension
-8 over GF(11)&gt;&gt; 
-gap&gt; Basis(PS);
-Basis( &lt;9-dimensional right-module over &lt;algebra-with-one of dimension 
-8 over GF(11)&gt;&gt;, [ [ [ &lt;zero&gt; of ..., &lt;zero&gt; of ...,
-(Z(11)^0)*w ] ],  
-  [ [ &lt;zero&gt; of ..., &lt;zero&gt; of ..., (Z(11)^0)*c ] ], 
-  [ [ &lt;zero&gt; of ..., (Z(11)^0)*v, &lt;zero&gt; of ... ] ], 
-  [ [ &lt;zero&gt; of ..., (Z(11)^0)*a, &lt;zero&gt; of ... ] ], 
-  [ [ &lt;zero&gt; of ..., (Z(11)^0)*b, &lt;zero&gt; of ... ] ], 
-  [ [ &lt;zero&gt; of ..., (Z(11)^0)*a*c, &lt;zero&gt; of ... ] ], 
-  [ [ &lt;zero&gt; of ..., (Z(11)^0)*b*c, &lt;zero&gt; of ... ] ], 
-  [ [ (Z(11)^0)*v, &lt;zero&gt; of ..., &lt;zero&gt; of ... ] ], 
-  [ [ (Z(11)^0)*b, &lt;zero&gt; of ..., &lt;zero&gt; of ... ] ] ] )
+<Example><![CDATA[
+gap> PS := P/S;
+<9-dimensional right-module over <GF(11)[<quiver with 3 vertices and 
+3 arrows>]>>
+gap> Basis(PS);
+Basis( <9-dimensional right-module over <GF(11)[<quiver with 
+3 vertices and 3 arrows>]>>, 
+[ [ [ <zero> of ..., (Z(11)^0)*v, <zero> of ... ] ], 
+  [ [ (Z(11)^0)*v, <zero> of ..., <zero> of ... ] ], 
+  [ [ <zero> of ..., <zero> of ..., (Z(11)^0)*w ] ], 
+  [ [ <zero> of ..., (Z(11)^0)*a, <zero> of ... ] ], 
+  [ [ (Z(11)^0)*a, <zero> of ..., <zero> of ... ] ], 
+  [ [ (Z(11)^0)*b, <zero> of ..., <zero> of ... ] ], 
+  [ [ <zero> of ..., <zero> of ..., (Z(11)^0)*c ] ], 
+  [ [ <zero> of ..., (Z(11)^0)*a*c, <zero> of ... ] ], 
+  [ [ (Z(11)^0)*a*c, <zero> of ..., <zero> of ... ] ] ] ) ]]>
 </Example>
 
 <ManSection>
