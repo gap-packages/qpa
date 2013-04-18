@@ -1,7 +1,7 @@
 The QPA share package for GAP 4.4
 ==================================
 
-Version 1.0.9; October 19th, 2012
+Version 1.11; April 19th, 2013
 Copyright (C) 2010 The QPA-team, 	
                         http://sourceforge.net/projects/quiverspathalg/ 
 
@@ -26,16 +26,19 @@ Contents
 
 The following should be included with this version of QPA.
 
-    README   - this file
-    LICENSE  - the license governing QPA usage
-    doc      - the user manual
-    gap      - the GAP source code
-    bin      - (empty)
-    examples - code examples and explorations (in flux)
-    init.g   - package initialization
-    read.g   - package initialization
-    tests    - tests for the package (empty)
-    noweb    - Noweb literate program for QPA (don't use!)
+
+    CHANGES  	  - files containing the history of changes in 
+               	    QPA since version 1.07.
+    LICENSE  	  - the license governing QPA usage
+    PackageInfo.g - contains metainformation about the package
+    README        - this file
+    bin           - (empty)
+    doc      	  - the user manual
+    examples 	  - code examples and explorations (in flux)
+    init.g   	  - package initialization
+    lib        	  - the GAP source code
+    read.g   	  - package initialization
+    tst      	  - tests for the package (empty)
 
 Obtaining
 ---------
@@ -48,6 +51,11 @@ The Groebner basis package GBNP is required to run QPA. The
 GBNP Groebner basis can be obtain from its home at:
 
 	http://www.win.tue.nl/~amc/pub/grobner/chap0.html
+
+The GAPDoc package is necessary for generating the documentation
+files. The GAPDoc package can be obtain from its home at:
+
+  http://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc/index.html
 
 Installation
 ------------
