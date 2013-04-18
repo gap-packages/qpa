@@ -55,13 +55,13 @@ Old name -------> New name
 ------------------------------------------------------------
 
 AlgebraAsModuleOfEnvelopingAlgebra --->
-                                            AlgebraAsModuleOverEnvelopingAlgebra
+                               AlgebraAsModuleOverEnvelopingAlgebra
 
 Synonyms
 ------------------------------------------------------------
 
 AlgebraAsModuleOfEnvelopingAlgebra  ~ 
-                                            AlgebraAsModuleOverEnvelopingAlgebra
+                               AlgebraAsModuleOverEnvelopingAlgebra
 
 
 Discontinued functions:
@@ -324,3 +324,116 @@ No changes
 Discontinued functions:
 ------------------------------------------------------------
 No discontinued functions.
+
+==========================================================================
+Changes from version 1.06 to 1.07:
+==========================================================================
+
+Added structures in this release:
+----------------------------------------------------------------------
+
+Representation of chain complexes and chain maps. The code is 
+unfinished, not tested much, and almost not documented at all.
+
+Added functions in this release:
+----------------------------------------------------------------------
+
+IsEnvelopingAlgebra
+LiftingMorphismFromProjective
+LiftingInclusionMorphisms
+MatricesOfPathAlgebraMatModuleHomomorphism
+MorphismOnKernel
+MorphismOnImage
+MorphismOnCokernel
+RightModuleOverPathAlgebra - new version of this operation
+
+Changed code for:
+----------------------------------------------------------------------
+
+MatricesOfPathAlgebraModule
+CommonDirectSummand 
+DecomposeModule - however no guarantee that this actually computes a 
+                  decomposition of the module. Have not checked the 
+                  mathematics behind the algorithms.
+
+Fixed bugs:
+----------------------------------------------------------------------
+
+Fixed a bug in SimpleModules
+Fixed a bug in IsomorphicModules
+
+Documentation:
+----------------------------------------------------------------------
+
+Chapter 2, 3, 4 and 7 are updated.
+
+----------------------------------------------------------------------
+
+Changes in function names:
+
+Old name -------> New name
+------------------------------------------------------------
+Coker -------> CoKernel
+CokerProjection -------> CoKernelProjection
+DimensionMatModule -------> Dimension
+DirectSumOfPathAlgebraMatModules -------> DirectSumOfModules
+DualOfPathAlgebraMatModule -------> DualOfModule
+DualOfPathAlgebraMatModuleMap -------> DualOfModuleHomomorphism
+ElementOfFpPathAlgebra -------> ElementOfQuotientOfPathAlgebra
+EndOverPathAlgebra -------> EndOverAlgebra
+ExtOne -------> ExtOverAlgebra
+1st_Syzygy -------> 1stSyzygy
+HomOverPathAlgebra -------> HomOverAlgebra
+IdentityMap -------> IdentityMapping
+Im -------> Image
+ImInclusion -------> ImageInclusion
+ImProjection -------> ImageProjection
+ImProjectionInclusion -------> ImageProjectionInclusion
+InAdditiveClosureTest -------> IsInAdditiveClosure
+IndecomposableInjectiveRepresentations -------> IndecInjectiveModules
+IndecomposableProjectiveRepresentations -------> IndecProjectiveModules
+IsAcyclic -------> IsAcyclicQuiver
+IsDirectSum -------> IsDirectSumOfModules
+IsElementOfFpPathAlgebra -------> IsElementOfQuotientOfPathAlgebra
+IsHomogenousGroebnerBasis -------> IsHomogeneousGroebnerBasis
+IsIsom -------> IsIsomorphism
+IsPathAlgebraMatModuleMap -------> IsPathAlgebraModuleHomomorphism
+IsOnto -------> IsSurjective
+IsOneToOne -------> IsInjective
+IsSelfinjective -------> IsSelfinjectiveAlgebra
+IsSplitEpi -------> IsSplitEpimorphism
+IsSplitMono -------> IsSplitMonomorphism
+IsSubalgebraFpPathAlgebra -------> IsQuotientOfPathAlgebra
+IsZeroMap -------> IsZero
+Ker -------> Kernel
+KerInclusion -------> KernelInclusion
+MatricesOfPathAlgebraMatModule -------> MatricesOfPathAlgebraModule
+MinimalSetOfGenerators -------> MinimalGeneratingSetOfModule
+ModuleIsomorphismTest -------> IsomorphicModules
+nth_Syzygy -------> NthSyzygy
+nth_SyzygyNC -------> NthSyzygyNC
+nthPowerOfArrowIdeal -------> NthPowerOfArrowIdeal
+OrderOfQuiver -------> NumberOfVertices
+PreImageElm -------> PreImagesRepresentative
+RadicalOfRep -------> RadicalOfModule
+RadicalOfRepInclusion -------> RadicalOfModuleInclusion
+RightModuleOverPathAlgebra -------> Make both one function with name:
+RightModuleOverQuotientOfPathAlgebra -------> RightModuleOverPathAlgebra
+SizeOfQuiver -------> NumberOfArrows
+SocleOfPathAlgebraMatModule -------> SocleOfModule
+SocleOfPathAlgebraMatModuleInclusion -------> SocleOfModuleInclusion
+SubRep -------> SubRepresentation
+SubRepInclusion -------> SubRepresentationInclusion
+TopOfRep -------> TopOfModule
+TopOfRepProjection -------> TopOfModuleProjection
+VertexSimpleRepresentations -------> SimpleModules
+ZeroRepresentation -------> ZeroModule
+
+Synonyms
+------------------------------------------------------------
+DTr -------> DualOfTranspose
+TrD -------> TransposeOfDual
+
+Discontinued functions:
+------------------------------------------------------------
+GeneratorsOfRep -------> MinimalGeneratorsOfModule
