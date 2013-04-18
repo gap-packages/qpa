@@ -8,35 +8,35 @@
 ##
 #R  Read the declaration files.
 ##
-ReadPackage("QPA", "gap/groebnerdyntree.gd");
-ReadPackage("QPA", "gap/groebnerdyndict.gd");
-ReadPackage("QPA", "gap/groebnerstadict.gd");
-ReadPackage("QPA", "gap/algebra.gd");
-ReadPackage("QPA", "gap/groebnerordering.gd");
-ReadPackage("QPA", "gap/quiver.gd");
-ReadPackage("QPA", "gap/pathalg.gd");
-ReadPackage("QPA", "gap/groebner.gd");
-ReadPackage("QPA", "gap/module.gd");
-ReadPackage("QPA", "gap/present2.gd");
-ReadPackage("QPA", "gap/projpathalgmodule.gd");
-ReadPackage("QPA", "gap/moduledecomp.gd");
-ReadPackage("QPA", "gap/idempotent.gd");
-ReadPackage("QPA", "gap/gbnp.gd");
-ReadPackage("QPA", "gap/moduleprojres.gd");
-ReadPackage("QPA", "gap/pathalgtensor.gd");
-ReadPackage("QPA", "gap/pathalgpredef.gd");
-ReadPackage("QPA", "gap/modulespecial.gd");
-ReadPackage("QPA", "gap/functors.gd");
-ReadPackage("QPA", "gap/modulehom.gd");
-ReadPackage("QPA", "gap/pathalgideal.gd");
-ReadPackage("QPA", "gap/pathalgkoszul.gd");
-ReadPackage("QPA", "gap/inflist.gd");
-ReadPackage("QPA", "gap/moduleARtheory.gd");
-ReadPackage("QPA", "gap/modulehomalg.gd");
-ReadPackage("QPA", "gap/util.gd");
-ReadPackage("QPA", "gap/complex.gd");
-ReadPackage("QPA", "gap/derivedcat.gd");
-ReadPackage("QPA", "gap/pathalgreptype.gd");
-ReadPackage("QPA", "gap/quivergraphalgorithms.gd");
+ReadPackage("QPA", "lib/groebnerdyntree.gd");
+ReadPackage("QPA", "lib/groebnerdyndict.gd");
+ReadPackage("QPA", "lib/groebnerstadict.gd");
+ReadPackage("QPA", "lib/algebra.gd");
+ReadPackage("QPA", "lib/groebnerordering.gd");
+ReadPackage("QPA", "lib/quiver.gd");
+ReadPackage("QPA", "lib/pathalg.gd");
+ReadPackage("QPA", "lib/groebner.gd");
+ReadPackage("QPA", "lib/module.gd");
+ReadPackage("QPA", "lib/present2.gd");
+ReadPackage("QPA", "lib/projpathalgmodule.gd");
+ReadPackage("QPA", "lib/moduledecomp.gd");
+ReadPackage("QPA", "lib/idempotent.gd");
+ReadPackage("QPA", "lib/gbnp.gd");
+ReadPackage("QPA", "lib/moduleprojres.gd");
+ReadPackage("QPA", "lib/pathalgtensor.gd");
+ReadPackage("QPA", "lib/pathalgpredef.gd");
+ReadPackage("QPA", "lib/modulespecial.gd");
+ReadPackage("QPA", "lib/functors.gd");
+ReadPackage("QPA", "lib/modulehom.gd");
+ReadPackage("QPA", "lib/pathalgideal.gd");
+ReadPackage("QPA", "lib/pathalgkoszul.gd");
+ReadPackage("QPA", "lib/inflist.gd");
+ReadPackage("QPA", "lib/moduleARtheory.gd");
+ReadPackage("QPA", "lib/modulehomalg.gd");
+ReadPackage("QPA", "lib/util.gd");
+ReadPackage("QPA", "lib/complex.gd");
+ReadPackage("QPA", "lib/derivedcat.gd");
+ReadPackage("QPA", "lib/pathalgreptype.gd");
+ReadPackage("QPA", "lib/quivergraphalgorithms.gd");
 
 #E  init.g . . . . . . . . . . . . . . . . . . . . . . . . . . . .  ends here
