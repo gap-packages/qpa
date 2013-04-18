@@ -1,0 +1,326 @@
+==========================================================================
+Changes from version 1.10 to 1.11:
+==========================================================================
+
+Added structures in this release:
+----------------------------------------------------------------------
+
+None
+
+Added functions in this release:
+----------------------------------------------------------------------
+
+A new way for constructing a quotient of a path algebra, 
+BasicVersionOfModule
+BlockSplittingIdempotents
+BlockDecompositionOfModule
+ConnectedComponents
+FullSubquiver
+IsUAcyclicQuiver
+IsDynkinQuiver
+IsSchurianAlgebra
+IsSemiCommutativeAlgebra
+IyamaGenerator
+RightAlgebraModuleToPathAlgebraMatModule
+
+Changed code for:
+----------------------------------------------------------------------
+
+RadicalOfModule, SocleOfModule, RadicalSeries and SocleSeries changed
+from attributes to operations. Merged the two commands ExtOverAlgebra
+and ExtOverAlgebraAdd. Changed the order of the arguments in
+NakayamaAlgebra.
+
+Fixed bugs in:
+----------------------------------------------------------------------
+
+IsAdmissibleIdeal
+
+Documentation:
+----------------------------------------------------------------------
+
+Documentation was added and updated. 
+
+The code is better documented with most functions getting a header
+with a short explanation of the code. 
+
+A short introduction was added with general aims and information
+about installation and system requirements, and the old introduction
+is not called Quickstart. 
+
+An abstract was added and the frontpage was modified.  
+
+Changes in function names:
+Old name -------> New name
+------------------------------------------------------------
+
+AlgebraAsModuleOfEnvelopingAlgebra --->
+                                            AlgebraAsModuleOverEnvelopingAlgebra
+
+Synonyms
+------------------------------------------------------------
+
+AlgebraAsModuleOfEnvelopingAlgebra  ~ 
+                                            AlgebraAsModuleOverEnvelopingAlgebra
+
+
+Discontinued functions:
+------------------------------------------------------------
+
+None
+
+
+Miscellaneous
+------------------------------------------------------------
+Updated the gi-files in the gap-directory by adding headers and
+comments in the code.
+
+Started to add the examples from the documentation in to separate
+files in the examples/ directory. 
+
+
+==========================================================================
+Changes from version 1.09 to 1.10:
+==========================================================================
+
+Added structures in this release:
+----------------------------------------------------------------------
+
+None
+
+Added functions in this release:
+----------------------------------------------------------------------
+
+IsConnectedQuiver
+IsFiniteTypeAlgebra
+IsTreeQuiver
+
+Changed code for:
+----------------------------------------------------------------------
+
+Some simplifications of the code here and there. 
+
+Fixed bugs in:
+----------------------------------------------------------------------
+
+For some functions in the file derivedcat.gi.
+
+Documentation:
+----------------------------------------------------------------------
+
+A new introduction in the documentation has been written.
+Documentation was added and updated. This is the major change in this
+release.  A lot of work has gone into making the documentation better.
+Still more work left. Also some of the code is better documented.
+
+Changes in function names:
+Old name -------> New name
+------------------------------------------------------------
+No changes
+
+Synonyms
+------------------------------------------------------------
+No changes
+
+Discontinued functions:
+------------------------------------------------------------
+
+Deleting the function Square as it was in conflict with GAP 4.5.?. 
+
+Miscellaneous
+------------------------------------------------------------
+Deleted files and changed names on some of files in the repository.
+Updated the gi-files in the gap-directory by adding headers and
+comments in the code.
+
+PackageInfo.g-file has been updated. 
+
+The CVS repository is no longer updated. We have switched to a GIT
+repository. Look at the web page 
+
+	    www.math.ntnu.no/~oyvinso/QPA/
+
+for further information how to use this repository. 
+
+
+==========================================================================
+Changes from version 1.08 to 1.09:
+==========================================================================
+
+Added structures in this release:
+----------------------------------------------------------------------
+
+None
+
+Added functions in this release:
+----------------------------------------------------------------------
+
+AnnihilatorOfModule
+CutComplexAbove
+CutComplexBelow
+DecomposeModuleWithMultiplicities.
+EndModuloProjOverAlgebra
+HomFactoringThroughProjOverAlgebra
+IntersectionOfSubmodules
+PredecessorOfModule
+ProductOfIdeals
+ProjetiveResolutionOfPathAlgebraModule
+  (will probably change to ProjectiveGSZResolutionOfPathAlgebraModule)
+SumOfSubmodules
+
+Changed code for:
+----------------------------------------------------------------------
+
+DecomposeModule 
+
+Changed the definition of some functions with respect to being an
+attribute, a property, etc.
+
+Fixed bugs in:
+----------------------------------------------------------------------
+
+LeftDivision
+PredecessorOfModule
+
+Documentation:
+----------------------------------------------------------------------
+
+Documentation was added and updated.
+
+----------------------------------------------------------------------
+
+Changes in function names:
+
+Old name -------> New name
+------------------------------------------------------------
+No changes
+
+Synonyms
+------------------------------------------------------------
+No changes
+
+Discontinued functions:
+------------------------------------------------------------
+
+Deleting one version of DecomposeModule
+
+Miscellaneous
+------------------------------------------------------------
+
+Updated banner.
+This is (probably) the last time we update the cvs repository.
+We will now start using a git repository instead. More on this
+later. 
+
+
+==========================================================================
+Changes from version 1.07 to 1.08:
+==========================================================================
+
+Added structures in this release:
+----------------------------------------------------------------------
+
+Ideals in a path algebra, IsIdealInPathAlgebra.
+
+Added functions in this release:
+----------------------------------------------------------------------
+
+AnnihilatorOfModule
+CanonicalAlgebra
+DecomposeModuleWithMultiplicities
+ElementOfPathAlgebra
+ExtAlgebraGenerators
+IntersectionOfSubmodules
+IsAdmissibleIdeal
+IsIdealInPathAlgebra
+IsInjectiveComplex
+IsMonomialIdeal
+IsProjectiveComplex
+IsSpecialBiserialQuiver
+IsSpecialBiserialAlgebra
+IsStringAlgebra
+IsSymmetricAlgebra
+IsWeaklySymmetricAlgebra
+KroneckerAlgebra
+PredecessorsOfModule
+ProductOfIdeals
+ProjectiveResolution
+ProjectiveResolutionOfComplex
+ProjectiveToInjectiveComplex
+ShiftUnsigned
+SumOfSubmodules
+TauOfComplex
+
+Changed code for:
+----------------------------------------------------------------------
+
+1stSyzygy
+AlgebraAsModuleOfEnvelopingAlgebra
+AlmostSplitSequence
+CoxeterMatrix
+CoxeterPolynomial
+DecomposeModule
+DTr, TrD
+DualOfModuleHomomorphism
+EndOverAlgebra
+IndecInjectiveModules
+IndecProjectiveModules
+IsInjectiveModule
+IsLeftMinimal
+IsProjectiveModule
+IsRightMinimal
+IsSimpleModule
+IsSemisimpleModule
+IsSelfinjectiveAlgebra
+LeftMinimalVersion
+LoewyLength
+NontipSize
+OriginalPathAlgebra
+RadicalOfModule
+RadicalOfModuleInclusion
+RadicalSeries
+RightMinimalVersion
+SimpleModules
+SocleOfModule           
+SocleOfModuleInclusion
+SocleSeries
+TopOfModule
+TopOfModuleProjection
+TransposeOfModule
+ZeroModule               (the above were operations, now attr or prop)
+Display, PrintObj, ViewObj (for quivers, path algebras, quotient of
+	 	   	    path algebras, modules and homomorphisms)   
+\in (for elements in a path algebra)
+MinimalGeneratingSetOfModule
+
+Fixed bugs in:
+----------------------------------------------------------------------
+
+ExtOverAlgebra
+ExtOverAlgebraAdd
+IndecInjectiveModules
+IsFiniteDimensional
+LoewyLength   (for an algebra)
+SimpleModules
+TopOfModuleProjection
+
+Documentation:
+----------------------------------------------------------------------
+
+Documentation was added and updated.
+
+----------------------------------------------------------------------
+
+Changes in function names:
+
+Old name -------> New name
+------------------------------------------------------------
+SingleObjectComplex ---------> StalkComplex
+
+Synonyms
+------------------------------------------------------------
+No changes
+
+Discontinued functions:
+------------------------------------------------------------
+No discontinued functions.
