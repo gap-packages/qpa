@@ -34,11 +34,12 @@ The following should be included with this version of QPA.
     README        - this file
     bin           - (empty)
     doc      	  - the user manual
-    examples 	  - code examples and explorations (in flux)
+    examples 	  - manual examples in separate files, chapterwise 
     init.g   	  - package initialization
     lib        	  - the GAP source code
     read.g   	  - package initialization
     tst      	  - tests for the package (empty)
+    version       - contains the version number of the latest version
 
 Obtaining
 ---------
