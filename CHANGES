@@ -46,7 +46,7 @@ with a short explanation of the code.
 
 A short introduction was added with general aims and information
 about installation and system requirements, and the old introduction
-is not called Quickstart. 
+is now called Quickstart. 
 
 An abstract was added and the frontpage was modified.  
 
@@ -55,13 +55,13 @@ Old name -------> New name
 ------------------------------------------------------------
 
 AlgebraAsModuleOfEnvelopingAlgebra --->
-                               AlgebraAsModuleOverEnvelopingAlgebra
+                        AlgebraAsModuleOverEnvelopingAlgebra
 
 Synonyms
 ------------------------------------------------------------
 
 AlgebraAsModuleOfEnvelopingAlgebra  ~ 
-                               AlgebraAsModuleOverEnvelopingAlgebra
+                        AlgebraAsModuleOverEnvelopingAlgebra
 
 
 Discontinued functions:
@@ -78,6 +78,26 @@ comments in the code.
 Started to add the examples from the documentation in to separate
 files in the examples/ directory. 
 
+Deleted the old example files, comp-examples.txt and examples.txt.
+
+Renamed the tests directory to "tst". 
+
+Moved the gap directory to a lib directory. Changed the paths in the
+init.g and read.g files from gap/? to lib/?.
+
+Added a CHANGES file to the root directory. 
+
+We have packed the reduced the size of the packed distribution of QPA
+by only including the files in the git repository. That means, for
+instance, that the PDF file of the manual is not included in the
+packed distribution. However you can find it on the homepage:
+
+                   http://www.math.ntnu.no/~oyvinso/QPA/
+
+We are planning to move from GAP 4.4 to GAP 4.6. The reason for doing
+this is that this opens new possibilities. For instance, it would then
+be easier to add functions like ComplexityOfModule, etc. So we advise
+to install GAP 4.6.
 
 ==========================================================================
 Changes from version 1.09 to 1.10:
@@ -437,3 +457,48 @@ TrD -------> TransposeOfDual
 Discontinued functions:
 ------------------------------------------------------------
 GeneratorsOfRep -------> MinimalGeneratorsOfModule
+
+==========================================================================
+Changes from version 1.05 to 1.06:
+==========================================================================
+
+Added functions in this release:
+
+SupportModuleElement - finds the vertices where the module element has 
+		       support.
+
+BasisOfProjectives - finds the basis that is used to compute the 
+		     indecomposable projective modules.
+
+VertexPosition - finds the position of a vertex in the list of vertices
+
+HomFromProjective - given an element in a module with only support in one 
+		    vertex, this function finds the homomorphism from the 
+		    indecomposable projective corresponding to this vertex 
+		    onto the given element.
+
+ProjectiveCover - finds the projective cover of a module, ie. the 
+		  homomorphism P(M) ---> M
+
+ExtOne - computes Ext^1(M,N) for two modules M and N.
+
+AlmostSplitSequence - computes the almost split sequence ending in an 
+		      indecomposable non-projective module.
+
+In addition:
+1) a number of bug fixes to older functions.
+2) documentation is updated, but still a long way from being called good. 
+
+==========================================================================
+Changes from version 1.04 to 1.05:
+==========================================================================
+
+1. Fixed bugs in the functions HomOverPathAlgebra, ModuleIsomorphismTest, 
+   DirectSummandTest and IdentityMap.
+
+2. Added the functions CommonDirectSummand, MaximalCommonDirectSummand, 
+   InAdditiveClosureTest, IsSplitMono, IsSplitEpi, RightMinimalVersion,
+   LeftMinimalVersion, MinimalRightApproximation, MinimalLeftApproximation, 
+   IsQuadraticIdeal and QuadraticPerpOfPathAlgebraIdeal.
+
+3. Updated the documentation/manual.
