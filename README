@@ -33,7 +33,7 @@ The following should be included with this version of QPA.
     PackageInfo.g - contains metainformation about the package
     README        - this file
     bin           - (empty)
-    doc      	  - the user manual
+    doc      	  - the user manuals
     examples 	  - manual examples in separate files, chapterwise 
     init.g   	  - package initialization
     lib        	  - the GAP source code
