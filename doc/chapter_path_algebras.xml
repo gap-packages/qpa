@@ -875,7 +875,7 @@ true ]]>
   
 </Section>
 
-<Section><Heading>Attributes and Operations for Quotients of Path
+<Section><Heading>Attributes and Operations (for Quotients) of Path
     Algebras</Heading> 
 
 <!-- Is never used -->
@@ -889,34 +889,6 @@ true ]]>
   <!-- </ManSection> -->
 
 <ManSection>
-  <Attr Name="Dimension"  Arg="A" Comm="computes the dimension of A"/>
-  <Description>
-    Arguments: <Arg>A</Arg> -- a path algebra or a quotient of a path algebra.<Br />
-  </Description>
-  <Returns>
-    the dimension of the algebra <Arg>A</Arg> or <Emph>infinity</Emph> in case <Arg>A</Arg> is an infinite dimensional algebra.
-  </Returns>
-  <Description><Emph>Technical note:</Emph> For a path algebra it uses a standard &GAP; method
-  (it breaks for infinite dimensional case!).
-  For a quotient of a path algebra it uses Groebner bases machinery
-  (it computes Groebner basis for the ideal only in case it has not been computed yet).
-  </Description>
-</ManSection>
-
-
-<ManSection>
-   <Attr Name="LoewyLength" Label="for a (quotient of a) path algebra" Arg="A" Comm=""/>
-   <Description>
-     Arguments: <Arg>A</Arg> -- a path algebra or a quotient of a path
-     algebra.<Br />
-   </Description>
-   <Returns>
-     fail if <Arg>A</Arg> is not finite dimensional. Otherwise it
-     returns the Loewy length of the algebra <Arg>A</Arg>.
-   </Returns>
-</ManSection>
-
-<ManSection>
    <Oper Name="CartanMatrix" Arg="A" Comm=""/>
    <Description>
      Arguments: <Arg>A</Arg> -- a path algebra or a quotient of a path
@@ -927,6 +899,20 @@ true ]]>
      of a path algebra.
    </Returns>
 </ManSection>
+
+<ManSection> 
+    <Oper Name="Centre/Center" Arg="A" Comm=""/> 
+    <Description> 
+      Arguments: <Arg>A</Arg> -- a path algebra or a quotient of a path 
+      algebra.<Br /> 
+    </Description> 
+    <Returns> 
+      the centre of the algebra <Arg>A</Arg>, after having checked 
+      that <Arg>A</Arg> is a finite dimensional quotient of a path 
+      algebra (the check is not implemented and also not implemented 
+      for path algebras). 
+    </Returns> 
+ </ManSection> 
 
 <ManSection>
    <Attr Name="CoxeterMatrix" Arg="A" Comm=""/>
@@ -952,23 +938,74 @@ true ]]>
       checked that <Arg>A</Arg> is a finite dimensional quotient of a 
       path algebra. 
     </Returns> 
- </ManSection> 
+ </ManSection>
 
- <ManSection> 
-    <Oper Name="Centre/Center" Arg="A" Comm=""/> 
-    <Description> 
-      Arguments: <Arg>A</Arg> -- a path algebra or a quotient of a path 
-      algebra.<Br /> 
-    </Description> 
-    <Returns> 
-      the centre of the algebra <Arg>A</Arg>, after having checked 
-      that <Arg>A</Arg> is a finite dimensional quotient of a path 
-      algebra (the check is not implemented and also not implemented 
-      for path algebras). 
-    </Returns> 
- </ManSection> 
+<ManSection>
+  <Attr Name="Dimension"  Arg="A" Comm="computes the dimension of A"/>
+  <Description>
+    Arguments: <Arg>A</Arg> -- a path algebra or a quotient of a path algebra.<Br />
+  </Description>
+  <Returns>
+    the dimension of the algebra <Arg>A</Arg> or <Emph>infinity</Emph> in case <Arg>A</Arg> is an infinite dimensional algebra.
+  </Returns>
+  <Description><Emph>Technical note:</Emph> For a path algebra it uses a standard &GAP; method
+  (it breaks for infinite dimensional case!).
+  For a quotient of a path algebra it uses Groebner bases machinery
+  (it computes Groebner basis for the ideal only in case it has not been computed yet).
+  </Description>
+</ManSection>
 
- <ManSection> 
+<ManSection>
+   <Attr Name="LoewyLength" Arg="A" Comm="for a (quotient of a) path algebra"/>
+   <Description>
+     Arguments: <Arg>A</Arg> -- a path algebra or a quotient of a path
+     algebra.<Br />
+   </Description>
+   <Returns>
+     fail if <Arg>A</Arg> is not finite dimensional. Otherwise it
+     returns the Loewy length of the algebra <Arg>A</Arg>.
+   </Returns>
+</ManSection>
+
+<ManSection>
+   <Attr Name="NakayamaAutomorphism" Arg="A" Comm="for a (quotient of a) path algebra"/>
+   <Description>
+     Arguments: <Arg>A</Arg> -- a path algebra or a quotient of a path
+     algebra.<Br />
+   </Description>
+   <Returns>
+     false if <Arg>A</Arg> is not selfinjective algebra. Otherwise it
+     returns the Nakayama autormorphism of <Arg>A</Arg>. 
+   </Returns>
+</ManSection> 
+
+<ManSection>
+   <Attr Name="NakayamaPermutation" Arg="A" Comm="for a (quotient of a) path algebra"/>
+   <Description>
+     Arguments: <Arg>A</Arg> -- a path algebra or a quotient of a path
+     algebra.<Br />
+   </Description>
+   <Returns>
+     false if <Arg>A</Arg> is not selfinjective algebra. Otherwise it
+     returns a list of two elements where the first is the Nakayama permutation on the 
+     simple modules and the second is the Nakayama permutation on the index set of the 
+     simple modules of <Arg>A</Arg>.
+   </Returns>
+</ManSection> 
+
+<ManSection>
+   <Attr Name="OrderOfNakayamaAutomorphism" Arg="A" Comm="for a (quotient of a) path algebra"/>
+   <Description>
+     Arguments: <Arg>A</Arg> -- a path algebra or a quotient of a path
+     algebra.<Br />
+   </Description>
+   <Returns>
+     false if <Arg>A</Arg> is not selfinjective algebra. Otherwise it
+     returns the order of the Nakayama autormorphism of <Arg>A</Arg>. 
+   </Returns>
+</ManSection>
+ 
+<ManSection> 
     <Attr Name="RadicalSeriesOfAlgebra" Arg="A" Comm=""/> 
     <Description> 
       Arguments: <Arg>A</Arg> -- an algebra.<Br /> 

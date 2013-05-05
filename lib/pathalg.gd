@@ -79,3 +79,6 @@ DeclareOperation( "TipMonomialandCoefficientOfVector", [ IsAlgebra, IsCollection
 DeclareOperation( "TipReduceVectors", [ IsAlgebra, IsCollection ] );
 DeclareOperation( "CoefficientsOfVectors", [ IsAlgebra, IsCollection, IsList ] );
 DeclareProperty( "IsDistributiveAlgebra", IsQuotientOfPathAlgebra );
+DeclareAttribute( "NakayamaAutomorphism", IsQuotientOfPathAlgebra ); 
+DeclareAttribute( "NakayamaPermutation", IsQuotientOfPathAlgebra );
+DeclareAttribute( "OrderOfNakayamaAutomorphism", IsQuotientOfPathAlgebra );
