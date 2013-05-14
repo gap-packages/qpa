@@ -288,9 +288,14 @@ InstallMethod ( SimpleModules,
     local KQ, num_vert, simple_rep, zero, v, temp;
 #
     if ( not IsPathAlgebra(A) ) and ( not IsQuotientOfPathAlgebra(A) ) then 
-       Error("argument entered is a not (a quotient of) a path algebra,\n");
+        Error("argument entered is a not (a quotient of) a path algebra,\n");
     fi;
- 
+    if not IsFiniteDimensional(A) then
+        Error("argument entered is not a finite dimensional algebra,\n");
+    fi;
+    if ( not IsPathAlegbra(A) ) and ( not IsAdmissibleQuotientOfPathAlgebra(A) ) then
+        Error("argument entered is not a quotient of a path algebra by an admissible ideal,\n");
+    fi;
     KQ := OriginalPathAlgebra(A); 
     num_vert := NumberOfVertices(QuiverOfPathAlgebra(A));
     simple_rep := [];
