@@ -881,6 +881,55 @@ Here we collect the predefined representations/modules over a finite
 </ManSection>
 
 <ManSection>
+   <Attr Name="NakayamaFunctorOfModule" Arg="M" Comm="for a PathAlgebraMatModule"/>
+   <Description> 
+    Arguments: <Arg>M</Arg> -- a <C>PathAlgebraMatModule</C>.
+   <Br /></Description>
+   <Returns>
+    the module <M>\Hom_K(\Hom_A(M,A), K)</M> over <M>A</M>, when
+    <Arg>M</Arg> is a module over a <M>K</M>-algebra <M>A</M>.
+   </Returns>
+</ManSection>
+
+<ManSection>
+   <Attr Name="NakayamaFunctorOfModuleHomomorphism" Arg="f" Comm="for a PathAlgebraMatModuleMap"/>
+   <Description> 
+    Arguments: <Arg>f</Arg> -- a map between two modules <Arg>M</Arg>
+    and <Arg>N</Arg> over a path algebra <Math>A</Math>.  <Br/>
+   </Description>
+   <Returns>
+    the homomorphism induced by <M>f\colon M\to N</M> from the module
+    <M>\Hom_K(\Hom_A(M,A),K)</M> to <M>\Hom_K(\Hom_A(N,A), K)</M>,
+    when <Arg>f</Arg> is a module homomorphism over a <M>K</M>-algebra
+    <Arg>A</Arg>.
+   </Returns>
+</ManSection>
+
+<ManSection>
+   <Attr Name="StarOfModule" Arg="M" Comm="for a PathAlgebraMatModule"/>
+   <Description> 
+    Arguments: <Arg>M</Arg> -- a <C>PathAlgebraMatModule</C>.
+   <Br /></Description>
+   <Returns>
+    the module <M>\Hom_A(M,A)</M> over the opposite of <M>A</M>,
+    when <Arg>M</Arg> is a module over an algebra <M>A</M>. 
+   </Returns>
+</ManSection>
+
+<ManSection>
+   <Attr Name="StarOfModuleHomomorphism" Arg="f" Comm="for a PathAlgebraMatModuleMap"/>
+   <Description> 
+    Arguments: <Arg>f</Arg> -- a map between two modules <Arg>M</Arg>
+    and <Arg>N</Arg> over a path algebra <Math>A</Math>.  <Br/>
+   </Description>
+   <Returns>
+    the homomorphism induced by <M>f\colon M\to N</M> from the module
+    <M>\Hom_A(N,A)</M> to <M>\Hom_A(M,A)</M>, when <Arg>f</Arg> is a
+    module homomorphism over an algebra  <Arg>A</Arg>.
+   </Returns>
+</ManSection>
+
+<ManSection>
    <Oper Name="TrD" Arg="M, [n]" Comm="for a PathAlgebraMatModule and an
    integer"/>
    <Oper Name="TransposeOfDual" Arg="M, [n]" Comm="for a PathAlgebraMatModule"/>

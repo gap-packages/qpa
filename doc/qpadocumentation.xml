@@ -120,6 +120,8 @@ GBNP interface (for Groebner bases),</Item></Row>
 
 <#Include SYSTEM "chapter_proj_and_derived.xml">
 
+<#Include SYSTEM "chapter_combinatorialrep.xml">
+
 </Body>
 
 <!-- <Appendix Label="Appendix">
@@ -129,7 +131,7 @@ GBNP interface (for Groebner bases),</Item></Row>
 This is an appendix. 
 </Appendix> -->
 
-<Bibliography Databases="qpadocumentation" Style="alpha"/>
+<Bibliography Databases="qpadocumentationbib.xml" />
 
 <TheIndex/>
 

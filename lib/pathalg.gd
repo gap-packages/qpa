@@ -23,6 +23,7 @@ DeclareOperation( "IsRightUniform", [IsList,IsPath]);
 DeclareOperation( "IsUniform", [IsRingElement]);
 
 DeclareCategory( "IsQuotientOfPathAlgebra", IsAlgebra );
+DeclareProperty( "IsAdmissibleQuotientOfPathAlgebra", IsQuotientOfPathAlgebra );
 DeclareAttribute( "OrderingOfAlgebra", IsAlgebra );
 DeclareAttribute( "GroebnerBasisOfIdeal", IsRing );
 DeclareAttribute( "GroebnerBasisOfLeftIdeal", IsRing );

@@ -1977,7 +1977,7 @@ InstallOtherMethod( \/,
     [ IsPathAlgebra, IsList ],
     function( KQ, relators )
     
-    local gb, I;
+    local gb, I, A;
     
     if not ForAll(relators, x -> ( x in KQ ) ) then
         Error("the entered list of elements should be in the path algebra!");
@@ -1985,8 +1985,12 @@ InstallOtherMethod( \/,
     gb := GBNPGroebnerBasis(relators, KQ);
     I := Ideal(KQ,gb);
     GroebnerBasis(I,gb);
+    A := KQ/I; 
+    if IsAdmissibleIdeal(I) then 
+        SetIsAdmissibleQuotientOfPathAlgebra(A, true);
+    fi;
 
-    return KQ/I;
+    return A;
 end 
 ); 
 

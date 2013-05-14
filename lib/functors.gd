@@ -7,3 +7,7 @@ DeclareAttribute( "DTr", IsPathAlgebraMatModule );
 DeclareAttribute( "TrD", IsPathAlgebraMatModule );
 DeclareSynonym("DualOfTranspose", DTr);
 DeclareSynonym("TransposeOfDual", TrD);
+DeclareAttribute( "StarOfModule", IsPathAlgebraMatModule );
+DeclareAttribute( "StarOfModuleHomomorphism", IsPathAlgebraMatModuleHomomorphism );
+DeclareAttribute( "NakayamaFunctorOfModule", IsPathAlgebraMatModule );
+DeclareAttribute( "NakayamaFunctorOfModuleHomomorphism", IsPathAlgebraMatModuleHomomorphism );

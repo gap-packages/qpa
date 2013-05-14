@@ -26,8 +26,8 @@ ReadPackage("QPA", "lib/moduleprojres.gi");
 ReadPackage("QPA", "lib/pathalgtensor.gi");
 ReadPackage("QPA", "lib/pathalgpredef.gi");
 ReadPackage("QPA", "lib/modulespecial.gi");
-ReadPackage("QPA", "lib/functors.gi");
 ReadPackage("QPA", "lib/modulehom.gi");
+ReadPackage("QPA", "lib/functors.gi");
 ReadPackage("QPA", "lib/pathalgideal.gi");
 ReadPackage("QPA", "lib/pathalgkoszul.gi");
 ReadPackage("QPA", "lib/inflist.gi");
@@ -38,5 +38,6 @@ ReadPackage("QPA", "lib/complex.gi");
 ReadPackage("QPA", "lib/derivedcat.gi");
 ReadPackage("QPA", "lib/pathalgreptype.gi");
 ReadPackage("QPA", "lib/quivergraphalgorithms.gi");
+ReadPackage("QPA", "lib/combinatorialrep.gi");
 
 #E  read.g . . . . . . . . . . . . . . . . . . . . . . . . . . . .  ends here

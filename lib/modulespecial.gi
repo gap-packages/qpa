@@ -12,7 +12,7 @@
 ##
 InstallMethod ( IndecProjectiveModules, 
     "for a finite dimensional quotient of a path algebra",
-    [ IsQuotientOfPathAlgebra ], 0,
+    [ IsAdmissibleQuotientOfPathAlgebra ], 0,
     function( A ) 
     local fam, KQ, I, Q, num_vert, num_arrows, i, vertices, 
           arrows_as_paths, indec_proj, j, indec_proj_list, 

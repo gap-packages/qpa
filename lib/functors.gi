@@ -404,3 +404,201 @@ InstallOtherMethod( TrD,
    return U;
 end
 );
+
+#######################################################################
+##
+#A  StarOfModule( <M> )
+##
+##  This function takes as an argument a module over an algebra  A  and
+##  computes the module  Hom_A(M,A)  over the opposite of  A. 
+##  
+InstallMethod( StarOfModule, 
+    "for a matrix",
+    [ IsPathAlgebraMatModule ],
+        
+    function( M )
+    local A, Aop, K, P, V, BV, BasisVflat, b, dimvector, Bproj, arrows, 
+          arrowsop, leftmultwitharrows, a, source, target, matrices, temp;
+    # 
+    # Setting up necessary infrastructure.
+    # 
+    A := RightActingAlgebra(M);
+    Aop := OppositeAlgebra(A);
+    K := LeftActingDomain(M); 
+    P := IndecProjectiveModules(A);
+    #
+    # Finding the vector spaces in each vertex in the representation of 
+    # Hom_A(M,A)  and making a vector space of the flatten matrices in 
+    # each basis vector in  Hom_A(M,e_iA).
+    #
+    V := List(P, p -> HomOverAlgebra(M,p));
+    BV := List(V, v -> List(v, x -> 
+                  Flat(MatricesOfPathAlgebraMatModuleHomomorphism(x))));
+    BasisVflat := [];
+    for b in BV do
+        if Length(b) <> 0 then 
+            Add(BasisVflat, 
+                Basis(Subspace(FullRowSpace(K, Length(b[1])), b, "basis"))); 
+        else 
+            Add(BasisVflat, []);
+        fi;
+    od;
+    # 
+    # Finding the dimension vector of  Hom_A(M,A)  and computing the maps 
+    # induced by left multiplication by arrows  alpha : i ---> j  from 
+    # e_jA ---> e_iA.
+    #
+    dimvector := List(V, Length);
+    Bproj := BasisOfProjectives(A);
+    Bproj := List([1..Length(dimvector)], 
+                  i -> Subspace(A, Flat(Bproj[i]), "basis"));
+    arrows := ArrowsOfQuiver(QuiverOfPathAlgebra(A));
+    arrowsop := ArrowsOfQuiver(QuiverOfPathAlgebra(Aop));    
+    leftmultwitharrows := [];
+    for a in arrows do
+        source := VertexIndex(SourceOfPath(a));
+        target := VertexIndex(TargetOfPath(a));
+        Add(leftmultwitharrows, 
+            HomFromProjective(MinimalGeneratingSetOfModule(P[source])[1]^(a*One(A)), P[source]));
+    od;
+    #
+    # Finally, finding the linear maps in the representation given by  Hom_A(M,A)  and 
+    # constructing the module/representation over  A^op.
+    # 
+    matrices := [];
+    for a in arrows do
+        source := VertexIndex(SourceOfPath(a));
+        target := VertexIndex(TargetOfPath(a));
+        if dimvector[source] <> 0 and dimvector[target] <> 0 then 
+            temp := V[target]*leftmultwitharrows[Position(arrows, a)];
+            temp := List(temp, t -> Coefficients(BasisVflat[source], 
+                            Flat(MatricesOfPathAlgebraMatModuleHomomorphism(t))));
+            Add(matrices, [String(arrowsop[Position(arrows, a)]), temp]);
+        fi;
+    od;
+    
+    return RightModuleOverPathAlgebra(Aop, dimvector, matrices);    
+end
+);
+    
+#######################################################################
+##
+#A  StarOfModuleHomomorphism( <f> )
+##
+##  This function takes as an argument a homomorphism  f  between two 
+##  modules  M  and  N  over an algebra  A  and computes the induced 
+##  homomorphism from the module  Hom_A(N, A)  to the module  
+##  Hom_A(M, A)  over the opposite of  A. 
+##
+InstallMethod( StarOfModuleHomomorphism, 
+    "for a matrix",
+    [ IsPathAlgebraMatModuleHomomorphism ],
+        
+    function( f )
+    local M, N, starM, starN, A, Aop, K, P, VN, dimvectorstarN, BfVN, 
+          VM, dimvectorstarM, BVM, BasisVMflat, b, maps, i, map, dimrow, 
+          dimcol;
+    
+    M := Source(f);
+    N := Range(f);
+    # 
+    # Finding the source and range of  StarOfModuleHomomorphism(f).
+    #
+    starM := StarOfModule(M);
+    starN := StarOfModule(N); 
+    #
+    # Setting up necessary infrastructure.
+    #
+    A := RightActingAlgebra(M);
+    Aop := OppositeAlgebra(A);
+    K := LeftActingDomain(M); 
+    P := IndecProjectiveModules(A);
+    VN := List(P, p -> HomOverAlgebra(N,p));
+    dimvectorstarN := List(VN, Length); 
+    #
+    # Finding the image of the map  StarOfModuleHomomorphism(f).
+    # 
+    VN := List(VN, v -> f*v);
+    BfVN := List(VN, v -> List(v, x -> 
+                    Flat(MatricesOfPathAlgebraMatModuleHomomorphism(x))));
+    #
+    # Computing the basis of StarOfModule(Source(f))  used when the module 
+    # was constructed. 
+    # 
+    VM := List(P, p -> HomOverAlgebra(M,p));
+    dimvectorstarM := List(VM, Length); 
+    BVM := List(VM, v -> List(v, x -> 
+                   Flat(MatricesOfPathAlgebraMatModuleHomomorphism(x))));
+    BasisVMflat := [];
+    for b in BVM do
+        if Length(b) <> 0 then 
+            Add(BasisVMflat, 
+                Basis(Subspace(FullRowSpace(K, Length(b[1])), b, "basis"))); 
+        else 
+            Add(BasisVMflat, []);
+        fi;
+    od;
+    #
+    # Constructing the map induced by  f  from StarOfModule(Range(f))  to 
+    # StarOfModule(Source(f)). 
+    # 
+    maps := [];
+    for i in [1..Length(BfVN)] do
+        if Length(BfVN[i]) <> 0 then 
+            map := List(BfVN[i], t -> Coefficients(BasisVMflat[i], t));
+        else
+            if dimvectorstarN[i] = 0 then 
+                dimrow := 1;
+            else 
+                dimrow := dimvectorstarN[i];
+            fi;
+            if dimvectorstarM[i] = 0 then
+                dimcol := 1;
+            else 
+                dimcol := dimvectorstarM[i];
+            fi;
+            map := NullMat(dimrow,dimcol,K);
+        fi;
+        Add(maps, map);
+    od;
+    
+    return RightModuleHomOverAlgebra(starN, starM, maps);
+end
+);
+
+#######################################################################
+##
+#A  NakayamaFunctorOfModule( <M> )
+##
+##  This function takes as an argument a module over an algebra  A  and
+##  computes the image of the Nakayama functor, that is, the module  
+##  Hom_K(Hom_A(M, A), K)  over  A. 
+##  
+InstallMethod( NakayamaFunctorOfModule, 
+    "for a matrix",
+    [ IsPathAlgebraMatModule ],
+        
+    function( M );
+    
+    return DualOfModule(StarOfModule(M));
+end
+  );
+
+#######################################################################
+##
+#A  NakayamaFunctorOfModuleHomomorphism( <f> )
+##
+##  This function takes as an argument a homomorphism  f  between two 
+##  modules  M  and  N  over an algebra  A  and computes the induced 
+##  homomorphism from the module  Hom_K(Hom_A(N, A), K)  to the module  
+##  Hom_K(Hom_A(M, A), K)  over  A. 
+##
+InstallMethod( NakayamaFunctorOfModuleHomomorphism, 
+    "for a matrix",
+    [ IsPathAlgebraMatModuleHomomorphism ],
+        
+    function( f ); 
+    
+    return DualOfModuleHomomorphism(StarOfModuleHomomorphism(f));
+end
+);
