@@ -50,43 +50,45 @@ InstallMethod( PowerSubalgebraOp,
         IsCommutative(center); IsAssociative(center);
         return PowerSubalgebraOp( center, n );
     end );
+    
 InstallMethod( OppositeAlgebra,
     "for algebras",
     true,
     [ IsAlgebra ], 0,
     function(A)
-        local type, K, Aop, gens, fam;
+    local type, K, Aop, gens, fam;
 
-        if HasIsCommutative(A) and IsCommutative(A) then
-            return A;
-        fi;
-
-        type := NewType( NewFamily( "OppositeAlgebraElementsFamily",
-                                    IsOppositeAlgebraElement ),
-                         IsPackedElementDefaultRep );
-        K := LeftActingDomain(A);
-
-        if IsAlgebraWithOne(A) then
-            gens := List( GeneratorsOfAlgebraWithOne(A), 
-                          x -> Objectify( type, [x] ) );
-            Aop := AlgebraWithOneByGenerators(K, gens);
-        else
-            gens := List( GeneratorsOfAlgebra(A),
-                          x -> Objectify( type, [x] ) );
-            Aop := AlgebraByGenerators(K, gens);
-        fi;
-        SetIsOppositeAlgebra(Aop, true);
-        SetUnderlyingAlgebra(Aop, A);
-
-        fam := ElementsFamily( FamilyObj( Aop ) );
-        fam!.packedType := type;
-        fam!.underlyingAlgebraEltsFam := ElementsFamily( FamilyObj( A ) );
-        if IsAlgebraWithOne(Aop) then
-            SetOne(fam, Objectify(type, [One(A)]));
-        fi;
-
-        return Aop;
-    end );
+    if HasIsCommutative(A) and IsCommutative(A) then
+        return A;
+    fi;
+    
+    type := NewType( NewFamily( "OppositeAlgebraElementsFamily",
+                    IsOppositeAlgebraElement ),
+                    IsPackedElementDefaultRep );
+    K := LeftActingDomain(A);
+    
+    if IsAlgebraWithOne(A) then
+        gens := List( GeneratorsOfAlgebraWithOne(A), 
+                      x -> Objectify( type, [x] ) );
+        Aop := AlgebraWithOneByGenerators(K, gens);
+    else
+        gens := List( GeneratorsOfAlgebra(A),
+                      x -> Objectify( type, [x] ) );
+        Aop := AlgebraByGenerators(K, gens);
+    fi;
+    SetIsOppositeAlgebra(Aop, true);
+    SetUnderlyingAlgebra(Aop, A);
+    
+    fam := ElementsFamily( FamilyObj( Aop ) );
+    fam!.packedType := type;
+    fam!.underlyingAlgebraEltsFam := ElementsFamily( FamilyObj( A ) );
+    if IsAlgebraWithOne(Aop) then
+        SetOne(fam, Objectify(type, [One(A)]));
+    fi;
+    
+    return Aop;
+end 
+);
 InstallMethod(\in,
     "for opposite algebra elements and opposite algebras",
     IsElmsColls,

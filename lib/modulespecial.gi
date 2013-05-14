@@ -293,7 +293,7 @@ InstallMethod ( SimpleModules,
     if not IsFiniteDimensional(A) then
         Error("argument entered is not a finite dimensional algebra,\n");
     fi;
-    if ( not IsPathAlegbra(A) ) and ( not IsAdmissibleQuotientOfPathAlgebra(A) ) then
+    if ( not IsPathAlgebra(A) ) and ( not IsAdmissibleQuotientOfPathAlgebra(A) ) then
         Error("argument entered is not a quotient of a path algebra by an admissible ideal,\n");
     fi;
     KQ := OriginalPathAlgebra(A); 

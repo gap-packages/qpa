@@ -1494,6 +1494,10 @@ InstallMethod( OppositePathAlgebra,
     gb   := GBNPGroebnerBasis(rels_op,PA_op);
     gbb  := GroebnerBasis(I_op,gb);
     quot_op := PA_op / I_op;
+    
+    if HasIsAdmissibleQuotientOfPathAlgebra(quot) and IsAdmissibleQuotientOfPathAlgebra(quot) then
+        SetIsAdmissibleQuotientOfPathAlgebra(quot_op, true);
+    fi; 
 
     SetOppositePathAlgebra( quot_op, quot );
 
