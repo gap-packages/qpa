@@ -1396,36 +1396,83 @@ function( source, range, basePosition, middle, positive, negative )
 
 end );
 
+#######################################################################
+##
+#O  HighestKnownDegree( <map> ) 
+##
+##  Returns the highest degree that has been computed (or is otherwise
+##  known) of the chain map <map>.  
+##  
 InstallMethod( HighestKnownDegree,
 [ IsChainMap ],
 function( map )
     return HighestKnownPosition( MorphismsOfChainMap( map ) );
 end );
 
+#######################################################################
+##
+#O  LowestKnownDegree( <map> ) 
+##
+##  Returns the lowest degree that has been computed (or is otherwise)
+##  known) of the chain map <map>.
+##  
 InstallMethod( LowestKnownDegree,
 [ IsChainMap ],
 function( map )
     return LowestKnownPosition( MorphismsOfChainMap( map ) );
 end );
 
+#######################################################################
+##
+#O  MorphismOfChainMap( <map>, <i> ) 
+##
+##  Returns the morhpism in degree <i> of the map <map>.
+##  
 InstallMethod( MorphismOfChainMap,
 [ IsChainMap, IsInt ],
 function( map, i )
     return MorphismsOfChainMap( map )^i;
 end );
 
+#######################################################################
+##
+#O  \^( <map>, <i> ) 
+##
+##  Returns the morphism in degree <i> of the map <map>.
+##  
 InstallMethod( \^,
 [ IsChainMap, IsInt ],
 function( map, i )
     return MorphismsOfChainMap( map )^i;
 end );
 
+#######################################################################
+##
+#O  PrintObj( <map> ) 
+##
+##  Prints the chain map <map>.
+##  
 InstallMethod( PrintObj,
 [ IsChainMap ],
 function( map )
     Print( "<chain map>" );
 end );
 
+#######################################################################
+##
+#F  ComplexAndChainMAps( <sourceComplexes>, <rangeComplexes>,
+##                       <basePosition>, <middle>, <positive>,
+##                       <negative> ) 
+##
+##  Returns a list consisting of a newly created complex, togeher with
+##  one or more newly created chain maps.  The new complex is either
+##  source or range for the new chain map(s).
+##
+##  <sourceComplexes> is a list of the complexes to be sources of the
+##  chain maps which will have the new complex as range.  Similarly,
+##  <rangeComplexes> is a list of the complexes to be ranges of the new
+##  chain maps which will have the new complex as source.
+##  
 InstallGlobalFunction( ComplexAndChainMaps,
 function( sourceComplexes, rangeComplexes,
           basePosition, middle, positive, negative )
