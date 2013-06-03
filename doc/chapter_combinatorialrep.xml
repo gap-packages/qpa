@@ -1,0 +1,134 @@
+<Chapter Label="Combinatorial_Rep_Theory">
+<Heading>Combinatorial representation theory</Heading>
+
+<Section>
+<Heading>Introduction</Heading> 
+
+Here we introduce the implementation of the software package CREP
+initially designed for MAPLE.
+</Section>
+
+<Section Label="UnitForms">
+<Heading>Different unit forms</Heading>
+
+<ManSection>
+<Filt Type="Category" Name="IsUnitForm"/>
+<Description>
+The category for unit forms, which we identify with symmetric integral
+matrices with 2 along the diagonal.
+</Description>
+</ManSection>
+
+<ManSection>
+  <Attr Name="BilinearFormOfUnitForm" Arg="B" />
+  <Description>
+    Arguments: <Arg>B</Arg> -- a unit form.<Br />
+  </Description>
+  <Returns>
+    the bilinear form associated to a unit form <Arg>B</Arg>. 
+  </Returns>
+  <Description>The bilinear form associated to the unitform
+  <Arg>B</Arg> given by a matrix <C>B</C> is defined for two vectors
+  <C>x</C> and <C>y</C> as: <M>x*B*y^T</M>.
+  </Description>
+</ManSection>
+
+<ManSection>
+  <Prop Name="IsWeaklyNonnegativeUnitForm" Arg="B" />
+  <Description>
+    Arguments: <Arg>B</Arg> -- a unit form.<Br />
+  </Description>
+  <Returns>
+    true is the unitform <Arg>B</Arg> is weakly non-negative, otherwise false. 
+  </Returns>
+  <Description>The unit form <Arg>B</Arg> is weakly non-negative is
+  <M>B(x,y) \geq 0</M> for all <M>x\neq 0</M> in <M>\mathbb{Z}^n</M>, where
+  <M>n</M> is the dimension of the square matrix associated to
+  <Arg>B</Arg>.
+  </Description>
+</ManSection>
+
+<ManSection>
+  <Prop Name="IsWeaklyPositiveUnitForm" Arg="B" />
+  <Description>
+    Arguments: <Arg>B</Arg> -- a unit form.<Br />
+  </Description>
+  <Returns>
+    true is the unitform <Arg>B</Arg> is weakly positive, otherwise false. 
+  </Returns>
+  <Description>The unit form <Arg>B</Arg> is weakly positive if
+  <M>B(x,y) > 0</M> for all <M>x\neq 0</M> in <M>\mathbb{Z}^n</M>,
+  where <M>n</M> is the dimension of the square matrix associated to
+  <Arg>B</Arg>.
+  </Description>
+</ManSection>
+
+DeclareProperty( "IsWeaklyNonnegativeUnitForm",  IsUnitForm  );
+DeclareProperty( "IsWeaklyPositiveUnitForm",  IsUnitForm  );
+
+<ManSection>
+  <Attr Name="QuadraticFormOfUnitForm" Arg="B" />
+  <Description>
+    Arguments: <Arg>B</Arg> -- a unit form.<Br />
+  </Description>
+  <Returns>
+    the quadratic form associated to a unit form <Arg>B</Arg>. 
+  </Returns>
+  <Description>The quadratic form associated to the unitform
+  <Arg>B</Arg> given by a matrix <C>B</C> is defined for a vector
+  <C>x</C> as: <M>\frac{1}{2}x*B*x^T</M>.
+  </Description>
+</ManSection>
+
+<ManSection>
+  <Attr Name="SymmetricMatrixOfUnitForm" Arg="B" />
+  <Description>
+    Arguments: <Arg>B</Arg> -- a unit form.<Br />
+  </Description>
+  <Returns>
+    the symmetric integral matrix which defines the unit form <Arg>B</Arg>. 
+  </Returns>
+</ManSection>
+
+<ManSection>
+  <Oper Name="TitsUnitFormOfAlgebra" Arg="A" />
+  <Description>
+    Arguments: <Arg>A</Arg> -- a finite dimensional (quotient of a)
+    path algebra (by an admissible ideal).<Br />
+  </Description>
+  <Returns>
+    the Tits unit form associated to the algebra <Arg>A</Arg>.
+  </Returns>
+  <Description>This function returns the Tits unitform associated to a
+  finite dimensional quotient of a path algebra by an admissible ideal
+  or path algebra, given that the underlying quiver has no loops or
+  minimal relations that starts and ends in the same vertex. That is,
+  then it returns a symmetric matrix <M>B</M> such that for <M>x =
+  (x_1,...,x_n) (1/2)*(x_1,...,x_n)B(x_1,...,x_n)^T = \sum_{i=1}^n
+  x_i^2 - \sum_{i,j} \dim_k \Ext^1(S_i,S_j)x_ix_j + \sum_{i,j} \dim_k
+  \Ext^2(S_i,S_j)x_ix_j</M>, where <M>n</M> is the number of vertices
+  in <M>Q</M>.
+  </Description>
+</ManSection>
+
+<ManSection>
+  <Oper Name="UnitForm" Arg="B" />
+  <Description>
+    Arguments: <Arg>B</Arg> -- an integral matrix.<Br />
+  </Description>
+  <Returns>
+    the unit form in the category <Ref Filt="IsUnitForm"/> associated
+    to the matrix <Arg>B</Arg>.
+  </Returns>
+  <Description>The function checks if <Arg>B</Arg> is a symmetric
+  integral matrix with 2 along the diagonal, and returns an error
+  message otherwise. In addition it sets the attributes, <Ref
+  Attr="BilinearFormOfUnitForm"/>, <Ref
+  Attr="QuadraticFormOfUnitForm"/> and <Ref
+  Attr="SymmetricMatrixOfUnitForm"/>.
+  </Description>
+</ManSection>
+
+
+</Section>
+</Chapter>
