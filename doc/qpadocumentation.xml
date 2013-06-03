@@ -131,7 +131,7 @@ GBNP interface (for Groebner bases),</Item></Row>
 This is an appendix. 
 </Appendix> -->
 
-<Bibliography Databases="qpadocumentationbib.xml" />
+<Bibliography Databases="qpadocumentation.bib" />
 
 <TheIndex/>
 
