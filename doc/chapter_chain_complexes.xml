@@ -1,9 +1,81 @@
 <Chapter>
 <Heading>Chain complexes</Heading>
-(Not completely documentet yet.)
-
 
 <Section>
+<Heading>Introduction</Heading> If <M>\mathcal{A}</M> is an abelian
+category, then a chain complex of objects of <M>\mathcal A</M> is a
+sequence 
+<Display>
+  \cdots \longrightarrow C_{i+1} \stackrel{d_{i+1}}{\longrightarrow}
+  C_i \stackrel{d_i}{\longrightarrow} C_{i-1}
+  \stackrel{d_{i-1}}{\longrightarrow} \cdots
+</Display>
+where <M>C_i</M> is an object of <M>\mathcal A</M> for all <M>i</M>,
+and <M>d_i</M> is a morphism of <M>\mathcal A</M> for all <M>i</M>
+such that the composition of two consecutive maps is zero.  The maps
+are called the differentials of the complex.  A complex is called
+<E>bounded above</E> (resp. below) if there is a bound <M>b</M> such
+that <M>C_i = 0</M> for all <M>i&gt;b</M> (resp. <M>i&lt;b</M>). A
+complex is <E>bounded</E> if it is both bounded below and bounded
+above.
+<P />
+The challenge when representing chain complexes in software is to
+handle their infinite nature.  If a complex is not bounded, or not
+known to be bounded, how can we represent it in an immutable way?  Our
+solution is to use a category called <C>InfList</C> (for "infinite
+list") to store the differentials of the complex.  The properties of
+the <C>IsInfList</C> category is described in <Ref Sect="InfLists"/>.
+An <C>IsComplex</C> object consists of one <C>IsInfList</C> for the
+differentials, and it also has an <C>IsCat</C> object as an attribute.
+The <C>IsCat</C> category is a representation of an abelian category,
+see <Ref Sect="Cats" />.
+<P />
+To work with bounded complexes one does not need to know much about
+the <C>IsInfList</C> category.  A bounded complex can be created by
+simply giving a list of the differentials and the degree of the first
+differential as input (see <Ref Func="FiniteComplex"/>), and to create
+a stalk complex the stalk object and its degree suffers as input (see
+<Ref Func="StalkComplex"/>).  In both cases an <C>IsCat</C> object is
+also needed.
+
+<Example><![CDATA[
+ gap> C := FiniteComplex(cat, 1, [g,f]);
+ 0 -> 2:(1,0) -> 1:(2,2) -> 0:(1,1) -> 0 
+ gap> Ms := StalkComplex(cat, M, 3);
+ 0 -> 3:(2,2) -> 0 ]]>
+</Example>
+</Section>
+
+<Section Label="InfLists">
+<Heading>Infinite lists</Heading> 
+<ManSection>
+  <Filt Type="Var" Name="PositiveInfinity"/>
+  <Description>
+
+  </Description>
+</ManSection>
+
+<ManSection>
+<Filt Type="Category" Name="IsInfList"/>
+<Description>
+  An infinite list is an immutable representation of a list with
+  possibly infinite range of indeces.  It consists of three parts: The
+  "middle part" is finite and covers some range <M>[a,b]</M> of
+  indices, the "positive part" covers the range <M>[b+1,\infty]</M> of
+  indices, and the "negative part" convers the range
+  <M>(-\infty,a-1]</M> of indices.
+  <P />
+  Each of the two infinite parts are described in one of the following
+  ways: (1) A finite list which is repeated indefinitely; (2) A
+  function which takes an index in the list as argument and returns
+  the corresponding list item; (3) A function which takes an item from
+  the list as argument and returns the next item.
+</Description>
+</ManSection>
+
+</Section>
+
+<Section Label="Cats">
 <Heading>Representation of categories</Heading>
 
 A chain complex consists of objects and morphisms from some category.

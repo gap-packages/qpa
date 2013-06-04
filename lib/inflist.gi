@@ -1,12 +1,35 @@
+#######################################################################
+##
+#V  PositiveInfinity 
+##
+##  A global variable representing positive infinity.  Has the prop-
+##  erty that it is greater than any given integer.
+##  
 InstallValue( PositiveInfinity,
               Objectify( NewType( FamilyObj(0),
                                   IsInfiniteNumber and IsPositionalObjectRep ),
                          [] ) );
+
+#######################################################################
+##
+#V  NegativeInfinity 
+##
+##  A global variable representing positive infinity.  Has the prop-
+##  erty that it is smaller than any given integer.
+##  
 InstallValue( NegativeInfinity,
               Objectify( NewType( FamilyObj(0),
                                   IsInfiniteNumber and IsPositionalObjectRep ),
                          [] ) );
 
+#######################################################################
+##
+#M  \=( <x>, <y> )
+##
+##  Equality test for infinite numbers.  Two infinite numbers are
+##  the same if they are the same object, and one infinite number is
+##  never equal to any other object than itself.
+##  
 InstallMethod( \=,
     [ IsInfiniteNumber, IsInfiniteNumber ],
     IsIdenticalObj );
@@ -17,6 +40,16 @@ InstallMethod( \=,
     [ IsObject, IsInfiniteNumber ],
     ReturnFalse );
 
+#######################################################################
+##
+#M  \<( <x>, <y> )
+##
+##  Comparison test for infinite number vs. integer.  If <x> = Negative
+##  Infinity and <y> is an integer, then return TRUE.  If <y> = Positive
+##  Infinity and <x> is an integer, then return TRUE.  If <x> = Negative
+##  Infinity and <y> = PositiveInfinity, then return TRUE.  In all other
+##  cases return FALSE.
+##  
 InstallMethod( \<,
 [ IsInfiniteNumber, IsInt ],
 function( infnum, num )
@@ -33,6 +66,12 @@ function( n1, n2 )
         return n1 = NegativeInfinity and n2 = PositiveInfinity;
     end );
 
+#######################################################################
+##
+#M  PrintObj( <n> )
+##
+##  Prints an infinite number (as "+inf" or "-inf").
+##  
 InstallMethod( PrintObj,
 [ IsInfiniteNumber ],
 function( n )
@@ -43,8 +82,16 @@ function( n )
 	fi;
     end );
 
-
-
+#######################################################################
+##
+#F  MakeHalfInfList( <start>, <direction>, <typeWithArgs>, <callback> )
+##
+##  Creates a IsHalfInfList with start index <start>, <direction> is
+##  -1 for negative or 1 for positive, <typeWithArgs> is a list of either
+##  two or three arguments describing the nature of the infinite list
+##  (see the documentation), and <callback> is a function which is called
+##  whenever a new list element is computed.
+##  
 InstallGlobalFunction( MakeHalfInfList,
 function( start, direction, typeWithArgs, callback )
     local type, repeatingList, func, initialValue, storeValues, data, list;
@@ -84,60 +131,123 @@ function( start, direction, typeWithArgs, callback )
 
 end );
 
+#######################################################################
+##
+#M  StartPosition( <list> )
+##
+##  Returns the start position of a IsHalfInfList <list>.
+##  
 InstallMethod( StartPosition,
 [ IsHalfInfList ],
 function( list )
     return list!.start;
 end );
 
+#######################################################################
+##
+#M  Direction( <list> )
+##
+##  Returns the direction of a IsHalfInfList <list>.
+##  
 InstallMethod( Direction,
 [ IsHalfInfList ],
 function( list )
     return list!.direction;
 end );
 
+#######################################################################
+##
+#M  InfListType( <list> )
+##
+##  Returns the type of a IsHalfInfList <list>.
+##  
 InstallMethod( InfListType,
 [ IsHalfInfList ],
 function( list )
     return list!.type;
 end );
 
+#######################################################################
+##
+#M  RepeatingList( <list> )
+##
+##  Returns the repeatingList of a IsHalfInfList <list>.
+##  
 InstallMethod( RepeatingList,
 [ IsHalfInfList ],
 function( list )
     return list!.repeatingList;
 end );
 
+#######################################################################
+##
+#M  ElementFunction( <list> )
+##
+##  Returns the element-function of a IsHalfInfList <list>.
+##  
 InstallMethod( ElementFunction,
 [ IsHalfInfList ],
 function( list )
     return list!.func;
 end );
 
+#######################################################################
+##
+#M  IsStoringValues( <list> )
+##
+##  Returns the value of the (boolean) storingValues of a 
+##  IsHalfInfList <list>.
+##  
 InstallMethod( IsStoringValues,
 [ IsHalfInfList ],
 function( list )
     return list!.storingValues;
 end );
 
+#######################################################################
+##
+#M  NewValueCallback( <list> )
+##
+##  Returns the callback function of a IsHalfInfList <list>.
+##  
 InstallMethod( NewValueCallback,
 [ IsHalfInfList ],
 function( list )
     return list!.callback;
 end );
 
+#######################################################################
+##
+#M  IsRepeating( <list> )
+##
+##  Returns true if the type of the IsHalfInfList <list> is "repeat",
+##  false otherwise.
+##  
 InstallMethod( IsRepeating,
 [ IsHalfInfList ],
 function( list )
     return list!.type = "repeat";
 end );
 
+#######################################################################
+##
+#M  InitialValue( <list> )
+##
+##  Returns the initial value of a IsHalfInfList <list>.
+##  
 InstallMethod( InitialValue,
 [ IsHalfInfList ],
 function( list )
     return list!.initialValue;
 end );
 
+#######################################################################
+##
+#M  \^( <list>, <pos> )
+##
+##  Returns the stored value at index <pos> in the IsHalfInfList
+##  <list>.
+##  
 InstallMethod( \^,
 [ IsHalfInfList and IsHalfInfListDefaultRep, IsInt ],
 function( list, pos )
@@ -187,6 +297,12 @@ function( list, pos )
     
 end );
 
+#######################################################################
+##
+#M  LowestKnownPosition( <list> )
+##
+##  Returns the lowest index of the list where the value is known.
+##  
 InstallMethod( LowestKnownPosition,
 [ IsHalfInfList ],
 function( list )
@@ -207,6 +323,12 @@ function( list )
     fi;
 end );
 
+#######################################################################
+##
+#M  HighestKnownPosition( <list> )
+##
+##  Returns the highest index of the list where the value is known.
+##  
 InstallMethod( HighestKnownPosition,
 [ IsHalfInfList ],
 function( list )
@@ -228,8 +350,18 @@ function( list )
 end );
 
 
-
-
+#######################################################################
+##
+#F  MakeInfList( <basePosition>, <middle>, <positive>, <negative>,
+##               <callback> )
+##
+##  Creates an IsInfList object.  <basePostition> tells in which index
+##  the values should be put, <middle> is a list of known values,
+##  <positive> is a list describing the positive part of the infinite
+##  list, and <negative> part is a list describing the negative part
+##  of the list.  <callback> is a function to be called whenever a 
+##  new value of the infinite list is computed.
+##  
 InstallGlobalFunction( MakeInfList,
 function( basePosition, middle, positive, negative, callback )
     local posList, negList;
@@ -247,6 +379,14 @@ function( basePosition, middle, positive, negative, callback )
 
 end );
 
+#######################################################################
+##
+#F  MakeInfListFromHalfInfLists( <basePosition>, <middle>, <positive>,
+##                                <negative> )
+##  
+##  Creates an IsInfList from a middle part (a list) and two IsHalfInfLists
+##  <positive> and <negative>.
+##
 InstallGlobalFunction( MakeInfListFromHalfInfLists,
 function( basePosition, middle, positive, negative )
     local list;
@@ -269,6 +409,13 @@ function( basePosition, middle, positive, negative )
 
 end );
 
+#######################################################################
+##
+#F  FunctionInfList( <func> )
+##  
+##  Creates an IsInfList where all list entries are described by a 
+##  function.
+##
 InstallGlobalFunction( FunctionInfList,
 function( func )
     local positiveNegativeList;
@@ -276,46 +423,97 @@ function( func )
     return MakeInfList( 0, [], positiveNegativeList, positiveNegativeList, false );
 end );
 
+#######################################################################
+##
+#F  ConstantInfList( <value> )
+##  
+##  Creates an IsInfList with <value> in each position.
+##
 InstallGlobalFunction( ConstantInfList,
 function( value )
     return MakeInfList( 0, [], [ "repeat", [ value ] ], [ "repeat", [ value ] ], false );
 end );
 
+#######################################################################
+##
+#F  FiniteInfList( <basePosition>, <list> )
+##  
+##  Creates an IsInfList which is finite.  Only indexes in the interval
+##  [basePostition, basePosition + length(<list>) - 1] is allowed.
+##
 InstallGlobalFunction( FiniteInfList,
 function( basePosition, list )
     return MakeInfListFromHalfInfLists( basePosition, list, fail, fail );
 end );
 
+#######################################################################
+##
+#M  MiddleStart( <list> )
+##  
+##  Returns the first index of the middle part, or the basePosition,
+##  of the IsInfList <list>.
+##
 InstallMethod( MiddleStart,
 [ IsInfList ],
 function( list )
     return list!.basePosition;
 end );
 
+#######################################################################
+##
+#M  MiddleEnd( <list> )
+##  
+##  Returns the last index of the middle part of the IsInfList <list>.
+##
 InstallMethod( MiddleEnd,
 [ IsInfList ],
 function( list )
     return list!.basePosition + Length( list!.middle ) - 1;
 end );
 
+#######################################################################
+##
+#M  MiddlePart( <list> )
+##  
+##  Returns the middle part of the IsInfList <list>, as a list.
+##
 InstallMethod( MiddlePart,
 [ IsInfList ],
 function( list )
     return list!.middle;
 end );
 
+#######################################################################
+##
+#M  PositivePart( <list> )
+##  
+##  Returns the positive part of the IsInfList <list>, as an IsHalfInfList.
+##
 InstallMethod( PositivePart,
 [ IsInfList ],
 function( list )
     return list!.positive;
 end );
 
+#######################################################################
+##
+#M  NegativePart( <list> )
+##  
+##  Returns the negative part of the IsInfList <list>, as an IsHalfInfList.
+##
 InstallMethod( NegativePart,
 [ IsInfList ],
 function( list )
     return list!.negative;
 end );
 
+#######################################################################
+##
+#M  LowestKnownPosition( <list> )
+##  
+##  Returns the lowest index where the value of the IsInfList <list>
+##  is computed or otherwise known. 
+##
 InstallMethod( LowestKnownPosition,
 [ IsInfList ],
 function( list )
@@ -329,6 +527,13 @@ function( list )
     fi;
 end );
 
+#######################################################################
+##
+#M  HighestKnownPosition( <list> )
+##  
+##  Returns the highest index where the value of the IsInfList <list>
+##  is computed or otherwise known. 
+##
 InstallMethod( HighestKnownPosition,
 [ IsInfList ],
 function( list )
@@ -342,6 +547,13 @@ function( list )
     fi;
 end );
 
+#######################################################################
+##
+#M  UpperBound( <list> )
+##  
+##  Returns the highest index where the value of the IsInfList <list>
+##  exists (but is not necessarily known).
+##
 InstallMethod( UpperBound,
 [ IsInfList ],
 function( list )
@@ -356,6 +568,13 @@ function( list )
     fi;
 end );
 
+#######################################################################
+##
+#M  LowerBound( <list> )
+##  
+##  Returns the smallest index where the value of the IsInfList <list>
+##  exists (but is not necessarily known).
+##
 InstallMethod( LowerBound,
 [ IsInfList ],
 function( list )
@@ -370,6 +589,12 @@ function( list )
     fi;
 end );
 
+#######################################################################
+##
+#M  \^( <list>, <pos> )
+##  
+##  Returns the value of the IsInfList <list> at the index <pos>.
+##
 InstallMethod( \^,
 [ IsInfList, IsInt ],
 function( list, pos )
@@ -387,6 +612,14 @@ function( list, pos )
     fi;
 end );
 
+#######################################################################
+##
+#M  Shift( <list>, <shift> )
+##  
+##  <list> is an IsHalfInfList.  The method shifts the list <shift> 
+##  positions; to the left if <shift> is positive or to the right if
+##  <shift> is negative.
+##
 InstallMethod( Shift,
 [ IsHalfInfList, IsInt ],
 function( list, shift )
@@ -401,6 +634,14 @@ function( list, shift )
 
 end );
 
+#######################################################################
+##
+#M  Shift( <list>, <shift> )
+##  
+##  <list> is an IsInfList.  The method shifts the list <shift> 
+##  positions; to the left if <shift> is positive or to the right if
+##  <shift> is negative.
+##
 InstallMethod( Shift,
 [ IsInfList and IsInfListDefaultRep, IsInt ],
 function( list, shift )
@@ -411,12 +652,27 @@ function( list, shift )
              Shift( NegativePart( list ), shift ) );
     end );
 
+#######################################################################
+##
+#M  FinitePartAsList( <list>, <startPos>, <endPos> )
+##  
+##  <list> is an IsInfList.  The part of the list starting at index
+##  <startPos> and ending at index <endPos> is returned as a list.
+##  Note that <endPos> > <startPos>.
+##
 InstallMethod( FinitePartAsList,
 [ IsInfList, IsInt, IsInt ],
 function( list, startPos, endPos )
     return List( [ startPos .. endPos ], i -> list^i );
 end );
 
+#######################################################################
+##
+#M  Cut( <list>, <pos> )
+##
+##  Returns a new IsHalfInfList which the old IsHalfInfList except
+##  that the positions with indeces smaller than <pos> is removed.
+##  
 InstallMethod( Cut,
 [ IsHalfInfList, IsInt ],
 function( list, pos )
@@ -456,6 +712,13 @@ function( list, pos )
 
 end );
 
+#######################################################################
+##
+#M  PositivePartFrom( <list>, <pos> )
+##
+##  Returns a new IsInfList with only the positions with indeces 
+##  greater than or equal to <pos>.
+##  
 InstallMethod( PositivePartFrom,
 [ IsInfList, IsInt ],
 function( list, pos )
@@ -471,6 +734,13 @@ function( list, pos )
 
 end );
 
+#######################################################################
+##
+#M  NegativePartFrom( <list>, <pos> )
+##
+##  Returns a new IsInfList with only the positions with indeces 
+##  smaller than or equal to <pos>.
+##  
 InstallMethod( NegativePartFrom,
 [ IsInfList, IsInt ],
 function( list, pos )
@@ -487,6 +757,14 @@ function( list, pos )
 
 end );
 
+#######################################################################
+##
+#M  Splice( <positiveList>, <negativeList>, <joinPosition> )
+##
+##  Returns a new IsInfList which is identical to <positiveList> for
+##  indeces greater than <joinPosition> and identical to <negativeList>
+##  for indeces smaller than or equal to <joinPosition>.
+##  
 InstallMethod( Splice,
 [ IsInfList, IsInfList, IsInt ],
 function( positiveList, negativeList, joinPosition )
@@ -503,6 +781,15 @@ function( positiveList, negativeList, joinPosition )
 
 end );
 
+#######################################################################
+##
+#F  InfConcatenation( <arg> )
+##
+##  <arg> is a list of IsInfLists. The method creates a new IsInfList
+##  where the middle part is the middle parts of the respective lists
+##  of <arg>, the positive part is the positive part of the first list
+##  and the negative part is the negative part of the last list.
+##  
 InstallGlobalFunction( InfConcatenation,
 function( arg )
     local middle, basePosition, positive, negative;
@@ -528,6 +815,15 @@ function( arg )
 
 end );
 
+#######################################################################
+##
+#M  InfList( <list>, <func> )
+##
+##  <list> is an InfList and <func> is a function which can take 
+##  elements of <list> as argument.  The method returns a new list
+##  where the elements are the elements of <list> with <func> applied
+##  to them.
+##  
 InstallMethod( InfList,
 [ IsInfList, IsFunction ],
 function( list, func )
@@ -540,6 +836,15 @@ function( list, func )
 
 end );
 
+#######################################################################
+##
+#M  HalfInfList( <list>, <func> )
+##
+##  <list> is a HalfInfList and <func> is a function which can take 
+##  elements of <list> as argument.  The method returns a new list
+##  where the elements are the elements of <list> with <func> applied
+##  to them.
+##  
 InstallMethod( HalfInfList,
 [ IsHalfInfList, IsFunction ],
 function( list, func )
@@ -556,5 +861,11 @@ function( list, func )
 
 end );
 
+#######################################################################
+##
+#V  IntegersList
+##
+##  An IsInfList with the integer i at position i.
+##
 InstallValue( IntegersList, FunctionInfList( IdFunc ) );
 
