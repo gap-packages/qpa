@@ -397,6 +397,21 @@ gap> ConnectedComponents(Q);
   <quiver with 2 vertices and 2 arrows>, 
   <quiver with 1 vertices and 0 arrows> ]]]>
 </Example>
+
+<ManSection>
+   <Attr Name="SeparatedQuiver" Arg="quiver" Comm=""/>
+   <Description>Arguments: <Arg>quiver</Arg> -- a quiver.<Br /></Description>
+   <Returns>
+     the separated quiver of <Arg>quiver</Arg>.
+   </Returns>
+   <Description>
+     The vertices in the separated quiver are labelled <M>v</M> and
+     <M>v'</M> for each vertex <M>v</M> in <Arg>quiver</Arg>, and for
+     each arrow <M>a\colon v \to w</M> in <Arg>quiver</Arg> the arrow
+     <M>v\to w'</M> is labelled <M>a</M>.<P/>
+   </Description> 
+  </ManSection>
+
 </Section>
 
 <Section><Heading>Categories and Properties of Paths</Heading>

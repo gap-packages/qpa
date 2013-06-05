@@ -10,6 +10,8 @@ DeclareGlobalFunction( "PathAlgebra" );
 DeclareAttribute( "QuiverOfPathRing", IsPathRing );
 DeclareSynonymAttr( "QuiverOfPathAlgebra", QuiverOfPathRing );
 DeclareGlobalFunction("FactorPathAlgebraByRelators");
+DeclareCategory( "IsQuiverAlgebra", IsAlgebra );
+InstallTrueMethod( IsQuiverAlgebra, IsPathAlgebra );
 
 DeclareOperation( "LeadingTerm", [IsRingElement] );
 DeclareSynonym("Tip", LeadingTerm);
@@ -22,8 +24,7 @@ DeclareOperation( "IsRightUniform", [IsRingElement]);
 DeclareOperation( "IsRightUniform", [IsList,IsPath]);
 DeclareOperation( "IsUniform", [IsRingElement]);
 
-DeclareCategory( "IsQuotientOfPathAlgebra", IsAlgebra );
-DeclareProperty( "IsAdmissibleQuotientOfPathAlgebra", IsQuotientOfPathAlgebra );
+DeclareCategory( "IsQuotientOfPathAlgebra", IsQuiverAlgebra );
 DeclareAttribute( "OrderingOfAlgebra", IsAlgebra );
 DeclareAttribute( "GroebnerBasisOfIdeal", IsRing );
 DeclareAttribute( "GroebnerBasisOfLeftIdeal", IsRing );
@@ -72,8 +73,11 @@ DeclareProperty( "IsSelfinjectiveAlgebra",  IsAlgebra );
 DeclareProperty( "IsSymmetricAlgebra", IsAlgebra );
 DeclareProperty( "IsWeaklySymmetricAlgebra", IsAlgebra );
 DeclareProperty( "IsSchurianAlgebra", IsAlgebra );
-DeclareProperty("IsSemicommutativeAlgebra", IsPathAlgebra);
-DeclareProperty("IsSemicommutativeAlgebra", IsQuotientOfPathAlgebra);
+DeclareProperty( "IsSemicommutativeAlgebra", IsPathAlgebra);
+DeclareProperty( "IsSemicommutativeAlgebra", IsQuotientOfPathAlgebra);
+InstallTrueMethod( IsHereditaryAlgebra, IsPathAlgebra );
+InstallTrueMethod( IsFiniteGlobalDimensionAlgebra, IsPathAlgebra );
+
 DeclareAttribute( "CoxeterPolynomial",  IsPathAlgebra  ); 
 DeclareAttribute( "CoxeterMatrix", IsPathAlgebra ); 
 DeclareOperation( "TipMonomialandCoefficientOfVector", [ IsAlgebra, IsCollection ] );

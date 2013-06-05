@@ -2,7 +2,6 @@
 # This file was generated from
 # $Id: algpath.gi,v 1.8 2012/06/18 16:00:57 andrzejmroz Exp $
 
-
 InstallMethod( IsPathRing,
     "for magma ring modulo the span of zero",
     true,
@@ -61,6 +60,14 @@ InstallGlobalFunction( PathAlgebra,
     fi;
     F := PathRing( F, Q );
     SetOrderingOfAlgebra(F, OrderingOfQuiver(Q));
+    if NumberOfArrows(Q) > 0 then 
+        SetGlobalDimension(F, 1);
+        SetFilterObj( F, IsHereditaryAlgebra ); 
+    else
+        SetGlobalDimension(F, 0);
+        SetFilterObj( F, IsSemisimpleAlgebra ); 
+    fi;
+    
     return F;
   end
 );
@@ -1495,8 +1502,11 @@ InstallMethod( OppositePathAlgebra,
     gbb  := GroebnerBasis(I_op,gb);
     quot_op := PA_op / I_op;
     
-    if HasIsAdmissibleQuotientOfPathAlgebra(quot) and IsAdmissibleQuotientOfPathAlgebra(quot) then
-        SetIsAdmissibleQuotientOfPathAlgebra(quot_op, true);
+#    if HasIsAdmissibleQuotientOfPathAlgebra(quot) and IsAdmissibleQuotientOfPathAlgebra(quot) then
+#        SetIsAdmissibleQuotientOfPathAlgebra(quot_op, true);
+#    fi; 
+    if IsAdmissibleQuotientOfPathAlgebra(quot) then
+        SetFilterObj(quot_op, IsAdmissibleQuotientOfPathAlgebra );
     fi; 
 
     SetOppositePathAlgebra( quot_op, quot );
@@ -1990,8 +2000,11 @@ InstallOtherMethod( \/,
     I := Ideal(KQ,gb);
     GroebnerBasis(I,gb);
     A := KQ/I; 
+#    if IsAdmissibleIdeal(I) then 
+#        SetIsAdmissibleQuotientOfPathAlgebra(A, true);
+#    fi;
     if IsAdmissibleIdeal(I) then 
-        SetIsAdmissibleQuotientOfPathAlgebra(A, true);
+        SetFilterObj(A, IsAdmissibleQuotientOfPathAlgebra );
     fi;
 
     return A;
@@ -2464,3 +2477,5 @@ InstallOtherMethod( OrderOfNakayamaAutomorphism,
     return 1;
 end
 );
+
+

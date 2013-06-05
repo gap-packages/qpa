@@ -6,3 +6,8 @@ DeclareProperty( "IsIdealInPathAlgebra", IsFLMLOR );
 DeclareProperty( "IsAdmissibleIdeal",  IsIdealInPathAlgebra );
 DeclareProperty( "IsMonomialIdeal", IsIdealInPathAlgebra );
 DeclareOperation( "ProductOfIdeals", [ IsIdealInPathAlgebra, IsIdealInPathAlgebra ]);
+DeclareProperty( "IsAdmissibleQuotientOfPathAlgebra", IsQuotientOfPathAlgebra );
+InstallTrueMethod( IsQuotientOfPathAlgebra, IsAdmissibleQuotientOfPathAlgebra );
+DeclareProperty( "IsGentleAlgebra",  IsAdmissibleQuotientOfPathAlgebra ); 
+DeclareProperty( "IsPosetAlgebra",  IsAdmissibleQuotientOfPathAlgebra ); 
+InstallTrueMethod( IsFiniteGlobalDimensionAlgebra, IsPosetAlgebra );

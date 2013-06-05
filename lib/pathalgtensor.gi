@@ -322,8 +322,11 @@ InstallMethod( EnvelopingAlgebra,
 
     envalg := TensorProductOfAlgebras( OppositeAlgebra( pa ), pa );
     SetIsEnvelopingAlgebra( envalg, true );
-    if HasIsAdmissibleQuotientOfPathAlgebra(pa) and IsAdmissibleQuotientOfPathAlgebra(pa) then
-        SetIsAdmissibleQuotientOfPathAlgebra(envalg, true);
+#    if HasIsAdmissibleQuotientOfPathAlgebra(pa) and IsAdmissibleQuotientOfPathAlgebra(pa) then
+#        SetIsAdmissibleQuotientOfPathAlgebra(envalg, true);
+#    fi; 
+    if IsAdmissibleQuotientOfPathAlgebra(pa) then
+        SetFilterObj(envalg, IsAdmissibleQuotientOfPathAlgebra );
     fi; 
     return envalg;
 end );

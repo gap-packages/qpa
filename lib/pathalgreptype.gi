@@ -104,3 +104,21 @@ InstallMethod( IsFiniteTypeAlgebra,
     return fail;
 end
 ); # IsFiniteTypeAlgebra for IsQuotientOfPathAlgebra
+
+InstallMethod( IsFiniteTypeAlgebra, 
+    "for a radical square zero quotient of a path algebra",
+    [ IsRadicalSquareZeroAlgebra and IsAdmissibleQuotientOfPathAlgebra ],
+    0,
+    function( A )
+    
+    local Q;
+    
+    Q := SeparatedQuiver(QuiverOfPathAlgebra(A));
+    
+    if ForAll( ConnectedComponents(Q), IsDynkinQuiver ) then
+        return true;
+    else
+        return false;
+    fi;
+end
+  );

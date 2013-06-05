@@ -7,11 +7,11 @@ DeclareOperation( "KroneckerAlgebra", [IsField, IS_INT] );
 DeclareProperty("IsNakayamaAlgebra", IsAlgebra );
 DeclareProperty("IsCanonicalAlgebra", IsAlgebra );
 DeclareProperty("IsKroneckerAlgebra", IsAlgebra );
-
+InstallTrueMethod( IsFiniteGlobalDimensionAlgebra, IsCanonicalAlgebra );
+InstallTrueMethod( IsFiniteGlobalDimensionAlgebra, IsKroneckerAlgebra );
+InstallTrueMethod( IsHereditaryAlgebra, IsKroneckerAlgebra );
 DeclareProperty("IsSpecialBiserialQuiver", IsQuiver);
 DeclareProperty("IsSpecialBiserialAlgebra", IsPathAlgebra);
 DeclareProperty("IsSpecialBiserialAlgebra", IsQuotientOfPathAlgebra);
 DeclareProperty("IsStringAlgebra", IsPathAlgebra);
 DeclareProperty("IsStringAlgebra", IsQuotientOfPathAlgebra);
-#DeclareProperty("IsGentleAlgebra", IsPathAlgebra);
-#DeclareProperty("IsGentleAlgebra", IsQuotientOfPathAlgebra);
