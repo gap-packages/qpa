@@ -301,7 +301,8 @@ end );
 ##
 #M  LowestKnownPosition( <list> )
 ##
-##  Returns the lowest index of the list where the value is known.
+##  Returns the lowest index of the list where the value is known
+##  without computation.
 ##  
 InstallMethod( LowestKnownPosition,
 [ IsHalfInfList ],
@@ -327,7 +328,8 @@ end );
 ##
 #M  HighestKnownPosition( <list> )
 ##
-##  Returns the highest index of the list where the value is known.
+##  Returns the highest index of the list where the value is known
+##  without computation.
 ##  
 InstallMethod( HighestKnownPosition,
 [ IsHalfInfList ],
@@ -617,7 +619,7 @@ end );
 #M  Shift( <list>, <shift> )
 ##  
 ##  <list> is an IsHalfInfList.  The method shifts the list <shift> 
-##  positions; to the left if <shift> is positive or to the right if
+##  positions; to the right if <shift> is positive or to the left if
 ##  <shift> is negative.
 ##
 InstallMethod( Shift,
@@ -639,7 +641,7 @@ end );
 #M  Shift( <list>, <shift> )
 ##  
 ##  <list> is an IsInfList.  The method shifts the list <shift> 
-##  positions; to the left if <shift> is positive or to the right if
+##  positions; to the right if <shift> is positive or to the left if
 ##  <shift> is negative.
 ##
 InstallMethod( Shift,

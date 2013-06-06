@@ -12,12 +12,12 @@ sequence
 </Display>
 where <M>C_i</M> is an object of <M>\mathcal A</M> for all <M>i</M>,
 and <M>d_i</M> is a morphism of <M>\mathcal A</M> for all <M>i</M>
-such that the composition of two consecutive maps is zero.  The maps
-are called the differentials of the complex.  A complex is called
-<E>bounded above</E> (resp. below) if there is a bound <M>b</M> such
-that <M>C_i = 0</M> for all <M>i&gt;b</M> (resp. <M>i&lt;b</M>). A
-complex is <E>bounded</E> if it is both bounded below and bounded
-above.
+such that the composition of two consecutive maps of the complex is
+zero.  The maps are called the differentials of the complex.  A
+complex is called <E>bounded above</E> (resp. below) if there is a
+bound <M>b</M> such that <M>C_i = 0</M> for all <M>i&gt;b</M>
+(resp. <M>i&lt;b</M>). A complex is <E>bounded</E> if it is both
+bounded below and bounded above.
 <P />
 The challenge when representing chain complexes in software is to
 handle their infinite nature.  If a complex is not bounded, or not
@@ -39,19 +39,47 @@ a stalk complex the stalk object and its degree suffers as input (see
 also needed.
 
 <Example><![CDATA[
- gap> C := FiniteComplex(cat, 1, [g,f]);
- 0 -> 2:(1,0) -> 1:(2,2) -> 0:(1,1) -> 0 
- gap> Ms := StalkComplex(cat, M, 3);
- 0 -> 3:(2,2) -> 0 ]]>
+gap> C := FiniteComplex(cat, 1, [g,f]);
+0 -> 2:(1,0) -> 1:(2,2) -> 0:(1,1) -> 0 
+gap> Ms := StalkComplex(cat, M, 3);
+0 -> 3:(2,2) -> 0 ]]>
 </Example>
 </Section>
 
 <Section Label="InfLists">
 <Heading>Infinite lists</Heading> 
+
+In this section we give documentation for the <C>IsInfList</C>
+category.  We start by giving a representation of <M>\pm \infty</M>.
+Then we quickly describe the <C>IsInfList</C> category, before we turn
+to the underlying structure of the infinite lists -- the half infinite
+lists (<C>IsHalfInfList</C>).  Most of the functionality of the
+infinite lists come from this category.  Finally, we give the
+constructors for infinite lists, and some methods for manipulating
+such objects.
+
+<ManSection>
+  <Filt Type="Category" Name="IsInfiniteNumber"/>
+  <Description>
+    A category for infinite numbers.
+  </Description>
+</ManSection>
+
 <ManSection>
   <Filt Type="Var" Name="PositiveInfinity"/>
   <Description>
+    A global variable representing the number <M>\infty</M>. It is
+    greater than any integer, but it can not be compared to numbers which
+    are not integers. It belongs to the <C>IsInfiniteNumber</C> category.
+  </Description>
+</ManSection>
 
+<ManSection>
+  <Filt Type="Var" Name="NegativeInfinity"/>
+  <Description>
+    A global variable representing the number <M>-\infty</M>. It is
+    smaller than any integer, but it can not be compared to numbers which
+    are not integers.  It belongs to the <C>IsInfiniteNumber</C> category.
   </Description>
 </ManSection>
 
@@ -61,16 +89,640 @@ also needed.
   An infinite list is an immutable representation of a list with
   possibly infinite range of indeces.  It consists of three parts: The
   "middle part" is finite and covers some range <M>[a,b]</M> of
-  indices, the "positive part" covers the range <M>[b+1,\infty]</M> of
+  indices, the "positive part" covers the range <M>[b+1,\infty)</M> of
   indices, and the "negative part" convers the range
-  <M>(-\infty,a-1]</M> of indices.
+  <M>(-\infty,a-1]</M> of indices.  Note that none of the three parts
+  are mandatory: The middle part may be an empty list, and the
+  positive part may be set to <C>fail</C> to achieve index range
+  ending at <M>b &lt; \infty</M>.  Similary, if the index range has
+  lower bound <M>a &lt; \infty</M>, put the negative part to be
+  <C>fail</C>.
   <P />
   Each of the two infinite parts are described in one of the following
   ways: (1) A finite list which is repeated indefinitely; (2) A
   function which takes an index in the list as argument and returns
   the corresponding list item; (3) A function which takes an item from
   the list as argument and returns the next item.
+  <P />
+  The two infinite parts are represented as "half infinite lists", see
+  <Ref Subsect="IsHalfInfList" />.  An infinite list can be
+  constructed in the following ways:
+  <List>
+    <Item> From two half infinite lists and a middle part, <Ref
+    Func="MakeInfListFromHalfInfLists"/>.</Item>
+    <Item> Directly, by
+    giving the same input as when constructing the above, <Ref
+    Func="MakeInfList" />.</Item>
+    <Item> If all values of the infinite
+    list are the image of the index under a function <M>f</M>, one
+    can use <Ref Func="FunctionInfList" />.</Item>
+    <Item> If all
+    values of the infinite list are the same, one can use <Ref
+    Func="ConstantInfList" />.</Item>
+    <Item> If the infinite list has
+    a finite range, one can use <Ref Func="FiniteInfList" />.</Item>
+  </List>
+  In addition, new infinite lists can be constructed from others by
+  shift, splice, concatenation, extracting parts or applying a
+  function to the elements.
 </Description>
+</ManSection>
+
+<ManSection Label="IsHalfInfList">
+<Filt Type="Category" Name="IsHalfInfList" />
+<Description>
+  A half infinite list is a representation of a list with indeces in
+  the range <M>[a,\infty)</M> or <M>(-\infty,b]</M>.  An infinite list
+  is typically made from two half infinite lists, and half infinite
+  lists can be extracted from an infinite list.  Hence, the half
+  infinite list stores much of the information about an infinite
+  list.  One main difference between an infinite list and a half
+  infinite list is that the half infinite list does not have any
+  finite part, as the "middle" part of an infinite list.
+</Description>
+</ManSection>
+
+<ManSection>
+  <Oper Name="\^" Arg="list, pos" />
+  <Description>
+  Arguments: <A>list</A> -- either an infinite list or a half infinite
+  list, <A>pos</A> -- a valid index for <A>list</A>.
+  </Description>
+  <Returns> The value at position <A>pos</A> of <A>list</A>.</Returns>
+</ManSection>
+
+<ManSection Label="MakeHalfInfList">
+  <Func Name="MakeHalfInfList" Arg="start,direction,typeWithArgs,callback"/>
+  <Description>Arguments: <A>start</A> -- an integer, <A>direction</A>
+  -- either <M>1</M> or <M>-1</M>, <A>typeWithArgs</A> -- a list which
+  may have different formats, <A>callback</A> -- a function.
+  <Br />
+  </Description>
+  <Returns>A newly created half infinite list with index range from
+  <A>start</A> to <M>\infty</M>, or from <M>-\infty</M> to
+  <A>start</A>.</Returns>
+  <Description>
+    If the range should be <M>[\mathtt{start},\infty)</M> then the value of
+    <A>direction</A> is <M>1</M>.  if the range should be
+    <M>(-\infty,\mathtt{start}]</M>, then the value of <A>direction</A> is
+    <M>-1</M>.  The argument <A>typeWithArgs</A> can take one of the
+    following forms:
+    <List>
+      <Item><C>[ "repeat", repeatList ]</C></Item>
+      <Item><C>[ "next", nextFunction, initialValue ]</C></Item>
+      <Item><C>[ "pos", posFunction ]</C></Item>
+      <Item><C>[ "pos", posFunction, storeValues ]</C></Item>
+    </List>
+    <C>repeatList</C> is a list of values that should be repeated in
+    the half infinite list. <C>nextFunction</C> returns the value at
+    position <M>i</M>, given the value at the previous position as
+    argument.  Here <C>initialValue</C> is the value at position
+    <C>start</C>.  Similarly, <C>posFunction</C> returns the value at
+    any position <M>i</M>, and it may or may not store the values
+    between the previous computed indeces and the newly computed
+    index.  The default value of <C>storeValues</C> is <C>true</C> for
+    <C>"next"</C> and <C>"pos"</C>, and <C>false</C> for
+    <C>"repeat"</C>.  The argument <C>callback</C> is a function that
+    is called whenever a new value of the list is computed.  It takes
+    three arguments: The current position, the direction and the type
+    (that is, <C>typeWithArgs[1]</C>).  If no callback function is
+    needed, use <C>false</C>.
+    <P />
+    All the information given to create the list is stored, and can be
+    retrieved later by the operations listed in <Ref
+    Subsect="StartPosition" />--<Ref Subsect="HighestKnownValue" />.
+  </Description>
+
+</ManSection>
+  
+
+<Example><![CDATA[
+gap> # make a HalfInfList from 0 to inf which repeats the list [ 2, 4, 6 ]
+gap> list1 := MakeHalfInfList( 0, 1, [ "repeat", [ 2, 4, 6 ] ], false );
+<object>
+gap> list1^0;
+2
+gap> list1^5;
+6
+gap> # make a HalfInfList from 0 to inf with x^2 in position x
+gap> f := function(x) return x^2; end;;
+gap> list2 := MakeHalfInfList( 0, 1, [ "pos", f, false ], false );
+<object>
+gap> list2^0;
+0
+gap> list2^10;
+100 
+gap> # make a HalfInfList from 0 to -inf where each new value adds 3
+gap> # to the previous and the value in position 0 is 10
+gap> g := function(x) return x+3; end;;
+gap> list3 := MakeHalfInfList( 0, -1, [ "next", g, 7 ], false );
+<object>
+gap> list3^0;
+10
+gap> list3^-10;
+40 ]]>
+</Example>
+
+<ManSection Label="StartPosition">
+  <Oper Name="StartPosition" Arg="list"/>
+  <Description><A>list</A> -- a half infinite list.<Br />
+  </Description>
+  <Returns>The start position of <A>list</A>.</Returns>
+</ManSection>
+
+<ManSection>
+  <Oper Name="Direction" Arg="list" />
+  <Description><A>list</A> -- a half infinite list.<Br />
+  </Description>
+  <Returns>The direction of <A>list</A> (either <M>1</M> or <M>-1</M>).</Returns>
+</ManSection>
+
+<ManSection>
+  <Oper Name="InfListType" Arg="list" />
+  <Description><A>list</A> -- a half infinite list.<Br />
+  </Description>
+  <Returns>The type of <A>list</A> (either <C>"pos"</C>,
+  <C>"repeat"</C> or <C>"next"</C>).</Returns>
+</ManSection>
+
+<ManSection>
+  <Oper Name="RepeatingList" Arg="list" />
+  <Description><A>list</A> -- a half infinite list.<Br />
+  </Description>
+  <Returns>The repeating list of <A>list</A> if <A>list</A> is of type
+  <C>"repeat"</C>, and <C>fail</C> otherwise.</Returns>
+</ManSection>
+
+<ManSection>
+  <Oper Name="ElementFunction" Arg="list" />
+  <Description><A>list</A> -- a half infinite list.<Br />
+  </Description>
+  <Returns>The element function of <A>list</A> if <A>list</A> is of type
+  <C>"next"</C> or <C>"pos"</C>, and <C>fail</C> otherwise.</Returns>
+</ManSection>
+
+<ManSection>
+  <Oper Name="IsStoringValues" Arg="list" />
+  <Description><A>list</A> -- a half infinite list.<Br />
+  </Description>
+  <Returns><C>true</C> if all elements of the list are stored,
+  <C>false</C> otherwise.</Returns>
+</ManSection>
+
+<ManSection>
+  <Oper Name="NewValueCallback" Arg="list" />
+  <Description><A>list</A> -- a half infinite list.<Br />
+  </Description>
+  <Returns>The callback function of the list.</Returns>
+</ManSection>
+
+<ManSection>
+  <Oper Name="IsRepeating" Arg="list" />
+  <Description><A>list</A> -- a half infinite list.<Br />
+  </Description>
+  <Returns><C>true</C> if the type of the list is <C>"repeat"</C>.</Returns>
+</ManSection>
+
+<ManSection>
+  <Oper Name="InitialValue" Arg="list" />
+  <Description><A>list</A> -- a half infinite list.<Br />
+  </Description>
+  <Returns>If the list is of type <C>"next"</C> then the initial value
+  is returned, otherwise it fails.</Returns>
+</ManSection>
+
+<ManSection>
+  <Oper Name="LowestKnownPosition" Arg="list" />
+  <Description><A>list</A> -- a half infinite list.<Br />
+  </Description>
+  <Returns>The lowest index <M>i</M> such that the value at position
+  <M>i</M> is known without computation (that is, it is either stored,
+  or the list has type <C>"repeat"</C>).</Returns>
+</ManSection>
+
+<ManSection Label="HighestKnownPosition">
+  <Oper Name="HighestKnownValue" Arg="list" />
+  <Description><A>list</A> -- a half infinite list.<Br />
+  </Description>
+  <Returns>The highest index <M>i</M> such that the value at position
+  <M>i</M> is known without computation (that is, it is either stored,
+  or the list has type <C>"repeat"</C>).</Returns>
+</ManSection>
+
+<Example><![CDATA[
+gap> # we reuse the IsHalfInfLists from the previous example
+gap> HighestKnownPosition(list1);
++inf
+gap> HighestKnownPosition(list2);
+"none"
+gap> HighestKnownPosition(list3);
+0 ]]>
+</Example>
+
+<ManSection>
+<Oper Name="Shift" Arg="list, shift" />
+  <Description>
+    Arguments: <A>list</A> -- a half infinite list, <A>shift</A> -- an
+    integer.<Br />
+  </Description>
+  <Returns>A new half infinite list which is <A>list</A> with all values
+  shifted <A>shift</A> positions to the right if <A>shift</A> is
+  positive, and to the left if <A>shift</A> is negative.
+  </Returns>
+  <Description>
+  </Description>
+</ManSection>
+
+<ManSection>
+<Oper Name="Cut" Arg="list, pos" />
+  <Description>
+    Arguments: <A>list</A> -- a half infinite list, <A>pos</A> -- an
+    integer within the range of <A>list</A>.<Br />
+  </Description>
+  <Returns>A new half infinite list which is <A>list</A> with some
+  part cut off.
+  </Returns>
+  <Description>If the direction of <A>list</A> is positive, then the
+  new list has range from <C>cut</C> to <M>\infty</M>.  If the
+  direction of <A>list</A> is negative, then the new list has range
+  from <M>-\infty</M> to <C>cut</C>.  The values at position <M>i</M>
+  of the new half infinite list is the same as the value at position
+  <M>i</M> of <A>list</A>.
+  </Description>
+</ManSection>
+
+<ManSection>
+  <Oper Name="HalfInfList" Arg="list, func" />
+    <Description>
+      Arguments: <A>list</A> -- a half infinite list, <A>func</A> -- a
+      function which takes an element of the list as argument. <Br />
+    </Description>
+    <Returns>A half infinite list with the same range as <A>list</A>,
+    where the value at position <M>i</M> is the image of the value at
+    position <M>i</M> of <A>list</A> under <A>func</A>.
+    </Returns>
+</ManSection>
+
+<ManSection>
+  <Func Name="MakeInfListFromHalfInfLists" Arg="basePosition,middle,positive,negative" />
+  <Description>
+    Arguments: <A>basePosition</A> -- an integer, <A>middle</A> -- a
+    list, <A>positive</A> -- a half infinite list, <A>negative</A> --
+    a half infinite list. <Br />
+  </Description>
+  <Returns>An infinite list with <A>middle</A> as is middle part,
+  <A>positive</A> as its positive part and <A>negative</A> as its
+  negative part.</Returns>
+  <Description>
+    The starting position of <A>positive</A> must be <C>basePosition +
+    Length( middle )</C>, and the starting position of <A>negative</A>
+    must be <C>basePosition - 1</C>.  The returned list has
+    <C>middle[1]</C> in position <A>basePosition</A>, <C>middle[2]</C>
+    in position <A>basePosition + 1</A> and so on.  Note that one
+    probably wants the <A>positive</A> half infinite list to have
+    direction <M>1</M>, and the <A>negative</A> half infinite list to
+    have direction <M>-1</M>.
+  </Description>
+</ManSection>
+
+<Example><![CDATA[
+gap> # we want to construct an infinite list with 0 in position
+gap> # 0 to 5, and x^2 in position x where x goes from 6 to inf, 
+gap> # and alternatingly 1 and -1 in position -1 to -inf.
+gap> #
+gap> basePosition := 0;;
+gap> middle := [0,0,0,0,0,0];;
+gap> f := function(x) return x^2; end;;
+gap> positive := MakeHalfInfList( 6, 1, [ "pos", f, false ], false );
+<object>
+gap> altList := [ 1, -1 ];;
+gap> negative := MakeHalfInfList( -1, -1, [ "repeat", altList ], false );
+<object>
+gap> inflist := MakeInfListFromHalfInfLists( basePosition, middle,
+>                                            positive, negative );
+<object>
+gap> inflist^0; inflist^5; inflist^6; inflist^-1; inflist^-4;
+0
+0
+36
+1
+-1 ]]>
+</Example>
+
+<ManSection>
+  <Func Name="MakeInfList" Arg="basePosition, middle, positive, negative, callback" />
+  <Description>
+    Argments: <A>basePosition</A> -- an integer, <A>middle</A> -- a
+    list, <A>positive</A> -- a list describing the positive part, <A>negative</A> --
+    a list describing the negative part. <Br />
+  </Description>
+  <Returns> An infinite list with <A>middle</A> as is middle part,
+  <A>positive</A> as its positive part and <A>negative</A> as its
+  negative part.</Returns>
+  <Description>
+    The major difference between this construction and the previous is
+    that here the half infinite lists that will make the positive and
+    negative parts are not entered directly as arguments.  Instead,
+    one enters "description lists", which are of the same format as
+    the argument <A>typeWithArgs</A> of <Ref Func="MakeHalfInfList"
+    />.
+  </Description>
+</ManSection>
+
+<Example><![CDATA[
+gap> # we construct the same infinite list as in the previous example
+gap> basePosition := 0;;
+gap> middle := [0,0,0,0,0,0];;
+gap> f := function(x) return x^2; end;;
+gap> altList := [ 1, -1 ];;
+gap> inflist2 := MakeInfList( 0, middle, [ "pos", f, false ], [ "repeat", 
+>                             altList ], false );
+<object>
+gap> inflist2^0; inflist2^5; inflist2^6; inflist2^-1; inflist2^-4;
+0
+0
+36
+1
+-1 ]]>
+</Example>
+
+<ManSection>
+  <Func Name="FunctionInfList" Arg="func" />
+  <Description>
+    Arguments: <A>func</A> -- a function that takes an integer as
+    argument.<Br />
+  </Description>
+  <Returns>An infinite list where the value at position <M>i</M> is
+  the function <A>func</A> applied to <M>i</M>.
+  </Returns>
+  <Description>
+  </Description>
+</ManSection>
+
+<ManSection>
+  <Func Name="ConstantInfList" Arg="value" />
+  <Description>
+    Arguments: <A>value</A> -- an object.<Br />
+  </Description>
+  <Returns>An infinite list which has the object <A>value</A> in every
+  position.
+  </Returns>
+  <Description>
+  </Description>
+</ManSection>
+
+<ManSection>
+  <Func Name="FiniteInfList" Arg="basePosition, list" />
+  <Description>
+    Arguments: <A>basePosition</A> -- an integer, <A>list</A> -- a
+    list of length <M>n</M>.<Br />
+  </Description>
+  <Returns>An infinite list with <M>\mathtt{list[1]},\ldots,\mathtt{list[n]}</M> in
+  positions <M>\mathtt{basePosition},\ldots,</M> <M>\mathtt{basePosition + n}</M>.
+  </Returns>
+  <Description>The range of this list is <M>[\mathtt{basePosition}, \mathtt{basePosition + n}]</M>.
+  </Description>
+</ManSection>
+
+<ManSection>
+  <Oper Name="MiddleStart" Arg="list" />
+  <Description>
+    Arguments: <A>list</A> -- an infinite list. <Br />
+  </Description>
+  <Returns>The starting position of the "middle" part of <A>list</A>.
+  </Returns>
+  <Description>
+  </Description>
+</ManSection>
+
+<ManSection>
+  <Oper Name="MiddleEnd" Arg="list" />
+  <Description>
+    Arguments: <A>list</A> -- an infinite list. <Br />
+  </Description>
+  <Returns>The ending position of the middle part of <A>list</A>.
+  </Returns>
+  <Description>
+  </Description>
+</ManSection>
+
+<ManSection>
+  <Oper Name="MiddlePart" Arg="list" />
+  <Description>
+    Arguments: <A>list</A> -- an infinite list. <Br />
+  </Description>
+  <Returns>The middle part (as a list) of <A>list</A>.
+  </Returns>
+  <Description>
+  </Description>
+</ManSection>
+
+<ManSection>
+  <Oper Name="PositivePart" Arg="list" />
+  <Description>
+    Arguments: <A>list</A> -- an infinite list. <Br />
+  </Description>
+  <Returns>The positive part (as a half infinite list) of <A>list</A>.
+  </Returns>
+  <Description>
+  </Description>
+</ManSection>
+
+<ManSection>
+  <Oper Name="NegativePart" Arg="list" />
+  <Description>
+    Arguments: <A>list</A> -- an infinite list. <Br />
+  </Description>
+  <Returns>The negative part (as a halft infinite list) of <A>list</A>.
+  </Returns>
+  <Description>
+  </Description>
+</ManSection>
+
+<ManSection>
+  <Oper Name="HighestKnownPosition" Arg="list" />
+  <Description>
+    Arguments: <A>list</A> -- an infinite list. <Br />
+  </Description>
+  <Returns>The highest index <M>i</M> such that the value at position
+  <M>i</M> is known withouth computation.
+  </Returns>
+  <Description>
+  </Description>
+</ManSection>
+
+<ManSection>
+  <Oper Name="LowestKnownPosition" Arg="list" />
+  <Description>
+    Arguments: <A>list</A> -- an infinite list. <Br />
+  </Description>
+  <Returns>The lowest index <M>i</M> such that the value at position
+  <M>i</M> is known withouth computation.
+  </Returns>
+  <Description>
+  </Description>
+</ManSection>
+
+<ManSection>
+  <Oper Name="UpperBound" Arg="list" />
+  <Description>
+    Arguments: <A>list</A> -- an infinite list. <Br />
+  </Description>
+  <Returns>The highest index in the range of the list.
+  </Returns>
+  <Description>
+  </Description>
+</ManSection>
+
+<ManSection>
+  <Oper Name="LowerBound" Arg="list" />
+  <Description>
+    Arguments: <A>list</A> -- an infinite list. <Br />
+  </Description>
+  <Returns>The lowest index in the range of the list.
+  </Returns>
+  <Description>
+  </Description>
+</ManSection>
+
+<ManSection>
+  <Oper Name="FinitePartAsList" Arg="list, startPos, endPos" />
+  <Description>
+    Arguments: <A>list</A> -- an infinite list, <A>startPos</A> -- an
+    integer, <A>endPos</A> -- an integer.<Br />
+  </Description>
+  <Returns>A list containing the values of <A>list</A> in positions
+  <M>\mathtt{endPos},\ldots,\mathtt{startPos}</M>.
+  </Returns>
+  <Description>Note that both integers in the input must be within the
+  index range of <A>list</A>.
+  </Description>
+</ManSection>
+
+<ManSection>
+  <Oper Name="PositivePartFrom" Arg="list,pos" />
+  <Description>
+    Arguments: <A>list</A> -- an infinite list, <A>pos</A> -- an integer.<Br />
+  </Description>
+  <Returns>An infinite list (<E>not</E> a half infinite list) with
+  index range from <C>pos</C> to <C>UpperBound(list)</C>.
+  </Returns>
+  <Description>The value at position <M>i</M> of the new infinite list
+  is the same as the value at position <M>i</M> of <A>list</A>.
+  </Description>
+</ManSection>
+
+<ManSection>
+  <Oper Name="NegativePartFrom" Arg="list,pos" />
+  <Description>
+    Arguments: <A>list</A> -- an infinite list, <A>pos</A> -- an integer.<Br />
+  </Description>  
+  <Returns>An infinite list (<E>not</E> a half infinite list) with
+  index range from <C>LowerBound(list)</C> to <C>pos</C>.
+  </Returns>
+  <Description>The value at position <M>i</M> of the new infinite list
+  is the same as the value at position <M>i</M> of <A>list</A>.
+  </Description>
+</ManSection>
+
+<ManSection>
+<Oper Name="Shift" Arg="list, shift" />
+  <Description>
+    Arguments: <A>list</A> -- an infinite list, <A>shift</A> -- an
+    integer.<Br />
+  </Description>
+  <Returns>A new infinite list which is <A>list</A> with all values
+  shifted <A>shift</A> positions to the right if <A>shift</A> is
+  positive, and to the left if <A>shift</A> is negative.
+  </Returns>
+  <Description>
+  </Description>
+</ManSection>
+
+<ManSection>
+<Oper Name="Splice" Arg="positiveList, negativeList, joinPosition" />
+  <Description>
+    Arguments: <A>positiveList</A> -- an infinite list,
+    <A>negativeList</A> -- an infinite list, <A>joinPosition</A> -- an
+    integer.<Br />
+  </Description>
+  <Returns>A new infinite list which is identical to <A>positiveList</A>
+  for indeces greater than <A>joinPosition</A> and identical to
+  <A>negativeList</A> for indeces smaller than or equal to <A>joinPosition</A>.
+  </Returns>
+  <Description>
+  </Description>
+</ManSection>
+
+<ManSection>
+  <Func Name="InfConcatenation" Arg="arg" />
+  <Description>
+    Arguments: <A>arg</A> -- a number of infinite lists. <Br />
+  </Description>
+  <Returns>A new infinite list.</Returns>
+  <Description>
+    If the length of <A>arg</A> is greater than or equal to <M>2</M>,
+    then the new infinite list consists of the following parts: It has
+    the positive part of <C>arg[1]</C>, and the middle part is the
+    concatenation of the middle parts of all lists in <A>arg</A>, such
+    that <C>MiddleEnd</C> of the new list is the same as <C>MiddleEnd(
+    arg[1] )</C>.  The negative part of the new list is the negative
+    part of <C>arg[Length(arg)]</C>, although shiftet so that it
+    starts in the correct position.
+  </Description>
+</ManSection>
+
+<Example><![CDATA[
+gap> # we do an InfConcatenation of three lists.
+gap> f := function(x) return x; end;;
+gap> g := function(x) return x+1; end;;
+gap> h := function(x) return x^2; end;;
+gap> InfList1 := MakeInfList( 0, [ 10 ], [ "pos", f, false ], 
+>                             [ "repeat", [ 10, 15 ] ], false );
+<object>
+gap> InfList2 := MakeInfList( 0, [ 20 ], [ "pos", g, false ], 
+>                             [ "repeat", [ 20, 25 ] ], false );
+<object>
+gap> InfList3 := MakeInfList( 0, [ 30 ], [ "pos", h, false ], 
+>                             [ "repeat", [ 30, 35 ] ], false );
+<object>
+gap> concList := InfConcatenation( InfList1, InfList2, InfList3 );
+<object> 
+gap> MiddlePart(concList);
+[ 30, 20, 10 ] ]]>
+</Example>
+
+The newly created <C>concList</C> looks as follows around the middle part:
+<Display>
+  \begin{array}{lrrrrrrrrrrr}
+  \text{position} &amp; \cdots &amp; 3
+  &amp; 2 &amp; 1 &amp; 0 &amp; -1 &amp; -2 &amp; -3 &amp; -4 &amp; -5
+  &amp; \cdots \\
+  \text{value} &amp; \cdots &amp; 3
+  &amp; 2 &amp; 1 &amp; 10 &amp; 20 &amp; 30 &amp; 30 &amp; 35 &amp; 30
+  &amp; \cdots \\
+  \end{array}
+</Display>
+
+<ManSection>
+  <Oper Name="InfList" Arg="list, func" />
+    <Description>
+      Arguments: <A>list</A> -- an infinite list, <A>func</A> -- a
+      function which takes an element of the list as argument. <Br />
+    </Description>
+    <Returns>An infinite list with the same range as <A>list</A>,
+    where the value at position <M>i</M> is the image of the value at
+    position <M>i</M> of <A>list</A> under <A>func</A>.
+    </Returns>
+</ManSection>
+
+<ManSection>
+  <Var Name="IntegersList" />
+  <Description>
+    An infinite list with range <M>(-\infty,\infty)</M> where the
+    value at position <M>i</M> is the number <M>i</M> (that is, a
+    representation of the integers).
+  </Description>
 </ManSection>
 
 </Section>
