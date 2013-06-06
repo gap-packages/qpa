@@ -56,3 +56,5 @@ DeclareOperation( "GeneratorIndex", [ IsPath ] );
 DeclareAttribute( "OppositeQuiver", IsQuiver );
 DeclareOperation( "OppositePath", [ IsPath ] );
 DeclareAttribute( "OppositeQuiverNameMap", IsQuiver );
+
+DeclareOperation( "SeparatedQuiver", [ IsQuiver ] );

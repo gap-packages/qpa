@@ -63,9 +63,6 @@ matrices with 2 along the diagonal.
   </Description>
 </ManSection>
 
-DeclareProperty( "IsWeaklyNonnegativeUnitForm",  IsUnitForm  );
-DeclareProperty( "IsWeaklyPositiveUnitForm",  IsUnitForm  );
-
 <ManSection>
   <Attr Name="QuadraticFormOfUnitForm" Arg="B" />
   <Description>

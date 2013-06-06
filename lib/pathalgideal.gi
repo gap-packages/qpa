@@ -261,3 +261,16 @@ InstallMethod ( ProductOfIdeals,
     fi;
 end
 );
+
+InstallMethod( IsAdmissibleQuotientOfPathAlgebra, 
+    "for a quotient of a path algebra",
+    [ IsQuotientOfPathAlgebra ], 0,
+    function( A )
+    
+    local fam;
+    
+    fam := ElementsFamily(FamilyObj(A));
+    
+    return IsAdmissibleIdeal(fam!.ideal);
+end
+);

@@ -455,3 +455,22 @@ InstallMethod( RadicalSeriesOfAlgebra,
 end 
 );
 
+#######################################################################
+##
+#P  IsRadicalSquareZeroAlgebra( <A> ) 
+##  
+##  This function returns true if the algebra has the property that 
+##  the radical squares to zero. Otherwise it returns false.
+##
+InstallMethod( IsRadicalSquareZeroAlgebra,
+    "for an algebra",
+    [ IsAlgebra ],
+    function ( A )
+    
+    local radical; # radical of the algebra <A>
+    
+    radical := RadicalOfAlgebra(A);
+    
+    return Dimension(ProductSpace(radical,radical)) = 0;
+end
+  );

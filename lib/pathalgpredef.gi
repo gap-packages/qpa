@@ -146,13 +146,15 @@ InstallMethod ( NakayamaAlgebra,
         fi;
         if Length(rels) = 0 then 
             SetFilterObj(KQ, IsNakayamaAlgebra and IsPathAlgebra );
+            
             return KQ;
         else
             I := Ideal(KQ,rels);
             gb := GBNPGroebnerBasis(rels,KQ);
             gbb := GroebnerBasis(I,gb);
             A := KQ/I;
-            SetFilterObj(A, IsNakayamaAlgebra and IsQuotientOfPathAlgebra );               return A;
+            SetFilterObj(A, IsNakayamaAlgebra and IsAdmissibleQuotientOfPathAlgebra );               
+            return A;
         fi; 
     else
 #
@@ -244,6 +246,7 @@ InstallMethod ( CanonicalAlgebra,
         #
     if n = 2 then 
         SetFilterObj(KQ, IsCanonicalAlgebra and IsPathAlgebra );
+
         return KQ;
     else
         # 
@@ -276,7 +279,7 @@ InstallMethod ( CanonicalAlgebra,
         gb := GBNPGroebnerBasis(relations,KQ);
         gbb := GroebnerBasis(I,gb);
         A := KQ/I;
-        SetFilterObj(A, IsCanonicalAlgebra and IsQuotientOfPathAlgebra );
+        SetFilterObj(A, IsCanonicalAlgebra and IsAdmissibleQuotientOfPathAlgebra );
         return A;
     fi;
 end

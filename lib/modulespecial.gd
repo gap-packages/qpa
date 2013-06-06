@@ -5,8 +5,8 @@
 # 		  indecomposble projective, indecomposable injective, 
 # 		  and vertex simple representations. 
 
-DeclareAttribute( "IndecProjectiveModules", IsAdmissibleQuotientOfPathAlgebra ); 
-DeclareAttribute( "IndecInjectiveModules", IsAlgebra ); 
-DeclareAttribute( "SimpleModules", IsAlgebra ); 
-DeclareAttribute( "ZeroModule", IsAlgebra );
-DeclareAttribute( "BasisOfProjectives", IsQuotientOfPathAlgebra );  
+DeclareAttribute( "IndecProjectiveModules", IsQuiverAlgebra ); 
+DeclareAttribute( "IndecInjectiveModules", IsQuiverAlgebra ); 
+DeclareAttribute( "SimpleModules", IsQuiverAlgebra ); 
+DeclareAttribute( "ZeroModule", IsQuiverAlgebra );
+DeclareAttribute( "BasisOfProjectives", IsQuiverAlgebra );  

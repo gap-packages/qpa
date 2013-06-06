@@ -1103,3 +1103,25 @@ InstallMethod( OppositePath,
     return Product( walk_op );
 end );
 
+InstallMethod( SeparatedQuiver, 
+    "for a quiver",
+    true,
+    [ IsQuiver ],
+    0,
+    function( Q )
+
+    local oldarrows, vertices, arrows;
+    #
+    # Calling the vertices in the separated quiver for <label> and <label>', when
+    # <label> is the name of a vertex in the old quiver. For an arrow  a : v ---> w 
+    # in the quiver, we call the corresponding arrow  v ---> w'  also  a  in the 
+    # separated quiver. 
+    #
+    vertices := List(VerticesOfQuiver(Q), v -> String(v)); 
+    Append(vertices, List(vertices, v -> Concatenation(v,"'"))); 
+    oldarrows := ArrowsOfQuiver(Q); 
+    arrows := List(oldarrows, a -> [String(SourceOfPath(a)),Concatenation(String(TargetOfPath(a)),"'"),String(a)]);
+    
+    return Quiver(vertices,arrows); 
+end
+  );
