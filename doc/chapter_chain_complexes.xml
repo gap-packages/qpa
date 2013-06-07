@@ -34,7 +34,7 @@ To work with bounded complexes one does not need to know much about
 the <C>IsInfList</C> category.  A bounded complex can be created by
 simply giving a list of the differentials and the degree of the first
 differential as input (see <Ref Func="FiniteComplex"/>), and to create
-a stalk complex the stalk object and its degree suffers as input (see
+a stalk complex the stalk object and its degree suffice as input (see
 <Ref Func="StalkComplex"/>).  In both cases an <C>IsCat</C> object is
 also needed.
 
