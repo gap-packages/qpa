@@ -133,7 +133,7 @@ end );
 InstallMethod( IncludeInPathAlgebra,
         "for path and path algebra",
         ReturnTrue,
-        [ IsPath, IsAlgebra ],
+        [ IsPath, IsQuiverAlgebra ],
         function( path, pa )
     local walk;
 
@@ -143,8 +143,8 @@ end );
 
 
 InstallMethod( VerticesOfPathAlgebra,
-        "for path algebra",
-        [ IsAlgebra ],
+        "for (quotient of) path algebra",
+        [ IsQuiverAlgebra ],
         function( pa )
     return List( VerticesOfQuiver( QuiverOfPathAlgebra( pa ) ),
                  function( v ) return IncludeInPathAlgebra( v, pa ); end );
@@ -178,7 +178,7 @@ end );
 InstallMethod( SimpleTensor,
         "for list and path algebra",
         ReturnTrue,
-        [ IsDenseList, IsAlgebra ],
+        [ IsDenseList, IsQuiverAlgebra ],
         function( factors, pa )
 
     local parts, pairs, inc_paths, inc_terms;
@@ -200,41 +200,13 @@ InstallMethod( SimpleTensor,
     return Sum( pairs, inc_terms );
 end );
 
-
-# Four methods for the TensorProductOfAlgebras to account for the possible
-# combinations of argument types.  We would like to say that each argument
-# should be ( IsPathAlgebra or IsQuotientOfPathAlgebra ), but it is not
-# possible to combine filters using "or".
-
 InstallMethod( TensorProductOfAlgebras,
         "for two path algebras",
         ReturnTrue,
-        [ IsPathAlgebra, IsPathAlgebra ],
+        [ IsQuiverAlgebra, IsQuiverAlgebra ],
         function( pa1, pa2 )
     return TensorProductOfPathAlgebras( [ pa1, pa2 ] );
 end );
-InstallMethod( TensorProductOfAlgebras,
-        "for two quotients of path algebras",
-        ReturnTrue,
-        [ IsQuotientOfPathAlgebra, IsQuotientOfPathAlgebra ],
-        function( pa1, pa2 )
-    return TensorProductOfPathAlgebras( [ pa1, pa2 ] );
-end );
-InstallMethod( TensorProductOfAlgebras,
-        "for path algebra and quotient of path algebra",
-        ReturnTrue,
-        [ IsPathAlgebra, IsQuotientOfPathAlgebra ],
-        function( pa1, pa2 )
-    return TensorProductOfPathAlgebras( [ pa1, pa2 ] );
-end );
-InstallMethod( TensorProductOfAlgebras,
-        "for quotient of path algebra and path algebra",
-        ReturnTrue,
-        [ IsQuotientOfPathAlgebra, IsPathAlgebra ],
-        function( pa1, pa2 )
-    return TensorProductOfPathAlgebras( [ pa1, pa2 ] );
-end );
-
 
 InstallGlobalFunction( TensorProductOfPathAlgebras,
         function( PAs )
@@ -316,15 +288,12 @@ end );
 
 InstallMethod( EnvelopingAlgebra,
         "for an algebra",
-        [ IsAlgebra ],
+        [ IsQuiverAlgebra ],
         function( pa )
     local envalg;
 
     envalg := TensorProductOfAlgebras( OppositeAlgebra( pa ), pa );
     SetIsEnvelopingAlgebra( envalg, true );
-#    if HasIsAdmissibleQuotientOfPathAlgebra(pa) and IsAdmissibleQuotientOfPathAlgebra(pa) then
-#        SetIsAdmissibleQuotientOfPathAlgebra(envalg, true);
-#    fi; 
     if IsAdmissibleQuotientOfPathAlgebra(pa) then
         SetFilterObj(envalg, IsAdmissibleQuotientOfPathAlgebra );
     fi; 

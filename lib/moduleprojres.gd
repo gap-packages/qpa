@@ -4,7 +4,6 @@
 DeclareInfoClass( "InfoProjectiveResolutionFpPathAlgebraModule" );
 
 DeclareCategory("IsProjectiveResolutionFpPathAlgebraModule",IsObject);
-DeclareAttribute("Module", IsProjectiveResolutionFpPathAlgebraModule);
 DeclareAttribute("ParentAlgebra", IsProjectiveResolutionFpPathAlgebraModule);
 DeclareAttribute("RingIdeal", IsProjectiveResolutionFpPathAlgebraModule);
 DeclareAttribute("Maps", IsProjectiveResolutionFpPathAlgebraModule,"mutable");

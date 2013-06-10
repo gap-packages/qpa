@@ -173,7 +173,7 @@ InstallMethod( TitsUnitFormOfAlgebra,
 end
 );  
 
-InstallOtherMethod( TitsUnitFormOfAlgebra,
+InstallMethod( TitsUnitFormOfAlgebra,
     "for a PathAlgebra",
     [ IsPathAlgebra ],
         

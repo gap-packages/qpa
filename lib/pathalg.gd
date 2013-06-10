@@ -57,7 +57,7 @@ DeclareOperation( "BasisOfDomain", [IsQuotientOfPathAlgebra]);
 # [ IsElementOfPathAlgebra ], but that filter does not exist).
 DeclareGlobalFunction( "PathAlgebraContainingElement");
 
-DeclareAttribute( "OriginalPathAlgebra", IsAlgebra ); 
+DeclareAttribute( "OriginalPathAlgebra", IsQuiverAlgebra ); 
 DeclareOperation( "MakeUniformOnRight", [ IsHomogeneousList ] );
 DeclareOperation( "GeneratorsTimesArrowsOnRight", [ IsHomogeneousList ] );
 DeclareOperation( "NthPowerOfArrowIdeal", [ IsPathAlgebra, IS_INT ] );
@@ -69,19 +69,19 @@ DeclareGlobalFunction( "OppositePathAlgebraElement"); # should be operation with
 DeclareOperation( "OppositeRelations", [ IsDenseList ] );
 DeclareOperation( "VertexPosition", [ IsElementOfQuotientOfPathAlgebra ] );
 
-DeclareProperty( "IsSelfinjectiveAlgebra",  IsAlgebra ); 
-DeclareProperty( "IsSymmetricAlgebra", IsAlgebra );
-DeclareProperty( "IsWeaklySymmetricAlgebra", IsAlgebra );
-DeclareProperty( "IsSchurianAlgebra", IsAlgebra );
+DeclareProperty( "IsSelfinjectiveAlgebra",  IsQuiverAlgebra ); 
+DeclareProperty( "IsSymmetricAlgebra", IsQuiverAlgebra );
+DeclareProperty( "IsWeaklySymmetricAlgebra", IsQuiverAlgebra );
+DeclareProperty( "IsSchurianAlgebra", IsQuiverAlgebra );
 DeclareProperty( "IsSemicommutativeAlgebra", IsPathAlgebra);
 DeclareProperty( "IsSemicommutativeAlgebra", IsQuotientOfPathAlgebra);
 InstallTrueMethod( IsHereditaryAlgebra, IsPathAlgebra );
 InstallTrueMethod( IsFiniteGlobalDimensionAlgebra, IsPathAlgebra );
 
-DeclareAttribute( "CoxeterPolynomial",  IsPathAlgebra  ); 
-DeclareAttribute( "CoxeterMatrix", IsPathAlgebra ); 
-DeclareOperation( "TipMonomialandCoefficientOfVector", [ IsAlgebra, IsCollection ] );
-DeclareOperation( "TipReduceVectors", [ IsAlgebra, IsCollection ] );
+DeclareAttribute( "CoxeterPolynomial",  IsQuiverAlgebra  ); 
+DeclareAttribute( "CoxeterMatrix", IsQuiverAlgebra ); 
+DeclareOperation( "TipMonomialandCoefficientOfVector", [ IsQuiverAlgebra, IsCollection ] );
+DeclareOperation( "TipReduceVectors", [ IsQuiverAlgebra, IsCollection ] );
 DeclareOperation( "CoefficientsOfVectors", [ IsAlgebra, IsCollection, IsList ] );
 DeclareProperty( "IsDistributiveAlgebra", IsQuotientOfPathAlgebra );
 DeclareAttribute( "NakayamaAutomorphism", IsQuotientOfPathAlgebra ); 

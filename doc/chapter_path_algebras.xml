@@ -934,11 +934,15 @@ true ]]>
       algebra.<Br /> 
     </Description> 
     <Returns> 
-      the centre of the algebra <Arg>A</Arg>, after having checked 
-      that <Arg>A</Arg> is a finite dimensional quotient of a path 
-      algebra (the check is not implemented and also not implemented 
-      for path algebras). 
+      the centre of the algebra <Arg>A</Arg> as a subalgebra. 
     </Returns> 
+    <Description>
+      The function checks if <Arg>A</Arg> is a finite dimensional quotient 
+      of a path algebra. The function is not yet implemented for path algebras.
+      The answer in this case is on copy of the field for each connected component 
+      of the quiver of that path algebra, given that it is finite dimensional
+      (ie. no oriented cycles). 
+    </Description>
  </ManSection> 
 
 <ManSection>

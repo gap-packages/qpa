@@ -379,17 +379,11 @@ end;
 InstallMethod(RightModuleOverPathAlgebra,
   "for a (quotient of a) path algebra and list of matrices",
   true,
-  [IsAlgebra, IsCollection], 0,
+  [IsQuiverAlgebra, IsCollection], 0,
   function( R, gens )
     local a, dim, source, target, basis, i, x, Fam, 
           vertices, matrices, quiver, M, vlist, alist, K, dim_M, 
           dim_vector, relationtest, I, terms, result, walk, matrix;
-#
-#  Testing the entered algebra.
-#
-    if not IsPathAlgebra(R) and not IsQuotientOfPathAlgebra(R) then 
-       Error("entered algebra is not a (quotient of a) path algebra.\n");
-    fi;
 
     matrices := [];
     quiver := QuiverOfPathRing(R);
@@ -559,19 +553,13 @@ end
 InstallOtherMethod(RightModuleOverPathAlgebra,
   "for a path algebra and list of matrices",
   true,
-  [ IsAlgebra, IsList, IsList ], 0,
+  [ IsQuiverAlgebra, IsList, IsList ], 0,
   function( A, dim_vector, gens )
 
   local quiver, vertices, K, arrows, num_vert, gens_of_quiver,
         matrices, i, entered_arrows, arrow_labels, matrices_set, a, b,
         origin, target, dim_mat, arrows_not_set, dim_M, relationtest,
         I, terms, result, matrix, walk, x, dim, Fam, basis, M;
-#
-#  Testing the entered algebra.
-#
-   if not IsPathAlgebra(A) and not IsQuotientOfPathAlgebra(A) then 
-      Error("entered algebra is not a (quotient of a) path algebra.\n");
-   fi;
 #
 #  Setting up the data we need.
 #
@@ -1368,39 +1356,31 @@ InstallMethod( LoewyLength,
 end
 );
 
+#######################################################################
+##
+#O  LoewyLength ( <A> )
+##
+##  This function returns the Loewy length of the algebra  A, for a 
+##  finite dimensional (quotient of a) path algebra (by an admissible
+##  ideal).
+##
 InstallOtherMethod( LoewyLength, 
-   "for a QuotientOfPathAlgebra",
-   [ IsQuotientOfPathAlgebra ], 0,
-   function( A ) 
+    "for (a quotient of) a path algebra",
+    [ IsQuiverAlgebra ], 0,
+    function( A ) 
 
-   local fam, N;
+    local fam, N;
+    
+    if not IsFiniteDimensional(A) then
+        Error("the entered algebra is not finite dimensional,\n");
+    fi;
+    if not IsPathAlgebra(A) and not IsAdmissibleQuotientOfPathAlgebra(A) then 
+        TryNextMethod();
+    fi;
 
-   fam := ElementsFamily(FamilyObj(A));
-   if HasGroebnerBasisOfIdeal(fam!.ideal) and
-          AdmitsFinitelyManyNontips(GroebnerBasisOfIdeal(fam!.ideal)) then
-       N := IndecProjectiveModules(A);
-       N := List(N, x -> LoewyLength(x));
-       return Maximum(N);
-   else
-       return fail;
-   fi;
-end
-);
-
-InstallOtherMethod( LoewyLength, 
-   "for a PathAlgebra",
-   [ IsPathAlgebra ], 0,
-   function( A ) 
-
-   local N, i;
-
-   if IsAcyclicQuiver(QuiverOfPathAlgebra(A)) then 
-      N := IndecProjectiveModules(A);
-      N := List(N, x -> LoewyLength(x));
-      return Maximum(N);
-   else
-      return fail;
-   fi;
+    N := IndecProjectiveModules(A);
+    N := List(N, x -> LoewyLength(x));
+    return Maximum(N);
 end
 );
 

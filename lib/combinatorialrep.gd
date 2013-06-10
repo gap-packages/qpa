@@ -7,7 +7,7 @@ DeclareAttribute( "SymmetricMatrixOfUnitForm", IsUnitForm );
 DeclareAttribute( "BilinearFormOfUnitForm", IsUnitForm );
 DeclareAttribute( "QuadraticFormOfUnitForm", IsUnitForm );
 DeclareAttribute( "PositiveRootsOfUnitForm", IsUnitForm );
-DeclareOperation( "TitsUnitFormOfAlgebra", [ IsAdmissibleQuotientOfPathAlgebra ] );
+DeclareOperation( "TitsUnitFormOfAlgebra", [ IsQuiverAlgebra ] );
 DeclareOperation( "ReflectionByBilinearForm", [ IsUnitForm, IS_INT, IsVector ] );
 DeclareProperty( "IsWeaklyNonnegativeUnitForm",  IsUnitForm  );
 DeclareProperty( "IsWeaklyPositiveUnitForm",  IsUnitForm  );

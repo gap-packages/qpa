@@ -48,17 +48,17 @@ DeclareCategory( "IsQuiverProductDecomposition", IsList );
 DeclareOperation( "WalkOfPathOrVertex", [ IsPath ] );
 DeclareOperation( "ReversePath", [ IsPath ] );
 
-DeclareOperation( "IncludeInPathAlgebra", [ IsPath, IsAlgebra ] );
-DeclareOperation( "VerticesOfPathAlgebra", [ IsAlgebra ] );
+DeclareOperation( "IncludeInPathAlgebra", [ IsPath, IsQuiverAlgebra ] );
+DeclareOperation( "VerticesOfPathAlgebra", [ IsQuiverAlgebra ] );
 DeclareGlobalFunction( "PathAlgebraElementTerms" );
-DeclareOperation( "SimpleTensor", [ IsDenseList, IsAlgebra ] );
+DeclareOperation( "SimpleTensor", [ IsDenseList, IsQuiverAlgebra ] );
 
-DeclareOperation( "TensorProductOfAlgebras", [ IsAlgebra, IsAlgebra ] );
+DeclareOperation( "TensorProductOfAlgebras", [ IsQuiverAlgebra, IsQuiverAlgebra ] );
 DeclareGlobalFunction( "TensorProductOfPathAlgebras" );
 DeclareAttribute( "TensorProductDecomposition", IsAlgebra );
 
-DeclareAttribute( "EnvelopingAlgebra", IsAlgebra );
+DeclareAttribute( "EnvelopingAlgebra", IsQuiverAlgebra );
 DeclareProperty( "IsEnvelopingAlgebra", IsAlgebra );
 
-DeclareAttribute( "AlgebraAsModuleOverEnvelopingAlgebra", IsAlgebra );
+DeclareAttribute( "AlgebraAsModuleOverEnvelopingAlgebra", IsQuiverAlgebra );
 DeclareSynonym( "AlgebraAsModuleOfEnvelopingAlgebra", AlgebraAsModuleOverEnvelopingAlgebra );
