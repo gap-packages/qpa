@@ -474,3 +474,89 @@ InstallMethod( IsRadicalSquareZeroAlgebra,
     return Dimension(ProductSpace(radical,radical)) = 0;
 end
   );
+
+#######################################################################
+##
+#P  IsBasicAlgebra( <A> )
+##
+##  This function returns true if the entered algebra  <A>  is a (finite
+##  dimensional) basic algebra and false otherwise. This method applies 
+##  to algebras over finite fields. 
+##
+InstallMethod( IsBasicAlgebra,
+    "for an algebra",
+    [ IsAlgebra ], 0,
+    function( A )
+
+    local K, J, L;
+    #
+    # Only finite dimensional algebras are regarded as basic.
+    # 
+    if not IsFiniteDimensional(A) then
+        Error("the entered algebra is not finite dimensional,\n");
+    fi;
+    K := LeftActingDomain(A);
+    #
+    # Here we only can deal with algebras over finite fields.
+    # First we find a decomposition of the algebra modulo the
+    # radical, and then we find all the primitive idempotents 
+    # in each block. If each block only contains one primitive
+    # idempotent, then the algebra is basic. 
+    #
+    if IsFinite(K) then 
+        J := RadicalOfAlgebra(A);
+        L := List(DirectSumDecomposition(A/J),PrimitiveIdempotents);
+        L := List(L,Length);
+        if Sum(L) <> Length(L) then
+            return false;
+        else
+            return true;
+        fi;
+    else
+        TryNextMethod();
+    fi;
+end
+);
+
+#######################################################################
+##
+#P  IsElementaryAlgebra( <A> )
+##
+##  This function returns true if the entered algebra  <A>  is a (finite
+##  dimensional) elementary algebra and false otherwise. This method 
+##  applies to algebras over finite fields. 
+##
+InstallMethod( IsElementaryAlgebra,
+    "for an algebra",
+    [ IsAlgebra ], 0,
+    function( A )
+
+    local K, J, D, L;
+    
+    K := LeftActingDomain(A);
+    #
+    # Here we only can deal with algebras over finite fields.
+    # First we find a decomposition of the algebra modulo the
+    # radical, and then we find all the primitive idempotents 
+    # in each block. If each block only contains one primitive
+    # idempotent, then the algebra is basic. 
+    #
+    if IsFinite(K) and IsBasicAlgebra(A) then 
+        J := RadicalOfAlgebra(A);
+        D := DirectSumDecomposition(A/J);
+                # Since  A  is basic, we know that  D  only consists
+                # of simple blocks of division algebras. Hence  A  is 
+                # elementary if all the blocks have the same dimension 
+                # over  K, as then they are all the same finite field.
+                #
+        L := List(D, Dimension); 
+        if ForAll(L, x -> x = L[1]) then
+            return true;
+        else
+            return false;
+        fi;
+    else
+        TryNextMethod();
+    fi;
+end
+);

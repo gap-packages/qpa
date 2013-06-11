@@ -741,6 +741,65 @@ false]]>
 </ManSection>
 
 <ManSection>
+    <Prop Name="IsFiniteGlobalDimensionAlgebra" Arg="A"/>
+    <Description>
+      Arguments: <Arg>A</Arg> - an algebra over a field.<Br />
+    </Description>
+    <Returns> true if it is known that the entered algebra
+    <Arg>A</Arg> has finite global dimension.
+    </Returns> 
+    <Description>
+      There is no method associated to this, so if it is not known that 
+      the algebra has finite global dimension, then an error message saying 
+      "no method found!" is return. 
+    </Description>
+</ManSection>
+
+<ManSection>
+   <Prop Name="IsGentleAlgebra" Arg="A" Comm=""/>
+   <Description>
+     Arguments: <Arg>A</Arg> -- a path algebra or a quotient of a path
+     algebra.<Br />
+   </Description>
+   <Returns>
+     true if it is known that <Arg>A</Arg> is a finite dimensional
+     (quotient of) a path algebra. If unknown it returns an error
+     message saying "no method found!". 
+   </Returns>
+   <Description>
+     There is no method installed for this yet. 
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Prop Name="IsGorensteinAlgebra" Arg="A" Comm=""/>
+   <Description>
+     Arguments: <Arg>A</Arg> -- an algebra.<Br />
+   </Description>
+   <Returns>
+     true if it is known that <Arg>A</Arg> is a Gorenstein algebra. If
+     unknown it returns an error message saying "no method found!".
+   </Returns>
+   <Description>
+     There is no method installed for this yet. 
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Prop Name="IsHereditaryAlgebra" Arg="A" Comm=""/>
+   <Description>
+     Arguments: <Arg>A</Arg> -- an algebra.<Br />
+   </Description>
+   <Returns>
+     true if it is known that <Arg>A</Arg> is a hereditary algebra. If
+     unknown it returns an error message saying "no method found!".
+   </Returns>
+   <Description>
+     There is no method installed for this yet. 
+   </Description>
+</ManSection>
+
+<ManSection>
    <Prop Name="IsKroneckerAlgebra" Arg="A" Comm=""/>
    <Description>
      Arguments: <Arg>A</Arg> -- a path algebra or a quotient of a path
@@ -765,14 +824,23 @@ false]]>
 </ManSection>
 
 <ManSection>
-   <Prop Name="IsSelfinjectiveAlgebra" Arg="A" Comm=""/>
+   <Filt Name="IsQuiverAlgebra" Arg="A" Comm=""/>
    <Description>
-     Arguments: <Arg>A</Arg> -- a path algebra or a quotient of a path
-     algebra.<Br />
+     Arguments: <Arg>A</Arg> -- an algebra.<Br />
    </Description>
-   <Returns>fail if <Arg>A</Arg> is not finite dimensional. Otherwise
-     it returns true or false according to whether <Arg>A</Arg> is
-     selfinjective or not.
+   <Returns>
+     true if <Arg>A</Arg> is a path algebra or a quotient of a path
+     algebra algebra, otherwise false. 
+   </Returns>
+</ManSection>
+
+<ManSection>
+   <Prop Name="IsRadicalSquareZeroAlgebra" Arg="A" Comm=""/>
+   <Description>
+     Arguments: <Arg>A</Arg> -- an algebra.<Br />
+   </Description>
+   <Returns>
+     true if <Arg>A</Arg> is a radical square zero algebra, otherwise false. 
    </Returns>
 </ManSection>
 
@@ -791,6 +859,17 @@ false]]>
    </Description>
 </ManSection>
 
+<ManSection>
+   <Prop Name="IsSelfinjectiveAlgebra" Arg="A" Comm=""/>
+   <Description>
+     Arguments: <Arg>A</Arg> -- a path algebra or a quotient of a path
+     algebra.<Br />
+   </Description>
+   <Returns>fail if <Arg>A</Arg> is not finite dimensional. Otherwise
+     it returns true or false according to whether <Arg>A</Arg> is
+     selfinjective or not.
+   </Returns>
+</ManSection>
 
 <ManSection>
    <Prop Name="IsSemicommutativeAlgebra" Arg="A" Comm=""/>
@@ -810,6 +889,21 @@ false]]>
   for ideal has not been computed before creating a quotient!
    </Description>
 </ManSection>
+
+<ManSection>
+    <Prop Name="IsSemisimpleAlgebra" Arg="A"/>
+    <Description>
+      Arguments: <Arg>A</Arg> - an algebra over a field.<Br />
+    </Description>
+    <Returns> true if it is known that the entered algebra
+    <Arg>A</Arg> has finite global dimension.
+    </Returns> 
+    <Description>
+      There is no method associated to this, so if it is not known that 
+      the algebra has finite global dimension, then an error message saying 
+      "no method found!" is return. 
+    </Description>
+  </ManSection>
 
 <ManSection>
   <Prop Name="IsSpecialBiserialAlgebra" Arg="A" Comm="checks if A is a special biserial algebra"/>
@@ -983,6 +1077,20 @@ true ]]>
   (it breaks for infinite dimensional case!).
   For a quotient of a path algebra it uses Groebner bases machinery
   (it computes Groebner basis for the ideal only in case it has not been computed yet).
+  </Description>
+</ManSection>
+
+<ManSection>
+  <Attr Name="GlobalDimension"  Arg="A" Comm="computes the dimension of A"/>
+  <Description>
+    Arguments: <Arg>A</Arg> -- an algebra.<Br />
+  </Description>
+  <Returns>
+    the global dimension of the algebra <Arg>A</Arg> if it is
+    known. Otherwise it returns an error message saying "no method found!". 
+  </Returns>
+  <Description>
+    There is no method installed for this yet. 
   </Description>
 </ManSection>
 
@@ -1614,7 +1722,34 @@ true]]>
 </Section>
 
 <Section Label="qpa:moregeneralalgebrastuff">
-  <Heading>Finite dimensional simple algebras over finite fields</Heading>
+  <Heading>Finite dimensional algebras over finite fields</Heading>
+
+<ManSection>
+    <Prop Name="IsBasisAlgebra" Arg="A"/>
+    <Description>
+      Arguments: <Arg>A</Arg> - a finite dimensional algebra over a finite field.<Br />
+    </Description>
+    <Returns> true if the entered algebra <Arg>A</Arg> is a (finite
+    dimensional) basic algebra and false otherwise. This method only 
+    applies to algebras over finite fields. 
+    </Returns> 
+  </ManSection>
+
+<ManSection>
+    <Prop Name="IsElementaryAlgebra" Arg="A"/>
+    <Description>
+      Arguments: <Arg>A</Arg> - a finite dimensional algebra over a finite field.<Br />
+    </Description>
+    <Returns> true if the entered algebra <Arg>A</Arg> is a (finite
+    dimensional) elementary algebra and false otherwise. This method only 
+    applies to algebras over finite fields. 
+    </Returns> 
+    <Description>
+      The algebra <Arg>A</Arg> need not to be an elementary algebra
+      over the field which it is defined, but be an elementary algebra
+      over a field extension.
+    </Description>
+  </ManSection>
 
 <ManSection>
     <Oper Name="PrimitiveIdempotents" Arg="A"/>
@@ -1628,5 +1763,6 @@ true]]>
       TODO: Understand what this function actually does.
     </Description>
   </ManSection>
+
 </Section>
 </Chapter>
