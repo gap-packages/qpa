@@ -1788,4 +1788,78 @@ InstallMethod ( RightAlgebraModuleToPathAlgebraMatModule,
     
     return RightModuleOverPathAlgebra(A,mat);
 end
-);
+  );
+
+#######################################################################
+##
+#P  IsRigdiModule( <M> )
+##
+##  This function returns true if the entered module  <M>  is a rigid 
+##  module, otherwise false.
+##
+InstallMethod( IsRigidModule,
+    "for a PathAlgebraMatModule",
+    [ IsPathAlgebraMatModule ], 0,
+    function( M ); 
+    
+    return Length(ExtOverAlgebra(M,M)[2]) = 0;
+end
+  );
+
+#######################################################################
+##
+#P  IsTauRigdiModule( <M> )
+##
+##  This function returns true if the entered module  <M>  is a tau rigid 
+##  module, otherwise false.
+##
+InstallMethod( IsTauRigidModule,
+    "for a PathAlgebraMatModule",
+    [ IsPathAlgebraMatModule ], 0,
+    function( M ); 
+    
+    return Length(HomOverAlgebra(M,DTr(M))) = 0;
+end
+  );
+
+#######################################################################
+##
+#P  IsIndecomposableModule( <M> )
+##
+##  This function returns true if the entered module  <M>  is an
+##  indecomposable module, otherwise false if the field, over which
+##  the algebra is defined, is finite. 
+##
+InstallMethod( IsIndecomposableModule,
+    "for a PathAlgebraMatModule",
+    [ IsPathAlgebraMatModule ], 0,
+    function( M )
+    
+    local K; 
+    
+    K := LeftActingDomain(M);
+    if IsFinite(K) then 
+        return Length(DecomposeModule(M)) = 1;
+    else
+        TryNextMethod();
+    fi;
+end
+  );
+
+#######################################################################
+##
+#P  IsExceptionalModule( <M> )
+##
+##  This function returns true if the entered module  <M>  is an
+##  exceptional module (ie. indecomposable and Ext^1(M,M)=(0), otherwise 
+##  false, if the field, over which the algebra  <M>  is defined over, 
+##  is finite.
+##
+InstallMethod( IsExceptionalModule,
+    "for a PathAlgebraMatModule",
+    [ IsPathAlgebraMatModule ], 0,
+    function( M );
+    
+    return IsRigidModule(M) and IsIndecomposableModule(M);
+end
+  );

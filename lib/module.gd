@@ -32,4 +32,8 @@ DeclareAttribute( "DirectSumProjections", IsPathAlgebraMatModule );
 DeclareAttribute( "DirectSumInclusions", IsPathAlgebraMatModule );
 DeclareOperation( "SupportModuleElement", [ IsRightAlgebraModuleElement ] );
 DeclareOperation( "RightAlgebraModuleToPathAlgebraMatModule", [ IsRightAlgebraModuleElementCollection ]);
-
+DeclareProperty( "IsRigidModule", IsPathAlgebraMatModule );
+DeclareProperty( "IsTauRigidModule", IsPathAlgebraMatModule );
+DeclareProperty( "IsIndecomposableModule", IsPathAlgebraMatModule );
+DeclareProperty( "IsExceptionalModule", IsPathAlgebraMatModule );
+InstallTrueMethod( IsExceptionalModule, IsIndecomposableModule and IsRigidModule );

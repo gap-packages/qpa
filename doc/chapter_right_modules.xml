@@ -493,6 +493,33 @@ gap> inc := DirectSumInclusions(N2);
 </Example>
 
 <ManSection>
+   <Prop Name="IsExceptionalModule" Arg="M" Comm="for a
+   PathAlgebraMatModule"/>
+   <Description> 
+    Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>).
+   <Br /></Description>
+   <Returns>true if <Arg>M</Arg> is an exceptional module, otherwise
+   false, if the field, over which the algebra <Arg>M</Arg> is defined over, is
+   finite.
+   </Returns>
+   <Description>
+     The module <Arg>M</Arg> is an exceptional module, if it is indecomposable and
+     <M>\Ext^1(M,M)=(0)</M>. 
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Prop Name="IsIndecomposableModule" Arg="M" Comm="for a
+   PathAlgebraMatModule"/>
+   <Description> 
+    Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>).
+   <Br /></Description>
+   <Returns>true if <Arg>M</Arg> is an indecomposable module, if the
+   field, over which the algebra <Arg>M</Arg> is defined over, is finite.
+   </Returns>
+</ManSection>
+
+<ManSection>
    <Oper Name="IsInAdditiveClosure" Arg="M, N" Comm="for two
    PathAlgebraMatModule's"/>
    <Description> 
@@ -542,6 +569,20 @@ gap> inc := DirectSumInclusions(N2);
 </ManSection>
 
 <ManSection>
+   <Prop Name="IsRigidModule" Arg="M" Comm="for a
+   PathAlgebraMatModule"/>
+   <Description> 
+    Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>).
+   <Br /></Description>
+   <Returns>true if <Arg>M</Arg> is a rigid module, otherwise
+   false. 
+   </Returns>
+   <Description>
+     The module <Arg>M</Arg> is a rigid module, if <M>\Ext^1(M,M)=(0)</M>. 
+   </Description>
+</ManSection>
+
+<ManSection>
    <Prop Name="IsSemisimpleModule" Arg="M" Comm="for a
    PathAlgebraMatModule"/>
    <Description> 
@@ -559,6 +600,20 @@ gap> inc := DirectSumInclusions(N2);
    <Br /></Description>
    <Returns>true if the representation <Arg>M</Arg> is simple.
    </Returns>
+</ManSection>
+
+<ManSection>
+   <Prop Name="IsTauRigidModule" Arg="M" Comm="for a
+   PathAlgebraMatModule"/>
+   <Description> 
+    Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>).
+   <Br /></Description>
+   <Returns>true if <Arg>M</Arg> is a <M>\tau</M>-rigid module, otherwise
+   false. 
+   </Returns>
+   <Description>
+     The module <Arg>M</Arg> is a <M>\tau</M>-rigid module, if <M>\Hom(M,\tau M)=(0)</M>. 
+   </Description>
 </ManSection>
 
 <ManSection>
