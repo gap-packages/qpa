@@ -1416,6 +1416,7 @@ InstallMethod( RadicalSeries,
    fi;
 end
 );
+
 #######################################################################
 ##
 #O  SocleSeries ( <M> )
@@ -1450,6 +1451,12 @@ InstallMethod( SocleSeries,
 end
 );
 
+#######################################################################
+##
+#A  Dimension( <M> )
+##
+##  Returns the k-dimension of the module <M>.
+##
 InstallOtherMethod( Dimension,
    "for a PathAlgebraMatModule",
    [ IsPathAlgebraMatModule ], 0,
@@ -1459,6 +1466,12 @@ InstallOtherMethod( Dimension,
 end
 );
 
+#######################################################################
+##
+#P  IsProjectiveModule( <M> )
+##
+##  Checks whether <M> is projective.
+##
 InstallMethod( IsProjectiveModule, 
    "for a module over a quotient of a path algebra",
    [ IsPathAlgebraMatModule ], 0,
@@ -1483,6 +1496,12 @@ InstallMethod( IsProjectiveModule,
 end
 );
 
+#######################################################################
+##
+#P  IsInjectiveModule( <M> )
+##
+##  Checks whether <M> is injective.
+##
 InstallMethod( IsInjectiveModule, 
    "for a module over a quotient of a path algebra",
    [ IsPathAlgebraMatModule ], 0,
@@ -1492,6 +1511,12 @@ InstallMethod( IsInjectiveModule,
 end
 );
 
+#######################################################################
+##
+#P  IsSimpleModule( <M> )
+##
+##  Checks whether <M> is simple.
+##
 InstallMethod( IsSimpleModule, 
    "for a module over a quotient of a path algebra",
    [ IsPathAlgebraMatModule ], 0,
@@ -1505,6 +1530,12 @@ InstallMethod( IsSimpleModule,
 end
 );
 
+#######################################################################
+##
+#P  IsSemisimpleModule( <M> )
+##
+##  Checks whether <M> is semisimple.
+##
 InstallMethod( IsSemisimpleModule, 
    "for a module over a quotient of a path algebra",
    [ IsPathAlgebraMatModule ], 0,
@@ -1518,6 +1549,15 @@ InstallMethod( IsSemisimpleModule,
 end
 );
 
+#######################################################################
+##
+#M  DirectSumOfModules( <L> )
+##
+##  <L> is a list of modules over a path algebra.  The function computes
+##  and returns the direct sum of all modules in <L>.  The projections
+##  and inclusions between the modules in <L> and the direct sum is stored
+##  as attributes of the direct sum.
+##
 InstallMethod( DirectSumOfModules,
    "for a list of modules over a path algebra",
    [ IsList ], 0,
@@ -1792,7 +1832,7 @@ end
 
 #######################################################################
 ##
-#P  IsRigdiModule( <M> )
+#P  IsRigidModule( <M> )
 ##
 ##  This function returns true if the entered module  <M>  is a rigid 
 ##  module, otherwise false.
@@ -1808,7 +1848,7 @@ end
 
 #######################################################################
 ##
-#P  IsTauRigdiModule( <M> )
+#P  IsTauRigidModule( <M> )
 ##
 ##  This function returns true if the entered module  <M>  is a tau rigid 
 ##  module, otherwise false.
