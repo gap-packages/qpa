@@ -122,6 +122,8 @@ InstallMethod ( IndecProjectiveModules,
         list_of_min_gen[i] := PathModuleElem(FamilyObj(Zero(indec_proj_list[i])![1]),list_of_min_gen[i]); 
         list_of_min_gen[i] := Objectify( TypeObj( Zero(indec_proj_list[i]) ), [ list_of_min_gen[i] ] );
         SetMinimalGeneratingSetOfModule(indec_proj_list[i],[list_of_min_gen[i]]);
+        SetIsIndecomposableModule(indec_proj_list[i], true);
+        SetIsProjectiveModule(indec_proj_list[i], true);
     od;
     
     return indec_proj_list;
