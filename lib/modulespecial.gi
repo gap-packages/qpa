@@ -167,7 +167,7 @@ InstallMethod ( SimpleModules,
     [ IsQuiverAlgebra ], 0,
     function( A )
 
-    local KQ, num_vert, simple_rep, zero, v, temp;
+    local KQ, num_vert, simple_rep, zero, v, temp, s;
 #
     if not IsFiniteDimensional(A) then
         Error("argument entered is not a finite dimensional algebra,\n");
@@ -184,7 +184,9 @@ InstallMethod ( SimpleModules,
         temp[v] := 1; 
         Add(simple_rep,RightModuleOverPathAlgebra(A,temp,[]));
     od;
-        
+    for s in simple_rep do
+        SetIsSimpleModule(s, true);
+    od;
     return simple_rep;
 end
 );

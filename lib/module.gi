@@ -1880,9 +1880,14 @@ InstallMethod( IsIndecomposableModule,
     K := LeftActingDomain(M);
     if IsFinite(K) then 
         return Length(DecomposeModule(M)) = 1;
-    else
-        TryNextMethod();
     fi;
+    if IsSimpleModule( TopOfModule(M) ) then
+        return true;
+    fi;
+    if IsSimpleModule( SocleOfModule(M) ) then
+        return true;
+    fi;
+    TryNextMethod();
 end
   );
 
