@@ -360,38 +360,33 @@ InstallMethod( IsDynkinQuiver,
 ##
 ## This function returns a quiver which is a fullsubquiver
 ## of a quiver <Q> induced by the list of vertices <L>.
-## Note: the names of vertices and arrows in resulting (sub)quiver 
-## can differ from the original ones.
+## The names of vertices and arrows in resulting (sub)quiver 
+## remain the same as in original one.
 ##
 InstallMethod( FullSubquiver,
                
   [ IsQuiver, IsList ],
   function( Q, L )
-    local i, arr, vertices, arrows, result, src, trg;
+    local arr, vertices, arrows, result, src, trg;
     
     if not ForAll(L, x -> (IsVertex(x) and (x in Q)) ) then
       Error("L should be a list of vertices of Q!");
     fi;
     
-    vertices := [];
-    for i in [1..Length(L)] do
-      Add(vertices, Concatenation("nv",String(i)) );
-    od;
+    vertices := List(L, String);
     
     arrows := [];
-    i := 0;
     for arr in ArrowsOfQuiver(Q) do
       src := SourceOfPath(arr);
       trg := TargetOfPath(arr);
       if (src in L) and (trg in L) then
-        i := i + 1;
-        Add(arrows, [ Concatenation("nv",String(Position(L, src))),
-                      Concatenation("nv",String(Position(L, trg))),
-                      Concatenation("na",String(i)) ] );
+        Add(arrows, [ String(src),
+                      String(trg),
+                      String(arr) ] );
       fi;
     od;
     
-    result := Quiver(vertices,arrows);
+    result := Quiver(vertices, arrows);
     
     return result;
   
