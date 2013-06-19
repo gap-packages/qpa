@@ -1569,3 +1569,191 @@ function( sourceComplexes, rangeComplexes,
                        
 end );
 
+#######################################################################
+##
+#F  FiniteChainMap( <source>, <range>, <baseDegree>, <morphisms> ) 
+##
+##  This function returns a finite chain map between two finite
+##  complexes <source> and <range>.
+##  
+InstallGlobalFunction( FiniteChainMap,
+function( source, range, baseDegree, morphisms )
+    return ChainMap( source, range, baseDegree, morphisms, "zero", "zero" );
+end );
+
+#######################################################################
+##
+#F  ZeroChainMap( <source>, <range> )
+##
+##  This function returns the zero chain map between two
+##  complexes <source> and <range>.
+##  
+InstallGlobalFunction( ZeroChainMap,
+[ IsComplex, IsComplex ],
+function( source, range )
+    return ChainMap( source, range, 0, [], "zero", "zero" );
+end );
+
+#######################################################################
+##
+#O  ComparisonLifting( <f>, <PC>, <EC> )
+##  
+##  <f> is a morphism between two modules M and N.  <PC> is a complex
+##  with M in degree i, zero in degrees j < i and projective modules
+##  in degrees j > i.  <EC> is an exact complex with N in degree i
+##  and zero in degrees j < i.  The function returns a chain map from
+##  <PC> to <EC> which lifts the map <f> (it has <f> in degree i).
+##  
+InstallMethod( ComparisonLifting,
+               [ IsPathAlgebraMatModuleHomomorphism, IsComplex, IsComplex ],
+               function( f, PC, EC )
+    local lbound, surjection, middle, nextLifting, nextLiftingFunction, i, j, chainmap;
+
+    if ( LowerBound(PC) <> LowerBound(EC) ) then
+       Error("The complexes must have the same lower bound");
+    fi;
+
+    lbound := LowerBound(PC);
+
+    if (ObjectOfComplex(PC,lbound) <> Source( f ) or
+        ObjectOfComplex(EC,lbound) <> Range( f ) ) then
+       Error("The map has wrong source and/or range");
+    fi;
+
+    surjection := DifferentialOfComplex( PC , lbound + 1 )*f;
+
+    middle := [ f, LiftingMorphismFromProjective( DifferentialOfComplex( EC, lbound + 1 ), surjection ) ];
+
+    nextLifting := function( prev, i )
+        local maps, kerinc, map, maps2, surj;
+
+        if IsZero(DimensionVector( ObjectOfComplex( PC, i ))) then
+            return ZeroMapping( ObjectOfComplex( PC, i ), ObjectOfComplex( EC, i ));
+        fi;
+        
+        maps := ImageProjectionInclusion( DifferentialOfComplex( PC, i )*prev );
+        kerinc := LiftingInclusionMorphisms( KernelInclusion( DifferentialOfComplex( EC, i-1 ) ), maps[2] );
+        map := maps[1] * kerinc;
+        maps2 := ImageProjectionInclusion( DifferentialOfComplex( EC, i ) );
+        surj := maps2[1]*LiftingInclusionMorphisms( KernelInclusion( DifferentialOfComplex( EC, i-1 )), maps2[2]);
+        
+        return LiftingMorphismFromProjective(surj, map);
+    end;
+
+    if  IsInt( UpperBound( PC ) ) and IsInt( UpperBound ( EC )) then
+        for i in [ lbound+2..UpperBound( PC ) ] do
+            Append( middle, [ nextLifting( middle[i-lbound], i ) ] );
+        od;
+        for j in [ i+1..UpperBound( EC ) ] do
+            Append( middle, [ ZeroMapping( ObjectOfComplex( PC, j ), ObjectOfComplex( EC, j ) ) ] );
+        od;
+        return FiniteChainMap( PC, EC, lbound, middle );
+    else
+        nextLiftingFunction := function( M, i ) return nextLifting( MorphismOfChainMap( M, i-1 ), i ); end; 
+        return ChainMap( PC, EC, lbound, middle, [ "pos", nextLiftingFunction, true ], "zero" );
+    fi;
+end );
+
+
+#######################################################################
+##
+#O  ComparisonLiftingToProjectiveResolution( <f> )
+##  
+##  <f> is a morphism between two modules M and N.  The function
+##  returns the lifting of <f> to a chain map between the projective
+##  resolutions of M and N.  The modules M and N are in degree -1 of
+##  the resolutions, and the map in degree -1 is <f>.
+##  
+InstallMethod( ComparisonLiftingToProjectiveResolution,
+[ IsPathAlgebraMatModuleHomomorphism ],
+function( f )
+    return ComparisonLifting( f, ProjectiveResolution( Source(f) ), ProjectiveResolution( Range(f) ) );
+end );
+
+#######################################################################
+##
+#O  MappingCone( <f> )
+##  
+##  <f> is a chain map between two complexes A and B.
+##  This method returns a list [ C, i, p ] where C is the mapping cone
+##  of <f>, i is the (chain map) inclusion of B into the cone and
+##  p is the projection from the cone onto A[-1].
+##  
+InstallMethod( MappingCone,
+[ IsChainMap ],
+function( f )
+    local C, i, A, B, dirsum, dirsum2, diff, middle, positiveFunction, negativeFunction;
+
+    A := Source(f);
+    B := Range(f);
+
+#
+#  Consider where to "start" the cone complex.
+#
+    if (IsInt(LowerBound(A))) then
+        i := LowerBound(A);
+    elif (IsInt(LowerBound(B))) then
+        i := LowerBound(B);
+    elif (IsInt(UpperBound(A))) then
+        i := UpperBound(A);
+    elif (IsInt(UpperBound(B))) then
+        i := UpperBound(B);
+    else
+        i := 0;
+    fi;
+
+#
+#  Construct the first differential of the cone, and the first projection/inclusion morphisms
+#
+
+    dirsum := DirectSumOfModules( [ ObjectOfComplex(A,i-1), ObjectOfComplex(B,i) ] );
+    dirsum2 := DirectSumOfModules( [ ObjectOfComplex(A,i-2), ObjectOfComplex(B,i-1) ] );
+    diff := MultiplyListsOfMaps( DirectSumProjections(dirsum),
+                                 [[ -DifferentialOfComplex(A,i-1),
+                                    ZeroMapping(ObjectOfComplex(B,i), ObjectOfComplex(A,i-2)) ],
+                                  [ -MorphismOfChainMap(f,i-1), DifferentialOfComplex(B,i)]],
+                                 DirectSumInclusions(dirsum2) );
+    middle := [ [ diff, DirectSumInclusions(dirsum)[2], DirectSumProjections(dirsum)[1] ] ];
+
+#
+#  Positive degrees of the cone, the projection and the inclusion
+#
+    positiveFunction := function(C,inmap,outmap,i)
+        local nextObj, prevObj, nextDiff;
+        nextObj := DirectSumOfModules( [ ObjectOfComplex(A,i-1), ObjectOfComplex(B,i) ] );
+        prevObj := Source(DifferentialOfComplex(C,i-1));
+
+        nextDiff :=  MultiplyListsOfMaps( DirectSumProjections(nextObj),
+                                          [[ -DifferentialOfComplex(A,i-1),
+                                             ZeroMapping(ObjectOfComplex(B,i), ObjectOfComplex(A,i-2)) ],
+                                           [ -MorphismOfChainMap(f,i-1), DifferentialOfComplex(B,i)]],
+                                          DirectSumInclusions(prevObj) );
+        return [ nextDiff, DirectSumInclusions(nextObj)[2], DirectSumProjections(nextObj)[1] ];
+
+    end ;
+
+#
+#  Negative degrees of the cone, the projection and the inclusion
+#
+    negativeFunction := function(C,inmap,outmap,i)
+        local nextObj, prevObj, nextDiff;
+        nextObj := DirectSumOfModules( [ ObjectOfComplex(A,i-2), ObjectOfComplex(B,i-1) ] );
+        prevObj := Range(DifferentialOfComplex(C,i+1));
+
+        nextDiff := MultiplyListsOfMaps( DirectSumProjections(prevObj),
+                                         [[ -DifferentialOfComplex(A,i-1),
+                                            ZeroMapping(ObjectOfComplex(B,i), ObjectOfComplex(A,i-2)) ],
+                                          [ -MorphismOfChainMap(f,i-1), DifferentialOfComplex(B,i)]],
+                                         DirectSumInclusions(nextObj) );
+        return [ nextDiff, DirectSumInclusions(prevObj)[2], DirectSumProjections(prevObj)[1] ];
+    end ;
+
+#
+#  Returns the cone (as a complex) together with the projection and the inclusion
+#
+    C := ComplexAndChainMaps( [B], [Shift(A,-1)], i, middle,
+                              ["pos", positiveFunction, true],
+                              ["pos", negativeFunction, true] );
+    return C;
+end );
+

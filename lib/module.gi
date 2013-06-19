@@ -1674,13 +1674,10 @@ InstallMethod( DirectSumOfModules,
          Add(list_of_incls,RightModuleHomOverAlgebra(L[i],direct_sum,maps));
       od;
 
-      if Sum(dim_vect) <> 0 then 
-         SetIsDirectSumOfModules(direct_sum,true);
-         SetDirectSumProjections(direct_sum,list_of_projs);
-         SetDirectSumInclusions(direct_sum,list_of_incls);
-      else 
-         SetIsDirectSumOfModules(direct_sum,false);         
-      fi;
+      SetIsDirectSumOfModules(direct_sum,true);
+      SetDirectSumProjections(direct_sum,list_of_projs);
+      SetDirectSumInclusions(direct_sum,list_of_incls);
+
       return direct_sum;
    fi;
 

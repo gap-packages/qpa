@@ -1567,8 +1567,6 @@ be one of the following:
 This function creates a zero chain map (a chain map in which every
 morphism is zero) from the complex <Arg>source</Arg> to the
 complex <Arg>range</Arg>.<P/>
-
-(TODO: this function is not implemented.)
 </Description>
 </ManSection>
 
@@ -1596,8 +1594,6 @@ morphisms in degrees
 <Arg>baseDegree</Arg> + \text{Length}(<Arg>morphisms</Arg>) - 1.
 </Display>
 All other morphisms in the chain map are zero.<P/>
-
-(TODO: this function is not implemented.)
 </Description>
 </ManSection>
 
@@ -1746,7 +1742,7 @@ new chain maps with <M>C</M> as source.
 <ManSection>
   <Attr Name="MorphismsOfChainMap" Arg="M" />
   <Description>
-    Arguments: <Arg>M</Arg> -- a chain map<Br />
+    Arguments: <Arg>M</Arg> -- a chain map.<Br />
   </Description>
   <Returns>
     The morphisms of the chain map, stored as an <Ref Filt="IsInfList"/>
@@ -1754,6 +1750,94 @@ new chain maps with <M>C</M> as source.
   </Returns>
 </ManSection>
 
+<ManSection>
+  <Oper Name="ComparisonLifting" Arg="f,PC,EC" />
+  <Description>
+    Arguments: <A>f</A> -- a map between modules <M>M</M> and
+    <M>N</M>, <A>PC</A> -- a chain complex, <A>EC</A> -- a chain
+    complex.<Br />
+  </Description>
+  <Returns>
+    The map <A>f</A> lifted to a chain map from <A>PC</A> to <A>EC</A>.
+  </Returns>
+  <Description>
+    The complex <A>PC</A> must have <M>M</M> in some fixed degree
+    <M>i</M>, it should be bounded with only zero objects in degrees
+    smaller than <M>i</M>, and it should have only projective objects
+    in degrees greater than <M>i</M> (or projective objects in degrees
+    <M>[i+1,j]</M> and zero in degrees greater than <M>j</M>).  The
+    complex <A>EC</A> should also have zero in degrees smaller than
+    <M>i</M>, it should have <M>N</M> in degree <M>i</M> and it should
+    be exact for all degrees.  The returned chain map has <A>f</A> in
+    degree <M>i</M>.
+  </Description>
+</ManSection>
+
+<ManSection>
+  <Oper Name="ComparisonLiftingToProjectiveResolution" Arg="f" />
+  <Description>
+    Arguments: <A>f</A> -- a map between modules <M>M</M> and
+    <M>N</M>.<Br />
+  </Description>
+  <Returns>
+    The map <A>f</A> lifted to a chain map from the projective
+    resolution of <M>M</M> to the projective resolution of <M>N</M>.
+  </Returns>
+  <Description>
+    The returned chain map has <A>f</A> in degree <M>-1</M> (the
+    projective resolution of a module includes the module itself in
+    degree <M>-1</M>).
+  </Description>
+</ManSection>
+
+<ManSection>
+  <Oper Name="MappingCone" Arg="f" />
+  <Description>
+    Arguments: <A>f</A> -- a chain map between chain complexes <M>A</M> and <M>B</M>. <Br />
+  </Description>
+  <Returns>
+    A list with the mapping cone of <A>f</A> and the inclusion of
+    <M>B</M> into the cone, and the projection of the cone onto
+    <M>A[-1]</M>.
+  </Returns>
+  <Description>
+    
+  </Description>
+</ManSection>
+
+<Example><![CDATA[
+gap> # Constructs a quiver and a quotient of a path algebra
+gap> Q := Quiver( 4, [ [1,2,"a"], [2,3,"b"], [3,4,"c"] ] );;
+gap> PA := PathAlgebra( Rationals, Q );;
+gap> rels := [ PA.a*PA.b ];;
+gap> gb := GBNPGroebnerBasis( rels, PA );;
+gap> I := Ideal( PA, gb );;
+gap> grb := GroebnerBasis( I, gb );;
+gap> alg := PA/I;;
+gap> 
+gap> # Two modules M and N, and a map between them
+gap> M := RightModuleOverPathAlgebra( alg, [0,1,1,0], [["b", [[1]] ]] );;
+gap> N := RightModuleOverPathAlgebra( alg, [0,1,0,0], [] );;
+gap> f := RightModuleHomOverAlgebra(M, N, [ [[0]],[[1]],[[0]],[[0]] ]);;
+gap> 
+gap> # Lifts f to a map between the projective resolutions of M and N
+gap> lf := ComparisonLiftingToProjectiveResolution(f);
+<chain map>
+gap> 
+gap> # Computes the mapping cone of the chain map
+gap> H := MappingCone(lf);
+[ --- -> -1:(0,1,0,0) -> ---, <chain map>, <chain map> ]
+gap> cone := H[1];
+--- -> -1:(0,1,0,0) -> ---
+gap> ObjectOfComplex(Source(lf),0);
+<[ 0, 1, 1, 1 ]>
+gap> ObjectOfComplex(Range(lf),1);
+<[ 0, 0, 1, 1 ]>
+gap> ObjectOfComplex(cone,1);
+<[ 0, 1, 2, 2 ]> 
+gap> Source(H[2]) = Range(lf);
+true]]>
+</Example>
 
 </Section>
 
