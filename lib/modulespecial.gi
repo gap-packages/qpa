@@ -122,6 +122,8 @@ InstallMethod ( IndecProjectiveModules,
         list_of_min_gen[i] := PathModuleElem(FamilyObj(Zero(indec_proj_list[i])![1]),list_of_min_gen[i]); 
         list_of_min_gen[i] := Objectify( TypeObj( Zero(indec_proj_list[i]) ), [ list_of_min_gen[i] ] );
         SetMinimalGeneratingSetOfModule(indec_proj_list[i],[list_of_min_gen[i]]);
+        SetIsIndecomposableModule(indec_proj_list[i], true);
+        SetIsProjectiveModule(indec_proj_list[i], true);
     od;
     
     return indec_proj_list;
@@ -165,7 +167,7 @@ InstallMethod ( SimpleModules,
     [ IsQuiverAlgebra ], 0,
     function( A )
 
-    local KQ, num_vert, simple_rep, zero, v, temp;
+    local KQ, num_vert, simple_rep, zero, v, temp, s;
 #
     if not IsFiniteDimensional(A) then
         Error("argument entered is not a finite dimensional algebra,\n");
@@ -182,7 +184,9 @@ InstallMethod ( SimpleModules,
         temp[v] := 1; 
         Add(simple_rep,RightModuleOverPathAlgebra(A,temp,[]));
     od;
-        
+    for s in simple_rep do
+        SetIsSimpleModule(s, true);
+    od;
     return simple_rep;
 end
 );
