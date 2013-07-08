@@ -1,15 +1,3 @@
-# BG 14, 9
-# BG 13 dokl. przetestowany
-# BG 12, potest, DOP2 usuniety! testy, ok, usuniete Has_Ad_zero_col
-# DOPWD, DOSWD DOP < DOP2 i wyszuk direct pred trwa prawie nic (ulamki, tylko 2 razy sekunda z kawalkiem, ale w por. do kilkadziesiat sek. szukanie pred)  na BG 7
-# BG 7 wklepane, sprawdzone dimy kilka
-# BG 5 rzetestowane, tez DOP < DOP2 i wyszuk direct pred trwa prawie nic
-# DegOrderDirectPredecessors, DegOrderDirectSuccessors, zrobione, potestowane!
-# testcodimconj zrobiona, 
-# DegOrderPredecessors2, potestowane na wszystkich, DegOrderPredecessors lepszy!!!
-# DegOrderPredecessors2, potestowane na wszystkich, DegOrderPredecessors lepszy!!!
-# DegOrderPredecessors, DegOrderSuccessors,  reszta algebr, przetestowane!!!
-
 # GAP Implementation
 # This contains various tools for computing degenerations of modules in finite type
 # (created A. Mroz, 01.07.2013)
@@ -53,11 +41,9 @@
 ##            to this order of projectives!) 
 ## Alternative arguments:
 ##            <name> = string with the name of predefined AR quiver - see description of 
-##                     PredefARQuivers (put "what" as <name> to obtain the description of 
-##                     currently available quivers).
+##                     PredefARQuivers
 ##            <param1> = (optional) parameter for <name>
 ##            <param2> = (optional) second parameter for <name>
-##        
 
 InstallGlobalFunction( ARQuiverNumerical,
   function( arg )
@@ -85,12 +71,12 @@ InstallGlobalFunction( ARQuiverNumerical,
     p := data[2]; # number of projectives
     LL := data[3]; # description of AR quiver (see a note before function)
       
-  	# Check if LL[1],...,LL[p] define projectives  
-  	for i in [1..p] do
-	    if LL[i][Length(LL[i])] <> 0 then
-	      Error("wrong AR description, indecomposables with numbers 1,...,",p," should be projectives!");
+	# Check if LL[1],...,LL[p] define projectives  
+	for i in [1..p] do
+	  if LL[i][Length(LL[i])] <> 0 then
+	    Error("wrong AR description, indecomposables with numbers 1,...,",p," should be projectives!");
       fi;
-	  od;
+	od;
 	
     # Computing Auslander-Reiten matrix T
     T := NullMat(n,n);
@@ -456,7 +442,7 @@ InstallMethod( DegOrderPredecessors,
 ## and there is no M' s.t. M < M' < <which>
 ##
 ## <which> can be a number of indecomposable or the multiplicity vector.
-## (Naive method of choosing direct ones, but enough fast.)
+## Naive method!!
 
 InstallMethod( DegOrderDirectPredecessors,
                
@@ -1064,7 +1050,7 @@ InstallMethod( PrintMultiplicityVectors,
   function( l )
     local mv;
     
-	  for mv in l do
+    for mv in l do
       PrintMultiplicityVector(mv);
     od;    
           
@@ -1116,7 +1102,7 @@ end
 ## The function tests case by case all indecomposables.
 ## Additional arguments:
 ## <printbool> = true - function prints more info (consecutive tested indesomposables).
-## <printbool> = false - function prints less info (only a summary at the end).
+## <printbool> = false - function prints less info.
 ## <breakbool> = true - function breaks when a counterexample is found.
 ## <breakbool> = false - function doesn't break when a counterexample is found
 ##               (it collects all possible counterexamples).
@@ -1133,14 +1119,14 @@ InstallMethod( TestCodimConjecture,
     
     n := NumberOfIndecomposables(AR);
     no_of_dpred := 0;
-	  no_of_pred := 0;
+	no_of_pred := 0;
     no_of_cexs := 0;
     cexs := [];
     
     for ind in [1..n] do
       preddpred := DegOrderPredecessorsWithDirect(AR, ind); 
       no_of_pred := no_of_pred + Length(preddpred[1]);
-	    no_of_dpred := no_of_dpred + Length(preddpred[2]);
+	  no_of_dpred := no_of_dpred + Length(preddpred[2]);
       no_of_cexs_loc := 0;
       for vec in preddpred[2] do 
          if OrbitCodim(AR, vec, ind) <> 1 then
@@ -1168,7 +1154,7 @@ InstallMethod( TestCodimConjecture,
     fi;
     Print("Summary:\n", n," indecomposables,\n", no_of_pred, " deg-predecessors of indecomposables,\n");
     Print(no_of_dpred, " direct deg-predecessors of indecomposables.\n");
-  	Print(no_of_cexs, " counterexample(s) founded.\n");
+	Print(no_of_cexs, " counterexample(s) founded.\n");
     if no_of_cexs > 0 then
       Print("Conjecture disproved!");
     else
@@ -1223,12 +1209,12 @@ InstallGlobalFunction( PredefARQuivers,
       Print("subspace\n orientation of arrows;\n");
       Print("4) (\"E6 subspace\"), path algebra of Dynkin quiver E6 with ");
       Print("subspace\n orientation of arrows;\n");
-  	  Print("5) (\"A3 zero\"), path algebra of equioriented Dynkin quiver A3  ");
+	  Print("5) (\"A3 zero\"), path algebra of equioriented Dynkin quiver A3  ");
       Print("modulo unique zero relation of length 2;\n");
-	    Print("6) (\"A1,2 zero\"), path algebra of Euclidean quiver A1,2 modulo zero relation  ");
+	  Print("6) (\"A1,2 zero\"), path algebra of Euclidean quiver A1,2 modulo zero relation  ");
       Print("(i.e. Quiver(3,[[3,1,\"a\"],[3,2,\"b\"],[2,1,\"c\"]])/(bc) );\n");
-	    Print("7) (\"A2,2 comm\"), path algebra of Euclidean quiver A2,2 modulo unique commutativity relation;\n");
-	    Print("8) (\"R nilp\"), one arrow + one loop modulo nilpotency deg. 2  ");
+	  Print("7) (\"A2,2 comm\"), path algebra of Euclidean quiver A2,2 modulo unique commutativity relation;\n");
+	  Print("8) (\"R nilp\"), one arrow + one loop modulo nilpotency deg. 2  ");
       Print("(i.e. Quiver(2,[[2,1,\"a\"],[1,1,\"b\"]])/(b^2) );\n");
       return false;
     fi;
@@ -1289,23 +1275,23 @@ InstallGlobalFunction( PredefARQuivers,
         data[2] := 2;
         data[3] := [ 
           [11,0],[17,0],[12,1],[13,3],#4
-		      [14,4],[18,2],[19,6],[20,7],#8
-		      [21,8],[22,9],[23,10],[24,1,11],#12
-		      [25,3,12],[26,4,13],[27,5,14],[63,69],#16
-	    	  [28,16],[29,2,17],[6,30,18],[7,31,19],#20
-	    	  [8,32,20],[9,33,21],[10,34,22],[11,35,23],#24
-	     	  [12,36,24],[13,37,25],[14,38,26],[47,16,63],#28
-	    	  [17,39,28],[18,40,29],[19,41,30],[20,42,31],#32
-	    	  [21,43,32],[22,44,33],[23,45,34],[24,46,35],#36
-	    	  [25,47,36],[26,39,37],[37,48,28,47],[29,49,38,39],#40
-	    	  [30,50,57,40],[31,51,58,41],[32,52,59,42],[33,53,60,43],#44
-	    	  [34,54,61,44],[35,55,62,45],[36,56,63,46],[47,56],#48
-	    	  [39,48],[40,49],[41,50],[42,51],[43,52],[44,53],#54
-	    	  [45,54],[46,55],[40,27,38],[41,64,57],#58
-	    	  [42,65,58],[43,66,59],[44,67,60],[45,68,61],#62
-	    	  [46,69,62],[57,15,27],[58,70,64],[59,71,65],#66
-    		  [60,72,66],[61,67],[62,68],[64,15],#70
-	    	  [65,70],[66,71] #72
+		  [14,4],[18,2],[19,6],[20,7],#8
+		  [21,8],[22,9],[23,10],[24,1,11],#12
+		  [25,3,12],[26,4,13],[27,5,14],[63,69],#16
+		  [28,16],[29,2,17],[6,30,18],[7,31,19],#20
+		  [8,32,20],[9,33,21],[10,34,22],[11,35,23],#24
+		  [12,36,24],[13,37,25],[14,38,26],[47,16,63],#28
+		  [17,39,28],[18,40,29],[19,41,30],[20,42,31],#32
+		  [21,43,32],[22,44,33],[23,45,34],[24,46,35],#36
+		  [25,47,36],[26,39,37],[37,48,28,47],[29,49,38,39],#40
+		  [30,50,57,40],[31,51,58,41],[32,52,59,42],[33,53,60,43],#44
+		  [34,54,61,44],[35,55,62,45],[36,56,63,46],[47,56],#48
+		  [39,48],[40,49],[41,50],[42,51],[43,52],[44,53],#54
+		  [45,54],[46,55],[40,27,38],[41,64,57],#58
+		  [42,65,58],[43,66,59],[44,67,60],[45,68,61],#62
+		  [46,69,62],[57,15,27],[58,70,64],[59,71,65],#66
+		  [60,72,66],[61,67],[62,68],[64,15],#70
+		  [65,70],[66,71] #72
 		 
          	];
       elif (arg[1] = "BG") and (arg[2] = 7)  then # Bongartz-Gabriel list no. 7
@@ -1347,61 +1333,61 @@ InstallGlobalFunction( PredefARQuivers,
         data[2] := 2;
         data[3] := [ 
           [5,0],[21,26,0],[6,1],[11,7],#4
-	    	  [8,4],[1,9,5],[3,10,6],[4,12,19,11],#8
-	    	  [5,13,16,8],[6,14,17,9],[7,15,18,10],[11,15],#12
-	    	  [8,12],[9,13],[10,14],[8,23,19],#16
-	    	  [9,20,16],[10,21,17],[11,22,18],[16,25,23],#20
-	    	  [17,20],[2,18,21],[19,24,22],[22,27,2],#24
-	    	  [23,28,24],[25,28],[2,26],[24,27]#28
+		  [8,4],[1,9,5],[3,10,6],[4,12,19,11],#8
+		  [5,13,16,8],[6,14,17,9],[7,15,18,10],[11,15],#12
+		  [8,12],[9,13],[10,14],[8,23,19],#16
+		  [9,20,16],[10,21,17],[11,22,18],[16,25,23],#20
+		  [17,20],[2,18,21],[19,24,22],[22,27,2],#24
+		  [23,28,24],[25,28],[2,26],[24,27]#28
          ];
       elif (arg[1] = "BG") and (arg[2] = 12)  then # Bongartz-Gabriel list no. 12
         data[1] := 153;
         data[2] := 2;
         data[3] := [ 
           [21,0],[6,0],[7,2],[8,3],[22,1],#5
-	    	  [23,5],[2,24,6],[3,25,7],[4,26,8],[27,9],#10
+		  [23,5],[2,24,6],[3,25,7],[4,26,8],[27,9],#10
          ];
-	      for i in [1..7] do Add(data[3],[27+i,9+i]); od; #17
-		    Append(data[3],[ 
-		     [17,35,34],[36,18],[37,19],#20
-		     [38,20],[1,39,21],[5,40,22] #23
-		     ]);
-		    for i in [1..11] do Add(data[3],[5+i,40+i,22+i]); od; #34
-		    Append(data[3], [[34,52,51],[18,53,35]]); #36
-		    for i in [1..15] do Add(data[3],[18+i,53+i,35+i]); od; #51
-		    Append(data[3], [[51,69,68],[35,70,52]]); #53
-		    for i in [1..15] do Add(data[3],[35+i,70+i,52+i]); od; #68
-		    Append(data[3], [[68,103,85],[52,104,69]]); #70
-		    for i in [1..15] do Add(data[3],[52+i,104+i,69+i]); od; #85
-		    Append(data[3], [[119,102],[103,86]]); #87
-		    for i in [1..15] do Add(data[3],[103+i,86+i]); od; #102
-		    Append(data[3], [[85,86,120,119],[69,87,121,103]]); #104
-		    for i in [1..15] do Add(data[3],[69+i,87+i,121+i,103+i]); od; #119
-		    Append(data[3], [[119,137,136],[103,138,120]]); #121
-		    for i in [1..15] do Add(data[3],[103+i,138+i,120+i]); od; #136
-		    Append(data[3], [[136,153],[120,137]]); #138
-		    for i in [1..15] do Add(data[3],[120+i,137+i]); od; #153
-	    elif (arg[1] = "BG") and (arg[2] = 13)  then # Bongartz-Gabriel list no. 13
+		 for i in [1..7] do Add(data[3],[27+i,9+i]); od; #17
+		 Append(data[3],[ 
+		  [17,35,34],[36,18],[37,19],#20
+		  [38,20],[1,39,21],[5,40,22] #23
+		  ]);
+		 for i in [1..11] do Add(data[3],[5+i,40+i,22+i]); od; #34
+		 Append(data[3], [[34,52,51],[18,53,35]]); #36
+		 for i in [1..15] do Add(data[3],[18+i,53+i,35+i]); od; #51
+		 Append(data[3], [[51,69,68],[35,70,52]]); #53
+		 for i in [1..15] do Add(data[3],[35+i,70+i,52+i]); od; #68
+		 Append(data[3], [[68,103,85],[52,104,69]]); #70
+		 for i in [1..15] do Add(data[3],[52+i,104+i,69+i]); od; #85
+		 Append(data[3], [[119,102],[103,86]]); #87
+		 for i in [1..15] do Add(data[3],[103+i,86+i]); od; #102
+		 Append(data[3], [[85,86,120,119],[69,87,121,103]]); #104
+		 for i in [1..15] do Add(data[3],[69+i,87+i,121+i,103+i]); od; #119
+		 Append(data[3], [[119,137,136],[103,138,120]]); #121
+		 for i in [1..15] do Add(data[3],[103+i,138+i,120+i]); od; #136
+		 Append(data[3], [[136,153],[120,137]]); #138
+		 for i in [1..15] do Add(data[3],[120+i,137+i]); od; #153
+	   elif (arg[1] = "BG") and (arg[2] = 13)  then # Bongartz-Gabriel list no. 13
         data[1] := 26;
         data[2] := 2;
         data[3] := [ 
           [2,0],[8,0],[4,1],[1,9,2],#4
-		      [3,10,4],[11,5],[12,6],[13,20],#8
-		      [2,15,8],[4,17,9],[5,19,10],[6,13,11],#12
-		      [11,20,23,19],[13,26,23],[8,12,14,13],[15,14],#16
-		      [9,16,21,15],[17,16],[10,18,22,17],[19,18],#20
-		      [7,15,12],[17,24,21],[19,25,22],[21,7],#24
-		      [22,24],[23,25] #26
+		  [3,10,4],[11,5],[12,6],[13,20],#8
+		  [2,15,8],[4,17,9],[5,19,10],[6,13,11],#12
+		  [11,20,23,19],[13,26,23],[8,12,14,13],[15,14],#16
+		  [9,16,21,15],[17,16],[10,18,22,17],[19,18],#20
+		  [7,15,12],[17,24,21],[19,25,22],[21,7],#24
+		  [22,24],[23,25] #26
          ];
-	    elif (arg[1] = "BG") and (arg[2] = 14)  then # Bongartz-Gabriel list no. 14
+	  elif (arg[1] = "BG") and (arg[2] = 14)  then # Bongartz-Gabriel list no. 14
         data[1] := 20;
         data[2] := 2;
         data[3] := [ 
           [5,0],[20,0],[1,6,5],[7,3],#4
-		      [8,4],[5,9,8],[3,10,6],[4,11,7],#8
-		      [8,14,11],[6,12,9],[7,13,10],[9,15,20,14],#12
-		      [10,16,18,12],[11,17,19,13],[14,17],[12,15],#16
-		      [13,16],[2,12,20],[13,18],[14,19] # 20
+		  [8,4],[5,9,8],[3,10,6],[4,11,7],#8
+		  [8,14,11],[6,12,9],[7,13,10],[9,15,20,14],#12
+		  [10,16,18,12],[11,17,19,13],[14,17],[12,15],#16
+		  [13,16],[2,12,20],[13,18],[14,19] # 20
          ];
       fi;
       
