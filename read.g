@@ -40,4 +40,6 @@ ReadPackage("QPA", "lib/pathalgreptype.gi");
 ReadPackage("QPA", "lib/quivergraphalgorithms.gi");
 ReadPackage("QPA", "lib/combinatorialrep.gi");
 
+ReadPackage("QPA", "lib/degorderfinitetype.gi");
+
 #E  read.g . . . . . . . . . . . . . . . . . . . . . . . . . . . .  ends here
