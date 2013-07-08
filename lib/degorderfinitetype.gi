@@ -884,6 +884,8 @@ InstallMethod( OrbitCodim,
 ## i.e. <N> is a degeneration of <M>
 ## (<=> <M> <= <N> in Hom-order; we are in finite type, cf. Zwara's thm).
 ##
+## <M> and <N> can be either numbers of indecomposables or the multiplicity vectors.
+##
 ## NOTE: Function checks if it makes sense, i.e. if <M> and <N> are in the same 
 ## variety ( = dimension vectors coincide). If not, it returns false
 ## and prints warning. 
@@ -946,6 +948,8 @@ InstallMethod( DegOrderLEQ,
 ## i.e. <N> is a degeneration of <M>
 ## (<=> <M> <= <N> in Hom-order; we are in finite type, cf. Zwara's thm).
 ##
+## <M> and <N> can be either numbers of indecomposables or the multiplicity vectors.
+##
 ## NOTE: Function does not check if it makes sense, i.e. if <M> and <N> are in the same 
 ## variety ( = dimension vectors coincide). If not, the result doesn't make sense!
 ##
@@ -1004,7 +1008,7 @@ InstallMethod( DegOrderLEQNC,
 #O PrintMultiplicityVector( <mv>)
 ##
 ## This function prints the multiplicity vector <mv>
-## in a more "readible" way (especially useful if
+## in a more "readable" way (especially useful if
 ## <mv> is long and sparse). It prints a "sum" of nonzero multiplicities
 ## in the form "multiplicity * (no.-of-indecomposable)".
 ##
@@ -1041,7 +1045,7 @@ InstallMethod( PrintMultiplicityVector,
 #O PrintMultiplicityVectors( <list>)
 ##
 ## This function prints all the multiplicity vectors from the <list>
-## in a more "readible" way, as PrintMultiplicityVector. 
+## in a more "readable" way, as PrintMultiplicityVector. 
 ##
 
 InstallMethod( PrintMultiplicityVectors,
@@ -1050,7 +1054,7 @@ InstallMethod( PrintMultiplicityVectors,
   function( l )
     local mv;
     
-    for mv in l do
+	  for mv in l do
       PrintMultiplicityVector(mv);
     od;    
           
