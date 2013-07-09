@@ -379,17 +379,11 @@ end;
 InstallMethod(RightModuleOverPathAlgebra,
   "for a (quotient of a) path algebra and list of matrices",
   true,
-  [IsAlgebra, IsCollection], 0,
+  [IsQuiverAlgebra, IsCollection], 0,
   function( R, gens )
     local a, dim, source, target, basis, i, x, Fam, 
           vertices, matrices, quiver, M, vlist, alist, K, dim_M, 
           dim_vector, relationtest, I, terms, result, walk, matrix;
-#
-#  Testing the entered algebra.
-#
-    if not IsPathAlgebra(R) and not IsQuotientOfPathAlgebra(R) then 
-       Error("entered algebra is not a (quotient of a) path algebra.\n");
-    fi;
 
     matrices := [];
     quiver := QuiverOfPathRing(R);
@@ -559,19 +553,13 @@ end
 InstallOtherMethod(RightModuleOverPathAlgebra,
   "for a path algebra and list of matrices",
   true,
-  [ IsAlgebra, IsList, IsList ], 0,
+  [ IsQuiverAlgebra, IsList, IsList ], 0,
   function( A, dim_vector, gens )
 
   local quiver, vertices, K, arrows, num_vert, gens_of_quiver,
         matrices, i, entered_arrows, arrow_labels, matrices_set, a, b,
         origin, target, dim_mat, arrows_not_set, dim_M, relationtest,
         I, terms, result, matrix, walk, x, dim, Fam, basis, M;
-#
-#  Testing the entered algebra.
-#
-   if not IsPathAlgebra(A) and not IsQuotientOfPathAlgebra(A) then 
-      Error("entered algebra is not a (quotient of a) path algebra.\n");
-   fi;
 #
 #  Setting up the data we need.
 #
@@ -1368,39 +1356,31 @@ InstallMethod( LoewyLength,
 end
 );
 
+#######################################################################
+##
+#O  LoewyLength ( <A> )
+##
+##  This function returns the Loewy length of the algebra  A, for a 
+##  finite dimensional (quotient of a) path algebra (by an admissible
+##  ideal).
+##
 InstallOtherMethod( LoewyLength, 
-   "for a QuotientOfPathAlgebra",
-   [ IsQuotientOfPathAlgebra ], 0,
-   function( A ) 
+    "for (a quotient of) a path algebra",
+    [ IsQuiverAlgebra ], 0,
+    function( A ) 
 
-   local fam, N;
+    local fam, N;
+    
+    if not IsFiniteDimensional(A) then
+        Error("the entered algebra is not finite dimensional,\n");
+    fi;
+    if not IsPathAlgebra(A) and not IsAdmissibleQuotientOfPathAlgebra(A) then 
+        TryNextMethod();
+    fi;
 
-   fam := ElementsFamily(FamilyObj(A));
-   if HasGroebnerBasisOfIdeal(fam!.ideal) and
-          AdmitsFinitelyManyNontips(GroebnerBasisOfIdeal(fam!.ideal)) then
-       N := IndecProjectiveModules(A);
-       N := List(N, x -> LoewyLength(x));
-       return Maximum(N);
-   else
-       return fail;
-   fi;
-end
-);
-
-InstallOtherMethod( LoewyLength, 
-   "for a PathAlgebra",
-   [ IsPathAlgebra ], 0,
-   function( A ) 
-
-   local N, i;
-
-   if IsAcyclicQuiver(QuiverOfPathAlgebra(A)) then 
-      N := IndecProjectiveModules(A);
-      N := List(N, x -> LoewyLength(x));
-      return Maximum(N);
-   else
-      return fail;
-   fi;
+    N := IndecProjectiveModules(A);
+    N := List(N, x -> LoewyLength(x));
+    return Maximum(N);
 end
 );
 
@@ -1436,6 +1416,7 @@ InstallMethod( RadicalSeries,
    fi;
 end
 );
+
 #######################################################################
 ##
 #O  SocleSeries ( <M> )
@@ -1470,6 +1451,12 @@ InstallMethod( SocleSeries,
 end
 );
 
+#######################################################################
+##
+#A  Dimension( <M> )
+##
+##  Returns the k-dimension of the module <M>.
+##
 InstallOtherMethod( Dimension,
    "for a PathAlgebraMatModule",
    [ IsPathAlgebraMatModule ], 0,
@@ -1479,6 +1466,12 @@ InstallOtherMethod( Dimension,
 end
 );
 
+#######################################################################
+##
+#P  IsProjectiveModule( <M> )
+##
+##  Checks whether <M> is projective.
+##
 InstallMethod( IsProjectiveModule, 
    "for a module over a quotient of a path algebra",
    [ IsPathAlgebraMatModule ], 0,
@@ -1503,6 +1496,12 @@ InstallMethod( IsProjectiveModule,
 end
 );
 
+#######################################################################
+##
+#P  IsInjectiveModule( <M> )
+##
+##  Checks whether <M> is injective.
+##
 InstallMethod( IsInjectiveModule, 
    "for a module over a quotient of a path algebra",
    [ IsPathAlgebraMatModule ], 0,
@@ -1512,6 +1511,12 @@ InstallMethod( IsInjectiveModule,
 end
 );
 
+#######################################################################
+##
+#P  IsSimpleModule( <M> )
+##
+##  Checks whether <M> is simple.
+##
 InstallMethod( IsSimpleModule, 
    "for a module over a quotient of a path algebra",
    [ IsPathAlgebraMatModule ], 0,
@@ -1525,6 +1530,12 @@ InstallMethod( IsSimpleModule,
 end
 );
 
+#######################################################################
+##
+#P  IsSemisimpleModule( <M> )
+##
+##  Checks whether <M> is semisimple.
+##
 InstallMethod( IsSemisimpleModule, 
    "for a module over a quotient of a path algebra",
    [ IsPathAlgebraMatModule ], 0,
@@ -1538,6 +1549,15 @@ InstallMethod( IsSemisimpleModule,
 end
 );
 
+#######################################################################
+##
+#M  DirectSumOfModules( <L> )
+##
+##  <L> is a list of modules over a path algebra.  The function computes
+##  and returns the direct sum of all modules in <L>.  The projections
+##  and inclusions between the modules in <L> and the direct sum is stored
+##  as attributes of the direct sum.
+##
 InstallMethod( DirectSumOfModules,
    "for a list of modules over a path algebra",
    [ IsList ], 0,
@@ -1654,13 +1674,10 @@ InstallMethod( DirectSumOfModules,
          Add(list_of_incls,RightModuleHomOverAlgebra(L[i],direct_sum,maps));
       od;
 
-      if Sum(dim_vect) <> 0 then 
-         SetIsDirectSumOfModules(direct_sum,true);
-         SetDirectSumProjections(direct_sum,list_of_projs);
-         SetDirectSumInclusions(direct_sum,list_of_incls);
-      else 
-         SetIsDirectSumOfModules(direct_sum,false);         
-      fi;
+      SetIsDirectSumOfModules(direct_sum,true);
+      SetDirectSumProjections(direct_sum,list_of_projs);
+      SetDirectSumInclusions(direct_sum,list_of_incls);
+
       return direct_sum;
    fi;
 
@@ -1808,4 +1825,83 @@ InstallMethod ( RightAlgebraModuleToPathAlgebraMatModule,
     
     return RightModuleOverPathAlgebra(A,mat);
 end
-);
+  );
+
+#######################################################################
+##
+#P  IsRigidModule( <M> )
+##
+##  This function returns true if the entered module  <M>  is a rigid 
+##  module, otherwise false.
+##
+InstallMethod( IsRigidModule,
+    "for a PathAlgebraMatModule",
+    [ IsPathAlgebraMatModule ], 0,
+    function( M ); 
+    
+    return Length(ExtOverAlgebra(M,M)[2]) = 0;
+end
+  );
+
+#######################################################################
+##
+#P  IsTauRigidModule( <M> )
+##
+##  This function returns true if the entered module  <M>  is a tau rigid 
+##  module, otherwise false.
+##
+InstallMethod( IsTauRigidModule,
+    "for a PathAlgebraMatModule",
+    [ IsPathAlgebraMatModule ], 0,
+    function( M ); 
+    
+    return Length(HomOverAlgebra(M,DTr(M))) = 0;
+end
+  );
+
+#######################################################################
+##
+#P  IsIndecomposableModule( <M> )
+##
+##  This function returns true if the entered module  <M>  is an
+##  indecomposable module, otherwise false if the field, over which
+##  the algebra is defined, is finite. 
+##
+InstallMethod( IsIndecomposableModule,
+    "for a PathAlgebraMatModule",
+    [ IsPathAlgebraMatModule ], 0,
+    function( M )
+    
+    local K; 
+    
+    K := LeftActingDomain(M);
+    if IsFinite(K) then 
+        return Length(DecomposeModule(M)) = 1;
+    fi;
+    if IsSimpleModule( TopOfModule(M) ) then
+        return true;
+    fi;
+    if IsSimpleModule( SocleOfModule(M) ) then
+        return true;
+    fi;
+    TryNextMethod();
+end
+  );
+
+#######################################################################
+##
+#P  IsExceptionalModule( <M> )
+##
+##  This function returns true if the entered module  <M>  is an
+##  exceptional module (ie. indecomposable and Ext^1(M,M)=(0), otherwise 
+##  false, if the field, over which the algebra  <M>  is defined over, 
+##  is finite.
+##
+InstallMethod( IsExceptionalModule,
+    "for a PathAlgebraMatModule",
+    [ IsPathAlgebraMatModule ], 0,
+    function( M );
+    
+    return IsRigidModule(M) and IsIndecomposableModule(M);
+end
+  );

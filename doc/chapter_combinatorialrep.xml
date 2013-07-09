@@ -64,6 +64,24 @@ matrices with 2 along the diagonal.
 </ManSection>
 
 <ManSection>
+  <Attr Name="PositiveRootsOfUnitForm" Arg="B" />
+  <Description>
+    Arguments: <Arg>B</Arg> -- a unit form.<Br />
+  </Description>
+  <Returns>
+    the positive roots of a unit form, if the unit form is weakly
+    positive. If they have not been computed, an error message will be
+    returned saying "no method found!". 
+  </Returns>
+  <Description>
+    This attribute will be attached to <Arg>B</Arg> when
+    <C>IsWeaklyPositiveUnitForm</C> is applied to <Arg>B</Arg> and it
+    is weakly positive.
+  </Description>
+</ManSection>
+
+
+<ManSection>
   <Attr Name="QuadraticFormOfUnitForm" Arg="B" />
   <Description>
     Arguments: <Arg>B</Arg> -- a unit form.<Br />

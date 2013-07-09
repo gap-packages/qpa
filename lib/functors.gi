@@ -51,6 +51,15 @@ else
        N:= RightModuleOverPathAlgebra(A_op,mats);
     fi;
     SetDualOfModule(N,M);
+    if HasIsIndecomposableModule(M) and IsIndecomposableModule(M) then
+        SetIsIndecomposableModule(N, true); 
+    fi;
+    if HasIsProjectiveModule(M) and IsProjectiveModule(M) then
+        SetIsInjectiveModule(N, true); 
+    fi;
+    if HasIsInjectiveModule(M) and IsInjectiveModule(M) then
+        SetIsProjectiveModule(N, true); 
+    fi;
     return N;
 fi;
 end
@@ -89,7 +98,10 @@ InstallMethod( TransposeOfModule,
    fam := ElementsFamily(FamilyObj( UnderlyingLeftModule( B ) ));
    KQ := OriginalPathAlgebra(A);
    K := LeftActingDomain(A);
-
+   
+   if IsProjectiveModule(M) then
+       return ZeroModule(A);
+   fi;
    num_vert := NumberOfVertices(Q);
    vertices := VerticesOfQuiver(Q);
    if IsPathAlgebra(A) then 
@@ -296,7 +308,10 @@ else
    od;
    f := SubRepresentationInclusion(P_0op,gens);
    U := CoKernel(f);
-
+   if Dimension(U) <> 0 and HasIsIndecomposableModule(M) and IsIndecomposableModule(M) then
+       SetIsIndecomposableModule(U, true);
+   fi;
+   
    return U;
 fi;
 end

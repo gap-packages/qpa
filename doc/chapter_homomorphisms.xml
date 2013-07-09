@@ -508,6 +508,25 @@ true ]]>
    </Description>
    <Returns>the zero map between <Arg>M</Arg> and <Arg>N</Arg>.</Returns>
 </ManSection>
+
+<ManSection>
+   <Oper Name="HomomorphismFromImages" Arg="M, N, genImages" Comm=""/>
+   <Description>
+     Arguments: <Arg>M</Arg>, <Arg>N</Arg> -- two modules, <Arg>genImages</Arg> -- a list.<Br />
+   </Description>
+   <Returns>A map <M>f</M> between <Arg>M</Arg> and <Arg>N</Arg>, given by <A>genImages</A>.
+   </Returns>
+   <Description>
+     Let <C>B</C> be the basis <C>BasisVectors( Basis( M ) )</C> of
+     <Arg>M</Arg>.  Then the number of elements of <C>genImages</C>
+     should be equal to the number of elements of <C>B</C>, and
+     <C>genImages[i]</C> is an element of <C>N</C> and the image of
+     <C>B[i]</C> under <C>f</C>. The method fails if <C>f</C> is not a
+     homomorphism, or if <C>B[i]</C> and <C>genImages[i]</C> are
+     supported in different vertices.
+   </Description>
+</ManSection>
+
 </Section>
 
 <Section><Heading>Homomorphisms and modules constructed from homomorphisms and modules</Heading>

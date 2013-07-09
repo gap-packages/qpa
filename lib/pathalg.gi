@@ -888,12 +888,6 @@ InstallMethod( Dimension,
   end
 ); # Dimension
 
-
-
-
-
-
-
 InstallMethod( CanonicalBasis,
   "for quotients of path algebras",
   true,
@@ -1305,14 +1299,12 @@ end );
 
 InstallMethod( OriginalPathAlgebra,
    "for a quotient of a path algebra",
-   [ IsAlgebra ],
+   [ IsQuiverAlgebra ],
    function( quot )
       if IsPathAlgebra( quot ) then
          return quot;
       elif IsQuotientOfPathAlgebra( quot ) then
          return ElementsFamily( FamilyObj( quot ) )!.pathAlgebra;
-      else 
-         Error("the algebra entered was not a quotient of a path algebra.");
       fi;
 end );
 
@@ -1408,19 +1400,16 @@ end
 );
 
 InstallMethod( TruncatedPathAlgebra, 
-   "for a path algebra",
-   [ IsField, IsQuiver, IS_INT ], 0,
-   function( K, Q, n ) 
+    "for a path algebra",
+    [ IsField, IsQuiver, IS_INT ], 0,
+    function( K, Q, n ) 
 
-   local KQ, rels, I, gb, gbb; 
+    local KQ, rels; 
 
-   KQ   := PathAlgebra(K,Q);
-   rels := NthPowerOfArrowIdeal(KQ,n);
-   I    := Ideal(KQ,rels);
-   gb   := GBNPGroebnerBasis(rels,KQ);
-   gbb  := GroebnerBasis(I,gb);
+    KQ   := PathAlgebra(K,Q);
+    rels := NthPowerOfArrowIdeal(KQ,n);
 
-   return KQ/I;
+    return KQ/rels;
 end
 );
 
@@ -1528,7 +1517,10 @@ InstallMethod( Centre,
    local Q, K, num_vert, vertices, arrows, B, cycle_list, i, j, b, 
          pos, commutators, center, zero_count, a, c, x, cycles, matrix,
          data, coeffs, fam, elms, solutions, gbb;
-
+   
+   if not IsFiniteDimensional(A) then
+       Error("the entered algebra is not finite dimensional,\n");
+   fi;
    B := CanonicalBasis(A);
    Q := QuiverOfPathAlgebra(A); 
    K := LeftActingDomain(A);
@@ -1571,7 +1563,7 @@ InstallMethod( Centre,
       od;
       center[i] := x;
    od;
-   return center;
+   return SubalgebraWithOne(A,center,"basis");
 end
 );
 
@@ -1625,10 +1617,8 @@ end
 ##
 #O  IsSelfinjectiveAlgebra ( <A> )
 ##
-##  This function returns false if the algebra  A  is not a finite  
-##  dimensional quotient of a path algebra, otherwise it returns
-##  true or false depending on whether or not the algebra is 
-##  selfinjective.
+##  This function returns true or false depending on whether or not 
+##  the algebra  <A>  is selfinjective.
 ##
 ##  This test is based on the paper by T. Nakayama: On Frobeniusean 
 ##  algebras I. Annals of Mathematics, Vol. 40, No.3, July, 1939. It 
@@ -1637,35 +1627,34 @@ end
 ##
 ##
 InstallMethod( IsSelfinjectiveAlgebra, 
-    "for a finite dimension quotient of a path algebra",
-    [ IsAlgebra ], 0,
+    "for a finite dimension (quotient of) a path algebra",
+    [ IsQuiverAlgebra ], 0,
     function( A ) 
 
     local Q, soclesofproj, test; 
    
-    if not IsPathAlgebra(A) and not IsQuotientOfPathAlgebra(A) then
-        TryNextMethod();
-    fi;
     if not IsFiniteDimensional(A) then 
         return false;
+    fi;
+    if not IsPathAlgebra(A) and not IsAdmissibleQuotientOfPathAlgebra(A) then 
+        TryNextMethod();
     fi;
     #
     # If the algebra is a path algebra.
     #
     if IsPathAlgebra(A) then 
         Q := QuiverOfPathAlgebra(A);
-        if IsAcyclicQuiver(Q) then 
-            if NumberOfArrows(Q) > 0 then 
-                return false;
-            else
-                return true;
-            fi;
+        if NumberOfArrows(Q) > 0 then 
+            return false;
         else
-            return fail;
+            return true;
         fi;
     fi;
     #
     # By now we know that the algebra is a quotient of a path algebra.
+    # First checking if all indecomposable projective modules has a simpel
+    # socle, and checking if all simple modules occur in the socle of the
+    # indecomposable projective modules. 
     #
     soclesofproj := List(IndecProjectiveModules(A), p -> SocleOfModule(p));
     if not ForAll(soclesofproj, x -> Dimension(x) = 1) then
@@ -1678,109 +1667,63 @@ end
 );
 
 InstallOtherMethod( CartanMatrix, 
-   "for a PathAlgebra",
-   [ IsPathAlgebra ], 0,
-   function( A ) 
+    "for a finite dimensional (quotient of) path algebra",
+    [ IsQuiverAlgebra ], 0,
+    function( A ) 
 
-   local P, C, i;
+    local P, C, i;
+   
+    if not IsFiniteDimensional(A) then 
+        return false;
+    fi;
+    if not IsPathAlgebra(A) and not IsAdmissibleQuotientOfPathAlgebra(A) then 
+        TryNextMethod();
+    fi;
+    P := IndecProjectiveModules(A);
+    C := [];
+    for i in [1..Length(P)] do
+        Add(C,DimensionVector(P[i]));
+    od;
 
-   P := IndecProjectiveModules(A);
-   C := [];
-   for i in [1..Length(P)] do
-      Add(C,DimensionVector(P[i]));
-   od;
-
-   return C;
-end
-);
-
-InstallOtherMethod( CartanMatrix, 
-   "for a SubalgebraFpPathAlgebra",
-   [ IsQuotientOfPathAlgebra ], 0,
-   function( A ) 
-
-   local P, C, i;
-
-   P := IndecProjectiveModules(A);
-   C := [];
-   for i in [1..Length(P)] do
-      Add(C,DimensionVector(P[i]));
-   od;
-
-   return C;
+    return C;
 end
 );
 
 InstallMethod( CoxeterMatrix, 
-   "for a PathAlgebra",
-   [ IsPathAlgebra ], 0,
-   function( A ) 
+    "for a finite dimensional (quotient of) path algebra",
+    [ IsQuiverAlgebra ], 0,
+    function( A ) 
 
-   local P, C, i;
+    local P, C, i;
 
-   C := CartanMatrix(A);
-   if DeterminantMat(C) <> 0 then 
-      return (-1)*C^(-1)*TransposedMat(C);
-   else
-      return fail;
-   fi;
-end
-);
-
-InstallOtherMethod( CoxeterMatrix, 
-   "for a PathAlgebra",
-   [ IsQuotientOfPathAlgebra ], 0,
-   function( A ) 
-
-   local C;
-
-   C := CartanMatrix(A);
-   if DeterminantMat(C) <> 0 then 
-      return (-1)*C^(-1)*TransposedMat(C);
-   else
-      return fail;
-   fi;
+    C := CartanMatrix(A);
+    if DeterminantMat(C) <> 0 then 
+        return (-1)*C^(-1)*TransposedMat(C);
+    else
+        return fail;
+    fi;
 end
 );
 
 InstallMethod( CoxeterPolynomial, 
-   "for a PathAlgebra",
-   [ IsPathAlgebra ], 0,
-   function( A ) 
+    "for a finite dimensional (quotient of) path algebra",
+    [ IsQuiverAlgebra ], 0,
+    function( A ) 
 
-   local P, C, i;
+    local P, C, i;
 
-   C := CartanMatrix(A);
-   if C <> fail then 
-      return CharacteristicPolynomial(C);
-   else
-      return fail;
-   fi;
+    C := CartanMatrix(A);
+    if C <> fail then 
+        return CharacteristicPolynomial(C);
+    else
+        return fail;
+    fi;
 end
 );
-
-InstallOtherMethod( CoxeterPolynomial, 
-   "for a PathAlgebra",
-   [ IsQuotientOfPathAlgebra ], 0,
-   function( A ) 
-
-   local P, C, i;
-
-   C := CartanMatrix(A);
-   if C <> fail then 
-      return CharacteristicPolynomial(C);
-   else
-      return fail;
-   fi;
-end
-);
-
-
-
 
 InstallMethod( TipMonomialandCoefficientOfVector, 
    "for a path algebra",
-   [ IsAlgebra, IsCollection ], 0,
+   [ IsQuiverAlgebra, IsCollection ], 0,
    function( A, x ) 
 
    local pos, tipmonomials, sortedtipmonomials, tippath, i, n;
@@ -1802,7 +1745,7 @@ end
 
 InstallMethod( TipReduceVectors, 
    "for a path algebra",
-   [ IsAlgebra, IsCollection ], 0,
+   [ IsQuiverAlgebra, IsCollection ], 0,
    function( A, x ) 
 
    local i, j, k, n, y, s, t, pos_m, z, stop;
@@ -1884,36 +1827,24 @@ end
 ##  if it is a (quotient of a) path algebra. 
 ##
 InstallMethod( IsSymmetricAlgebra, 
-   "for a quotient of a path algebra",
-   [ IsAlgebra ], 0,
-   function( A ) 
+    "for a quotient of a path algebra",
+    [ IsQuiverAlgebra ], 0,
+    function( A ) 
 
     local Q, fam, Aenv, M, DM, mats, op_name, de_op_name, vertices, arrows, 
           new_vertices, new_arrows, stringvertices, stringarrows, 
           vertex_positions, arrow_positions, newdimvector, newmats, 
           matrices, a, arrowentry, MM;
     
-    if not IsPathAlgebra(A) and not IsQuotientOfPathAlgebra(A) then 
-       TryNextMethod();
-    fi;    
+    if not IsFiniteDimensional(A) then 
+        return false;
+    fi;
     if IsPathAlgebra(A) then
         Q := QuiverOfPathAlgebra(A);
-        if IsAcyclicQuiver(Q) then
-            return Length(ArrowsOfQuiver(QuiverOfPathAlgebra(A))) = 0;
-        else
-            return fail;
-        fi;
+        return Length(ArrowsOfQuiver(QuiverOfPathAlgebra(A))) = 0;
     fi;    
     #
-    # By now we know that the algebra is a quotient of a path algebra.
-    #
-    fam := ElementsFamily(FamilyObj(A));
-    if not (HasGroebnerBasisOfIdeal(fam!.ideal) and 
-              AdmitsFinitelyManyNontips(GroebnerBasisOfIdeal(fam!.ideal))) then 
-        return fail;
-    fi;
-    #
-    # By now we know that the algebra is finite dimensional.
+    # By now we know that the algebra is a finite dimensional quotient of a path algebra.
     #
     Aenv := EnvelopingAlgebra(A);
     M    := AlgebraAsModuleOverEnvelopingAlgebra(Aenv);
@@ -1968,14 +1899,11 @@ end
 ##
 InstallMethod( IsWeaklySymmetricAlgebra, 
    "for a quotient of a path algebra",
-   [ IsAlgebra ], 0,
+   [ IsQuiverAlgebra ], 0,
    function( A ) 
 
    local P;
    
-   if not IsPathAlgebra(A) and not IsQuotientOfPathAlgebra(A) then 
-       TryNextMethod();
-   fi;
    if IsSelfinjectiveAlgebra(A) then
        P := IndecProjectiveModules(A);
        return ForAll(P, x -> DimensionVector(SocleOfModule(x)) = DimensionVector(TopOfModule(x)));
@@ -2025,12 +1953,12 @@ end
 InstallMethod( IsSchurianAlgebra,
     "for PathAlgebra or QuotientOfPathAlgebra",
     true,
-    [ IsAlgebra ],
+    [ IsQuiverAlgebra ],
     function( A )
     
     local Q, test;
     
-    if not IsPathAlgebra(A) and not IsQuotientOfPathAlgebra(A) then 
+    if not IsPathAlgebra(A) and not IsAdmissibleQuotientOfPathAlgebra(A) then 
        TryNextMethod();
     fi;
     if IsFiniteDimensional(A) then
@@ -2041,10 +1969,6 @@ InstallMethod( IsSchurianAlgebra,
     fi;    
 end 
 ); 
-
-
-
-
 
 #################################################################
 ##

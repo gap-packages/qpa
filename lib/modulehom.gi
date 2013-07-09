@@ -3173,3 +3173,73 @@ InstallMethod( InverseOfIsomorphism,
     return RightModuleHomOverAlgebra(Range(f), Source(f), invmaps);
 
 end);
+
+#######################################################################
+##
+#O  HomomorphismFromImages( <M>, <N>, <genImages> )
+##
+##  <M> and <N> are modules over the same algebra.  This operation
+##  computes a homomorphism f: M ---> N such that the basis
+##
+##    B := BasisVectors( Basis( M ) );
+##
+##  is sent to the list <genImages>, that is, B[i] is sent to genImages[i].
+##  If this does not give a well-defined homomorphism, the final 
+##  call to RightModuleHomOverAlgebra will fail.
+##
+InstallMethod( HomomorphismFromImages,
+[ IsPathAlgebraMatModule, IsPathAlgebraMatModule, IsList ],
+    function( M, N, genImages )
+
+    local B, K, dim_vec_N, dim_vec_M, map, i, j, mat, p; 
+
+    K := LeftActingDomain(M);
+
+    B := BasisVectors( Basis( M ) );
+
+#
+#  Checks that the element B[i] is sent to an element of N with support in 
+#  the same vertex as B[i].
+#
+    for i in [1..Length(B)] do
+        if SupportModuleElement( B[i] ) <> SupportModuleElement( genImages[i] ) then
+            Error("does not give a homomorphism -- wrong support,");
+        fi;
+    od;
+    
+#
+#  Computing dimension vectors so that we can insert zero matrices of 
+#  the right size. 
+#
+    dim_vec_M := DimensionVector(M);
+    dim_vec_N := DimensionVector(N);
+    map := [];
+    j := 0;
+    for i in [1..Length(dim_vec_M)] do
+#
+#  If M is zero in vertex  i, then insert a zero matrix of
+#  the right size, do not use any of the lifting information.
+# 
+        if dim_vec_M[i] = 0 then
+            if  dim_vec_N[i] = 0 then 
+                Add(map,NullMat(1,1,K));
+            else
+                Add(map,NullMat(1,dim_vec_N[i],K));
+            fi;
+        else
+#
+#  If M is non-zero in vertex  i, then use genImages
+#  to compute the right matrix for the map from vertex  i  to  i.
+# 
+            mat := [];
+            for p in [1..dim_vec_M[i]] do
+                j := j + 1;
+                Add(mat,ExtRepOfObj(ExtRepOfObj(genImages[j]))[i]);
+            od;
+            Add(map,mat);
+        fi;
+    od;
+    return RightModuleHomOverAlgebra(M, N, map);
+
+end
+);

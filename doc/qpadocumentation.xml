@@ -122,6 +122,8 @@ GBNP interface (for Groebner bases),</Item></Row>
 
 <#Include SYSTEM "chapter_combinatorialrep.xml">
 
+<#Include SYSTEM "chapter_degorderfinitetype.xml">
+
 </Body>
 
 <!-- <Appendix Label="Appendix">

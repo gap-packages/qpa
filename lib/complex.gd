@@ -89,8 +89,8 @@ DeclareOperation( "HighestKnownDegree", [ IsChainMap ] );
 DeclareOperation( "LowestKnownDegree", [ IsChainMap ] );
 
 DeclareGlobalFunction( "ChainMap" );
-DeclareGlobalFunction( "FiniteChainMap" );
-DeclareGlobalFunction( "ZeroChainMap" );
+DeclareGlobalFunction( "FiniteChainMap", [ IsComplex, IsComplex, IsInt, IsList ] );
+DeclareGlobalFunction( "ZeroChainMap" , [ IsComplex, IsComplex ] );
 
 DeclareGlobalFunction( "ComplexAndChainMaps" );
 
@@ -99,3 +99,6 @@ DeclareGlobalFunction( "ComplexAndChainMaps" );
 
 # ComplexAndChainMaps( [ C ], [], 0, [ [ g, f ] ], [ "pos", func ], "zero" );
 
+DeclareOperation( "ComparisonLifting", [ IsPathAlgebraMatModuleHomomorphism, IsComplex, IsComplex ] );
+DeclareOperation( "ComparisonLiftingToProjectiveResolution", [ IsPathAlgebraMatModuleHomomorphism ] );
+DeclareOperation( "MappingCone", [ IsChainMap ] );

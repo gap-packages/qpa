@@ -366,8 +366,8 @@ gap> ArrowsOfQuiver(q1_op);
  of a <Arg>quiver</Arg> induced by the <Arg>list</Arg> of its vertices.
    </Returns>
    <Description>
-   The names of vertices and arrows in a resulting (sub)quiver 
-   can differ from the original ones. The function checks if <Arg>list</Arg>
+   The names of vertices and arrows in resulting (sub)quiver 
+   remain the same as in original one. The function checks if <Arg>list</Arg>
    consists of vertices of <Arg>quiver</Arg>.
    </Description>
  </ManSection>
@@ -379,8 +379,8 @@ gap> ArrowsOfQuiver(q1_op);
    all connected components of a <Arg>quiver</Arg>.
    </Returns>
    <Description>
-   The names of vertices and arrows in quivers from resulting list 
-   can differ from the original ones. The function sets the property
+   The names of vertices and arrows in resulting (sub)quiver 
+  remain the same as in original one. The function sets the property
    <Ref Prop="IsConnectedQuiver"/> to true for all the components. 
    </Description>
 </ManSection> 
