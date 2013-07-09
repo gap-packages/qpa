@@ -71,12 +71,12 @@ InstallGlobalFunction( ARQuiverNumerical,
     p := data[2]; # number of projectives
     LL := data[3]; # description of AR quiver (see a note before function)
       
-	# Check if LL[1],...,LL[p] define projectives  
-	for i in [1..p] do
-	  if LL[i][Length(LL[i])] <> 0 then
-	    Error("wrong AR description, indecomposables with numbers 1,...,",p," should be projectives!");
-      fi;
-	od;
+    # Check if LL[1],...,LL[p] define projectives  
+    for i in [1..p] do
+     if LL[i][Length(LL[i])] <> 0 then
+       Error("wrong AR description, indecomposables with numbers 1,...,",p," should be projectives!");
+     fi;
+    od;
 	
     # Computing Auslander-Reiten matrix T
     T := NullMat(n,n);
@@ -85,20 +85,19 @@ InstallGlobalFunction( ARQuiverNumerical,
     od;
     for i in [1..Length(LL)] do
       for j in [1..Length(LL[i])-1] do
-	      T[i][LL[i][j]] := -1;
-	    od;
-	    t := LL[i][Length(LL[i])];
-	    if t <> 0 then
-	      T[i][t]:=T[i][t]+1;
-	    fi;  
+        T[i][LL[i][j]] := -1;
+      od;
+      t := LL[i][Length(LL[i])];
+      if t <> 0 then
+        T[i][t]:=T[i][t]+1;
+      fi;  
     od; 
 	
-	# for i in [1..Length(T)] do
-	  # for j in [1..Length(T[1])] do
-	    # if T[i][j]=-1 then Print("x"); elif T[i][j]=0 then Print(" "); else Print(T[i][j]); fi;
-		
-	  # od;Print("|",i,"\n");
-	# od;
+    # for i in [1..Length(T)] do
+      # for j in [1..Length(T[1])] do
+        # if T[i][j]=-1 then Print("x"); elif T[i][j]=0 then Print(" "); else Print(T[i][j]); fi;	
+      # od;Print("|",i,"\n");
+    # od;
       
     # Computing matrix Ct = [dim Hom (i,j)] = T^{-1}^tr
     Ct := TransposedMat(Inverse(T));
@@ -127,24 +126,6 @@ InstallGlobalFunction( ARQuiverNumerical,
     if Length(simples) <> p then
       Error("wrong AR description - cannot find simples!");
     fi;      
-      
-	# #### no longer current ###
-    # Checking if Ad := [p+1..n,1..n]-submatrix of Ct
-    # has zero column (if yes, we change further algorithms a little!)
-    # has_Ad_zero_col := false;
-    # i := 1;
-    # while (i <= n) and (not has_Ad_zero_col) do
-      # col_sum := 0;
-      # for j in [p+1..n] do
-        # col_sum := col_sum + Ct[j][i];
-      # od;
-      # if col_sum = 0 then
-        # has_Ad_zero_col := true;
-      # fi;
-      # i := i + 1;      
-    # od;
-    
-    
     
     fam := NewFamily( "ARQuiverNumericalFamily", IsARQuiverNumerical );
     AR := Objectify( NewType( fam, IsARQuiverNumerical and IsAttributeStoringRep),
@@ -277,7 +258,7 @@ InstallMethod( ModulesOfDimVect,
     
     ttime := Runtime();
     
-    # Prepare list of columns of "matrix Ad"
+    # Prepare list of columns of "matrix A"
     # to speed up further computations
     colsofA := [];
     for i in [1..n] do
@@ -294,7 +275,7 @@ InstallMethod( ModulesOfDimVect,
     elif IsList(which) and (Length(which) = p) then # dimension vector
       vv := which;
     else
-      Error("second argument should be a number of indecomposable or multiplicity vector!");
+      Error("second argument should be a number of indecomposable or dimension vector!");
     fi;
     
     solutions := [];
@@ -327,7 +308,7 @@ InstallMethod( DegOrderPredecessors,
   function( AR, which )
     local solutions, vv, vd, y, collected, Generate,
           Ct, simples, p, n, i, j, ttime, colsofA, vec, 
-		      pos_of_which, found, vecwhich;
+	  pos_of_which, found, vecwhich;
     
     # Auxiliary recursive function generating all solutions
     Generate := function(yy, current, lcollected)
@@ -352,18 +333,18 @@ InstallMethod( DegOrderPredecessors,
               yyy[simples[jj]] := vv[jj] - res;
             od;
 			
-		   	    kk := p + 1;
-			      isleq := true;
-			      while isleq and (kk <= n) do # here we check if  yyy DegOrderLEQ which
+	    kk := p + 1;
+	    isleq := true;
+	    while isleq and (kk <= n) do # here we check if  yyy DegOrderLEQ which
               if Ct[kk] * yyy > vd[kk-p] then
                 isleq := false;
               fi;
               kk := kk + 1;
             od;
 		
-		        if isleq then 
-                Append(solutions, [ShallowCopy(yyy)]);
-			      fi;
+	    if isleq then 
+              Append(solutions, [ShallowCopy(yyy)]);
+	    fi;
          fi;  
  
          if next <= n then
@@ -396,31 +377,31 @@ InstallMethod( DegOrderPredecessors,
     # Prepare vector vv = dim vect (which)
     vv := DimensionVector(AR, which); 
 	
-	  # Prepare the vector vd = [ [X,which] ] for all indec. nonproj. X
-	  if IsPosInt(which) then
-	    vd := [];
+    # Prepare the vector vd = [ [X,which] ] for all indec. nonproj. X
+    if IsPosInt(which) then
+      vd := [];
       for j in [p+1..n] do
         Append(vd, [Ct[j][which]]);
       od;
-	  else # which is a multiplicity vector
-	    vd := Ct{[p+1..n]} * which;
-	  fi;
+    else # which is a multiplicity vector
+      vd := Ct{[p+1..n]} * which;
+    fi;
     
     solutions := [];
     y := NullMat(1, n)[1];
     collected := NullMat(1, p)[1];
     Generate(y, NextNonsimple(simples, 0), collected);
 	
-	  # throw out <which> from solutions
-	  if IsPosInt(which) then
-	    vecwhich := NullMat(1, n)[1];
-	    vecwhich[which] := 1;
-	  else
-	    vecwhich := which;
-	  fi;
+    # throw out <which> from solutions
+    if IsPosInt(which) then
+      vecwhich := NullMat(1, n)[1];
+      vecwhich[which] := 1;
+    else
+      vecwhich := which;
+    fi;
     pos_of_which := Position(solutions, vecwhich);
-	  solutions := Concatenation(solutions{[1..pos_of_which-1]}, 
-		  					  solutions{[pos_of_which+1..Length(solutions)]});
+    solutions := Concatenation(solutions{[1..pos_of_which-1]}, 
+                               solutions{[pos_of_which+1..Length(solutions)]});
    
     #Print("Time (=, <=): ", Float((Runtime()-ttime)/1000), "\n");
     
@@ -574,18 +555,18 @@ InstallMethod( DegOrderSuccessors,
               yyy[simples[jj]] := vv[jj] - res;
             od;
 			
-		  	    kk := p + 1;
-			      isgeq := true;
-			      while isgeq and (kk <= n) do # here we check if  which DegOrderLEQ yyy
+  	    kk := p + 1;
+            isgeq := true;
+	    while isgeq and (kk <= n) do # here we check if  which DegOrderLEQ yyy
               if Ct[kk] * yyy < vd[kk-p] then
                 isgeq := false;
               fi;
               kk := kk + 1;
             od;
 		
-		        if isgeq then 
+	    if isgeq then 
               Append(solutions, [ShallowCopy(yyy)]);
-			      fi;
+	    fi;
          fi;  
  
          if next <= n then
@@ -618,31 +599,31 @@ InstallMethod( DegOrderSuccessors,
     # Prepare vector vv = dim vect (which)
     vv := DimensionVector(AR, which); 
 	
-	  # Prepare the vector vd = [ [X,which] ] for all indec. nonproj. X
-	  if IsPosInt(which) then
-	    vd := [];
-      for j in [p+1..n] do
-        Append(vd, [Ct[j][which]]);
-      od;
-	  else # which is a multiplicity vector
-	    vd := Ct{[p+1..n]} * which;
-	  fi;
+    # Prepare the vector vd = [ [X,which] ] for all indec. nonproj. X
+    if IsPosInt(which) then
+      vd := [];
+    for j in [p+1..n] do
+      Append(vd, [Ct[j][which]]);
+    od;
+    else # which is a multiplicity vector
+      vd := Ct{[p+1..n]} * which;
+    fi;
     
     solutions := [];
     y := NullMat(1, n)[1];
     collected := NullMat(1, p)[1];
     Generate(y, NextNonsimple(simples, 0), collected);
 	
-	  # throw out <which> from solutions
-	  if IsPosInt(which) then
-	    vecwhich := NullMat(1, n)[1];
-	    vecwhich[which] := 1;
-	  else
-	    vecwhich := which;
-	  fi;
+    # throw out <which> from solutions
+    if IsPosInt(which) then
+      vecwhich := NullMat(1, n)[1];
+      vecwhich[which] := 1;
+    else
+      vecwhich := which;
+    fi;
     pos_of_which := Position(solutions, vecwhich);
-	  solutions := Concatenation(solutions{[1..pos_of_which-1]}, 
-							  solutions{[pos_of_which+1..Length(solutions)]});
+    solutions := Concatenation(solutions{[1..pos_of_which-1]}, 
+                               solutions{[pos_of_which+1..Length(solutions)]});
    
     #Print("Time (DegOrderSuccessors =, >=): ", Float((Runtime()-ttime)/1000), "\n");
     
@@ -960,42 +941,42 @@ InstallMethod( DegOrderLEQNC,
   function( AR, M, N )
     local i, n, isleq;
     
-      isleq := true;
-      n := NumberOfIndecomposables(AR);
-	    i := NumberOfProjectives(AR) + 1;
-	  
-      if IsList(M) and IsList(N) then
-        while isleq and (i <= n) do
-          if AR!.DimHomMat[i] * M > AR!.DimHomMat[i] * N then
-            isleq := false;
-          fi;
-          i := i + 1;
-        od;
-      elif IsList(M) and IsPosInt(N) then
-        while isleq and (i <= n) do
-          if AR!.DimHomMat[i] * M > AR!.DimHomMat[i][N] then
-            isleq := false;
-          fi;
-          i := i + 1;
-        od;
-	    
-      elif IsPosInt(M) and IsList(N) then
-        while isleq and (i <= n) do
-          if AR!.DimHomMat[i][M] > AR!.DimHomMat[i] * N then
-            isleq := false;
-          fi;
-          i := i + 1;
-        od;	  
-	    elif IsPosInt(M) and IsPosInt(N) then
-        while isleq and (i <= n) do
-          if AR!.DimHomMat[i][M] > AR!.DimHomMat[i][N] then
-            isleq := false;
-          fi;
-          i := i + 1;
-        od;
-	    fi;
-	  
-      return isleq;
+    isleq := true;
+    n := NumberOfIndecomposables(AR);
+    i := NumberOfProjectives(AR) + 1;
+ 
+    if IsList(M) and IsList(N) then
+      while isleq and (i <= n) do
+        if AR!.DimHomMat[i] * M > AR!.DimHomMat[i] * N then
+          isleq := false;
+        fi;
+        i := i + 1;
+      od;
+    elif IsList(M) and IsPosInt(N) then
+      while isleq and (i <= n) do
+        if AR!.DimHomMat[i] * M > AR!.DimHomMat[i][N] then
+          isleq := false;
+        fi;
+        i := i + 1;
+      od;
+   
+    elif IsPosInt(M) and IsList(N) then
+      while isleq and (i <= n) do
+        if AR!.DimHomMat[i][M] > AR!.DimHomMat[i] * N then
+          isleq := false;
+        fi;
+        i := i + 1;
+      od;	  
+   elif IsPosInt(M) and IsPosInt(N) then
+      while isleq and (i <= n) do
+        if AR!.DimHomMat[i][M] > AR!.DimHomMat[i][N] then
+          isleq := false;
+        fi;
+        i := i + 1;
+      od;
+    fi;
+ 
+    return isleq;
     
  end
 ); # DegOrderLEQNC
@@ -1019,16 +1000,16 @@ InstallMethod( PrintMultiplicityVector,
   function( mv )
     local i, firstprinted;
     
-	firstprinted := false;
+        firstprinted := false;
 	
 	for i in [1..Length(mv)] do
 	  if mv[i] <> 0 then
 	    if not firstprinted then
-		  Print(mv[i],"*(",i,")");
-		  firstprinted := true;
-		else
-		  Print(" + ",mv[i],"*(",i,")");
-		fi;
+	      Print(mv[i],"*(",i,")");
+	      firstprinted := true;
+	    else
+	      Print(" + ",mv[i],"*(",i,")");
+	    fi;
 	  fi;
 	od;
 	if not firstprinted then 
@@ -1054,7 +1035,7 @@ InstallMethod( PrintMultiplicityVectors,
   function( l )
     local mv;
     
-	  for mv in l do
+    for mv in l do
       PrintMultiplicityVector(mv);
     od;    
           
@@ -1158,7 +1139,7 @@ InstallMethod( TestCodimConjecture,
     fi;
     Print("Summary:\n", n," indecomposables,\n", no_of_pred, " deg-predecessors of indecomposables,\n");
     Print(no_of_dpred, " direct deg-predecessors of indecomposables.\n");
-	Print(no_of_cexs, " counterexample(s) founded.\n");
+    Print(no_of_cexs, " counterexample(s) founded.\n");
     if no_of_cexs > 0 then
       Print("Conjecture disproved!");
     else
@@ -1204,7 +1185,7 @@ InstallGlobalFunction( PredefARQuivers,
     data := [];
     
     if (Length(arg) = 1) and (arg[1] = "what") then
-      Print("1) (\"BG\",i), for i=2,5,7,9,12,13,14 algebra no. i from Bongartz-Gabriel list ");
+      Print("1) (\"BG\",i), for i=2,5,7,8,9,11,12,13,14 algebra no. i from Bongartz-Gabriel list ");
       Print("of maximal finite type with 2 simples;\n");
       Print("2) (\"BG\",i,j), for i=1, j=1,2,3, algebra no. i with parameter j ");
       Print("from\n Bongartz-Gabriel list of maximal finite type with 2 simples;\n");
@@ -1213,12 +1194,12 @@ InstallGlobalFunction( PredefARQuivers,
       Print("subspace\n orientation of arrows;\n");
       Print("4) (\"E6 subspace\"), path algebra of Dynkin quiver E6 with ");
       Print("subspace\n orientation of arrows;\n");
-	  Print("5) (\"A3 zero\"), path algebra of equioriented Dynkin quiver A3  ");
+      Print("5) (\"A3 zero\"), path algebra of equioriented Dynkin quiver A3  ");
       Print("modulo unique zero relation of length 2;\n");
-	  Print("6) (\"A1,2 zero\"), path algebra of Euclidean quiver A1,2 modulo zero relation  ");
+      Print("6) (\"A1,2 zero\"), path algebra of Euclidean quiver A1,2 modulo zero relation  ");
       Print("(i.e. Quiver(3,[[3,1,\"a\"],[3,2,\"b\"],[2,1,\"c\"]])/(bc) );\n");
-	  Print("7) (\"A2,2 comm\"), path algebra of Euclidean quiver A2,2 modulo unique commutativity relation;\n");
-	  Print("8) (\"R nilp\"), one arrow + one loop modulo nilpotency deg. 2  ");
+      Print("7) (\"A2,2 comm\"), path algebra of Euclidean quiver A2,2 modulo unique commutativity relation;\n");
+      Print("8) (\"R nilp\"), one arrow + one loop modulo nilpotency deg. 2  ");
       Print("(i.e. Quiver(2,[[2,1,\"a\"],[1,1,\"b\"]])/(b^2) );\n");
       return false;
     fi;
@@ -1235,7 +1216,7 @@ InstallGlobalFunction( PredefARQuivers,
         data[1] := 16;
         data[2] := 2;
         data[3] := [ [4,0],[3,0],[1,6,4],[2,5,3],[3,8,6],[4,7,5],[5,10,8],[6,9,7],
-				  	[7,12,10],[8,11,9],[9,14,12],[10,13,11],[11,16,14],[12,15,13],[13,16],[14,15]
+                     [7,12,10],[8,11,9],[9,14,12],[10,13,11],[11,16,14],[12,15,13],[13,16],[14,15]
            	];
       fi;
      
@@ -1243,8 +1224,8 @@ InstallGlobalFunction( PredefARQuivers,
         data[1] := 24;
         data[2] := 2;
         data[3] := [ [4,0],[3,0],[1,6,4],[2,5,3],[3,8,6],[4,7,5],[5,10,8],[6,9,7],
-					[7,12,10],[8,11,9],[9,14,12],[10,13,11],[11,16,14],[12,15,13],[13,18,16],[14,17,15],
-					[15,20,18],[16,19,17],[17,22,20],[18,21,19],[19,24,22],[20,23,21],[21,24],[22,23]
+                     [7,12,10],[8,11,9],[9,14,12],[10,13,11],[11,16,14],[12,15,13],[13,18,16],[14,17,15],
+                     [15,20,18],[16,19,17],[17,22,20],[18,21,19],[19,24,22],[20,23,21],[21,24],[22,23]
          	];
       fi;
     
@@ -1279,25 +1260,25 @@ InstallGlobalFunction( PredefARQuivers,
         data[2] := 2;
         data[3] := [ 
           [11,0],[17,0],[12,1],[13,3],#4
-		  [14,4],[18,2],[19,6],[20,7],#8
-		  [21,8],[22,9],[23,10],[24,1,11],#12
-		  [25,3,12],[26,4,13],[27,5,14],[63,69],#16
-		  [28,16],[29,2,17],[6,30,18],[7,31,19],#20
-		  [8,32,20],[9,33,21],[10,34,22],[11,35,23],#24
-		  [12,36,24],[13,37,25],[14,38,26],[47,16,63],#28
-		  [17,39,28],[18,40,29],[19,41,30],[20,42,31],#32
-		  [21,43,32],[22,44,33],[23,45,34],[24,46,35],#36
-		  [25,47,36],[26,39,37],[37,48,28,47],[29,49,38,39],#40
-		  [30,50,57,40],[31,51,58,41],[32,52,59,42],[33,53,60,43],#44
-		  [34,54,61,44],[35,55,62,45],[36,56,63,46],[47,56],#48
-		  [39,48],[40,49],[41,50],[42,51],[43,52],[44,53],#54
-		  [45,54],[46,55],[40,27,38],[41,64,57],#58
-		  [42,65,58],[43,66,59],[44,67,60],[45,68,61],#62
-		  [46,69,62],[57,15,27],[58,70,64],[59,71,65],#66
-		  [60,72,66],[61,67],[62,68],[64,15],#70
-		  [65,70],[66,71] #72
+	  [14,4],[18,2],[19,6],[20,7],#8
+	  [21,8],[22,9],[23,10],[24,1,11],#12
+	  [25,3,12],[26,4,13],[27,5,14],[63,69],#16
+	  [28,16],[29,2,17],[6,30,18],[7,31,19],#20
+	  [8,32,20],[9,33,21],[10,34,22],[11,35,23],#24
+	  [12,36,24],[13,37,25],[14,38,26],[47,16,63],#28
+	  [17,39,28],[18,40,29],[19,41,30],[20,42,31],#32
+	  [21,43,32],[22,44,33],[23,45,34],[24,46,35],#36
+	  [25,47,36],[26,39,37],[37,48,28,47],[29,49,38,39],#40
+	  [30,50,57,40],[31,51,58,41],[32,52,59,42],[33,53,60,43],#44
+	  [34,54,61,44],[35,55,62,45],[36,56,63,46],[47,56],#48
+	  [39,48],[40,49],[41,50],[42,51],[43,52],[44,53],#54
+	  [45,54],[46,55],[40,27,38],[41,64,57],#58
+	  [42,65,58],[43,66,59],[44,67,60],[45,68,61],#62
+	  [46,69,62],[57,15,27],[58,70,64],[59,71,65],#66
+	  [60,72,66],[61,67],[62,68],[64,15],#70
+	  [65,70],[66,71] #72
 		 
-         	];
+        ];
       elif (arg[1] = "BG") and (arg[2] = 7)  then # Bongartz-Gabriel list no. 7
         data[1] := 143;
         data[2] := 2;
@@ -1311,7 +1292,7 @@ InstallGlobalFunction( PredefARQuivers,
           [47,30],[31,48,47],[16,49,32],[17,50,33],[18,51,34],#35
           [19,52,35],[20,53,36],[21,54,37],[22,55,38],[23,56,39],#40
           [24,57,40],[25,58,41],[26,59,42],[27,60,43],[28,61,44],#45
-		      [29,62,45],[30,63,46],[47,64,63],[32,65,48],[33,66,49],#50
+	  [29,62,45],[30,63,46],[47,64,63],[32,65,48],[33,66,49],#50
           [34,67,50],[35,68,51],[36,69,52],[37,70,53],[38,71,54],#55
           [39,72,55],[40,73,56],[41,74,57],[42,75,58],[43,76,59],#60
           [44,77,60],[45,78,61],[46,79,62],[63,96,79],[48,97,64],#65
@@ -1332,67 +1313,106 @@ InstallGlobalFunction( PredefARQuivers,
           [119,135],[120,136],[121,137],[122,138],[123,139],#140
           [124,140],[125,141],[126,142] #143
          	];
-	  elif (arg[1] = "BG") and (arg[2] = 9)  then # Bongartz-Gabriel list no. 9
+    elif (arg[1] = "BG") and (arg[2] = 8)  then # Bongartz-Gabriel list no. 8
+        data[1] := 57;
+        data[2] := 2;
+        data[3] := [ 
+          [5,0],[4,16,0],[6,1],[7,3],[2,4],[1,8,5],[3,9,6],#7
+          [5,17,2],[6,18,8],[7,19,9],[20,10]#11
+         ];
+	 for i in [1..4] do Add(data[3],[20+i,10+i]); od; #15
+	 Append(data[3],[ [53,57],[2,26,16],[8,27,17] ]); #18
+         for i in [1..7] do Add(data[3],[8+i,27+i,17+i]); od; #25
+         Append(data[3],[ [16,41,53],[17,35,26] ]); #27
+         for i in [1..6] do Add(data[3],[17+i,35+i,26+i]); od; #33
+         Append(data[3],[ [24,35,33],[26,42,33,41],[34,43,27,35],[49,44,28,36] ]); #37
+	 for i in [1..4] do Add(data[3],[49+i,44+i,28+i,36+i]); od; #41
+         Append(data[3],[ [41,48],[35,42] ]); #43
+         for i in [1..5] do Add(data[3],[35+i,42+i]); od; #48
+         Append(data[3],[ [25,36,34],[54,37,49] ]); #50
+         for i in [1..3] do Add(data[3],[54+i,37+i,49+i]); od; #53
+         Append(data[3],[ [49,25],[50,54],[51,55],[52,56] ]); #57
+     elif (arg[1] = "BG") and (arg[2] = 9)  then # Bongartz-Gabriel list no. 9
         data[1] := 28;
         data[2] := 2;
         data[3] := [ 
           [5,0],[21,26,0],[6,1],[11,7],#4
-		  [8,4],[1,9,5],[3,10,6],[4,12,19,11],#8
-		  [5,13,16,8],[6,14,17,9],[7,15,18,10],[11,15],#12
-		  [8,12],[9,13],[10,14],[8,23,19],#16
-		  [9,20,16],[10,21,17],[11,22,18],[16,25,23],#20
-		  [17,20],[2,18,21],[19,24,22],[22,27,2],#24
-		  [23,28,24],[25,28],[2,26],[24,27]#28
+	  [8,4],[1,9,5],[3,10,6],[4,12,19,11],#8
+	  [5,13,16,8],[6,14,17,9],[7,15,18,10],[11,15],#12
+	  [8,12],[9,13],[10,14],[8,23,19],#16
+	  [9,20,16],[10,21,17],[11,22,18],[16,25,23],#20
+	  [17,20],[2,18,21],[19,24,22],[22,27,2],#24
+	  [23,28,24],[25,28],[2,26],[24,27]#28
          ];
+     elif (arg[1] = "BG") and (arg[2] = 11)  then # Bongartz-Gabriel list no. 11
+        data[1] := 63;
+        data[2] := 2;
+        data[3] := [ 
+          [14,0],[10,0],[11,2],[15,1],[16,4],#5
+         ];
+	 for i in [1..5] do Add(data[3],[16+i,4+i]); od; #10
+	 Append(data[3],[ [2,22,10],[3,23,11],[55,60],[24,13],[1,25,14],[4,26,15] ]); #16
+         for i in [1..7] do Add(data[3],[4+i,26+i,15+i]); od; #23
+	 Append(data[3],[ [13,41,55],[14,34,24] ]); #25
+	 for i in [1..7] do Add(data[3],[14+i,34+i,24+i]); od; #32
+	 Append(data[3],[ [22,34,32],[24,32,42,41],[25,33,43,34],[26,44,50,35] ]); #36
+	 for i in [1..5] do Add(data[3],[26+i,44+i,50+i,35+i]); od; #41
+	 Append(data[3],[ [41,49],[34,42] ]); #43
+	 for i in [1..6] do Add(data[3],[34+i,42+i]); od; #49
+	 Append(data[3],[ [23,35,33],[56,36,50] ]); #51
+	 for i in [1..4] do Add(data[3],[56+i,36+i,50+i]); od; #55
+	 Append(data[3],[ [12,50,23],[51,61,56],[52,62,57],[53,63,58], #59
+	                 [54,59],[56,12],[57,61],[58,62] #63
+		 ]); #
       elif (arg[1] = "BG") and (arg[2] = 12)  then # Bongartz-Gabriel list no. 12
         data[1] := 153;
         data[2] := 2;
         data[3] := [ 
           [21,0],[6,0],[7,2],[8,3],[22,1],#5
-		  [23,5],[2,24,6],[3,25,7],[4,26,8],[27,9],#10
+	  [23,5],[2,24,6],[3,25,7],[4,26,8],[27,9],#10
          ];
-		 for i in [1..7] do Add(data[3],[27+i,9+i]); od; #17
-		 Append(data[3],[ 
-		  [17,35,34],[36,18],[37,19],#20
-		  [38,20],[1,39,21],[5,40,22] #23
-		  ]);
-		 for i in [1..11] do Add(data[3],[5+i,40+i,22+i]); od; #34
-		 Append(data[3], [[34,52,51],[18,53,35]]); #36
-		 for i in [1..15] do Add(data[3],[18+i,53+i,35+i]); od; #51
-		 Append(data[3], [[51,69,68],[35,70,52]]); #53
-		 for i in [1..15] do Add(data[3],[35+i,70+i,52+i]); od; #68
-		 Append(data[3], [[68,103,85],[52,104,69]]); #70
-		 for i in [1..15] do Add(data[3],[52+i,104+i,69+i]); od; #85
-		 Append(data[3], [[119,102],[103,86]]); #87
-		 for i in [1..15] do Add(data[3],[103+i,86+i]); od; #102
-		 Append(data[3], [[85,86,120,119],[69,87,121,103]]); #104
-		 for i in [1..15] do Add(data[3],[69+i,87+i,121+i,103+i]); od; #119
-		 Append(data[3], [[119,137,136],[103,138,120]]); #121
-		 for i in [1..15] do Add(data[3],[103+i,138+i,120+i]); od; #136
-		 Append(data[3], [[136,153],[120,137]]); #138
-		 for i in [1..15] do Add(data[3],[120+i,137+i]); od; #153
-	   elif (arg[1] = "BG") and (arg[2] = 13)  then # Bongartz-Gabriel list no. 13
+	 for i in [1..7] do Add(data[3],[27+i,9+i]); od; #17
+	 Append(data[3],[ 
+	  [17,35,34],[36,18],[37,19],#20
+	  [38,20],[1,39,21],[5,40,22] #23
+	 ]);
+	 for i in [1..11] do Add(data[3],[5+i,40+i,22+i]); od; #34
+	 Append(data[3], [[34,52,51],[18,53,35]]); #36
+	 for i in [1..15] do Add(data[3],[18+i,53+i,35+i]); od; #51
+	 Append(data[3], [[51,69,68],[35,70,52]]); #53
+	 for i in [1..15] do Add(data[3],[35+i,70+i,52+i]); od; #68
+	 Append(data[3], [[68,103,85],[52,104,69]]); #70
+	 for i in [1..15] do Add(data[3],[52+i,104+i,69+i]); od; #85
+	 Append(data[3], [[119,102],[103,86]]); #87
+	 for i in [1..15] do Add(data[3],[103+i,86+i]); od; #102
+	 Append(data[3], [[85,86,120,119],[69,87,121,103]]); #104
+	 for i in [1..15] do Add(data[3],[69+i,87+i,121+i,103+i]); od; #119
+	 Append(data[3], [[119,137,136],[103,138,120]]); #121
+	 for i in [1..15] do Add(data[3],[103+i,138+i,120+i]); od; #136
+	 Append(data[3], [[136,153],[120,137]]); #138
+	 for i in [1..15] do Add(data[3],[120+i,137+i]); od; #153
+      elif (arg[1] = "BG") and (arg[2] = 13)  then # Bongartz-Gabriel list no. 13
         data[1] := 26;
         data[2] := 2;
         data[3] := [ 
           [2,0],[8,0],[4,1],[1,9,2],#4
-		  [3,10,4],[11,5],[12,6],[13,20],#8
-		  [2,15,8],[4,17,9],[5,19,10],[6,13,11],#12
-		  [11,20,23,19],[13,26,23],[8,12,14,13],[15,14],#16
-		  [9,16,21,15],[17,16],[10,18,22,17],[19,18],#20
-		  [7,15,12],[17,24,21],[19,25,22],[21,7],#24
-		  [22,24],[23,25] #26
+	  [3,10,4],[11,5],[12,6],[13,20],#8
+	  [2,15,8],[4,17,9],[5,19,10],[6,13,11],#12
+	  [11,20,23,19],[13,26,23],[8,12,14,13],[15,14],#16
+	  [9,16,21,15],[17,16],[10,18,22,17],[19,18],#20
+	  [7,15,12],[17,24,21],[19,25,22],[21,7],#24
+	  [22,24],[23,25] #26
          ];
-	  elif (arg[1] = "BG") and (arg[2] = 14)  then # Bongartz-Gabriel list no. 14
+      elif (arg[1] = "BG") and (arg[2] = 14)  then # Bongartz-Gabriel list no. 14
         data[1] := 20;
         data[2] := 2;
         data[3] := [ 
           [5,0],[20,0],[1,6,5],[7,3],#4
-		  [8,4],[5,9,8],[3,10,6],[4,11,7],#8
-		  [8,14,11],[6,12,9],[7,13,10],[9,15,20,14],#12
-		  [10,16,18,12],[11,17,19,13],[14,17],[12,15],#16
-		  [13,16],[2,12,20],[13,18],[14,19] # 20
-         ];
+	  [8,4],[5,9,8],[3,10,6],[4,11,7],#8
+	  [8,14,11],[6,12,9],[7,13,10],[9,15,20,14],#12
+	  [10,16,18,12],[11,17,19,13],[14,17],[12,15],#16
+	  [13,16],[2,12,20],[13,18],[14,19] # 20
+        ];
       fi;
       
       
@@ -1435,7 +1455,7 @@ InstallGlobalFunction( PredefARQuivers,
         data[2] := 3;
         data[3] := [
            [0], [1,0], [4,1,0], [7,5], 
-		   [3,4],[3,2,1],[5,6,3],[6,2],[7,8,6]
+	   [3,4],[3,2,1],[5,6,3],[6,2],[7,8,6]
          	];
       fi;
 	  if (arg[1] = "A2,2 comm")  then
@@ -1443,8 +1463,8 @@ InstallGlobalFunction( PredefARQuivers,
         data[2] := 4;
         data[3] := [
            [0], [1,0], [1,0], [5,0],
-		   [2,3,1], [5,2], [5,3], [6,7,4,5],
-		   [8,6], [8,7], [9,10,8]
+	   [2,3,1], [5,2], [5,3], [6,7,4,5],
+	   [8,6], [8,7], [9,10,8]
          	];
       fi;
 	  if (arg[1] = "R nilp")  then
@@ -1452,7 +1472,7 @@ InstallGlobalFunction( PredefARQuivers,
         data[2] := 2;
         data[3] := [
            [4,0], [1,0], [1,6,4], [3,6], 
-		   [3,2,1], [4,5,3], [5,2]
+	   [3,2,1], [4,5,3], [5,2]
          	];
       fi;
     fi;
