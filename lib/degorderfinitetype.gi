@@ -1180,15 +1180,15 @@ InstallMethod( TestCodimConjecture,
 
 InstallGlobalFunction( PredefARQuivers,
   function( arg )
-    local data, i;
+    local data, i, r;
     
     data := [];
     
     if (Length(arg) = 1) and (arg[1] = "what") then
-      Print("1) (\"BG\",i), for i=2,5,7,8,9,11,12,13,14 algebra no. i from Bongartz-Gabriel list ");
+      Print("1) (\"BG\",i), for i=2,5,7,8,9,11,12,13,14, algebra no. i from Bongartz-Gabriel list ");
       Print("of maximal finite type with 2 simples;\n");
-      Print("2) (\"BG\",i,j), for i=1, j=1,2,3, algebra no. i with parameter j ");
-      Print("from\n Bongartz-Gabriel list of maximal finite type with 2 simples;\n");
+      Print("2) (\"BG\",i,r), for i=1, r>=1; i=6, r=1,2, algebra no. i with parameter r ");
+      Print("from Bongartz-Gabriel list of maximal finite type with 2 simples;\n");
       
       Print("3) (\"D4 subspace\"), path algebra of Dynkin quiver D4 with ");
       Print("subspace\n orientation of arrows;\n");
@@ -1206,29 +1206,33 @@ InstallGlobalFunction( PredefARQuivers,
     
     if Length(arg) = 3 then
     
-      if (arg[1] = "BG") and (arg[2] = 1) and (arg[3] = 1) then
-        data[1] := 8;
+      if (arg[1] = "BG") and (arg[2] = 1) then
+        r := arg[3];
+        data[1] := 8 * r;
         data[2] := 2;
-        data[3] := [[4,0],[3,0],[1,6,4],[2,5,3],[3,8,6],[4,7,5],[5,8],[6,7]];
-      fi;
-    
-      if (arg[1] = "BG") and (arg[2] = 1) and (arg[3] = 2) then
-        data[1] := 16;
+        data[3] := [[4,0],[3,0]];
+        for i in [1..4*r-2] do
+          Append(data[3], [ [2*i-1, 2*i+4, 2*i+2], [2*i, 2*i+3, 2*i+1]]);
+        od;
+        Append(data[3], [[8*r-3, 8*r],[8*r-2, 8*r-1]]);
+      elif (arg[1] = "BG") and (arg[2] = 6) and (arg[3]=1) then
+        data[1] := 9;
         data[2] := 2;
-        data[3] := [ [4,0],[3,0],[1,6,4],[2,5,3],[3,8,6],[4,7,5],[5,10,8],[6,9,7],
-                     [7,12,10],[8,11,9],[9,14,12],[10,13,11],[11,16,14],[12,15,13],[13,16],[14,15]
-           	];
-      fi;
-     
-      if (arg[1] = "BG") and (arg[2] = 1) and (arg[3] = 3) then
-        data[1] := 24;
+        data[3] := [ [5,0],[7,0],
+        [5,9,8],[6,3],[4,8,6],[1,3,7,5],#6
+        [5,4],[2,6,7],[8,2]
+        ];
+      elif (arg[1] = "BG") and (arg[2] = 6) and (arg[3]=2) then
+        data[1] := 20;
         data[2] := 2;
-        data[3] := [ [4,0],[3,0],[1,6,4],[2,5,3],[3,8,6],[4,7,5],[5,10,8],[6,9,7],
-                     [7,12,10],[8,11,9],[9,14,12],[10,13,11],[11,16,14],[12,15,13],[13,18,16],[14,17,15],
-                     [15,20,18],[16,19,17],[17,22,20],[18,21,19],[19,24,22],[20,23,21],[21,24],[22,23]
-         	];
+        data[3] := [ [7,0],[18,0],
+        [5,20,19],[6,3],#4
+        [8,19,13],[3,9,5],[4,10,6],[7,13,10],#8
+        [5,11,8],[6,12,9],[1,8,16,7],[9,14,17,11],#12
+        [10,15,18,12],[11,1],[12,14],[7,4],#16
+        [11,16],[12,17],[2,13,18],[19,2]#20
+        ];
       fi;
-    
     fi;
     
     if Length(arg) = 2 then
