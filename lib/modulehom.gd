@@ -58,3 +58,4 @@ DeclareAttribute( "LeftMinimalVersion", IsPathAlgebraMatModuleHomomorphism );
 DeclareOperation( "HomFromProjective", [ IsRightAlgebraModuleElement, IsPathAlgebraMatModule ] );
 DeclareOperation("InverseOfIsomorphism", [ IsPathAlgebraMatModuleHomomorphism ]);
 DeclareOperation( "HomomorphismFromImages", [ IsPathAlgebraMatModule, IsPathAlgebraMatModule, IsList ] );
+DeclareOperation("MultiplyListsOfMaps", [IsList, IsList, IsList]);
