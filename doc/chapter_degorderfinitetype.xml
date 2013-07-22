@@ -1,0 +1,446 @@
+<Chapter Label="DegOrderFiniteType">
+<Heading>Degeneration order for modules in finite type</Heading>
+
+<Section Label="introDO">
+<Heading>Introduction</Heading> 
+
+This is an implementation of several tools for computing degeneration order
+for modules over algebras of finite type. It can be treated as a "subpackage" of QPA
+and used separately since  the functions do not use any of QPA routines so far.<Br />
+
+This subpackage has a little bit different philosophy than QPA in general. Namely, the "starting point"
+is not an algebra A defined by a Gabriel quiver with relations but an Auslander-Reiten (A-R) quiver
+of the category mod A, defined by numerical data (see <Ref Func="ARQuiverNumerical"/>). 
+All the indecomposables (actually their isoclasses) have unique natural numbers 
+established at the beginning, by invoking <Ref Func="ARQuiverNumerical"/>. This function should be used before 
+all further computations.
+An arbitrary module M is identified by its multiplicity vector (the sequence of multiplicities 
+of all the indecomposables appearing in a direct sum decomposition of M).  <Br />
+
+Here we always assume that A is an algebra of 
+finite representation type. Note that in this case deg-order coincide with Hom-order, and this fact is 
+used in the algorithms of this subpackage.
+The main goal of this subpackage is to give tools for testing a deg-order relation between two A-modules and
+determining (direct) deg-order predecessors and successors  (see <Ref Sect="bdef"/> for basic definitions from this theory).
+As a side effect one can also obtain the dimensions of Hom-spaces between arbitrary modules
+(and in particular the dimension vectors of indecomposable modules).
+
+
+
+</Section>
+
+<Section Label="bdef">
+<Heading>Basic definitions</Heading> 
+Here we briefly recall the basic notions we use in all the functions from this chapter. <P/>
+
+Let A be an algebra. We say that for two A-modules M and N of the same dimension vector d,
+M degenerates to N (N is a degeneration of M) iff N belongs to a Zariski closure of the orbit
+of M in a variety <Math>mod_A(d)</Math> of A-modules of dimension vector d. If it is the case, we write
+<Math>M &lt;= N</Math>. It is well known that <P/>
+
+
+(1) The relation <Math>&lt;=</Math> is a partial order on the set of isomorphism classes of
+A-modules of dimension vector d.<Br /><Br />
+
+(2) If A is an algebra of finite representation type, <Math>&lt;=</Math> coincides with
+so-called Hom-order <Math>&lt;=_{Hom}</Math>, defined as follows: <Math>M &lt;=_{Hom} N</Math> iff
+<Math>[X,M] &lt;= [X,N]</Math> for all indecomposable A-modules X, where by <Math>[Y,Z]</Math> we denote 
+always the dimension of a Hom-space between Y and Z.<P/>
+
+Further, if <Math>M &lt; N</Math> (i.e. <Math>M &lt;= N</Math> and M is not isomorphic to N), 
+we say that M is a deg-order predecessor of N
+(resp. N is a deg-order successor of M). 
+Moreover, we say that M is a direct deg-order predecessor of N 
+if  <Math>M &lt; N</Math>  and there is no M' such that <Math>M &lt; M' &lt; N</Math> (similarly for successors).
+
+
+
+
+
+</Section>
+
+
+
+<Section Label="DefARQuiver">
+<Heading>Defining Auslander-Reiten quiver in finite type</Heading>
+
+  <ManSection>
+   <Func Name="ARQuiverNumerical" Arg="ind , proj, list" />
+   <Func Name="ARQuiverNumerical" Arg="name" />
+   <Func Name="ARQuiverNumerical" Arg="name, param1" />
+   <Func Name="ARQuiverNumerical" Arg="name, param1, param2" />
+   <Description>
+   Arguments: <Arg>ind</Arg> - number of indecomposable modules in our category;<Br />
+            <Arg>proj</Arg> - number of indecomposable projective modules in our category;<Br />
+            <Arg>list</Arg> - list of lists containing description of meshes in A-R quiver
+            defined as follows:<Br />
+            <Arg>list</Arg>[i] = description of mesh ending in vertex
+            (indec. mod.) number i having the shape
+            [a1,...,an,t]
+             where<Br /> a1,...,an = numbers of direct predecessors of i in A-R quiver;<Br />
+             t = number of tau(i), or 0 if tau i does not exist (iff i is projective).<Br />
+             In particular if i is projective <Arg>list</Arg>[i]=[a1,...,an,0]
+             where a1,...,an are indec. summands of rad(i).<P/> 
+             
+   REMARK: we ALWAYS assume that indecomposables with numbers
+           1..<Arg>proj</Arg> are projectives and the only projectives
+           (further dimension vectors are interpreted according
+            to this order of projectives!).<P/> 
+            
+ Alternative arguments:<Br />
+            <Arg>name</Arg> = string with the name of predefined A-R quiver;<Br />
+            <Arg>param1</Arg> = (optional) parameter for <Arg>name</Arg>;<Br />
+            <Arg>param2</Arg> = (optional) second parameter for <Arg>name</Arg>.<Br />            
+   <Br /> Call ARQuiverNumerical("what") to get a description of all the names and parameters for currently available predefined A-R quivers.
+   </Description>
+   <Returns>an object from the category
+   <Ref Filt="IsARQuiverNumerical"/>.</Returns> 
+   <Description>
+    This function "initializes" Auslander-Reiten quiver and 
+   performs all necessary preliminary computations concerning
+   mainly determining the matrix of dimensions of all Hom-spaces between
+   indecomposables.
+   </Description>
+  </ManSection>
+
+  Examples.<Br />
+  Below we define an A-R quiver of a path algebra of the Dynkin quiver D4 with subspace orientation of arrows.
+  <Example><![CDATA[ 
+gap> a := ARQuiverNumerical(12, 4, [ [0],[1,0],[1,0],[1,0],[2,3,4,1],[5,2],[5,3],[5,4],[6,7,8,5],[9,6],[9,7],[9,8] ]);
+<ARQuiverNumerical with 12 indecomposables and 4 projectives>
+ ]]>
+</Example>
+The same effect can be achieved by invoking:
+<Example><![CDATA[ 
+gap> a := ARQuiverNumerical("D4 subspace");
+<ARQuiverNumerical with 12 indecomposables and 4 projectives>
+ ]]>
+</Example>
+since this is one of the predefined A-R quivers. <Br />
+Another example of predefined A-R quiver: for an algebra from Bongartz-Gabriel list of maximal finite type algebras with 
+two simple modules. This is an algebra with number 5 on this list.
+<Example><![CDATA[ 
+gap> a := ARQuiverNumerical("BG", 5);
+<ARQuiverNumerical with 72 indecomposables and 2 projectives>
+ ]]>
+</Example>
+
+<ManSection>
+<Filt Type="Category" Name="IsARQuiverNumerical"/>
+<Description>
+Objects from this category represent Auslander-Reiten (finite) quivers and additionally contain all data 
+ necessary for further computations  (as 
+ components accessed as usual by !.name-of-component):<Br />
+   ARdesc = numerical description of AR quiver (as <Arg>list</Arg> in <Ref Func="ARQuiverNumerical"/>),<Br />
+   DimHomMat = matrix [dim Hom (i,j)] (=> rows 1..p contain dim. vectors of all indecomposables),<Br />
+   Simples = list of numbers of simple modules.
+</Description>
+</ManSection>
+
+<ManSection>
+  <Attr Name="NumberOfIndecomposables" Arg="AR" />
+  <Description>
+    Argument: <Arg>AR</Arg> - an object from the category <Ref Filt="IsARQuiverNumerical"/>.<Br />
+  </Description>
+  <Returns>
+    the number of indecomposable modules in <Arg>AR</Arg>. 
+  </Returns>
+</ManSection>
+
+<ManSection>
+  <Attr Name="NumberOfProjectives" Arg="AR" />
+  <Description>
+    Argument: <Arg>AR</Arg> - an object from the category <Ref Filt="IsARQuiverNumerical"/>.<Br />
+  </Description>
+  <Returns>
+    the number of indecomposable projective modules in <Arg>AR</Arg>. 
+  </Returns>
+</ManSection>
+</Section>
+
+
+<Section Label="elopers">
+<Heading>Elementary operations</Heading>
+
+<ManSection>
+  <Oper Name="DimensionVector" Label="DimVectFT" Arg="AR, M" />
+  <Description>
+    Arguments: <Arg>AR</Arg> - an object from the category <Ref Filt="IsARQuiverNumerical"/>;<Br />
+    <Arg>M</Arg> - a number of an indecomposable module in <Arg>AR</Arg> or a multiplicity vector
+    (cf. <Ref Sect="introDO"/>). 
+    
+  </Description>
+  <Returns>
+    a dimension vector of a module <Arg>M</Arg> in the form of a list. The order of dimensions
+    in this list corresponds to an order of projectives defined in <Arg>AR</Arg> (cf. <Ref Func="ARQuiverNumerical"/>).
+  </Returns>
+</ManSection>
+
+<Example><![CDATA[ 
+gap> a := ARQuiverNumerical("D4 subspace");
+<ARQuiverNumerical with 12 indecomposables and 4 projectives>
+gap> DimensionVector(a, 7);
+[ 1, 1, 0, 1 ]
+gap> DimensionVector(a, [0,1,0,0,0,0,2,0,0,0,0,0]);
+[ 3, 3, 0, 2 ]
+ ]]>
+</Example>
+
+
+<ManSection>
+  <Oper Name="DimHom" Arg="AR, M, N" />
+  <Description>
+    Arguments: <Arg>AR</Arg> - an object from the category <Ref Filt="IsARQuiverNumerical"/>;<Br />
+    <Arg>M</Arg> - a number of  indecomposable module in <Arg>AR</Arg> or a multiplicity vector;<Br />
+    <Arg>N</Arg> - a number of  indecomposable module in <Arg>AR</Arg> or a multiplicity vector (cf. <Ref Sect="introDO"/>).<Br />
+  </Description>
+  <Returns>
+     the dimension of the homomorphism space
+    between modules <Arg>M</Arg> and <Arg>N</Arg>.
+  </Returns>
+</ManSection>
+
+
+<ManSection>
+  <Oper Name="DimEnd" Arg="AR, M" />
+  <Description>
+    Arguments: <Arg>AR</Arg> - an object from the category <Ref Filt="IsARQuiverNumerical"/>;<Br />
+    <Arg>M</Arg> - a number of  indecomposable module in <Arg>AR</Arg> or a multiplicity vector (cf. <Ref Sect="introDO"/>).<Br />
+  </Description>
+  <Returns>
+    the dimension of the endomorphism algebra
+    of a module <Arg>M</Arg>.
+  </Returns>
+</ManSection>
+
+
+<ManSection>
+  <Oper Name="OrbitCodim" Arg="AR, M, N" />
+  <Description>
+    Arguments: <Arg>AR</Arg> - an object from the category <Ref Filt="IsARQuiverNumerical"/>;<Br />
+    <Arg>M</Arg> - a number of  indecomposable module in <Arg>AR</Arg> or a multiplicity vector;<Br />
+    <Arg>N</Arg> - a number of  indecomposable module in <Arg>AR</Arg> or a multiplicity vector (cf. <Ref Sect="introDO"/>).<Br />
+  </Description>
+  <Returns>
+     the codimension of orbits of modules <Arg>M</Arg> and <Arg>N</Arg>
+     (= dim End(<Arg>N</Arg>) - dim End(<Arg>M</Arg>)). [explain more???]
+  </Returns>
+  <Description>
+   NOTE: The function does not check if it makes sense, i.e. if <Arg>M</Arg> and <Arg>N</Arg> are in the same 
+   variety ( = dimension vectors coincide)!
+  </Description>
+</ManSection>
+
+
+<ManSection>
+  <Oper Name="DegOrderLEQ" Arg="AR, M, N" />
+  <Description>
+    Arguments: <Arg>AR</Arg> - an object from the category <Ref Filt="IsARQuiverNumerical"/>;<Br />
+    <Arg>M</Arg> - a number of  indecomposable module in <Arg>AR</Arg> or a multiplicity vector;<Br />
+    <Arg>N</Arg> - a number of  indecomposable module in <Arg>AR</Arg> or a multiplicity vector (cf. <Ref Sect="introDO"/>).<Br />
+  </Description>
+  <Returns>
+     true if <Arg>M</Arg><Math>&lt;=</Math><Arg>N</Arg> in a degeneration order
+    i.e. if <Arg>N</Arg> is a degeneration of <Arg>M</Arg>
+    (see <Ref Sect="bdef"/>), and false otherwise.
+  </Returns>
+  <Description>
+  NOTE: Function checks if it makes sense, i.e. if <Arg>M</Arg> and <Arg>N</Arg> are in the same 
+ variety ( = dimension vectors coincide). If not, it returns false
+ and additionally prints warning. 
+  </Description>
+</ManSection>
+
+
+<Example><![CDATA[ 
+gap> a := ARQuiverNumerical("R nilp");
+<ARQuiverNumerical with 7 indecomposables and 2 projectives>
+gap> DimensionVector(a, 2);  DimensionVector(a, 3);
+[ 2, 1 ]
+[ 2, 1 ]
+gap> DegOrderLEQ(a, 2, 3);
+true
+gap> DegOrderLEQ(a, 3, 2);
+false
+ ]]>
+</Example>
+
+<ManSection>
+  <Oper Name="DegOrderLEQNC" Arg="AR, M, N" />
+  <Description>
+    Arguments: <Arg>AR</Arg> - an object from the category <Ref Filt="IsARQuiverNumerical"/>;<Br />
+    <Arg>M</Arg> - a number of  indecomposable module in <Arg>AR</Arg> or a multiplicity vector;<Br />
+    <Arg>N</Arg> - a number of  indecomposable module in <Arg>AR</Arg> or a multiplicity vector (cf. <Ref Sect="introDO"/>).<Br />
+  </Description>
+  <Returns>
+     true if <Arg>M</Arg><Math>&lt;=</Math><Arg>N</Arg> in a degeneration order
+    i.e. if <Arg>N</Arg> is a degeneration of <Arg>M</Arg>
+    (see <Ref Sect="bdef"/>), and false otherwise.
+  </Returns>
+  <Description>
+  NOTE: Function does Not Check ("NC") if it makes sense, i.e. if <Arg>M</Arg> and <Arg>N</Arg> are in the same 
+ variety ( = dimension vectors coincide). If not, the result doesn't make sense!<Br />
+ It is useful when one wants to speed up computations (does not need to check the dimension vectors).
+  </Description>
+</ManSection>
+
+
+<ManSection>
+  <Oper Name="PrintMultiplicityVector" Arg="M" />
+  <Description>
+    <Arg>M</Arg> - a list = multiplicity vector (cf. <Ref Sect="introDO"/>).<Br />
+  </Description>
+  
+  <Description>
+  This function prints the multiplicity vector <Arg>M</Arg>
+ in a more "readable" way (especially useful if
+ <Arg>M</Arg> is long and sparse). It prints a "sum" of non-zero multiplicities
+ in the form "multiplicity * (number-of-indecomposable)".
+  </Description>
+</ManSection>
+
+
+<ManSection>
+  <Oper Name="PrintMultiplicityVectors" Arg="list" />
+  <Description>
+    <Arg>list</Arg> - a list of multiplicity vectors (cf. <Ref Sect="introDO"/>).<Br />
+  </Description>
+  
+  <Description>
+  This function prints all the multiplicity vectors from the <Arg>list</Arg>
+ in a more "readable" way, as <Ref Oper="PrintMultiplicityVector"/>. 
+  </Description>
+</ManSection>
+
+
+</Section>
+
+<Section Label="opers">
+<Heading>Operations returning families of modules</Heading>
+
+The functions from this section use quite advanced algorithms on (potentially) 
+big amount of data, so their runtimes can be long for "big" A-R quivers!
+
+<ManSection>
+  <Oper Name="ModulesOfDimVect" Arg="AR, which" />
+  <Description>
+    Arguments: <Arg>AR</Arg> - an object from the category <Ref Filt="IsARQuiverNumerical"/>;<Br />
+    <Arg>which</Arg> - a number of an indecomposable module in <Arg>AR</Arg> or a dimension vector
+    (see <Ref Oper="DimensionVector" Label="DimVectFT"/>).
+  </Description>
+  <Returns>
+    a list of all modules (= multiplicity vectors, see <Ref Sect="introDO"/>)
+    with dimension vector equal to <Arg>which</Arg>.
+  </Returns>
+</ManSection>
+
+
+<ManSection>
+  <Oper Name="DegOrderPredecessors" Arg="AR, M" />
+  <Description>
+    Arguments: <Arg>AR</Arg> - an object from the category <Ref Filt="IsARQuiverNumerical"/>;<Br />
+    <Arg>M</Arg> - a number of  indecomposable module in <Arg>AR</Arg> or a multiplicity vector (cf. <Ref Sect="introDO"/>).<Br />
+  </Description>
+  <Returns>
+   a list of all modules (= multiplicity vectors)
+   which are the predecessors of module <Arg>M</Arg> in a degeneration order (see <Ref Sect="bdef"/>).
+  </Returns>
+</ManSection>
+
+<Example><![CDATA[ 
+gap> a := ARQuiverNumerical("BG", 5);
+<ARQuiverNumerical with 72 indecomposables and 2 projectives>
+gap> preds := DegOrderPredecessors(a, 60);; Length(preds);
+18
+gap> DegOrderLEQ(a, preds[7], 60);
+true
+gap> dpreds := DegOrderDirectPredecessors(a, 60);; Length(dpreds);
+5
+gap> PrintMultiplicityVectors(dpreds);
+1*(14) + 1*(64)
+1*(10) + 1*(71)
+1*(9) + 1*(67)
+1*(5) + 1*(17) + 1*(72)
+1*(1) + 1*(5) + 1*(20)
+ ]]>
+</Example>
+
+<ManSection>
+  <Oper Name="DegOrderDirectPredecessors" Arg="AR, M" />
+  <Description>
+    Arguments: <Arg>AR</Arg> - an object from the category <Ref Filt="IsARQuiverNumerical"/>;<Br />
+    <Arg>M</Arg> - a number of  indecomposable module in <Arg>AR</Arg> or a multiplicity vector (cf. <Ref Sect="introDO"/>).<Br />
+  </Description>
+  <Returns>
+   a list of all modules (= multiplicity vectors)
+   which are the direct predecessors of module <Arg>M</Arg> in a degeneration order (see <Ref Sect="bdef"/>).
+  </Returns>
+</ManSection>
+
+
+<ManSection>
+  <Oper Name="DegOrderPredecessorsWithDirect" Arg="AR, M" />
+  <Description>
+    Arguments: <Arg>AR</Arg> - an object from the category <Ref Filt="IsARQuiverNumerical"/>;<Br />
+    <Arg>M</Arg> - a number of  indecomposable module in <Arg>AR</Arg> or a multiplicity vector (cf. <Ref Sect="introDO"/>).<Br />
+  </Description>
+  <Returns>
+   a pair (2-element list) [<Arg>p</Arg>, <Arg>dp</Arg>] where<Br />
+   <Arg>p</Arg> = the same as a result of <Ref Oper="DegOrderPredecessors"/>;<Br />
+   <Arg>dp</Arg> = the same as a result of <Ref Oper="DegOrderDirectPredecessors"/>;<Br />  
+  </Returns>
+  <Description>
+  The function generates predecessors only once,
+  so the runtime is exactly the same as  DegOrderDirectPredecessors.
+  </Description>
+</ManSection>
+
+
+<ManSection>
+  <Oper Name="DegOrderSuccessors" Arg="AR, M" />
+  <Description>
+    Arguments: <Arg>AR</Arg> - an object from the category <Ref Filt="IsARQuiverNumerical"/>;<Br />
+    <Arg>M</Arg> - a number of  indecomposable module in <Arg>AR</Arg> or a multiplicity vector (cf. <Ref Sect="introDO"/>).<Br />
+  </Description>
+  <Returns>
+   a list of all modules (= multiplicity vectors)
+   which are the successors of module <Arg>M</Arg> in a degeneration order (see <Ref Sect="bdef"/>).
+  </Returns>
+</ManSection>
+
+<ManSection>
+  <Oper Name="DegOrderDirectSuccessors" Arg="AR, M" />
+  <Description>
+    Arguments: <Arg>AR</Arg> - an object from the category <Ref Filt="IsARQuiverNumerical"/>;<Br />
+    <Arg>M</Arg> - a number of  indecomposable module in <Arg>AR</Arg> or a multiplicity vector (cf. <Ref Sect="introDO"/>).<Br />
+  </Description>
+  <Returns>
+   a list of all modules (= multiplicity vectors)
+   which are the direct successors of module <Arg>M</Arg> in a degeneration order (see <Ref Sect="bdef"/>).
+  </Returns>
+</ManSection>
+
+
+<ManSection>
+  <Oper Name="DegOrderSuccessorsWithDirect" Arg="AR, M" />
+  <Description>
+    Arguments: <Arg>AR</Arg> - an object from the category <Ref Filt="IsARQuiverNumerical"/>;<Br />
+    <Arg>M</Arg> - a number of  indecomposable module in <Arg>AR</Arg> or a multiplicity vector (cf. <Ref Sect="introDO"/>).<Br />
+  </Description>
+  <Returns>
+   a pair (2-element list) [<Arg>s</Arg>, <Arg>ds</Arg>] where<Br />
+   <Arg>s</Arg> = the same as a result of <Ref Oper="DegOrderSuccessors"/>;<Br />
+   <Arg>ds</Arg> = the same as a result of <Ref Oper="DegOrderDirectSuccessors"/>;<Br />  
+  </Returns>
+  <Description>
+  The function generates successors only once,
+  so the runtime is exactly the same as  DegOrderDirectSuccessors.
+  </Description>
+</ManSection>
+
+
+
+
+</Section>
+
+</Chapter>

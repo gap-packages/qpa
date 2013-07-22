@@ -22,8 +22,8 @@ bounded below and bounded above.
 The challenge when representing chain complexes in software is to
 handle their infinite nature.  If a complex is not bounded, or not
 known to be bounded, how can we represent it in an immutable way?  Our
-solution is to use a category called <C>InfList</C> (for "infinite
-list") to store the differentials of the complex.  The properties of
+solution is to use a category called <C>InfList</C> (for ``infinite
+list'') to store the differentials of the complex.  The properties of
 the <C>IsInfList</C> category is described in <Ref Sect="InfLists"/>.
 An <C>IsComplex</C> object consists of one <C>IsInfList</C> for the
 differentials, and it also has an <C>IsCat</C> object as an attribute.
@@ -34,7 +34,7 @@ To work with bounded complexes one does not need to know much about
 the <C>IsInfList</C> category.  A bounded complex can be created by
 simply giving a list of the differentials and the degree of the first
 differential as input (see <Ref Func="FiniteComplex"/>), and to create
-a stalk complex the stalk object and its degree suffers as input (see
+a stalk complex the stalk object and its degree suffice as input (see
 <Ref Func="StalkComplex"/>).  In both cases an <C>IsCat</C> object is
 also needed.
 
@@ -88,9 +88,9 @@ such objects.
 <Description>
   An infinite list is an immutable representation of a list with
   possibly infinite range of indeces.  It consists of three parts: The
-  "middle part" is finite and covers some range <M>[a,b]</M> of
-  indices, the "positive part" covers the range <M>[b+1,\infty)</M> of
-  indices, and the "negative part" convers the range
+  ``middle part'' is finite and covers some range <M>[a,b]</M> of
+  indices, the ``positive part'' covers the range <M>[b+1,\infty)</M> of
+  indices, and the ``negative part'' convers the range
   <M>(-\infty,a-1]</M> of indices.  Note that none of the three parts
   are mandatory: The middle part may be an empty list, and the
   positive part may be set to <C>fail</C> to achieve index range
@@ -104,7 +104,7 @@ such objects.
   the corresponding list item; (3) A function which takes an item from
   the list as argument and returns the next item.
   <P />
-  The two infinite parts are represented as "half infinite lists", see
+  The two infinite parts are represented as ``half infinite lists'', see
   <Ref Subsect="IsHalfInfList" />.  An infinite list can be
   constructed in the following ways:
   <List>
@@ -138,7 +138,7 @@ such objects.
   infinite list stores much of the information about an infinite
   list.  One main difference between an infinite list and a half
   infinite list is that the half infinite list does not have any
-  finite part, as the "middle" part of an infinite list.
+  finite part, as the ``middle'' part of an infinite list.
 </Description>
 </ManSection>
 
@@ -423,7 +423,7 @@ gap> inflist^0; inflist^5; inflist^6; inflist^-1; inflist^-4;
     The major difference between this construction and the previous is
     that here the half infinite lists that will make the positive and
     negative parts are not entered directly as arguments.  Instead,
-    one enters "description lists", which are of the same format as
+    one enters ``description lists'', which are of the same format as
     the argument <A>typeWithArgs</A> of <Ref Func="MakeHalfInfList"
     />.
   </Description>
