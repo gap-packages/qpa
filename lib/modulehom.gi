@@ -3202,8 +3202,8 @@ InstallMethod( HomomorphismFromImages,
 #  the same vertex as B[i].
 #
     for i in [1..Length(B)] do
-        if SupportModuleElement( B[i] ) <> SupportModuleElement( genImages[i] ) and
-           ( not IsZero( SupportModuleElement( genImages[i] ) ) ) then
+        if ( SupportModuleElement( B[i] ) <> SupportModuleElement( genImages[i] ) ) and
+           ( not IsZero( genImages[i] ) ) then
             Error("does not give a homomorphism -- wrong support,");
         fi;
     od;
@@ -3235,7 +3235,15 @@ InstallMethod( HomomorphismFromImages,
             mat := [];
             for p in [1..dim_vec_M[i]] do
                 j := j + 1;
-                Add(mat,ExtRepOfObj(ExtRepOfObj(genImages[j]))[i]);
+                if not ( IsPathModuleElem(genImages[j]) ) then
+                    if IsList( ExtRepOfObj( genImages[j] ) ) then
+                        Add(mat, ExtRepOfObj( genImages[j] )[i]);
+                    else
+                        Add(mat, ExtRepOfObj(ExtRepOfObj(genImages[j]))[i]);
+                    fi;
+                else
+                    Add(mat,ExtRepOfObj(ExtRepOfObj(genImages[j]))[i]);
+                fi;
             od;
             Add(map,mat);
         fi;
