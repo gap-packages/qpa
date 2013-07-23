@@ -20,7 +20,7 @@ DeclareAttribute( "CoKernelProjection", IsPathAlgebraMatModuleHomomorphism );
 DeclareAttribute( "KernelOfWhat", IsPathAlgebraMatModuleHomomorphism );
 DeclareAttribute( "CoKernelOfWhat", IsPathAlgebraMatModuleHomomorphism );
 DeclareAttribute( "ImageOfWhat", IsPathAlgebraMatModuleHomomorphism );
-DeclareProperty( "IsIsomorphism", IsPathAlgebraMatModuleHomomorphism );
+DeclareOperation( "IsIsomorphism", [IsPathAlgebraMatModuleHomomorphism] );
 DeclareOperation( "SubRepresentation", [IsPathAlgebraMatModule, IsList]);
 DeclareOperation( "SubRepresentationInclusion", [IsPathAlgebraMatModule, IsList]);
 DeclareOperation( "RadicalOfModule", [ IsPathAlgebraMatModule ]);

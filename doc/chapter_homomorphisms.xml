@@ -286,7 +286,7 @@ gap> 2*f + z;
 </ManSection>
 
 <ManSection>
-   <Prop Name="IsIsomorphism" Arg="f" Comm=""/>
+   <Oper Name="IsIsomorphism" Arg="f" Comm=""/>
    <Description>
      Arguments: <Arg>f</Arg> - a homomorphism between two
      modules.<Br />
