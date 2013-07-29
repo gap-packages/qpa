@@ -44,7 +44,7 @@ Version := "1.11",
 
 ##  Release date of the current version in dd/mm/yyyy format.
 # 
-Date := "19/04/2013",
+Date := "29/08/2013",
 
 ##  URL of the archive(s) of the current package release, but *without*
 ##  the format extension(s), like '.zoo', which are given next.
@@ -55,7 +55,7 @@ Date := "19/04/2013",
 ##  example/init.g, ...    or  example-1.3/init.g, ...  )
 # 
 ArchiveURL := 
-        "http://sourceforge.net/projects/quiverspathalg/files/qpa-version-1.11",
+        "http://sourceforge.net/projects/quiverspathalg/files/qpa-version-1.12",
 
 ##  All provided formats as list of file extensions, separated by white
 ##  space or commas.

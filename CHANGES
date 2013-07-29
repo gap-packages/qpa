@@ -1,4 +1,143 @@
 ==========================================================================
+Changes from version 1.11 to 1.12:
+==========================================================================
+
+Added structures in this release:
+----------------------------------------------------------------------
+
+
+IsAdmissibleQuotientOfPathAlgebra
+IsARQuiverNumerical
+IsBasicAlgebra
+IsElementaryAlgebra
+IsFiniteGlobalDimensionAlgebra
+IsGentleAlgebra
+IsGorensteinAlgebra
+IsHereditaryAlgebra
+IsQuiverAlgebra
+IsRadicalSquareZeroAlgebra
+IsSemisimpleAlgebra
+IsUnitForm
+
+
+Added functions in this release:
+----------------------------------------------------------------------
+
+ARQuiverNumerical
+BilinearFormOfUnitForm
+ComparisonLifting
+ComparisonLiftingToProjectiveResolution
+DegOrderLEQ
+DegOrderLEQNC
+DegOrderPredecessors
+DegOrderPredecessorsWithDirect
+DegOrderSuccessors
+DimensionVector
+DimEnd
+DimHom
+FiniteChainMap
+GlobalDimension (attribute of an algebra)
+HomomorphismFromImages
+IsBasicAlgebra 
+IsElementaryAlgebra
+IsExceptionalModule
+IsFiniteTypeAlgebra (new method)
+IsIndecomposableModule
+IsRadicalSquareZeroAlgebra
+IsRigidModule
+IsTauRigidModule
+IsWeaklyNonnegativeUnitForm
+IsWeaklyPositiveUnitForm
+MappingCone
+ModulesOfDimVect
+NakayamaAutomorphisms
+NakayamaFunctorOfModule
+NakayamaFunctorOfModuleHomomorphism
+NakayamaPermutation
+NumberOfIndecomposables
+NumberOfProjectives
+OrbitCodim
+OrderOfNakayamaAutomorphism
+PositiveRootsOfUnitForm
+PrintMultiplicityVector
+PrintMultiplicityVectors
+QuadraticFormOfUnitForm
+ReflectionByBilinearForm
+SeparatedQuiver
+StarOfModule
+StarOfModuleHomomorphism
+SymmetricMatrixOfUnitForm
+TitsUnitFormOfAlgebra
+true methods for giving the relationship between categories/properties
+     	     	 of algebras
+true methods for giving the relationship between categories/properties 
+     	     	 of modules
+UnitForm
+ZeroChainMap
+
+
+Changed code for:
+----------------------------------------------------------------------
+
+"/" applied to a path algebra and a list of relations therein
+AlgebraAsModuleOverEnvelopingAlgebra
+CanonicalAlgebra
+CartanMatrix
+Center
+CoxeterMatrix
+CoxeterPolynomial
+DirectSumOfModules
+EnvelopingAlgebra
+FullSubquiver
+IndecProjectiveModules, added properties: IsIndecomposableModule, 
+			IsProjectiveModule
+IndecInjectiveModules, added properties: IsIndecomposableModule,
+		       IsInjectiveModule
+IsSchurianAlgebra
+IsSymmetricAlgebra
+IsWeaklySymmetricAlgebra
+LoewyLength
+NakayamaAlgebra
+OriginalPathAlgebra
+RightModuleOverPathAlgebra
+SimpleModules, added properties: IsSimpleModule
+TensorProductOfAlgebras
+VerticesOfPathAlgebra
+
+Fixed bugs in:
+----------------------------------------------------------------------
+
+None
+
+Documentation:
+----------------------------------------------------------------------
+
+Documentation was added and updated. 
+
+
+Changes in function names:
+Old name -------> New name
+------------------------------------------------------------
+
+None
+
+Synonyms
+------------------------------------------------------------
+
+None
+
+Discontinued functions:
+------------------------------------------------------------
+
+None
+
+
+Miscellaneous
+------------------------------------------------------------
+None
+
+
+==========================================================================
 Changes from version 1.10 to 1.11:
 ==========================================================================
 
