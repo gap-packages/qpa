@@ -40,7 +40,7 @@ DeclareOperation("DescriptionOfFiniteProjComplex", [IsComplex]);
 DeclareOperation("DescriptionOfFiniteInjComplex", [IsComplex]);
 
 # "help functions"
-DeclareOperation("MultiplyListsOfMaps", [IsList, IsList, IsList]);
+#DeclareOperation("MultiplyListsOfMaps", [IsList, IsList, IsList]);
 DeclareOperation("MatricesOfDualMap", [IsPathAlgebraMatModuleHomomorphism]);
 DeclareOperation("FindAllMapComponents", [ IsPathAlgebraMatModuleHomomorphism ]);
 DeclareOperation("DirectSumMinusSummands", [IsPathAlgebraMatModule, IsList]);

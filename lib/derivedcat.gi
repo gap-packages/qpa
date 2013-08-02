@@ -1092,6 +1092,7 @@ end);
 # other methods used, not directly connected to the topic
 # but not good for general use
 
+# moved to modulehom.g?
 ######################################################
 ##
 #O MultiplyListsOfMaps( <projections>, <matrix>, <inclusions> )
@@ -1108,23 +1109,23 @@ end);
 ## Utility method not supposed to be here, but there seemed
 ## to be no existing GAP method for this.
 ##
-InstallMethod( MultiplyListsOfMaps,
-                    [ IsList, IsList, IsList ],
-                    function( projections, matrix, inclusions )
-    local sum, list, n, m, i, j;
-
-    n := Length(projections);
-    m := Length(inclusions);
-    list := [1..m];
-    sum := 0;
-
-    for i in [1..m] do
-       list[i] := projections*matrix[i];
-    od;
-
-    sum := list*inclusions;
-    return sum;
-end);
+#InstallMethod( MultiplyListsOfMaps,
+#                    [ IsList, IsList, IsList ],
+#                    function( projections, matrix, inclusions )
+#    local sum, list, n, m, i, j;
+#
+#    n := Length(projections);
+#    m := Length(inclusions);
+#    list := [1..m];
+#    sum := 0;
+#
+#    for i in [1..m] do
+#       list[i] := projections*matrix[i];
+#    od;
+#
+#    sum := list*inclusions;
+#    return sum;
+#end);
 
 ######################################################
 ##
