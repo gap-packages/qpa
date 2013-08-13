@@ -3286,3 +3286,113 @@ InstallMethod( MultiplyListsOfMaps,
     sum := list*inclusions;
     return sum;
 end);
+
+#######################################################################
+##
+#O  IsomorphismOfModules( <M>, <N> )
+##
+##  Given two modules  <M>  and  <N>  over a (quotient of a) path algebra
+##  this function return an isomorphism from  <M>  to  <N>  is the two
+##  modules are isomorphic, and false otherwise.
+##
+InstallMethod ( IsomorphismOfModules, 
+    "for two PathAlgebraMatModules",
+    true,
+    [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ], 
+    0,
+    function( M, N )
+
+    local maps, splittingmaps, fn, fsplit, gn, gsplit, f_alpha, f_beta,
+          g_alpha, g_beta, q, B, genImages, delta;
+    
+    
+    if RightActingAlgebra(M) <> RightActingAlgebra(N) then 
+        return false;
+    fi;
+    
+    if Dimension(M) = 0 and Dimension(N) = 0 then
+        return ZeroMapping(M,N);
+    fi;
+    if DimensionVector(M) <> DimensionVector(N) then
+        return false;
+    fi;
+    
+    splittingmaps := function( M, N) 
+        local K, HomMN, HomNM, mn, nm, n, m, i, j,  
+              l, zero, f, fnm, nmf; 
+            
+        HomMN := HomOverAlgebra(M,N);
+        HomNM := HomOverAlgebra(N,M);
+        mn := Length(HomMN);
+        nm := Length(HomNM);
+      
+        if mn = 0 or nm = 0 then 
+            return false;
+        fi;
+      
+        m := Maximum(DimensionVector(M));
+        n := Maximum(DimensionVector(N));
+        if n = m then
+            l := n;
+        else
+            l := Minimum([n,m]) + 1;
+        fi;
+      
+        zero := ZeroMapping(M,M);
+      
+        for j in [1..nm] do
+            for i in [1..mn] do
+                if l>1 then  # because hom^0*hom => error!       
+                    f := (HomMN[i]*HomNM[j])^(l-1)*HomMN[i];
+                else 
+                    f := HomMN[i];
+                fi;
+                
+                fnm := f*HomNM[j];
+              
+                if fnm <> zero then
+                    nmf := HomNM[j]*f; 
+                    return [fnm, nmf, HomMN[i]];
+                fi;
+            od;
+        od;
+
+        return false;
+    end; 
+    
+    maps := splittingmaps(M,N);
+    
+    if maps = false then
+        return false;
+    fi;
+    
+    fn := ImageInclusion(maps[1]);
+    fsplit := IsSplitMonomorphism(fn);
+    gn := ImageInclusion(maps[2]);
+    gsplit := IsSplitMonomorphism(gn);
+    
+    f_alpha := ImageInclusion(fsplit*fn);
+    f_beta := KernelInclusion(fsplit*fn);
+    
+    g_alpha := ImageInclusion(gsplit*gn);
+    g_beta := KernelInclusion(gsplit*gn);
+    
+    if Dimension(Source(f_beta)) = 0 and Dimension(Source(g_beta)) = 0 then
+       return maps[1]*maps[3]; 
+    fi;
+    
+    q := f_alpha*maps[1]*maps[3];
+    
+    B := BasisVectors(Basis(Source(q)));
+    genImages := List(B, x -> PreImagesRepresentative(g_alpha, ImageElm(q,x)));
+    
+    delta := HomomorphismFromImages(Source(f_alpha), Source(g_alpha), genImages);
+    
+    if IsomorphismOfModules(Source(f_beta),Source(g_beta)) <> false then
+        return IsSplitMonomorphism(f_alpha) * (delta * g_alpha) + 
+               IsSplitMonomorphism(f_beta) * (IsomorphismOfModules(Source(f_beta),Source(g_beta)) * g_beta);
+    else 
+        return false;
+    fi;
+end
+  );
