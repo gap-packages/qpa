@@ -40,3 +40,4 @@ InstallMethod( NullList,
         function( length, field )
     return NullMat( 1, length, field )[ 1 ];
 end );
+

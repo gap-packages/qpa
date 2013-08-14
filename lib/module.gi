@@ -2,6 +2,30 @@
 # This file was generated from 
 # $Id: pamodule.gi,v 1.20 2012/08/01 16:01:10 sunnyquiver Exp $
 
+#######################################################################
+##
+#O  IsInFullMatrixRing( <M>, <R> )
+##
+##  This function returns true is the matrix  <M>  is in the full
+##  matrix ring given by the field  <R>, and false otherwise.
+##
+InstallMethod ( IsInFullMatrixRing, 
+    "for a matrix and a ring",
+    true,
+    [ IsMatrix, IsRing ], 
+    0,
+    function( M, R )
+
+    local temp;
+    
+    temp := Flat( M ); 
+    if ForAll( temp, x -> x in R ) then 
+        return true;
+    else
+        return false;
+    fi;
+end
+  );
 
 ZeroModElement:=function(fam,zero)
   local result,i;
@@ -374,9 +398,184 @@ end;
 ## A=kQ/I is the algebra over which we want to construct
 ## the module. <gens> is a list of matrices, one for each 
 ## arrow of Q. The method checks that the relations
-## are satisfied.
+## are satisfied and if all matrices are over the correct
+## field.
 ##
 InstallMethod(RightModuleOverPathAlgebra,
+    "for a (quotient of a) path algebra and list of matrices",
+    true,
+    [IsQuiverAlgebra, IsCollection], 0,
+    function( R, gens )
+    local tempgens, a, dim, source, target, basis, i, x, Fam, 
+          vertices, matrices, quiver, M, vlist, alist, K, dim_M, 
+          dim_vector, relationtest, I, terms, result, walk, matrix;
+
+    matrices := [];
+    quiver := QuiverOfPathRing(R);
+    vlist  := VerticesOfQuiver(quiver);
+    K      := LeftActingDomain(R);
+    alist  := ArrowsOfQuiver(quiver);
+    vertices := [];
+#    
+#  First checking if all arrows has been assigned some value.
+#
+    if Length(gens) < Length(alist) then 
+       Error("Each arrow has not been assigned a matrix.");
+    fi;
+    
+    tempgens := Filtered(gens, g -> IsList(g[2][1]));
+    if not ForAll(tempgens, g -> IsInFullMatrixRing(g[2],K)) then
+        Error("not all matrices are over the correct field,\n");
+    fi;
+#
+#  Setting the multiplication by the vertices.
+#          
+    for i in [1 .. Length(vlist)] do
+      matrices[i]:= One(K);
+    od;
+#
+#  Setting, partially, the multiplication by the arrows, taking into account
+#  the possible different formats of the input. 
+#
+#  Input of the form ["a",[[..],...,[..]]], where "a" is the label of 
+#  some arrow in the quiver
+#
+    if IsString(gens[1][1]) then                 
+       for i in [1 .. Length ( gens )] do
+          a:=gens[i][1];
+          matrices[quiver.(a)!.gen_pos]:=gens[i][2];
+       od;
+#
+#  Input of the form [[matrix_1],[matrix_2],...,[matrix_n]]
+#
+    elif IsMatrix(gens[1]) then
+       for i in [1 .. Length ( gens )] do
+          matrices[i + Length(vlist)]:=gens[i];
+       od;
+    else
+#
+#  Input of the form [[alist[1],[matrix_1]],...,[alist[n],[matrix_n]]] 
+#  where alist is a list of the vertices in the quiver.
+#  
+       for i in [1 .. Length ( gens )] do
+          a:=gens[i][1];
+          matrices[a!.gen_pos]:=gens[i][2];
+       od;
+    fi;
+
+    for i in [1 .. Length(vlist)] do
+      vertices[i]:=-1;
+    od; 
+#
+#  Setting dimensions and checking the usage of the zero space format.
+#
+    dim:=[];
+    for x in alist do
+      if IsMatrix(matrices[x!.gen_pos]) then
+        dim:= DimensionsMat ( matrices[x!.gen_pos] );
+      else
+        dim:=matrices[x!.gen_pos];
+        if ( dim[1] > 0 and dim[2] = 0 ) then
+          matrices[x!.gen_pos]   := NullMat(dim[1],1,K);
+        elif ( dim[1] = 0 and dim[2] > 0 ) then
+            matrices[x!.gen_pos] := NullMat(1,dim[2],K);
+	elif ( dim[1] = 0 and dim[2] = 0 ) then 
+            matrices[x!.gen_pos] := NullMat(1,1,K);
+        else
+            Error("A vertex cannot have negative dimension or wrong usage of the zero space format.");
+        fi;
+      fi;
+
+      source:=SourceOfPath(x);
+      target:=TargetOfPath(x);
+#
+#  Checking if all the matrices entered are compatible with respect 
+#  to the dimension of the vectorspaces at each vertex.
+#
+      if vertices[source!.gen_pos] = -1 then
+        vertices[source!.gen_pos]:= dim[1];
+      elif vertices[source!.gen_pos] <> dim[1] then
+        Error("Dimensions of matrices do not match");
+      fi;
+
+      if vertices[target!.gen_pos] = -1 then
+        vertices[target!.gen_pos]:= dim[2];
+      elif vertices[target!.gen_pos] <> dim[2] then
+        Error("Dimensions of matrices do not match");
+      fi;
+    od;
+#
+#  Testing if the relations are satisfied, whenever we have a quotient of a path algebra.
+#
+    dim_M := 0;
+    for i in [1..Length(vlist)] do
+    	dim_M := dim_M + vertices[i];
+    od;
+   if dim_M = 0 or IsPathAlgebra(R) then 
+      relationtest := true;
+   else 
+      relationtest := true;
+      I := RelatorsOfFpAlgebra(R);
+      for i in [1..Length(I)] do
+         terms := CoefficientsAndMagmaElements(I[i]);
+         result := [Zero(K)];
+         for i in [1,3 .. Length( terms ) - 1] do
+            walk := WalkOfPath(terms[i]);
+            matrix := One(K);
+            for x in walk do
+               matrix := matrix * matrices[x!.gen_pos];
+            od;
+            matrix := terms[i+1] * matrix;
+            result := result + matrix;
+         od;
+         dim := DimensionsMat(result);
+         if result <> NullMat(dim[1],dim[2],K) then
+            relationtest := false;
+         fi;
+      od;
+   fi; 
+#
+# Creating the module if everything is OK, else give an error message.
+#
+   if relationtest then 
+       Fam := NewFamily( "PathAlgModuleElementsFamily", IsPathModuleElem );
+       SetFilterObj( Fam, IsPathModuleElemFamily );
+       Fam!.vertices := vertices;
+       Fam!.matrices := matrices;
+       Fam!.pathAlgebra := OriginalPathAlgebra(R);
+       if IsQuotientOfPathAlgebra(R) then 
+          Fam!.quotientAlgebra := R;
+       fi;
+       if dim_M > 0 then 
+          basis := CreateModuleBasis(Fam);
+          dim_vector := vertices;
+       else 
+    	  basis := [ ZeroModElement(Fam, Zero(K)) ];
+          dim_vector := List(vlist, x -> 0);
+       fi;
+       M := RightAlgebraModuleByGenerators(R, \^, basis);
+       SetIsPathAlgebraMatModule(M,true);
+       SetIsWholeFamily(M,true);
+       SetDimensionVector(M,dim_vector);
+
+       return M;
+   else
+      Print("The entered matrices for the module do not satisfy the relation(s).\n");
+      return fail;
+   fi;
+end
+);
+
+###################################################
+##
+#O RightModuleOverPathAlgebraNC( <A>, <gens> )
+##
+## A=kQ/I is the algebra over which we want to construct
+## the module. <gens> is a list of matrices, one for each 
+## arrow of Q. The method checks that the relations
+## are satisfied.
+##
+InstallMethod(RightModuleOverPathAlgebraNC,
   "for a (quotient of a) path algebra and list of matrices",
   true,
   [IsQuiverAlgebra, IsCollection], 0,
@@ -548,7 +747,8 @@ end
 ##  where "a" and "b" are labels of arrows used when the underlying quiver
 ##  was created and matrix_? is the action of the algebra element 
 ##  corresponding to the arrow with label "?". The action of the arrows
-##  can be entered in any order. 
+##  can be entered in any order. The function checks if the matrices are
+##  over the correct field.
 ##
 InstallOtherMethod(RightModuleOverPathAlgebra,
   "for a path algebra and list of matrices",
@@ -582,8 +782,12 @@ InstallOtherMethod(RightModuleOverPathAlgebra,
    matrices_set := [];
 #
 #  If all labels entered by the user actually exist in the quiver in question,
-#  start creating the matrices defining the multiplication by the arrows. 
+#  start creating the matrices defining the multiplication by the arrows by 
+#  first checking that they are in the full matrix ring over the correct field.
 #
+   if not ForAll(gens, g -> IsInFullMatrixRing(g[2],K)) then
+       Error("not all matrices are over the correct field,\n");
+   fi;
    if ForAll( entered_arrows, x -> x in arrow_labels )  then                 
       for i in [1 .. Length( gens )] do
          a := gens[i][1];
@@ -691,7 +895,32 @@ InstallOtherMethod(RightModuleOverPathAlgebra,
    fi;
 end
 );
-  
+
+#######################################################################
+##
+#O  \=( <M>, <N> )
+##
+##  This function returns true if the homomorphisms  <f>  and  <g>  have
+##  the same source, the same range and the matrices defining the 
+##  homomorphisms are identitical.
+##
+InstallMethod ( \=, 
+    "for a PathAlgebraMatModuleMap",
+    true,
+    [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ],
+    0,
+    function( M, N );
+
+    if ( RightActingAlgebra(M) = RightActingAlgebra(N) ) and 
+       ( DimensionVector(M) = DimensionVector(N) ) and
+       ( MatricesOfPathAlgebraModule(M) = MatricesOfPathAlgebraModule(N) ) then
+        return true;
+    else
+        return false;
+    fi;
+end
+);
+
 InstallMethod( ViewObj, 
     "for a PathAlgebraMatModule",
     true,

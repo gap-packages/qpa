@@ -1,6 +1,7 @@
 # GAP Declarations
 # This file was generated from
 # $Id: pamodule.gd,v 1.8 2012/08/01 16:01:10 sunnyquiver Exp $
+DeclareOperation( "IsInFullMatrixRing", [ IsMatrix, IsRing ]);
 DeclareCategory("IsPathModuleElem", IsVector);
 DeclareCategoryFamily( "IsPathModuleElem" );
 DeclareCategoryCollections( "IsPathModuleElem" );
@@ -8,6 +9,7 @@ DeclareGlobalFunction("PathModuleElem");
 DeclareCategory("IsBasisOfPathModuleElemVectorSpace", IsBasis);
 DeclareProperty("IsPathAlgebraMatModule", IsAlgebraModule);
 DeclareOperation("RightModuleOverPathAlgebra", [IsQuiverAlgebra, IsCollection]);
+DeclareOperation("RightModuleOverPathAlgebraNC", [IsQuiverAlgebra, IsCollection]);
 DeclareOperation("SubmoduleAsModule", [IsAlgebraModule]);
 DeclareOperation("BasisOfDomain", [IsFreeLeftModule and IsPathModuleElemCollection]);
 DeclareOperation("NewBasis", [ IsFreeLeftModule and IsPathModuleElemCollection,

@@ -30,6 +30,8 @@ follows.<P/>
 	 Comm=""/>
    <Oper Name="RightModuleOverPathAlgebra" Label="no dimension vector" Arg="A, mats" 
 	 Comm=""/>
+   <Oper Name="RightModuleOverPathAlgebraNC" Label="no dimension vector" Arg="A, mats" 
+	 Comm=""/>
    <Description> 
     Arguments: <Arg>A</Arg> -- a (quotient of a) path algebra and <Arg>dim_vector</Arg> -- the dimension vector of the module, <Arg>gens</Arg> -- a list of elements (generators) or <Arg>mats</Arg> -- a list of matrices. For further explanations, see below.
    <Br /></Description>
@@ -49,13 +51,16 @@ follows.<P/>
       labels of arrows used when the underlying quiver was created and
       matrix_? is the action of the algebra element corresponding to
       the arrow with label "?". The action of the arrows can be
-      entered in any order. The function checks if the
-      algebra <Arg>A</Arg> is a (quotient of a) path algebra and if
+      entered in any order. The function checks (i) if the
+      algebra <Arg>A</Arg> is a (quotient of a) path algebra, (ii) if
       the matrices of the action of the arrows have the correct size
-      according to the dimension vector entered and also whether or
-      not the relations of the algebra are satisfied.<P/>
+      according to the dimension vector entered, (iii) also whether or
+      not the relations of the algebra are satisfied and (iv) if all 
+      matrices are over the correct field.<P/>
 
-      In the second function call, the list of matrices <Arg>mats</Arg> can take on three different forms.<P/>
+      In the second function call, the list of matrices
+      <Arg>mats</Arg> can take on three different forms. The function 
+      checks (i), (ii), (iii) and (iv) as above.<P/>
 
       1) The argument <Arg>mats</Arg> can be a list of blocks of
       matrices where each block is of the form, `["name of
@@ -84,6 +89,9 @@ follows.<P/>
       form <C>["b",[0,n]]</C> where n is the dimension of the vector
       space at the target vertex of the arrow.<P/>
 
+      The third function call is the same as the second except that 
+      the check (iv) is not preformed.<P/> 
+
       A warning though, the function assumes that you do not mix the
       styles of inputting the matrices/linear transformations
       associated to the arrows in the quiver. Furthermore, each arrow
@@ -100,6 +108,22 @@ follows.<P/>
     Arguments: <Arg>M</Arg> -- a right module over an algebra. 
    <Br /></Description>
    <Returns>a module over a (qoutient of a) path algebra.</Returns> 
+   <Description>
+     This function constructs a right module over a (quotient of a)
+     path algebra <M>A</M> from a RightAlgebraModule over the same
+     algebra <M>A</M>. The function checks if <M>A</M> actually is a
+     quotient of a path algebra and if the module <M>M</M> is finite
+     dimensional and if not, it returns an error message.
+   </Description>
+  </ManSection> 
+
+  <ManSection>
+   <Oper Name="\=" Label="for two path algebra matrix modules" Arg="M" Comm=""/>
+   <Description> 
+    Arguments: <Arg>M, N</Arg> -- two path algebra matrix modules. 
+   <Br /></Description>
+   <Returns>true if  <Arg>M</Arg> and <Arg>N</Arg> has the same dimension 
+   vectors and the same matrices defining the module structure.</Returns> 
    <Description>
      This function constructs a right module over a (quotient of a)
      path algebra <M>A</M> from a RightAlgebraModule over the same
@@ -168,6 +192,7 @@ gap> Amod := RightAlgebraModule(A,\*,A);
 gap> RightAlgebraModuleToPathAlgebraMatModule(Amod);
 <[ 4, 5 ]> ]]>
 </Example>
+
 
 </Section>
 

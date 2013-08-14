@@ -36,3 +36,4 @@ DeclareOperation( "PositionsNonzero", [ IsList ] );
 # element of the field.
 
 DeclareOperation( "NullList", [ IsPosInt, IsField ] );
+
