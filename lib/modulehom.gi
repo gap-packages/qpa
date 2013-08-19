@@ -3303,8 +3303,7 @@ InstallMethod ( IsomorphismOfModules,
     function( M, N )
 
     local maps, splittingmaps, fn, fsplit, gn, gsplit, f_alpha, f_beta,
-          g_alpha, g_beta, q, B, genImages, delta;
-    
+          g_alpha, g_beta, q, B, genImages, delta, recursiveIOM;
     
     if RightActingAlgebra(M) <> RightActingAlgebra(N) then 
         return false;
@@ -3388,11 +3387,13 @@ InstallMethod ( IsomorphismOfModules,
     
     delta := HomomorphismFromImages(Source(f_alpha), Source(g_alpha), genImages);
     
-    if IsomorphismOfModules(Source(f_beta),Source(g_beta)) <> false then
+    recursiveIOM := IsomorphismOfModules(Source(f_beta),Source(g_beta));
+    
+    if recursiveIOM <> false then
         return IsSplitMonomorphism(f_alpha) * (delta * g_alpha) + 
-               IsSplitMonomorphism(f_beta) * (IsomorphismOfModules(Source(f_beta),Source(g_beta)) * g_beta);
+               IsSplitMonomorphism(f_beta) * (recursiveIOM * g_beta);
     else 
         return false;
     fi;
 end
-  );
+  ); # IsomorphismOfModules
