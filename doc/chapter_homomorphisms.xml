@@ -693,6 +693,20 @@ true ]]>
 </ManSection>
 
 <ManSection>
+   <Oper Name="IsomorphismOfModules" Arg="M, N" Comm=""/>
+   <Description>
+     Arguments: <Arg>M, N</Arg> - two PathAlgebraMatModules.<Br />
+   </Description>
+   <Returns>false if <Arg>M</Arg> and <Arg>N</Arg> are two
+   non-isomorphic modules, otherwise it returns an isomorphism from 
+   <Arg>M</Arg> to <Arg>N</Arg>.</Returns>
+   <Description>
+    The function checks if <Arg>M</Arg> and <Arg>N</Arg> are modules
+    over the same algebra, and returns an error message otherwise.
+   </Description>
+</ManSection>
+
+<ManSection>
    <Attr Name="Kernel" Arg="f" Comm=""/>
    <Attr Name="KernelInclusion" Arg="f" Comm=""/>
    <Description>
