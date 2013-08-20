@@ -900,12 +900,12 @@ end
 ##
 #O  \=( <M>, <N> )
 ##
-##  This function returns true if the homomorphisms  <f>  and  <g>  have
-##  the same source, the same range and the matrices defining the 
-##  homomorphisms are identitical.
+##  This function returns true if the modules  <M>  and  <N>  have
+##  the same underlying vector spaces and the same defining matrices, 
+##  and false otherwise.
 ##
 InstallMethod ( \=, 
-    "for a PathAlgebraMatModuleMap",
+    "for a PathAlgebraMatModules",
     true,
     [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ],
     0,

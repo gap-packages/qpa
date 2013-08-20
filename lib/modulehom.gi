@@ -3302,20 +3302,53 @@ InstallMethod ( IsomorphismOfModules,
     0,
     function( M, N )
 
-    local maps, splittingmaps, fn, fsplit, gn, gsplit, f_alpha, f_beta,
-          g_alpha, g_beta, q, B, genImages, delta, recursiveIOM;
-    
+    local K, dim_M, mats, i, maps, splittingmaps, fn, fsplit, gn, gsplit, 
+          f_alpha, f_beta, g_alpha, g_beta, q, B, genImages, delta, 
+          recursiveIOM;
+    # 
+    # If  M  and  N are not modules over the same algebra, 
+    # return an error message.
+    #
     if RightActingAlgebra(M) <> RightActingAlgebra(N) then 
         return false;
     fi;
-    
-    if Dimension(M) = 0 and Dimension(N) = 0 then
-        return ZeroMapping(M,N);
-    fi;
+    #
+    # If the dimension vectors of  M  and  N  are different, they
+    # are not isomorphic, so return  false.
+    #
     if DimensionVector(M) <> DimensionVector(N) then
         return false;
     fi;
-    
+    #
+    # If both  M  and  N  are the zero module, return the zero map.
+    #
+    if Dimension(M) = 0 and Dimension(N) = 0 then
+        return ZeroMapping(M,N);
+    fi;
+    #
+    # If  M  and  N  are the same representations (i.e. with the 
+    # same vector spaces and defining matrices, then return the 
+    # "identity homomorphism". 
+    #
+    if M = N then 
+        K := LeftActingDomain(M);
+        dim_M := DimensionVector(M);
+        mats := [];
+        for i in [1..Length(dim_M)] do
+            if dim_M[i] = 0 then
+                Add(mats,NullMat(1,1,K));
+            else
+                Add(mats,IdentityMat(dim_M[i],K));
+            fi;
+        od;
+        
+        return RightModuleHomOverAlgebra(M,N,mats);
+    fi;
+    #
+    # Finds a homomorphism from  M  to  N  and corresponding homomorphism
+    # from  N  to  M  identifying a common non-zero direct summand of  M  
+    # and  N, if such exists. Otherwise it returns false. 
+    #
     splittingmaps := function( M, N) 
         local K, HomMN, HomNM, mn, nm, n, m, i, j,  
               l, zero, f, fnm, nmf; 
@@ -3360,26 +3393,40 @@ InstallMethod ( IsomorphismOfModules,
     end; 
     
     maps := splittingmaps(M,N);
-    
+    #
+    # No common non-zero direct summand,  M  and  N  are not isomorphic,
+    # return false.
+    #
     if maps = false then
         return false;
     fi;
-    
+    #
+    # M  and  N  has a common non-zero direct summand, find the splitting of
+    # the inclusion of this common direct summand in  M  and in  N.
+    #
     fn := ImageInclusion(maps[1]);
     fsplit := IsSplitMonomorphism(fn);
     gn := ImageInclusion(maps[2]);
     gsplit := IsSplitMonomorphism(gn);
-    
+    #
+    # Find the idempotents corresponding to these direct summands.
+    #
     f_alpha := ImageInclusion(fsplit*fn);
-    f_beta := KernelInclusion(fsplit*fn);
-    
+    f_beta := KernelInclusion(fsplit*fn);    
     g_alpha := ImageInclusion(gsplit*gn);
     g_beta := KernelInclusion(gsplit*gn);
-    
+    #
+    # If this direct summand is all of  M  and  N, return the appropriate
+    # isomorphism.
+    #
     if Dimension(Source(f_beta)) = 0 and Dimension(Source(g_beta)) = 0 then
        return maps[1]*maps[3]; 
     fi;
-    
+    #
+    # If this direct summand is not all of  M  and  N, recursively construct
+    # a possible isomorphism between the complements of this common direct 
+    # summand in  M  and in  N.
+    #
     q := f_alpha*maps[1]*maps[3];
     
     B := BasisVectors(Basis(Source(q)));
