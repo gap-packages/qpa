@@ -60,3 +60,4 @@ DeclareOperation("InverseOfIsomorphism", [ IsPathAlgebraMatModuleHomomorphism ])
 DeclareOperation( "HomomorphismFromImages", [ IsPathAlgebraMatModule, IsPathAlgebraMatModule, IsList ] );
 DeclareOperation("MultiplyListsOfMaps", [IsList, IsList, IsList]);
 DeclareOperation( "IsomorphismOfModules", [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ]);
+DeclareOperation( "EndOfModuleAsQuiverAlgebra", [IsPathAlgebraMatModule ] );

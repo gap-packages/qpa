@@ -576,6 +576,24 @@ true ]]>
 </ManSection>
 
 <ManSection>
+   <Oper Name="EndOfModuleAsQuiverAlgebra" Arg="M" Comm=""/>
+   <Description>
+     Arguments: <Arg>M</Arg> - a PathAlgebraMatModule.<Br />
+   </Description>
+   <Returns> a list of three elements, (i) the endomorphism ring of
+   <Arg>M</Arg>, (ii) the adjacency matrix of the quiver of the endomorphism
+   ring and (iii) the endomorphism ring as a quiver algebra.
+   </Returns>
+   <Description>
+     Suppose <Arg>M</Arg> is a module over a quiver algebra over a
+     field <M>K</M> The function checks if the endomorphism ring of
+     <Arg>M</Arg> is K-elementary (not necessary for it to be a quiver
+     algebra, but this is a TODO improvement), and returns error
+     message otherwise.
+   </Description>
+</ManSection>
+
+<ManSection>
    <Attr Name="EndOverAlgebra" Arg="M" Comm=""/>
    <Description>
      Arguments: <Arg>M</Arg> - a module.<Br />

@@ -3444,3 +3444,198 @@ InstallMethod ( IsomorphismOfModules,
     fi;
 end
   ); # IsomorphismOfModules
+
+#######################################################################
+##
+#O  EndOfModuleAsQuiverAlgebra( <M> )
+##
+##  The argument of this function is a PathAlgebraMatModule  <M>  over
+##  a quiver algebra over a field  K. It checks if the endomorphism ring
+##  of  <M>  is  K-elementary (not necessary for it to be a quiver algebra, 
+##  but this is a TODO improvement). If the endomorphism ring of  <M>  is
+##  K-elementary, then it returns a list of three elements, (i) the 
+##  endomorphism ring of  <M>, (ii) the adjacency matrix of the quiver of 
+##  the endomorphism ring and (iii) the endomorphism ring as a quiver 
+##  algebra.
+##  
+InstallMethod( EndOfModuleAsQuiverAlgebra, 
+    "for a representations of a quiver",
+    [ IsPathAlgebraMatModule ], 0,
+    function( M )
+
+    local decompmult, EndM, pids, rad, gensofrad, radEndM, map, A, elementarytest, i, temp, 
+          gensofradsquare, radsquare, radmap, radmodradsq, Iradmodradsq,
+          gensforarrows, adjacencymatrix, j, loewylength, Q, KQ, Jtplus1, AA, n, gensofAA, 
+          gb, gbb, vertices, arrows, images, arrow_count, f, t, B, b, tempx, length,
+          walk, image, matrix, solutions, Solutions, radSoluplusSolurad, V, W, h, idealgens;
+    #
+    #  Is the module basic?
+    #
+    decompmult := DecomposeModuleWithMultiplicities(M)[2];
+    if not ForAll(decompmult, x -> x = 1) then 
+        Error("the entered module is not basic, so the endomorphism ring is not a quotient of a path algebra,\n");
+    fi;
+    #
+    #  Finding the primitive idempotents in the endomorphism ring of  M.
+    #  Here we need an algebra over a finite field.
+    #
+    EndM := EndOverAlgebra(M);
+    pids := IdempotentsForDecomposition(EndM);
+    #
+    #  Assume that the algebra over which  M  is a module is a  k-algebra.
+    #
+    #  Checking if the endomorphism ring of  M  modulo the radical is isomorphic to  k^t
+    #  for some  t, i.e. if EndM is a k-elementary algebra.
+    #
+    rad := RadicalOfAlgebra(EndM);
+    gensofrad := GeneratorsOfAlgebra(rad);
+    radEndM := Ideal(EndM,gensofrad); 
+    map := NaturalHomomorphismByIdeal(EndM,radEndM); 
+    A := Range(map);
+    #
+    #  Computing the dimension of the endomorphism rings of the simple  EndM-modules.
+    # 
+    elementarytest := List([1..Length(pids)], x -> Filtered(ImageElm(map,pids[x])*BasisVectors(Basis(A)), y -> y <> Zero(y)));
+    elementarytest := List([1..Length(pids)], x -> Filtered(elementarytest[x]*ImageElm(map,pids[x]), y -> y <> Zero(y)));
+    elementarytest := List(elementarytest, x -> Dimension(Subspace(A,x)));
+    # 
+    #  Checking if the endomorphism ring of the module  M  is  k-elementary. 
+    #    
+    if not ForAll(elementarytest, x -> x = 1) then
+        Error("the endomorphism algebra of the entered module is not K-elementary, that is, not a quotient of a path K-algebra, \n");
+    fi;
+    #  
+    #  Finding the arrows. 
+    #  Finding the generators of the square of the radical in  EndM.
+    #
+    temp := [];
+    for i in [1..Length(gensofrad)] do
+        Append(temp, Filtered(gensofrad[i]*BasisVectors(Basis(EndM)), x -> x <> Zero(x)));
+    od;
+    temp := Unique(temp); #  contains generators of the radical as a left ideal. 
+    gensofradsquare := [];
+    for i in [1..Length(gensofrad)] do
+        Append(gensofradsquare, Filtered(temp*gensofrad[i], x -> x <> Zero(x)));
+    od;
+    gensofradsquare := Unique(gensofradsquare); # generators of the square of the radical in  EndM.
+    #
+    #  Defining the square of the radical as an ideal inside  EndM, and finding the natural map 
+    #  EndM --->  EndM/radsquare.
+    #
+    radsquare := Ideal(EndM, gensofradsquare); 
+    radmap := NaturalHomomorphismByIdeal(EndM, radsquare);
+    radmodradsq := Unique(List(gensofrad, x -> ImageElm(radmap,x)));
+    #
+    #  Defining the image of the radical in  EndM  as an ideal in  EndM/radsquare.
+    #
+    Iradmodradsq := Ideal(Range(radmap),radmodradsq);
+    #
+    #  Constructing generators for the arrows in  EndM  and the adjacency matrix of 
+    #  the quiver of the elementary algebra  EndM.
+    #  
+    gensforarrows := List([1..Length(pids)], x -> List([1..Length(pids)], y -> []));
+    adjacencymatrix := NullMat(Length(pids),Length(pids));
+    for i in [1..Length(pids)] do
+        for j in [1..Length(pids)] do
+            gensforarrows[i][j] := Filtered(ImageElm(radmap,pids[i])*BasisVectors(Basis(Iradmodradsq))*ImageElm(radmap,pids[j]), y -> y <> Zero(y));
+            gensforarrows[i][j] := BasisVectors(Basis(Subspace(Range(radmap),gensforarrows[i][j])));
+            gensforarrows[i][j] := List(gensforarrows[i][j], x -> PreImagesRepresentative(radmap,x));
+            adjacencymatrix[i][j] := Length(gensforarrows[i][j]);
+        od; 
+    od;
+    #
+    t := Length(PowerSubalgebraSeries(radEndM)); # then radEndM^t = (0) 
+    Q := Quiver(adjacencymatrix);
+    KQ := PathAlgebra(LeftActingDomain(M),Q);
+    Jtplus1 := NthPowerOfArrowIdeal(KQ,t + 1);
+    n := NumberOfVertices(Q);
+    images := ShallowCopy(pids);   #  images of the vertices/trivial paths
+    arrow_count := 0;
+    for i in [ 1 .. n ] do
+        for j in [ 1 .. n ] do
+            Append(images,gensforarrows[i][j]);
+        od;
+    od;
+     
+    if Length(Jtplus1) = 0 then 
+        AA := KQ;
+        gensofAA := GeneratorsOfAlgebra(AA);
+        vertices := gensofAA{[1..n]};
+        arrows := gensofAA{[n + 1..Length(gensofAA)]};
+        f := [AA,EndM,gensofAA{[1..Length(gensofAA)]},images];
+
+    else
+        gb := GBNPGroebnerBasis(Jtplus1,KQ);
+        Jtplus1 := Ideal(KQ,Jtplus1); 
+        gbb := GroebnerBasis(Jtplus1,gb);
+        AA := KQ/Jtplus1;
+        gensofAA := GeneratorsOfAlgebra(AA);
+        vertices := gensofAA{[2..n + 1]};
+        arrows := gensofAA{[n + 2..Length(gensofAA)]};
+        f := [AA,EndM,gensofAA{[2..Length(gensofAA)]},images];
+    fi;
+    #
+    #  Define  A := KQ/J^(t + 1), where t = loewylength, and in addition define 
+    #  f : A ---> EndM. Find this as a linear map and find the kernel, and
+    #  construct the relations from this.
+    #
+    #  First giving the ring surjection  A ---> EndM  as a linear map.  Stored
+    #  in the matrix called  <matrix>.
+    #
+    B := BasisVectors(Basis(AA)); 
+    matrix := []; 
+    for b in B do
+        if IsPathAlgebra(AA) then 
+            temp := CoefficientsAndMagmaElements(b);
+        else 
+            temp := CoefficientsAndMagmaElements(b![1]);
+        fi;
+        n := Length(temp)/2;
+        tempx := Zero(f[2]);
+        for i in [0..n - 1] do
+            # for each term compute the image. 
+            walk := WalkOfPath(temp[2*i + 1]); 
+            length := Length(walk); 
+            image := One(EndM); 
+            if length = 0 then 
+                image := image*f[4][Position(f[3],temp[2*i + 1]*One(AA))];
+            else 
+                for j in [1..length] do
+                    image := image*f[4][Position(f[3],walk[j]*One(AA))];
+                od;
+            fi;
+            tempx := tempx + temp[2*i + 2]*image;
+        od;
+        Add(matrix, Coefficients(Basis(f[2]),tempx));
+    od;    
+    #
+    #  Finding a vector space basis for the kernel of the ring surjection  A ---> EndM.
+    #
+    solutions := NullspaceMat(matrix);
+    Solutions := List(solutions, x -> LinearCombination(B,x));  # solutions as elements in  AA.
+    #
+    #  Finding a generating set for  J(Ker f) + (ker f)J. 
+    #
+    radSoluplusSolurad := List(arrows, x -> Filtered(Solutions*x, y -> y <> Zero(y)));
+    Append(radSoluplusSolurad,List(arrows, x -> Filtered(x*Solutions, y -> y <> Zero(y))));
+    radSoluplusSolurad := Flat(radSoluplusSolurad);
+    V := Ideal(AA, Solutions);
+    W := Subspace(V, radSoluplusSolurad);
+    h := NaturalHomomorphismBySubspace(V,W);  
+    #
+    #  Constructing the relations in  KQ.
+    # 
+    idealgens := List(BasisVectors(Basis(Range(h))), x -> PreImagesRepresentative(h,x));
+    #
+    #  Lifting the relations back to  KQ  and returning the answer.
+    #
+    if not IsPathAlgebra(AA) then
+        idealgens := List(idealgens, x -> x![1]);
+    fi;
+    if Length(idealgens) = 0 then 
+        return [EndM, adjacencymatrix, AA];
+    else
+        return [EndM, adjacencymatrix, KQ/idealgens];
+    fi;
+end
+);
