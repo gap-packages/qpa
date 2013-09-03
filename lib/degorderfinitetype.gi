@@ -35,6 +35,19 @@
 ##             t = number of tau i, or 0 if tau i does not exist (<=> i is projective).
 ##             In particular if i is projective <list>[i]=[a1,...,an,0]
 ##             where a1,...,an are indec. summands of rad i. 
+##             OR:
+##             <list> second version - if the first element of <list> is a string "orbits"
+##             then the remaining elements should provide an alternative (shorter than above) description of A-R
+##             quiver as follows. 
+##             <list>[2] is a list of descriptions of orbits identified by chosen representatives.
+##             We assume that if an orbit is non-periodic, then  a projective module is its representative.
+##             Each element of list <list>[2] is a description of orbit and has the shape:
+##             [l, [i1,t1], ... , [is,ts]] where
+##             l = length of orbit - 1
+##             [i1,t1], ... , [is,ts] all the direct predecessors of a representative of this orbit, 
+##             of the shape tau^{-t1}(i1), and i1 denotes the representative of orbit no. i1, and so on.
+##             We assume first p elements of <list>[2] are the orbits of projectives. 
+##
 ##   REMARK: we ALWAYS assume that indecomposables with numbers
 ##           1..<proj> are projectives and the only projectives
 ##           (further dimension vectors are interpreted according
@@ -47,8 +60,8 @@
 
 InstallGlobalFunction( ARQuiverNumerical,
   function( arg )
-    local AR, fam, T, Ct, i, j, k, found, LL, n, p, t, data, simples,
-          col_sum, are_proj;
+    local AR, fam, T, Ct, i, j, k, l, found, LL, n, p, t, data, simples,
+          col_sum, are_proj, noo, ss, orbits, tmp, postono, pos, pr;
     
     if (Length(arg) = 3) and (IsPosInt(arg[1])) and (IsPosInt(arg[2]))
        and (IsList(arg[3]))  then
@@ -70,34 +83,111 @@ InstallGlobalFunction( ARQuiverNumerical,
     n := data[1]; # number of indecomposables
     p := data[2]; # number of projectives
     LL := data[3]; # description of AR quiver (see a note before function)
-      
-    # Check if LL[1],...,LL[p] define projectives  
-    for i in [1..p] do
-     if LL[i][Length(LL[i])] <> 0 then
-       Error("wrong AR description, indecomposables with numbers 1,...,",p," should be projectives!");
-     fi;
-    od;
-	
-    # Computing Auslander-Reiten matrix T
-    T := NullMat(n,n);
-    for i in [1..n] do 
-      T[i][i] := 1;
-    od;
-    for i in [1..Length(LL)] do
-      for j in [1..Length(LL[i])-1] do
-        T[i][LL[i][j]] := -1;
+    
+    #######################################################################################	
+    if IsString(LL[1]) and (LL[1] = "orbits") then  # description of orbits
+      # Computing Auslander-Reiten matrix T
+      T := NullMat(n,n);
+      for i in [1..n] do 
+        T[i][i] := 1;
       od;
-      t := LL[i][Length(LL[i])];
-      if t <> 0 then
-        T[i][t]:=T[i][t]+1;
-      fi;  
-    od; 
+      orbits := LL[2];
+      noo := Length(orbits);
+      ss := [];
+      tmp := noo;
+      for i in [1..noo] do
+        if orbits[i][1] > 0 then
+          Add(ss, tmp + 1);
+          tmp := tmp + orbits[i][1];
+        else
+          Add(ss, 0);
+        fi;
+      od; # ss contains numbers of tau^{-1}(representatives)
+      
+      postono := function(pos) # translate pos = position [no of orbit, tauminus shift] to number of indec
+        if pos[2] = 0 then 
+          return pos[1];
+        else 
+          return ss[pos[1]] - 1 + pos[2];
+        fi;
+      end;
+      
+      # put tau to T
+      for i in [1..noo] do
+        if i > p then
+          if orbits[i][1] = 0 then T[i][i] := 2;
+          else T[i][ss[i] - 1 + orbits[i][1]] := 1; fi;
+        fi;
+        if ss[i] > 0 then
+          T[ss[i]][i] := 1;
+          for j in [ss[i]+1..ss[i]+orbits[i][1]-1] do
+            T[j][j-1] := 1;
+          od;
+        fi;
+      od;
+      # put incoming arrows to T
+      for i in [1..noo] do
+        for j in [2..Length(orbits[i])] do
+          T[i][postono(orbits[i][j])] := -1;
+        od;
+        for l in [1..orbits[i][1]] do
+          for j in [2..Length(orbits[i])] do
+            pos := orbits[i][j];
+            if (pos[1] <= p) and (l + pos[2] <= orbits[pos[1]][1]) then #preds from orbit of proj
+              T[postono([i,l])][postono([pos[1],pos[2] + l])] := -1;
+            fi;
+            if (pos[1] > p) then #preds from periodic orbit
+              T[postono([i,l])][postono([pos[1], (pos[2] + l) mod (orbits[pos[1]][1]+1) ])] := -1;
+            fi;
+          od;
+        od;
+      od;
+      # add arrows induced by summands of rad(proj) to T
+      for pr in [1..p] do
+	for j in [2..Length(orbits[pr])] do
+	  pos := orbits[pr][j]; # pos(ition) of summand of radical
+	  if pos[1] <= p then # projective summand of radical
+	    for l in [0..orbits[pr][1]] do
+	      if pos[2]+1+l <= orbits[pos[1]][1] then
+	        T[postono([pos[1],pos[2]+1+l])][postono([pr,l])] := -1;
+	      fi;
+	    od;
+	  else # non-projective summand of radical
+	    for l in [0..orbits[pr][1]] do
+	      T[postono([pos[1],(pos[2]+1+l) mod (orbits[pos[1]][1]+1)])][postono([pr,l])] := -1;
+	    od;
+	  fi;
+	od;
+      od;
+      #return T;
+    
+    #########################################################################
+    else # descritpion of meshes 
+
+      # Check if LL[1],...,LL[p] define projectives  
+      for i in [1..p] do
+       if LL[i][Length(LL[i])] <> 0 then
+         Error("wrong AR description, indecomposables with numbers 1,...,",p," should be projectives!");
+       fi;
+      od;
 	
-    # for i in [1..Length(T)] do
-      # for j in [1..Length(T[1])] do
-        # if T[i][j]=-1 then Print("x"); elif T[i][j]=0 then Print(" "); else Print(T[i][j]); fi;	
-      # od;Print("|",i,"\n");
-    # od;
+      # Computing Auslander-Reiten matrix T
+      T := NullMat(n,n);
+      for i in [1..n] do 
+        T[i][i] := 1;
+      od;
+      for i in [1..Length(LL)] do
+        for j in [1..Length(LL[i])-1] do
+          T[i][LL[i][j]] := -1;
+        od;
+        t := LL[i][Length(LL[i])];
+        if t <> 0 then
+          T[i][t]:=T[i][t]+1;
+        fi;  
+      od; 
+      
+    fi; # end of preparation of T
+    
       
     # Computing matrix Ct = [dim Hom (i,j)] = T^{-1}^tr
     Ct := TransposedMat(Inverse(T));
@@ -450,12 +540,13 @@ InstallMethod( DegOrderDirectPredecessors,
       fi;
     od;
     
-    #Print("Time (Direct): ", Float((Runtime()-ttime)/1000), "\n");
+    Print("Time (Direct): ", Float((Runtime()-ttime)/1000), "\n");
     
     return results;
   
  end
 ); # DegOrderDirectPredecessors
+
 
 
 
@@ -1206,7 +1297,7 @@ InstallGlobalFunction( PredefARQuivers,
     
     if Length(arg) = 3 then
     
-      if (arg[1] = "BG") and (arg[2] = 1) then
+      if (arg[1] = "BG") and (arg[2] = 1) then # Bongartz-Gabriel list no. 1
         r := arg[3];
         data[1] := 8 * r;
         data[2] := 2;
@@ -1215,14 +1306,14 @@ InstallGlobalFunction( PredefARQuivers,
           Append(data[3], [ [2*i-1, 2*i+4, 2*i+2], [2*i, 2*i+3, 2*i+1]]);
         od;
         Append(data[3], [[8*r-3, 8*r],[8*r-2, 8*r-1]]);
-      elif (arg[1] = "BG") and (arg[2] = 6) and (arg[3]=1) then
+      elif (arg[1] = "BG") and (arg[2] = 6) and (arg[3]=1) then # Bongartz-Gabriel list no. 6
         data[1] := 9;
         data[2] := 2;
         data[3] := [ [5,0],[7,0],
         [5,9,8],[6,3],[4,8,6],[1,3,7,5],#6
         [5,4],[2,6,7],[8,2]
         ];
-      elif (arg[1] = "BG") and (arg[2] = 6) and (arg[3]=2) then
+      elif (arg[1] = "BG") and (arg[2] = 6) and (arg[3]=2) then # Bongartz-Gabriel list no. 6
         data[1] := 20;
         data[2] := 2;
         data[3] := [ [7,0],[18,0],
@@ -1417,8 +1508,52 @@ InstallGlobalFunction( PredefARQuivers,
 	  [10,16,18,12],[11,17,19,13],[14,17],[12,15],#16
 	  [13,16],[2,12,20],[13,18],[14,19] # 20
         ];
+      elif (arg[1] = "BGo") and (arg[2] = 14)  then # Bongartz-Gabriel list no. 14 given by orbits
+        data[1] := 20;
+        data[2] := 2;
+        data[3] := [ 
+          "orbits", [ [0,[3,2]], [0,[8,2]], [2,[4,0],[1,0]], [2,[5,0],[3,2]], [2,[6,2],[4,2]], 
+                      [2,[8,2],[7,0],[5,0]], [2,[6,2]], [2,[2,0],[6,0]] ]
+        ];
+      elif (arg[1] = "BGo") and (arg[2] = 13)  then # Bongartz-Gabriel list no. 13 given by orbits
+        data[1] := 26;
+        data[2] := 2;
+        data[3] := [ 
+          "orbits", [ [1,[2,0]], [7,[3,0]],
+		   [11,[4,0]], [3,[3,7],[3,11],[3,3]]
+		  ]
+         ];
+      elif (arg[1] = "BGo") and (arg[2] = 2)  then # Bongartz-Gabriel list no. 2 given by orbits
+        data[1] := 66;
+        data[2] := 2;
+        data[3] := [ 
+          "orbits", [ 
+		  [7,[2,2]],#1
+		  [9,[3,0]],#2
+		  [15, [4,15]],#3
+		  [15,[3,0],[5,7]],#4
+		  [7,[4,0],[4,8],[6,7]],#5
+		  [7,[5,0]]#6
+		  ]
+         ];
+      elif (arg[1] = "BGo") and (arg[2] = 7)  then # Bongartz-Gabriel list no. 7 given by orbits
+        data[1] := 143;
+        data[2] := 2;
+        data[3] := [ 
+          "orbits", [ 
+		  [12,[3,0]],#1
+		  [1,[1,7]],#2
+		  [15,[4,0]],#3
+		  [15,[5,0],[3,15]],#4
+		  [15,[6,0],[4,15]],#5
+		  [15,[8,0],[5,15]],#6
+		  [15,[8,15]],#7
+		  [15,[7,0],[9,0],[6,15]],#8
+		  [15,[10,0],[8,15]],#9
+		  [15,[9,15]]#10
+		  ]
+         ];
       fi;
-      
       
     fi;
     

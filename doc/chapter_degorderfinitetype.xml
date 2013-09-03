@@ -81,6 +81,18 @@ if  <Math>M &lt; N</Math>  and there is no M' such that <Math>M &lt; M' &lt; N</
              t = number of tau(i), or 0 if tau i does not exist (iff i is projective).<Br />
              In particular if i is projective <Arg>list</Arg>[i]=[a1,...,an,0]
              where a1,...,an are indec. summands of rad(i).<P/> 
+			 OR:<Br />
+             <Arg>list</Arg> second version - if the first element of <Arg>list</Arg> is a string "orbits"
+             then the remaining elements should provide an alternative (shorter than above) description of A-R
+             quiver as follows. <Br />
+             <Arg>list</Arg>[2] is a list of descriptions of orbits identified by chosen representatives.
+             We assume that in case an orbit is non-periodic, then a projective module is its representative.
+             Each element of list <Arg>list</Arg>[2] is a description of i-th orbit and has the shape:<Br />
+             [l, [i1,t1], ... , [is,ts]] where<Br />
+             l = length of orbit - 1<Br />
+             [i1,t1], ... , [is,ts] all the direct predecessors of a representative of this orbit, 
+             of the shape tau^{-t1}(i1), and i1 denotes the representative of orbit no. i1, and so on.<Br />
+             We assume first p elements of <Arg>list</Arg>[2] are the orbits of projectives.<P/>
              
    REMARK: we ALWAYS assume that indecomposables with numbers
            1..<Arg>proj</Arg> are projectives and the only projectives
@@ -110,7 +122,13 @@ gap> a := ARQuiverNumerical(12, 4, [ [0],[1,0],[1,0],[1,0],[2,3,4,1],[5,2],[5,3]
 <ARQuiverNumerical with 12 indecomposables and 4 projectives>
  ]]>
 </Example>
-The same effect can be achieved by invoking:
+The same A-R quiver (with possibly little bit different enumeration of indecomposables) can be obtained by invoking:
+  <Example><![CDATA[ 
+gap> b := ARQuiverNumerical(12, 4, ["orbits", [ [2], [2,[1,0]], [2,[1,0]], [2,[1,0]] ] ]);
+<ARQuiverNumerical with 12 indecomposables and 4 projectives>
+ ]]>
+</Example>
+This A-R quiver can be also obtained by:
 <Example><![CDATA[ 
 gap> a := ARQuiverNumerical("D4 subspace");
 <ARQuiverNumerical with 12 indecomposables and 4 projectives>
