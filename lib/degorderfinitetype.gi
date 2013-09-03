@@ -540,7 +540,7 @@ InstallMethod( DegOrderDirectPredecessors,
       fi;
     od;
     
-    Print("Time (Direct): ", Float((Runtime()-ttime)/1000), "\n");
+    #Print("Time (Direct): ", Float((Runtime()-ttime)/1000), "\n");
     
     return results;
   
