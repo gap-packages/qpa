@@ -84,6 +84,7 @@ InstallGlobalFunction( ARQuiverNumerical,
     p := data[2]; # number of projectives
     LL := data[3]; # description of AR quiver (see a note before function)
     
+	#return [n,p,LL];
     #######################################################################################	
     if IsString(LL[1]) and (LL[1] = "orbits") then  # description of orbits
       # Computing Auslander-Reiten matrix T
@@ -1271,14 +1272,14 @@ InstallMethod( TestCodimConjecture,
 
 InstallGlobalFunction( PredefARQuivers,
   function( arg )
-    local data, i, r;
+    local data, i, r, orb, orbits, ono;
     
     data := [];
     
     if (Length(arg) = 1) and (arg[1] = "what") then
       Print("1) (\"BG\",i), for i=2,5,7,8,9,11,12,13,14, algebra no. i from Bongartz-Gabriel list ");
       Print("of maximal finite type with 2 simples;\n");
-      Print("2) (\"BG\",i,r), for i=1, r>=1; i=6, r=1,2, algebra no. i with parameter r ");
+      Print("2) (\"BG\",i,r), for i=1,3,4,6,10; r>=1; algebra no. i with parameter r ");
       Print("from Bongartz-Gabriel list of maximal finite type with 2 simples;\n");
       
       Print("3) (\"D4 subspace\"), path algebra of Dynkin quiver D4 with ");
@@ -1306,23 +1307,194 @@ InstallGlobalFunction( PredefARQuivers,
           Append(data[3], [ [2*i-1, 2*i+4, 2*i+2], [2*i, 2*i+3, 2*i+1]]);
         od;
         Append(data[3], [[8*r-3, 8*r],[8*r-2, 8*r-1]]);
-      elif (arg[1] = "BG") and (arg[2] = 6) and (arg[3]=1) then # Bongartz-Gabriel list no. 6
+      elif (arg[1] = "BG") and (arg[2] = 6) and (arg[3]=1) then # Bongartz-Gabriel list no. 6, by orbits, r=1
         data[1] := 9;
         data[2] := 2;
-        data[3] := [ [5,0],[7,0],
-        [5,9,8],[6,3],[4,8,6],[1,3,7,5],#6
-        [5,4],[2,6,7],[8,2]
-        ];
-      elif (arg[1] = "BG") and (arg[2] = 6) and (arg[3]=2) then # Bongartz-Gabriel list no. 6
-        data[1] := 20;
+        data[3] := [ "orbits", [
+            [0,[4,0]],#1
+            [1,[3,2]],#2
+            [3,[4,0],[2,1]],#3
+            [1,[3,1],[3,3]]#4
+          ]
+        ];  
+      elif (arg[1] = "BG") and (arg[2] = 6) and (arg[3]>=2) then # Bongartz-Gabriel list no. 6, by orbits, series, r>=2
+        data[1] := 0;
         data[2] := 2;
-        data[3] := [ [7,0],[18,0],
-        [5,20,19],[6,3],#4
-        [8,19,13],[3,9,5],[4,10,6],[7,13,10],#8
-        [5,11,8],[6,12,9],[1,8,16,7],[9,14,17,11],#12
-        [10,15,18,12],[11,1],[12,14],[7,4],#16
-        [11,16],[12,17],[2,13,18],[19,2]#20
+        r := arg[3];
+        orbits :=  [
+          [2*r-2,[4,0]],#1
+          [1,[3,2*r]],#2
+          [2*r+1,[2,1],[4,2*r]]#3
         ];
+        if r = 2 then
+          Add(orbits, [2*r+1,[3,1],[5,2]]); #4
+        else Add(orbits, [2*r+1,[3,1],[5,2*r+1]]); #4
+        fi;
+        ono := 4;
+        for i in [1..r-3] do #5..second before last
+          ono := ono + 1;
+          Add(orbits, [2*r+1,[ono+1,2*r+1],[ono-1,0]]);
+        od;
+        if r > 2 then 
+          ono := ono + 1; 
+          Add(orbits, [2*r+1, [ono+1,r],[ono-1,0]]); 
+        fi;
+        Add(orbits, [r,[ono,r+1],[ono,0]] ); # last
+        data[3] := [ "orbits", orbits ];      
+        for orb in data[3][2] do
+          data[1] := data[1] + orb[1] + 1;
+        od;
+      elif (arg[1] = "BG") and (arg[2] = 10) and (arg[3] >= 1) then # Bongartz-Gabriel list no. 10, by orbits, r>=1, n=r+3
+        data[1] := 0;
+        data[2] := 2;
+        r := arg[3];
+        orbits :=  [
+          [0,[3,0]],#1
+          [0,[2*r+7,1]],#2
+          [1,[4,1]]#3
+        ];
+        ono := 3;
+        for i in [4..2*r+6] do #
+          ono := ono + 1;
+          Add(orbits, [1,[ono+1,1],[ono-1,0]]);
+        od;
+        Add(orbits, [1,[2,0],[2*r+6,0],[2*r+8,1]] ); # one before last - no 2r+7
+		Add(orbits, [1,[2*r+7,0]] ); # last - no 2r+8
+        data[3] := [ "orbits", orbits ];      
+        for orb in data[3][2] do
+          data[1] := data[1] + orb[1] + 1;
+        od;
+      elif (arg[1] = "BG") and (arg[2] = 3) and (arg[3] = 1) then # Bongartz-Gabriel list no. 3, by orbits, r=1, omega=r+1
+        data[1] := 0;
+        data[2] := 2;
+        orbits :=  [
+          [1,[3,0],[3,2]],#1
+          [1,[3,0]],#2
+          [3,[1,1]]#3
+        ];
+        data[3] := [ "orbits", orbits ];      
+        for orb in data[3][2] do
+          data[1] := data[1] + orb[1] + 1;
+        od;  
+      elif (arg[1] = "BG") and (arg[2] = 3) and (arg[3] >= 2) then # Bongartz-Gabriel list no. 3, by orbits, r>=2, omega=r+1
+        data[1] := 0;
+        data[2] := 2;
+        r := arg[3];
+        orbits :=  [
+          [r,[3,0],[r+2,2]],#1
+          [1,[r+2,0]],#2
+          [r+2,[4,r+2]]#3
+        ];
+        ono := 3;
+        for i in [4..r+1] do #
+          ono := ono + 1;
+          Add(orbits, [r+2,[ono+1,r+2],[ono-1,0]]);
+        od;
+		    Add(orbits, [r+2,[ono,0],[1,r]] ); # last - no r+2
+        data[3] := [ "orbits", orbits ];      
+        for orb in data[3][2] do
+          data[1] := data[1] + orb[1] + 1;
+        od; 
+      elif (arg[1] = "BG") and (arg[2] = 4) and (arg[3] = 1) then # Bongartz-Gabriel list no. 4, by orbits, r=1, omega=r+1=2
+        data[1] := 0;
+        data[2] := 2;
+        orbits :=  [
+          [4,[2,0],[1,2]],#1
+          [2,[3,0]],#2
+          [3,[4,1]],#3
+		  [1,[3,0],[3,2]]#4
+        ];
+        data[3] := [ "orbits", orbits ];      
+        for orb in data[3][2] do
+          data[1] := data[1] + orb[1] + 1;
+        od;  
+      elif (arg[1] = "BG") and (arg[2] = 4) and (arg[3] = 2) then # Bongartz-Gabriel list no. 4, by orbits, r=2, omega=r+1=3
+        data[1] := 0;
+        data[2] := 2;
+        orbits :=  [
+          [5,[2,0],[3,0]],#1
+          [3,[4,0]],#2
+          [2,[1,2],[1,5]],#3
+		  [4,[5,4]],#4
+		  [4,[5,2],[4,0]] #5
+        ];
+        data[3] := [ "orbits", orbits ];      
+        for orb in data[3][2] do
+          data[1] := data[1] + orb[1] + 1;
+        od;  
+      elif (arg[1] = "BG") and (arg[2] = 4) and (arg[3] = 3) then # Bongartz-Gabriel list no. 4, by orbits, r=3, omega=r+1=4
+        data[1] := 0;
+        data[2] := 2;
+		r := arg[3];
+        orbits :=  [
+          [6,[2,0],[3,3]],#1
+          [4,[4,0]],#2
+          [6,[3,3],[1,3]],#3
+          [5,[5,5]],#4
+          [5,[4,0],[6,2]], #5
+           [2,[5,0],[5,3]], #6
+        ];
+        data[3] := [ "orbits", orbits ];      
+        for orb in data[3][2] do
+          data[1] := data[1] + orb[1] + 1;
+        od;  	
+      elif (arg[1] = "BG") and (arg[2] = 4) and (arg[3] > 3) and (arg[3] mod 2 = 0) then # Bongartz-Gabriel list no. 4, by orbits, r>3, omega=r+1, r even
+        data[1] := 0;
+        data[2] := 2;
+        r := arg[3];
+        orbits :=  [
+          [r+3,[2,0],[3,3]],#1
+          [r+1,[3+r/2,0]],#2
+          [r+3,[1,r],[4,0]],#3
+        ];
+        ono := 3;
+        for i in [4..2+r/2-1] do
+          ono := ono + 1;
+          Add(orbits,[r+3,[ono+1,0],[ono-1,r+3]]);
+        od;
+        ono := ono + 1;
+        Add(orbits, [(r+2)/2, [ono-1,(r+2)/2],[ono-1,r+3]]);
+        ono := ono + 1;
+        Add(orbits, [r+2, [ono+1, r+2]]);
+        for i in [1..(r+2)/2-2] do
+          ono := ono + 1;
+          Add(orbits, [r+2, [ono-1,0],[ono+1,r+2]]);
+        od;
+        Add(orbits, [r+2, [ono,0],[ono+1,(r+2)/2]]);
+        data[3] := [ "orbits", orbits ];      
+        for orb in data[3][2] do
+          data[1] := data[1] + orb[1] + 1;
+        od;  	   
+      elif (arg[1] = "BG") and (arg[2] = 4) and (arg[3] > 3) and (arg[3] mod 2 = 1) then # Bongartz-Gabriel list no. 4, by orbits, r>=5, omega=r+1, r odd
+        data[1] := 0;
+        data[2] := 2;
+        r := arg[3];
+        orbits :=  [
+          [r+3,[2,0],[3,3]],#1
+          [r+1,[(r-1)/2+3,0]],#2
+          [r+3,[4,0],[1,r]],#3
+        ];
+        ono := 3;
+        for i in [1..(r-1)/2-2] do
+          ono := ono + 1;
+          Add(orbits,[r+3,[ono-1,r+3],[ono+1,0]]);
+        od;
+        ono := ono + 1;
+        Add(orbits, [r+3, [ono-1,r+3],[ono,(r+3)/2]]);
+        ono := ono + 1;
+        Add(orbits, [r+2, [ono+1,r+2]]);
+        for i in [1..(r+3)/2-3] do
+          ono := ono + 1;
+          Add(orbits, [r+2, [ono-1,0],[ono+1,r+2]]);
+        od;
+        ono := ono + 1;
+        Add(orbits, [r+2, [ono-1,0],[ono+1,(r+1)/2]]);
+        ono := ono + 1;
+        Add(orbits, [(r+1)/2, [ono-1,0],[ono-1,(r+1)/2+1]]);
+        data[3] := [ "orbits", orbits ];      
+        for orb in data[3][2] do
+          data[1] := data[1] + orb[1] + 1;
+        od;  	   
       fi;
     fi;
     
@@ -1374,40 +1546,6 @@ InstallGlobalFunction( PredefARQuivers,
 	  [65,70],[66,71] #72
 		 
         ];
-      elif (arg[1] = "BG") and (arg[2] = 7)  then # Bongartz-Gabriel list no. 7
-        data[1] := 143;
-        data[2] := 2;
-        data[3] := [ 
-          [16,0],[10,0],[11,2],[17,1],[18,4],#5
-          [19,5],[20,6],[21,7],[22,8],[23,9],#10
-          [2,24,10],[3,25,11],[26,12],[27,13],[28,14],#15
-          [32,31],[1,33,16],[4,34,17],[5,35,18],[6,36,19],#20
-          [7,37,20],[8,38,21],[9,39,22],[10,40,23],[11,41,24],#25
-          [12,42,25],[13,43,26],[14,44,27],[15,45,28],[46,29],#30
-          [47,30],[31,48,47],[16,49,32],[17,50,33],[18,51,34],#35
-          [19,52,35],[20,53,36],[21,54,37],[22,55,38],[23,56,39],#40
-          [24,57,40],[25,58,41],[26,59,42],[27,60,43],[28,61,44],#45
-	  [29,62,45],[30,63,46],[47,64,63],[32,65,48],[33,66,49],#50
-          [34,67,50],[35,68,51],[36,69,52],[37,70,53],[38,71,54],#55
-          [39,72,55],[40,73,56],[41,74,57],[42,75,58],[43,76,59],#60
-          [44,77,60],[45,78,61],[46,79,62],[63,96,79],[48,97,64],#65
-          [49,98,65],[50,99,66],[51,100,67],[52,101,68],[53,102,69],#70
-          [54,103,70],[55,104,71],[56,105,72],[57,106,73],[58,107,74],#75
-          [59,108,75],[60,109,76],[61,110,77],[62,111,78],[111,95],#80
-          [96,80],[97,81],[98,82],[99,83],[100,84],#85
-          [101,85],[102,86],[103,87],[104,88],[105,89],#90
-          [106,90],[107,91],[108,92],[109,93],[110,94],#95
-          [79,80,112,111],[64,81,113,96],[65,82,114,97],[66,83,115,98],[67,84,116,99],#100
-          [68,85,117,100],[69,86,118,101],[70,87,119,102],[71,88,120,103],[72,89,121,104],#105
-          [73,90,122,105],[74,91,123,106],[75,92,124,107],[76,93,125,108],[77,94,126,109],#110
-          [78,95,127,110],[111,128,127],[96,129,112],[97,130,113],[98,131,114],#115
-          [99,132,115],[100,133,116],[101,134,117],[102,135,118],[103,136,119],#120
-          [104,137,120],[105,138,121],[106,139,122],[107,140,123],[108,141,124],#125
-          [109,142,125],[110,143,126],[127,143],[112,128],[113,129],#130
-          [114,130],[115,131],[116,132],[117,133],[118,134],#135
-          [119,135],[120,136],[121,137],[122,138],[123,139],#140
-          [124,140],[125,141],[126,142] #143
-         	];
     elif (arg[1] = "BG") and (arg[2] = 8)  then # Bongartz-Gabriel list no. 8
         data[1] := 57;
         data[2] := 2;
@@ -1536,7 +1674,7 @@ InstallGlobalFunction( PredefARQuivers,
 		  [7,[5,0]]#6
 		  ]
          ];
-      elif (arg[1] = "BGo") and (arg[2] = 7)  then # Bongartz-Gabriel list no. 7 given by orbits
+      elif (arg[1] = "BG") and (arg[2] = 7)  then # Bongartz-Gabriel list no. 7 given by orbits
         data[1] := 143;
         data[2] := 2;
         data[3] := [ 
@@ -1626,5 +1764,4 @@ InstallGlobalFunction( PredefARQuivers,
  ); # PredefARQuivers
  
  
- 
- 
+ #2013.09.05. orbity, wszystkie BG => koniec!
