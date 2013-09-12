@@ -41,3 +41,5 @@ DeclareProperty( "IsRigidModule", IsPathAlgebraMatModule );
 DeclareProperty( "IsTauRigidModule", IsPathAlgebraMatModule );
 DeclareProperty( "IsExceptionalModule", IsPathAlgebraMatModule );
 InstallTrueMethod( IsExceptionalModule, IsIndecomposableModule and IsRigidModule );
+DeclareOperation( "ComplexityOfModule", [ IsPathAlgebraMatModule, IS_INT ]);
+DeclareOperation( "ComplexityOfAlgebra", [ IsQuiverAlgebra, IS_INT ]);

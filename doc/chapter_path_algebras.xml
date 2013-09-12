@@ -1039,6 +1039,31 @@ true ]]>
     </Description>
  </ManSection> 
 
+<ManSection> 
+    <Oper Name="ComplexityOfAlgebra" Arg="A, n" Comm="for an algebra and a positive integer"/> 
+    <Description> 
+      Arguments: <Arg>A</Arg> -- a path algebra or a quotient of a path 
+      algebra, <Arg>n</Arg> -- a positive integer.<Br /> 
+    </Description> 
+    <Returns>an estimate of the complexity of the algebra <Arg>A</Arg>. 
+    </Returns>
+    <Description>
+      The function checks if the algebra <Arg>A</Arg> has finite
+      global dimension. If so, it returns complexity zero. Otherwise
+      it tries to estimate the complexity in the following way. Recall
+      that if a function <M>f(x)</M> is a polynomial in <M>x</M>, the
+      degree of <M>f(x)</M> is given by <M>\lim_{n\to\infty}
+      \frac{\log |f(n)|}{\log n}</M>. So then this function computes
+      an estimate of the maximal complexity of the simple modules over
+      <Arg>A</Arg> by approximating the complexity of each simple
+      module <M>S</M> by considering the limit <M>\lim_{m\to \infty}
+      \log \frac{\dim(P(S)(m))}{\log m}</M> where <M>P(S)(m)</M> is
+      the <M>m</M>-th projective in a minimal projective resolution of
+      <Arg>S</Arg> at stage <M>m</M>.  This limit is estimated by
+      <M>\frac{\log \dim(P(S)(n))}{\log n}</M>.
+    </Description>
+ </ManSection> 
+
 <ManSection>
    <Attr Name="CoxeterMatrix" Arg="A" Comm=""/>
    <Description>

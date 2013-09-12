@@ -366,6 +366,30 @@ gap> N := RightModuleOverPathAlgebra(A,mat);
 </ManSection>
 
 <ManSection>
+   <Oper Name="ComplexityOfModule" Arg="M, n" Comm="for a
+   PathAlgebraMatModule and a positive integer"/>
+   <Description> 
+   Arguments: <Arg>M</Arg> -- path algebdra module, <Arg>n</Arg> -- a positive integer.
+   <Br /></Description>
+   <Returns>an estimate of the complexity of the module <Arg>M</Arg>. 
+   </Returns>
+   <Description>
+     The function checks if the algebra over which the module
+     <Arg>M</Arg> lives has finite global dimension. If so, it returns
+     complexity zero. Otherwise it tries to estimate the complexity in
+     the following way. Recall that if a function <M>f(x)</M> is a
+     polynomial in <M>x</M>, the degree of <M>f(x)</M> is given by
+     <M>\lim_{n\to\infty} \frac{\log |f(n)|}{\log n}</M>. So then
+     this function computes an estimate of the complexity of
+     <Arg>M</Arg> by approximating the complexity by considering the
+     limit <M>\lim_{m\to \infty} \log \frac{\dim(P(M)(m))}{\log m}</M>
+     where <M>P(M)(m)</M> is the <M>m</M>-th projective in a minimal
+     projective resolution of <Arg>M</Arg> at stage <M>m</M>.  This
+     limit is estimated by <M>\frac{\log \dim(P(M)(n))}{\log n}</M>.
+   </Description>
+</ManSection>
+
+<ManSection>
    <Oper Name="DecomposeModule" Arg="M" Comm="for a
    PathAlgebraMatModule"/>
    <Description> 
