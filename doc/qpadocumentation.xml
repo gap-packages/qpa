@@ -83,12 +83,36 @@ continued and completed by Randall Cone and Edward Green.  We would
 like to thank the following people for their contributions:
 
 <Table Align="ll">
-<Row><Item>Gerard Brunick</Item><Item>Quivers, path algebras</Item></Row>
-<Row><Item>Randall Cone</Item><Item>Code modernization and cleanup,
-GBNP interface (for Groebner bases),</Item></Row> 
-<Row><Item> </Item><Item>projective resolutions, user documentation</Item></Row>
-<Row><Item>George Yuhasz</Item><Item>User documentation, matrix
-    representations of path algebras</Item></Row>
+<Row><Item>Chain complexes</Item><Item>Kristin Krogh Arnesen and Øystein Skartsæterhagen</Item></Row>
+<Row><Item>Degeneration order for modules in finite type</Item><Item>Andrzej Mroz</Item></Row>
+<Row><Item>GBNP interface (for Groebner bases)</Item><Item>Randall Cone</Item></Row>
+<Row><Item>Homomorphisms of modules</Item><Item>Øyvind Solberg and Anette Wraalsen</Item></Row>
+<Row><Item>Koszul duals</Item><Item>Stephen Corwin</Item></Row>
+<Row><Item>Matrix representations of path algebras</Item><Item>Øyvind Solberg and George Yuhasz</Item></Row>
+<Row><Item>Opposite algebra and tensor products of algebras</Item><Item>Øystein Skartsæterhagen</Item></Row>
+<Row><Item>Predefined classes of algebras</Item><Item>Andrzej Mroz and Øyvind Solberg</Item></Row>
+<Row><Item>Projective resolutions (using Groebnar basis)</Item><Item>Randall Cone and Øyvind Solberg</Item></Row>
+<Row><Item>Projective resolutions (using linear algebra)</Item><Item>Øyvind Solberg</Item></Row>
+<Row><Item>Quickstart</Item><Item>Kristin Krogh Arnesen</Item></Row> 
+<Row><Item>Quivers, path algebras</Item><Item>Gerard Brunick</Item></Row>
+<Row><Item>The bounded derived category</Item><Item>Kristin Krogh Arnesen and Øystein Skartsæterhagen</Item></Row>
+<Row><Item>Unitforms</Item><Item>Øyvind Solberg</Item></Row>
+<Row><Item></Item><Item></Item></Row> 
+<Row><Item></Item><Item></Item></Row>
+<Row><Item></Item><Item></Item></Row>
+<Row><Item></Item><Item></Item></Row>
+<Row><Item></Item><Item></Item></Row>
+<Row><Item></Item><Item></Item></Row> 
+<Row><Item></Item><Item></Item></Row>
+<Row><Item></Item><Item></Item></Row>
+<Row><Item></Item><Item></Item></Row>
+<Row><Item></Item><Item></Item></Row>
+<Row><Item></Item><Item></Item></Row> 
+<Row><Item></Item><Item></Item></Row>
+<Row><Item></Item><Item></Item></Row>
+<Row><Item></Item><Item></Item></Row>
+<Row><Item></Item><Item></Item></Row>
+<Row><Item></Item><Item></Item></Row> 
 </Table>
 </Acknowledgements>
 
