@@ -762,13 +762,8 @@ false]]>
      algebra.<Br />
    </Description>
    <Returns>
-     true if it is known that <Arg>A</Arg> is a finite dimensional
-     (quotient of) a path algebra. If unknown it returns an error
-     message saying "no method found!". 
+     true if the algebra <Arg>A</Arg> is a gentle algebra. Otherwise false.
    </Returns>
-   <Description>
-     There is no method installed for this yet. 
-   </Description>
 </ManSection>
 
 <ManSection>

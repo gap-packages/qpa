@@ -2214,3 +2214,4 @@ InstallMethod ( ComplexityOfAlgebra,
         Error("entered algebra is not finite dimensional or an admissible quotient of a path algebra,\n");
     fi;
 end 
+  );

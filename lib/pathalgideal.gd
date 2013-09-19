@@ -14,3 +14,4 @@ InstallTrueMethod( IsSpecialBiserialAlgebra, IsGentleAlgebra );
 DeclareProperty( "IsPosetAlgebra", IsQuiverAlgebra ); 
 InstallTrueMethod( IsFiniteGlobalDimensionAlgebra, IsPosetAlgebra );
 InstallTrueMethod( IsElementaryAlgebra, IsAdmissibleQuotientOfPathAlgebra );
+DeclareOperation( "MinimalGeneratingSetOfIdeal", [ IsAdmissibleIdeal ] );
