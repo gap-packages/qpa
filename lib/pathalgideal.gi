@@ -330,7 +330,7 @@ InstallMethod( IsGentleAlgebra,
     [ IsQuiverAlgebra ], 0,
     function( A )
 
-    local fam, I, minimalgenerators, coeffandmagmaelements, beta, test;
+    local fam, I, minimalgenerators, coeffandmagmaelements, Q, KQ, beta, test;
     
     if IsPathAlgebra(A) then 
         return IsSpecialBiserialAlgebra(A);
@@ -366,6 +366,8 @@ InstallMethod( IsGentleAlgebra,
     # Checking if for any arrow beta, there is at most one arrow gamma with beta*gamma in I, and
     # if for any arrow beta, there is at most one arrow gamma with gamma*beta in I.
     #
+    Q := QuiverOfPathAlgebra(A); 
+    KQ := OriginalPathAlgebra(A);
     for beta in ArrowsOfQuiver(Q) do
         test := Filtered(OutgoingArrowsOfVertex(TargetOfPath(beta)), gamma -> ElementOfPathAlgebra(KQ, beta*gamma) in I);
         if Length(test) > 1 then 
