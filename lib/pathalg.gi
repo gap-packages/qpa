@@ -1712,7 +1712,7 @@ InstallMethod( CoxeterPolynomial,
 
     local P, C, i;
 
-    C := CartanMatrix(A);
+    C := CoxeterMatrix(A);
     if C <> fail then 
         return CharacteristicPolynomial(C);
     else
