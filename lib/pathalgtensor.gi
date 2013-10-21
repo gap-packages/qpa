@@ -378,3 +378,248 @@ InstallMethod( AlgebraAsModuleOverEnvelopingAlgebra,
     return RightModuleOverPathAlgebra( env, module_specification );
 
 end );
+
+#######################################################################
+##
+#O  DualOfAlgebraAsModuleOverEnvelopingAlgebra( <A> )
+##
+##  Checks if the entered algebra is finite dimensional and returns 
+##  false otherwise. When the algebra is finite dimensional, then it 
+##  returns the dual of the algebra as module over the enveloping algebra
+##  of  A. 
+## 
+InstallMethod( DualOfAlgebraAsModuleOverEnvelopingAlgebra, 
+    "for an algebra",
+    [ IsQuiverAlgebra ], 0,
+    function( A )
+    
+    local Aenv, M, DM, mats, op_name, de_op_name, vertices, arrows, 
+          new_vertices, new_arrows, stringvertices, stringarrows, 
+          vertex_positions, arrow_positions, newdimvector, newmats, 
+          matrices, a, arrowentry;
+    
+    if not IsFiniteDimensional(A) then
+        return fail;
+    fi;
+    #
+    # By now we know that the algebra is finite dimensional.
+    #
+    Aenv := EnvelopingAlgebra(A);
+    M    := AlgebraAsModuleOverEnvelopingAlgebra(Aenv);
+    DM   := DualOfModule(M);
+    #
+    #   Finding DM as a module over Aenv.
+    #
+    mats := MatricesOfPathAlgebraModule(DM);
+    op_name := OppositeQuiverNameMap(QuiverOfPathAlgebra(A));        
+    de_op_name := OppositeQuiverNameMap(OppositeQuiver(QuiverOfPathAlgebra(A)));
+    vertices := VerticesOfQuiver(QuiverOfPathAlgebra(Aenv));
+    arrows := ArrowsOfQuiver(QuiverOfPathAlgebra(Aenv));
+    new_vertices := List(vertices, x -> Concatenation(op_name(String(ProjectFromProductQuiver(2,x))),"_",de_op_name(String(ProjectFromProductQuiver(1,x)))));
+    new_arrows := List(arrows, x -> Concatenation(op_name(String(ProjectFromProductQuiver(2,x))),"_",de_op_name(String(ProjectFromProductQuiver(1,x)))));
+    stringvertices := List(vertices, x -> String(x));
+    stringarrows := List(arrows, x -> String(x));
+    #
+    #   Finding the permutation of the vertices and the arrows.
+    #
+    vertex_positions := List(new_vertices, x -> Position(stringvertices, x));
+    arrow_positions := List(new_arrows, x -> Position(stringarrows, x));
+    #
+    #   Finding the new dimension vector and the matrices of  DM  as a module over Aenv.
+    #
+    newdimvector := List([1..Length(vertices)], x -> DimensionVector(DM)[vertex_positions[x]]);
+    newmats := List([1..Length(mats)], x -> mats[arrow_positions[x]]);
+    #
+    #   Creating the input for construction  DM  as a module over Aenv.
+    #
+    matrices := [];
+    for a in arrows do
+        if newdimvector[Position(vertices,SourceOfPath(a))] <> 0 and 
+           newdimvector[Position(vertices,TargetOfPath(a))] <> 0 then 
+            arrowentry := [[],[]];
+            arrowentry[1] := String(a);
+            arrowentry[2] := newmats[Position(arrows,a)];
+            Add(matrices, arrowentry);
+        fi;
+    od;
+    
+    return RightModuleOverPathAlgebra(Aenv, newdimvector, matrices);
+end
+  );
+
+#######################################################################
+##
+#O  TrivialExtensionOfQuiverAlgebra( <A> )
+##
+##  Constructs the trivial extension  T(A)  of the algebra  A, that is,  
+##  T(A) = A + D(A) by finding the quiver and relations of  T(A). 
+## 
+InstallMethod( TrivialExtensionOfQuiverAlgebra, 
+    "for an algebra",
+    [ IsQuiverAlgebra ], 0,
+    function( A )
+    
+    local Q, vertices, arrows, new_vertices, new_arrows, DA, TopOfDAProjection,
+          B, temp, de_op_name, additional_arrows, t, Q_TE, te_arrows,
+          string_te_arrows, K, KQ_TE, relations, new_relations, r, 
+          coeffandelem, n, temprel, templist, BA, A_inside_TofA, b, tempelem, i, num_arrows, 
+          V, W, VWV, Jpower, AA, BAA, te_arrow_rep, Qarrows, Qarrows_labels, Q_TE_to_Q, KQ, 
+          occurring_arrows, positions, initialterm, terminalterm, Aenv, fam,
+          prod, add_arrows_labels, matrix, setofvectors, solutions, Solutions, tempBAA ;
+    
+    if not IsFiniteDimensional(A) then
+        return fail;
+    fi;
+    Q := QuiverOfPathAlgebra(A);
+    vertices := VerticesOfQuiver(Q);
+    arrows := ArrowsOfQuiver(Q);
+    #
+    # The vertices in the trivial extension are the "old" ones.
+    #
+    new_vertices := List(vertices, v -> String(v));
+    #
+    # Old arrows from the original quiver.
+    #
+    new_arrows := List(arrows, a -> [String(SourceOfPath(a)),String(TargetOfPath(a)),String(a)]);
+    #
+    # Finding the "new" arrows, te_arrows.
+    #
+    DA := DualOfAlgebraAsModuleOverEnvelopingAlgebra(A);
+    TopOfDAProjection := TopOfModuleProjection(DA);
+    B := BasisVectors(Basis(Range(TopOfDAProjection)));
+    temp := Flat(List(B, b -> SupportModuleElement(b))); 
+    temp := List(temp, t -> CoefficientsAndMagmaElements(t![1])[1]);
+    de_op_name := OppositeQuiverNameMap(OppositeQuiver(QuiverOfPathAlgebra(A))); 
+    temp := List(temp, t -> [de_op_name(String(ProjectFromProductQuiver(1,t))), String(ProjectFromProductQuiver(2,t))]);
+    additional_arrows := [];
+    for t in temp do
+        Add(additional_arrows, [t[1],t[2],Concatenation("te_a",String(Position(temp,t)))]);
+    od;
+    Append(new_arrows, additional_arrows);
+    Q_TE := Quiver(new_vertices, new_arrows);
+    te_arrows := ArrowsOfQuiver(Q_TE);
+    string_te_arrows := List(te_arrows, a -> String(a));
+    K := LeftActingDomain(A);
+    KQ_TE := PathAlgebra(K,Q_TE);
+    #
+    # The new relations 
+    #
+    relations := [];
+    if not IsPathAlgebra(A) then 
+        relations := RelatorsOfFpAlgebra(A);
+    fi;
+    #
+    # Transferring the relations from  A  to  T(A).
+    #
+    new_relations := [];
+    for r in relations do
+        coeffandelem := CoefficientsAndMagmaElements(r);
+        n := Length(coeffandelem)/2;
+        temprel := Zero(KQ_TE);
+        for i in [1..n] do
+            templist := List(WalkOfPath(coeffandelem[2*i-1]), w -> te_arrows[Position(string_te_arrows, String(w))]);
+            temprel := temprel + coeffandelem[2*i]*One(KQ_TE)*Product(templist);  
+        od;
+        Add(new_relations, temprel); 
+    od;
+    #
+    # The products te_arrows * <Qarrows> * te_arrows are zero.
+    # 
+    BA := BasisVectors(Basis(A));
+    if not IsPathAlgebra(A) then 
+        BA := List(BA, b -> b![1]);
+    fi;
+    #
+    # Finding  a basis of  A  inside T(A).
+    #
+    A_inside_TofA := [];
+    for b in BA do
+        coeffandelem := CoefficientsAndMagmaElements(b);
+        n := Length(coeffandelem)/2;
+        tempelem := Zero(KQ_TE);
+        for i in [1..n] do
+            templist := List(WalkOfPath(coeffandelem[2*i-1]), w -> te_arrows[Position(string_te_arrows, String(w))]);
+            tempelem := tempelem + coeffandelem[2*i]*One(KQ_TE)*Product(templist);  
+        od;
+        Add(A_inside_TofA, tempelem); 
+    od;
+    # 
+    # Finding the products te_arrows * <Qarrows> * te_arrows, which we add to the relations.
+    #
+    num_arrows := NumberOfArrows(Q);
+    V := Subspace(KQ_TE, List(ArrowsOfQuiver(Q_TE){[num_arrows + 1..NumberOfArrows(Q_TE)]}, x -> One(KQ_TE)*x));
+    W := Subspace(KQ_TE, A_inside_TofA);
+    VWV := ProductSpace(V,ProductSpace(W,V));
+    Append(new_relations, BasisVectors(Basis(VWV)));
+    #
+    # Factoring out LoewyLength(A) + 2 power of the arrow ideal in KQ_TE, and 
+    # calling it  AA, this is done so that we can find the remaining relations.
+    #
+    Jpower := NthPowerOfArrowIdeal(KQ_TE, LoewyLength(A) + 2);
+    temprel := ShallowCopy(new_relations);
+    Append(temprel,Jpower);
+    AA := KQ_TE/temprel;
+    BAA := BasisVectors(Basis(AA));
+    
+    te_arrow_rep := List(B, b -> PreImagesRepresentative(TopOfDAProjection, b));
+    Qarrows := ArrowsOfQuiver(Q_TE){[1..num_arrows]};
+    Qarrows := Flat(List(Qarrows, a -> WalkOfPath(a))); 
+    #
+    # Finding the relations involving the te_arrows.
+    #
+    Qarrows_labels := List(arrows, a -> String(a));
+    Q_TE_to_Q := function( a );
+        return arrows[Position(Qarrows_labels, String(a))];
+    end;
+    
+    KQ := OriginalPathAlgebra(A);
+    matrix := []; 
+    setofvectors := [];
+    for b in BAA{[Length(vertices) + 1..Length(BAA)]} do
+        if IsPathAlgebra(AA) then 
+            temp := CoefficientsAndMagmaElements(b);
+        else 
+            temp := CoefficientsAndMagmaElements(b![1]);
+        fi;
+        occurring_arrows := WalkOfPath(temp[1]);
+        positions := PositionsProperty(occurring_arrows, x -> not x in Qarrows);
+        if Length(positions) = 1 then
+            Add(setofvectors, Position(BAA, b)); 
+            initialterm := One(KQ);
+            if positions[1] > 1 then 
+                temp := List(occurring_arrows{[1..positions[1] - 1]}, a -> Q_TE_to_Q(a));
+                initialterm := initialterm*Product(temp);
+            fi;
+            terminalterm := One(KQ);
+            if positions[1] < Length(occurring_arrows) then
+                temp := List(occurring_arrows{[positions[1] + 1..Length(occurring_arrows)]}, a -> Q_TE_to_Q(a));                
+                terminalterm := terminalterm*Product(temp);
+            fi;
+            Add(matrix, [initialterm, occurring_arrows[positions[1]], terminalterm]);
+        fi;
+    od;
+    setofvectors := Set(setofvectors);
+    Aenv := RightActingAlgebra(DA);
+    fam := ElementsFamily(FamilyObj(A)); 
+    if IsPathAlgebra(A) then
+        prod := List(matrix, m -> [OppositePathAlgebraElement(ElementOfPathAlgebra(fam, m[1])), m[2], ElementOfPathAlgebra(fam, m[3])]); 
+    else
+        prod := List(matrix, m -> [OppositePathAlgebraElement(ElementOfQuotientOfPathAlgebra(fam, m[1]*One(KQ), true)), m[2], 
+                        ElementOfQuotientOfPathAlgebra(fam, m[3]*One(KQ), true)]); 
+    fi;
+    add_arrows_labels := List(additional_arrows, a -> a[3]);
+    prod := List(prod, m -> te_arrow_rep[Position(add_arrows_labels,String(m[2]))]^SimpleTensor([m[1],m[3]], Aenv));
+    matrix := List(prod, x -> Flat(x![1]![1]));
+    solutions := NullspaceMat(matrix);
+    tempBAA := BAA{setofvectors};
+    tempBAA := List(tempBAA, t -> t![1]);
+    #
+    # Getting the relations involving the arrows  te_arrows
+    #
+    Solutions := List(solutions, s -> LinearCombination(tempBAA, s));
+    
+    Append(new_relations, Solutions); 
+    
+    return KQ_TE/new_relations;
+end
+  );
