@@ -1,7 +1,7 @@
 The QPA share package for GAP 4.4
 ==================================
 
-Version 1.12; July 29th, 2013
+Version 1.13; October 22nd, 2013
 Copyright (C) 2010 The QPA-team, 	
                         http://sourceforge.net/projects/quiverspathalg/ 
 
@@ -14,7 +14,7 @@ quotients of path algebras over the fields that are available in
 GAP. The package we aim to develop for GAP is called QPA for Quivers
 and Path Algebras.
 
-QPA is designed as a GAP 4.4 share package providing new functions in
+QPA is designed as a GAP >= 4.5.x share package providing new functions in
 noncommutative algebra. For the current functions provided by QPA follow
 the URL
               http://www.math.ntnu.no/~oyvinso/QPA/
@@ -28,7 +28,7 @@ The following should be included with this version of QPA.
 
 
     CHANGES  	  - files containing the history of changes in 
-               	    QPA since version 1.07.
+               	    QPA since version 1.05.
     LICENSE  	  - the license governing QPA usage
     PackageInfo.g - contains metainformation about the package
     README        - this file

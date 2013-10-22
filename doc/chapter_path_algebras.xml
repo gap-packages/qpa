@@ -1706,6 +1706,8 @@ gap> t_dec[ 1 ] = fq1;
 true]]>
 </Example>
 
+
+
   <ManSection>
     <Attr Name="EnvelopingAlgebra" Arg="A"/>
     <Description>
@@ -1736,6 +1738,25 @@ true]]>
     </Description>
     <Returns>the algebra <Arg>A</Arg> as a right module over the
       enveloping algebra <Arg>Aenv</Arg>. 
+    </Returns>
+  </ManSection>
+
+  <ManSection>
+    <Attr Name="DualOfAlgebraAsModuleOverEnvelopingAlgebra" Arg=" A "/>
+    <Description>
+      Arguments: <Arg>A</Arg> -- a finite dimensional (admissible quotient of) a path algebra <Arg>A</Arg>. <Br />
+    </Description>
+    <Returns>the algebra <Arg>A</Arg> as a right module over the
+      enveloping algebra of <Arg>A</Arg>. 
+    </Returns>
+  </ManSection>
+
+  <ManSection>
+    <Attr Name="TrivialExtensionOfQuiverAlgebra" Arg=" A "/>
+    <Description>
+      Arguments: <Arg>A</Arg> -- a finite dimensional (admissible quotient of) a path algebra <Arg>A</Arg>. <Br />
+    </Description>
+    <Returns>the trivial extension algebra <M>T(A)=A\oplus D(A)</M> of the entered algebra <Arg>A</Arg>. 
     </Returns>
   </ManSection>
 

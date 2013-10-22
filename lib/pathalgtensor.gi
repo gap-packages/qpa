@@ -294,7 +294,7 @@ InstallMethod( EnvelopingAlgebra,
 
     envalg := TensorProductOfAlgebras( OppositeAlgebra( pa ), pa );
     SetIsEnvelopingAlgebra( envalg, true );
-    if IsAdmissibleQuotientOfPathAlgebra(pa) then
+    if  HasIsAdmissibleQuotientOfPathAlgebra(pa) and IsAdmissibleQuotientOfPathAlgebra(pa) then
         SetFilterObj(envalg, IsAdmissibleQuotientOfPathAlgebra );
     fi; 
     return envalg;

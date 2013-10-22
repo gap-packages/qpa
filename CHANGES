@@ -1,4 +1,72 @@
 ==========================================================================
+Changes from version 1.12 to 1.13:
+==========================================================================
+
+Added structures in this release:
+----------------------------------------------------------------------
+
+None
+
+Added functions in this release:
+----------------------------------------------------------------------
+
+\= (for path algebra matrix modules)
+ComplexityOfAlgebra
+ComplexityOfModule
+DualOfAlgebraAsModuleOverEnvelopingAlgebra
+EndOfModulesAsQuiverAlgebra
+IsDistributiveAlgebra (added before, but not mentioned)
+IsGentleAlgebra (added implementation)
+IsomorphismOfModules
+MinimalGeneratingSetOfIdeal
+New way of introducing AR-quivers in degorderfinitetype
+TrivialExtensionOfQuiverAlgebra
+
+Changed code for:
+----------------------------------------------------------------------
+
+RightModuleOverPathAlgebra (now check if the entered matrices are over 
+                            the correct field)
+
+
+Fixed bugs in:
+----------------------------------------------------------------------
+
+CoxeterPolynomial
+EnvelopingAlgebra
+
+Documentation:
+----------------------------------------------------------------------
+
+Documentation was added and updated. 
+
+
+Changes in function names:
+Old name -------> New name
+------------------------------------------------------------
+None
+
+
+Synonyms
+------------------------------------------------------------
+
+None
+
+Discontinued functions:
+------------------------------------------------------------
+
+None
+
+
+Miscellaneous
+------------------------------------------------------------
+
+Have added functions that require GAP >= 4.5.x.
+
+Started to add acknowledgements in the documentation
+
+
+==========================================================================
 Changes from version 1.11 to 1.12:
 ==========================================================================
 
