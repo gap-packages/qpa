@@ -231,6 +231,21 @@ gap> DimensionVector(a, [0,1,0,0,0,0,2,0,0,0,0,0]);
   </Returns>
 </ManSection>
 
+<ManSection>
+  <Oper Name="OrbitDim" Arg="AR, M" />
+  <Description>
+    Arguments: <Arg>AR</Arg> - an object from the category <Ref Filt="IsARQuiverNumerical"/>;<Br />
+    <Arg>M</Arg> - a number of  indecomposable module in <Arg>AR</Arg> or a multiplicity vector (cf. <Ref Sect="introDO"/>).<Br />
+  </Description>
+  <Returns>
+      the dimension of the orbit of module <Arg>M</Arg>
+     (in the variety of representations of quiver with relations).
+  </Returns>
+  <Description>
+    OrbitDim(<Arg>M</Arg>) = d_1^2+...+d_p^2 - dim End(<Arg>M</Arg>), where (d_i)_i = DimensionVector(<Arg>M</Arg>).
+  </Description>
+</ManSection>
+
 
 <ManSection>
   <Oper Name="OrbitCodim" Arg="AR, M, N" />

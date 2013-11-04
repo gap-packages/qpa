@@ -928,6 +928,36 @@ InstallMethod( DimEnd,
 ); # DimEnd
 
 
+
+######################################################
+##
+#O OrbitDim( <AR> , <M> )
+##
+## This function returns the dimension of the orbit of module <M> 
+## (in the variety of representations of quiver with relations).
+## OrbitDim = d_1^2+...+d_p^2 - dim End(<M>), where (d_i)_i = DimVect(<M>).
+## <M>  can be either number of indecomposable or the multiplicity vector.
+##
+##
+
+InstallMethod( OrbitDim,
+               
+  [ IsARQuiverNumerical, IsObject ],
+  function( AR, M )
+    local dimvect, d, sum;
+	
+      dimvect := DimensionVector(AR, M);
+      sum := 0;
+      for d in dimvect do
+       sum := sum + d^2;
+      od;
+
+    return sum - DimEnd(AR, M);  
+ end
+); # OrbitDim
+
+
+
 ######################################################
 ##
 #O OrbitCodim( <AR> , <M> , <N>)

@@ -21,6 +21,7 @@ DeclareOperation("DegOrderSuccessorsWithDirect", [IsARQuiverNumerical, IsObject]
 DeclareOperation("DimensionVector", [IsARQuiverNumerical, IsObject]);
 DeclareOperation("DimHom", [IsARQuiverNumerical, IsObject, IsObject]);
 DeclareOperation("DimEnd", [IsARQuiverNumerical, IsObject]);
+DeclareOperation("OrbitDim", [IsARQuiverNumerical, IsObject]);
 DeclareOperation("OrbitCodim", [IsARQuiverNumerical, IsObject, IsObject]);
 DeclareOperation("DegOrderLEQ", [IsARQuiverNumerical, IsObject, IsObject]);
 DeclareOperation("DegOrderLEQNC", [IsARQuiverNumerical, IsObject, IsObject]);
