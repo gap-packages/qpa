@@ -63,62 +63,66 @@ end
 ##  a representation type of an algebra (e.g. connected with quadratic forms etc.). 
 ##  Now it is only a beginning of a large (and hard) project.
 ##	
-  
 InstallMethod( IsFiniteTypeAlgebra,
     "for quotients of path algebras",
     true,
     [ IsQuotientOfPathAlgebra ], 0,
     function ( A )
     
-    local Q, PA, I, comps;
+    local Q, Qbar, comps;
     
-    PA := OriginalPathAlgebra(A);
-    Q := QuiverOfPathAlgebra(PA);
-    
+    if not IsAdmissibleQuotientOfPathAlgebra(A) then 
+        Error(" the entered algebra is not an admissible quotient of a path algebra,\n");
+    fi; 
+    Q := QuiverOfPathAlgebra(A);
+    #
+    # Checking if  A  is a semisimple algebra, that is, the quiver of  A
+    # has no arrows.
+    #
     if NumberOfArrows(Q) = 0 then
-      Print("Finite type!\nSemisimple algebra (Q has no arrows).\n");
-      return true;
-    fi;
-    
-    I := ElementsFamily(FamilyObj(A))!.ideal;
-    
-    if IsSpecialBiserialAlgebra(A) then
-      if IsUAcyclicQuiver(Q) then
-        # Follows from [A. Skowronski, J.Waschb¨usch. Representation-finite biserial algebras. 
-        # Journal f¨ur Mathematik. Band 345, 1983.]: Special biserial algebra is of fin. rep. type
-        # <=> it contains no "primitive strings".
-        # TODO: full application of above thm, i.e. not only for quivers with no unoriented cycles.
-        # But even now it covers quite large class of "not very complicated" algebras of finite type.
-        Print("Finite type!\nSpecial biserial algebra with no unoriented cycles in Q.\n");
+        Print("Finite type!\nSemisimple algebra (Q has no arrows).\n");
         return true;
-      fi;
     fi;
-
+    #
+    # Checking if  A  is a quotient of a path algebra of finite type, 
+    # that is, the quiver of  A  is a union of Dynkin quivers.
+    #
     comps := ConnectedComponents(Q);
     if ForAll(comps, x -> IsDynkinQuiver(x)) then
-      Print("Finite type!\nQuiver is a (union of) Dynkin quiver(s).\n");
-      return true;
+        Print("Finite type!\nQuiver is a (union of) Dynkin quiver(s).\n");
+        return true;
+    fi;
+    #
+    # Checking if  A/rad^2  is of infinite type. If so, then  A  is of 
+    # infinite type. The algebra  A/rad^2  is stably equivalent to  kQbar,
+    # where  Qbar  is the separated quiver of  Q.  The algebra  kQbar  is 
+    # of infinite type if and only if there is a connected component of  
+    # Qbar which is not Dynkin. If  A  is a radical square zero algebra, 
+    # then  A = A/rad^2 and  A  is of finite type if and only if  kQbar is. 
+    #
+    Qbar := SeparatedQuiver(Q);
+    if not ForAll( ConnectedComponents(Qbar), IsDynkinQuiver ) then
+        Print("Have checked representation type of the algebra modulo the square of the radical.\n");
+        return false;
+    elif IsRadicalSquareZeroAlgebra(A) then
+        return true;
+    fi;
+    #
+    # If  A  is a special biserial algebra, we do the following.
+    #
+    if IsSpecialBiserialAlgebra(A) then
+        if IsUAcyclicQuiver(Q) then
+            # Follows from [A. Skowronski, J.Waschb¨usch. Representation-finite biserial algebras. 
+            # Journal f¨ur Mathematik. Band 345, 1983.]: Special biserial algebra is of fin. rep. type
+            # <=> it contains no "primitive strings".
+            # TODO: full application of above thm, i.e. not only for quivers with no unoriented cycles.
+            # But even now it covers quite large class of "not very complicated" algebras of finite type.
+            Print("Finite type!\nSpecial biserial algebra with no unoriented cycles in Q.\n");
+            return true;
+        fi;
     fi;
     
     Print("Can not determine the representation type.\n");
     return fail;
 end
 ); # IsFiniteTypeAlgebra for IsQuotientOfPathAlgebra
-
-InstallMethod( IsFiniteTypeAlgebra, 
-    "for a radical square zero quotient of a path algebra",
-    [ IsRadicalSquareZeroAlgebra and IsAdmissibleQuotientOfPathAlgebra ],
-    0,
-    function( A )
-    
-    local Q;
-    
-    Q := SeparatedQuiver(QuiverOfPathAlgebra(A));
-    
-    if ForAll( ConnectedComponents(Q), IsDynkinQuiver ) then
-        return true;
-    else
-        return false;
-    fi;
-end
-  );
