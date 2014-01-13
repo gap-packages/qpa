@@ -3544,7 +3544,7 @@ InstallMethod( EndOfModuleAsQuiverAlgebra,
         od; 
     od;
     #
-    t := Length(PowerSubalgebraSeries(radEndM)); # then radEndM^t = (0) 
+    t := Length(RadicalSeriesOfAlgebra(EndM)) - 1; # then radEndM^t = (0) 
     Q := Quiver(adjacencymatrix);
     KQ := PathAlgebra(LeftActingDomain(M),Q);
     Jtplus1 := NthPowerOfArrowIdeal(KQ,t + 1);
