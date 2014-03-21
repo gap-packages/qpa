@@ -8,6 +8,7 @@ DeclareAttribute( "BilinearFormOfUnitForm", IsUnitForm );
 DeclareAttribute( "QuadraticFormOfUnitForm", IsUnitForm );
 DeclareAttribute( "PositiveRootsOfUnitForm", IsUnitForm );
 DeclareOperation( "TitsUnitFormOfAlgebra", [ IsQuiverAlgebra ] );
+DeclareOperation( "EulerBilinearFormOfAlgebra", [ IsQuiverAlgebra ] );
 DeclareOperation( "ReflectionByBilinearForm", [ IsUnitForm, IS_INT, IsVector ] );
 DeclareProperty( "IsWeaklyNonnegativeUnitForm",  IsUnitForm  );
 DeclareProperty( "IsWeaklyPositiveUnitForm",  IsUnitForm  );

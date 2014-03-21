@@ -127,6 +127,24 @@ matrices with 2 along the diagonal.
 </ManSection>
 
 <ManSection>
+  <Oper Name="EulerBilinearFormOfAlgebra" Arg="A" />
+  <Description>
+    Arguments: <Arg>A</Arg> -- a finite dimensional (quotient of a)
+    path algebra (by an admissible ideal).<Br />
+  </Description>
+  <Returns>
+    the Euler (non-symmetric) bilinear form associated to the algebra <Arg>A</Arg>.
+  </Returns>
+  <Description>This function returns the Euler (non-symmetric) bilinear form 
+  associated to a finite dimensional (basic) quotient of a path algebra <Arg>A</Arg>.
+  That is,  it returns a bilinear form (function) defined by<Br />
+  <M>f(x,y) = x*CartanMatrix^(-1)y</M><Br />
+  It makes sense only in case <Arg>A</Arg> is of finite global dimension.
+  </Description>
+</ManSection>
+
+
+<ManSection>
   <Oper Name="UnitForm" Arg="B" />
   <Description>
     Arguments: <Arg>B</Arg> -- an integral matrix.<Br />

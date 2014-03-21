@@ -352,3 +352,58 @@ InstallMethod( IsWeaklyPositiveUnitForm,
     return false; 
 end
 );
+
+
+
+
+#######################################################################
+##
+#O  EulerBilinearFormOfAlgebra( <A> )
+##
+##  This function returns the Euler (non-symmetric) bilinear form 
+##  associated to a finite dimensional (basic) quotient of a path algebra <A>.
+##  That is,  it returns a bilinear form (function) defined by
+##  <x,y> = x*CartanMatrix^(-1)y
+##  It makes sense only in case <A> is of finite global dimension.
+##  (Recall that in QPA the rows of the CartanMatrix are the dimension 
+##  vectors of projectives).
+##
+InstallMethod( EulerBilinearFormOfAlgebra,
+    "for a PathAlgebra or a QuotientOfPathAlgebra",
+    [ IsQuiverAlgebra ],
+        
+    function( A )
+    local C, bilinearform;
+	
+	C := CartanMatrix(A);
+        # Operation CartanMatrix checks if A is: 
+	# FiniteDimensional and (PathAlgebra or AdmissibleQuotientOfPathAlgebra)
+        # in particular, if A is basic	
+	if C = fail then
+	   Print("Unable to determine the Cartan matrix!\n");
+           return fail;
+	fi;
+	
+	if not Determinant(C) in [-1,1] then
+	    Print("The Cartan matrix is not invertible over Z!\n");
+	    return fail;
+	fi;
+	
+	bilinearform := function( x, y );
+            
+            if not ( IsVector(x) or IsVector(y) ) then
+                Error("the arguments of the bilinear form must be in the category IsVector,\n");
+            fi;
+            if Length(x) <> Length(y) then 
+                Error("the arguments are not vectors of the same length,\n");
+            fi;
+            if Length(x) <> Length(C[1]) then 
+                Error("the arguments don't have correct size,\n");
+            fi;
+            
+            return x*Inverse(C)*y;
+       end;
+		
+    return bilinearform; 
+end
+);  # EulerBilinearFormOfAlgebra 
