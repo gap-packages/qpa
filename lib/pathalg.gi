@@ -1666,6 +1666,8 @@ InstallMethod( IsSelfinjectiveAlgebra,
 end
 );
 
+
+
 InstallOtherMethod( CartanMatrix, 
     "for a finite dimensional (quotient of) path algebra",
     [ IsQuiverAlgebra ], 0,
@@ -1674,10 +1676,12 @@ InstallOtherMethod( CartanMatrix,
     local P, C, i;
    
     if not IsFiniteDimensional(A) then 
-        return false;
+	Print("Algebra is not finite dimensional!\n");
+        return fail;
     fi;
     if not IsPathAlgebra(A) and not IsAdmissibleQuotientOfPathAlgebra(A) then 
-        TryNextMethod();
+	Print("Not a bound quiver algebra!\n");
+        return fail;
     fi;
     P := IndecProjectiveModules(A);
     C := [];
@@ -1687,7 +1691,7 @@ InstallOtherMethod( CartanMatrix,
 
     return C;
 end
-);
+); # CartanMatrix
 
 InstallMethod( CoxeterMatrix, 
     "for a finite dimensional (quotient of) path algebra",
@@ -1697,13 +1701,18 @@ InstallMethod( CoxeterMatrix,
     local P, C, i;
 
     C := CartanMatrix(A);
+    if C = fail then
+	Print("Unable to determine the Cartan matrix!\n");
+        return fail;
+    fi;
     if DeterminantMat(C) <> 0 then 
         return (-1)*C^(-1)*TransposedMat(C);
     else
-        return fail;
+        Print("The Cartan matrix is not invertible!\n");
+	return fail;
     fi;
 end
-);
+); # CoxeterMatrix
 
 InstallMethod( CoxeterPolynomial, 
     "for a finite dimensional (quotient of) path algebra",
@@ -1719,7 +1728,8 @@ InstallMethod( CoxeterPolynomial,
         return fail;
     fi;
 end
-);
+); # CoxeterPolynomial
+
 
 InstallMethod( TipMonomialandCoefficientOfVector, 
    "for a path algebra",
