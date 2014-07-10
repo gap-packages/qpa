@@ -2402,4 +2402,47 @@ InstallOtherMethod( OrderOfNakayamaAutomorphism,
 end
 );
 
+#######################################################################
+##
+#O  AssignGeneratorVariables( <A> )
+##
+##  Takes a quiver algebra  <A>  as an argument and creates variables, 
+##  say v_1,...,v_n for the vertices, and a_1,...,a_t for the arrows
+##  for the corresponding elements in  <A>, whenever the quiver for 
+##  the quiver algebra  <A>  is was constructed with the vertices being 
+##  named  v_1,...,v_n and the arrows being named  a_1,...,a_t.  
+##  
+InstallMethod ( AssignGeneratorVariables, 
+    "for a quiver algebra",
+    true,
+    [ IsQuiverAlgebra ], 
+    0,
+    function( A )
 
+    local Q, gens, g, s;
+    
+    Q := QuiverOfPathAlgebra(A); 
+    gens := GeneratorsOfQuiver(Q); 
+    
+    for g in gens do
+        s := String(g);
+        if not IsValidIdentifier(s) then
+            Error("Variable `", s, "' would not be a proper identifier");
+        fi;
+        if IS_READ_ONLY_GLOBAL(s) then
+            Error("Variable `", s, "' is write protected.");
+        fi;
+    od;
+    
+    for g in gens do
+        s := String(g);
+        if ISBOUND_GLOBAL(s) then
+            Info(InfoWarning + InfoGlobal, 1, "Global variable `", s,
+                 "' is already defined and will be overwritten");
+        fi;
+        UNBIND_GLOBAL(s);
+        ASS_GVAR(s, One(A)*g);
+    od;
+    Info(InfoWarning + InfoGlobal, 1, "Assigned the global variables ", gens);        
+end 
+);

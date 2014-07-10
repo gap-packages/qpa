@@ -429,6 +429,44 @@ Most <Package>QPA</Package> operations working on algebras handle
 path algebras and quotients of path algebras in the same way (when
 this makes sense). However, there are still a few operations which
 does not work properly when given a quotient of a path algebra. 
+
+When constructing a quotient of a path algebra one needs define the 
+ideal one is factoring out.  Above this has been done with the commands
+
+<Example><![CDATA[ 
+gap> gens := GeneratorsOfAlgebra(kQ);
+[ (1)*v1, (1)*a, (1)*b ]
+gap> a := gens[2];
+(1)*a
+gap> b := gens[3];
+(1)*b
+]]></Example>
+
+The following command makes this process easier.
+<ManSection>
+  <Oper Name="AssignGeneratorVariables" Arg="A" Comm="for a quiver algebra"/>
+  <Description>
+    Arguments: <Arg>A</Arg> -- a quiver algebra.<Br />
+  </Description>
+  <Returns>
+Takes a quiver algebra <Arg>A</Arg> as an argument and creates
+variables, say <M>v_1,...,v_n</M> for the vertices, and
+<M>a_1,...,a_t</M> for the arrows for the corresponding elements in
+<Arg>A</Arg>, whenever the quiver for the quiver algebra <Arg>A</Arg>
+is was constructed with the vertices being named <M>v_1,...,v_n</M>
+and the arrows being named <M>a_1,...,a_t</M>.
+</Returns>
+</ManSection>
+Here is an example of its use.
+<Example><![CDATA[ 
+gap> AssignGeneratorVariables(kQ);
+#I  Assigned the global variables [ v1, a, b ]
+gap> v1; a; b;
+(1)*v1
+(1)*a
+(1)*b
+]]></Example>
+
 </Section>
 
 <Section Label="IdealsAndOperations"><Heading>Ideals and operations
