@@ -87,3 +87,4 @@ DeclareProperty( "IsDistributiveAlgebra", IsQuotientOfPathAlgebra );
 DeclareAttribute( "NakayamaAutomorphism", IsQuotientOfPathAlgebra ); 
 DeclareAttribute( "NakayamaPermutation", IsQuotientOfPathAlgebra );
 DeclareAttribute( "OrderOfNakayamaAutomorphism", IsQuotientOfPathAlgebra );
+DeclareAttribute( "AssociatedMonomialAlgebra", IsQuiverAlgebra );

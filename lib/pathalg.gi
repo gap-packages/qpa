@@ -2456,3 +2456,36 @@ InstallMethod ( AssignGeneratorVariables,
     Info(InfoWarning + InfoGlobal, 1, "Assigned the global variables ", gens);        
 end 
 );
+
+#######################################################################
+##
+#O  AssociatedMonomialAlgebra( <M> )
+##
+##  Takes as an argument a quiver algebra  <A>  and returns the 
+##  associated monomial algebra by using the Groebner basis  <A>  is 
+##  endoved with and in particular the ordering of the vertices and the
+##  arrows.  Taking another ordering of the vertices and the arrows
+##  might changethe associated algebra. 
+##  
+InstallMethod(AssociatedMonomialAlgebra, 
+    "for a finite dimensional quiver algebra",
+    true,
+    [ IsQuiverAlgebra ], 
+    0,
+    function( A )
+
+    local fam, gb, relations; 
+
+    if IsPathAlgebra(A) then 
+        return A;
+    fi;
+    fam := ElementsFamily(FamilyObj(A));
+    if IsMonomialIdeal(fam!.ideal) then
+        return A;
+    fi;
+    gb := GroebnerBasisOfIdeal(fam!.ideal);
+    relations := List(gb!.relations, r -> Tip(r));
+    
+    return OriginalPathAlgebra(A)/relations;
+end
+  );

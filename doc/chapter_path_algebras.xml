@@ -84,6 +84,17 @@ true
 
 <Section><Heading>Attributes and Operations for Path Algebras</Heading>
 
+<ManSection>
+  <Attr Name="AssociatedMonomialAlgebra" Arg="A" />
+  <Description>
+    Arguments: <Arg>A</Arg> -- a quiver algebra.<Br />
+  </Description>
+  <Returns>
+    the associated monomial algebra of  <Arg>A</Arg> with respect to
+    the Groebner basis the path algebra is endoved with.
+  </Returns>
+</ManSection>
+
   <ManSection>
    <Attr Name="QuiverOfPathAlgebra" Arg="FQ" Comm=""/>
    <Description>
