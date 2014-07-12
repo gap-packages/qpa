@@ -11,3 +11,4 @@ DeclareOperation( "ExtOverAlgebra", [ IsPathAlgebraMatModule, IsPathAlgebraMatMo
 DeclareOperation( "ExtAlgebraGenerators", [ IsPathAlgebraMatModule, IS_INT ] );
 DeclareOperation( "PartialIyamaGenerator", [IsPathAlgebraMatModule ] );
 DeclareOperation( "IyamaGenerator", [IsPathAlgebraMatModule ] );
+DeclareOperation( "GlobalDimensionOfAlgebra", [ IsQuiverAlgebra, IS_INT ]);

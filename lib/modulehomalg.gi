@@ -852,3 +852,52 @@ InstallMethod( IyamaGenerator,
 end
 );
 
+#######################################################################
+##
+#O  GlobalDimensionOfAlgebra( <A>, <n> )
+##
+##  Returns the global dimension of the algebra  <A>  if it is less or
+##  equal to  <n>, otherwise it returns false.
+##  
+InstallMethod ( GlobalDimensionOfAlgebra, 
+    "for a finite dimensional quotient of a path algebra",
+    true,
+    [ IsQuiverAlgebra, IS_INT ], 
+    0,
+    function( A, n )
+
+    local simples, S, projres, dimension, j;
+    
+    if not IsFiniteDimensional(A) then
+        TryNextMethod();
+    fi;
+    if HasGlobalDimension(A) then
+        return GlobalDimension(A);
+    fi;
+    if Trace(AdjacencyMatrixOfQuiver(QuiverOfPathAlgebra(A))) > 0 then
+        SetGlobalDimension(A,infinity);
+        return infinity;
+    fi;
+    simples := SimpleModules(A);
+    dimension := 0;
+    for S in simples do
+        projres := ProjectiveResolution(S);
+        j := 0;
+        while ( j < n + 1 ) and ( Dimension(ObjectOfComplex(projres,j)) <> 0 ) do 
+            j := j + 1;
+        od; 
+        if ( j < n + 1 ) then 
+            dimension := Maximum(dimension, j - 1 );
+        else
+            if ( Dimension(ObjectOfComplex(projres,n + 1)) <> 0 ) then
+                return false;
+            else
+                dimension := Maximum(dimension, n );
+            fi;
+        fi;
+    od;
+    
+    SetGlobalDimension(A,dimension);
+    return dimension;
+end 
+);
