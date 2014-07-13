@@ -34,11 +34,10 @@ constructing quivers in Section <Ref Sect="Constructing Quivers"/>.
 
 <Section  Label="Constructing Quivers"><Heading>Constructing Quivers</Heading>
   <ManSection>
-   <Func Name="Quiver" Label="no. of arrows and arrows" Arg="N, arrows" 
+   <Func Name="Quiver" Label="no. of vertices, list of arrows" Arg="N, arrows" 
 	 Comm="creates a quiver"/>
-   <Func Name="Quiver" Label="vertices and arrows" Arg="vertices,
-	 arrows" 
-	 Comm="creates a quiver"/>
+   <Func Name="Quiver" Label="lists of vertices and arrows" Arg="vertices,
+	 arrows"  Comm="creates a quiver"/>
    <Func Name="Quiver" Label="adjacenymatrix" Arg="adjacencymatrix" 
 	 Comm="creates a quiver"/>
    <Description>Arguments: First construction: <Arg>N</Arg> -- number of vertices, <Arg>arrows</Arg> -- a list of arrows to specify the graph <Math>\Gamma</Math>. Second construction: <Arg>vertices</Arg> -- a list of vertex names, <Arg>arrows</Arg> -- a list of arrows. Third construction: takes an adjacency matrix for the graph <Math>\Gamma</Math>.
