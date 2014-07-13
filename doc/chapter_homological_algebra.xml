@@ -34,6 +34,34 @@ gap> N := RightModuleOverPathAlgebra(A,mat);;]]>
 </ManSection>
 
 <ManSection>
+   <Oper Name="DominantDimensionOfAlgebra" Arg="A, n" Comm=""/>
+   <Description>
+     Arguments: <Arg>A</Arg>, <Arg>n</Arg> - a quiver algebra, a
+     positive integer.<Br />
+   </Description>
+   <Returns> the dominant dimension of the algebra <Arg>A</Arg> if the
+   dominant dimension is less or equal to <Arg>n</Arg>.  If the
+   function can decide that the dominant dimension is infinite, it
+   returns <C>infinity</C>.  Otherwise, if the dominant dimension is
+   larger than <Arg>n</Arg>, then it returns <C>false</C>.
+   </Returns>
+</ManSection>
+
+<ManSection>
+   <Oper Name="DominantDimensionOfModule" Arg="M, n" Comm=""/>
+   <Description>
+     Arguments: <Arg>M</Arg>, <Arg>n</Arg> - a PathAlgebraMatModule, a
+     positive integer.<Br />
+   </Description>
+   <Returns> the dominant dimension of the module <Arg>M</Arg> if the
+   dominant dimension is less or equal to <Arg>n</Arg>.  If the
+   function can decide that the dominant dimension is infinite, it
+   returns <C>infinity</C>.  Otherwise, if the dominant dimension is
+   larger than <Arg>n</Arg>, then it returns <C>false</C>.
+   </Returns>
+</ManSection>
+
+<ManSection>
    <Oper Name="ExtAlgebraGenerators" Arg="M, n" Comm=""/>
    <Description>
      Arguments: <Arg>M</Arg> - a module, <Arg>n</Arg> - a positive integer.<Br />

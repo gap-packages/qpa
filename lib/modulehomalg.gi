@@ -901,3 +901,113 @@ InstallMethod ( GlobalDimensionOfAlgebra,
     return dimension;
 end 
 );
+
+#######################################################################
+##
+#O  DominantDimensionOfModule( <M>, <n> )
+##
+##  Returns the dominant dimension of the module  <M>  if it is less or
+##  equal to  <n>. If the module  <M>  is injectiv and projective, then 
+##  it returns infinity. Otherwise it returns false.
+##  
+InstallMethod ( DominantDimensionOfModule, 
+    "for a finite dimensional quotient of a path algebra",
+    true,
+    [ IsPathAlgebraMatModule, IS_INT ], 
+    0,
+    function( M, n )
+
+    local A, Mop, resop, dimension, j;
+    
+    A := RightActingAlgebra(M);
+    #
+    # If the algebra  A  is not a finite dimensional, try another method.
+    #
+    if not IsFiniteDimensional(A) then
+        TryNextMethod();
+    fi;
+    # 
+    # If the module  <M>  is injective and projective, then the dominant dimension of 
+    # <M>  is infinite.
+    if IsInjectiveModule(M) and IsProjectiveModule(M) then 
+        return infinity;
+    fi;
+    Mop := DualOfModule(M);
+    #
+    # Compute the minimal projective resolution of the module  Mop.
+    #
+    resop := ProjectiveResolution(Mop);
+    dimension := 0;
+    # Check how far out the modules in the minimal projective resolution of Mop
+    # is injective.
+    if IsInjectiveModule(ObjectOfComplex(resop,0)) then
+        if Dimension(ObjectOfComplex(resop,1)) = 0 then
+            return infinity;
+        else
+            j := 1;
+            while ( j < n + 1 ) and ( IsInjectiveModule(ObjectOfComplex(resop,j)) ) do 
+                    j := j + 1;
+            od; 
+            if ( j < n + 1 ) then # if this happens, then j-th projective is not injective and domdim equal to j for <M>.
+                dimension := Maximum(dimension, j);
+            else                    # if this happens, then j = n + 1. 
+                if not IsInjectiveModule(ObjectOfComplex(resop,n + 1)) then # then domdim is  n  of  <M>.
+                    dimension := Maximum(dimension, n);
+                else                                                      # then domdim is > n  for  <M>.
+                    return false;
+                fi;
+            fi;
+        fi;
+    fi;
+
+#    SetDominantDimension(M,dimension);
+    return dimension;
+end 
+);
+
+
+#######################################################################
+##
+#O  DominantDimensionOfAlgebra( <A>, <n> )
+##
+##  Returns the dominant dimension of the algebra  <A>  if it is less or
+##  equal to  <n>. If the algebra  <A>  is selfinjectiv, then it returns
+##  infinity. Otherwise it returns false.
+##  
+InstallMethod ( DominantDimensionOfAlgebra, 
+    "for a finite dimensional quotient of a path algebra",
+    true,
+    [ IsQuiverAlgebra, IS_INT ], 
+    0,
+    function( A, n )
+
+    local P, domdimlist, M, test, pos, finite_ones;
+    
+    #
+    # If the algebra  <A>  is not a finite dimensional, try another method.
+    #
+    if not IsFiniteDimensional(A) then
+        TryNextMethod();
+    fi;
+    # 
+    # If the algebra  <A>  is selfinjective, then the dominant dimension of 
+    # <A>  is infinite.
+    if IsSelfinjectiveAlgebra(A) then 
+        return infinity;
+    fi;
+    P := IndecProjectiveModules(A);
+    domdimlist := [];
+    for M in P do
+        test := DominantDimensionOfModule(M,n);   # Checking the dominant dimension of each indec. projective module. 
+        if test = false then
+            return false;
+        fi;
+        Add(domdimlist,test); 
+    od; 
+    pos := Positions(domdimlist,infinity); # positions of the indec. projective modules with infinite domdim.
+    finite_ones := [1..Length(P)]; 
+    SubtractSet(finite_ones,pos); # positions of the indec. projective modules with finite domdim.
+    
+    return Maximum(domdimlist{finite_ones});
+end
+  );
