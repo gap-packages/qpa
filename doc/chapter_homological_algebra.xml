@@ -112,6 +112,30 @@ gap> N := RightModuleOverPathAlgebra(A,mat);;]]>
 </ManSection>
 
 <ManSection>
+   <Oper Name="GorensteinDimension" Arg="A" Comm="for a quiver algebra"/>
+   <Description>
+     Arguments: <Arg>A</Arg> - a quiver algebra.<Br />
+   </Description>
+   <Returns> the Gorenstein dimension of <Arg>A</Arg>, if the
+   Gorenstein dimension has been computed.  Otherwise it returns an
+   error message.  
+     </Returns>
+</ManSection>
+
+<ManSection>
+   <Oper Name="GorensteinDimensionOfAlgebra" Arg="A, n" Comm=""/>
+   <Description>
+     Arguments: <Arg>A</Arg>, <Arg>n</Arg> - a quiver algebra, a
+     positive integer.<Br />
+   </Description>
+   <Returns> the Gorenstein dimension of <Arg>A</Arg> if the
+   Gorenstein dimension is less or equal to <Arg>n</Arg>.  Otherwise,
+   if the Gorenstein dimension is larger than <Arg>n</Arg>, then it
+   returns <C>false</C>.
+   </Returns>
+</ManSection>
+
+<ManSection>
    <Oper Name="IsOmegaPeriodic" Arg="M, n" Comm="for a
    PathAlgebraMatModule and a positive integer"/>
    <Description> 
@@ -339,6 +363,30 @@ true ]]>
 </ManSection>
 
 <ManSection>
+   <Attr Name="ProjDimension" Arg="M" Comm="a PathAlgebraMatModule"/>
+   <Description>
+     Arguments: <Arg>M</Arg> - a PathAlgebraMatModule.<Br />
+   </Description>
+   <Description>
+     If the projetive dimension of the module  <Arg>M</Arg>  has been
+     computed, then the projective dimension is returned.  
+     the minimal right <Code>add M</Code>-approximation of the
+     module <Arg>C</Arg>. Note: The order of the arguments is opposite
+     of the order for minimal left approximations.
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Oper Name="ProjDimensionOfModule" Arg="M" Comm="for a PathAlgebraMatModule"/>
+   <Description>
+     Arguments: <Arg>M, n</Arg> - a PathAlgebraMatModule, a positive integer.<Br />
+   </Description>
+   <Returns>Returns the projective dimension of the module
+   <Arg>M</Arg> if it is less or equal to <Arg>n</Arg>.  Otherwise it
+   returns error message.</Returns>
+ </ManSection>
+
+<ManSection>
    <Oper Name="ProjectiveCover" Arg="M" Comm="for a PathAlgebraMatModule"/>
    <Description>
      Arguments: <Arg>M</Arg> - a module.<Br />
@@ -430,6 +478,18 @@ gap> f := CoKernelProjection(pushout[1]);
 gap> U := Range(pushout[1]); 
 <[ 0, 2, 0 ]> ]]>
 </Example>
+
+<ManSection>
+   <Oper Name="N_RigidModule" Arg="M, n" Comm="for a
+					       PathAlgebraMatModule
+					       and an integer"/>
+   <Description>
+     Arguments: <Arg>M</Arg>, <Arg>n</Arg> - a PathAlgebraMatModule,
+     an integer.<Br />
+   </Description>
+   <Returns>true if  <Arg>M</Arg> is a <Arg>n</Arg>-rigid
+   module. Otherwise it returns false.</Returns>
+</ManSection>
 </Section>
 
 </Chapter>

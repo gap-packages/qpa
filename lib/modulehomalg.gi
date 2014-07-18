@@ -1011,3 +1011,132 @@ InstallMethod ( DominantDimensionOfAlgebra,
     return Maximum(domdimlist{finite_ones});
 end
   );
+
+#######################################################################
+##
+#O  ProjDimensionOfModule( <M>, <n> )
+##
+##  Returns the projective dimension of the module  <M>  if it is less
+##  or equal to  <n>, otherwise it returns false.
+##  
+InstallMethod ( ProjDimensionOfModule, 
+    "for a PathAlgebraMatModule",
+    true,
+    [ IsPathAlgebraMatModule, IS_INT ], 
+    0,
+    function( M, n )
+
+    local projres, i;
+    
+    if HasProjDimension(M) then
+        return ProjDimension(M);
+    fi;
+    projres := ProjectiveResolution(M);
+    i := 1;
+    while i < n + 2 do
+        if Dimension(ObjectOfComplex(projres,i)) = 0 then # the projective dimension is  i - 1.
+            SetProjDimension(M, i - 1);
+            return i-1;
+        fi;
+        i := i + 1;
+    od; 
+    
+    return false;
+end 
+  );
+
+#######################################################################
+##
+#O  GorensteinAlgebraDimension( <A>, <n> )
+##
+##  Returns the Gorenstein dimension of the algebra  <A>  if it is less
+##  or equal to  <n>, otherwise it returns false.
+##  
+InstallMethod ( GorensteinAlgebraDimension,
+    "for a quiver algebra",
+    true,
+    [ IsQuiverAlgebra, IS_INT ], 
+    0,
+    function( A, n )
+
+    local Ilist, dimension_right, I, projdim, Ilistop, dimension_left;
+    
+    #
+    #  If  <A>  has finite global dimension, then the Gorenstein 
+    #  dimension of  <A>  is equal to the global dimension of  <A>. 
+    #
+    if HasGlobalDimension(A) then
+        if GlobalDimension(A) <> infinity then 
+            SetGorensteinDimension(A, GlobalDimension(A));
+            return GlobalDimension(A);
+        fi;
+    fi;
+    if HasGorensteinDimension(A) then
+        return GorensteinDimension(A);
+    fi;
+    #
+    #  First checking the injective dimension of the indecomposable
+    #  projective left  <A>-modules.
+    #
+    Ilist := IndecInjectiveModules(A);
+    dimension_right := 0;
+    for I in Ilist do
+        projdim := ProjDimensionOfModule(I,n); 
+        if projdim = false then   # projective dimension of  I  is bigger than  n.
+            return false;
+        else                      # projective dimension of  I  is less or equal to  n.
+            dimension_right := Maximum(dimension_right, projdim );
+        fi;
+    od;
+    #
+    #  Secondly checking the injective dimension of the indecomposable
+    #  projective right  <A>-modules.
+    #  
+    Ilistop := IndecInjectiveModules(OppositeAlgebra(A));    
+    dimension_left := 0;
+    for I in Ilistop do
+        projdim := ProjDimensionOfModule(I,n); 
+        if projdim = false then   # projective dimension of  I  is bigger than  n.
+            return false;
+        else                      # projective dimension of  I  is less or equal to  n.
+            dimension_left := Maximum(dimension_left, projdim );
+        fi;
+    od;    
+    if dimension_left <> dimension_right then
+        Print("You have a counterexample to the Gorenstein conjecture!\n\n");
+    fi;
+    
+    SetGorensteinDimension(A, Maximum(dimension_left, dimension_right));
+    return Maximum(dimension_left, dimension_right);    
+end 
+  );
+
+#######################################################################
+##
+#O  N_RigidModule( <M>, <n> )
+##
+##  Returns true if the module  <M>  is n-rigid, otherwise false.
+##  
+InstallMethod ( N_RigidModule, 
+    "for a PathAlgebraMatModule",
+    true,
+    [ IsPathAlgebraMatModule, IS_INT ], 
+    0,
+    function( M, n )
+
+    local i, N;
+    
+    i := 1;
+    N := M;
+    while i < n + 1 do
+        if Length(ExtOverAlgebra(N,M)[2]) > 0 then # Ext^i(M,M) <> 0.
+            return false;
+        else                                       # Ext^i(M,M) = 0.
+            i := i + 1;                            
+            N := NthSyzygy(N,1);
+        fi;
+    od;
+    
+    return true;
+end 
+  );
