@@ -856,6 +856,17 @@ false]]>
 </ManSection>
 
 <ManSection>
+   <Prop Name="IsMonomialAlgebra" Arg="A" Comm="for a quiver algebra"/>
+   <Description>
+     Arguments: <Arg>A</Arg> -- a quiver algebra.<Br />
+   </Description>
+   <Returns>
+     true when <Arg>A</Arg> is given as <C>kQ/I</C> and <C>I</C> is a
+     monomial ideal in <C>kQ</C>, otherwise it returns false.
+   </Returns>
+</ManSection>
+
+<ManSection>
    <Prop Name="IsNakayamaAlgebra" Arg="A" Comm=""/>
    <Description>
      Arguments: <Arg>A</Arg> -- a path algebra or a quotient of a path

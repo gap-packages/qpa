@@ -88,3 +88,4 @@ DeclareAttribute( "NakayamaAutomorphism", IsQuotientOfPathAlgebra );
 DeclareAttribute( "NakayamaPermutation", IsQuotientOfPathAlgebra );
 DeclareAttribute( "OrderOfNakayamaAutomorphism", IsQuotientOfPathAlgebra );
 DeclareAttribute( "AssociatedMonomialAlgebra", IsQuiverAlgebra );
+DeclareProperty( "IsMonomialAlgebra", IsQuiverAlgebra );

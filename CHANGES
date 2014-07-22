@@ -1,4 +1,65 @@
 ==========================================================================
+Changes from version 1.14 to 1.15:
+==========================================================================
+
+Added structures in this release:
+----------------------------------------------------------------------
+
+None
+
+Added functions in this release:
+----------------------------------------------------------------------
+
+AssignGeneratorVariables
+AssociatedMonoimalAlgebra
+DominantDimensionOfAlgebra
+DominantDimensionOfModule
+EulerBilinearFormOfAlgebra
+GlobalDimension (attribute)
+GlobalDimensionOfAlgebra
+GorensteinAlgebraDimension
+N_RigidModule
+ProjDimension (attribute)
+ProjDimensionOfModule
+
+Changed code for:
+----------------------------------------------------------------------
+
+CartanMatrix, CoxeterMatrix, CoxeterPolynomial 
+
+Fixed bugs in:
+----------------------------------------------------------------------
+
+EndOfModuleAsQuiverAlgebra
+TrivialExtensionOfQuiverAlgebra
+
+Documentation:
+----------------------------------------------------------------------
+
+Documentation was added and updated. 
+
+Changes in function names:
+Old name -------> New name
+------------------------------------------------------------
+None
+
+Synonyms
+------------------------------------------------------------
+
+None
+
+Discontinued functions:
+------------------------------------------------------------
+
+None
+
+Miscellaneous
+------------------------------------------------------------
+
+None
+
+
+==========================================================================
 Changes from version 1.13 to 1.14:
 ==========================================================================
 

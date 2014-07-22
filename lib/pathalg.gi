@@ -2489,3 +2489,27 @@ InstallMethod(AssociatedMonomialAlgebra,
     return OriginalPathAlgebra(A)/relations;
 end
   );
+
+#######################################################################
+##
+#A  IsMonomialAlgebra( <A> )
+##
+##  Returns true if the quiver algebra  <A>  is a monomial algebra and false otherwise.
+##  
+InstallMethod ( IsMonomialAlgebra, 
+      "for a PathAlgebraMatModule",
+      true,
+      [ IsQuiverAlgebra ], 
+      0,
+      function( A )
+
+      local I;
+      
+      if IsPathAlgebra(A) then 
+          return true;
+      else 
+          I := ElementsFamily(FamilyObj(A))!.ideal;
+          return IsMonomialIdeal(I);
+      fi;
+end
+); 
