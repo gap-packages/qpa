@@ -19,3 +19,18 @@ DeclareAttribute( "ProjDimension", IsPathAlgebraMatModule );
 DeclareOperation( "GorensteinAlgebraDimension", [ IsQuiverAlgebra, IS_INT ]);
 DeclareAttribute( "GorensteinDimension", IsQuiverAlgebra ); 
 DeclareOperation( "N_RigidModule", [ IsPathAlgebraMatModule, IS_INT ]);
+DeclareSynonym( "MinimalRightAddMApproximation", MinimalRightApproximation);
+DeclareSynonym( "MinimalLeftAddMApproximation", MinimalLeftApproximation);
+# Right FacM-approximations
+DeclareSynonym( "RightFacMApproximation", TraceOfModule);
+DeclareSynonym( "RightFacApproximation", TraceOfModule);
+DeclareSynonym( "MinimalRightFacMApproximation", TraceOfModule);
+# Left FacM-approximations
+DeclareOperation( "LeftFacMApproximation", [IsPathAlgebraMatModule, IsPathAlgebraMatModule]);
+DeclareOperation( "MinimalLeftFacMApproximation", [IsPathAlgebraMatModule, IsPathAlgebraMatModule]);
+# Right SubM-approximations
+DeclareOperation( "RightSubMApproximation", [IsPathAlgebraMatModule, IsPathAlgebraMatModule]);
+DeclareOperation( "MinimalRightSubMApproximation", [IsPathAlgebraMatModule, IsPathAlgebraMatModule]);
+# Left SubM-approximations
+DeclareOperation( "LeftSubMApproximation", [IsPathAlgebraMatModule, IsPathAlgebraMatModule]);
+DeclareSynonym( "MinimalLeftSubMApproximation", LeftSubMApproximation);

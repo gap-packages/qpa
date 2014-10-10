@@ -27,7 +27,6 @@ DeclareOperation( "RadicalOfModule", [ IsPathAlgebraMatModule ]);
 DeclareOperation( "RadicalOfModuleInclusion", [ IsPathAlgebraMatModule ]);
 DeclareAttribute( "TopOfModuleProjection", IsPathAlgebraMatModule);
 DeclareAttribute( "TopOfModule", IsPathAlgebraMatModule);
-DeclareOperation( "RightFacApproximation", [IsPathAlgebraMatModule, IsPathAlgebraMatModule]);
 DeclareAttribute( "DualOfModuleHomomorphism", IsPathAlgebraMatModuleHomomorphism);
 DeclareOperation( "SocleOfModuleInclusion", [ IsPathAlgebraMatModule ]);
 DeclareOperation( "SocleOfModule", [ IsPathAlgebraMatModule ]);
@@ -61,3 +60,4 @@ DeclareOperation( "HomomorphismFromImages", [ IsPathAlgebraMatModule, IsPathAlge
 DeclareOperation("MultiplyListsOfMaps", [IsList, IsList, IsList]);
 DeclareOperation( "IsomorphismOfModules", [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ]);
 DeclareOperation( "EndOfModuleAsQuiverAlgebra", [IsPathAlgebraMatModule ] );
+DeclareOperation( "TraceOfModule", [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ] );

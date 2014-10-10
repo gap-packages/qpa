@@ -88,7 +88,7 @@ gap> N := RightModuleOverPathAlgebra(A,mat);;]]>
    elements in <Math>\Hom(\Omega(M),N)</Math> and the third element is
    a function that takes as an argument a homomorphism in  <C>Hom(Omega(M),N)</C>
    and returns the coefficients of this element when written in 
-   terms of the basis of <Math>Ext^1(M,N)</Math>.</Returns>
+   terms of the basis of <Math>\Ext^1(M,N)</Math>.</Returns>
    <Description>
     The function checks if the arguments <Arg>M</Arg> and <Arg>N</Arg>
     are modules of the same algebra, and returns an error message
@@ -156,6 +156,30 @@ gap> N := RightModuleOverPathAlgebra(A,mat);;]]>
    summand of <Math>N</Math> and such that the global dimension of the
    endomorphism ring of <Math>N</Math> is finite using the algorithm
    provided by Osamu Iyama (add reference here).
+   </Returns>
+</ManSection>
+
+<ManSection>
+   <Oper Name="LeftFacMApproximation" Arg="C, M" Comm="for two PathAlgebraMatModules"/>
+   <Oper Name="MinimalLeftFacMApproximation" Arg="C, M" Comm="for two PathAlgebraMatModules"/>
+   <Description> 
+    Arguments: <Arg>C</Arg>, <Arg>M</Arg> -- two path algebra modules (<C>PathAlgebraMatModule</C>).
+   <Br /></Description>
+   <Returns>a left <Math>\operatorname{Fac} M</Math>-approximation of
+   the module <Math>C</Math>, where the first version returns a not
+   necessarily minimal left <Math>\operatorname{Fac} M</Math>-approximation and the
+   second returns a minimal approximation.
+   </Returns>
+</ManSection>
+
+<ManSection>
+   <Oper Name="LeftSubMApproximation" Arg="C, M" Comm="for two PathAlgebraMatModules"/>
+   <Oper Name="MinimalLeftSubMApproximation" Arg="C, M" Comm="for two PathAlgebraMatModules"/>
+   <Description> 
+    Arguments: <Arg>C</Arg>, <Arg>M</Arg> -- two path algebra modules (<C>PathAlgebraMatModule</C>).
+   <Br /></Description>
+   <Returns>a minimal left <Math>\operatorname{Sub} M</Math>-approximation of
+   the module <Math>C</Math>. 
    </Returns>
 </ManSection>
 
@@ -242,6 +266,7 @@ gap> LiftingMorphismFromProjective(f,p);
 </Example>
 
 <ManSection>
+   <Attr Name="MinimalLeftAddMApproximation" Arg="C, M" Comm=""/>
    <Attr Name="MinimalLeftApproximation" Arg="C, M" Comm=""/>
    <Description>
      Arguments: <Arg>C</Arg>, <Arg>M</Arg> - two modules.<Br />
@@ -255,6 +280,7 @@ gap> LiftingMorphismFromProjective(f,p);
 
 <ManSection>
    <Attr Name="MinimalRightApproximation" Arg="M, C" Comm=""/>
+   <Attr Name="MinimalRightAddMApproximation" Arg="M, C" Comm=""/>
    <Description>
      Arguments: <Arg>M</Arg>, <Arg>C</Arg> - two modules.<Br />
    </Description>
@@ -478,6 +504,31 @@ gap> f := CoKernelProjection(pushout[1]);
 gap> U := Range(pushout[1]); 
 <[ 0, 2, 0 ]> ]]>
 </Example>
+
+<ManSection>
+   <Oper Name="RightFacMApproximation" Arg="M, C" Comm="for two PathAlgebraMatModules"/>
+   <Oper Name="MinimalRightFacMApproximation" Arg="M, C" Comm="for two PathAlgebraMatModules"/>
+   <Description> 
+    Arguments: <Arg>M</Arg>, <Arg>C</Arg> -- two path algebra modules (<C>PathAlgebraMatModule</C>).
+   <Br /></Description>
+   <Returns>a minimal right <Math>\operatorname{Fac} M</Math>-approximation of
+   the module <Math>C</Math>.  
+   </Returns>
+</ManSection>
+
+<ManSection>
+   <Oper Name="RightSubMApproximation" Arg="M, C" Comm="for two PathAlgebraMatModules"/>
+   <Oper Name="MinimalRightSubMApproximation" Arg="M, C" Comm="for two PathAlgebraMatModules"/>
+   <Description> 
+    Arguments: <Arg>M</Arg>, <Arg>C</Arg> -- two path algebra modules (<C>PathAlgebraMatModule</C>).
+   <Br /></Description>
+   <Returns>a right <Math>\operatorname{Sub} M</Math>-approximation of
+   the module <Math>C</Math>, where the first version returns a not
+   necessarily minimal right <Math>\operatorname{Sub} M</Math>-approximation and the
+   second returns a minimal approximation.
+   </Returns>
+</ManSection>
+
 
 <ManSection>
    <Oper Name="N_RigidModule" Arg="M, n" Comm="for a
