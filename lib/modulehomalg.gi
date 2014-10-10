@@ -1186,7 +1186,7 @@ InstallMethod( MinimalLeftFacMApproximation,
     [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ], 0,
     function( C, M );
 
-    return LeftMinimalVersion(LeftFacMApproximation(C,M));
+    return LeftMinimalVersion(LeftFacMApproximation(C,M))[1];
 end
   );
 
@@ -1237,7 +1237,7 @@ InstallMethod( MinimalRightSubMApproximation,
     [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ], 0,
     function( M, C );
 
-    return RightMinimalVersion(RightSubMApproximation(M,C));
+    return RightMinimalVersion(RightSubMApproximation(M,C))[1];
 end
   );
 
