@@ -6,6 +6,8 @@ DeclareOperation( "NthSyzygy", [ IsPathAlgebraMatModule, IS_INT ] );
 DeclareOperation( "NthSyzygyNC", [ IsPathAlgebraMatModule, IS_INT ] );
 DeclareOperation( "MinimalRightApproximation", [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ]);
 DeclareOperation( "MinimalLeftApproximation", [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ]);
+DeclareSynonym( "MinimalRightAddMApproximation", MinimalRightApproximation);
+DeclareSynonym( "MinimalLeftAddMApproximation", MinimalLeftApproximation);
 DeclareAttribute( "ProjectiveCover", IsPathAlgebraMatModule );
 DeclareOperation( "ExtOverAlgebra", [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ]);
 DeclareOperation( "ExtAlgebraGenerators", [ IsPathAlgebraMatModule, IS_INT ] );
