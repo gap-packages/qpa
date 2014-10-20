@@ -40,7 +40,7 @@
           </Address> 
   </Author>
 
-  <Date>July 2013</Date> 
+  <Date>October 2014</Date> 
 
   <Abstract>
     The GAP4 undeposited package <Package>QPA</Package> extends the
@@ -73,7 +73,7 @@
   <Package>QPA</Package>, please cite it in the following form:<P/>
   
   The QPA-team, <Package>QPA</Package> - Quivers, path algebras and
-  representations, Version 1.14; 2013
+  representations, Version <#Include SYSTEM "../version">; 2014
   (<URL>http://sourceforge.net/projects/quiverspathalg/</URL>)
   </Copyright>
 

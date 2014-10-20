@@ -1,4 +1,63 @@
 ==========================================================================
+Changes from version 1.15 to 1.16:
+==========================================================================
+
+Added structures in this release:
+----------------------------------------------------------------------
+
+None
+
+Added functions in this release:
+----------------------------------------------------------------------
+
+TraceOfModule
+RightFacMApproximation
+MinimalRightFacMApproximation
+LeftFacMApproximation
+MinimalLeftFacMApproximation
+RightSubMApproximation
+MinimalRightSubMApproximation
+LeftSubMApproximation
+MinimalLeftSubMApproximation
+
+Changed code for:
+----------------------------------------------------------------------
+
+None
+
+Fixed bugs in:
+----------------------------------------------------------------------
+
+None
+
+Documentation:
+----------------------------------------------------------------------
+
+Documentation was added and updated. 
+
+Changes in function names:
+Old name -------> New name
+------------------------------------------------------------
+
+None
+
+Synonyms
+------------------------------------------------------------
+
+MinimalRightAddMApproximation == MinimalRightApproximation
+MinimalLeftAddMApproximation == MinimalLeftApproximation
+RightFacMApproximation == TraceOfModule
+RightFacApproximation == TraceOfModule
+
+Discontinued functions:
+------------------------------------------------------------
+
+None
+
+Miscellaneous
+------------------------------------------------------------
+
+==========================================================================
 Changes from version 1.14 to 1.15:
 ==========================================================================
 
