@@ -3638,4 +3638,47 @@ InstallMethod( EndOfModuleAsQuiverAlgebra,
         return [EndM, adjacencymatrix, KQ/idealgens];
     fi;
 end
-);
+  );
+
+
+#######################################################################
+##
+#O  TraceOfModule( <M>, <N> )
+##
+##  This function computes trace of the module  <M>  in  <N> by doing 
+##  the following: computes a basis for Hom_A(M,N) and then computes 
+##  the sum of all the images of the elements in this basis. This is 
+##  also a minimal right Fac(M)-approximation. 
+##
+InstallMethod( TraceOfModule,
+    "for two PathAlgebraMatModules",
+    [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ],
+    
+    function( M, N )
+    local homMN, B, trace;
+    #
+    # Checking if the modules  <M>  and  <N>  are modules over the same algebra.
+    #
+    if RightActingAlgebra(M) <> RightActingAlgebra(N) then
+        Error("the entered modules are not modules over the same algebra,\n");
+    fi;
+    #
+    # If  <M>  or  <N>  are zero, then the trace is the zero module.
+    #
+    if M = ZeroModule(RightActingAlgebra(M)) or N = ZeroModule(RightActingAlgebra(N)) then
+        return ZeroMapping(ZeroModule(RightActingAlgebra(N)),N);
+    fi;
+    #
+    # Finding a basis for  Hom(M,N), and taking the sum of all the images of these
+    # homomorphisms from  <M>  to  <N>.  This is the trace of  <M>  in  <N>. 
+    #
+    homMN := HomOverAlgebra(M,N);
+    if Length(homMN) = 0 then
+        return ZeroMapping(ZeroModule(RightActingAlgebra(N)),N);
+    fi;
+    B := BasisVectors(Basis(M));
+    trace := Flat(List(B, b -> List(homMN, f -> ImageElm(f,b))));
+    
+    return SubRepresentationInclusion(N,trace);
+end
+  );

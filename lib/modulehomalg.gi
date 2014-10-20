@@ -445,7 +445,7 @@ end
 
 #######################################################################
 ##
-#O   MinimalLeftApproximation( <M>, <C> )
+#O   MinimalLeftApproximation( <C>, <M> )
 ##
 ##  This function computes the minimal left add<M>-approximation of the
 ##  module  <C>.  TODO/CHECK: If one can modify the algorithm similarly 
@@ -1139,4 +1139,134 @@ InstallMethod ( N_RigidModule,
     
     return true;
 end 
+  );
+
+#######################################################################
+##
+#O  LeftFacMApproximation( <C>, <M> )
+##
+##  This function computes a left, not necessarily left minimal, 
+##  Fac<M>-approximation of the module  <C>  by doing the following:
+##                  p
+##           P(C) -------> C  (projective cover)
+##             |           |
+##           f |           | g - the returned homomorphism
+##             V           V
+##          M^{P(C)} ----> E
+##
+InstallMethod( LeftFacMApproximation,
+    "for a representations of a quiver",
+    [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ], 0,
+    function( C, M )
+
+    local p, f; 
+    #
+    # Checking if the modules  <C>  and  <M>  are modules over the same algebra.
+    #
+    if RightActingAlgebra(C) <> RightActingAlgebra(M) then
+        Error("the entered modules are not modules over the same algebra,\n");
+    fi;    
+    p := ProjectiveCover(C);
+    f := MinimalLeftAddMApproximation(Source(p),M);
+    
+    return PushOut(p,f)[2];
+end
+  );
+
+
+#######################################################################
+##
+#O  MinimalLeftFacMApproximation( <C>, <M> )
+##
+##  This function computes a minimal left Fac<M>-approximation of the 
+##  module  <C>. 
+##
+InstallMethod( MinimalLeftFacMApproximation,
+    "for a representations of a quiver",
+    [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ], 0,
+    function( C, M );
+
+    return LeftMinimalVersion(LeftFacMApproximation(C,M))[1];
+end
+  );
+
+
+#######################################################################
+##
+#O  RightSubMApproximation( <M>, <C> )
+##
+##  This function computes a right, not necessarily a right minimal,
+##  Sub<M>-approximation of the module  <C>  by doing the following:
+##
+##             E -----> M^{I(C)}  (minimal right Add<M>-approximation)
+##             |           |
+##           g |           | f     g - the returned homomorphism
+##             V    i      V
+##             C -------> I(C)  (injective envelope)
+##
+InstallMethod( RightSubMApproximation,
+    "for a representations of a quiver",
+    [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ], 0,
+    function( M, C )
+
+    local iop, i, f; 
+    #
+    # Checking if the modules  <M>  and  <C>  are modules over the same algebra.
+    #
+    if RightActingAlgebra(M) <> RightActingAlgebra(C) then
+        Error("the entered modules are not modules over the same algebra,\n");
+    fi;      
+    iop := ProjectiveCover(DualOfModule(C));
+    i := DualOfModuleHomomorphism(iop);
+    f := MinimalRightAddMApproximation(M, Range(i));
+    
+    return PullBack(i,f)[2];
+end
+  );
+
+
+#######################################################################
+##
+#O  MinimalRightSubMApproximation( <M>, <C> )
+##
+##  This function computes a minimal right Sub<M>-approximation of the module 
+##  <C>. 
+##
+InstallMethod( MinimalRightSubMApproximation,
+    "for a representations of a quiver",
+    [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ], 0,
+    function( M, C );
+
+    return RightMinimalVersion(RightSubMApproximation(M,C))[1];
+end
+  );
+
+
+#######################################################################
+##
+#O  LeftSubMApproximation( <C>, <M> )
+##
+##  This function computes a minimal left Sub<M>-approximation of the 
+##  module  <C>  by doing the following: 
+##            f
+##       C -------> M^{C} = the minimal left Add<M>-approxiamtion
+##
+##   Returns the natural projection  C --------> Im(f). 
+##
+InstallMethod( LeftSubMApproximation,
+    "for a representations of a quiver",
+    [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ], 0,
+    function( C, M )
+
+    local f; 
+    #
+    # Checking if the modules  <C>  and  <M>  are modules over the same algebra.
+    #
+    if RightActingAlgebra(C) <> RightActingAlgebra(M) then
+        Error("the entered modules are not modules over the same algebra,\n");
+    fi;      
+    f := MinimalLeftAddMApproximation(C,M);
+    
+    return ImageProjection(f);
+end
   );
