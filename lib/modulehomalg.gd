@@ -34,3 +34,12 @@ DeclareOperation( "MinimalRightSubMApproximation", [IsPathAlgebraMatModule, IsPa
 # Left SubM-approximations
 DeclareOperation( "LeftSubMApproximation", [IsPathAlgebraMatModule, IsPathAlgebraMatModule]);
 DeclareSynonym( "MinimalLeftSubMApproximation", LeftSubMApproximation);
+DeclareOperation( "InjDimensionOfModule", [ IsPathAlgebraMatModule, IS_INT ]);
+DeclareAttribute( "InjDimension", IsPathAlgebraMatModule ); 
+DeclareOperation( "HaveFiniteCoresolutionInAddM", [IsPathAlgebraMatModule, IsPathAlgebraMatModule, IsInt]);
+DeclareOperation( "TiltingModule", [IsPathAlgebraMatModule, IsInt]);
+DeclareAttribute( "IsTiltingModule", IsPathAlgebraMatModule );
+DeclareOperation( "HaveFiniteResolutionInAddM", [IsPathAlgebraMatModule, IsPathAlgebraMatModule, IsInt]);
+DeclareOperation( "CotiltingModule", [IsPathAlgebraMatModule, IsInt]);
+DeclareAttribute( "IsCotiltingModule", IsPathAlgebraMatModule );
+DeclareOperation( "AllComplementsOfAlmostCompleteTiltingModule", [IsPathAlgebraMatModule, IsPathAlgebraMatModule]);

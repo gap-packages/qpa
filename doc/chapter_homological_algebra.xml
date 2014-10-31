@@ -33,6 +33,37 @@ gap> N := RightModuleOverPathAlgebra(A,mat);;]]>
    </Returns>
 </ManSection>
 
+
+<ManSection>
+   <Oper Name="AllComplementsOfAlmostCompleteTiltingModule" Arg="M, X" Comm=""/>
+   <Description>
+     Arguments: <Arg>M</Arg>, <Arg>X</Arg> - two PathAlgebraMatModule's.<Br />
+   </Description>
+   <Returns>all the complements of the almost complete tilting module
+   <Arg>M</Arg> as two exact sequences, the first is all complements
+   which are gotten as an <Arg>add M</Arg>-resolution of <Arg>X</Arg>
+   and the second is all complements which are gotten as an <Arg>add
+   M</Arg>-coresolution of <Arg>X</Arg>.  If there are no complements
+   to the left of  <Arg>X</Arg>, then an empty list is returned.
+   Similarly for to the right of <Arg>X</Arg>.  In particular, if
+   <Arg>X</Arg> has no other complements the list <Code>[[],[]]</Code>
+   is returned. 
+   </Returns>
+</ManSection>
+
+<ManSection>
+   <Oper Name="CotiltingModule" Arg="M, n" Comm=""/>
+   <Description>
+     Arguments: <Arg>M</Arg>, <Arg>n</Arg> - a PathAlgebraMatModule and a
+     positive integer.<Br />
+   </Description>
+   <Returns>false if <Arg>M</Arg> is not a cotilting module of
+   injective dimension at most <Arg>a</Arg>. Otherwise, it returns the
+   injective dimension of <Arg>M</Arg> and the resolution of all
+   indecomposable injective modules in <Arg>add M</Arg>.
+   </Returns>
+</ManSection>
+
 <ManSection>
    <Oper Name="DominantDimensionOfAlgebra" Arg="A, n" Comm=""/>
    <Description>
@@ -136,6 +167,53 @@ gap> N := RightModuleOverPathAlgebra(A,mat);;]]>
 </ManSection>
 
 <ManSection>
+   <Oper Name="HaveFiniteCoresolutionInAddM" Arg="N, M, n" Comm=""/>
+   <Description>
+     Arguments: <Arg>N</Arg>, <Arg>M</Arg>, <Arg>n</Arg> - two
+     PathAlgebraMatModule's and an integer.<Br />
+   </Description>
+   <Returns>false if  <Arg>N</Arg> does not have a coresolution of
+   length at most  <Arg>n</Arg> in <Arg>add M</Arg>, otherwise it 
+   returns the coresolution of <Arg>N</Arg> of length at most
+   <Arg>n</Arg>. 
+   </Returns>
+</ManSection>
+
+<ManSection>
+   <Oper Name="HaveFiniteResolutionInAddM" Arg="N, M, n" Comm=""/>
+   <Description>
+     Arguments: <Arg>N</Arg>, <Arg>M</Arg>, <Arg>n</Arg> - two
+     PathAlgebraMatModule's and an integer.<Br />
+   </Description>
+   <Returns>false if  <Arg>N</Arg> does not have a resolution of
+   length at most  <Arg>n</Arg> in <Arg>add M</Arg>, otherwise it 
+   returns the resolution of <Arg>N</Arg> of length at most
+   <Arg>n</Arg>. 
+   </Returns>
+</ManSection>
+
+<ManSection>
+   <Attr Name="InjDimension" Arg="M" Comm="a PathAlgebraMatModule"/>
+   <Description>
+     Arguments: <Arg>M</Arg> - a PathAlgebraMatModule.<Br />
+   </Description>
+   <Description>
+     If the injetive dimension of the module  <Arg>M</Arg>  has been
+     computed, then the projective dimension is returned.  
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Oper Name="InjDimensionOfModule" Arg="M" Comm="for a PathAlgebraMatModule"/>
+   <Description>
+     Arguments: <Arg>M, n</Arg> - a PathAlgebraMatModule, a positive integer.<Br />
+   </Description>
+   <Returns>Returns the injective dimension of the module
+   <Arg>M</Arg> if it is less or equal to <Arg>n</Arg>.  Otherwise it
+   returns false.</Returns>
+ </ManSection>
+
+<ManSection>
    <Oper Name="IsOmegaPeriodic" Arg="M, n" Comm="for a
    PathAlgebraMatModule and a positive integer"/>
    <Description> 
@@ -148,10 +226,30 @@ gap> N := RightModuleOverPathAlgebra(A,mat);;]]>
 </ManSection>
 
 <ManSection>
+   <Attr Name="IsCotiltingModule" Arg="M" Comm="a PathAlgebraMatModule"/>
+   <Description>
+     Arguments: <Arg>M</Arg> - a PathAlgebraMatModule.<Br />
+   </Description>
+   <Returns> true if the module <Arg>M</Arg> has been checked to be a
+   cotilting mdoule, otherwise it returns an error message.
+   </Returns>
+</ManSection>
+
+<ManSection>
+   <Attr Name="IsTtiltingModule" Arg="M" Comm="a PathAlgebraMatModule"/>
+   <Description>
+     Arguments: <Arg>M</Arg> - a PathAlgebraMatModule.<Br />
+   </Description>
+   <Returns> true if the module <Arg>M</Arg> has been checked to be a
+   tilting mdoule, otherwise it returns an error message.
+   </Returns>
+</ManSection>
+
+<ManSection>
    <Oper Name="IyamaGenerator" Arg="M" Comm="for a PathAlgebraMatModule"/>
    <Description> 
-    Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>).
-   <Br /></Description>
+    Arguments: <Arg>M</Arg> -- a path algebra module
+    (<C>PathAlgebraMatModule</C>).  <Br /></Description>
    <Returns>a module <Math>N</Math> such that <Arg>M</Arg> is a direct
    summand of <Math>N</Math> and such that the global dimension of the
    endomorphism ring of <Math>N</Math> is finite using the algorithm
@@ -396,9 +494,6 @@ true ]]>
    <Description>
      If the projetive dimension of the module  <Arg>M</Arg>  has been
      computed, then the projective dimension is returned.  
-     the minimal right <Code>add M</Code>-approximation of the
-     module <Arg>C</Arg>. Note: The order of the arguments is opposite
-     of the order for minimal left approximations.
    </Description>
 </ManSection>
 
@@ -409,7 +504,7 @@ true ]]>
    </Description>
    <Returns>Returns the projective dimension of the module
    <Arg>M</Arg> if it is less or equal to <Arg>n</Arg>.  Otherwise it
-   returns error message.</Returns>
+   returns false.</Returns>
  </ManSection>
 
 <ManSection>
@@ -540,6 +635,19 @@ gap> U := Range(pushout[1]);
    </Description>
    <Returns>true if  <Arg>M</Arg> is a <Arg>n</Arg>-rigid
    module. Otherwise it returns false.</Returns>
+</ManSection>
+
+<ManSection>
+   <Oper Name="TiltingModule" Arg="M, n" Comm=""/>
+   <Description>
+     Arguments: <Arg>M</Arg>, <Arg>n</Arg> - a PathAlgebraMatModule and a
+     positive integer.<Br />
+   </Description>
+   <Returns>false if <Arg>M</Arg> is not a tilting module of projective
+   dimension at most <Arg>a</Arg>. Otherwise, it returns the projective
+   dimension of <Arg>M</Arg> and the coresolution of all
+   indecomposable projective modules in <Arg>add M</Arg>.
+   </Returns>
 </ManSection>
 </Section>
 

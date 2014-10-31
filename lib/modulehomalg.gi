@@ -1029,7 +1029,11 @@ InstallMethod ( ProjDimensionOfModule,
     local projres, i;
     
     if HasProjDimension(M) then
-        return ProjDimension(M);
+        if ProjDimension(M) > n then
+            return false;
+        else
+            return ProjDimension(M);
+        fi;
     fi;
     projres := ProjectiveResolution(M);
     i := 1;
@@ -1268,5 +1272,341 @@ InstallMethod( LeftSubMApproximation,
     f := MinimalLeftAddMApproximation(C,M);
     
     return ImageProjection(f);
+end
+  );
+
+#######################################################################
+##
+#O  InjDimensionOfModule( <M>, <n> )
+##
+##  Returns the injective dimension of the module  <M>  if it is less
+##  or equal to  <n>, otherwise it returns false.
+##  
+InstallMethod ( InjDimensionOfModule, 
+    "for a PathAlgebraMatModule and a positive integer",
+    true,
+    [ IsPathAlgebraMatModule, IS_INT ], 
+    0,
+    function( M, n )
+    
+    local DM, projresop, i;
+    
+    if HasInjDimension(M) then 
+        if InjDimension(M) > n then
+            return false;
+        else 
+            return InjDimension(M);
+        fi;
+    fi;
+    DM := DualOfModule(M);     
+    if HasProjDimension(DM) then
+        return ProjDimension(DM);
+    fi;
+    projresop := ProjectiveResolution(DM);
+    i := 1;
+    while i < n + 2 do
+        if Dimension(ObjectOfComplex(projresop,i)) = 0 then # the projective dimension of DM is  i - 1.
+            SetInjDimension(M, i - 1);
+            return i-1;
+        fi;
+        i := i + 1;
+    od; 
+    
+    return false;
+end 
+  );
+
+#######################################################################
+##
+#O  HaveFiniteCoresolutionInAddM( <N>, <M>, <n> )
+##
+##  This function checks if the module  <N>  has a finite coresolution
+##  in  add<M>  of length at most  <n>.  If it does, then this 
+##  coresoultion is returned, otherwise false is returned. 
+##
+InstallMethod( HaveFiniteCoresolutionInAddM,
+    "for two PathAlgebraMatModules and a positive integer",
+    [ IsPathAlgebraMatModule, IsPathAlgebraMatModule, IS_INT ],
+    
+    function( N, M, n )
+    local U, differentials, g, f, i, cat, coresolution;
+    #
+    # Checking if  <N>  and  <M>  are modules over the same algebra.
+    #
+    if RightActingAlgebra(M) <> RightActingAlgebra(N) then
+        Error("the entered modules are not modules over the same algebra,\n");
+    fi;
+    # 
+    # Computing successive minimal left add<M>-approximation to produce
+    # a coresolution of  <N>  in  add<M>.
+    #
+    U := N;
+    differentials := [];
+    g := IdentityMapping(U);
+    f := MinimalLeftAddMApproximation(U,M);    
+    for i in [0..n] do
+        if not IsInjective(f) then 
+            return false;
+        fi;
+        Add(differentials, g*f); 
+        g := CoKernelProjection(f);
+        if Dimension(Range(g)) = 0 then
+            break;
+        fi;
+        f := MinimalLeftAddMApproximation(Range(g),M); 
+    od;
+    differentials := Reversed(differentials);
+    cat := CatOfRightAlgebraModules(RightActingAlgebra(M));
+    coresolution := FiniteComplex(cat, -Length(differentials) + 1, differentials);
+    return coresolution;
+end
+  );
+
+
+#######################################################################
+##
+#O  TiltingModule( <M>, <n> )
+##
+##  This function checks if the module  <M>  is a tilting module of 
+##  projective dimension at most  <n>.
+##
+InstallMethod( TiltingModule,
+    "for a PathAlgebraMatModule and a positive integer",
+    [ IsPathAlgebraMatModule, IS_INT ],
+    
+    function( M, n )
+    local m, N, i, P, t, coresolution, temp;
+    #
+    # Checking if the module has projective dimension at most  <n>.
+    #
+    if HasProjDimension(M) then 
+        if ProjDimension(M) > n then
+            return false;
+        fi;
+    else
+        if not IS_INT(ProjDimensionOfModule(M,n)) then
+            return false;
+        fi;
+    fi;
+    #
+    # Now we know that the projective dimension of  <M>  is at most  <n>.
+    # Next we check if the module  <M>  is selforthogonal. 
+    # 
+    m := ProjDimension(M); 
+    N := M;
+    i := 0;
+    repeat 
+        if Length(ExtOverAlgebra(N,M)[2]) <> 0 then
+            return false;
+        fi;
+        i := i + 1;
+        if i < m then 
+            N := NthSyzygy(N,1); 
+        fi;
+    until i = m + 1;
+    #
+    # Now we know that the projective dimension of  <M>  is at most  <n>, 
+    # and that the module  <M>  is selforthogonal.  Next we check if all the 
+    # indecomposable projectives can be coresolved in  add<M>.
+    #
+    P := IndecProjectiveModules(RightActingAlgebra(M));
+    t := Length(P);
+    coresolution := [];
+    for i in [1..t] do
+        temp := HaveFiniteCoresolutionInAddM(P[i], M, m); 
+        if temp = false then
+            return false;
+        fi;
+        Add(coresolution, temp);
+    od;
+    #
+    # Now we know that the module  <M>  is a tilting module of projective 
+    # dimension  m. 
+    # 
+    SetIsTiltingModule(M, true);
+    return [m, coresolution];
+end
+  );
+
+#######################################################################
+##
+#O  HaveFiniteResolutionInAddM( <N>, <M>, <n> )
+##
+##  This function checks if the module  <N>  has a finite resolution
+##  in  add<M>  of length at most  <n>.  If it does, then this 
+##  resoultion is returned, otherwise false is returned. 
+##
+InstallMethod( HaveFiniteResolutionInAddM,
+    "for two PathAlgebraMatModules and a positive integer",
+    [ IsPathAlgebraMatModule, IsPathAlgebraMatModule, IS_INT ],
+    
+    function( N, M, n )
+    local U, differentials, g, f, i, cat, resolution;
+    #
+    # Checking if  <N>  and  <M>  are modules over the same algebra.
+    #
+    if RightActingAlgebra(M) <> RightActingAlgebra(N) then
+        Error("the entered modules are not modules over the same algebra,\n");
+    fi;
+    # 
+    # Computing successive minimal right add<M>-approximation to produce
+    # a resolution of  <N>  in  add<M>.
+    #
+    U := N;
+    differentials := [];
+    g := IdentityMapping(U);
+    f := MinimalRightAddMApproximation(M,U);
+    for i in [0..n] do
+        if not IsSurjective(f) then
+            return false;
+        fi;
+        Add(differentials, f*g);
+        g := KernelInclusion(f);
+        if Dimension(Source(g)) = 0 then
+            break;
+        fi;
+        f := MinimalRightAddMApproximation(M, Source(g));
+    od;
+    cat := CatOfRightAlgebraModules(RightActingAlgebra(M));
+    resolution := FiniteComplex(cat, 1, differentials);
+    return resolution;
+end
+  );
+
+
+#######################################################################
+##
+#O  CotiltingModule( <M>, <n> )
+##
+##  This function checks if the module  <M>  is a cotilting module of 
+##  projective dimension at most  <n>.
+##
+InstallMethod( CotiltingModule,
+    "for a PathAlgebraMatModule and a positive integer",
+    [ IsPathAlgebraMatModule, IS_INT ],
+    
+    function( M, n )
+    local m, N, i, I, t, resolution, temp;
+    #
+    # Checking if the module has injective dimension at most  <n>.
+    #
+    if HasInjDimension(M) then 
+        if InjDimension(M) > n then
+            return false;
+        fi;
+    else
+        if not IS_INT(InjDimensionOfModule(M,n)) then
+            return false;
+        fi;
+    fi;
+    #
+    # Now we know that the injective dimension of  <M>  is at most  <n>.
+    # Next we check if the module  <M>  is selforthogonal. 
+    # 
+    m := InjDimension(M); 
+    N := M;
+    i := 0;
+    repeat 
+        if Length(ExtOverAlgebra(N,M)[2]) <> 0 then
+            return false;
+        fi;
+        i := i + 1;
+        if i < m then 
+            N := NthSyzygy(N,1); 
+        fi;
+    until i = m + 1;
+    #
+    # Now we know that the injective dimension of  <M>  is at most  <n>, 
+    # and that the module  <M>  is selforthogonal.  Next we check if all the 
+    # indecomposable injectives can be resolved in  add<M>.
+    #
+    I := IndecInjectiveModules(RightActingAlgebra(M));
+    t := Length(I);
+    resolution := [];
+    for i in [1..t] do
+        temp := HaveFiniteResolutionInAddM(I[i], M, m); 
+        if temp = false then
+            return false;
+        fi;
+        Add(resolution, temp);
+    od;
+    #
+    # Now we know that the module  <M>  is a cotilting module of injective 
+    # dimension  <M>. 
+    # 
+    SetIsCotiltingModule(M, true);    
+    return [m, resolution];
+end
+  );
+
+
+#######################################################################
+##
+#O  AllComplementsOfAlmostCompleteTiltingModule( <M>, <X> )
+##
+##  This function constructs all complements of an almost complete 
+##  tilting module  <M>  given a complement  <X>  of  <M>.  The 
+##  complements are returned as a long exact sequence (whenever possible)
+##  of minimal left and minimal right  add<M>-approximations.
+##
+InstallMethod( AllComplementsOfAlmostCompleteTiltingModule, 
+    "for two PathAlgebraMatModules",
+    [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ],
+    
+    function( M, X)
+    local U, leftdifferentials, g, f, cat, resolution, 
+          rightdifferentials, coresolution;
+    #
+    # Checking if  <M>  and  <X>  are modules over the same algebra.
+    #
+    if RightActingAlgebra(M) <> RightActingAlgebra(X) then
+        Error("the entered modules are not modules over the same algebra,\n");
+    fi;
+    # 
+    # Computing successive minimal right add<M>-approximation to produce
+    # a resolution of  <X>  in  add<M>.
+    #
+    U := X;
+    leftdifferentials := [];
+    g := IdentityMapping(U);
+    f := MinimalRightAddMApproximation(M,U);
+    while IsSurjective(f) do
+        Add(leftdifferentials, f*g);
+        g := KernelInclusion(f);
+        if Dimension(Source(g)) = 0 then
+            break;
+        fi;
+        f := MinimalRightAddMApproximation(M, Source(g));
+    od;
+    cat := CatOfRightAlgebraModules(RightActingAlgebra(M));
+    if Length(leftdifferentials) = 0 then
+        resolution := [];
+    else
+        Add(leftdifferentials, KernelInclusion(leftdifferentials[Length(leftdifferentials)]));         
+        resolution := FiniteComplex(cat, 1, leftdifferentials);
+    fi;
+    # 
+    # Computing successive minimal left add<M>-approximation to produce
+    # a coresolution of  <X>  in  add<M>.
+    #
+    U := X;
+    rightdifferentials := [];
+    g := IdentityMapping(U);
+    f := MinimalLeftAddMApproximation(U,M);    
+    while IsInjective(f) do
+        Add(rightdifferentials, g*f); 
+        g := CoKernelProjection(f);
+        f := MinimalLeftAddMApproximation(Range(g),M); 
+    od;
+
+    if Length(rightdifferentials) = 0 then
+        coresolution := [];
+    else
+        Add(rightdifferentials, CoKernelProjection(rightdifferentials[Length(rightdifferentials)])); 
+        rightdifferentials := Reversed(rightdifferentials);
+        coresolution := FiniteComplex(cat, -Length(rightdifferentials) + 1, rightdifferentials);    
+    fi;
+    
+    return [resolution,coresolution];
 end
   );
