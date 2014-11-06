@@ -35,11 +35,13 @@ gap> N := RightModuleOverPathAlgebra(A,mat);;]]>
 
 
 <ManSection>
-   <Oper Name="AllComplementsOfAlmostCompleteTiltingModule" Arg="M, X" Comm=""/>
+   <Oper Name="AllComplementsOfAlmostCompleteTiltingModule" Arg="M, X"
+	 Comm=""/>
+   <Oper Name="AllComplementsOfAlmostCompleteCotiltingModule" Arg="M, X" Comm=""/>
    <Description>
      Arguments: <Arg>M</Arg>, <Arg>X</Arg> - two PathAlgebraMatModule's.<Br />
    </Description>
-   <Returns>all the complements of the almost complete tilting module
+   <Returns>all the complements of the almost complete (co-)tilting module
    <Arg>M</Arg> as two exact sequences, the first is all complements
    which are gotten as an <Arg>add M</Arg>-resolution of <Arg>X</Arg>
    and the second is all complements which are gotten as an <Arg>add
@@ -129,6 +131,15 @@ gap> N := RightModuleOverPathAlgebra(A,mat);;]]>
 </ManSection>
 
 <ManSection>
+   <Oper Name="FaithfulDimension" Arg="M" Comm=""/>
+   <Description>
+     Arguments: <Arg>M</Arg> - a PathAlgebraMatModule.<Br />
+   </Description>
+   <Returns> the faithful dimension of the module <Arg>M</Arg>. 
+   </Returns>
+</ManSection>
+
+<ManSection>
    <Oper Name="GlobalDimensionOfAlgebra" Arg="A, n" Comm=""/>
    <Description>
      Arguments: <Arg>A</Arg>, <Arg>n</Arg> - a quiver algebra, a
@@ -214,6 +225,16 @@ gap> N := RightModuleOverPathAlgebra(A,mat);;]]>
  </ManSection>
 
 <ManSection>
+   <Attr Name="IsCotiltingModule" Arg="M" Comm="a PathAlgebraMatModule"/>
+   <Description>
+     Arguments: <Arg>M</Arg> - a PathAlgebraMatModule.<Br />
+   </Description>
+   <Returns> true if the module <Arg>M</Arg> has been checked to be a
+   cotilting mdoule, otherwise it returns an error message.
+   </Returns>
+</ManSection>
+
+<ManSection>
    <Oper Name="IsOmegaPeriodic" Arg="M, n" Comm="for a
    PathAlgebraMatModule and a positive integer"/>
    <Description> 
@@ -222,16 +243,6 @@ gap> N := RightModuleOverPathAlgebra(A,mat);;]]>
    <Returns><C>i</C>, where <C>i</C> is the smallest positive integer
      less or equal <C>n</C> such that the representation <Arg>M</Arg> is isomorphic
      to the <C>i</C>-th syzygy of <Arg>M</Arg>, and false otherwise.
-   </Returns>
-</ManSection>
-
-<ManSection>
-   <Attr Name="IsCotiltingModule" Arg="M" Comm="a PathAlgebraMatModule"/>
-   <Description>
-     Arguments: <Arg>M</Arg> - a PathAlgebraMatModule.<Br />
-   </Description>
-   <Returns> true if the module <Arg>M</Arg> has been checked to be a
-   cotilting mdoule, otherwise it returns an error message.
    </Returns>
 </ManSection>
 
@@ -267,6 +278,18 @@ gap> N := RightModuleOverPathAlgebra(A,mat);;]]>
    the module <Math>C</Math>, where the first version returns a not
    necessarily minimal left <Math>\operatorname{Fac} M</Math>-approximation and the
    second returns a minimal approximation.
+   </Returns>
+</ManSection>
+
+<ManSection>
+   <Oper Name="LeftMutationOfTiltingModuleComplement" Arg="M, N" Comm="for two PathAlgebraMatModules"/>
+   <Oper Name="LeftMutationOfCotiltingModuleComplement" Arg="M, N" Comm="for two PathAlgebraMatModules"/>
+   <Description> 
+    Arguments: <Arg>M</Arg>, <Arg>N</Arg> -- two path algebra modules (<C>PathAlgebraMatModule</C>).
+   <Br /></Description>
+   <Returns>a left mutation of the complement <Arg>N</Arg> of the
+   almost complete tilting/cotilting module  <Arg>M</Arg>, if such a
+   complement exists.  Otherwise it returns false.
    </Returns>
 </ManSection>
 
@@ -486,6 +509,20 @@ true ]]>
    </Returns>
 </ManSection>
 
+
+<ManSection>
+   <Oper Name="NumberOfComplementsOfAlmostCompleteTiltingModule" Arg="M" Comm="for a
+   PathAlgebraMatModule"/>
+   <Oper Name="NumberOfComplementsOfAlmostCompleteCotiltingModule" Arg="M" Comm="for a
+   PathAlgebraMatModule"/>
+   <Description> 
+    Arguments: <Arg>M</Arg> -- a PathAlgebraMatModule.<Br /></Description>
+   <Returns>the number complements of an almost complete
+   tilting/cotilting module  <Arg>M</Arg>, assuming that  <Arg>M</Arg>
+   is an almost complete tilting module. 
+   </Returns>
+</ManSection>
+
 <ManSection>
    <Attr Name="ProjDimension" Arg="M" Comm="a PathAlgebraMatModule"/>
    <Description>
@@ -608,6 +645,18 @@ gap> U := Range(pushout[1]);
    <Br /></Description>
    <Returns>a minimal right <Math>\operatorname{Fac} M</Math>-approximation of
    the module <Math>C</Math>.  
+   </Returns>
+</ManSection>
+
+<ManSection>
+   <Oper Name="RightMutationOfTiltingModuleComplement" Arg="M, N" Comm="for two PathAlgebraMatModules"/>
+   <Oper Name="RightMutationOfCotiltingModuleComplement" Arg="M, N" Comm="for two PathAlgebraMatModules"/>
+   <Description>
+    Arguments: <Arg>M</Arg>, <Arg>N</Arg> -- two path algebra modules (<C>PathAlgebraMatModule</C>).
+   <Br /></Description>
+   <Returns>a right mutation of the complement <Arg>N</Arg> of the
+   almost complete tilting/cotilting module  <Arg>M</Arg>, if such a
+   complement exists.  Otherwise it returns false.
    </Returns>
 </ManSection>
 

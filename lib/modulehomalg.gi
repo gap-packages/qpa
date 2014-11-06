@@ -1610,3 +1610,117 @@ InstallMethod( AllComplementsOfAlmostCompleteTiltingModule,
     return [resolution,coresolution];
 end
   );
+
+#######################################################################
+##
+#O  FaithfulDimension( <M> )
+##
+##  This function computes the faithful dimension of a module  <M>.
+##
+InstallMethod( FaithfulDimension,
+    "for a PathAlgebraMatModules",
+    [ IsPathAlgebraMatModule ],
+    
+    function( M )
+    local P, lengths, p, tempdim, U, g, f;
+    
+    P := IndecProjectiveModules(RightActingAlgebra(M));
+    # 
+    # For all indecomposable projective  A-modules computing successive 
+    # minimal left add<M>-approximation to produce find the faithful
+    # dimension  <M>  has with respect to that indecomposable 
+    # projective. 
+    #
+    lengths := [];
+    for p in P do
+        tempdim := 0; 
+        U := p;
+        f := MinimalLeftAddMApproximation(U,M);    
+        while IsInjective(f) do 
+            tempdim := tempdim + 1;
+            g := CoKernelProjection(f);
+            if Dimension(Range(g)) = 0 then
+                Add(lengths, infinity);
+                break;
+            else
+                f := MinimalLeftAddMApproximation(Range(g),M); 
+            fi;
+        od;
+        if Dimension(Range(g)) <> 0 then 
+            Add(lengths, tempdim);
+        fi;
+    od; 
+
+    return Minimum(lengths);
+end
+  );
+
+#######################################################################
+##
+#O  NumberOfComplementsOfAlmostCompleteTiltingModule( <M> )
+##
+##  This function computes the number complements of an almost 
+##  complete tilting/cotilting module  <M>, assuming that  <M>
+##  is an almost complete tilting module.
+##
+InstallMethod( NumberOfComplementsOfAlmostCompleteTiltingModule,
+    "for a PathAlgebraMatModules",
+    [ IsPathAlgebraMatModule ],
+    
+    function( M );
+    
+    return FaithfulDimension(M) + 1; 
+end
+  );
+
+#######################################################################
+##
+#O  LeftMutationOfTiltingModuleComplement( <M>, <N> )
+##
+##  This function computes the left mutation of a complement  <N>  of
+##  an almost complete tilting module  <M>, assuming that  <M>  is an 
+##  almost complete tilting module.  If it doesn't exist, then the
+##  function returns false.
+##
+InstallMethod( LeftMutationOfTiltingModuleComplement,
+    "for a PathAlgebraMatModules",
+    [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ],
+        
+    function( M, N )
+    
+    local f;
+    
+    f := MinimalLeftAddMApproximation(N, M);
+    if IsInjective(f) then
+        return CoKernel(f);
+    else
+        return false;
+    fi;
+end
+  );
+
+#######################################################################
+##
+#O  RightMutationOfTiltingModuleComplement( <M>, <N> )
+##
+##  This function computes the right mutation of a complement  <N>  of
+##  an almost complete tilting module  <M>, assuming that  <M>  is an 
+##  almost complete tilting module.  If it doesn't exist, then the
+##  function returns false.
+##
+InstallMethod( RightMutationOfTiltingModuleComplement,
+    "for a PathAlgebraMatModules",
+    [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ],
+        
+    function( M, N )
+    
+    local f;
+    
+    f := MinimalRightAddMApproximation(M, N);
+    if IsSurjective(f) then
+        return Kernel(f);
+    else
+        return false;
+    fi;
+end
+  );

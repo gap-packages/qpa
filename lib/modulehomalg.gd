@@ -43,3 +43,11 @@ DeclareOperation( "HaveFiniteResolutionInAddM", [IsPathAlgebraMatModule, IsPathA
 DeclareOperation( "CotiltingModule", [IsPathAlgebraMatModule, IsInt]);
 DeclareAttribute( "IsCotiltingModule", IsPathAlgebraMatModule );
 DeclareOperation( "AllComplementsOfAlmostCompleteTiltingModule", [IsPathAlgebraMatModule, IsPathAlgebraMatModule]);
+DeclareSynonym( "AllComplementsOfAlmostCompleteCotiltingModule", AllComplementsOfAlmostCompleteTiltingModule);
+DeclareOperation( "FaithfulDimension", [ IsPathAlgebraMatModule ]);
+DeclareOperation( "NumberOfComplementsOfAlmostCompleteTiltingModule", [ IsPathAlgebraMatModule ]);
+DeclareSynonym( "NumberOfComplementsOfAlmostCompleteCotiltingModule", NumberOfComplementsOfAlmostCompleteTiltingModule);
+DeclareOperation( "LeftMutationOfTiltingModuleComplement", [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ]);
+DeclareOperation( "RightMutationOfTiltingModuleComplement", [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ]);
+DeclareSynonym( "LeftMutationOfCotiltingModuleComplement", LeftMutationOfTiltingModuleComplement);
+DeclareSynonym( "RightMutationOfCotiltingModuleComplement", RightMutationOfTiltingModuleComplement);
