@@ -535,7 +535,9 @@ true ]]>
 </ManSection>
 
 <ManSection>
-   <Oper Name="ProjDimensionOfModule" Arg="M" Comm="for a PathAlgebraMatModule"/>
+   <Oper Name="ProjDimensionOfModule" Arg="M, " Comm="for a
+						      PathAlgebraMatModule
+						      and a positive integer"/>
    <Description>
      Arguments: <Arg>M, n</Arg> - a PathAlgebraMatModule, a positive integer.<Br />
    </Description>

@@ -400,45 +400,48 @@ InstallMethod ( MinimalRightApproximation,
    local K, HomMC, EndM, radEndM, radHomMC, i, j, FlatHomMC, 
          FlatradHomMC, V, BB, W, f, VoverW, B, gens, approx, approxmap;
 
-   if RightActingAlgebra(M) = RightActingAlgebra(C) then 
-      K := LeftActingDomain(M);
-      HomMC := HomOverAlgebra(M,C);
-      if Length(HomMC) = 0 then 
-         return ZeroMapping(ZeroModule(RightActingAlgebra(M)),C);
-      else  
-         EndM  := EndOverAlgebra(M);
-         radEndM := RadicalOfAlgebra(EndM);
-         radEndM := BasisVectors(Basis(radEndM));
-         radEndM := List(radEndM, x -> FromEndMToHomMM(M,x));
-         radHomMC := [];
-         for i in [1..Length(HomMC)] do
-            for j in [1..Length(radEndM)] do
-               Add(radHomMC,radEndM[j]*HomMC[i]);
-            od;
-         od;
-         FlatHomMC := List(HomMC, x -> Flat(x!.maps));
-         FlatradHomMC := List(radHomMC, x -> Flat(x!.maps));
-         V := VectorSpace(K,FlatHomMC,"basis");
-         BB := Basis(V,FlatHomMC);
-         W := Subspace(V,FlatradHomMC);
-         f := NaturalHomomorphismBySubspace( V, W );
-         VoverW := Range(f);
-         B := BasisVectors(Basis(VoverW));
-         gens := List(B, x -> PreImagesRepresentative(f,x)); 
-         gens := List(gens, x -> Coefficients(BB,x));
-         gens := List(gens, x -> LinearCombination(HomMC,x));         
+   if RightActingAlgebra(M) = RightActingAlgebra(C) then
+       if Dimension(C) = 0 then
+           return ZeroMapping(ZeroModule(RightActingAlgebra(M)),C);
+       fi;
+       K := LeftActingDomain(M);
+       HomMC := HomOverAlgebra(M,C);
+       if Length(HomMC) = 0 then 
+           return ZeroMapping(ZeroModule(RightActingAlgebra(M)),C);
+       else  
+           EndM  := EndOverAlgebra(M);
+           radEndM := RadicalOfAlgebra(EndM);
+           radEndM := BasisVectors(Basis(radEndM));
+           radEndM := List(radEndM, x -> FromEndMToHomMM(M,x));
+           radHomMC := [];
+           for i in [1..Length(HomMC)] do
+               for j in [1..Length(radEndM)] do
+                   Add(radHomMC,radEndM[j]*HomMC[i]);
+               od;
+           od;
+           FlatHomMC := List(HomMC, x -> Flat(x!.maps));
+           FlatradHomMC := List(radHomMC, x -> Flat(x!.maps));
+           V := VectorSpace(K,FlatHomMC,"basis");
+           BB := Basis(V,FlatHomMC);
+           W := Subspace(V,FlatradHomMC);
+           f := NaturalHomomorphismBySubspace( V, W );
+           VoverW := Range(f);
+           B := BasisVectors(Basis(VoverW));
+           gens := List(B, x -> PreImagesRepresentative(f,x)); 
+           gens := List(gens, x -> Coefficients(BB,x));
+           gens := List(gens, x -> LinearCombination(HomMC,x));         
 ####         gens := List(gens, x -> RightMinimalVersion(x)[1]);
-         approx := List(gens, x -> Source(x));
-         approx := DirectSumOfModules(approx);
-         approxmap := ShallowCopy(DirectSumProjections(approx));
-         approxmap := List([1..Length(approxmap)], x -> approxmap[x]*gens[x]);         
-         approxmap := Sum(approxmap);
-         return RightMinimalVersion(approxmap)[1];
+           approx := List(gens, x -> Source(x));
+           approx := DirectSumOfModules(approx);
+           approxmap := ShallowCopy(DirectSumProjections(approx));
+           approxmap := List([1..Length(approxmap)], x -> approxmap[x]*gens[x]);         
+           approxmap := Sum(approxmap);
+           return RightMinimalVersion(approxmap)[1];
 ####         return approxmap;
-      fi;
+       fi;
    else
-      Error(" the two modules entered into MinimalRightApproximation are not modules over the same algebra.");
-      return fail;
+       Error(" the two modules entered into MinimalRightApproximation are not modules over the same algebra.");
+       return fail;
    fi;
 end
 );
@@ -462,47 +465,50 @@ InstallMethod ( MinimalLeftApproximation,
          FlatradHomCM, V, BB, W, f, VoverW, B, gens, approx, approxmap;
 
    if RightActingAlgebra(M) = RightActingAlgebra(C) then 
-      K := LeftActingDomain(M);
-      HomCM := HomOverAlgebra(C,M);
-      if Length(HomCM) = 0 then 
-         return ZeroMapping(C,ZeroModule(RightActingAlgebra(M)));
-      else  
-         EndM  := EndOverAlgebra(M);
-         radEndM := RadicalOfAlgebra(EndM);
-         radEndM := BasisVectors(Basis(radEndM));
-         radEndM := List(radEndM, x -> FromEndMToHomMM(M,x));
-         radHomCM := [];
-         for i in [1..Length(HomCM)] do
-            for j in [1..Length(radEndM)] do
-               Add(radHomCM,HomCM[i]*radEndM[j]);
-            od;
-         od;
-         FlatHomCM := List(HomCM, x -> Flat(x!.maps));
-         FlatradHomCM := List(radHomCM, x -> Flat(x!.maps));
-         V := VectorSpace(K,FlatHomCM,"basis");
-         BB := Basis(V,FlatHomCM);
-         W := Subspace(V,FlatradHomCM);
-         f := NaturalHomomorphismBySubspace( V, W );
-         VoverW := Range(f);
-         B := BasisVectors(Basis(VoverW));
-         gens := List(B, x -> PreImagesRepresentative(f,x)); 
-         gens := List(gens, x -> Coefficients(BB,x));
-         gens := List(gens, x -> LinearCombination(HomCM,x));
-         approx := List(gens, x -> Range(x));
-         approx := DirectSumOfModules(approx);
-         approxmap := ShallowCopy(DirectSumInclusions(approx));
-         for i in [1..Length(approxmap)] do
-            approxmap[i] := gens[i]*approxmap[i];
-         od;
-         approxmap := Sum(approxmap);
-         return LeftMinimalVersion(approxmap)[1];
-      fi;
+       if Dimension(C) = 0 then
+           return ZeroMapping(C, ZeroModule(RightActingAlgebra(M)));
+       fi;
+       K := LeftActingDomain(M);
+       HomCM := HomOverAlgebra(C,M);
+       if Length(HomCM) = 0 then 
+           return ZeroMapping(C,ZeroModule(RightActingAlgebra(M)));
+       else  
+           EndM  := EndOverAlgebra(M);
+           radEndM := RadicalOfAlgebra(EndM);
+           radEndM := BasisVectors(Basis(radEndM));
+           radEndM := List(radEndM, x -> FromEndMToHomMM(M,x));
+           radHomCM := [];
+           for i in [1..Length(HomCM)] do
+               for j in [1..Length(radEndM)] do
+                   Add(radHomCM,HomCM[i]*radEndM[j]);
+               od;
+           od;
+           FlatHomCM := List(HomCM, x -> Flat(x!.maps));
+           FlatradHomCM := List(radHomCM, x -> Flat(x!.maps));
+           V := VectorSpace(K,FlatHomCM,"basis");
+           BB := Basis(V,FlatHomCM);
+           W := Subspace(V,FlatradHomCM);
+           f := NaturalHomomorphismBySubspace( V, W );
+           VoverW := Range(f);
+           B := BasisVectors(Basis(VoverW));
+           gens := List(B, x -> PreImagesRepresentative(f,x)); 
+           gens := List(gens, x -> Coefficients(BB,x));
+           gens := List(gens, x -> LinearCombination(HomCM,x));
+           approx := List(gens, x -> Range(x));
+           approx := DirectSumOfModules(approx);
+           approxmap := ShallowCopy(DirectSumInclusions(approx));
+           for i in [1..Length(approxmap)] do
+               approxmap[i] := gens[i]*approxmap[i];
+           od;
+           approxmap := Sum(approxmap);
+           return LeftMinimalVersion(approxmap)[1];
+       fi;
    else
-      Error(" the two modules entered into MinimalLeftApproximation are not modules over the same algebra.");
-      return fail;
+       Error(" the two modules entered into MinimalLeftApproximation are not modules over the same algebra.");
+       return fail;
    fi;
 end
-);
+  );
 
 
 #######################################################################
@@ -1008,7 +1014,7 @@ InstallMethod ( DominantDimensionOfAlgebra,
     finite_ones := [1..Length(P)]; 
     SubtractSet(finite_ones,pos); # positions of the indec. projective modules with finite domdim.
     
-    return Maximum(domdimlist{finite_ones});
+    return Minimum(domdimlist{finite_ones});
 end
   );
 
@@ -1051,12 +1057,12 @@ end
 
 #######################################################################
 ##
-#O  GorensteinAlgebraDimension( <A>, <n> )
+#O  GorensteinDimensionOfAlgebra( <A>, <n> )
 ##
 ##  Returns the Gorenstein dimension of the algebra  <A>  if it is less
 ##  or equal to  <n>, otherwise it returns false.
 ##  
-InstallMethod ( GorensteinAlgebraDimension,
+InstallMethod ( GorensteinDimensionOfAlgebra,
     "for a quiver algebra",
     true,
     [ IsQuiverAlgebra, IS_INT ], 
