@@ -18,7 +18,7 @@ DeclareOperation( "DominantDimensionOfModule", [ IsPathAlgebraMatModule, IS_INT 
 DeclareOperation( "DominantDimensionOfAlgebra", [ IsQuiverAlgebra, IS_INT ]);
 DeclareOperation( "ProjDimensionOfModule", [ IsPathAlgebraMatModule, IS_INT ]);
 DeclareAttribute( "ProjDimension", IsPathAlgebraMatModule ); 
-DeclareOperation( "GorensteinAlgebraDimension", [ IsQuiverAlgebra, IS_INT ]);
+DeclareOperation( "GorensteinDimensionOfAlgebra", [ IsQuiverAlgebra, IS_INT ]);
 DeclareAttribute( "GorensteinDimension", IsQuiverAlgebra ); 
 DeclareOperation( "N_RigidModule", [ IsPathAlgebraMatModule, IS_INT ]);
 # Right FacM-approximations
