@@ -87,7 +87,60 @@ gap> TargetOfPath(q4.a2);
 v2]]>
 </Example>
 
-  <ManSection>
+<ManSection>
+   <Oper Name="DynkinQuiver" Label="DynkinQuiver" Arg="Delta, n,
+						     orientation"
+	 Comm=""/>
+   <Description> 
+    Arguments: <Arg>Delta</Arg>, <Arg>n</Arg>, <Arg>orientation</Arg>
+    -- a character (A,D,E), a positive integer, and a list giving the orientation. 
+   <Br /></Description>
+   <Returns>a Dynkin quiver of type <Arg>Delta</Arg> ("A", "D", or
+   "E") with index <Arg>n</Arg> and orientation of the arrows given by
+   the list <Arg>orientation</Arg>. 
+   </Returns>
+   <Description>
+     If <Arg>Delta</Arg> is equal to "A" with index <Arg>n</Arg>, then
+     the list <Arg>orientation</Arg> is of the form <C>["r", "l", "l", ...,"r",
+     "l"]</C> of length <Arg>n-1</Arg>, where "l" or "r" in coordinate
+     <M>i</M> means that the arrow <M>a_i</M> is oriented to the left
+     or to the right, respectively.  The vertices and the arrows are
+     named as in the following diagram
+     <M>\xymatrix{1\ar@{-}[r]^-{a_1} &amp; 2\ar@{-}[r]^-{a_2} &amp;
+     \ar@{--}[r] &amp; \ar@{-}[r]^-{a_{n-2}} &amp; n - 1
+     \ar@{-}[r]^-{a_{n-1}} &amp; n }</M><Br />
+
+     If <Arg>Delta</Arg> is equal to "D" with index <Arg>n</Arg>, then
+     the list <Arg>orientation</Arg> is of the form <C>["r", "l", "l", ...,"r",
+     "l"]</C> of length <Arg>n-1</Arg>, where "l" or "r" in coordinate
+     <M>i</M> means that the arrow <M>a_i</M> is oriented to the left
+     or to the right, respectively.  The vertices and the arrows are
+     named as in the following diagram
+     <M>\xymatrix{1\ar@{-}[dr]^-{a_1} &amp; &amp; &amp;  &amp; &amp;  \\
+         &amp; 3\ar@{-}[r]^{a_3} &amp; \ar@{--}[r] &amp; \ar@{-}[r]^-{a_{n-2}} &amp; n - 1 \ar@{-}[r]^-{a_{n-1}} &amp; n \\
+	 2\ar@{-}[ur]_-{a_2} &amp; &amp; &amp;  &amp; &amp; }</M>
+	 <Br />
+
+	 If <Arg>Delta</Arg> is equal to "E" with index <Arg>n</Arg>,
+	 then the list <Arg>orientation</Arg> is of the form <C>["r",
+	 "l", "l", ...,"r", "l","d"]</C> of length <Arg>n-1</Arg>,
+	 where "l" or "r" in the <Arg>n - 2</Arg> first coordinates
+	 and at coordinate <M>i</M> means that the arrow <M>a_i</M> is
+	 oriented to the left or to the right, respectively, and the
+	 last orientation parameter is "d" or "u" indicating if the
+	 arrow <M>a_{n-1}</M> is oriented down or up.  The vertices and
+	 the arrows are named as in the following diagram
+	 <M>\xymatrix{ &amp; &amp; n\ar@{-}[d]^{a_{n-1}} &amp; &amp;
+	 &amp; &amp; &amp; \\ 1\ar@{-}[r]^{a_1} &amp;
+	 2\ar@{-}[r]^{a_2} &amp; 3\ar@{-}[r]^-{a_3} &amp; \ar@{--}[r]
+	 &amp;\ar@{-}[r] &amp; n - 2 \ar@{-}[r]^-{a_{n-2}} &amp; n -
+	 1}
+	 </M>
+	 <Br />
+   </Description>
+</ManSection>
+
+<ManSection>
    <Func Name="OrderedBy" Arg="quiver, ordering" 
 	 Comm="Quivers:OrderedBy"/>
    <Returns>a copy of <Arg>quiver</Arg> whose elements are ordered

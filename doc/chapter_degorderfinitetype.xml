@@ -88,9 +88,9 @@ if  <Math>M &lt; N</Math>  and there is no M' such that <Math>M &lt; M' &lt; N</
              <Arg>list</Arg>[2] is a list of descriptions of orbits identified by chosen representatives.
              We assume that in case an orbit is non-periodic, then a projective module is its representative.
              Each element of list <Arg>list</Arg>[2] is a description of i-th orbit and has the shape:<Br />
-             [l, [i1,t1], ... , [is,ts]] where<Br />
+             <C>[l, [i1,t1], ... , [is,ts]]</C> where<Br />
              l = length of orbit - 1<Br />
-             [i1,t1], ... , [is,ts] all the direct predecessors of a representative of this orbit, 
+             <C>[i1,t1], ... , [is,ts]</C> all the direct predecessors of a representative of this orbit, 
              of the shape tau^{-t1}(i1), and i1 denotes the representative of orbit no. i1, and so on.<Br />
              We assume first p elements of <Arg>list</Arg>[2] are the orbits of projectives.<P/>
              

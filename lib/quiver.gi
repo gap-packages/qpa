@@ -1125,3 +1125,222 @@ InstallMethod( SeparatedQuiver,
     return Quiver(vertices,arrows); 
 end
   );
+
+##########################################################################
+##
+#O DeclearOperations( "DynkinQuiverAn", [ n, orientation ] )
+##
+## Returns the Dynkin quiver A_n  with  n  vertices names 1, 2, 3,..., n,
+## and arrows with names 1 -- a_1 -- 2 -- a_2 -- .... -- a_{n-1} -- n.
+## The orientation is given by a list of  l's  and r's, ["r","l","l",...], 
+## where an  l  in coordinate  i  means that the  i-th arrow is oriented 
+## to the left and an  r  means oriented to the right.
+## 
+InstallMethod( DynkinQuiverAn,
+    "for a positive integer and a list",
+    [ IS_INT, IsList ],
+        
+    function( n, orientation )
+    local vertices, arrows, i, Q;
+    
+    if n <= 0 then 
+        Error("the quiver must have at least one vertex,\n ");
+    fi;
+    if Length(orientation) > n - 1 then 
+        Error("too many orientation parameters compared to the number of arrows,\n ");
+    fi;
+    if Length(orientation) < n - 1 then 
+        Error("too few orientation parameters compared to the number of arrows,\n ");
+    fi;
+    if not IsSubset(Set(["l","r"]), Set(orientation)) then
+        Error("the orientation parameters are not in the set [\"l\",\"r\"],\n");
+    fi;
+    #
+    # Naming the verties and the arrows in A_n.  The vertices are named 
+    # "1", "2", "3", and so on.  The arrows are named as follows
+    #         1 -- a_1 -- 2 -- a_2 -- 3 .... n - 1 -- a_{n-1} -- n
+    #
+    vertices := List([1..n], i -> String(i));
+    arrows := [];
+    for i in [1..n-1] do
+        if orientation[i] = "l" then
+            Add(arrows, [vertices[i+1], vertices[i], Concatenation("a_",String(i))]);
+        else
+            Add(arrows, [vertices[i], vertices[i+1], Concatenation("a_",String(i))]);
+        fi;
+    od;
+    Q := Quiver(vertices, arrows);
+    SetIsDynkinQuiver(Q, true); 
+    return Q;
+end 
+  );
+
+##########################################################################
+##
+#O DeclearOperations( "DynkinQuiverEn", [ n, orientation ] )
+##
+## Returns the Dynkin quiver E_n  with  n + 1  vertices, for n = 6, 7, 8, 
+## names 1, 2, 3,..., n + 1, and arrows with names 
+##                         n
+##                         |
+##                       a_{n-1}
+##                         |
+## 1 -- a_1 -- 2 -- a_2 -- 3 -- a_3 -- 4 -- a_4 -- .... -- a_{n-2} -- n - 1.
+##
+## The orientation is given by a list of  n - 2  characters l's  and r's 
+## for the orientation of the arrows {a_1, a_2,..., a_{n-2}} and one d  
+## or  u  for the orientation down or up for the arrow  a_{n-1}, for instance, 
+##                  ["r","l","l",...,"r","d"],
+## where an  l  in coordinate  i  means that the  i-th arrow is oriented 
+## to the left and an  r  means oriented to the right.
+## 
+InstallMethod( DynkinQuiverEn,
+    "for a positive integer and a list",
+    [ IS_INT, IsList ],
+        
+    function( n, orientation )
+    local vertices, arrows, i, Q;
+    
+    if not n in [6, 7, 8] then
+        Error("the entered value  n  is not 6, 7 or 8,\n");
+    fi;
+    if Length(orientation) > n - 1 then 
+        Error("too many orientation parameters compared to the number of arrows,\n ");
+    fi;
+    if Length(orientation) < n - 1 then 
+        Error("too few orientation parameters compared to the number of arrows,\n ");
+    fi;
+    if not IsSubset(Set(["l","r"]), Set(orientation{[1..n - 2]})) then
+        Error("the ",n - 1," first orientation parameters are not in the set [\"l\",\"r\"],\n");
+    fi;
+    if not orientation[n - 1] in Set(["d","u"]) then
+        Error("the last orientation parameter is not in the set [\"d\",\"u\"],\n");
+    fi;
+    #
+    # Naming the verties and the arrows in E_n.  The vertices are named 
+    # "1", "2", "3", and so on in the following way.  The arrows are named as follows
+    #                             n
+    #                             |
+    #                            a_{n-1}
+    #                             |
+    #     1 -- a_1 -- 2 -- a_2 -- 3 -- a_3 -- 4 -- a_4 -- 5 .... -- a_{n-2} -- n - 1.
+    #
+    vertices := List([1..n], i -> String(i));
+    arrows := [];
+    for i in [1..n - 2] do
+        if orientation[i] = "l" then
+            Add(arrows, [vertices[i+1], vertices[i], Concatenation("a_",String(i))]);
+        else
+            Add(arrows, [vertices[i], vertices[i+1], Concatenation("a_",String(i))]);
+        fi;
+    od;
+    if orientation[n - 1] = "d" then
+        Add(arrows, [vertices[n], vertices[3], Concatenation("a_",String(n - 1))]);
+    else
+        Add(arrows, [vertices[3], vertices[n], Concatenation("a_",String(n - 1))]);
+    fi;
+    Q := Quiver(vertices, arrows);
+    SetIsDynkinQuiver(Q, true);     
+    return Q;
+end 
+  );
+
+##########################################################################
+##
+#O DeclearOperations( "DynkinQuiverDn", [ n, orientation ] )
+##
+## Returns the Dynkin quiver D_n  with  n  vertices, for n >= 4, with  
+## names 4, 5, 6,..., n, and arrows with names 
+##         
+##     1   
+##       \ 
+##        a_1
+##         \
+##          3 -- a_3 -- 4 -- a_2 -- .... n - 1 -- a_{n-1} -- n.
+##         /
+##        a_2
+##       /
+##      2
+##      
+## The orientation is given by a list of  n - 1 characters l's  and r's for the 
+## orientation of the arrows {a_1, a_2,..., a_{n-1}}, for instance,  
+## ["r","l","l",...,"r"], where an  l  in coordinate  i  means that the  
+## i-th arrow is oriented to the left and an  r  means oriented to the right.
+## 
+InstallMethod( DynkinQuiverDn,
+    "for a positive integer and a list",
+    [ IS_INT, IsList ],
+        
+    function( n, orientation )
+    local vertices, arrows, i, Q;
+    
+    if not n >= 4 then
+        Error("the entered value  n  is not greater or equal to 4,\n");
+    fi;
+    if Length(orientation) > n - 1 then 
+        Error("too many orientation parameters compared to the number of arrows,\n ");
+    fi;
+    if Length(orientation) < n - 1 then 
+        Error("too few orientation parameters compared to the number of arrows,\n ");
+    fi;
+    if not IsSubset(Set(["l","r"]), Set(orientation{[1..n-1]})) then
+        Error("the orientation parameters are not in the set [\"l\",\"r\"],\n");
+    fi;
+    #
+    # Naming the verties and the arrows in D_n.  The vertices are named 
+    # "1", "2", "3", and so on in the following way.  The arrows are named as follows
+    #     1  
+    #       \ 
+    #        a_1
+    #         \
+    #          3 -- a_3 -- 4 -- a_2 -- .... n - 1 -- a_{n-1} -- n.
+    #         /
+    #        a_2
+    #       /
+    #      2
+    #
+    vertices := List([1..n], i -> String(i));
+    arrows := [];
+    for i in [1..2] do
+        if orientation[i] = "l" then
+            Add(arrows, [vertices[3], vertices[i], Concatenation("a_",String(i))]);
+        else
+            Add(arrows, [vertices[i], vertices[3], Concatenation("a_",String(i))]);    
+        fi;
+    od;
+    for i in [3..n-1] do
+        if orientation[i] = "l" then
+            Add(arrows, [vertices[i+1], vertices[i], Concatenation("a_",String(i))]);
+        else
+            Add(arrows, [vertices[i], vertices[i+1], Concatenation("a_",String(i))]);
+        fi;
+    od;
+    Q := Quiver(vertices, arrows);
+    SetIsDynkinQuiver(Q, true);     
+    return Q;
+end 
+  );
+
+##########################################################################
+##
+#O DeclearOperation( "DynkinQuiver", [ Delta, n, orientation ] )
+##
+## Returns the Dynkin quiver of type  Delta, where  Delta  is A, D or E.
+## 
+InstallMethod( DynkinQuiver,
+    "for a positive integer and a list",
+    [ IsString, IS_INT, IsList ],
+        
+    function( Delta, n, orientation );
+    
+    if String(Delta) = "A" then
+        return DynkinQuiverAn(n, orientation);
+    fi;
+    if String(Delta) = "D" then
+        return DynkinQuiverDn(n, orientation);
+    fi;
+    if String(Delta) = "E" then
+        return DynkinQuiverEn(n, orientation);
+    fi;
+end
+  );
