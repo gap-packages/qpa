@@ -1,4 +1,78 @@
 ==========================================================================
+Changes from version 1.16 to 1.17:
+==========================================================================
+
+Added structures in this release:
+----------------------------------------------------------------------
+
+None
+
+Added functions in this release:
+----------------------------------------------------------------------
+
+AllComplementsOfAlmostCompleteTiltingModule
+CotiltingModule
+DynkinQuiver 
+InjDimension
+InjDimensionOfModule
+IsCotiltingModule
+IsTiltingModule
+FaithfulDimension
+HaveFiniteCoresolutionInAddM
+HaveFiniteResolutionInAddM
+NumberOfComplementsOfAlmostCompleteTiltingModule
+NumberOfComplementsOfAlmostCompleteCotiltingModule
+LeftMutationOfTiltingModuleComplement
+RightMutationOfTiltingModuleComplement
+TiltingModule
+
+
+Changed code for:
+----------------------------------------------------------------------
+
+MinimalRightAddMApproximation (return zero if one takes
+        the approximation of the zero module. Reported by
+	Rene Marczinzik.)
+
+Fixed bugs in:
+----------------------------------------------------------------------
+
+DominantDimensionOfAlgebra (Reported by Rene Marczinzik.)
+GorensteinDimensionOfAlgebra (Reported by Rene Marczinzik.)
+
+
+Documentation:
+----------------------------------------------------------------------
+
+Documentation was added and updated. 
+
+Changes in function names:
+Old name -------> New name
+------------------------------------------------------------
+
+None
+
+Synonyms
+------------------------------------------------------------
+
+AllComplementsOfAlmostCompleteCotiltingModule ==
+                 AllComplementsOfAlmostCompleteTiltingModule
+LeftMutationOfCotiltingModuleComplement ==
+                 LeftMutationOfTiltingModuleComplement
+RightMutationOfCotiltingModuleComplement ==
+                 RightMutationOfTiltingModuleComplement
+
+
+Discontinued functions:
+------------------------------------------------------------
+
+None
+
+Miscellaneous
+------------------------------------------------------------
+
+
+==========================================================================
 Changes from version 1.15 to 1.16:
 ==========================================================================
 
