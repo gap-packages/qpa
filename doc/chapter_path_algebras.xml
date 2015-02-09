@@ -832,15 +832,11 @@ false]]>
 <ManSection>
    <Prop Name="IsHereditaryAlgebra" Arg="A" Comm=""/>
    <Description>
-     Arguments: <Arg>A</Arg> -- an algebra.<Br />
+     Arguments: <Arg>A</Arg> -- an admissible quotient of a path algebra.<Br />
    </Description>
    <Returns>
-     true if it is known that <Arg>A</Arg> is a hereditary algebra. If
-     unknown it returns an error message saying "no method found!".
+     true if  <Arg>A</Arg> is a hereditary algebra and false otherwise. 
    </Returns>
-   <Description>
-     There is no method installed for this yet. 
-   </Description>
 </ManSection>
 
 <ManSection>

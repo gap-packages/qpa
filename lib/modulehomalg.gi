@@ -1730,3 +1730,37 @@ InstallMethod( RightMutationOfTiltingModuleComplement,
     fi;
 end
   );
+
+##########################################################################
+##
+#P DeclareProperty( "IsHereditaryAlgebra", [ A ] )
+##
+## The function is defined for an admissible quotient  <A>  of a path
+## algebra, and it returns true if  <A>  is a hereditary algebra and 
+## false otherwise.
+## 
+InstallMethod( IsHereditaryAlgebra,
+    "for an algebra",
+    [ IsAdmissibleQuotientOfPathAlgebra ],
+        
+    function( A )
+    local test;
+    
+    if HasGlobalDimension(A) then
+        return GlobalDimension(A) < 2;
+    fi;
+    
+    test := GlobalDimensionOfAlgebra(A, 1);
+    #
+    # test = false => gldim(A) > 1
+    # test = infinity => gldim(A) = infinity
+    # test = integer > 1 => gldim(A) > 1
+    # if all these are not true, then gldim(A) < 1, and  A  is hereditary.
+    #
+    if IsBool(test) or ( test = infinity ) or ( IS_INT(test) and test > 1 ) then
+        return false;
+    else
+        return true;
+    fi;
+end 
+  );
