@@ -462,8 +462,9 @@ InstallMethod( TrivialExtensionOfQuiverAlgebra,
     local Q, vertices, arrows, new_vertices, new_arrows, DA, TopOfDAProjection,
           B, temp, de_op_name, additional_arrows, t, Q_TE, te_arrows,
           string_te_arrows, K, KQ_TE, relations, new_relations, r, 
-          coeffandelem, n, temprel, templist, w, b, tempelem, i, num_arrows, 
-          V, VV, Jpower, AA, BAA, te_arrow_rep, Qarrows, Qarrows_labels, Q_TE_to_Q, KQ, 
+          coeffandelem, n, temprel, templist, w, b, tempelem, i, num_arrows, nontipsofradA,
+          nontipsofradAinKQ_TE, 
+          V, W, VWV, Jpower, AA, BAA, te_arrow_rep, Qarrows, Qarrows_labels, Q_TE_to_Q, KQ, 
           occurring_arrows, positions, initialterm, terminalterm, Aenv, fam,
           prod, add_arrows_labels, matrix, setofvectors, solutions, Solutions, tempBAA, m;
     
@@ -525,14 +526,33 @@ InstallMethod( TrivialExtensionOfQuiverAlgebra,
         Add(new_relations, temprel); 
     od;
     #
-    # The products te_arrows * <Qarrows> * te_arrows are zero. But <Qarrows> * te_arrows are again written
-    # in terms of te_arrows * something, so it is enough to take the relations given by  te_arrows * te_arrows.
-    # Finding the products te_arrows * te_arrows, which we add to the relations.
+    # The products te_arrows * <paths in Qarrows> * te_arrows are zero. 
     #
     num_arrows := NumberOfArrows(Q);
     V := Subspace(KQ_TE, List(ArrowsOfQuiver(Q_TE){[num_arrows + 1..NumberOfArrows(Q_TE)]}, x -> One(KQ_TE)*x));
-    VV := ProductSpace(V,V);
-    Append(new_relations, BasisVectors(Basis(VV)));
+    if IsPathAlgebra(A) then 
+        nontipsofradA := BasisVectors(Basis(A)){[NumberOfVertices(Q) + 1..Dimension(A)]};
+    else
+        nontipsofradA := List(BasisVectors(Basis(A)){[NumberOfVertices(Q) + 1..Dimension(A)]}, x -> x![1]);
+    fi;
+    #
+    # Transferring the nontips of rad A from  A  to  T(A).
+    #
+    nontipsofradAinKQ_TE := [];
+    for r in nontipsofradA do
+        coeffandelem := CoefficientsAndMagmaElements(r);
+        n := Length(coeffandelem)/2;
+        temprel := Zero(KQ_TE);
+        for i in [1..n] do
+            templist := List(WalkOfPath(coeffandelem[2*i-1]), w -> te_arrows[Position(string_te_arrows, String(w))]);
+            temprel := temprel + coeffandelem[2*i]*One(KQ_TE)*Product(templist);  
+        od;
+        Add(nontipsofradAinKQ_TE, temprel); 
+    od;
+    W := Subspace(KQ_TE, nontipsofradAinKQ_TE);
+    W := ProductSpace(W,V);
+    VWV := ProductSpace(V,W);
+    Append(new_relations, BasisVectors(Basis(VWV)));
     #
     # Factoring out LoewyLength(A) + 2 power of the arrow ideal in KQ_TE, and 
     # calling it  AA, this is done so that we can find the remaining relations.

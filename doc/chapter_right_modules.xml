@@ -6,7 +6,7 @@ The first type are matrix modules that are defined by vector spaces and
 linear transformations.  The second type is presentations defined by
 vertex projective modules.
 
-<Section><Heading>Matrix Modules</Heading> The first implementation of
+<Section><Heading>Modules of matrix type</Heading> The first implementation of
 right modules over path algebras views them as a collection of vector
 spaces and linear transformations.  Each vertex in the path algebra is
 associated with a vector space over the field of the algebra.  For
