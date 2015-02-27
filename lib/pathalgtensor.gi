@@ -527,9 +527,14 @@ InstallMethod( TrivialExtensionOfQuiverAlgebra,
     od;
     #
     # The products te_arrows * <paths in Qarrows> * te_arrows are zero. 
+    # First adding te_arrows * te_arrows.
     #
-    num_arrows := NumberOfArrows(Q);
+    num_arrows := NumberOfArrows(Q);    
     V := Subspace(KQ_TE, List(ArrowsOfQuiver(Q_TE){[num_arrows + 1..NumberOfArrows(Q_TE)]}, x -> One(KQ_TE)*x));
+    Append(new_relations, BasisVectors(Basis(ProductSpace(V,V))));
+    #
+    # Now adding te_arrows * <non-trival paths in Qarrows> * te_arrows.
+    #
     if IsPathAlgebra(A) then 
         nontipsofradA := BasisVectors(Basis(A)){[NumberOfVertices(Q) + 1..Dimension(A)]};
     else
