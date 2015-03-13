@@ -100,7 +100,7 @@ InstallMethod( TransposeOfModule,
    K := LeftActingDomain(A);
    
    if IsProjectiveModule(M) then
-       return ZeroModule(A);
+       return ZeroModule(OppositeAlgebra(A));
    fi;
    num_vert := NumberOfVertices(Q);
    vertices := VerticesOfQuiver(Q);
