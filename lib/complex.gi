@@ -1254,7 +1254,9 @@ end );
 ##
 ##  TODO: documentation for all chain map-functions
 ##  
-InstallGlobalFunction( "ChainMap",
+InstallMethod( ChainMap,
+               "for complexes, int and lists",
+               [ IsComplex, IsComplex, IsInt, IsList, IsList, IsList ],
 function( source, range, basePosition, middle, positive, negative )
     local cat, fam, map, positiveL, negativeL, numZeroMaps, i,
           correctDomainAt, correctCodomainAt, commutesAt,
