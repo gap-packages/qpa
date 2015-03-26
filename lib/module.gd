@@ -7,7 +7,7 @@ DeclareCategoryFamily( "IsPathModuleElem" );
 DeclareCategoryCollections( "IsPathModuleElem" );
 DeclareGlobalFunction("PathModuleElem");
 DeclareCategory("IsBasisOfPathModuleElemVectorSpace", IsBasis);
-DeclareProperty("IsPathAlgebraMatModule", IsAlgebraModule);
+DeclareCategory("IsPathAlgebraMatModule", IsAlgebraModule and IsCapCategoryObject);
 DeclareOperation("RightModuleOverPathAlgebra", [IsQuiverAlgebra, IsCollection]);
 DeclareOperation("RightModuleOverPathAlgebraNC", [IsQuiverAlgebra, IsCollection]);
 DeclareOperation("SubmoduleAsModule", [IsAlgebraModule]);

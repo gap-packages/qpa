@@ -81,15 +81,20 @@ InstallMethod( QuiverOfPathRing,
 
 InstallMethod( ViewObj,
     "for a path algebra",
-    true,
-    [ IsPathAlgebra ], NICE_FLAGS + 1,
-    function( A )
+    [ IsPathAlgebra ],
+function( A )
+  Print( "<", String( A ), ">" );
+end
+);
 
-    Print("<");
-    View(LeftActingDomain(A));
-    Print("[");
-    View(QuiverOfPathAlgebra(A));
-    Print("]>");
+InstallMethod( String,
+    "for a path algebra",
+    [ IsPathAlgebra ],
+function( A )
+  return Concatenation( String(LeftActingDomain(A)),
+                        "[",
+                        String(QuiverOfPathAlgebra(A)),
+                        "]" );
 end
 );
 

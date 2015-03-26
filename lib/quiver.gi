@@ -951,15 +951,21 @@ InstallMethod( NextPath,
 
 InstallMethod( ViewObj,
   "for quiver",
-  true,
-  [ IsQuiver ], NICE_FLAGS + 1,
-  function( Q )
+  [ IsQuiver ],
+function( Q )
+  Print( "<", String( Q ), ">" );
+end
+);  
 
-    Print( "<quiver with " );
-    Print( NumberOfVertices(Q) );
-    Print( " vertices and " );
-    Print( NumberOfArrows(Q) );
-    Print( " arrows>" );
+InstallMethod( String,
+  "for quiver",
+  [ IsQuiver ],
+function( Q )
+  return Concatenation( "quiver with ",
+                        String( NumberOfVertices(Q) ),
+                        " vertices and ",
+                        String( NumberOfArrows(Q) ),
+                        " arrows" );
 end
 );  
 

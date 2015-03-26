@@ -1,0 +1,1 @@
+DeclareAttribute( "RightModuleCategory", IsPathAlgebra );

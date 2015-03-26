@@ -554,7 +554,8 @@ InstallMethod(RightModuleOverPathAlgebra,
           dim_vector := List(vlist, x -> 0);
        fi;
        M := RightAlgebraModuleByGenerators(R, \^, basis);
-       SetIsPathAlgebraMatModule(M,true);
+       SetFilterObj(M, IsPathAlgebraMatModule);
+       Add( RightModuleCategory( R ), M );
        SetIsWholeFamily(M,true);
        SetDimensionVector(M,dim_vector);
 
@@ -723,7 +724,8 @@ InstallMethod(RightModuleOverPathAlgebraNC,
           dim_vector := List(vlist, x -> 0);
        fi;
        M := RightAlgebraModuleByGenerators(R, \^, basis);
-       SetIsPathAlgebraMatModule(M,true);
+       SetFilterObj(M, IsPathAlgebraMatModule);
+       Add( RightModuleCategory( R ), M );
        SetIsWholeFamily(M,true);
        SetDimensionVector(M,dim_vector);
 
@@ -884,7 +886,8 @@ InstallOtherMethod(RightModuleOverPathAlgebra,
     	  basis := [ ZeroModElement(Fam, Zero(K)) ];
        fi;
        M := RightAlgebraModuleByGenerators(A, \^, basis);
-       SetIsPathAlgebraMatModule(M,true);
+       SetFilterObj(M, IsPathAlgebraMatModule);
+       Add( RightModuleCategory( A ), M );
        SetIsWholeFamily(M,true);
        SetDimensionVector(M,dim_vector);
 
@@ -1021,7 +1024,8 @@ InstallMethod( SubAlgebraModule,
                       rec() );
     SetParent( sub, V );
     SetIsAlgebraModule( sub, true );
-    SetIsPathAlgebraMatModule( sub, true );
+    SetFilterObj( sub, IsPathAlgebraMatModule );
+    Add( RightModuleCategory( fam!.pathAlgebra ), sub );
     SetLeftActingDomain( sub, LeftActingDomain(V) );
     SetGeneratorsOfAlgebraModule( sub, ngens );
 

@@ -289,7 +289,8 @@ Dependencies := rec(
   # insensitive, least version denoted with '>=' prepended to version string.
   # without these, the package will not load
   # NeededOtherPackages := [["GAPDoc", ">= 0.99"]],
-  NeededOtherPackages := [["GBNP", ">=0.9.5"]],
+  NeededOtherPackages := [["GBNP", ">=0.9.5"],
+                          ["CategoriesForHomalg", ">=0"]],
   # without these the package will issue a warning while loading
   # SuggestedOtherPackages := [],
   SuggestedOtherPackages := [],

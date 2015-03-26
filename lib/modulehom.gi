@@ -170,6 +170,7 @@ InstallMethod( RightModuleHomOverAlgebra,
     SetPathAlgebraOfMatModuleMap(map, A);
     SetSource(map, M);
     SetRange(map, N);  
+    Add( RightModuleCategory( A ), map );
     SetIsWholeFamily(map, true);
     
     return map;
@@ -1305,25 +1306,25 @@ end
 ##  This function returns the sum of two homomorphisms  <f>  and  <g>,
 ##  when the sum is defined, otherwise it returns an error message. 
 ##
-InstallMethod( \+,
-    "for two PathAlgebraMatModuleMap's",
-    true,
-#  IsIdenticalObj,
-    [ IsPathAlgebraMatModuleHomomorphism, IsPathAlgebraMatModuleHomomorphism ],
-    0,
-    function( f, g )
+# InstallMethod( \+,
+#     "for two PathAlgebraMatModuleMap's",
+#     true,
+# #  IsIdenticalObj,
+#     [ IsPathAlgebraMatModuleHomomorphism, IsPathAlgebraMatModuleHomomorphism ],
+#     0,
+#     function( f, g )
     
-    local i, num_vert, x, Fam;
+#     local i, num_vert, x, Fam;
 
-    if ( Source(f) = Source(g) ) and ( Range(f) = Range(g) ) then 
-     	num_vert := Length(f!.maps);
-        x := List([1..num_vert], y -> f!.maps[y] + g!.maps[y]);
-        return RightModuleHomOverAlgebra(Source(f),Range(f),x);
-    else
-	Error("the two arguments entered do not live in the same homomorphism set, ");
-    fi;
-end
-);
+#     if ( Source(f) = Source(g) ) and ( Range(f) = Range(g) ) then 
+#      	num_vert := Length(f!.maps);
+#         x := List([1..num_vert], y -> f!.maps[y] + g!.maps[y]);
+#         return RightModuleHomOverAlgebra(Source(f),Range(f),x);
+#     else
+# 	Error("the two arguments entered do not live in the same homomorphism set, ");
+#     fi;
+# end
+# );
   
 #######################################################################
 ##
@@ -1388,20 +1389,20 @@ end
 ##  This function returns the additive inverse of the homomorphism 
 ##  <f>. 
 ##
-InstallMethod( AdditiveInverseOp,
-    "for a morphism in IsPathAlgebraMatModuleHomomorphism",
-    [ IsPathAlgebraMatModuleHomomorphism ],
+# InstallMethod( AdditiveInverseOp,
+#     "for a morphism in IsPathAlgebraMatModuleHomomorphism",
+#     [ IsPathAlgebraMatModuleHomomorphism ],
 
-    function ( f ) 
+#     function ( f ) 
 
-    local i, num_vert, x;
+#     local i, num_vert, x;
 
-    num_vert := Length(f!.maps);
-    x := List([1..num_vert], y -> (-1)*f!.maps[y]);
+#     num_vert := Length(f!.maps);
+#     x := List([1..num_vert], y -> (-1)*f!.maps[y]);
 
-    return RightModuleHomOverAlgebra(Source(f),Range(f),x);
-end
-);
+#     return RightModuleHomOverAlgebra(Source(f),Range(f),x);
+# end
+# );
 
 #######################################################################
 ##
