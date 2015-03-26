@@ -59,6 +59,7 @@ function( A )
   end );
   AddZeroMorphism( category, ZeroMapping );
   AddIsZeroForMorphisms( category, IsZero );
+  AddIsEqualForMorphisms( category, \= );
   AddZeroObject( category, function() return ZeroModule( A ); end );
   AddDirectSum( category, DirectSumOfModules );
   AddInjectionOfCofactorOfCoproductWithGivenCoproduct( category,
