@@ -20,6 +20,22 @@ function( A )
     return im_proj * LiftingInclusionMorphisms( monomorphism, im_inc );
   end );
   AddKernelEmb( category, KernelInclusion );
+#  AddCokernel( category, CoKernel );
+  AddCokernelProj( category, CoKernelProjection );
+  AddCokernelColiftWithGivenCokernel( category,
+  function( morphism, test_morphism, coker )
+    local coker_proj, test_object, test_matrices,  
+          proj_matrices, proj_inv_matrices, lift_matrices;
+    coker_proj := CokernelProj( morphism );
+    test_object := Range( test_morphism );
+    test_matrices := MatricesOfPathAlgebraMatModuleHomomorphism( test_morphism );
+    proj_matrices := MatricesOfPathAlgebraMatModuleHomomorphism( coker_proj );
+    proj_inv_matrices := List( proj_matrices,
+                               M -> List( IdentityMat( DimensionsMat( M )[ 2 ] ),
+                                          e -> SolutionMat( M, e ) ) );
+    lift_matrices := ListN( proj_inv_matrices, test_matrices, \* );
+    return RightModuleHomOverAlgebra( coker, test_object, lift_matrices );
+  end );
   # AddCokernelColift( category,
   # function( morphism, test_morphism )
   #   local ker_emb;
