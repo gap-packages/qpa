@@ -1,1 +1,1 @@
-DeclareAttribute( "RightModuleCategory", IsPathAlgebra );
+DeclareAttribute( "RightModuleCategory", IsQuiverAlgebra );

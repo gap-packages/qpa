@@ -1,5 +1,5 @@
 InstallMethod( RightModuleCategory,
-               [ IsPathAlgebra ],
+               [ IsQuiverAlgebra ],
 function( A )
   local category;
 
