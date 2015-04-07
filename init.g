@@ -1,6 +1,6 @@
 #############################################################################
 ##
-#W    init.g                 The QPA package                     Randall Cone
+#W    init.g                 The QPA package                
 #W                                                            Edward L. Green
 #W                                                            Oeyvind Solberg
 

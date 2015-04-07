@@ -130,22 +130,6 @@ ArchiveFormats := ".tar.gz",
 ##  
 Persons := [
   rec( 
-    LastName      := "Cone",
-    FirstNames    := "Randall E.",
-    IsAuthor      := true,
-    IsMaintainer  := false,
-    Email         := "conere10@vmi.edu ",
-    WWWHome       := "http://www.math.vt.edu/people/rcone",
-           PostalAddress := Concatenation( [
-                   "Mathematics Education and Resource Center\n",
-                   "402 Mallory Hall\n",
-                   "Virginia Military Institute\n",
-                   "Lexington, VA  24450\n",
-                   "U.S.A." ] ),
-    Place         := "Lexington",
-    Institution   := "Virginia Military Institute"
-  ),
-  rec( 
     LastName      := "Green",
     FirstNames    := "Edward",
     IsAuthor      := true,
@@ -209,9 +193,9 @@ Status := "dev",
 ##  and updating of the package in the GAP distribution.
 #
 README_URL := 
-  "http://sourceforge.net/p/quiverspathalg/qpa/ci/4ed6c9451261635d20cc38908bfd83dd2c447e27/tree/README",
+  "http://sourceforge.net/p/quiverspathalg/qpa/ci/master/tree/README?format=raw",
 PackageInfoURL := 
-  "http://sourceforge.net/p/quiverspathalg/qpa/ci/4ed6c9451261635d20cc38908bfd83dd2c447e27/tree/PackageInfo.g?format=raw",
+  "http://sourceforge.net/p/quiverspathalg/qpa/ci/master/tree/PackageInfo.g?format=raw",
 
 ##  Here you  must provide a short abstract explaining the package content 
 ##  in HTML format (used on the package overview Web page) and an URL 
