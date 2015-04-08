@@ -544,8 +544,8 @@ InstallMethod( SubRepresentationInclusion,
             Add(big_mat,[arrow,mat]);
         od;
         
-        if IsPathAlgebra(A) then 
-            submodule := RightModuleOverPathAlgebra(A,big_mat);
+        if Length( arrows_as_path ) = 0 then
+            submodule := RightModuleOverPathAlgebra(A, dim_vect_sub, []);
         else
             submodule := RightModuleOverPathAlgebra(A,big_mat); 
         fi;      
@@ -790,8 +790,8 @@ InstallMethod ( KernelInclusion,
                 V_list[i] := BasisVectors(V_list[i]);
             fi;
         od;
-        if IsPathAlgebra(A) then 
-            Kerf := RightModuleOverPathAlgebra(A,kermats);
+        if Length( arrows ) = 0 then
+            Kerf := RightModuleOverPathAlgebra(A, List( V_list, B -> Length( B ) ), [] );
         else 
             Kerf := RightModuleOverPathAlgebra(A,kermats);
         fi;
@@ -895,8 +895,8 @@ InstallMethod ( ImageProjectionInclusion,
             fi;
             Add(image_mat,[a,mat]);
         od;
-        if IsPathAlgebra(A) then 
-            image_f := RightModuleOverPathAlgebra(A,image_mat);
+        if Length( arrows) = 0 then
+            image_f := RightModuleOverPathAlgebra(A, List( basis_image, B -> Length( B ) ), [] );
         else
             image_f := RightModuleOverPathAlgebra(A,image_mat);
         fi;
@@ -1164,8 +1164,8 @@ InstallMethod ( CoKernelProjection,
         Add(cokermat,[a,mat]);
     od;
     
-    if IsPathAlgebra(A) then 
-        C := RightModuleOverPathAlgebra(A,cokermat);
+    if Length( arrows ) = 0 then
+        C := RightModuleOverPathAlgebra( A, List( basis_coker, B -> Length( B ) ), [] );
     else
         C := RightModuleOverPathAlgebra(A,cokermat);
     fi;
