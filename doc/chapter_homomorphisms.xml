@@ -343,28 +343,26 @@ true ]]>
 </Example>
 
 <ManSection>
-   <Attr Name="IsSplitEpimorphism" Arg="f" Comm=""/>
+   <Prop Name="IsSplitEpimorphism" Arg="f" Comm=""/>
    <Description>
      Arguments: <Arg>f</Arg> - a homomorphism between two
      modules.<Br />
    </Description>
    <Returns>
-     <Code>false</Code> if the homomorphism <Arg>f</Arg>
-     is not a splittable epimorphism, otherwise it returns a
-     splitting of the homomorphism <Arg>f</Arg>.
+     <Code>true</Code> if the homomorphism <Arg>f</Arg>
+     is a splittable epimorphism, otherwise <Code>false</Code>.
    </Returns>
 </ManSection>
 
 <ManSection>
-   <Attr Name="IsSplitMonomorphism" Arg="f" Comm=""/>
+   <Prop Name="IsSplitMonomorphism" Arg="f" Comm=""/>
    <Description>
      Arguments: <Arg>f</Arg> - a homomorphism between two
      modules.<Br />
    </Description>
    <Returns>
-     <Code>false</Code> if the homomorphism <Arg>f</Arg>
-     is not a splittable monomorphism, otherwise it returns a
-     splitting of the homomorphism <Arg>f</Arg>.
+     <Code>true</Code> if the homomorphism <Arg>f</Arg>
+     is a splittable monomorphism, otherwise <Code>false</Code>.
    </Returns>
 </ManSection>
 
@@ -373,11 +371,8 @@ gap> S := SimpleModules(A)[1];;
 gap> H := HomOverAlgebra(N,S);; 
 gap> IsSplitMonomorphism(H[1]);  
 false
-gap> f := IsSplitEpimorphism(H[1]);
-<<[ 1, 0, 0 ]> ---> <[ 3, 2, 2 ]>>
-
-gap> IsSplitMonomorphism(f);
-<<[ 3, 2, 2 ]> ---> <[ 1, 0, 0 ]>> ]]>
+gap> IsSplitEpimorphism(H[1]);
+true]]>
 </Example>
 
 <ManSection>
@@ -433,6 +428,18 @@ true ]]>
 </Example>
 
 <ManSection>
+   <Attr Name="LeftInverseOfHomomorphism" Arg="f" Comm=""/>
+   <Description>
+     Arguments: <Arg>f</Arg> - a homomorphism between two
+     modules.<Br />
+   </Description>
+   <Returns><Code>false</Code> if the homomorphism <Arg>f</Arg> is not
+   a splittable epimorphism, otherwise it returns a splitting of the
+   split epimorphism <Arg>f</Arg>. 
+   </Returns>
+</ManSection>
+
+<ManSection>
    <Oper Name="MatricesOfPathAlgebraMatModuleHomomorphism" Arg="f" Comm=""/>
    <Description>
      Arguments: <Arg>f</Arg> - a homomorphism between two modules.<Br />
@@ -482,6 +489,18 @@ true ]]>
      Arguments: <Arg>f</Arg> - a homomorphism between two modules.<Br />
    </Description>
    <Returns>the range (or codomain) the homomorphism <Arg>f</Arg>.</Returns>
+</ManSection>
+
+<ManSection>
+   <Attr Name="RightInverseOfHomomorphism" Arg="f" Comm=""/>
+   <Description>
+     Arguments: <Arg>f</Arg> - a homomorphism between two
+     modules.<Br />
+   </Description>
+   <Returns><Code>false</Code> if the homomorphism <Arg>f</Arg> is not
+   a splittable monomorphism, otherwise it returns a splitting of the
+   split monomorphism <Arg>f</Arg>. 
+   </Returns>
 </ManSection>
 
 <ManSection>

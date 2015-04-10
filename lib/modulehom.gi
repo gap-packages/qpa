@@ -2853,12 +2853,106 @@ end
 
 #######################################################################
 ##
-#A  IsSplitMonomorphism( <f> )
+#A  RightInverseOfHomomorphism( <f> )
+##
+##  This function returns false if the homomorphism  <f>  is not a  
+##  splittable monomorphism, otherwise it returns a splitting of the
+##  split monomorphism  <f>. 
+##
+InstallMethod ( RightInverseOfHomomorphism, 
+    "for a PathAlgebraMatModuleMap",
+    true,
+    [ IsPathAlgebraMatModuleHomomorphism ],
+    0,
+    function( f )
+
+    local B, C, CB, id_B, mat, flat_id_B, split_f;
+
+    B := Source(f);
+    C := Range(f);
+    if IsInjective(f) then 
+        CB := HomOverAlgebra(C,B);
+        if Length(CB) = 0 then 
+            return false;
+        else 
+            mat := [];
+            mat := List(CB, x -> f*x);
+            id_B := IdentityMapping(B); 
+            mat := List(mat,x -> Flat(x!.maps));
+            flat_id_B := Flat(id_B!.maps); 
+            split_f := SolutionMat(mat,flat_id_B);
+            
+            if split_f <> fail then 
+                split_f := LinearCombination(CB,split_f);
+                SetIsSplitEpimorphism(split_f,true);
+                SetIsSplitMonomorphism(f,true);
+                SetLeftInverseOfHomomorphism(split_f,f); 
+                return split_f;
+            else
+                SetIsSplitMonomorphism(f,false);
+                return false;
+            fi;
+        fi;
+    else
+        return false;
+    fi;
+end
+  );
+
+#######################################################################
+##
+#A  LeftInverseOfHomomorphism( <f> )
+##
+##  This function returns false if the homomorphism  <f>  is not a  
+##  splittable epimorphism, otherwise it returns a splitting of the
+##  split epimorphism  <f>. 
+##
+InstallMethod ( LeftInverseOfHomomorphism, 
+    "for a PathAlgebraMatModuleMap",
+    true,
+    [ IsPathAlgebraMatModuleHomomorphism ],
+    0,
+    function( f )
+
+    local B, C, CB, id_C, mat, flat_id_C, split_f;
+
+    B := Source(f);
+    C := Range(f);
+    if IsSurjective(f) then 
+        CB := HomOverAlgebra(C,B);
+        if Length(CB) = 0 then 
+            return false;
+        else 
+            mat := List(CB, x -> x*f );
+            id_C := IdentityMapping(C); 
+            mat := List(mat,x -> Flat(x!.maps));
+            flat_id_C := Flat(id_C!.maps); 
+            split_f := SolutionMat(mat,flat_id_C);
+            
+            if split_f <> fail then 
+                split_f := LinearCombination(CB,split_f);
+                SetIsSplitMonomorphism(split_f,true);
+                SetIsSplitEpimorphism(f,true);
+                SetRightInverseOfHomomorphism(split_f,f); 
+                return split_f;
+            else
+                SetIsSplitEpimorphism(f,false);
+                return false;
+            fi;
+        fi;
+    else
+        return false;
+    fi;
+end
+  );
+
+#######################################################################
+##
+#P  IsSplitMonomorphism( <f> )
 ##
 ##  This function returns false if the homomorphism  <f>  is not a  
 ##  splittable monomorphism, otherwise it returns a splitting of the
 ##  homomorphism  <f>. 
-##  TODO: Also defined in HOMALG, but differently, make uniform.
 ##
 InstallMethod ( IsSplitMonomorphism, 
     "for a PathAlgebraMatModuleMap",
@@ -2885,11 +2979,11 @@ InstallMethod ( IsSplitMonomorphism,
             
             if split_f <> fail then 
                 split_f := LinearCombination(CB,split_f);
-                SetIsSplitEpimorphism(split_f,f);
-                SetIsSplitMonomorphism(f,split_f);
-                return split_f;
+                SetLeftInverseOfHomomorphism(split_f,f);
+                SetRightInverseOfHomomorphism(f,split_f);
+                SetIsSplitEpimorphism(split_f,true);
+                return true;
             else
-                SetIsSplitMonomorphism(f,false);
                 return false;
             fi;
         fi;
@@ -2897,16 +2991,14 @@ InstallMethod ( IsSplitMonomorphism,
         return false;
     fi;
 end
-);
+  );
 
 #######################################################################
 ##
-#A  IsSplitEpimorphism( <f> )
+#P  IsSplitEpimorphism( <f> )
 ##
 ##  This function returns false if the homomorphism  <f>  is not a  
-##  splittable epimorphism, otherwise it returns a splitting of the
-##  homomorphism  <f>. 
-##  TODO: Also defined in HOMALG, but differently, make uniform.
+##  splittable epimorphism, otherwise it returns true. 
 ##
 InstallMethod ( IsSplitEpimorphism, 
     "for a PathAlgebraMatModuleMap",
@@ -2932,11 +3024,11 @@ InstallMethod ( IsSplitEpimorphism,
             
             if split_f <> fail then 
                 split_f := LinearCombination(CB,split_f);
-                SetIsSplitMonomorphism(split_f,f);
-                SetIsSplitEpimorphism(f,split_f);
-                return split_f;
+                SetLeftInverseOfHomomorphism(f, split_f);
+                SetRightInverseOfHomomorphism(split_f,f);
+                SetIsSplitMonomorphism(split_f,true);
+                return true;
             else
-                SetIsSplitEpimorphism(f,false);
                 return false;
             fi;
         fi;
@@ -3001,7 +3093,8 @@ InstallMethod ( MoreLeftMinimalVersion,
                 gg := (HomCC[i]*HomCB[j]*g)^n;
                 if gg <> ZeroMapping(C,C) then
                     hh := (g*HomCC[i]*HomCB[j])^n;
-                    t := IsSplitMonomorphism(KernelInclusion(hh));
+#                    t := IsSplitMonomorphism(KernelInclusion(hh));
+                    t := RightInverseOfHomomorphism(KernelInclusion(hh));
                     return [f*t,f*ImageProjection(hh)];
                 fi;
             od;
@@ -3405,9 +3498,11 @@ InstallMethod ( IsomorphismOfModules,
     # the inclusion of this common direct summand in  M  and in  N.
     #
     fn := ImageInclusion(maps[1]);
-    fsplit := IsSplitMonomorphism(fn);
+#    fsplit := IsSplitMonomorphism(fn);
+    fsplit := RightInverseOfHomomorphism(fn);
     gn := ImageInclusion(maps[2]);
-    gsplit := IsSplitMonomorphism(gn);
+#    gsplit := IsSplitMonomorphism(gn);
+    gsplit := LeftInverseOfHomomorphism(gn);    
     #
     # Find the idempotents corresponding to these direct summands.
     #
@@ -3437,8 +3532,10 @@ InstallMethod ( IsomorphismOfModules,
     recursiveIOM := IsomorphismOfModules(Source(f_beta),Source(g_beta));
     
     if recursiveIOM <> false then
-        return IsSplitMonomorphism(f_alpha) * (delta * g_alpha) + 
-               IsSplitMonomorphism(f_beta) * (recursiveIOM * g_beta);
+#        return IsSplitMonomorphism(f_alpha) * (delta * g_alpha) + 
+#               IsSplitMonomorphism(f_beta) * (recursiveIOM * g_beta);
+        return RightInverseOfHomomorphism(f_alpha) * (delta * g_alpha) + 
+               RightInverseOfHomomorphism(f_beta) * (recursiveIOM * g_beta);        
     else 
         return false;
     fi;

@@ -50,6 +50,8 @@ DeclareProperty( "IsRightMinimal", IsPathAlgebraMatModuleHomomorphism );
 DeclareProperty( "IsLeftMinimal", IsPathAlgebraMatModuleHomomorphism );
 DeclareProperty( "IsSplitMonomorphism", IsPathAlgebraMatModuleHomomorphism );
 DeclareProperty( "IsSplitEpimorphism", IsPathAlgebraMatModuleHomomorphism );
+DeclareAttribute( "LeftInverseOfHomomorphism", IsPathAlgebraMatModuleHomomorphism );
+DeclareAttribute( "RightInverseOfHomomorphism", IsPathAlgebraMatModuleHomomorphism );
 DeclareOperation( "MoreRightMinimalVersion", [ IsPathAlgebraMatModuleHomomorphism ]);
 DeclareOperation( "MoreLeftMinimalVersion", [ IsPathAlgebraMatModuleHomomorphism ]);
 DeclareAttribute( "RightMinimalVersion", IsPathAlgebraMatModuleHomomorphism );
