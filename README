@@ -1,7 +1,7 @@
 The QPA share package for GAP 4.5
 ==================================
 
-Version 1.17; January 19th, 2015
+Version 1.18; April 17th, 2015
 Copyright (C) 2010 The QPA-team, 	
                         http://sourceforge.net/projects/quiverspathalg/ 
 
@@ -38,7 +38,7 @@ The following should be included with this version of QPA.
     init.g   	  - package initialization
     lib        	  - the GAP source code
     read.g   	  - package initialization
-    tst      	  - tests for the package (empty)
+    tst      	  - tests for the package
     version       - contains the version number of the latest version
 
 Obtaining
@@ -100,6 +100,14 @@ containing the subdirectory GAPdirectory. Or for convenience, define
 an alias, for instance in .bashrc, 
 
      alias gap='gap -l ";/fullpath/GAPdirectory/gap/"'  
+
+To load the QPA-package, give the command
+
+     LoadPackage("qpa");
+
+To avoid having to load QPA each time you use GAP, consult the posting
+
+https://www.mail-archive.com/forum@mail.gap-system.org/msg02528.html
 
 See the user manual in the doc directory for more information regarding
 the use of QPA, or follow the URL

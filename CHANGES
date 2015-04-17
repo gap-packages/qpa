@@ -1,4 +1,65 @@
 ==========================================================================
+Changes from version 1.17 to 1.18:
+==========================================================================
+
+Added structures in this release:
+----------------------------------------------------------------------
+
+None
+
+Added functions in this release:
+----------------------------------------------------------------------
+
+IsHereditaryAlgebra (added a method).
+LeftInverseOfHomomorphism
+RightInverseOfHomomorphism
+
+Changed code for:
+----------------------------------------------------------------------
+
+ChainMap
+IsIsomorphism
+IsSplitMonomorphism (made into a property)
+IsSplitEpimorphism (made into a property)
+IsomorphismOfModules
+MoreLeftMinimalVersion
+
+Fixed bugs in:
+----------------------------------------------------------------------
+
+TransposeOfModule (Reported by Florian Eisele).
+TrivialExtensionOfQuiverAlgebra
+
+Documentation:
+----------------------------------------------------------------------
+
+Documentation was added and updated. 
+
+Changes in function names:
+Old name -------> New name
+------------------------------------------------------------
+
+None
+
+Synonyms
+------------------------------------------------------------
+
+None
+
+Discontinued functions:
+------------------------------------------------------------
+
+None
+
+Miscellaneous
+------------------------------------------------------------
+
+Removed a conflicting declaration and definition of the
+       command NewBasis.
+Updated PackageInfo.g, README, init.g and read.g.
+Added a test file, tst/testall.tst
+
+==========================================================================
 Changes from version 1.16 to 1.17:
 ==========================================================================
 

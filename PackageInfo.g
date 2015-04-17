@@ -44,7 +44,7 @@ Version := "1.17",
 
 ##  Release date of the current version in dd/mm/yyyy format.
 # 
-Date := "19/07/2014",
+Date := "17/04/2015",
 
 ##  URL of the archive(s) of the current package release, but *without*
 ##  the format extension(s), like '.zoo', which are given next.
@@ -55,7 +55,7 @@ Date := "19/07/2014",
 ##  example/init.g, ...    or  example-1.3/init.g, ...  )
 # 
 ArchiveURL := 
-        "http://sourceforge.net/projects/quiverspathalg/files/qpa-version-1.17",
+        "http://sourceforge.net/projects/quiverspathalg/files/qpa-version-1.18",
 
 ##  All provided formats as list of file extensions, separated by white
 ##  space or commas.
@@ -339,7 +339,7 @@ Autoload := true,
 
 ##  *Optional*, but recommended: path relative to package root to a file which 
 ##  contains as many tests of the package functionality as sensible.
-TestFile := "testall.g",
+TestFile := "tst/testall.tst",
 
 ##  *Optional*: Here you can list some keyword related to the topic 
 ##  of the package.
