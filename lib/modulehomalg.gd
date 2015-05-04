@@ -44,7 +44,7 @@ DeclareOperation( "CotiltingModule", [IsPathAlgebraMatModule, IsInt]);
 DeclareAttribute( "IsCotiltingModule", IsPathAlgebraMatModule );
 DeclareOperation( "AllComplementsOfAlmostCompleteTiltingModule", [IsPathAlgebraMatModule, IsPathAlgebraMatModule]);
 DeclareSynonym( "AllComplementsOfAlmostCompleteCotiltingModule", AllComplementsOfAlmostCompleteTiltingModule);
-DeclareOperation( "FaithfulDimension", [ IsPathAlgebraMatModule ]);
+DeclareAttribute( "FaithfulDimension", IsPathAlgebraMatModule );
 DeclareOperation( "NumberOfComplementsOfAlmostCompleteTiltingModule", [ IsPathAlgebraMatModule ]);
 DeclareSynonym( "NumberOfComplementsOfAlmostCompleteCotiltingModule", NumberOfComplementsOfAlmostCompleteTiltingModule);
 DeclareOperation( "LeftMutationOfTiltingModuleComplement", [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ]);

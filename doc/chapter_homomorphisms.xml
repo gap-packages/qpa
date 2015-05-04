@@ -2,8 +2,8 @@
     over Path Algebras</Heading>
 
 This chapter describes the categories, representations, attributes,
-  and operations on homomorphisms between representations of
-  quivers.<P /> 
+and operations on homomorphisms between representations of
+quivers.<P/>
 
 Given two homorphisms <Math>f\colon L\to M</Math> and <Math>g\colon
   M\to N</Math>, then the composition is written <Math>f*g</Math>. The
@@ -18,12 +18,7 @@ The example used throughout this chapter is the following.
 <Example><![CDATA[
 gap> Q := Quiver(3,[[1,2,"a"],[1,2,"b"],[2,2,"c"],[2,3,"d"],[3,1,"e"]]);;
 gap> KQ := PathAlgebra(Rationals, Q);;
-gap> gen := GeneratorsOfAlgebra(KQ);;
-gap> a := gen[4];;
-gap> b := gen[5];;
-gap> c := gen[6];;
-gap> d := gen[7];;
-gap> e := gen[8];;
+gap> AssignGeneratorVariables(KQ);;
 gap> rels := [d*e,c^2,a*c*d-b*d,e*a];;
 gap> A := KQ/rels;;
 gap> mat :=[["a",[[1,2],[0,3],[1,5]]],["b",[[2,0],[3,0],[5,0]]],
@@ -39,10 +34,7 @@ gap> N := RightModuleOverPathAlgebra(A,mat);; ]]>
      Arguments: <Arg>f</Arg> - any object in GAP.<Br />
    </Description>
    <Returns> true or false depending on if <Arg>f</Arg> belongs to the
-     categories <Code>IsAdditiveElementWithZero</Code>, <C>IsAdditiveElementWithInverse</C>,
-     <Code>IsGeneralMapping</Code>, <C>RespectsAddition</C>, <C>RespectsZero</C>, 
-     <Code>RespectsScalarMultiplication</Code>,
-     <Code>IsTotal</Code> and <Code>IsSingleValued</Code> or not.
+     categories <Code>IsPathAlgebraModuleHomomorphism</Code>.
    </Returns>
    <Description>
      This defines the category
@@ -226,28 +218,17 @@ gap> ImagesSet(f,L);
   [ [ 0, 0, 0 ], [ 0, 0 ], [ 1, 2 ] ] ]
 gap> ImagesSet(f,BL);
 [ [ [ 0, 0, 0 ], [ 1, 0 ], [ 0, 0 ] ], 
-  [ [ 0, 0, 0 ], [ 0, 0 ], [ 1, 2 ] ] ] ]]>
-</Example>
-
-<Example><![CDATA[
-gap> z := Zero(f);
-<<[ 0, 1, 1 ]> ---> <[ 3, 2, 2 ]>>
-
+  [ [ 0, 0, 0 ], [ 0, 0 ], [ 1, 2 ] ] ]
+gap> z := Zero(f);;
 gap> f = z;
 false
 gap> Range(f) = Range(z);
 true
-gap> y := ZeroMapping(L,N); 
-<<[ 0, 1, 1 ]> ---> <[ 3, 2, 2 ]>>
-
+gap> y := ZeroMapping(L,N);;
 gap> y = z;            
 true
-gap> id := IdentityMapping(N);  
-<<[ 3, 2, 2 ]> ---> <[ 3, 2, 2 ]>>
-
-gap> f*id;
-<<[ 0, 1, 1 ]> ---> <[ 3, 2, 2 ]>>
-
+gap> id := IdentityMapping(N);;
+gap> f*id;;
 gap> #This causes an error!
 gap> id*f;
 Error, codomain of the first argument is not equal to the domain of th\
@@ -605,7 +586,7 @@ true ]]>
    </Returns>
    <Description>
      Suppose <Arg>M</Arg> is a module over a quiver algebra over a
-     field <M>K</M> The function checks if the endomorphism ring of
+     field <M>K</M>. The function checks if the endomorphism ring of
      <Arg>M</Arg> is K-elementary (not necessary for it to be a quiver
      algebra, but this is a TODO improvement), and returns error
      message otherwise.

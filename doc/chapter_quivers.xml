@@ -110,7 +110,8 @@ v2]]>
      \ar@{--}[r] &amp; \ar@{-}[r]^-{a_{n-2}} &amp; n - 1
      \ar@{-}[r]^-{a_{n-1}} &amp; n }</M><Br />
 
-     If <Arg>Delta</Arg> is equal to "D" with index <Arg>n</Arg>, then
+     If <Arg>Delta</Arg> is equal to "D" with index <Arg>n</Arg> and
+     <Arg>n</Arg> greater or equal to <Math>4</Math>, then
      the list <Arg>orientation</Arg> is of the form <C>["r", "l", "l", ...,"r",
      "l"]</C> of length <Arg>n-1</Arg>, where "l" or "r" in coordinate
      <M>i</M> means that the arrow <M>a_i</M> is oriented to the left
@@ -121,7 +122,8 @@ v2]]>
 	 2\ar@{-}[ur]_-{a_2} &amp; &amp; &amp;  &amp; &amp; }</M>
 	 <Br />
 
-	 If <Arg>Delta</Arg> is equal to "E" with index <Arg>n</Arg>,
+	 If <Arg>Delta</Arg> is equal to "E" with index <Arg>n</Arg>
+	 and <Arg>n</Arg> in <Math>[6,7,8]</Math>,
 	 then the list <Arg>orientation</Arg> is of the form <C>["r",
 	 "l", "l", ...,"r", "l","d"]</C> of length <Arg>n-1</Arg>,
 	 where "l" or "r" in the <Arg>n - 2</Arg> first coordinates
@@ -218,9 +220,6 @@ false
 gap> IsConnectedQuiver(q2); IsTreeQuiver(q2);
 true
 false
-gap> IsFinite(q1); IsFinite(q2);
-true
-false
 gap> q3 := Quiver(["u","v"],[["u","v"],["u","v"]]);
 <quiver with 2 vertices and 2 arrows>
 gap> IsAcyclicQuiver(q3); IsUAcyclicQuiver(q3); 
@@ -299,7 +298,7 @@ Explain how the vertices and arrows are ordered.<P/>
     The operation <Ref Oper="." Label="for quiver"/> allows access to
     generators of the quiver. If you have named your vertices and
     arrows then the access looks like `<Arg>Q</Arg>.<Arg>name of
-    element</Arg>'.  If you have not named the elements of the quiver
+    element</Arg>'.  If you have not named the elements of the quiver, 
     then the default names are v1, v2, ... and a1, a2, ... in the order
     they are created.
    </Description>

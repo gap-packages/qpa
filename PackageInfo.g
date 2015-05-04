@@ -40,7 +40,7 @@ Subtitle := "Quivers and Path Algebras",
 ##  See '?Extending: Version Numbers' in GAP help for an explanation
 ##  of valid version numbers. For an automatic package distribution update
 ##  you must provide a new version number even after small changes.
-Version := "1.17",
+Version := "1.18",
 
 ##  Release date of the current version in dd/mm/yyyy format.
 # 

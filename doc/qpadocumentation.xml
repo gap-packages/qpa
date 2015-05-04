@@ -11,6 +11,7 @@
 \usepackage[all]{xy}
 \newcommand{\tensor}{\otimes}
 \newcommand{\quiverproduct}{\times}
+\newcommand{\add}{\operatorname{add}\nolimits}
 \newcommand{\Hom}{\operatorname{Hom}\nolimits}
 \newcommand{\End}{\operatorname{End}\nolimits}
 \newcommand{\Ext}{\operatorname{Ext}\nolimits}
@@ -40,7 +41,7 @@
           </Address> 
   </Author>
 
-  <Date>January 2015</Date> 
+  <Date>April 2015</Date> 
 
   <Abstract>
     The GAP4 undeposited package <Package>QPA</Package> extends the

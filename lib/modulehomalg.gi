@@ -1619,7 +1619,7 @@ end
 
 #######################################################################
 ##
-#O  FaithfulDimension( <M> )
+#A  FaithfulDimension( <M> )
 ##
 ##  This function computes the faithful dimension of a module  <M>.
 ##

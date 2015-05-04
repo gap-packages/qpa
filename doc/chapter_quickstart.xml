@@ -2,7 +2,7 @@
 
 This chapter is intended for those who would like to get started with
 <Package>QPA</Package> right away by playing with a few examples.  We
-assume that the user is familiar with <Package>GAP</Package> syntage,
+assume that the user is familiar with <Package>GAP</Package> syntax,
 for instance the different ways to display various
 <Package>GAP</Package> objects: <C>View</C>, <C>Print</C> and
 <C>Display</C>.  These features are all implemented for the objects
@@ -72,13 +72,11 @@ We know that this algebra has three generators, with the vertex
 generators.
 
 <Example><![CDATA[
-gap> gens := GeneratorsOfAlgebra(kQ);
-[ (1)*v1, (1)*a, (1)*b ]
-gap> v1 := gens[1];
+gap> AssignGeneratorVariables(kQ);
+#I  Assigned the global variables [ v1, a, b ]
+gap> v1; a; b;
 (1)*v1
-gap> a := gens[2];
 (1)*a
-gap> b := gens[3];
 (1)*b
 gap> id := One(kQ);
 (1)*v1
@@ -192,12 +190,14 @@ indecomposable injective module in vertex 1 coincide. Let us look at
 this relationship in <Package>QPA</Package>:
 
 <Example><![CDATA[
-gap> s1 := simples[1];  
+gap> s1 := simples[1];
 <[ 1, 0, 0 ]>
 gap> inj1 := injectives[1];
 <[ 1, 0, 0 ]>
-gap> s1 = inj1;
+gap> IsIdenticalObj(s1,inj1);
 false
+gap> s1 = inj1;
+true
 gap> IsomorphicModules(s1,inj1);
 true
 ]]></Example>
