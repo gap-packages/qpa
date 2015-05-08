@@ -290,7 +290,7 @@ Dependencies := rec(
   # without these, the package will not load
   # NeededOtherPackages := [["GAPDoc", ">= 0.99"]],
   NeededOtherPackages := [["GBNP", ">=0.9.5"],
-                          ["CAP", ">=0"]],
+                          ["CAP", ">=2015.05.08"]],
   # without these the package will issue a warning while loading
   # SuggestedOtherPackages := [],
   SuggestedOtherPackages := [],

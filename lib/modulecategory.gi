@@ -70,6 +70,9 @@ function( A )
   function( summands, i, sum )
     return DirectSumProjections( sum )[ i ];
   end );
-                 
+  
+  SetIsAbelianCategory( category, true );
+  Finalize( category );
+
   return category;
 end );
