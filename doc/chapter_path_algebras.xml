@@ -946,13 +946,14 @@ false]]>
     <Description>
       Arguments: <Arg>A</Arg> - an algebra over a field.<Br />
     </Description>
-    <Returns> true if it is known that the entered algebra
-    <Arg>A</Arg> has finite global dimension.
+    <Returns> true if the entered algebra
+    <Arg>A</Arg> is semisimple, false otherwise.
     </Returns> 
     <Description>
-      There is no method associated to this, so if it is not known that 
-      the algebra has finite global dimension, then an error message saying 
-      "no method found!" is return. 
+      Checks if the algebra is finite dimensional.  If it is an
+      admissible quotients of a path algebra, it only checks if the
+      underlying quiver has any arrows or not.  Otherwise, it computes
+      the radical of the algebra and checks if it is zero.
     </Description>
   </ManSection>
 
