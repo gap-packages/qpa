@@ -67,7 +67,9 @@ InstallGlobalFunction( PathAlgebra,
         SetGlobalDimension(F, 0);
         SetFilterObj( F, IsSemisimpleAlgebra ); 
     fi;
-    
+    if IsAcyclicQuiver(Q) then
+        SetFilterObj( F, IsAdmissibleQuotientOfPathAlgebra);
+    fi;
     return F;
   end
 );
@@ -2512,4 +2514,49 @@ InstallMethod ( IsMonomialAlgebra,
           return IsMonomialIdeal(I);
       fi;
 end
-); 
+  ); 
+
+##########################################################################
+##
+#P DeclareProperty( "IsSemisimpleAlgebra", [ A ] )
+##
+## The function is defined for an admissible quotient  <A>  of a path
+## algebra, and it returns true if  <A>  is a semisimple algebra and 
+## false otherwise.
+## 
+InstallMethod( IsSemisimpleAlgebra,
+    "for an algebra",
+    [ IsAdmissibleQuotientOfPathAlgebra ], 5, 
+        
+    function( A )
+    local Q;
+    
+    Q := QuiverOfPathAlgebra(A);
+    if Length(ArrowsOfQuiver(Q)) > 0 then
+        return false;
+    else
+        return true;
+    fi;
+    if HasGlobalDimension(A) then
+        return GlobalDimension(A) < 2;
+    fi;
+end 
+  );
+
+InstallOtherMethod( IsSemisimpleAlgebra,
+    "for an algebra",
+    [ IsAlgebra ], 0, 
+        
+    function( A );
+    
+    if IsFiniteDimensional(A) then 
+        if Dimension(RadicalOfAlgebra(A)) = 0 then
+            return true;
+        else
+            return false;
+        fi;
+    else
+        TryNextMethod();
+    fi;
+end 
+  );
