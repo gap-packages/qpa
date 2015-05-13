@@ -1857,7 +1857,7 @@ InstallMethod( IsSymmetricAlgebra,
     # By now we know that the algebra is a finite dimensional quotient of a path algebra.
     #
     Aenv := EnvelopingAlgebra(A);
-    M    := AlgebraAsModuleOverEnvelopingAlgebra(Aenv);
+    M    := AlgebraAsModuleOverEnvelopingAlgebra(A);
     DM   := DualOfModule(M);
     #
     #   Finding DM as a module over Aenv.

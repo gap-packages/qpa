@@ -1789,13 +1789,13 @@ true]]>
   </ManSection>
 
   <ManSection>
-    <Attr Name="AlgebraAsModuleOverEnvelopingAlgebra" Arg=" Aenv "/>
+    <Attr Name="AlgebraAsModuleOverEnvelopingAlgebra" Arg=" A "/>
     <Description>
-      Arguments: <Arg>Aenv</Arg> -- the enveloping algebra of a
-      (quotient of) a path algebra <Arg>A</Arg>. <Br />
+      Arguments: <Arg>A</Arg> -- a
+      (quotient of a) path algebra <Arg>A</Arg>. <Br />
     </Description>
     <Returns>the algebra <Arg>A</Arg> as a right module over the
-      enveloping algebra <Arg>Aenv</Arg>. 
+      enveloping algebra of <Arg>A</Arg>. 
     </Returns>
   </ManSection>
 
