@@ -9,8 +9,8 @@ DeclareAttribute("ParentAlgebra", IsProjectivePresentation);
 DeclareAttribute("MatrixRepresentation", IsProjectivePresentation);
 DeclareAttribute("MatrixNumCols", IsProjectivePresentation);
 DeclareAttribute("MatrixNumRows", IsProjectivePresentation);
-DeclareAttribute("P0", IsProjectivePresentation);
-DeclareAttribute("P1", IsProjectivePresentation);
+#DeclareAttribute("P0", IsProjectivePresentation);
+#DeclareAttribute("P1", IsProjectivePresentation);
 DeclareAttribute("P0VertexList", IsProjectivePresentation);
 DeclareAttribute("P1VertexList", IsProjectivePresentation);
 
