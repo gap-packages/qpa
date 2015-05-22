@@ -1,8 +1,7 @@
 *swp
 *~
-doc/manual.six
-doc/*.pdf
-doc/*.html
+
+doc/chap([1-15]).html
 doc/*.txt
 doc/*.css
 doc/*.js
