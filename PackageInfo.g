@@ -245,7 +245,7 @@ PackageWWWHome := "http://sourceforge.net/projects/quiverspathalg/",
 # in case of several help books give a list of such records here:
 PackageDoc := rec(
   # use same as in GAP            
-  BookName  := "qpa",
+  BookName  := "QPA",
   # format/extension can be one of .zoo, .tar.gz, .tar.bz2, -win.zip
   #  Archive := "http://sourceforge.net/projects/quiverspathalg/files/qpa-version-1.09",
   #  ArchiveURLSubset := ["doc", "htm"],
