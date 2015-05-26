@@ -65,7 +65,7 @@ AbstractHTML := "The <span class=\"pkgname\">QPA</span> package provides data st
                    quotients of path algebras, and modules, homomorphisms and complexes of \
                    modules over quotients of path algebras.",
                    
-PackageWWWHome := "http://www.math.ntnu.no/~oyvinso/QPA/qpa/",
+PackageWWWHome := "http://www.math.ntnu.no/~oyvinso/QPA/",
                
 PackageDoc := rec(
   BookName  := "QPA",
