@@ -12,38 +12,47 @@ gap> START_TEST("qpa.tst");
 # Entering a quiver.
 gap> Q:= Quiver(3,[[1,2,"a"],[1,2,"b"],[2,2,"c"],[2,3,"d"],[3,1,"e"]]);
 <quiver with 3 vertices and 5 arrows>
+
 # Listing the vertices in the quiver.
 gap> VerticesOfQuiver(Q);
 [ v1, v2, v3 ]
+
 # Listing the arrows in the quiver.
 gap> ArrowsOfQuiver(Q);
 [ a, b, c, d, e ]
+
 #
 # Constructing the opposite quiver.
 gap> Qop := OppositeQuiver(Q);
 <quiver with 3 vertices and 5 arrows>
+
 #
 # Listing the vertices.
 gap> VerticesOfQuiver(Qop);
 [ v1_op, v2_op, v3_op ]
+
 #
 # Listing the arrows.
 gap> ArrowsOfQuiver(Qop);
 [ a_op, b_op, c_op, d_op, e_op ]
+
 #
 # Constructing the path algebra over this quiver over the field of rationals.
 gap> KQ:= PathAlgebra(Rationals, Q);
 <Rationals[<quiver with 3 vertices and 5 arrows>]>
+
 #
 # The arrows are called a, b, ... , in the definition of the quiver, but they do not
 # exist as variables in GAP yet.  The following defines these and variables for the
 # vertices. 
 gap> AssignGeneratorVariables(KQ);
 #I  Assigned the global variables [ v1, v2, v3, a, b, c, d, e ]
+
 #
 # Defining a set of relations.
 gap> rels:= [d*e,c^2,a*c*d-b*d,e*a];
 [ (1)*d*e, (1)*c^2, (-1)*b*d+(1)*a*c*d, (1)*e*a ]
+
 #
 # Constructing the quotient of the path algebra.
 gap> A:= KQ/rels;
@@ -52,12 +61,14 @@ gap> A:= KQ/rels;
   (5 generators)>>
 gap> Dimension(A);
 17
+
 #
 # Constructing the tenor product of  A  with itself.
 gap> TensorProductOfAlgebras(A,A);
 <Rationals[<quiver with 9 vertices and 30 arrows>]/
 <two-sided ideal in <Rationals[<quiver with 9 vertices and 30 arrows>]>, 
   (55 generators)>>
+
 #
 # Defining a module over the original algebra  A.
 gap> mat := [["a",[[1,2],[0,3],[1,5]]],["b",[[2,0],[3,0],[5,0]]],
@@ -67,16 +78,19 @@ gap> mat := [["a",[[1,2],[0,3],[1,5]]],["b",[[2,0],[3,0],[5,0]]],
   [ "d", [ [ 1, 2 ], [ 0, 1 ] ] ], [ "e", [ [ 0, 0, 0 ], [ 0, 0, 0 ] ] ] ]
 gap> N := RightModuleOverPathAlgebra(A,mat);  
 <[ 3, 2, 2 ]>
+
 #
 # Listing the defining matrices for the module  N.
 gap> MatricesOfPathAlgebraModule(N);
 [ [ [ 1, 2 ], [ 0, 3 ], [ 1, 5 ] ], [ [ 2, 0 ], [ 3, 0 ], [ 5, 0 ] ], 
   [ [ 0, 0 ], [ 1, 0 ] ], [ [ 1, 2 ], [ 0, 1 ] ], 
   [ [ 0, 0, 0 ], [ 0, 0, 0 ] ] ]
+
 #
 # Recalling the dimension of  N.
 gap> DimensionVector(N);
 [ 3, 2, 2 ]
+
 #
 # Finding the radical, top, socle of the module, projective cover.
 gap> RadicalOfModuleInclusion(N);
@@ -107,6 +121,7 @@ gap> IsDirectSummand(N,M);
 true
 gap> IsomorphicModules(N,M);
 false
+
 #
 # Construting the simple module  S1  in two different ways.
 gap> S1 := SimpleModules(A)[1];
@@ -117,6 +132,7 @@ gap> S1 = U1;
 true
 gap> IsIdenticalObj(S1,U1);
 false
+
 #
 # Testing various operations on modules.
 gap> IsExceptionalModule(S1);
@@ -173,6 +189,7 @@ gap> StarOfModule(N);
 <[ 0, 0, 0 ]>
 gap> TransposeOfModule(N);
 <[ 17, 10, 7 ]>
+
 #
 # Testing various operations for homomorphisms of modules
 gap> hom := HomOverAlgebra(N,N);
@@ -226,6 +243,7 @@ gap> LeftMinimalVersion(f);
 gap> RightMinimalVersion(f);
 [ <<[ 1, 0, 0 ]> ---> <[ 3, 2, 2 ]>>
     , [ <[ 2, 2, 2 ]> ] ]
+
 #
 # Testing homological algebra operations.
 gap> CotiltingModule(N,2);
@@ -282,6 +300,7 @@ gap> PushOut(hom[1],hom[2]);
 [ <<[ 3, 2, 2 ]> ---> <[ 4, 4, 4 ]>>
     , <<[ 3, 2, 2 ]> ---> <[ 4, 4, 4 ]>>
      ]
+
 #
 # Testing some AR-theory.
 gap> AlmostSplitSequence(S1);
@@ -292,6 +311,7 @@ gap> PredecessorsOfModule(S1,2);
 [ [ [ <[ 1, 0, 0 ]> ], [ <[ 4, 2, 2 ]>, <[ 4, 2, 1 ]> ], [ <[ 7, 4, 3 ]> ] ], 
   [ [ [ 1, 1, [ 1, false ] ], [ 2, 1, [ 1, false ] ] ], 
       [ [ 1, 1, [ false, 1 ] ], [ 1, 2, [ false, 1 ] ] ] ] ]
+
 #
 # Testing chain complexes
 gap> alg := A;
@@ -357,6 +377,7 @@ gap> dc := DifferentialOfComplex(C,3)!.maps;
 [ [ [ 0, 0, 0 ] ], [ [ 0, 0 ] ], [ [ 0, 0 ] ] ]
 gap> dd := DifferentialOfComplex(D,4)!.maps;
 [ [ [ 0, 0, 0 ] ], [ [ 0, 0 ] ], [ [ 0, 0 ] ] ]
+
 #
 # Testing unit forms.
 gap> u := TitsUnitFormOfAlgebra(NakayamaAlgebra(Rationals,[3,2,1]));
