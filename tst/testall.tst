@@ -150,9 +150,9 @@ gap> IsRigidModule(N);
 true
 gap> IsSemisimpleModule(N);
 false
-gap> IsSimpleModule(N);
+gap> IsSimpleQPAModule(N);
 false
-gap> IsSimpleModule(S1);
+gap> IsSimpleQPAModule(S1);
 true
 gap> gens := MinimalGeneratingSetOfModule(N);
 [ [ [ 1, 0, 0 ], [ 0, 0 ], [ 0, 0 ] ], [ [ 0, 1, 0 ], [ 0, 0 ], [ 0, 0 ] ], 

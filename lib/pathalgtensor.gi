@@ -64,7 +64,7 @@ InstallMethod( WalkOfPathOrVertex,
         WalkOfPath );
 InstallMethod( WalkOfPathOrVertex,
         "for a vertex",
-        [ IsVertex ],
+        [ IsQuiverVertex ],
         function( v ) return [ v ]; end );
 
 

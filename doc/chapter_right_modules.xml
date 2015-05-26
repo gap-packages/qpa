@@ -635,7 +635,7 @@ gap> inc := DirectSumInclusions(N2);
 </ManSection>
 
 <ManSection>
-   <Prop Name="IsSimpleModule" Arg="M" Comm="for a
+   <Prop Name="IsSimpleQPAModule" Arg="M" Comm="for a
    PathAlgebraMatModule"/>
    <Description> 
     Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>).

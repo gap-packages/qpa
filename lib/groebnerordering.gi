@@ -140,7 +140,7 @@ InstallGlobalFunction(CheckQuiverSubsetForCycles,
              return true;
          end;
          for b in h do
-             if not IsVertex(b) then
+             if not IsQuiverVertex(b) then
                  break;
              fi;
              r:=ExtRepOfObj(b)[1]*3;
@@ -448,7 +448,7 @@ InstallMethod(IsWellSubset,
          fi;
          #Visit any unconnected components reachable from our subset
          for b in h do
-             if not IsVertex(b) then
+             if not IsQuiverVertex(b) then
                  break;
              fi;
              r:=ExtRepOfObj(b)[1]*3;
@@ -578,7 +578,7 @@ InstallMethod(IsWellReversedSubset,
          fi;
          #Visit any unconnected components reachable from our subset
          for b in h do
-             if not IsVertex(b) then
+             if not IsQuiverVertex(b) then
                  break;
              fi;
              r:=ExtRepOfObj(b)[1]*3;
@@ -621,7 +621,7 @@ InstallGlobalFunction(LeftLexicographicOrdering,function(arg)
      j:=1;
      if Length(arg)>=2 then
          for i in arg[2] do
-             if IsVertex(i) then
+             if IsQuiverVertex(i) then
                  rep:=ExtRepOfObj(i)[1];
                  if not IsBound(lex[rep]) then
                      lex[rep]:=j;
@@ -633,7 +633,7 @@ InstallGlobalFunction(LeftLexicographicOrdering,function(arg)
      fi;
      if Length(VerticesOfQuiver(Q))>=j then
          for i in oldgens do
-             if not IsVertex(i) then
+             if not IsQuiverVertex(i) then
                  break;
              fi;
              rep:=ExtRepOfObj(i)[1];
@@ -734,7 +734,7 @@ InstallGlobalFunction(RightLexicographicOrdering,function(arg)
      j:=1;
      if Length(arg)>=2 then
          for i in arg[2] do
-             if IsVertex(i) then
+             if IsQuiverVertex(i) then
                  rep:=ExtRepOfObj(i)[1];
                  if not IsBound(lex[rep]) then
                      lex[rep]:=j;
@@ -746,7 +746,7 @@ InstallGlobalFunction(RightLexicographicOrdering,function(arg)
      fi;
      if Length(VerticesOfQuiver(Q))>=j then
          for i in oldgens do
-             if not IsVertex(i) then
+             if not IsQuiverVertex(i) then
                  break;
              fi;
              rep:=ExtRepOfObj(i)[1];
@@ -858,11 +858,11 @@ InstallGlobalFunction(ReverseOrdering,function(arg)
         elif IsZeroPath(b) then
             return ComparisonFunction(NextOrdering(O))(a,b);
         fi;
-        if IsVertex(a) then
-            if not IsVertex(b) then
+        if IsQuiverVertex(a) then
+            if not IsQuiverVertex(b) then
                 return ComparisonFunction(NextOrdering(O))(a,b);
             fi;
-        elif IsVertex(b) then
+        elif IsQuiverVertex(b) then
             return ComparisonFunction(NextOrdering(O))(a,b);
         fi;
         return -ComparisonFunction(NextOrdering(O))(a,b);
@@ -1018,7 +1018,7 @@ InstallGlobalFunction(LeftVectorOrdering,function(arg)
      j:=1;
      if Length(arg)>=2 then
          for i in arg[2] do
-             if IsVertex(i) then
+             if IsQuiverVertex(i) then
                  rep:=ExtRepOfObj(i)[1];
                  if not IsBound(lex[rep]) then
                      lex[rep]:=j;
@@ -1030,7 +1030,7 @@ InstallGlobalFunction(LeftVectorOrdering,function(arg)
      fi;
      if Length(VerticesOfQuiver(Q))>=j then
          for i in oldgens do
-             if not IsVertex(i) then
+             if not IsQuiverVertex(i) then
                  break;
              fi;
              rep:=ExtRepOfObj(i)[1];
@@ -1083,8 +1083,8 @@ InstallGlobalFunction(LeftVectorOrdering,function(arg)
     SetOrderingName(O,"left vector");
     SetComparisonFunction(O,function(a,b)
         local v,w,r,s,i,j,o;
-        if IsVertex(a) or IsZeroPath(a) then
-            if IsVertex(b) or IsZeroPath(b) then
+        if IsQuiverVertex(a) or IsZeroPath(a) then
+            if IsQuiverVertex(b) or IsZeroPath(b) then
                 if HasNextOrdering(O) then
                     return ComparisonFunction(NextOrdering(O))(a,b);
                 else
@@ -1093,7 +1093,7 @@ InstallGlobalFunction(LeftVectorOrdering,function(arg)
             else
                 return -1;
             fi;
-        elif IsVertex(b) or IsZeroPath(b) then
+        elif IsQuiverVertex(b) or IsZeroPath(b) then
             return 1;
         fi;
         # At this point, both items are paths
@@ -1153,7 +1153,7 @@ InstallGlobalFunction(RightVectorOrdering,function(arg)
      j:=1;
      if Length(arg)>=2 then
          for i in arg[2] do
-             if IsVertex(i) then
+             if IsQuiverVertex(i) then
                  rep:=ExtRepOfObj(i)[1];
                  if not IsBound(lex[rep]) then
                      lex[rep]:=j;
@@ -1165,7 +1165,7 @@ InstallGlobalFunction(RightVectorOrdering,function(arg)
      fi;
      if Length(VerticesOfQuiver(Q))>=j then
          for i in oldgens do
-             if not IsVertex(i) then
+             if not IsQuiverVertex(i) then
                  break;
              fi;
              rep:=ExtRepOfObj(i)[1];
@@ -1218,8 +1218,8 @@ InstallGlobalFunction(RightVectorOrdering,function(arg)
     SetOrderingName(O,"right vector");
     SetComparisonFunction(O,function(a,b)
         local v,w,r,s,i,j,l,o;
-        if IsVertex(a) or IsZeroPath(a) then
-            if IsVertex(b) or IsZeroPath(b) then
+        if IsQuiverVertex(a) or IsZeroPath(a) then
+            if IsQuiverVertex(b) or IsZeroPath(b) then
                 if HasNextOrdering(O) then
                     return ComparisonFunction(NextOrdering(O))(a,b);
                 else
@@ -1228,7 +1228,7 @@ InstallGlobalFunction(RightVectorOrdering,function(arg)
             else
                 return -1;
             fi;
-        elif IsVertex(b) or IsZeroPath(b) then
+        elif IsQuiverVertex(b) or IsZeroPath(b) then
             return 1;
         fi;
         # At this point, both items are paths
@@ -1294,8 +1294,8 @@ InstallGlobalFunction(WeightOrdering,function(arg)
     SetOrderingName(O,"weight");
     SetComparisonFunction(O,function(a,b)
         local v,w,r,s,i,o;
-        if IsVertex(a) or IsZeroPath(a) then
-            if IsVertex(b) or IsZeroPath(b) then
+        if IsQuiverVertex(a) or IsZeroPath(a) then
+            if IsQuiverVertex(b) or IsZeroPath(b) then
                 if HasNextOrdering(O) then
                     return ComparisonFunction(NextOrdering(O))(a,b);
                 else
@@ -1304,7 +1304,7 @@ InstallGlobalFunction(WeightOrdering,function(arg)
             else
                 return -1;
             fi;
-        elif IsVertex(b) or IsZeroPath(b) then
+        elif IsQuiverVertex(b) or IsZeroPath(b) then
             return 1;
         fi;
         # At this point, both items are paths
@@ -1508,7 +1508,7 @@ InstallGlobalFunction(BlockOrdering,function(arg)
         fi;
         i:=i+1;
         while i<Length(L) do
-            if (not IsArrow(L[i])) and (not IsVertex(L[i])) then
+            if (not IsArrow(L[i])) and (not IsQuiverVertex(L[i])) then
                 break;
             fi;
             block[ExtRepOfObj(L[i])[1]]:=Length(orders);
@@ -1842,7 +1842,7 @@ InstallGlobalFunction(WreathOrdering,function(arg)
         fi;
         i:=i+1;
         while i<Length(L) do
-            if (not IsArrow(L[i])) and (not IsVertex(L[i])) then
+            if (not IsArrow(L[i])) and (not IsQuiverVertex(L[i])) then
                 break;
             fi;
             block[ExtRepOfObj(L[i])[1]]:=Length(orders);

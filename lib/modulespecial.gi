@@ -185,7 +185,7 @@ InstallMethod ( SimpleModules,
         Add(simple_rep,RightModuleOverPathAlgebra(A,temp,[]));
     od;
     for s in simple_rep do
-        SetIsSimpleModule(s, true);
+        SetIsSimpleQPAModule(s, true);
     od;
     return simple_rep;
 end

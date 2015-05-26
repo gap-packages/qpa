@@ -424,7 +424,7 @@ gap> ArrowsOfQuiver(q1_op);
  </ManSection>
  
 <ManSection>
-   <Oper Name="ConnectedComponents" Arg="quiver" Comm="operation creating a list of all connected components of a quiver"/>
+   <Oper Name="ConnectedComponentsOfQuiver" Arg="quiver" Comm="operation creating a list of all connected components of a quiver"/>
    <Returns>
     This function returns a list of quivers which are 
    all connected components of a <Arg>quiver</Arg>.
@@ -443,7 +443,7 @@ gap> VerticesOfQuiver(Q);
 [ v1, v2, v3, v4, v5, v6 ]
 gap> FullSubquiver(Q, [Q.v1, Q.v2]);
 <quiver with 2 vertices and 2 arrows>
-gap> ConnectedComponents(Q);
+gap> ConnectedComponentsOfQuiver(Q);
 [ <quiver with 3 vertices and 3 arrows>, 
   <quiver with 2 vertices and 2 arrows>, 
   <quiver with 1 vertices and 0 arrows> ]]]>
@@ -475,7 +475,7 @@ gap> ConnectedComponents(Q);
   </ManSection>
 
 <ManSection>
-   <Filt Name="IsVertex" Arg="object" Comm="" Type="category"/>
+   <Filt Name="IsQuiverVertex" Arg="object" Comm="" Type="category"/>
    <Description>
       All vertices are in this category.
    </Description>
@@ -504,7 +504,7 @@ gap> IsPath(q1.b);
 true
 gap> IsPath(q1.u);
 true
-gap> IsVertex(q1.c);
+gap> IsQuiverVertex(q1.c);
 false
 gap> IsZeroPath(q1.d);
 false]]>

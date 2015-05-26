@@ -4,8 +4,8 @@
 DeclareInfoClass( "InfoQuiver" );
 
 DeclareCategory("IsPath", IsMultiplicativeElement);
-DeclareCategory("IsVertex", IsPath);
-DeclareRepresentation("IsVertexRep", IsComponentObjectRep, ["vertex_name","gen_pos"]);
+DeclareCategory("IsQuiverVertex", IsPath);
+DeclareRepresentation("IsQuiverVertexRep", IsComponentObjectRep, ["vertex_name","gen_pos"]);
 DeclareCategory("IsArrow", IsPath);
 DeclareRepresentation("IsArrowRep", IsComponentObjectRep, ["arrow_name","gen_pos"]);
 DeclareCategoryFamily("IsPath");
@@ -16,11 +16,11 @@ DeclareAttribute("LengthOfPath", IsPath);
 DeclareAttribute("WalkOfPath", IsPath);
 DeclareProperty("IsZeroPath", IsPath);
 
-DeclareAttribute("IncomingArrowsOfVertex", IsVertex, "mutable");
-DeclareAttribute("OutgoingArrowsOfVertex", IsVertex, "mutable");
-DeclareAttribute("InDegreeOfVertex", IsVertex, "mutable");
-DeclareAttribute("OutDegreeOfVertex", IsVertex, "mutable");
-DeclareAttribute("NeighborsOfVertex", IsVertex, "mutable" );
+DeclareAttribute("IncomingArrowsOfVertex", IsQuiverVertex, "mutable");
+DeclareAttribute("OutgoingArrowsOfVertex", IsQuiverVertex, "mutable");
+DeclareAttribute("InDegreeOfVertex", IsQuiverVertex, "mutable");
+DeclareAttribute("OutDegreeOfVertex", IsQuiverVertex, "mutable");
+DeclareAttribute("NeighborsOfVertex", IsQuiverVertex, "mutable" );
 
 DeclareGlobalFunction( "Path" );
 DeclareCategory("IsQuiver", IsSemigroup and IsRecord);
@@ -49,7 +49,7 @@ DeclareOperation("NextPath", [IsQuiver, IsObject]);
 DeclareOperation( "\[\]", [ IsQuiverEnumerator, IsPosInt ]);
 
 DeclareOperation( "QuiverContainingPath", [ IsPath ] );
-DeclareOperation( "VertexIndex", [ IsVertex ] );
+DeclareOperation( "VertexIndex", [ IsQuiverVertex ] );
 DeclareOperation( "ArrowIndex", [ IsArrow ] );
 DeclareOperation( "GeneratorIndex", [ IsPath ] );
 

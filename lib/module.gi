@@ -1742,11 +1742,11 @@ end
 
 #######################################################################
 ##
-#P  IsSimpleModule( <M> )
+#P  IsSimpleQPAModule( <M> )
 ##
 ##  Checks whether <M> is simple.
 ##
-InstallMethod( IsSimpleModule, 
+InstallMethod( IsSimpleQPAModule, 
    "for a module over a quotient of a path algebra",
    [ IsPathAlgebraMatModule ], 0,
    function( M ) ; 
@@ -2107,10 +2107,10 @@ InstallMethod( IsIndecomposableModule,
     if IsFinite(K) then 
         return Length(DecomposeModule(M)) = 1;
     fi;
-    if IsSimpleModule( TopOfModule(M) ) then
+    if IsSimpleQPAModule( TopOfModule(M) ) then
         return true;
     fi;
-    if IsSimpleModule( SocleOfModule(M) ) then
+    if IsSimpleQPAModule( SocleOfModule(M) ) then
         return true;
     fi;
     TryNextMethod();

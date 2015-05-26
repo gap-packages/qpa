@@ -704,7 +704,7 @@ InstallOtherMethod( MappedExpression,
     for i in [1..Length(gens1)] do
         coeff := LeadingCoefficient(gens1[i]);
         mon := LeadingMonomial(gens1[i]);
-        if IsOne(coeff) and (IsVertex(mon) or IsArrow(mon)) then
+        if IsOne(coeff) and (IsQuiverVertex(mon) or IsArrow(mon)) then
             genTable[ExtRepOfObj(mon)[1]] := gens2[i];
         else
             Error( "gens1 must be a list of generators" );

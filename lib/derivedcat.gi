@@ -10,7 +10,7 @@
 ## consists of projectives.
 ##
 InstallMethod( IsProjectiveComplex,
-               [ IsComplex ],
+               [ IsQPAComplex ],
                function( C )
 
     local i, obj;
@@ -37,7 +37,7 @@ end);
 ## consists of injectives.
 ##
 InstallMethod( IsInjectiveComplex,
-               [ IsComplex ],
+               [ IsQPAComplex ],
                function( C )
     local i, obj;
 
@@ -195,7 +195,7 @@ end);
 ## C' is an element of the homotopty category K^(b)(P).
 ##
 InstallMethod( ProjectiveResolutionOfComplex,
-               [ IsComplex ],
+               [ IsQPAComplex ],
                function( C )
 
     local cat, dList, tList, t1, PB1, PC1, pos, ker, h, PB, PC, lastKernel, i,
@@ -516,7 +516,7 @@ end);
 ## finite global dimension.
 ##
 InstallMethod( TauOfComplex,
-               [ IsComplex ],
+               [ IsQPAComplex ],
                function( C )
     
     local cat, projVersion, tau, injVersion;
@@ -543,7 +543,7 @@ end);
 ## the next method is used.
 ##
 InstallMethod( ProjectiveToInjectiveComplex,
-               [ IsComplex ],
+               [ IsQPAComplex ],
                function( PCompl )
     
     local A, cat, start, stop, injectives, inj1, inj2,
@@ -633,7 +633,7 @@ end);
 ## explicitly calling this method.
 ##
 InstallMethod( ProjectiveToInjectiveFiniteComplex,
-               [ IsComplex ],
+               [ IsQPAComplex ],
                function( PCompl )
 
     local A, cat, start, stop, descr, maplist, i, f, u, mats, x, inj1,
@@ -896,7 +896,7 @@ end);
 ## projectives in degree <i> of <C>.
 ##
 InstallMethod( DescriptionOfProjComplexInDegree,
-               [ IsComplex, IsInt ],
+               [ IsQPAComplex, IsInt ],
                function( C, i )
     return DescriptionOfProjOrInjComplexInDegree(C, i, true);
 end);
@@ -912,7 +912,7 @@ end);
 ## injectives in degree <i> of <C>.
 ##
 InstallMethod( DescriptionOfInjComplexInDegree,
-               [ IsComplex, IsInt ],
+               [ IsQPAComplex, IsInt ],
                function( C, i )
     return DescriptionOfProjOrInjComplexInDegree(C, i, false);
 end);
@@ -932,7 +932,7 @@ end);
 ## projectives or injectives in degree <i> of <C>.
 ##
 InstallMethod( DescriptionOfProjOrInjComplexInDegree,
-               [ IsComplex, IsInt, IsBool ],
+               [ IsQPAComplex, IsInt, IsBool ],
                function( C, i, test )
     local obj,comp, list, incls, incl;
     
@@ -973,7 +973,7 @@ end);
 ## projectives in this degree.
 ##
 InstallMethod( DescriptionOfFiniteProjComplex,
-               [ IsComplex ],
+               [ IsQPAComplex ],
                function( C )
     return DescriptionOfFiniteProjOrInjComplex(C,true);
 end);
@@ -990,7 +990,7 @@ end);
 ## injectives in this degree.
 ##
 InstallMethod( DescriptionOfFiniteInjComplex,
-               [ IsComplex ],
+               [ IsQPAComplex ],
                function( C )
     return DescriptionOfFiniteProjOrInjComplex(C,false);
 end);
@@ -1011,7 +1011,7 @@ end);
 ## projectives/injectives in this degree.
 ##
 InstallMethod( DescriptionOfFiniteProjOrInjComplex,
-               [ IsComplex, IsBool ],
+               [ IsQPAComplex, IsBool ],
                function( C, test )
 
     local i,obj,comp, incls, incl, list, templist, start, stop;

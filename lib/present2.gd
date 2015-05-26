@@ -1,8 +1,6 @@
 # GAP Declarations
 # This file was generated from
 # $Id: present2.gd,v 1.1 2010/05/07 13:30:13 sunnyquiver Exp $
-DeclareInfoClass( "InfoPathAlgebraModule" );
-
 
 DeclareCategory("IsProjectivePresentation",IsObject);
 DeclareAttribute("ParentAlgebra", IsProjectivePresentation);

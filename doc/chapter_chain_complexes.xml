@@ -25,7 +25,7 @@ known to be bounded, how can we represent it in an immutable way?  Our
 solution is to use a category called <C>InfList</C> (for ``infinite
 list'') to store the differentials of the complex.  The properties of
 the <C>IsInfList</C> category is described in <Ref Sect="InfLists"/>.
-An <C>IsComplex</C> object consists of one <C>IsInfList</C> for the
+An <C>IsQPAComplex</C> object consists of one <C>IsInfList</C> for the
 differentials, and it also has an <C>IsCat</C> object as an attribute.
 The <C>IsCat</C> category is a representation of an abelian category,
 see <Ref Sect="Cats" />.
@@ -818,7 +818,7 @@ for common special cases:
 <!-- TODO: ComplexByDifferentialList -->
 
 <ManSection>
-<Filt Type="Category" Name="IsComplex"/>
+<Filt Type="Category" Name="IsQPAComplex"/>
 <Description>
 The category for chain complexes.
 </Description>
@@ -827,7 +827,7 @@ The category for chain complexes.
 <ManSection>
 <Filt Type="Category" Name="IsZeroComplex"/>
 <Description>
-Category for zero complexes, subcategory of <Ref Filt="IsComplex"/>.
+Category for zero complexes, subcategory of <Ref Filt="IsQPAComplex"/>.
 </Description>
 </ManSection>
 

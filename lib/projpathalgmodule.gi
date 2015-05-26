@@ -971,7 +971,7 @@ InstallMethod( RightProjectiveModule,
     local i, fam, zero, gen, gens, M;
 
     if not ForAll(verts, function(x)
-        return x = Tip(x) and IsVertex(TipMonomial(x))
+        return x = Tip(x) and IsQuiverVertex(TipMonomial(x))
                and One(TipCoefficient(x)) = TipCoefficient(x);
          end ) then
          TryNextMethod();
@@ -1019,7 +1019,7 @@ InstallMethod( RightProjectiveModule,
 
     if not ForAll(verts, function(x)
         return x = Tip(x)
-               and IsVertex(TipMonomial(x))
+               and IsQuiverVertex(TipMonomial(x))
                and One(TipCoefficient(x)) = TipCoefficient(x);
         end ) then
         TryNextMethod();
@@ -1874,7 +1874,7 @@ InstallOtherMethod( VertexProjectivePresentation,
     od;
 
     if not ForAll(verts, function(x)
-                   return x = Tip(x) and IsVertex(TipMonomial(x))
+                   return x = Tip(x) and IsQuiverVertex(TipMonomial(x))
                    and One(TipCoefficient(x)) = TipCoefficient(x);
                  end )
       then

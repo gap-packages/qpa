@@ -34,7 +34,7 @@ InstallMethod( IsFiniteTypeAlgebra,
       return true;
     fi;
     
-    comps := ConnectedComponents(Q);
+    comps := ConnectedComponentsOfQuiver(Q);
     if ForAll(comps, x -> IsDynkinQuiver(x)) then
       Print("Finite type!\nQuiver is a (union of) Dynkin quiver(s).\n");
       return true;
@@ -87,7 +87,7 @@ InstallMethod( IsFiniteTypeAlgebra,
     # Checking if  A  is a quotient of a path algebra of finite type, 
     # that is, the quiver of  A  is a union of Dynkin quivers.
     #
-    comps := ConnectedComponents(Q);
+    comps := ConnectedComponentsOfQuiver(Q);
     if ForAll(comps, x -> IsDynkinQuiver(x)) then
         Print("Finite type!\nQuiver is a (union of) Dynkin quiver(s).\n");
         return true;
@@ -101,7 +101,7 @@ InstallMethod( IsFiniteTypeAlgebra,
     # then  A = A/rad^2 and  A  is of finite type if and only if  kQbar is. 
     #
     Qbar := SeparatedQuiver(Q);
-    if not ForAll( ConnectedComponents(Qbar), IsDynkinQuiver ) then
+    if not ForAll( ConnectedComponentsOfQuiver(Qbar), IsDynkinQuiver ) then
         Print("Have checked representation type of the algebra modulo the square of the radical.\n");
         return false;
     elif IsRadicalSquareZeroAlgebra(A) then

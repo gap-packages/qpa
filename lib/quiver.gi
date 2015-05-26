@@ -11,7 +11,7 @@ InstallGlobalFunction(
     if Length( arg ) = 2 and IsFamily( arg[1] ) and IsString( arg[2] ) then
       vertex_name := arg[2];
       path:= Objectify( NewType( arg[1],
-                        IsVertex and IsVertexRep and IsAttributeStoringRep ),
+                        IsQuiverVertex and IsQuiverVertexRep and IsAttributeStoringRep ),
                         rec( vertex_name := vertex_name ) );
       SetSourceOfPath( path, path );
       SetTargetOfPath( path, path );
@@ -27,8 +27,8 @@ InstallGlobalFunction(
       return path;
 
     # arrow from two vertices
-    elif Length( arg ) = 4 and IsFamily( arg[1]) and IsVertex( arg[2] )
-                         and IsVertex( arg[3] ) and IsString( arg[4] ) then
+    elif Length( arg ) = 4 and IsFamily( arg[1]) and IsQuiverVertex( arg[2] )
+                         and IsQuiverVertex( arg[3] ) and IsString( arg[4] ) then
       u := arg[2];
       v := arg[3];
       arrow_name := arg[4];
@@ -79,7 +79,7 @@ InstallMethod(ExtRepOfObj,
 
 InstallMethod(ExtRepOfObj,
   "for vertices",
-  true, [IsVertex], 0,
+  true, [IsQuiverVertex], 0,
   V -> [V!.gen_pos]
 );
 
@@ -124,7 +124,7 @@ InstallMethod( ObjByExtRep,
 InstallMethod( \*,
   "for vertices",
   IsIdenticalObj,
-  [ IsVertex, IsVertex ], 0,
+  [ IsQuiverVertex, IsQuiverVertex ], 0,
   function( u, v )
     if( IsIdenticalObj(u, v) ) then
       return u;
@@ -138,7 +138,7 @@ InstallMethod( \*,
 InstallMethod( \*,
   "for a vertex and a path",
   IsIdenticalObj,
-  [ IsVertex, IsPath ], 0,
+  [ IsQuiverVertex, IsPath ], 0,
   function( vert, path )
     if( IsIdenticalObj(vert, SourceOfPath(path)) ) then
       return path;
@@ -152,7 +152,7 @@ InstallMethod( \*,
 InstallMethod( \*,
   "for a path and a vertex",
   IsIdenticalObj,
-  [ IsPath, IsVertex ], 0,
+  [ IsPath, IsQuiverVertex ], 0,
   function( path, vert )
     if( IsIdenticalObj(TargetOfPath(path), vert) ) then
       return path;
@@ -217,7 +217,7 @@ InstallMethod( \*,
 InstallMethod( \=,
   "for vertices",
   IsIdenticalObj,
-  [ IsVertex, IsVertex ], 0,
+  [ IsQuiverVertex, IsQuiverVertex ], 0,
   function( u, v )
     return IsIdenticalObj(u, v);
   end
@@ -323,7 +323,7 @@ InstallMethod( PrintObj,
 InstallMethod( String,
   "for vertex",
   true,
-  [ IsVertex and IsVertexRep ], 0,
+  [ IsQuiverVertex and IsQuiverVertexRep ], 0,
   function( obj )
     return obj!.vertex_name;
   end
@@ -333,7 +333,7 @@ InstallMethod( String,
 InstallMethod( PrintObj,
   "for vertex",
   true,
-  [ IsVertex and IsVertexRep ], 0,
+  [ IsQuiverVertex and IsQuiverVertexRep ], 0,
   function( obj )
     Print( obj!.vertex_name );
   end
@@ -1016,7 +1016,7 @@ end );
 InstallMethod( VertexIndex,
         "for a vertex",
         true,
-        [ IsVertex ],
+        [ IsQuiverVertex ],
         function( v )
     return v!.gen_pos;
 end );
@@ -1034,7 +1034,7 @@ end );
 InstallMethod( GeneratorIndex,
         "for a vertex",
         true,
-        [ IsVertex ],
+        [ IsQuiverVertex ],
         function( v )
     return v!.gen_pos;
 end );
