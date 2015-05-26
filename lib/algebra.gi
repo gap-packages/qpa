@@ -505,7 +505,7 @@ InstallMethod( IsBasicAlgebra,
     #
     if IsFinite(K) then 
         J := RadicalOfAlgebra(A);
-        L := List(DirectSumDecomposition(A/J),PrimitiveIdempotents);
+        L := List(DirectSumDecomposition(A/J),PrimitiveIdempotentsOfSimpleAlgebra);
         L := List(L,Length);
         if Sum(L) <> Length(L) then
             return false;

@@ -5,7 +5,7 @@
 
 #######################################################################
 ##
-#F  PrimitiveIdempotents( <A> )
+#F  PrimitiveIdempotentsOfSimpleAlgebra( <A> )
 ##
 ##  This function takes as an argument a finite dimensional simple 
 ##  algebra  <A>  for a finite field and returns a complete set of 
@@ -18,7 +18,7 @@
 ##  implementation of algorithms for noncommutative algebra", PhD-
 ##  thesis, Virginia Tech, 2000. 
 ##
-InstallGlobalFunction("PrimitiveIdempotents",
+InstallGlobalFunction("PrimitiveIdempotentsOfSimpleAlgebra",
     function(A)
     local F, d, e, eA, r, m, E, b, one, i, s, j, x, e_hat;
 

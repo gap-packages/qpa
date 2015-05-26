@@ -107,7 +107,7 @@ InstallMethod(IdempotentsForDecomposition,
 
     for i in cents do
         simp := semi*i;
-        prims := Concatenation(prims,PrimitiveIdempotents(simp));
+        prims := Concatenation(prims,PrimitiveIdempotentsOfSimpleAlgebra(simp));
     od;
    
     return LiftIdempotentsForDecomposition(map,prims);
