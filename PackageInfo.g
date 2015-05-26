@@ -1,8 +1,8 @@
 SetPackageInfo( rec(
 PackageName := "QPA",
 Subtitle := "Quivers and Path Algebras",
-Version := "1.18",
-Date := "17/04/2015",
+Version := "1.19",
+Date := "26/05/2015",
 
 ArchiveURL := "http://sourceforge.net/projects/quiverspathalg/files/qpa-version-1.18",
 ArchiveFormats := ".tar.gz",
@@ -37,9 +37,7 @@ Persons := [
                        "Norway" ] ),
     Place         := "Trondheim",
     Institution   := "Norwegian University of Science and Technology"
-  )            
-# provide such a record for each author and/or maintainer ...
-  
+  )              
 ],
 
 Status := "dev",

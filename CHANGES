@@ -1,4 +1,66 @@
 ==========================================================================
+Changes from version 1.18 to 1.19:
+==========================================================================
+
+Added structures in this release:
+----------------------------------------------------------------------
+
+None
+
+Added functions in this release:
+----------------------------------------------------------------------
+
+IsHereditaryAlgebra
+IsSemisimpleAlgebra (added method)
+
+Changed code for:
+----------------------------------------------------------------------
+
+AlgebraAsModuleOverEnvelopingAlgebra (takes the algebra as an argument
+                                      instead of the enveloping 
+                                      algebra of the algebra)
+FaithfulDimension (changed from operation to attribute)
+
+Fixed bugs in:
+----------------------------------------------------------------------
+
+None
+
+Documentation:
+----------------------------------------------------------------------
+
+Documentation was added and updated. 
+
+Changes in function names:
+Old name -------> New name
+------------------------------------------------------------
+ConnectedComponents ----> ConnectedComponentsOfQuiver
+IsComplex ----> IsQPAComplex
+IsSimpleModule ----> IsSimpleQPAModule
+IsVertex ----> IsQuiverVertex 
+PrimitiveIdempotents ----> PrimitiveIdempotentsOfSimpleAlgebra
+
+Synonyms
+------------------------------------------------------------
+
+None
+
+Discontinued functions:
+------------------------------------------------------------
+
+Removed two attributes "P0" and "P1" of a 
+"IsProjectiveResolution" as they were not in use in QPA and 
+they are likely to overwrite other variables when QPA is 
+loaded.  Pointed out by A. Konovalov.
+
+Miscellaneous
+------------------------------------------------------------
+
+Removed the bin directory from the repository (not in use, 
+pointed out by A. Konovalov).  Trimmed the file PackageInfo.g
+for comments. 
+
+==========================================================================
 Changes from version 1.17 to 1.18:
 ==========================================================================
 

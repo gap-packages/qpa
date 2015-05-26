@@ -2537,9 +2537,6 @@ InstallMethod( IsSemisimpleAlgebra,
     else
         return true;
     fi;
-    if HasGlobalDimension(A) then
-        return GlobalDimension(A) < 2;
-    fi;
 end 
   );
 
