@@ -273,123 +273,8 @@ InstallMethod(ObjByExtRep,
         fi;
         return Objectify( fam!.packedType, [obj] );
     end );
-#############################################################################
-##
-#M  AsLeftModuleGeneralMappingByImages( <alg_gen_map> )
-##
-##  If necessary then we compute a basis of the preimage,
-##  and images of its basis vectors.
-##
-##  Note that we must prescribe also the products of basis vectors and
-##  their images if <alg_gen_map> is not known to be a mapping.
-##
-InstallMethod( AsLeftModuleGeneralMappingByImages,
-    "for an algebra general mapping by images",
-    true,
-    [     IsAlgebraGeneralMapping
-      and IsAlgebraGeneralMappingByImagesDefaultRep ], 0,
-    function( alg_gen_map )
+    
 
-    local origgenerators,  # list of algebra generators of the preimage
-          origgenimages,   # list of images of `origgenerators'
-          generators,      # list of left module generators of the preimage
-          genimages,       # list of images of `generators'
-          A,               # source of the general mapping
-          left,            # is it necessary to multiply also from the left?
-                           # (not if `A' is associative or a Lie algebra)
-          maxdim,          # upper bound on the dimension
-          MB,              # mutable basis of the preimage
-          dim,             # dimension of the actual left module
-          len,             # number of algebra generators
-          i, j,            # loop variables
-          gen,             # loop over generators
-          prod;            #
-
-    origgenerators := alg_gen_map!.generators;
-    origgenimages  := alg_gen_map!.genimages;
-
-    if IsBasis( origgenerators ) then
-
-      generators := origgenerators;
-      genimages  := origgenimages;
-
-    else
-
-      generators := ShallowCopy( origgenerators );
-      genimages  := ShallowCopy( origgenimages );
-
-      A:= Source( alg_gen_map );
-
-      left:= not (    ( HasIsAssociative( A ) and IsAssociative( A ) )
-                   or ( HasIsLieAlgebra( A ) and IsLieAlgebra( A ) ) );
-
-      if HasDimension( A ) then
-        maxdim:= Dimension( A );
-      else
-        maxdim:= infinity;
-      fi;
-
-      # $A_1$
-      MB:= MutableBasis( LeftActingDomain( A ), generators,
-                                     Zero( A ) );
-      dim:= 0;
-      len:= Length( origgenerators );
-
-      while dim < NrBasisVectors( MB ) and dim < maxdim do
-
-        # `MB' is a mutable basis of $A_i$.
-        dim:= NrBasisVectors( MB );
-
-        # Compute $\bigcup_{g \in S} ( A_i g \cup A_i g )$.
-        for i in [ 1 .. len ] do
-          gen:= origgenerators[i];
-          for j in [ 1 .. Length( generators ) ] do
-            prod:= generators[j] * gen;
-            if not IsContainedInSpan( MB, prod ) then
-              Add( generators, prod );
-              Add( genimages, genimages[j] * origgenimages[i] );
-              CloseMutableBasis( MB, prod );
-            fi;
-          od;
-        od;
-
-        if left then
-
-          # Compute $\bigcup_{g \in S} ( A_i g \cup g A_i )$.
-          for i in [ 1 .. len ] do
-            gen:= origgenerators[i];
-            for j in [ 1 .. Length( generators ) ] do
-              prod:= gen * generators[j];
-              if not IsContainedInSpan( MB, prod ) then
-                Add( generators, prod );
-                Add( genimages, origgenimages[i] * genimages[j] );
-                CloseMutableBasis( MB, prod );
-              fi;
-            od;
-          od;
-
-        fi;
-
-      od;
-
-    fi;
-
-    # Is this the proper fix?
-    len := Length(generators);
-
-    # Add the products of basis vectors to `generators',
-    # and the products of their images to `genimages'.
-    for i in [ 1 .. len ] do
-      for j in [ 1 .. len ] do
-        Add( generators, generators[i] * generators[j] );
-        Add( genimages, genimages[i] * genimages[j] );
-      od;
-    od;
-
-    # Construct and return the left module general mapping.
-    return LeftModuleGeneralMappingByImages( A, Range( alg_gen_map ),
-               generators, genimages );
-    end );
 InstallMethod( RadicalOfAlgebra,
     "for an algebra of l.m.b.m rep.",
     true,
@@ -505,7 +390,7 @@ InstallMethod( IsBasicAlgebra,
     #
     if IsFinite(K) then 
         J := RadicalOfAlgebra(A);
-        L := List(DirectSumDecomposition(A/J),PrimitiveIdempotentsOfSimpleAlgebra);
+        L := List(DirectSumDecomposition(A/J),PrimitiveIdempotents);
         L := List(L,Length);
         if Sum(L) <> Length(L) then
             return false;

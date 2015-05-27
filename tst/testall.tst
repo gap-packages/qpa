@@ -307,10 +307,6 @@ gap> AlmostSplitSequence(S1);
 [ <<[ 7, 4, 3 ]> ---> <[ 8, 4, 3 ]>>
     , <<[ 8, 4, 3 ]> ---> <[ 1, 0, 0 ]>>
      ]
-gap> PredecessorsOfModule(S1,2);
-[ [ [ <[ 1, 0, 0 ]> ], [ <[ 4, 2, 2 ]>, <[ 4, 2, 1 ]> ], [ <[ 7, 4, 3 ]> ] ], 
-  [ [ [ 1, 1, [ 1, false ] ], [ 2, 1, [ 1, false ] ] ], 
-      [ [ 1, 1, [ false, 1 ] ], [ 1, 2, [ false, 1 ] ] ] ] ]
 
 #
 # Testing chain complexes

@@ -1,4 +1,57 @@
 ==========================================================================
+Changes from version 1.19 to 1.20:
+==========================================================================
+
+Added structures in this release:
+----------------------------------------------------------------------
+
+None
+
+Added functions in this release:
+----------------------------------------------------------------------
+
+None
+
+Changed code for:
+----------------------------------------------------------------------
+
+PrimitiveIdempotents  (change from a global function to an attribute)
+
+Fixed bugs in:
+----------------------------------------------------------------------
+
+None
+
+Documentation:
+----------------------------------------------------------------------
+
+Documentation was updated. 
+
+Changes in function names:
+Old name -------> New name
+------------------------------------------------------------
+
+PrimitiveIdempotentsOfSimpleAlgebra ----> PrimitiveIdempotents
+   (went back to name prior to last change)
+
+Synonyms
+------------------------------------------------------------
+
+None
+
+Discontinued functions:
+------------------------------------------------------------
+
+AsLeftModuleModuleGeneralMappingByImages (remove implementation
+     of this function as it was conflicting the test  alghom.tst
+     and it was not in use in QPA). 
+
+Miscellaneous
+------------------------------------------------------------
+
+None
+
+==========================================================================
 Changes from version 1.18 to 1.19:
 ==========================================================================
 
