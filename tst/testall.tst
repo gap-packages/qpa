@@ -105,6 +105,7 @@ gap> SocleOfModuleInclusion(N);
 gap> p := ProjectiveCover(N);
 <<[ 3, 12, 9 ]> ---> <[ 3, 2, 2 ]>>
 
+
 # Constructing the direct sum of  N  with itself and finding naturally
 # associated inclusions and projections.  
 gap> M := DirectSumOfModules([N,N]);
@@ -172,7 +173,6 @@ gap> RadicalSeries(N);
 [ [ 3, 0, 0 ], [ 0, 1, 0 ], [ 0, 1, 1 ], [ 0, 0, 1 ] ]
 gap> SocleSeries(N);
 [ [ 1, 0, 0 ], [ 1, 1, 0 ], [ 0, 1, 0 ], [ 1, 0, 2 ] ]
-
 gap> CommonDirectSummand(N,N);
 [ <[ 1, 0, 0 ]>, <[ 2, 2, 2 ]>, <[ 1, 0, 0 ]>, <[ 2, 2, 2 ]> ]
 gap> IndecProjectiveModules(A);
