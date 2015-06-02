@@ -4,7 +4,7 @@ Subtitle := "Quivers and Path Algebras",
 Version := "1.20",
 Date := "27/05/2015",
 
-ArchiveURL := Concatenation( "http://sourceforge.net/projects/quiverspathalg/files/qpa-version-","1.20"),
+ArchiveURL := Concatenation( "http://www.math.ntnu.no/~oyvinso/QPA/qpa-version-","1.20"),
 
 ArchiveFormats := ".tar.gz",
 
@@ -52,10 +52,8 @@ Status := "dev",
 # AcceptDate := "08/1999",
 #AcceptDate := "",
 
-README_URL := 
-  "http://sourceforge.net/p/quiverspathalg/qpa/ci/master/tree/README?format=raw",
-PackageInfoURL := 
-  "http://sourceforge.net/p/quiverspathalg/qpa/ci/master/tree/PackageInfo.g?format=raw",
+README_URL := "http://www.math.ntnu.no/~oyvinso/QPA/README",
+PackageInfoURL := "http://www.math.ntnu.no/~oyvinso/QPA/PackageInfo.g",
 
 AbstractHTML := "The <span class=\"pkgname\">QPA</span> package provides data structures \
                    and algorithms for doing computations with finite dimensional quotients \
