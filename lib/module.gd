@@ -31,7 +31,7 @@ DeclareProperty( "IsSimpleQPAModule", IsPathAlgebraMatModule );
 InstallTrueMethod( IsIndecomposableModule, IsSimpleQPAModule );
 DeclareProperty( "IsSemisimpleModule", IsPathAlgebraMatModule );
 InstallTrueMethod( IsSemisimpleModule, IsSimpleQPAModule );
-DeclareOperation( "DirectSumOfModules", [ IsList] );
+DeclareOperation( "DirectSumOfQPAModules", [ IsList] );
 DeclareAttribute( "IsDirectSumOfModules", IsPathAlgebraMatModule );
 DeclareAttribute( "DirectSumProjections", IsPathAlgebraMatModule );
 DeclareAttribute( "DirectSumInclusions", IsPathAlgebraMatModule );

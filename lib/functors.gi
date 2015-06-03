@@ -249,7 +249,7 @@ else
    for i in [1..Length(projective_cover)] do
       Add(P_list,ShallowCopy(PP[projective_cover[i]]));
    od;
-   P_0:= DirectSumOfModules(P_list); 
+   P_0:= DirectSumOfQPAModules(P_list); 
 #
 # Finding the indecomposable projective modules in the projective
 # cover of the syzygy of M.
@@ -288,7 +288,7 @@ else
 # Constructing the projective cover of the transpose of M.
 #
    P_0op_list := List(P1_list,x -> ShallowCopy(PPop[x]));
-   P_0op := DirectSumOfModules(P_0op_list);
+   P_0op := DirectSumOfQPAModules(P_0op_list);
 #
 # Constructing the transpose as the coker of the inclusion of the image
 # of the presentation matrix of the transpose of M.

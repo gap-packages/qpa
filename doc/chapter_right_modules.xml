@@ -434,7 +434,7 @@ gap> N := RightModuleOverPathAlgebra(A,mat);
 </ManSection>
 
 <ManSection>
-   <Oper Name="DirectSumOfModules" Arg="L" Comm="for a
+   <Oper Name="DirectSumOfQPAModules" Arg="L" Comm="for a
    list of PathAlgebraMatModule's"/>
    <Description> 
     Arguments: <Arg>L</Arg> -- a list of <C>PathAlgebraMatModule</C>s over the same (quotient of a) path algebra. 
@@ -455,7 +455,7 @@ gap> N := RightModuleOverPathAlgebra(A,mat);
    <Returns>
     the list of inclusions from the individual
     modules to their direct sum, when a direct sum has been
-    constructed using <Ref Oper="DirectSumOfModules"/>.
+    constructed using <Ref Oper="DirectSumOfQPAModules"/>.
    </Returns>
 </ManSection>
 
@@ -467,7 +467,7 @@ gap> N := RightModuleOverPathAlgebra(A,mat);
    <Returns>
     the list of projections from the direct sum to the individual
     modules used to construct direct sum, when a direct sum has been
-    constructed using <Ref Oper="DirectSumOfModules"/>.
+    constructed using <Ref Oper="DirectSumOfQPAModules"/>.
    </Returns>
 </ManSection>
 
@@ -516,13 +516,13 @@ gap> N := RightModuleOverPathAlgebra(A,mat);
    <Br /></Description>
    <Returns>
     true if <Arg>M</Arg> is constructed via the command <Ref
-    Oper="DirectSumOfModules"/>.
+    Oper="DirectSumOfQPAModules"/>.
    </Returns>
 </ManSection>
 
 Using the example above.
 <Example><![CDATA[
-gap> N2 := DirectSumOfModules([N,N]);
+gap> N2 := DirectSumOfQPAModules([N,N]);
 <[ 6, 4, 4 ]>
 gap> proj := DirectSumProjections(N2);
 [ <<[ 6, 4, 4 ]> ---> <[ 3, 2, 2 ]>>

@@ -152,7 +152,7 @@ end
 ##  This function is an extension of above version of DecomposeModule
 ##  as this version takes adavantage of the fact that an argument might
 ##  have an direct sum decomposition already through being created by
-##  the command  DirectSumOfModules.
+##  the command  DirectSumOfQPAModules.
 ##
 InstallOtherMethod( DecomposeModule,
     "for a path algebra",
@@ -431,7 +431,7 @@ InstallMethod( BasicVersionOfModule,
         return M;
     else
         L := DecomposeModuleWithMultiplicities(M);
-        return DirectSumOfModules(L[1]);
+        return DirectSumOfQPAModules(L[1]);
     fi;
 end
 );

@@ -1780,14 +1780,14 @@ end
 
 #######################################################################
 ##
-#M  DirectSumOfModules( <L> )
+#M  DirectSumOfQPAModules( <L> )
 ##
 ##  <L> is a list of modules over a path algebra.  The function computes
 ##  and returns the direct sum of all modules in <L>.  The projections
 ##  and inclusions between the modules in <L> and the direct sum is stored
 ##  as attributes of the direct sum.
 ##
-InstallMethod( DirectSumOfModules,
+InstallMethod( DirectSumOfQPAModules,
    "for a list of modules over a path algebra",
    [ IsList ], 0,
    function( L ) 

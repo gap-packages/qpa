@@ -338,7 +338,7 @@ gap> N := RightModuleOverPathAlgebra(A,mat);;]]>
     Given two morphisms <Math>f\colon B\to C</Math> and <Math>g\colon
     P\to C</Math>, where <Math>P</Math> is a direct sum of
     indecomposable projective modules constructed
-    via <Code>DirectSumOfModules</Code> and <Arg>f</Arg> an
+    via <Code>DirectSumOfQPAModules</Code> and <Arg>f</Arg> an
     epimorphism, this function finds a lifting of <Arg>g</Arg>
     to <Math>B</Math>. The function checks if <Math>P</Math> is a
     direct sum of indecomposable projective modules, if <Arg>f</Arg>

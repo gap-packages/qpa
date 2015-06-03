@@ -108,7 +108,7 @@ gap> p := ProjectiveCover(N);
 
 # Constructing the direct sum of  N  with itself and finding naturally
 # associated inclusions and projections.  
-gap> M := DirectSumOfModules([N,N]);
+gap> M := DirectSumOfQPAModules([N,N]);
 <[ 6, 4, 4 ]>
 gap> DirectSumInclusions(M);
 [ <<[ 3, 2, 2 ]> ---> <[ 6, 4, 4 ]>>
@@ -257,7 +257,7 @@ gap> GorensteinDimensionOfAlgebra(A,5);
 4
 gap> InjDimensionOfModule(S1,4);  
 3
-gap> P:=DirectSumOfModules(IndecProjectiveModules(A));
+gap> P:=DirectSumOfQPAModules(IndecProjectiveModules(A));
 <[ 2, 8, 7 ]>
 gap> TiltingModule(P,1);                                              
 [ 0, [ 0 -> 0:(1,4,3) -> -1:(1,4,3) -> 0, 0 -> 0:(0,2,2) -> -1:(0,2,2) -> 0, 

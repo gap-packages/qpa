@@ -2285,7 +2285,7 @@ end
 ##            f   V 
 ##        B ----> C 
 ##  where  P  is a direct sum of indecomposable projective modules 
-##  constructed via DirectSumOfModules and  f  an epimorphism, 
+##  constructed via DirectSumOfQPAModules and  f  an epimorphism, 
 ##  this function finds a lifting of  g  to  B.
 ##
 InstallMethod ( LiftingMorphismFromProjective, 
@@ -2542,7 +2542,7 @@ InstallOtherMethod ( SumOfSubmodules,
 #
 #   Doing the computations
 #
-    sumMN := DirectSumOfModules([Source(f),Source(g)]);
+    sumMN := DirectSumOfQPAModules([Source(f),Source(g)]);
     inclusions := DirectSumInclusions(sumMN);
     projections := DirectSumProjections(sumMN);
 

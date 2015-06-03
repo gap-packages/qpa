@@ -1,9 +1,9 @@
-The QPA share package for GAP 4.5
+The QPA package for GAP 4.5
 ==================================
 
-Version 1.18; April 17th, 2015
+Version 1.21; June 3rd, 2015
 Copyright (C) 2010 The QPA-team, 	
-                        http://sourceforge.net/projects/quiverspathalg/ 
+             http://www.math.ntnu.no/~oyvinso/QPA/
 
 Introduction
 ------------
@@ -32,7 +32,6 @@ The following should be included with this version of QPA.
     LICENSE  	  - the license governing QPA usage
     PackageInfo.g - contains metainformation about the package
     README        - this file
-    bin           - (empty)
     doc      	  - the user manuals
     examples 	  - manual examples in separate files, chapterwise 
     init.g   	  - package initialization
@@ -44,9 +43,11 @@ The following should be included with this version of QPA.
 Obtaining
 ---------
 
-QPA can be obtained from 
+QPA can be obtained from
 
-    	http://sourceforge.net/projects/quiverspathalg/
+    	http://www.math.ntnu.no/~oyvinso/QPA/
+or from
+    	https://github.com/sunnyquiver/qpa/
 
 The Groebner basis package GBNP is required to run QPA. The
 GBNP Groebner basis can be obtain from its home at:
@@ -70,7 +71,7 @@ comupter, follow the following steps:
     GAPdirectory/gap/pkg/.
 3.  Move to the directory GAPdirectory/gap/pkg/
 4.  Give the following command:
-        git clone git://git.code.sf.net/p/quiverspathalg/qpa qpa
+        git clone https://github.com/sunnyquiver/qpa.git qpa
 5.  QPA is using the GAP-package GBNP, go to this webpage and 
     download the latest version of this package. Unpack it in 
     the directory GAPdirectory/gap/pkg/.
@@ -83,8 +84,11 @@ comupter, follow the following steps:
     (i)   Move to the directory GAPdirectory/gap/pkg/qpa/doc
     (ii)  Give the command: gap MakeQPADoc.gi (see below for setting up the gap command).
 
-For the latest version of QPA, always download the GIT repository. 
-Follow the instructions in 3 and 4 above to update your installation, 
+For the latest version of QPA, always download the GIT repository (assuming that you have
+cloned the GitHub repository):
+a) Move to the directory GAPdirectory/gap/pkg/qpa/
+b) Give the following command:
+      git pull
 if you have a version of QPA installed already in GAPdirectory/gap/pkg/.
 
 Using QPA
@@ -120,5 +124,5 @@ not brilliant at this point).
 Contact
 -------
 
-The best way to get help with QPA is by using its forum Help on 
-http://sourceforge.net/projects/quiverspathalg/. 
+The best way to get help with QPA is by using contacting one of the
+QPA-team members, see the webpage http://www.math.ntnu.no/~oyvinso/QPA/ 

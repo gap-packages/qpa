@@ -1,4 +1,57 @@
 ==========================================================================
+Changes from version 1.20 to 1.21:
+==========================================================================
+
+Added structures in this release:
+----------------------------------------------------------------------
+
+None
+
+Added functions in this release:
+----------------------------------------------------------------------
+
+None
+
+Changed code for:
+----------------------------------------------------------------------
+
+None
+
+Fixed bugs in:
+----------------------------------------------------------------------
+
+IsAdmissibleIdeal 
+
+Documentation:
+----------------------------------------------------------------------
+
+Documentation was updated. 
+
+Changes in function names:
+Old name -------> New name
+------------------------------------------------------------
+
+DirectSumOfModules ----> DirectSumOfQPAModules (conflict with
+                                the happrime package)
+
+Synonyms
+------------------------------------------------------------
+
+None
+
+Discontinued functions:
+------------------------------------------------------------
+
+None
+
+Miscellaneous
+------------------------------------------------------------
+
+Updated PackageInfo.g (removing any reference to SourceForge
+and replacing it with GitHub information), tst/testall.tst, 
+
+
+==========================================================================
 Changes from version 1.19 to 1.20:
 ==========================================================================
 

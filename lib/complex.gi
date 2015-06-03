@@ -1708,8 +1708,8 @@ function( f )
 #  Construct the first differential of the cone, and the first projection/inclusion morphisms
 #
 
-    dirsum := DirectSumOfModules( [ ObjectOfComplex(A,i-1), ObjectOfComplex(B,i) ] );
-    dirsum2 := DirectSumOfModules( [ ObjectOfComplex(A,i-2), ObjectOfComplex(B,i-1) ] );
+    dirsum := DirectSumOfQPAModules( [ ObjectOfComplex(A,i-1), ObjectOfComplex(B,i) ] );
+    dirsum2 := DirectSumOfQPAModules( [ ObjectOfComplex(A,i-2), ObjectOfComplex(B,i-1) ] );
     diff := MultiplyListsOfMaps( DirectSumProjections(dirsum),
                                  [[ -DifferentialOfComplex(A,i-1),
                                     ZeroMapping(ObjectOfComplex(B,i), ObjectOfComplex(A,i-2)) ],
@@ -1722,7 +1722,7 @@ function( f )
 #
     positiveFunction := function(C,inmap,outmap,i)
         local nextObj, prevObj, nextDiff;
-        nextObj := DirectSumOfModules( [ ObjectOfComplex(A,i-1), ObjectOfComplex(B,i) ] );
+        nextObj := DirectSumOfQPAModules( [ ObjectOfComplex(A,i-1), ObjectOfComplex(B,i) ] );
         prevObj := Source(DifferentialOfComplex(C,i-1));
 
         nextDiff :=  MultiplyListsOfMaps( DirectSumProjections(nextObj),
@@ -1739,7 +1739,7 @@ function( f )
 #
     negativeFunction := function(C,inmap,outmap,i)
         local nextObj, prevObj, nextDiff;
-        nextObj := DirectSumOfModules( [ ObjectOfComplex(A,i-2), ObjectOfComplex(B,i-1) ] );
+        nextObj := DirectSumOfQPAModules( [ ObjectOfComplex(A,i-2), ObjectOfComplex(B,i-1) ] );
         prevObj := Range(DifferentialOfComplex(C,i+1));
 
         nextDiff := MultiplyListsOfMaps( DirectSumProjections(prevObj),
