@@ -32,7 +32,7 @@
   </TitleComment>
   <Author>The QPA-team
           <Email>oyvind.solberg@math.ntnu.no</Email>
-	      <Homepage>http://sourceforge.net/projects/quiverspathalg/</Homepage>
+	      <Homepage>http://www.math.ntnu.no/~oyvinso/QPA/</Homepage>
           <Address>
             Department of Mathematical Sciences<Br/>
             NTNU<Br/>
@@ -44,7 +44,7 @@
   <Date>May 2015</Date> 
 
   <Abstract>
-    The GAP4 undeposited package <Package>QPA</Package> extends the
+    The GAP4 deposited package <Package>QPA</Package> extends the
     GAP functionality for computations with finite dimensional
     quotients of path algebras. <Package>QPA</Package> has data
     structures for quivers, quotients of path algebras,
@@ -75,7 +75,7 @@
   
   The QPA-team, <Package>QPA</Package> - Quivers, path algebras and
   representations, Version <#Include SYSTEM "../version">; 2014
-  (<URL>http://sourceforge.net/projects/quiverspathalg/</URL>)
+  (<URL>http://www.math.ntnu.no/~oyvinso/QPA/</URL>)
   </Copyright>
 
   <Acknowledgements>The system design of <Package>QPA</Package> was initiated by

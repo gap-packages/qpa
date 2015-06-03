@@ -36,7 +36,7 @@ and Max Neunhöffer, which is available from the GAP site or from
 <Package>QPA</Package> is distributed in standard format (tar.gz)
 <!-- tar.bz2 , zip and -win.zip ) --> 
 and can be obtained from
-<URL>http://sourceforge.net/projects/quiverspathalg/</URL>.  To
+<URL>http://https://github.com/sunnyquiver/qpa/</URL>.  To
 install the package, unpack its archive in the pkg subdirectory of
 your GAP installation. In a similar way install the GAP-package
 <Package>GBNP</Package> which is available from the GAP site.<P/>
