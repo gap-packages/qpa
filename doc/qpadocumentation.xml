@@ -74,7 +74,7 @@
   <Package>QPA</Package>, please cite it in the following form:<P/>
   
   The QPA-team, <Package>QPA</Package> - Quivers, path algebras and
-  representations, Version <#Include SYSTEM "../version">; 2014
+  representations, Version <#Include SYSTEM "../version">; 2015
   (<URL>http://www.math.ntnu.no/~oyvinso/QPA/</URL>)
   </Copyright>
 
