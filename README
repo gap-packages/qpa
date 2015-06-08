@@ -47,7 +47,7 @@ QPA can be obtained from
 
     	http://www.math.ntnu.no/~oyvinso/QPA/
 or from
-    	https://github.com/sunnyquiver/qpa/
+    	https://github.com/gap-system/qpa/
 
 The Groebner basis package GBNP is required to run QPA. The
 GBNP Groebner basis can be obtain from its home at:
@@ -71,7 +71,7 @@ comupter, follow the following steps:
     GAPdirectory/gap/pkg/.
 3.  Move to the directory GAPdirectory/gap/pkg/
 4.  Give the following command:
-        git clone https://github.com/sunnyquiver/qpa.git qpa
+        git clone https://github.com/gap-system/qpa.git qpa
 5.  QPA is using the GAP-package GBNP, go to this webpage and 
     download the latest version of this package. Unpack it in 
     the directory GAPdirectory/gap/pkg/.
@@ -124,5 +124,10 @@ not brilliant at this point).
 Contact
 -------
 
-The best way to get help with QPA is by using contacting one of the
-QPA-team members, see the webpage http://www.math.ntnu.no/~oyvinso/QPA/ 
+If you have a question or encounter any problems regarding QPA, you
+can either:
+
+ * contact one of the QPA-team members, see the webpage
+              http://www.math.ntnu.no/~oyvinso/QPA
+or
+ * report an issue at https://github.com/gqp-system/qpa/issues/new 
