@@ -67,9 +67,9 @@ InstallGlobalFunction( PathAlgebra,
         SetGlobalDimension(F, 0);
         SetFilterObj( F, IsSemisimpleAlgebra ); 
     fi;
-    if IsAcyclicQuiver(Q) then
-        SetFilterObj( F, IsAdmissibleQuotientOfPathAlgebra);
-    fi;
+#    if IsAcyclicQuiver(Q) then
+#        SetFilterObj( F, IsAdmissibleQuotientOfPathAlgebra);
+#    fi;
     return F;
   end
 );
