@@ -444,4 +444,167 @@ InstallMethod( IsElementaryAlgebra,
         TryNextMethod();
     fi;
 end
+  );
+
+#######################################################################
+##
+#O  LiftingIdempotent( <f>, <e> )
+##
+##  When the domain of  <f>  is finite dimensional, then it checks if
+##  the element  <e>  is an idempotent.  If so and  <e>  has a preimage,
+##  then this operation returns a lifting of  <e>  to the domain of  <f>
+##  whenever possible.  It returns  fail  if  the element  <e>  has no 
+##  preimage. If the algorithm is unable to construct a lifting, it 
+##  returns  false.  Using the algorithm described in the proof of 
+##  Proposition 27.1 in Anderson and Fuller, Rings and categories of 
+##  modules, second edition, GMT, Springer-Verlag.
+##  
+InstallMethod( LiftingIdempotent,  
+    "for two PathAlgebraMatModule's",
+    [ IsAlgebraGeneralMapping, IsObject ], 0,
+    function( f, e )
+
+    local elift, h, A, i, t, k;
+    #
+    # Is the input OK?
+    # Checking if the domain of the map  <f>  is a finite dimensional algebra.
+    #
+    if not IsFiniteDimensional(Source(f)) then
+        Error("the domain of <f> is not finite dimensional, ");
+    fi;
+    #
+    # Checking if the entered element  <e>  is an idempotent.
+    #
+    if e <> e^2 then 
+        Error("the entered element  <e>  is not an idempotent, ");
+    fi; 
+    #
+    # Checking if the element  <e>  is in the range of the map  <f>, and next
+    # if the element  <e>  is in the image of the map  <f>.
+    #
+    if not ( e in Range(f) ) then
+        Error("the entered element <e> is not in the range of the entered homomorphism <f>, ");
+    fi;
+    elift := PreImagesRepresentative(f, e);
+    if elift = fail then
+        Error("the enter element <e> has not preimage in the domain of <f>, ");
+    fi;
+    #
+    # Starting the algorithm described in the proof of Proposition 27.1 in Anderson & Fuller.
+    #
+    h := elift - elift^2;
+    A := Source(f);
+    if h = Zero(A) then
+        return elift;
+    fi;
+    i := 0;
+    repeat
+        i := i + 1;
+    until
+        Dimension(Subspace(A, BasisVectors(Basis(A))*h^i)) = Dimension(Subspace(A, BasisVectors(Basis(A))*h^(i+1)));
+    if h^i = Zero(A) then
+        t := Binomial(i,1)*MultiplicativeNeutralElement(A);
+        for k in [2..i] do 
+            t := t + (-1)^(k-1)*Binomial(i,k)*elift^(k-1);
+        od;
+        return elift^i*t^i;
+    else
+        return false;
+    fi;
+end
+  );
+
+#######################################################################
+##
+#O  LiftingCompleteSetOfOrthogonalIdempotents( <map>, <idempotents> )
+##
+##  Given a map  <map> :  A --> B  and a complete set  <idempotents>
+##  of orthogonal idempotents in  B, which all are in the image
+##  of  <map>,  this function computes (when possible) a complete set of
+##  orthogonal idempotents of preimages of the idempotents in  B. 
+##
+InstallMethod(LiftingCompleteSetOfOrthogonalIdempotents,
+    "for an algebra mapping and list of idempotents",
+    true,
+    [IsAlgebraGeneralMapping,IsHomogeneousList],
+    0,
+    function(map, idempotents)
+
+    local n, i, j, idems, A, orthogonalidempotents, e, test, h, t, k;
+    
+    #
+    # Input OK?
+    # Checking if the domain of  <map>  is a finite dimensional algebra.
+    #
+    if not IsFiniteDimensional(Source(map)) then
+        Error("the domain of the entered  <map>  is not finite dimensional, \n");
+    fi;
+    #
+    # Checking if the entered elements are a complete set of orthogonal
+    # idempotents. 
+    #
+    n := Length(idempotents); 
+    for i in [1..n] do
+        for j in [1..n] do
+            if i = j then
+                if idempotents[i]^2 <> idempotents[i] then
+                    Error("one of the entered elements is not an idempotent, ");
+                fi;
+            else
+                if idempotents[i]*idempotents[j] <> Zero(Range(map)) then
+                    Error("the enter elements are not orthogonal, ");
+                fi;
+            fi;
+        od;
+    od;
+    if Sum(idempotents) <> MultiplicativeNeutralElement(Range(map)) then
+        Error("the entered elements are not a complete set of idempotents, ");
+    fi;
+    #
+    # Lift the idempotents in the range of  <map>  to idempotents in the 
+    # domain of  <map>.
+    #
+    idems := List(idempotents, x -> LiftingIdempotent(map,x));
+    #
+    # Make the lifted idempotents into orthogonal idempotents.
+    #
+    A := Source(map);
+    orthogonalidempotents := [];
+    Add(orthogonalidempotents, idems[1]);
+    e := idems[1];
+    for i in [2..n-1] do
+        test := idems[i] - e*idems[i] - idems[i]*e + e*idems[2]*e;
+        #
+        # If  test  is not an idempotent, then adjust it to be one.
+        #
+        if test^2 <> test then
+            h := test - test^2;
+            j := 0;
+            repeat
+                j := j + 1;
+            until
+                Dimension(Subspace(A, BasisVectors(Basis(A))*h^j)) = Dimension(Subspace(A, BasisVectors(Basis(A))*h^(j+1)));
+            if h^j = Zero(A) then
+                t := Binomial(i,1)*MultiplicativeNeutralElement(A);
+                for k in [2..i] do 
+                    t := t + (-1)^(k-1)*Binomial(i,k)*test^(k-1);
+                od;
+                test := test^j*t^j;
+            else
+                Error("something went wrong,\n ");
+            fi;
+        fi;
+        Add(orthogonalidempotents, test);
+        e := e + test;
+    od;
+    #
+    # The last idempotent is the identity minus the sum of the idempotents constructed 
+    # so far.
+    # 
+    if Length(idempotents) > 1 then 
+        Add(orthogonalidempotents, One(A) - e);
+    fi;
+    return orthogonalidempotents;
+end
 );
+

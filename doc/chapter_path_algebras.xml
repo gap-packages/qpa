@@ -1864,4 +1864,59 @@ true]]>
   </ManSection>
 
 </Section>
+
+<Section Label="qpa:moregeneralalgebrastuff">
+  <Heading>Algebras</Heading>
+
+<ManSection>
+    <Oper Name="LiftingCompleteSetOfOrthogonalIdempotents" Arg="f, e"/>
+    <Description>
+      Arguments: <Arg>map</Arg> - an algebra homomorphism, <Arg>idempotents</Arg>
+      elements in the range of <Arg>map</Arg>.<Br />
+    </Description>
+    <Returns>a complete set of orthogonal idempotents in
+    <C>Source(f)</C> which are liftings of the entered
+    <Arg>idempotents</Arg> whenever possible. 
+    </Returns> 
+    <Description>
+     The operation only applies when the domain of <Arg>f</Arg> is
+     finite dimensional.  It checks if the list of elements
+     <Arg>idempotents</Arg> is a set complete set of orthogonal
+     idempotents.  If some idempotent in <Arg>idempotents</Arg> is not
+     in the image of <Arg>map</Arg>, then an error message is
+     returned.  If all idempotents in <Arg>idempotents</Arg> has a
+     preimage, then this operation returns a complete set of
+     orthogonal of idempotents which is a lifting of the idempotents
+     in <Arg>idempotents</Arg> to the source
+     of <Arg>f</Arg> whenever possible or it returns fail.  
+    </Description>
+  </ManSection>
+
+<ManSection>
+    <Oper Name="LiftingIdempotent" Arg="f, e"/>
+    <Description>
+      Arguments: <Arg>f</Arg> - an algebra homomorphism, <Arg>e</Arg>
+      an element in the range of <Arg>f</Arg>.<Br />
+    </Description>
+    <Returns>an idempotent  <M>a</M> in <C>Source(f)</C> such that
+    <C>ImageElm(f, a) = e</C> whenever possible.  If <Arg>e</Arg> is
+    not in the image of <Arg>f</Arg>, an error message is given, and if
+    <Arg>e</Arg> does not have a preimage by <Arg>f</Arg> <C>fail</C>
+    is returned. 
+    </Returns> 
+    <Description>
+     The operation only applies when the domain of <Arg>f</Arg> is
+     finite dimensional.  It checks if the element <Arg>e</Arg> is an
+     idempotent.  If <Arg>e</Arg> is not in the image of <Arg>f</Arg>,
+     then an error message is returned.  If <Arg>e</Arg> has a
+     preimage, then this operation returns a lifting of <Arg>e</Arg> to the
+     source of <Arg>f</Arg> whenever possible or it returns fail. 
+     Using the algorithm described in the proof of Proposition 27.1 in
+     Anderson and Fuller, Rings and categories of modules, second
+     edition, GMT, Springer-Verlag.
+    </Description>
+  </ManSection>
+
+
+</Section>
 </Chapter>

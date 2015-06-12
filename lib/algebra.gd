@@ -20,3 +20,5 @@ DeclareAttribute( "GlobalDimension", IsAlgebra );
 DeclareProperty( "IsBasicAlgebra", IsAlgebra );
 DeclareProperty( "IsElementaryAlgebra", IsAlgebra );
 InstallTrueMethod( IsBasicAlgebra, IsElementaryAlgebra );
+DeclareOperation( "LiftingIdempotent", [IsAlgebraGeneralMapping, IsObject ] ); 
+DeclareOperation( "LiftingCompleteSetOfOrthogonalIdempotents", [IsAlgebraGeneralMapping, IsHomogeneousList ] ); 
