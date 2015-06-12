@@ -1824,6 +1824,26 @@ true]]>
   <Heading>Finite dimensional algebras over finite fields</Heading>
 
 <ManSection>
+    <Oper Name="AlgebraAsQuiverAlgebra" Arg="A"/>
+    <Description>
+      Arguments: <Arg>A</Arg> - a finite dimensional algebra over a
+      finite field.<Br />
+    </Description>
+    <Returns>a (quotient of a) path algebra isomorphic to the entered
+    algebra <Arg>A</Arg> whenever possible and a list of the images of
+    the vertices and the arrows in this path algebra in <Arg>A</Arg>. 
+    </Returns> 
+    <Description>
+     The operation only applies when <Arg>A</Arg> is a finite
+     dimensional indecomposable algebra over a finite field, otherwise
+     it returns an error message.  It checks the algebra <Arg>A</Arg>
+     is basic and elementary over some field and otherwise it returns
+     an error message.  In the list of images the images of the
+     vertices are listed first and then the images of the arrows. 
+    </Description>
+  </ManSection>
+
+<ManSection>
     <Prop Name="IsBasicAlgebra" Arg="A"/>
     <Description>
       Arguments: <Arg>A</Arg> - a finite dimensional algebra over a finite field.<Br />
@@ -1865,7 +1885,7 @@ true]]>
 
 </Section>
 
-<Section Label="qpa:moregeneralalgebrastuff">
+<Section Label="qpa:idempotentalgebrastuff">
   <Heading>Algebras</Heading>
 
 <ManSection>
