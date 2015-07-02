@@ -21,13 +21,17 @@
 InstallMethod( PrimitiveIdempotents, 
     "for semisimple algebras",
     true,
-    [ IsFiniteDimensional and IsSemisimpleAlgebra ], 0,
+    [ IsFiniteDimensional ], 0,
     function(A)
     local F, d, e, eA, r, m, E, b, one, i, s, j, x, e_hat;
     
+    
     #
-    # Input a simple algebra?
+    # Input a (semi-)simple algebra?
     # 
+    if not IsSemisimpleAlgebra(A) then
+        Error("the entered algebra is not a semisimple algebra, \n");
+    fi;
     if Length(CentralIdempotentsOfAlgebra(A)) > 1 then
         Error("the entered algebra is not a simple algebra, \n");
     fi;

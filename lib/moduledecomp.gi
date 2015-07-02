@@ -106,7 +106,10 @@ InstallMethod(IdempotentsForDecomposition,
     prims := [];
 
     for i in cents do
-        simp := semi*i;
+        simp := FLMLORByGenerators( LeftActingDomain(a), BasisVectors(Basis(semi*i)));
+        SetParent(simp, a); 
+        SetOne(simp, i);
+        SetMultiplicativeNeutralElement(simp, i);   
         prims := Concatenation(prims,PrimitiveIdempotents(simp));
     od;
    
