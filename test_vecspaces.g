@@ -1,0 +1,11 @@
+LoadPackage( "QPA" );
+Q := Quiver( 1, [] );
+kQ := PathAlgebra( Rationals, Q );
+V1 := RightModuleOverPathAlgebra( kQ, [ 1 ], [] );
+V2 := RightModuleOverPathAlgebra( kQ, [ 4 ], [] );
+V3 := RightModuleOverPathAlgebra( kQ, [ 2 ], [] );
+f := RightModuleHomOverAlgebra( V1, V2, [ [ [ 1, 0, 0, 0 ] ] ] );
+g := RightModuleHomOverAlgebra( V2, V3, [ [ [ 0, 0 ], [ 0, 0 ], [ 1, 0 ], [ 0, 1 ] ] ] );
+C := ComplexFromMorphismList( [ g, f ] );
+homology := HomologyFunctor( RightModuleCategory( kQ ), 1 );
+h := ApplyFunctor( homology, C );
