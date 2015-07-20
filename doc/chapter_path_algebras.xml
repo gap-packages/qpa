@@ -334,6 +334,18 @@ true ]]>
    </Returns>  
 </ManSection>
 
+<ManSection>
+   <Attr Name="RelationsOfAlgebra" Arg="A" Comm=""/>
+   <Description>
+    Arguments: <Arg>A</Arg> -- a quiver algebra. <Br />
+   </Description>
+   <Returns>a set of generators for the ideal in the path algebra
+   <M>kQ</M> from which the algebra <Arg>FQ</Arg> was
+    constructed.  If <Arg>A</Arg> is a path algebra, then an empty
+    list is returned.
+   </Returns>
+  </ManSection>
+
 </Section>
 
 
@@ -517,6 +529,16 @@ gap> IndecProjectiveModules(A);
 [ <[ 4 ]> ]
 true]]>
 </Example>
+
+<ManSection>
+   <Attr Name="IdealOfQuotient" Arg="A" Comm=""/>
+   <Description>
+    Arguments: <Arg>A</Arg> -- a quiver algebra. <Br />
+   </Description>
+   <Returns>the ideal in the path algebra <M>kQ</M> from which
+   <Arg>A</Arg> was constructed.
+   </Returns>
+  </ManSection>
 
 <ManSection>
   <Oper Name="PathsOfLengthTwo" Arg="Q" Comm="for a quiver"/>

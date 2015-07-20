@@ -39,6 +39,8 @@ DeclareProperty("IsFullFpPathAlgebra",
     IsFLMLOR and IsElementOfQuotientOfPathAlgebraCollection );
 DeclareAttribute( "RelatorsOfFpAlgebra",
     IsQuotientOfPathAlgebra and IsFullFpPathAlgebra);
+DeclareAttribute( "RelationsOfAlgebra", IsQuiverAlgebra);
+DeclareAttribute( "IdealOfQuotient", IsQuiverAlgebra);
 DeclareAttribute( "NormalFormFunction", IsFamily );
 DeclareOperation( "ElementOfQuotientOfPathAlgebra", 
     [ IsElementOfQuotientOfPathAlgebraFamily, IsRingElement, IsBool ] );

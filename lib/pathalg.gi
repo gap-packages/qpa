@@ -819,7 +819,48 @@ InstallMethod( RelatorsOfFpAlgebra,
   A -> GeneratorsOfIdeal(ElementsFamily(FamilyObj(A))!.ideal)
 );
 
+#######################################################################
+##
+#A  RelationsOfAlgebra( <A> )
+##
+##  When  <A>  is a quiver algebra, then if  <A>  is a path algebra, 
+##  then it returns an empty list.  If  <A>  is quotient of a path 
+##  algebra, then it returns a list of generators for the ideal used
+##  to define the algebra. 
+##
+InstallMethod( RelationsOfAlgebra,
+    "for a quiver algebra",
+    true,
+    [ IsQuiverAlgebra ], 0,
+    function( A );
+    if IsPathAlgebra(A) then
+        return [];
+    else
+        return GeneratorsOfIdeal(ElementsFamily(FamilyObj(A))!.ideal);
+    fi;
+end
+  );
 
+#######################################################################
+##
+#A  IdealOfQuotient( <A> )
+##
+##  When  <A>  is a quotient of a path algebra  kQ/I, then this function
+##  returns the ideal  I  in the path algedra  kQ defining the quotient 
+##  <A>. 
+##
+InstallMethod( IdealOfQuotient,
+    "for a quiver algebra",
+    true,
+    [ IsQuiverAlgebra ], 0,
+    function( A );
+    if IsPathAlgebra(A) then
+        return fail;
+    else
+        return ElementsFamily(FamilyObj(A))!.ideal;
+    fi;
+end
+  );
 
 ################################################################
 # Property IsFiniteDimensional for quotients of path algebras
