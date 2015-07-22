@@ -2215,3 +2215,19 @@ InstallMethod ( ComplexityOfAlgebra,
     fi;
 end 
   );
+
+#######################################################################
+##
+#P  IsZero( <M> )
+##
+##  This function returns true if the entered module  <M>  is zero, 
+##  otherwise it returns false. 
+##
+InstallOtherMethod( IsZero,
+    "for a PathAlgebraMatModule",
+    [ IsPathAlgebraMatModule ], 0,
+    function( M );
+    
+    return Dimension(M) = 0;
+end
+  );

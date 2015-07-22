@@ -672,6 +672,16 @@ gap> inc := DirectSumInclusions(N2);
 </ManSection>
 
 <ManSection>
+   <Prop Name="IsZero" Arg="M" Comm="for a PathAlgebraMatModule"/>
+   <Description> 
+    Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>).
+   <Br /></Description>
+   <Returns>true if <Arg>M</Arg> is the zero module, otherwise
+   false. 
+   </Returns>
+</ManSection>
+
+<ManSection>
    <Oper Name="MatricesOfPathAlgebraModule" Arg="M" Comm="for a
    PathAlgebraMatModule"/>
    <Description> 
@@ -736,7 +746,9 @@ gap> inc := DirectSumInclusions(N2);
     This returns only the representation given by the radical of the
     module <Arg>M</Arg>. The operation
     <Ref Oper="RadicalOfModuleInclusion"/> computes the inclusion of the
-    radical of <Arg>M</Arg> into <Arg>M</Arg>.
+    radical of <Arg>M</Arg> into <Arg>M</Arg>.  This function applies
+    when the algebra over which  <Arg>M</Arg> is defined is an
+    admissible quotient of a path algebra. 
    </Description>
 </ManSection>
 
@@ -909,14 +921,14 @@ Here we collect the predefined representations/modules over a finite
   <ManSection>
     <Attr Name="SimpleModules" Arg="A" Comm=""/>
     <Description> 
-      Arguments: <Arg>A</Arg> -- a finite dimensional (quotient of a) path
+      Arguments: <Arg>A</Arg> -- a finite dimensional (admissible quotient of a) path
       algebra.
     <Br /></Description>
     <Returns>a list of all the simple representations over <Arg>A</Arg> .
     </Returns>
     <Description>
       The function checks if the algebra <Arg>A</Arg> is a finite
-      dimensional (quotient of a) path algebra, and returns an error
+      dimensional (admissible quotient of a) path algebra, and returns an error
       message otherwise. 
     </Description>
   </ManSection>

@@ -843,7 +843,10 @@ gap> MinimalLeftApproximation(S,N);
    <Description>
     The radical of <Arg>M</Arg> can be accessed
     using <Code>Source</Code>, or it can be computed directly via the
-    command <Ref Attr="RadicalOfModule"/>. 
+    command <Ref Attr="RadicalOfModule"/>.  If the algebra over which
+    <Arg>M</Arg> is a module is not a finite dimensional path algebra
+    or an admissible quotient of a path algebra, then it will search
+    for other methods. 
    </Description>
 </ManSection>
 
