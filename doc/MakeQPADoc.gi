@@ -5,4 +5,6 @@ path := ".";
 main := "qpadocumentation.xml";
 files:= [];
 bookname := "QPA";
-MakeGAPDocDoc(path,main,files,bookname);
+MakeGAPDocDoc( path, main, files, bookname, "MathJax" );
+CopyHTMLStyleFiles( path );
+QUIT;
