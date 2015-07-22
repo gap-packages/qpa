@@ -1241,7 +1241,7 @@ function( M )
     return Complex( CatOfRightAlgebraModules( ActingAlgebra( M ) ),
                     0,
                     [ cover ],
-                    [ "next", nextDifferential, cover ],
+                    [ "next/repeat", nextDifferential, cover ],
                     "zero" );
 end );
 

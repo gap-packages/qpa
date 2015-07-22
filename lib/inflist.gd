@@ -29,6 +29,7 @@ DeclareOperation( "IsRepeating", [ IsHalfInfList ] );
 DeclareOperation( "InitialValue", [ IsHalfInfList ] );
 DeclareOperation( "LowestKnownPosition", [ IsHalfInfList ] );
 DeclareOperation( "HighestKnownPosition", [ IsHalfInfList ] );
+DeclareOperation( "MakeRepeatingList", [ IsHalfInfList, IsPosInt, IsPosInt ] );
 
 DeclareOperation( "FinitePartAsList", [ IsInfList, IsInt, IsInt ] );
 DeclareOperation( "PositivePartFrom", [ IsInfList, IsInt ] );
