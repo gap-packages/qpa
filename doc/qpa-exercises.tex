@@ -1,0 +1,223 @@
+\documentclass[a4paper]{amsart}
+\usepackage[all]{xy}
+\usepackage{exercise}
+
+\newenvironment{theoback}
+{\medskip\footnotesize\textit{Theoretic background.} }
+{\qed\par\medskip}
+\newenvironment{theocomm}
+{\medskip\footnotesize\textit{Theoretic comment.} }
+{\qed\par\medskip}
+
+\newcommand{\VV}[2]{\begin{pmatrix} #1 & #2 \end{pmatrix}}
+\newcommand{\vv}[2]{\left( \begin{smallmatrix} #1 & #2 \end{smallmatrix} \right)}
+
+\begin{document}
+
+\title{QPA exercises}
+
+\date{\today}
+
+\maketitle
+
+\begin{Exercise}
+Let $Q$ be the following quiver:
+\[
+\xymatrix@R=1ex{
+&& 3 \\
+1 \ar@<1ex>[r]^a \ar@<-1ex>[r]_b &
+2 \ar[ur]^c \ar[dr]_d \\
+&& 4
+}
+\]
+\Question How many paths of length~$0$ does $Q$ have?  How many of
+length~$1$, $2$ and~$3$?
+\Question Construct the quiver~$Q$ and the path algebra $kQ$ in QPA.
+\Question What is the $k$-dimension of the path algebra $kQ$?
+\Question Simplify the following expression in $kQ$:
+\[
+(v_1 - v_2 + a)(ac + b + d) + (bc - a)(b + c)d
+\]
+\end{Exercise}
+
+\begin{Exercise}
+For each quiver $Q_i$ and ideal $I_i \subseteq kQ_i$ given below,
+determine if the ideal is admissible.
+\begin{flalign*}
+Q_1&\colon
+\vcenter{\xymatrix@R=2ex@C=1ex{
+& 2 \ar[dr]^b \\
+1 \ar[ur]^a &&
+3 \ar[ll]^c
+}}
+&
+I_1 &= \langle bc \rangle
+&
+Q_2&\colon
+\vcenter{\xymatrix@C=3ex{
+1 \ar@<1ex>[r]^a &
+2 \ar@<1ex>[r]^b \ar@<1ex>[l]^d &
+3 \ar@<1ex>[l]^c
+}}
+&
+I_2 &= \langle bc \rangle
+\\
+Q_3&\colon
+\vcenter{\xymatrix@R=2ex@C=2ex{
+1 \ar[r]^a & 2 \ar[d]^b \\
+4 & 3 \ar[l]^c
+}}
+&
+I_3 &= \langle abc \rangle
+&
+Q_4&\colon
+\vcenter{\xymatrix@R=2ex@C=1ex{
+& 2 \ar[dr]^b \\
+1 \ar[ur]^a \ar[rr]_c &&
+3 \ar[rr]_d &&
+4
+}}
+&
+I_4 &= \langle cd, ab - c \rangle
+\end{flalign*}
+\[
+Q_5\colon
+\vcenter{\xymatrix@R=2ex@C=1ex{
+& 1 \ar[dl]_{a_2} \\
+2 \ar[rr]_c &&
+3 \ar[ul]_{a_1} \ar[d]^{b_1} \\
+4 \ar[u]^{b_3} &&
+5 \ar[ll]^{b_2}
+}}
+\qquad
+I_5 = \langle a_1 a_2 - b_1 b_2 b_3, b_3 c a_1 \rangle
+\]
+% \[
+% Q_1\colon
+% \vcenter{\xymatrix@R=2ex@C=1ex{
+% & 2 \ar[dr]^b \\
+% 1 \ar[ur]^a &&
+% 3 \ar[ll]^c
+% }}
+% \qquad
+% I_1 = \langle bc \rangle
+% \]
+% \[
+% Q_1\colon
+% \vcenter{\xymatrix@C=3ex{
+% 1 \ar@<1ex>[r]^a &
+% 2 \ar@<1ex>[r]^b \ar@<1ex>[l]^d &
+% 3 \ar@<1ex>[l]^c
+% }}
+% \qquad
+% I_1 = \langle bc \rangle
+% \]
+% \[
+% Q_1\colon
+% \vcenter{\xymatrix@C=2ex{
+% 1 \ar[r]^a & 2 \ar[r]^b & 3 \ar[r]^c & 4
+% }}
+% \qquad
+% I_1 = \langle abc \rangle
+% \]
+% \[
+% Q_1\colon
+% \vcenter{\xymatrix@R=2ex@C=1ex{
+% & 2 \ar[dr]^b \\
+% 1 \ar[ur]^a \ar[rr]_c &&
+% 3 \ar[rr]_d &&
+% 4
+% }}
+% \qquad
+% I_1 = \langle cd, ab - c \rangle
+% \]
+% \[
+% Q_2\colon
+% \vcenter{\xymatrix@R=2ex@C=1ex{
+% & 1 \ar[dl]_{a_2} \\
+% 2 \ar[rr]_c &&
+% 3 \ar[ul]_{a_1} \ar[d]^{b_1} \\
+% 4 \ar[u]^{b_3} &&
+% 5 \ar[ll]^{b_2}
+% }}
+% \qquad
+% I_2 = \langle a_1 a_2 - b_1 b_2 b_3, b_3 c a_1 \rangle
+% \]
+\end{Exercise}
+
+\begin{Exercise}
+Show that the zero ideal in a path algebra $kQ$ is admissible if and
+only if the quiver $Q$ does not contain any oriented cycle.
+\end{Exercise}
+
+\begin{Exercise}
+Let $Q$ be the following quiver:
+\[
+\xymatrix{
+1 \ar[r]^a &
+2 \ar@<1ex>[r]^b \ar@<-1ex>[r]_c &
+3
+}
+\]
+\Question Construct the path algebra $kQ$ in QPA.
+\Question Construct the following $kQ$-modules in QPA:
+\[
+X =
+\xymatrix{
+k \ar[r]^1 &
+k \ar@<1ex>[r]^{\vv{1}{0}}
+  \ar@<-1ex>[r]_{\vv{0}{1}} &
+k^2
+}
+\qquad
+Y =
+\xymatrix{
+k \ar[r]^{\vv{1}{0}} &
+k^2 \ar@<1ex>[r]^{\left(\begin{smallmatrix} 1&0 \\ 0&1 \end{smallmatrix}\right)}
+    \ar@<-1ex>[r]_{\left(\begin{smallmatrix} 1&0 \\ 0&0 \end{smallmatrix}\right)} &
+k^2
+}
+\qquad
+Z =
+\xymatrix@C=1.5em{
+k \ar[r]^1 &
+k \ar@<1ex>[r]^{1}
+  \ar@<-1ex>[r]_{1} &
+k
+}
+\]
+\Question Let $y$ be the following element of the module $Y$:
+\[
+\xymatrix{
+4 \ar[r] &
+{\VV{2}{3}} \ar@<1ex>[r] \ar@<-1ex>[r] &
+{\VV{7}{1}}
+}
+\]
+Compute the action of the algebra element $(3ab + 4c - 2v_3)$ on $y$.
+\Question Are any of the modules $X$, $Y$ and $Z$ projective?
+\Question Let $A = kQ/\langle ab - ac \rangle$.  Construct the algebra
+$A$ in QPA.
+\Question For each of the modules $X$, $Y$ and $Z$: Does the module
+respect the relation $ab - ac$?  If so, construct the corresponding
+$A$-module in QPA.
+\Question Are any of the $A$-modules you just constructed projective?
+\end{Exercise}
+
+% making modules over path algebras and quotients
+
+% making homomorphisms -- checking if something is a homomorphism
+
+% submodules
+
+% radical, top, socle
+
+% isomorphic modules
+
+% given some modules, which module is the direct sum of ...;
+% find inclusions/projections.
+% (need to use IsomorphismOfModules and DirectSumInclusions)
+
+% projective modules, resolutions
+
+\end{document}

@@ -1,0 +1,1050 @@
+\documentclass{amsart}
+\usepackage{amscd,amssymb, enumerate}
+\usepackage[all]{xy}
+\usepackage{showlabels}
+\renewcommand{\mod}{\operatorname{mod}\nolimits}
+\newcommand{\umod}{\operatorname{\underline{mod}}\nolimits}
+\newcommand{\omod}{\operatorname{\overline{mod}}\nolimits}
+\newcommand{\gr}{{\operatorname{gr}\nolimits}}
+\newcommand{\add}{\operatorname{add}\nolimits}
+\newcommand{\obj}{\operatorname{obj}\nolimits}
+\newcommand{\rad}{\operatorname{rad}\nolimits}
+\newcommand{\rk}{\operatorname{rank}\nolimits}
+\newcommand{\kar}{\operatorname{char}\nolimits}
+\newcommand{\Hom}{\operatorname{Hom}\nolimits}
+\newcommand{\End}{\operatorname{End}\nolimits}
+\newcommand{\uHom}{\operatorname{\underline{Hom}}\nolimits}
+\newcommand{\oHom}{\operatorname{\overline{Hom}}\nolimits}
+\renewcommand{\Im}{\operatorname{Im}\nolimits}
+\newcommand{\Ker}{\operatorname{Ker}\nolimits}
+\newcommand{\Coker}{\operatorname{Coker}\nolimits}
+\newcommand{\rrad}{\mathfrak{r}}
+\newcommand{\Ann}{\operatorname{Ann}\nolimits}
+\newcommand{\Soc}{\operatorname{Soc}\nolimits}
+\newcommand{\Top}{\operatorname{Top}\nolimits}
+\newcommand{\Tr}{\operatorname{Tr}\nolimits}
+\newcommand{\Ext}{\operatorname{Ext}\nolimits}
+\newcommand{\cExt}{\operatorname{\widehat{Ext}}\nolimits}
+\newcommand{\op}{{\operatorname{op}\nolimits}}
+\newcommand{\Ab}{{\operatorname{Ab}\nolimits}}
+\newcommand{\CM}{{\operatorname{CM}\nolimits}}
+\newcommand{\domdim}{{\operatorname{domdim}\nolimits}}
+\newcommand{\gldim}{{\operatorname{gldim}\nolimits}}
+\newcommand{\resdim}{{\operatorname{resdim}\nolimits}}
+\newcommand{\id}{{\operatorname{id}\nolimits}}
+\newcommand{\pd}{{\operatorname{pd}\nolimits}}
+\newcommand{\comp}{\operatorname{\scriptstyle\circ}}
+\newcommand{\m}{\mathfrak{m}}
+\newcommand{\frakp}{\mathfrak{p}}
+\newcommand{\fraka}{\mathfrak{a}}
+\newcommand{\frakb}{\mathfrak{b}}
+\newcommand{\frakc}{\mathfrak{c}}
+\newcommand{\frako}{\mathfrak{o}}
+\newcommand{\frakt}{\mathfrak{t}}
+\newcommand{\G}{\Gamma}
+\renewcommand{\L}{\Lambda}
+\newcommand{\Z}{{\mathbb Z}}
+\newcommand{\B}{{\mathcal B}}
+\newcommand{\C}{{\mathcal C}}
+\newcommand{\D}{{\mathcal D}}
+\newcommand{\E}{{\mathcal E}}
+\newcommand{\I}{{\mathcal I}}
+\newcommand{\N}{{\mathcal N}}
+\newcommand{\calO}{{\mathcal O}}
+\newcommand{\X}{{\mathcal X}}
+\newcommand{\Y}{{\mathcal Y}}
+\renewcommand{\P}{{\mathcal P}}
+\newcommand{\M}{{\mathcal M}}
+\newcommand{\extto}{\xrightarrow}
+\newcommand{\MaxSpec}{\operatorname{MaxSpec}\nolimits}
+\newcommand{\HH}{\operatorname{HH}\nolimits}
+\newcommand{\arrowtilde}{\widetilde{\rule{7mm}{0mm}}}
+\newcommand{\Ind}{\operatorname{Ind}\nolimits}
+%
+\newtheorem{lem}{Lemma}[section]
+\newtheorem{prop}[lem]{Proposition}
+\newtheorem{cor}[lem]{Corollary}
+\newtheorem{thm}[lem]{Theorem}
+\newtheorem*{Theorem}{Theorem}
+\theoremstyle{definition}
+\newtheorem{defin}[lem]{Definition}
+\newtheorem*{remark}{Remark}
+\newtheorem{assumption}{Assumption}
+\newtheorem{example}[lem]{Example}
+%\newtheorem*{theocomm}{Theoretic comment}
+
+\newcommand{\VV}[2]{\begin{pmatrix} #1 & #2 \end{pmatrix}}
+\newcommand{\vv}[2]{\left( \begin{smallmatrix} #1 & #2 \end{smallmatrix} \right)}
+
+\newtheoremstyle{theoretic}
+  {3pt}
+  {3pt}
+  {\footnotesize}
+  {2\parindent}
+  {\footnotesize\it}
+  {.}
+  { }
+  {\thmname{#1}}
+\theoremstyle{theoretic}
+%\newtheorem*{theocomm}{Theoretic comment}
+%\newtheorem*{theoback}{Theoretic background}
+
+\newenvironment{theoback}
+{\medskip\footnotesize\textit{Theoretic background.} }
+{\qed\par\medskip}
+\newenvironment{theocomm}
+{\medskip\footnotesize\textit{Theoretic comment.} }
+{\qed\par\medskip}
+
+\begin{document}
+
+\title[QPA -- an introduction]{QPA = Quivers and path algebras\\an introduction} 
+
+\author[Skarts\ae terhagen]{\O ystein  Skarts\ae terhagen}
+\address{\O ystein Skarts\ae terhagen\\
+Institutt for matematiske fag\\
+NTNU\\ 
+N--7491 Trondheim\\ 
+Norway}
+\email{oystein.skartsaterhagen@math.ntnu.no}
+
+\author[Solberg]{\O yvind Solberg}
+\address{\O yvind Solberg\\
+Institutt for matematiske fag\\
+NTNU\\ 
+N--7491 Trondheim\\ 
+Norway}
+\email{oyvind.solberg@math.ntnu.no}
+
+\date{\today}
+
+\begin{abstract}
+\end{abstract}
+
+%\subjclass[2000]{16S37, 16E05, 16W50}
+\maketitle
+
+%\tableofcontents
+
+
+\section{Introduction}
+
+\subsection{What is QPA?\nopunct}
+
+QPA is a software package for computing with quotients of path
+algebras and their modules.  QPA is written in the programming
+language GAP\footnote{\texttt{http://gap-system.org/}}.
+
+% todo: more
+
+
+\subsection{Installing QPA}
+
+
+
+
+\section{Basic structures}
+
+Here we recall the basic concepts for quotients of path algebras and
+modules over such.  Some theoretic comments and background are given
+and they occur in subsections starting with \emph{Theoretic
+  comments/background} and ending with $\square$.  Even with skipping
+all these paragraphs the aim is for the remaining text to still be a
+selfcontained unit.
+
+\subsection{Quivers}
+Here we define a quiver and naturally associated notions and how we
+enter quivers into QPA.
+
+By a \emph{quiver} we always mean a finite directed graph, where loops
+and multiple edges are allowed.  A quiver consists of a finite set of
+\emph{vertices} and a finite set of oriented \emph{edges} or
+\emph{arrows}.  Each arrow has an associated \emph{source} vertex and
+a \emph{target} vertex.  A \emph{path} in a quiver is either:
+\begin{enumerate}[\rm(i)]
+\item the \emph{trivial path} at one vertex (length $0$), or
+\item an \emph{arrow} (length $1$), or 
+\item a concatenation of two or more compatible arrows (length $> 1$).
+\end{enumerate}  
+Some examples of quivers with associated paths are the following:
+\[\begin{array}{l|l|l|l}
+\xymatrix{1\ar[r]^a & 2\ar[r]^b & 3}  &
+\xymatrix{1\ar@<1ex>[r]^a\ar@<-1ex>[r]_b & 2} & 
+\xymatrix{1\ar@(ul,ur)^a\ar[rr]^b & & 2\ar[dl]^c \\ & 3\ar[ul]^d & } &
+\\ \hline
+e_1, e_2, e_3 & e_1, e_2 & e_1, e_2, e_3 & \textrm{length 0}\\
+a, b & a, b & a, b, c, d & \textrm{length 1}\\
+ab & & a^2, ab, bc, cd, da, db & \textrm{length 2}\\
+& & a^3, a^2b, abc, bcd, cda, cdb, da^2, dab, dbc & \textrm{length 3}\\
+& & \vdots & 
+\end{array}\]
+Here is how to enter the first quiver into QPA:
+\begin{verbatim}
+gap> Q := Quiver(3, [[1,2,"a"],[2,3,"b"]]); 
+<quiver with 3 vertices and 2 arrows>
+\end{verbatim} 
+In the above example we didn't name the vertices ourselves, but we did
+name the arrows ourselves.  To see which names the vertices (and the
+arrows) got, we can give the following commands:
+\begin{verbatim}
+gap> VerticesOfQuiver(Q);
+[ v1, v2, v3 ]
+gap> ArrowsOfQuiver(Q);
+[ a, b ]
+\end{verbatim}
+For quivers there are two ways to define the concatenation of two
+arrows $x$ and $y$, where the target of $x$ is the same as the source of
+$y$, namely, $xy$ or $yx$.  In QPA the first definition is used.
+Referring to the above example, the following code illustrates this:
+\begin{verbatim}
+gap> arrows := ArrowsOfQuiver(Q);
+[ a, b ]
+gap> p := arrows[1]*arrows[2];
+a*b
+gap> IsPath(p);
+true
+gap> p := arrows[2]*arrows[1];
+0
+gap> IsZeroPath(p);
+true
+\end{verbatim}
+If the concatenation of two arrows is not defined, then the zero path
+in the quiver is returned.  
+
+\subsection{Path algebras} Next we define a path algebra of a quiver
+over a field and naturally associated notions. 
+
+For a quiver $Q$ and a field $k$, the \emph{path algebra} $kQ$ is a
+$k$-algebra that has the set of paths in $Q$ as a $k$-basis, and
+concatenation of paths induces the multiplication in $kQ$.  Here is
+how to construct a path algebra in QPA (still using the first example
+above): 
+\begin{verbatim}
+gap> kQ := PathAlgebra(Rationals, Q);
+<Rationals[<quiver with 3 vertices and 2 arrows>]>
+\end{verbatim}
+Referring to the first example, one can access the paths in the path
+algebra $kQ$ as follows:
+\begin{verbatim}
+gap> kQ.v1; kQ.a; 
+(1)*v1
+(1)*a
+gap> kQ.a*kQ.b;
+(1)*a*b
+\end{verbatim}
+The number in parentheses, here only $(1)$, is the coefficient from
+the field in front of the basis element following it.  Entering a
+linear combination of paths in $kQ$ is done as follows:
+\begin{verbatim}
+gap> 3*kQ.a + 2*kQ.v1;
+(2)*v1+(3)*a
+\end{verbatim} 
+Special elements in $kQ$ are the zero element and the identity
+element.  These elements can be gotten by the following commands:
+\begin{verbatim}
+gap> Zero(kQ);
+<zero> of ...
+gap> One(kQ);
+(1)*v1+(1)*v2+(1)*v3
+\end{verbatim}
+Hence we see that the identity element in $kQ$ is the sum of all the
+trivial paths. 
+
+Even though when defining the quiver $Q$ the arrows are named $a$ and
+$b$, there are no variables in GAP that represent these.  The
+following command defines variables for all vertices and all
+arrows as elements in $kQ$:
+\begin{verbatim}
+gap> AssignGeneratorVariables(kQ);
+#I  Assigned the global variables [ v1, v2, v3, a, b ]
+gap> v1; v2; v3; a; b;
+(1)*v1
+(1)*v2
+(1)*v3
+(1)*a
+(1)*b
+gap> a in kQ;
+true
+\end{verbatim}
+
+\subsection{Quivers with relations and quotients of path algebras}
+
+Given a field $k$ and a quiver $Q$, we saw above that we can construct
+the path algebra $kQ$.  Then we can consider quotients $kQ/I$ of $kQ$
+by factoring out ideals $I$ in $kQ$.  
+
+% \subsubsection*{Theoretic background} The sum of the vertices in $Q$
+% is the identity of $kQ$, so that any element $x$ in $kQ$ is equal to
+% the sum $\sum_{v,w\in Q_0} vxw$, where $Q_0$ is the set of vertices in
+% $Q$.  Hence an ideal $I$ can always be generated by elements of the
+% form $vxw$ for two vertices $v$ and $w$ in $Q$.  Such elements are a
+% sum of linear combinations of paths all of which have a common source
+% vertex and all of which have a common target vertex (called
+% \emph{uniform} elements).\qed  
+
+\begin{theoback} The sum of the vertices in $Q$
+is the identity of $kQ$, so that any element $x$ in $kQ$ is equal to
+the sum $\sum_{v,w\in Q_0} vxw$, where $Q_0$ is the set of vertices in
+$Q$.  Hence an ideal $I$ can always be generated by elements of the
+form $vxw$ for two vertices $v$ and $w$ in $Q$.  Such elements are a
+sum of linear combinations of paths all of which have a common source
+vertex and all of which have a common target vertex (called
+\emph{uniform} elements).
+\end{theoback}
+
+An element $\sigma$ in $kQ$ which is a sum of linear combinations of
+paths all of which have a common source vertex and all of which have a
+common target vertex is called a \emph{relation} in $Q$ over $k$.
+Given the quiver $Q$
+\[\xymatrix{
+1\ar[r]^a\ar[d]^c & 2\ar[d]^b\\
+3\ar[r]^d & 4
+}\]
+the element $ab - 2cd$ in $kQ$ is an example of a relation in $kQ$.
+Then we can form the quotient $kQ/\langle ab - 2 cd\rangle$.  This is
+done as follows in QPA:
+\begin{verbatim}
+gap> Q := Quiver(4,[[1,2,"a"],[2,4,"b"],[1,3,"c"],[3,4,"d"]]);
+<quiver with 4 vertices and 4 arrows>
+gap> kQ := PathAlgebra(Rationals,Q);
+<Rationals[<quiver with 4 vertices and 4 arrows>]>
+gap> A := kQ/[kQ.a*kQ.b - 2*kQ.c*kQ.d];
+<Rationals[<quiver with 4 vertices and 4 arrows>]/
+<two-sided ideal in <Rationals[<quiver with 4 vertices and 4
+arrows>]>, (1 generators) >>
+gap> BasisVectors(Basis(A));
+[ [(1)*v1+(1)*v2+(1)*v3+(1)*v4], [(1)*v2+(1)*v3+(1)*v4], 
+  [(1)*v3+(1)*v4], [(1)*v4], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
+  [(1)*a*b] ]
+\end{verbatim}
+\begin{theocomm}
+QPA computes with quotients of path algebras using Gr\"obner basis for
+path algebras (see \cite{Green}).  Forming the quotient $A$ above, QPA
+computes a Gr\"obner basis for the ideal that we are factoring out,
+and residue classes of elements in the path algebra $kQ$ are
+represented by their normal forms with respect to the this Gr\"obner
+basis.  A Gr\"obner basis is given with respect to some ordering of
+basis elements, and QPA is always using length left lexicographic
+ordering of the paths in $Q$, where (i) all the vertices are smaller
+than all the arrows, (ii) the vertices are ordered from smallest to
+biggest as they are entered/numbered and (iii) the arrows are ordered
+from smallest to biggest as they are entered/numbered.
+\begin{verbatim}
+gap> vertices := VerticesOfQuiver(Q);
+[ v1, v2, v3, v4 ]
+gap> arrows := ArrowsOfQuiver(Q);    
+[ a, b, c, d ]
+gap> vertices[1] < vertices[2];
+true
+gap> vertices[4] < arrows[1];
+true
+gap> A.c*A.d;
+[(1/2)*a*b]
+\end{verbatim}
+\end{theocomm}
+
+The residue classes of the vertices and the arrows of $Q$ in $A$ can
+be access as $A.v1$ and $A.a$ as indicated in the above example.  The
+last two lines from the above GAP-session shows that the residue class
+of the path $cd$ is represented by the residue class of
+$\frac{1}{2}ab$. 
+
+The factors of path algebras that QPA is designed for, are path
+algebras modulo admissible ideals.  An ideal $I$ in $kQ$ is called
+\emph{admissible} if there exists some integer $t\geqslant 2$ such
+that $J^t\subseteq I \subseteq J^2$, where $J$ is the ideal in $kQ$
+generated by the arrows.  Note that $kQ/I$ is a finite dimensional
+$k$-algebra if $I$ is an admissible ideal in $kQ$.
+
+If $Q$ is a quiver without oriented cycles, then the zero ideal in
+$kQ$ is admissible, and hence the path algebra $kQ$ itself is a
+quotient of a path algebra by an admissible ideal.  On the other hand,
+if $Q$ contains an oriented cycle, then the zero ideal in $kQ$ is not
+admissible.  In this case, we therefore need to find a suitable
+nonzero ideal in order to construct an algebra which is a quotient of
+a path algebra by an admissible ideal.
+
+\begin{theoback}
+From Morita theory we have that
+any finite dimensional algebra over a field is Morita equivalent to
+basic finite dimensional algebra over the same field.  A finite
+dimensional $k$-algebra $\L$ is \emph{basic} if $\L/\rad \L$ is a
+multiplicity free semisimple $\L$-module, where $\rad \L$ denotes the
+Jacobson radical of $\L$.  Moreover, any basic finite dimensional
+algebra over an algebraically closed field $k$ is isomorphic to
+quotient of a path algebra $kQ$ over the same field $k$ modulo an
+admissible ideal $I$ in $kQ$.  Or even better, any finite dimensional
+$k$-algebra $\L$ for a field $k$ with $\L/\rad\L\simeq k^n$ for some
+positive integer $n$ (then $\L$ is called \emph{$k$-elementary}) is
+isomorphic to a quotient of a path algebra $kQ/I$, where $I$ is an
+admissible ideal in $kQ$.  Furthermore, for any ideal $I$ such that
+$kQ/I$ is finite dimensional, then $I$ has a finite Gr\"obner basis
+(see \cite{Green}).  Another fact, which follows from the above, which
+we can prove directly is the following:  If $I$ is an admissible ideal
+in $kQ$, then $I$ is finitely generated.  When $I$ is an admissible
+ideal in $kQ$, then we have the exact sequence
+\[0\to J^t\hookrightarrow I\to I/J^t\to 0,\] where $I/J^t$ is a
+subspace of the finite dimensional vector space $kQ/J^t$.  Since $Q$
+is a finite quiver, the ideal $J^t$ is a finitely generated ideal in
+$kQ$.  Using this and the fact that $I/J^t$ is finite dimensional, it
+follows that $I$ is a finitely generated ideal in $kQ$.  This is why
+we restrict our attention to quotients of path algebras by admissible
+ideals.  Several functions in QPA only work for such quotients of path
+algebras.
+\end{theoback}
+
+\subsection{Modules and representations of quivers with relations}
+
+Let $k$ be a field, $Q$ a quiver and $I$ an admissible ideal in $kQ$,
+and let $\L = kQ/I$.  
+
+\begin{theoback}
+The residue class of the sum of all trivial paths $\sum_{v\in Q_0} v$
+in $Q$ is the identity element in $\L$.  Given a right module $M$ over
+$\L$, then $\oplus_{v\in Q_0} Mv$ is isomorphic to $M$ as a vector
+space over $k$.  For each arrow $\alpha\colon v\to w$ in $Q$, we get a
+linear map $f_\alpha\colon Mv\to Mw$ given by $f_\alpha(mv) = mv\alpha
+\in Mw$ (hence $f_\alpha$ is just right multiplication by $\alpha$).
+This gives rise to the notion of a representation of a quiver.
+\end{theoback}
+
+A \emph{representation} $(V,f)$ of a quiver $Q$ over a field $k$
+consists of a finite dimensional $k$-vector space $V(v)$ for each
+vertex $v$ in $Q$ and a linear map $f_\alpha\colon V(v)\to V(w)$ for
+each arrow $\alpha\colon v\to w$ in $Q$.  For example, given the
+quiver $Q$
+\[\xymatrix{
+1\ar[r]^a\ar[d]_c & 2\ar[d]^b\\
+3\ar[r]^d & 4
+}\]
+and a field $k$, a representation $(V,f)$ is for example 
+\[\xymatrix@C=30pt{
+k\ar[r]^{f_a = 1}\ar[d]_{f_c = 1} & k\ar[d]^{f_b
+  = \left(\begin{smallmatrix} 1 & 0\end{smallmatrix}\right)}\\
+k\ar[r]^{f_d = \left(\begin{smallmatrix} 0 & 1\end{smallmatrix}\right)} & k^2
+}\]
+The \emph{dimension vector} of a representation $(V,f)$ is $(\dim_k
+V(v))_{v\in Q_0}$.  In the above case it would be $(1,1,1,2)$ (using
+the ordering of the vertices to list the dimension vector).  Here is
+how to enter this representation into QPA: 
+\begin{verbatim}
+gap> M := RightModuleOverPathAlgebra(kQ, [1,1,1,2], [["a", [[1]]], 
+  ["b", [[1,0]]], ["c",[[1]]], ["d", [[0,1]]]]);
+<[ 1, 1, 1, 2 ]>
+\end{verbatim}
+Here the second argument is the dimension vector and the third
+argument is the list of all non-zero linear maps occurring in the
+representation.  For instance, the representation 
+\[\xymatrix@C=30pt{
+k\ar[r]^{f_a = 1}\ar[d]_{f_c = 1} & k\ar[d]^{f_b  = 0}\\
+k\ar[r]^{f_d = 0} & 0
+}\]
+can be entered into QPA as
+\begin{verbatim}
+gap> N := RightModuleOverPathAlgebra(kQ, [1,1,1,0], [["a", [[1]]], 
+   ["c", [[1]]]]);
+<[ 1, 1, 1, 0 ]>
+\end{verbatim}
+One can show that there is a one-to-one correspondence between finite
+dimensional right $kQ$-modules and representations of $Q$ over $k$. 
+
+If we impose the relation $\sigma = ab - 2cd$ we had before on this
+quiver, then a \emph{representation $(V,f)$ satisfies the relation
+  $\sigma$} if $f_\sigma = f_af_b - 2f_cf_d = 0$.  We see that the
+representation of $Q$ given above doesn't satisfy this relation, 
+\begin{verbatim}
+gap> M := RightModuleOverPathAlgebra(A, [1,1,1,2], [["a", [[1]]], 
+   ["b", [[1,0]]], ["c",[[1]]], ["d", [[0,1]]]]);
+The entered matrices for the module do not satisfy the relation(s).
+fail
+\end{verbatim}
+while the following representation  
+\[\xymatrix@C=30pt{
+k\ar[r]^{f_a = 1}\ar[d]_{f_c = 1} & k\ar[d]^{f_b = 2}\\
+k\ar[r]^{f_d = 1} & k
+}\]
+does.
+\begin{verbatim}
+gap> M := RightModuleOverPathAlgebra(A, [1,1,1,1], [["a", [[1]]], 
+   ["b", [[2]]], ["c",[[1]]], ["d", [[1]]]]);    
+<[ 1, 1, 1, 1 ]>
+\end{verbatim}  
+We have that a right $kQ$-module $M$ is a $\L=kQ/I$-module if
+and only if $m\cdot\sigma = 0$ for all elements $m$ in $M$ and
+$\sigma$ in $I$.  Using this one can show that there is a one-to-one
+correspondence between finite dimensional right $\L$-modules and
+representations of $Q$ over $k$ satisfying all relations in $I$.  
+
+The right $\L$-module $M_{(V,f)}$ corresponding to a representation
+$(V,f)$ of $Q$ with relations $I$, is as a $k$-vector space given by 
+\[M_{(V,f)} = \oplus_{v\in Q_0} V(v).\]
+Therefore it is natural to think of an element in the representation
+$(V,f)$ as tuple of vectors in $V(v)$ for all $v$ in $Q_0$, and the
+entries in the tuple are listed in the order the vertices were
+entered/numbered.  Reusing the above example, we see how a set of
+basis is given for a representation: 
+\begin{verbatim}
+gap> M := RightModuleOverPathAlgebra(kQ, [1,1,1,2], 
+>   [["a", [[1]]], ["b", [[1,0]]], ["c",[[1]]], 
+>   ["d", [[0,1]]]]);
+<[ 1, 1, 1, 2 ]>
+gap> B := BasisVectors(Basis(M));
+[ [ [ 1 ], [ 0 ], [ 0 ], [ 0, 0 ] ], 
+  [ [ 0 ], [ 1 ], [ 0 ], [ 0, 0 ] ], 
+  [ [ 0 ], [ 0 ], [ 1 ], [ 0, 0 ] ], 
+  [ [ 0 ], [ 0 ], [ 0 ], [ 1, 0 ] ], 
+  [ [ 0 ], [ 0 ], [ 0 ], [ 0, 1 ] ]
+]
+gap> B[4];
+[ [ 0 ], [ 0 ], [ 0 ], [ 1, 0 ] ]
+\end{verbatim}
+For an element $m$ in $M$ and an element $x$ in the algebra over which
+$M$ is a right module, the action of $x$ on $m$ is written \verb|m^x|.
+For example in the above example
+\begin{verbatim}
+gap> B[1];     
+[ [ 1 ], [ 0 ], [ 0 ], [ 0, 0 ] ]
+gap> B[1]^kQ.a;
+[ [ 0 ], [ 1 ], [ 0 ], [ 0, 0 ] ]
+gap> (B[1]^kQ.a)^kQ.b;
+[ [ 0 ], [ 0 ], [ 0 ], [ 1, 0 ] ]
+\end{verbatim}
+
+\subsection{Homomorphisms of representations}
+Let $\L = kQ/I$ for a field $k$, quiver $Q$ and an admissible ideal
+$I$ in $kQ$.  
+
+\begin{theoback}
+A homomorphism $h\colon M\to N$ of two right $\L$-modules $M$ and $N$
+gives rise to linear maps $h_v\colon Mv\to Nv$ for all vertices $v$ in
+$Q$.  Let $\alpha\colon v\to w$ be an arrow in $Q$.  Denote by
+$f_\alpha\colon Mv\to Mw$ the right multiplication by $\alpha$ and
+$f_\alpha'\colon Nv\to Nw$ the right multiplication by $\alpha$.
+Then we have that
+\begin{align}
+h_w(f_\alpha(mv)) & = h(mv\cdot \alpha)\notag\\
+& = h(mv)\cdot\alpha = f'_\alpha(h_v(mv))\notag
+\end{align}
+since $f_\alpha(mv)$ is in $Mw$ and $h$ is a $\L$-homomorphism.  Hence
+the diagram 
+\[\xymatrix{
+Mv\ar[d]^{h_v}\ar[r]^{f_\alpha} &  Mw\ar[d]^{h_w}\\
+Nv\ar[r]^{f'_\alpha} & Nw
+}\]
+commutes or equivalently $h_wf_\alpha = f'_\alpha h_v$ for all arrows
+$\alpha\colon v\to w$.
+\end{theoback}
+
+A homomorphism $h=\{h_v\}_{v\in Q_0}\colon (V,f)\to (V',f')$ of two
+representations $(V,f)$ and $(V',f')$ of $Q$ with the relations given
+by $I$ is a collection of linear maps $h_v\colon V(v)\to V'(v)$ for
+all $v$ in $Q_0$ such that the diagram 
+\[\xymatrix{
+V(v)\ar[d]^{h_v}\ar[r]^{f_\alpha} &  V(w)\ar[d]^{h_w}\\
+V'(v)\ar[r]^{f'_\alpha} & V'(w)
+}\]
+commutes or equivalently $h_wf_\alpha = f'_\alpha h_v$ for all arrows
+$\alpha\colon v\to w$ in $Q$.  
+
+\begin{verbatim}
+gap> Q := Quiver(3,[[1,2,"a"],[2,3,"b"]]);
+<quiver with 3 vertices and 2 arrows>
+gap> kQ := PathAlgebra(Rationals,Q);
+<Rationals[<quiver with 3 vertices and 2 arrows>]>
+gap> M := RightModuleOverPathAlgebra(kQ, [2,2,2], 
+   [["a", [[0,1],[1,0]]], ["b",[[1,0],[0,1]]]]);
+<[ 2, 2, 2 ]>
+gap> N := RightModuleOverPathAlgebra(kQ, [2,2,0], 
+[["a", [[1,0],[0,1]]]]);                     
+<[ 2, 2, 0 ]>
+gap> h := RightModuleHomOverAlgebra(M,N, 
+   [[[1,0],[0,1]],[[0,1],[1,0]],[[0],[0]]]);             
+<<[ 2, 2, 2 ]> ---> <[ 2, 2, 0 ]>>
+
+gap> MatricesOfPathAlgebraMatModuleHomomorphism(h);                                            
+[ [ [ 1, 0 ], [ 0, 1 ] ], [ [ 0, 1 ], [ 1, 0 ] ], [ [ 0 ], [ 0 ] ] ]
+\end{verbatim}
+To compute the image of an element in the source of a homomorphism,
+
+\section{Basic functions}
+\subsection{Algebras}
+
+\subsection{Module attributes}
+
+The three pieces of information that define a module -- the algebra
+acting on it, the dimensions of the vector spaces, and the linear maps
+-- are available by calling \texttt{RightActingAlgebra},
+\texttt{DimensionVector} and \texttt{MatricesOfPathAlgebraModule},
+respectively.
+
+We can get the $k$-dimension of a module (this is the same as the sum
+of the entries in the dimension vector) by calling \texttt{Dimension},
+and a minimal set of generators by calling
+\texttt{MinimalGeneratingSetOfModule}.
+
+\begin{verbatim}
+gap> kQ := PathAlgebra(Rationals, Quiver(3, [[1,2,"a"],[2,3,"b"]]));;
+gap> M := RightModuleOverPathAlgebra(kQ, [1,1,2],
+                                     [["a", [[1]]], ["b", [[1,0]]]]);
+<[ 1, 1, 2 ]>
+gap> RightActingAlgebra(M) = kQ;
+true
+gap> DimensionVector(M);
+[ 1, 1, 2 ]
+gap> MatricesOfPathAlgebraModule(M);
+[ [ [ 1 ] ], [ [ 1, 0 ] ] ]
+gap> Dimension(M);
+4
+gap> G := MinimalGeneratingSetOfModule(M);
+[ [ [ 1 ], [ 0 ], [ 0, 0 ] ], [ [ 0 ], [ 0 ], [ 0, 1 ] ] ]
+gap> G[1] ^ kQ.a;
+[ [ 0 ], [ 1 ], [ 0, 0 ] ]
+\end{verbatim}
+% basis?
+
+\subsection{Submodules}
+\label{sec:submodules}
+
+We can construct a submodule of a given module by using
+\texttt{SubRepresentation}, which takes as arguments a module and a
+list of generators for the submodule.  The submodule produced in this
+way is not a ``real'' submodule in the sense of being a subset of the
+original module (elements of the submodule are not elements of the
+original module), but instead a completely distinct module which has
+an embedding into the original module.  The embedding is obtained by
+calling \texttt{SubRepresentationInclusion} with the same arguments as
+\texttt{SubRepresentation}.
+
+\begin{verbatim}
+gap> kQ := PathAlgebra(Rationals, Quiver(2, [[1,2,"a"],[1,2,"b"]]));;
+<Rationals[<quiver with 2 vertices and 2 arrows>]>
+gap> M := RightModuleOverPathAlgebra(kQ, [2,2], [["a", [[1,0],[1,1]]]]);
+<[ 2, 2 ]>
+gap> SubRepresentation(M, [Basis(M)[1]-Basis(M)[2]]);
+<[ 1, 1 ]>
+gap> SubRepresentationInclusion(M, [Basis(M)[1]-Basis(M)[2]]);
+<<[ 1, 1 ]> ---> <[ 2, 2 ]>>
+\end{verbatim}
+
+\subsection{Direct sums}
+
+We can create a direct sum of (arbitrarily many) modules by calling
+\texttt{DirectSumOfQPAModules} with a list of modules as argument.
+The resulting module has attributes \texttt{DirectSumInclusions} and
+\texttt{DirectSumProjections} which contain lists of the
+inclusion/projection maps for all summands.
+
+\begin{verbatim}
+gap> kQ := PathAlgebra(Rationals, Quiver(2, [[1,2,"a"]]));
+<Rationals[<quiver with 2 vertices and 1 arrows>]>
+gap> M1 := RightModuleOverPathAlgebra(kQ, [1,0], []);
+<[ 1, 0 ]>
+gap> M2 := RightModuleOverPathAlgebra(kQ, [0,1], []);
+<[ 0, 1 ]>
+gap> M3 := RightModuleOverPathAlgebra(kQ, [1,1], [["a",[[1]]]]);
+<[ 1, 1 ]>
+gap> S := DirectSumOfQPAModules([M1, M2, M3]);
+<[ 2, 2 ]>
+gap> DirectSumInclusions(S);
+[ <<[ 1, 0 ]> ---> <[ 2, 2 ]>>, <<[ 0, 1 ]> ---> <[ 2, 2 ]>>,
+  <<[ 1, 1 ]> ---> <[ 2, 2 ]>> ]
+gap> DirectSumProjections(S);
+[ <<[ 2, 2 ]> ---> <[ 1, 0 ]>>, <<[ 2, 2 ]> ---> <[ 0, 1 ]>>,
+  <<[ 2, 2 ]> ---> <[ 1, 1 ]>> ]
+\end{verbatim}
+
+\subsection{Radical, socle and top}
+
+The radical, socle and top of a module can be computed by
+\texttt{RadicalOfModule}, \texttt{SocleOfModule} and
+\texttt{TopOfModule}, respectively.  The associated
+inclusion/projection maps are computed by
+\texttt{RadicalOfModuleInclusion}, \texttt{SocleOfModuleInclusion} and
+\texttt{TopOfModuleProjection}.
+
+\begin{verbatim}
+gap> kQ := PathAlgebra(Rationals, Quiver(3, [[1,2,"a"],[2,3,"b"]]));;
+gap> M := RightModuleOverPathAlgebra(kQ, [1,1,2],
+                                     [["a", [[1]]], ["b", [[1,0]]]]);
+<[ 1, 1, 2 ]>
+gap> RadicalOfModule(M);
+<[ 0, 1, 1 ]>
+gap> RadicalOfModuleInclusion(M);
+<<[ 0, 1, 1 ]> ---> <[ 1, 1, 2 ]>>
+gap> SocleOfModule(M);
+<[ 0, 0, 2 ]>
+gap> SocleOfModuleInclusion(M);
+<<[ 0, 0, 2 ]> ---> <[ 1, 1, 2 ]>>
+gap> TopOfModule(M);
+<[ 1, 0, 1 ]>
+gap> TopOfModuleProjection(M);
+<<[ 1, 1, 2 ]> ---> <[ 1, 0, 1 ]>>
+\end{verbatim}
+
+
+\subsection{Modules: equality and isomorphism}
+
+In QPA, there are three different ways to check if two module objects
+are ``the same'': checking if they are the same GAP object (using
+\texttt{IsIdenticalObj}), testing for equality (using the \texttt{=}
+operator) and testing for isomorphism (using the operation
+\texttt{IsomorphicModules}).  Equality and isomorphism are the most
+useful tests, and the ones which make sense mathematically.  The
+object identity test has no mathematical meaning, but can be useful in
+debugging.
+
+Obviously, object identity implies equality, and equality implies
+isomorphism.  None of the opposite implications hold (as demonstrated
+below); in other words, all the three comparisons are different from
+each other.  When comparing two modules, you should carefully consider
+whether equality or isomorphism is the relation you are interested in.
+
+Two module objects are regarded as equal if they are over the same
+algebra and have the same dimension vector and the same linear maps.
+In other words, they are equal if they contain exactly the same
+information.  This agrees with the intuitive notion of equality: two
+modules are equal if you can't see any difference between them.  Thus,
+if we call the module constructor twice with the same arguments, we
+get two different GAP objects which are equal as modules (see
+\texttt{M1} and \texttt{M3} in the example below).
+
+If two modules are isomorphic, then they must have the same dimension
+vector.  However, they may have different linear maps (corresponding
+to a change of basis), and they are therefore not necessarily equal.
+The modules \texttt{M1} and \texttt{M4} in the example below
+illustrate this.
+
+Finally, note that having the same dimension vector is not sufficient
+for two modules to be isomorphic (see \texttt{M1} and \texttt{M5}
+below).
+
+\begin{verbatim}
+gap> kQ := PathAlgebra(Rationals, Quiver(3, [[1,2,"a"],[2,3,"b"]]));;
+gap> M1 := RightModuleOverPathAlgebra
+           (kQ, [1,1,2], [["a", [[1]]], ["b", [[1,0]]]]);;
+gap> M2 := M1;;
+gap> M3 := RightModuleOverPathAlgebra
+           (kQ, [1,1,2], [["a", [[1]]], ["b", [[1,0]]]]);;
+gap> M4 := RightModuleOverPathAlgebra
+           (kQ, [1,1,2], [["a", [[1]]], ["b", [[0,1]]]]);;
+gap> M5 := RightModuleOverPathAlgebra
+           (kQ, [1,1,2], [["a", [[1]]], ["b", [[0,0]]]]);;
+gap> IsIdenticalObj(M1, M2); M1 = M2; IsomorphicModules(M1, M2);
+true
+true
+true
+gap> IsIdenticalObj(M1, M3); M1 = M3; IsomorphicModules(M1, M3);
+false
+true
+true
+gap> IsIdenticalObj(M1, M4); M1 = M4; IsomorphicModules(M1, M4);
+false
+false
+true
+gap> IsIdenticalObj(M1, M5); M1 = M5; IsomorphicModules(M1, M5);
+false
+false
+false
+\end{verbatim}
+
+Given two isomorphic modules, we can construct an isomorphism from one
+to the other by calling \texttt{IsomorphismOfModules}.  Applying this
+to the two modules \texttt{M1} and \texttt{M4} from above, we see that
+we get an isomorphism which permutes the basis vectors of the
+two-dimensional space at vertex~$3$:
+\begin{verbatim}
+gap> iso := IsomorphismOfModules(M1, M4);
+<<[ 1, 1, 2 ]> ---> <[ 1, 1, 2 ]>>
+gap> MatricesOfPathAlgebraMatModuleHomomorphism(iso);
+[ [ [ 1 ] ], [ [ 1 ] ], [ [ 0, 1 ], [ 1, 0 ] ] ]
+\end{verbatim}
+
+% Dimension
+% DimensionVector
+% Injectives   IsInjectiveModule
+% Projectives IsProjectiveModule
+% Simple
+% ZeroModule
+% Equality
+% Isomorphism
+% Basis of a module
+% Minimal set of generators
+% Submodules generated by a set
+% Sum of submodules
+% Intersection of submodules
+% Quotient modules
+% Direct sum of modules
+% Radical
+% Socle
+% Top
+% DecomposeModule
+
+\subsection{Special modules: simple, projective, injective}
+Let $Q$ be a quiver with vertices $v_1, \ldots, v_n$, and let $A =
+kQ/I$ be a quotient of the path algebra $kQ$ by some admissible
+ideal~$I$.  Then there are (up to isomorphism) $n$ simple $A$-modules,
+$n$ indecomposable projective $A$-modules, and $n$ indecomposable
+injective $A$-modules -- one of each type corresponding to each
+vertex.  These are not necessarily all distinct; for instance, a
+module can be both simple and projective.
+
+The simple module associated to vertex $v_i$ is given by the
+representation with $k$ at vertex $v_i$ and the zero space at all
+other vertices, and with zero maps attached to all arrows.  The
+indecomposable projective module associated to vertex $v_i$ is $v_i
+A$, and the indecomposable injective module associated to vertex $v_i$
+is $A v_i$.
+
+For example, let $A = kQ$ where $Q$ is the quiver
+\[
+\xymatrix{1 \ar[r]^a & 2 \ar[r]^b & 3}.
+\]
+Then the three simple $A$-modules are given by the representations
+\[
+\xymatrix{k \ar[r]^0 & 0 \ar[r]^0 & 0},\quad
+\xymatrix{0 \ar[r]^0 & k \ar[r]^0 & 0}
+\quad\text{and}\quad
+\xymatrix{0 \ar[r]^0 & 0 \ar[r]^0 & k}.
+\]
+The three indecomposable projective $A$-modules are given by the
+representations
+\[
+\xymatrix{k \ar[r]^1 & k \ar[r]^1 & k},\quad
+\xymatrix{0 \ar[r]^0 & k \ar[r]^1 & k}
+\quad\text{and}\quad
+\xymatrix{0 \ar[r]^0 & 0 \ar[r]^0 & k}.
+\]
+The three indecomposable injective $A$-modules are given by the
+representations
+\[
+\xymatrix{k \ar[r]^0 & 0 \ar[r]^0 & 0},\quad
+\xymatrix{k \ar[r]^1 & k \ar[r]^0 & 0}
+\quad\text{and}\quad
+\xymatrix{k \ar[r]^1 & k \ar[r]^1 & k}.
+\]
+Note that in this example, there is one module which is simple and
+projective, one which is simple and injective, and one which is
+projective and injective.
+
+In QPA, these modules are accessible through the attributes
+\texttt{SimpleModules}, \texttt{IndecProjectiveModules} and
+\texttt{IndecInjectiveModules} of an algebra.  Each of these
+attributes returns a list of modules.
+\begin{verbatim}
+gap> Q := Quiver(3, [[1,2,"a"],[2,3,"b"]]);;
+gap> kQ := PathAlgebra(Rationals, Q);;
+gap> S := SimpleModules(kQ);;
+gap> S[1];
+<[ 1, 0, 0 ]>
+gap> S[2];
+<[ 0, 1, 0 ]>
+gap> S[3];
+<[ 0, 0, 1 ]>
+gap> IndecProjectiveModules(kQ);
+[ <[ 1, 1, 1 ]>, <[ 0, 1, 1 ]>, <[ 0, 0, 1 ]> ]
+gap> IndecInjectiveModules(kQ);
+[ <[ 1, 0, 0 ]>, <[ 1, 1, 0 ]>, <[ 1, 1, 1 ]> ]
+\end{verbatim}
+
+\subsection{Homomorphisms}
+
+As seen earlier, we can construct a module homomorphism by calling
+\texttt{RightModuleHomOverAlgebra} with the data defining the
+homomorphism as arguments: two modules and a list of linear maps.
+Additionally, we have seen that there are functions which produce
+homomorphisms related to certain module constructions, such as
+\texttt{SubRepresentationInclusion} and \texttt{DirectSumInclusions}.
+
+We can obtain the domain, codomain and linear maps of a module
+homomorphism by calling \texttt{Source}, \texttt{Range} and
+\texttt{MatricesOfPathAlgebraMatModuleHomomorphism}.
+
+\begin{verbatim}
+gap> kQ := PathAlgebra(Rationals, Quiver(2, [[1,2,"a"]]));;
+gap> M := RightModuleOverPathAlgebra(kQ, [1,1], [["a",[[1]]]]);;
+gap> N := RightModuleOverPathAlgebra(kQ, [1,2], [["a",[[3,5]]]]);;
+gap> f := RightModuleHomOverAlgebra(M, N, [ [[2]], [[6,10]] ]);
+<<[ 1, 1 ]> ---> <[ 1, 2 ]>>
+gap> Source(f); Range(f);
+<[ 1, 1 ]>
+<[ 1, 2 ]>
+gap> MatricesOfPathAlgebraMatModuleHomomorphism(f);
+[ [ [ 2 ] ], [ [ 6, 10 ] ] ]
+\end{verbatim}
+
+% composition, equality
+
+\subsection{Kernel, cokernel, image}
+
+As discussed in Subsection~\ref{sec:submodules}, all modules in QPA
+are disjoint as sets, and a submodule of a module~$M$ is therefore not
+a subset $M' \subseteq M$ of $M$, but a module~$M'$ together with a
+monomorphism $M' \to M$.
+
+Let $f \colon M \to N$ be a homomorphism of modules.  As far as QPA is
+concerned, the kernel of~$f$ is not the subset $\{ m \in M \mid f(m) = 0
+\}$ of $M$, but a module $K$ together with a monomorphism $i \colon K
+\to M$ satisfying the appropriate universal property.  The attributes
+\texttt{Kernel} and \texttt{KernelInclusion} give the module~$K$
+and the map~$i$, respectively.
+
+Similarly, there are attributes \texttt{CoKernel} and
+\texttt{CoKernelProjection} for the cokernel of a homomorphism, and
+\texttt{Image} and \texttt{ImageInclusion} for the image.
+
+In the following example, we consider the modules
+\[
+M = \xymatrix{ 0 \ar[r] &
+               k^2 \ar[r]^{\left( \begin{smallmatrix} 3\\5 \end{smallmatrix} \right)} &
+               k }
+\qquad\text{and}\qquad
+N = \xymatrix{ k \ar[r]^7 &
+               k \ar[r]^{\vv{2}{0}} &
+               k^2 }
+\]
+over the path algebra $kQ$, where $Q$ is the quiver $1 \to 2 \to 3$.
+We define $f \colon M \to N$ to be the map given by the following
+diagram:
+\[
+\xymatrix{
+0 \ar[r]\ar[d] &
+k^2 \ar[r]^{\left( \begin{smallmatrix} 3\\5 \end{smallmatrix} \right)}
+    \ar[d]_{\left( \begin{smallmatrix} 6\\10 \end{smallmatrix} \right)} &
+k \ar[d]^{\vv{4}{0}}
+\\
+k \ar[r]^7 &
+k \ar[r]^{\vv{2}{0}} &
+k^2
+}
+\]
+We compute the kernel, cokernel and image of~$f$, with the
+corresponding homomorphisms.
+
+\begin{verbatim}
+gap> kQ := PathAlgebra(Rationals, Quiver(3, [[1,2,"a"],[2,3,"b"]]));
+<Rationals[<quiver with 3 vertices and 2 arrows>]>
+gap> M := RightModuleOverPathAlgebra
+          (kQ, [0,2,1], [["b", [[3],[5]]]]);
+<[ 0, 2, 1 ]>
+gap> N := RightModuleOverPathAlgebra
+          (kQ, [1,1,2], [["a", [[7]]], ["b", [[2,0]]]]);
+<[ 1, 1, 2 ]>
+gap> f := RightModuleHomOverAlgebra
+          (M, N, [ [[0]], [[6],[10]], [[4,0]] ]);
+<<[ 0, 2, 1 ]> ---> <[ 1, 1, 2 ]>>
+gap> Kernel(f); KernelInclusion(f);
+<[ 0, 1, 0 ]>
+<<[ 0, 1, 0 ]> ---> <[ 0, 2, 1 ]>>
+gap> MatricesOfPathAlgebraMatModuleHomomorphism(KernelInclusion(f));
+[ [ [ 0 ] ], [ [ 1, -3/5 ] ], [ [ 0 ] ] ]
+gap> CoKernel(f); CoKernelProjection(f);
+<[ 1, 0, 1 ]>
+<<[ 1, 1, 2 ]> ---> <[ 1, 0, 1 ]>>
+gap> MatricesOfPathAlgebraMatModuleHomomorphism(CoKernelProjection(f));
+[ [ [ 1 ] ], [ [ 0 ] ], [ [ 0 ], [ 1 ] ] ]
+gap> Image(f); ImageInclusion(f);
+<[ 0, 1, 1 ]>
+<<[ 0, 1, 1 ]> ---> <[ 1, 1, 2 ]>>
+gap> MatricesOfPathAlgebraMatModuleHomomorphism(ImageInclusion(f));
+[ [ [ 0 ] ], [ [ 1 ] ], [ [ 1, 0 ] ] ]
+gap> MatricesOfPathAlgebraModule(Image(f));
+[ [ [ 0 ] ], [ [ 2 ] ] ]
+\end{verbatim}
+
+By reading the results of the above computations, we get that the
+following three diagrams describe, respectively, the kernel~$K$ of~$f$
+with its inclusion into~$M$, the cokernel~$C$ of~$f$ with its projection
+from~$N$, and the image~$I$ of~$f$ with its inclusion into~$N$.
+\[
+\xymatrix@C=.4em{
+K\colon &
+0 \ar[rrr]\ar[d] &&&
+k \ar[rrr]\ar[d]_{\vv{1}{-\frac{3}{5}}} &&&
+0 \ar[d]
+\\
+M\colon &
+0 \ar[rrr] &&&
+k^2 \ar[rrr]^{\left( \begin{smallmatrix} 3\\5 \end{smallmatrix} \right)} &&&
+k
+}
+\quad
+\xymatrix@C=.4em{
+N\colon &
+k \ar[rrr]^7\ar[d]^{1} &&&
+k \ar[rrr]^{\vv{2}{0}}\ar[d] &&&
+k^2 \ar[d]^{\left( \begin{smallmatrix} 0\\1 \end{smallmatrix} \right)}
+\\
+C\colon &
+k \ar[rrr] &&&
+0 \ar[rrr] &&&
+k
+}
+\quad
+\xymatrix@C=.4em{
+I\colon &
+0 \ar[rrr]\ar[d] &&&
+k \ar[rrr]^2\ar[d]^1 &&&
+k \ar[d]^{\vv{1}{0}}
+\\
+N\colon &
+k \ar[rrr]^7 &&&
+k \ar[rrr]^{\vv{2}{0}} &&&
+k^2
+}
+\]
+
+% Source, Range
+% Equality
+% Composition, addition
+% Surjective, injective, zero
+% Kernel, KernelInclusion
+% CoKernel, CoKernelProjection
+% Image, ImageInclusion, ...
+% IsomorphismOfModules
+% RadicalInclusion,....
+% SubrepInclusion, 
+% Hom sets
+% Endomorphism rings
+
+\subsection{Functors}
+DualOfModule
+DTr
+StarOfModule
+
+\section{Chain complexes}% and the bounded derived category}
+
+QPA contains structures for chain complexes of modules, and for chain
+maps between complexes.  The implementation of complexes is intended
+to be usable not only for the module categories in QPA, but for any
+abelian category.  It is therefore separated from the rest of the QPA
+code by an abstraction layer consisting of a structure for describing
+abelian categories.  For every algebra $A = kQ/I$ constructed in QPA,
+an instance of this structure is created for the category $\mod A$ of
+finitely generated $A$-modules.  The code for complexes uses only
+these structures to interact with the rest of QPA.
+
+
+
+
+\section{Homological algebra}
+Extensions between modules
+InjDimensionOfModule
+ProjDimensionOfModule
+GlobalDimensionOfAlgebra
+NthSyzygy
+ProjectiveCover
+PullBack
+PushOut
+
+\section{AR-theory}
+AlmostSplitSequence
+DTr, TrD
+
+Projective modules of path algebras:
+Not mention
+
+
+\begin{thebibliography}{99}
+\bibitem{Green} Green, E.\ L., \emph{???}
+\end{thebibliography}
+\end{document}
