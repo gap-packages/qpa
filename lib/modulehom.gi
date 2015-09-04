@@ -3516,7 +3516,8 @@ InstallMethod ( IsomorphismOfModules,
     fsplit := RightInverseOfHomomorphism(fn);
     gn := ImageInclusion(maps[2]);
 #    gsplit := IsSplitMonomorphism(gn);
-    gsplit := LeftInverseOfHomomorphism(gn);    
+#     gsplit := LeftInverseOfHomomorphism(gn);    
+    gsplit := RightInverseOfHomomorphism(gn);    
     #
     # Find the idempotents corresponding to these direct summands.
     #
