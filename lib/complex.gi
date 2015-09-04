@@ -271,11 +271,8 @@ function( cat, basePosition, middle, positive, negative )
 
     basePositionL := basePosition;
     middleL := middle;
-    if positive = "zero" or negative = "zero" then
-        firstMiddleObj := Range( middle[ 1 ] );
-        lastMiddleObj := Source( middle[ Length( middle ) ] );
-    fi;
     if positive = "zero" then
+        lastMiddleObj := Source( middle[ Length( middle ) ] );
         # add zero object at the end if necessary:
         if not cat.isZeroObj( lastMiddleObj ) then
             middleL := Concatenation( middleL,
@@ -287,8 +284,9 @@ function( cat, basePosition, middle, positive, negative )
         od;
     fi;
     if negative = "zero" then
+        firstMiddleObj := Range( middle[ 1 ] );
         # add zero object at the end if necessary:
-        if not cat.isZeroObj( lastMiddleObj ) then
+        if not cat.isZeroObj( firstMiddleObj ) then
             middleL := Concatenation( [ cat.zeroMap( firstMiddleObj, cat.zeroObj ) ],
                                       middleL );
             basePositionL := basePositionL - 1;
@@ -1243,7 +1241,7 @@ function( M )
     return Complex( CatOfRightAlgebraModules( ActingAlgebra( M ) ),
                     0,
                     [ cover ],
-                    [ "next", nextDifferential, cover ],
+                    [ "next/repeat", nextDifferential, cover ],
                     "zero" );
 end );
 
