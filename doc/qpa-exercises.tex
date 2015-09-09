@@ -12,6 +12,8 @@
 \newcommand{\VV}[2]{\begin{pmatrix} #1 & #2 \end{pmatrix}}
 \newcommand{\vv}[2]{\left( \begin{smallmatrix} #1 & #2 \end{smallmatrix} \right)}
 
+\newcommand{\Z}{\mathbb{Z}}
+
 \begin{document}
 
 \title{QPA exercises}
@@ -20,7 +22,7 @@
 
 \maketitle
 
-\begin{Exercise}
+\begin{Exercise}[title={Paths and algebra elements}]
 Let $Q$ be the following quiver:
 \[
 \xymatrix@R=1ex{
@@ -40,7 +42,8 @@ length~$1$, $2$ and~$3$?
 \]
 \end{Exercise}
 
-\begin{Exercise}
+\begin{Exercise}[title={Admissible ideals}]
+\Question
 For each quiver $Q_i$ and ideal $I_i \subseteq kQ_i$ given below,
 determine if the ideal is admissible.
 \begin{flalign*}
@@ -143,14 +146,13 @@ I_5 = \langle a_1 a_2 - b_1 b_2 b_3, b_3 c a_1 \rangle
 % \qquad
 % I_2 = \langle a_1 a_2 - b_1 b_2 b_3, b_3 c a_1 \rangle
 % \]
-\end{Exercise}
 
-\begin{Exercise}
+\Question
 Show that the zero ideal in a path algebra $kQ$ is admissible if and
 only if the quiver $Q$ does not contain any oriented cycle.
 \end{Exercise}
 
-\begin{Exercise}
+\begin{Exercise}[title={Modules}]
 Let $Q$ be the following quiver:
 \[
 \xymatrix{
@@ -217,6 +219,46 @@ $A$-module in QPA.
 % given some modules, which module is the direct sum of ...;
 % find inclusions/projections.
 % (need to use IsomorphismOfModules and DirectSumInclusions)
+
+\begin{Exercise}[title={Chain complexes}]
+\Question Let $A = kQ/I$ where $Q$ and $I$ are as follows:
+\[
+Q\colon
+\vcenter{\xymatrix{
+1 \ar[d]^a \\
+2 \ar@(dl,dr)^b
+}}
+\qquad
+I = \langle ab, b^2 \rangle
+\]
+Let $C$ be the complex of $A$-modules where every object $C_i$ is the
+same module
+\[
+C_i =
+\vcenter{\xymatrix{
+k^2 \ar[d]^{\left( \begin{smallmatrix} 0&1 \\ 0&0 \end{smallmatrix} \right)} \\
+k^2 \ar@(dl,dr)_{\left( \begin{smallmatrix} 0&1 \\ 0&0 \end{smallmatrix} \right)}
+}}
+\]
+and the differential $d_i$ is given by
+\[
+d_i \colon
+\vcenter{\xymatrix@C=4em{
+k^2 \ar[d]^{\left( \begin{smallmatrix} 0&1 \\ 0&0 \end{smallmatrix} \right)}
+    \ar[r]^{\left( \begin{smallmatrix} 0&i \\ 0&0 \end{smallmatrix} \right)} &
+k^2 \ar[d]^{\left( \begin{smallmatrix} 0&1 \\ 0&0 \end{smallmatrix} \right)} \\
+k^2 \ar@(dl,dr)_{\left( \begin{smallmatrix} 0&1 \\ 0&0 \end{smallmatrix} \right)}
+    \ar[r]_{\left( \begin{smallmatrix} 0&i \\ 0&0 \end{smallmatrix} \right)} &
+k^2 \ar@(dl,dr)_{\left( \begin{smallmatrix} 0&1 \\ 0&0 \end{smallmatrix} \right)}
+}}
+\]
+for every $i \in \Z$.
+
+\Question Repeat the above, but replace both matrices
+$\left( \begin{smallmatrix} 0&i \\ 0&0 \end{smallmatrix} \right)$
+in $d_i$ by
+$\left( \begin{smallmatrix} 0&1 \\ 0&0 \end{smallmatrix} \right)$.
+\end{Exercise}
 
 % projective modules, resolutions
 

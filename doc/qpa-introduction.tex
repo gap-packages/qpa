@@ -75,6 +75,8 @@
 
 \newcommand{\VV}[2]{\begin{pmatrix} #1 & #2 \end{pmatrix}}
 \newcommand{\vv}[2]{\left( \begin{smallmatrix} #1 & #2 \end{smallmatrix} \right)}
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\Arg}[1]{\texttt{\textit{#1}}}
 
 \newtheoremstyle{theoretic}
   {3pt}
@@ -1023,6 +1025,253 @@ an instance of this structure is created for the category $\mod A$ of
 finitely generated $A$-modules.  The code for complexes uses only
 these structures to interact with the rest of QPA.
 
+Consider a chain complex
+\[
+C \colon \cdots \to
+ C_2 \xrightarrow{d_2}
+ C_1 \xrightarrow{d_1}
+ C_0 \xrightarrow{d_0}
+ C_{-1} \xrightarrow{d_{-1}}
+ C_{-2} \to \cdots.
+\]
+The complex consists of a sequence $(C_i)_{i \in \Z}$ of objects and a
+sequence $(d_i)_{i \in \Z}$ of differential morphisms, with $d_i
+\colon C_i \to C_{i-1}$.  To represent the complex $C$ in software, we
+need to have a representation of the infinite sequence of morphisms
+$d_i$ (we don't care about storing the objects $C_i$ separately, since
+they can be obtained from the morphisms).
+
+% \[
+% \underbrace{\cdots d_{b-2} d_{b_1}}_{\text{negative}}
+% \underbrace{d_b \cdots d_{b+m-1}}_{\text{middle}}
+% \underbrace{d_{b+m} d_{b+m+1} \cdots}_{\text{positive}}
+% \]
+In a chain complex in QPA, the sequence of differentials is
+represented in three parts called the positive part, the middle part
+and the negative part:
+\begin{equation}
+\label{eqn:complex-parts}
+\underbrace{\cdots \xrightarrow{d_{b+m+1}} \xrightarrow{d_{b+m}}}_{\text{positive}}
+\underbrace{\xrightarrow{d_{b+m-1}} \cdots \xrightarrow{d_b}}_{\text{middle}}
+\underbrace{\xrightarrow{d_{b-1}} \xrightarrow{d_{b_2}} \cdots}_{\text{negative}}
+\end{equation}
+The middle part is finite, while the positive and negative parts are
+infinite.  To create a complex, we need to specify the integers $b$
+and $m$ (which determine the position and length, respectively, of the
+middle part), a list of length~$m$ containing the differentials $d_b,
+\ldots, d_{b+m-1}$ of the middle part, and descriptions of the
+differentials in the positive and negative parts.
+
+\label{complex-part-types}
+QPA provides three ways to specify the differentials in the positive
+and negative parts (here described for the positive part):
+\begin{enumerate}
+\item \emph{Repeating list}: For complexes where the positive part of
+the sequence of differentials is periodic.  In other words, the
+sequence $d_{b+m}, d_{b+m+1}, \ldots$ is of the form
+\[
+r_1, r_2, \ldots, r_{p-1}, r_p, r_1, r_2, \ldots, r_{p-1}, r_p, r_1, r_2, \ldots
+\]
+for some integer~$p$ and differentials $r_1, \ldots, r_p$.  To
+describe a positive part of this form, we simply have to specify the
+list $r_1, \ldots, r_p$ of differentials.
+\item \emph{Inductive function}: For complexes where every
+differential $d_i$ in the positive part determines the next
+differential $d_{i+1}$.  We need to specify a GAP function which takes
+a differential $d_i$ as input and produces the differential $d_{i+1}$,
+as well as the initial differential $d_{b+m}$ of the positive part.
+\item \emph{Positional function}: We specify a GAP function which
+takes an integer~$i$ as input and produces the differential~$d_i$.
+\end{enumerate}
+
+\subsection{Accessing objects and differentials in a complex}
+
+Given a complex, we can use the operations \code{ObjectOfComplex} and
+\code{DifferentialOfComplex} to obtain the object or differential at
+any degree.
+
+\subsection{Creating a bounded complex}
+
+The constructor \code{ZeroComplex} creates a complex where all objects
+are the zero object, \code{FiniteComplex} creates a complex with
+finitely many nonzero objects, and \code{StalkComplex} creates a
+complex with a single nonzero object.
+
+For all these constructors, the first argument is an object describing
+the abelian category.  We obtain the appropriate abelian category
+object by calling the function \code{CatOfRightAlgebraModules} on our
+algebra.  The constructor \code{FiniteComplex} takes two more
+arguments: the degree in which to place the first specified
+differential, and a list of differentials.  The constructor
+\code{StalkComplex} also takes two more arguments: an object and a
+degree.
+
+\begin{verbatim}
+gap> kQ := PathAlgebra(Rationals, Quiver(3, [[1,2,"a"], [2,3,"b"]]));;
+gap> cat := CatOfRightAlgebraModules(kQ);;
+gap> ZeroComplex(cat);
+0 -> 0
+gap> S := SimpleModules(kQ);
+[ <[ 1, 0, 0 ]>, <[ 0, 1, 0 ]>, <[ 0, 0, 1 ]> ]
+gap> SC := StalkComplex(cat, S[1], 5);
+0 -> 5:(1,0,0) -> 0
+gap> ObjectOfComplex(SC, 5);
+<[ 1, 0, 0 ]>
+gap> M := DirectSumOfQPAModules([S[1], S[2]]);
+<[ 1, 1, 0 ]>
+gap> C := FiniteComplex(cat, 1, [ DirectSumProjections(M)[2],
+                                  DirectSumInclusions(M)[1] ]);
+0 -> 2:(1,0,0) -> 1:(1,1,0) -> 0:(0,1,0) -> 0
+gap> ObjectOfComplex(C, 2);
+<[ 1, 0, 0 ]>
+gap> DifferentialOfComplex(C, 2);
+<<[ 1, 0, 0 ]> ---> <[ 1, 1, 0 ]>>
+\end{verbatim}
+
+\subsection{Projective resolutions}
+
+An easy way to obtain a (potentially) unbounded complex is to take the
+projective resolution of a module.  The operation
+\code{ProjectiveResolution} does this.  Given a module~$M$, it
+produces the minimal projective resolution
+\[
+\cdots \to P_2 \to P_1 \to P_0 \to M \to 0
+\]
+of $M$, with $M$ in degree~$-1$.
+
+\begin{verbatim}
+gap> Q := Quiver(2, [[1,2,"a" ], [2,1,"b"], [2,2,"c"]]);;
+gap> kQ := PathAlgebra(Rationals, Q);;
+gap> A := kQ / [kQ.a*kQ.b*kQ.a, kQ.c^2, kQ.c*kQ.b*kQ.a];;
+gap> S := SimpleModules(A)[2];
+<[ 0, 1 ]>
+gap> P := ProjectiveResolution(S);
+--- -> 0:(4,4) -> -1:(0,1) -> 0
+gap> DifferentialOfComplex(P, 1);
+<<[ 7, 6 ]> ---> <[ 4, 4 ]>>
+gap> DifferentialOfComplex(P, 10);
+<<[ 40, 40 ]> ---> <[ 36, 36 ]>>
+gap> P;
+--- -> 10:(40,40) -> 9:(36,36) -> 8:(32,32) -> 7:(28,28)
+ -> 6:(24,24) -> 5:(20,20) -> 4:(16,16) -> 3:(12,12)
+ -> 2:(8,8) -> 1:(7,6) -> 0:(4,4) -> -1:(0,1) -> 0
+\end{verbatim}
+
+The projective resolution complex represents its positive part with
+the ``inductive function'' form (see the overview of representations
+on page~\pageref{complex-part-types}), using the QPA function
+\code{ProjectiveCover} to construct each new differential.  When we
+ask for the differential in degree~$10$, the complex has to first
+compute the differentials in degrees $1, 2, \ldots, 9$.  All computed
+differentials are stored in the complex, so if we later ask for, say,
+the differential in degree~$8$, then the complex does not have to do
+the same computations again.
+
+The printed form of the complex shows all objects that have been found
+and stored in the complex so far.  In the newly constructed complex,
+only the original module (in degree~$-1$) and its projective cover (in
+degree~$0$) were stored.  After we asked for the differential in
+degree~$10$, all objects up to degree~$10$ had been found and stored.
+
+If the complex discovers that it is repeating, then it changes its
+representation to the much more efficient ``repeating list'' type.
+This happens in the example below.
+
+\begin{verbatim}
+gap> Q := Quiver(3, [[1,2,"a"], [2,3,"b"], [3,1,"c"]]);;
+gap> kQ := PathAlgebra(Rationals, Q);;
+gap> A := kQ/[kQ.a*kQ.b, kQ.b*kQ.c, kQ.c*kQ.a];;
+gap> M := SimpleModules(A)[1];
+<[ 1, 0, 0 ]>
+gap> P := ProjectiveResolution(M);
+--- -> 0:(1,1,0) -> -1:(1,0,0) -> 0
+gap> ObjectOfComplex(P, 2);
+<[ 1, 0, 1 ]>
+gap> P;
+--- -> 2:(1,0,1) -> 1:(0,1,1) -> 0:(1,1,0) -> -1:(1,0,0) -> 0
+gap> ObjectOfComplex(P, 6);
+<[ 1, 1, 0 ]>
+gap> P;
+--- -> 6:(1,1,0) -> 5:(1,0,1) -> 4:(0,1,1) -> 3:(1,1,0) -> 2:(1,0,1)
+ -> 1:(0,1,1) -> 0:(1,1,0) -> -1:(1,0,0) -> 0
+gap> ObjectOfComplex(P, 7);
+<[ 0, 1, 1 ]>
+gap> P;
+--- -> [ 3:(1,1,0) -> 2:(1,0,1) -> 1:(0,1,1) -> ] 0:(1,1,0)
+ -> -1:(1,0,0) -> 0
+gap> ObjectOfComplex(P, 1000000);
+<[ 0, 1, 1 ]>
+\end{verbatim}
+
+A special case of this happens when the module has finite projective
+dimension, as in the following example.
+
+\begin{verbatim}
+gap> kQ := PathAlgebra(Rationals, Quiver(3, [[1,2,"a"],[2,3,"b"]]));;
+gap> A := kQ/[kQ.a*kQ.b];;
+gap> M := SimpleModules(A)[1];;
+gap> P := ProjectiveResolution(M);
+--- -> 0:(1,1,0) -> -1:(1,0,0) -> 0
+gap> ObjectOfComplex(P, 10);
+<[ 0, 0, 0 ]>
+gap> P;
+0 -> 2:(0,0,1) -> 1:(0,1,1) -> 0:(1,1,0) -> -1:(1,0,0) -> 0
+\end{verbatim}
+
+
+\subsection{Creating a complex: the general constructor}
+
+To create an arbitrary complex, we can use the general constructor
+\begin{center}
+\code{Complex}( \Arg{cat}, \Arg{baseDegree},
+                \Arg{middle}, \Arg{positive}, \Arg{negative} ),
+\end{center}
+which allows us to specify each of the three parts of the complex
+(see~\eqref{eqn:complex-parts}) separately.
+
+The argument \Arg{cat} is an object describing the abelian category.
+We obtain the appropriate object to use here by calling
+\code{CatOfRightAlgebraModules} on our algebra.
+The argument \Arg{baseDegree} is an integer specifying the placement
+of the three parts; it is the same as the number~$b$ in the
+illustration~\eqref{eqn:complex-parts} above.
+The argument \Arg{middle} is a list containing the differentials $d_b,
+\ldots, d_{b+m-1}$ of the middle part.
+
+The arguments \Arg{positive} and \Arg{negative} describe the positive
+and negative parts, respectively.  They take values of the following
+forms:
+\begin{enumerate}
+\item A list \code{[ "repeat", \Arg{L} ]}, where \Arg{L} is a list of
+morphisms.  This means that the part consists of the morphisms in
+\Arg{L} repeated indefinitely.
+\item The string \code{"zero"}.  This means that all differentials in
+this part are the zero morphism on the zero object (except for the
+differential closest to the middle part, which is the zero morphism
+between the zero object and the appropriate object from the middle
+part).  This is a special case of the ``repeat'' type.
+\item A list \code{[ "next", \Arg{f}, \Arg{init} ]}, where \Arg{init}
+is the first differential of this part, and \Arg{f} is a function
+which takes a differential as argument and produces the next one.  If
+we write the string \code{"next/repeat"} instead of \code{"next"},
+then the representation will automatically change to the ``repeat''
+type if the complex at some point discovers that it is in fact
+repeating.
+\item A list \code{[ "pos", \Arg{f}, \Arg{store} ]}, where \Arg{f} is
+a function and \Arg{store} a boolean.  The function \Arg{f} produces
+the differential~$d_i$ of the complex when given~$i$ as argument.  In
+fact, \Arg{f} should take two arguments: the complex we are producing
+and an integer.  Being given the complex allows the function to
+inspect other parts of the complex as needed to produce~$d_i$.  For
+example, if we are producing a positive part containing $d_1, d_2,
+\ldots$, then the function~\Arg{f} could look at all the differentials
+$d_1, d_2, \ldots, d_{i-1}$ in order to produce $d_i$.  However, if we
+make use of the complex given as argument to~\Arg{f}, we need to make
+sure that we do not run into an infinite loop by looking up the
+differential we are asked to produce.  The boolean \Arg{store}
+determines whether computed differentials are stored in the complex or
+not.
+\end{enumerate}
 
 
 
