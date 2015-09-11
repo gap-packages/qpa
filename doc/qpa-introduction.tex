@@ -1,5 +1,5 @@
 \documentclass{amsart}
-\usepackage{amscd,amssymb, enumerate}
+\usepackage{amscd,amssymb, enumerate,url}
 \usepackage[all]{xy}
 \usepackage{showlabels}
 \renewcommand{\mod}{\operatorname{mod}\nolimits}
@@ -142,9 +142,18 @@ language GAP\footnote{\texttt{http://gap-system.org/}}.
 
 
 \subsection{Installing QPA}
-
-
-
+Since the release of GAP version 4.7.8, the package QPA is distributed
+with GAP, so that if you download this version or any later version
+QPA will be install at the same time as GAP is installed.  So follow
+that instructions for installing GAP on the webpage
+\begin{center}
+\url{http://www.gap-system.org/Download/index.html}
+\end{center}
+Then after having successfully started GAP, give the command
+\begin{verbatim}
+gap> LoadPackage(``qpa'');
+\end{verbatim}
+which loads QPA and you can start using QPA. 
 
 \section{Basic structures}
 
