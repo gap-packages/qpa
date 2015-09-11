@@ -9,6 +9,7 @@
 \newcommand{\add}{\operatorname{add}\nolimits}
 \newcommand{\obj}{\operatorname{obj}\nolimits}
 \newcommand{\rad}{\operatorname{rad}\nolimits}
+\newcommand{\soc}{\operatorname{soc}\nolimits}
 \newcommand{\rk}{\operatorname{rank}\nolimits}
 \newcommand{\kar}{\operatorname{char}\nolimits}
 \newcommand{\Hom}{\operatorname{Hom}\nolimits}
@@ -1273,8 +1274,6 @@ determines whether computed differentials are stored in the complex or
 not.
 \end{enumerate}
 
-
-
 \section{Homological algebra}
 Extensions between modules
 InjDimensionOfModule
@@ -1286,8 +1285,264 @@ PullBack
 PushOut
 
 \section{AR-theory}
-AlmostSplitSequence
-DTr, TrD
+The theory of almost split sequences is one of the corner stones in
+the representation theory of finite dimensional algebras.  Recall that
+a short exact sequence 
+\[0\to A\xrightarrow{f} B\xrightarrow{g} C\to 0\]
+is \emph{almost split exact} if it is not split exact and 
+\begin{enumerate}[\rm(i)]
+\item for any not splittable epimorphism $t\colon X\to C$ there is a
+  homomorphism $t'\colon X\to B$ such that $gt' = t$, 
+\item for any not splittable monomorphism $s\colon A\to Y$ there is a
+  homomorphism $s'\colon A\to Y$ such that $s'f = s$.
+\end{enumerate}
+If such a thing exists for a module $C$, it follows immediately that
+$C$ and similarly $A$ must be indecomposable modules.  Furthermore one
+can show that the end terms are connected via the dual of the
+transpose, that is, $A\simeq D\Tr C$ (and consequently $C\simeq \Tr
+D(A)$).  Also, for any indecomposable non-projective module $C$ and
+for any indecomposable non-injective module $A$ there is an almost
+split sequence ending in $C$ and starting in $A$.  
+
+\begin{theoback} 
+Early on it was believed that almost split sequences would be
+impossible to compute, but they are indeed computable.  The algorithm
+in QPA is using the following facts:  In general, the abelian group
+$\Ext^1_\Lambda(C,D\Tr(C))$ for an indecomposable non-projective
+module $C$, is an $\End_\Lambda(C)^\op$-module with a simple socle.
+Any generator of this socle correspond to the almost split sequence
+ending in $C$.  The algorithm in QPA works as follows:  
+\begin{enumerate}[\rm(1)]
+\item Choose a non-zero element in $\Ext^1_\Lambda(C,D\Tr(C))$ (take a
+  basis vector).
+\item Check if it is annihilated by all elements in the radical of
+  $\End_\Lambda(C)$. 
+\item If not annihilated by the radical of $\End_\Lambda(C)$, multiply
+  with an element in the radical of $\End_\Lambda(C)$ which is not
+  annihilating it.  Go to (2).  If it is annihilated by the radical of
+  $\End_\Lambda(C)$, it is in the socle of $\Ext^1_\Lambda(C,D\Tr(C))$
+  and therefore gives the almost split sequence.  Jump to (4).
+\item Done.
+\end{enumerate}
+For special classes of algebras there are more efficient algorithms
+for finding the almost split sequences, but for now, the above general
+algorithm is the only one implemented in QPA. 
+\end{theoback} 
+
+\sloppypar The fundamental commands for almost split sequences in QPA are
+\code{AlmostSplitSequence}, and \code{DTr} and \code{TrD}.  The input
+for the former is a module, which is assumed to be indecomposable.
+The input for \code{DTr} is either just a module $M$ or a module $M$
+and an integer $n$, where the latter computes $(D\Tr)^n(M)$.  
+\begin{verbatim}
+gap> A := NakayamaAlgebra(GF(3), [3,3,3,3,2,1]);;
+gap> S := SimpleModules(A);;
+gap> DTr(S[1]);
+<[ 0, 1, 0, 0, 0, 0 ]>
+gap> DTr(S[1],2);
+Computing step 1...
+Computing step 2...
+<[ 0, 0, 1, 0, 0, 0 ]>
+gap> DTr(S[1],5);
+Computing step 1...
+Computing step 2...
+Computing step 3...
+Computing step 4...
+Computing step 5...
+<[ 0, 0, 0, 0, 0, 1 ]>
+gap> U := DTr(S[1],2);
+Computing step 1...
+Computing step 2...
+<[ 0, 0, 1, 0, 0, 0 ]>
+gap> DTr(U,-1) = TrD(U);   
+Computing step 1...
+true
+\end{verbatim}
+The function \code{AlmostSplitSequence} computes the almost split
+sequence ending in an indecomposable non-projective module.  The 
+function assumes that the argument is an indecomposable module.  The
+function may return something when the argument is not indecomposable,
+but it need not to have anything to do with the direct sum of the almost split
+sequences for the indecomposable direct summands of the argument. 
+
+\begin{theoback}
+  Given an almost split sequence $0\to A\xrightarrow{f}
+  B\xrightarrow{g} C\to 0$, we can decompose the middle term $B$ into
+  indecomposable modules with multiplicities $B \simeq \oplus_{i=1}^t
+  B_i^{n_i}$ with $B_i$ indecomposable and $n_i\geqslant 1$.  Then the
+  maps $f$ and $g$ can be broken up into maps $A\to B_i$ and $B_i\to
+  C$, respectively.  These maps are \emph{irreducible} homomorphisms.
+  If, say $B_1$ is not projective, we can consider the almost split
+  sequence ending in $B_1$.  Then one knows that the module $A$ occurs
+  as a direct summand (with multiplicity at least one) in the middle
+  term for $B_1$.  From this we can construct a quiver, called the
+  \emph{AR-quiver} or the \emph{Auslander-Reiten quiver}, where the
+  vertices are the isomorphism classes of the indecomposable modules
+  and two vertices, $[X]$ and $[Y]$, there is an arrow from $[X]$ to
+  $[Y]$ if there is an irreducible homomorphism from $X$ to $Y$.  The
+  arrows are also labelled taking into account the multiplicities, but
+  we will ignore them here.  One can also show that an irreducible
+  homomorphism is either a monomorphism or an epimorphism.  All
+  irreducible homomorphisms starting in an indecomposable injective
+  module $I$ occur in $I\to I/\soc I$ and all irreducible
+  homomorphisms ending in an indecomposable projective $P$ module
+  occur in $\rad P\to P$.
+\end{theoback}
+\begin{verbatim}
+gap> IsInjectiveModule(S[1]);
+true
+gap> ass := AlmostSplitSequence(S[1]);
+[ <<[ 0, 1, 0, 0, 0, 0 ]> ---> <[ 1, 1, 0, 0, 0, 0 ]>>
+    , <<[ 1, 1, 0, 0, 0, 0 ]> ---> <[ 1, 0, 0, 0, 0, 0 ]>>
+     ]
+gap> I2 := Range(ass[1]);
+<[ 1, 1, 0, 0, 0, 0 ]>
+gap> IsIndecomposableModule(I2);
+true
+gap> IsInjectiveModule(I2);
+true
+gap> ass := AlmostSplitSequence(S[1]);
+[ <<[ 0, 1, 0, 0, 0, 0 ]> ---> <[ 1, 1, 0, 0, 0, 0 ]>>
+    , <<[ 1, 1, 0, 0, 0, 0 ]> ---> <[ 1, 0, 0, 0, 0, 0 ]>>
+     ]
+gap> I2 := Range(ass[1]);
+<[ 1, 1, 0, 0, 0, 0 ]>
+gap> IsIndecomposableModule(I2);
+true
+gap> IsInjectiveModule(I2);
+true
+gap> f := SocleOfModuleInclusion(I2);;
+gap> IsomorphicModules(CoKernel(f), S[1]);
+true
+gap> ass2 := AlmostSplitSequence(I2);  
+[ <<[ 0, 1, 1, 0, 0, 0 ]> ---> <[ 1, 2, 1, 0, 0, 0 ]>>
+    , <<[ 1, 2, 1, 0, 0, 0 ]> ---> <[ 1, 1, 0, 0, 0, 0 ]>>
+     ]
+gap> U := Range(ass2[1]);
+<[ 1, 2, 1, 0, 0, 0 ]>
+gap> decompU := DecomposeModule(U);
+[ <[ 0, 1, 0, 0, 0, 0 ]>, <[ 1, 1, 1, 0, 0, 0 ]> ]
+gap> I3 := decompU[2];
+<[ 1, 1, 1, 0, 0, 0 ]>
+gap> IsInjectiveModule(I3);
+true
+gap> f := SocleOfModuleInclusion(I3);;    
+gap> IsomorphicModules(CoKernel(f), I2); 
+true
+gap> M1 := Source(ass2[1]);
+<[ 0, 1, 1, 0, 0, 0 ]>
+gap> ass3 := AlmostSplitSequence(S[3]);
+[ <<[ 0, 0, 0, 1, 0, 0 ]> ---> <[ 0, 0, 1, 1, 0, 0 ]>>
+    , <<[ 0, 0, 1, 1, 0, 0 ]> ---> <[ 0, 0, 1, 0, 0, 0 ]>>
+     ]
+gap> ass3 := AlmostSplitSequence(S[2]);
+[ <<[ 0, 0, 1, 0, 0, 0 ]> ---> <[ 0, 1, 1, 0, 0, 0 ]>>
+    , <<[ 0, 1, 1, 0, 0, 0 ]> ---> <[ 0, 1, 0, 0, 0, 0 ]>>
+     ]
+gap> U := Range(ass3[1]);
+<[ 0, 1, 1, 0, 0, 0 ]>
+gap> IsomorphicModules(U, M1);
+true
+gap> ass4 := AlmostSplitSequence(M1);  
+[ <<[ 0, 0, 1, 1, 0, 0 ]> ---> <[ 0, 1, 2, 1, 0, 0 ]>>
+    , <<[ 0, 1, 2, 1, 0, 0 ]> ---> <[ 0, 1, 1, 0, 0, 0 ]>>
+     ]
+gap> U := Range(ass4[1]);
+<[ 0, 1, 2, 1, 0, 0 ]>
+gap> decompU := DecomposeModule(U);
+[ <[ 0, 0, 1, 0, 0, 0 ]>, <[ 0, 1, 1, 1, 0, 0 ]> ]
+gap> IsProjectiveModule(decompU[2]);
+true
+gap> IsInjectiveModule(decompU[2]);
+true
+gap> M2 := Source(ass4[1]);
+<[ 0, 0, 1, 1, 0, 0 ]>
+gap> ass5 := AlmostSplitSequence(S[3]);
+[ <<[ 0, 0, 0, 1, 0, 0 ]> ---> <[ 0, 0, 1, 1, 0, 0 ]>>
+    , <<[ 0, 0, 1, 1, 0, 0 ]> ---> <[ 0, 0, 1, 0, 0, 0 ]>>
+     ]
+gap> IsomorphicModules(Range(ass5[1]), M2);
+true
+gap> ass6 := AlmostSplitSequence(M2);      
+[ <<[ 0, 0, 0, 1, 1, 0 ]> ---> <[ 0, 0, 1, 2, 1, 0 ]>>
+    , <<[ 0, 0, 1, 2, 1, 0 ]> ---> <[ 0, 0, 1, 1, 0, 0 ]>>
+     ]
+gap> U := Range(ass6[1]);
+<[ 0, 0, 1, 2, 1, 0 ]>
+gap> decompU := DecomposeModule(U);        
+[ <[ 0, 0, 0, 1, 0, 0 ]>, <[ 0, 0, 1, 1, 1, 0 ]> ]
+gap> I5 := decompU[2];
+<[ 0, 0, 1, 1, 1, 0 ]>
+gap> IsProjectiveModule(I5);               
+true
+gap> IsInjectiveModule(I5);                
+true
+gap> M3 := Source(ass6[1]);
+<[ 0, 0, 0, 1, 1, 0 ]>
+gap> IsProjectiveModule(M3);
+false
+gap> ass7 := AlmostSplitSequence(S[4]);    
+[ <<[ 0, 0, 0, 0, 1, 0 ]> ---> <[ 0, 0, 0, 1, 1, 0 ]>>
+    , <<[ 0, 0, 0, 1, 1, 0 ]> ---> <[ 0, 0, 0, 1, 0, 0 ]>>
+     ]
+gap> IsomorphicModules(Range(ass7[1]),M3);
+true
+gap> ass8 := AlmostSplitSequence(M3);     
+[ <<[ 0, 0, 0, 0, 1, 1 ]> ---> <[ 0, 0, 0, 1, 2, 1 ]>>
+    , <<[ 0, 0, 0, 1, 2, 1 ]> ---> <[ 0, 0, 0, 1, 1, 0 ]>>
+     ]
+gap> U := Range(ass8[1]);                 
+<[ 0, 0, 0, 1, 2, 1 ]>
+gap> decompU := DecomposeModule(U);       
+[ <[ 0, 0, 0, 0, 1, 0 ]>, <[ 0, 0, 0, 1, 1, 1 ]> ]
+gap> I6 := decompU[2];
+<[ 0, 0, 0, 1, 1, 1 ]>
+gap> IsProjectiveModule(I6);
+true
+gap> IsInjectiveModule(I6);
+true
+gap> M4 := Source(ass8[1]);
+<[ 0, 0, 0, 0, 1, 1 ]>
+gap> IsomorphicModules(RadicalOfModule(I6),M4);
+true
+gap> ass9 := AlmostSplitSequence(S[5]);
+[ <<[ 0, 0, 0, 0, 0, 1 ]> ---> <[ 0, 0, 0, 0, 1, 1 ]>>
+    , <<[ 0, 0, 0, 0, 1, 1 ]> ---> <[ 0, 0, 0, 0, 1, 0 ]>>
+     ]
+gap> IsomorphicModules(Range(ass9[1]),M4);
+true
+gap> IsProjectiveModule(M4);
+true
+gap> IsomorphicModules(RadicalOfModule(M4),S[6]);
+true
+gap> IsProjectiveModule(S[6]);
+true
+\end{verbatim}
+From the above calculations we get that the AR-quiver is 
+\[\xymatrix@C=5pt{
+& & I6\ar[dr] &&  I5\ar[dr] &&  I4\ar[dr] &&  I3\ar[dr] &&  \\
+& M4\ar[ur]\ar[dr]\ar@{..}[rr] && M3\ar[ur]\ar[dr]\ar@{..}[rr] &&
+M2\ar[ur]\ar[dr]\ar@{..}[rr] && M1\ar[ur]\ar[dr]\ar@{..}[rr] && I2\ar[dr] & \\ 
+S[6] \ar[ur]\ar@{..}[rr] && S[5] \ar[ur]\ar@{..}[rr] && S[4]
+\ar[ur]\ar@{..}[rr] && S[3] \ar[ur]\ar@{..}[rr] && S[2]
+\ar[ur]\ar@{..}[rr] && S[1] 
+}\]
+where a dotted line means that modules in this mesh forms an almost
+split sequence. 
+
+\begin{theoback}
+  If $\Lambda$ is an indecomposable finite dimensional algebra and we
+  have a component $\mathcal{C}$ of the AR-quiver (a collection of
+  vertices/indecomposable modules closed under irreducible
+  homomorphisms) where the length of the indecomposable modules in
+  $\mathcal{C}$ is bounded (in particular when it is finite), then
+  $\Lambda$ is of finite representation type (only finitely many
+  isomorphism classes of indecomposable modules) and $\mathcal{C}$
+  consists of all isomorphism classes of indecomposable modules.
+  Hence we can see from the above calculations that $\Lambda$ is of
+  finite representation type. 
+\end{theoback}
+
 
 Projective modules of path algebras:
 Not mention
