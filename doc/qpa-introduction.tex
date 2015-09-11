@@ -1284,9 +1284,25 @@ not.
 \end{enumerate}
 
 \section{Homological algebra}
+
+
+
+
+
 Extensions between modules
 InjDimensionOfModule
 ProjDimensionOfModule
+
+To our knowledge there are no known algorithm for deciding if an
+finite dimensional algebra has finite global dimension or not.
+However, in some cases it is clear as for finite dimensional path
+algebra (that is, from quivers without any oriented cycles), we known
+that the algebra is hereditary, that is, it has global dimension $1$
+(if the quiver has at least one arrow).  When creating a path algebra
+in QPA this will be automatically be set.  Furthermore, if the quiver
+has no oriented cycles for a quotient of a path algebra, then the
+global dimension is finite.  This is not implemented in QPA yet.  
+
 GlobalDimensionOfAlgebra
 NthSyzygy
 ProjectiveCover
