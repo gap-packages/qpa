@@ -210,7 +210,7 @@ InstallMethod( ViewObj,
     View(Source(f));
     Print(" ---> ");
     View(Range(f));
-    Print(">\n");
+    Print(">");
 end
 ); 
 
@@ -227,7 +227,7 @@ InstallMethod( PrintObj,
     [ IsPathAlgebraMatModuleHomomorphism ], NICE_FLAGS + 1,
     function ( f );
 
-    Print("<",Source(f)," ---> ",Range(f),">\n");
+    Print("<",Source(f)," ---> ",Range(f),">");
 end
 ); 
 
@@ -247,7 +247,7 @@ InstallMethod( Display,
     local i;
 
     Print(f);
-    Print("with ");
+    Print("\nwith ");
     for i in [1..Length(DimensionVector(Source(f)))] do
         Print("linear map for vertex number ",i,":\n");
         PrintArray(f!.maps[i]);
