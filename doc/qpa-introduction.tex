@@ -1370,7 +1370,7 @@ not.
 \subsection{Projective cover}
 Homological algebra often starts with forming a projective or an
 injective resolution.  A minimal projective resolution of a module $M$
-is buildt up by projective covers of modules.  The function
+is built up by projective covers of modules.  The function
 \code{ProjectiveCover} returns the homomorphism $p\colon P(M)\to M$,
 where $P(M)$ is the projective cover of $M$.  
 
@@ -1381,6 +1381,8 @@ gap> KQ:= PathAlgebra(Rationals, Q);;
 gap> AssignGeneratorVariables(KQ);
 #I  Assigned the global variables [ v1, v2, v3, a, b, c, d, e ]
 gap> A:= KQ/[d*e,c^2,a*c*d-b*d,e*a];;
+gap> S := SimpleModules(A)[1];
+<[ 1, 0, 0 ]>
 gap> f := ProjectiveCover(S);
 <<[ 1, 4, 3 ]> ---> <[ 1, 0, 0 ]>>
 \end{verbatim}
@@ -1416,11 +1418,11 @@ The module has projective dimension 4.
 \end{verbatim}
 
 \subsection{Injective and projective dimensions}
-The injective dimension of a module is the shortest injective
-resolution
+The injective dimension of a module is the length of the shortest
+injective resolution
 \[0\to N\to I^0\xrightarrow{d_1} I^1\xrightarrow{d_2} I^2\to \cdots, \]
 where $N\to I^0$ is the injective enevelope of $N$, and $I^{n}$ is the
-injective envelope av $\textrm{Cokernel}(d^n)$, som betegnes med
+injective envelope of $\textrm{Cokernel}(d^n)$, denoted by
 $\Omega^{-n}_\Lambda(M)$. 
 \begin{verbatim}
 gap> ProjDimensionOfModule(S,3);
@@ -1447,13 +1449,13 @@ returns \code{false} otherwise.  This functions sets the attribute
 finds the global dimension. 
 
 \begin{theoback}
-  To our knowledge there is no known algorithm for deciding if an
+  To our knowledge there is no known algorithm for deciding if a
   finite dimensional algebra has finite global dimension or not.
   However, in some cases it is clear, as for finite dimensional path
   algebra (that is, from quivers without any oriented cycles).  We
   know that the path algebra is hereditary, that is, it has global
   dimension $1$ (if the quiver has at least one arrow).  When creating
-  a path algebra in QPA, this will be automatically be set.
+  a path algebra in QPA, this will automatically be set.
   Furthermore, if the quiver has no oriented cycles for a quotient of
   a path algebra, then the global dimension is finite.  This is not
   implemented in QPA yet.  However, if the quiver of the path algebra
@@ -1475,37 +1477,35 @@ gap> GlobalDimensionOfAlgebra(A,7);
 \end{verbatim}
 
 \subsection{Pullback and pushout}
-Given $\xymatrix{A\ar[r]^f\ar[d]^g & B\\ C & }$ or $\xymatrix{ & C\ar[d]^g\\
-  A\ar[r]^f & B}$
+Given a diagram
+\[
+\vcenter{\xymatrix{A\ar[r]^f\ar[d]^g & B\\ C & }}
+\qquad\text{or}\qquad
+\vcenter{\xymatrix{ & C\ar[d]^g\\  A\ar[r]^f & B,}}
+\]
 we can construct the pushout 
 \[\xymatrix{A\ar[r]^f\ar[d]^g & B\ar[d]^{g'}\\ C\ar[r]^{f'} & E}\]
 or the pullback 
-\[\xymatrix{E\ar[r]^{f'}\ar[d]^{g'} & C\ar[d]^g\\ A\ar[r]^f & B}\]
-In QPA this done as follows.
+\[\xymatrix{E\ar[r]^{f'}\ar[d]^{g'} & C\ar[d]^g\\ A\ar[r]^f & B.}\]
+In QPA this is done as follows.
 \begin{verbatim}
 gap> A := NakayamaAlgebra(Rationals, [3,2,1]);;
 gap> B := IndecProjectiveModules(A)[1];
 <[ 1, 1, 1 ]>
 gap> f := RadicalOfModuleInclusion(B);
 <<[ 0, 1, 1 ]> ---> <[ 1, 1, 1 ]>>
-
 gap> g := TopOfModuleProjection(Source(f));
 <<[ 0, 1, 1 ]> ---> <[ 0, 1, 0 ]>>
-
 gap> po := PushOut(f,g);
-[ <<[ 0, 1, 0 ]> ---> <[ 1, 1, 0 ]>>
-    , <<[ 1, 1, 1 ]> ---> <[ 1, 1, 0 ]>>
-     ]
+[ <<[ 0, 1, 0 ]> ---> <[ 1, 1, 0 ]>>,
+  <<[ 1, 1, 1 ]> ---> <[ 1, 1, 0 ]>> ]
 gap> g := CoKernelProjection(SocleOfModuleInclusion(C));
 <<[ 1, 1, 1 ]> ---> <[ 1, 1, 0 ]>>
-
 gap> f := RadicalOfModuleInclusion(Range(g));
 <<[ 0, 1, 0 ]> ---> <[ 1, 1, 0 ]>>
-
 gap> PullBack(f,g);
-[ <<[ 0, 1, 1 ]> ---> <[ 1, 1, 1 ]>>
-    , <<[ 0, 1, 1 ]> ---> <[ 0, 1, 0 ]>>
-     ]
+[ <<[ 0, 1, 1 ]> ---> <[ 1, 1, 1 ]>>,
+  <<[ 0, 1, 1 ]> ---> <[ 0, 1, 0 ]>> ]
 \end{verbatim}
 
 \subsection{Extensions}
@@ -1515,13 +1515,13 @@ extensions between two modules $M$ and $N$ over an algebra $A$.
 \begin{theoback} 
 Given a projective resolution of a module $M$ 
 \[\cdots P_2\xrightarrow{d_2} P_1\xrightarrow{d_1}
-P_0\xrightarrow{d_0} M\to 0\]
+P_0\xrightarrow{d_0} M\to 0,\]
 the extension group $\Ext^1_\Lambda(M,N)$ is the homology 
 of 
 \[\Hom_\Lambda(P_0,N)\xrightarrow{d_1^*} \Hom_\Lambda(P_1,N)
 \xrightarrow{d_2^*} \Hom_\Lambda(P_2,N)
 \]
-in the middle term.  The kernel of $d_2^*$ can be indentified with
+in the middle term.  The kernel of $d_2^*$ can be identified with
 $\Hom_\Lambda(\Omega^1_\Lambda(M),N)$, so that $\Ext^1_\Lambda(M,N)$
 can be identified with $\Hom_\Lambda(\Omega^1_\Lambda(M),N)$ modulo
 the homomorphisms factoring through the inclusion
@@ -1550,21 +1550,20 @@ gap> A:= KQ/[d*e,c^2,a*c*d-b*d,e*a];;
 gap> S := SimpleModules(A)[1];;
 gap> M := Kernel(ProjectiveCover(S));;
 gap> ext := ExtOverAlgebra(S,M);
-[ <<[ 0, 4, 3 ]> ---> <[ 1, 4, 3 ]>>
-    , [ <<[ 0, 4, 3 ]> ---> <[ 0, 4, 3 ]>>
-        , <<[ 0, 4, 3 ]> ---> <[ 0, 4, 3 ]>>
-        , <<[ 0, 4, 3 ]> ---> <[ 0, 4, 3 ]>>
-        , <<[ 0, 4, 3 ]> ---> <[ 0, 4, 3 ]>>
-        , <<[ 0, 4, 3 ]> ---> <[ 0, 4, 3 ]>>
-         ], function( map ) ... end ]
+[ <<[ 0, 4, 3 ]> ---> <[ 1, 4, 3 ]>>, 
+  [ <<[ 0, 4, 3 ]> ---> <[ 0, 4, 3 ]>>,
+    <<[ 0, 4, 3 ]> ---> <[ 0, 4, 3 ]>>, 
+    <<[ 0, 4, 3 ]> ---> <[ 0, 4, 3 ]>>,
+    <<[ 0, 4, 3 ]> ---> <[ 0, 4, 3 ]>>, 
+    <<[ 0, 4, 3 ]> ---> <[ 0, 4, 3 ]>> ],
+  function( map ) ... end ]
 gap> U := Source(ext[1]);;
 gap> homUM := HomOverAlgebra(U,M);
-[ <<[ 0, 4, 3 ]> ---> <[ 0, 4, 3 ]>>
-    , <<[ 0, 4, 3 ]> ---> <[ 0, 4, 3 ]>>
-    , <<[ 0, 4, 3 ]> ---> <[ 0, 4, 3 ]>>
-    , <<[ 0, 4, 3 ]> ---> <[ 0, 4, 3 ]>>
-    , <<[ 0, 4, 3 ]> ---> <[ 0, 4, 3 ]>>
-     ]
+[ <<[ 0, 4, 3 ]> ---> <[ 0, 4, 3 ]>>,
+  <<[ 0, 4, 3 ]> ---> <[ 0, 4, 3 ]>>, 
+  <<[ 0, 4, 3 ]> ---> <[ 0, 4, 3 ]>>,
+  <<[ 0, 4, 3 ]> ---> <[ 0, 4, 3 ]>>, 
+  <<[ 0, 4, 3 ]> ---> <[ 0, 4, 3 ]>> ]
 gap> ext[3](homUM[4]);
 [ -1, 0, 0, 1, 0 ]
 \end{verbatim}
@@ -1588,12 +1587,10 @@ $f\colon \Omega^1_\Lambda(M)\to N$, we form the pushout of the
 homomorphism $f$ and the homomoprphism stored in \code{ext[1]}. 
 \begin{verbatim}
 gap> pushout := PushOut(ext[1], ext[2][1]);
-[ <<[ 0, 4, 3 ]> ---> <[ 1, 4, 3 ]>>
-    , <<[ 1, 4, 3 ]> ---> <[ 1, 4, 3 ]>>
-     ]
+[ <<[ 0, 4, 3 ]> ---> <[ 1, 4, 3 ]>>,
+  <<[ 1, 4, 3 ]> ---> <[ 1, 4, 3 ]>> ]
 gap> fprime := pushout[1];     
 <<[ 0, 4, 3 ]> ---> <[ 1, 4, 3 ]>>
-
 gap> gprime := CoKernelProjection(fprime); 
 <<[ 1, 4, 3 ]> ---> <[ 1, 0, 0 ]>>
 \end{verbatim}
