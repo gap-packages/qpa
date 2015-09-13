@@ -1,7 +1,7 @@
 \documentclass{amsart}
 \usepackage{amscd,amssymb, enumerate,url}
 \usepackage[all]{xy}
-\usepackage{showlabels}
+%\usepackage{showlabels}
 \renewcommand{\mod}{\operatorname{mod}\nolimits}
 \newcommand{\umod}{\operatorname{\underline{mod}}\nolimits}
 \newcommand{\omod}{\operatorname{\overline{mod}}\nolimits}
@@ -121,8 +121,8 @@ Norway}
 
 \date{\today}
 
-\begin{abstract}
-\end{abstract}
+% \begin{abstract}
+% \end{abstract}
 
 %\subjclass[2000]{16S37, 16E05, 16W50}
 \maketitle
@@ -134,11 +134,18 @@ Norway}
 
 \subsection{What is QPA?\nopunct}
 
-QPA is a software package for computing with quotients of path
-algebras and their modules.  QPA is written in the programming
-language GAP\footnote{\texttt{http://gap-system.org/}}.
+QPA (Quivers and Path Algebras) is a software package for computing
+with quotients of path algebras and their modules.  QPA is written in
+the programming language GAP.
 
-% todo: more
+GAP (Groups, Algorithms, Programming) is the name of both a computer
+algebra system and the programming language used in this system.  For
+more information about GAP, see
+\begin{center}
+\texttt{http://gap-system.org/}
+\end{center}
+
+% todo: more?
 
 
 \subsection{Installing QPA}
@@ -155,14 +162,41 @@ gap> LoadPackage("qpa");
 \end{verbatim}
 which loads QPA and you can start using QPA. 
 
+If you want to follow the development of QPA, you can clone QPA's git
+repository from
+\begin{center}
+\url{https://github.com/gap-system/qpa}
+\end{center}
+
+\subsection{About this document}
+
+This document is meant as an introduction for anyone who is interested
+in using the QPA package.  We show how to get started using QPA, and
+demonstrate some of its capabilities.
+
+This document is not meant as a complete description of all
+functionality QPA has to offer.  To get detailed information about
+every function, see the QPA manual, which is distributed with QPA.
+
+We do not assume that the reader is familiar with quivers and path
+algebras.  Throughout the text we therefore give brief explanations of
+the relevant mathematical concepts as they are needed.  Some of the
+mathematical content is marked with ``Theoretic comment'' or
+``Theoretic background''.  These parts may be skipped without loss of
+continuity.  The end of such a part is indicated by the
+symbol~$\square$.
+
+We assume that the reader has some experience with using the GAP
+system.  A general introduction to GAP can be found here:
+\begin{center}
+\url{http://gap-system.org/Manuals/doc/tut/chap0.html}
+\end{center}
+
+
 \section{Basic structures}
 
 Here we recall the basic concepts for quotients of path algebras and
-modules over such.  Some theoretic comments and background are given
-and they occur in subsections starting with \emph{Theoretic
-  comments/background} and ending with $\square$.  Even with skipping
-all these paragraphs the aim is for the remaining text to still be a
-selfcontained unit.
+modules over such algebras.
 
 \subsection{Quivers}
 By a \emph{quiver} we mean a finite directed graph, where loops and
