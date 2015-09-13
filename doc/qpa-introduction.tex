@@ -608,7 +608,11 @@ gap> MatricesOfPathAlgebraMatModuleHomomorphism(h);
 [ [ [ 1, 0 ], [ 0, 1 ] ], [ [ 0, 1 ], [ 1, 0 ] ], [ [ 0 ], [ 0 ] ] ]
 \end{verbatim}
 To compute the image of an element in the source of a homomorphism,
-%TODO
+we use the operation \code{ImageElm}:
+\begin{verbatim}
+gap> ImageElm(h, Basis(M)[1] + 3*Basis(M)[3]);
+[ [ 1, 0 ], [ 0, 3 ], [ 0 ] ]
+\end{verbatim}
 
 \section{Basic functions}
 
@@ -895,7 +899,7 @@ gap> IndecInjectiveModules(kQ);
 [ <[ 1, 0, 0 ]>, <[ 1, 1, 0 ]>, <[ 1, 1, 1 ]> ]
 \end{verbatim}
 
-\subsection{Homomorphisms}
+\subsection{Attributes of homomorphisms}
 
 As seen earlier, we can construct a module homomorphism by calling
 \texttt{RightModuleHomOverAlgebra} with the data defining the
@@ -921,7 +925,47 @@ gap> MatricesOfPathAlgebraMatModuleHomomorphism(f);
 [ [ [ 2 ] ], [ [ 6, 10 ] ] ]
 \end{verbatim}
 
-% composition, equality
+\subsection{Bases for Hom spaces}
+
+Given two modules $M$ and $N$ over an algebra $A$, the operation
+\code{HomOverAlgebra} computes a basis for the Hom space $\Hom_A(M,
+N)$.  Continuing the above example, we compute bases for $\Hom_{kQ}(M,
+N)$ and $\Hom_{kQ}(N, M)$:
+\begin{verbatim}
+gap> HomMN := HomOverAlgebra(M, N);
+[ <<[ 1, 1 ]> ---> <[ 1, 2 ]>> ]
+gap> HomNM := HomOverAlgebra(N, M);
+[ <<[ 1, 2 ]> ---> <[ 1, 1 ]>>, <<[ 1, 2 ]> ---> <[ 1, 1 ]>> ]
+gap> MatricesOfPathAlgebraMatModuleHomomorphism(HomNM[1]);
+[ [ [ 3 ] ], [ [ 1 ], [ 0 ] ] ]
+gap> MatricesOfPathAlgebraMatModuleHomomorphism(HomNM[2]);
+[ [ [ 5 ] ], [ [ 0 ], [ 1 ] ] ]
+\end{verbatim}
+
+\subsection{Arithmetic for homomorphisms}
+
+Two homomorphisms with common domain and codomain can be added and
+subtracted using the operators \code{+} and \code{-}, respectively.
+We can compute a scalar multiple of a homomorphism using the \code{*}
+operator.  Using these operations, we can compute linear combinations
+of the basis homomorphisms from the previous example:
+\begin{verbatim}
+gap> g := HomNM[1] + (5/7) * HomNM[2];
+<<[ 1, 2 ]> ---> <[ 1, 1 ]>>
+gap> MatricesOfPathAlgebraMatModuleHomomorphism(g);
+[ [ [ 46/7 ] ], [ [ 1 ], [ 5/7 ] ] ]
+gap> h := 3 * HomNM[1];
+<<[ 1, 2 ]> ---> <[ 1, 1 ]>>
+gap> MatricesOfPathAlgebraMatModuleHomomorphism(g - h);
+[ [ [ -17/7 ] ], [ [ -2 ], [ 5/7 ] ] ]
+\end{verbatim}
+
+We can compose two homomorphisms using the \code{*} operator.
+For homomorphisms
+\[
+M_1 \xrightarrow{f} M_2 \xrightarrow{g} M_3,
+\]
+the composition is written as \code{f * g}.
 
 \subsection{Kernel, cokernel, image}
 
@@ -1055,7 +1099,7 @@ k^2
 % Hom sets
 % Endomorphism rings
 
-\subsection{Functors}
+\subsection{Functors} %TODO
 DualOfModule
 DTr
 StarOfModule
@@ -1319,6 +1363,8 @@ differential we are asked to produce.  The boolean \Arg{store}
 determines whether computed differentials are stored in the complex or
 not.
 \end{enumerate}
+
+% TODO: chain maps
 
 \section{Homological algebra}
 \subsection{Projective cover}
