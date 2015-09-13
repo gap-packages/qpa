@@ -1284,30 +1284,242 @@ not.
 \end{enumerate}
 
 \section{Homological algebra}
+\subsection{Projective cover}
+Homological algebra often starts with forming a projective or an
+injective resolution.  A minimal projective resolution of a module $M$
+is buildt up by projective covers of modules.  The function
+\code{ProjectiveCover} returns the homomorphism $p\colon P(M)\to M$,
+where $P(M)$ is the projective cover of $M$.  
+
+\begin{verbatim}
+gap> Q:= Quiver(3,[[1,2,"a"],[1,2,"b"],[2,2,"c"],[2,3,"d"],
+[3,1,"e"]]);;
+gap> KQ:= PathAlgebra(Rationals, Q);;
+gap> AssignGeneratorVariables(KQ);
+#I  Assigned the global variables [ v1, v2, v3, a, b, c, d, e ]
+gap> A:= KQ/[d*e,c^2,a*c*d-b*d,e*a];;
+gap> f := ProjectiveCover(S);
+<<[ 1, 4, 3 ]> ---> <[ 1, 0, 0 ]>>
+\end{verbatim}
+
+\subsection{Syzygies}
+The function \code{NthSyzygy} takes two arguments, one module $M$ and
+one non-negative integer $n$.  In the following example we continue
+the example from above. 
+\begin{verbatim}
+gap> NthSyzygy(S,3);
+Computing syzygy number: 1 ...
+Dimension vector for syzygy: [ 0, 4, 3 ]
+Top of the 1th syzygy: [ 0, 2, 0 ]
+Computing syzygy number: 2 ...
+Dimension vector for syzygy: [ 0, 0, 1 ]
+Top of the 2th syzygy: [ 0, 0, 1 ]
+Computing syzygy number: 3 ...
+Dimension vector for syzygy: [ 1, 2, 1 ]
+Top of the 3th syzygy: [ 1, 0, 0 ]
+<[ 1, 2, 1 ]>
+gap> NthSyzygy(S,20);
+Computing syzygy number: 1 ...
+Top of the 1th syzygy: [ 0, 2, 0 ]
+Computing syzygy number: 2 ...
+Top of the 2th syzygy: [ 0, 0, 1 ]
+Computing syzygy number: 3 ...
+Top of the 3th syzygy: [ 1, 0, 0 ]
+Computing syzygy number: 4 ...
+Dimension vector for syzygy: [ 0, 2, 2 ]
+Top of the 4th syzygy: [ 0, 1, 0 ]
+The module has projective dimension 4.
+<[ 0, 2, 2 ]>
+\end{verbatim}
+
+\subsection{Injective and projective dimensions}
+The injective dimension of a module is the shortest injective
+resolution
+\[0\to N\to I^0\xrightarrow{d_1} I^1\xrightarrow{d_2} I^2\to \cdots, \]
+where $N\to I^0$ is the injective enevelope of $N$, and $I^{n}$ is the
+injective envelope av $\textrm{Cokernel}(d^n)$, som betegnes med
+$\Omega^{-n}_\Lambda(M)$. 
+\begin{verbatim}
+gap> ProjDimensionOfModule(S,3);
+false
+gap> ProjDimensionOfModule(S,4);
+4
+gap> ProjDimension(S);
+4
+gap> InjDimensionOfModule(S,1); 
+false
+gap> InjDimensionOfModule(S,2);
+false
+gap> InjDimensionOfModule(S,3);
+3
+\end{verbatim}
 
 
+\subsection{Global dimension}
+The function \code{GlobalDimensionOfAlgebra} takes two arguments, an
+algebra $A$ and a positive integer $n$, and it checks if the global
+dimension of $A$ has global dimension less or equal to $n$, and
+returns \code{false} otherwise.  This functions sets the attribute
+\code{GlobalDimension} of the algebra, if the function successfully
+finds the global dimension. 
 
+\begin{theoback}
+  To our knowledge there is no known algorithm for deciding if an
+  finite dimensional algebra has finite global dimension or not.
+  However, in some cases it is clear, as for finite dimensional path
+  algebra (that is, from quivers without any oriented cycles).  We
+  know that the path algebra is hereditary, that is, it has global
+  dimension $1$ (if the quiver has at least one arrow).  When creating
+  a path algebra in QPA, this will be automatically be set.
+  Furthermore, if the quiver has no oriented cycles for a quotient of
+  a path algebra, then the global dimension is finite.  This is not
+  implemented in QPA yet.  However, if the quiver of the path algebra
+  contains a loop and the relations are admissible, then the global
+  dimension is infinite.
+\end{theoback}
 
+Let us look at some examples applying these functions.
+\begin{verbatim}
+gap> A := NakayamaAlgebra(Rationals,[3,2,1]);;
+gap> GlobalDimension(A);
+1
+gap> A := NakayamaAlgebra(Rationals, [2]);;
+gap> GlobalDimensionOfAlgebra(A,3);
+infinity
+gap> A := NakayamaAlgebra(Rationals,[3,3,3,3,3,3,3,2,1]);;
+gap> GlobalDimensionOfAlgebra(A,7);
+5
+\end{verbatim}
 
-Extensions between modules
-InjDimensionOfModule
-ProjDimensionOfModule
+\subsection{Pullback and pushout}
+Given $\xymatrix{A\ar[r]^f\ar[d]^g & B\\ C & }$ or $\xymatrix{ & C\ar[d]^g\\
+  A\ar[r]^f & B}$
+we can construct the pushout 
+\[\xymatrix{A\ar[r]^f\ar[d]^g & B\ar[d]^{g'}\\ C\ar[r]^{f'} & E}\]
+or the pullback 
+\[\xymatrix{E\ar[r]^{f'}\ar[d]^{g'} & C\ar[d]^g\\ A\ar[r]^f & B}\]
+In QPA this done as follows.
+\begin{verbatim}
+gap> A := NakayamaAlgebra(Rationals, [3,2,1]);;
+gap> B := IndecProjectiveModules(A)[1];
+<[ 1, 1, 1 ]>
+gap> f := RadicalOfModuleInclusion(B);
+<<[ 0, 1, 1 ]> ---> <[ 1, 1, 1 ]>>
 
-To our knowledge there are no known algorithm for deciding if an
-finite dimensional algebra has finite global dimension or not.
-However, in some cases it is clear as for finite dimensional path
-algebra (that is, from quivers without any oriented cycles), we known
-that the algebra is hereditary, that is, it has global dimension $1$
-(if the quiver has at least one arrow).  When creating a path algebra
-in QPA this will be automatically be set.  Furthermore, if the quiver
-has no oriented cycles for a quotient of a path algebra, then the
-global dimension is finite.  This is not implemented in QPA yet.  
+gap> g := TopOfModuleProjection(Source(f));
+<<[ 0, 1, 1 ]> ---> <[ 0, 1, 0 ]>>
 
-GlobalDimensionOfAlgebra
-NthSyzygy
-ProjectiveCover
-PullBack
-PushOut
+gap> po := PushOut(f,g);
+[ <<[ 0, 1, 0 ]> ---> <[ 1, 1, 0 ]>>
+    , <<[ 1, 1, 1 ]> ---> <[ 1, 1, 0 ]>>
+     ]
+gap> g := CoKernelProjection(SocleOfModuleInclusion(C));
+<<[ 1, 1, 1 ]> ---> <[ 1, 1, 0 ]>>
+
+gap> f := RadicalOfModuleInclusion(Range(g));
+<<[ 0, 1, 0 ]> ---> <[ 1, 1, 0 ]>>
+
+gap> PullBack(f,g);
+[ <<[ 0, 1, 1 ]> ---> <[ 1, 1, 1 ]>>
+    , <<[ 0, 1, 1 ]> ---> <[ 0, 1, 0 ]>>
+     ]
+\end{verbatim}
+
+\subsection{Extensions}
+A fundamental computation in homological algebra is to compute the
+extensions between two modules $M$ and $N$ over an algebra $A$.
+
+\begin{theoback} 
+Given a projective resolution of a module $M$ 
+\[\cdots P_2\xrightarrow{d_2} P_1\xrightarrow{d_1}
+P_0\xrightarrow{d_0} M\to 0\]
+the extension group $\Ext^1_\Lambda(M,N)$ is the homology 
+of 
+\[\Hom_\Lambda(P_0,N)\xrightarrow{d_1^*} \Hom_\Lambda(P_1,N)
+\xrightarrow{d_2^*} \Hom_\Lambda(P_2,N)
+\]
+in the middle term.  The kernel of $d_2^*$ can be indentified with
+$\Hom_\Lambda(\Omega^1_\Lambda(M),N)$, so that $\Ext^1_\Lambda(M,N)$
+can be identified with $\Hom_\Lambda(\Omega^1_\Lambda(M),N)$ modulo
+the homomorphisms factoring through the inclusion
+$\Omega^1_\Lambda(M)\to P_0$.  
+\end{theoback}
+
+The function \code{ExtOverAlgebra} takes two arguments, two modules
+$M$ and $N$, and returns a list of three elements: (1) the inclusion
+$\Omega^1_\Lambda(M)\to P_0$, (2) a basis $\mathcal{B}$ over the
+ground field $k$ of $\Ext^1_\Lambda(M,N)$ as homomorhisms from
+$\Omega^1_\Lambda(M)\to N$, and (3) a function $\varphi\colon
+\Hom_\Lambda(\Omega^1_\Lambda(M),N) \to k^{|\mathcal{B}|}$, which
+computes the coordinates of any element in
+$\Hom_\Lambda(\Omega^1_\Lambda(M),N)$  as an element in
+$\Ext^1_\Lambda(M,N)$. 
+
+Here is an example illustrating these functions.
+
+\begin{verbatim}
+gap> Q:= Quiver(3,[[1,2,"a"],[1,2,"b"],[2,2,"c"],[2,3,"d"],
+[3,1,"e"]]);;
+gap> KQ:= PathAlgebra(Rationals, Q);;
+gap> AssignGeneratorVariables(KQ);
+#I  Assigned the global variables [ v1, v2, v3, a, b, c, d, e ]
+gap> A:= KQ/[d*e,c^2,a*c*d-b*d,e*a];;
+gap> S := SimpleModules(A)[1];;
+gap> M := Kernel(ProjectiveCover(S));;
+gap> ext := ExtOverAlgebra(S,M);
+[ <<[ 0, 4, 3 ]> ---> <[ 1, 4, 3 ]>>
+    , [ <<[ 0, 4, 3 ]> ---> <[ 0, 4, 3 ]>>
+        , <<[ 0, 4, 3 ]> ---> <[ 0, 4, 3 ]>>
+        , <<[ 0, 4, 3 ]> ---> <[ 0, 4, 3 ]>>
+        , <<[ 0, 4, 3 ]> ---> <[ 0, 4, 3 ]>>
+        , <<[ 0, 4, 3 ]> ---> <[ 0, 4, 3 ]>>
+         ], function( map ) ... end ]
+gap> U := Source(ext[1]);;
+gap> homUM := HomOverAlgebra(U,M);
+[ <<[ 0, 4, 3 ]> ---> <[ 0, 4, 3 ]>>
+    , <<[ 0, 4, 3 ]> ---> <[ 0, 4, 3 ]>>
+    , <<[ 0, 4, 3 ]> ---> <[ 0, 4, 3 ]>>
+    , <<[ 0, 4, 3 ]> ---> <[ 0, 4, 3 ]>>
+    , <<[ 0, 4, 3 ]> ---> <[ 0, 4, 3 ]>>
+     ]
+gap> ext[3](homUM[4]);
+[ -1, 0, 0, 1, 0 ]
+\end{verbatim}
+
+\begin{theoback}
+We identify $\Ext^1_\Lambda(M,N)$ with elements in
+$\Hom_\Lambda(\Omega^1_\Lambda(M),N)$ and not short exact sequences.
+A homomorphism in $f$ in $\Hom_\Lambda(\Omega^1_\Lambda(M),N)$
+corresponds to the short exact sequence obtained from 
+\[0\to \Omega^1_\Lambda(M)\to P_0 \to M\to 0\]
+along the homomorphism $f$.  In other words, $f$ corresponds to the
+lower row in the following commutative diagram:
+\[\xymatrix{
+0\ar[r] & \Omega^1_\Lambda(M)\ar[r]\ar[d]^f & P_0\ar[r]\ar[d] &
+M\ar[r]\ar@{=}[d] & 0\\
+0\ar[r] & N \ar[r] & E\ar[r] & M\ar[r] & 0
+}\]
+\end{theoback}
+To get the short exact sequence corresponding to a homomorphism
+$f\colon \Omega^1_\Lambda(M)\to N$, we form the pushout of the
+homomorphism $f$ and the homomoprphism stored in \code{ext[1]}. 
+\begin{verbatim}
+gap> pushout := PushOut(ext[1], ext[2][1]);
+[ <<[ 0, 4, 3 ]> ---> <[ 1, 4, 3 ]>>
+    , <<[ 1, 4, 3 ]> ---> <[ 1, 4, 3 ]>>
+     ]
+gap> fprime := pushout[1];     
+<<[ 0, 4, 3 ]> ---> <[ 1, 4, 3 ]>>
+
+gap> gprime := CoKernelProjection(fprime); 
+<<[ 1, 4, 3 ]> ---> <[ 1, 0, 0 ]>>
+\end{verbatim}
+Then the short exact sequence is given by 
+\[0\to N\xrightarrow{\textrm{fprime}} E\xrightarrow{\textrm{gprime}}
+M\to 0,\]
+where $E$ is \code{Source(gprime)}.  
+
+\subsection{Yoneda algebras}
 
 \section{AR-theory}
 The theory of almost split sequences is one of the corner stones in
