@@ -93,10 +93,10 @@
 %\newtheorem*{theoback}{Theoretic background}
 
 \newenvironment{theoback}
-{\medskip\footnotesize\textit{Theoretic background.} }
+{\medskip\small\textit{Theoretic background.} }
 {\qed\par\medskip}
 \newenvironment{theocomm}
-{\medskip\footnotesize\textit{Theoretic comment.} }
+{\medskip\small\textit{Theoretic comment.} }
 {\qed\par\medskip}
 
 \begin{document}
@@ -143,15 +143,15 @@ language GAP\footnote{\texttt{http://gap-system.org/}}.
 
 \subsection{Installing QPA}
 Since the release of GAP version 4.7.8, the package QPA is distributed
-with GAP, so that if you download this version or any later version
-QPA will be install at the same time as GAP is installed.  So follow
-that instructions for installing GAP on the webpage
+with GAP, so if you download this version or any later version QPA
+will be installed at the same time as GAP is installed.  Follow
+the instructions for installing GAP on the web page
 \begin{center}
 \url{http://www.gap-system.org/Download/index.html}
 \end{center}
-Then after having successfully started GAP, give the command
+After having successfully started GAP, give the command
 \begin{verbatim}
-gap> LoadPackage(``qpa'');
+gap> LoadPackage("qpa");
 \end{verbatim}
 which loads QPA and you can start using QPA. 
 
@@ -165,11 +165,8 @@ all these paragraphs the aim is for the remaining text to still be a
 selfcontained unit.
 
 \subsection{Quivers}
-Here we define a quiver and naturally associated notions and how we
-enter quivers into QPA.
-
-By a \emph{quiver} we always mean a finite directed graph, where loops
-and multiple edges are allowed.  A quiver consists of a finite set of
+By a \emph{quiver} we mean a finite directed graph, where loops and
+multiple edges are allowed.  A quiver consists of a finite set of
 \emph{vertices} and a finite set of oriented \emph{edges} or
 \emph{arrows}.  Each arrow has an associated \emph{source} vertex and
 a \emph{target} vertex.  A \emph{path} in a quiver is either:
@@ -190,24 +187,25 @@ ab & & a^2, ab, bc, cd, da, db & \textrm{length 2}\\
 & & a^3, a^2b, abc, bcd, cda, cdb, da^2, dab, dbc & \textrm{length 3}\\
 & & \vdots & 
 \end{array}\]
-Here is how to enter the first quiver into QPA:
+Here is how to construct the first quiver in QPA:
 \begin{verbatim}
 gap> Q := Quiver(3, [[1,2,"a"],[2,3,"b"]]); 
 <quiver with 3 vertices and 2 arrows>
 \end{verbatim} 
-In the above example we didn't name the vertices ourselves, but we did
-name the arrows ourselves.  To see which names the vertices (and the
-arrows) got, we can give the following commands:
+%In the above example we didn't name the vertices ourselves, but we did
+%name the arrows ourselves.  To see which names the vertices (and the
+%arrows) got, we can give the following commands:
+To access the vertices and the arrows, we can use the following commands:
 \begin{verbatim}
 gap> VerticesOfQuiver(Q);
 [ v1, v2, v3 ]
 gap> ArrowsOfQuiver(Q);
 [ a, b ]
 \end{verbatim}
-For quivers there are two ways to define the concatenation of two
-arrows $x$ and $y$, where the target of $x$ is the same as the source of
-$y$, namely, $xy$ or $yx$.  In QPA the first definition is used.
-Referring to the above example, the following code illustrates this:
+There are two ways to define the concatenation of two arrows $x$ and
+$y$, where the target of $x$ is the same as the source of $y$, namely,
+$xy$ or $yx$.  In QPA the first definition is used.  Referring to the
+above example, the following code illustrates this:
 \begin{verbatim}
 gap> arrows := ArrowsOfQuiver(Q);
 [ a, b ]
@@ -223,12 +221,12 @@ true
 If the concatenation of two arrows is not defined, then the zero path
 in the quiver is returned.  
 
-\subsection{Path algebras} Next we define a path algebra of a quiver
-over a field and naturally associated notions. 
+\subsection{Path algebras} % Next we define a path algebra of a quiver
+% over a field and naturally associated notions. 
 
 For a quiver $Q$ and a field $k$, the \emph{path algebra} $kQ$ is a
 $k$-algebra that has the set of paths in $Q$ as a $k$-basis, and
-concatenation of paths induces the multiplication in $kQ$.  Here is
+multiplication induced by concatenation of paths.  Here is
 how to construct a path algebra in QPA (still using the first example
 above): 
 \begin{verbatim}
@@ -244,15 +242,14 @@ gap> kQ.v1; kQ.a;
 gap> kQ.a*kQ.b;
 (1)*a*b
 \end{verbatim}
-The number in parentheses, here only $(1)$, is the coefficient from
-the field in front of the basis element following it.  Entering a
-linear combination of paths in $kQ$ is done as follows:
+The number $(1)$ is the coefficient from the field.  Entering a linear
+combination of paths in $kQ$ is done as follows:
 \begin{verbatim}
 gap> 3*kQ.a + 2*kQ.v1;
 (2)*v1+(3)*a
 \end{verbatim} 
 Special elements in $kQ$ are the zero element and the identity
-element.  These elements can be gotten by the following commands:
+element.  These elements can be accessed by the following commands:
 \begin{verbatim}
 gap> Zero(kQ);
 <zero> of ...
@@ -577,9 +574,15 @@ gap> MatricesOfPathAlgebraMatModuleHomomorphism(h);
 [ [ [ 1, 0 ], [ 0, 1 ] ], [ [ 0, 1 ], [ 1, 0 ] ], [ [ 0 ], [ 0 ] ] ]
 \end{verbatim}
 To compute the image of an element in the source of a homomorphism,
+%TODO
 
 \section{Basic functions}
-\subsection{Algebras}
+
+\subsection{Special algebras}
+
+NakayamaAlgebra
+
+TruncatedPathAlgebra
 
 \subsection{Module attributes}
 
