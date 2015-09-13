@@ -155,6 +155,14 @@ gap> LoadPackage("qpa");
 \end{verbatim}
 which loads QPA and you can start using QPA. 
 
+One can also clone QPA git repository from
+\begin{center}\texttt{https://github.com/gap-system/qpa}\end{center}
+to follow QPA development. Follow the instructions on 
+\begin{center}
+\url{http://www.math.ntnu.no/~oyvinso/QPA/}
+\end{center}
+to install QPA by cloning the the git repository. 
+
 \section{Basic structures}
 
 Here we recall the basic concepts for quotients of path algebras and
@@ -1287,6 +1295,9 @@ not.
 \end{enumerate}
 
 \section{Homological algebra}
+In this section we introduce some of the basic constructions and
+functions for doing homological algebra in QPA.  
+
 \subsection{Projective cover}
 Homological algebra often starts with forming a projective or an
 injective resolution.  A minimal projective resolution of a module $M$
@@ -1304,6 +1315,13 @@ gap> A:= KQ/[d*e,c^2,a*c*d-b*d,e*a];;
 gap> f := ProjectiveCover(S);
 <<[ 1, 4, 3 ]> ---> <[ 1, 0, 0 ]>>
 \end{verbatim}
+The injective envelope of a module is not directly available in QPA.
+One way of constructing an envelope of a module $M$, it to 
+\begin{enumerate}[\rm(1)]
+\item find the dual $D(M)$ of $M$,
+\item find the projective resolution of $D(M)$, 
+\item take the dual of the projective resolution of $D(M)$. 
+\end{enumerate}
 
 \subsection{Syzygies}
 The function \code{NthSyzygy} takes two arguments, one module $M$ and
@@ -1336,12 +1354,34 @@ The module has projective dimension 4.
 \end{verbatim}
 
 \subsection{Injective and projective dimensions}
+Now we discuss two of the most basic homological invariants of a
+module, the injective and the projective dimension of a module. 
+
+\begin{theoback}
 The injective dimension of a module is the shortest injective
 resolution
-\[0\to N\to I^0\xrightarrow{d_1} I^1\xrightarrow{d_2} I^2\to \cdots, \]
+\[0\to N\to I^0\xrightarrow{d^1} I^1\xrightarrow{d^2} I^2\to \cdots, \]
 where $N\to I^0$ is the injective enevelope of $N$, and $I^{n}$ is the
-injective envelope av $\textrm{Cokernel}(d^n)$, som betegnes med
-$\Omega^{-n}_\Lambda(M)$. 
+injective envelope av $\textrm{Cokernel}(d^n)$, which we denote by
+$\Omega^{-n}_\Lambda(M)$.  The projective dimension of a module is the
+shortest projective resolution
+\[
+\cdots \to P_2\xrightarrow{d_2} P_1\xrightarrow{d_1} P_o\to M\to 0,
+\]
+where $P_0\to M$ is the projective cover of $M$, and $P_n$ is the
+projective cover of $\textrm{Kernel}(d_{n-1})$, which we denote by
+$\Omega^n_\Lambda(M)$. 
+\end{theoback}
+Since both the injective and the projective dimension can be infinite,
+there cannot be a function that finds these dimensions by just
+computing the resolutions.  So QPA has a function
+\code{ProjDimensionOfModules} taking two arguments, one module and one
+positive integer, where the function checks if the module has
+projective dimension less of equal to $n$.  Otherwise it returns
+false. At the same time this function sets an attribute,
+\code{ProjDimension}, of the module.  The function for injective
+dimension has the same behaviour. 
+
 \begin{verbatim}
 gap> ProjDimensionOfModule(S,3);
 false
@@ -1356,7 +1396,6 @@ false
 gap> InjDimensionOfModule(S,3);
 3
 \end{verbatim}
-
 
 \subsection{Global dimension}
 The function \code{GlobalDimensionOfAlgebra} takes two arguments, an
@@ -1395,34 +1434,32 @@ gap> GlobalDimensionOfAlgebra(A,7);
 \end{verbatim}
 
 \subsection{Pullback and pushout}
-Given $\xymatrix{A\ar[r]^f\ar[d]^g & B\\ C & }$ or $\xymatrix{ & C\ar[d]^g\\
+Given $\xymatrix{A\ar[r]^f\ar[d]_g & B\\ C & }$ or $\xymatrix{ & C\ar[d]^g\\
   A\ar[r]^f & B}$
 we can construct the pushout 
-\[\xymatrix{A\ar[r]^f\ar[d]^g & B\ar[d]^{g'}\\ C\ar[r]^{f'} & E}\]
+\[\xymatrix{A\ar[r]^f\ar[d]_g & B\ar[d]^{g'}\\ C\ar[r]^{f'} & E}\]
 or the pullback 
-\[\xymatrix{E\ar[r]^{f'}\ar[d]^{g'} & C\ar[d]^g\\ A\ar[r]^f & B}\]
+\[\xymatrix{E\ar[r]^{f'}\ar[d]_{g'} & C\ar[d]^g\\ A\ar[r]^f & B}\]
 In QPA this done as follows.
 \begin{verbatim}
-gap> A := NakayamaAlgebra(Rationals, [3,2,1]);;
+gap> A := NakayamaAlgebra(Rationals, [3,2,1]);;                       
 gap> B := IndecProjectiveModules(A)[1];
 <[ 1, 1, 1 ]>
 gap> f := RadicalOfModuleInclusion(B);
 <<[ 0, 1, 1 ]> ---> <[ 1, 1, 1 ]>>
-
 gap> g := TopOfModuleProjection(Source(f));
 <<[ 0, 1, 1 ]> ---> <[ 0, 1, 0 ]>>
-
 gap> po := PushOut(f,g);
-[ <<[ 0, 1, 0 ]> ---> <[ 1, 1, 0 ]>>
-    , <<[ 1, 1, 1 ]> ---> <[ 1, 1, 0 ]>>
-     ]
+[ <<[ 0, 1, 0 ]> ---> <[ 1, 1, 0 ]>>, <<[ 1, 1, 1 ]> ---> <[ 1, 1, 0 ]>> ]
+gap> Range(g) = Source(po[1]);
+true
+gap> Range(f) = Source(po[2]);
+true
 gap> g := CoKernelProjection(SocleOfModuleInclusion(C));
 <<[ 1, 1, 1 ]> ---> <[ 1, 1, 0 ]>>
-
 gap> f := RadicalOfModuleInclusion(Range(g));
 <<[ 0, 1, 0 ]> ---> <[ 1, 1, 0 ]>>
-
-gap> PullBack(f,g);
+gap> pb := PullBack(f,g);
 [ <<[ 0, 1, 1 ]> ---> <[ 1, 1, 1 ]>>
     , <<[ 0, 1, 1 ]> ---> <[ 0, 1, 0 ]>>
      ]
@@ -1434,7 +1471,7 @@ extensions between two modules $M$ and $N$ over an algebra $A$.
 
 \begin{theoback} 
 Given a projective resolution of a module $M$ 
-\[\cdots P_2\xrightarrow{d_2} P_1\xrightarrow{d_1}
+\[\cdots\to P_2\xrightarrow{d_2} P_1\xrightarrow{d_1}
 P_0\xrightarrow{d_0} M\to 0\]
 the extension group $\Ext^1_\Lambda(M,N)$ is the homology 
 of 
@@ -1449,14 +1486,17 @@ $\Omega^1_\Lambda(M)\to P_0$.
 \end{theoback}
 
 The function \code{ExtOverAlgebra} takes two arguments, two modules
-$M$ and $N$, and returns a list of three elements: (1) the inclusion
-$\Omega^1_\Lambda(M)\to P_0$, (2) a basis $\mathcal{B}$ over the
-ground field $k$ of $\Ext^1_\Lambda(M,N)$ as homomorhisms from
-$\Omega^1_\Lambda(M)\to N$, and (3) a function $\varphi\colon
-\Hom_\Lambda(\Omega^1_\Lambda(M),N) \to k^{|\mathcal{B}|}$, which
-computes the coordinates of any element in
-$\Hom_\Lambda(\Omega^1_\Lambda(M),N)$  as an element in
+$M$ and $N$, and returns a list of three elements: 
+\begin{enumerate}[\rm(1)]
+\item the inclusion $\Omega^1_\Lambda(M)\to P_0$, 
+\item a basis $\mathcal{B}$ over the ground field $k$ of
+  $\Ext^1_\Lambda(M,N)$ as homomorhisms from $\Omega^1_\Lambda(M)\to
+  N$, and 
+\item a function $\varphi\colon \Hom_\Lambda(\Omega^1_\Lambda(M),N)
+  \to k^{|\mathcal{B}|}$, which computes the coordinates of any
+  element in $\Hom_\Lambda(\Omega^1_\Lambda(M),N)$  as an element in 
 $\Ext^1_\Lambda(M,N)$. 
+\end{enumerate}
 
 Here is an example illustrating these functions.
 
@@ -1492,8 +1532,9 @@ gap> ext[3](homUM[4]);
 \begin{theoback}
 We identify $\Ext^1_\Lambda(M,N)$ with elements in
 $\Hom_\Lambda(\Omega^1_\Lambda(M),N)$ and not short exact sequences.
-A homomorphism in $f$ in $\Hom_\Lambda(\Omega^1_\Lambda(M),N)$
-corresponds to the short exact sequence obtained from 
+A homomorphism $f$ in $\Hom_\Lambda(\Omega^1_\Lambda(M),N)$
+corresponds to the short exact sequence obtained by the pushout of
+the short exact sequence 
 \[0\to \Omega^1_\Lambda(M)\to P_0 \to M\to 0\]
 along the homomorphism $f$.  In other words, $f$ corresponds to the
 lower row in the following commutative diagram:
@@ -1522,7 +1563,55 @@ Then the short exact sequence is given by
 M\to 0,\]
 where $E$ is \code{Source(gprime)}.  
 
+To compute higher extension groups $\Ext^n_\Lambda(M,N)$ we can use
+dimension shift, that is 
+\[\Ext^n_\Lambda(M,N)\simeq \Ext^1_\Lambda(\Omega^{n-1}_\Lambda(M),N).\]
+\begin{verbatim}
+gap> M := SimpleModules(A)[2];
+<[ 0, 1, 0 ]>
+gap> ExtOverAlgebra(NthSyzygy(M,1),M)[1];
+Computing syzygy number: 1 ...
+Top of the 1th syzygy: [ 0, 1, 1 ]
+<<[ 1, 3, 2 ]> ---> <[ 1, 4, 4 ]>>
+gap> ExtOverAlgebra(NthSyzygy(M,2),M)[1];
+Computing syzygy number: 1 ...
+Top of the 1th syzygy: [ 0, 1, 1 ]
+Computing syzygy number: 2 ...
+Top of the 2th syzygy: [ 1, 1, 0 ]
+<<[ 0, 3, 3 ]> ---> <[ 1, 6, 5 ]>>
+gap> ExtOverAlgebra(NthSyzygy(M,3),M)[1];
+Computing syzygy number: 1 ...
+Top of the 1th syzygy: [ 0, 1, 1 ]
+Computing syzygy number: 2 ...
+Top of the 2th syzygy: [ 1, 1, 0 ]
+Computing syzygy number: 3 ...
+Top of the 3th syzygy: [ 0, 2, 0 ]
+<<[ 0, 1, 1 ]> ---> <[ 0, 4, 4 ]>>
+\end{verbatim}
+
 \subsection{Yoneda algebras}
+The direct sum of all self extension groups $\oplus_{i\geqslant 0}
+\Ext^i_\Lambda(M,M)$ can be endowed with a graded ring structure,
+namely the Yoneda product.  The group cohomology ring (also for Hopf
+algebras), the Koszul dual of a Koszul algebra and the Hochschild ring
+of an algebra are examples of such a construction.  These can all be
+computed in QPA, up to some degree.  Continuing the example from the
+previous example we illustrate the function
+\code{ExtAlgebraGenerators}, which takes two arguments, one module and
+one non-negative integer.  
+\begin{verbatim}
+gap> ExtAlgebraGenerators(M,10);
+[ [ 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1 ], [ 1, 1, 0, 1, 0, 0, 0, 0, 
+    0, 0, 0 ], [ [ <<[ 0, 1, 0 ]> ---> <[ 0, 1, 0 ]>> ], 
+    [ <<[ 0, 1, 2 ]> ---> <[ 0, 1, 0 ]>> ], [  ], 
+    [ <<[ 0, 3, 3 ]> ---> <[ 0, 1, 0 ]>> ], [  ], [  ], [  ], 
+    [  ], [  ], [  ], [  ] ] ]
+\end{verbatim}
+The output from this function is a list of three elements, where the
+first element is the dimensions of $\Ext^i_\Lambda(M,M)$ for
+$i=0,1,\ldots,n$, the second element is the number of minimal
+generators in the degrees $[0,\ldots,n]$, and the third element is the
+generators in these degrees.
 
 \section{AR-theory}
 The theory of almost split sequences is one of the corner stones in
@@ -1783,12 +1872,15 @@ split sequence.
   finite representation type. 
 \end{theoback}
 
-
-Projective modules of path algebras:
-Not mention
-
-
 \begin{thebibliography}{99}
-\bibitem{Green} Green, E.\ L., \emph{???}
+\bibitem{Green} Green, E.\ L., \emph{Multiplicative bases, Gr\"obner
+    bases, and right Gr\"obner bases}, Symbolic  computation in
+  algebra, analysis, and geometry (Berkeley, CA, 1998).  J.\ Symbolic
+  Comput.\  29 (2000), no.\  4--5, 601--623. 
+
+\bibitem{Green2}  Green, E.\  L., \emph{Noncommutative Gr\"obner
+    bases, and projective resolutions}, Computational methods for
+  representations of groups and algebras (Essen, 1997), 29--60,
+  Progr.\  Math., 173, Birkh\"auser, Basel, 1999.
 \end{thebibliography}
 \end{document}
