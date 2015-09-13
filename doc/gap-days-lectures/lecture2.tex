@@ -13,6 +13,149 @@
 
 \section{Basic functions}
 
+\subsection{Algebras}
+
+\begin{frame}
+TODO!
+\end{frame}
+
+\subsection{Modules}
+
+\begin{frame}[fragile]{Recall: Modules (representations) in QPA}
+\[
+Q \colon
+\xymatrix{1 \ar[r]^a & 2 \ar[r]^b & 3}
+\]
+\[
+M \colon
+\xymatrix{
+k   \ar[r]^{\left( \begin{smallmatrix} 2 & 0 \end{smallmatrix} \right)} &
+k^2 \ar[r]^{\left( \begin{smallmatrix} 4 \\ -1 \end{smallmatrix} \right)} &
+k
+}
+\]
+\begin{verbatim}
+gap> Q := Quiver(3, [[1,2,"a"],[2,3,"b"]]);;
+gap> kQ := PathAlgebra(Rationals, Q);;
+gap> M := RightModuleOverPathAlgebra
+          (kQ, [1,2,1],
+           [["a", [[2,0]]], ["b", [[4],[-1]]]]);
+<[ 1, 2, 1 ]>
+\end{verbatim}
+\end{frame}
+
+\begin{frame}{Module attributes}
+\begin{overprint}
+\onslide<1>
+\[
+M \colon
+\xymatrix{
+{\textcolor{OliveGreen}{k}^{\textcolor{blue}{1}}}
+\ar[r]^{\textcolor{BrickRed}
+        {\left( \begin{smallmatrix} 2 & 0 \end{smallmatrix}
+         \right)}} &
+{\textcolor{OliveGreen}{k}^{\textcolor{blue}{2}}}
+\ar[r]^{\textcolor{BrickRed}
+        {\left( \begin{smallmatrix} 4 \\ -1 \end{smallmatrix}
+         \right)}} &
+{\textcolor{OliveGreen}{k}^{\textcolor{blue}{1}}}
+}
+\]
+\begin{itemize}
+\item \texttt{RightActingAlgebra}: $kQ$
+\item \texttt{LeftActingDomain}: \textcolor{OliveGreen}{$k$}
+\item \texttt{DimensionVector}: 
+      $(\textcolor{blue}{1}, \textcolor{blue}{2},
+        \textcolor{blue}{1})$
+\item \texttt{MatricesOfPathAlgebraModule}:
+      $\left(
+        \textcolor{BrickRed}{
+          \begin{pmatrix} 2 & 0 \end{pmatrix}},
+        \textcolor{BrickRed}{
+          \begin{pmatrix} 4 \\ -1 \end{pmatrix}}
+      \right)$
+\item \texttt{Dimension}:
+      $4 = \textcolor{blue}{1}
+           + \textcolor{blue}{2}
+           + \textcolor{blue}{1}$
+\end{itemize}
+\onslide<2>
+\[
+M \colon
+\xymatrix{
+k^1
+\ar[r]^{\left( \begin{smallmatrix} 2 & 0 \end{smallmatrix}
+        \right)} &
+k^2
+\ar[r]^{\left( \begin{smallmatrix} 4 \\ -1 \end{smallmatrix}
+        \right)} &
+k^2
+}
+\]
+\begin{itemize}
+\item \texttt{Basis}:
+\\ \vspace{-3em}
+\begin{gather*}
+1 \to (0,0) \to 0 \\
+0 \to (1,0) \to 0 \\
+0 \to (0,1) \to 0 \\
+0 \to (0,0) \to 1
+\end{gather*}
+\item \texttt{MinimalGeneratingSetOfModule}:
+\begin{gather*}
+1 \to (0,0) \to 0 \\
+0 \to (0,0) \to 1
+\end{gather*}
+\end{itemize}
+\end{overprint}
+\end{frame}
+
+\begin{frame}[fragile]{Submodules}{}
+\begin{overprint}
+\onslide<1>
+\relax{\huge
+\[
+N \stackrel{i}{\into} M
+\]}
+\begin{itemize}
+\item Categorical view of submodules
+\item A submodule is given by an inclusion homomorphism
+\item A submodule is not a subset
+\end{itemize}
+\onslide<2>
+\relax{\huge
+\[
+\textcolor{BrickRed}{N} \stackrel{\textcolor{blue}{i}}{\into} M
+\]}
+\begin{itemize}
+\item Categorical view of submodules
+\item A submodule is given by an inclusion homomorphism
+\item A submodule is not a subset
+\item \texttt{SubRepresentation}: \textcolor{BrickRed}{$N$}
+\item \texttt{SubRepresentationInclusion}: \textcolor{blue}{$i$}
+\end{itemize}
+% \onslide<3>
+% \relax{\huge
+% \[
+% N \stackrel{i}{\into} M
+% \]}
+% \begin{verbatim}
+% gap> kQ := PathAlgebra(Rationals, Quiver(2, [[1,2,"a"],[1,2,"b"]]));;
+% <Rationals[<quiver with 2 vertices and 2 arrows>]>
+% gap> M := RightModuleOverPathAlgebra(kQ, [2,2], [["a", [[1,0],[1,1]]]]);
+% <[ 2, 2 ]>
+% gap> SubRepresentation(M, [Basis(M)[1]-Basis(M)[2]]);
+% <[ 1, 1 ]>
+% gap> SubRepresentationInclusion(M, [Basis(M)[1]-Basis(M)[2]]);
+% <<[ 1, 1 ]> ---> <[ 2, 2 ]>>
+% \end{verbatim}
+%% [show example from QPA intro]
+\end{overprint}
+\end{frame}
+
+
+\subsection{Homomorphisms}
+
 \begin{frame}
 TODO!
 \end{frame}

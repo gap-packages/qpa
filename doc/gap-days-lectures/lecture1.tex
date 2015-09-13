@@ -308,7 +308,7 @@ gap> A.c * A.d;
 \item Ideal $I \subseteq kQ$ \defn{admissible} if $J^t \subseteq I
 \subseteq J^2$ for some $t \ge 2$
 \item If $I$ admissible, then $kQ/I$ finite-dimensional
-\item Only care about algebras $kQ/I$ with $I$ admissible
+%\item Only care about algebras $kQ/I$ with $I$ admissible
 \end{itemize}
 \end{frame}
 
@@ -368,12 +368,23 @@ Q\colon
 
 
 \begin{frame}{Admissible ideals -- why?}
-
+Algebras of the form $kQ/I$ with $I$ admissible \ldots
+\begin{itemize}
+\item \ldots are ``almost all'' finite-dimensional algebras, and
+\item \ldots have a nice theory.
+\end{itemize}
 \end{frame}
 
 
-\begin{frame}{Checking ideals for admissibility in QPA}
-
+\begin{frame}[fragile]{Checking ideals for admissibility in QPA}
+\begin{verbatim}
+gap> Q := Quiver(4,[[1,2,"a"],[2,4,"b"],
+                    [1,3,"c"],[3,4,"d"]]);;
+gap> kQ := PathAlgebra(Rationals,Q);;
+gap> I := Ideal(kQ, [kQ.a*kQ.b - 2*kQ.c*kQ.d]);;
+gap> IsAdmissibleIdeal(I);
+true
+\end{verbatim}
 \end{frame}
 
 
