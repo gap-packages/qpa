@@ -1,7 +1,7 @@
 \documentclass{amsart}
 \usepackage{amscd,amssymb, enumerate,url}
 \usepackage[all]{xy}
-\usepackage{showlabels}
+%\usepackage{showlabels}
 \renewcommand{\mod}{\operatorname{mod}\nolimits}
 \newcommand{\umod}{\operatorname{\underline{mod}}\nolimits}
 \newcommand{\omod}{\operatorname{\overline{mod}}\nolimits}
@@ -121,8 +121,8 @@ Norway}
 
 \date{\today}
 
-\begin{abstract}
-\end{abstract}
+% \begin{abstract}
+% \end{abstract}
 
 %\subjclass[2000]{16S37, 16E05, 16W50}
 \maketitle
@@ -134,11 +134,18 @@ Norway}
 
 \subsection{What is QPA?\nopunct}
 
-QPA is a software package for computing with quotients of path
-algebras and their modules.  QPA is written in the programming
-language GAP\footnote{\texttt{http://gap-system.org/}}.
+QPA (Quivers and Path Algebras) is a software package for computing
+with quotients of path algebras and their modules.  QPA is written in
+the programming language GAP.
 
-% todo: more
+GAP (Groups, Algorithms, Programming) is the name of both a computer
+algebra system and the programming language used in this system.  For
+more information about GAP, see
+\begin{center}
+\texttt{http://gap-system.org/}
+\end{center}
+
+% todo: more?
 
 
 \subsection{Installing QPA}
@@ -163,14 +170,34 @@ to follow QPA development. Follow the instructions on
 \end{center}
 to install QPA by cloning the the git repository. 
 
+\subsection{About this document}
+
+This document is meant as an introduction for anyone who is interested
+in using the QPA package.  We show how to get started using QPA, and
+demonstrate some of its capabilities.
+
+This document is not meant as a complete description of all
+functionality QPA has to offer.  To get detailed information about
+every function, see the QPA manual, which is distributed with QPA.
+
+We do not assume that the reader is familiar with quivers and path
+algebras.  Throughout the text we therefore give brief explanations of
+the relevant mathematical concepts as they are needed.  Some of the
+mathematical content is marked with ``Theoretic comment'' or
+``Theoretic background''.  These parts may be skipped without loss of
+continuity.  The end of such a part is indicated by the
+symbol~$\square$.
+
+We assume that the reader has some experience with using the GAP
+system.  A general introduction to GAP can be found here:
+\begin{center}
+\url{http://gap-system.org/Manuals/doc/tut/chap0.html}
+\end{center}
+
 \section{Basic structures}
 
 Here we recall the basic concepts for quotients of path algebras and
-modules over such.  Some theoretic comments and background are given
-and they occur in subsections starting with \emph{Theoretic
-  comments/background} and ending with $\square$.  Even with skipping
-all these paragraphs the aim is for the remaining text to still be a
-selfcontained unit.
+modules over such algebras.
 
 \subsection{Quivers}
 By a \emph{quiver} we mean a finite directed graph, where loops and
@@ -334,6 +361,17 @@ gap> BasisVectors(Basis(A));
   [(1)*v3+(1)*v4], [(1)*v4], [(1)*a], [(1)*b], [(1)*c], [(1)*d], 
   [(1)*a*b] ]
 \end{verbatim}
+The residue classes of the vertices and the arrows of $Q$ in $A$ can
+be accessed as \code{A.v1}, \code{A.a} and similar.
+\begin{verbatim}
+gap> A.a * A.b;
+[(1)*a*b]
+gap> A.c * A.d;
+[(1/2)*a*b]
+\end{verbatim}
+The above shows that the residue class of the path $cd$ is represented
+by the residue class of $\frac{1}{2}ab$.
+
 \begin{theocomm}
 QPA computes with quotients of path algebras using Gr\"obner basis for
 path algebras (see \cite{Green}).  Forming the quotient $A$ above, QPA
@@ -355,16 +393,8 @@ gap> vertices[1] < vertices[2];
 true
 gap> vertices[4] < arrows[1];
 true
-gap> A.c*A.d;
-[(1/2)*a*b]
 \end{verbatim}
 \end{theocomm}
-
-The residue classes of the vertices and the arrows of $Q$ in $A$ can
-be access as $A.v1$ and $A.a$ as indicated in the above example.  The
-last two lines from the above GAP-session shows that the residue class
-of the path $cd$ is represented by the residue class of
-$\frac{1}{2}ab$. 
 
 The factors of path algebras that QPA is designed for, are path
 algebras modulo admissible ideals.  An ideal $I$ in $kQ$ is called
@@ -380,6 +410,18 @@ if $Q$ contains an oriented cycle, then the zero ideal in $kQ$ is not
 admissible.  In this case, we therefore need to find a suitable
 nonzero ideal in order to construct an algebra which is a quotient of
 a path algebra by an admissible ideal.
+
+We can check if an ideal is admissible by using the function
+\code{IsAdmissibleIdeal}.
+\begin{verbatim}
+gap> Q := Quiver(4,[[1,2,"a"],[2,4,"b"],[1,3,"c"],[3,4,"d"]]);;
+gap> kQ := PathAlgebra(Rationals,Q);;
+gap> I := Ideal(kQ, [kQ.a*kQ.b - 2*kQ.c*kQ.d]);
+<two-sided ideal in <Rationals[<quiver with 4 vertices and 4 arrows>]>, 
+  (1 generators)>
+gap> IsAdmissibleIdeal(I);
+true
+\end{verbatim}
 
 \begin{theoback}
 From Morita theory we have that
@@ -409,6 +451,7 @@ we restrict our attention to quotients of path algebras by admissible
 ideals.  Several functions in QPA only work for such quotients of path
 algebras.
 \end{theoback}
+
 
 \subsection{Modules and representations of quivers with relations}
 
@@ -582,15 +625,110 @@ gap> MatricesOfPathAlgebraMatModuleHomomorphism(h);
 [ [ [ 1, 0 ], [ 0, 1 ] ], [ [ 0, 1 ], [ 1, 0 ] ], [ [ 0 ], [ 0 ] ] ]
 \end{verbatim}
 To compute the image of an element in the source of a homomorphism,
-%TODO
+we use the operation \code{ImageElm}:
+\begin{verbatim}
+gap> ImageElm(h, Basis(M)[1] + 3*Basis(M)[3]);
+[ [ 1, 0 ], [ 0, 3 ], [ 0 ] ]
+\end{verbatim}
 
 \section{Basic functions}
 
 \subsection{Special algebras}
 
-NakayamaAlgebra
+A \emph{Nakayama algebra} is an algebra such that all indecomposable
+projective left and right modules are uniserial.  Equivalently, it is
+a quotient of a path algebra by an admissible ideal, where the quiver
+has one of the following two forms:
+\[
+\vcenter{\xymatrix{
+1 \ar[r]^{a_1} &
+2 \ar[r]^{a_2} &
+\cdots
+  \ar[r]^{a_{n-1}} &
+n
+}}
+\qquad\text{or}\qquad
+\vcenter{\xymatrix@R=.8em@C=1.2em{
+& 
+1 \ar[r]^{a_1} &
+2 \ar[dr]^{a_2} \\
+n \ar[ur]^{a_n} &&&
+3 \ar[dl]^{a_3} \\
+&
+\ar[ul]^{a^{n-1}} &
+\ar@{.}[l]
+}}
+\]
+Consider the Nakayama algebra $A = kQ/\langle\rho\rangle$, where
+\[
+Q\colon
+\xymatrix{
+1 \ar[r]^{a} &
+2 \ar[r]^{b} &
+3 \ar[r]^{c} &
+4}
+\qquad
+\rho = \{ ab \}.
+\]
+The four indecomposable projective $A$-modules are
+\begin{align*}
+P1&\colon
+\xymatrix{
+k \ar[r]^1 &
+k \ar[r] &
+0 \ar[r] &
+0}
+&
+P3&\colon
+\xymatrix{
+0 \ar[r] &
+0 \ar[r] &
+k \ar[r]^1 &
+k}
+\\
+P2&\colon
+\xymatrix{
+0 \ar[r] &
+k \ar[r]^1 &
+k \ar[r]^1 &
+k}
+&
+P4&\colon
+\xymatrix{
+0 \ar[r] &
+0 \ar[r] &
+0 \ar[r] &
+k}
+\end{align*}
+The lengths of these four modules are, respectively, $2$, $3$, $2$ and
+$1$ (for our algebras, the length of a module is always equal to its
+$k$-dimension).  The sequence $(2, 3, 2, 1)$ is called an
+\emph{admissible sequence} for the Nakayama algebra~$A$.  Any Nakayama
+algebra is uniquely determined by such a sequence.
 
-TruncatedPathAlgebra
+The operation \code{NakayamaAlgebra} takes as arguments an admissible
+sequence for a Nakayama algebra and a field, and constructs the
+corresponding Nakayama algebra as a quotient of a path algebra.  The
+following code gives the algebra described above:
+\begin{verbatim}
+gap> NakayamaAlgebra([2,3,2,1], Rationals);
+<Rationals[<quiver with 4 vertices and 3 arrows>]/
+<two-sided ideal in <Rationals[<quiver with 4 vertices and 3 arrows>]>, 
+  (1 generators)>>
+\end{verbatim}
+
+A \emph{truncated} path algebra is a quotient $kQ/I$ where the ideal
+$I$ is generated by all paths of length~$n$, for some $n \ge 2$.  The
+operation \code{TruncatedPathAlgebra} creates a truncated path algebra
+for a given field~$k$, quiver~$Q$ and integer~$n$.
+\begin{verbatim}
+gap> Q := Quiver(3, [[1,2,"a"], [2,1,"b"], [2,2,"c"]]);;
+gap> A := TruncatedPathAlgebra(Rationals, Q, 3);
+<Rationals[<quiver with 3 vertices and 3 arrows>]/
+<two-sided ideal in <Rationals[<quiver with 3 vertices and 3 arrows>]>, 
+  (8 generators)>>
+\end{verbatim}
+
 
 \subsection{Module attributes}
 
@@ -869,7 +1007,7 @@ gap> IndecInjectiveModules(kQ);
 [ <[ 1, 0, 0 ]>, <[ 1, 1, 0 ]>, <[ 1, 1, 1 ]> ]
 \end{verbatim}
 
-\subsection{Homomorphisms}
+\subsection{Attributes of homomorphisms}
 
 As seen earlier, we can construct a module homomorphism by calling
 \texttt{RightModuleHomOverAlgebra} with the data defining the
@@ -895,7 +1033,47 @@ gap> MatricesOfPathAlgebraMatModuleHomomorphism(f);
 [ [ [ 2 ] ], [ [ 6, 10 ] ] ]
 \end{verbatim}
 
-% composition, equality
+\subsection{Bases for Hom spaces}
+
+Given two modules $M$ and $N$ over an algebra $A$, the operation
+\code{HomOverAlgebra} computes a basis for the Hom space $\Hom_A(M,
+N)$.  Continuing the above example, we compute bases for $\Hom_{kQ}(M,
+N)$ and $\Hom_{kQ}(N, M)$:
+\begin{verbatim}
+gap> HomMN := HomOverAlgebra(M, N);
+[ <<[ 1, 1 ]> ---> <[ 1, 2 ]>> ]
+gap> HomNM := HomOverAlgebra(N, M);
+[ <<[ 1, 2 ]> ---> <[ 1, 1 ]>>, <<[ 1, 2 ]> ---> <[ 1, 1 ]>> ]
+gap> MatricesOfPathAlgebraMatModuleHomomorphism(HomNM[1]);
+[ [ [ 3 ] ], [ [ 1 ], [ 0 ] ] ]
+gap> MatricesOfPathAlgebraMatModuleHomomorphism(HomNM[2]);
+[ [ [ 5 ] ], [ [ 0 ], [ 1 ] ] ]
+\end{verbatim}
+
+\subsection{Arithmetic for homomorphisms}
+
+Two homomorphisms with common domain and codomain can be added and
+subtracted using the operators \code{+} and \code{-}, respectively.
+We can compute a scalar multiple of a homomorphism using the \code{*}
+operator.  Using these operations, we can compute linear combinations
+of the basis homomorphisms from the previous example:
+\begin{verbatim}
+gap> g := HomNM[1] + (5/7) * HomNM[2];
+<<[ 1, 2 ]> ---> <[ 1, 1 ]>>
+gap> MatricesOfPathAlgebraMatModuleHomomorphism(g);
+[ [ [ 46/7 ] ], [ [ 1 ], [ 5/7 ] ] ]
+gap> h := 3 * HomNM[1];
+<<[ 1, 2 ]> ---> <[ 1, 1 ]>>
+gap> MatricesOfPathAlgebraMatModuleHomomorphism(g - h);
+[ [ [ -17/7 ] ], [ [ -2 ], [ 5/7 ] ] ]
+\end{verbatim}
+
+We can compose two homomorphisms using the \code{*} operator.
+For homomorphisms
+\[
+M_1 \xrightarrow{f} M_2 \xrightarrow{g} M_3,
+\]
+the composition is written as \code{f * g}.
 
 \subsection{Kernel, cokernel, image}
 
@@ -1029,7 +1207,7 @@ k^2
 % Hom sets
 % Endomorphism rings
 
-\subsection{Functors}
+\subsection{Functors} %TODO
 DualOfModule
 DTr
 StarOfModule
@@ -1294,6 +1472,8 @@ determines whether computed differentials are stored in the complex or
 not.
 \end{enumerate}
 
+% TODO: chain maps
+
 \section{Homological algebra}
 In this section we introduce some of the basic constructions and
 functions for doing homological algebra in QPA.  
@@ -1301,7 +1481,7 @@ functions for doing homological algebra in QPA.
 \subsection{Projective cover}
 Homological algebra often starts with forming a projective or an
 injective resolution.  A minimal projective resolution of a module $M$
-is buildt up by projective covers of modules.  The function
+is built up by projective covers of modules.  The function
 \code{ProjectiveCover} returns the homomorphism $p\colon P(M)\to M$,
 where $P(M)$ is the projective cover of $M$.  
 
@@ -1312,6 +1492,8 @@ gap> KQ:= PathAlgebra(Rationals, Q);;
 gap> AssignGeneratorVariables(KQ);
 #I  Assigned the global variables [ v1, v2, v3, a, b, c, d, e ]
 gap> A:= KQ/[d*e,c^2,a*c*d-b*d,e*a];;
+gap> S := SimpleModules(A)[1];
+<[ 1, 0, 0 ]>
 gap> f := ProjectiveCover(S);
 <<[ 1, 4, 3 ]> ---> <[ 1, 0, 0 ]>>
 \end{verbatim}
@@ -1358,7 +1540,7 @@ Now we discuss two of the most basic homological invariants of a
 module, the injective and the projective dimension of a module. 
 
 \begin{theoback}
-The injective dimension of a module is the shortest injective
+The injective dimension of a module is the length of the shortest injective
 resolution
 \[0\to N\to I^0\xrightarrow{d^1} I^1\xrightarrow{d^2} I^2\to \cdots, \]
 where $N\to I^0$ is the injective enevelope of $N$, and $I^{n}$ is the
@@ -1406,13 +1588,13 @@ returns \code{false} otherwise.  This functions sets the attribute
 finds the global dimension. 
 
 \begin{theoback}
-  To our knowledge there is no known algorithm for deciding if an
+  To our knowledge there is no known algorithm for deciding if a
   finite dimensional algebra has finite global dimension or not.
   However, in some cases it is clear, as for finite dimensional path
   algebra (that is, from quivers without any oriented cycles).  We
   know that the path algebra is hereditary, that is, it has global
   dimension $1$ (if the quiver has at least one arrow).  When creating
-  a path algebra in QPA, this will be automatically be set.
+  a path algebra in QPA, this will automatically be set.
   Furthermore, if the quiver has no oriented cycles for a quotient of
   a path algebra, then the global dimension is finite.  This is not
   implemented in QPA yet.  However, if the quiver of the path algebra
@@ -1434,12 +1616,16 @@ gap> GlobalDimensionOfAlgebra(A,7);
 \end{verbatim}
 
 \subsection{Pullback and pushout}
-Given $\xymatrix{A\ar[r]^f\ar[d]_g & B\\ C & }$ or $\xymatrix{ & C\ar[d]^g\\
-  A\ar[r]^f & B}$
+Given a diagram
+\[
+\vcenter{\xymatrix{A\ar[r]^f\ar[d]_g & B\\ C & }}
+\qquad\text{or}\qquad
+\vcenter{\xymatrix{ & C\ar[d]_g\\  A\ar[r]^f & B,}}
+\]
 we can construct the pushout 
 \[\xymatrix{A\ar[r]^f\ar[d]_g & B\ar[d]^{g'}\\ C\ar[r]^{f'} & E}\]
 or the pullback 
-\[\xymatrix{E\ar[r]^{f'}\ar[d]_{g'} & C\ar[d]^g\\ A\ar[r]^f & B}\]
+\[\xymatrix{E\ar[r]^{f'}\ar[d]_{g'} & C\ar[d]^g\\ A\ar[r]^f & B.}\]
 In QPA this done as follows.
 \begin{verbatim}
 gap> A := NakayamaAlgebra(Rationals, [3,2,1]);;                       
@@ -1450,7 +1636,8 @@ gap> f := RadicalOfModuleInclusion(B);
 gap> g := TopOfModuleProjection(Source(f));
 <<[ 0, 1, 1 ]> ---> <[ 0, 1, 0 ]>>
 gap> po := PushOut(f,g);
-[ <<[ 0, 1, 0 ]> ---> <[ 1, 1, 0 ]>>, <<[ 1, 1, 1 ]> ---> <[ 1, 1, 0 ]>> ]
+[ <<[ 0, 1, 0 ]> ---> <[ 1, 1, 0 ]>>,
+  <<[ 1, 1, 1 ]> ---> <[ 1, 1, 0 ]>> ]
 gap> Range(g) = Source(po[1]);
 true
 gap> Range(f) = Source(po[2]);
@@ -1460,9 +1647,8 @@ gap> g := CoKernelProjection(SocleOfModuleInclusion(C));
 gap> f := RadicalOfModuleInclusion(Range(g));
 <<[ 0, 1, 0 ]> ---> <[ 1, 1, 0 ]>>
 gap> pb := PullBack(f,g);
-[ <<[ 0, 1, 1 ]> ---> <[ 1, 1, 1 ]>>
-    , <<[ 0, 1, 1 ]> ---> <[ 0, 1, 0 ]>>
-     ]
+[ <<[ 0, 1, 1 ]> ---> <[ 1, 1, 1 ]>>,
+  <<[ 0, 1, 1 ]> ---> <[ 0, 1, 0 ]>> ]
 \end{verbatim}
 
 \subsection{Extensions}
@@ -1472,13 +1658,13 @@ extensions between two modules $M$ and $N$ over an algebra $A$.
 \begin{theoback} 
 Given a projective resolution of a module $M$ 
 \[\cdots\to P_2\xrightarrow{d_2} P_1\xrightarrow{d_1}
-P_0\xrightarrow{d_0} M\to 0\]
+P_0\xrightarrow{d_0} M\to 0,\]
 the extension group $\Ext^1_\Lambda(M,N)$ is the homology 
 of 
 \[\Hom_\Lambda(P_0,N)\xrightarrow{d_1^*} \Hom_\Lambda(P_1,N)
 \xrightarrow{d_2^*} \Hom_\Lambda(P_2,N)
 \]
-in the middle term.  The kernel of $d_2^*$ can be indentified with
+in the middle term.  The kernel of $d_2^*$ can be identified with
 $\Hom_\Lambda(\Omega^1_\Lambda(M),N)$, so that $\Ext^1_\Lambda(M,N)$
 can be identified with $\Hom_\Lambda(\Omega^1_\Lambda(M),N)$ modulo
 the homomorphisms factoring through the inclusion
@@ -1510,21 +1696,20 @@ gap> A:= KQ/[d*e,c^2,a*c*d-b*d,e*a];;
 gap> S := SimpleModules(A)[1];;
 gap> M := Kernel(ProjectiveCover(S));;
 gap> ext := ExtOverAlgebra(S,M);
-[ <<[ 0, 4, 3 ]> ---> <[ 1, 4, 3 ]>>
-    , [ <<[ 0, 4, 3 ]> ---> <[ 0, 4, 3 ]>>
-        , <<[ 0, 4, 3 ]> ---> <[ 0, 4, 3 ]>>
-        , <<[ 0, 4, 3 ]> ---> <[ 0, 4, 3 ]>>
-        , <<[ 0, 4, 3 ]> ---> <[ 0, 4, 3 ]>>
-        , <<[ 0, 4, 3 ]> ---> <[ 0, 4, 3 ]>>
-         ], function( map ) ... end ]
+[ <<[ 0, 4, 3 ]> ---> <[ 1, 4, 3 ]>>, 
+  [ <<[ 0, 4, 3 ]> ---> <[ 0, 4, 3 ]>>,
+    <<[ 0, 4, 3 ]> ---> <[ 0, 4, 3 ]>>, 
+    <<[ 0, 4, 3 ]> ---> <[ 0, 4, 3 ]>>,
+    <<[ 0, 4, 3 ]> ---> <[ 0, 4, 3 ]>>, 
+    <<[ 0, 4, 3 ]> ---> <[ 0, 4, 3 ]>> ],
+  function( map ) ... end ]
 gap> U := Source(ext[1]);;
 gap> homUM := HomOverAlgebra(U,M);
-[ <<[ 0, 4, 3 ]> ---> <[ 0, 4, 3 ]>>
-    , <<[ 0, 4, 3 ]> ---> <[ 0, 4, 3 ]>>
-    , <<[ 0, 4, 3 ]> ---> <[ 0, 4, 3 ]>>
-    , <<[ 0, 4, 3 ]> ---> <[ 0, 4, 3 ]>>
-    , <<[ 0, 4, 3 ]> ---> <[ 0, 4, 3 ]>>
-     ]
+[ <<[ 0, 4, 3 ]> ---> <[ 0, 4, 3 ]>>,
+  <<[ 0, 4, 3 ]> ---> <[ 0, 4, 3 ]>>, 
+  <<[ 0, 4, 3 ]> ---> <[ 0, 4, 3 ]>>,
+  <<[ 0, 4, 3 ]> ---> <[ 0, 4, 3 ]>>, 
+  <<[ 0, 4, 3 ]> ---> <[ 0, 4, 3 ]>> ]
 gap> ext[3](homUM[4]);
 [ -1, 0, 0, 1, 0 ]
 \end{verbatim}
@@ -1549,12 +1734,10 @@ $f\colon \Omega^1_\Lambda(M)\to N$, we form the pushout of the
 homomorphism $f$ and the homomoprphism stored in \code{ext[1]}. 
 \begin{verbatim}
 gap> pushout := PushOut(ext[1], ext[2][1]);
-[ <<[ 0, 4, 3 ]> ---> <[ 1, 4, 3 ]>>
-    , <<[ 1, 4, 3 ]> ---> <[ 1, 4, 3 ]>>
-     ]
+[ <<[ 0, 4, 3 ]> ---> <[ 1, 4, 3 ]>>,
+  <<[ 1, 4, 3 ]> ---> <[ 1, 4, 3 ]>> ]
 gap> fprime := pushout[1];     
 <<[ 0, 4, 3 ]> ---> <[ 1, 4, 3 ]>>
-
 gap> gprime := CoKernelProjection(fprime); 
 <<[ 1, 4, 3 ]> ---> <[ 1, 0, 0 ]>>
 \end{verbatim}
