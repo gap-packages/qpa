@@ -215,19 +215,75 @@ $A$-module in QPA.
 \Question Are any of the $A$-modules you just constructed projective?
 \end{Exercise}
 
-% making modules over path algebras and quotients
+% TODO: making homomorphisms -- checking if something is a homomorphism
 
-% making homomorphisms -- checking if something is a homomorphism
+% TODO: Nakayama/truncated algebra?
 
-% submodules
+% TODO: submodules
 
-% radical, top, socle
+% TODO: radical, top, socle
 
-% isomorphic modules
+\begin{Exercise}[title={Isomorphisms}]
+Let $k$ be the field of rational numbers and let $A =
+kQ/\langle\rho\rangle$ be the algebra given by the following quiver
+and relations:
+\[
+Q\colon
+\vcenter{\xymatrix@C=1em@R=1em{
+1 \ar[rr]^a &&
+2 \ar[dl]^b \\
+& 3 \ar[ul]^c
+}}
+\qquad
+\rho = \{ abc \}
+\]
+Consider the following $kQ$-modules.
+\begin{align*}
+M_1&\colon
+\vcenter{\xymatrix@C=1em@R=1em{
+k^2 \ar[rr]^{\left( \begin{smallmatrix} 0 & 1 \\ 3 & 5 \end{smallmatrix} \right)} &&
+k^2 \ar[dl]^{\left( \begin{smallmatrix} 0 & 0 \\ 1 & 0 \end{smallmatrix} \right)} \\
+&
+k^2 \ar[ul]^{\left( \begin{smallmatrix} 0 & 0 \\ 2 & 0 \end{smallmatrix} \right)}
+}}
+&
+M_2&\colon
+\vcenter{\xymatrix@C=1em@R=1em{
+k^2 \ar[rr]^{\left( \begin{smallmatrix} 0 & 0 \\ 2 & 0 \end{smallmatrix} \right)} &&
+k^2 \ar[dl]^{\left( \begin{smallmatrix} 0 & 1 \\ 0 & 0 \end{smallmatrix} \right)} \\
+&
+k^2 \ar[ul]^{\left( \begin{smallmatrix} 0 & 1 \\ 0 & 0 \end{smallmatrix} \right)}
+}}
+\\
+M_3&\colon
+\vcenter{\xymatrix@C=1em@R=1em{
+k^2 \ar[rr]^{\left( \begin{smallmatrix} -1 &  0 \\ 1 & 3 \end{smallmatrix} \right)} &&
+k^2 \ar[dl]^{\left( \begin{smallmatrix} -1 & -1 \\ 2 & 2 \end{smallmatrix} \right)} \\
+&
+k^2 \ar[ul]^{\left( \begin{smallmatrix} 2 & 0 \\ -2 & 0 \end{smallmatrix} \right)}
+}}
+&
+M_4&\colon
+\vcenter{\xymatrix@C=1em@R=1em{
+k^2 \ar[rr]^{\left( \begin{smallmatrix} -2 & 0 \\ 2 & 0 \end{smallmatrix} \right)} &&
+k^2 \ar[dl]^{\left( \begin{smallmatrix} 1 & 0 \\ 0 & 0 \end{smallmatrix} \right)} \\
+&
+k^2 \ar[ul]^{\left( \begin{smallmatrix} 0 & 0 \\ 0 & 1 \end{smallmatrix} \right)}
+}}
+\end{align*}
+\Question Are any of these modules isomorphic to each other?
+\Question For the modules that are isomorphic, find an isomorphism.
+\end{Exercise}
 
+
+% ?
 % given some modules, which module is the direct sum of ...;
 % find inclusions/projections.
 % (need to use IsomorphismOfModules and DirectSumInclusions)
+
+% TODO: simple, projective modules
+
+% TODO: kernel, cokernel, image
 
 \begin{Exercise}[title={Chain complexes}]
 \Question Let $A = kQ/I$ where $Q$ and $I$ are as follows:
@@ -269,7 +325,7 @@ in $d_i$ by
 $\left( \begin{smallmatrix} 0&1 \\ 0&0 \end{smallmatrix} \right)$.
 \end{Exercise}
 
-% projective modules, resolutions
+% TODO: projective modules, resolutions
 
 % AR-theory
 \begin{Exercise}[title={Almost split sequences}]
