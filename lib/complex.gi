@@ -1202,9 +1202,11 @@ function( C )
         Print( "] " );
     fi;
 
-    for i in [ top, top - 1 .. bottom ] do
+    if IsInt( top ) and IsInt( bottom ) then
+      for i in [ top, top - 1 .. bottom ] do
         Print( i, ":", cat.objStr( ObjectOfComplex( C, i ) ), " -> " );
-    od;
+      od;
+    fi;
 
     if IsNegativeRepeating( C ) and lowbound = NegativeInfinity then
         Print( "[ " );
