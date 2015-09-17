@@ -41,5 +41,6 @@ ReadPackage("QPA", "lib/quivergraphalgorithms.gi");
 ReadPackage("QPA", "lib/combinatorialrep.gi");
 
 ReadPackage("QPA", "lib/degorderfinitetype.gi");
+ReadPackage("QPA", "lib/documentation.gi");
 
 #E  read.g . . . . . . . . . . . . . . . . . . . . . . . . . . . .  ends here
