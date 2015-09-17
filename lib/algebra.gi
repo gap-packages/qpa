@@ -530,7 +530,7 @@ InstallMethod(LiftingCompleteSetOfOrthogonalIdempotents,
     0,
     function(map, idempotents)
 
-    local n, i, j, idems, A, orthogonalidempotents, e, test, h, t, k;
+    local n, i, j, idems, A, liftidem, temp;
     
     #
     # Input OK?
@@ -564,47 +564,14 @@ InstallMethod(LiftingCompleteSetOfOrthogonalIdempotents,
     # Lift the idempotents in the range of  <map>  to idempotents in the 
     # domain of  <map>.
     #
-    idems := List(idempotents, x -> LiftingIdempotent(map,x));
-    #
-    # Make the lifted idempotents into orthogonal idempotents.
-    #
-    A := Source(map);
-    orthogonalidempotents := [];
-    Add(orthogonalidempotents, idems[1]);
-    e := idems[1];
-    for i in [2..n-1] do
-        test := idems[i] - e*idems[i] - idems[i]*e + e*idems[2]*e;
-        #
-        # If  test  is not an idempotent, then adjust it to be one.
-        #
-        if test^2 <> test then
-            h := test - test^2;
-            j := 0;
-            repeat
-                j := j + 1;
-            until
-                Dimension(Subspace(A, BasisVectors(Basis(A))*h^j)) = Dimension(Subspace(A, BasisVectors(Basis(A))*h^(j+1)));
-            if h^j = Zero(A) then
-                t := Binomial(i,1)*MultiplicativeNeutralElement(A);
-                for k in [2..i] do 
-                    t := t + (-1)^(k-1)*Binomial(i,k)*test^(k-1);
-                od;
-                test := test^j*t^j;
-            else
-                Error("something went wrong,\n ");
-            fi;
-        fi;
-        Add(orthogonalidempotents, test);
-        e := e + test;
+    liftidem := [];
+    Add(liftidem, LiftIdempotent(map, idempotents[1]));
+    for i in [1..Length(idempotents) - 1] do
+        temp := LiftTwoOrthogonalIdempotents(map, Sum(liftidem{[1..i]}), idempotents[i+1]);
+        Add(liftidem, temp[2]);
     od;
-    #
-    # The last idempotent is the identity minus the sum of the idempotents constructed 
-    # so far.
-    # 
-    if Length(idempotents) > 1 then 
-        Add(orthogonalidempotents, One(A) - e);
-    fi;
-    return orthogonalidempotents;
+
+    return liftidem;
 end
 );
 
