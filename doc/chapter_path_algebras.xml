@@ -806,8 +806,12 @@ false]]>
      algebra.<Br />
    </Description>
    <Returns>
-     true if <Arg>A</Arg> is finite dimensional and distributive. Otherwise it 
-     returns false.
+     true if <Arg>A</Arg> is an admissible quotient of a path algebra and distributive. Otherwise it 
+     returns false if <Arg>A</Arg> is an admissible quotient of a path
+     algebra and distributive.  If <Arg>A</Arg> is a quotient of a
+     path algebra, but not an admissible quotient, then it looks for
+     other methods.  There are not further methods implemented in QPA
+     as of now. 
    </Returns>
 </ManSection>
 

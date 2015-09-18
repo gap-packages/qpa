@@ -2220,6 +2220,9 @@ InstallMethod ( IsDistributiveAlgebra,
     if not IsFiniteDimensional(A) then 
         Error("the entered algebra is not finite dimensional,\n");
     fi;
+    if not IsAdmissibleQuotientOfPathAlgebra(A) then
+        TryNextMethod();
+    fi;
     #  Finding a complete set of primitive idempotents in  A.
     pids := List(VerticesOfQuiver(QuiverOfPathAlgebra(A)), v -> v*One(A));
     #  
@@ -2232,7 +2235,7 @@ InstallMethod ( IsDistributiveAlgebra,
     radicalseries := List(localrings, R -> RadicalSeriesOfAlgebra(R));
     uniserialtest := Flat(List(radicalseries, series -> List([1..Length(series) - 1], i -> Dimension(series[i]) - Dimension(series[i+1]))));
     if not ForAll(uniserialtest, x -> x = 1) then 
-        Error("some algebra  eAe  is not a uniserial algebra,\n");
+       return false;
     fi;
     #  Check if the eAe-module eAf is uniserial or 
     #  the fAf-module eAf is uniserial for all pair
