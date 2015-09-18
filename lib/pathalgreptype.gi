@@ -108,6 +108,13 @@ InstallMethod( IsFiniteTypeAlgebra,
         return true;
     fi;
     #
+    # By a result of Jans it is known that if the algebra is of finite representation type, 
+    # then the algebra is distributive. Checking this next.
+    #
+    if not IsDistributiveAlgebra(A) then
+        return false;
+    fi;
+    #
     # If  A  is a special biserial algebra, we do the following.
     #
     if IsSpecialBiserialAlgebra(A) then
