@@ -22,7 +22,7 @@ InstallMethod( PushOut,
    if Source(f) = Source(g) then 
       B := Range(f);
       C := Range(g);
-      CplusB := DirectSumOfModules([C,B]);
+      CplusB := DirectSumOfQPAModules([C,B]);
       inclusions := DirectSumInclusions(CplusB);
       h := f*inclusions[2]-g*inclusions[1];
       h := CoKernelProjection(h);
@@ -59,7 +59,7 @@ InstallMethod( PullBack,
    if Range(f) = Range(g) then 
       A := Source(f);
       C := Source(g);
-      AplusC := DirectSumOfModules([A,C]);
+      AplusC := DirectSumOfQPAModules([A,C]);
       projections := DirectSumProjections(AplusC);
       h := projections[1]*f-projections[2]*g;
       h := KernelInclusion(h);
@@ -432,7 +432,7 @@ InstallMethod ( MinimalRightApproximation,
            gens := List(gens, x -> LinearCombination(HomMC,x));         
 ####         gens := List(gens, x -> RightMinimalVersion(x)[1]);
            approx := List(gens, x -> Source(x));
-           approx := DirectSumOfModules(approx);
+           approx := DirectSumOfQPAModules(approx);
            approxmap := ShallowCopy(DirectSumProjections(approx));
            approxmap := List([1..Length(approxmap)], x -> approxmap[x]*gens[x]);         
            approxmap := Sum(approxmap);
@@ -495,7 +495,7 @@ InstallMethod ( MinimalLeftApproximation,
            gens := List(gens, x -> Coefficients(BB,x));
            gens := List(gens, x -> LinearCombination(HomCM,x));
            approx := List(gens, x -> Range(x));
-           approx := DirectSumOfModules(approx);
+           approx := DirectSumOfQPAModules(approx);
            approxmap := ShallowCopy(DirectSumInclusions(approx));
            for i in [1..Length(approxmap)] do
                approxmap[i] := gens[i]*approxmap[i];
@@ -533,7 +533,7 @@ InstallMethod ( ProjectiveCover,
       mingen := MinimalGeneratingSetOfModule(M);
       maps := List(mingen, x -> HomFromProjective(x,M));
       PN := List(maps, x -> Source(x));
-      PN := DirectSumOfModules(PN);
+      PN := DirectSumOfQPAModules(PN);
       projections := DirectSumProjections(PN);
 
       return projections*maps;;
@@ -848,10 +848,10 @@ InstallMethod( IyamaGenerator,
     until
         Dimension(N) = 0;
 
-    IG := DirectSumOfModules(iyamagen);
+    IG := DirectSumOfQPAModules(iyamagen);
     if IsFinite(LeftActingDomain(M)) then 
         L := DecomposeModuleWithMultiplicities(IG);
-        IG := DirectSumOfModules(L[1]);
+        IG := DirectSumOfQPAModules(L[1]);
     fi;
 
     return IG;
@@ -1619,7 +1619,7 @@ end
 
 #######################################################################
 ##
-#O  FaithfulDimension( <M> )
+#A  FaithfulDimension( <M> )
 ##
 ##  This function computes the faithful dimension of a module  <M>.
 ##

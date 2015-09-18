@@ -369,7 +369,7 @@ InstallMethod( FullSubquiver,
   function( Q, L )
     local arr, vertices, arrows, result, src, trg;
     
-    if not ForAll(L, x -> (IsVertex(x) and (x in Q)) ) then
+    if not ForAll(L, x -> (IsQuiverVertex(x) and (x in Q)) ) then
       Error("L should be a list of vertices of Q!");
     fi;
     
@@ -398,12 +398,12 @@ InstallMethod( FullSubquiver,
 
 ######################################################
 ##
-#O ConnectedComponents( <Q> )
+#O ConnectedComponentsOfQuiver( <Q> )
 ##
 ## This function returns a list of quivers which are 
 ##  all connected components a quiver <Q>.
 ##
-InstallMethod( ConnectedComponents,
+InstallMethod( ConnectedComponentsOfQuiver,
                
   [ IsQuiver ],
   function( Q )
@@ -457,4 +457,4 @@ InstallMethod( ConnectedComponents,
     
     return components;
   end
-); # ConnectedComponents
+); # ConnectedComponentsOfQuiver

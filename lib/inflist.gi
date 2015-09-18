@@ -84,7 +84,7 @@ function( n )
 
 #######################################################################
 ##
-#F  MakeHalfInfList( <start>, <direction>, <typeWithArgs>, <callback> )
+#F  MakeHalfInfList( <start>, <direction>, <typeWithArgs>, <callback>, <repeatifyCallback> )
 ##
 ##  Creates a IsHalfInfList with start index <start>, <direction> is
 ##  -1 for negative or 1 for positive, <typeWithArgs> is a list of either
@@ -93,10 +93,17 @@ function( n )
 ##  whenever a new list element is computed.
 ##  
 InstallGlobalFunction( MakeHalfInfList,
-function( start, direction, typeWithArgs, callback )
-    local type, repeatingList, func, initialValue, storeValues, data, list;
+function( start, direction, typeWithArgs, callback, repeatifyCallback )
+    local type, repeatingList, func, initialValue, storeValues, data, list,
+          repeatify;
 
     type := typeWithArgs[ 1 ];
+    if type = "next/repeat" then
+        type := "next";
+        repeatify := true;
+    else
+        repeatify := false;
+    fi;
     if type = "repeat" then
         repeatingList := typeWithArgs[ 2 ];
         func := fail;
@@ -121,7 +128,9 @@ function( start, direction, typeWithArgs, callback )
                  repeatingList := repeatingList,
                  storingValues := storeValues,
                  initialValue := initialValue,
-                 callback := callback );
+                 callback := callback,
+                 repeatify := repeatify,
+                 repeatifyCallback := repeatifyCallback );
 
     list := Objectify( NewType( NewFamily( "HalfInfListsFamily" ),
                                 IsHalfInfList and IsHalfInfListDefaultRep ),
@@ -251,7 +260,7 @@ end );
 InstallMethod( \^,
 [ IsHalfInfList and IsHalfInfListDefaultRep, IsInt ],
 function( list, pos )
-    local index, i, callCallbackFunction;
+    local index, i, callCallbackFunction, r;
 
     index := (pos - StartPosition( list )) * Direction( list );
     
@@ -279,6 +288,14 @@ function( list, pos )
         for i in [ Length( list!.values ) .. index ] do
             list!.values[ i + 1 ] := ElementFunction( list )( list!.values[ i ] );
             callCallbackFunction( i );
+            if list!.repeatify and i mod 2 = 0 then
+                if list!.values[ i / 2 + 1 ] = list!.values[ i + 1 ] then
+                    r := MakeRepeatingList( list, i / 2 + 1, i + 1 );
+                    list!.repeatifyCallback( r[ 1 ], r[ 2 ] );
+                    list!.repeatify := false;
+                    return r[ 2 ]^pos;
+                fi;
+            fi;
         od;
         return list!.values[ index + 1 ];
     elif InfListType( list ) = "pos" then
@@ -295,6 +312,36 @@ function( list, pos )
         fi;
     fi;
     
+end );
+
+InstallMethod( MakeRepeatingList,
+               [ IsHalfInfList, IsPosInt, IsPosInt ],
+function( list, collisionIndex1, collisionIndex2 )
+  local values, i1, i2, i, repeatStartIndex, repeatEndIndex,
+        tail, repeatedList, newList;
+  values := list!.values;
+  i1 := collisionIndex1;
+  i2 := collisionIndex2;
+  while i1 > 0 and values[ i1 ] = values[ i2 ] do
+    i1 := i1 - 1;
+    i2 := i2 - 1;
+  od;
+  repeatStartIndex := i1 + 1;
+  i := repeatStartIndex + 1;
+  while values[ i ] <> values[ repeatStartIndex ] do
+    i := i + 1;
+  od;
+  repeatEndIndex := i - 1;
+  tail := values{ [ 1 .. ( repeatStartIndex - 1 ) ] };
+  if Direction( list ) = -1 then
+    tail := Reversed( tail );
+  fi;
+  repeatedList := values{ [ repeatStartIndex .. repeatEndIndex ] };
+  newList := MakeHalfInfList( StartPosition( list ) + ( repeatStartIndex - 1 ) * Direction( list ),
+                              Direction( list ),
+                              [ "repeat", repeatedList ],
+                              false, false );
+  return [ tail, newList ];
 end );
 
 #######################################################################
@@ -366,18 +413,28 @@ end );
 ##  
 InstallGlobalFunction( MakeInfList,
 function( basePosition, middle, positive, negative, callback )
-    local posList, negList;
+    local list, posList, negList, posRepeatify, negRepeatify;
 
     # TODO: automatic initialValue for "next" parts if middle is nonempty
 
     # TODO: allow empty positive/negative?
 
+    posRepeatify := function( tail, repeating )
+      list!.middle := Concatenation( list!.middle, tail );
+      list!.positive := repeating;
+    end;
     posList := MakeHalfInfList( basePosition + Length( middle ),
-                                1, positive, callback );
-    negList := MakeHalfInfList( basePosition - 1,
-                                -1, negative, callback );
+                                1, positive, callback, posRepeatify );
 
-    return MakeInfListFromHalfInfLists( basePosition, middle, posList, negList );
+    negRepeatify := function( tail, repeating )
+      list!.middle := Concatenation( tail, list!.middle );
+      list!.negative := repeating;
+    end;
+    negList := MakeHalfInfList( basePosition - 1,
+                                -1, negative, callback, negRepeatify );
+
+    list := MakeInfListFromHalfInfLists( basePosition, middle, posList, negList );
+    return list;
 
 end );
 
@@ -628,10 +685,10 @@ function( list, shift )
 
     if IsRepeating( list ) then
         return MakeHalfInfList( StartPosition( list ) - shift, Direction( list ),
-                                [ "repeat", RepeatingList( list ) ], false );
+                                [ "repeat", RepeatingList( list ) ], false, false );
     else
         return MakeHalfInfList( StartPosition( list ) - shift, Direction( list ),
-                                [ "pos", i -> list^(i + shift) ], false );
+                                [ "pos", i -> list^(i + shift) ], false, false );
     fi;
 
 end );
@@ -702,7 +759,7 @@ function( list, pos )
         middle := [];
         half := MakeHalfInfList( pos, Direction( list ),
                                  [ "pos", i -> list^i ],
-                                 false );
+                                 false, false );
     fi;
 
     if Direction( list ) = 1 then
@@ -854,11 +911,11 @@ function( list, func )
     if IsRepeating( list ) then
         return MakeHalfInfList( StartPosition( list ), Direction( list ),
                                 [ "repeat", List( RepeatingList( list ), func ) ],
-                                false );
+                                false, false );
     else
         return MakeHalfInfList( StartPosition( list ), Direction( list ),
                                 [ "pos", i -> func( list^i ) ],
-                                false );
+                                false, false );
     fi;
 
 end );

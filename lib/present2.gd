@@ -1,16 +1,14 @@
 # GAP Declarations
 # This file was generated from
 # $Id: present2.gd,v 1.1 2010/05/07 13:30:13 sunnyquiver Exp $
-DeclareInfoClass( "InfoPathAlgebraModule" );
-
 
 DeclareCategory("IsProjectivePresentation",IsObject);
 DeclareAttribute("ParentAlgebra", IsProjectivePresentation);
 DeclareAttribute("MatrixRepresentation", IsProjectivePresentation);
 DeclareAttribute("MatrixNumCols", IsProjectivePresentation);
 DeclareAttribute("MatrixNumRows", IsProjectivePresentation);
-DeclareAttribute("P0", IsProjectivePresentation);
-DeclareAttribute("P1", IsProjectivePresentation);
+#DeclareAttribute("P0", IsProjectivePresentation);
+#DeclareAttribute("P1", IsProjectivePresentation);
 DeclareAttribute("P0VertexList", IsProjectivePresentation);
 DeclareAttribute("P1VertexList", IsProjectivePresentation);
 

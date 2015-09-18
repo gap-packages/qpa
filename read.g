@@ -1,6 +1,6 @@
 #############################################################################
 ##
-#W    read.g                 The QPA package                     Randall Cone
+#W    read.g                 The QPA package                 
 #W                                                            Edward L. Green
 #W                                                            Oeyvind Solberg
 
@@ -42,5 +42,6 @@ ReadPackage("QPA", "lib/combinatorialrep.gi");
 
 ReadPackage("QPA", "lib/degorderfinitetype.gi");
 ReadPackage("QPA", "lib/modulecategory.gi");
+ReadPackage("QPA", "lib/documentation.gi");
 
 #E  read.g . . . . . . . . . . . . . . . . . . . . . . . . . . . .  ends here

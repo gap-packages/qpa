@@ -139,10 +139,18 @@ InstallMethod( IsAdmissibleIdeal,
   [IsIdealInPathAlgebra],
   0,
   function(I)
-    local rels, i, Monomials, A, B, N, JtotheN;
+    local gb, rels, i, Monomials, A, B, N, JtotheN;
 
     if HasIsTrivial(I) and IsTrivial(I) then
       return IsFiniteDimensional(LeftActingRingOfIdeal(I)); # <=> (arrow ideal)^n \subset I, for some n
+    fi;
+  
+    if HasGroebnerBasisOfIdeal(I) then
+      gb := GroebnerBasisOfIdeal(I);
+    else
+      rels := GeneratorsOfIdeal(I);     
+      gb := GBNPGroebnerBasis(rels, LeftActingRingOfIdeal(I));
+      gb := GroebnerBasis(I, gb);
     fi;
     
     # returns the list of monomials appearing in elt

@@ -1,7 +1,6 @@
 *swp
 *~
-doc/manual.six
-doc/*.pdf
+
 doc/*.html
 doc/*.txt
 doc/*.css
@@ -19,4 +18,6 @@ doc/*.tex
 doc/*.toc
 doc/*.out
 doc/manual.lab
+doc/manual.pdf
+doc/manual.six
 *.DS_Store

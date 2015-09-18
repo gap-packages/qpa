@@ -11,6 +11,7 @@
 \usepackage[all]{xy}
 \newcommand{\tensor}{\otimes}
 \newcommand{\quiverproduct}{\times}
+\newcommand{\add}{\operatorname{add}\nolimits}
 \newcommand{\Hom}{\operatorname{Hom}\nolimits}
 \newcommand{\End}{\operatorname{End}\nolimits}
 \newcommand{\Ext}{\operatorname{Ext}\nolimits}
@@ -21,7 +22,7 @@
 \DeclareMathOperator{\proj}{proj}
 "?>
 
-<Book Name="QPA documentation">
+<Book Name="QPA">
 
 <TitlePage>
   <Title>QPA</Title>
@@ -31,7 +32,7 @@
   </TitleComment>
   <Author>The QPA-team
           <Email>oyvind.solberg@math.ntnu.no</Email>
-	      <Homepage>http://sourceforge.net/projects/quiverspathalg/</Homepage>
+	      <Homepage>http://www.math.ntnu.no/~oyvinso/QPA/</Homepage>
           <Address>
             Department of Mathematical Sciences<Br/>
             NTNU<Br/>
@@ -40,10 +41,10 @@
           </Address> 
   </Author>
 
-  <Date>January 2015</Date> 
+  <Date>July 2015</Date> 
 
   <Abstract>
-    The GAP4 undeposited package <Package>QPA</Package> extends the
+    The GAP4 deposited package <Package>QPA</Package> extends the
     GAP functionality for computations with finite dimensional
     quotients of path algebras. <Package>QPA</Package> has data
     structures for quivers, quotients of path algebras,
@@ -73,8 +74,8 @@
   <Package>QPA</Package>, please cite it in the following form:<P/>
   
   The QPA-team, <Package>QPA</Package> - Quivers, path algebras and
-  representations, Version <#Include SYSTEM "../version">; 2014
-  (<URL>http://sourceforge.net/projects/quiverspathalg/</URL>)
+  representations, Version <#Include SYSTEM "../version">; 2015
+  (<URL>http://www.math.ntnu.no/~oyvinso/QPA/</URL>)
   </Copyright>
 
   <Acknowledgements>The system design of <Package>QPA</Package> was initiated by

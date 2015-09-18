@@ -1,0 +1,768 @@
+\newcommand{\QPAIntroPartNumber}{1}
+\input{lecture-preamble}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{Outline}
+  \tableofcontents
+  % You might wish to add the option [pausesections]
+\end{frame}
+
+\section{About QPA}
+
+\subsection{What is QPA?}
+
+\begin{frame}{What is QPA?}
+\begin{itemize}
+\item QPA = Quivers and Path Algebras
+\item GAP package for computations with quotients of path algebras
+and their modules
+\end{itemize}
+\end{frame}
+
+\subsection{Obtaining QPA}
+
+\begin{frame}[fragile]{Obtaining QPA}
+\begin{itemize}
+\item QPA is distributed with GAP (from version~4.7.8)
+\item Can also clone git repository from
+\begin{center}\texttt{https://github.com/gap-system/qpa}\end{center}
+to follow QPA development
+\item Loading QPA in GAP:
+\begin{verbatim}
+gap> LoadPackage("qpa");
+\end{verbatim}
+\end{itemize}
+\end{frame}
+
+
+\section{Basic structures}
+
+\begin{frame}{}
+\huge Basic structures
+\Large
+\begin{itemize}
+\item Quivers
+\item Path algebras (modulo relations)
+\item Modules (representations)\\and homomorphisms
+\end{itemize}
+\end{frame}
+
+\subsection{Quivers}
+
+\begin{frame}{Quivers}
+\[
+\xymatrix{1\ar[r]^a & 2\ar[r]^b & 3} \qquad\quad
+\xymatrix{1\ar@<.5ex>[r]^a\ar@<-.5ex>[r]_b & 2} \qquad\quad
+\xymatrix{1\ar@(ul,ur)^a\ar[rr]^b & & 2\ar[dl]^c \\ & 3\ar[ul]^d & }
+\]
+\pause \defn{Quiver}: oriented graph (loops and multiple edges allowed)
+\end{frame}
+
+\begin{frame}{Paths}
+
+{\Large
+\[
+Q \colon \xymatrix{1\ar[r]^a & 2\ar[r]^b & 3}
+\]
+}
+Paths in $Q$:\pause
+\begin{itemize}
+\item Length $0$: $e_1, e_2, e_3$ (vertices/trivial paths)
+\pause
+\item Length $1$: $a, b$ (arrows)
+\pause
+\item Length $2$: $ab$ (concatenation of $a$ and $b$)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Paths}
+
+{\Large
+\[
+Q \colon \xymatrix{1\ar@<.5ex>[r]^a\ar@<-.5ex>[r]_b & 2}
+\]
+}
+Paths in $Q$:\pause
+\begin{itemize}
+\item Length $0$: $e_1, e_2$
+\pause
+\item Length $1$: $a, b$
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Paths}
+
+{\Large
+\[
+Q \colon \xymatrix{1\ar@(ul,ur)^a\ar[rr]^b & & 2\ar[dl]^c \\ & 3\ar[ul]^d & }
+\]
+}
+Paths in $Q$:\pause
+\begin{itemize}
+\item Length $0$: $e_1, e_2, e_3$
+\pause
+\item Length $1$: $a, b, c, d$
+\pause
+\item Length $2$: $a^2, ab, bc, cd, da, db$
+\pause
+\item Length $3$: $a^3, a^2b, abc, bcd, cda, cdb, da^2, dab, dbc$
+\pause
+\item \ldots
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]{Constructing a quiver in QPA}
+
+{\Large
+\[
+Q \colon \xymatrix{1\ar[r]^a & 2\ar[r]^b & 3}
+\]
+}
+\begin{verbatim}
+gap> Q := Quiver(3, [[1,2,"a"],[2,3,"b"]]); 
+<quiver with 3 vertices and 2 arrows>
+\end{verbatim}
+\end{frame}
+
+% show:
+% VerticesOfQuiver
+% ArrowsOfQuiver
+% [show multiplication of arrows]
+
+
+\subsection{Path algebras}
+
+\begin{frame}{Path algebras}
+% Path algebra
+
+\begin{itemize}
+\item Given quiver $Q$ and field $k$
+\item Define \defn{path algebra} $kQ$
+\item Basis: paths in $Q$
+\item Multiplication: concatenation of paths
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Path algebras}{}
+\[
+\left.
+\begin{aligned}
+Q &\colon \xymatrix{1\ar[r]^a & 2\ar[r]^b & 3} \\
+k &\ \text{a field}
+\end{aligned}
+\pause
+\right\}
+\rightsquigarrow
+\text{path algebra $kQ$}
+\]
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{itemize}
+\pause
+\item Basis: $\{ e_1, e_2, e_3, a, b, ab \}$\\
+\pause
+\item Multiplication:
+\begin{align*}
+e_1 \cdot e_1 &= e_1 \\
+e_1 \cdot e_2 &= 0 \\
+e_1 \cdot a &= a \\
+e_2 \cdot a &= 0 \\
+a \cdot b &= ab &
+\end{align*}
+\pause
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{tabular}{c|cccccc}
+$\cdot$ & $e_1$ & $e_2$ & $e_3$ & $a$   & $b$   & $ab$ \\
+\hline
+$e_1$   & $e_1$ & $0$   & $0$   & $a$   & $0$   & $ab$ \\
+$e_2$   & $0$   & $e_2$ & $0$   & $0$   & $b$   & $0$  \\
+$e_3$   & $0$   & $0$   & $e_3$ & $0$   & $0$   & $0$  \\
+$a$     & $0$   & $a$   & $0$   & $0$   & $ab$  & $0$  \\
+$b$     & $0$   & $0$   & $b$   & $0$   & $0$   & $0$  \\
+$ab$    & $0$   & $0$   & $ab$  & $0$   & $0$   & $0$
+\end{tabular}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{Constructing a path algebra in QPA}{}
+{\Large
+\[
+Q \colon \xymatrix{1\ar[r]^a & 2\ar[r]^b & 3}
+\]
+}
+\begin{verbatim}
+gap> Q := Quiver(3, [[1,2,"a"],[2,3,"b"]]); 
+<quiver with 3 vertices and 2 arrows>
+gap> kQ := PathAlgebra(Rationals, Q);
+<Rationals[<quiver with 3 vertices and 2 arrows>]>
+\end{verbatim}
+
+% [show in QPA]
+
+% AssignGeneratorVariables
+
+% [show in QPA]
+\end{frame}
+
+\begin{frame}{Relations}
+\begin{itemize}
+\item \defn{Relation}: linear combination of paths with common source and target
+\end{itemize}
+\[
+Q \colon
+\vcenter{\xymatrix{
+1\ar[r]^a\ar[d]^c & 2\ar[d]^b\\
+3\ar[r]^d & 4
+}}
+\qquad
+\sigma = \underbrace{ab - 2cd}_{
+\footnotesize
+\begin{array}{l}
+\text{source: $1$}\\
+\text{target: $4$}
+\end{array}
+} \in kQ
+\]
+% \begin{overprint}
+% \onslide<1>
+% \[
+% Q \colon
+% \vcenter{\xymatrix{
+% 1\ar[r]^a\ar[d]^c & 2\ar[d]^b\\
+% 3\ar[r]^d & 4
+% }}
+% \qquad
+% \sigma = ab - 2cd \in kQ
+% \]
+% \onslide<2->
+% \[
+% Q \colon
+% \vcenter{\xymatrix{
+% 1\ar[r]^a\ar[d]^c & 2\ar[d]^b\\
+% 3\ar[r]^d & 4
+% }}
+% \qquad
+% \sigma = \underbrace{ab - 2cd}_{
+% \footnotesize
+% \begin{array}{l}
+% \text{source: $e_1$}\\
+% \text{target: $e_4$}
+% \end{array}
+% } \in kQ
+% \]
+% \end{overprint}
+\end{frame}
+
+\begin{frame}{Quotient of path algebra modulo relations}
+\begin{itemize}
+\item Given path algebra $kQ$ and a set $\rho \subseteq kQ$ of relations.
+\item Can create quotient algebra $kQ / \langle \rho \rangle$.
+\end{itemize}
+\[
+Q \colon
+\vcenter{\xymatrix{
+1\ar[r]^a\ar[d]^c & 2\ar[d]^b\\
+3\ar[r]^d & 4
+}}
+\qquad
+A = kQ/\langle ab - 2cd \rangle
+\]
+\end{frame}
+
+\begin{frame}[fragile]{Quotients in QPA}
+\[
+Q \colon
+\vcenter{\xymatrix{
+1\ar[r]^a\ar[d]^c & 2\ar[d]^b\\
+3\ar[r]^d & 4
+}}
+\qquad
+A = kQ/\langle ab - 2cd \rangle
+\]
+\begin{verbatim}
+gap> Q := Quiver(4,[[1,2,"a"],[2,4,"b"],
+                    [1,3,"c"],[3,4,"d"]]);;
+gap> kQ := PathAlgebra(Rationals,Q);;
+gap> A := kQ/[kQ.a*kQ.b - 2*kQ.c*kQ.d];;
+gap> A.a * A.b;
+[(1)*a*b]
+gap> A.c * A.d;
+[(1/2)*a*b]
+\end{verbatim}
+% [show]
+\end{frame}
+
+
+\begin{frame}{Admissible ideals}
+\begin{itemize}
+\item $J \subseteq kQ$ ideal generated by the arrows
+\item Ideal $I \subseteq kQ$ \defn{admissible} if $J^t \subseteq I
+\subseteq J^2$ for some $t \ge 2$
+\item If $I$ admissible, then $kQ/I$ finite-dimensional
+%\item Only care about algebras $kQ/I$ with $I$ admissible
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Admissible ideals -- what does it mean?}{}
+{\huge
+\[
+J^t \subseteq I \subseteq J^2
+\]
+}
+\pause
+\vspace{-1em}
+%\begin{textblock}{5}(0,-.5)
+\begin{columns}
+\begin{column}{.5\textwidth}
+\begin{tikzpicture}
+\node [below left] at (0,0) {long paths must die};
+\draw [->] (0,0) -- (1,1);
+\end{tikzpicture}
+\\
+\color{OliveGreen}
+\[
+Q\colon
+\vcenter{\xymatrix@R=1em@C=.7em{
+& 2 \ar[dr]^b \\
+1 \ar[ur]^a &&
+3 \ar[ll]^c
+}}
+\quad
+\rho = \{ abcab \}
+\]
+%\end{textblock}
+\end{column}
+\begin{column}{.5\textwidth}
+\pause
+%\begin{textblock}{5}(7.3,-.5)
+\begin{tikzpicture}
+\node [below right] at (0,0) {no single arrows in relations};
+\draw [->] (0,0) -- (-1,1);
+\end{tikzpicture}
+\\
+\color{red}
+\[
+Q\colon
+\vcenter{\xymatrix@R=1em@C=.7em{
+& 2 \ar[dr]^b \\
+1 \ar[ur]^a \ar[rr]^c &&
+3
+}}
+\quad
+\rho = \{ ab - c \}
+\]
+%\end{textblock}
+\end{column}
+\end{columns}
+\end{frame}
+
+
+\begin{frame}{Admissible ideals -- why?}
+Algebras of the form $kQ/I$ with $I$ admissible \ldots
+\begin{itemize}
+\item \ldots are ``almost all'' finite-dimensional algebras, and
+\item \ldots have a nice theory.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]{Checking ideals for admissibility in QPA}
+\begin{verbatim}
+gap> Q := Quiver(4,[[1,2,"a"],[2,4,"b"],
+                    [1,3,"c"],[3,4,"d"]]);;
+gap> kQ := PathAlgebra(Rationals,Q);;
+gap> I := Ideal(kQ, [kQ.a*kQ.b - 2*kQ.c*kQ.d]);;
+gap> IsAdmissibleIdeal(I);
+true
+\end{verbatim}
+\end{frame}
+
+
+\begin{frame}{Algebras: summary}
+\begin{columns}
+\begin{column}{.4\textwidth}
+Take ...
+\begin{itemize}
+\onslide<2->
+\item a \textcolor{BrickRed}{QUIVER $Q$},
+\onslide<3->
+\item a \textcolor{OliveGreen}{FIELD $k$},
+\onslide<4->
+\item a set $\textcolor{blue}{\rho} \subseteq kQ$ of \textcolor{blue}{RELATIONS}
+\onslide<5->
+      generating an \textcolor{violet}{ADMISSIBLE} ideal
+\end{itemize}
+\end{column}
+\begin{column}{.6\textwidth}
+\onslide<2->
+\color{BrickRed}
+\[
+Q \colon
+\vcenter{\xymatrix{
+1 \ar[r]^a \ar[d]_c &
+2 \ar[d]^b \\
+3 \ar[r]_d &
+4 \ar[ul]_x
+}}
+\onslide<3->
+\color{OliveGreen}
+\qquad
+k = \Q
+\]
+\onslide<4->
+\color{blue}
+\[
+\rho = \{ ab - cd, dxa \}
+\]
+\onslide<5->
+\color{violet}
+\[
+J^t \subseteq \langle \rho \rangle \subseteq J^2
+\]
+\end{column}
+\end{columns}
+\vspace{1em}
+\onslide<6->
+{\huge
+\[
+\text{\normalsize Let ...}\quad
+A =
+\textcolor{OliveGreen}{k}
+\textcolor{BrickRed}{Q}
+  /
+\langle \textcolor{blue}{\rho} \rangle
+\quad\quad
+\]
+}
+\end{frame}
+
+
+\subsection{Modules}
+
+\begin{frame}{Modules and representations}{}
+{\huge
+\[
+\fmod kQ \equivalence \Rep_k Q
+\]
+}
+\pause
+\begin{textblock}{5}(0,-.5)
+\begin{tikzpicture}
+\node [below] at (0,0) {finitely generated $kQ$-modules};
+\draw [->] (0,0) -- (1,1);
+\end{tikzpicture}
+\end{textblock}
+\pause
+\begin{textblock}{5}(7.3,-.5)
+\begin{tikzpicture}
+\node [below] at (0,0) {representations of $Q$ over $k$};
+\draw [->] (0,0) -- (-1,1);
+\end{tikzpicture}
+\end{textblock}
+\end{frame}
+
+\begin{frame}{Representations}
+Given
+\[
+Q \colon
+\xymatrix{1 \ar[r]^a & 2 \ar[r]^b & 3}
+\]
+Want to make a representation $R$ of $Q$.
+\onslide<2->
+\[
+\onslide<2->{R \colon}
+\xymatrix{
+\temporal<2>{}{\bullet}{V_1} \ar[r]^{\onslide<4->{f_a}} &
+\temporal<2>{}{\bullet}{V_2} \ar[r]^{\onslide<4->{f_b}} &
+\temporal<2>{}{\bullet}{V_3}
+}
+\]
+Start with the quiver, and put
+\begin{itemize}
+\onslide<3->
+\item a vector space at each vertex,
+\onslide<4->
+\item a linear transformation on each arrow.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{A representation}
+\Large
+\[
+Q \colon
+\xymatrix{1 \ar[r]^a & 2 \ar[r]^b & 3}
+\]
+\vspace{.5em}
+\[
+R \colon
+\xymatrix{
+k   \ar[r]^{\left( \begin{smallmatrix} 2 & 0 \end{smallmatrix} \right)} &
+k^2 \ar[r]^{\left( \begin{smallmatrix} 4 \\ -1 \end{smallmatrix} \right)} &
+k
+}
+\]
+\end{frame}
+
+\begin{frame}[fragile]{Creating a representation in QPA}
+\[
+R \colon
+\xymatrix{
+k   \ar[r]^{\left( \begin{smallmatrix} 2 & 0 \end{smallmatrix} \right)} &
+k^2 \ar[r]^{\left( \begin{smallmatrix} 4 \\ -1 \end{smallmatrix} \right)} &
+k
+}
+\]
+\begin{verbatim}
+gap> Q := Quiver(3, [[1,2,"a"],[2,3,"b"]]);;
+gap> kQ := PathAlgebra(Rationals, Q);;
+gap> M := RightModuleOverPathAlgebra
+          (kQ, [1,2,1],
+           [["a", [[2,0]]], ["b", [[4],[-1]]]]);
+<[ 1, 2, 1 ]>
+\end{verbatim}
+% [show: basis]
+\end{frame}
+
+\begin{frame}{Module structure of a representation}
+\[
+R \colon
+\xymatrix{
+k   \ar[r]^{\left( \begin{smallmatrix} 2 & 0 \end{smallmatrix} \right)} &
+k^2 \ar[r]^{\left( \begin{smallmatrix} 4 \\ -1 \end{smallmatrix} \right)} &
+k
+}
+\]
+An element $e$ of $R$:
+\begin{align*}
+e &\colon
+\xymatrix{
+3   \ar[r] &
+{\VV{5}{7}} \ar[r] &
+4
+}
+\\
+\intertext{Multiplying $e$ with elements of $kQ$:}
+e \cdot v_1 &\colon
+\xymatrix{
+3   \ar[r] &
+{\VV{0}{0}} \ar[r] &
+0
+}
+\\
+e \cdot a &\colon
+\xymatrix{
+0   \ar[r] &
+{\VV{6}{0}} \ar[r] &
+0
+}
+\\
+e \cdot b &\colon
+\xymatrix{
+0   \ar[r] &
+{\VV{0}{0}} \ar[r] &
+13
+}
+\end{align*}
+% [show: basis, action of algebra elements]
+\end{frame}
+
+\begin{frame}{Representations and relations}
+Given quiver with relations:
+\[
+Q \colon
+\vcenter{\xymatrix{
+1\ar[r]^a\ar[d]_c & 2\ar[d]^b\\
+3\ar[r]^d & 4
+}}
+\qquad
+\rho = \{ ab - 2cd \}
+\]
+A representation $M$ of $Q$ \defn{respects the relation}
+$ab - 2cd$ if $f_a f_b - 2 f_c f_d = 0$.
+\[
+M \colon
+\vcenter{\xymatrix{
+V_1 \ar[r]^{f_a} \ar[d]_{f_c} &
+V_2 \ar[d]^{f_b} \\
+V_3 \ar[r]^{f_d} &
+V_4
+}}
+\]
+\end{frame}
+
+\begin{frame}{Representations and relations}
+Representations respecting relation $ab - 2cd$?
+\begin{align*}
+&
+\vcenter{\xymatrix@C=30pt{
+k\ar[r]^{f_a = 1}\ar[d]_{f_c = 1} & k\ar[d]^{f_b
+  = \left(\begin{smallmatrix} 1 & 0\end{smallmatrix}\right)}\\
+k\ar[r]^{f_d = \left(\begin{smallmatrix} 0 & 1\end{smallmatrix}\right)} & k^2
+}}
+&&
+\onslide<2->{
+\text{\textcolor{red}{NO}
+($f_a f_b - 2 f_c f_d
+  % = 1 \cdot \begin{pmatrix} 1&0 \end{pmatrix}
+  %   - 2 \cdot 1 \cdot \begin{pmatrix} 0 & 1 \end{pmatrix}
+  = \begin{pmatrix} 1 & -1 \end{pmatrix} \ne 0$)}}
+\\
+&
+\onslide<3->{
+\vcenter{\xymatrix@C=30pt{
+k\ar[r]^{f_a = 1}\ar[d]_{f_c = 1} & k\ar[d]^{f_b = 2}\\
+k\ar[r]^{f_d = 1} & k
+}}}
+&&
+\onslide<4->{
+\text{\textcolor{green}{YES}
+($f_a f_b - 2 f_c f_d
+  % = 1 \cdot \begin{pmatrix} 1&0 \end{pmatrix}
+  %   - 2 \cdot 1 \cdot \begin{pmatrix} 0 & 1 \end{pmatrix}
+  = 0$)}}
+\end{align*}
+\end{frame}
+
+\begin{frame}{Representations and relations}
+
+For $A = kQ/\langle \rho \rangle$:
+
+{\huge
+\[
+\fmod A \equivalence \Rep_k (Q,\rho)
+\]
+}
+\pause
+\begin{textblock}{5}(0,-.5)
+\begin{tikzpicture}
+\node [below] at (0,0) {finitely generated $A$-modules};
+\draw [->] (0,0) -- (1,1);
+\end{tikzpicture}
+\end{textblock}
+\pause
+\begin{textblock}{5}(7.3,-.5)
+\begin{tikzpicture}
+\node[align=left,anchor=north] at (0,0) {representations of $Q$ over $k$\\respecting $\rho$};
+\draw [->] (0,0) -- (-1,1);
+\end{tikzpicture}
+\end{textblock}
+\end{frame}
+
+% [show modules over kQ/I in QPA]
+
+\begin{frame}{Module homomorphisms}
+For two modules $M$ and $N$ given as representations:
+\begin{overprint}
+\onslide<1-2>
+\[
+\xymatrix{
+M \colon &
+V_1 \ar[r]^{f_a} &
+V_2 \ar[r]^{f_b} &
+V_3
+\\
+N \colon &
+W_1 \ar[r]^{g_a} &
+W_2 \ar[r]^{g_b} &
+W_3
+}
+\]
+\onslide<3>
+\[
+\xymatrix{
+M \colon \ar@<-.2em>[d]^{h} &
+V_1 \ar[r]^{f_a} \ar[d]_{h_1} &
+V_2 \ar[r]^{f_b} \ar[d]_{h_2} &
+V_3              \ar[d]_{h_3}
+\\
+N \colon &
+W_1 \ar[r]^{g_a} &
+W_2 \ar[r]^{g_b} &
+W_3
+}
+\]
+\onslide<4->
+\[
+\xymatrix{
+M \colon \ar@<-.2em>[d]^{h} &
+V_1 \ar[r]^{f_a} \ar[d]_{h_1} \ar@{}[dr]|{\circ} &
+V_2 \ar[r]^{f_b} \ar[d]_{h_2} \ar@{}[dr]|{\circ} &
+V_3              \ar[d]_{h_3}
+\\
+N \colon &
+W_1 \ar[r]^{g_a} &
+W_2 \ar[r]^{g_b} &
+W_3
+}
+\]
+\end{overprint}
+\vspace{1em}
+
+\onslide<2->
+... a homomorphism $h \colon M \to N$ is given by:
+\onslide<3->
+\begin{itemize}
+\item linear maps $h_i$ for every vertex $i$,
+\onslide<4->
+\item commuting with the linear maps for the arrows.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Module homomorphisms in QPA}
+\begin{overprint}
+\onslide<1>
+\[
+\xymatrix{
+M \colon &
+0 \ar[r]     &
+k \ar[r]^{5} &
+k \ar@{}[d]^{\phantom{1}}
+\\
+N \colon &
+k   \ar[r]_{\vv{0}{3}} &
+k^2 \ar[r]^{\left( \begin{smallmatrix} 1 \\ 1 \end{smallmatrix} \right)} &
+k
+}
+\]
+\begin{verbatim}
+gap> Q := Quiver(3, [[1,2,"a"], [2,3,"b"]]);;
+gap> kQ := PathAlgebra(Rationals, Q);;
+gap> M := RightModuleOverPathAlgebra
+          (kQ, [0,1,1], [["b", [[5]]]]);;
+gap> N := RightModuleOverPathAlgebra
+          (kQ, [1,2,1], [["a", [[0,3]]],
+                         ["b", [[1],[1]]]]);;
+\end{verbatim}
+\onslide<2>
+\[
+\xymatrix{
+M \colon \ar@<-.2em>[d]^{h} &
+0 \ar[r]     \ar[d] &
+k \ar[r]^{5} \ar[d]_{\vv{3}{2}} &
+k            \ar[d]^{1}
+\\
+N \colon &
+k   \ar[r]_{\vv{0}{3}} &
+k^2 \ar[r]^{\left( \begin{smallmatrix} 1 \\ 1 \end{smallmatrix} \right)} &
+k
+}
+\]
+\begin{verbatim}
+gap> h := RightModuleHomOverAlgebra
+          (M, N, [ [[0]], [[3,2]], [[1]] ]);
+<<[ 0, 1, 1 ]> ---> <[ 1, 2, 1 ]>>
+\end{verbatim}
+\end{overprint}
+\end{frame}
+
+\end{document}

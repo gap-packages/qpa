@@ -10,5 +10,5 @@ DeclareProperty("IsUAcyclicQuiver", IsQuiver); # better name??
 DeclareProperty("IsDynkinQuiver", IsQuiver);
 
 DeclareOperation("FullSubquiver", [IsQuiver, IsList]);
-DeclareOperation("ConnectedComponents", [IsQuiver]);
+DeclareOperation("ConnectedComponentsOfQuiver", [IsQuiver]);
 

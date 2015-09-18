@@ -1746,11 +1746,11 @@ end
 
 #######################################################################
 ##
-#P  IsSimpleModule( <M> )
+#P  IsSimpleQPAModule( <M> )
 ##
 ##  Checks whether <M> is simple.
 ##
-InstallMethod( IsSimpleModule, 
+InstallMethod( IsSimpleQPAModule, 
    "for a module over a quotient of a path algebra",
    [ IsPathAlgebraMatModule ], 0,
    function( M ) ; 
@@ -1784,14 +1784,14 @@ end
 
 #######################################################################
 ##
-#M  DirectSumOfModules( <L> )
+#M  DirectSumOfQPAModules( <L> )
 ##
 ##  <L> is a list of modules over a path algebra.  The function computes
 ##  and returns the direct sum of all modules in <L>.  The projections
 ##  and inclusions between the modules in <L> and the direct sum is stored
 ##  as attributes of the direct sum.
 ##
-InstallMethod( DirectSumOfModules,
+InstallMethod( DirectSumOfQPAModules,
    "for a list of modules over a path algebra",
    [ IsList ], 0,
    function( L ) 
@@ -2111,10 +2111,10 @@ InstallMethod( IsIndecomposableModule,
     if IsFinite(K) then 
         return Length(DecomposeModule(M)) = 1;
     fi;
-    if IsSimpleModule( TopOfModule(M) ) then
+    if IsSimpleQPAModule( TopOfModule(M) ) then
         return true;
     fi;
-    if IsSimpleModule( SocleOfModule(M) ) then
+    if IsSimpleQPAModule( SocleOfModule(M) ) then
         return true;
     fi;
     TryNextMethod();
@@ -2218,4 +2218,20 @@ InstallMethod ( ComplexityOfAlgebra,
         Error("entered algebra is not finite dimensional or an admissible quotient of a path algebra,\n");
     fi;
 end 
+  );
+
+#######################################################################
+##
+#P  IsZero( <M> )
+##
+##  This function returns true if the entered module  <M>  is zero, 
+##  otherwise it returns false. 
+##
+InstallOtherMethod( IsZero,
+    "for a PathAlgebraMatModule",
+    [ IsPathAlgebraMatModule ], 0,
+    function( M );
+    
+    return Dimension(M) = 0;
+end
   );

@@ -46,7 +46,7 @@ Auslander-Reiten theory in QPA.<P/>
     occur in the output, it means that this valuation has not been 
     computed. 
 
-    The function assumses that the module <Arg>M</Arg> is indecomposable 
+    The function assumes that the module <Arg>M</Arg> is indecomposable 
     and that the quotient of the path algebra is given over a finite field. 
    </Description>
 </ManSection>

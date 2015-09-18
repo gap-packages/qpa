@@ -135,9 +135,9 @@ end );
 InstallGlobalFunction( ZeroComplex,
 function( cat )
     local fam, C;
-    fam := NewFamily( "ComplexesFamily", IsComplex );
+    fam := NewFamily( "ComplexesFamily", IsQPAComplex );
     fam!.cat := cat;
-    C := Objectify( NewType( fam, IsZeroComplex and IsComplexDefaultRep ),
+    C := Objectify( NewType( fam, IsZeroComplex and IsQPAComplexDefaultRep ),
                     rec( ) );
     SetCatOfComplex( C, cat );
     SetDifferentialsOfComplex( C, ConstantInfList( cat.zeroMap( cat.zeroObj, cat.zeroObj ) ) );
@@ -260,10 +260,10 @@ function( cat, basePosition, middle, positive, negative )
 
     # Create the complex object
 
-    fam := NewFamily( "family of complexes", IsComplex );
+    fam := NewFamily( "family of complexes", IsQPAComplex );
     fam!.cat := cat;
 
-    C := Objectify( NewType( fam, IsComplex and IsComplexDefaultRep ),
+    C := Objectify( NewType( fam, IsQPAComplex and IsQPAComplexDefaultRep ),
                     rec( ) );
     SetCatOfComplex( C, cat );
 
@@ -271,11 +271,8 @@ function( cat, basePosition, middle, positive, negative )
 
     basePositionL := basePosition;
     middleL := middle;
-    if positive = "zero" or negative = "zero" then
-        firstMiddleObj := Range( middle[ 1 ] );
-        lastMiddleObj := Source( middle[ Length( middle ) ] );
-    fi;
     if positive = "zero" then
+        lastMiddleObj := Source( middle[ Length( middle ) ] );
         # add zero object at the end if necessary:
         if not cat.isZeroObj( lastMiddleObj ) then
             middleL := Concatenation( middleL,
@@ -287,8 +284,9 @@ function( cat, basePosition, middle, positive, negative )
         od;
     fi;
     if negative = "zero" then
+        firstMiddleObj := Range( middle[ 1 ] );
         # add zero object at the end if necessary:
-        if not cat.isZeroObj( lastMiddleObj ) then
+        if not cat.isZeroObj( firstMiddleObj ) then
             middleL := Concatenation( [ cat.zeroMap( firstMiddleObj, cat.zeroObj ) ],
                                       middleL );
             basePositionL := basePositionL - 1;
@@ -356,7 +354,7 @@ end );
 ##  Returns the differential in degree <i> of the complex <C>.
 ##  
 InstallMethod( DifferentialOfComplex,
-[ IsComplex, IsInt ],
+[ IsQPAComplex, IsInt ],
 function( C, i )
     return DifferentialsOfComplex( C )^i;
 end );
@@ -368,7 +366,7 @@ end );
 ##  Returns the object in degree <i> of the complex <C>.
 ##  
 InstallMethod( ObjectOfComplex,
-[ IsComplex, IsInt ],
+[ IsQPAComplex, IsInt ],
 function( C, i )
     return Source( DifferentialOfComplex( C, i ) );
 end );
@@ -380,7 +378,7 @@ end );
 ##  Is this in use??
 ##  
 InstallMethod( \^,
-[ IsComplex, IsInt ],
+[ IsQPAComplex, IsInt ],
 function( C, i )
     return DifferentialOfComplex( C, i );
 end );
@@ -393,7 +391,7 @@ end );
 ##  complex, that is the subobject Ker(d_i) of the object in degree i.
 ##  
 InstallMethod( CyclesOfComplex,
-[ IsComplex, IsInt ],
+[ IsQPAComplex, IsInt ],
 function( C, i )
     return Kernel( DifferentialOfComplex( C, i ) );
 end );
@@ -406,7 +404,7 @@ end );
 ##  complex, that is the subobject Im(d_{i+1}) of the object in degree i.
 ##  
 InstallMethod( BoundariesOfComplex,
-[ IsComplex, IsInt ],
+[ IsQPAComplex, IsInt ],
 function( C, i )
     return Image( DifferentialOfComplex( C, i + 1 ) );
 end );
@@ -421,7 +419,7 @@ end );
 ##  TODO: Does not currently work (see the documentation).
 ##  
 InstallMethod( HomologyOfComplex, # TODO: this does not work
-[ IsComplex, IsInt ],
+[ IsQPAComplex, IsInt ],
 function( C, i )
     return CyclesOfComplex( C, i ) / BoundariesOfComplex( C, i );
 end );
@@ -433,7 +431,7 @@ end );
 ##  Returns true if the complex <C> is a finite complex, false otherwise.
 ##  
 InstallMethod( IsFiniteComplex,
-[ IsComplex ],
+[ IsQPAComplex ],
 function( C )
     local upbound, lowbound;
 
@@ -461,7 +459,7 @@ end );
 ##  lenght is infinity.
 ##  
 InstallMethod( LengthOfComplex,
-[ IsComplex ],
+[ IsQPAComplex ],
 function( C )
     local finiteness;
     finiteness := IsFiniteComplex( C );
@@ -484,7 +482,7 @@ end );
 ##  is known (or computed). For a finite complex, this will be infinity.
 ##  
 InstallMethod( HighestKnownDegree,
-[ IsComplex ],
+[ IsQPAComplex ],
 function( C )
     return HighestKnownPosition( DifferentialsOfComplex( C ) );
 end );
@@ -498,7 +496,7 @@ end );
 ##  infinity.
 ##  
 InstallMethod( LowestKnownDegree,
-[ IsComplex ],
+[ IsQPAComplex ],
 function( C )
     return LowestKnownPosition( DifferentialsOfComplex( C ) );
 end );
@@ -511,7 +509,7 @@ end );
 ##  is not finite and not repeating, the function fails.
 ##  
 InstallMethod( IsExactSequence,
-[ IsComplex ],
+[ IsQPAComplex ],
 function( C )
     return ForEveryDegree( C, CatOfComplex( C ).isExact );
 end );
@@ -523,7 +521,7 @@ end );
 ##  Returns true if the complex <C> is exact in degree <i>.
 ##  
 InstallMethod( IsExactInDegree,
-[ IsComplex, IsInt ],
+[ IsQPAComplex, IsInt ],
 function( C, i )
     return CatOfComplex( C ).isExact( DifferentialOfComplex( C, i ),
                                       DifferentialOfComplex( C, i + 1 ) );
@@ -537,7 +535,7 @@ end );
 ##  objects, which are consecutive.
 ##  
 InstallMethod( IsShortExactSequence,
-[ IsComplex ],
+[ IsQPAComplex ],
 function( C )
     local length;
     length := LengthOfComplex( C );
@@ -560,7 +558,7 @@ end );
 ##  is uknown, i.e. if the complex is infinite and not repeating.
 ##  
 InstallMethod( ForEveryDegree, # TODO: misleading name?
-[ IsComplex, IsFunction ],
+[ IsQPAComplex, IsFunction ],
 function( C, func )
     local diffs, pos, neg, i;
     diffs := DifferentialsOfComplex( C );
@@ -590,7 +588,7 @@ end );
 ##  fail or infinity, depending on how C was defined.
 ##  
 InstallMethod( UpperBound,
-[ IsComplex ],
+[ IsQPAComplex ],
 function( C )
     local cat, diffs, positive, i;
 
@@ -628,7 +626,7 @@ end );
 ##  fail or negative infinity, depending on how C was defined.
 ##
 InstallMethod( LowerBound,
-[ IsComplex ],
+[ IsQPAComplex ],
 function( C )
     local cat, diffs, negative, i;
 
@@ -663,7 +661,7 @@ end );
 ##  complex <C> is repeating.
 ##
 InstallMethod( IsPositiveRepeating,
-[ IsComplex ],
+[ IsQPAComplex ],
 function( C )
     return IsRepeating( PositivePart( DifferentialsOfComplex( C ) ) );
 end );
@@ -676,7 +674,7 @@ end );
 ##  complex <C> is repeating.
 ##
 InstallMethod( IsNegativeRepeating,
-[ IsComplex ],
+[ IsQPAComplex ],
 function( C )
     return IsRepeating( NegativePart( DifferentialsOfComplex( C ) ) );
 end );
@@ -693,7 +691,7 @@ end );
 ##  IsPositiveRepeating(C) is false.
 ##
 InstallMethod( PositiveRepeatDegrees,
-[ IsComplex ],
+[ IsQPAComplex ],
 function( C )
     local positive, first, last;
     positive := PositivePart( DifferentialsOfComplex( C ) );
@@ -717,7 +715,7 @@ end );
 ##  IsNegativeRepeating(C) is false.
 ##
 InstallMethod( NegativeRepeatDegrees,
-[ IsComplex ],
+[ IsQPAComplex ],
 function( C )
     local negative, first, last;
     negative := NegativePart( DifferentialsOfComplex( C ) );
@@ -737,7 +735,7 @@ end );
 ##  change if i is odd.
 ##
 InstallMethod( Shift,
-[ IsComplex, IsInt ],
+[ IsQPAComplex, IsInt ],
 function( C, shift )
     local newDifferentials;
 
@@ -759,7 +757,7 @@ end );
 ##  algebraic' operation, but useful for manipulating complexes.
 ##
 InstallMethod( ShiftUnsigned,
-[ IsComplex, IsInt ],
+[ IsQPAComplex, IsInt ],
 function( C, shift )
     local newDifferentials;
     
@@ -778,7 +776,7 @@ end );
 ##  for a more precise definition).
 ##  
 InstallMethod( YonedaProduct,
-[ IsComplex, IsComplex ],
+[ IsQPAComplex, IsQPAComplex ],
 function( C1, C2 )
     local cat, lowbound1, upbound2, diff1, diff2, connection, diffs;
 
@@ -822,7 +820,7 @@ end );
 ##  where Z_i is the i-cycle of C.
 ##  
 InstallMethod( GoodTruncationBelow,
-[ IsComplex, IsInt ],
+[ IsQPAComplex, IsInt ],
 function( C, i )
     local cat, difflist, truncpart, newpart, zeropart, newdifflist, kerinc;
 
@@ -853,7 +851,7 @@ end );
 ##  where Z_i is the i-cycle of C.
 ##  
 InstallMethod( GoodTruncationAbove,
- [ IsComplex, IsInt ],
+ [ IsQPAComplex, IsInt ],
 function( C, i )
     local cat, difflist, truncpart, newpart, zeropart, newdifflist, factor, factorinclusion,
           kerinc, factorproj;
@@ -876,7 +874,7 @@ function( C, i )
 end );
 
 # TODO!
-# InstallMethod( GoodTruncation, [ IsComplex, IsInt, IsInt ] );
+# InstallMethod( GoodTruncation, [ IsQPAComplex, IsInt, IsInt ] );
 
 #######################################################################
 ##
@@ -889,7 +887,7 @@ end );
 ##    ... --> C_{i+1} --> C_i --> 0 --> 0 --> ...
 ##
 InstallMethod( BrutalTruncationBelow,
-[ IsComplex, IsInt ],
+[ IsQPAComplex, IsInt ],
 function( C, i )
     local cat, difflist, truncpart, newpart, zeropart, newdifflist;
     
@@ -917,7 +915,7 @@ end );
 ##    ... --> 0 --> C_i --> C_{i-1} --> 
 ##
 InstallMethod( BrutalTruncationAbove,
-[ IsComplex, IsInt ],
+[ IsQPAComplex, IsInt ],
 function( C, i )
     local cat, difflist, truncpart, newpart, zeropart, newdifflist;
     
@@ -945,7 +943,7 @@ end );
 ##    ... --> 0 --> C_i --> C_{i-1} --> ... --> C_j --> 0 --> ...
 ##
 InstallMethod( BrutalTruncation, 
-[ IsComplex, IsInt, IsInt ],
+[ IsQPAComplex, IsInt, IsInt ],
 function( C, i, j )
     local cat, difflist, middlediffs, truncpart, newpart1, zeropart1, 
           newpart2, zeropart2, newdifflist;
@@ -968,7 +966,7 @@ end );
 ##    ... --> 0 --> ker(d_i) --> C_i --> C_{i-1} --> ...
 ##
 InstallMethod( SyzygyTruncation, 
-[ IsComplex, IsInt ],
+[ IsQPAComplex, IsInt ],
 function( C, i )
     local cat, difflist, truncpart, kernelinc, newpart, kernel,
           zeropart, newdifflist;
@@ -1001,7 +999,7 @@ end );
 ##    ... --> C_i --> C_{i-1} --> cok(d_i) --> 0 --> ...
 ##
 InstallMethod( CosyzygyTruncation, 
-[ IsComplex, IsInt ],
+[ IsQPAComplex, IsInt ],
 function( C, i )
     local cat, difflist, truncpart, newpart,
           zeropart, newdifflist, cokerproj, coker;
@@ -1035,7 +1033,7 @@ end );
 ##    ... --> 0 --> ker(d_i) --> C_i --> ... --> C_{j+1} --> cok(d_j) --> 0 --> ...
 ##
 InstallMethod( SyzygyCosyzygyTruncation, 
-[ IsComplex, IsInt, IsInt ],
+[ IsQPAComplex, IsInt, IsInt ],
 function( C, i, j )
     local cat, difflist, truncpart, newdifflist, cokerproj, coker, 
           kernelinc, kernel, newpart1, zeropart1, newpart2, zeropart2, middlediffs;
@@ -1082,7 +1080,7 @@ end );
 ##  as a finite complex.
 ##
 InstallMethod( CutComplexAbove,
-[ IsComplex ],
+[ IsQPAComplex ],
 function( C )
     local i, obj;
     if (IsInt(UpperBound(C))) then
@@ -1109,7 +1107,7 @@ end );
 ##  as a finite complex.
 ##
 InstallMethod( CutComplexBelow,
-[ IsComplex ],
+[ IsQPAComplex ],
 function( C )
     local i, obj;
     if (IsInt(LowerBound(C))) then
@@ -1139,9 +1137,9 @@ InstallGlobalFunction( ComplexByDifferentialList,
 function( cat, differentials )
     local C, fam;
 
-    fam := NewFamily( "ComplexesFamily", IsComplex );
+    fam := NewFamily( "ComplexesFamily", IsQPAComplex );
     fam!.cat := cat;
-    C := Objectify( NewType( fam, IsComplex and IsComplexDefaultRep ),
+    C := Objectify( NewType( fam, IsQPAComplex and IsQPAComplexDefaultRep ),
                     rec( ) );
     SetCatOfComplex( C, cat );
     SetDifferentialsOfComplex( C, differentials );
@@ -1168,7 +1166,7 @@ end );
 ##  Prints a non-zero complex
 ##  
 InstallMethod( PrintObj,
-[ IsComplex ],
+[ IsQPAComplex ],
 function( C )
     local cat, diffs, i, upbound, lowbound, top, bottom;
 
@@ -1204,9 +1202,11 @@ function( C )
         Print( "] " );
     fi;
 
-    for i in [ top, top - 1 .. bottom ] do
+    if IsInt( top ) and IsInt( bottom ) then
+      for i in [ top, top - 1 .. bottom ] do
         Print( i, ":", cat.objStr( ObjectOfComplex( C, i ) ), " -> " );
-    od;
+      od;
+    fi;
 
     if IsNegativeRepeating( C ) and lowbound = NegativeInfinity then
         Print( "[ " );
@@ -1243,7 +1243,7 @@ function( M )
     return Complex( CatOfRightAlgebraModules( ActingAlgebra( M ) ),
                     0,
                     [ cover ],
-                    [ "next", nextDifferential, cover ],
+                    [ "next/repeat", nextDifferential, cover ],
                     "zero" );
 end );
 
@@ -1256,7 +1256,7 @@ end );
 ##  
 InstallMethod( ChainMap,
                "for complexes, int and lists",
-               [ IsComplex, IsComplex, IsInt, IsList, IsList, IsList ],
+               [ IsQPAComplex, IsQPAComplex, IsInt, IsList, IsList, IsList ],
 function( source, range, basePosition, middle, positive, negative )
     local cat, fam, map, positiveL, negativeL, numZeroMaps, i,
           correctDomainAt, correctCodomainAt, commutesAt,
@@ -1591,7 +1591,7 @@ end );
 ##  complexes <source> and <range>.
 ##  
 InstallGlobalFunction( ZeroChainMap,
-[ IsComplex, IsComplex ],
+[ IsQPAComplex, IsQPAComplex ],
 function( source, range )
     return ChainMap( source, range, 0, [], "zero", "zero" );
 end );
@@ -1607,7 +1607,7 @@ end );
 ##  <PC> to <EC> which lifts the map <f> (it has <f> in degree i).
 ##  
 InstallMethod( ComparisonLifting,
-               [ IsPathAlgebraMatModuleHomomorphism, IsComplex, IsComplex ],
+               [ IsPathAlgebraMatModuleHomomorphism, IsQPAComplex, IsQPAComplex ],
                function( f, PC, EC )
     local lbound, surjection, middle, nextLifting, nextLiftingFunction, i, j, chainmap;
 
@@ -1708,8 +1708,8 @@ function( f )
 #  Construct the first differential of the cone, and the first projection/inclusion morphisms
 #
 
-    dirsum := DirectSumOfModules( [ ObjectOfComplex(A,i-1), ObjectOfComplex(B,i) ] );
-    dirsum2 := DirectSumOfModules( [ ObjectOfComplex(A,i-2), ObjectOfComplex(B,i-1) ] );
+    dirsum := DirectSumOfQPAModules( [ ObjectOfComplex(A,i-1), ObjectOfComplex(B,i) ] );
+    dirsum2 := DirectSumOfQPAModules( [ ObjectOfComplex(A,i-2), ObjectOfComplex(B,i-1) ] );
     diff := MultiplyListsOfMaps( DirectSumProjections(dirsum),
                                  [[ -DifferentialOfComplex(A,i-1),
                                     ZeroMapping(ObjectOfComplex(B,i), ObjectOfComplex(A,i-2)) ],
@@ -1722,7 +1722,7 @@ function( f )
 #
     positiveFunction := function(C,inmap,outmap,i)
         local nextObj, prevObj, nextDiff;
-        nextObj := DirectSumOfModules( [ ObjectOfComplex(A,i-1), ObjectOfComplex(B,i) ] );
+        nextObj := DirectSumOfQPAModules( [ ObjectOfComplex(A,i-1), ObjectOfComplex(B,i) ] );
         prevObj := Source(DifferentialOfComplex(C,i-1));
 
         nextDiff :=  MultiplyListsOfMaps( DirectSumProjections(nextObj),
@@ -1739,7 +1739,7 @@ function( f )
 #
     negativeFunction := function(C,inmap,outmap,i)
         local nextObj, prevObj, nextDiff;
-        nextObj := DirectSumOfModules( [ ObjectOfComplex(A,i-2), ObjectOfComplex(B,i-1) ] );
+        nextObj := DirectSumOfQPAModules( [ ObjectOfComplex(A,i-2), ObjectOfComplex(B,i-1) ] );
         prevObj := Range(DifferentialOfComplex(C,i+1));
 
         nextDiff := MultiplyListsOfMaps( DirectSumProjections(prevObj),

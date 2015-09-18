@@ -1,4 +1,233 @@
 ==========================================================================
+Changes from version 1.20 to 1.21:
+==========================================================================
+
+Added structures in this release:
+----------------------------------------------------------------------
+
+None
+
+Added functions in this release:
+----------------------------------------------------------------------
+
+None
+
+Changed code for:
+----------------------------------------------------------------------
+
+None
+
+Fixed bugs in:
+----------------------------------------------------------------------
+
+IsAdmissibleIdeal 
+
+Documentation:
+----------------------------------------------------------------------
+
+Documentation was updated. 
+
+Changes in function names:
+Old name -------> New name
+------------------------------------------------------------
+
+DirectSumOfModules ----> DirectSumOfQPAModules (conflict with
+                                the happrime package)
+
+Synonyms
+------------------------------------------------------------
+
+None
+
+Discontinued functions:
+------------------------------------------------------------
+
+None
+
+Miscellaneous
+------------------------------------------------------------
+
+Updated PackageInfo.g (removing any reference to SourceForge
+and replacing it with GitHub information), tst/testall.tst, 
+
+
+==========================================================================
+Changes from version 1.19 to 1.20:
+==========================================================================
+
+Added structures in this release:
+----------------------------------------------------------------------
+
+None
+
+Added functions in this release:
+----------------------------------------------------------------------
+
+None
+
+Changed code for:
+----------------------------------------------------------------------
+
+PrimitiveIdempotents  (change from a global function to an attribute)
+
+Fixed bugs in:
+----------------------------------------------------------------------
+
+None
+
+Documentation:
+----------------------------------------------------------------------
+
+Documentation was updated. 
+
+Changes in function names:
+Old name -------> New name
+------------------------------------------------------------
+
+PrimitiveIdempotentsOfSimpleAlgebra ----> PrimitiveIdempotents
+   (went back to name prior to last change)
+
+Synonyms
+------------------------------------------------------------
+
+None
+
+Discontinued functions:
+------------------------------------------------------------
+
+AsLeftModuleModuleGeneralMappingByImages (remove implementation
+     of this function as it was conflicting the test  alghom.tst
+     and it was not in use in QPA). 
+
+Miscellaneous
+------------------------------------------------------------
+
+None
+
+==========================================================================
+Changes from version 1.18 to 1.19:
+==========================================================================
+
+Added structures in this release:
+----------------------------------------------------------------------
+
+None
+
+Added functions in this release:
+----------------------------------------------------------------------
+
+IsHereditaryAlgebra
+IsSemisimpleAlgebra (added method)
+
+Changed code for:
+----------------------------------------------------------------------
+
+AlgebraAsModuleOverEnvelopingAlgebra (takes the algebra as an argument
+                                      instead of the enveloping 
+                                      algebra of the algebra)
+FaithfulDimension (changed from operation to attribute)
+
+Fixed bugs in:
+----------------------------------------------------------------------
+
+None
+
+Documentation:
+----------------------------------------------------------------------
+
+Documentation was added and updated. 
+
+Changes in function names:
+Old name -------> New name
+------------------------------------------------------------
+ConnectedComponents ----> ConnectedComponentsOfQuiver
+IsComplex ----> IsQPAComplex
+IsSimpleModule ----> IsSimpleQPAModule
+IsVertex ----> IsQuiverVertex 
+PrimitiveIdempotents ----> PrimitiveIdempotentsOfSimpleAlgebra
+
+Synonyms
+------------------------------------------------------------
+
+None
+
+Discontinued functions:
+------------------------------------------------------------
+
+Removed two attributes "P0" and "P1" of a 
+"IsProjectiveResolution" as they were not in use in QPA and 
+they are likely to overwrite other variables when QPA is 
+loaded.  Pointed out by A. Konovalov.
+
+Miscellaneous
+------------------------------------------------------------
+
+Removed the bin directory from the repository (not in use, 
+pointed out by A. Konovalov).  Trimmed the file PackageInfo.g
+for comments. 
+
+==========================================================================
+Changes from version 1.17 to 1.18:
+==========================================================================
+
+Added structures in this release:
+----------------------------------------------------------------------
+
+None
+
+Added functions in this release:
+----------------------------------------------------------------------
+
+IsHereditaryAlgebra (added a method).
+LeftInverseOfHomomorphism
+RightInverseOfHomomorphism
+
+Changed code for:
+----------------------------------------------------------------------
+
+ChainMap
+IsIsomorphism
+IsSplitMonomorphism (made into a property)
+IsSplitEpimorphism (made into a property)
+IsomorphismOfModules
+MoreLeftMinimalVersion
+
+Fixed bugs in:
+----------------------------------------------------------------------
+
+TransposeOfModule (Reported by Florian Eisele).
+TrivialExtensionOfQuiverAlgebra
+
+Documentation:
+----------------------------------------------------------------------
+
+Documentation was added and updated. 
+
+Changes in function names:
+Old name -------> New name
+------------------------------------------------------------
+
+None
+
+Synonyms
+------------------------------------------------------------
+
+None
+
+Discontinued functions:
+------------------------------------------------------------
+
+None
+
+Miscellaneous
+------------------------------------------------------------
+
+Removed a conflicting declaration and definition of the
+       command NewBasis.
+Updated PackageInfo.g, README, init.g and read.g.
+Added a test file, tst/testall.tst
+
+==========================================================================
 Changes from version 1.16 to 1.17:
 ==========================================================================
 

@@ -10,7 +10,7 @@
 ## consists of projectives.
 ##
 InstallMethod( IsProjectiveComplex,
-               [ IsComplex ],
+               [ IsQPAComplex ],
                function( C )
 
     local i, obj;
@@ -37,7 +37,7 @@ end);
 ## consists of injectives.
 ##
 InstallMethod( IsInjectiveComplex,
-               [ IsComplex ],
+               [ IsQPAComplex ],
                function( C )
     local i, obj;
 
@@ -195,7 +195,7 @@ end);
 ## C' is an element of the homotopty category K^(b)(P).
 ##
 InstallMethod( ProjectiveResolutionOfComplex,
-               [ IsComplex ],
+               [ IsQPAComplex ],
                function( C )
 
     local cat, dList, tList, t1, PB1, PC1, pos, ker, h, PB, PC, lastKernel, i,
@@ -255,7 +255,7 @@ InstallMethod( ProjectiveResolutionOfComplex,
         h := ker*tList[pos+1];
 
         # note: the following check shouldn't really be in this
-        # method, but is needed due to the fact that DirectSumOfModules
+        # method, but is needed due to the fact that DirectSumOfQPAModules
         # can't handle zero objects.
         if(IsZero(DimensionVector(Source(ker))) and 
            IsZero(DimensionVector(ObjectOfComplex(C,pos+1+i)))) then
@@ -516,7 +516,7 @@ end);
 ## finite global dimension.
 ##
 InstallMethod( TauOfComplex,
-               [ IsComplex ],
+               [ IsQPAComplex ],
                function( C )
     
     local cat, projVersion, tau, injVersion;
@@ -543,7 +543,7 @@ end);
 ## the next method is used.
 ##
 InstallMethod( ProjectiveToInjectiveComplex,
-               [ IsComplex ],
+               [ IsQPAComplex ],
                function( PCompl )
     
     local A, cat, start, stop, injectives, inj1, inj2,
@@ -569,7 +569,7 @@ InstallMethod( ProjectiveToInjectiveComplex,
     middle := [];
     descr1 := DescriptionOfProjComplexInDegree(PCompl, start);
     inj1 := List(descr1, x -> injectives[x]);
-    inj1 := DirectSumOfModules(inj1);
+    inj1 := DirectSumOfQPAModules(inj1);
 
     for i in [(start+1)..stop] do
         descr2 := DescriptionOfProjComplexInDegree(PCompl, i);
@@ -584,7 +584,7 @@ InstallMethod( ProjectiveToInjectiveComplex,
         
         # constructing the correct injectives
         inj2 := List(descr2, x -> injectives[x]);
-        inj2 := DirectSumOfModules(inj2);
+        inj2 := DirectSumOfQPAModules(inj2);
 
         # constructing the map between the injectives
         injmap := RightModuleHomOverAlgebra(inj2,inj1,mats);
@@ -608,7 +608,7 @@ InstallMethod( ProjectiveToInjectiveComplex,
         u := StarOfMapBetweenProjectives(f, descr1, descr2);
         mats := MatricesOfDualMap(u);
         inj1 := List(descr1, x -> injectives[x]);
-        inj1 := DirectSumOfModules(inj1);
+        inj1 := DirectSumOfQPAModules(inj1);
         return RightModuleHomOverAlgebra(inj1, rangeobj, mats);
     end;
     ICompl := Complex( cat,
@@ -633,7 +633,7 @@ end);
 ## explicitly calling this method.
 ##
 InstallMethod( ProjectiveToInjectiveFiniteComplex,
-               [ IsComplex ],
+               [ IsQPAComplex ],
                function( PCompl )
 
     local A, cat, start, stop, descr, maplist, i, f, u, mats, x, inj1,
@@ -658,7 +658,7 @@ InstallMethod( ProjectiveToInjectiveFiniteComplex,
     
     # the first injective
     inj1 := List(descr[1], x -> injectives[x]);
-    inj1 := DirectSumOfModules(inj1);
+    inj1 := DirectSumOfQPAModules(inj1);
 
 
     for i in [(start+1)..stop] do
@@ -669,7 +669,7 @@ InstallMethod( ProjectiveToInjectiveFiniteComplex,
         
         # constructing the correct injectives
         inj2 := List(descr[i+1-start], x -> injectives[x]);
-        inj2 := DirectSumOfModules(inj2);
+        inj2 := DirectSumOfQPAModules(inj2);
 
         # constructing the map between the injectives
         injmap := RightModuleHomOverAlgebra(inj2,inj1,mats);
@@ -791,7 +791,7 @@ InstallMethod( StarOfMapBetweenIndecProjectives,
         fi;
     od;
     source := List(u_list, u -> Source(u));
-    source := DirectSumOfModules(source);
+    source := DirectSumOfQPAModules(source);
     projections := DirectSumProjections(source);
     return projections*u_list;
 
@@ -838,7 +838,7 @@ InstallMethod( StarOfMapBetweenDecompProjectives,
     fi;
 
     range := List(maplist, m-> Range(m));
-    range := DirectSumOfModules(range);
+    range := DirectSumOfQPAModules(range);
     inclusions := DirectSumInclusions(range);
     return maplist*inclusions;
 
@@ -896,7 +896,7 @@ end);
 ## projectives in degree <i> of <C>.
 ##
 InstallMethod( DescriptionOfProjComplexInDegree,
-               [ IsComplex, IsInt ],
+               [ IsQPAComplex, IsInt ],
                function( C, i )
     return DescriptionOfProjOrInjComplexInDegree(C, i, true);
 end);
@@ -912,7 +912,7 @@ end);
 ## injectives in degree <i> of <C>.
 ##
 InstallMethod( DescriptionOfInjComplexInDegree,
-               [ IsComplex, IsInt ],
+               [ IsQPAComplex, IsInt ],
                function( C, i )
     return DescriptionOfProjOrInjComplexInDegree(C, i, false);
 end);
@@ -932,7 +932,7 @@ end);
 ## projectives or injectives in degree <i> of <C>.
 ##
 InstallMethod( DescriptionOfProjOrInjComplexInDegree,
-               [ IsComplex, IsInt, IsBool ],
+               [ IsQPAComplex, IsInt, IsBool ],
                function( C, i, test )
     local obj,comp, list, incls, incl;
     
@@ -973,7 +973,7 @@ end);
 ## projectives in this degree.
 ##
 InstallMethod( DescriptionOfFiniteProjComplex,
-               [ IsComplex ],
+               [ IsQPAComplex ],
                function( C )
     return DescriptionOfFiniteProjOrInjComplex(C,true);
 end);
@@ -990,7 +990,7 @@ end);
 ## injectives in this degree.
 ##
 InstallMethod( DescriptionOfFiniteInjComplex,
-               [ IsComplex ],
+               [ IsQPAComplex ],
                function( C )
     return DescriptionOfFiniteProjOrInjComplex(C,false);
 end);
@@ -1011,7 +1011,7 @@ end);
 ## projectives/injectives in this degree.
 ##
 InstallMethod( DescriptionOfFiniteProjOrInjComplex,
-               [ IsComplex, IsBool ],
+               [ IsQPAComplex, IsBool ],
                function( C, test )
 
     local i,obj,comp, incls, incl, list, templist, start, stop;
@@ -1219,7 +1219,7 @@ InstallMethod( DirectSumMinusSummands,
         return[ZeroMapping(ZeroModule(RightActingAlgebra(M)),M),
                ZeroMapping(M, ZeroModule(RightActingAlgebra(M)))];
     fi;
-    newModule := DirectSumOfModules(tempSource);
+    newModule := DirectSumOfQPAModules(tempSource);
 
     # projections from new module to all dir. summands of the original module
     sourceProjections := DirectSumProjections(newModule);

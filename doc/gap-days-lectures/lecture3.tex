@@ -1,0 +1,622 @@
+\newcommand{\QPAIntroPartNumber}{3}
+\input{lecture-preamble}
+\renewcommand{\mod}{\operatorname{mod}\nolimits}
+\newcommand{\umod}{\operatorname{\underline{mod}}\nolimits}
+\newcommand{\omod}{\operatorname{\overline{mod}}\nolimits}
+\newcommand{\gr}{{\operatorname{gr}\nolimits}}
+\newcommand{\add}{\operatorname{add}\nolimits}
+\newcommand{\obj}{\operatorname{obj}\nolimits}
+\newcommand{\rk}{\operatorname{rank}\nolimits}
+\newcommand{\kar}{\operatorname{char}\nolimits}
+\newcommand{\End}{\operatorname{End}\nolimits}
+\newcommand{\uHom}{\operatorname{\underline{Hom}}\nolimits}
+\newcommand{\oHom}{\operatorname{\overline{Hom}}\nolimits}
+\renewcommand{\Im}{\operatorname{Im}\nolimits}
+\newcommand{\Ker}{\operatorname{Ker}\nolimits}
+\newcommand{\Coker}{\operatorname{Coker}\nolimits}
+\newcommand{\rrad}{\mathfrak{r}}
+\newcommand{\Ann}{\operatorname{Ann}\nolimits}
+\newcommand{\Soc}{\operatorname{Soc}\nolimits}
+\newcommand{\Tr}{\operatorname{Tr}\nolimits}
+\newcommand{\Ext}{\operatorname{Ext}\nolimits}
+\newcommand{\cExt}{\operatorname{\widehat{Ext}}\nolimits}
+\newcommand{\op}{{\operatorname{op}\nolimits}}
+\newcommand{\Ab}{{\operatorname{Ab}\nolimits}}
+\newcommand{\CM}{{\operatorname{CM}\nolimits}}
+\newcommand{\domdim}{{\operatorname{domdim}\nolimits}}
+\newcommand{\gldim}{{\operatorname{gldim}\nolimits}}
+\newcommand{\resdim}{{\operatorname{resdim}\nolimits}}
+\newcommand{\id}{{\operatorname{id}\nolimits}}
+\newcommand{\pd}{{\operatorname{pd}\nolimits}}
+\newcommand{\comp}{\operatorname{\scriptstyle\circ}}
+\newcommand{\m}{\mathfrak{m}}
+\newcommand{\frakp}{\mathfrak{p}}
+\newcommand{\fraka}{\mathfrak{a}}
+\newcommand{\frakb}{\mathfrak{b}}
+\newcommand{\frakc}{\mathfrak{c}}
+\newcommand{\frako}{\mathfrak{o}}
+\newcommand{\frakt}{\mathfrak{t}}
+\newcommand{\G}{\Gamma}
+\renewcommand{\L}{\Lambda}
+\newcommand{\Z}{{\mathbb Z}}
+\newcommand{\B}{{\mathcal B}}
+\newcommand{\C}{{\mathcal C}}
+\newcommand{\D}{{\mathcal D}}
+\newcommand{\E}{{\mathcal E}}
+\newcommand{\I}{{\mathcal I}}
+\newcommand{\N}{{\mathcal N}}
+\newcommand{\calO}{{\mathcal O}}
+\newcommand{\X}{{\mathcal X}}
+\newcommand{\Y}{{\mathcal Y}}
+\renewcommand{\P}{{\mathcal P}}
+\newcommand{\M}{{\mathcal M}}
+\newcommand{\extto}{\xrightarrow}
+\newcommand{\MaxSpec}{\operatorname{MaxSpec}\nolimits}
+\newcommand{\HH}{\operatorname{HH}\nolimits}
+\newcommand{\arrowtilde}{\widetilde{\rule{7mm}{0mm}}}
+\newcommand{\Ind}{\operatorname{Ind}\nolimits}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{Outline}
+  \tableofcontents
+\end{frame}
+
+\section{Homological algebra}
+
+\begin{frame}{Original aim}
+What we are not going to talk about:
+\begin{itemize}
+\item One original aim for QPA: \parbox[t]{5cm}{Do projective resolutions
+    using Gr\"obner basis.}
+\pause
+\item Based on a non-minimal projective resolution - Green-S-Zacharia.
+\item The resolution is available in QPA, \\
+          \texttt{ProjectiveResolutionOfPathAlgebraModule(N,3);}
+\pause
+\item But nothing is developed around it. 
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Projective cover}
+
+Applies to: Only finitely generated modules in QPA.\medskip
+
+Algorithm:
+
+\begin{enumerate}[\rm(1)] 
+\item Find minimal set of generators
+\item Find maps from indecomposable projective covering the generators
+\item Sum up the maps
+\end{enumerate}
+\pause 
+\begin{verbatim}
+gap> Q:= Quiver(3,[[1,2,"a"],[1,2,"b"],[2,2,"c"],
+     [2,3,"d"],[3,1,"e"]]);;
+gap> KQ:= PathAlgebra(Rationals, Q);;
+gap> AssignGeneratorVariables(KQ);;
+gap> A:= KQ/[d*e,c^2,a*c*d-b*d,e*a];;
+gap> S := SimpleModules(A)[1];;
+gap> f := ProjectiveCover(S);
+<<[ 1, 4, 3 ]> ---> <[ 1, 0, 0 ]>>
+\end{verbatim}
+
+\end{frame}
+
+\begin{frame}[fragile]{Injective envelope}
+
+Injective envelope not implemented directly.\medskip 
+
+Must use DIY:
+
+\begin{verbatim}
+gap> S := SimpleModules(A)[1];;
+gap> Sop := DualOfModule(S);
+<[ 1, 0, 0 ]>
+gap> fop := ProjectiveCover(Sop);
+<<[ 1, 0, 1 ]> ---> <[ 1, 0, 0 ]>>
+gap> f := DualOfModuleHomomorphism(fop);
+<<[ 1, 0, 0 ]> ---> <[ 1, 0, 1 ]>>
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Syzygies}
+
+Finding syzygies, that is, the kernels in a projective resolution, is
+based on finding kernels of \texttt{ProjectiveCover}s and this uses
+linear algebra.\medskip  
+
+The command:  \texttt{NthSyzygy} -- two arguments, one module $M$ and a
+positive integer $n$.  
+\begin{verbatim}
+gap> NthSyzygy(S,3);
+Computing syzygy number: 1 ...
+Dimension vector for syzygy: [ 0, 4, 3 ]
+Top of the 1th syzygy: [ 0, 2, 0 ]
+Computing syzygy number: 2 ...
+Dimension vector for syzygy: [ 0, 0, 1 ]
+Top of the 2th syzygy: [ 0, 0, 1 ]
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Syzygies}
+
+\begin{verbatim}
+Computing syzygy number: 3 ...
+Dimension vector for syzygy: [ 1, 2, 1 ]
+Top of the 3th syzygy: [ 1, 0, 0 ]
+<[ 1, 2, 1 ]>
+gap> NthSyzygy(S,20);
+Computing syzygy number: 1 ...
+Top of the 1th syzygy: [ 0, 2, 0 ]
+.....
+Top of the 3th syzygy: [ 1, 0, 0 ]
+Computing syzygy number: 4 ...
+Dimension vector for syzygy: [ 0, 2, 2 ]
+Top of the 4th syzygy: [ 0, 1, 0 ]
+The module has projective dimension 4.
+<[ 0, 2, 2 ]>
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Injective and projective dimension}
+
+\begin{itemize}
+\item Again based on using \texttt{ProjectiveCover}.
+\item Injective and projective dimension can be infinite!
+\item Can only check if they are less or equal to a number in general.
+\item In some situations, we know that they are finite.
+\item In general, no algorithm exists.
+\item In some cases (work in progress): Can prove infinite projective
+dimension.  Using modules over $kQ$ when $A = kQ/I$.  
+\end{itemize} 
+
+The command \texttt{InjDimensionOfModule} and
+\texttt{ProjDimensionOfModule} takes two arguments, one module and one
+non-negative integer:
+\end{frame}
+
+\begin{frame}[fragile]{Injective and projective dimension}
+
+\begin{verbatim}
+gap> ProjDimensionOfModule(S,3);
+false
+gap> ProjDimensionOfModule(S,4);
+4
+gap> ProjDimension(S);
+4
+gap> InjDimensionOfModule(S,1); 
+false
+gap> InjDimensionOfModule(S,2);
+false
+gap> InjDimensionOfModule(S,3);
+3
+\end{verbatim}
+TODO: Set ProjDimension and InjDimension when computing NthSyzygy. 
+\end{frame}
+
+\begin{frame}[fragile]{Global dimension}
+\begin{itemize}
+\item Enough to check the projective dimension of the simple modules.
+\item Global dimension can be infinite!
+\item Can only check if it is less or equal to a number in general.
+\item $kQ$ = hereditary $\longrightarrow$ global dimension set in QPA
+\item $kQ/I$ and $Q$ no oriented cycle $\longrightarrow$ \parbox[t]{4cm}{global dimension finite, not
+implemented.}
+\item $kQ/I$ selfinjective $\longrightarrow$ \parbox[t]{6cm}{infinite global dimension, not implemented.}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Global dimension}
+\begin{verbatim}
+gap> A := NakayamaAlgebra(Rationals,[3,2,1]);;
+gap> GlobalDimension(A);
+1
+gap> A := NakayamaAlgebra(Rationals, [2]);;
+gap> GlobalDimensionOfAlgebra(A,3);
+infinity
+gap> A := NakayamaAlgebra(Rationals,
+            [3,3,3,3,3,3,3,2,1]);;
+gap> GlobalDimensionOfAlgebra(A,7);
+5
+\end{verbatim}
+Known bound for monomial algebras, not implemented. 
+\end{frame}
+
+\begin{frame}[fragile]{Pullback and pushout}
+Given
+\[\vcenter{\xymatrix{A\ar[r]^f\ar[d]_g & B\\ C & }}\]
+can construct pushout
+\[\xymatrix{A\ar[r]^f\ar[d]_g & B\ar[d]^{g'}\\ C\ar[r]^{f'} & E}\]
+\end{frame}
+
+\begin{frame}[fragile]{Pullback and pushout}
+\begin{verbatim}
+gap> A := NakayamaAlgebra(Rationals, [3,2,1]);;                       
+gap> B := IndecProjectiveModules(A)[1];
+<[ 1, 1, 1 ]>
+gap> f := RadicalOfModuleInclusion(B);
+<<[ 0, 1, 1 ]> ---> <[ 1, 1, 1 ]>>
+gap> g := TopOfModuleProjection(Source(f));
+<<[ 0, 1, 1 ]> ---> <[ 0, 1, 0 ]>>
+gap> po := PushOut(f,g);
+[ <<[ 0, 1, 0 ]> ---> <[ 1, 1, 0 ]>>,
+  <<[ 1, 1, 1 ]> ---> <[ 1, 1, 0 ]>> ]
+gap> Range(g) = Source(po[1]);
+true
+gap> Range(f) = Source(po[2]);
+true
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Pullback and pushout}
+Given
+\[\vcenter{\xymatrix{ & C\ar[d]^g\\  A\ar[r]^f & B,}}\]
+we can construct the pullback 
+\[\xymatrix{E\ar[r]^{f'}\ar[d]_{g'} & C\ar[d]^g\\ A\ar[r]^f & B.}\]
+\end{frame}
+
+\begin{frame}[fragile]{Pullback and pushout}
+
+\begin{verbatim}
+gap> g := CoKernelProjection(
+              SocleOfModuleInclusion(C));
+<<[ 1, 1, 1 ]> ---> <[ 1, 1, 0 ]>>
+gap> f := RadicalOfModuleInclusion(Range(g));
+<<[ 0, 1, 0 ]> ---> <[ 1, 1, 0 ]>>
+gap> pb := PullBack(f,g);
+[ <<[ 0, 1, 1 ]> ---> <[ 1, 1, 1 ]>>,
+  <<[ 0, 1, 1 ]> ---> <[ 0, 1, 0 ]>> ]
+\end{verbatim}
+\end{frame}
+
+\begin{frame}{Extensions}
+Given a projective resolution of a module $M$ 
+\[\cdots\to P_2\xrightarrow{d_2} P_1\xrightarrow{d_1}
+P_0\xrightarrow{d_0} M\to 0,\]
+the extension group $\Ext^1_\Lambda(M,N)$ is the homology 
+of 
+\[\Hom_\Lambda(P_0,N)\xrightarrow{d_1^*} \Hom_\Lambda(P_1,N)
+\xrightarrow{d_2^*} \Hom_\Lambda(P_2,N)
+\]
+in the middle term.  The kernel of $d_2^*$ can be identified with
+$\Hom_\Lambda(\Omega^1_\Lambda(M),N)$, so that 
+\[\Ext^1_\Lambda(M,N)\simeq \Hom_\Lambda(\Omega^1_\Lambda(M),N)/\{
+\Omega^1_\Lambda(M)\to P_0\xrightarrow{\forall f} N\}.\]  
+\end{frame}
+
+\begin{frame}{Extensions}
+The function \texttt{ExtOverAlgebra} takes two arguments, two modules
+$M$ and $N$, and returns a list of three elements: 
+\begin{enumerate}[\rm(1)]
+\item the inclusion $\Omega^1_\Lambda(M)\to P_0$, 
+\item a basis $\mathcal{B}$ over the ground field $k$ of
+  $\Ext^1_\Lambda(M,N)$ as homomorhisms from $\Omega^1_\Lambda(M)\to
+  N$, and 
+\item a function $\varphi\colon \Hom_\Lambda(\Omega^1_\Lambda(M),N)
+  \to k^{|\mathcal{B}|}$, which computes the coordinates of any
+  element in $\Hom_\Lambda(\Omega^1_\Lambda(M),N)$  as an element in 
+$\Ext^1_\Lambda(M,N)$. 
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[fragile]{Extensions}
+\begin{verbatim}
+gap> Q:= Quiver(3,[[1,2,"a"],[1,2,"b"],[2,2,"c"],
+                   [2,3,"d"],[3,1,"e"]]);;
+gap> KQ:= PathAlgebra(Rationals, Q);;
+gap> AssignGeneratorVariables(KQ);;
+#I  Assigned the global variables [ v1, v2, v3, 
+             a, b, c, d, e ]
+gap> A:= KQ/[d*e,c^2,a*c*d-b*d,e*a];;
+gap> S := SimpleModules(A)[1];;
+gap> M := Kernel(ProjectiveCover(S));;
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Extensions}
+\begin{verbatim}
+gap> ext := ExtOverAlgebra(S,M);
+[ <<[ 0, 4, 3 ]> ---> <[ 1, 4, 3 ]>>, 
+  [ <<[ 0, 4, 3 ]> ---> <[ 0, 4, 3 ]>>,
+    <<[ 0, 4, 3 ]> ---> <[ 0, 4, 3 ]>>, 
+    <<[ 0, 4, 3 ]> ---> <[ 0, 4, 3 ]>>,
+    <<[ 0, 4, 3 ]> ---> <[ 0, 4, 3 ]>>, 
+    <<[ 0, 4, 3 ]> ---> <[ 0, 4, 3 ]>> ],
+  function( map ) ... end ]
+gap> U := Source(ext[1]);;
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Extensions}
+\begin{verbatim}
+gap> homUM := HomOverAlgebra(U,M);
+[ <<[ 0, 4, 3 ]> ---> <[ 0, 4, 3 ]>>,
+  <<[ 0, 4, 3 ]> ---> <[ 0, 4, 3 ]>>, 
+  <<[ 0, 4, 3 ]> ---> <[ 0, 4, 3 ]>>,
+  <<[ 0, 4, 3 ]> ---> <[ 0, 4, 3 ]>>, 
+  <<[ 0, 4, 3 ]> ---> <[ 0, 4, 3 ]>> ]
+gap> ext[3](homUM[4]);
+[ -1, 0, 0, 1, 0 ]
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Extensions}
+Elements in $\Ext^1_\Lambda(M,N) \longleftrightarrow \{f\colon
+\Omega^1_\Lambda(M)\to N\}$
+
+Representation by short exact sequences:
+
+\[\xymatrix{
+0\ar[r] & \Omega^1_\Lambda(M)\ar[r]\ar[d]^f & P_0\ar[r]\ar[d] &
+M\ar[r]\ar@{=}[d] & 0\\
+0\ar[r] & N \ar[r] & E\ar[r] & M\ar[r] & 0
+}\]
+
+\begin{verbatim}
+gap> pushout := PushOut(ext[1], ext[2][1]);
+[ <<[ 0, 4, 3 ]> ---> <[ 1, 4, 3 ]>>,
+  <<[ 1, 4, 3 ]> ---> <[ 1, 4, 3 ]>> ]
+gap> fprime := pushout[1];     
+<<[ 0, 4, 3 ]> ---> <[ 1, 4, 3 ]>>
+gap> gprime := CoKernelProjection(fprime); 
+<<[ 1, 4, 3 ]> ---> <[ 1, 0, 0 ]>>
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Yoneda algebras}
+Interesting examples
+\begin{itemize}
+\item Group cohomology ring, 
+\[H^*(G,k) = \oplus_{i\geqslant 0} \Ext^i_{kG}(k,k).\]
+\item Hochschild cohomology ring, 
+\[\HH^*(\Lambda) = \oplus_{i\geqslant 0} \Ext^i_{\L^\op\otimes_k\Lambda}(\Lambda,\Lambda).\] 
+\item Hopf algebra $H$, cohomology ring, $\oplus_{i\geqslant 0}
+  \Ext^i_H(k,k)$. 
+\item $\Lambda$ Koszul algebra, Koszul dual = $\oplus_{i\geqslant 0}
+  \Ext^i_\Lambda(\Lambda_0,\Lambda_0)$. 
+\item In general, $\oplus_{i\geqslant 0} \Ext^i_\Lambda(M,M)$. 
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Yoneda algebras}
+  The function \texttt{ExtAlgebraGenerators}, which takes two
+  arguments, one module and one non-negative integer.
+\begin{verbatim}
+gap> ExtAlgebraGenerators(M,10);
+[ [ 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1 ], 
+  [ 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0 ], 
+[ [ <<[ 0, 1, 0 ]> ---> <[ 0, 1, 0 ]>> ], 
+[ <<[ 0, 1, 2 ]> ---> <[ 0, 1, 0 ]>> ], 
+[  ], 
+[ <<[ 0, 3, 3 ]> ---> <[ 0, 1, 0 ]>> ], 
+[  ], [  ], [  ], [  ], [  ], [  ], [  ] ] ]
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Yoneda algebras}
+The output from this function is a list of three elements, where the
+\begin{itemize}
+\item first element is the dimensions of $\Ext^i_\Lambda(M,M)$ for
+$i=0,1,\ldots,n$, 
+\item the second element is the number of minimal generators in the
+  degrees $[0,\ldots,n]$, 
+\item the third element is the generators in these degrees.
+\end{itemize} 
+\end{frame}
+
+\begin{frame}[fragile]{Yoneda algebras}
+\begin{verbatim}
+gap> Q := Quiver(1,[[1,1,"a"],[1,1,"b"]]);;
+gap> KQ := PathAlgebra(Rationals, Q);;
+gap> AssignGeneratorVariables(KQ);;
+gap> A := KQ/[a*a,b*b,a*b + 2*b*a];;
+gap> ExtAlgebraGenerators(biA, 5);
+[ [ 2, 2, 1, 0, 0, 0 ], [ 2, 2, 0, 0, 0, 0 ], 
+  [ 
+      [ <<[ 4 ]> ---> <[ 4 ]>>, 
+          <<[ 4 ]> ---> <[ 4 ]>> ], 
+      [ <<[ 12 ]> ---> <[ 4 ]>>, 
+          <<[ 12 ]> ---> <[ 4 ]>> ], [  ], [  ], 
+      [  ], [  ] ] ]
+\end{verbatim}
+\end{frame}
+
+\section{AR-theory}
+
+\begin{frame}[fragile]{AR-theory}
+Recall that a short exact sequence 
+\[0\to A\xrightarrow{f} B\xrightarrow{g} C\to 0\]
+is \emph{almost split exact} if it is not split exact and 
+\begin{enumerate}[\rm(i)]
+\item for any not splittable epimorphism $t\colon X\to C$ there is a
+  homomorphism $t'\colon X\to B$ such that $gt' = t$, 
+\item for any not splittable monomorphism $s\colon A\to Y$ there is a
+  homomorphism $s'\colon A\to Y$ such that $s'f = s$.
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[fragile]{AR-theory}
+Facts:
+\begin{itemize}
+\item $C$ and $A$ are indecomposable modules. 
+\item $A\simeq D\Tr C$ and $C\simeq \Tr D(A)$.  
+\item For any indecomposable non-projective module $C$ and
+for any indecomposable non-injective module $A$, there is an almost
+split sequence ending in $C$ and starting in $A$.  
+\item An almost split sequence is a generator of the socle of
+  $\Ext^1_\Lambda(C,D\Tr(C))$ as an $\End_\Lambda(C)$-module. 
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{AR-theory}
+\begin{enumerate}[\rm(1)]
+\item Choose a non-zero element in $\Ext^1_\Lambda(C,D\Tr(C))$ (take a
+  basis vector).
+\item Check if it is annihilated by all elements in the radical of
+  $\End_\Lambda(C)$. 
+\item If not annihilated by the radical of $\End_\Lambda(C)$, multiply
+  with an element in the radical of $\End_\Lambda(C)$ which is not
+  annihilating it.  Go to (2).  If it is annihilated by the radical of
+  $\End_\Lambda(C)$, it is in the socle of $\Ext^1_\Lambda(C,D\Tr(C))$
+  and therefore gives the almost split sequence.  Jump to (4).
+\item Done.
+\end{enumerate}
+In special cases, other algorithms exist, but this is the only
+implemented in QPA. 
+\end{frame}
+
+\begin{frame}[fragile]{AR-theory}
+The correspondence between the end terms are given by $D\Tr$ and $\Tr
+D$. 
+\begin{verbatim}
+gap> A := NakayamaAlgebra(GF(3), [3,2,1]);;      
+gap> S := SimpleModules(A);;
+gap> DTr(S[1]);
+<[ 0, 1, 0 ]>
+gap> DTr(S[1],2);
+Computing step 1...
+Computing step 2...
+<[ 0, 0, 1 ]>
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{AR-theory}
+\begin{verbatim}
+gap> DTr(S[1],4);
+Computing step 1...
+Computing step 2...
+Computing step 3...
+Computing step 4...
+<[ 0, 0, 0 ]>
+gap> TrD(DTr(S[1])) = S[1];     
+true
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{AR-theory}
+The function \texttt{AlmostSplitSequence} computes the almost split
+sequence ending in the argument, assuming the argument is an
+indecomposable module.\medskip
+
+Given an almost split sequence: 
+\[0\to A\xrightarrow{(f_i)} \oplus_{i=1}^t B_i\xrightarrow{(g_i)} C\to
+0\]
+\begin{itemize}
+\item $f_i$ and $g_i$ are \emph{irreducible homomorphisms}. 
+\item An irreducible homomorphism is either a monomorphism or an
+  epimorphism.
+\item All irreducible homomorphisms starting in an indecomposable
+  injective module $I$ occur in $I\to I/\soc I$.
+\item All irreducible homomorphisms ending in an indecomposable
+  projective $P$ module  occur in $\rad P\to P$.
+\item The valuation we ignore here. 
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{AR-theory}
+The AR-quiver:
+\begin{itemize}
+\item Each vertex correspond to an indecomposable module. 
+\item Each arrow correspond to an irreducible homomorphism. 
+\item Each arrow has an valuation $(a,b)$ of pairs of positive
+  integers.  
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{AR-theory}
+\begin{verbatim}
+gap> IsInjectiveModule(S[1]);
+true
+gap> ass1 := AlmostSplitSequence(S[1]);
+[ <<[ 0, 1, 0 ]> ---> <[ 1, 1, 0 ]>>, 
+  <<[ 1, 1, 0 ]> ---> <[ 1, 0, 0 ]>> ]
+gap> I2 := Range(ass1[1]);
+<[ 1, 1, 0 ]>
+gap> IsIndecomposableModule(I2);
+true
+gap> IsInjectiveModule(I2);
+true
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{AR-theory}
+\begin{verbatim}
+gap> ass2 := AlmostSplitSequence(I2);
+[ <<[ 0, 1, 1 ]> ---> <[ 1, 2, 1 ]>>, 
+  <<[ 1, 2, 1 ]> ---> <[ 1, 1, 0 ]>> ]
+gap> U := Range(ass2[1]);
+<[ 1, 2, 1 ]>
+gap> IsIndecomposableModule(U);
+false
+gap> decompU := DecomposeModule(U);
+[ <[ 0, 1, 0 ]>, <[ 1, 1, 1 ]> ]
+gap> I3 := decompU[2];
+<[ 1, 1, 1 ]>
+gap> IsInjectiveModule(I3);
+true
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{AR-theory}
+\begin{verbatim}
+gap> P2 := Source(ass2[1]);
+<[ 0, 1, 1 ]>
+gap> IsProjectiveModule(P2);
+true
+gap> RadicalOfModule(I3) = P2;
+true
+gap> IsProjectiveModule(I3);
+true
+gap> ass3 := AlmostSplitSequence(S[2]);
+[ <<[ 0, 0, 1 ]> ---> <[ 0, 1, 1 ]>>, 
+  <<[ 0, 1, 1 ]> ---> <[ 0, 1, 0 ]>> ]
+gap> Range(ass3[1]) = P2;
+true
+gap> IsProjectiveModule(S[3]);
+true
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{AR-theory}
+From the above calculations we get that the AR-quiver is 
+\[\xymatrix@C=5pt{
+& & I3\ar[dr] & &  \\
+& P2\ar[ur]\ar[dr]\ar@{..}[rr] && I2\ar[dr] & \\
+S[3]\ar[ur]\ar@{..}[rr] && S[2]\ar[ur]\ar@{..}[rr] && S[1] 
+}\]
+where a dotted line means that modules in this mesh forms an almost
+split sequence. 
+\end{frame}
+
+\begin{frame}[fragile]{AR-theory}
+\begin{itemize}
+\item $\Lambda$ an indecomposable finite dimensional algebra. 
+\item A component $\mathcal{C}$ of the AR-quiver is a collection of
+  vertices/indecomposable modules closed under irreducible
+  homomorphisms.
+\item If there is a component $\mathcal{C}$ where the length of the
+  indecomposable modules in $\mathcal{C}$ is bounded (in particular
+  when it is finite), then $\Lambda$ is of finite representation type
+  (only finitely many isomorphism classes of indecomposable modules)
+  and $\mathcal{C}$ consists of all isomorphism classes of
+  indecomposable modules.  
+\item Hence we can see from the above calculations that $\Lambda$ is
+  of finite representation type.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{AR-theory}
+\begin{verbatim}
+gap> IsFiniteTypeAlgebra(A);
+A_3
+Finite type!
+Quiver is a (union of) Dynkin quiver(s).
+true
+\end{verbatim}
+\end{frame}
+\end{document}

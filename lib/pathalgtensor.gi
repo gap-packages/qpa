@@ -64,7 +64,7 @@ InstallMethod( WalkOfPathOrVertex,
         WalkOfPath );
 InstallMethod( WalkOfPathOrVertex,
         "for a vertex",
-        [ IsVertex ],
+        [ IsQuiverVertex ],
         function( v ) return [ v ]; end );
 
 
@@ -308,20 +308,19 @@ InstallMethod( IsEnvelopingAlgebra,
     return false;
 end );
 
-
 InstallMethod( AlgebraAsModuleOverEnvelopingAlgebra,
         "for an enveloping algebra of a path algebra",
-        [ IsQuotientOfPathAlgebra ],
-        function ( env )
-    local PA, Q, QxQ,
+        [ IsQuiverAlgebra ],
+        function ( A )
+    local env, PA, Q, QxQ,
           basis, basis_vectors, vertices, vertex_indices, vector_spaces, i, j,
           get_coefficients, make_map,
           arrows, module_specification;
 
-    if not ( HasIsEnvelopingAlgebra( env ) and IsEnvelopingAlgebra( env ) ) then
-        Error( "Argument must be an enveloping algebra" );
+    if not IsFiniteDimensional(A) then
+       return fail;
     fi;
-
+    env := EnvelopingAlgebra(A); 
     PA := TensorProductDecomposition( env )[ 2 ];
 
     Q := QuiverOfPathAlgebra( PA );
@@ -405,7 +404,7 @@ InstallMethod( DualOfAlgebraAsModuleOverEnvelopingAlgebra,
     # By now we know that the algebra is finite dimensional.
     #
     Aenv := EnvelopingAlgebra(A);
-    M    := AlgebraAsModuleOverEnvelopingAlgebra(Aenv);
+    M    := AlgebraAsModuleOverEnvelopingAlgebra(A);
     DM   := DualOfModule(M);
     #
     #   Finding DM as a module over Aenv.

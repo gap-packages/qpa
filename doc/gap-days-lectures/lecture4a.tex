@@ -1,0 +1,218 @@
+\newcommand{\QPAIntroPartNumber}{4}
+\input{lecture-preamble}
+\renewcommand{\mod}{\operatorname{mod}\nolimits}
+\newcommand{\umod}{\operatorname{\underline{mod}}\nolimits}
+\newcommand{\omod}{\operatorname{\overline{mod}}\nolimits}
+\newcommand{\gr}{{\operatorname{gr}\nolimits}}
+\newcommand{\add}{\operatorname{add}\nolimits}
+\newcommand{\obj}{\operatorname{obj}\nolimits}
+\renewcommand{\rad}{\operatorname{rad}\nolimits}
+\renewcommand{\soc}{\operatorname{soc}\nolimits}
+\newcommand{\rk}{\operatorname{rank}\nolimits}
+\newcommand{\kar}{\operatorname{char}\nolimits}
+\newcommand{\Hom}{\operatorname{Hom}\nolimits}
+\newcommand{\End}{\operatorname{End}\nolimits}
+\newcommand{\uHom}{\operatorname{\underline{Hom}}\nolimits}
+\newcommand{\oHom}{\operatorname{\overline{Hom}}\nolimits}
+\renewcommand{\Im}{\operatorname{Im}\nolimits}
+\newcommand{\Ker}{\operatorname{Ker}\nolimits}
+\newcommand{\Coker}{\operatorname{Coker}\nolimits}
+\newcommand{\rrad}{\mathfrak{r}}
+\newcommand{\Ann}{\operatorname{Ann}\nolimits}
+\newcommand{\Soc}{\operatorname{Soc}\nolimits}
+\newcommand{\Top}{\operatorname{Top}\nolimits}
+\newcommand{\Tr}{\operatorname{Tr}\nolimits}
+\newcommand{\Ext}{\operatorname{Ext}\nolimits}
+\newcommand{\cExt}{\operatorname{\widehat{Ext}}\nolimits}
+\newcommand{\op}{{\operatorname{op}\nolimits}}
+\newcommand{\env}{{\operatorname{env}\nolimits}}
+\newcommand{\Ab}{{\operatorname{Ab}\nolimits}}
+\newcommand{\CM}{{\operatorname{CM}\nolimits}}
+\newcommand{\domdim}{{\operatorname{domdim}\nolimits}}
+\newcommand{\gldim}{{\operatorname{gldim}\nolimits}}
+\newcommand{\resdim}{{\operatorname{resdim}\nolimits}}
+\newcommand{\id}{{\operatorname{id}\nolimits}}
+\newcommand{\pd}{{\operatorname{pd}\nolimits}}
+\newcommand{\comp}{\operatorname{\scriptstyle\circ}}
+\newcommand{\m}{\mathfrak{m}}
+\newcommand{\frakp}{\mathfrak{p}}
+\newcommand{\fraka}{\mathfrak{a}}
+\newcommand{\frakb}{\mathfrak{b}}
+\newcommand{\frakc}{\mathfrak{c}}
+\newcommand{\frako}{\mathfrak{o}}
+\newcommand{\frakt}{\mathfrak{t}}
+\newcommand{\G}{\Gamma}
+\renewcommand{\L}{\Lambda}
+\newcommand{\Z}{{\mathbb Z}}
+\newcommand{\B}{{\mathcal B}}
+\newcommand{\C}{{\mathcal C}}
+\newcommand{\D}{{\mathcal D}}
+\newcommand{\E}{{\mathcal E}}
+\newcommand{\I}{{\mathcal I}}
+\newcommand{\N}{{\mathcal N}}
+\newcommand{\calO}{{\mathcal O}}
+\newcommand{\X}{{\mathcal X}}
+\newcommand{\Y}{{\mathcal Y}}
+\renewcommand{\P}{{\mathcal P}}
+\newcommand{\M}{{\mathcal M}}
+\newcommand{\extto}{\xrightarrow}
+\newcommand{\MaxSpec}{\operatorname{MaxSpec}\nolimits}
+\newcommand{\HH}{\operatorname{HH}\nolimits}
+\newcommand{\arrowtilde}{\widetilde{\rule{7mm}{0mm}}}
+\newcommand{\Ind}{\operatorname{Ind}\nolimits}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{Outline}
+  \tableofcontents
+\end{frame}
+
+\section{Examples of computations}
+
+\begin{frame}[fragile]{$\Omega$-periodic modules}
+$\Lambda$ -- finite dimensional algebra\medskip
+
+\textbf{Recall:} A module $M$ is \emph{$\Omega$-periodic} if
+$\Omega^n_\Lambda(M)\simeq M$ for some positive integer $n$.\medskip 
+
+In some situations the period can indicate the degree of generators in
+the Hochschild cohomology ring, $\oplus_{i\geqslant
+  0}\Ext^i_{\Lambda^\env}(\Lambda, \Lambda)$. 
+\end{frame}
+
+\begin{frame}[fragile]{Periodic algebras}
+
+$\Lambda$ -- finite dimensional $k$-algebra\medskip
+
+$\Lambda^\env = \Lambda^\op\otimes_k \Lambda$ -- enveloping
+algebra\medskip
+
+\textbf{Recall:} $\Lambda$ is a \emph{periodic algebra} if $\Lambda$ is a
+$\Omega$-periodic module, that is $\Omega^n_{\Lambda^\env}(\Lambda)
+\simeq \Lambda$ as $\Lambda^\env$-modules.\medskip
+
+\textbf{Facts:}
+\begin{itemize}
+\item $\Lambda$ is a selfinjective algebra.
+\item All modules are $\Omega$-periodic.
+\item The Hochschild cohomology module nilpotent elements is
+  isomorphic to $k[x]$, where the degree of $x$ is the period.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Finding quivers}
+
+\textbf{Recall:} $\Lambda = kQ/I$ with $I$ admissible is a basic algebra, that is, 
+\[\Lambda = \oplus_{i=1}^t P_i\]
+with $P_i$ indecomposable, then $P_i\not\simeq P_j$ for $i\neq j$. 
+
+\textbf{Facts:} 
+\begin{itemize}
+\item $\Lambda$ -- finite dimensional algebra.
+\item $\rad \Lambda = \langle \textrm{arrows}\rangle/I$.
+\item $\Lambda/\rad\Lambda \simeq \frac{kQ/I}{\langle
+    \textrm{arrows}\rangle/I} \simeq \textrm{linear span of vertices}$.
+\item \begin{align}
+    \rad\Lambda/\rad^2\Lambda & \simeq \frac{\langle
+    \textrm{arrows}\rangle}{I}/\frac{\langle
+    \textrm{arrows}\rangle^2}{I} \notag\\
+    & \simeq \frac{\langle
+    \textrm{arrows}\rangle}{\langle \textrm{arrows}\rangle^2}\notag\\
+   & \simeq \textrm{linear span of arrows}\notag
+\end{align}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Finding quivers}
+$\Lambda$ -- finite dimensional algebra with $\Lambda/\rad\Lambda
+\simeq k^n$ for some $n$.\medskip 
+
+Algorithm:
+\begin{enumerate}[\rm(1)]
+\item Lift a complete set of orthogonal idempotents from
+  $\Lambda/\rad\Lambda$ to a complete set of orthogonal idempotents in
+  $\Lambda$, say $\{e_i\}_{i=1}^n$ -- the vertices. 
+\item Compute $e_i\rad\Lambda/\rad^2\Lambda e_j$, find a basis and
+  lift back to $e_i\rad\Lambda e_j$ -- the arrows from vertex $i$ to
+  vertex $j$.   
+\item Construct a quiver $Q$ from this and a homomorphism
+  $\varphi\colon kQ \to \Lambda$. 
+\item Find the kernel of $\varphi$. 
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[fragile]{Trivial extensions}
+$\Lambda$ -- finite dimensional algebra\medskip
+
+$T(\Lambda) = \Lambda\oplus D(\Lambda)$ -- \emph{trivial extension},
+
+\[ (\lambda, f)\cdot (\lambda',f') = (\lambda\lambda', \lambda f' +
+f\lambda)\]
+
+\begin{itemize}
+\item $\rad T(\Lambda) = \rad\Lambda \oplus D(\Lambda)$. 
+\item $\rad^2 T(\Lambda) = \rad^2\Lambda \oplus D(\Lambda)\rad\Lambda
+  + \rad\Lambda D(\Lambda)$. 
+\item $\frac{\rad T(\Lambda)}{\rad^2 T(\Lambda)} \simeq
+\frac{\rad\Lambda}{\rad^2\Lambda}\oplus \frac{D(\Lambda)}{D(\Lambda)\rad\Lambda
+  + \rad\Lambda D(\Lambda)}$
+\item $T(\Lambda)$ is a symmetric algebra, $\Gamma\simeq D(\Gamma)$ as
+bimodules.
+\end{itemize} 
+\end{frame}
+
+\section{Tilting modules}
+
+\begin{frame}[fragile]{AR-theory}
+Recall that a short exact sequence 
+\[0\to A\xrightarrow{f} B\xrightarrow{g} C\to 0\]
+is \emph{almost split exact} if it is not split exact and 
+\begin{enumerate}[\rm(i)]
+\item for any not splittable epimorphism $t\colon X\to C$ there is a
+  homomorphism $t'\colon X\to B$ such that $gt' = t$, 
+\item for any not splittable monomorphism $s\colon A\to Y$ there is a
+  homomorphism $s'\colon A\to Y$ such that $s'f = s$.
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[fragile]{AR-theory}
+Facts:
+\begin{itemize}
+\item $C$ and $A$ are indecomposable modules. 
+\item $A\simeq D\Tr C$ and $C\simeq \Tr D(A)$.  
+\item For any indecomposable non-projective module $C$ and
+for any indecomposable non-injective module $A$, there is an almost
+split sequence ending in $C$ and starting in $A$.  
+\item An almost split sequence is a generator of the socle of
+  $\Ext^1_\Lambda(C,D\Tr(C))$ as an $\End_\Lambda(C)$-module. 
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{APR-tilting}
+$\Lambda=kQ$ -- hereditary, $Q$ no oriented cycle and connected.\medskip 
+
+$S$ simple projetive module (and not injective)
+
+$\Lambda$ is a classical tilting module $T$: 
+\begin{itemize}
+\item $\pd_\Lambda T \geqslant 1$, 
+\item $\Ext^1_\Lambda(T,T) = (0)$, 
+\item the number of indecomposable non-isomorphic summands in $T$ is
+  equal to the number of isomorphism class of simple modules of
+  $\Lambda$. 
+\end{itemize}
+
+$\Lambda = P \oplus S \longrightarrow T = P\oplus \Tr D(S)$ -- APR-tilting
+
+
+
+
+
+
+
+\end{frame}
+\end{document}

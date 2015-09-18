@@ -106,7 +106,10 @@ InstallMethod(IdempotentsForDecomposition,
     prims := [];
 
     for i in cents do
-        simp := semi*i;
+        simp := FLMLORByGenerators( LeftActingDomain(a), BasisVectors(Basis(semi*i)));
+        SetParent(simp, a); 
+        SetOne(simp, i);
+        SetMultiplicativeNeutralElement(simp, i);   
         prims := Concatenation(prims,PrimitiveIdempotents(simp));
     od;
    
@@ -152,7 +155,7 @@ end
 ##  This function is an extension of above version of DecomposeModule
 ##  as this version takes adavantage of the fact that an argument might
 ##  have an direct sum decomposition already through being created by
-##  the command  DirectSumOfModules.
+##  the command  DirectSumOfQPAModules.
 ##
 InstallOtherMethod( DecomposeModule,
     "for a path algebra",
@@ -431,7 +434,7 @@ InstallMethod( BasicVersionOfModule,
         return M;
     else
         L := DecomposeModuleWithMultiplicities(M);
-        return DirectSumOfModules(L[1]);
+        return DirectSumOfQPAModules(L[1]);
     fi;
 end
 );

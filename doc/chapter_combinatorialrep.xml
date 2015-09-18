@@ -138,7 +138,7 @@ matrices with 2 along the diagonal.
   <Description>This function returns the Euler (non-symmetric) bilinear form 
   associated to a finite dimensional (basic) quotient of a path algebra <Arg>A</Arg>.
   That is,  it returns a bilinear form (function) defined by<Br />
-  <M>f(x,y) = x*CartanMatrix^(-1)y</M><Br />
+  <M>f(x,y) = x*\textrm{CartanMatrix}(A)^{(-1)}*y</M><Br />
   It makes sense only in case <Arg>A</Arg> is of finite global dimension.
   </Description>
 </ManSection>

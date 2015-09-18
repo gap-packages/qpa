@@ -273,123 +273,8 @@ InstallMethod(ObjByExtRep,
         fi;
         return Objectify( fam!.packedType, [obj] );
     end );
-#############################################################################
-##
-#M  AsLeftModuleGeneralMappingByImages( <alg_gen_map> )
-##
-##  If necessary then we compute a basis of the preimage,
-##  and images of its basis vectors.
-##
-##  Note that we must prescribe also the products of basis vectors and
-##  their images if <alg_gen_map> is not known to be a mapping.
-##
-InstallMethod( AsLeftModuleGeneralMappingByImages,
-    "for an algebra general mapping by images",
-    true,
-    [     IsAlgebraGeneralMapping
-      and IsAlgebraGeneralMappingByImagesDefaultRep ], 0,
-    function( alg_gen_map )
+    
 
-    local origgenerators,  # list of algebra generators of the preimage
-          origgenimages,   # list of images of `origgenerators'
-          generators,      # list of left module generators of the preimage
-          genimages,       # list of images of `generators'
-          A,               # source of the general mapping
-          left,            # is it necessary to multiply also from the left?
-                           # (not if `A' is associative or a Lie algebra)
-          maxdim,          # upper bound on the dimension
-          MB,              # mutable basis of the preimage
-          dim,             # dimension of the actual left module
-          len,             # number of algebra generators
-          i, j,            # loop variables
-          gen,             # loop over generators
-          prod;            #
-
-    origgenerators := alg_gen_map!.generators;
-    origgenimages  := alg_gen_map!.genimages;
-
-    if IsBasis( origgenerators ) then
-
-      generators := origgenerators;
-      genimages  := origgenimages;
-
-    else
-
-      generators := ShallowCopy( origgenerators );
-      genimages  := ShallowCopy( origgenimages );
-
-      A:= Source( alg_gen_map );
-
-      left:= not (    ( HasIsAssociative( A ) and IsAssociative( A ) )
-                   or ( HasIsLieAlgebra( A ) and IsLieAlgebra( A ) ) );
-
-      if HasDimension( A ) then
-        maxdim:= Dimension( A );
-      else
-        maxdim:= infinity;
-      fi;
-
-      # $A_1$
-      MB:= MutableBasis( LeftActingDomain( A ), generators,
-                                     Zero( A ) );
-      dim:= 0;
-      len:= Length( origgenerators );
-
-      while dim < NrBasisVectors( MB ) and dim < maxdim do
-
-        # `MB' is a mutable basis of $A_i$.
-        dim:= NrBasisVectors( MB );
-
-        # Compute $\bigcup_{g \in S} ( A_i g \cup A_i g )$.
-        for i in [ 1 .. len ] do
-          gen:= origgenerators[i];
-          for j in [ 1 .. Length( generators ) ] do
-            prod:= generators[j] * gen;
-            if not IsContainedInSpan( MB, prod ) then
-              Add( generators, prod );
-              Add( genimages, genimages[j] * origgenimages[i] );
-              CloseMutableBasis( MB, prod );
-            fi;
-          od;
-        od;
-
-        if left then
-
-          # Compute $\bigcup_{g \in S} ( A_i g \cup g A_i )$.
-          for i in [ 1 .. len ] do
-            gen:= origgenerators[i];
-            for j in [ 1 .. Length( generators ) ] do
-              prod:= gen * generators[j];
-              if not IsContainedInSpan( MB, prod ) then
-                Add( generators, prod );
-                Add( genimages, origgenimages[i] * genimages[j] );
-                CloseMutableBasis( MB, prod );
-              fi;
-            od;
-          od;
-
-        fi;
-
-      od;
-
-    fi;
-
-    # Is this the proper fix?
-    len := Length(generators);
-
-    # Add the products of basis vectors to `generators',
-    # and the products of their images to `genimages'.
-    for i in [ 1 .. len ] do
-      for j in [ 1 .. len ] do
-        Add( generators, generators[i] * generators[j] );
-        Add( genimages, genimages[i] * genimages[j] );
-      od;
-    od;
-
-    # Construct and return the left module general mapping.
-    return LeftModuleGeneralMappingByImages( A, Range( alg_gen_map ),
-               generators, genimages );
-    end );
 InstallMethod( RadicalOfAlgebra,
     "for an algebra of l.m.b.m rep.",
     true,
@@ -559,4 +444,356 @@ InstallMethod( IsElementaryAlgebra,
         TryNextMethod();
     fi;
 end
+  );
+
+#######################################################################
+##
+#O  LiftingIdempotent( <f>, <e> )
+##
+##  When the domain of  <f>  is finite dimensional, then it checks if
+##  the element  <e>  is an idempotent.  If so and  <e>  has a preimage,
+##  then this operation returns a lifting of  <e>  to the domain of  <f>
+##  whenever possible.  It returns  fail  if  the element  <e>  has no 
+##  preimage. If the algorithm is unable to construct a lifting, it 
+##  returns  false.  Using the algorithm described in the proof of 
+##  Proposition 27.1 in Anderson and Fuller, Rings and categories of 
+##  modules, second edition, GMT, Springer-Verlag.
+##  
+InstallMethod( LiftingIdempotent,  
+    "for two PathAlgebraMatModule's",
+    [ IsAlgebraGeneralMapping, IsObject ], 0,
+    function( f, e )
+
+    local elift, h, A, i, t, k;
+    #
+    # Is the input OK?
+    # Checking if the domain of the map  <f>  is a finite dimensional algebra.
+    #
+    if not IsFiniteDimensional(Source(f)) then
+        Error("the domain of <f> is not finite dimensional, ");
+    fi;
+    #
+    # Checking if the entered element  <e>  is an idempotent.
+    #
+    if e <> e^2 then 
+        Error("the entered element  <e>  is not an idempotent, ");
+    fi; 
+    #
+    # Checking if the element  <e>  is in the range of the map  <f>, and next
+    # if the element  <e>  is in the image of the map  <f>.
+    #
+    if not ( e in Range(f) ) then
+        Error("the entered element <e> is not in the range of the entered homomorphism <f>, ");
+    fi;
+    elift := PreImagesRepresentative(f, e);
+    if elift = fail then
+        Error("the enter element <e> has not preimage in the domain of <f>, ");
+    fi;
+    #
+    # Starting the algorithm described in the proof of Proposition 27.1 in Anderson & Fuller.
+    #
+    h := elift - elift^2;
+    A := Source(f);
+    if h = Zero(A) then
+        return elift;
+    fi;
+    i := 0;
+    repeat
+        i := i + 1;
+    until
+        Dimension(Subspace(A, BasisVectors(Basis(A))*h^i)) = Dimension(Subspace(A, BasisVectors(Basis(A))*h^(i+1)));
+    if h^i = Zero(A) then
+        t := Binomial(i,1)*MultiplicativeNeutralElement(A);
+        for k in [2..i] do 
+            t := t + (-1)^(k-1)*Binomial(i,k)*elift^(k-1);
+        od;
+        return elift^i*t^i;
+    else
+        return false;
+    fi;
+end
+  );
+
+#######################################################################
+##
+#O  LiftingCompleteSetOfOrthogonalIdempotents( <map>, <idempotents> )
+##
+##  Given a map  <map> :  A --> B  and a complete set  <idempotents>
+##  of orthogonal idempotents in  B, which all are in the image
+##  of  <map>,  this function computes (when possible) a complete set of
+##  orthogonal idempotents of preimages of the idempotents in  B. 
+##
+InstallMethod(LiftingCompleteSetOfOrthogonalIdempotents,
+    "for an algebra mapping and list of idempotents",
+    true,
+    [IsAlgebraGeneralMapping,IsHomogeneousList],
+    0,
+    function(map, idempotents)
+
+    local n, i, j, idems, A, liftidem, temp;
+    
+    #
+    # Input OK?
+    # Checking if the domain of  <map>  is a finite dimensional algebra.
+    #
+    if not IsFiniteDimensional(Source(map)) then
+        Error("the domain of the entered  <map>  is not finite dimensional, \n");
+    fi;
+    #
+    # Checking if the entered elements are a complete set of orthogonal
+    # idempotents. 
+    #
+    n := Length(idempotents); 
+    for i in [1..n] do
+        for j in [1..n] do
+            if i = j then
+                if idempotents[i]^2 <> idempotents[i] then
+                    Error("one of the entered elements is not an idempotent, ");
+                fi;
+            else
+                if idempotents[i]*idempotents[j] <> Zero(Range(map)) then
+                    Error("the enter elements are not orthogonal, ");
+                fi;
+            fi;
+        od;
+    od;
+    if Sum(idempotents) <> MultiplicativeNeutralElement(Range(map)) then
+        Error("the entered elements are not a complete set of idempotents, ");
+    fi;
+    #
+    # Lift the idempotents in the range of  <map>  to idempotents in the 
+    # domain of  <map>.
+    #
+    liftidem := [];
+    Add(liftidem, LiftIdempotent(map, idempotents[1]));
+    for i in [1..Length(idempotents) - 1] do
+        temp := LiftTwoOrthogonalIdempotents(map, Sum(liftidem{[1..i]}), idempotents[i+1]);
+        Add(liftidem, temp[2]);
+    od;
+
+    return liftidem;
+end
 );
+
+InstallMethod ( AlgebraAsQuiverAlgebra, 
+    "for a finite dimensional algebra",
+    true,
+    [ IsAlgebra ],
+    0,
+    function( A )
+
+    local F, C, centralidempotentsinA, radA, g, centralidem, factoralgebradecomp, c, temp, 
+          dimcomponents, pi, ppowerr, gens, D, order, generatorinD, K, alghom, vertices, 
+	  radAsquare, h, arrows, adjacencymatrix, i, t, radAmodsquare, Q, KQ, Jtplus1, n, 
+	  images, j, AA, AAgens, AAvertices, AAarrows, B, matrix, fam, f, b, tempx, walk, 
+	  length, image, solutions, Solutions, radSoluplusSolurad, V, W, idealgens; 
+    #
+    # Checking if  <A>  is a finite dimensional algebra over a finite field.
+    #
+    F := LeftActingDomain(A);
+    if not IsFinite(F) then
+        Error("the entered algebra is not an algebra over a finite field, \n");
+    fi;
+    if not IsFiniteDimensional(A) then
+        Error("the entered algebra is not finite dimensional, \n");
+    fi; 
+    #
+    # Checking if the algebra is indecomposable.
+    #
+    C := Center(A);
+    centralidempotentsinA := CentralIdempotentsOfAlgebra(C);
+    if Length(centralidempotentsinA) > 1 then
+        Error("the entered algebra is not indecomposable, \n");
+    fi;
+    #
+    # Checking if the algebra is basic.  Remember all finite division rings are fields.
+    #
+    radA := RadicalOfAlgebra(A);
+    g := NaturalHomomorphismByIdeal(A,radA);
+    centralidem := CentralIdempotentsOfAlgebra(Range(g)); 
+    factoralgebradecomp := [];
+    for c in centralidem do
+        temp := FLMLORByGenerators( LeftActingDomain(A), Filtered(c*BasisVectors(Basis(Range(g))), b -> b <> Zero(A)));
+        SetParent(temp, A); 
+        SetOne(temp, c);
+        SetMultiplicativeNeutralElement(temp, c);        
+        Add(factoralgebradecomp, temp);
+    od;
+    if not ForAll(factoralgebradecomp, IsCommutative) then
+        Error("the entered algebra is not basic, \n");
+    fi;
+    #
+    # Checking if the algebra is elementary.
+    #
+    dimcomponents := List(factoralgebradecomp, Dimension);
+    if not ForAll(dimcomponents, d -> d = dimcomponents[1]) then 
+        Error("the entered algebra is not elementary, hence not a quotient of a path algebra, \n");
+    fi;
+    #
+    # Finding the field  K  over which the algebra is K-elementary. Recall C = Center(A).
+    # 
+    pi := NaturalHomomorphismByIdeal(C, RadicalOfAlgebra(C)); 
+    #
+    # Known by the Wedderburn-Malcev «Principal» theorem that A is an algebra over 
+    # a field isomorphic to  C/radC. 
+    #
+    ppowerr := Size(Range(pi));
+    gens := Filtered(BasisVectors(Basis(C)), b -> ForAll(centralidem, c -> c*ImageElm(g, b) <> Zero(One(Range(g))))); 
+    D := Subalgebra(C, gens);
+    order := function( obj )
+        
+        local one, pow, ord;
+        
+        if obj = Zero(obj) then
+            return -1;
+        fi;
+        one := One(obj);
+        pow:= obj;
+        ord:= 1;
+        while pow <> one do
+            ord:= ord + 1;
+            pow:= pow * obj;
+            if pow = Zero(obj) then
+                return -1;
+            fi;
+        od;
+
+        return ord;
+    end;
+    generatorinD := First(Elements(D), d -> order(d) = ppowerr - 1);     
+    K := GF(ppowerr);
+    D := AsAlgebra(PrimeField(K), D); 
+    alghom := AlgebraHomomorphismByImages(K, D, GeneratorsOfDivisionRing(K), [generatorinD]);
+    #
+    # Finding representatives for the vertices in  A.
+    #
+    vertices := LiftingCompleteSetOfOrthogonalIdempotents(g, centralidem); 
+    #
+    # Finding the radical square in  <A> and storing it in  <radAsquare>. 
+    #
+    radAsquare := ProductSpace(radA,radA);
+    if Dimension(radAsquare) = 0 then
+        radAsquare := Ideal(A, []);
+    else
+        radAsquare := Ideal(A, BasisVectors(Basis(radAsquare)));
+    fi;
+    #
+    # Finding the natural homomorphism  <A> ---> <A>/rad^2 <A> and 
+    # finding the image of  rad <A>  in  <A>/rad^2 <A>  and storing it in  <radmodsquare>. 
+    #
+    h := NaturalHomomorphismByIdeal(A, radAsquare);
+    radAmodsquare := Ideal(Range(h), List(BasisVectors(Basis(radA)), b -> ImageElm(h,b)));
+    #
+    # Finding a basis for the arrows for the algebra  <A>  inside  <A>. 
+    # At the same time finding the adjacency matrix for the quiver of  <A>. 
+    #
+    arrows := List([1..Length(centralidem)], x -> List([1..Length(centralidem)], y -> []));
+    adjacencymatrix := NullMat(Length(centralidem),Length(centralidem));
+    for i in [1..Length(centralidem)] do
+        for j in [1..Length(centralidem)] do
+            arrows[i][j] := Filtered(ImageElm(h,vertices[i])*BasisVectors(Basis(radAmodsquare))*ImageElm(h,vertices[j]), y -> y <> Zero(y));
+            arrows[i][j] := BasisVectors(Basis(Subspace(Range(h),arrows[i][j])));
+            arrows[i][j] := List(arrows[i][j], x -> vertices[i]*PreImagesRepresentative(h,x)*vertices[j]);
+            adjacencymatrix[i][j] := Length(arrows[i][j]);
+        od; 
+    od;
+    #
+    # Defining the quiver of the algebra  <A>  and storing it in  <Q>. 
+    #
+    t := Length(RadicalSeriesOfAlgebra(A)) - 1; # then (A)^t = (0) 
+    Q := Quiver(adjacencymatrix);
+    KQ := PathAlgebra(K,Q);
+    Jtplus1 := NthPowerOfArrowIdeal(KQ,t + 1);
+    n := NumberOfVertices(Q);
+    images := ShallowCopy(vertices);   #  images of the vertices/trivial paths
+    for i in [ 1 .. n ] do
+        for j in [ 1 .. n ] do
+            Append(images,arrows[i][j]);
+        od;
+    od;
+    #
+    #  Define  AA := KQ/J^(t + 1), where t = the Loewy length of  <A>, and 
+    #  in addition define f : AA ---> A. Find this as a linear map and find 
+    #  the kernel, and construct the relations from this.
+    #    
+    #  Under her gaar noe galt.
+    #
+    if Length(Jtplus1) = 0 then 
+        AA := KQ;
+        AAgens := GeneratorsOfAlgebra(AA);
+        AAvertices := AAgens{[1..n]};
+        AAarrows := AAgens{[n + 1..Length(AAgens)]};
+        f := [AA,A,AAgens{[1..Length(AAgens)]},images];
+    else
+        AA := KQ/Jtplus1;
+        AAgens := GeneratorsOfAlgebra(AA);
+        AAvertices := AAgens{[2..n + 1]};
+        AAarrows := AAgens{[n + 2..Length(AAgens)]};
+        f := [AA,A,AAgens{[2..Length(AAgens)]},images];
+    fi;
+    #
+    #  First giving the ring surjection  AA ---> A  as a linear map.  Stored
+    #  in the matrix called  <matrix>.
+    #
+    B := BasisVectors(Basis(AA)); 
+    matrix := []; 
+    fam := ElementsFamily(FamilyObj(AA)); 
+    for b in B do
+        if IsPathAlgebra(AA) then 
+            temp := CoefficientsAndMagmaElements(b);
+        else 
+            temp := CoefficientsAndMagmaElements(b![1]);
+        fi;
+        n := Length(temp)/2;
+        tempx := Zero(f[2]);
+        for i in [0..n - 1] do
+            # for each term compute the image. 
+            walk := WalkOfPath(temp[2*i + 1]); 
+            length := Length(walk); 
+            image := One(A); 
+            if length = 0 then 
+                if IsPathAlgebra(AA) then
+                    image := image*f[4][Position(f[3], temp[2*i + 1]*One(AA))];
+                else
+                    image := image*f[4][Position(f[3],ElementOfQuotientOfPathAlgebra(fam, temp[2*i + 1]*One(KQ), true))];
+                fi;
+            else 
+                for j in [1..length] do
+                    image := image*f[4][Position(f[3],walk[j]*One(AA))];
+                od;
+            fi;
+            tempx := tempx + ImageElm(alghom,temp[2*i + 2])*image;
+        od;
+        Add(matrix, Coefficients(Basis(f[2]),tempx));
+    od;    
+    #
+    #  Finding a vector space basis for the kernel of the ring surjection  AA ---> A.
+    #
+    solutions := NullspaceMat(matrix);
+    Solutions := List(solutions, x -> LinearCombination(B,x));  # solutions as elements in  AA.
+    #
+    #  Finding a generating set for  J(Ker f) + (ker f)J. 
+    #
+    radSoluplusSolurad := List(AAarrows, x -> Filtered(Solutions*x, y -> y <> Zero(y)));
+    Append(radSoluplusSolurad, List(AAarrows, x -> Filtered(x*Solutions, y -> y <> Zero(y))));
+    radSoluplusSolurad := Flat(radSoluplusSolurad);
+    V := Subspace(AA, Solutions);
+    W := Subspace(V, radSoluplusSolurad);
+    h := NaturalHomomorphismBySubspace(V,W);  
+    #
+    #  Constructing the relations in  KQ.
+    # 
+    idealgens := List(BasisVectors(Basis(Range(h))), x -> PreImagesRepresentative(h,x));
+    #
+    #  Lifting the relations back to  KQ  and returning the answer.
+    #
+    if not IsPathAlgebra(AA) then
+        idealgens := List(idealgens, x -> x![1]);
+    fi;
+    if Length(idealgens) = 0 then 
+        return [AA, images];
+    else
+        return [KQ/idealgens, images];
+    fi;
+end
+  );

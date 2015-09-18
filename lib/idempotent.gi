@@ -5,9 +5,9 @@
 
 #######################################################################
 ##
-#F  PrimitiveIdempotents( <A> )
+#A  PrimitiveIdempotents( <A> )
 ##
-##  This function takes as an argument a finite dimensional simple 
+##  This attribute takes as an argument a finite dimensional simple 
 ##  algebra  <A>  for a finite field and returns a complete set of 
 ##  primitive idempotents  { e_i }  such that  
 ##                     A \simeq  Ae_1 + ... + Ae_n.
@@ -18,11 +18,28 @@
 ##  implementation of algorithms for noncommutative algebra", PhD-
 ##  thesis, Virginia Tech, 2000. 
 ##
-InstallGlobalFunction("PrimitiveIdempotents",
+InstallMethod( PrimitiveIdempotents, 
+    "for semisimple algebras",
+    true,
+    [ IsFiniteDimensional ], 0,
     function(A)
     local F, d, e, eA, r, m, E, b, one, i, s, j, x, e_hat;
-
+    
+    
+    #
+    # Input a (semi-)simple algebra?
+    # 
+    if not IsSemisimpleAlgebra(A) then
+        Error("the entered algebra is not a semisimple algebra, \n");
+    fi;
+    if Length(CentralIdempotentsOfAlgebra(A)) > 1 then
+        Error("the entered algebra is not a simple algebra, \n");
+    fi;
+    
     F := LeftActingDomain(A);
+    if not IsFinite(F) then
+        Error("the entered algebra is not over a finite field, \n");
+    fi;
     d := Dimension(A);
     e := HOPF_SingularIdempotent(A);
     eA := e*A;

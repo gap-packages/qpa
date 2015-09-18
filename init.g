@@ -1,6 +1,6 @@
 #############################################################################
 ##
-#W    init.g                 The QPA package                     Randall Cone
+#W    init.g                 The QPA package                
 #W                                                            Edward L. Green
 #W                                                            Oeyvind Solberg
 
@@ -42,5 +42,6 @@ ReadPackage("QPA", "lib/combinatorialrep.gd");
 
 ReadPackage("QPA", "lib/degorderfinitetype.gd");
 ReadPackage("QPA", "lib/modulecategory.gd");
+ReadPackage("QPA", "lib/documentation.gd");
 
 #E  init.g . . . . . . . . . . . . . . . . . . . . . . . . . . . .  ends here

@@ -25,7 +25,7 @@ known to be bounded, how can we represent it in an immutable way?  Our
 solution is to use a category called <C>InfList</C> (for ``infinite
 list'') to store the differentials of the complex.  The properties of
 the <C>IsInfList</C> category is described in <Ref Sect="InfLists"/>.
-An <C>IsComplex</C> object consists of one <C>IsInfList</C> for the
+An <C>IsQPAComplex</C> object consists of one <C>IsInfList</C> for the
 differentials, and it also has an <C>IsCat</C> object as an attribute.
 The <C>IsCat</C> category is a representation of an abelian category,
 see <Ref Sect="Cats" />.
@@ -152,10 +152,11 @@ such objects.
 </ManSection>
 
 <ManSection Label="MakeHalfInfList">
-  <Func Name="MakeHalfInfList" Arg="start,direction,typeWithArgs,callback"/>
+  <Func Name="MakeHalfInfList" Arg="start,direction,typeWithArgs,callback,repeatifyCallback"/>
   <Description>Arguments: <A>start</A> -- an integer, <A>direction</A>
   -- either <M>1</M> or <M>-1</M>, <A>typeWithArgs</A> -- a list which
-  may have different formats, <A>callback</A> -- a function.
+  may have different formats, <A>callback</A> -- a function,
+  <A>repeatifyCallback</A> -- a function.
   <Br />
   </Description>
   <Returns>A newly created half infinite list with index range from
@@ -165,11 +166,14 @@ such objects.
     If the range should be <M>[\mathtt{start},\infty)</M> then the value of
     <A>direction</A> is <M>1</M>.  if the range should be
     <M>(-\infty,\mathtt{start}]</M>, then the value of <A>direction</A> is
-    <M>-1</M>.  The argument <A>typeWithArgs</A> can take one of the
-    following forms:
+    <M>-1</M>.
+    <P/>
+    The argument <A>typeWithArgs</A> can take one of the following
+    forms:
     <List>
       <Item><C>[ "repeat", repeatList ]</C></Item>
       <Item><C>[ "next", nextFunction, initialValue ]</C></Item>
+      <Item><C>[ "next/repeat", nextFunction, initialValue ]</C></Item>
       <Item><C>[ "pos", posFunction ]</C></Item>
       <Item><C>[ "pos", posFunction, storeValues ]</C></Item>
     </List>
@@ -182,7 +186,15 @@ such objects.
     between the previous computed indeces and the newly computed
     index.  The default value of <C>storeValues</C> is <C>true</C> for
     <C>"next"</C> and <C>"pos"</C>, and <C>false</C> for
-    <C>"repeat"</C>.  The argument <C>callback</C> is a function that
+    <C>"repeat"</C>.  The type <C>"next/repeat"</C> works exactly like
+    the type <C>"next"</C>, except that when values in the list are
+    computed, the list will try to discover if the values are
+    repeating.  If this happens, the function <A>repeatifyCallback</A>
+    is called with two arguments: the non-repeating part at the
+    beginning as a normal list (this might be empty) and a new
+    HalfInfList of type <C>"repeat"</C> for the repeating part.
+    <P/>
+    The argument <C>callback</C> is a function that
     is called whenever a new value of the list is computed.  It takes
     three arguments: The current position, the direction and the type
     (that is, <C>typeWithArgs[1]</C>).  If no callback function is
@@ -424,8 +436,11 @@ gap> inflist^0; inflist^5; inflist^6; inflist^-1; inflist^-4;
     that here the half infinite lists that will make the positive and
     negative parts are not entered directly as arguments.  Instead,
     one enters ``description lists'', which are of the same format as
-    the argument <A>typeWithArgs</A> of <Ref Func="MakeHalfInfList"
-    />.
+    the argument <A>typeWithArgs</A> of <Ref Func="MakeHalfInfList"/>.
+    If the positive and/or negative part is specified with type
+    <C>"next/repeat"</C>, then it will initially be of type
+    <C>"next"</C>, but will be replaced by a HalfInfList of type
+    <C>"repeat"</C> if it is discovered that the values are repeating.
   </Description>
 </ManSection>
 
@@ -443,7 +458,18 @@ gap> inflist2^0; inflist2^5; inflist2^6; inflist2^-1; inflist2^-4;
 0
 36
 1
--1 ]]>
+-1
+gap> n := function( x ) return ( x + 1 ) mod 5; end;;
+gap> list := MakeInfList( 0, [ 0 ], [ "next/repeat", n, 0 ],
+>                         [ "repeat", [ 0 ] ], false );;
+gap> list^2;
+2
+gap> IsRepeating( PositivePart( list ) );
+false
+gap> list^11;
+1
+gap> IsRepeating( PositivePart( list ) );
+true ]]>
 </Example>
 
 <ManSection>
@@ -818,7 +844,7 @@ for common special cases:
 <!-- TODO: ComplexByDifferentialList -->
 
 <ManSection>
-<Filt Type="Category" Name="IsComplex"/>
+<Filt Type="Category" Name="IsQPAComplex"/>
 <Description>
 The category for chain complexes.
 </Description>
@@ -827,7 +853,7 @@ The category for chain complexes.
 <ManSection>
 <Filt Type="Category" Name="IsZeroComplex"/>
 <Description>
-Category for zero complexes, subcategory of <Ref Filt="IsComplex"/>.
+Category for zero complexes, subcategory of <Ref Filt="IsQPAComplex"/>.
 </Description>
 </ManSection>
 
@@ -904,9 +930,29 @@ be one of the following:
   </Display>
   Each differential is stored when it has been computed.
 </Item>
+<Item>A list of the form <Code>[ "next/repeat", f, init ]</Code>.
+  This works like the type <C>"next"</C>, but may be automatically converted
+  to type <C>"repeat"</C> later, if it is discovered that the differentials
+  are repeating.
+</Item>
 </List>
 </Description>
 </ManSection>
+
+<Example><![CDATA[
+gap> A := PathAlgebra( Rationals, Quiver( 2, [ [ 1, 2, "a" ] ] ) );;
+gap> M := RightModuleOverPathAlgebra( A, [ 2, 2 ], [ [ "a", [ [ 1, 0 ], [ 0, 1 ] ] ] ] );;
+gap> d := RightModuleHomOverAlgebra( M, M, [ [ [ 0, 0 ], [ 1, 0 ] ], [ [ 0, 0 ], [ 1, 0 ] ] ] );;
+gap> IsZero( d * d );
+true
+gap> C := Complex( CatOfRightAlgebraModules( A ), 0, [ d ],
+>                  [ "next/repeat", function( x ) return d; end, d ], "zero" );
+--- -> 0:(2,2) -> -1:(2,2) -> 0
+gap> ObjectOfComplex( C, 3 );
+<[ 2, 2 ]>
+gap> C;
+--- -> [ 1:(2,2) -> ] 0:(2,2) -> -1:(2,2) -> 0 ]]>
+</Example>
 
 <ManSection>
 <Func Name="ZeroComplex" Arg="cat"/>
