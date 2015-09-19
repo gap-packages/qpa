@@ -110,6 +110,7 @@ InstallMethod(IdempotentsForDecomposition,
         SetParent(simp, a); 
         SetOne(simp, i);
         SetMultiplicativeNeutralElement(simp, i);   
+        SetFilterObj(simp, IsAlgebraWithOne);
         prims := Concatenation(prims,PrimitiveIdempotents(simp));
     od;
    
