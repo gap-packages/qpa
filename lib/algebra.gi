@@ -1,6 +1,16 @@
 # GAP Implementation
 # This file was generated from 
 # $Id: algebra.gi,v 1.1 2010/05/07 13:30:13 sunnyquiver Exp $
+InstallImmediateMethod( GlobalDimension, IsSelfinjectiveAlgebra, 0, 
+        function(A) 
+    if HasIsSemisimpleAlgebra(A) and not IsSemisimpleAlgebra(A) then 
+        return infinity;
+    fi;
+    TryNextMethod();
+end);
+
+InstallImmediateMethod( GlobalDimension, IsSemisimpleAlgebra, 0, A -> 0); 
+
 InstallMethod( PowerSubalgebraOp,
     "for associative algebras",
     true,
@@ -797,3 +807,4 @@ InstallMethod ( AlgebraAsQuiverAlgebra,
     fi;
 end
   );
+
