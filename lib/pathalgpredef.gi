@@ -1,7 +1,8 @@
 # GAP Implementation
 # This file was generated from 
 # $Id: predefalgs.gi,v 1.6 2012/08/01 16:01:10 sunnyquiver Exp $
-
+InstallImmediateMethod( IsFiniteTypeAlgebra, IsNakayamaAlgebra, 0, A -> true);
+        
 #######################################################################
 ##
 #O  NakayamaAlgebra( K, <admiss_seq> )
