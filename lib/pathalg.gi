@@ -2240,7 +2240,8 @@ InstallMethod ( IsDistributiveAlgebra,
     #  Check if the eAe-module eAf is uniserial or 
     #  the fAf-module eAf is uniserial for all pair
     #  of primitive idempotents e and f. 
-    radlocalrings := List(localrings, R -> BasisVectors(Basis(RadicalOfAlgebra(R))));
+    radlocalrings := List(localrings, R -> Subalgebra(R, Basis(RadicalOfAlgebra(R))));
+#    radlocalrings := List(localrings, R -> BasisVectors(Basis(RadicalOfAlgebra(R))));
     for i in [1..Length(pids)] do
         for j in [1..Length(pids)] do 
             if i <> j then 
@@ -2250,10 +2251,11 @@ InstallMethod ( IsDistributiveAlgebra,
                 testspace := ShallowCopy(BasisVectors(Basis(module))); 
                 flag := true;
                 while Length(testspace) <> 0 and flag do
-                    if Length(radlocalrings[i]) = 0 then
+                    if Dimension(radlocalrings[i]) = 0 then
                         radtestspace := [];
                     else
-                        radtestspace := Filtered(Flat(List(testspace, t -> radlocalrings[i]*t)), x -> x <> Zero(x));
+# radtestspace := Filtered(Flat(List(testspace, t -> radlocalrings[i]^t)), x -> x <> Zero(x));
+                        radtestspace := Filtered(Flat(List(testspace, t -> List(BasisVectors(Basis(radlocalrings[i])), b -> b^t))), x -> x <> Zero(x));
                     fi;
                     if Length(radtestspace) = 0 then
                         if Length(testspace) <> 1 then 
@@ -2276,10 +2278,11 @@ InstallMethod ( IsDistributiveAlgebra,
                     # check if all layers are one dimensional.
                     testspace := ShallowCopy(BasisVectors(Basis(module))); 
                     while Length(testspace) <> 0 do
-                        if Length(radlocalrings[i]) = 0 then
+                        if Dimension(radlocalrings[i]) = 0 then
                             radtestspace := [];
                         else
-                            radtestspace := Filtered(Flat(List(testspace, t -> t*radlocalrings[j])), x -> x <> Zero(x));
+                            radtestspace := Filtered(Flat(List(testspace, t -> List(BasisVectors(Basis(radlocalrings[i])), b -> t^b))), x -> x <> Zero(x));                      
+# radtestspace := Filtered(Flat(List(testspace, t -> t*radlocalrings[j])), x -> x <> Zero(x));
                         fi;
                         if Length(radtestspace) = 0 then
                             if Length(testspace) <> 1 then 
