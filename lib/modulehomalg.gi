@@ -1362,7 +1362,7 @@ InstallMethod( HaveFiniteCoresolutionInAddM,
         f := MinimalLeftAddMApproximation(Range(g),M); 
     od;
     differentials := Reversed(differentials);
-    cat := CatOfRightAlgebraModules(RightActingAlgebra(M));
+    cat := RightModuleCategory(RightActingAlgebra(M));
     coresolution := FiniteComplex(cat, -Length(differentials) + 1, differentials);
     return coresolution;
 end
@@ -1473,7 +1473,7 @@ InstallMethod( HaveFiniteResolutionInAddM,
         fi;
         f := MinimalRightAddMApproximation(M, Source(g));
     od;
-    cat := CatOfRightAlgebraModules(RightActingAlgebra(M));
+    cat := RightModuleCategory(RightActingAlgebra(M));
     resolution := FiniteComplex(cat, 1, differentials);
     return resolution;
 end
@@ -1584,7 +1584,7 @@ InstallMethod( AllComplementsOfAlmostCompleteTiltingModule,
         fi;
         f := MinimalRightAddMApproximation(M, Source(g));
     od;
-    cat := CatOfRightAlgebraModules(RightActingAlgebra(M));
+    cat := RightModuleCategory(RightActingAlgebra(M));
     if Length(leftdifferentials) = 0 then
         resolution := [];
     else

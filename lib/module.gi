@@ -2235,3 +2235,17 @@ InstallOtherMethod( IsZero,
     return Dimension(M) = 0;
 end
   );
+
+InstallMethod( ProjectiveResolution, [ IsPathAlgebraMatModule ],
+function( M )
+  return Resolution( RightModuleCategory( ActingAlgebra( M ) ),
+                     M, ProjectiveCover );
+end );
+
+InstallMethod( String, [ IsPathAlgebraMatModule ],
+function( M )
+  return Concatenation( "(",
+                        JoinStringsWithSeparator
+                        ( DimensionVector( M ), "," ),
+                        ")" );
+end );
