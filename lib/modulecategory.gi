@@ -61,7 +61,7 @@ function( A )
   AddIsZeroForMorphisms( category, IsZero );
   AddIsEqualForMorphisms( category, \= );
   AddZeroObject( category, function() return ZeroModule( A ); end );
-  AddDirectSum( category, DirectSumOfModules );
+  AddDirectSum( category, DirectSumOfQPAModules );
   AddInjectionOfCofactorOfCoproductWithGivenCoproduct( category,
   function( summands, i, sum )
     return DirectSumInclusions( sum )[ i ];
