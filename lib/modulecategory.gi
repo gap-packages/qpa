@@ -12,21 +12,21 @@ function( A )
   AddPreCompose( category, \* );
   AddIsEqualForObjects( category, \= );
   AddIdentityMorphism( category, IdentityMapping );
-  AddMonoAsKernelLift( category,
+  AddLiftAlongMonomorphism( category,
   function( monomorphism, test_morphism )
     local im_proj, im_inc;
     im_proj := ImageProjection( test_morphism );
     im_inc := ImageInclusion( test_morphism );
     return im_proj * LiftingInclusionMorphisms( monomorphism, im_inc );
   end );
-  AddKernelEmb( category, KernelInclusion );
+  AddKernelEmbedding( category, KernelInclusion );
 #  AddCokernel( category, CoKernel );
-  AddCokernelProj( category, CoKernelProjection );
-  AddCokernelColiftWithGivenCokernel( category,
+  AddCokernelProjection( category, CoKernelProjection );
+  AddCokernelColiftWithGivenCokernelObject( category,
   function( morphism, test_morphism, coker )
     local coker_proj, test_object, test_matrices,  
           proj_matrices, proj_inv_matrices, lift_matrices;
-    coker_proj := CokernelProj( morphism );
+    coker_proj := CokernelProjection( morphism );
     test_object := Range( test_morphism );
     test_matrices := MatricesOfPathAlgebraMatModuleHomomorphism( test_morphism );
     proj_matrices := MatricesOfPathAlgebraMatModuleHomomorphism( coker_proj );
