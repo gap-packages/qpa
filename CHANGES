@@ -1,4 +1,64 @@
 ==========================================================================
+Changes from version 1.21 to 1.22:
+==========================================================================
+
+Added structures in this release:
+----------------------------------------------------------------------
+
+None
+
+Added functions in this release:
+----------------------------------------------------------------------
+
+AlgebraAsQuiverAlgebra
+IdealOfQuotient
+IsZero (for IsPathAlgebraMatModule)
+LiftingCompleteSetOfOrthogonalIdempotents
+LiftingIdempotent
+RelationsOfAlgebra
+
+Changed code for:
+----------------------------------------------------------------------
+
+Center/Centre
+NakayamaAlgebra
+RadicalOfModuleInclusion
+
+Fixed bugs in:
+----------------------------------------------------------------------
+
+IdempotentsForDecomposition
+
+Documentation:
+----------------------------------------------------------------------
+
+Documentation was updated. 
+
+Changes in function names:
+Old name -------> New name
+------------------------------------------------------------
+
+None
+
+Synonyms
+------------------------------------------------------------
+
+None
+
+Discontinued functions:
+------------------------------------------------------------
+
+None
+
+Miscellaneous
+------------------------------------------------------------
+
+Removed chap0.html, manual.pdf and manual.six from the git
+repository. Changed create-release.sh.
+
+
+
+==========================================================================
 Changes from version 1.20 to 1.21:
 ==========================================================================
 
