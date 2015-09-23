@@ -1,4 +1,84 @@
 ==========================================================================
+Changes from version 1.21 to 1.22:
+==========================================================================
+
+Added structures in this release:
+----------------------------------------------------------------------
+
+Complexes can automatically detect repetition and change to "repeat"
+type.  New type "next/repeat" which can be used when specifying
+complexes.  This works like the type "next" (each differential is
+produced by a function which takes the previous differential as
+argument), but will automatically convert itself to type "repeat" (all
+differentials are given by a finite list which is repeated
+indefinitely) if it detects repetition.
+
+Added functions in this release:
+----------------------------------------------------------------------
+
+AlgebraAsQuiverAlgebra
+IdealOfQuotient
+Immediate methods for GlobalDimension for semisimple and selfinjective
+	                                         algebras
+Immediate method for IsFinitetypeAlgebra for Nakayama algebras
+IsZero (for IsPathAlgebraMatModule)
+LiftingCompleteSetOfOrthogonalIdempotents
+LiftingIdempotent
+MakeQPADocumentation (function for building documentation)
+RelationsOfAlgebra
+
+Changed code for:
+----------------------------------------------------------------------
+
+Center/Centre
+IsAdmissibleIdeal (avoiding computing radical series of the algebra)
+IsFiniteTypeAlgebra
+NakayamaAlgebra
+RadicalOfModuleInclusion
+Print for homomorphisms
+
+Fixed bugs in:
+----------------------------------------------------------------------
+
+EndOfModuleAsQuiverAlgebra (reported by Bernhar Boelhmer)
+IdempotentsForDecomposition
+IsDistributiveAlgebra (reported by Bernhard Boelhmer and
+                                   Rene Marczinzik)
+IsomorphismOfModules
+Print for complexes with empty middle part
+
+Documentation:
+----------------------------------------------------------------------
+
+Documentation was updated. 
+
+Changes in function names:
+Old name -------> New name
+------------------------------------------------------------
+
+None
+
+Synonyms
+------------------------------------------------------------
+
+None
+
+Discontinued functions:
+------------------------------------------------------------
+
+None
+
+Miscellaneous
+------------------------------------------------------------
+
+Removed chap0.html, manual.pdf and manual.six from the git
+repository. Changed create-release.sh.
+
+The create-release script was updated.
+
+Added an introduction to QPA and some exercises.
+
+==========================================================================
 Changes from version 1.20 to 1.21:
 ==========================================================================
 
