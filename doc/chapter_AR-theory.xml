@@ -24,6 +24,19 @@ Auslander-Reiten theory in QPA.<P/>
 </ManSection>
 
 <ManSection>
+     <Oper Name="IsTauPeriodic" Arg="M, n" Comm="for a
+   PathAlgebraMatModule and a positive integer"/>
+   <Description> 
+    Arguments: <Arg>M</Arg> -- a path algebra module
+    (<C>PathAlgebraMatModule</C>), <Arg>n</Arg> -- be a positive integer.
+   <Br /></Description>
+   <Returns><C>i</C>, where <C>i</C> is the smallest positive integer
+     less or equal <C>n</C> such that the representation <Arg>M</Arg> is isomorphic
+     to the <M>\tau^i(M)</M>, and false otherwise.
+   </Returns>
+</ManSection>
+
+<ManSection>
    <Oper Name="PredecessorOfModule" Arg="M, n" Comm=""/>
    <Description>
      Arguments: <Arg>M</Arg> - an indecomposable non-projective module

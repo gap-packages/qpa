@@ -103,6 +103,34 @@ end
 
 #######################################################################
 ##
+#O  IsTauPeriodic( <M>, <n> )
+##
+##  This function tests if the module  <M>  is \tau-periodic, that is,
+##  if  M \simeq \tau^i(M)  when  i  ranges over the set {1,2,...,n}.
+##  Otherwise it returns false.
+##
+InstallMethod( IsTauPeriodic, 
+   "for a path algebra matmodule and an integer",
+   [ IsPathAlgebraMatModule, IS_INT  ], 0,
+   function( M, n ) 
+
+   local N0, N1, i;
+ 
+   N0 := M;
+   for i in [1..n] do
+      N1 := DTr(N0);
+      if IsomorphicModules(M,N1) then
+         return i;
+      else
+         N0 := N1;
+      fi;
+   od;
+   return false;
+end
+);
+
+#######################################################################
+##
 #O  1stSyzygy( <M> )
 ##
 ##  This function computes the first syzygy of the module  <M>  by first
