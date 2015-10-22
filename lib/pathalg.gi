@@ -2278,10 +2278,10 @@ InstallMethod ( IsDistributiveAlgebra,
                     # check if all layers are one dimensional.
                     testspace := ShallowCopy(BasisVectors(Basis(module))); 
                     while Length(testspace) <> 0 do
-                        if Dimension(radlocalrings[i]) = 0 then
+                        if Dimension(radlocalrings[j]) = 0 then
                             radtestspace := [];
                         else
-                            radtestspace := Filtered(Flat(List(testspace, t -> List(BasisVectors(Basis(radlocalrings[i])), b -> t^b))), x -> x <> Zero(x));                      
+                            radtestspace := Filtered(Flat(List(testspace, t -> List(BasisVectors(Basis(radlocalrings[j])), b -> t^b))), x -> x <> Zero(x));                      
 # radtestspace := Filtered(Flat(List(testspace, t -> t*radlocalrings[j])), x -> x <> Zero(x));
                         fi;
                         if Length(radtestspace) = 0 then
