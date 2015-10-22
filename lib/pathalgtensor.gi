@@ -321,12 +321,11 @@ InstallMethod( AlgebraAsModuleOverEnvelopingAlgebra,
        return fail;
     fi;
     env := EnvelopingAlgebra(A); 
-    PA := TensorProductDecomposition( env )[ 2 ];
 
-    Q := QuiverOfPathAlgebra( PA );
+    Q := QuiverOfPathAlgebra( A );
     QxQ := QuiverOfPathAlgebra( env );
 
-    basis := CanonicalBasis( PA );
+    basis := CanonicalBasis( A );
     basis_vectors := BasisVectors( basis );
 
     vertices := VerticesOfQuiver( Q );
