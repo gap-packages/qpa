@@ -21,6 +21,7 @@ IdealOfQuotient
 Immediate methods for GlobalDimension for semisimple and selfinjective
 	                                         algebras
 Immediate method for IsFinitetypeAlgebra for Nakayama algebras
+IsTauPeriodic
 IsZero (for IsPathAlgebraMatModule)
 LiftingCompleteSetOfOrthogonalIdempotents
 LiftingIdempotent
@@ -30,6 +31,7 @@ RelationsOfAlgebra
 Changed code for:
 ----------------------------------------------------------------------
 
+AlgebraAsModuleOverEnvelopingAlgebra
 Center/Centre
 IsAdmissibleIdeal (avoiding computing radical series of the algebra)
 IsFiniteTypeAlgebra
@@ -77,6 +79,8 @@ repository. Changed create-release.sh.
 The create-release script was updated.
 
 Added an introduction to QPA and some exercises.
+
+Improved the script for generating the documentation.
 
 ==========================================================================
 Changes from version 1.20 to 1.21:
