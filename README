@@ -1,7 +1,7 @@
 The QPA package for GAP 4.5
 ==================================
 
-Version 1.22; July 20th, 2015
+Version 1.22; October 23rd, 2015
 Copyright (C) 2010 The QPA-team, 	
              http://www.math.ntnu.no/~oyvinso/QPA/
 
@@ -40,86 +40,61 @@ The following should be included with this version of QPA.
     tst      	  - tests for the package
     version       - contains the version number of the latest version
 
-Obtaining
----------
-
-QPA can be obtained from
-
-    	http://www.math.ntnu.no/~oyvinso/QPA/
-or from
-    	https://github.com/gap-system/qpa/
-
-The Groebner basis package GBNP is required to run QPA. The
-GBNP Groebner basis can be obtain from its home at:
-
-	http://www.win.tue.nl/~amc/pub/grobner/chap0.html
-
-The GAPDoc package is necessary for generating the documentation
-files. The GAPDoc package can be obtain from its home at:
-
-  http://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc/index.html
-
 Installation
 ------------
 
-For intalling and downloading: Assuming that GAP is installed on your
-comupter, follow the following steps:
+Since the release of GAP version 4.7.8, the package QPA is distributed
+with GAP, so if you download this version or any later version QPA
+will be installed at the same time as GAP is installed.  Follow the
+instructions for installing GAP on the web page
 
-1.  Make a directory, say GAPdirectory.
-2.  In the GAPdirectory, create a subdirectory gap, with again a 
-    subdirectory pkg, that is, now you should have a directory 
-    GAPdirectory/gap/pkg/.
-3.  Move to the directory GAPdirectory/gap/pkg/
-4.  Give the following command:
+  http://www.gap-system.org/Download/index.html
+
+After having successfully started GAP, give the command
+
+gap> LoadPackage("qpa");
+
+which loads QPA and you can start using QPA.
+
+For GAP version 4.7.7 or older, or you want a newer version of QPA than
+the one that is distributed with GAP, follow the following instructions:
+
+1.  Locate a pkg-directory where GAP searches for packages, see
+    9.2 GAP Root Directories in the GAP manual for more information.
+2a. Download a release of QPA from
+          https://github.com/gap-system/qpa/releases
+    and unpack it in the pkg-directory you located in 1.
+2b. Alternatively, clone the git-repository of QPA by giving the following
+    command:
         git clone https://github.com/gap-system/qpa.git qpa
-5.  QPA is using the GAP-package GBNP, go to this webpage and 
-    download the latest version of this package. Unpack it in 
-    the directory GAPdirectory/gap/pkg/.
-6.  The directory GAPdirectory/gap/pkg/ should now have two subdirectories, gbnp and qpa.
-7.  When starting GAP, use the command: gap -l ";/fullpath/GAPdirectory/gap/", 
-    where "fullpath" is the complete directory path name for the directory 
-    containing the subdirectory GAPdirectory. Or for convenience, define an 
-    alias, for instance in .bashrc, alias gap='gap -l ";/fullpath/GAPdirectory/gap/"'.
-8.  Making the documentation (install GAPDoc 1.3 for GAP 4.4.12, GAPDoc 1.5 for GAP > 4.4):
-    (i)   Move to the directory GAPdirectory/gap/pkg/qpa/doc
-    (ii)  Give the command: gap MakeQPADoc.gi (see below for setting up the gap command).
+    when you are in the pkg-directory you located in 1.
+    For making the documentation for QPA give the command  
+      	   MakeQPADocumentation();
+    inside a gap-session with QPA loaded.
+    For later obtaining the latest version of QPA, give the command
+      	 git pull
+    when you are inside the qpa-directory. 
 
-For the latest version of QPA, always download the GIT repository (assuming that you have
-cloned the GitHub repository):
-a) Move to the directory GAPdirectory/gap/pkg/qpa/
-b) Give the following command:
-      git pull
-if you have a version of QPA installed already in GAPdirectory/gap/pkg/.
 
 Using QPA
 ----------
-
-Assuming that GAP is installed on your computer and that QPA is installed as
-above, start QPA/GAP using the command: 
-
-     gap -l ";/fullpath/GAPdirectory/gap/" 
-
-where "fullpath" is the complete directory path name for the directory
-containing the subdirectory GAPdirectory. Or for convenience, define
-an alias, for instance in .bashrc, 
-
-     alias gap='gap -l ";/fullpath/GAPdirectory/gap/"'  
 
 To load the QPA-package, give the command
 
      LoadPackage("qpa");
 
-To avoid having to load QPA each time you use GAP, consult the posting
+To avoid having to load QPA each time you use GAP, you can add "qpa"
+to the user preference PackagesToLoad, as explained in
 
 https://www.mail-archive.com/forum@mail.gap-system.org/msg02528.html
 
-See the user manual in the doc directory for more information regarding
-the use of QPA, or follow the URL
+See the user manual in the doc directory for more information
+regarding the use of QPA, or follow the URL
 
      http://www.math.ntnu.no/~oyvinso/QPA/manual.pdf
 
-to see the current manual/documentation of QPA (still work in progress,
-not brilliant at this point). 
+to see the current manual/documentation of QPA (still work in
+progress, not brilliant at this point).
 
 Contact
 -------
