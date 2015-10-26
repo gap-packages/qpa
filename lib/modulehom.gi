@@ -3621,54 +3621,63 @@ InstallMethod( EndOfModuleAsQuiverAlgebra,
     #  Finding the generators of the square of the radical in  EndM.
     #
     temp := [];
-    for i in [1..Length(gensofrad)] do
-        Append(temp, Filtered(gensofrad[i]*BasisVectors(Basis(EndM)), x -> x <> Zero(x)));
-    od;
-    temp := Unique(temp); #  contains generators of the radical as a left ideal. 
     gensofradsquare := [];
-    for i in [1..Length(gensofrad)] do
-        Append(gensofradsquare, Filtered(temp*gensofrad[i], x -> x <> Zero(x)));
-    od;
-    gensofradsquare := Unique(gensofradsquare); # generators of the square of the radical in  EndM.
+    if Length(gensofrad) > 0 then
+        for i in [1..Length(gensofrad)] do
+    	    Append(temp, Filtered(gensofrad[i]*BasisVectors(Basis(EndM)), x -> x <> Zero(x)));
+    	od;
+        temp := Unique(temp); #  contains generators of the radical as a left ideal.
+	for i in [1..Length(gensofrad)] do
+            Append(gensofradsquare, Filtered(temp*gensofrad[i], x -> x <> Zero(x)));
+    	od;
+        gensofradsquare := Unique(gensofradsquare); # generators of the square of the radical in  EndM.
+        #
+    	#  Defining the square of the radical as an ideal inside  EndM, and finding the natural map 
+    	#  EndM --->  EndM/radsquare.
+    	#	
+    	radsquare := Ideal(EndM, gensofradsquare); 
+    	radmap := NaturalHomomorphismByIdeal(EndM, radsquare);
+    	radmodradsq := Unique(List(gensofrad, x -> ImageElm(radmap,x)));
+    	#
+    	#  Defining the image of the radical in  EndM  as an ideal in  EndM/radsquare.
+    	#
+    	Iradmodradsq := Ideal(Range(radmap),radmodradsq);
+    	#
+	#  Constructing generators for the arrows in  EndM  and the adjacency matrix of 
+	#  the quiver of the elementary algebra  EndM.
+    	#  		
+    	gensforarrows := List([1..Length(pids)], x -> List([1..Length(pids)], y -> []));
+    	adjacencymatrix := NullMat(Length(pids),Length(pids));
+    	for i in [1..Length(pids)] do
+            for j in [1..Length(pids)] do
+            	gensforarrows[i][j] := Filtered(ImageElm(radmap,pids[i])*BasisVectors(Basis(Iradmodradsq))*ImageElm(radmap,pids[j]), y -> y <> Zero(y));
+            	gensforarrows[i][j] := BasisVectors(Basis(Subspace(Range(radmap),gensforarrows[i][j])));
+            	gensforarrows[i][j] := List(gensforarrows[i][j], x -> PreImagesRepresentative(radmap,x));
+            	adjacencymatrix[i][j] := Length(gensforarrows[i][j]);
+        	od; 
+    	od;
+    	#
+    	t := Length(RadicalSeriesOfAlgebra(EndM)) - 1; # then radEndM^t = (0) 
+    	Q := Quiver(adjacencymatrix);
+    	KQ := PathAlgebra(LeftActingDomain(M),Q);
+    	Jtplus1 := NthPowerOfArrowIdeal(KQ,t + 1);
+    	n := NumberOfVertices(Q);
+    	images := ShallowCopy(pids);   #  images of the vertices/trivial paths
+    	arrow_count := 0;
+    	for i in [ 1 .. n ] do
+            for j in [ 1 .. n ] do
+            	Append(images,gensforarrows[i][j]);
+        	od;
+    	od;
+    else
+	adjacencymatrix := NullMat(Length(pids), Length(pids));
+	Q := Quiver(adjacencymatrix);
+	KQ := PathAlgebra(LeftActingDomain(M),Q);
+	return [EndM, adjacencymatrix, KQ];
+    fi;
     #
-    #  Defining the square of the radical as an ideal inside  EndM, and finding the natural map 
-    #  EndM --->  EndM/radsquare.
+    #  If there are some arrows, continue.
     #
-    radsquare := Ideal(EndM, gensofradsquare); 
-    radmap := NaturalHomomorphismByIdeal(EndM, radsquare);
-    radmodradsq := Unique(List(gensofrad, x -> ImageElm(radmap,x)));
-    #
-    #  Defining the image of the radical in  EndM  as an ideal in  EndM/radsquare.
-    #
-    Iradmodradsq := Ideal(Range(radmap),radmodradsq);
-    #
-    #  Constructing generators for the arrows in  EndM  and the adjacency matrix of 
-    #  the quiver of the elementary algebra  EndM.
-    #  
-    gensforarrows := List([1..Length(pids)], x -> List([1..Length(pids)], y -> []));
-    adjacencymatrix := NullMat(Length(pids),Length(pids));
-    for i in [1..Length(pids)] do
-        for j in [1..Length(pids)] do
-            gensforarrows[i][j] := Filtered(ImageElm(radmap,pids[i])*BasisVectors(Basis(Iradmodradsq))*ImageElm(radmap,pids[j]), y -> y <> Zero(y));
-            gensforarrows[i][j] := BasisVectors(Basis(Subspace(Range(radmap),gensforarrows[i][j])));
-            gensforarrows[i][j] := List(gensforarrows[i][j], x -> PreImagesRepresentative(radmap,x));
-            adjacencymatrix[i][j] := Length(gensforarrows[i][j]);
-        od; 
-    od;
-    #
-    t := Length(RadicalSeriesOfAlgebra(EndM)) - 1; # then radEndM^t = (0) 
-    Q := Quiver(adjacencymatrix);
-    KQ := PathAlgebra(LeftActingDomain(M),Q);
-    Jtplus1 := NthPowerOfArrowIdeal(KQ,t + 1);
-    n := NumberOfVertices(Q);
-    images := ShallowCopy(pids);   #  images of the vertices/trivial paths
-    arrow_count := 0;
-    for i in [ 1 .. n ] do
-        for j in [ 1 .. n ] do
-            Append(images,gensforarrows[i][j]);
-        od;
-    od;
-     
     if Length(Jtplus1) = 0 then 
         AA := KQ;
         gensofAA := GeneratorsOfAlgebra(AA);
