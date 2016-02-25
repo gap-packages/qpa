@@ -1,10 +1,10 @@
 SetPackageInfo( rec(
 PackageName := "QPA",
 Subtitle := "Quivers and Path Algebras",
-Version := "1.23",
-Date := "05/11/2015",
+Version := "1.24",
+Date := "24/02/2016",
 
-ArchiveURL := Concatenation( "http://www.math.ntnu.no/~oyvinso/QPA/qpa-version-","1.23"),
+ArchiveURL := Concatenation( "http://www.math.ntnu.no/~oyvinso/QPA/qpa-version-","1.24"),
 
 ArchiveFormats := ".tar.gz",
 
