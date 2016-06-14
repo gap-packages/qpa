@@ -55,6 +55,12 @@ Status := "deposited",
 README_URL := "http://www.math.ntnu.no/~oyvinso/QPA/README",
 PackageInfoURL := "http://www.math.ntnu.no/~oyvinso/QPA/PackageInfo.g",
 
+SourceRepository := rec( 
+  Type := "git", 
+  URL := "https://github.com/gap-packages/qpa"
+),
+IssueTrackerURL := Concatenation( ~.SourceRepository.URL, "/issues" ),
+
 AbstractHTML := "The <span class=\"pkgname\">QPA</span> package provides data structures \
                    and algorithms for doing computations with finite dimensional quotients \
                    of path algebras, and finitely generated modules over such algebras. The \
