@@ -222,6 +222,19 @@ gap> N := RightModuleOverPathAlgebra(A,mat);;]]>
  </ManSection>
 
 <ManSection>
+   <Attr Name="InjectiveEnvelope" Arg="M" Comm="for a PathAlgebraMatModule"/>
+   <Description>
+     Arguments: <Arg>M</Arg> - a module.<Br />
+   </Description>
+   <Returns>the injective envelope of <Arg>M</Arg>, that is, returns the
+   map <Math>M\to I(M)</Math>.</Returns>
+   <Description>
+     If the module <Arg>M</Arg> is zero, then the zero map from
+     <Arg>M</Arg> is returned.
+   </Description>
+</ManSection>
+ 
+<ManSection>
    <Attr Name="IsCotiltingModule" Arg="M" Comm="a PathAlgebraMatModule"/>
    <Description>
      Arguments: <Arg>M</Arg> - a PathAlgebraMatModule.<Br />

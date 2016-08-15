@@ -1247,6 +1247,31 @@ function( M )
                     "zero" );
 end );
 
+#######################################################################
+##
+#O  InjectiveResolution( < M > ) 
+##
+##  Returns the minimal injective resolution of M, including M in degree -1.
+##  
+InstallMethod( InjectiveResolution,
+    [ IsPathAlgebraMatModule ],
+    function( M )
+    local nextDifferential, envelope;
+
+    nextDifferential := function( d )
+        return  CoKernelProjection( d )*InjectiveEnvelope( CoKernel( d ) );
+    end;
+
+    envelope := InjectiveEnvelope( M );
+
+    return Complex( CatOfRightAlgebraModules( ActingAlgebra( M ) ),
+                    0,
+                    [ envelope ],
+                    "zero",
+                    [ "next/repeat", nextDifferential, envelope ]
+                    );
+end
+);
 
 #######################################################################
 ##

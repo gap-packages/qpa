@@ -71,6 +71,7 @@ DeclareGlobalFunction( "ShortExactSequence" );
 DeclareGlobalFunction( "ComplexByDifferentialList" );
 
 DeclareOperation( "ProjectiveResolution", [ IsAlgebraModule ] );
+DeclareOperation( "InjectiveResolution", [ IsAlgebraModule ] );
 
 DeclareCategory( "IsChainMap", IsObject );
 DeclareCategoryFamily( "IsChainMap" );

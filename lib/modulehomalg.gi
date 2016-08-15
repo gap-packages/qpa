@@ -569,6 +569,23 @@ InstallMethod ( ProjectiveCover,
 end
 );
 
+#######################################################################
+##
+#A  InjectiveEnvelope(< M >)
+##
+##  This function finds the injective envelope I(M) of the module  <M>  
+##  in that it returns the map from M ---> I(M). 
+##
+InstallMethod ( InjectiveEnvelope, 
+    "for a PathAlgebraMatModule",
+    true,
+    [ IsPathAlgebraMatModule ],
+    0,
+    function( M );
+
+    return DualOfModuleHomomorphism( ProjectiveCover( DualOfModule( M ) ) );
+end
+);
 
 #######################################################################
 ##

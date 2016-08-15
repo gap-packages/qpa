@@ -10,6 +10,7 @@ DeclareOperation( "MinimalLeftApproximation", [ IsPathAlgebraMatModule, IsPathAl
 DeclareSynonym( "MinimalRightAddMApproximation", MinimalRightApproximation);
 DeclareSynonym( "MinimalLeftAddMApproximation", MinimalLeftApproximation);
 DeclareAttribute( "ProjectiveCover", IsPathAlgebraMatModule );
+DeclareAttribute( "InjectiveEnvelope", IsPathAlgebraMatModule );
 DeclareOperation( "ExtOverAlgebra", [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ]);
 DeclareOperation( "ExtAlgebraGenerators", [ IsPathAlgebraMatModule, IS_INT ] );
 DeclareOperation( "PartialIyamaGenerator", [IsPathAlgebraMatModule ] );

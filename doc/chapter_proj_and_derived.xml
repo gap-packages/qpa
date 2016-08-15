@@ -12,6 +12,18 @@ injective).
 <Heading>Projective and injective complexes</Heading>
 
 <ManSection>
+  <Oper Name="InjectiveResolution" Arg="M" />
+  <Description>
+    Arguments: <Arg>M</Arg> -- a module.<Br />
+  </Description>
+  <Returns>The injective resolution of <Arg>M</Arg> with <Arg>M</Arg>
+  in degree <Math>-1</Math>.
+  </Returns>
+  <Description>
+  </Description>
+</ManSection>
+
+<ManSection>
   <Prop Name="IsProjectiveComplex" Arg="C" />
   <Description>
     Arguments: <Arg>C</Arg> -- a complex.<Br />
