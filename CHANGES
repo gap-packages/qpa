@@ -1,4 +1,17 @@
 ==========================================================================
+Changes from version 1.23 to 1.24:
+==========================================================================
+
+Delete the file banner.g, as this file now is absolete.
+
+Updated doc/chapterintroduction.xml to take into account that QPA is now
+a deposited package in GAP. 
+
+Updated the files version, PackageInfo.g and doc/qpadocumentation.xml
+to version 1.24.
+
+
+==========================================================================
 Changes from version 1.22 to 1.23:
 ==========================================================================
 

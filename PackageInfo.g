@@ -1,10 +1,10 @@
 SetPackageInfo( rec(
 PackageName := "QPA",
 Subtitle := "Quivers and Path Algebras",
-Version := "1.23",
-Date := "05/11/2015",
+Version := "1.24",
+Date := "24/02/2016",
 
-ArchiveURL := Concatenation( "http://www.math.ntnu.no/~oyvinso/QPA/qpa-version-","1.23"),
+ArchiveURL := Concatenation( "http://www.math.ntnu.no/~oyvinso/QPA/qpa-version-","1.24"),
 
 ArchiveFormats := ".tar.gz",
 
@@ -54,6 +54,12 @@ Status := "deposited",
 
 README_URL := "http://www.math.ntnu.no/~oyvinso/QPA/README",
 PackageInfoURL := "http://www.math.ntnu.no/~oyvinso/QPA/PackageInfo.g",
+
+SourceRepository := rec( 
+  Type := "git", 
+  URL := "https://github.com/gap-packages/qpa"
+),
+IssueTrackerURL := Concatenation( ~.SourceRepository.URL, "/issues" ),
 
 AbstractHTML := "The <span class=\"pkgname\">QPA</span> package provides data structures \
                    and algorithms for doing computations with finite dimensional quotients \
