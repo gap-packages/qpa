@@ -63,3 +63,4 @@ DeclareOperation("MultiplyListsOfMaps", [IsList, IsList, IsList]);
 DeclareOperation( "IsomorphismOfModules", [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ]);
 DeclareOperation( "EndOfModuleAsQuiverAlgebra", [IsPathAlgebraMatModule ] );
 DeclareOperation( "TraceOfModule", [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ] );
+DeclareOperation( "RejectOfModule", [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ] );

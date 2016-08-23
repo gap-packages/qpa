@@ -1559,6 +1559,7 @@ InstallMethod( CotiltingModule,
     i := 0;
     repeat 
         if Length(ExtOverAlgebra(N,M)[2]) <> 0 then
+	    SetIsCotiltingModule(M, false);
             return false;
         fi;
         i := i + 1;

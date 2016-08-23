@@ -3803,3 +3803,45 @@ InstallMethod( TraceOfModule,
     return SubRepresentationInclusion(N,trace);
 end
   );
+
+#######################################################################
+##
+#O  RejectOfModule( <N>, <M> )
+##
+##  This function computes the reject of the module  <M>  in  <N> by doing 
+##  the following: computes a basis for Hom_A(N,M) and then computes 
+##  the intersections of all the kernels of the elements in this basis. 
+##
+InstallMethod( RejectOfModule,
+    "for two PathAlgebraMatModules",
+    [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ],
+    
+    function( N, M )
+
+    local  homNM;
+    #
+    # Checking if the modules  <M>  and  <N>  are modules over the same algebra.
+    #
+    if RightActingAlgebra(M) <> RightActingAlgebra(N) then
+        Error("the entered modules are not modules over the same algebra,\n");
+    fi;
+    #
+    # If  Hom( N, M )  is zero, then the reject is the identity homomorphism N ---> N.
+    #
+    homNM := HomOverAlgebra( N, M );
+    if Length( homNM ) = 0 then 
+        return IdentityMapping( N );
+    fi;
+    #
+    # Using the basis we found for  Hom( N, M )  above, and taking the intersection of 
+    # all the kernels of these homomorphisms in the basis.  This is the reject of  
+    # <M>  in  <N>.
+    #
+    if Length( homNM ) = 1 then
+       return KernelInclusion( homNM[ 1 ] );
+    fi;
+    if Length( homNM ) > 1 then
+	return IntersectionOfSubmodules( List( homNM, f -> KernelInclusion( f ) ) );
+    fi;
+end
+  );

@@ -851,6 +851,17 @@ gap> MinimalLeftApproximation(S,N);
 </ManSection>
 
 <ManSection>
+   <Oper Name="RejectOfModule" Arg="M, N" Comm="for two PahtAlgebraMatModules"/>
+   <Description>
+     Arguments: <Arg>N</Arg>, <Arg>M</Arg> -- two path algebra modules
+     (<C>PathAlgebraMatModule</C>).<Br />
+   </Description>
+   <Returns>the reject of the module <Arg>M</Arg> in the module
+   <Arg>N</Arg> as an inclusion homomorhpism from the reject of
+   <Arg>M</Arg> into <Arg>N</Arg>.</Returns>
+</ManSection>
+
+<ManSection>
    <Oper Name="SocleOfModuleInclusion" Arg="M" Comm=""/>
    <Description>
      Arguments: <Arg>M</Arg> - a module.<Br />
