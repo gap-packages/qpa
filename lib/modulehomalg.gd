@@ -53,3 +53,5 @@ DeclareOperation( "LeftMutationOfTiltingModuleComplement", [ IsPathAlgebraMatMod
 DeclareOperation( "RightMutationOfTiltingModuleComplement", [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ]);
 DeclareSynonym( "LeftMutationOfCotiltingModuleComplement", LeftMutationOfTiltingModuleComplement);
 DeclareSynonym( "RightMutationOfCotiltingModuleComplement", RightMutationOfTiltingModuleComplement);
+DeclareOperation( "RightApproximationByPerpT", [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ]);
+DeclareOperation( "LeftApproximationByAddTHat", [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ]);

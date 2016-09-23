@@ -279,6 +279,25 @@ gap> N := RightModuleOverPathAlgebra(A,mat);;]]>
 </ManSection>
 
 <ManSection>
+   <Oper Name="LeftApproximationByAddTHat" Arg="T, M" Comm="for two PathAlgebraMatModules"/>
+   <Description> 
+    Arguments: <Arg>T</Arg>, <Arg>M</Arg> -- two path algebra modules (<C>PathAlgebraMatModule</C>).
+   <Br /></Description>
+   <Returns>the minimal left <M>\widehat{\add T}</M>-approximation of
+   <Arg>M</Arg>.
+   </Returns>
+   <Description>
+     The function checks if the first argument is a cotilting module,
+     that is, checks if the attribute of <C>IsCotiltingModule</C>
+     is set.  This attribute can be set by giving the command
+     <C>CotiltingModule(  T, n )</C> for some positive integer
+     <C>n</C> which is at least the injective dimension of the module
+     <Arg>T</Arg>. 
+   </Description>
+</ManSection>
+
+
+<ManSection>
    <Oper Name="LeftFacMApproximation" Arg="C, M" Comm="for two PathAlgebraMatModules"/>
    <Oper Name="MinimalLeftFacMApproximation" Arg="C, M" Comm="for two PathAlgebraMatModules"/>
    <Description> 
@@ -653,6 +672,25 @@ gap> f := CoKernelProjection(pushout[1]);
 gap> U := Range(pushout[1]); 
 <[ 0, 2, 0 ]> ]]>
 </Example>
+
+<ManSection>
+   <Oper Name="RightApproximationByPerpT" Arg="T, M" Comm="for two PathAlgebraMatModules"/>
+   <Description> 
+    Arguments: <Arg>T</Arg>, <Arg>M</Arg> -- two path algebra modules (<C>PathAlgebraMatModule</C>).
+   <Br /></Description>
+   <Returns>the minimal right <M>^\perp T</M>-approximation of
+   <Arg>M</Arg>.
+   </Returns>
+   <Description>
+     The function checks if the first argument is a cotilting module,
+     that is, checks if the attribute of <C>IsCotiltingModule</C>
+     is set.  This attribute can be set by giving the command
+     <C>CotiltingModule(  T, n )</C> for some positive integer
+     <C>n</C> which is at least the injective dimension of the module
+     <Arg>T</Arg>. 
+   </Description>
+</ManSection>
+
 
 <ManSection>
    <Oper Name="RightFacMApproximation" Arg="M, C" Comm="for two PathAlgebraMatModules"/>

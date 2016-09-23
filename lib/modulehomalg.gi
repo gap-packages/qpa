@@ -1810,3 +1810,92 @@ InstallMethod( IsHereditaryAlgebra,
     fi;
 end 
   );
+
+#######################################################################
+##
+#O  RightApproximationByPerpT( <T>, <M> )
+##
+##  Returns the minimal rightt $\widehat{\add T}$-approximation of the 
+##  module  <M>.  It checks if  <T>  is a cotilting module, and if not
+##  it returns an error message. 
+## 
+InstallMethod ( RightApproximationByPerpT, 
+    "for a cotilting PathAlgebraMatModule and a PathAlgebraMatModule",
+    true,
+    [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ],
+    0,
+    function( T, M )
+
+    local   n,  projres,  exactsequences,  currentsequences,  f,  i,  g,  
+            h,  alpha,  t, fprime;
+    
+    if not IsCotiltingModule( T ) then
+        Error("the first argument is not a cotilting module,\n");
+    fi;
+    if IsZero( M ) then
+      return ZeroMapping( ZeroModule(A), M );
+    fi;
+    n := InjDimension( T );
+    projres := ProjectiveResolution( M );
+    ObjectOfComplex( projres, n);
+    exactsequences := List( [ 0..n - 1 ], i -> [ KernelInclusion(DifferentialOfComplex(projres, i)), 
+                              ImageProjection(DifferentialOfComplex(projres, i)) ]); 
+    f := MinimalLeftApproximation( Source( exactsequences[ n ][ 1 ] ), T );    
+    for i in [ 1..n ] do
+      g := PushOut( exactsequences[ n + 1 - i ][ 1 ], f )[ 1 ];
+      h := CoKernelProjection( g );
+      alpha := IsomorphismOfModules( Range( h ), Range( exactsequences[ n + 1 - i ][ 2 ] ) );
+      h := h * alpha;
+      if i < n then
+        fprime := MinimalLeftApproximation( Source( h ), T );
+        f := PushOut( fprime, h )[ 1 ]; 
+      fi;
+    od;
+    
+    return RightMinimalVersion( h )[ 1 ];
+end
+);
+
+
+#######################################################################
+##
+#O  LeftApproximationByAddTHat( <T>, <M> )
+##
+##  Returns the minimal left $\widehat{\add T}$-approximation of the 
+##  module  <M>.  It checks if  <T>  is a cotilting module, and if not
+##  it returns an error message. 
+## 
+InstallMethod ( LeftApproximationByAddTHat, 
+    "for a cotilting PathAlgebraMatModule and a PathAlgebraMatModule",
+    true,
+    [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ],
+    0,
+    function( T, M )
+
+    local   n,  projres,  exactsequences,  currentsequences,  f,  i,  g,  
+            h,  alpha,  t, fprime;
+    
+    if not IsCotiltingModule( T ) then
+        Error("the first argument is not a cotilting module,\n");
+    fi;
+    if IsZero( M ) then
+      return ZeroMapping( M, ZeroModule(A) );
+    fi;
+    n := InjDimension( T );
+    projres := ProjectiveResolution( M );
+    ObjectOfComplex( projres, n);
+    exactsequences := List( [ 0..n - 1 ], i -> [ KernelInclusion(DifferentialOfComplex(projres, i)), 
+                              ImageProjection(DifferentialOfComplex(projres, i)) ]); 
+    f := MinimalLeftApproximation( Source( exactsequences[ n ][ 1 ] ), T );    
+    for i in [ 1..n ] do
+      g := PushOut( exactsequences[ n + 1 - i ][ 1 ], f )[ 1 ];
+      h := CoKernelProjection( g );
+      alpha := IsomorphismOfModules( Range( h ), Range( exactsequences[ n + 1 - i ][ 2 ] ) );
+      h := h * alpha;
+      fprime := MinimalLeftApproximation( Source( h ), T );
+      f := PushOut( fprime, h )[ 1 ]; 
+    od;
+        
+    return LeftMinimalVersion( f )[ 1 ];
+end
+);
