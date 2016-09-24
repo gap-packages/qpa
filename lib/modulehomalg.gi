@@ -1833,7 +1833,7 @@ InstallMethod ( RightApproximationByPerpT,
         Error("the first argument is not a cotilting module,\n");
     fi;
     if IsZero( M ) then
-      return ZeroMapping( ZeroModule(A), M );
+      return ZeroMapping( ZeroModule( RightActingAlgebra( M ) ), M );
     fi;
     n := InjDimension( T );
     projres := ProjectiveResolution( M );
@@ -1879,7 +1879,7 @@ InstallMethod ( LeftApproximationByAddTHat,
         Error("the first argument is not a cotilting module,\n");
     fi;
     if IsZero( M ) then
-      return ZeroMapping( M, ZeroModule(A) );
+      return ZeroMapping( M, ZeroModule( RightActingAlgebra( M ) ) );
     fi;
     n := InjDimension( T );
     projres := ProjectiveResolution( M );
