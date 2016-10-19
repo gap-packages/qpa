@@ -2673,3 +2673,295 @@ InstallOtherMethod( IsSemisimpleAlgebra,
     fi;
 end 
   );
+
+#######################################################################
+##
+#O  SaveAlgebra( <A> )
+##
+##  Given a finite dimensional quotient A of a path algebra, this 
+##  function saves the algebra  <A>  to a file with name <A>file</A>, 
+##  which can be open again with the function <C>ReadAlgebra</C> and 
+##  reconstructed.  The last argument <A>overwrite</A> decides if the
+##  file <A>file</A>, if it exists already, should be overwritten, not
+##  overwritten or the user should be prompted for an answer to this 
+##  question.  The corresponding user inputs are: delete, keep or 
+##  query.
+##
+InstallMethod ( SaveAlgebra, 
+    "for a fin. dim. quotient of a path algebra",
+    true,
+    [ IsQuiverAlgebra, IsString, IsString ], 
+    0,
+    function( A, file, overwrite )
+        
+  local   K,  field,  PrintCoeff,  Q,  vertices,  arrows,  relations,  
+          option,  arglength,  output,  keyboard,  temp,  number,  
+          numberofvertices,  v,  numberofarrows,  a,  
+          numberofrelations,  i,  temprelations,  j;
+
+    K := LeftActingDomain( A );
+    if K = Rationals then
+      field := "Rationals";
+      PrintCoeff := String;
+    elif IsFinite( K ) then
+      field := Concatenation( "GF(", String( Size( K ) ), ")" );
+      PrintCoeff := a -> Concatenation( "z^",String( LogFFE( a, PrimitiveRoot( K ) ) ) );
+    else
+      Error("The field over which the entered algebra is given is not supported,\n");
+    fi;
+    Q := QuiverOfPathAlgebra( A ); 
+    vertices := List( VerticesOfQuiver( Q ), String );
+    arrows := ArrowsOfQuiver( Q );
+    relations := RelationsOfAlgebra( A );
+    option := NormalizedWhitespace( overwrite );
+
+    arglength := Length( overwrite ); 
+    if arglength < 4 then 
+      Error("Invalid overwrite option has been entered, \n");
+    fi;
+    if option{[ 1..4 ]} = "keep" then
+      if IsExistingFile( file ) then 
+        Print("A file with the same name exists already.\n");
+        return false;
+      else
+        output := OutputTextFile( file, false );
+      fi;
+    elif option{[ 1..5 ]} = "query" then
+      if IsExistingFile( file ) then 
+        Print("A file with the same name exists already.\n");
+        Print("Do you want to continue anyway (n/y)?\n");
+        keyboard := InputTextUser( );
+        repeat
+            temp := CHAR_INT( ReadByte( keyboard ) );
+        until
+            temp in [ 'n', 'y' ];
+        if temp = 'n' then
+            CloseStream( keyboard );
+            return false;
+        fi;
+        output := OutputTextFile( file, false );
+      fi;
+    elif option{[ 1..6 ]} <> "delete" then
+      Error("Invalid overwrite option has been entered, \n");
+    else
+      output := OutputTextFile( file, false );
+    fi;
+    if Length( relations ) = 0 then
+        AppendTo( output, "IsPathAlgebra\n" );
+    else
+        AppendTo( output, "IsQuotientOfPathAlgebra\n" );
+    fi;
+    #
+    # Storing vertices.
+    #
+    number := 0;
+    numberofvertices := Length( vertices );
+    AppendTo( output, "Vertices:\n" );    
+    for v in vertices do
+        number := number + 1;
+        if number mod 10 = 0 then
+            AppendTo( output, "\n" );
+        fi;
+        temp := Concatenation( " ", String( v ) );
+        AppendTo( output, temp );
+        if number < numberofvertices then
+            AppendTo( output, "," );
+        fi;
+    od;
+    if number mod 10 <> 0 then
+        AppendTo( output, "\n" );
+    fi;
+    #
+    # Storing the arrows.
+    #
+    AppendTo( output, "Arrows:\n" );
+    number := 0;
+    numberofarrows := Length( arrows );
+    for a in arrows do
+        number := number + 1;
+        if number mod 6 = 0 then
+            AppendTo( output, "\n" );
+        fi;
+        temp := Concatenation( String( a ),":", String( SourceOfPath( a ) ), "->", String( TargetOfPath( a ) ) );
+        AppendTo( output, temp );
+        if number < numberofarrows then
+            AppendTo( output, ", " );
+        fi;
+    od;
+    if number mod 6 <> 0 then
+        AppendTo( output, "\n" );
+    fi;
+    #
+    # Storing the field.
+    #
+    AppendTo( output, Concatenation("Field:\n",field,"\n" ) );
+    # 
+    # Storing the relations.
+    # 
+    numberofrelations := Length( relations );
+    if numberofrelations > 0 then 
+      AppendTo( output, "Relations:\n" );        
+      for i in [ 1..Length( relations ) ] do
+        temp := CoefficientsAndMagmaElements( relations[ i ] );
+        temprelations := [];
+        for j in [ 1..Length( temp )/2 ] do
+          temprelations[ j ] := Concatenation( "(", PrintCoeff( temp[ 2*j ] ), ")*", JoinStringsWithSeparator( List( WalkOfPath( temp[ 2*j - 1 ] ), String ), "*" ) );
+        od;
+        AppendTo( output, JoinStringsWithSeparator( temprelations, " + " ) );
+        if i < numberofrelations then
+          AppendTo( output,",");
+        fi;
+        AppendTo( output, "\n" );
+      od;
+    fi;
+    CloseStream( output );
+    return true;
+end 
+);
+
+#######################################################################
+##
+#O  ReadAlgebra( <file> )
+##
+##  Given a finite dimensional quotient  <A> of a path algebra saved by
+##  command <C>SaveAlgebra</C> to the file  <Arg>file</Arg>, this 
+##  function creates the algebra  <A>  again, which can be saved to a 
+##  file again with the function <C>SaveAlgebra</C>.
+##
+InstallMethod ( ReadAlgebra, 
+    "for a text file",
+    true,
+    [ IsString ], 
+    0,
+    function( file )
+        
+  local   inputfile,  algebratype,  temp,  vertices,  arrows,  a,  
+          colonpos,  arrowpos,  arrowname,  startvertex,  endvertex,  
+          Q,  arrowsinQ,  listofarrows,  KQ,  ConvertCoeff,  size,  K,  
+          u,  relations,  t,  onerelation,  s,  walkoftemprel,  
+          coefficient,  monomial;
+
+    if not IsExistingFile( file ) then
+        Error("the enter file name ",file," does not correspond to an existing file,\n");
+    fi;
+    inputfile := InputTextFile( file );
+    algebratype := NormalizedWhitespace( ReadLine( inputfile ) );
+    if not ( algebratype in [ "IsPathAlgebra", "IsQuotientOfPathAlgebra" ] ) then
+        CloseStream( inputfile );
+        TryNextMethod( );
+    fi;
+    #
+    #  Reading the vertices.
+    #
+    temp := NormalizedWhitespace( ReadLine( inputfile ) );
+    if temp{[ 1..8 ]} <> "Vertices" then
+      Error( "wrong format on the data file for the algebra,\n" );
+    fi;
+    temp := ReadLine( inputfile );
+    if temp = fail then
+      Error( "wrong format on the data file for the algebra,\n" );
+    fi;
+    temp := NormalizedWhitespace( temp );
+    RemoveCharacters( temp, " " );
+    vertices := SplitString( temp, "," );
+    temp := NormalizedWhitespace( ReadLine( inputfile ) );
+    # Could use StartsWith below.
+    while temp{[ 1..6 ]} <> "Arrows" do
+        RemoveCharacters( temp, " " );
+        Append( vertices, SplitString( temp, "," ) );
+        temp := NormalizedWhitespace( ReadLine( inputfile ) );
+    od;
+    #
+    #  Reading the arrows.
+    #
+    temp := ReadLine( inputfile );
+    if temp = fail or temp{[ 1..5 ]} = "Field" then
+      Print( "Warning: No arrows in this quiver.\n" );
+      arrows := [];
+    else
+      arrows := [];
+      # Could use StartsWith below.
+      while temp{[ 1..5 ]} <> "Field" do
+        temp := NormalizedWhitespace( temp ); 
+        RemoveCharacters( temp, " " );
+        temp := SplitString( temp, "," );
+        for a in temp do
+          colonpos := Position( a, ':' );
+          arrowpos := PositionSublist( a, "->" );
+          arrowname := NormalizedWhitespace( a{[ 1..colonpos - 1 ]} );
+          startvertex := NormalizedWhitespace( a{[ colonpos + 1..arrowpos - 1 ]} );
+          endvertex := NormalizedWhitespace( a{[ arrowpos + 2..Length( a ) ]} );
+          Add( arrows, [ startvertex, endvertex, arrowname ] );
+        od;
+        temp := ReadLine( inputfile );
+      od;
+    fi;
+    #
+    # Constructing the quiver and the path algebra.
+    #
+    Q := Quiver( vertices, arrows );
+    arrowsinQ := ArrowsOfQuiver( Q );
+    listofarrows := List( arrowsinQ, String );
+    temp := ReadLine( inputfile );
+    if temp = fail then
+      Error( "wrong format on the data file for the algebra,\n" );
+    fi;
+    temp := NormalizedWhitespace( temp );
+    if temp = "Rationals" then
+      KQ := PathAlgebra( Rationals, Q );
+      ConvertCoeff := Rat;
+    elif temp{[1..2]} = "GF" then
+      size := Int( temp{[ Position( temp, '(' ) + 1..Position( temp, ')' ) - 1 ]} );
+      K := GF( size );
+      KQ := PathAlgebra( K, Q );
+      u := PrimitiveRoot( K );
+      ConvertCoeff := function( a )
+        local power;
+        power := Int( a{[ Position( a, '^' ) + 1..Length( a ) ]} );
+        return u^power;
+      end;
+    else
+      Error("The encountered field is not supported,\n");
+    fi;
+    #
+    # Finding the relations.
+    #
+    if algebratype = "IsQuotientOfPathAlgebra" then
+      relations := [];
+      temp := ReadLine( inputfile );
+      if temp = fail then
+        Error( "wrong format on the data file for the algebra,\n" );
+      fi;
+      temp := NormalizedWhitespace( temp );
+      if temp{[ 1..9 ]} <> "Relations" then
+        Error("Something wrong with the format of the relations,\n");
+      fi;
+      while not IsEndOfStream( inputfile ) do
+        temp := ReadLine( inputfile );
+        if temp = fail then
+          break;
+        else
+          RemoveCharacters( temp, " \n" );
+        fi;
+        temp := SplitString( temp, "," );
+        temp := List( temp, t -> SplitString( t, "+" ) );
+        temp := List( temp, t -> List( t, s -> SplitString( s, "*" ) ) );
+        for t in temp do
+          onerelation := Zero( KQ );
+          for s in t do
+            walkoftemprel := s{[ 2..Length( s) ]};
+            coefficient := s[ 1 ]{[ 2..Length( s [ 1 ] ) - 1 ]};
+            monomial := One(KQ);
+            for a in walkoftemprel do
+              monomial := monomial*arrowsinQ[ Position( listofarrows, a ) ];
+            od;
+            onerelation := onerelation + ConvertCoeff( coefficient )*monomial;
+          od;
+          Add( relations, onerelation );        
+        od;
+      od;
+    fi;
+    CloseStream( inputfile );
+    return KQ/relations;
+end
+);

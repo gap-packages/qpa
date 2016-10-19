@@ -1962,7 +1962,38 @@ true]]>
      edition, GMT, Springer-Verlag.
     </Description>
   </ManSection>
+</Section>
 
+<Section Label="qpa:read-save">
+  <Heading>Saving and reading quotients of path algebras to and from a
+  file</Heading>
+  
+<ManSection>
+    <Oper Name="ReadAlgebra" Arg="file"/>
+    <Description>
+      Arguments: <Arg>file</Arg> - a name of a file.<Br />
+    </Description>
+    <Returns> a finite dimension quotient <M>A</M> of a path algebra saved
+    by command <C>SaveAlgebra</C> to the file <Arg>file</Arg>.  This
+    function creates the algebra <M>A</M> again, which can be saved to a
+    file again with the function <C>SaveAlgebra</C>.
+  </Returns>
+</ManSection>
 
+<ManSection>
+    <Oper Name="SaveAlgebra" Arg="A, file, option"/>
+    <Description>
+      Arguments: <Arg>A</Arg> - an algebra, <Arg>file</Arg> - a name
+      of a file, <Arg>option</Arg> - a string.<Br />
+    </Description>
+    <Returns> or creates a file with name <Arg>file</Arg>, storing the
+    algebra <Arg>A</Arg>, which can be open again with the function
+    <C>ReadAlgebra</C> and reconstructed.  The last argument
+    <A>overwrite</A> decides if the file <A>file</A>, if it exists
+    already, should be overwritten, not overwritten or the user should
+    be prompted for an answer to this question.  The corresponding
+    user inputs are: delete, keep or query.
+  </Returns>
+</ManSection>
 </Section>
 </Chapter>
