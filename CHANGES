@@ -1,4 +1,25 @@
 ==========================================================================
+Changes from version 1.24 to 1.25:
+==========================================================================
+
+Added functions in this release:
+----------------------------------------------------------------------
+
+InjectiveEnvelope
+InjectiveResolution
+LeftApproximationByAddTHat
+ReadAlgebra
+RejectOfModule
+RightApproximationByPerpT
+SaveAlgebra
+
+Miscellaneous
+----------------------------------------------------------------------
+
+Added source repository and issue tracker to PackageInfo.g
+
+
+==========================================================================
 Changes from version 1.23 to 1.24:
 ==========================================================================
 
