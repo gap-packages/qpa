@@ -886,6 +886,22 @@ Here we collect the predefined representations/modules over a finite
     </Description>
   </ManSection>
 
+<ManSection>
+   <Oper Name="ElementOfIndecProjective" Arg="A, m, s" Comm="for a
+							     QuiverAlgebra,
+							     an element in
+							     indec. projective
+							     and an  integer"/>
+   <Description> 
+    Arguments: <Arg>A</Arg> -- a QuiverAlgebra, <Arg>m</Arg> -- an
+    element in an indecomposable projective representation,
+    <Arg>s</Arg> -- an integer.
+   <Br /></Description>
+   <Returns>the element in the path algebra corresponding to
+   <Arg>m</Arg> in the right ideal from which the indecomposable
+   projective representation is constructed.</Returns>
+</ManSection>
+  
   <ManSection>
     <Attr Name="IndecInjectiveModules" Arg="A" Comm="for an algebra"/>
     <Description> 

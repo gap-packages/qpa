@@ -10,3 +10,4 @@ DeclareAttribute( "IndecInjectiveModules", IsQuiverAlgebra );
 DeclareAttribute( "SimpleModules", IsQuiverAlgebra ); 
 DeclareAttribute( "ZeroModule", IsQuiverAlgebra );
 DeclareAttribute( "BasisOfProjectives", IsQuiverAlgebra );  
+DeclareOperation( "ElementInIndecProjective", [ IsQuotientOfPathAlgebra, IsAlgebraModuleElement, IS_INT ]);

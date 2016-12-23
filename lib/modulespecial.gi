@@ -303,3 +303,75 @@ InstallOtherMethod ( BasisOfProjectives,
    return basis_of_projs;
 end
 );
+
+#######################################################################
+##
+#O  ElementInIndecProjective( <A>, <m>, <s> )
+##
+##  Given an admissible quotient A of a path algebra, an element
+##  m  in the s-th indecomposable projective module  v_sA  over A, this 
+##  function computes the element  m  in the module  v_sA  as a preimage 
+##  in the ideal  v_sR. 
+##
+InstallMethod ( ElementInIndecProjective, 
+    "for a fin. dim. quotient of a path algebra, an element in an indec. projective module over this algebra and a positive integer",
+    true,
+    [ IsQuotientOfPathAlgebra, IsAlgebraModuleElement, IS_INT ], 
+    0,
+    function( A, m, s )
+
+    local   B, i, elem;
+        
+    if not IsAdmissibleQuotientOfPathAlgebra( A ) then
+        Error("The entered algebra is not a finite dimensional algebra,\n");    
+    fi;
+        
+    B := ShallowCopy( BasisOfProjectives( A )[ s ] );
+    for i in [ 1..Length( B ) ] do
+        if Length( B[ i ] ) = 0 then 
+            B[ i ] := Zero( OriginalPathAlgebra( A ) );
+        else
+            B[ i ] := List( B[ i ], x -> x![ 1 ] );
+        fi;
+    od;
+    B := Flat( B );
+    elem := Flat( ExtRepOfObj( ExtRepOfObj( m ) ) );
+    
+    return LinearCombination( B, elem );
+end 
+);
+
+#######################################################################
+##
+#O  ElementInIndecProjective( <A>, <m>, <s> )
+##
+##  Given a finite dimension path algebra A, an element m  in the s-th 
+##  indecomposable projective module  v_sA  over A, this function 
+##  computes the element  m  in the module  v_sA  as a preimage in the 
+##  ideal  v_sA. 
+##
+InstallOtherMethod ( ElementInIndecProjective, 
+ "for a finite dimensional path algebra, an element in an indec. projective module over this algebra and a positive integer",
+    true,
+    [ IsPathAlgebra, IsAlgebraModuleElement, IS_INT ], 
+    0,
+    function( A, m, s )
+
+    local   B, i, elem;
+        
+    if not IsAcyclicQuiver( QuiverOfPathAlgebra( A ) ) then
+        Error("The entered algebra is not a finite dimensional algebra,\n");    
+    fi;
+        
+    B := ShallowCopy( BasisOfProjectives( A )[ s ] );
+    for i in [ 1..Length( B ) ] do
+        if Length( B[ i ] ) = 0 then 
+            B[ i ] := Zero( OriginalPathAlgebra( A ) );
+        fi;
+    od;
+    B := Flat( B );
+    elem := Flat( ExtRepOfObj( ExtRepOfObj( m ) ) );
+    
+    return LinearCombination( B, elem );
+end 
+);
