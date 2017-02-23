@@ -107,6 +107,49 @@ end
 
 #######################################################################
 ##
+#O  AlmostSplitSequence( <M>, <e> )
+##
+##  This function finds the almost split sequence starting or ending in 
+##  the module  <M>  depending on whether the second argument  <e>  is
+##  "l" or "r" ("l" = almost split sequence starting with  <M>, or
+##  "r" = almost split sequence ending in  <M>), if the module is 
+##  indecomposable and not injective or not projective, respectively. 
+##  It returns fail if the module is injective ("l") or projective ("r"). 
+##  The almost split sequence is  returned as a pair of maps, the
+##  monomorphism and the epimorphism.  The function assumes that the 
+##  module  <M>  is indecomposable, and the source of the monomorphism 
+##  ("l") or the range of the epimorphism ("r") is a module that is 
+##  isomorphic to the input, not necessarily identical. 
+##  
+InstallOtherMethod( AlmostSplitSequence, 
+    "for a PathAlgebraMatModule and a starting point",
+    [ IsPathAlgebraMatModule, IsString ], 0,
+    function( M, e )
+
+    local   N,  ass;
+    
+    if not IsString(e) then
+        Error("The second argument should be a string.\n");
+    fi;
+    if Length(e) > 1 then
+        Error("The entered string is too long.\n");
+    fi;
+    if e <> "r" and e <> "l" then
+        Error("The only second arguments that are allowed, are l = (left) or r = (right).\n");
+    fi;
+    
+    if e = "r" then
+        return AlmostSplitSequence( M );
+    else
+        N := DualOfModule( M );
+        ass := AlmostSplitSequence( N );
+        return [ DualOfModuleHomomorphism( ass[ 2 ] ), DualOfModuleHomomorphism( ass[ 1 ] ) ];
+    fi;
+end
+);
+
+#######################################################################
+##
 #O  PredecessorsOfModule( <M>, <n> )
 ##
 ##  Given an indecomposable non-projective PathAlgebraMatModule  M  

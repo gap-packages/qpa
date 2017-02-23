@@ -7,20 +7,29 @@ Auslander-Reiten theory in QPA.<P/>
 <Section><Heading>Almost split sequences and AR-quivers</Heading>
 
 <ManSection>
-   <Attr Name="AlmostSplitSequence" Arg="M" Comm=""/>
-   <Description>
-     Arguments: <Arg>M</Arg> - an indecomposable non-projective module.<Br />
-   </Description>
-   <Returns>the almost split sequence ending in the
-   module <Arg>M</Arg> if it is indecomposable and not projective. It
-   returns the almost split sequence in terms of two maps, a left
-   minimal almost split map and a right minimal almost split map.
-   </Returns>
-   <Description>
-    The range of the right minimal almost split map is not necessarily
-    equal to the module <Arg>M</Arg> one started with, but isomorphic. 
-    The function assumes that the module <Arg>M</Arg> is indecomposable. 
-   </Description>
+  <Oper Name="AlmostSplitSequence" Arg="M" Comm=""/>
+  <Oper Name="AlmostSplitSequence" Arg="M, e" Comm=""/>
+  <Description>
+    Arguments: <Arg>M</Arg> - an indecomposable non-projective
+    module, <Arg>e</Arg> - either l = left or r = right<Br />
+  </Description>
+  <Returns>the almost split sequence ending in the
+  module <Arg>M</Arg> if it is indecomposable and not projective, for
+  the first variant.  The second variant finds the almost split
+  sequence starting or ending in  the module  <Arg>M</Arg>  depending
+  on whether the second argument  <Arg>e</Arg>  is  l or r (l =
+  almost split sequence starting with  <Arg>M</Arg>, or  r = almost
+  split sequence ending in  <Arg>M</Arg>), if the module is
+  indecomposable and not injective or not projective, respectively.  
+  It returns fail if the module is injective (l) or projective (r). 
+  </Returns>
+  <Description>
+    The almost split sequence is returned as a pair of maps, the
+    monomorphism and the epimorphism.  The function assumes that the
+    module <Arg>M</Arg> is indecomposable, and the source of the
+    monomorphism (l) or the range of the epimorphism (r) is a module
+    that is isomorphic to <Arg>M</Arg>, not necessarily identical.
+  </Description>
 </ManSection>
 
 <ManSection>
