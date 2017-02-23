@@ -143,7 +143,11 @@ InstallOtherMethod( AlmostSplitSequence,
     else
         N := DualOfModule( M );
         ass := AlmostSplitSequence( N );
-        return [ DualOfModuleHomomorphism( ass[ 2 ] ), DualOfModuleHomomorphism( ass[ 1 ] ) ];
+	if ass = fail then
+	   return fail;
+	else
+           return [ DualOfModuleHomomorphism( ass[ 2 ] ), DualOfModuleHomomorphism( ass[ 1 ] ) ];
+	fi;
     fi;
 end
 );
