@@ -7,8 +7,8 @@ Auslander-Reiten theory in QPA.<P/>
 <Section><Heading>Almost split sequences and AR-quivers</Heading>
 
 <ManSection>
-  <Oper Name="AlmostSplitSequence" Arg="M" Comm=""/>
-  <Oper Name="AlmostSplitSequence" Arg="M, e" Comm=""/>
+  <Attr Name="AlmostSplitSequence" Arg="M" Comm=""/>
+  <Attr Name="AlmostSplitSequence" Arg="M, e" Comm=""/>
   <Description>
     Arguments: <Arg>M</Arg> - an indecomposable non-projective
     module, <Arg>e</Arg> - either l = left or r = right<Br />
@@ -31,6 +31,26 @@ Auslander-Reiten theory in QPA.<P/>
     that is isomorphic to <Arg>M</Arg>, not necessarily identical.
   </Description>
 </ManSection>
+
+<ManSection>
+  <Oper Name="AlmostSplitSequenceInPerpT" Arg="T, M" Comm=""/>
+  <Description>
+    Arguments: <Arg>T</Arg> - a cotilting module, <Arg>M</Arg> - an indecomposable non-projective
+    module<Br />
+  </Description>
+  <Returns>the almost split sequence in <Math>^\perp T</Math> ending
+  in the module <Arg>M</Arg>, if the module is indecomposable. It
+  returns fail if the module is in <Math>\add T</Math> projective.
+  The almost split sequence is returned as a pair of maps, the
+  monomorphism and the epimorphism. 
+  </Returns>
+  <Description> The function assumes that the module <Arg>M</Arg> is
+  indecomposable and in <Math>^\perp T</Math>, and the range of the
+  epimorphism is a module that is isomorphic to the input, not
+  necessarily identical.
+  </Description>
+</ManSection>
+
 
 <ManSection>
      <Oper Name="IsTauPeriodic" Arg="M, n" Comm="for a

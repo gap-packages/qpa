@@ -1,6 +1,6 @@
 #######################################################################
 ##
-#O  AlmostSplitSequence(<M>,<N>)
+#A  AlmostSplitSequence( <M> )
 ##
 ##  This function finds the almost split sequence ending in the module
 ##  <M>, if the module is indecomposable and not projective. It returns 
@@ -283,3 +283,38 @@ InstallMethod ( PredecessorsOfModule,
     return [layers,valuation];
 end
 );
+
+#######################################################################
+##
+#O  AlmostSplitSequenceInPerpT( <T>, <M> )
+##
+##  This function finds the almost split sequence in <Math>^\perp T</Math>
+##  ending in the module  <M>, if the module is indecomposable and
+##  not projective. It returns fail if the module is in <Math>Add T</Math>
+##  projective. The almost split sequence is returned as a pair of maps,
+##  the monomorphism and the epimorphism.  The function assumes that the
+##  module  <M>  is indecomposable and in <Math>^\perp T</Math>, and 
+##  the range of the epimorphism is a module that is isomorphic to the 
+##  input, not necessarily identical. 
+##
+InstallMethod( AlmostSplitSequenceInPerpT, 
+    "for a PathAlgebraMatModule and a starting point",
+    [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ], 0,
+    function( T, M )
+
+    local   ass,  f,  g;
+
+    if not IsCotiltingModule( T ) then
+        Error("The first argument should be a cotilting module.  Apply CotiltingModule( T, n ).\n");
+    fi;
+    if CommonDirectSummand( T, M ) <> false then
+       return fail;
+    fi;
+    ass := AlmostSplitSequence( M );
+    f := RightApproximationByPerpT( T, Source( ass[ 2 ] ) );
+    g := f*ass[ 2 ];
+    g := RightMinimalVersion( g )[ 1 ];
+    
+    return [ KernelInclusion( g ), g ];
+end
+  );
