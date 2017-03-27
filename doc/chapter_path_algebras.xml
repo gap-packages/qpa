@@ -1029,6 +1029,22 @@ false]]>
 </ManSection>
 
 <ManSection>
+    <Prop Name="IsTriangularReduced" Arg="A"/>
+    <Description>
+      Arguments: <Arg>A</Arg> - a finite dimensional QuiverAlgebra.<Br />
+    </Description>
+    <Returns><C>false</C> if the algebra <Arg>A</Arg> is triangular
+    reducable, that is, there is a sum over vertices <M>e</M> such
+    that <M>eA(1 - e) = (0)</M> for <M>e\neq 0,1</M>.  Otherwise, it
+    returns <C>true</C>.
+    </Returns> 
+    <Description>
+    The function checks if the algebra <Arg>A</Arg> is finite dimensional and
+    gives an error message otherwise.  
+    </Description>
+ </ManSection>
+
+<ManSection>
    <Prop Name="IsWeaklySymmetricAlgebra" Arg="A" Comm=""/>
    <Description>
      Arguments: <Arg>A</Arg> -- a path algebra or a quotient of a path
@@ -1895,7 +1911,7 @@ true]]>
       over a field extension.
     </Description>
   </ManSection>
-
+ 
 <ManSection>
     <Attr Name="PrimitiveIdempotents" Arg="A"/>
     <Description>

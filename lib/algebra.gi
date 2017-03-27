@@ -807,3 +807,5 @@ InstallMethod ( AlgebraAsQuiverAlgebra,
     fi;
 end
   );
+
+

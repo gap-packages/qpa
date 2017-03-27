@@ -2964,4 +2964,44 @@ InstallMethod ( ReadAlgebra,
     CloseStream( inputfile );
     return KQ/relations;
 end
-);
+  );
+
+##########################################################################
+##
+#P DeclearProperty( "IsTriangularReduced", IsQuiverAlgebra )
+##
+## Returns true if the algebra  <A>  is triangular reduced, that is, there
+## is not sum over vertices  e  such that  e<A>(1 - e) = (0). The function
+## checks if the algebra  <A>  is finite dimensional and gives an error
+## message otherwise.  Otherwise it returns false.
+##
+InstallMethod( IsTriangularReduced,
+    "for QuiverAlgebra",
+    [ IsQuiverAlgebra ], 0,
+        
+    function( A )
+    local   vertices,  num_vert,  gens,  i,  combs,  c,  ee,  j,  
+            temp;
+    
+    if not IsFiniteDimensional( A ) then
+        Error("The entered algebra is not finite dimensional,\n");
+    fi;
+    vertices := VerticesOfQuiver( QuiverOfPathAlgebra( A ) );
+    num_vert := Length( vertices );
+    gens := List( vertices, v -> One( A ) * v );
+    for i in [ 1..num_vert - 1 ] do
+        combs := Combinations( [ 1..num_vert ], i );
+        for c in combs do
+            ee := Zero( A );
+            for j in c do
+                ee := ee + gens[ j ];
+            od;
+            temp := ee * BasisVectors( Basis( A ) ) * ( One( A ) - ee );
+            if ForAll( temp, IsZero ) then
+                return false;
+            fi;
+        od;
+    od;
+    return true;
+end
+  );
