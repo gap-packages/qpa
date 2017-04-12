@@ -1055,6 +1055,18 @@ Here we collect the predefined representations/modules over a finite
 </ManSection>
 
 <ManSection>
+   <Oper Name="TensorProductOfModules" Arg="M, N" Comm="for two PathAlgebraMatModules"/>
+   <Description> 
+    Arguments: <Arg>M</Arg>, <Arg>N</Arg> -- two path algebra modules<Br /></Description>
+    <Returns>the tensor product <M>M\otimes_A N</M> as a vector space
+    and a function <M>M\times N \to M\otimes_A N</M>, given two
+    representations <Arg>M</Arg> and <Arg>N</Arg>, where <Arg>M</Arg>
+    is a right module over <M>A</M> and <Arg>N</Arg> is a right module
+    over the opposite of <M>A</M>.
+    </Returns>
+</ManSection>
+
+<ManSection>
    <Oper Name="TrD" Arg="M, [n]" Comm="for a PathAlgebraMatModule and an
    integer"/>
    <Oper Name="TransposeOfDual" Arg="M, [n]" Comm="for a PathAlgebraMatModule"/>

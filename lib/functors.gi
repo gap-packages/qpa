@@ -617,3 +617,173 @@ InstallMethod( NakayamaFunctorOfModuleHomomorphism,
     return DualOfModuleHomomorphism(StarOfModuleHomomorphism(f));
 end
 );
+
+#######################################################################
+##
+#O  TensorProductOfModules( <M>, <N> )
+##
+##  Given two representations  <Arg>M</Arg> and <Arg>N</Arg>, where
+##  <Arg>M</Arg> is a right module over  <M>A</M> and  <Arg>N</Arg> is
+##  a right module over the opposite of <M>A</M>, then this function
+##  computes the tensor product <M>M\otimes_A N</M> as a vector space
+##  and a function <M>M\times N \to M\otimes_A N</M>.
+##
+InstallMethod ( TensorProductOfModules, 
+    "for two representations of a fin. dim. quotient of a path algebra",
+    true,
+    [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ], 
+    0,
+    function( M, N )
+
+  local   A,  F,  topofM,  dimvectorN,  V,  elementarytensor,  
+          projres,  pi,  d1,  inclusionsP1,  projectionsP0,  
+          imagesofgensP1,  t,  projectivesinP0,  verticesofquiver,  
+          projectivesinP1,  matrix,  topofP1,  topofP0,  dimvectorM,  
+          size_matrix,  bigmatrix,  i,  tempmat,  j,  m,  s,  startN,  
+          temp,  d1tensoronemap,  rowsinblock,  r,  dim,  W,  h;
+        
+   A := RightActingAlgebra( M );
+   if A <> OppositeAlgebra( RightActingAlgebra( N ) ) then
+       Error("The entered modules are not over the appropriate algebras,\n");
+   fi;
+   F := LeftActingDomain( M );
+#
+# An easy check if the tensor product is zero, if so, return zero.
+#
+   topofM := DimensionVector( TopOfModule( M ) );
+   dimvectorN := DimensionVector( N );
+   if topofM*dimvectorN = 0 then
+     V := F^1;
+     elementarytensor := function( m, n ); 
+        return Zero(V); 
+     end;
+
+     return [ TrivialSubspace( V ), elementarytensor ];  
+   fi;
+#
+# Computing M \otimes N via taking a projective resolution of M and then tensoring
+# with N. 
+#
+   projres := ProjectiveResolution( M );
+   ObjectOfComplex( projres, 1 );
+   pi := DifferentialOfComplex( projres, 0 ); 
+   d1 := DifferentialOfComplex( projres, 1 ); 
+   
+   projectionsP0 := DirectSumProjections( Range( d1 ) );
+   t := Length( projectionsP0 );
+   projectivesinP0 := List( projectionsP0, p -> SupportModuleElement( MinimalGeneratingSetOfModule( Range( p ) )[ 1 ] ) );
+   if IsQuotientOfPathAlgebra( A ) then 
+       projectivesinP0 := List( projectivesinP0, t -> CoefficientsAndMagmaElements( t![ 1 ]![ 1 ] )[ 1 ] );
+   elif IsPathAlgebra( A ) then
+       projectivesinP0 := List( projectivesinP0, t -> CoefficientsAndMagmaElements( t![ 1 ] )[ 1 ] );
+   else
+       Error("Something went wrong, inform the maintainers of the QPA-package,\n");
+   fi;  
+   verticesofquiver := VerticesOfQuiver( QuiverOfPathAlgebra( A ) );
+   projectivesinP0 := List( projectivesinP0, v -> Position( verticesofquiver, v ) );
+#
+# If P_1 - d1 -> P_0 --> M --> 0 is a minimal projective presentation of M and 
+# P_1\otimes N = (0), then  M\otimes N \simeq P_0\otimes N.
+#
+   if DimensionVector( Source( d1 ) ) * dimvectorN = 0 then
+       dim := topofM * dimvectorN;
+       V := F^dim;
+       h := NaturalHomomorphismBySubspace( V, TrivialSubspace( V ) );
+       elementarytensor := function( m, n ) 
+           local  p0, psum, nsum, v;
+           
+           p0 := PreImagesRepresentative( pi, m );
+           psum := List( [ 1..t ], n -> ElementInIndecProjective( A, ImageElm( projectionsP0[ n ], p0 ), projectivesinP0[ n ] ) );
+           if IsQuotientOfPathAlgebra( A ) then
+               psum := List( psum, x -> ElementOfQuotientOfPathAlgebra( ElementsFamily( FamilyObj( OppositeAlgebra( A ) ) ), OppositePathAlgebraElement( x ), true ) );
+           elif IsPathAlgebra( A ) then
+               psum := List( psum, x -> OppositePathAlgebraElement( x ) );
+           else
+               Error("Something went wrong, inform the maintainers of the QPA-package,\n");
+           fi;
+           nsum := List( psum, x -> n^x );
+           v := Flat( List( [ 1..size_matrix[ 2 ] ], l -> nsum[ l ]![ 1 ]![ 1 ][ projectivesinP0[ l ] ] ) );
+                
+           return ImageElm( h, v );
+       end;
+       
+       return [ Range( h ), elementarytensor ];
+   fi;
+   
+   inclusionsP1 := DirectSumInclusions( Source( d1 ) );   
+   imagesofgensP1 := List( inclusionsP1, f -> ImageElm( f, MinimalGeneratingSetOfModule( Source( f ) )[ 1 ] ) );
+   imagesofgensP1 := List( imagesofgensP1, m -> ImageElm( d1, m ) );
+   projectivesinP1 := List( inclusionsP1, i -> SupportModuleElement( MinimalGeneratingSetOfModule( Source( i ) )[ 1 ] ) );
+   projectivesinP1 := List( projectivesinP1, t -> CoefficientsAndMagmaElements( t![ 1 ]![ 1 ] )[ 1 ] );
+   projectivesinP1 := List( projectivesinP1, v -> Position( verticesofquiver, v ) );
+   
+   matrix := List( imagesofgensP1, m -> List( [ 1..t ], n ->  
+                                                          ElementInIndecProjective( A, ImageElm( projectionsP0[ n ], m ), projectivesinP0[ n ] ) ) ); 
+   if IsQuotientOfPathAlgebra( A ) then 
+       matrix := List( matrix, m -> List( m, x -> ElementOfQuotientOfPathAlgebra( ElementsFamily( FamilyObj( OppositeAlgebra( A ) ) ), OppositePathAlgebraElement( x ), true ) ) );
+   elif IsPathAlgebra( A ) then
+       matrix := List( matrix, m -> List( m, x -> OppositePathAlgebraElement( x ) ) );
+   else
+       Error("Something went wrong, inform the maintainers of the QPA-package,\n");
+   fi;
+   
+   topofP1 := DimensionVector( TopOfModule( Source( d1 ) ) );
+   topofP0 := DimensionVector( TopOfModule( Range( d1 ) ) );
+   dimvectorM := DimensionVector( M );
+   size_matrix := DimensionsMat( matrix );
+   
+   bigmatrix := NullMat( size_matrix[ 1 ], size_matrix[ 2 ], F );   
+   for i in [ 1..size_matrix[ 1 ] ] do
+       for j in [ 1..size_matrix[ 2 ] ] do
+           m := matrix[ i ][ j ];
+           s := projectivesinP0[ j ];
+           t := projectivesinP1[ i ];
+           startN := Sum( dimvectorN{ [ 1..t - 1 ] } );
+           if Length( Basis( N ){ [ startN + 1..startN + dimvectorN[ t ] ] } ) > 0 then 
+               temp := List( Basis( N ){ [ startN + 1..startN + dimvectorN[ t ] ] }, b -> b^m );
+               tempmat := List( temp, t -> t![ 1 ]![ 1 ][ s ] );
+           else
+               tempmat := NullMat( 1, Length( Basis( N )[ 1 ]![ 1 ]![ 1 ][ s ] ), F );
+           fi;
+           bigmatrix[ i ][ j ] := tempmat;
+       od;
+   od;
+   
+   d1tensoronemap := [];
+   for i in [ 1..size_matrix[ 1 ] ] do
+       rowsinblock := DimensionsMat( bigmatrix[ i ][ 1 ] )[ 1 ];
+       for r in [ 1..rowsinblock ] do      
+           temp := [];
+           for j in [ 1..size_matrix[ 2 ] ] do
+               Add( temp, bigmatrix[ i ][ j ][ r ] );
+           od;
+           temp := Flat(temp);
+           Add( d1tensoronemap, temp );
+       od;
+   od;
+
+   dim := Length( d1tensoronemap[ 1 ] );
+   V := F^dim;
+   W := Subspace( V, d1tensoronemap );
+   h := NaturalHomomorphismBySubspace( V, W );
+   
+   elementarytensor := function( m, n ) 
+       local  p0, psum, nsum, v;
+       
+       p0 := PreImagesRepresentative( pi, m );
+       psum := List( [ 1..t ], n -> ElementInIndecProjective( A, ImageElm( projectionsP0[ n ], p0 ), projectivesinP0[ n ] ) );
+       if IsQuotientOfPathAlgebra( A ) then
+           psum := List( psum, x -> ElementOfQuotientOfPathAlgebra( ElementsFamily( FamilyObj( OppositeAlgebra( A ) ) ), OppositePathAlgebraElement( x ), true ) );
+       elif IsPathAlgebra( A ) then
+           psum := List( psum, x -> OppositePathAlgebraElement( x ) );
+       else
+           Error("Something went wrong, inform the maintainers of the QPA-package,\n");
+       fi;
+       nsum := List( psum, x -> n^x );
+       v := Flat( List( [ 1..size_matrix[ 2 ] ], l -> nsum[ l ]![ 1 ]![ 1 ][ projectivesinP0[ l ] ] ) );
+                
+       return ImageElm( h, v );
+   end;
+   
+   return [ Range( h ), elementarytensor ];
+end);

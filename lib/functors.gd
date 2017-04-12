@@ -11,3 +11,4 @@ DeclareAttribute( "StarOfModule", IsPathAlgebraMatModule );
 DeclareAttribute( "StarOfModuleHomomorphism", IsPathAlgebraMatModuleHomomorphism );
 DeclareAttribute( "NakayamaFunctorOfModule", IsPathAlgebraMatModule );
 DeclareAttribute( "NakayamaFunctorOfModuleHomomorphism", IsPathAlgebraMatModuleHomomorphism );
+DeclareOperation( "TensorProductOfModules", [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ] );
