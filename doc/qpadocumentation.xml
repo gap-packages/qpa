@@ -31,8 +31,8 @@
   <TitleComment>
   </TitleComment>
   <Author>The QPA-team
-          <Email>oyvind.solberg@math.ntnu.no</Email>
-	      <Homepage>http://www.math.ntnu.no/~oyvinso/QPA/</Homepage>
+          <Email>oyvind.solberg@ntnu.no</Email>
+	      <Homepage>https://folk.ntnu.no/oyvinso/QPA/</Homepage>
           <Address>
             Department of Mathematical Sciences<Br/>
             NTNU<Br/>
@@ -75,7 +75,7 @@
   
   The QPA-team, <Package>QPA</Package> - Quivers, path algebras and
   representations, Version <#Include SYSTEM "../version">; 2016
-  (<URL>http://www.math.ntnu.no/~oyvinso/QPA/</URL>)
+  (<URL>https://folk.math.ntnu.no/oyvinso/QPA/</URL>)
   </Copyright>
 
   <Acknowledgements>The system design of <Package>QPA</Package> was initiated by

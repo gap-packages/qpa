@@ -4,7 +4,7 @@ Subtitle := "Quivers and Path Algebras",
 Version := "1.25",
 Date := "21/10/2016",
 
-ArchiveURL := Concatenation( "http://www.math.ntnu.no/~oyvinso/QPA/qpa-version-","1.25"),
+ArchiveURL := Concatenation( "https://folk.ntnu.no/oyvinso/QPA/qpa-version-","1.25"),
 
 ArchiveFormats := ".tar.gz",
 
@@ -29,8 +29,8 @@ Persons := [
     FirstNames    := "Oeyvind",
     IsAuthor      := true,
     IsMaintainer  := true,
-    Email         := "oyvind.solberg@math.ntnu.no",
-    WWWHome       := "http://www.math.ntnu.no/~oyvinso/",
+    Email         := "oyvind.solberg@ntnu.no",
+    WWWHome       := "https://folk.ntnu.no/oyvinso/",
     PostalAddress := Concatenation( [
 		       "Department of Mathematical Sciences\n",
 		       "NTNU\n",
@@ -52,8 +52,8 @@ Status := "deposited",
 # AcceptDate := "08/1999",
 #AcceptDate := "",
 
-README_URL := "http://www.math.ntnu.no/~oyvinso/QPA/README",
-PackageInfoURL := "http://www.math.ntnu.no/~oyvinso/QPA/PackageInfo.g",
+README_URL := "https://folk.ntnu.no/oyvinso/QPA/README",
+PackageInfoURL := "https://folk.ntnu.no/oyvinso/QPA/PackageInfo.g",
 
 SourceRepository := rec( 
   Type := "git", 
@@ -68,7 +68,7 @@ AbstractHTML := "The <span class=\"pkgname\">QPA</span> package provides data st
                    quotients of path algebras, and modules, homomorphisms and complexes of \
                    modules over quotients of path algebras.",
                    
-PackageWWWHome := "http://www.math.ntnu.no/~oyvinso/QPA/",
+PackageWWWHome := "https://folk.ntnu.no/oyvinso/QPA/",
                
 PackageDoc := rec(
   BookName  := "QPA",
