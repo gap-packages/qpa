@@ -75,7 +75,7 @@
   
   The QPA-team, <Package>QPA</Package> - Quivers, path algebras and
   representations, Version <#Include SYSTEM "../version">; 2016
-  (<URL>https://folk.math.ntnu.no/oyvinso/QPA/</URL>)
+  (<URL>https://folk.ntnu.no/oyvinso/QPA/</URL>)
   </Copyright>
 
   <Acknowledgements>The system design of <Package>QPA</Package> was initiated by
