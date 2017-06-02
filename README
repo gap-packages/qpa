@@ -1,9 +1,9 @@
 The QPA package for GAP 4.5
 ==================================
 
-Version 1.25; October 21st, 2016
+Version 1.26; June 2nd, 2017
 Copyright (C) 2010 The QPA-team, 	
-             http://www.math.ntnu.no/~oyvinso/QPA/
+             https://folk.ntnu.no/oyvinso/QPA/
 
 Introduction
 ------------
@@ -17,7 +17,7 @@ and Path Algebras.
 QPA is designed as a GAP >= 4.5.x share package providing new functions in
 noncommutative algebra. For the current functions provided by QPA follow
 the URL
-              http://www.math.ntnu.no/~oyvinso/QPA/
+              https://folk.ntnu.no/oyvinso/QPA/
 
 and look at WhatYouCanDoList.
 
@@ -91,7 +91,7 @@ https://www.mail-archive.com/forum@mail.gap-system.org/msg02528.html
 See the user manual in the doc directory for more information
 regarding the use of QPA, or follow the URL
 
-     http://www.math.ntnu.no/~oyvinso/QPA/manual.pdf
+     https://folk.ntnu.no/oyvinso/QPA/manual.pdf
 
 to see the current manual/documentation of QPA (still work in
 progress, not brilliant at this point).
@@ -103,6 +103,6 @@ If you have a question or encounter any problems regarding QPA, you
 can either:
 
  * contact one of the QPA-team members, see the webpage
-              http://www.math.ntnu.no/~oyvinso/QPA
+              https://folk.ntnu.no/oyvinso/QPA
 or
  * report an issue at https://github.com/gqp-system/qpa/issues/new 

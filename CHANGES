@@ -1,4 +1,23 @@
 ==========================================================================
+Changes from version 1.25 to 1.26:
+==========================================================================
+
+Added functions in this release:
+----------------------------------------------------------------------
+
+AlmostSplitSequence - an new version
+AlmostSplitSequenceInPerpT
+ElementInIndecProjective
+IsTriangularReduced
+TensorProductOfModules
+
+Miscellaneous
+----------------------------------------------------------------------
+
+Updated coordiantes for people and URL's in PackageInfo.g
+
+
+==========================================================================
 Changes from version 1.24 to 1.25:
 ==========================================================================
 

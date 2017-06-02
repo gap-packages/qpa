@@ -22,4 +22,5 @@ DeclareProperty( "IsElementaryAlgebra", IsAlgebra );
 InstallTrueMethod( IsBasicAlgebra, IsElementaryAlgebra );
 DeclareOperation( "LiftingIdempotent", [IsAlgebraGeneralMapping, IsObject ] ); 
 DeclareOperation( "LiftingCompleteSetOfOrthogonalIdempotents", [IsAlgebraGeneralMapping, IsHomogeneousList ] ); 
+DeclareOperation( "FindMultiplicativeIdentity", [ IsAlgebra ] );
 DeclareOperation( "AlgebraAsQuiverAlgebra", [ IsAlgebra ]);
