@@ -1901,4 +1901,20 @@ InstallMethod ( LeftApproximationByAddTHat,
         
     return LeftMinimalVersion( f )[ 1 ];
 end
-);
+  );
+
+InstallMethod( IsNthSyzygy, 
+    "for a PathAlgebraMatModule",
+    true,
+    [ IsPathAlgebraMatModule, IS_INT ], 
+    0,
+    function( M, n )
+
+    local N;
+    
+    N := NthSyzygy( DualOfModule( NthSyzygy( DualOfModule( M ), n ) ), n );
+    N := DirectSumOfQPAModules( [ N, Source( ProjectiveCover( M ) ) ] );
+    
+    return IsDirectSummand( M, N ); 
+end
+  );
