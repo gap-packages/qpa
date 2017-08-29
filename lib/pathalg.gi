@@ -2941,7 +2941,7 @@ InstallMethod ( ReadAlgebra,
         if temp = fail then
           break;
         else
-          RemoveCharacters( temp, " \n" );
+          RemoveCharacters( temp, " \n\r" );
         fi;
         temp := SplitString( temp, "," );
         temp := List( temp, t -> SplitString( t, "+" ) );
