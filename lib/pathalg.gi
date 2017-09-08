@@ -2687,7 +2687,7 @@ end
 ##  question.  The corresponding user inputs are: delete, keep or 
 ##  query.
 ##
-InstallMethod ( SaveAlgebra, 
+InstallMethod ( NewSaveAlgebra, 
     "for a fin. dim. quotient of a path algebra",
     true,
     [ IsQuiverAlgebra, IsString, IsString ], 
@@ -2757,19 +2757,26 @@ InstallMethod ( SaveAlgebra,
     number := 0;
     numberofvertices := Length( vertices );
     AppendTo( output, "Vertices:\n" );    
+    temp := "";
     for v in vertices do
+        if number > 0 then
+            temp := Concatenation( temp, ", ", String( v ) );
+        else
+            temp := String( v );
+        fi;
         number := number + 1;
         if number mod 10 = 0 then
-            AppendTo( output, "\n" );
-        fi;
-        temp := Concatenation( " ", String( v ) );
-        AppendTo( output, temp );
-        if number < numberofvertices then
-            AppendTo( output, "," );
+            if number = numberofvertices then
+                WriteLine( output, temp );
+            else 
+                temp := Concatenation( temp, "," );
+                WriteLine( output, temp );
+            fi;
+            temp := ""; 
         fi;
     od;
-    if number mod 10 <> 0 then
-        AppendTo( output, "\n" );
+    if ( number = numberofvertices ) and ( number mod 10 <> 0 ) then
+        WriteLine( output, temp );
     fi;
     #
     # Storing the arrows.
@@ -2777,20 +2784,28 @@ InstallMethod ( SaveAlgebra,
     AppendTo( output, "Arrows:\n" );
     number := 0;
     numberofarrows := Length( arrows );
+    temp := "";
     for a in arrows do
+        if number > 0 then
+            temp := Concatenation( temp, ", ", String( a ),":", String( SourceOfPath( a ) ), "->", String( TargetOfPath( a ) ) );
+        else
+            temp := Concatenation( String( a ),":", String( SourceOfPath( a ) ), "->", String( TargetOfPath( a ) ) );
+        fi;
         number := number + 1;
         if number mod 6 = 0 then
-            AppendTo( output, "\n" );
-        fi;
-        temp := Concatenation( String( a ),":", String( SourceOfPath( a ) ), "->", String( TargetOfPath( a ) ) );
-        AppendTo( output, temp );
-        if number < numberofarrows then
-            AppendTo( output, ", " );
+            if number = numberofarrows then 
+                WriteLine( output, temp );
+            else
+                temp := Concatenation( temp, "," );
+                WriteLine( output, temp );
+            fi;
+            temp := "";
         fi;
     od;
-    if number mod 6 <> 0 then
-        AppendTo( output, "\n" );
+    if ( number = numberofarrows ) and ( number mod 6 <> 0 ) then
+        WriteLine( output, temp );
     fi;
+    Print("number is: ",number,"\n");
     #
     # Storing the field.
     #
@@ -2802,20 +2817,20 @@ InstallMethod ( SaveAlgebra,
     if numberofrelations > 0 then 
       AppendTo( output, "Relations:\n" );        
       for i in [ 1..Length( relations ) ] do
-        temp := CoefficientsAndMagmaElements( relations[ i ] );
-        temprelations := [];
-        for j in [ 1..Length( temp )/2 ] do
-          temprelations[ j ] := Concatenation( "(", PrintCoeff( temp[ 2*j ] ), ")*", JoinStringsWithSeparator( List( WalkOfPath( temp[ 2*j - 1 ] ), String ), "*" ) );
-        od;
-        AppendTo( output, JoinStringsWithSeparator( temprelations, " + " ) );
-        if i < numberofrelations then
-          AppendTo( output,",");
-        fi;
-        AppendTo( output, "\n" );
+          temp := CoefficientsAndMagmaElements( relations[ i ] );
+          temprelations := [];
+          for j in [ 1..Length( temp )/2 ] do
+              temprelations[ j ] := Concatenation( "(", PrintCoeff( temp[ 2*j ] ), ")*", JoinStringsWithSeparator( List( WalkOfPath( temp[ 2*j - 1 ] ), String ), "*" ) );
+          od;
+          temp := JoinStringsWithSeparator( temprelations, " + " );
+          if i < numberofrelations then
+              temp := Concatenation( temp,",");
+          fi;
+          WriteLine( output, temp );
       od;
-    fi;
-    CloseStream( output );
-    return true;
+  fi;
+  CloseStream( output );
+  return true;
 end 
 );
 
@@ -2828,14 +2843,14 @@ end
 ##  function creates the algebra  <A>  again, which can be saved to a 
 ##  file again with the function <C>SaveAlgebra</C>.
 ##
-InstallMethod ( ReadAlgebra, 
+InstallMethod ( NewReadAlgebra, 
     "for a text file",
     true,
     [ IsString ], 
     0,
     function( file )
         
-  local   inputfile,  algebratype,  temp,  vertices,  arrows,  a,  
+    local   inputfile,  algebratype,  temp,  vertices,  arrows,  a,  
           colonpos,  arrowpos,  arrowname,  startvertex,  endvertex,  
           Q,  arrowsinQ,  listofarrows,  KQ,  ConvertCoeff,  size,  K,  
           u,  relations,  t,  onerelation,  s,  walkoftemprel,  
@@ -2855,116 +2870,118 @@ InstallMethod ( ReadAlgebra,
     #
     temp := NormalizedWhitespace( ReadLine( inputfile ) );
     if temp{[ 1..8 ]} <> "Vertices" then
-      Error( "wrong format on the data file for the algebra,\n" );
+        Error( "wrong format on the data file for the algebra,\n" );
     fi;
     temp := ReadLine( inputfile );
     if temp = fail then
-      Error( "wrong format on the data file for the algebra,\n" );
+        Error( "wrong format on the data file for the algebra,\n" );
     fi;
     temp := NormalizedWhitespace( temp );
     RemoveCharacters( temp, " " );
     vertices := SplitString( temp, "," );
     temp := NormalizedWhitespace( ReadLine( inputfile ) );
-    # Could use StartsWith below.
+        # Could use StartsWith below.
     while temp{[ 1..6 ]} <> "Arrows" do
         RemoveCharacters( temp, " " );
         Append( vertices, SplitString( temp, "," ) );
         temp := NormalizedWhitespace( ReadLine( inputfile ) );
     od;
-    #
-    #  Reading the arrows.
-    #
+        #
+        #  Reading the arrows.
+        #
     temp := ReadLine( inputfile );
     if temp = fail or temp{[ 1..5 ]} = "Field" then
-      Print( "Warning: No arrows in this quiver.\n" );
-      arrows := [];
+        Print( "Warning: No arrows in this quiver.\n" );
+        arrows := [];
     else
-      arrows := [];
-      # Could use StartsWith below.
-      while temp{[ 1..5 ]} <> "Field" do
-        temp := NormalizedWhitespace( temp ); 
-        RemoveCharacters( temp, " " );
-        temp := SplitString( temp, "," );
-        for a in temp do
-          colonpos := Position( a, ':' );
-          arrowpos := PositionSublist( a, "->" );
-          arrowname := NormalizedWhitespace( a{[ 1..colonpos - 1 ]} );
-          startvertex := NormalizedWhitespace( a{[ colonpos + 1..arrowpos - 1 ]} );
-          endvertex := NormalizedWhitespace( a{[ arrowpos + 2..Length( a ) ]} );
-          Add( arrows, [ startvertex, endvertex, arrowname ] );
+        arrows := [];
+        # Could use StartsWith below.
+        while temp{[ 1..5 ]} <> "Field" do
+            temp := NormalizedWhitespace( temp ); 
+            RemoveCharacters( temp, " " );
+            temp := SplitString( temp, "," );
+            for a in temp do
+                colonpos := Position( a, ':' );
+                arrowpos := PositionSublist( a, "->" );
+                arrowname := NormalizedWhitespace( a{[ 1..colonpos - 1 ]} );
+                startvertex := NormalizedWhitespace( a{[ colonpos + 1..arrowpos - 1 ]} );
+                endvertex := NormalizedWhitespace( a{[ arrowpos + 2..Length( a ) ]} );
+                Add( arrows, [ startvertex, endvertex, arrowname ] );
+            od;
+            temp := ReadLine( inputfile );
         od;
-        temp := ReadLine( inputfile );
-      od;
     fi;
-    #
-    # Constructing the quiver and the path algebra.
-    #
+        #
+        # Constructing the quiver and the path algebra.
+        #
     Q := Quiver( vertices, arrows );
     arrowsinQ := ArrowsOfQuiver( Q );
     listofarrows := List( arrowsinQ, String );
     temp := ReadLine( inputfile );
     if temp = fail then
-      Error( "wrong format on the data file for the algebra,\n" );
+        Error( "wrong format on the data file for the algebra,\n" );
     fi;
     temp := NormalizedWhitespace( temp );
     if temp = "Rationals" then
-      KQ := PathAlgebra( Rationals, Q );
-      ConvertCoeff := Rat;
+        KQ := PathAlgebra( Rationals, Q );
+        ConvertCoeff := Rat;
     elif temp{[1..2]} = "GF" then
-      size := Int( temp{[ Position( temp, '(' ) + 1..Position( temp, ')' ) - 1 ]} );
-      K := GF( size );
-      KQ := PathAlgebra( K, Q );
-      u := PrimitiveRoot( K );
-      ConvertCoeff := function( a )
-        local power;
-        power := Int( a{[ Position( a, '^' ) + 1..Length( a ) ]} );
-        return u^power;
-      end;
+        size := Int( temp{[ Position( temp, '(' ) + 1..Position( temp, ')' ) - 1 ]} );
+        K := GF( size );
+        KQ := PathAlgebra( K, Q );
+        u := PrimitiveRoot( K );
+        ConvertCoeff := function( a )
+            local power;
+            power := Int( a{[ Position( a, '^' ) + 1..Length( a ) ]} );
+            return u^power;
+        end;
     else
-      Error("The encountered field is not supported,\n");
+        Error("The encountered field is not supported,\n");
     fi;
-    #
-    # Finding the relations.
-    #
+        #
+        # Finding the relations.
+        #
     if algebratype = "IsQuotientOfPathAlgebra" then
-      relations := [];
-      temp := ReadLine( inputfile );
-      if temp = fail then
-        Error( "wrong format on the data file for the algebra,\n" );
-      fi;
-      temp := NormalizedWhitespace( temp );
-      if temp{[ 1..9 ]} <> "Relations" then
-        Error("Something wrong with the format of the relations,\n");
-      fi;
-      while not IsEndOfStream( inputfile ) do
+        relations := [];
         temp := ReadLine( inputfile );
         if temp = fail then
-          break;
-        else
-          RemoveCharacters( temp, " \n\r" );
+            Error( "wrong format on the data file for the algebra,\n" );
         fi;
-        temp := SplitString( temp, "," );
-        temp := List( temp, t -> SplitString( t, "+" ) );
-        temp := List( temp, t -> List( t, s -> SplitString( s, "*" ) ) );
-        for t in temp do
-          onerelation := Zero( KQ );
-          for s in t do
-            walkoftemprel := s{[ 2..Length( s) ]};
-            coefficient := s[ 1 ]{[ 2..Length( s [ 1 ] ) - 1 ]};
-            monomial := One(KQ);
-            for a in walkoftemprel do
-              monomial := monomial*arrowsinQ[ Position( listofarrows, a ) ];
+        temp := NormalizedWhitespace( temp );
+        if temp{[ 1..9 ]} <> "Relations" then
+            Error("Something wrong with the format of the relations,\n");
+        fi;
+        while not IsEndOfStream( inputfile ) do
+            temp := ReadLine( inputfile );
+            if temp = fail then
+                break;
+            else
+                RemoveCharacters( temp, " \n\r\t'\'" );
+            fi;
+            Print("temp is now 2: ", temp,"\n");
+            temp := SplitString( temp, "," );
+            temp := List( temp, t -> SplitString( t, "+" ) );
+            temp := List( temp, t -> List( t, s -> SplitString( s, "*" ) ) );
+            for t in temp do
+                onerelation := Zero( KQ );
+                for s in t do
+                    walkoftemprel := s{[ 2..Length( s) ]};
+                    coefficient := s[ 1 ]{[ 2..Length( s [ 1 ] ) - 1 ]};
+                    monomial := One(KQ);
+                    for a in walkoftemprel do
+                        monomial := monomial * arrowsinQ[ Position( listofarrows, a ) ];
+                    od;
+                    onerelation := onerelation + ConvertCoeff( coefficient ) * monomial;
+                od;
+                Add( relations, onerelation );
             od;
-            onerelation := onerelation + ConvertCoeff( coefficient )*monomial;
-          od;
-          Add( relations, onerelation );        
         od;
-      od;
     fi;
     CloseStream( inputfile );
     return KQ/relations;
 end
   );
+
 
 ##########################################################################
 ##
