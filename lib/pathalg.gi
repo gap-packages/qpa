@@ -2805,7 +2805,6 @@ InstallMethod ( SaveAlgebra,
     if ( number = numberofarrows ) and ( number mod 6 <> 0 ) then
         WriteLine( output, temp );
     fi;
-    Print("number is: ",number,"\n");
     #
     # Storing the field.
     #
@@ -2958,7 +2957,6 @@ InstallMethod ( ReadAlgebra,
             else
                 RemoveCharacters( temp, " \n\r\t'\'" );
             fi;
-            Print("temp is now 2: ", temp,"\n");
             temp := SplitString( temp, "," );
             temp := List( temp, t -> SplitString( t, "+" ) );
             temp := List( temp, t -> List( t, s -> SplitString( s, "*" ) ) );
