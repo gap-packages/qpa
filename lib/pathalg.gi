@@ -2687,7 +2687,7 @@ end
 ##  question.  The corresponding user inputs are: delete, keep or 
 ##  query.
 ##
-InstallMethod ( NewSaveAlgebra, 
+InstallMethod ( SaveAlgebra, 
     "for a fin. dim. quotient of a path algebra",
     true,
     [ IsQuiverAlgebra, IsString, IsString ], 
@@ -2843,7 +2843,7 @@ end
 ##  function creates the algebra  <A>  again, which can be saved to a 
 ##  file again with the function <C>SaveAlgebra</C>.
 ##
-InstallMethod ( NewReadAlgebra, 
+InstallMethod ( ReadAlgebra, 
     "for a text file",
     true,
     [ IsString ], 
