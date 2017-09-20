@@ -491,11 +491,7 @@ InstallMethod( TrivialExtensionOfQuiverAlgebra,
     if not IsFiniteDimensional(A) then
         return fail;
     fi;
-    if TrivialExtensionOfQuiverAlgebraLevel( A ) = fail then 
-        arrow_add_string := String(1);
-    else
-        arrow_add_string := String( TrivialExtensionOfQuiverAlgebraLevel( A ) + 1 );
-    fi;
+    arrow_add_string := String( TrivialExtensionOfQuiverAlgebraLevel( A ) + 1 );
     Q := QuiverOfPathAlgebra(A);
     vertices := VerticesOfQuiver(Q);
     arrows := ArrowsOfQuiver(Q);
