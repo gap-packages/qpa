@@ -63,4 +63,5 @@ DeclareProperty( "IsEnvelopingAlgebra", IsAlgebra );
 DeclareAttribute( "AlgebraAsModuleOverEnvelopingAlgebra", IsQuiverAlgebra );
 DeclareSynonym( "AlgebraAsModuleOfEnvelopingAlgebra", AlgebraAsModuleOverEnvelopingAlgebra );
 DeclareAttribute( "DualOfAlgebraAsModuleOverEnvelopingAlgebra", IsQuiverAlgebra );
+DeclareAttribute( "TrivialExtensionOfQuiverAlgebraLevel", IsQuiverAlgebra );
 DeclareAttribute( "TrivialExtensionOfQuiverAlgebra", IsQuiverAlgebra );
