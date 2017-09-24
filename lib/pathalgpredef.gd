@@ -15,3 +15,6 @@ DeclareProperty("IsSpecialBiserialAlgebra", IsPathAlgebra);
 DeclareProperty("IsSpecialBiserialAlgebra", IsQuotientOfPathAlgebra);
 DeclareProperty("IsStringAlgebra", IsPathAlgebra);
 DeclareProperty("IsStringAlgebra", IsQuotientOfPathAlgebra);
+DeclareProperty( "IsPosetAlgebra", IsQuiverAlgebra ); 
+DeclareOperation( "PosetAlgebra", [ IsField, IsPoset ] ); 
+DeclareAttribute( "PosetOfPosetAlgebra", IsPosetAlgebra ); 

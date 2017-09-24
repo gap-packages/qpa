@@ -182,7 +182,10 @@ InstallMethod( SimpleTensor,
         function( factors, pa )
 
     local parts, pairs, inc_paths, inc_terms;
-
+    
+    if ( factors[ 1 ] = Zero( factors[ 1 ] ) ) or ( factors[ 2 ] = Zero( factors[ 2 ] ) ) then
+        return Zero( pa );
+    fi;
     inc_paths :=
       function( paths )
         return IncludeInPathAlgebra( IncludeInProductQuiver( paths, QuiverOfPathAlgebra( pa ) ),
@@ -267,7 +270,7 @@ InstallGlobalFunction( TensorProductOfPathAlgebras,
 
     # The relations of the two original path algebras:
     orig_rels := List( PAs, get_relators );
-
+    
     # The original relations included into the product quiver:
     induced_rels := List( Concatenation( Cartesian( orig_rels[ 1 ], VerticesOfPathAlgebra( PAs[ 2 ] ) ),
                                          Cartesian( VerticesOfPathAlgebra( PAs[ 1 ] ), orig_rels[ 2 ] ) ),
@@ -275,14 +278,10 @@ InstallGlobalFunction( TensorProductOfPathAlgebras,
 
     # All the relations for the tensor product:
     tensor_rels := Concatenation( comm_rels, induced_rels );
-    I := Ideal(product_pa,tensor_rels);
-    gb := GBNPGroebnerBasis(tensor_rels,product_pa);
-    gbb := GroebnerBasis(I,gb);
-
-    tensor_product := product_pa / I;
+    tensor_product := product_pa / tensor_rels;
     SetTensorProductDecomposition( tensor_product, PAs );
+    
     return tensor_product;
-
 end );
 
 

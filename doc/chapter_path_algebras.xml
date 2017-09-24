@@ -1439,6 +1439,28 @@ gap> QuiverOfPathAlgebra(alg);
 </Example> 
 
 <ManSection>
+  <Oper Name="PosetAlgebra" Arg="F, P" 
+	Comm="creates a poset algebra"/>
+  <Description>
+    Arguments: <Arg>F</Arg> -- a field, <Arg>P</Arg> -- a poset.<Br />
+  </Description>
+  <Returns>the poset algebra associated to the poset <Arg>P</Arg> over
+  the field <Arg>K</Arg>. 
+  </Returns>
+</ManSection>
+
+  <ManSection>
+    <Attr Name="PosetOfPosetAlgebra" Arg="A"/>
+    <Description>
+      Arguments: <Arg>A</Arg> -- a poset algebra.<Br />
+    </Description>
+    <Returns>
+      the poset from which that poset algebra <Arg>A</Arg> is
+      constructed. 
+    </Returns>
+  </ManSection>
+
+<ManSection>
   <Oper Name="TruncatedPathAlgebra" Arg="F, Q, n" 
 	Comm="creates a truncated path algebra"/>
   <Description>
