@@ -2231,3 +2231,41 @@ InstallOtherMethod( IsZero,
     return Dimension(M) = 0;
 end
   );
+
+#######################################################################
+##
+#O  RestrictionViaAlgebraHomomorphism( < f, M > )
+##
+##  Given an algebra homomorphism  f : A ---> B and a module  M  over 
+##  B, this function returns  M  as a module over  A.
+##  
+InstallMethod( RestrictionViaAlgebraHomomorphism, 
+    "for a IsPathAlgebraMatModule and a IsAlgebraHomomorphism",
+    [ IsAlgebraHomomorphism, IsPathAlgebraMatModule ], 0,
+    function( f, M )
+
+    local   K,  A,  B,  vertices,  V,  BV,  arrows,  mats,  a,  
+            startpos,  endpos;
+    
+    K := LeftActingDomain( M );
+    A := Source( f );
+    B := Range( f );
+    if RightActingAlgebra( M ) <> B then 
+        Error( "The entered module is not a module over the range of the algebra homomorphism.\n" );
+    fi;
+    vertices := One( A ) * VerticesOfQuiver( QuiverOfPathAlgebra( A ) );
+    V := List( vertices, v -> List( BasisVectors( Basis( M ) ), m -> m ^ ImageElm( f, v ) ) ); 
+    V := List( V, W -> Filtered( W, w -> w <> Zero( w ) ) );
+    V := List( V, W -> VectorSpace( K, W ) );
+    BV := List( V, W -> Basis( W ) );
+    arrows := ArrowsOfQuiver( QuiverOfPathAlgebra( A ) );
+    mats := [ ]; 
+    for a in arrows do
+        startpos := Position( vertices, One( A ) * SourceOfPath ( a ) );
+        endpos := Position( vertices, One( A ) * TargetOfPath ( a ) );        
+        Add( mats, List( BV[ startpos ], m -> Coefficients( BV[ endpos ], m ^ ImageElm( f, One( A ) * a ) ) ) );
+    od;
+    
+    return RightModuleOverPathAlgebra( A, mats ); 
+end
+  );
