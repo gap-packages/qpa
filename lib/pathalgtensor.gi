@@ -281,6 +281,46 @@ InstallGlobalFunction( TensorProductOfPathAlgebras,
     return tensor_product;
 end );
 
+#######################################################################
+##
+#O  TensorAlgebraInclusion ( < T, n > )
+##
+##  Returns the inclusion  A ---> A \otimes B or the inclusion
+##  B ---> A \otimes B if n = 1 or n = 2 respectively. 
+##  
+InstallMethod( TensorAlgebraInclusion, 
+    "for a IsQuiverAlgebra",
+    [ IsQuiverAlgebra, IS_INT ], 0,
+    function( T, n )
+
+    local   decomp,  A,  gens,  inclusion,  images,  f;
+    
+    if not HasTensorProductDecomposition( T ) then
+        Error( "The entered algebra is not a tensor product of two algebras.\n" );
+    fi;
+    decomp := TensorProductDecomposition( T );
+    if n = 1 then
+        A := decomp[ 1 ];
+    else
+        A := decomp[ 2 ];
+    fi;
+    gens := GeneratorsOfAlgebra( A ); 
+    
+    inclusion := function( x ) 
+        if n = 1 then
+            return SimpleTensor( [ x, One( decomp[ 2 ] ) ], T );
+        else
+            return SimpleTensor( [ One( decomp[ 1 ] ), x ], T );
+        fi;
+    end;
+    images := List( gens, g -> inclusion( g ) ); 
+    f := AlgebraHomomorphismByImages( A, T, gens, images ); 
+    f!.generators := gens;
+    f!.genimages := images;
+    
+    return f; 
+end
+  );
 
 InstallMethod( EnvelopingAlgebra,
         "for an algebra",
