@@ -422,11 +422,6 @@ InstallMethod(RightModuleOverPathAlgebra,
     if Length(gens) < Length(alist) then 
        Error("Each arrow has not been assigned a matrix.");
     fi;
-    
-    tempgens := Filtered(gens, g -> IsList(g[2][1]));
-    if not ForAll(tempgens, g -> IsInFullMatrixRing(g[2],K)) then
-        Error("not all matrices are over the correct field,\n");
-    fi;
 #
 #  Setting the multiplication by the vertices.
 #          
@@ -440,27 +435,39 @@ InstallMethod(RightModuleOverPathAlgebra,
 #  Input of the form ["a",[[..],...,[..]]], where "a" is the label of 
 #  some arrow in the quiver
 #
-    if IsString(gens[1][1]) then                 
-       for i in [1 .. Length ( gens )] do
-          a:=gens[i][1];
-          matrices[quiver.(a)!.gen_pos]:=gens[i][2];
-       od;
+    if IsString(gens[1][1]) then
+        tempgens := Filtered(gens, g -> IsList(g[2][1]));
+        if not ForAll(tempgens, g -> IsInFullMatrixRing(g[2],K)) then
+            Error("not all matrices are over the correct field,\n");
+        fi;
+        for i in [ 1..Length( gens ) ] do
+            a := gens[ i ][ 1 ];
+            matrices[ quiver.(a)!.gen_pos ] := gens[ i ][ 2 ];
+        od;
 #
 #  Input of the form [[matrix_1],[matrix_2],...,[matrix_n]]
 #
     elif IsMatrix(gens[1]) then
-       for i in [1 .. Length ( gens )] do
-          matrices[i + Length(vlist)]:=gens[i];
-       od;
+        if not ForAll( gens, g -> IsInFullMatrixRing( g, K ) ) then
+            Error("not all matrices are over the correct field,\n");
+        fi;
+        
+        for i in [1 .. Length ( gens )] do
+            matrices[i + Length(vlist)]:=gens[i];
+        od;
     else
 #
 #  Input of the form [[alist[1],[matrix_1]],...,[alist[n],[matrix_n]]] 
 #  where alist is a list of the vertices in the quiver.
-#  
-       for i in [1 .. Length ( gens )] do
-          a:=gens[i][1];
-          matrices[a!.gen_pos]:=gens[i][2];
-       od;
+#
+        tempgens := Filtered(gens, g -> IsList(g[2][1]));
+        if not ForAll( tempgens, g -> IsInFullMatrixRing( g[ 2 ], K) ) then
+            Error("not all matrices are over the correct field,\n");
+        fi;
+        for i in [1 .. Length ( gens )] do
+            a:=gens[i][1];
+            matrices[a!.gen_pos]:=gens[i][2];
+        od;
     fi;
 
     for i in [1 .. Length(vlist)] do
