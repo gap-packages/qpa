@@ -6,16 +6,6 @@
 # Declares functions which are not specific to QPA.  That is, they
 # could have been a part of GAP itself, but they are not.
 
-
-# PositionsProperty( list, fun ):
-
-# Gives the indices of all elements in list for which fun returns
-# true.  (This is like the builtin PositionProperty, except that it
-# gives the indices of all such elements, not just the first).
-
-DeclareOperation( "PositionsProperty", [ IsList, IsFunction ] );
-
-
 # PositionsNonzero( list ):
 
 # Gives the indices of all nonzero elements in list.
