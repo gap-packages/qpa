@@ -41,7 +41,7 @@
           </Address> 
   </Author>
 
-  <Date>June 2017</Date> 
+  <Date>December 2017</Date> 
 
   <Abstract>
     The GAP4 deposited package <Package>QPA</Package> extends the
@@ -74,7 +74,7 @@
   <Package>QPA</Package>, please cite it in the following form:<P/>
   
   The QPA-team, <Package>QPA</Package> - Quivers, path algebras and
-  representations, Version <#Include SYSTEM "../version">; 2016
+  representations, Version <#Include SYSTEM "../version">; 2017
   (<URL>https://folk.ntnu.no/oyvinso/QPA/</URL>)
   </Copyright>
 
