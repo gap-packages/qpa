@@ -5,6 +5,7 @@ DeclareOperation("ComplementInFullRowSpace", [IsRowSpace]);
 DeclareOperation("LiftIdempotentsForDecomposition",[IsAlgebraGeneralMapping,IsList]);
 DeclareOperation("IdempotentsForDecomposition",[IsAlgebra]);
 DeclareAttribute("DecomposeModule", IsPathAlgebraMatModule );
+DeclareAttribute("DecomposeModuleWithInclusions", IsPathAlgebraMatModule );
 DeclareAttribute("DecomposeModuleWithMultiplicities", IsPathAlgebraMatModule);
 DeclareOperation( "LiftIdempotent", [ IsAlgebraGeneralMapping, IsRingElement ] );
 DeclareOperation( "LiftTwoOrthogonalIdempotents", [ IsAlgebraGeneralMapping, IsRingElement, IsRingElement ] );

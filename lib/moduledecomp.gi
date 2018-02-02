@@ -151,6 +151,37 @@ end
 
 #######################################################################
 ##
+#O  DecomposeModuleWithInclusions( <M> )
+##
+##  Given a module  <M>  this function computes a list of inclusions  L
+##  such that  <M>  is isomorphic to the direct sum of the images of the
+##  the inclusions in the list  L. 
+##
+InstallMethod(DecomposeModuleWithInclusions, 
+    "for a path algebra matrix module", 
+    true, 
+    [IsPathAlgebraMatModule], 0, 
+    function( M )
+
+    local genmats, genmaps, basis, endo, idemmats, idemmaps, x;
+
+    basis := CanonicalBasis( M );
+    endo := EndOverAlgebra( M );
+    genmaps := BasisVectors( Basis( endo ) );
+    genmats := List( genmaps, x -> TransposedMat( x ) );
+    idemmats := IdempotentsForDecomposition( AlgebraWithOne(LeftActingDomain( M ), genmats ) );
+    idemmaps := List( idemmats, x -> LeftModuleHomomorphismByMatrix( basis, TransposedMat( x ), basis ) );
+    for x in idemmaps do
+        SetFilterObj( x, IsAlgebraModuleHomomorphism );
+    od;
+    idemmaps := List( idemmaps, x -> FromEndMToHomMM( M, x!.matrix ) );
+    
+    return List( idemmaps, x -> ImageInclusion( x ) );
+end
+);
+
+#######################################################################
+##
 #O  DecomposeModule( <M> )
 ##
 ##  This function is an extension of above version of DecomposeModule
@@ -174,6 +205,8 @@ InstallOtherMethod( DecomposeModule,
     return Flat(decomposition);
 end
 );
+
+
 
 #InstallMethod(DecomposeModule, 
 #  "for f. p. path algebra modules",

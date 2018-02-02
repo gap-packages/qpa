@@ -385,12 +385,16 @@ gap> N := RightModuleOverPathAlgebra(A,mat);
 
 <ManSection>
    <Oper Name="DecomposeModule" Arg="M" Comm="for a
-   PathAlgebraMatModule"/>
+					      PathAlgebraMatModule"/>
+   <Oper Name="DecomposeModuleWithInclusions" Arg="M" Comm="for a
+					      PathAlgebraMatModule"/>
    <Description> 
    Arguments: <Arg>M</Arg> -- a path algebra module.
    <Br /></Description>
    <Returns>a list of indecomposable modules whose direct sum is
-     isomorphic to the module <Arg>M</Arg>. 
+     isomorphic to the module <Arg>M</Arg> in first variant.  The
+     second variant returns a list of inclusions into <Arg>M</Arg>
+     with the sum of the images is isomorphic to the module <Arg>M</Arg>. 
    </Returns>
    <Description>Warning: the function is not properly tested and it at
      best only works properly over finite fields. 
