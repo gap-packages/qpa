@@ -1515,7 +1515,7 @@ InstallMethod( HomOverAlgebra,
     #
     # Finding the linear equations for the maps between M and N
     #
-    equations := MutableNullMat(num_rows, num_cols, F);
+    equations := NullMat(num_rows, num_cols, F);
 
     arrows := ArrowsOfQuiver(QuiverOfPathAlgebra(OriginalPathAlgebra(A)));
     mats_M := MatricesOfPathAlgebraModule(M);
@@ -1570,7 +1570,7 @@ InstallMethod( HomOverAlgebra,
                     if dim_N[i] = 0 then 
                         Add(map,NullMat(dim_M[i],1,F));
                     else
-                        mat := MutableNullMat(dim_M[i],dim_N[i], F);
+                        mat := NullMat(dim_M[i],dim_N[i], F);
                         for y in [1..dim_M[i]] do 
                             for x in [1..dim_N[i]] do 
                                 mat[y][x] := b[k];

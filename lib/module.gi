@@ -1283,7 +1283,7 @@ HOPF_MatrixModuleHom:=function(R, M, N)
     numRows := numRows + Mdims[sourcePos]*Ndims[targetPos];
   od;
   
-  equations := MutableNullMat(numRows, numColumns, F);
+  equations := NullMat(numRows, numColumns, F);
   
   # Create blocks
   startRow := 1;
@@ -1322,7 +1322,7 @@ HOPF_MatrixModuleHom:=function(R, M, N)
   Nsum:=Sum(Ndims);
   basis := [];
   for b in ns do
-    mat:=MutableNullMat(Msum, Nsum, F);
+    mat:=NullMat(Msum, Nsum, F);
     k := 1;
     r:=0;
     c:=0;
