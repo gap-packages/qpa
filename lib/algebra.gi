@@ -585,6 +585,52 @@ InstallMethod(LiftingCompleteSetOfOrthogonalIdempotents,
 end
 );
 
+#######################################################################
+##
+#O  FindMultiplicativeIdentity( <A> )
+##
+##  This function finds the injective envelope I(M) of the module  <M>  
+##  in that it returns the map from M ---> I(M). 
+##
+InstallMethod ( FindMultiplicativeIdentity, 
+    "for a finite dimensional algebra",
+    true,
+    [ IsAlgebra ],
+    0,
+    function( A )
+    
+    local   B,  constantterm,  matrix,  i,  b1,  partialmatrix,  b2,  
+            totalmatrix,  totalconstantterm,  identity;
+    
+    if not IsFiniteDimensional( A ) then
+        Error("The entered algebra is not finite dimensional,\n");
+    fi;
+    B := Basis( A ); 
+    
+    constantterm := [];
+    matrix := [];
+    i := 1;
+    for b1 in B do
+        partialmatrix := [];
+        for b2 in B do 
+            Add( partialmatrix, Coefficients( B, b2*b1 ) );
+        od;
+        Add( constantterm, Coefficients( B, b1 ) );
+        Add( matrix, [1, i, partialmatrix ] );
+        i := i + 1;
+    od;
+    totalmatrix := BlockMatrix( matrix, 1, i - 1 );
+    totalconstantterm := Flat(constantterm);
+    identity := SolutionMat( totalmatrix, totalconstantterm );
+    
+    if identity = fail then
+        return fail;
+    else
+        return LinearCombination( B, identity );
+    fi;
+end
+);
+
 InstallMethod ( AlgebraAsQuiverAlgebra, 
     "for a finite dimensional algebra",
     true,
@@ -592,11 +638,15 @@ InstallMethod ( AlgebraAsQuiverAlgebra,
     0,
     function( A )
 
-    local F, C, centralidempotentsinA, radA, g, centralidem, factoralgebradecomp, c, temp, 
-          dimcomponents, pi, ppowerr, gens, D, order, generatorinD, K, alghom, vertices, 
-	  radAsquare, h, arrows, adjacencymatrix, i, t, radAmodsquare, Q, KQ, Jtplus1, n, 
-	  images, j, AA, AAgens, AAvertices, AAarrows, B, matrix, fam, f, b, tempx, walk, 
-	  length, image, solutions, Solutions, radSoluplusSolurad, V, W, idealgens; 
+    local   F,  idA,  C,  id,  centralidempotentsinA,  radA,  g,  
+            centralidem,  factoralgebradecomp,  c,  temp,  
+            dimcomponents,  pi,  ppowerr,  gens,  D,  idD,  order,  
+            generatorinD,  K,  alghom,  vertices,  radAsquare,  h,  
+            radAmodsquare,  arrows,  adjacencymatrix,  i,  j,  t,  Q,  
+            KQ,  Jtplus1,  n,  images,  AA,  AAgens,  AAvertices,  
+            AAarrows,  f,  B,  matrix,  fam,  b,  tempx,  walk,  
+            length,  image,  solutions,  Solutions,  
+            radSoluplusSolurad,  V,  W,  idealgens;
     #
     # Checking if  <A>  is a finite dimensional algebra over a finite field.
     #
@@ -607,10 +657,20 @@ InstallMethod ( AlgebraAsQuiverAlgebra,
     if not IsFiniteDimensional(A) then
         Error("the entered algebra is not finite dimensional, \n");
     fi; 
+    if One( A ) = fail then
+        idA := FindMultiplicativeIdentity( A );
+        SetOne( A, idA );
+    fi;
     #
     # Checking if the algebra is indecomposable.
     #
     C := Center(A);
+    id := FindMultiplicativeIdentity( C );
+    if id = fail then
+        Error("The center of the entered algebra does not have a multiplicative identity,\n");
+    else
+        SetOne( C, id );
+    fi;
     centralidempotentsinA := CentralIdempotentsOfAlgebra(C);
     if Length(centralidempotentsinA) > 1 then
         Error("the entered algebra is not indecomposable, \n");
@@ -650,6 +710,12 @@ InstallMethod ( AlgebraAsQuiverAlgebra,
     ppowerr := Size(Range(pi));
     gens := Filtered(BasisVectors(Basis(C)), b -> ForAll(centralidem, c -> c*ImageElm(g, b) <> Zero(One(Range(g))))); 
     D := Subalgebra(C, gens);
+    idD := FindMultiplicativeIdentity( D );
+    if idD = fail then
+        Error("The center of the entered algebra does not have a multiplicative identity,\n");
+    else
+        SetOne( D, idD );
+    fi;    
     order := function( obj )
         
         local one, pow, ord;
@@ -657,7 +723,7 @@ InstallMethod ( AlgebraAsQuiverAlgebra,
         if obj = Zero(obj) then
             return -1;
         fi;
-        one := One(obj);
+        one := One( D );
         pow:= obj;
         ord:= 1;
         while pow <> one do

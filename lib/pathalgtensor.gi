@@ -183,6 +183,9 @@ InstallMethod( SimpleTensor,
 
     local parts, pairs, inc_paths, inc_terms;
 
+    if IsZero( factors[ 1 ] ) or IsZero( factors[ 2 ] ) then
+       return Zero( pa );
+    fi;
     inc_paths :=
       function( paths )
         return IncludeInPathAlgebra( IncludeInProductQuiver( paths, QuiverOfPathAlgebra( pa ) ),
@@ -211,12 +214,9 @@ end );
 InstallGlobalFunction( TensorProductOfPathAlgebras,
         function( PAs )
 
-    local field, Qs, product_q,
-          orig_rels, induced_rels, comm_rels, tensor_rels,
-          inc_q, inc_pa,
-          get_relators, make_comm_rel,
-          product_pa, I, gb, gbb,
-          tensor_product;
+    local   field,  Qs,  product_q,  product_pa,  inc_q,  inc_pa,  
+            make_comm_rel,  paths,  comm_rels,  get_relators,  
+            orig_rels,  induced_rels,  tensor_rels,  tensor_product;
 
     field := LeftActingDomain( PAs[ 1 ] );
     if field <> LeftActingDomain( PAs[ 2 ] ) then
@@ -267,7 +267,7 @@ InstallGlobalFunction( TensorProductOfPathAlgebras,
 
     # The relations of the two original path algebras:
     orig_rels := List( PAs, get_relators );
-
+    
     # The original relations included into the product quiver:
     induced_rels := List( Concatenation( Cartesian( orig_rels[ 1 ], VerticesOfPathAlgebra( PAs[ 2 ] ) ),
                                          Cartesian( VerticesOfPathAlgebra( PAs[ 1 ] ), orig_rels[ 2 ] ) ),
@@ -275,16 +275,52 @@ InstallGlobalFunction( TensorProductOfPathAlgebras,
 
     # All the relations for the tensor product:
     tensor_rels := Concatenation( comm_rels, induced_rels );
-    I := Ideal(product_pa,tensor_rels);
-    gb := GBNPGroebnerBasis(tensor_rels,product_pa);
-    gbb := GroebnerBasis(I,gb);
-
-    tensor_product := product_pa / I;
+    tensor_product := product_pa / tensor_rels;
     SetTensorProductDecomposition( tensor_product, PAs );
+    
     return tensor_product;
-
 end );
 
+#######################################################################
+##
+#O  TensorAlgebraInclusion ( < T, n > )
+##
+##  Returns the inclusion  A ---> A \otimes B or the inclusion
+##  B ---> A \otimes B if n = 1 or n = 2 respectively. 
+##  
+InstallMethod( TensorAlgebraInclusion, 
+    "for a IsQuiverAlgebra",
+    [ IsQuiverAlgebra, IS_INT ], 0,
+    function( T, n )
+
+    local   decomp,  A,  gens,  inclusion,  images,  f;
+    
+    if not HasTensorProductDecomposition( T ) then
+        Error( "The entered algebra is not a tensor product of two algebras.\n" );
+    fi;
+    decomp := TensorProductDecomposition( T );
+    if n = 1 then
+        A := decomp[ 1 ];
+    else
+        A := decomp[ 2 ];
+    fi;
+    gens := GeneratorsOfAlgebra( A ); 
+    
+    inclusion := function( x ) 
+        if n = 1 then
+            return SimpleTensor( [ x, One( decomp[ 2 ] ) ], T );
+        else
+            return SimpleTensor( [ One( decomp[ 1 ] ), x ], T );
+        fi;
+    end;
+    images := List( gens, g -> inclusion( g ) ); 
+    f := AlgebraHomomorphismByImages( A, T, gens, images ); 
+    f!.generators := gens;
+    f!.genimages := images;
+    
+    return f; 
+end
+  );
 
 InstallMethod( EnvelopingAlgebra,
         "for an algebra",
@@ -445,6 +481,29 @@ InstallMethod( DualOfAlgebraAsModuleOverEnvelopingAlgebra,
 end
   );
 
+################################################################
+# Attribute TrivialExtensionOfQuiverAlgebraLevel quiver algebras
+# is created so that one is avoiding naming problems when taking
+# iterated trivial extensions of a quiver algebra.  This is due
+# to a bug reported by Rene Marczinzik.
+# If this attribute is not set, then the level is 0.  The
+# trivial extension of such an algebra, will have level 1, and 
+# so on.
+#
+InstallMethod( TrivialExtensionOfQuiverAlgebraLevel,
+  "for quiveralgebras",
+  true,
+  [ IsQuiverAlgebra ], 0,
+  function( A );
+
+    if not HasTrivialExtensionOfQuiverAlgebraLevel( A ) then
+        return 0;
+    else
+        return TrivialExtensionOfQuiverAlgebraLevel( A );
+    fi;
+end );
+
+
 #######################################################################
 ##
 #O  TrivialExtensionOfQuiverAlgebra( <A> )
@@ -457,18 +516,22 @@ InstallMethod( TrivialExtensionOfQuiverAlgebra,
     [ IsQuiverAlgebra ], 0,
     function( A )
     
-    local Q, vertices, arrows, new_vertices, new_arrows, DA, TopOfDAProjection,
-          B, temp, de_op_name, additional_arrows, t, Q_TE, te_arrows,
-          string_te_arrows, K, KQ_TE, relations, new_relations, r, 
-          coeffandelem, n, temprel, templist, w, b, tempelem, i, num_arrows, nontipsofradA,
-          nontipsofradAinKQ_TE, 
-          V, W, VWV, Jpower, AA, BAA, te_arrow_rep, Qarrows, Qarrows_labels, Q_TE_to_Q, KQ, 
-          occurring_arrows, positions, initialterm, terminalterm, Aenv, fam,
-          prod, add_arrows_labels, matrix, setofvectors, solutions, Solutions, tempBAA, m;
+    local   arrow_add_string,  Q,  vertices,  arrows,  new_vertices,  
+            new_arrows,  DA,  TopOfDAProjection,  B,  temp,  
+            de_op_name,  additional_arrows,  i,  t,  Q_TE,  te_arrows,  
+            string_te_arrows,  K,  KQ_TE,  relations,  new_relations,  
+            r,  coeffandelem,  n,  temprel,  templist,  num_arrows,  
+            V,  nontipsofradA,  nontipsofradAinKQ_TE,  W,  VWV,  
+            Jpower,  AA,  BAA,  te_arrow_rep,  Qarrows,  
+            Qarrows_labels,  Q_TE_to_Q,  KQ,  matrix,  setofvectors,  
+            b,  occurring_arrows,  positions,  initialterm,  
+            terminalterm,  Aenv,  fam,  prod,  add_arrows_labels,  
+            solutions,  tempBAA,  Solutions,  TA;
     
     if not IsFiniteDimensional(A) then
         return fail;
     fi;
+    arrow_add_string := String( TrivialExtensionOfQuiverAlgebraLevel( A ) + 1 );
     Q := QuiverOfPathAlgebra(A);
     vertices := VerticesOfQuiver(Q);
     arrows := ArrowsOfQuiver(Q);
@@ -494,7 +557,7 @@ InstallMethod( TrivialExtensionOfQuiverAlgebra,
     i := 0;
     for t in temp do
         i := i + 1;
-        Add(additional_arrows, [t[1],t[2],Concatenation("te_a",String(Position(temp,t)),"_",String(i))]);
+        Add(additional_arrows, [t[1],t[2],Concatenation("te_a",arrow_add_string,"_",String(Position(temp,t)),"_",String(i))]);
     od;
     Append(new_arrows, additional_arrows);
     Q_TE := Quiver(new_vertices, new_arrows);
@@ -623,7 +686,9 @@ InstallMethod( TrivialExtensionOfQuiverAlgebra,
     Solutions := List(solutions, s -> LinearCombination(tempBAA, s));
     
     Append(new_relations, Solutions); 
+    TA := KQ_TE/new_relations;
+    SetTrivialExtensionOfQuiverAlgebraLevel( TA, TrivialExtensionOfQuiverAlgebraLevel( A ) + 1 );
     
-    return KQ_TE/new_relations;
+    return TA;
 end
   );

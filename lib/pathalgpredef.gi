@@ -504,4 +504,96 @@ InstallMethod( IsStringAlgebra,
     I := ElementsFamily(FamilyObj(A))!.ideal;
     return IsMonomialIdeal(I);
 end
-); # IsStringAlgebra for IsQuotientOfPathAlgebra 
+  ); # IsStringAlgebra for IsQuotientOfPathAlgebra 
+
+#################################################################
+##
+#O  PosetAlgebra( <K>, <P> )
+##  
+##  Takes as arguments a field  <K>  and a poset  <P> and returns
+##  the associated poset algebra  <KP>  as a quiver algebra.
+##
+
+InstallMethod( PosetAlgebra,
+    "for sets",
+    [ IsField, IsPoset ],
+        
+    function( K, P)
+    local   minimalrelations,  n,  vertices,  arrows,  i,  j,  Q,  KQ,  
+            arrowsofQ,  I,  radKQsquare,  BradKQsquare,  primidemp,  
+            V,  lessthan,  temp,  generators,  A,  relations,  r,  
+            iVj,  B,  k;
+    
+    minimalrelations := P!.minimal_relations;
+    n := Size(P);     
+    # 
+    # Setting the names for the vertices of the quiver to have the 
+    # same names as the names of the elements of the poset P.
+    #
+    vertices := List(P!.set, p -> String(p));
+    #
+    # For each minimal relation  x < y, we define an arrow of the quiver 
+    # from the vertex  x  to the vertex  y  with name "x_y".
+    #
+    arrows := [];
+    for i in [ 1..n ] do
+        for j in [ 1..n ] do 
+            if DirectProductElement( [ P!.set[ i ], P!.set[ j ] ] ) in minimalrelations then 
+                Add( arrows, [ String( P!.set[ i ] ), String( P!.set[ j ] ), Concatenation( String( P!.set[ i ] ),"_",String( P!.set[ j ] ) ) ] );
+            fi;
+        od;
+    od;
+    # 
+    # Creating the quiver and the path algebra thereof.
+    #
+    Q := Quiver( vertices, arrows );
+    KQ := PathAlgebra( K, Q );
+    #
+    # Finally we find the relations by computing a basis {b_1,..., b_vw} for 
+    # vJ^2w for every pair of vertices v and w in Q when  v < w  in P, and if 
+    # it has dimension greater or equal to 2, then we add the relations
+    # b_1 - b_j for all j >= 2.
+    # 
+    arrowsofQ := List( ArrowsOfQuiver(Q), a -> One( KQ ) * a ); 
+    I := Ideal( KQ, arrowsofQ );
+    radKQsquare := ProductSpace( I, I ); 
+    BradKQsquare := BasisVectors( Basis( radKQsquare ) ); 
+    primidemp := List( VerticesOfQuiver( Q ), v -> v*One( KQ ) );
+    V := []; 
+    lessthan := PartialOrderOfPoset( P );
+    for i in [ 1..n ] do
+        for j in [1..n] do
+            if ( i <> j ) and ( lessthan( P!.set[ i ], P!.set[ j ] ) ) then
+                generators := Filtered( primidemp[ i ] * BradKQsquare * primidemp[ j ], x -> x <> Zero( x ) );
+                if Length( generators )  > 1 then 
+                    Add( V, [ i, j, Subspace( KQ, generators ) ] );
+                fi;
+            fi;
+        od;
+    od;
+    if Length( V ) = 0 then
+        A := KQ;
+    else
+        relations := [];
+        for r in [ 1..Length( V ) ] do
+            i := V[ r ][ 1 ];
+            j := V[ r ][ 2 ];
+            iVj := V[ r ][ 3 ];
+            for j in [1..n] do
+                if i <> j and Dimension( iVj ) > 1 then
+                    B := BasisVectors( Basis( iVj ) );
+                    for k in [ 2..Dimension( iVj ) ] do
+                        Add( relations, B[ 1 ] - B[ k ] );
+                    od;
+                fi;
+            od;
+        od;
+        A := KQ/relations;
+    fi;
+    SetPosetOfPosetAlgebra( A, P ); 
+    SetFilterObj( A, IsPosetAlgebra ); 
+    SetFilterObj( A, IsFiniteGlobalDimensionAlgebra );
+
+    return A; 
+end
+  );

@@ -1687,23 +1687,26 @@ InstallMethod( FaithfulDimension,
     for p in P do
         tempdim := 0; 
         U := p;
-        f := MinimalLeftAddMApproximation(U,M);    
-        while IsInjective(f) do 
+        f := MinimalLeftAddMApproximation( U, M );
+	if not IsInjective( f ) then
+	   return 0;
+	fi;
+        while IsInjective( f ) do 
             tempdim := tempdim + 1;
-            g := CoKernelProjection(f);
-            if Dimension(Range(g)) = 0 then
-                Add(lengths, infinity);
+            g := CoKernelProjection( f );
+            if Dimension( Range( g ) ) = 0 then
+                Add( lengths, infinity );
                 break;
             else
-                f := MinimalLeftAddMApproximation(Range(g),M); 
+                f := MinimalLeftAddMApproximation( Range( g ), M ); 
             fi;
         od;
-        if Dimension(Range(g)) <> 0 then 
-            Add(lengths, tempdim);
+        if Dimension( Range( g ) ) <> 0 then 
+            Add( lengths, tempdim );
         fi;
     od; 
 
-    return Minimum(lengths);
+    return Minimum( lengths );
 end
   );
 
@@ -1898,4 +1901,20 @@ InstallMethod ( LeftApproximationByAddTHat,
         
     return LeftMinimalVersion( f )[ 1 ];
 end
-);
+  );
+
+InstallMethod( IsNthSyzygy, 
+    "for a PathAlgebraMatModule",
+    true,
+    [ IsPathAlgebraMatModule, IS_INT ], 
+    0,
+    function( M, n )
+
+    local N;
+    
+    N := NthSyzygy( DualOfModule( NthSyzygy( DualOfModule( M ), n ) ), n );
+    N := DirectSumOfQPAModules( [ N, Source( ProjectiveCover( M ) ) ] );
+    
+    return IsDirectSummand( M, N ); 
+end
+  );

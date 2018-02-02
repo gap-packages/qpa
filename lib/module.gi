@@ -422,11 +422,6 @@ InstallMethod(RightModuleOverPathAlgebra,
     if Length(gens) < Length(alist) then 
        Error("Each arrow has not been assigned a matrix.");
     fi;
-    
-    tempgens := Filtered(gens, g -> IsList(g[2][1]));
-    if not ForAll(tempgens, g -> IsInFullMatrixRing(g[2],K)) then
-        Error("not all matrices are over the correct field,\n");
-    fi;
 #
 #  Setting the multiplication by the vertices.
 #          
@@ -440,27 +435,39 @@ InstallMethod(RightModuleOverPathAlgebra,
 #  Input of the form ["a",[[..],...,[..]]], where "a" is the label of 
 #  some arrow in the quiver
 #
-    if IsString(gens[1][1]) then                 
-       for i in [1 .. Length ( gens )] do
-          a:=gens[i][1];
-          matrices[quiver.(a)!.gen_pos]:=gens[i][2];
-       od;
+    if IsString(gens[1][1]) then
+        tempgens := Filtered(gens, g -> IsList(g[2][1]));
+        if not ForAll(tempgens, g -> IsInFullMatrixRing(g[2],K)) then
+            Error("not all matrices are over the correct field,\n");
+        fi;
+        for i in [ 1..Length( gens ) ] do
+            a := gens[ i ][ 1 ];
+            matrices[ quiver.(a)!.gen_pos ] := gens[ i ][ 2 ];
+        od;
 #
 #  Input of the form [[matrix_1],[matrix_2],...,[matrix_n]]
 #
     elif IsMatrix(gens[1]) then
-       for i in [1 .. Length ( gens )] do
-          matrices[i + Length(vlist)]:=gens[i];
-       od;
+        if not ForAll( gens, g -> IsInFullMatrixRing( g, K ) ) then
+            Error("not all matrices are over the correct field,\n");
+        fi;
+        
+        for i in [1 .. Length ( gens )] do
+            matrices[i + Length(vlist)]:=gens[i];
+        od;
     else
 #
 #  Input of the form [[alist[1],[matrix_1]],...,[alist[n],[matrix_n]]] 
 #  where alist is a list of the vertices in the quiver.
-#  
-       for i in [1 .. Length ( gens )] do
-          a:=gens[i][1];
-          matrices[a!.gen_pos]:=gens[i][2];
-       od;
+#
+        tempgens := Filtered(gens, g -> IsList(g[2][1]));
+        if not ForAll( tempgens, g -> IsInFullMatrixRing( g[ 2 ], K) ) then
+            Error("not all matrices are over the correct field,\n");
+        fi;
+        for i in [1 .. Length ( gens )] do
+            a:=gens[i][1];
+            matrices[a!.gen_pos]:=gens[i][2];
+        od;
     fi;
 
     for i in [1 .. Length(vlist)] do
@@ -2229,5 +2236,43 @@ InstallOtherMethod( IsZero,
     function( M );
     
     return Dimension(M) = 0;
+end
+  );
+
+#######################################################################
+##
+#O  RestrictionViaAlgebraHomomorphism( < f, M > )
+##
+##  Given an algebra homomorphism  f : A ---> B and a module  M  over 
+##  B, this function returns  M  as a module over  A.
+##  
+InstallMethod( RestrictionViaAlgebraHomomorphism, 
+    "for a IsPathAlgebraMatModule and a IsAlgebraHomomorphism",
+    [ IsAlgebraHomomorphism, IsPathAlgebraMatModule ], 0,
+    function( f, M )
+
+    local   K,  A,  B,  vertices,  V,  BV,  arrows,  mats,  a,  
+            startpos,  endpos;
+    
+    K := LeftActingDomain( M );
+    A := Source( f );
+    B := Range( f );
+    if RightActingAlgebra( M ) <> B then 
+        Error( "The entered module is not a module over the range of the algebra homomorphism.\n" );
+    fi;
+    vertices := One( A ) * VerticesOfQuiver( QuiverOfPathAlgebra( A ) );
+    V := List( vertices, v -> List( BasisVectors( Basis( M ) ), m -> m ^ ImageElm( f, v ) ) ); 
+    V := List( V, W -> Filtered( W, w -> w <> Zero( w ) ) );
+    V := List( V, W -> VectorSpace( K, W ) );
+    BV := List( V, W -> Basis( W ) );
+    arrows := ArrowsOfQuiver( QuiverOfPathAlgebra( A ) );
+    mats := [ ]; 
+    for a in arrows do
+        startpos := Position( vertices, One( A ) * SourceOfPath ( a ) );
+        endpos := Position( vertices, One( A ) * TargetOfPath ( a ) );        
+        Add( mats, List( BV[ startpos ], m -> Coefficients( BV[ endpos ], m ^ ImageElm( f, One( A ) * a ) ) ) );
+    od;
+    
+    return RightModuleOverPathAlgebra( A, mats ); 
 end
   );

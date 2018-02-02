@@ -56,6 +56,7 @@ DeclareOperation( "SimpleTensor", [ IsDenseList, IsQuiverAlgebra ] );
 DeclareOperation( "TensorProductOfAlgebras", [ IsQuiverAlgebra, IsQuiverAlgebra ] );
 DeclareGlobalFunction( "TensorProductOfPathAlgebras" );
 DeclareAttribute( "TensorProductDecomposition", IsAlgebra );
+DeclareOperation( "TensorAlgebraInclusion", [  IsQuiverAlgebra, IS_INT ] );
 
 DeclareAttribute( "EnvelopingAlgebra", IsQuiverAlgebra );
 DeclareProperty( "IsEnvelopingAlgebra", IsAlgebra );
@@ -63,4 +64,5 @@ DeclareProperty( "IsEnvelopingAlgebra", IsAlgebra );
 DeclareAttribute( "AlgebraAsModuleOverEnvelopingAlgebra", IsQuiverAlgebra );
 DeclareSynonym( "AlgebraAsModuleOfEnvelopingAlgebra", AlgebraAsModuleOverEnvelopingAlgebra );
 DeclareAttribute( "DualOfAlgebraAsModuleOverEnvelopingAlgebra", IsQuiverAlgebra );
+DeclareAttribute( "TrivialExtensionOfQuiverAlgebraLevel", IsQuiverAlgebra );
 DeclareAttribute( "TrivialExtensionOfQuiverAlgebra", IsQuiverAlgebra );

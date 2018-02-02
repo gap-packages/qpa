@@ -1035,6 +1035,20 @@ Here we collect the predefined representations/modules over a finite
 </ManSection>
 
 <ManSection>
+   <Oper Name="RestrictionViaAlgebraHomomorphism" Arg="f, M" Comm="for
+								   an IsAlgebraHomomorphism
+								   and IsPathAlgebraMatModule"/>
+   <Description> 
+    Arguments: <Arg>f</Arg> -- an IsAlgebraHomomorphism, <Arg>M</Arg> -- an IsPathAlgebraMatModule.
+   <Br /></Description>
+   <Returns>Given an algebra homomorphism  <M>f \colon A
+   \hookrightarrow B</M> and a module  <Arg>M</Arg>  over <M>B</M>,
+   this function returns  <Arg>M</Arg>  as a module over  <M>A</M>. 
+   </Returns>
+</ManSection>
+
+
+<ManSection>
    <Attr Name="StarOfModule" Arg="M" Comm="for a PathAlgebraMatModule"/>
    <Description> 
     Arguments: <Arg>M</Arg> -- a <C>PathAlgebraMatModule</C>.

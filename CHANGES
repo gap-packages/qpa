@@ -1,4 +1,58 @@
 ==========================================================================
+Changes from version 1.26 to 1.27:
+==========================================================================
+
+Added functions in this release:
+----------------------------------------------------------------------
+
+IsPosetAlgebra
+IsNthSyzygy
+PartialOrderOfPoset
+Poset (implementation of Mohamed Barakat)
+PosetAlgebra
+PosetOfPosetAlgebra
+RestrictionViaAlgebraHomomorphism
+TensorAlgebraInclusion
+TrivialExtensionOfQuiverAlgebraLevel
+
+Discontinued/removed functions:
+------------------------------------------------------------
+
+PositionsProperty (moved from QPA to GAP)
+
+Changed code for:
+----------------------------------------------------------------------
+
+SimpleTensor
+TensorProductOfAlgebras
+TrivialExtensionOfQuiverAlgebra
+
+Fixed bugs in:
+----------------------------------------------------------------------
+
+ReadAlgebra and SaveAlgebra (reported by Klaus Lux)
+RightModuleOverPathAlgebra (reported by Rene Marczinzik)
+
+==========================================================================
+Changes from version 1.25 to 1.26:
+==========================================================================
+
+Added functions in this release:
+----------------------------------------------------------------------
+
+AlmostSplitSequence - an new version
+AlmostSplitSequenceInPerpT
+ElementInIndecProjective
+IsTriangularReduced
+TensorProductOfModules
+
+Miscellaneous
+----------------------------------------------------------------------
+
+Updated coordiantes for people and URL's in PackageInfo.g
+
+
+==========================================================================
 Changes from version 1.24 to 1.25:
 ==========================================================================
 

@@ -14,6 +14,7 @@ ReadPackage("QPA", "lib/groebnerstadict.gi" );
 ReadPackage("QPA", "lib/algebra.gi");
 ReadPackage("QPA", "lib/groebnerordering.gi");
 ReadPackage("QPA", "lib/quiver.gi");
+ReadPackage("QPA", "lib/qpaposet.gi");
 ReadPackage("QPA", "lib/pathalg.gi");
 ReadPackage("QPA", "lib/groebner.gi");
 ReadPackage("QPA", "lib/module.gi");

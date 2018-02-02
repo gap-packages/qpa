@@ -1439,6 +1439,28 @@ gap> QuiverOfPathAlgebra(alg);
 </Example> 
 
 <ManSection>
+  <Oper Name="PosetAlgebra" Arg="F, P" 
+	Comm="creates a poset algebra"/>
+  <Description>
+    Arguments: <Arg>F</Arg> -- a field, <Arg>P</Arg> -- a poset.<Br />
+  </Description>
+  <Returns>the poset algebra associated to the poset <Arg>P</Arg> over
+  the field <Arg>K</Arg>. 
+  </Returns>
+</ManSection>
+
+  <ManSection>
+    <Attr Name="PosetOfPosetAlgebra" Arg="A"/>
+    <Description>
+      Arguments: <Arg>A</Arg> -- a poset algebra.<Br />
+    </Description>
+    <Returns>
+      the poset from which that poset algebra <Arg>A</Arg> is
+      constructed. 
+    </Returns>
+  </ManSection>
+
+<ManSection>
   <Oper Name="TruncatedPathAlgebra" Arg="F, Q, n" 
 	Comm="creates a truncated path algebra"/>
   <Description>
@@ -1737,6 +1759,18 @@ true  ]]>
    </Description>
   </ManSection>
 
+    <ManSection>
+   <Oper Name="TensorAlgebrasInclusion" Arg="T, n"/>
+   <Description>
+     Arguments: <Arg>T</Arg> -- quiver algebra, <Arg>n</Arg> -- 1 or 2.<Br />
+   </Description>
+   <Returns>
+     Returns the inclusion  <M>A \hookrightarrow A \otimes B</M> or the
+     inclusion <M>B \hookrightarrow A \otimes B</M> if <M>n = 1</M> or
+     <M>n = 2</M>, respectively.  
+   </Returns>
+  </ManSection>
+  
   <ManSection>
     <Oper Name="SimpleTensor" Arg="L, T"/>
     <Description>
