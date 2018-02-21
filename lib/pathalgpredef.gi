@@ -826,6 +826,9 @@ InstallMethod ( BrauerConfigurationAlgebra,
         fi;
     od;
 
-    return path_algebra/Concatenation(type1relations, type2relations, type3relations);
+    A := path_algebra/Concatenation(type1relations, type2relations, type3relations);
+    SetIsSymmetricAlgebra( A, true );
+
+    return A;
 end
 );
