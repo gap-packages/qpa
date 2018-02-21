@@ -17,4 +17,5 @@ DeclareProperty("IsStringAlgebra", IsPathAlgebra);
 DeclareProperty("IsStringAlgebra", IsQuotientOfPathAlgebra);
 DeclareProperty( "IsPosetAlgebra", IsQuiverAlgebra ); 
 DeclareOperation( "PosetAlgebra", [ IsField, IsPoset ] ); 
-DeclareAttribute( "PosetOfPosetAlgebra", IsPosetAlgebra ); 
+DeclareAttribute( "PosetOfPosetAlgebra", IsPosetAlgebra );
+DeclareOperation( "BrauerConfigurationAlgebra", [IsField, IsList] );

@@ -1376,6 +1376,27 @@ false ]]>
   of (quotients of) path algebras</Heading>
 
 <ManSection>
+  <Func Name="BrauerConfigurationAlgebra" Arg="field, brauer_configuration" 
+  Comm="creates a Brauer configuration algebra"/>
+  <Description>
+    Arguments: <Arg>field</Arg> -- a field, <Arg>brauer_configuration</Arg> -- a list of the form [[vertices], [edges/polygons], [orientations]].<Br />
+  </Description>
+  <Returns>
+    the Brauer configuration algebra corresponding to the brauer configuration
+    <Arg>brauer_configuration</Arg> over the field <Arg>field</Arg>. If the brauer configuration entered is not valid, fail is returned.
+  </Returns>
+  <Description>The <Arg>brauer_configuration</Arg> consists of vertices, polygons/edges, and orientations corrresponding to a Brauer Configuration or Brauer Tree. Each vertex must have the form ["vertexname", multiplicity]. Each edge/polygon must have the form ["edgename", "vertex1name", "vertex2name", ...]. There must be an orientation corresponding to each vertex. Orientations must have the form ["edge1name/polygon1name", "edge2name/polygon2name", ...].</Description>
+</ManSection>
+
+<Example><![CDATA[ 
+gap> alg := BrauerConfigurationAlgebra(Rationals, [ [ [ "v1", 1 ], [ "v2", 1 ], [ "v3", 2 ] ], [ [ "e1", "v1", "v2" ], [ "e2", "v2", "v3" ] ], [ [ "e1" ], [ "e1", "e2" ], ["e2" ] ]]);
+<A quotient of the path algebra <Rationals[<quiver with 2 vertices and 
+3 arrows>]> modulo the ideal 
+<two-sided ideal in <Rationals[<quiver with 2 vertices and 3 arrows>]>, 
+  (5 generators)>>]]>
+</Example>
+
+<ManSection>
   <Oper Name="CanonicalAlgebra" Arg="field, weights [, relcoeff]" 
 	Comm="creates a canonical algebra"/>
   <Description>

@@ -596,4 +596,236 @@ InstallMethod( PosetAlgebra,
 
     return A; 
 end
-  );
+);
+
+
+
+#######################################################################
+##
+#O  BrauerConfigurationAlgebra( K, <brauer_configuration> )
+##
+##  Given a field  <K>  and a brauer configuration
+##  <brauer_configuration> in the form
+##  [[vertices], [polygons], [orientations]] this function constructs
+##  the brauer configuration algebra assosiated to the brauer
+##  configuration. 
+##
+InstallMethod ( BrauerConfigurationAlgebra,
+    "for a field and a valid list",
+    [IsField, IsList], 0,
+    function( K, brauer_configuration )
+
+    local vertices, polygons, orientations,
+        vertex_names,  polygon_names, special_cycles, polygons_containing, num_vertices,
+        arrows, quiver_vertices, quiver, path_algebra,
+        type1relations, type2relations, type3relations,
+        path, vertex1_index, vertex2_index, sc, o, p, i, j, k, a, b, v, A,
+        special_cycle;
+    #
+    #Checking that the input is valid
+    #
+    if IsField(K) = false then
+        Print("The second argument must be a field.\n");
+        return fail;
+    fi;
+
+    if IsList(brauer_configuration) = false or Length(brauer_configuration) <> 3 or IsList(brauer_configuration[1]) = false or IsList(brauer_configuration[2]) = false or IsList(brauer_configuration[3]) = false then
+        Print("Brauer Algebra input must contain 3 arrays: [vertices], [edges or polygons], [orientations].\n");
+        return fail;
+    fi;
+
+    vertices := brauer_configuration[1];
+    vertex_names := [];
+    num_vertices := Length(vertices);
+
+    if (num_vertices = 0) then
+        Print("There must be at least 1 vertex\n");
+        return fail;
+    fi;
+
+    for v in vertices do
+        if IsList(v) = false or Length(v) <> 2 or (IsString(v[1]) and IsInt(v[2])) = false then
+            Print("Vertices should be of the form: [name, multiplicity].\n");
+            return fail;
+        elif v[2] < 1 then
+            Print("Multiplicities must be positive integers.\n");
+            return fail;
+        else
+            Add(vertex_names, v[1]);
+        fi;
+    od;
+
+    if (IsDuplicateFree(vertex_names)) = false then
+        Print("Each vertex must have a unique name.\n");
+        return fail;
+    fi;
+
+    polygons := brauer_configuration[2];
+    polygon_names := [];
+
+    for p in polygons do
+        if IsList(p) = false or Length(p) < 2 then
+            Print("Edges or Polygons should be lists of length 2 or greater.\n");
+            return fail;
+        else 
+            if (p[1] in vertex_names) then
+                Print("An edge or polygon cannot have the same name as a vertex.\n");
+                return fail;
+            fi;
+            Add(polygon_names, p[1]);
+            for i in [2.. Length(p)] do
+                if (p[i] in vertex_names) = false then
+                    Print("An edge or polygon cannot contain a vertex which was not listed.\n");
+                    return fail;
+                fi;
+            od;
+        fi;
+    od;
+
+    if (IsDuplicateFree(polygon_names)) = false then
+        Print("Edges or polygons must have unique names.\n");
+        return fail;
+    fi;
+
+    orientations := brauer_configuration[3];
+    if (Length(orientations) <> num_vertices) then
+        Print("There must be an orientation corresponding to each vertex.\n");
+        return fail;
+    fi;
+    for o in orientations do
+        if IsList(o) = false  or Length(o) < 1 then
+            Print("Orientations must be lists of length 1 or greater.\n");
+            return fail;
+        fi;
+        for p in o do
+            if (p in polygon_names) = false then
+                Print("Orientations may only contain edges or polygons which were listed.\n");
+                return fail;
+            fi;
+        od;
+    od;
+
+    polygons_containing := [];
+    for i in [1.. num_vertices] do
+        Add(polygons_containing, []);
+        for p in polygons do
+            if vertex_names[i] in p then
+                Add(polygons_containing[i], p[1]);
+            fi;
+        od;
+    od;
+
+    for i in [1.. num_vertices] do
+        Sort(orientations[i]);
+        Sort(polygons_containing[i]);
+        if orientations[i] <> polygons_containing[i] then
+            Print("Orientations must contain exactly the edges or polygons which contain the corrosponding vertex.\n");
+            return fail;
+        fi;
+    od;
+    #
+    #Generating the arrows for the quiver.
+    #
+    arrows := [];
+    special_cycles := [];
+    for i in [1.. num_vertices] do
+        #
+        #We only want to create a self loop if the corresponding vertex has multiplicity
+        #
+        if Length(orientations[i]) > 1 or vertices[i][2] > 1 then 
+            sc := [];
+            for j in [1.. Length(orientations[i]) - 1] do
+                Add(arrows, [orientations[i][j], orientations[i][j + 1],
+                    Concatenation(vertices[i][1], "_", String(j), "_from_",
+                    orientations[i][j], "_to_", orientations[i][j + 1])]);
+                Add(sc, arrows[Length(arrows)][3]);
+            od;
+            Add(arrows, [orientations[i][Length(orientations[i])], orientations[i][1],
+                Concatenation(vertices[i][1], "_", String(Length(orientations[i])), "_from_",
+                orientations[i][Length(orientations[i])], "_to_", orientations[i][1])]);
+            Add(sc, arrows[Length(arrows)][3]);
+            Add(special_cycles, sc);
+        else
+            Add(special_cycles, []);
+        fi;
+    od;
+
+    #
+    #Retrieving names of the polygons to be used as vertices in the quiver.
+    #
+    quiver_vertices := [];
+    for p in polygons do
+        Add(quiver_vertices, p[1]);
+    od;
+
+    quiver := Quiver(quiver_vertices, arrows);
+    path_algebra := PathAlgebra(K, quiver);
+
+    #
+    #Calculating Type 1 Relations
+    #
+    type1relations := [];
+    for i in [1.. num_vertices - 1] do
+        for j in [i + 1.. num_vertices] do
+            for a in special_cycles[i] do
+                for b in special_cycles[j] do
+                    Add(type1relations, path_algebra.(a) * path_algebra.(b));
+                    Add(type1relations, path_algebra.(b) * path_algebra.(a));
+                od;
+            od;
+        od;
+    od;
+
+    #
+    #Helper function, returns the special cycle corresponding to a vertex, beginning at a certain polygon
+    #
+    special_cycle := function(vertex_index, polygon_index)
+        local i, j, path;
+
+        path := path_algebra.(special_cycles[vertex_index][polygon_index]);
+        for i in [polygon_index + 1.. Length(special_cycles[vertex_index])] do
+            path := path * path_algebra.(special_cycles[vertex_index][i]);
+        od;
+        for i in [1.. polygon_index - 1] do
+            path := path * path_algebra.(special_cycles[vertex_index][i]);
+        od;
+        return path;
+    end;
+
+    #
+    #Calculating Type 2 Relations
+    #
+    type2relations := [];
+    for i in [1.. Length(polygons)] do
+        if InDegreeOfVertex(VerticesOfQuiver(quiver)[i]) > 1 then
+            for j in [2.. Length(polygons[i]) - 1] do
+                vertex1_index := Position(vertex_names, polygons[i][j]);
+                if IsEmpty(special_cycles[vertex1_index]) = false then
+                    for k in [j + 1 .. Length(polygons[i])] do
+                        vertex2_index := Position(vertex_names, polygons[i][k]);
+                        if IsEmpty(special_cycles[vertex2_index]) = false then
+                            Add(type2relations,
+                                special_cycle(vertex1_index, Position(orientations[vertex1_index], polygons[i][1]))^vertices[vertex1_index][2]
+                                - special_cycle(vertex2_index, Position(orientations[vertex2_index], polygons[i][1]))^vertices[vertex2_index][2]);
+                        fi;
+                    od;
+                fi;
+            od;
+        fi;
+    od;
+
+    #
+    #Calculating Type 3 Relations
+    #
+    type3relations := [];
+    for i in [1.. num_vertices] do
+        if IsEmpty(special_cycles[i]) = false then
+            for j in [1.. Length(special_cycles[i])] do
+                Add(type3relations, special_cycle(i, j)^vertices[i][2] * path_algebra.(special_cycles[i][j]));
+            od;
+        fi;
+    od;
+
+    return path_algebra/Concatenation(type1relations, type2relations, type3relations);
+end
+);
