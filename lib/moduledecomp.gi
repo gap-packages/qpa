@@ -471,4 +471,86 @@ InstallMethod( BasicVersionOfModule,
         return DirectSumOfQPAModules(L[1]);
     fi;
 end
-);
+  );
+
+#######################################################################
+##
+#O  DecomposeModuleProbabilistic( <HomMM>, <M> )
+##
+##  Given a module  M  over a finite dimensional quotient of a path 
+##  algebra over a finite field, this function tries to decompose the 
+##  entered module  M  by choosing random elements in the endomorphism
+##  ring of  M  which are non-nilpotent and non-invertible.  Such
+##  elements splits the module in two direct summands, and the procedure
+##  does this as long as it finds such elements.  The output is not 
+##  guaranteed to be a list of indecomposable modules, but their direct
+##  sum is isomorphic to the entered module  M. This was constructed as
+##  joint effort by the participants at the workshop "Persistence, 
+##  Representations, and Computation", February 26th - March 2nd, 2018".
+##  This is an experimental function, so use with caution.
+##  
+InstallMethod( DecomposeModuleProbabilistic, 
+   "for a path algebra matmodule",
+   [ IsHomogeneousList, IsPathAlgebraMatModule ], 0,
+   function( HomMM, M ) 
+    
+  local   k,  d,  l,  n,  V,  i,  p,  f,  g,  j,  h,  pi,  nu,  
+          nuprime,  piprime,  phi,  HomImhImh,  gensImhImh,  t,  s,  
+          VImhImh,  basisImhImh,  HomKerhKerh,  gensKerhKerh,  
+          VKerhKerh,  basisKerhKerh;
+    
+    k := LeftActingDomain( M );
+    if not IsFinite( k ) then 
+        Error( "The entered module is not over a finite field.\n" );
+    fi;
+    d := Maximum( DimensionVector( M ) );
+    l := Int( Ceil( Log2( 1.0*( d ) ) ) );
+    #    n := Length( B );
+    n := Length( HomMM );
+    V := FullRowSpace( k, n );
+    i := 1; 
+    repeat
+        i := i + 1; 
+        p := Random( V ); 
+        #        f := LinearCombination( B, p ); 
+        f := LinearCombination( HomMM, p ); 
+        if DeterminantMat( FromHomMMToEndM( f ) ) = Zero( k ) then
+            g := f;
+            for j in [ 1..l + 1 ] do
+                g := g * g;
+            od;
+            if g <> Zero( g ) then
+                h := g;
+                pi := ImageProjection( h );
+                nu := ImageInclusion( h );
+                nuprime := KernelInclusion( h );
+                piprime := CoKernelProjection( h );
+                phi := IsomorphismOfModules( Range( piprime ), Source( nuprime ) );
+                piprime := piprime * phi;
+                #
+                #
+                HomImhImh := Unique( List( HomMM, x -> nu * x * pi ) );
+                gensImhImh := List( HomImhImh, h -> Flat( FromHomMMToEndM( h ) ) );
+                t := Length( gensImhImh[ 1 ] );
+                s := Dimension( Range( pi ) );
+                VImhImh := Subspace( k^t, gensImhImh );
+                basisImhImh := List( BasisVectors( Basis( VImhImh ) ), b -> List( [ 1..s ], x -> b{ [ 1 + ( x - 1 ) * s..s * x ] } ) );
+                HomImhImh := List( basisImhImh, b -> FromEndMToHomMM( Range( pi ), b ) );
+                #
+                #
+                HomKerhKerh := Unique( List( HomMM, x -> nuprime * x * piprime ) );
+                gensKerhKerh := List( HomKerhKerh, h -> Flat( FromHomMMToEndM( h ) ) );
+                t := Length( gensKerhKerh[ 1 ] );
+                s := Dimension( Range( piprime ) );
+                VKerhKerh := Subspace( k^t, gensKerhKerh );
+                basisKerhKerh := List( BasisVectors( Basis( VKerhKerh ) ), b -> List( [ 1..s ], x -> b{ [ 1 + ( x - 1 ) * s..s * x ] } ) );
+                HomKerhKerh := List( basisKerhKerh, b -> FromEndMToHomMM( Range( piprime ), b ) );
+                return Flat( [ DecomposeModuleProbabilistic( HomImhImh, Range( pi ) ), 
+                               DecomposeModuleProbabilistic( HomKerhKerh, Range( piprime ) ) ] );
+            fi;
+        fi;
+    until i = 2 * Size( k ) * n;
+      
+    return M; 
+end
+  );

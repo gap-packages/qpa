@@ -7,6 +7,7 @@ DeclareOperation("IdempotentsForDecomposition",[IsAlgebra]);
 DeclareAttribute("DecomposeModule", IsPathAlgebraMatModule );
 DeclareAttribute("DecomposeModuleWithInclusions", IsPathAlgebraMatModule );
 DeclareAttribute("DecomposeModuleWithMultiplicities", IsPathAlgebraMatModule);
+DeclareOperation( "DecomposeModuleProbabilistic", [ IsHomogeneousList, IsPathAlgebraMatModule ] );
 DeclareOperation( "LiftIdempotent", [ IsAlgebraGeneralMapping, IsRingElement ] );
 DeclareOperation( "LiftTwoOrthogonalIdempotents", [ IsAlgebraGeneralMapping, IsRingElement, IsRingElement ] );
 DeclareOperation( "BlockSplittingIdempotents", [IsPathAlgebraMatModule ] ); 

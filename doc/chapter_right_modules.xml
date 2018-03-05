@@ -402,6 +402,32 @@ gap> N := RightModuleOverPathAlgebra(A,mat);
 </ManSection>
 
 <ManSection>
+   <Oper Name="DecomposeModuleProbabilistic" Arg="HomMM, M" Comm="for
+	a basis of Hom(M,M) and a PathAlgebraMatModule"/>
+   <Description> 
+   Arguments: <Arg>HomMM</Arg>, <Arg>M</Arg> -- a list of basis
+   elements of the Hom-space of the entered module and a path algebra module.
+   <Br /></Description>
+   <Returns>with (hopefully high probability) a list of indecomposable
+   modules whose direct sum is isomorphic to the module <Arg>M</Arg>.  
+   </Returns>
+   <Description>Given a module  <Arg>M</Arg>  over a finite
+   dimensional quotient of a path algebra over a finite field, this
+   function tries to decompose the entered module  <Arg>M</Arg>  by
+   choosing random elements in the endomorphism ring of  <Arg>M</Arg>
+   which are non-nilpotent and non-invertible.  Such elements splits
+   the module in two direct summands, and the procedure does this as
+   long as it finds such elements.  The output is not guaranteed to be
+   a list of indecomposable modules, but their direct sum is
+   isomorphic to the entered module  <Arg>M</Arg>. This was
+   constructed as joint effort by the participants at the workshop "Persistence, 
+   Representations, and Computation", February 26th - March 2nd, 2018".
+   This is an experimental function, so use with caution.
+   </Description>
+</ManSection>
+
+
+<ManSection>
    <Oper Name="DecomposeModuleWithMultiplicities" Arg="M" Comm="for a
    PathAlgebraMatModule"/>
    <Description> 
