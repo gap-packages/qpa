@@ -1848,50 +1848,56 @@ end
 ##  done by Andrzej Mroz found in "On the computational complexity of Bongartz's
 ##  algorithm" (improving the complexity of the algorithm).
 ##
-InstallMethod( CommonDirectSummand, 
+InstallMethod( NewCommonDirectSummand, 
     "for two path algebra matmodules",
     [ IsPathAlgebraMatModule, IsPathAlgebraMatModule  ], 0,
     function( M, N ) 
 
-    local K, HomMN, HomNM, mn, nm, n, m, i, j,  
-          l, zero, f, fnm, nmf;
+    local   HomMN,  HomNM,  mn,  nm,  m,  n,  l,  zero,  j,  i,  temp,  
+          r,  f,  fnm,  nmf;
 
-    if RightActingAlgebra(M) <> RightActingAlgebra(N) then 
-        Print("The two modules are not modules over the same algebra.\n");
+    if RightActingAlgebra( M ) <> RightActingAlgebra( N ) then 
+        Print( "The two modules are not modules over the same algebra.\n" );
         return fail;
     else
-        HomMN := HomOverAlgebra(M,N);
-        HomNM := HomOverAlgebra(N,M);
-        mn := Length(HomMN);
-        nm := Length(HomNM);
+        HomMN := HomOverAlgebra( M, N );
+        HomNM := HomOverAlgebra( N, M );
+        mn := Length( HomMN );
+        nm := Length( HomNM );
       
         if mn = 0 or nm = 0 then 
             return false;
         fi;
       
-        m := Maximum(DimensionVector(M));
-        n := Maximum(DimensionVector(N));
+        m := Maximum( DimensionVector( M ) );
+        n := Maximum( DimensionVector( N ) );
         if n = m then
             l := n;
         else
-            l := Minimum([n,m]) + 1;
+            l := Minimum( [ n, m ] ) + 1;
         fi;
+        
+        n := Int( Ceil( Log2( 1.0*( l ) ) ) );
+          
+        zero := ZeroMapping( M, M );
       
-        zero := ZeroMapping(M,M);
-      
-        for j in [1..nm] do
-            for i in [1..mn] do
-                if l>1 then  # because hom^0*hom => error!       
-                    f := (HomMN[i]*HomNM[j])^(l-1)*HomMN[i];
+        for j in [ 1..nm ] do
+            for i in [ 1..mn ] do
+                if l > 1 then  # because hom^0 * hom => error! 
+                    temp := HomMN[ i ] * HomNM[ j ];
+                    for r in [ 1..n ] do
+                        temp := temp * temp;
+                    od;
+                    f := temp * HomMN[ i ];
                 else 
-                    f := HomMN[i];
+                    f := HomMN[ i ];
                 fi;
                 
-                fnm := f*HomNM[j];
+                fnm := f * HomNM[ j ];
               
                 if fnm <> zero then
-                    nmf := HomNM[j]*f; 
-                    return [Image(fnm),Kernel(fnm),Image(nmf),Kernel(nmf)];
+                    nmf := HomNM[ j ] * f; 
+                    return [ Image( fnm ), Kernel( fnm ), Image( nmf ), Kernel( nmf ) ];
                 fi;
             od;
         od;
