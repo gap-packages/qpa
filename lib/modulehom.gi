@@ -1848,7 +1848,7 @@ end
 ##  done by Andrzej Mroz found in "On the computational complexity of Bongartz's
 ##  algorithm" (improving the complexity of the algorithm).
 ##
-InstallMethod( NewCommonDirectSummand, 
+InstallMethod( CommonDirectSummand, 
     "for two path algebra matmodules",
     [ IsPathAlgebraMatModule, IsPathAlgebraMatModule  ], 0,
     function( M, N ) 
