@@ -168,7 +168,23 @@ GeneratePackageYML:=function(pkg)
         fi;
     fi;
 
-    # TODO: use Keywords?
+    if IsBound(pkg.Keywords) and
+        Length(pkg.Keywords) > 0 then
+        AppendTo(stream, "keywords: |\n");
+        AppendTo(stream, "    ", JoinStringsWithSeparator(pkg.Keywords,", "),".\n");
+    fi;
+
+    AppendTo(stream, "citeas: |\n");
+    for tmp in SplitString(StringBibXMLEntry(ParseBibXMLextString(BibEntry(pkg)).entries[1],"HTML"),"\n") do
+        AppendTo(stream, "    ", tmp, "\n");
+    od;
+    AppendTo(stream, "\n");
+
+    AppendTo(stream, "bibtex: |\n");
+    for tmp in SplitString(StringBibXMLEntry(ParseBibXMLextString(BibEntry(pkg)).entries[1],"BibTeX"),"\n") do
+        AppendTo(stream, "    ", tmp, "\n");
+    od;
+    AppendTo(stream, "\n");
 
     CloseStream(stream);
 end;
