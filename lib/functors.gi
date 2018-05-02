@@ -453,7 +453,7 @@ InstallMethod( StarOfModule,
     for b in BV do
         if Length(b) <> 0 then 
             Add(BasisVflat, 
-                Basis(Subspace(FullRowSpace(K, Length(b[1])), b, "basis"))); 
+                Basis(Subspace(FullRowSpace(K, Length(b[1])), b, "basis"), b)); 
         else 
             Add(BasisVflat, []);
         fi;
