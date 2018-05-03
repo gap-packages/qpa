@@ -62,11 +62,11 @@ the one that is distributed with GAP, follow the following instructions:
 1.  Locate a pkg-directory where GAP searches for packages, see
     9.2 GAP Root Directories in the GAP manual for more information.
 2a. Download a release of QPA from
-          https://github.com/gap-system/qpa/releases
+          https://github.com/gap-packages/qpa/releases
     and unpack it in the pkg-directory you located in 1.
 2b. Alternatively, clone the git-repository of QPA by giving the following
     command:
-        git clone https://github.com/gap-system/qpa.git qpa
+        git clone https://github.com/gap-packages/qpa.git qpa
     when you are in the pkg-directory you located in 1.
     For making the documentation for QPA give the command  
       	   MakeQPADocumentation();
@@ -105,4 +105,4 @@ can either:
  * contact one of the QPA-team members, see the webpage
               https://folk.ntnu.no/oyvinso/QPA
 or
- * report an issue at https://github.com/gap-system/qpa/issues/new
+ * report an issue at https://github.com/gap-packages/qpa/issues/new
