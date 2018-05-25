@@ -1810,120 +1810,106 @@ InstallMethod( DirectSumOfQPAModules,
    [ IsList ], 0,
    function( L ) 
 
-   local n, A, K, Q, arrows, vertices, dim_list, dim_vect, i, 
-         temp, j, big_mat, a, mat, origin, target, r, row_pos,
-         col_pos, direct_sum, dimension, list_of_projs, 
-         list_of_incls, map, maps; 
+    local   n,  A,  K,  Q,  arrows,  vertices,  dim_list,  dim_vect,  
+            i,  temp,  j,  big_mat,  a,  origin,  target,  mat,  
+            row_pos,  col_pos,  r,  direct_sum,  list_of_projs,  map,  
+            maps,  dimension,  list_of_incls;
 
-   n := Length(L);
+   n := Length( L );
    if n > 0 then 
-      A := RightActingAlgebra(L[1]);
-      K := LeftActingDomain(A);
-      if ForAll(L,IsPathAlgebraMatModule) and ForAll(L,x -> RightActingAlgebra(x) = A) then 
-         Q := QuiverOfPathAlgebra(OriginalPathAlgebra(A));
-         arrows := ArrowsOfQuiver(Q);
-         vertices := VerticesOfQuiver(Q);
-         dim_list := List(L,DimensionVector);
-         dim_vect := [];
-
-         for i in [1..Length(dim_list[1])] do
-            temp := 0; 
-            for j in [1..Length(dim_list)] do
-               temp := temp + dim_list[j][i];
-            od;
-            Add(dim_vect,temp);
-         od;
-         big_mat := [];
+      A := RightActingAlgebra( L[ 1 ] );
+      K := LeftActingDomain( A );
+      if ForAll( L, IsPathAlgebraMatModule ) and ForAll( L, x -> RightActingAlgebra( x ) = A ) then 
+         Q := QuiverOfPathAlgebra( OriginalPathAlgebra( A ) );
+         arrows := ArrowsOfQuiver( Q );
+         vertices := VerticesOfQuiver( Q );
+         dim_list := List( L, DimensionVector );
+         dim_vect := Sum( dim_list ); 
+         big_mat := [ ];
          i := 0;
          for a in arrows do
             i := i + 1;
-            origin := Position(vertices,SourceOfPath(a));
-            target := Position(vertices,TargetOfPath(a));
-            mat := [];
-            if dim_vect[origin] <> 0 and dim_vect[target] <> 0 then 
-               mat := NullMat(dim_vect[origin],dim_vect[target], K);
+            origin := Position( vertices, SourceOfPath( a ) );
+            target := Position( vertices, TargetOfPath( a ) );
+            mat := [ ];
+            if dim_vect[ origin ] <> 0 and dim_vect[ target ] <> 0 then 
+               mat := NullMat( dim_vect[ origin ], dim_vect[ target ], K );
                row_pos := 1;
                col_pos := 1;
-               for r in [1..n] do
-                  if dim_list[r][origin] <> 0 and dim_list[r][target] <> 0 then
-                     mat{[row_pos..(row_pos+dim_list[r][origin]-1)]}{[col_pos..(col_pos+dim_list[r][target]-1)]} := 
-                     MatricesOfPathAlgebraModule(L[r])[i];
+               for r in [ 1..n ] do
+                  if dim_list[ r ][ origin ] <> 0 and dim_list[ r ][ target ] <> 0 then
+                     mat{ [ row_pos..( row_pos + dim_list[ r ][ origin ] - 1 ) ] }{ [ col_pos..( col_pos + dim_list[ r ][ target ] - 1 ) ] } := 
+                       MatricesOfPathAlgebraModule( L[ r ] )[ i ];
                   fi;
-                  row_pos := row_pos + dim_list[r][origin];
-                  col_pos := col_pos + dim_list[r][target]; 
+                  row_pos := row_pos + dim_list[ r ][ origin ];
+                  col_pos := col_pos + dim_list[ r ][ target ]; 
                od;
-               mat := [a,mat];
-            else 
-               mat := [a,[dim_vect[origin],dim_vect[target]]];
+               mat := [ String( a ), mat ];
             fi;
-            Add(big_mat,mat);
+            Add( big_mat, mat );
          od;
       fi;
-      if IsPathAlgebra(A) then 
-         direct_sum := RightModuleOverPathAlgebra(A,big_mat);
-      else
-         direct_sum := RightModuleOverPathAlgebra(A,big_mat); 
-      fi; 
+      direct_sum := RightModuleOverPathAlgebra( A, dim_vect, big_mat );
 
       list_of_projs := [];
-      for i in [1..n] do 
-         map := [];
-         maps := [];
-         for j in [1..Length(dim_vect)] do
-            if dim_vect[j] = 0 then 
-               if dim_list[i][j] = 0 then 
-                  map := NullMat(1,1,K);
+      for i in [ 1..n ] do 
+         map := [ ];
+         maps := [ ];
+         for j in [ 1..Length( dim_vect ) ] do
+            if dim_vect[ j ] = 0 then 
+               if dim_list[ i ][ j ] = 0 then 
+                  map := NullMat( 1, 1, K );
                else
-                  map := NullMat(1,dim_list[i][j],K);
+                  map := NullMat( 1, dim_list[ i ][ j ], K );
                fi;
             else
-               if dim_list[i][j] = 0 then 
-                  map := NullMat(dim_vect[j],1,K);
+               if dim_list[ i ][ j ] = 0 then 
+                  map := NullMat( dim_vect[ j ], 1, K);
                else
                   dimension := 0;
                   if i > 1 then 
-                     for r in [1..i-1] do 
-                        dimension := dimension + dim_list[r][j];
+                     for r in [ 1..i-1 ] do 
+                        dimension := dimension + dim_list[ r ][ j ];
                      od;
                   fi;
-                  map := NullMat(dim_vect[j],dim_list[i][j],K);
-                  map{[dimension + 1..dimension + dim_list[i][j]]}{[1..dim_list[i][j]]} := IdentityMat(dim_list[i][j],K);
+                  map := NullMat( dim_vect[ j ], dim_list[ i ][ j ], K );
+                  map{ [ dimension + 1..dimension + dim_list[ i ][ j ] ] }{ [ 1..dim_list[ i ][ j ] ] } := IdentityMat( dim_list[ i ][ j ], K );
                fi;
             fi;
-            Add(maps,map);
+            Add( maps, map );
          od;
-         Add(list_of_projs,RightModuleHomOverAlgebra(direct_sum,L[i],maps));
+         Add( list_of_projs, RightModuleHomOverAlgebra( direct_sum, L[ i ], maps));
       od;
 
-      list_of_incls := [];
-      for i in [1..n] do 
-         map := [];
-         maps := [];
-         for j in [1..Length(dim_vect)] do
-            if dim_vect[j] = 0 then 
-               map := NullMat(1,1,K);
+      list_of_incls := [ ];
+      for i in [ 1..n ] do 
+         map := [ ];
+         maps := [ ];
+         for j in [ 1..Length( dim_vect ) ] do
+            if dim_vect[ j ] = 0 then 
+               map := NullMat( 1, 1, K );
             else
-               if dim_list[i][j] = 0 then 
-                  map := NullMat(1,dim_vect[j],K);
+               if dim_list[ i ][ j ] = 0 then 
+                  map := NullMat( 1, dim_vect[ j ], K );
                else
                   dimension := 0;
                   if i > 1 then 
-                     for r in [1..i-1] do 
-                        dimension := dimension + dim_list[r][j];
+                     for r in [ 1..i - 1 ] do 
+                        dimension := dimension + dim_list[ r ][ j ];
                      od;
                   fi;
-                  map := NullMat(dim_list[i][j],dim_vect[j],K);
-                  map{[1..dim_list[i][j]]}{[dimension + 1..dimension + dim_list[i][j]]} := IdentityMat(dim_list[i][j],K);
+                  map := NullMat( dim_list[ i ][ j ], dim_vect[ j ], K );
+                  map{ [ 1..dim_list[ i ][ j ] ] }{ [ dimension + 1..dimension + dim_list[ i ][ j ] ] } := IdentityMat( dim_list[ i ][ j ], K );
                fi;
             fi;
-            Add(maps,map);
+            Add( maps, map );
          od;
-         Add(list_of_incls,RightModuleHomOverAlgebra(L[i],direct_sum,maps));
+         Add( list_of_incls, RightModuleHomOverAlgebra( L[ i ], direct_sum, maps ) );
       od;
 
-      SetIsDirectSumOfModules(direct_sum,true);
-      SetDirectSumProjections(direct_sum,list_of_projs);
-      SetDirectSumInclusions(direct_sum,list_of_incls);
+      SetIsDirectSumOfModules( direct_sum, true );
+      SetDirectSumProjections( direct_sum, list_of_projs );
+      SetDirectSumInclusions( direct_sum, list_of_incls );
 
       return direct_sum;
    fi;
