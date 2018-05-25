@@ -2260,14 +2260,17 @@ InstallMethod( RestrictionViaAlgebraHomomorphism,
     vertices := One( A ) * VerticesOfQuiver( QuiverOfPathAlgebra( A ) );
     V := List( vertices, v -> List( BasisVectors( Basis( M ) ), m -> m ^ ImageElm( f, v ) ) ); 
     V := List( V, W -> Filtered( W, w -> w <> Zero( w ) ) );
-    V := List( V, W -> VectorSpace( K, W ) );
-    BV := List( V, W -> Basis( W ) );
+    BV := List( V, function( W ) if IsEmpty(W) then return []; else return Basis( VectorSpace( K, W ) ); fi; end );
     arrows := ArrowsOfQuiver( QuiverOfPathAlgebra( A ) );
     mats := [ ]; 
     for a in arrows do
         startpos := Position( vertices, One( A ) * SourceOfPath ( a ) );
         endpos := Position( vertices, One( A ) * TargetOfPath ( a ) );        
-        Add( mats, List( BV[ startpos ], m -> Coefficients( BV[ endpos ], m ^ ImageElm( f, One( A ) * a ) ) ) );
+        if IsEmpty( BV[ startpos ] ) or IsEmpty( BV[ endpos ] ) then
+            Add( mats, [ a, [ Length( BV[ startpos ] ), Length( BV[ endpos ] ) ] ] );
+        else
+            Add( mats, [ a, List( BV[ startpos ], m -> Coefficients( BV[ endpos ], m ^ ImageElm( f, One( A ) * a ) ) ) ] );
+        fi;
     od;
     
     return RightModuleOverPathAlgebra( A, mats ); 
