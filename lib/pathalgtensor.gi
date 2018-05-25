@@ -3,7 +3,7 @@
 
 DeclareRepresentation(
         "IsQuiverProductDecompositionRep",
-        IsComponentObjectRep,
+        IsComponentObjectRep and IsAttributeStoringRep,
         [ "factors", "lookup_table", "name_composer" ] );
 
 
@@ -49,12 +49,40 @@ InstallMethod( QuiverProduct,
                                 rec( factors := [ q1, q2 ],
                                      lookup_table := lookup_table,
                                      name_composer := make_name ) );
+    SetLength( decomposition, 2 );
+    SetIsFinite( decomposition, true );
 
     product := Quiver( vertex_names, arrow_defs );
     SetQuiverProductDecomposition( product, decomposition );
 
     return product;
 
+end );
+
+InstallMethod( IsBound\[\], "for quiver product decomposition and positive integer",
+               [ IsQuiverProductDecomposition, IsPosInt ],
+function( dec, i )
+  return i <= Length( dec );
+end );
+
+InstallMethod( ViewObj, "for quiver product decomposition",
+               [ IsQuiverProductDecomposition ],
+               NICE_FLAGS + 1,
+function( dec )
+  Print( "<quiver product decomposition>" );
+end );
+
+InstallMethod( PrintObj, "for quiver product decomposition",
+               [ IsQuiverProductDecomposition ],
+               NICE_FLAGS + 1,
+function( dec )
+  Print( "<quiver product decomposition>" );
+end );
+
+InstallMethod( Display, "for quiver product decomposition",
+               [ IsQuiverProductDecomposition ],
+function( dec )
+  Print( "<quiver product decomposition>" );
 end );
 
 
