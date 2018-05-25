@@ -14,12 +14,13 @@ InstallMethod ( IndecProjectiveModules,
     "for a finite dimensional quotient of a path algebra",
     [ IsQuiverAlgebra ], 0,
     function( A ) 
-    local fam, I, Q, num_vert, num_arrows, i, vertices, 
-          arrows_as_paths, indec_proj, j, indec_proj_list, 
-          indec_proj_rep, l, arrow, P, gens, length_B, B, 
-          mat, a, source, target, vertices_Q, vector, intervals_of_basis, 
-          source_index, target_index, mat_index, p, mat_list, 
-          zero_vertices, rows, cols, K, partial_mat, list_of_min_gen; 
+    local   Q,  num_vert,  fam,  K,  num_arrows,  vertices,  
+            arrows_as_paths,  mat_list,  list_of_min_gen,  
+            dimension_vector_list,  p,  P,  B,  length_B,  
+            intervals_of_basis,  i,  j,  zero_vertices,  vertices_Q,  
+            mat,  a,  partial_mat,  mat_index,  source,  target,  
+            source_index,  target_index,  rows,  cols,  arrow,  
+            vector,  indec_proj_list;
     #
     #    Testing input
     #   
@@ -44,6 +45,7 @@ InstallMethod ( IndecProjectiveModules,
     #
     mat_list := [];
     list_of_min_gen := [];
+    dimension_vector_list := [ ];
     for p in [1..num_vert] do
         #
         #   Finding a K-basis for indecomposable projective associated with vertex  p.
@@ -59,6 +61,7 @@ InstallMethod ( IndecProjectiveModules,
                 fi;
             od;
         od;
+        Add( dimension_vector_list, List( intervals_of_basis, Length ) );
         #  
         #   Finding where the indecomposable projective has no support.
         #
@@ -83,15 +86,12 @@ InstallMethod ( IndecProjectiveModules,
             rows := Length(intervals_of_basis[source_index]);
             cols := Length(intervals_of_basis[target_index]);
             arrow := TipMonomial(a);
-            if ( rows = 0 or cols = 0 ) then
-                partial_mat := [arrow,[rows,cols]];
-                Add(mat,partial_mat);
-            else 
+            if ( rows <> 0 and cols <> 0 ) then
                 for i in intervals_of_basis[source_index] do
                     vector := Coefficients(Basis(P), Basis(P)[i]*a){intervals_of_basis[target_index]};
                     Add(partial_mat,vector);
                 od;
-                Add(mat,[arrow,partial_mat]);
+                Add(mat,[ String( arrow ),partial_mat]);
             fi;
         od;
         Add(mat_list,mat);
@@ -118,7 +118,7 @@ InstallMethod ( IndecProjectiveModules,
     # 
     indec_proj_list := [];
     for i in [1..num_vert] do    
-        Add(indec_proj_list,RightModuleOverPathAlgebra(A,mat_list[i]));
+        Add(indec_proj_list,RightModuleOverPathAlgebra( A, dimension_vector_list[ i ], mat_list[ i ] ) );
         list_of_min_gen[i] := PathModuleElem(FamilyObj(Zero(indec_proj_list[i])![1]),list_of_min_gen[i]); 
         list_of_min_gen[i] := Objectify( TypeObj( Zero(indec_proj_list[i]) ), [ list_of_min_gen[i] ] );
         SetMinimalGeneratingSetOfModule(indec_proj_list[i],[list_of_min_gen[i]]);

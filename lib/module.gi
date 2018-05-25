@@ -458,7 +458,7 @@ InstallMethod(RightModuleOverPathAlgebra,
     else
 #
 #  Input of the form [[alist[1],[matrix_1]],...,[alist[n],[matrix_n]]] 
-#  where alist is a list of the vertices in the quiver.
+#  where alist is a list of the arrows in the quiver.
 #
         tempgens := Filtered(gens, g -> IsList(g[2][1]));
         if not ForAll( tempgens, g -> IsInFullMatrixRing( g[ 2 ], K) ) then
@@ -510,7 +510,18 @@ InstallMethod(RightModuleOverPathAlgebra,
       elif vertices[target!.gen_pos] <> dim[2] then
         Error("Dimensions of matrices do not match");
       fi;
-    od;
+  od;
+  #
+  # We might have isolated vertices, so no vectorspaces has been assign to these vertices.
+  # In this variant of the function (not using dimension vector) we assume that the vector-
+  # spaces are zero in these vertices.  These vertices are exactly those where the variable
+  # vertices has value -1.
+  #
+  for i in [ 1..Length( vertices ) ] do
+      if vertices[ i ] = -1 then
+          vertices[ i ] := 0;
+      fi;
+  od;
 #
 #  Testing if the relations are satisfied, whenever we have a quotient of a path algebra.
 #

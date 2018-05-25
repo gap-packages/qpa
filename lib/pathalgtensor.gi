@@ -348,10 +348,10 @@ InstallMethod( AlgebraAsModuleOverEnvelopingAlgebra,
         "for an enveloping algebra of a path algebra",
         [ IsQuiverAlgebra ],
         function ( A )
-    local env, PA, Q, QxQ,
-          basis, basis_vectors, vertices, vertex_indices, vector_spaces, i, j,
-          get_coefficients, make_map,
-          arrows, module_specification;
+    local   env,  Q,  QxQ,  basis,  basis_vectors,  vertices,  
+            vertex_indices,  vector_spaces,  i,  j,  dimension_vector,  
+            get_coefficients,  make_map,  arrows,  
+            module_specification,  a;
 
     if not IsFiniteDimensional(A) then
        return fail;
@@ -373,14 +373,13 @@ InstallMethod( AlgebraAsModuleOverEnvelopingAlgebra,
             vector_spaces[ i ][ j ] := PositionsNonzero( vertices[ i ] * basis_vectors * vertices[ j ] );
         od;
     od;
-
-    get_coefficients :=
-      function( elem )
+    dimension_vector := List( Concatenation( vector_spaces ), Length );
+    
+    get_coefficients := function( elem )
         return Coefficients( basis, elem );
     end;
 
-    make_map :=
-      function( a )
+    make_map := function( a )
         local components, source, target, source_i, target_i, source_space, target_space,
               dims, map_on_basis, map_on_basis_coeffs;
 
@@ -396,7 +395,7 @@ InstallMethod( AlgebraAsModuleOverEnvelopingAlgebra,
 
         dims := [ Length( source_space ), Length( target_space ) ];
         if dims[ 1 ] = 0 or dims[ 2 ] = 0 then
-            return dims;
+            return fail;
         fi;
 
         map_on_basis := OppositePath( components[ 1 ] ) * basis_vectors{ source_space } * components[ 2 ];
@@ -407,9 +406,14 @@ InstallMethod( AlgebraAsModuleOverEnvelopingAlgebra,
     end;
 
     arrows := ArrowsOfQuiver( QxQ );
-    module_specification := List( arrows, a->[ a, make_map( a ) ] );
-
-    return RightModuleOverPathAlgebra( env, module_specification );
+    module_specification := [ ];
+    for a in arrows do
+        if make_map( a ) <> fail then 
+            Add( module_specification, [ String( a ), make_map( a ) ] );
+        fi;
+    od;
+    
+    return RightModuleOverPathAlgebra( env, dimension_vector, module_specification );
 
 end );
 
