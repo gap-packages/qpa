@@ -46,3 +46,30 @@ abstract: |
 status: other
 doc-html: doc/chap0.html
 doc-pdf: doc/manual.pdf
+keywords: |
+    GitHub Pages, GAP.
+citeas: |
+    <p class='BibEntry'>
+    [<span class='BibKey'>HTI17</span>]   <b class='BibAuthor'>Horn, M., Thor, A. U. and Itor, J.</b>,
+     <i class='BibTitle'>GitHubPagesForGAP, A GitHub Pages generator for GAP packages,
+             Version 0.2</i>
+     (<span class='BibYear'>2017</span>)<br />
+    (<span class='BibNote'>GAP package</span>),
+    <span class='BibHowpublished'><a href="https://gap-system.github.io/GitHubPagesForGAP/">https://gap-system.github.io/GitHubPagesForGAP/</a></span>.
+    </p>
+    
+
+bibtex: |
+    @misc{ GitHubPagesForGAP0.2,
+      author =           {Horn, M. and Thor, A. U. and Itor, J.},
+      title =            {{GitHubPagesForGAP}, A GitHub Pages generator for GAP packages, {V}ersion 0.2},
+      month =            {Feb},
+      year =             {2017},
+      note =             {GAP package},
+      howpublished =     {\href                              {https://gap-system.github.io/GitHubPagesForGAP/}
+                          {\texttt{https://gap-system.github.io/}\discretionary
+                          {}{}{}\texttt{GitHubPagesForGAP/}}},
+      keywords =         {GitHub Pages; GAP},
+      printedkey =       {HTI17}
+    }
+
