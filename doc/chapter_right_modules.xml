@@ -472,7 +472,7 @@ gap> N := RightModuleOverPathAlgebra(A,mat);
    <Returns>the direct sum of the representations contained in the
      list <Arg>L</Arg>.</Returns>
    <Description>In addition three attributes are attached to the
-   result, <Ref Attr="IsDirectSumOfModules"/>, <Ref
+   result, <Ref Filt="IsDirectSumOfModules"/>, <Ref
    Attr="DirectSumProjections"/> <Ref Attr="DirectSumInclusions"/>.
    </Description>
 </ManSection>
@@ -540,7 +540,7 @@ gap> N := RightModuleOverPathAlgebra(A,mat);
 </ManSection>
 
 <ManSection>
-   <Attr Name="IsDirectSumOfModules" Arg="M" Comm="for a PathAlgebraMatModule"/>
+   <Filt Name="IsDirectSumOfModules" Arg="M" Comm="for a PathAlgebraMatModule"/>
    <Description> 
     Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>).
    <Br /></Description>

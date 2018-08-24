@@ -1907,7 +1907,7 @@ InstallMethod( DirectSumOfQPAModules,
          Add( list_of_incls, RightModuleHomOverAlgebra( L[ i ], direct_sum, maps ) );
       od;
 
-      SetIsDirectSumOfModules( direct_sum, true );
+      SetFilterObj( direct_sum, IsDirectSumOfModules );
       SetDirectSumProjections( direct_sum, list_of_projs );
       SetDirectSumInclusions( direct_sum, list_of_incls );
 
@@ -1918,25 +1918,6 @@ InstallMethod( DirectSumOfQPAModules,
 end
 );
 
-
-#######################################################################
-##
-#P  IsDirectSumOfModules( <M> )
-##
-##  <M> is a module over a path algebra. The function checks if the
-##  property "IsDirectSumOfModules" is set to true for M, and returns
-##  true if it is, and false if it is not. (Note that this is NOT a
-##  check for indecomposability.)
-##
-InstallMethod( IsDirectSumOfModules,
-   "for a module over a path algebra",
-   [ IsPathAlgebraMatModule ], 0,
-   function( M )
-   
-   return "IsDirectSumOfModules" in KnownTruePropertiesOfObject(M);
-
-end
-);
 
 #######################################################################
 ##
