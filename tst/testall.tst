@@ -391,3 +391,7 @@ gap> QuadraticFormOfUnitForm(u);
 function( x ) ... end
 gap> SymmetricMatrixOfUnitForm(u);
 [ [ 2, -1, 0 ], [ -1, 2, -1 ], [ 0, -1, 2 ] ]
+
+#
+gap> STOP_TEST("qpa.tst");
+
