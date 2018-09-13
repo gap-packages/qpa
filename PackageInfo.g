@@ -92,7 +92,7 @@ AvailabilityTest := ReturnTrue,
                    
 Autoload := false,
 
-TestFile := "tst/testall.tst",
+TestFile := "tst/testall.g",
 
 Keywords := ["quiver","path algebra"]
 ));
