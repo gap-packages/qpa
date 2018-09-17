@@ -1845,8 +1845,8 @@ InstallMethod( DirectSumOfQPAModules,
                   col_pos := col_pos + dim_list[ r ][ target ]; 
                od;
                mat := [ String( a ), mat ];
+               Add( big_mat, mat );
             fi;
-            Add( big_mat, mat );
          od;
       fi;
       direct_sum := RightModuleOverPathAlgebra( A, dim_vect, big_mat );
