@@ -34,9 +34,9 @@ y := ZeroMapping(L,N);
 y = z;            
 id := IdentityMapping(N);  
 f*id;
-#This causes an error!
-id*f;
-quit;;
+# #This causes an error!
+# id*f;
+# quit;;
 2*f + z;
 ###########
 L := RightModuleOverPathAlgebra(A,[["a",[0,1]],["b",[0,1]],
@@ -53,7 +53,7 @@ IsIsomorphism(h);
 S := SimpleModules(A)[1];;
 H := HomOverAlgebra(N,S);; 
 IsSplitMonomorphism(H[1]);  
-f := IsSplitEpimorphism(H[1]);
+IsSplitEpimorphism(H[1]);
 IsSplitMonomorphism(f);
 ###########
 L := RightModuleOverPathAlgebra(A,[["a",[0,1]],["b",[0,1]],

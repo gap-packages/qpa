@@ -32,8 +32,7 @@ gens := GeneratorsOfAlgebra(kQ);
 a := gens[2];
 b := gens[3];
 relations := [a^2,a*b-b*a, b*b];
-I := Ideal(kQ,relations);
-A := kQ/I;
+A := kQ/relations;
 IndecProjectiveModules(A);  
 ##########
 gb := GBNPGroebnerBasis(relations,kQ);
@@ -123,8 +122,8 @@ q2 := Quiver( [ "v1", "v2", "v3", "v4" ],
                         [ "v3", "v4", "e" ] ] );
 fq1 := PathAlgebra( Rationals, q1 );
 fq2 := PathAlgebra( Rationals, q2 );
-I := Ideal( fq2, [ fq2.b * fq2.d - fq2.c * fq2.e ] );
-quot := fq2 / I;
+rels := [ fq2.b * fq2.d - fq2.c * fq2.e ];
+quot := fq2 / rels;
 t := TensorProductOfAlgebras( fq1, quot );
 SimpleTensor( [ fq1.a, quot.b ], t );
 t_dec := TensorProductDecomposition( t );
