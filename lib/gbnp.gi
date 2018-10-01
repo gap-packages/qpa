@@ -1,277 +1,170 @@
 InstallMethod( GBNPGroebnerBasis,
-  "call GBNP for Groebner Basis",
-  true,
-  [ IsFLMLOR ],
-  0,
-  function( I )
-    local A, GB, gens;
+  "compute a Groebner Basis (no longer using GBNP)",
+  [ IsList, IsPathAlgebra ],
+  function(els, A)
+    local gb, el, el_tip,
+          n, i, j, x, y, k, l, r, b, c,
+          overlap, remainder;
 
-#    if not IsFamilyElementOfPathRing(ElementsFamily(FamilyObj(I))) then
-#      TryNextMethod();
-#    fi;
-
-    # Get parent algebra:
-    A := LeftActingRingOfIdeal(I);
-
-    # Get ideal generators:
-    gens := GeneratorsOfIdeal(I);
-
-    return GBNPGroebnerBasis( gens, A );
-
-  end
-);
-
-
-InstallMethod( GBNPGroebnerBasis,
-  "call GBNP for Groebner Basis",
-  true,
-  [ IsList,
-    IsPathAlgebra ],
-  0,
-  function( els, pa )
-    local q,ord,creps,grob,pgrob;
-
-    creps := [];
-
-    q := QuiverOfPathAlgebra(pa);   
-    ord := OrderingOfAlgebra(pa);
-
-    #  Check that all elements are in 
-    #  the given path algebra 'pa', and that they
-    #  are in the Arrow Ideal J,
-    #  (i.e. are not vertices):
-    if (QPA_InArrowIdeal(els,pa)) then
-
-      # Should convert all given elements 
-      #  to their uniform components:
-      els := MakeUniform(els);
-
-      # Convert list of path algebra elements
-      #  to Cohen's format:
-      creps := QPA_Path2Cohen(els);
-
-      # Call Cohen to get Groebner basis:
-      grob := SGrobner(creps);
-
-      # Convert results back to path algebra
-      #  elements:
-      pgrob :=  QPA_Cohen2Path(grob,pa);
-
-    else
-      Print("Please make sure all elements are in the given path algebra,",
-            "\nand each summand of each element is not (only) a constant",
-	    "\ntimes a vertex.\n");
-      pgrob := false;
+    if not QPA_InArrowIdeal(els, A) then
+      Error("elements do not belong to the arrow ideal of the path algebra");
     fi;
 
-    return pgrob;
+    els := ReducedList(MakeUniform(els), A);
 
+    gb := [];
+
+    while Length(els) > 0 do
+      for el in els do
+        el_tip := Tip(el);
+        Add(gb, el/TipCoefficient(el_tip));
+      od;
+
+      n := Length(gb);
+      els := [];
+
+      for i in [1..n] do
+        x := TipWalk(gb[i]);
+        k := Length(x);
+
+        for j in [1..n] do
+          y := TipWalk(gb[j]);
+          l := Length(y);
+
+          for r in [Maximum(0, k-l)..k-1] do
+            if x{[r+1..k]} = y{[1..k-r]} then
+              b := x{[1..r]};
+              c := y{[k-r+1..l]};
+
+              overlap := gb[i]*Product(c, One(A)) - Product(b, One(A))*gb[j];
+              remainder := RemainderOfDivision(overlap, gb, A);
+
+              if not IsZero(remainder) then
+                AddSet(els, remainder);
+              fi;
+            fi;
+          od;
+        od;
+      od;
+    od;
+
+    gb := TipReducedList(gb, A);
+    gb := ReducedList(gb, A);
+
+    return gb;
   end
 );
 
 
-InstallMethod( GBNPGroebnerBasisNC,
-  "call GBNP for Groebner Basis",
-  true,
-  [ IsList,
-    IsPathAlgebra ],
-  0,
-  function( els, pa )
-    local q,ord,creps,grob,pgrob,numv,parels;
+InstallMethod( ReducedList,
+  "for a list of path-algebra elements",
+  [ IsList, IsPathAlgebra ],
+  function(els, A)
+    local res, i, r;
 
-    creps := [];
+    res := Filtered(els, el -> not IsZero(el));
 
-    q := QuiverOfPathAlgebra(pa);   
-    ord := OrderingOfAlgebra(pa);
+    i := Length(res);
+    while i > 0 do
+      r := RemainderOfDivision(res[i], res{Concatenation([1..i-1], [i+1..Length(res)])}, A);
 
-    # Check that all elements are elements in
-    #  the given path algebra 'pa':
-    if ForAll( els, x -> \in(x,pa) ) then
-
-      # Should convert all given elements 
-      #  to their uniform components:
-      els := MakeUniform(els);
-
-      # Add relations to preserve structure of path
-      #  algebra (first we get number of vertices,
-      #  if there's only one, we have a free algebra):     
-      numv := NumberOfVertices(q); 
-
-      if numv > 1 then
-
-        Print("The given path algebra is not a free algebra,\n",
-	      " adding relations to preserve path algebra structure.\n");
-
-        # Convert list of path algebra elements
-        #  to Cohen's format:
-        creps := QPA_Path2Cohen(els);
-
-        parels := QPA_RelationsForPathAlgebra(pa);
-#        Print(parels,"\n");        
-#        Print(QPA_Cohen2Path(parels,pa),"\n");        
-
-        # Combine the lists:
-	Append(creps,parels);
-
+      if IsZero(r) then
+        Remove(res, i);
       else
-
-        Print("The given path algebra is isomorphic to a free algebra.\n");
-
-        # Convert list of path algebra elements
-        #  to Cohen's format for this special
-	#  case where our path algebra is isomorphic
-	#  to a free algebra, i.e. pa has only one
-	#  vertex:
-        creps := QPA_Path2CohenFree(els);
-
+        res[i] := r;
       fi;
 
-      # Call Cohen to get Groebner basis:
-      grob := SGrobner(creps);
-
-#      Print(grob,"\n");        
-
-      # Convert results back to path algebra
-      #  elements:
-      pgrob :=  QPA_Cohen2Path(grob,pa);
-
-      # Remove any zeroes we may've gathered from adding relations:
-      pgrob := Filtered(pgrob, x -> x <> Zero(pa));
-
-    else
-      Print("\nPlease make sure all elements are in the path algebra ",pa,
-            ".\n");
-      pgrob := false;
-    fi;
-
-    return pgrob;
-
-  end
-);
-
-
-# Convert to format Cohen expects.
-InstallMethod( QPA_Path2Cohen,
-  "convert path algebra elements to Cohen reps",
-  true,
-  [ IsList ],
-  0,
-  function( els )
-    local e,i,oldrep,coefs,mons,creps;
-
-    creps := [];
-
-    for e in els do
-      coefs := [];
-      mons := [];
-
-      oldrep := ExtRepOfObj(e)[2];
-
-      for i in [ 2,4 .. Length(oldrep) ] do
-        Add(coefs,oldrep[i]);
-        Add(mons,oldrep[i-1]);
-      od;
-
-      Add(creps, [mons,coefs]);
+      i := i-1;
     od;
 
-    return creps;
+    return res;
   end
 );
 
 
-# Convert to format Cohen expects.
-#
-# NOTE: we are assuming that the elements in given
-#  list are from a path algebra isomorphic to a free
-#  algebra, i.e. there is only one vertex.
-#
-InstallMethod( QPA_Path2CohenFree,
-  "convert path (special case: free) algebra elements to Cohen reps",
-  true,
-  [ IsList ],
-  0,
-  function( els )
-    local e,i,oldrep,coefs,mons,creps;
-
-    creps := [];
-
-    for e in els do
-      coefs := [];
-      mons := [];
-
-      oldrep := ExtRepOfObj(e)[2];
-
-      for i in [ 2,4 .. Length(oldrep) ] do
-
-        Add(coefs,oldrep[i]);
-
-	# Check to see if this is our identity
-	# (same as our only vertex, our first
-	#  generator), if so correctly convert:
-	if ( oldrep[i-1] = [1] ) then
-          Add(mons,[]);
-	else
-          Add(mons,oldrep[i-1]);
-	fi;
-
-      od;
-
-      Add(creps, [mons,coefs]);
-    od;
-
-    return creps;
-  end
-);
-
-
-# Convert to GAP path algebra element from a Cohen representation.
-InstallMethod( QPA_Cohen2Path,
-  "convert Cohen reps to path algebra elements",
-  true,
+InstallMethod( TipReducedList,
+  "for a list of path-algebra elements",
   [ IsList, IsPathAlgebra ],
-  0,
-  function( reps, pa )
-    local e,i,j,mons,coefs,gens,els,word,poly,zero,one;
+  function(els, A)
+    local res, el, i;
 
-    gens := GeneratorsOfAlgebra(pa);
-    zero := Zero(pa);
-    one := One(pa);
-    els := [];
+    res := [];
 
-    for e in reps do
-
-#      Print("Rep: ",e,"\n");
-      poly := zero;
-
-      mons := e[1]; 
-      coefs := e[2];
-
-      # For each term in rep we build a word:
-      for i in [1 .. Length(mons)] do
-#        Print("\tMonomial: ",mons[i],"\n");
-
-        # Build word:
-	# NOTE:
-	#   this might be dangerous in the general case:
-        word := coefs[i]*one;
-        for j in [ 1 .. Length(mons[i]) ] do
-          word := word*gens[mons[i][j]];
-        od;
-
-#        Print("\t\tWord is: ",word,"\n");
-
-        poly := poly + word;
-
-      od; 
-
-      # Add new element to list for return:
-      Add(els,poly);
-
+    for el in els do
+      if not IsZero(el) then
+        AddSet(res, el);
+      fi;
     od;
 
-    return els;
+    i := Length(res);
+    while i > 0 do
+      if ForAny([1..i-1], j -> LeftmostOccurrence(TipWalk(res[i]), TipWalk(res[j])) <> fail) then
+        Remove(res, i);
+      fi;
+      i := i-1;
+    od;
 
+    return res;
+  end
+);
+
+
+InstallMethod( RemainderOfDivision,
+  "for a path-algebra element and a list of path-algebra elements",
+  [ IsElementOfMagmaRingModuloRelations, IsList, IsPathAlgebra ],
+  function(y, X, A)
+    local r, n, y_tip, y_wtip, divided, i, p, u, v;
+
+    r := Zero(A);
+    n := Length(X);
+
+    while not IsZero(y) do
+      y_tip := Tip(y);
+      y_wtip := TipWalk(y_tip);
+
+      divided := false;
+
+      for i in [1..n] do
+        p := LeftmostOccurrence(y_wtip, TipWalk(X[i]));
+
+        if p <> fail then
+          u := Product(y_wtip{[1..p[1]-1]}, One(A));
+          v := Product(y_wtip{[p[2]+1..Length(y_wtip)]}, One(A));
+
+          y := y - TipCoefficient(y_tip)/TipCoefficient(X[i]) * u*X[i]*v;
+
+          divided := true;
+          break;
+        fi;
+      od;
+
+      if not divided then
+        r := r + y_tip;
+        y := y - y_tip;
+      fi;
+    od;
+
+    return r;
+  end
+);
+
+
+InstallMethod( LeftmostOccurrence,
+  "find second list as sublist of first list",
+  [ IsList, IsList ],
+  function(b, c)
+    local lb, lc, i;
+
+    lb := Length(b);
+    lc := Length(c);
+
+    for i in [1..lb-lc+1] do
+      if b{[i..i+lc-1]} = c then
+        return [i, i+lc-1];
+      fi;
+    od;
+
+    return fail;
   end
 );
 

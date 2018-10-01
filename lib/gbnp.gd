@@ -1,20 +1,20 @@
 DeclareOperation( "GBNPGroebnerBasis",
     [ IsList, IsPathAlgebra ] );
 
-DeclareOperation( "GBNPGroebnerBasisNC",
+DeclareOperation( "RemainderOfDivision",
+    [ IsElementOfMagmaRingModuloRelations, IsList, IsPathAlgebra ] );
+
+DeclareOperation( "ReducedList",
     [ IsList, IsPathAlgebra ] );
 
-DeclareOperation( "GBNPGroebnerBasis",
-    [ IsFLMLOR ] );
-
-DeclareOperation( "QPA_Path2Cohen",
-    [ IsList ] );
-
-DeclareOperation( "QPA_Path2CohenFree",
-    [ IsList ] );
-
-DeclareOperation( "QPA_Cohen2Path",
+DeclareOperation( "TipReducedList",
     [ IsList, IsPathAlgebra ] );
+
+DeclareOperation( "LeftmostOccurrence",
+    [ IsList, IsList ] );
+
+DeclareSynonym( "TipWalk",
+    x -> WalkOfPath(TipMonomial(x)) );
 
 DeclareOperation( "MakeUniform",
     [ IsElementOfMagmaRingModuloRelations ] );
