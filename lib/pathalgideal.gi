@@ -319,19 +319,23 @@ InstallMethod( MinimalGeneratingSetOfIdeal,
     Append(JIplusIJ,List(arrows, x -> Filtered(x*generators, y -> y <> Zero(y))));
     JIplusIJ := Flat(JIplusIJ);
     #
-    # Constructing the factor KQ/JIplusIJ
+    # Constructing the factor KQ/JIplusIJ, if necessary.
     #
-    Aprime := KQ/JIplusIJ;
-    #
-    # Finding the ideal  I/JIplusIJ  and a basis of this ideal. Pulling this 
-    # basis back to KQ and return it.
-    # 
-    fam := ElementsFamily(FamilyObj(Aprime));
-    Ibar := List(generators, x -> ElementOfQuotientOfPathAlgebra(fam, x, true)); 
-    Ibar := Ideal(Aprime, Ibar);
-    B := BasisVectors(Basis(Ibar));
+    if Length( JIplusIJ ) = 0 then
+        return BasisVectors( Basis( I ) );
+    else
+        Aprime := KQ/JIplusIJ;
+        #
+        # Finding the ideal  I/JIplusIJ  and a basis of this ideal. Pulling this 
+        # basis back to KQ and return it.
+        # 
+        fam := ElementsFamily(FamilyObj(Aprime));
+        Ibar := List(generators, x -> ElementOfQuotientOfPathAlgebra(fam, x, true)); 
+        Ibar := Ideal(Aprime, Ibar);
+        B := BasisVectors(Basis(Ibar));
     
-    return List(B, x -> x![1]);
+        return List(B, x -> x![1]);
+    fi;
 end
   );
 
