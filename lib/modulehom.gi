@@ -3692,7 +3692,7 @@ InstallMethod( EndOfModuleAsQuiverAlgebra,
         f := [AA,EndM,gensofAA{[1..Length(gensofAA)]},images];
 
     else
-        gb := GBNPGroebnerBasis(Jtplus1,KQ);
+        gb := GroebnerBasisFunction(KQ)(Jtplus1,KQ);
         Jtplus1 := Ideal(KQ,Jtplus1); 
         gbb := GroebnerBasis(Jtplus1,gb);
         AA := KQ/Jtplus1;

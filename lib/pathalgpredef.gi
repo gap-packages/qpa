@@ -151,7 +151,7 @@ InstallMethod ( NakayamaAlgebra,
             return KQ;
         else
             I := Ideal(KQ,rels);
-            gb := GBNPGroebnerBasis(rels,KQ);
+            gb := GroebnerBasisFunction(KQ)(rels,KQ);
             gbb := GroebnerBasis(I,gb);
             A := KQ/I;
             SetFilterObj(A, IsNakayamaAlgebra and IsAdmissibleQuotientOfPathAlgebra );               
@@ -277,7 +277,7 @@ InstallMethod ( CanonicalAlgebra,
             Add(relations,arms[i] - arms[2] + relcoeff[i - 2]*arms[1]);
         od;
         I := Ideal(KQ,relations);
-        gb := GBNPGroebnerBasis(relations,KQ);
+        gb := GroebnerBasisFunction(KQ)(relations,KQ);
         gbb := GroebnerBasis(I,gb);
         A := KQ/I;
         SetFilterObj(A, IsCanonicalAlgebra and IsAdmissibleQuotientOfPathAlgebra );

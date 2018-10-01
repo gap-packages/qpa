@@ -2234,7 +2234,7 @@ InstallMethod( ProjectivePathAlgebraPresentation,
     gens := GeneratorsOfTwoSidedIdeal(fam!.ideal);
     K := LeftActingDomain(A);
     I := Ideal(KQ,gens);
-    gb := GBNPGroebnerBasis(gens,KQ);
+    gb := GroebnerBasisFunction(KQ)(gens,KQ);
     gbb := GroebnerBasis(I,gb);
     rtgbofI := RightGroebnerBasis(I);
 
