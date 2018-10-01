@@ -65,7 +65,7 @@ InstallTrueMethod( IsIdealInPathAlgebra,
 #O  \in(<elt>, <I>)
 ##
 ##  This function performs a membership test for an ideal in path algebra using 
-##  Groebner Bases machinery.
+##  (by default GBNP) Groebner Bases machinery.
 ##  It returns true if <elt> is a member of an ideal <I>, false otherwise.
 ##  For the efficiency reasons, it computes Groebner basis
 ##  for <I> only if it has not been computed. Similarly, it performs
