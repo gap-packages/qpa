@@ -56,7 +56,7 @@ mat := [["a",[[1,2],[0,3],[1,5]]],["b",[[2,0],[3,0],[5,0]]],
 ["c",[[0,0],[1,0]]],["d",[[1,2],[0,1]]],["e",[[0,0,0],[0,0,0]]]];;
 N := RightModuleOverPathAlgebra(A,mat);          
 ##################
-N2 := DirectSumOfModules([N,N]);
+N2 := DirectSumOfQPAModules([N,N]);
 proj := DirectSumProjections(N2);
 inc := DirectSumInclusions(N2);  
 ##################

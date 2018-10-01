@@ -54,13 +54,13 @@ ArrowsOfQuiver(q1_op);
 Q := Quiver(6, [ [1,2],[1,1],[3,2],[4,5],[4,5] ]);
 VerticesOfQuiver(Q);
 FullSubquiver(Q, [Q.v1, Q.v2]);
-ConnectedComponents(Q);
+ConnectedComponentsOfQuiver(Q);
 ###############
 q1 := Quiver(["u","v"],[["u","u","a"],["u","v","b"],
               ["v","u","c"],["v","v","d"]]);
 IsPath(q1.b);
 IsPath(q1.u);
-IsVertex(q1.c);
+IsQuiverVertex(q1.c);
 IsZeroPath(q1.d);
 ###############
 q1 := Quiver(["u","v"],[["u","u","a"],["u","v","b"],

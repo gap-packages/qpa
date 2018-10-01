@@ -45,8 +45,8 @@ IsExactInDegree(C,2);
 C;
 Shift(C,1);
 D := Shift(C,-1);
-dc := DifferentialOfComplex(C,3)!.maps;
-dd := DifferentialOfComplex(D,4)!.maps;
+dc := DifferentialOfComplex(C,3);
+dd := DifferentialOfComplex(D,4);
 MatricesOfPathAlgebraMatModuleHomomorphism(dc);
 MatricesOfPathAlgebraMatModuleHomomorphism(dd);
 ####################
