@@ -51,8 +51,8 @@ DeclareOperation( "VertexProjectivePresentation",
                   [ IsAlgebra, IsRingElementTable ] );
 # DeclareFilter( "IsAlgebraModuleHomomorphism", IsLeftModuleGeneralMapping );
 
-#DeclareOperation( "NewBasis",[ IsFreeLeftModule and IsPathAlgebraVectorCollection,
-#DeclareOperation( "NewBasis",[ IsFreeLeftModule, IsPathAlgebraVectorCollection and IsList ]);
+DeclareOperation( "NewBasis",[ IsFreeLeftModule and IsPathAlgebraVectorCollection, IsList ] );
+DeclareOperation( "NewBasis",[ IsFreeLeftModule and IsPathAlgebraModule, IsList ] );
 #DeclareOperation( "NewBasis",[ IsFreeLeftModule  , IsList ]);
 
 DeclareOperation( "BasisOfDomain", [IsFreeLeftModule and IsPathAlgebraVectorCollection]);

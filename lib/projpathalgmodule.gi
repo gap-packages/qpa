@@ -653,25 +653,43 @@ end
 );
 
 
-#InstallMethod( NewBasis,
-#  "for a space of path algebra vectors and a homogenous list",
-#  IsIdenticalObj,
-#  [ IsFreeLeftModule, IsList ], 0,
-#  function( V, vectors )
-#    local B;  # The basis
-#
-#    B := Objectify( NewType( FamilyObj( V ),
-#                             IsBasis and
-#                             IsBasisOfPathAlgebraVectorSpace and
-#                             IsAttributeStoringRep ),
-#                    rec() );
-#    SetUnderlyingLeftModule( B, V );
-#    SetBasisVectors( B, vectors );
-#
-#    return B;
-#
-#  end
-#);
+InstallMethod( NewBasis,
+  "for a space of path algebra vectors and a homogenous list",
+  IsIdenticalObj,
+  [ IsFreeLeftModule and IsPathAlgebraVectorCollection, IsList ], 0,
+  function( V, vectors )
+    local B;  # The basis
+
+    B := Objectify( NewType( FamilyObj( V ),
+                             IsBasis and
+                             IsBasisOfPathAlgebraVectorSpace and
+                             IsAttributeStoringRep ),
+                    rec() );
+    SetUnderlyingLeftModule( B, V );
+    SetBasisVectors( B, vectors );
+
+    return B;
+end
+  );
+
+InstallMethod( NewBasis,
+  "for a space of path algebra vectors and a homogenous list",
+  IsIdenticalObj,
+  [ IsFreeLeftModule and IsPathAlgebraModule, IsList ], 0,
+  function( V, vectors )
+    local B;  # The basis
+
+    B := Objectify( NewType( FamilyObj( V ),
+                             IsBasis and
+                             IsBasisOfPathAlgebraVectorSpace and
+                             IsAttributeStoringRep ),
+                    rec() );
+    SetUnderlyingLeftModule( B, V );
+    SetBasisVectors( B, vectors );
+
+    return B;
+end
+);
 
 
 HOPF_TriangularizePathAlgebraVectorList := function( vectors )
