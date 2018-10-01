@@ -1,5 +1,5 @@
 InstallMethod( HighLevelGroebnerBasis,
-  "compute a complete Groebner Basis",
+  "compute the complete reduced Groebner Basis",
   [ IsList, IsPathAlgebra ],
   function(els, A)
     local gb, el, el_tip,
@@ -10,7 +10,7 @@ InstallMethod( HighLevelGroebnerBasis,
       Error("elements do not belong to the arrow ideal of the path algebra");
     fi;
 
-    els := MakeUniform(els);
+    els := ReducedList(MakeUniform(els), A);
 
     gb := [];
 
@@ -48,13 +48,69 @@ InstallMethod( HighLevelGroebnerBasis,
       od;
     od;
 
+    gb := TipReducedList(gb, A);
+    gb := ReducedList(gb, A);
+
     return gb;
   end
 );
 
 
+InstallMethod( ReducedList,
+  "for a list of path-algebra elements",
+  [ IsList, IsPathAlgebra ],
+  function(els, A)
+    local res, i, r;
+
+    res := Filtered(els, el -> not IsZero(el));
+
+    i := Length(res);
+    while i > 0 do
+      r := RemainderOfDivision(res[i], res{Concatenation([1..i-1], [i+1..Length(res)])}, A);
+
+      if IsZero(r) then
+        Remove(res, i);
+      else
+        res[i] := r;
+      fi;
+
+      i := i-1;
+    od;
+
+    return res;
+  end
+);
+
+
+InstallMethod( TipReducedList,
+  "for a list of path-algebra elements",
+  [ IsList, IsPathAlgebra ],
+  function(els, A)
+    local res, el, i;
+
+    res := [];
+
+    for el in els do
+      if not IsZero(el) then
+        AddSet(res, el);
+      fi;
+    od;
+
+    i := Length(res);
+    while i > 0 do
+      if ForAny([1..i-1], j -> LeftmostOccurrence(TipWalk(res[i]), TipWalk(res[j])) <> fail) then
+        Remove(res, i);
+      fi;
+      i := i-1;
+    od;
+
+    return res;
+  end
+);
+
+
 InstallMethod( RemainderOfDivision,
-  "for a path-algebra element and a list of monic path-algebra elements",
+  "for a path-algebra element and a list of path-algebra elements",
   [ IsElementOfMagmaRingModuloRelations, IsList, IsPathAlgebra ],
   function(y, X, A)
     local r, n, y_tip, y_wtip, divided, i, p, u, v;
@@ -75,7 +131,7 @@ InstallMethod( RemainderOfDivision,
           u := Product(y_wtip{[1..p[1]-1]}, One(A));
           v := Product(y_wtip{[p[2]+1..Length(y_wtip)]}, One(A));
 
-          y := y - TipCoefficient(y_tip) * u*X[i]*v;
+          y := y - TipCoefficient(y_tip)/TipCoefficient(X[i]) * u*X[i]*v;
 
           divided := true;
           break;
