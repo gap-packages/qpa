@@ -63,6 +63,43 @@ gap> Dimension(A);
 17
 
 #
+# Constructing the path algebra but now using HighLevelGroebnerBasis.
+gap> KQ:= PathAlgebra(Rationals, Q, HighLevelGroebnerBasis);
+<Rationals[<quiver with 3 vertices and 5 arrows>]>
+gap> AssignGeneratorVariables(KQ);
+#I  Global variable `v1' is already defined and will be overwritten
+#I  Global variable `v2' is already defined and will be overwritten
+#I  Global variable `v3' is already defined and will be overwritten
+#I  Global variable `a' is already defined and will be overwritten
+#I  Global variable `b' is already defined and will be overwritten
+#I  Global variable `c' is already defined and will be overwritten
+#I  Global variable `d' is already defined and will be overwritten
+#I  Global variable `e' is already defined and will be overwritten
+#I  Assigned the global variables [ v1, v2, v3, a, b, c, d, e ]
+gap> rels:= [d*e,c^2,a*c*d-b*d,e*a];
+[ (1)*d*e, (1)*c^2, (-1)*b*d+(1)*a*c*d, (1)*e*a ]
+gap> A:= KQ/rels;
+<Rationals[<quiver with 3 vertices and 5 arrows>]/
+<two-sided ideal in <Rationals[<quiver with 3 vertices and 5 arrows>]>, 
+  (5 generators)>>
+gap> Dimension(A);
+17
+
+#
+# Testing HighLevelGroebnerBasis on the first example from issue #20.
+gap> Q_ := Quiver(1, [[1,1,"x"], [1,1,"y"]]);
+<quiver with 1 vertices and 2 arrows>
+gap> KQ_ := PathAlgebra(Rationals, Q_, HighLevelGroebnerBasis);
+<Rationals[<quiver with 1 vertices and 2 arrows>]>
+gap> x := KQ_.x;; y := KQ_.y;;
+gap> rels_ := [ x^3, x^2*y, x*y^2+x^2, y*x^2, x^3+y^2+y*x, x*y^2+x*y*x, y*x*y+y*x^2, y^2*x+y*x^2, y^3+y*x^2, x^2*y*x, x*y*x^2, y*x^2*y ];
+[ (1)*x^3, (1)*x^2*y, (1)*x^2+(1)*x*y^2, (1)*y*x^2, (1)*y*x+(1)*y^2+(1)*x^3, (1)*x*y*x+(1)*x*y^2, (1)*y*x^2+(1)*y*x*y, (1)*y*x^2+(1)*y^2*x, (1)*y*x^2+(1)*y^3, (1)*x^2*y*x, (1)*x*y*x^2, (1)*y*x^2*y ]
+gap> A_ := KQ_/rels_;
+<Rationals[<quiver with 1 vertices and 2 arrows>]/<two-sided ideal in <Rationals[<quiver with 1 vertices and 2 arrows>]>, (6 generators)>>
+gap> RelationsOfAlgebra(A_);
+[ (1)*y*x+(1)*y^2, (1)*x^3, (1)*x^2*y, (-1)*x^2+(1)*x*y*x, (1)*y*x^2, (1)*y*x*y ]
+
+#
 # Constructing the tenor product of  A  with itself.
 gap> TensorProductOfAlgebras(A,A);
 <Rationals[<quiver with 9 vertices and 30 arrows>]/
