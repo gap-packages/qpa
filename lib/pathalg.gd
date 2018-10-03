@@ -41,6 +41,7 @@ DeclareAttribute( "RelatorsOfFpAlgebra",
     IsQuotientOfPathAlgebra and IsFullFpPathAlgebra);
 DeclareAttribute( "RelationsOfAlgebra", IsQuiverAlgebra);
 DeclareAttribute( "IdealOfQuotient", IsQuiverAlgebra);
+DeclareAttribute( "GroebnerBasisFunction", IsQuiverAlgebra );
 DeclareAttribute( "NormalFormFunction", IsFamily );
 DeclareOperation( "ElementOfQuotientOfPathAlgebra", 
     [ IsElementOfQuotientOfPathAlgebraFamily, IsRingElement, IsBool ] );

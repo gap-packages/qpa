@@ -54,12 +54,17 @@ InstallGlobalFunction( PathRing,
 
 
 InstallGlobalFunction( PathAlgebra,
-  function(F, Q)
+  function(F, Q, arg...)
     if not IsDivisionRing(F) then
         Error( "<F> must be a division ring or field." );
     fi;
     F := PathRing( F, Q );
     SetOrderingOfAlgebra(F, OrderingOfQuiver(Q));
+    if Length(arg) > 0 then
+      SetGroebnerBasisFunction(F, arg[1]);
+    else
+      SetGroebnerBasisFunction(F, GBNPGroebnerBasis);
+    fi;
     if NumberOfArrows(Q) > 0 then 
         SetGlobalDimension(F, 1);
         SetFilterObj( F, IsHereditaryAlgebra ); 
@@ -873,22 +878,23 @@ InstallMethod( IsFiniteDimensional,
   true,
   [IsQuotientOfPathAlgebra and IsFullFpPathAlgebra], 0,
   function( A )
-    local gb, fam, I, rels;
+    local gb, fam, KQ, I, rels;
   
     fam := ElementsFamily(FamilyObj(A));
+    KQ := fam!.pathAlgebra;
     I := fam!.ideal;
 
     if HasGroebnerBasisOfIdeal(I) then
       gb := GroebnerBasisOfIdeal(I);
     else
       rels := GeneratorsOfIdeal(I);     
-      gb := GBNPGroebnerBasis(rels, fam!.pathAlgebra);
+      gb := GroebnerBasisFunction(KQ)(rels, KQ);
       gb := GroebnerBasis(I, gb);
     fi;
     
     if IsCompleteGroebnerBasis(gb) then
       return AdmitsFinitelyManyNontips(gb);
-    elif IsFiniteDimensional(fam!.pathAlgebra) then
+    elif IsFiniteDimensional(KQ) then
       return true;
     else
       TryNextMethod();
@@ -910,16 +916,17 @@ InstallMethod( Dimension,
   true,
   [IsQuotientOfPathAlgebra and IsFullFpPathAlgebra], 0,
   function( A )
-    local gb, fam, I, rels;
+    local gb, fam, KQ, I, rels;
 
     fam := ElementsFamily(FamilyObj(A));
+    KQ := fam!.pathAlgebra;
     I := fam!.ideal;
     
     if HasGroebnerBasisOfIdeal(I) then
       gb := GroebnerBasisOfIdeal(I);
     else
       rels := GeneratorsOfIdeal(I);     
-      gb := GBNPGroebnerBasis(rels, fam!.pathAlgebra);
+      gb := GroebnerBasisFunction(KQ)(rels, KQ);
       gb := GroebnerBasis(I, gb);
     fi;
 
@@ -1530,7 +1537,7 @@ InstallMethod( OppositePathAlgebra,
     rels  := RelatorsOfFpAlgebra( quot );
     rels_op := OppositeRelations( rels );
     I_op := Ideal( PA_op, rels_op );
-    gb   := GBNPGroebnerBasis(rels_op,PA_op);
+    gb   := GroebnerBasisFunction(PA_op)(rels_op,PA_op);
     gbb  := GroebnerBasis(I_op,gb);
     quot_op := PA_op / I_op;
     
@@ -2046,7 +2053,7 @@ InstallOtherMethod( \/,
     if not ForAll(relators, x -> ( x in KQ ) ) then
         Error("the entered list of elements should be in the path algebra!");
     fi;
-    gb := GBNPGroebnerBasis(relators, KQ);
+    gb := GroebnerBasisFunction(KQ)(relators, KQ);
     I := Ideal(KQ,gb);
     GroebnerBasis(I,gb);
     A := KQ/I; 

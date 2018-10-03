@@ -23,6 +23,7 @@ ReadPackage("QPA", "lib/projpathalgmodule.gd");
 ReadPackage("QPA", "lib/moduledecomp.gd");
 ReadPackage("QPA", "lib/idempotent.gd");
 ReadPackage("QPA", "lib/gbnp.gd");
+ReadPackage("QPA", "lib/gbhighlevel.gd");
 ReadPackage("QPA", "lib/moduleprojres.gd");
 ReadPackage("QPA", "lib/pathalgtensor.gd");
 ReadPackage("QPA", "lib/pathalgpredef.gd");

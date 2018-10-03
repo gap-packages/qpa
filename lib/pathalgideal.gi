@@ -65,7 +65,7 @@ InstallTrueMethod( IsIdealInPathAlgebra,
 #O  \in(<elt>, <I>)
 ##
 ##  This function performs a membership test for an ideal in path algebra using 
-##  GBNP Groebner Bases machinery.
+##  (by default GBNP) Groebner Bases machinery.
 ##  It returns true if <elt> is a member of an ideal <I>, false otherwise.
 ##  For the efficiency reasons, it computes Groebner basis
 ##  for <I> only if it has not been computed. Similarly, it performs
@@ -103,7 +103,7 @@ InstallMethod(\in,
       else
         TryNextMethod();
       fi;      
-      GB := GBNPGroebnerBasis(rels, A);
+      GB := GroebnerBasisFunction(A)(rels, A);
       GB := GroebnerBasis(I, GB);
     fi;
 		
@@ -143,11 +143,13 @@ InstallMethod( IsAdmissibleIdeal,
       return IsFiniteDimensional(LeftActingRingOfIdeal(I)); # <=> (arrow ideal)^n \subset I, for some n
     fi;
   
+    A := LeftActingRingOfIdeal(I);
+
     if HasGroebnerBasisOfIdeal(I) then
       gb := GroebnerBasisOfIdeal(I);
     else
       rels := GeneratorsOfIdeal(I);     
-      gb := GBNPGroebnerBasis(rels, LeftActingRingOfIdeal(I));
+      gb := GroebnerBasisFunction(A)(rels, A);
       gb := GroebnerBasis(I, gb);
     fi;
     
@@ -169,7 +171,6 @@ InstallMethod( IsAdmissibleIdeal,
     # Dimension(J^{2n+2}).  If this dimension is different from zero, the ideal is not
     # admissible.  If this dimension is zero, then the ideal is admissible.
     # 
-    A := LeftActingRingOfIdeal(I);
     B := A/I;
     if IsFiniteDimensional(B) then
         arrows := List(ArrowsOfQuiver(QuiverOfPathAlgebra(B)), a -> One(B)*a);
@@ -226,7 +227,8 @@ InstallMethod( IsMonomialIdeal,
     if HasGroebnerBasisOfIdeal(I) then
       GB := GroebnerBasisOfIdeal(I);
     else
-      GB := GBNPGroebnerBasis(rels, LeftActingRingOfIdeal(I));
+      A := LeftActingRingOfIdeal(I);
+      GB := GroebnerBasisFunction(A)(rels, A);
       GB := GroebnerBasis(I, GB);
     fi;
     
