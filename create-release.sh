@@ -2,7 +2,13 @@
 version=$(cat version)
 packagename="qpa-$version"
 tarfile="$packagename.tar.gz"
-tar --transform "s,^,$packagename/," -zcf $tarfile \
-    CHANGES LICENSE README PackageInfo.g init.g read.g version \
-    lib/*.{gd,gi,g} examples/*.g tst/*.{g,tst} \
-    doc/*.{xml,txt,html,css,js} doc/manual.pdf doc/manual.six doc/MakeQPADoc.gi
+releasedir="releases/$packagename"
+mkdir -p $releasedir
+cp -r * $releasedir
+cd releases
+tar -zcf $tarfile \
+    $packagename/CHANGES $packagename/LICENSE $packagename/README \
+    $packagename/PackageInfo.g $packagename/init.g $packagename/read.g $packagename/version \
+    $packagename/lib/*.{gd,gi} $packagename/examples/*.g $packagename/tst/*.{g,tst} \
+    $packagename/doc/*.{xml,txt,html,css,js} $packagename/doc/manual.pdf \
+    $packagename/doc/manual.six $packagename/doc/MakeQPADoc.gi
