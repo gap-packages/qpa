@@ -1,4 +1,44 @@
 ==========================================================================
+Changes from version 1.27 to 1.28:
+==========================================================================
+
+Added functions in this release:
+----------------------------------------------------------------------
+
+BrauerAlgebra
+DecomposeModuleProbabilistic
+HighLevelGroebnerBasis
+
+
+Discontinued/removed functions:
+------------------------------------------------------------
+
+
+Changed code for:
+----------------------------------------------------------------------
+DecomposeModule
+IsDirectSumOfModules
+PathAlgebra
+
+Fixed bugs in:
+----------------------------------------------------------------------
+
+Isolated vertices bugs (reported by Erich Neun)
+Quiver product decomposition problems (reported by Erich Neun, fixed
+       	       		     	       by Oeystein Skartsaeterhagen)
+RestrictionViaAlgebraHomomorphism (reported and fixed by Erich Neun)
+StarOfModule (reported and fixed by Erich Neun)
+
+Miscellaneous
+----------------------------------------------------------------------
+Added tests to the test file.
+Added Travis CI and Codecov integration (Alexander Konovalov)
+Fixed broken link to issues page.
+Fixed files in examples (Erich Neun)
+Improved the efficiency of the operation CommonDirectSummand.
+Removed the absolete MutableNullMat and replaced it with NullMat.
+
+==========================================================================
 Changes from version 1.26 to 1.27:
 ==========================================================================
 
