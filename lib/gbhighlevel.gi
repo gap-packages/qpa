@@ -10,7 +10,7 @@ InstallMethod( HighLevelGroebnerBasis,
       Error("elements do not belong to the arrow ideal of the path algebra");
     fi;
 
-    els := ReducedList(MakeUniform(els), A);
+    els := ReducedListQPA(MakeUniform(els), A);
 
     gb := [];
 
@@ -49,14 +49,14 @@ InstallMethod( HighLevelGroebnerBasis,
     od;
 
     gb := TipReducedList(gb, A);
-    gb := ReducedList(gb, A);
+    gb := ReducedListQPA(gb, A);
 
     return gb;
   end
 );
 
 
-InstallMethod( ReducedList,
+InstallMethod( ReducedListQPA,
   "for a list of path-algebra elements",
   [ IsList, IsPathAlgebra ],
   function(els, A)
