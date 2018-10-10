@@ -1,6 +1,6 @@
 #!/bin/bash
 version=$(cat version)
-packagename="qpa-$version"
+packagename="qpa-version-$version"
 tarfile="$packagename.tar.gz"
 releasedir="releases/$packagename"
 mkdir -p $releasedir
