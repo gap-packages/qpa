@@ -4,7 +4,10 @@ packagename="qpa-$version"
 tarfile="$packagename.tar.gz"
 releasedir="releases/$packagename"
 mkdir -p $releasedir
-cp -r * $releasedir
+cp -r \
+   CHANGES LICENSE README PackageInfo.g init.g read.g version \
+   lib examples tst doc \
+   $releasedir
 cd releases
 tar -zcf $tarfile \
     $packagename/CHANGES $packagename/LICENSE $packagename/README \
