@@ -77,6 +77,28 @@ https://USERNAME.github.io/REPOSITORY/ (of course after
 adjusting USERNAME and REPOSITORY suitably).
 
 
+## Cloning an existing gh-pages
+
+If you previously set up GitHubPagesForGAP and thus already have a `gh-pages`
+branch, you may on occasion have need to make a fresh clone of your package
+repository, and then also would like to recreate the `gh-pages` directory.
+
+Users with a recent enough git version (recommended is >= 2.11)
+can do this using a "worktree", via the following commands:
+
+   ```sh
+   git branch gh-pages origin/gh-pages
+   git worktree add gh-pages gh-pages
+   ```
+
+If you are using an older version of git, you can instead use a second clone
+of your repository instead:
+
+   ```sh
+   git clone https://github.com/USERNAME/REPOSITORY gh-pages
+   ```
+
+
 ## Adjusting the content and layout
 
 GitHubPagesForGAP tries to automatically provide good defaults for
