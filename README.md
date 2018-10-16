@@ -217,7 +217,8 @@ much you tweaked the site after initially cloning GitHubPagesForGAP.
 
 
 ## Packages using GitHubPagesForGAP
-Packages using GitHubPagesForGAP include the following:
+Packages using GitHubPagesForGAP include the following; beyond those, the
+majority of packages listed on <https://gap-packages.github.io> use it.
 
 * <https://gap-packages.github.io/anupq>
 * <https://gap-packages.github.io/cvec>
@@ -228,8 +229,6 @@ Packages using GitHubPagesForGAP include the following:
 * <https://gap-packages.github.io/orb>
 * <https://gap-packages.github.io/polenta>
 * <https://gap-packages.github.io/recog>
-* <https://gap-packages.github.io/recogbase>
-* <https://gap-packages.github.io/SingularInterface>
 
 
 ## Contact
