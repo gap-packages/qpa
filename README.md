@@ -21,8 +21,7 @@ following these instructions.
 
    ```sh
    # Add a new remote pointing to the GitHubPagesForGAP repository
-   git remote add gh-gap https://github.com/gap-system/GitHubPagesForGAP
-   git fetch gh-gap
+   git remote add -f gh-gap https://github.com/gap-system/GitHubPagesForGAP
 
    # Create a fresh gh-pages branch from the new remote
    git branch gh-pages gh-gap/gh-pages --no-track
