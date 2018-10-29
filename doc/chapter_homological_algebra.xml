@@ -530,30 +530,13 @@ true ]]>
    <Description> 
     Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>), <Arg>n</Arg> -- a positive integer.
    <Br /></Description>
-   <Returns>the <Arg>n</Arg>-th syzygy of <Arg>M</Arg> if it has
-   projective dimension at least <Arg>n</Arg>, and if the projective
-   dimension is less than <Arg>n</Arg>, then it returns the last
-   non-zero projective syzygy. 
+   <Returns>the <Arg>n</Arg>-th syzygy of <Arg>M</Arg>.
    </Returns>
    <Description>
-This functions computes the <Arg>n</Arg>-th syzygy of the module
-<Arg>M</Arg> by successively computing first, second, third,
-... syzygy of <Arg>M</Arg> the operation <Ref Attr="1stSyzygy"/> and
-at each stage checking if the is a projective module.
+This functions computes a projective resolution of <Arg>M</Arg> and
+finds the <Arg>n</Arg>-th syzygy of the module
+<Arg>M</Arg>. 
 </Description>
-</ManSection>
-
-<ManSection>
-   <Oper Name="NthSyzygyNC" Arg="M, n" Comm="for a
-   PathAlgebraMatModule"/>
-   <Description>
-    Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>), <Arg>n</Arg> -- a positive integer.
-   <Br /></Description>
-   <Returns>the <Arg>n</Arg>-th syzygy of the module <Arg>M</Arg>,
-   unless the projective dimension of <Arg>M</Arg> is less or equal to
-   <C>n-1</C>, in which case it returns the zero module. It does not
-   check if the <C>n</C>-th syzygy is projective or not.
-   </Returns>
 </ManSection>
 
 <ManSection>

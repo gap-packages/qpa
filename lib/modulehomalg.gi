@@ -295,7 +295,6 @@ InstallMethod( 1stSyzygy,
    for i in [1..num_vert] do 
       Add(B_list,Basis(V_list[i],FlatBasisSyzygy[i]));
    od;
-   Print("Dimension vector for syzygy: ",dim_vect,"\n");
 #
 #  Finding the 1st syzygy as a representation of the quiver.
 #
@@ -345,70 +344,21 @@ end
 ##
 #O  NthSyzygy( <M>, <n> )
 ##
-##  This functions computes the  <n>-th syzygy of the module  <M> by 
-##  successively computing first, second, third, ... syzygy of  <M> 
-##  using the operation  1stSyzygy  and at each stage checking if the 
-##  syzygy is a projective module. It returns the  <n>-th syzygy if 
-##  no previous syzygy is projective, and if  <M>  has projective 
-##  dimension less than  <n>, then it returns the last non-zero 
-##  projective syzygy. 
+##  This function computes the <n>-th syzygy of the module <M>. 
 ##
 InstallMethod( NthSyzygy,
    "for a path algebra module and a positive integer",
-   [ IsPathAlgebraMatModule, IS_INT ], 0,
+   [ IsPathAlgebraMatModule, IsPosInt ], 0,
    function( M, n ) 
 
-   local i, result;
+  local projres, diff;
  
-   result := ShallowCopy(M);
-   if IsProjectiveModule(M) then 
-      Print("The module entered is projective.\n");
-   else 
-      for i in [1..n] do
-         Print("Computing syzygy number: ",i," ...\n");
-         result := 1stSyzygy(result);
-         Print("Top of the ",i,"th syzygy: ",DimensionVector(TopOfModule(result)),"\n");
-         if IsProjectiveModule(result) then 
-            Print("The module has projective dimension ",i,".\n");
-            break;
-         fi;
-      od;
-   fi;
-
-   return result;
+  projres := ProjectiveResolution( M ); 
+  diff := DifferentialOfComplex( projres, n - 1 ); 
+  
+  return Kernel( diff );
 end
-);
-
-#######################################################################
-##
-#O  NthSyzygyNC( <M>, <n> )
-##
-##  This function computes the  <n>-th syzygy of the module  <M>  by 
-##  successively computing first, second, third, ... syzygy of  <M>
-##  using the operation  1stSyzygy. If the module  <M>  has projective
-##  dimension less than  <n>, then it prints the projective dimension 
-##  of the module.
-##
-InstallMethod( NthSyzygyNC,
-   "for a path algebra module and a positive integer",
-   [ IsPathAlgebraMatModule, IS_INT ], 0,
-   function( M, n ) 
-
-   local i, result;
- 
-   result := ShallowCopy(M);
-   for i in [1..n] do
-      Print("Computing syzygy number: ",i," ....\n");
-      result := 1stSyzygy(result);
-      if Dimension(result) = 0 then 
-         Print("The module has projective dimension ",i-1,".\n");
-         break;
-      fi;
-   od;
-
-   return result;
-end
-);
+  );
 
 #######################################################################
 ##

@@ -719,47 +719,8 @@ gap> RejectOfModule(N,S1);
 gap> TraceOfModule(S1,N);
 <<[ 1, 0, 0 ]> ---> <[ 3, 2, 2 ]>>
 gap> O4 := NthSyzygy(S1,4);
-Computing syzygy number: 1 ...
-Dimension vector for syzygy: [ 0, 4, 3 ]
-Top of the 1th syzygy: [ 0, 2, 0 ]
-Computing syzygy number: 2 ...
-Dimension vector for syzygy: [ 0, 0, 1 ]
-Top of the 2th syzygy: [ 0, 0, 1 ]
-Computing syzygy number: 3 ...
-Dimension vector for syzygy: [ 1, 2, 1 ]
-Top of the 3th syzygy: [ 1, 0, 0 ]
-Computing syzygy number: 4 ...
-Dimension vector for syzygy: [ 0, 2, 2 ]
-Top of the 4th syzygy: [ 0, 1, 0 ]
-The module has projective dimension 4.
 <[ 0, 2, 2 ]>
 gap> IsNthSyzygy(O4,4);
-Computing syzygy number: 1 ...
-Dimension vector for syzygy: [ 6, 2, 2 ]
-Top of the 1th syzygy: [ 2, 1, 0 ]
-Computing syzygy number: 2 ...
-Dimension vector for syzygy: [ 0, 0, 2 ]
-Top of the 2th syzygy: [ 0, 0, 2 ]
-Computing syzygy number: 3 ...
-Dimension vector for syzygy: [ 6, 4, 2 ]
-Top of the 3th syzygy: [ 0, 2, 0 ]
-Computing syzygy number: 4 ...
-Dimension vector for syzygy: [ 2, 0, 2 ]
-Top of the 4th syzygy: [ 2, 0, 0 ]
-The module has projective dimension 4.
-Computing syzygy number: 1 ...
-Dimension vector for syzygy: [ 0, 4, 2 ]
-Top of the 1th syzygy: [ 0, 2, 0 ]
-Computing syzygy number: 2 ...
-Dimension vector for syzygy: [ 0, 0, 2 ]
-Top of the 2th syzygy: [ 0, 0, 2 ]
-Computing syzygy number: 3 ...
-Dimension vector for syzygy: [ 2, 4, 2 ]
-Top of the 3th syzygy: [ 2, 0, 0 ]
-Computing syzygy number: 4 ...
-Dimension vector for syzygy: [ 0, 4, 4 ]
-Top of the 4th syzygy: [ 0, 2, 0 ]
-The module has projective dimension 4.
 true
 gap> ProjDimensionOfModule(S1,4);
 4
