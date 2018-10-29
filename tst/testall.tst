@@ -751,9 +751,7 @@ gap> HaveFiniteResolutionInAddM(SimpleModules(A)[1],N,2);
 0 -> 1:(1,0,0) -> 0:(1,0,0) -> 0
 gap> IsOmegaPeriodic(SimpleModules(Nak)[1],4);
 Computing syzygy number: 1
-Dimension vector for syzygy: [ 0, 1, 1 ]
 Computing syzygy number: 2
-Dimension vector for syzygy: [ 1, 0, 0 ]
 2
 
 #
