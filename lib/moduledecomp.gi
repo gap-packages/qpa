@@ -363,30 +363,25 @@ InstallMethod( LiftTwoOrthogonalIdempotents,
     [ IsAlgebraGeneralMapping, IsRingElement, IsRingElement ], 0,
     function( f, v, w )
 
-    local g, x, y, nilindex, temp;
+  local g, x, y, series, nilindex, temp;
     
-    if  ImageElm(f,v)*w <> Zero(w) or w*ImageElm(f,v) <> Zero(w) then 
+    if  ImageElm( f, v ) * w <> Zero( w ) or w * ImageElm( f, v ) <> Zero( w ) then 
         Error("the entered idempotents are not orthogonal in the range of the algebra homomorphism,");
-    else
-        g := LiftIdempotent(f, w);
-        x := v*g;
-        y := ShallowCopy(x);
-        nilindex := 1;       
-        if y <> Zero(y) then 
-            repeat
-                nilindex := nilindex + 1;
-                y := x*y;
-            until y = Zero(y);
-        fi;
-        if nilindex = 1 then
-            return [v, (One(g) + x)*g*(One(g) - x)];
-        else
-            temp := Sum(List([0..nilindex], n -> x^n))*g*(One(g) - x);
-            return [v,temp];
-        fi;
     fi;
-end
-);
+    g := LiftIdempotent( f, w );
+    x := g * v;
+    y := x;
+    series := One( g );
+    nilindex := 1;       
+    while not IsZero( y ) do 
+      series := series + y;
+      nilindex := nilindex + 1;
+      y := x * y;
+    od;
+    temp := ( One( g ) - v) * series * g * ( One( g ) - x );
+    return [ v, temp ];
+  end
+    );
 
 #######################################################################
 ##
