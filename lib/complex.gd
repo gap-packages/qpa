@@ -68,7 +68,7 @@ DeclareGlobalFunction( "FiniteComplex" );
 DeclareGlobalFunction( "ZeroComplex" );
 DeclareGlobalFunction( "StalkComplex" );
 DeclareGlobalFunction( "ShortExactSequence" );
-DeclareGlobalFunction( "ComplexByDifferentialList" );
+DeclareOperation( "ComplexByDifferentialList", [ IsCat, IsInfList ] );
 
 DeclareOperation( "ProjectiveResolution", [ IsAlgebraModule ] );
 DeclareOperation( "InjectiveResolution", [ IsAlgebraModule ] );
@@ -91,8 +91,8 @@ DeclareOperation( "LowestKnownDegree", [ IsChainMap ] );
 
 DeclareOperation( "ChainMap",
                   [ IsQPAComplex, IsQPAComplex, IsInt, IsList, IsList, IsList ] );
-DeclareGlobalFunction( "FiniteChainMap", [ IsQPAComplex, IsQPAComplex, IsInt, IsList ] );
-DeclareGlobalFunction( "ZeroChainMap" , [ IsQPAComplex, IsQPAComplex ] );
+DeclareOperation( "FiniteChainMap", [ IsQPAComplex, IsQPAComplex, IsInt, IsList ] );
+DeclareOperation( "ZeroChainMap" , [ IsQPAComplex, IsQPAComplex ] );
 
 DeclareGlobalFunction( "ComplexAndChainMaps" );
 

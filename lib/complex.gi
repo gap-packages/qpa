@@ -1132,7 +1132,7 @@ end );
 ##  <cat> is a category, and <differentials> is an InfList of
 ##  differentials.
 ##  
-InstallGlobalFunction( ComplexByDifferentialList,
+InstallMethod( ComplexByDifferentialList,
 [ IsCat, IsInfList ],
 function( cat, differentials )
     local C, fam;
@@ -1603,7 +1603,8 @@ end );
 ##  This function returns a finite chain map between two finite
 ##  complexes <source> and <range>.
 ##  
-InstallGlobalFunction( FiniteChainMap,
+InstallMethod( FiniteChainMap,
+               [ IsQPAComplex, IsQPAComplex, IsInt, IsList ],
 function( source, range, baseDegree, morphisms )
     return ChainMap( source, range, baseDegree, morphisms, "zero", "zero" );
 end );
@@ -1615,7 +1616,7 @@ end );
 ##  This function returns the zero chain map between two
 ##  complexes <source> and <range>.
 ##  
-InstallGlobalFunction( ZeroChainMap,
+InstallMethod( ZeroChainMap,
 [ IsQPAComplex, IsQPAComplex ],
 function( source, range )
     return ChainMap( source, range, 0, [], "zero", "zero" );
