@@ -1133,7 +1133,6 @@ end );
 ##  differentials.
 ##  
 InstallGlobalFunction( ComplexByDifferentialList,
-[ IsCat, IsInfList ],
 function( cat, differentials )
     local C, fam;
 
@@ -1616,7 +1615,6 @@ end );
 ##  complexes <source> and <range>.
 ##  
 InstallGlobalFunction( ZeroChainMap,
-[ IsQPAComplex, IsQPAComplex ],
 function( source, range )
     return ChainMap( source, range, 0, [], "zero", "zero" );
 end );

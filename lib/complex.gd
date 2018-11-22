@@ -91,8 +91,8 @@ DeclareOperation( "LowestKnownDegree", [ IsChainMap ] );
 
 DeclareOperation( "ChainMap",
                   [ IsQPAComplex, IsQPAComplex, IsInt, IsList, IsList, IsList ] );
-DeclareGlobalFunction( "FiniteChainMap", [ IsQPAComplex, IsQPAComplex, IsInt, IsList ] );
-DeclareGlobalFunction( "ZeroChainMap" , [ IsQPAComplex, IsQPAComplex ] );
+DeclareGlobalFunction( "FiniteChainMap" );
+DeclareGlobalFunction( "ZeroChainMap" );
 
 DeclareGlobalFunction( "ComplexAndChainMaps" );
 
