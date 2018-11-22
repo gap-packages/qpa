@@ -3851,3 +3851,136 @@ InstallMethod( RejectOfModule,
     fi;
 end
   );
+
+#######################################################################
+##
+#O  AllSimpleSubmodulesOfModule( <M> )
+##
+##  Returns all the different simple submodules of a module given as
+##  inclusions into the module  <M>. 
+##
+##  Algorithm used is based on one created by Didrik Fosse.
+##
+InstallMethod( AllSimpleSubmodulesOfModule, 
+"for a representation",
+        [IsPathAlgebraMatModule], 
+        function(M)
+    local   field,  simples,  socleinclusion,  soc,  socDecMult,  
+            socDims,  k,  i,  simpleSocleSummands,  socleSummands,  
+            dims,  mats,  j,  inclusionInSocle,  s;
+    
+    field := LeftActingDomain( M );
+    if not IsFinite( field ) then
+        Error( "The module is not a module over an algebra over a finite field.\n" );
+    fi;
+    if IsZero( M ) or IsSimpleQPAModule( M ) then 
+        return [ IdentityMapping( M ) ];
+    fi;
+    #
+    # Finding all simple submodules of M. 
+    #
+    field := LeftActingDomain( M );
+    simples := [ ];
+
+    socleinclusion := SocleOfModuleInclusion( M );
+    soc := Source( socleinclusion ); 
+    socDecMult := DecomposeModuleWithMultiplicities( soc );
+    socDims := DimensionVector( soc );
+    k := Length( socDecMult[ 1 ] );
+    for i in [ 1..k ] do
+        simpleSocleSummands := ListWithIdenticalEntries( socDecMult[ 2 ][ i ], socDecMult[ 1 ][ i ] );
+        socleSummands := DirectSumOfQPAModules( simpleSocleSummands );
+        dims := DimensionVector( socleSummands );
+        mats := [ ];
+        for j in [ 1..Length( dims ) ] do
+            if ( dims[j] = 0 ) and ( socDims[ j ] = 0 ) then
+                Add( mats, NullMat( 1, 1, field ) );
+            elif ( dims[ j ] = 0 ) and ( socDims[ j ] > 0 ) then
+                Add( mats, NullMat( 1, socDims[ j ], field ) );
+            elif ( dims[ j ] = socDims[ j ] ) then
+                Add( mats, IdentityMat( dims[ j ], field ) );
+            fi;
+        od;
+        inclusionInSocle := RightModuleHomOverAlgebra( socleSummands, soc, mats );
+        for s in Subspaces( socleSummands, 1 ) do 
+            Add( simples, RightModuleHomOverAlgebra( socDecMult[ 1 ][ i ], socleSummands, 
+                    List( ExtRepOfObj( ExtRepOfObj( BasisVectors( Basis( s ) )[ 1 ] ) ), b -> [ b ] ) ) * inclusionInSocle );
+        od;
+    od;
+    simples := List( simples, s -> s * socleinclusion );
+    
+    return simples; 
+end
+  );
+
+#######################################################################
+##
+#O  AllSubmodulesOfModule( <M> )
+##
+##  Returns all the different submodules of a module given as inclusions
+##  into the module  <M>. 
+##  
+##  Algorithm used is based on one created by Didrik Fosse.
+##
+InstallMethod( AllSubmodulesOfModule, 
+"for a representation",
+        [IsPathAlgebraMatModule], 
+        function(M)
+    local   field,  submodules,  length,  simples,  listofsubmodules,  
+            previousstep,  dim,  dimsub,  U,  MmodU,  allsimplesinU,  
+            newsubmodules,  Vspaces,  s,  newsubmodule,  V;
+    
+    field := LeftActingDomain( M );
+    if not IsFinite( field ) then
+        Error( "The module is not a module over an algebra over a finite field.\n" );
+    fi;
+    if IsZero( M ) then 
+        return [ IdentityMapping( M ) ];
+    fi;
+    submodules := [ ZeroModule( RightActingAlgebra( M ) ), IdentityMapping( M ) ];
+    if IsSimpleQPAModule( M ) then
+        return submodules;
+    fi;
+    
+    length := Dimension( M );
+    #
+    # Finding all simple submodules of M. 
+    #
+    field := LeftActingDomain( M );
+    simples := AllSimpleSubmodulesOfModule( M );
+    listofsubmodules := [ ];
+    listofsubmodules[ 1 ] := [ SubRepresentationInclusion( M, [ ] ) ];
+    Add( listofsubmodules, simples );
+    previousstep := simples; 
+    dim := Dimension( M );
+    dimsub := 1;
+    while dimsub < dim do
+        dimsub := dimsub + 1;
+        for U in previousstep do
+            MmodU := CoKernelProjection( U );
+            allsimplesinU := AllSimpleSubmodulesOfModule( Range( MmodU ) ); 
+            newsubmodules := [ ];
+            Vspaces := [ ];
+            for s in allsimplesinU do 
+                newsubmodule := PullBack( MmodU, s )[ 2 ];
+                V := Subspace( UnderlyingLeftModule( M ), 
+                             List( BasisVectors( Basis( Source( newsubmodule ) ) ), b -> ExtRepOfObj( ImageElm( newsubmodule, b ) ) ) );
+                if Length( newsubmodules ) = 0 then
+                    Add( newsubmodules, newsubmodule );
+                    Add( Vspaces, V );
+                else 
+                    if not ( V in Vspaces ) then
+                        Add( newsubmodules, newsubmodule );
+                        Add( Vspaces, V ); 
+                    fi;
+                fi;
+            od;
+        od;
+        Add( listofsubmodules, newsubmodules );
+        previousstep := newsubmodules;
+    od; 
+    
+    return listofsubmodules;
+end
+  );
+

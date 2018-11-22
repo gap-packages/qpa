@@ -532,6 +532,35 @@ true ]]>
 <Section><Heading>Homomorphisms and modules constructed from homomorphisms and modules</Heading>
 
 <ManSection>
+   <Oper Name="AllSimpleSubModulesOfModule" Arg="M" Comm=""/>
+   <Description>
+     Arguments: <Arg>M</Arg> - a module.<Br />
+   </Description>
+   <Returns>all the different simple submodules of a module given as
+   inclusions into the module <Arg>M</Arg>.
+   </Returns>
+   <Description>
+    This function is only implemented for algebras over a finite
+    field.
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Oper Name="AllSubModulesOfModule" Arg="M" Comm=""/>
+   <Description>
+     Arguments: <Arg>M</Arg> - a module.<Br />
+   </Description>
+   <Returns>all the different submodules of a module given as
+   inclusions into the module <Arg>M</Arg>.
+   </Returns>
+   <Description>
+    This function is only implemented for algebras over a finite
+    field.
+   </Description>
+</ManSection>
+
+
+<ManSection>
    <Attr Name="CoKernel" Arg="f" Comm=""/>
    <Description>
      Arguments: <Arg>f</Arg> - a homomorphism between two

@@ -64,3 +64,5 @@ DeclareOperation( "IsomorphismOfModules", [ IsPathAlgebraMatModule, IsPathAlgebr
 DeclareOperation( "EndOfModuleAsQuiverAlgebra", [IsPathAlgebraMatModule ] );
 DeclareOperation( "TraceOfModule", [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ] );
 DeclareOperation( "RejectOfModule", [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ] );
+DeclareOperation( "AllSubmodulesOfModule" , [ IsPathAlgebraMatModule ]);
+DeclareOperation( "AllSimpleSubmodulesOfModule" , [ IsPathAlgebraMatModule ]);
