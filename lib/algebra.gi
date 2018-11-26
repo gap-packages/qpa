@@ -736,10 +736,15 @@ InstallMethod ( AlgebraAsQuiverAlgebra,
 
         return ord;
     end;
-    generatorinD := First(Elements(D), d -> order(d) = ppowerr - 1);     
+    generatorinD := Filtered(Elements(D), d -> order(d) = ppowerr - 1);     
     K := GF(ppowerr);
-    D := AsAlgebra(PrimeField(K), D); 
-    alghom := AlgebraHomomorphismByImages(K, D, GeneratorsOfDivisionRing(K), [generatorinD]);
+    D := AsAlgebra(PrimeField(K), D);
+    i := 1;
+    repeat 
+      alghom := AlgebraHomomorphismByImages( K, D, GeneratorsOfDivisionRing( K ), [ generatorinD[ i ] ] );
+      i := i + 1;
+    until 
+      alghom <> fail or i = Length( generatorinD ) + 1;
     #
     # Finding representatives for the vertices in  A.
     #
@@ -874,4 +879,33 @@ InstallMethod ( AlgebraAsQuiverAlgebra,
 end
   );
 
+#######################################################################
+##
+#O  BlocksOfAlgebra
+##
+##  This function finds the block decomposition of a finite dimensional
+##  algebra, and returns it as a list of algebras. 
+##
+InstallMethod ( BlocksOfAlgebra, 
+    "for a finite dimensional algebra",
+    true,
+    [ IsAlgebra ],
+    0,
+    function( A )
 
+  local cents, Alist, n, i;
+  
+  cents := CentralIdempotentsOfAlgebra( A );
+  Alist := [];
+  n := Length( cents );
+  for i in [ 1..n ] do
+    Add( Alist, FLMLORByGenerators( LeftActingDomain( A ), BasisVectors( Basis(A)) * cents[ i ] ) );
+    SetParent( Alist[ i ], A );  
+    SetOne( Alist[ i ], cents[ i ] );
+    SetMultiplicativeNeutralElement( Alist[ i ], cents[ i ] );
+    SetFilterObj( Alist[ i ], IsAlgebraWithOne );  
+  od;
+
+  return Alist;
+end
+  );

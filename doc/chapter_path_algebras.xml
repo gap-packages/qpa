@@ -1941,6 +1941,16 @@ true]]>
   </ManSection>
 
 <ManSection>
+    <Oper Name="BlocksOfAlgebra" Arg="A"/>
+    <Description>
+      Arguments: <Arg>A</Arg> - a finite dimensional algebra.<Br />
+    </Description>
+    <Returns>a block decomposition of the entered algebra <A>A</A>
+    as a list of indecomposable algebras.
+    </Returns> 
+  </ManSection>
+  
+<ManSection>
     <Prop Name="IsBasicAlgebra" Arg="A"/>
     <Description>
       Arguments: <Arg>A</Arg> - a finite dimensional algebra over a finite field.<Br />
