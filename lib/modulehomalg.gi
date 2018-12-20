@@ -1337,6 +1337,8 @@ InstallMethod( HaveFiniteCoresolutionInAddM,
     if RightActingAlgebra(M) <> RightActingAlgebra(N) then
         Error("the entered modules are not modules over the same algebra,\n");
     fi;
+    #
+    # If n = 0, then this is the same as N being in add M.
     # 
     # Computing successive minimal left add<M>-approximation to produce
     # a coresolution of  <N>  in  add<M>.
@@ -1344,7 +1346,14 @@ InstallMethod( HaveFiniteCoresolutionInAddM,
     U := N;
     differentials := [];
     g := IdentityMapping(U);
-    f := MinimalLeftAddMApproximation(U,M);    
+    f := MinimalLeftAddMApproximation(U,M);
+    if n = 0 then 
+      if IsIsomorphism( f ) then 
+        return true;
+      else
+        return false;
+      fi;
+    fi;
     for i in [0..n] do
         if not IsInjective(f) then 
             return false;
@@ -1449,6 +1458,8 @@ InstallMethod( HaveFiniteResolutionInAddM,
     if RightActingAlgebra(M) <> RightActingAlgebra(N) then
         Error("the entered modules are not modules over the same algebra,\n");
     fi;
+    #
+    # If n = 0, then this is the same as N being in add M.
     # 
     # Computing successive minimal right add<M>-approximation to produce
     # a resolution of  <N>  in  add<M>.
@@ -1457,6 +1468,13 @@ InstallMethod( HaveFiniteResolutionInAddM,
     differentials := [];
     g := IdentityMapping(U);
     f := MinimalRightAddMApproximation(M,U);
+    if n = 0 then 
+      if IsIsomorphism( f ) then 
+        return true;
+      else
+        return false;
+      fi;
+    fi;
     for i in [0..n] do
         if not IsSurjective(f) then
             return false;
