@@ -362,6 +362,67 @@ end
 
 #######################################################################
 ##
+#O  RightApproximationByAddM( <M>, <C> )
+##
+##  This function computes a right add<M>-approximation of the module  
+##  <C>, and the approximation is not necessarily minimal.
+##
+InstallMethod ( RightApproximationByAddM, 
+   "for two PathAlgebraMatModules",
+   true,
+   [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ],
+   0,
+   function( M, C )
+
+   local K, HomMC, EndM, radEndM, radHomMC, i, j, FlatHomMC, 
+         FlatradHomMC, V, BB, W, f, VoverW, B, gens, approx, approxmap;
+
+   if RightActingAlgebra(M) <> RightActingAlgebra(C) then
+       Error(" the two modules entered into MinimalRightApproximation are not modules over the same algebra.");
+       return fail;
+   fi;
+   if Dimension(C) = 0 then
+       return ZeroMapping(ZeroModule(RightActingAlgebra(M)),C);
+   fi;
+   K := LeftActingDomain(M);
+   HomMC := HomOverAlgebra(M,C);
+   if Length(HomMC) = 0 then 
+       return ZeroMapping(ZeroModule(RightActingAlgebra(M)),C);
+   else  
+       EndM  := EndOverAlgebra(M);
+       radEndM := RadicalOfAlgebra(EndM);
+       radEndM := BasisVectors(Basis(radEndM));
+       radEndM := List(radEndM, x -> FromEndMToHomMM(M,x));
+       radHomMC := [];
+       for i in [1..Length(HomMC)] do
+           for j in [1..Length(radEndM)] do
+               Add(radHomMC,radEndM[j]*HomMC[i]);
+           od;
+       od;
+       FlatHomMC := List(HomMC, x -> Flat(x!.maps));
+       FlatradHomMC := List(radHomMC, x -> Flat(x!.maps));
+       V := VectorSpace(K,FlatHomMC,"basis");
+       BB := Basis(V,FlatHomMC);
+       W := Subspace(V,FlatradHomMC);
+       f := NaturalHomomorphismBySubspace( V, W );
+       VoverW := Range(f);
+       B := BasisVectors(Basis(VoverW));
+       gens := List(B, x -> PreImagesRepresentative(f,x)); 
+       gens := List(gens, x -> Coefficients(BB,x));
+       gens := List(gens, x -> LinearCombination(HomMC,x));         
+       approx := List(gens, x -> Source(x));
+       approx := DirectSumOfQPAModules(approx);
+       approxmap := ShallowCopy(DirectSumProjections(approx));
+       approxmap := List([1..Length(approxmap)], x -> approxmap[x]*gens[x]);         
+       
+       approxmap := Sum(approxmap);
+       return approxmap;
+   fi;
+end
+);
+
+#######################################################################
+##
 #O  MinimalRightApproximation( <M>, <C> )
 ##
 ##  This function computes the minimal right add<M>-approximation of the
@@ -375,62 +436,86 @@ InstallMethod ( MinimalRightApproximation,
    0,
    function( M, C )
 
-   local K, HomMC, EndM, radEndM, radHomMC, i, j, FlatHomMC, 
-         FlatradHomMC, V, BB, W, f, VoverW, B, gens, approx, approxmap;
-
-   if RightActingAlgebra(M) = RightActingAlgebra(C) then
-       if Dimension(C) = 0 then
-           return ZeroMapping(ZeroModule(RightActingAlgebra(M)),C);
-       fi;
-       K := LeftActingDomain(M);
-       HomMC := HomOverAlgebra(M,C);
-       if Length(HomMC) = 0 then 
-           return ZeroMapping(ZeroModule(RightActingAlgebra(M)),C);
-       else  
-           EndM  := EndOverAlgebra(M);
-           radEndM := RadicalOfAlgebra(EndM);
-           radEndM := BasisVectors(Basis(radEndM));
-           radEndM := List(radEndM, x -> FromEndMToHomMM(M,x));
-           radHomMC := [];
-           for i in [1..Length(HomMC)] do
-               for j in [1..Length(radEndM)] do
-                   Add(radHomMC,radEndM[j]*HomMC[i]);
-               od;
-           od;
-           FlatHomMC := List(HomMC, x -> Flat(x!.maps));
-           FlatradHomMC := List(radHomMC, x -> Flat(x!.maps));
-           V := VectorSpace(K,FlatHomMC,"basis");
-           BB := Basis(V,FlatHomMC);
-           W := Subspace(V,FlatradHomMC);
-           f := NaturalHomomorphismBySubspace( V, W );
-           VoverW := Range(f);
-           B := BasisVectors(Basis(VoverW));
-           gens := List(B, x -> PreImagesRepresentative(f,x)); 
-           gens := List(gens, x -> Coefficients(BB,x));
-           gens := List(gens, x -> LinearCombination(HomMC,x));         
-####         gens := List(gens, x -> RightMinimalVersion(x)[1]);
-           approx := List(gens, x -> Source(x));
-           approx := DirectSumOfQPAModules(approx);
-           approxmap := ShallowCopy(DirectSumProjections(approx));
-           approxmap := List([1..Length(approxmap)], x -> approxmap[x]*gens[x]);         
-           approxmap := Sum(approxmap);
-           return RightMinimalVersion(approxmap)[1];
-####         return approxmap;
-       fi;
-   else
-       Error(" the two modules entered into MinimalRightApproximation are not modules over the same algebra.");
-       return fail;
-   fi;
+    local   f;
+   
+   f := RightApproximationByAddM( M, C );
+   
+   return RightMinimalVersion( f )[ 1 ];
 end
 );
+
+#######################################################################
+##
+#O   LeftApproximationByAddM( <C>, <M> )
+##
+##  This function computes a left add<M>-approximation of the module
+##  <C>.
+##
+InstallMethod ( LeftApproximationByAddM, 
+   "for two PathAlgebraMatModules",
+   true,
+   [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ],
+   0,
+   function( C, M )
+
+    local   K,  HomCM,  EndM,  radEndM,  radHomCM,  i,  j,  FlatHomCM,  
+            FlatradHomCM,  V,  BB,  W,  f,  VoverW,  B,  gens,  
+            approx,  approxmap;
+
+   if RightActingAlgebra(M) <> RightActingAlgebra(C) then
+       Error(" the two modules entered into LeftApproximationByAddM are not modules over the same algebra.");
+       return fail;
+   fi;
+   if Dimension(C) = 0 then
+       return ZeroMapping(C, ZeroModule(RightActingAlgebra(M)));
+   fi;
+   K := LeftActingDomain(M);
+   HomCM := HomOverAlgebra(C,M);
+   if Length(HomCM) = 0 then 
+       return ZeroMapping(C,ZeroModule(RightActingAlgebra(M)));
+   else  
+       EndM  := EndOverAlgebra(M);
+       radEndM := RadicalOfAlgebra(EndM);
+       radEndM := BasisVectors(Basis(radEndM));
+       radEndM := List(radEndM, x -> FromEndMToHomMM(M,x));
+       radHomCM := [];
+       for i in [1..Length(HomCM)] do
+           for j in [1..Length(radEndM)] do
+               Add(radHomCM,HomCM[i]*radEndM[j]);
+           od;
+       od;
+       FlatHomCM := List(HomCM, x -> Flat(x!.maps));
+       FlatradHomCM := List(radHomCM, x -> Flat(x!.maps));
+       V := VectorSpace(K,FlatHomCM,"basis");
+       BB := Basis(V,FlatHomCM);
+       W := Subspace(V,FlatradHomCM);
+       f := NaturalHomomorphismBySubspace( V, W );
+       VoverW := Range(f);
+       B := BasisVectors(Basis(VoverW));
+       gens := List(B, x -> PreImagesRepresentative(f,x)); 
+       gens := List(gens, x -> Coefficients(BB,x));
+       gens := List(gens, x -> LinearCombination(HomCM,x));
+       approx := List(gens, x -> Range(x));
+       approx := DirectSumOfQPAModules(approx);
+       approxmap := ShallowCopy(DirectSumInclusions(approx));
+       for i in [1..Length(approxmap)] do
+           approxmap[i] := gens[i]*approxmap[i];
+       od;
+       approxmap := Sum(approxmap);
+       
+       return approxmap;
+   fi;
+end
+  );
+
+
 
 #######################################################################
 ##
 #O   MinimalLeftApproximation( <C>, <M> )
 ##
 ##  This function computes the minimal left add<M>-approximation of the
-##  module  <C>.  TODO/CHECK: If one can modify the algorithm similarly 
-##  as indicated in MinimalRightApproximation above with ####.
+##  module  <C>.  
 ##
 InstallMethod ( MinimalLeftApproximation, 
    "for two PathAlgebraMatModules",
@@ -439,52 +524,11 @@ InstallMethod ( MinimalLeftApproximation,
    0,
    function( C, M )
 
-   local K, HomCM, EndM, radEndM, radHomCM, i, j, FlatHomCM, 
-         FlatradHomCM, V, BB, W, f, VoverW, B, gens, approx, approxmap;
-
-   if RightActingAlgebra(M) = RightActingAlgebra(C) then 
-       if Dimension(C) = 0 then
-           return ZeroMapping(C, ZeroModule(RightActingAlgebra(M)));
-       fi;
-       K := LeftActingDomain(M);
-       HomCM := HomOverAlgebra(C,M);
-       if Length(HomCM) = 0 then 
-           return ZeroMapping(C,ZeroModule(RightActingAlgebra(M)));
-       else  
-           EndM  := EndOverAlgebra(M);
-           radEndM := RadicalOfAlgebra(EndM);
-           radEndM := BasisVectors(Basis(radEndM));
-           radEndM := List(radEndM, x -> FromEndMToHomMM(M,x));
-           radHomCM := [];
-           for i in [1..Length(HomCM)] do
-               for j in [1..Length(radEndM)] do
-                   Add(radHomCM,HomCM[i]*radEndM[j]);
-               od;
-           od;
-           FlatHomCM := List(HomCM, x -> Flat(x!.maps));
-           FlatradHomCM := List(radHomCM, x -> Flat(x!.maps));
-           V := VectorSpace(K,FlatHomCM,"basis");
-           BB := Basis(V,FlatHomCM);
-           W := Subspace(V,FlatradHomCM);
-           f := NaturalHomomorphismBySubspace( V, W );
-           VoverW := Range(f);
-           B := BasisVectors(Basis(VoverW));
-           gens := List(B, x -> PreImagesRepresentative(f,x)); 
-           gens := List(gens, x -> Coefficients(BB,x));
-           gens := List(gens, x -> LinearCombination(HomCM,x));
-           approx := List(gens, x -> Range(x));
-           approx := DirectSumOfQPAModules(approx);
-           approxmap := ShallowCopy(DirectSumInclusions(approx));
-           for i in [1..Length(approxmap)] do
-               approxmap[i] := gens[i]*approxmap[i];
-           od;
-           approxmap := Sum(approxmap);
-           return LeftMinimalVersion(approxmap)[1];
-       fi;
-   else
-       Error(" the two modules entered into MinimalLeftApproximation are not modules over the same algebra.");
-       return fail;
-   fi;
+    local   f;
+   
+   f := LeftApproximationByAddM( C, M );
+   
+   return LeftMinimalVersion( f )[ 1 ];
 end
   );
 

@@ -427,28 +427,32 @@ gap> LiftingMorphismFromProjective(f,p);
 </Example>
 
 <ManSection>
+  <Oper Name="LeftApproximationByAddM" Arg="C, M" Comm=""/>
    <Attr Name="MinimalLeftAddMApproximation" Arg="C, M" Comm=""/>
    <Attr Name="MinimalLeftApproximation" Arg="C, M" Comm=""/>
    <Description>
      Arguments: <Arg>C</Arg>, <Arg>M</Arg> - two modules.<Br />
    </Description>
    <Returns>
-     the minimal left <M>\add M</M>-approximation of the
-     module <Arg>C</Arg>. Note: The order of the arguments is opposite
+     the minimal left <M>\add M</M>-approximation in the two last
+     versions of the module <Arg>C</Arg>. In the first it returns some
+     left approximation.  Note: The order of the arguments is opposite
      of the order for minimal right approximations.
    </Returns>
 </ManSection>
 
 <ManSection>
+    <Oper Name="RightApproximationByAddM" Arg="C, M" Comm=""/>
    <Attr Name="MinimalRightApproximation" Arg="M, C" Comm=""/>
    <Attr Name="MinimalRightAddMApproximation" Arg="M, C" Comm=""/>
    <Description>
      Arguments: <Arg>M</Arg>, <Arg>C</Arg> - two modules.<Br />
    </Description>
    <Returns>
-     the minimal right <M>\add M</M>-approximation of the
-     module <Arg>C</Arg>. Note: The order of the arguments is opposite
-     of the order for minimal left approximations.
+     the minimal right <M>\add M</M>-approximation in the two last
+     versions of the module <Arg>C</Arg>. In the first it returns some
+     right approximation.  Note: The order of the arguments is
+     opposite of the order for minimal left approximations.
    </Returns>
 </ManSection>
 
