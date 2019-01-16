@@ -1073,6 +1073,21 @@ Here we collect the predefined representations/modules over a finite
    </Returns>
 </ManSection>
 
+<ManSection>
+   <Oper Name="RestrictionViaAlgebraHomomorphismMap" Arg="f,  h" Comm="for
+								   an IsAlgebraHomomorphism
+								   and IsPathAlgebraMatModuleHomomorphism"/>
+   <Description> 
+    Arguments: <Arg>f</Arg> -- an IsAlgebraHomomorphism, <Arg>h</Arg> -- an IsPathAlgebraMatModuleHomomorphism.
+   <Br /></Description>
+   <Returns>Given an algebra homomorphism  <M>f \colon A
+   \hookrightarrow B</M> and a homomorphism of modules  <Arg>h</Arg>
+   from <M>M</M> to <M>N</M> over <M>B</M>,
+   this function returns  the induced homomorphism induced by
+   <Arg>h</Arg>  as a homomorphism over  <M>A</M>. 
+   </Returns>
+</ManSection>
+
 
 <ManSection>
    <Attr Name="StarOfModule" Arg="M" Comm="for a PathAlgebraMatModule"/>

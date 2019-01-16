@@ -2257,3 +2257,4 @@ InstallMethod( RestrictionViaAlgebraHomomorphism,
     return RightModuleOverPathAlgebra( A, mats ); 
 end
   );
+

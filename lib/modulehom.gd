@@ -66,3 +66,4 @@ DeclareOperation( "TraceOfModule", [ IsPathAlgebraMatModule, IsPathAlgebraMatMod
 DeclareOperation( "RejectOfModule", [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ] );
 DeclareOperation( "AllSubmodulesOfModule" , [ IsPathAlgebraMatModule ]);
 DeclareOperation( "AllSimpleSubmodulesOfModule" , [ IsPathAlgebraMatModule ]);
+DeclareOperation( "RestrictionViaAlgebraHomomorphismMap", [  IsAlgebraHomomorphism, IsPathAlgebraMatModuleHomomorphism ] );

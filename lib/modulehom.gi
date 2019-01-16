@@ -3964,3 +3964,46 @@ InstallMethod( AllSubmodulesOfModule,
 end
   );
 
+#######################################################################
+##
+#O  RestrictionViaAlgebraHomomorphismMap( < f, h > )
+##
+##  Given an algebra homomorphism  f : A ---> B and a homomorphism
+##  h : M ---> N of modules over B, this function returns the induced
+##  homomorphism h : M ---> N  as a homomorphism of modules over  A.
+##  
+InstallMethod( RestrictionViaAlgebraHomomorphismMap, 
+    "for a IsAlgebraHomomorphism and a IsPathAlgebraMatModuleHomomorphism",
+    [ IsAlgebraHomomorphism, IsPathAlgebraMatModuleHomomorphism ], 0,
+    function( f, h )
+
+    local   M,  N,  K,  A,  B,  vertices,  VM,  BVM,  VN,  BVN,  mats,  
+            mat,  i,  resM,  resN;
+
+    M := Source( h );
+    N := Range( h );
+    K := LeftActingDomain( M );
+    A := Source( f );
+    B := Range( f );
+    if RightActingAlgebra( M ) <> B then 
+        Error( "The entered homomorphism is not over the range of the algebra homomorphism.\n" );
+    fi;
+    vertices := One( A ) * VerticesOfQuiver( QuiverOfPathAlgebra( A ) );
+    VM := List( vertices, v -> List( BasisVectors( Basis( M ) ), m -> m ^ ImageElm( f, v ) ) ); 
+    VM := List( VM, W -> Filtered( W, w -> w <> Zero( w ) ) );
+    BVM := List( VM, function( W ) if IsEmpty(W) then return []; else return Basis( VectorSpace( K, W ) ); fi; end );
+    VN := List( vertices, v -> List( BasisVectors( Basis( N ) ), m -> m ^ ImageElm( f, v ) ) ); 
+    VN := List( VN, W -> Filtered( W, w -> w <> Zero( w ) ) );
+    BVN := List( VN, function( W ) if IsEmpty(W) then return []; else return Basis( VectorSpace( K, W ) ); fi; end );
+    mats := [ ];
+    for i in [ 1..Length( vertices ) ] do
+    	mat := List( BasisVectors( BVM[ i ] ), b -> Coefficients( BVN[ i ], ImageElm( h, b ) ) );	
+	Add( mats, mat );
+    od;	
+    resM := RestrictionViaAlgebraHomomorphism( f, M );
+    resN := RestrictionViaAlgebraHomomorphism( f, N );
+    
+    return RightModuleHomOverAlgebra( resM, resN, mats ); 
+end
+  );
+
