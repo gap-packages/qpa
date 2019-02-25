@@ -16,7 +16,7 @@ following these instructions.
 
 2. Setup a `gh-pages` branch in a `gh-pages` subdirectory.
 
-   Users with a recent enough git version (recommended is >= 2.11)
+   Users with a recent enough git version (recommended is >= 2.7.0)
    can do this using a "worktree", via the following commands:
 
    ```sh
