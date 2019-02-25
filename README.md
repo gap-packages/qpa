@@ -8,6 +8,15 @@ contains data generated from the `PackageInfo.g` file of your package.
 
 ## Initial setup
 
+The easiest way to do this is to run the `setup.sh` shell script
+provided in the [GitHubPagesForGAP]() from within a git clone of your
+package's GitHub repository.
+
+In case this does not work, or if you want to really know what's going
+on, you can also follow the manual instructions described after the fold.
+
+------
+
 The following instructions assume you do not already have a `gh-pages`
 branch in your repository. If you do have one, you should delete it before
 following these instructions.
@@ -76,13 +85,22 @@ https://USERNAME.github.io/REPOSITORY/ (of course after
 adjusting USERNAME and REPOSITORY suitably).
 
 
-## Cloning an existing gh-pages
+## Using an existing gh-pages branch
 
-If you previously set up GitHubPagesForGAP and thus already have a `gh-pages`
+If you previously set up [GitHubPagesForGAP]() and thus already have a `gh-pages`
 branch, you may on occasion have need to make a fresh clone of your package
 repository, and then also would like to recreate the `gh-pages` directory.
 
-Users with a recent enough git version (recommended is >= 2.11)
+The easiest way to do this is to run the `setup.sh` shell script
+provided in the [GitHubPagesForGAP]() from within a git clone of your
+package's GitHub repository.
+
+In case this does not work, or if you want to really know what's going
+on, you can also follow the manual instructions described after the fold.
+
+------
+
+Users with a recent enough git version (recommended is >= 2.7)
 can do this using a "worktree", via the following commands:
 
    ```sh
@@ -100,7 +118,7 @@ of your repository instead:
 
 ## Adjusting the content and layout
 
-GitHubPagesForGAP tries to automatically provide good defaults for
+[GitHubPagesForGAP]() tries to automatically provide good defaults for
 most packages. However, you can tweak everything about it:
 
 * To adjust the page layout, edit the files `stylesheets/styles.css`
@@ -141,8 +159,13 @@ test the website locally as follows:
 
 Whenever you make a release of your package (and perhaps more often than
 that), you will want to update your website. The easiest way is to use
-the `release` script from the [ReleaseTools][]. However, you can also do
-it manually. The steps for doing it are quite similar to the above:
+the `release` script from the [ReleaseTools][], which performs all
+the necessary steps for you, except for the very last of actually
+publishing the package (and it can do even that for you, if you
+pass the `-p` option to it).
+
+However, you can also do it manually. The steps for doing it are quite
+similar to the above:
 
 1. Go to the `gh-pages` directory we created above.
 
@@ -170,9 +193,9 @@ under https://USERNAME.github.io/REPOSITORY/ .
 ## Updating to a newer version of GitHubPagesForGAP
 
 Normally you should not have to ever do this. However, if you really want to,
-you can attempt to update to the most recent version of GitHubPagesForGAP via
+you can attempt to update to the most recent version of [GitHubPagesForGAP]() via
 the following instructions. The difficulty of such an update depends on how
-much you tweaked the site after initially cloning GitHubPagesForGAP.
+much you tweaked the site after initially cloning [GitHubPagesForGAP]().
 
 1. Go to the `gh-pages` directory we created above.
    Make sure that there are no uncommitted changes, as they will be lost
@@ -216,8 +239,9 @@ much you tweaked the site after initially cloning GitHubPagesForGAP.
 
 
 ## Packages using GitHubPagesForGAP
-Packages using GitHubPagesForGAP include the following; beyond those, the
-majority of packages listed on <https://gap-packages.github.io> use it.
+
+The majority of packages listed on <https://gap-packages.github.io> use
+[GitHubPagesForGAP](). If you want some specific examples, here are some:
 
 * <https://gap-packages.github.io/anupq>
 * <https://gap-packages.github.io/cvec>
@@ -237,6 +261,7 @@ the [issue tracker](https://github.com/gap-system/GitHubPagesForGAP/issues).
 
 You can also contact me directly via [email](max@quendi.de).
 
-Copyright (c) 2013-2018 Max Horn
+Copyright (c) 2013-2019 Max Horn
 
+[GitHubPagesForGAP]: https://github.com/gap-system/GitHubPagesForGAP
 [ReleaseTools]: https://github.com/gap-system/ReleaseTools
