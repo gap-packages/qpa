@@ -112,7 +112,7 @@ If you are using an older version of git, you can instead use a second clone
 of your repository instead:
 
    ```sh
-   git clone https://github.com/USERNAME/REPOSITORY gh-pages
+   git clone -b gh-pages https://github.com/USERNAME/REPOSITORY gh-pages
    ```
 
 
