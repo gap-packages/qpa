@@ -532,7 +532,34 @@ true ]]>
 <Section><Heading>Homomorphisms and modules constructed from homomorphisms and modules</Heading>
 
 <ManSection>
-   <Oper Name="AllSimpleSubModulesOfModule" Arg="M" Comm=""/>
+   <Oper Name="AllIndecModulesOfLengthAtMost" Arg="A, n" Comm=""/>
+   <Description>
+     Arguments: <Arg>A, n</Arg> - an algebra over a finite field, an integer.<Br />
+   </Description>
+   <Returns>all the different indecomposable modules over the algebra <Arg>A</Arg> 
+   of length at most <Arg>n</Arg>.
+   </Returns>
+   <Description>
+    This function is only implemented for algebras over a finite field.
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Oper Name="AllModulesOfLengthAtMost" Arg="A, n" Comm=""/>
+   <Description>
+     Arguments: <Arg>A, n</Arg> - an algebra over a finite field, an integer.<Br />
+   </Description>
+   <Returns>all the different modules over the algebra <Arg>A</Arg> 
+   of length at most <Arg>n</Arg>.
+   </Returns>
+   <Description>
+    This function is only implemented for algebras over a finite field.
+   </Description>
+</ManSection>
+
+
+<ManSection>
+   <Oper Name="AllSimpleSubmodulesOfModule" Arg="M" Comm=""/>
    <Description>
      Arguments: <Arg>M</Arg> - a module.<Br />
    </Description>
@@ -546,7 +573,7 @@ true ]]>
 </ManSection>
 
 <ManSection>
-   <Oper Name="AllSubModulesOfModule" Arg="M" Comm=""/>
+   <Oper Name="AllSubmodulesOfModule" Arg="M" Comm=""/>
    <Description>
      Arguments: <Arg>M</Arg> - a module.<Br />
    </Description>

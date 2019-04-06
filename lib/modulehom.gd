@@ -67,3 +67,6 @@ DeclareOperation( "RejectOfModule", [ IsPathAlgebraMatModule, IsPathAlgebraMatMo
 DeclareOperation( "AllSubmodulesOfModule" , [ IsPathAlgebraMatModule ]);
 DeclareOperation( "AllSimpleSubmodulesOfModule" , [ IsPathAlgebraMatModule ]);
 DeclareOperation( "RestrictionViaAlgebraHomomorphismMap", [  IsAlgebraHomomorphism, IsPathAlgebraMatModuleHomomorphism ] );
+DeclareOperation( "AllModulesOfLengthAtMost" , [ IsQuiverAlgebra, IS_INT ] );
+DeclareOperation( "AllModulesOfLengthPlusOne" , [ IsList ] );
+DeclareOperation( "AllIndecModulesOfLengthAtMost" , [ IsQuiverAlgebra, IS_INT ] );

@@ -4007,3 +4007,137 @@ InstallMethod( RestrictionViaAlgebraHomomorphismMap,
 end
   );
 
+#######################################################################
+##
+#O  AllModulesOfLengthPlusOne( <M> )
+##
+##  Given a list of all modules of length <n> for an algebra, this
+##  function constructs all modules of length <n + 1>
+##  
+InstallMethod( AllModulesOfLengthPlusOne, 
+"for a representation",
+[ IsList ], 
+function( list )
+    local   A,  K,  d,  simples,  firstsyzygy,  extensions,  S,  temp,  
+            M,  ext,  modules,  t,  i,  u,  j,  s,  coeff,  h,  
+            nonisomodules,  noniso;
+    
+    if Length( list ) = 0 then 
+        Error( "List entered into AllModulesOfLengthPlusOne is empty.\n" );
+    fi;
+    A := RightActingAlgebra( list[ 1 ] );
+    K := LeftActingDomain( A );
+    if not IsFinite( K ) then
+        Error( "The algebra is not over a finite field.\n" );
+    fi;
+    if not ForAll( list, m -> RightActingAlgebra( m ) = A ) then
+        Error( "List entered into AllModulesOfLengthPlusOne doesn't consist of modules over the same algebra.\n" );
+    fi;    
+    d := Dimension( list[ 1 ] );
+    if not ForAll( list, m -> Dimension( m ) = d ) then
+        Error( "List entered into AllModulesOfLengthPlusOne doesn't have the same length.\n" );
+    fi;
+    
+    simples := SimpleModules( A );
+    firstsyzygy := List( simples, s -> KernelInclusion( ProjectiveCover( s ) ) ); 
+    extensions := [ ];
+    for S in simples do
+        temp := [ ];
+        for M in list do
+            ext := ExtOverAlgebra( S, M );
+            Add( temp, ext[ 2 ] );
+        od;
+        Add( extensions, temp );
+    od;
+    
+    modules := [ ];
+    t := Length( extensions );  # number of simples
+    for i in [ 1..t ] do
+        u := Length( extensions[ i ] ); # number of elements in <list>
+        for j in [ 1..u ] do
+            s := Length( extensions[ i, j ] ); # dimension of Ext-space
+            if s = 1 then
+                Add( modules, DirectSumOfQPAModules( [ list[ u ], simples[ i ] ] ) );
+                Add( modules, Range( PushOut( extensions[ i, j ][ 1 ], firstsyzygy[ i ] )[ 2 ] ) );
+            elif s > 1 then
+                for coeff in K^s do
+                    h := LinearCombination( extensions[ i, j ], coeff );
+                    Add( modules, Range( PushOut( h, firstsyzygy[ i ] )[ 2 ] ) );
+                od;
+            fi;
+        od;
+    od;
+    modules := Unique( modules ); 
+    s := Length( modules ); 
+    nonisomodules := [ ];
+    Add( nonisomodules, modules[ 1 ] );
+    noniso := 1;
+    for i in [ 2..s ] do
+        if ForAll( [ 1..noniso ], j -> not IsomorphicModules( nonisomodules[ j ], modules[ i ] ) ) then
+            Add( nonisomodules, modules[ i ] );
+            noniso := noniso + 1;
+        fi;
+    od;
+    
+    return nonisomodules; 
+end
+  );
+
+#######################################################################
+##
+#O  AllModulesOfLengthAtMost( <A>, n )
+##
+##  Returns all the different modules over an algebra of length at most
+##  <n> over the algebra <A>.
+## 
+InstallMethod( AllModulesOfLengthAtMost, 
+"for an algebra and an integer",
+[ IsQuiverAlgebra, IS_INT ], 
+function( A, n )
+    local   field,  simples,  allmodules,  previousstep,  i;
+    
+    field := LeftActingDomain( A );
+    if not IsFinite( field ) then
+        Error( "The algebra is not over a finite field.\n" );
+    fi;
+    if n < 0 then
+        return [ ];
+    fi;
+    if n = 0 then
+        return [ ZeroModule( A ) ];
+    fi;
+    simples := SimpleModules( A );
+    allmodules := Concatenation( [ ZeroModule( A ) ], simples );
+    if n = 1 then 
+        return allmodules;
+    fi;
+    
+    previousstep := simples;
+    for i in [ 2..n ] do
+        previousstep := AllModulesOfLengthPlusOne( previousstep );
+        allmodules := Concatenation( allmodules, previousstep );
+    od;
+
+    return allmodules;
+end
+  );
+
+#######################################################################
+##
+#O  AllIndecModulesOfLengthAtMost( <A>, n )
+##
+##  Returns all the different indecomposable modules over an algebra 
+##  of length at most <n> over the algebra <A>.
+## 
+InstallMethod( AllIndecModulesOfLengthAtMost, 
+"for an algebra and an integer",
+[ IsQuiverAlgebra, IS_INT ], 
+function( A, n )
+    local   allmodules;
+    
+    allmodules := AllModulesOfLengthAtMost( A, n );
+    
+    return Filtered( allmodules{ [ 2..Length( allmodules ) ] }, IsIndecomposableModule );
+     
+end
+  );
