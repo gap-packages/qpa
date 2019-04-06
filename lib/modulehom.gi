@@ -4018,9 +4018,9 @@ InstallMethod( AllModulesOfLengthPlusOne,
 "for a representation",
 [ IsList ], 
 function( list )
-    local   A,  K,  d,  simples,  firstsyzygy,  extensions,  S,  temp,  
-            M,  ext,  modules,  t,  i,  u,  j,  s,  coeff,  h,  
-            nonisomodules,  noniso;
+    local   A,  K,  d,  simples,  firstsyzygysimples,  extensions,  S,  
+            temp,  M,  ext,  modules,  t,  i,  u,  j,  s,  coeff,  h,  
+            firstsyzygylist,  nonisomodules,  noniso;
     
     if Length( list ) = 0 then 
         Error( "List entered into AllModulesOfLengthPlusOne is empty.\n" );
@@ -4039,7 +4039,8 @@ function( list )
     fi;
     
     simples := SimpleModules( A );
-    firstsyzygy := List( simples, s -> KernelInclusion( ProjectiveCover( s ) ) ); 
+    firstsyzygysimples := List( simples, s -> KernelInclusion( ProjectiveCover( s ) ) );
+    
     extensions := [ ];
     for S in simples do
         temp := [ ];
@@ -4058,16 +4059,47 @@ function( list )
             s := Length( extensions[ i, j ] ); # dimension of Ext-space
             if s = 1 then
                 Add( modules, DirectSumOfQPAModules( [ list[ u ], simples[ i ] ] ) );
-                Add( modules, Range( PushOut( extensions[ i, j ][ 1 ], firstsyzygy[ i ] )[ 2 ] ) );
+                Add( modules, Range( PushOut( extensions[ i, j ][ 1 ], firstsyzygysimples[ i ] )[ 2 ] ) );
             elif s > 1 then
                 for coeff in K^s do
                     h := LinearCombination( extensions[ i, j ], coeff );
-                    Add( modules, Range( PushOut( h, firstsyzygy[ i ] )[ 2 ] ) );
+                    Add( modules, Range( PushOut( h, firstsyzygysimples[ i ] )[ 2 ] ) );
                 od;
             fi;
         od;
     od;
-    modules := Unique( modules ); 
+    modules := Unique( modules );
+
+    firstsyzygylist := List( list, m -> KernelInclusion( ProjectiveCover( m ) ) );
+    
+    extensions := [ ];
+    for M in list do
+        temp := [ ];
+        for S in simples do
+            ext := ExtOverAlgebra( M, S );
+            Add( temp, ext[ 2 ] );
+        od;
+        Add( extensions, temp );
+    od;
+
+    t := Length( extensions );  # number of elements in <list>
+    for i in [ 1..t ] do
+        u := Length( extensions[ i ] ); # number of simples
+        for j in [ 1..u ] do
+            s := Length( extensions[ i, j ] ); # dimension of Ext-space
+            if s = 1 then
+                Add( modules, DirectSumOfQPAModules( [ list[ i ], simples[ j ] ] ) );
+                Add( modules, Range( PushOut( extensions[ i, j ][ 1 ], firstsyzygylist[ i ] )[ 2 ] ) );
+            elif s > 1 then
+                for coeff in K^s do
+                    h := LinearCombination( extensions[ i, j ], coeff );
+                    Add( modules, Range( PushOut( h, firstsyzygylist[ i ] )[ 2 ] ) );
+                od;
+            fi;
+        od;
+    od;
+    modules := Unique( modules );
+
     s := Length( modules ); 
     nonisomodules := [ ];
     Add( nonisomodules, modules[ 1 ] );
