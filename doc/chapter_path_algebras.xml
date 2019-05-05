@@ -1057,6 +1057,20 @@ false]]>
 </ManSection>
 
 <ManSection>
+   <Prop Name="BongartzTest" Arg="A, bound" Comm="test for infinite type"/>
+   <Description>
+     Arguments: <Arg>A, bound</Arg> -- a path algebra or a quotient of a path
+     algebra and an integer.<Br />
+   </Description>
+   <Returns>false if there exists a <M>\tau</M>-translate of a simple,
+   injective or projective <Arg>A</Arg>-module up to the power
+   <Arg>bound</Arg> has dimension greater or equal to <M>\max\{2\dim
+   A, 30\}</M>.  Then <Arg>A</Arg> is of infinite representation type.
+  Returns fail otherwise. 
+   </Returns>
+</ManSection>
+
+<ManSection>
    <Prop Name="IsFiniteTypeAlgebra" Arg="A" Comm="test for finite type"/>
    <Description>
      Arguments: <Arg>A</Arg> -- a path algebra or a quotient of a path

@@ -46,6 +46,54 @@ InstallMethod( IsFiniteTypeAlgebra,
 end
 ); # IsFiniteTypeAlgebra for IsPathAlgebra
 
+InstallMethod ( BongartzTest, 
+"for a finite dimensional algebra",
+[ IsQuiverAlgebra, IS_INT ],
+function( A, bound )
+        
+    local   S,  P,  I,  n,  maxdim,  num,  DTrS,  TrDS,  TrDP,  DTrI,  
+            i;
+
+    if not IsAdmissibleQuotientOfPathAlgebra( A ) then
+        Error( "The entered algebra is not an admissible quotient of a path algebra.\n" );
+    fi;
+
+    Print( "Entering Bongartz' test for infinite type.\n" );
+    S := SimpleModules( A );
+    P := IndecProjectiveModules( A );
+    I := IndecInjectiveModules( A );
+    n := Length( S );
+    maxdim := Maximum( 2 * Dimension( A ), 30 );
+    num := 0;
+    DTrS := ShallowCopy( S );
+    TrDS := ShallowCopy( S );
+    TrDP := ShallowCopy( P );
+    DTrI := ShallowCopy( I );
+    while ( num < bound ) do
+        for i in [ 1..n ] do
+            DTrS[ i ] := DTr( DTrS[ i ] );
+            if Dimension( DTrS[ i ] ) > maxdim then
+                return false;
+            fi;
+            TrDS[ i ] := TrD( TrDS[ i ] );
+            if Dimension( TrDS[ i ] ) > maxdim then
+                return false;
+            fi;
+            TrDP[ i ] := TrD( TrDP[ i ] );
+            if Dimension( TrDP[ i ] ) > maxdim then
+                return false;
+            fi;
+            DTrI[ i ] := DTr( DTrI[ i ] );
+            if Dimension( DTrI[ i ] ) > maxdim then
+                return false;
+            fi;
+        od;
+        num := num + 1;
+    od;
+    
+    return fail;
+end
+  );
 
 ########################################################################
 ##
@@ -128,8 +176,14 @@ InstallMethod( IsFiniteTypeAlgebra,
             return true;
         fi;
     fi;
+    #
+    # Finally applying the test for infinite type given by Bongartz with bound 100.
+    #
+    if BongartzTest( A, 100 ) = false then
+       return false;
+    fi;
     
-    Print("Can not determine the representation type.\n");
+    Print( "Can not determine the representation type.\n" );
     return fail;
 end
 ); # IsFiniteTypeAlgebra for IsQuotientOfPathAlgebra

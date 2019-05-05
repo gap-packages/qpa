@@ -4,3 +4,4 @@
 
 DeclareProperty( "IsFiniteTypeAlgebra", IsPathAlgebra );
 DeclareProperty( "IsFiniteTypeAlgebra", IsQuotientOfPathAlgebra );
+DeclareOperation(  "BongartzTest",  [ IsQuiverAlgebra, IS_INT ] );
