@@ -332,7 +332,7 @@ InstallMethod( MinimalGeneratingSetOfIdeal,
         # basis back to KQ and return it.
         # 
         fam := ElementsFamily(FamilyObj(Aprime));
-        Ibar := List(generators, x -> ElementOfQuotientOfPathAlgebra(fam, x, true)); 
+        Ibar := List(generators, x -> ElementOfQuotientOfPathAlgebra(fam, x, false)); 
         Ibar := Ideal(Aprime, Ibar);
         B := BasisVectors(Basis(Ibar));
     

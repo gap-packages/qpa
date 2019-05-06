@@ -1361,7 +1361,7 @@ false ]]>
      algebra, <Arg>computenormal</Arg> -- true or false.<Br />
    </Description>
    <Returns>The projection of <Arg>element</Arg> into the quotient given
-    by <Arg>family</Arg>.  If <Arg>computenormal</Arg> is true, then
+    by <Arg>family</Arg>.  If <Arg>computenormal</Arg> is false, then
     the normal form of the projection of <Arg>element</Arg> is
     returned.
    </Returns>
