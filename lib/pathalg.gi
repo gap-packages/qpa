@@ -3027,3 +3027,94 @@ InstallMethod( IsTriangularReduced,
     return true;
 end
   );
+
+InstallMethod ( PathRemoval, 
+    "for an idempotent in a QuotientOfPathAlgebra",
+    true,
+    [ IsElementOfMagmaRingModuloRelations, IsList ],
+    0,
+    function( x, elist )
+
+    local temp, verticesofquiver, n, new_x, walk, vertices, i;
+    
+    temp := CoefficientsAndMagmaElements( x );
+    verticesofquiver := VerticesOfQuiver( QuiverOfPathAlgebra( FamilyObj( x )!.pathRing ) );
+    n := Length( temp )/2;
+    new_x := Zero( x ); 
+    for i in [ 0..n - 1 ] do
+        walk := WalkOfPath( temp[ 2 * i + 1 ] ); 
+        vertices := List( walk, SourceOfPath ); 
+        Add( vertices, TargetOfPath( walk[Length( walk ) ] ) );
+        if not ForAny( vertices, v -> Position( verticesofquiver, v ) in elist ) then 
+            new_x := new_x + temp[ 2 * i + 2 ] * One( x ) * Product( walk );
+        fi;
+    od;
+    
+    return new_x; 
+end
+  );
+
+#################################################################################
+##
+#O  QuiverAlgebraOfAmodAeA( <A>, <elist> )
+##
+## Given a quiver algebra A and a sum of vertices  e, this function computes
+## the quiver algebra A/AeA. The list  elist  is a list of integers, where each
+## integer occurring in the list corresponds to the position of the vertex in
+## the vertices defining the idempotent e.
+##
+InstallMethod ( QuiverAlgebraOfAmodAeA, 
+    "for a sum of vertices in a QuotientOfPathAlgebra",
+    true,
+    [ IsQuiverAlgebra, IsList ],
+    function( A, elist )
+
+    local   vertices,  vertexlabels,  arrows,  ecomplist,  
+            newvertices,  newarrows,  Q,  K,  KQ,  newvertexlabels,  
+            newarrowlabels,  relations,  newrelations,  
+            convertedrelations,  r,  newrel,  i,  temp;
+    
+    vertices := VerticesOfQuiver( QuiverOfPathAlgebra( A ) );
+    vertexlabels := List( vertices, v -> String( v ) );
+    arrows := ArrowsOfQuiver( QuiverOfPathAlgebra( A ) );    
+    ecomplist := Filtered( [ 1..Length( vertices ) ], x -> not x in elist ); 
+    #
+    # Finding the labels of the new vertices and arrows. The new vertices and arrows
+    # are the same as in the original quiver, therefore they are getting the same 
+    # names/labels. 
+    #
+    newvertices := List( ecomplist, e -> String( vertices[ e ] ) );
+    newarrows := Filtered( arrows, a -> Position( vertices, SourceOfPath( a ) ) in ecomplist and  
+                         Position( vertices, TargetOfPath( a ) ) in ecomplist );
+    newarrows := List( newarrows, a -> [ String( SourceOfPath( a ) ), String( TargetOfPath( a ) ), String( a ) ] );
+    # 
+    # Constructing the new quiver and path algebra.
+    #
+    Q := Quiver( newvertices, newarrows );
+    K := LeftActingDomain( A ); 
+    KQ := PathAlgebra( K, Q );
+    #
+    # Finding the relations in  A/AeA.
+    # 
+    newvertices := VerticesOfQuiver( Q );
+    newarrows := ArrowsOfQuiver( Q );
+    newvertexlabels := List( newvertices, v -> String( v ) );
+    newarrowlabels := List( newarrows, a -> String( a ) );
+    relations := RelatorsOfFpAlgebra( A );
+    newrelations := List(relations, r -> PathRemoval( r, elist ) );
+    newrelations := Filtered( newrelations, x -> x <> Zero( x ) );
+    newrelations := List( newrelations, x -> CoefficientsAndMagmaElements( x ) );
+    convertedrelations := [];
+    for r in newrelations do
+        newrel := Zero( KQ );
+        for i in [ 0..Length( r )/2 - 1 ] do
+            temp := WalkOfPath( r[ 2 * i + 1 ] ); 
+            temp := List( temp, t -> newarrows[ Position( newarrowlabels, String( t ) ) ] );
+            newrel := newrel + r[ 2 ] * One( KQ ) * Product( temp );
+        od;
+        Add( convertedrelations, newrel );
+    od;
+    
+    return KQ/convertedrelations; 
+end
+  );

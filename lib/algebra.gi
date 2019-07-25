@@ -909,3 +909,4 @@ InstallMethod ( BlocksOfAlgebra,
   return Alist;
 end
   );
+
