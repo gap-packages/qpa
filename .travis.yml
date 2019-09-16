@@ -1,36 +1,27 @@
 language: c
-env:
-  global:
-    - GAPROOT=gaproot
-    - COVDIR=coverage
 
 addons:
   apt_packages:
     - libgmp-dev
     - libreadline-dev
-    - libgmp-dev:i386
-    - libreadline-dev:i386
-    - gcc-multilib
-    - g++-multilib
+    - zlib1g-dev
 
 matrix:
   include:
-    - env: CFLAGS="-O2" CC=clang CXX=clang++
-      compiler: clang
-    - env: CFLAGS="-O2"
-      compiler: gcc
-    - env: ABI=32
+    - env: GAPBRANCH=master
+    - env: GAPBRANCH=stable-4.11
+    - env: GAPBRANCH=stable-4.10
+    - env: GAPBRANCH=stable-4.9
 
 branches:
   only:
     - master
 
 before_script:
-  - export GAPROOT="$HOME/gap"
   - git clone https://github.com/gap-system/pkg-ci-scripts.git scripts
   - scripts/build_gap.sh
 script:
   - scripts/build_pkg.sh && scripts/run_tests.sh
 after_script:
-  - bash scripts/gather-coverage.sh
+  - scripts/gather-coverage.sh
   - bash <(curl -s https://codecov.io/bash)
