@@ -1387,13 +1387,14 @@ InstallMethod( HaveFiniteCoresolutionInAddM,
     # Computing successive minimal left add<M>-approximation to produce
     # a coresolution of  <N>  in  add<M>.
     #
+    cat := CatOfRightAlgebraModules(RightActingAlgebra(M));
     U := N;
     differentials := [];
     g := IdentityMapping(U);
     f := MinimalLeftAddMApproximation(U,M);
     if n = 0 then 
       if IsIsomorphism( f ) then 
-        return true;
+        return FiniteComplex(cat, 0, [ f ] );
       else
         return false;
       fi;
@@ -1410,7 +1411,6 @@ InstallMethod( HaveFiniteCoresolutionInAddM,
         f := MinimalLeftAddMApproximation(Range(g),M); 
     od;
     differentials := Reversed(differentials);
-    cat := CatOfRightAlgebraModules(RightActingAlgebra(M));
     coresolution := FiniteComplex(cat, -Length(differentials) + 1, differentials);
     return coresolution;
 end
