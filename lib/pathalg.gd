@@ -95,3 +95,5 @@ DeclareProperty( "IsMonomialAlgebra", IsQuiverAlgebra );
 DeclareOperation( "SaveAlgebra", [ IsQuiverAlgebra, IsString, IsString ]);
 DeclareOperation( "ReadAlgebra", [ IsString ]);
 DeclareProperty( "IsTriangularReduced", IsQuiverAlgebra );
+DeclareOperation( "PathRemoval", [ IsElementOfMagmaRingModuloRelations, IsList ] );
+DeclareOperation( "QuiverAlgebraOfAmodAeA", [ IsQuiverAlgebra, IsList ] );
