@@ -297,7 +297,9 @@ InstallMethod( ProjectiveResolutionOfComplex,
 
     tempCompl := FiniteComplex(cat, i+1, dList);
     tempCompl := SyzygyTruncation(tempCompl, j+1+i);
-    projres := ProjectiveResolution(ObjectOfComplex(tempCompl, j+2+i));
+#    projres := ProjectiveResolution(ObjectOfComplex(tempCompl, j+2+i));
+    projres := ProjectiveResolution(ObjectOfComplex(tempCompl, j+1+i));
+    projres := ShiftUnsigned( projres, -(j+2+i) );
     PCompl := YonedaProduct(projres, tempCompl);
 
     # take care of isos in the "overlap differential" (note: checks for only 
