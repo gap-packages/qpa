@@ -1065,14 +1065,28 @@ InstallMethod( IsNormalForm,
 );
 
 
+#InstallMethod( \=,
+#   "for normal forms of elements of quotients of path algebras",
+#  IsIdenticalObj,
+#  [IsElementOfQuotientOfPathAlgebra and IsPackedElementDefaultRep and IsNormalForm,
+#   IsElementOfQuotientOfPathAlgebra and IsPackedElementDefaultRep and IsNormalForm],
+#  0,
+#  function(e, f)
+#    return ExtRepOfObj(e![1]) = ExtRepOfObj(f![1]);
+#  end
+#);
+  
 InstallMethod( \=,
    "for normal forms of elements of quotients of path algebras",
   IsIdenticalObj,
-  [IsElementOfQuotientOfPathAlgebra and IsPackedElementDefaultRep and IsNormalForm,
-   IsElementOfQuotientOfPathAlgebra and IsPackedElementDefaultRep and IsNormalForm],
+  [IsElementOfQuotientOfPathAlgebra and IsPackedElementDefaultRep,
+   IsElementOfQuotientOfPathAlgebra and IsPackedElementDefaultRep],
   0,
   function(e, f)
-    return ExtRepOfObj(e![1]) = ExtRepOfObj(f![1]);
+  local x, y;
+     x := ElementOfQuotientOfPathAlgebra( FamilyObj( e ), e![ 1 ], IsNormalForm( e ) );
+     y := ElementOfQuotientOfPathAlgebra( FamilyObj( f ), f![ 1 ], IsNormalForm( f ) );
+     return ExtRepOfObj( x![ 1 ] ) = ExtRepOfObj( y![ 1 ] );
   end
 );
 
