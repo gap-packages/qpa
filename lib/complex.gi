@@ -798,6 +798,10 @@ InstallMethod( YonedaProduct,
 function( C1, C2 )
     local cat, lowbound1, upbound2, diff1, diff2, connection, diffs;
 
+    if IsZeroComplex( C1 ) then
+      return C2;
+    fi;
+
     cat := CatOfComplex( C1 );
 
     lowbound1 := LowerBound( C1 );
