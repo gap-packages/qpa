@@ -279,7 +279,7 @@ function( cat, basePosition, middle, positive, negative )
                                       [ cat.zeroMap( cat.zeroObj, lastMiddleObj ) ] );
         fi;
         # cut away superfluous zero objects:
-        while cat.isZeroObj( Range( middleL[ Length( middleL ) ] ) ) do
+        while Length( middleL ) > 0 and cat.isZeroObj( Range( middleL[ Length( middleL ) ] ) ) do
             middleL := middleL{ [ 1 .. Length( middleL ) - 1 ] };
         od;
     fi;
@@ -292,7 +292,7 @@ function( cat, basePosition, middle, positive, negative )
             basePositionL := basePositionL - 1;
         fi;
         # cut away superfluous zero objects:
-        while cat.isZeroObj( Source( middleL[ 1 ] ) ) do
+        while Length( middleL ) > 0 and cat.isZeroObj( Source( middleL[ 1 ] ) ) do
             middleL := middleL{ [ 2 .. Length( middleL ) ] };
             basePositionL := basePositionL + 1;
         od;
