@@ -190,7 +190,8 @@ function( cat, basePosition, middle, positive, negative )
     local checkDifferentials, checkDifferentialList, checkDifferentialListWithRepeat,
           positiveRepeat, negativeRepeat,
           fam, C, basePositionL, middleL, positiveL, negativeL,
-          firstMiddleObj, lastMiddleObj, checkNewDifferential;
+          firstMiddleObj, lastMiddleObj, checkNewDifferential,
+          firstMap, next, secondMap;
 
     # check that all consecutive differentials compose to zero
     checkDifferentials := function( topDegree, indices, lists, listNames )
@@ -296,6 +297,23 @@ function( cat, basePosition, middle, positive, negative )
             middleL := middleL{ [ 2 .. Length( middleL ) ] };
             basePositionL := basePositionL + 1;
         od;
+    fi;
+
+    if positive = "zero" and Length( middleL ) = 0 and negative[ 1 ] = "next/repeat" then
+      firstMap := negative[ 3 ];
+      next := negative[ 2 ];
+      secondMap := next( firstMap );
+      if cat.isZeroMapping( firstMap ) and cat.isZeroMapping( secondMap ) then
+        return ZeroComplex( cat );
+      fi;
+    fi;
+    if negative = "zero" and Length( middleL ) = 0 and positive[ 1 ] = "next/repeat" then
+      firstMap := positive[ 3 ];
+      next := positive[ 2 ];
+      secondMap := next( firstMap );
+      if cat.isZeroMapping( firstMap ) and cat.isZeroMapping( secondMap ) then
+        return ZeroComplex( cat );
+      fi;
     fi;
 
     if positive = "zero" then
