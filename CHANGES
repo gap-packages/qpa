@@ -1,4 +1,46 @@
 ==========================================================================
+Changes from version 1.29 to 1.30:
+==========================================================================
+
+Added functions in this release:
+----------------------------------------------------------------------
+
+AllIndecModulesOfLengthAtMost
+AllModulesOfLengthAtMost
+AllSimpleSubmodulesOfModule
+AllSubmodulesOfModule
+BlocksOfAlgebra
+BongartzTest
+LeftApproximationByAddM
+QuiverAlgebraOfAmodAeA
+RestrictionViaAlgebraHomomorphismMap
+RightApproximationByAddM
+
+Discontinued/removed functions:
+------------------------------------------------------------
+NthSyzygyNC
+
+Changed code for:
+----------------------------------------------------------------------
+Complex
+NthSyzygy (removed output)
+YonedaProduct
+
+Fixed bugs in:
+----------------------------------------------------------------------
+AlgebrasAsQuiverAlgebra
+AllSubmodulesOfModule
+Complex
+HaveFiniteCoresolutionInAddM
+HaveFiniteResolusionInAddM
+ElementOfQuotientPathAlgebra
+LiftTwoOrthogonalIdempotents
+TauOfComplex
+
+Miscellaneous
+----------------------------------------------------------------------
+
+==========================================================================
 Changes from version 1.28 to 1.29:
 ==========================================================================
 
