@@ -27,6 +27,7 @@ DeclareOperation( "RadicalOfModule", [ IsPathAlgebraMatModule ]);
 DeclareOperation( "RadicalOfModuleInclusion", [ IsPathAlgebraMatModule ]);
 DeclareAttribute( "TopOfModuleProjection", IsPathAlgebraMatModule);
 DeclareAttribute( "TopOfModule", IsPathAlgebraMatModule);
+DeclareAttribute( "TopOfModule", IsPathAlgebraMatModuleHomomorphism );
 DeclareAttribute( "DualOfModuleHomomorphism", IsPathAlgebraMatModuleHomomorphism);
 DeclareOperation( "SocleOfModuleInclusion", [ IsPathAlgebraMatModule ]);
 DeclareOperation( "SocleOfModule", [ IsPathAlgebraMatModule ]);

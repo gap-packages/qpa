@@ -13,3 +13,4 @@ DeclareOperation( "LiftTwoOrthogonalIdempotents", [ IsAlgebraGeneralMapping, IsR
 DeclareOperation( "BlockSplittingIdempotents", [IsPathAlgebraMatModule ] ); 
 DeclareOperation( "BlockDecompositionOfModule", [IsPathAlgebraMatModule ] ); 
 DeclareOperation( "BasicVersionOfModule", [ IsPathAlgebraMatModule ] ); 
+DeclareOperation( "DecomposeModuleViaTop", [ IsPathAlgebraMatModule ] );

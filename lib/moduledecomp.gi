@@ -549,3 +549,34 @@ InstallMethod( DecomposeModuleProbabilistic,
     return M; 
 end
   );
+
+InstallMethod ( DecomposeModuleViaTop, 
+"for a PathAlgebraMatModule",
+[ IsPathAlgebraMatModule ],
+function( M )
+    
+  local K, HomMM, HomTopMM, EndTopMM, endTopMM, idempotents, EndM, V, 
+        W, EndTopM, g;
+    
+  K := LeftActingDomain( M );
+  if not IsFinite( K ) then
+    Error( "The entered module is not a module over a finite field.\n" );
+  fi;
+  HomMM := HomOverAlgebra( M, M );
+  HomTopMM := List( HomMM, TopOfModule );
+  EndTopMM := List( HomTopMM, FromHomMMToEndM );
+  endTopMM := Algebra( K, EndTopMM );
+  idempotents := IdempotentsForDecomposition( endTopMM );
+  EndM := List( HomMM, FromHomMMToEndM );
+  V := Algebra( K, EndM, "basis" );
+  SetOne( V, MultiplicativeNeutralElement( V ) );
+  W := Algebra( K, EndTopMM );
+  SetOne( W, MultiplicativeNeutralElement( W ) );
+  EndTopM := List( HomMM, h -> FromHomMMToEndM( TopOfModule( h ) ) );
+  g := AlgebraHomomorphismByImages( V, W, EndM, EndTopM );
+  idempotents := LiftingCompleteSetOfOrthogonalIdempotents( g, idempotents );
+  idempotents := List( idempotents, e -> FromEndMToHomMM( M, e ) );
+  
+  return List( idempotents, e -> Image( e ) );
+end
+  );

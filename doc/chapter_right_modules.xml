@@ -426,6 +426,27 @@ gap> N := RightModuleOverPathAlgebra(A,mat);
    </Description>
 </ManSection>
 
+<ManSection>
+   <Oper Name="DecomposeModuleViaTop" Arg="M" Comm="for a PathAlgebraMatModule"/>
+   <Description> 
+   Arguments: <Arg>M</Arg> -- a path algebra module.
+   <Br /></Description>
+   <Returns>a list of indecomposable
+   modules whose direct sum is isomorphic to the module <Arg>M</Arg>.  
+   </Returns>
+   <Description>Given a module  <Arg>M</Arg>  over a finite
+   dimensional quotient of a path algebra over a finite field, this
+   function decomposes the entered module  <Arg>M</Arg>  by
+   finding the image <M>\Sigma</M> of the endomorphism ring of
+   <Arg>M</Arg> in the endomorphism ring of the top of <Arg>M</Arg>,
+   in <M>\Sigma</M> finds a complete set of primitive idempotents,
+   lifts them back to the endomorphism ring of <Arg>M</Arg> and
+   decomposes <Arg>M</Arg>. 
+
+   This is an experimental function, so use with caution.
+   </Description>
+</ManSection>
+
 
 <ManSection>
    <Oper Name="DecomposeModuleWithMultiplicities" Arg="M" Comm="for a
@@ -884,12 +905,15 @@ gap> inc := DirectSumInclusions(N2);
 <ManSection>
    <Oper Name="TopOfModule" Arg="M" Comm=""/>
    <Description> 
-    Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>).
+    Arguments: <Arg>M</Arg> or <Arg>f</Arg> -- a path algebra module
+    or a homomorphism thereof.
    <Br /></Description>
-   <Returns>the top of the module <Arg>M</Arg>.</Returns>
+   <Returns>the top of the module <Arg>M</Arg> or the homomorphism
+   induced on the top of the modules associated to the homomorphism <Arg>f</Arg>.</Returns>
    <Description>
     This returns only the representation given by the top of the
-    module <Arg>M</Arg>. The operation
+    module <Arg>M</Arg> or the homomorphism induced on the top of the
+    modules associated to the entered homomorphism.  The operation
     <Ref Oper="TopOfModuleProjection"/> computes the projection of the
     module <Arg>M</Arg> onto the top of the module <Arg>M</Arg>. 
    </Description>

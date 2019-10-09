@@ -1312,6 +1312,56 @@ InstallMethod( TopOfModule,
 end
 );
 
+InstallOtherMethod ( TopOfModule, 
+"for a PathAlgebraMatModuleMap",
+[ IsPathAlgebraMatModuleHomomorphism ],
+function( f )
+    
+  local M, N, K, pi_M, pi_N, BTopM, dim_vector_TopM, dim_vector_TopN, 
+        n, h, i, dim, matrix, j, b, btilde, bprime;
+  
+  M := Source( f );
+  N := Range( f );
+  K := LeftActingDomain( M );
+  pi_M := TopOfModuleProjection( M );
+  pi_N := TopOfModuleProjection( N );
+  BTopM := BasisVectors( Basis( Range( pi_M ) ) );
+  dim_vector_TopM := DimensionVector( Range( pi_M ) );
+  dim_vector_TopN := DimensionVector( Range( pi_N ) );    
+  n := Length( dim_vector_TopM ); 
+  h := [ ];
+  for i in [ 1..n ] do
+    if dim_vector_TopM[ i ] > 0 then
+      if dim_vector_TopN[ i ] = 0 then
+        Add( h, NullMat( dim_vector_TopM[ i ], 1, K ) );
+      else
+#
+# Assuming that the basisvectors of topM are listed as 
+# first basisvectors for vertex 1, vertex 2, .....
+#
+        dim := Sum( dim_vector_TopM{ [ 1..i - 1 ] } );
+        matrix := [ ];
+        for j in [ 1..dim_vector_TopM[ i ] ] do
+          b := BTopM[ dim + j ];
+          btilde := PreImagesRepresentative( pi_M, b );
+          bprime := ImageElm( pi_N, ImageElm( f, btilde ) );
+          Add( matrix, ExtRepOfObj( ExtRepOfObj( bprime ) )[ i ] ); 
+        od;
+        Add( h, matrix );
+      fi;
+    else
+      if dim_vector_TopN[ i ] = 0 then
+        Add( h, NullMat( 1, 1, K ) );
+      else
+        Add( h, NullMat( 1, dim_vector_TopN[ i ], K ) );
+      fi;
+    fi;        
+  od;
+  
+  return RightModuleHomOverAlgebra( Range( pi_M ), Range( pi_N ), h );
+end
+  );
+
 #######################################################################
 ##
 #M  \+( <f>, <g> )
