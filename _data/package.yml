@@ -1,5 +1,6 @@
 name: GitHubPagesForGAP
-version: 0.2
+version: "0.2"
+license: "0BSD"
 date: 2017-02-04
 description: |
     A GitHub Pages generator for GAP packages

@@ -10,6 +10,7 @@ PackageName := "GitHubPagesForGAP",
 Subtitle := "A GitHub Pages generator for GAP packages",
 Version := "0.2",
 Date := "04/02/2017", # dd/mm/yyyy format
+License := "0BSD",
 
 Persons := [
   rec(
