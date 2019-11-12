@@ -398,25 +398,23 @@ InstallMethod( BlockSplittingIdempotents,
     [ IsPathAlgebraMatModule ], 0,
     function( M )
 
-    local EndM, J, gens, I, map, top, orthogonalidempotents, i, etemp, temp;
+    local   EndM,  map,  top,  orthogonalidempotents,  i,  etemp,  
+            temp;
     
     if Dimension(M) = 0 then
         return [];
     fi;
     EndM := EndOverAlgebra(M);
-    J := RadicalOfAlgebra(EndM);
-    gens := GeneratorsOfAlgebra(J);
-    I := Ideal(EndM,gens); 
-    map := NaturalHomomorphismByIdeal(EndM,I); 
-    top := CentralIdempotentsOfAlgebra(Range(map));
-    orthogonalidempotents := [];
-    Add(orthogonalidempotents, LiftIdempotent(map, top[1]));
-    for i in [1..Length(top) - 1] do
-        etemp := Sum(orthogonalidempotents{[1..i]});
-        temp := LiftTwoOrthogonalIdempotents(map, etemp, top[i + 1]);
-        Add(orthogonalidempotents, temp[2]);
+    map := NaturalHomomorphismByIdeal( EndM, RadicalOfAlgebra( EndM ) ); 
+    top := CentralIdempotentsOfAlgebra( Range( map ) );
+    orthogonalidempotents := [ ];
+    Add( orthogonalidempotents, LiftIdempotent( map, top[ 1 ] ) );
+    for i in [ 1..Length( top ) - 1 ] do
+        etemp := Sum(orthogonalidempotents{ [ 1..i ] } );
+        temp := LiftTwoOrthogonalIdempotents( map, etemp, top[ i + 1 ] );
+        Add( orthogonalidempotents, temp[ 2 ] );
     od;
-    orthogonalidempotents := List(orthogonalidempotents, x -> FromEndMToHomMM(M,x));
+    orthogonalidempotents := List( orthogonalidempotents, x -> FromEndMToHomMM( M, x ) );
     
     return orthogonalidempotents;
 end
