@@ -404,6 +404,15 @@ end;
 InstallMethod(RightModuleOverPathAlgebra,
     "for a (quotient of a) path algebra and list of matrices",
     true,
+    [IsQuiverAlgebra, IsEmpty], 0,
+    function( R, gens )
+      return ZeroModule(R);
+end
+);
+
+InstallMethod(RightModuleOverPathAlgebra,
+    "for a (quotient of a) path algebra and list of matrices",
+    true,
     [IsQuiverAlgebra, IsCollection], 0,
     function( R, gens )
     local tempgens, a, dim, source, target, basis, i, x, Fam, 
