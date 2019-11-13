@@ -543,11 +543,7 @@ InstallMethod( SubRepresentationInclusion,
             Add(big_mat,[arrow,mat]);
         od;
         
-        if IsPathAlgebra(A) then 
-            submodule := RightModuleOverPathAlgebra(A,big_mat);
-        else
-            submodule := RightModuleOverPathAlgebra(A,big_mat); 
-        fi;      
+        submodule := RightModuleOverPathAlgebraWithDimensionVector(A,big_mat,dim_vect_sub);
 
 #
 # Finding inclusion map of submodule into M
@@ -908,11 +904,9 @@ InstallMethod ( ImageProjectionInclusion,
             fi;
             Add(image_mat,[a,mat]);
         od;
-        if IsPathAlgebra(A) then 
-            image_f := RightModuleOverPathAlgebra(A,image_mat);
-        else
-            image_f := RightModuleOverPathAlgebra(A,image_mat);
-        fi;
+
+        dim_image := List(basis_image, Length);
+        image_f := RightModuleOverPathAlgebraWithDimensionVector(A,image_mat,dim_image);
 #
 # Finding inclusion map from the image to Range(f)
 #     

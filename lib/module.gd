@@ -9,6 +9,7 @@ DeclareGlobalFunction("PathModuleElem");
 DeclareCategory("IsBasisOfPathModuleElemVectorSpace", IsBasis);
 DeclareProperty("IsPathAlgebraMatModule", IsAlgebraModule);
 DeclareOperation("RightModuleOverPathAlgebra", [IsQuiverAlgebra, IsCollection]);
+DeclareOperation("RightModuleOverPathAlgebraWithDimensionVector", [IsQuiverAlgebra, IsCollection, IsList]);
 DeclareOperation("RightModuleOverPathAlgebraNC", [IsQuiverAlgebra, IsCollection]);
 DeclareOperation("SubmoduleAsModule", [IsAlgebraModule]);
 DeclareOperation("BasisOfDomain", [IsFreeLeftModule and IsPathModuleElemCollection]);

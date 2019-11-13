@@ -406,6 +406,17 @@ InstallMethod(RightModuleOverPathAlgebra,
     true,
     [IsQuiverAlgebra, IsCollection], 0,
     function( R, gens )
+      local dim_vector;
+      dim_vector := ListWithIdenticalEntries(NumberOfVertices(QuiverOfPathAlgebra(R)), 0);
+      return RightModuleOverPathAlgebraWithDimensionVector(R, gens, dim_vector);
+end
+);
+
+InstallMethod(RightModuleOverPathAlgebraWithDimensionVector,
+    "for a (quotient of a) path algebra and list of matrices",
+    true,
+    [IsQuiverAlgebra, IsCollection, IsList], 0,
+    function( R, gens, dim_vector_ )
     local tempgens, a, dim, source, target, basis, i, x, Fam, 
           vertices, matrices, quiver, M, vlist, alist, K, dim_M, 
           dim_vector, relationtest, I, terms, result, walk, matrix;
@@ -519,7 +530,7 @@ InstallMethod(RightModuleOverPathAlgebra,
   #
   for i in [ 1..Length( vertices ) ] do
       if vertices[ i ] = -1 then
-          vertices[ i ] := 0;
+          vertices[ i ] := dim_vector_[ i ];
       fi;
   od;
 #
