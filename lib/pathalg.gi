@@ -3114,7 +3114,7 @@ InstallMethod ( QuiverAlgebraOfAmodAeA,
     newarrows := ArrowsOfQuiver( Q );
     newvertexlabels := List( newvertices, v -> String( v ) );
     newarrowlabels := List( newarrows, a -> String( a ) );
-    relations := RelatorsOfFpAlgebra( A );
+    relations := RelationsOfAlgebra( A );
     newrelations := List(relations, r -> PathRemoval( r, elist ) );
     newrelations := Filtered( newrelations, x -> x <> Zero( x ) );
     newrelations := List( newrelations, x -> CoefficientsAndMagmaElements( x ) );
