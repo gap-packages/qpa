@@ -52,7 +52,7 @@ error() {
 [[ -d gh-pages ]] && error "You already have a gh-pages directory"
 
 # TODO: make it configurable which remote is used (default: origin)
-remote=origin
+remote=${remote:-origin}
 
 # TODO: make it configurable how/which gap is used
 GAP=${GAP:-gap}
@@ -104,8 +104,7 @@ then
     cd gh-pages
 else
     # Create a fresh clone of your repository, and change into it
-# FIXME: "git remote get-url" only was added in git 2.7
-    url=$(git remote get-url origin)
+    url=$(git config --get remote.${remote}.url)
     git clone ${url} gh-pages
     cd gh-pages
 
