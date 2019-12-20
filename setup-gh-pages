@@ -73,59 +73,64 @@ notice "Detected git ${git_major}.${git_minor}, using git worktree: ${UseWorktre
 
 # TODO: add /gh-pages/ to .gitignore if it is not already in there
 
-if [[ ${UseWorktree} = Yes ]]
+if [[ ${UseWorktree} = No ]]
 then
-    # Add a new remote pointing to the GitHubPagesForGAP repository
-    git remote add -f gh-gap https://github.com/gap-system/GitHubPagesForGAP || :
-
-    # if there is already a gh-pages branch, do nothing; otherwise, if
-    # there is a ${remote}/gh-pages branch, create `gh-pages` tracking
-    # the remote; otherwise, create a fresh `gh-pages` branch
-    if ! git rev-parse -q --verify gh-pages
-    then
-        # fetch remote changes, so that we can see if there
-        # is a remote gh-pages branch
-        git fetch ${remote}
-
-        if git rev-parse -q --verify ${remote}/gh-pages
-        then
-            # track the existing remote gh-pages branch
-            git branch --track gh-pages ${remote}/gh-pages
-        else
-            # create a fresh gh-pages branch from the new remote
-            git branch --no-track gh-pages gh-gap/gh-pages
-            # ... then push it and set up tracking
-            git push --set-upstream ${remote} gh-pages
-        fi
-    fi
-
-    # create a new worktree and change into it
-    git worktree add gh-pages gh-pages
-    cd gh-pages
-else
     # Create a fresh clone of your repository, and change into it
     url=$(git config --get remote.${remote}.url)
     git clone ${url} gh-pages
     cd gh-pages
-
-    # Add a new remote pointing to the GitHubPagesForGAP repository
-    git remote add gh-gap https://github.com/gap-system/GitHubPagesForGAP
-    git fetch gh-gap
-
-    # Create a fresh gh-pages branch from the new remote
-    git checkout -b gh-pages gh-gap/gh-pages --no-track
 fi
 
-cp -f ../PackageInfo.g ../README* .
+# Add a new remote pointing to the GitHubPagesForGAP repository
+git remote add -f gh-gap https://github.com/gap-system/GitHubPagesForGAP 2>/dev/null || :
 
-[[ -d doc ]] && git rm -rf doc
-mkdir -p doc/
-cp -f ../doc/*.{css,html,js,txt} doc/ || :
 
-[[ -d ../htm ]] && cp -r ../htm .
+# if there is already a gh-pages branch, do nothing; otherwise, if
+# there is a ${remote}/gh-pages branch, create `gh-pages` tracking
+# the remote; otherwise, create a fresh `gh-pages` branch
+IsNewBranch=No
+if ! git rev-parse -q --verify gh-pages
+then
+    # fetch remote changes, so that we can see if there
+    # is a remote gh-pages branch
+    git fetch ${remote}
 
-${GAP} update.g
+    if git rev-parse -q --verify ${remote}/gh-pages
+    then
+        # track the existing remote gh-pages branch
+        git branch --track gh-pages ${remote}/gh-pages
+    else
+        # create a fresh gh-pages branch from the new remote
+        git branch --no-track gh-pages gh-gap/gh-pages
 
-git add .
-git commit -m "Setup gh-pages based on GitHubPagesForGAP"
-git push --set-upstream ${remote} gh-pages
+        # ... then push it and set up tracking
+        git push --set-upstream ${remote} gh-pages
+
+        # remember that this is a new branch
+        IsNewBranch=Yes
+    fi
+fi
+
+if [[ ${UseWorktree} = Yes ]]
+then
+    # create a new worktree and change into it
+    git worktree add gh-pages gh-pages
+    cd gh-pages
+fi
+
+if [[ ${IsNewBranch} = Yes ]]
+then
+    cp -f ../PackageInfo.g ../README* .
+
+    [[ -d doc ]] && git rm -rf doc
+    mkdir -p doc/
+    cp -f ../doc/*.{css,html,js,txt} doc/ || :
+
+    [[ -d ../htm ]] && cp -r ../htm .
+
+    ${GAP} update.g
+
+    git add .
+    git commit -m "Setup gh-pages based on GitHubPagesForGAP"
+    git push --set-upstream ${remote} gh-pages
+fi
