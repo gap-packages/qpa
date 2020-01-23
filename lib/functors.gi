@@ -548,7 +548,7 @@ InstallMethod( StarOfModuleHomomorphism,
     for b in BVM do
         if Length(b) <> 0 then 
             Add(BasisVMflat, 
-                Basis(Subspace(FullRowSpace(K, Length(b[1])), b, "basis"))); 
+                Basis(Subspace(FullRowSpace(K, Length(b[1])), b, "basis"), b)); 
         else 
             Add(BasisVMflat, []);
         fi;
@@ -559,7 +559,7 @@ InstallMethod( StarOfModuleHomomorphism,
     # 
     maps := [];
     for i in [1..Length(BfVN)] do
-        if Length(BfVN[i]) <> 0 then 
+        if Length(BfVN[i]) <> 0 and Length( BasisVMflat[ i ] ) <> 0 then 
             map := List(BfVN[i], t -> Coefficients(BasisVMflat[i], t));
         else
             if dimvectorstarN[i] = 0 then 
