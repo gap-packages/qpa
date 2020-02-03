@@ -1955,20 +1955,20 @@ true]]>
 <ManSection>
     <Oper Name="QuiverAlgebraOfeAe" Arg="A, elist"/>
     <Description>
-      Arguments: <Arg>A</Arg>, <Arg>elist</Arg> - a finite dimensional
-      quiver algebra and a list of integers.<Br />
+      Arguments: <Arg>A</Arg>, <Arg>e</Arg> - a finite dimensional
+      quiver algebra and an idempotent.<Br />
     </Description>
-    <Returns>a quiver algebra isomorphic <M>eAe</M>, where <M>e</M> is
-    the sum of the vertices corresponding to the integers listed in <Arg>elist</Arg>.
+    <Returns>a quiver algebra isomorphic <M>eAe</M>, where
+    <Arg>A</Arg> is the entered algebra and <Arg>e</Arg> is the
+    entered idempotent.
     </Returns> 
     <Description>
-      Given a quiver algebra <A>A</A> and a sum of vertices  <M>e</M>,
-      this function computes the quiver algebra <M>eAe</M>. The list
-      <A>elist</A>  is a list of integers, where each integer occurring in
-      the list corresponds to the position of the vertex in the
-      vertices defining the idempotent <M>e</M>. 
+      Given a quiver algebra <A>A</A> and an idempotent <A>e</A>,
+      this function computes the quiver algebra isomorphic to
+      <M>eAe</M>. The function checks if the entered element <A>e</A>
+      is an idempotent in <A>A</A>. 
     </Description>
-  </ManSection>
+  </ManSection>  
 
 </Section>
 
