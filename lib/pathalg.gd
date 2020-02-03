@@ -97,3 +97,4 @@ DeclareOperation( "ReadAlgebra", [ IsString ]);
 DeclareProperty( "IsTriangularReduced", IsQuiverAlgebra );
 DeclareOperation( "PathRemoval", [ IsElementOfMagmaRingModuloRelations, IsList ] );
 DeclareOperation( "QuiverAlgebraOfAmodAeA", [ IsQuiverAlgebra, IsList ] );
+DeclareOperation( "QuiverAlgebraOfeAe", [ IsQuiverAlgebra, IsObject ] );

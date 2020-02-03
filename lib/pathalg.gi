@@ -3132,3 +3132,178 @@ InstallMethod ( QuiverAlgebraOfAmodAeA,
     return KQ/convertedrelations; 
 end
   );
+
+InstallMethod ( QuiverAlgebraOfeAe, 
+    "for an idempotent in an AdmissibleQuotientOfPathAlgebra",
+    true,
+    [ IsQuiverAlgebra, IsObject ],
+    0,
+    function( A, e )
+        
+    local  eAe, arrows, radA, erade, g, centralidem, evertices, 
+           eradesquare, h, erademodsquare, earrows, adjacencymatrix, 
+           i, j, t, Q, KQ, Jtplus1, n, images, AA, AAgens, AAvertices, 
+           AAarrows, f, gb, gbb, B, matrix, b, temp, tempx, walk, 
+           length, image, solutions, Solutions, radSoluplusSolurad, V, 
+           W, idealgens;
+    
+    if not IsAdmissibleQuotientOfPathAlgebra( A ) then
+        TryNextMethod( );
+    fi;
+    #
+    # e idempotent in A?
+    #
+    if not ( e in A ) then 
+        Error("the entered element is not an element in the entered algebra, \n");
+    fi;
+    if not IsIdempotent( e ) then
+        Error("the entered element is not an idempotent, \n");
+    fi;
+    #
+    # Defining the algebra  eAe  given by the entered idempotent  e.
+    #
+    eAe := FLMLORByGenerators( LeftActingDomain( A ), Filtered( e * BasisVectors( Basis( A ) ) * e, b -> b <> Zero( A ) ) );
+    SetParent( eAe, A ); 
+    SetOne( eAe, e );
+    SetMultiplicativeNeutralElement( eAe, e );
+    #
+    # <arrows> contains the arrows as elements in  <A>.
+    # The algebra  <A>  is an admissible quotient of a path algebra. 
+    # Finding the radical of  <eAe>  and storing it in  <erade>. 
+    #
+    arrows := ArrowsOfQuiver( QuiverOfPathAlgebra( A ) );
+    arrows := List( arrows, x -> x * One( A ) );
+    radA := Ideal( A, arrows );
+    erade := Filtered( e * BasisVectors( Basis( radA ) ) * e, x -> x <> Zero( x ) );
+    erade := Ideal( eAe, erade );
+    #
+    # Finding the "vertices" in  <eAe> and storing them in  evertices.
+    #
+    g := NaturalHomomorphismByIdeal( eAe, erade );
+    centralidem := CentralIdempotentsOfAlgebra( Range( g ) );
+    evertices := LiftingCompleteSetOfOrthogonalIdempotents( g, centralidem );
+    #
+    # Finding the radical square in  <eAe> and storing it in  <eradesquare>. 
+    #
+    eradesquare := ProductSpace( erade, erade );
+    if Dimension( eradesquare ) = 0 then
+        eradesquare := Ideal( eAe, [ ] );
+    else
+        eradesquare := Ideal( eAe, BasisVectors( Basis( eradesquare ) ) );
+    fi;
+    #
+    # Finding the natural homomorphism  <eAe> ---> <eAe>/rad^2 <eAe> and 
+    # finding the image of  <erade>  in  <eAe>/rad^2 <eAe>  and storing it in  <erademodsquare>. 
+    #
+    h := NaturalHomomorphismByIdeal( eAe, eradesquare );
+    erademodsquare := Ideal( Range( h ), List( BasisVectors( Basis( erade ) ), b -> ImageElm( h, b ) ) );
+    #
+    # Finding a basis for the arrows for the algebra  <eAe>  inside  <eAe>. 
+    # At the same time finding the adjacency matrix for the quiver of  <eAe>. 
+    #
+    earrows := List( [ 1..Length( evertices ) ], x -> List( [ 1..Length( evertices ) ], y -> [ ] ) );
+    adjacencymatrix := NullMat( Length( evertices ), Length( evertices ) );
+    for i in [ 1..Length( evertices ) ] do
+        for j in [ 1..Length( evertices ) ] do
+            earrows[ i ][ j ] := Filtered(ImageElm( h,evertices[ i ] ) * BasisVectors( Basis( erademodsquare) ) * ImageElm( h, evertices[ j ] ), y -> y <> Zero( y ) );
+            earrows[ i ][ j ] := BasisVectors( Basis( Subspace( Range( h ), earrows[ i ][ j ] ) ) );
+            earrows[ i ][ j ] := List( earrows[ i ][ j ], x -> evertices[ i ] * PreImagesRepresentative( h, x ) * evertices[ j ] );
+            adjacencymatrix[ i ][ j ] := Length( earrows[ i ][ j ] );
+        od; 
+    od;
+    #
+    # Defining the quiver of the algebra  <eAe>  and storing it in  <Q>. 
+    #
+    t := Length( RadicalSeriesOfAlgebra( eAe ) ) - 1; # then (eAe)^t = (0) 
+    Q := Quiver( adjacencymatrix );
+    KQ := PathAlgebra( LeftActingDomain( A ), Q );
+    Jtplus1 := NthPowerOfArrowIdeal( KQ, t + 1 );
+    n := NumberOfVertices( Q );
+    images := ShallowCopy( evertices );   #  images of the vertices/trivial paths
+    for i in [ 1 .. n ] do
+        for j in [ 1 .. n ] do
+            Append( images, earrows[ i ][ j ] );
+        od;
+    od;
+    #
+    #  Define  AA := KQ/J^(t + 1), where t = the Loewy length of  <eAe>, and 
+    #  in addition define f : AA ---> eAe. Find this as a linear map and find 
+    #  the kernel, and construct the relations from this.
+    #     
+    if Length( Jtplus1 ) = 0 then 
+        AA := KQ;
+        AAgens := GeneratorsOfAlgebra( AA );
+        AAvertices := AAgens{ [ 1..n ] };
+        AAarrows := AAgens{ [ n + 1..Length( AAgens ) ] };
+        f := [ AA, eAe, AAgens{ [ 1..Length( AAgens ) ] }, images ];
+    else
+        gb := GBNPGroebnerBasis( Jtplus1, KQ);
+        Jtplus1 := Ideal( KQ,Jtplus1 ); 
+        gbb := GroebnerBasis( Jtplus1, gb );
+        AA := KQ/Jtplus1;
+        AAgens := GeneratorsOfAlgebra( AA );
+        AAvertices := AAgens{ [ 2..n + 1 ] };
+        AAarrows := AAgens{[n + 2..Length(AAgens)]};
+        f := [ AA, eAe, AAgens{ [ 2..Length( AAgens ) ] }, images ];
+    fi;
+    #
+    #  First giving the ring surjection  AA ---> eAe  as a linear map.  Stored
+    #  in the matrix called  <matrix>.
+    #
+    B := BasisVectors( Basis( AA ) ); 
+    matrix := [ ]; 
+    for b in B do
+        if IsPathAlgebra( AA ) then 
+            temp := CoefficientsAndMagmaElements( b );
+        else 
+            temp := CoefficientsAndMagmaElements( b![ 1 ] );
+        fi;
+        n := Length( temp )/2;
+        tempx := Zero( f[ 2 ] );
+        for i in [ 0..n - 1 ] do
+            # for each term compute the image. 
+            walk := WalkOfPath( temp[ 2 * i + 1 ] ); 
+            length := Length( walk ); 
+            image := e; 
+            if length = 0 then 
+                image := image * f[ 4 ][ Position( f[ 3 ], temp[ 2 * i + 1 ] * One( AA ) ) ];
+            else 
+                for j in [ 1..length ] do
+                    image := image * f[ 4 ][ Position( f [ 3 ], walk[ j ] * One( AA ) ) ];
+                od;
+            fi;
+            tempx := tempx + temp[ 2 * i + 2 ] * image;
+        od;
+        Add( matrix, Coefficients( Basis( f[ 2 ]), tempx ) );
+    od;    
+    #
+    #  Finding a vector space basis for the kernel of the ring surjection  AA ---> eAe.
+    #
+    solutions := NullspaceMat( matrix );
+    Solutions := List( solutions, x -> LinearCombination( B, x ) );  # solutions as elements in  AA.
+    #
+    #  Finding a generating set for  J(Ker f) + (ker f)J. 
+    #
+    radSoluplusSolurad := List( AAarrows, x -> Filtered( Solutions * x, y -> y <> Zero( y ) ) );
+    Append( radSoluplusSolurad, List( AAarrows, x -> Filtered( x * Solutions, y -> y <> Zero( y ) ) ) );
+    radSoluplusSolurad := Flat( radSoluplusSolurad );
+    V := Subspace( AA, Solutions );
+    W := Subspace( V, radSoluplusSolurad );
+    h := NaturalHomomorphismBySubspace( V, W );  
+    #
+    #  Constructing the relations in  KQ.
+    # 
+    idealgens := List( BasisVectors( Basis( Range( h ) ) ), x -> PreImagesRepresentative( h, x ) );
+    #
+    #  Lifting the relations back to  KQ  and returning the answer.
+    #
+    if not IsPathAlgebra( AA ) then
+        idealgens := List( idealgens, x -> x![ 1 ] );
+    fi;
+    if Length( idealgens ) > 0 then 
+        AA := KQ/idealgens;
+    fi;
+    
+    return AA; 
+end
+);
