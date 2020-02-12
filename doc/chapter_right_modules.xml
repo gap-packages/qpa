@@ -427,6 +427,24 @@ gap> N := RightModuleOverPathAlgebra(A,mat);
 </ManSection>
 
 <ManSection>
+   <Oper Name="DecomposeModuleViaCharPoly" Arg="M" Comm="for a PathAlgebraMatModule"/>
+   <Description> 
+   Arguments: <Arg>M</Arg> -- a path algebra module.
+   <Br /></Description>
+   <Returns>a list with high probability of indecomposable
+   modules whose direct sum is isomorphic to the module <Arg>M</Arg>.  
+   </Returns>
+   <Description>Given a module  <Arg>M</Arg>  over a finite
+   dimensional quotient of a path algebra over a finite field, this
+   function decomposes the entered module  <Arg>M</Arg>  by
+   computing the endomorphism ring of <A>M</A> and choosing random
+   elements in it. 
+
+   This is an experimental function, so use with caution.
+   </Description>
+</ManSection>
+
+<ManSection>
    <Oper Name="DecomposeModuleViaTop" Arg="M" Comm="for a PathAlgebraMatModule"/>
    <Description> 
    Arguments: <Arg>M</Arg> -- a path algebra module.
