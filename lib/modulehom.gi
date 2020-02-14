@@ -818,11 +818,11 @@ end
 
 #######################################################################
 ##
-#M  KernelOfAdditiveGeneralMapping( <f> )
+#M  Kernel( <f> )
 ##
 ##  This function returns a module isomorphic to the kernel of  <f>.
 ##
-InstallMethod ( KernelOfAdditiveGeneralMapping, 
+InstallOtherMethod ( Kernel, 
     "for a PathAlgebraMatModuleMap",
     true,
     [ IsPathAlgebraMatModuleHomomorphism ],
