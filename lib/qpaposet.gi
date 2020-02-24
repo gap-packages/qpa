@@ -32,6 +32,7 @@ InstallMethod( Poset,
     # Defining the generating relations in the direct product <_P> x <_P>.
     #
     D := Domain( _P );
+    _P := Elements( D );
     rel := [];
     for r in _rel do
         for i in [ 2..Length( r ) ] do
