@@ -45,10 +45,10 @@ else
         fi;
     od;
 
-    if IsPathAlgebra(A_op) then 
-       N:= RightModuleOverPathAlgebra(A_op,mats);
-    else 
-       N:= RightModuleOverPathAlgebra(A_op,mats);
+    if IsEmpty( mats ) then
+        N := RightModuleOverPathAlgebra( A_op, dim_vect_M, mats );
+    else
+        N := RightModuleOverPathAlgebra( A_op, mats );
     fi;
     SetDualOfModule(N,M);
     if HasIsIndecomposableModule(M) and IsIndecomposableModule(M) then
