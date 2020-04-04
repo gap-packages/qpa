@@ -39,17 +39,11 @@ else
 	origin := Position(vert_in_quiver,SourceOfPath(a));
 	target := Position(vert_in_quiver,TargetOfPath(a)); 
  	if ( dim_vect_M[origin] <> 0 ) and ( dim_vect_M[target] <> 0 ) then 
-	   Add(mats,[a,mat_M_op[i]]);
-	else
-	   Add(mats,[a,[dim_vect_M[origin],dim_vect_M[target]]]);
-        fi;
+	   Add( mats, [ String( a ), mat_M_op[ i ] ] );
+	fi;
     od;
+    N := RightModuleOverPathAlgebra( A_op, dim_vect_M, mats );
 
-    if IsEmpty( mats ) then
-        N := RightModuleOverPathAlgebra( A_op, dim_vect_M, mats );
-    else
-        N := RightModuleOverPathAlgebra( A_op, mats );
-    fi;
     SetDualOfModule(N,M);
     if HasIsIndecomposableModule(M) and IsIndecomposableModule(M) then
         SetIsIndecomposableModule(N, true); 
