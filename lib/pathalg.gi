@@ -1979,57 +1979,21 @@ InstallMethod( IsSymmetricAlgebra,
           vertex_positions, arrow_positions, newdimvector, newmats, 
           matrices, a, arrowentry, MM;
     
-    if not IsFiniteDimensional(A) then 
+    if not IsFiniteDimensional( A ) then 
         return false;
     fi;
-    if IsPathAlgebra(A) then
-        Q := QuiverOfPathAlgebra(A);
-        return Length(ArrowsOfQuiver(QuiverOfPathAlgebra(A))) = 0;
+    if IsPathAlgebra( A ) then
+        Q := QuiverOfPathAlgebra( A );
+        return Length( ArrowsOfQuiver( QuiverOfPathAlgebra( A ) ) ) = 0;
     fi;    
     #
     # By now we know that the algebra is a finite dimensional quotient of a path algebra.
     #
-    Aenv := EnvelopingAlgebra(A);
-    M    := AlgebraAsModuleOverEnvelopingAlgebra(A);
-    DM   := DualOfModule(M);
-    #
-    #   Finding DM as a module over Aenv.
-    #
-    mats    := MatricesOfPathAlgebraModule(DM);
-    op_name := OppositeQuiverNameMap(QuiverOfPathAlgebra(A));        
-    de_op_name := OppositeQuiverNameMap(OppositeQuiver(QuiverOfPathAlgebra(A)));
-    vertices   := VerticesOfQuiver(QuiverOfPathAlgebra(Aenv));
-    arrows     := ArrowsOfQuiver(QuiverOfPathAlgebra(Aenv));
-    new_vertices := List(vertices, x -> Concatenation(op_name(String(ProjectFromProductQuiver(2,x))),"_",de_op_name(String(ProjectFromProductQuiver(1,x)))));
-    new_arrows   := List(arrows, x -> Concatenation(op_name(String(ProjectFromProductQuiver(2,x))),"_",de_op_name(String(ProjectFromProductQuiver(1,x)))));
-    stringvertices := List(vertices, x -> String(x));
-    stringarrows   := List(arrows, x -> String(x));
-    #
-    #   Finding the permutation of the vertices and the arrows.
-    #
-    vertex_positions := List(new_vertices, x -> Position(stringvertices, x));
-    arrow_positions  := List(new_arrows, x -> Position(stringarrows, x));
-    #
-    #   Finding the new dimension vector and the matrices of  DM  as a module over Aenv.
-    #
-    newdimvector := List([1..Length(vertices)], x -> DimensionVector(DM)[vertex_positions[x]]);
-    newmats  := List([1..Length(mats)], x -> mats[arrow_positions[x]]);
-    #
-    #   Creating the input for construction  DM  as a module over Aenv.
-    #
-    matrices := [];
-    for a in arrows do
-        if newdimvector[Position(vertices,SourceOfPath(a))] <> 0 and 
-           newdimvector[Position(vertices,TargetOfPath(a))] <> 0 then 
-            arrowentry := List([1..2], x -> []);
-            arrowentry[1] := String(a);
-            arrowentry[2] := newmats[Position(arrows,a)];
-            Add(matrices, arrowentry);
-        fi;
-    od;
-    MM := RightModuleOverPathAlgebra(Aenv, newdimvector, matrices);
+    Aenv := EnvelopingAlgebra( A );
+    M    := AlgebraAsModuleOverEnvelopingAlgebra( A );
+    DM   := DualOfAlgebraAsModuleOverEnvelopingAlgebra( A );
     
-    return IsomorphicModules(M,MM);
+    return IsomorphicModules( M , DM );
 end
 );
 
