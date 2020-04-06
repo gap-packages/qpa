@@ -851,91 +851,87 @@ InstallMethod ( ImageProjectionInclusion,
     local M, N, image, images, A, K, num_vert, vertices, arrows, gen_list, B, i,fam, n, s, v,
           pos, dim_M, dim_N, V, W, projection, dim_image, basis_image, basis_M, basis_N, a, b, image_mat, 
           mat, mats, source_a, target_a, pos_a, bb, image_f, C, map, partmap,
-          inclusion, image_inclusion, image_projection;
+          inclusion, image_inclusion, image_projection, dimvecimage_f;
 
-    M := Source(f);
-    N := Range(f);
-    A := RightActingAlgebra(M);
-    K := LeftActingDomain(M); 
-    num_vert := Length(VerticesOfQuiver(QuiverOfPathAlgebra(A)));
+    M := Source( f );
+    N := Range( f );
+    A := RightActingAlgebra( M );
+    K := LeftActingDomain( M ); 
+    num_vert := Length( VerticesOfQuiver( QuiverOfPathAlgebra( A ) ) );
 #
-    vertices := List(VerticesOfQuiver(QuiverOfPathAlgebra(A)), x -> x*One(A));
+    vertices := List( VerticesOfQuiver( QuiverOfPathAlgebra( A ) ), x -> x * One( A ) );
 #
 # Finding a basis for the vector space in each vertex for the image
 #
-    image := ImagesSet(f,Source(f));
-    gen_list := [];
-    for i in [1..Length(vertices)] do
-        Add(gen_list,[]);
+    image := ImagesSet( f, Source( f ) );
+    gen_list := [ ];
+    for i in [ 1..Length( vertices ) ] do
+        Add( gen_list,[ ] );
     od;
-    if Length(image) > 0 then 
+    if Length( image ) > 0 then 
         for n in image do
             for v in vertices do
-                if n^v <> Zero(N) then
-                    pos := Position(vertices,v);
-                    Add(gen_list[pos],ExtRepOfObj(n)![1][pos]);
+                if n^v <> Zero( N ) then
+                    pos := Position( vertices, v );
+                    Add( gen_list[ pos ], ExtRepOfObj( n )![ 1 ][ pos ] );
                 fi;
             od;
         od;
-        dim_N := DimensionVector(N);
+        dim_N := DimensionVector( N );
         V := [];    
         W := [];
         basis_image := [];   
         basis_N := [];   
-        for i in [1..Length(vertices)] do
-            V[i] := K^dim_N[i];
-            basis_N[i] := CanonicalBasis(V[i]);
-            W[i] := Subspace(V[i],gen_list[i]);
-            Add(basis_image,CanonicalBasis(W[i]));
+        for i in [ 1..Length( vertices ) ] do
+            V[ i ] := K^dim_N[ i ];
+            basis_N[ i ] := CanonicalBasis( V[ i ] );
+            W[ i ] := Subspace( V[ i ], gen_list[ i ] );
+            Add( basis_image, CanonicalBasis( W[ i ] ) );
         od;
 #
 # Finding the matrices of the representation image
 #
-        arrows := ArrowsOfQuiver(QuiverOfPathAlgebra(A));
-        mats := MatricesOfPathAlgebraModule(N);
-        image_mat := [];
+        arrows := ArrowsOfQuiver( QuiverOfPathAlgebra( A ) );
+        mats := MatricesOfPathAlgebraModule( N );
+        image_mat := [ ];
         for a in arrows do 
-            mat := [];
-            pos_a := Position(arrows,a);
-            source_a := Position(vertices,SourceOfPath(a)*One(A));
-            target_a := Position(vertices,TargetOfPath(a)*One(A));
-            if ( Length(basis_image[source_a]) = 0 ) or ( Length(basis_image[target_a]) = 0 ) then 
-                mat := [Length(basis_image[source_a]),Length(basis_image[target_a])];
-            else 
-                for b in basis_image[source_a] do
-                    Add(mat,Coefficients(basis_image[target_a],b*mats[pos_a]));
+            mat := [ ];
+            pos_a := Position( arrows, a );
+            source_a := Position( vertices, SourceOfPath( a ) * One( A ) );
+            target_a := Position( vertices, TargetOfPath( a ) * One( A ) );
+            if ( Length( basis_image[ source_a ]) <> 0 ) and ( Length( basis_image[ target_a ] ) <> 0 ) then 
+	        for b in basis_image[ source_a ] do
+                    Add( mat, Coefficients( basis_image[ target_a ], b * mats[ pos_a ] ) );
                 od;
+                Add( image_mat, [ String( a ), mat ] );
             fi;
-            Add(image_mat,[a,mat]);
         od;
-        if IsPathAlgebra(A) then 
-            image_f := RightModuleOverPathAlgebra(A,image_mat);
-        else
-            image_f := RightModuleOverPathAlgebra(A,image_mat);
-        fi;
+
+	dimvecimage_f := List( W, Dimension );
+	image_f := RightModuleOverPathAlgebra( A, dimvecimage_f, image_mat );
 #
 # Finding inclusion map from the image to Range(f)
 #     
-        inclusion := [];
-        for i in [1..num_vert] do 
-            mat := [];
-            if Length(basis_image[i]) = 0 then 
-                if dim_N[i] = 0 then 
-                    Add(inclusion,NullMat(1,1,K));
+        inclusion := [ ];
+        for i in [ 1..num_vert ] do 
+            mat := [ ];
+            if Length( basis_image[ i ] ) = 0 then 
+                if dim_N[ i ] = 0 then 
+                    Add( inclusion, NullMat( 1, 1, K ) );
                 else
-                    Add(inclusion,NullMat(1,dim_N[i],K));
+                    Add( inclusion, NullMat( 1, dim_N[ i ], K ) );
                 fi;
             else
-                mat := [];
-                for b in basis_image[i] do 
-                    Add(mat,b);
+                mat := [ ];
+                for b in basis_image[ i ] do 
+                    Add( mat, b );
                 od;
-                Add(inclusion,mat);
+                Add( inclusion, mat );
             fi;
         od; 
-        image_inclusion := RightModuleHomOverAlgebra(image_f,Range(f),inclusion);
-        SetImageOfWhat(image_inclusion,f);
-        SetIsInjective(image_inclusion,true);
+        image_inclusion := RightModuleHomOverAlgebra( image_f, Range( f ), inclusion );
+        SetImageOfWhat( image_inclusion, f );
+        SetIsInjective( image_inclusion, true );
 #
 # Finding the projection for Source(f) to the image
 #
