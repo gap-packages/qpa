@@ -1974,22 +1974,17 @@ InstallMethod( IsSymmetricAlgebra,
     [ IsQuiverAlgebra ], 0,
     function( A ) 
 
-    local Q, fam, Aenv, M, DM, mats, op_name, de_op_name, vertices, arrows, 
-          new_vertices, new_arrows, stringvertices, stringarrows, 
-          vertex_positions, arrow_positions, newdimvector, newmats, 
-          matrices, a, arrowentry, MM;
+    local   M,  DM;
     
     if not IsFiniteDimensional( A ) then 
         return false;
     fi;
     if IsPathAlgebra( A ) then
-        Q := QuiverOfPathAlgebra( A );
         return Length( ArrowsOfQuiver( QuiverOfPathAlgebra( A ) ) ) = 0;
     fi;    
     #
     # By now we know that the algebra is a finite dimensional quotient of a path algebra.
     #
-    Aenv := EnvelopingAlgebra( A );
     M    := AlgebraAsModuleOverEnvelopingAlgebra( A );
     DM   := DualOfAlgebraAsModuleOverEnvelopingAlgebra( A );
     
