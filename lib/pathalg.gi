@@ -1972,10 +1972,8 @@ end
 InstallMethod( IsSymmetricAlgebra, 
     "for a quotient of a path algebra",
     [ IsQuiverAlgebra ], 0,
-    function( A ) 
+    function( A );
 
-    local   M,  DM;
-    
     if not IsFiniteDimensional( A ) then 
         return false;
     fi;
@@ -1985,10 +1983,11 @@ InstallMethod( IsSymmetricAlgebra,
     #
     # By now we know that the algebra is a finite dimensional quotient of a path algebra.
     #
-    M    := AlgebraAsModuleOverEnvelopingAlgebra( A );
-    DM   := DualOfAlgebraAsModuleOverEnvelopingAlgebra( A );
-    
-    return IsomorphicModules( M , DM );
+    if IsSelfinjectiveAlgebra( A ) and OrderOfNakayamaAutomorphism( A ) = 1 then
+        return true;
+    else
+	return false;
+    fi;
 end
 );
 
