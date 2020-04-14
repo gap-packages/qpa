@@ -9,7 +9,7 @@ cp -r \
    lib examples tst doc \
    $releasedir
 cd releases
-tar -zcf $tarfile \
+COPYFILE_DISABLE=1 tar -zcf $tarfile \
     $packagename/CHANGES $packagename/LICENSE $packagename/README \
     $packagename/PackageInfo.g $packagename/init.g $packagename/read.g $packagename/version \
     $packagename/lib/*.{gd,gi} $packagename/examples/*.g $packagename/tst/*.{g,tst} \
