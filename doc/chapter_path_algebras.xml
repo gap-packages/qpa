@@ -1214,6 +1214,29 @@ computed yet).
 </ManSection>
 
 <ManSection>
+   <Attr Name="FrobeniusForm" Arg="A" Comm="for a quotient of a path algebra"/>
+   <Description>
+     Arguments: <Arg>A</Arg> -- a quotient of a path algebra.<Br />
+   </Description>
+   <Returns>
+     false if <Arg>A</Arg> is not selfinjective algebra. Otherwise it
+     returns the Frobenius form of <Arg>A</Arg>. 
+   </Returns>
+</ManSection>
+
+<ManSection>
+   <Attr Name="FrobeniusLinearFunctional" Arg="A" Comm="for a quotient of a path algebra"/>
+   <Description>
+     Arguments: <Arg>A</Arg> -- a quotient of a path algebra.<Br />
+   </Description>
+   <Returns>
+     false if <Arg>A</Arg> is not selfinjective algebra. Otherwise it
+     returns the Frobenius linear functional of <Arg>A</Arg>, which is
+     used to construct the Frobenius form. 
+   </Returns>
+</ManSection> 
+
+<ManSection>
   <Attr Name="GlobalDimension"  Arg="A" Comm="computes the dimension of A"/>
   <Description>
     Arguments: <Arg>A</Arg> -- an algebra.<Br />

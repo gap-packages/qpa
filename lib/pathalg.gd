@@ -89,6 +89,8 @@ DeclareOperation( "CoefficientsOfVectors", [ IsAlgebra, IsCollection, IsList ] )
 DeclareProperty( "IsDistributiveAlgebra", IsQuotientOfPathAlgebra );
 DeclareAttribute( "NakayamaAutomorphism", IsQuotientOfPathAlgebra ); 
 DeclareAttribute( "NakayamaPermutation", IsQuotientOfPathAlgebra );
+DeclareAttribute( "FrobeniusForm", IsQuotientOfPathAlgebra );
+DeclareAttribute( "FrobeniusLinearFunctional", IsQuotientOfPathAlgebra );
 DeclareAttribute( "OrderOfNakayamaAutomorphism", IsQuotientOfPathAlgebra );
 DeclareAttribute( "AssociatedMonomialAlgebra", IsQuiverAlgebra );
 DeclareProperty( "IsMonomialAlgebra", IsQuiverAlgebra );

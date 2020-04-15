@@ -1969,29 +1969,57 @@ end
 ##  This function determines if the algebra  A  is a symmetric algebra,
 ##  if it is a (quotient of a) path algebra. 
 ##
+#InstallMethod( IsSymmetricAlgebra, 
+#    "for a quotient of a path algebra",
+#    [ IsQuiverAlgebra ], 0,
+#    function( A )
+#
+#   local   M,  DM;
+#
+#    if not IsFiniteDimensional( A ) then 
+#        return false;
+#    fi;
+#    if IsPathAlgebra( A ) then
+#        return Length( ArrowsOfQuiver( QuiverOfPathAlgebra( A ) ) ) = 0;
+#    fi;    
+#    #
+#    # By now we know that the algebra is a finite dimensional quotient of a path algebra.
+#    #
+#    if not IsSelfinjectiveAlgebra( A ) then
+#        return false;
+#    fi;
+#    M := AlgebraAsModuleOverEnvelopingAlgebra( A );
+#    DM := DualOfAlgebraAsModuleOverEnvelopingAlgebra( A );
+#
+#    return IsomorphicModules( M, DM );
+#end
+#);
+
+#######################################################################
+##
+#P  IsSymmetricAlgebra( <A> )
+##
+##  This function determines if the algebra  A  is a symmetric algebra,
+##  if it is a (quotient of a) path algebra. 
+##
 InstallMethod( IsSymmetricAlgebra, 
     "for a quotient of a path algebra",
     [ IsQuiverAlgebra ], 0,
     function( A )
 
-    local   M,  DM;
+    local   b, BA, x, y;
 
-    if not IsFiniteDimensional( A ) then 
-        return false;
-    fi;
-    if IsPathAlgebra( A ) then
-        return Length( ArrowsOfQuiver( QuiverOfPathAlgebra( A ) ) ) = 0;
-    fi;    
-    #
-    # By now we know that the algebra is a finite dimensional quotient of a path algebra.
-    #
-    if not IsSelfinjectiveAlgebra( A ) then
-        return false;
-    fi;
-    M := AlgebraAsModuleOverEnvelopingAlgebra( A );
-    DM := DualOfAlgebraAsModuleOverEnvelopingAlgebra( A );
+    b := FrobeniusForm( A );
+    BA := Basis( A );
+    for x in BA do
+    	for y in BA do
+	    if b( x, y ) <> b( y, x ) then
+	       return false;
+	    fi;
+	od;
+    od;
 
-    return IsomorphicModules( M, DM );
+    return true;
 end
 );
 
@@ -2379,6 +2407,7 @@ InstallOtherMethod( NakayamaPermutation,
     return [nakayamaperm, nakayamaperm_index];
 end
 );
+
 #######################################################################
 ##
 #A  NakayamaAutomorphism( <A> )
@@ -2392,8 +2421,8 @@ InstallMethod( NakayamaAutomorphism,
     [ IsQuotientOfPathAlgebra ], 0,
     function( A )
 
-    local ABasis, arrows, socleequations, soclesolutions, ABasisVector, temp,
-          newspan, newABasis, V, pi_map, P, beta, nakaauto;
+local ABasis, arrows, socleequations, soclesolutions, ABasisVector, temp,
+          newspan, newABasis, V, pi_map, P, beta, nakaauto, bilinearform;
     
     if not IsSelfinjectiveAlgebra(A) then 
         return false;
@@ -2428,12 +2457,16 @@ InstallMethod( NakayamaAutomorphism,
     end;
     #
     # Findind a matrix  P  such that  "x"*P*"y"^T = \pi(x*y), where "x" and
-    # "y" means x and y in terms of the basis Basis(V). 
+    # "y" means x and y in terms of the original basis of A. 
     #
     P := [];
-    for beta in newABasis do
-        Add(P,List(newABasis, b -> pi_map(beta*b)));
+    for beta in ABasis do
+        Add( P, List( ABasis, b -> pi_map( beta * b ) ) );
     od;
+
+    bilinearform := function( x, y )
+        return Coefficients( ABasis, x ) * P * Coefficients( ABasis, y );
+    end;
     # 
     # Since "a"*P*"y"^T = y*P*"\mu(a)"^T = "\mu(a)"*P^T*"y"^T, it follows 
     # that "a"*P = "\mu(a)"*P^T and therefore "\mu(a)" = "a"*P*P^(-T), where
@@ -2445,12 +2478,47 @@ InstallMethod( NakayamaAutomorphism,
         if not x in A then 
             Error("the entered argument is not in the algebra,\n");
         fi;
-        tempo := Coefficients(Basis(V), x)*P*(TransposedMat(P)^(-1));
+        tempo := Coefficients( ABasis, x ) * P * ( TransposedMat( P )^( -1 ) );
         
-        return LinearCombination(Basis(V), tempo);
+        return LinearCombination( ABasis, tempo);
     end;
-        
+
+    SetFrobeniusForm( A, bilinearform );
+    SetFrobeniusLinearFunctional( A, pi_map );
+    
     return nakaauto;
+end
+);
+
+InstallMethod( FrobeniusForm, 
+    "for an algebra",
+    [ IsQuotientOfPathAlgebra ], 0,
+    function( A )
+
+    local f;
+
+    f := NakayamaAutomorphism( A );
+    if f = false then
+       return false;
+    else
+       return FrobeniusForm( A );
+    fi;
+end
+);
+
+InstallMethod( FrobeniusLinearFunctional, 
+    "for an algebra",
+    [ IsQuotientOfPathAlgebra ], 0,
+    function( A )
+
+    local f;
+
+    f := NakayamaAutomorphism( A );
+    if f = false then
+       return false;
+    else
+       return FrobeniusLinearFunctional( A );
+    fi;
 end
 );
 
