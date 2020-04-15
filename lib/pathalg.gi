@@ -2421,39 +2421,41 @@ InstallMethod( NakayamaAutomorphism,
     [ IsQuotientOfPathAlgebra ], 0,
     function( A )
 
-local ABasis, arrows, socleequations, soclesolutions, ABasisVector, temp,
+local PA, socinc, socgens, ABasis, soclesolutions, ABasisVector, temp,
           newspan, newABasis, V, pi_map, P, beta, nakaauto, bilinearform;
     
     if not IsSelfinjectiveAlgebra(A) then 
         return false;
     fi;
-    ABasis := CanonicalBasis(A); 
-    arrows := List(ArrowsOfQuiver(QuiverOfPathAlgebra(A)), x -> x*One(A));
     #
-    # Finding the solce of the algebra A
+    # Finding the socle of the algebra A
     #
-    socleequations := List(ABasis, b -> List(arrows, a -> Coefficients(ABasis, b*a)));
-    socleequations := List(socleequations, s -> Flat(s));
-    soclesolutions := NullspaceMat(socleequations);
+    PA := IndecProjectiveModules( A );
+    socinc := List( PA, p -> SocleOfModuleInclusion( p ) );
+    socgens := List( socinc, f -> ImageElm( f, MinimalGeneratingSetOfModule( Source( f ) )[ 1 ] ) );
+    socgens := List( [ 1..Length( PA ) ], i -> ElementInIndecProjective(A, socgens[ i ], i ) );
+    socgens := List( socgens, s -> ElementOfQuotientOfPathAlgebra( ElementsFamily( FamilyObj( A ) ), s, false ) );
     #
     # Finding a new basis for the algebra  A, where the first basis vectors are 
     # a basis for the socle of the algebra  A.
     #
-    ABasisVector := List(ABasis, b -> Coefficients(ABasis, b));
-    temp := BaseSteinitzVectors(ABasisVector, soclesolutions);     
-    newspan := ShallowCopy(temp!.subspace);
-    Append(newspan, temp!.factorspace);
-    newABasis := List(newspan, b -> LinearCombination(ABasis, b));
+    ABasis := CanonicalBasis( A ); 
+    soclesolutions := List( socgens, s -> Coefficients( ABasis, s ) );
+    ABasisVector := List( ABasis, b -> Coefficients( ABasis, b ) );
+    temp := BaseSteinitzVectors( ABasisVector, soclesolutions );     
+    newspan := ShallowCopy( temp!.subspace );
+    Append( newspan, temp!.factorspace );
+    newABasis := List( newspan, b -> LinearCombination( ABasis, b ) );
     #
     # Redefining the vector space  A  to have the basis found above. 
     #
-    V := Subspace(A, newABasis, "basis"); 
+    V := Subspace( A, newABasis, "basis" ); 
     #
     # Finding the linear map  \pi\colon A \to k being the sum of the dual 
     # basis elements corresponding to a basis of the socle of  A. 
     #
-    pi_map := function(x) 
-        return Sum(Coefficients(Basis(V), x){[1..Length(soclesolutions)]});
+    pi_map := function( x ) 
+        return Sum( Coefficients( Basis( V ), x ){ [ 1..Length( soclesolutions ) ] } );
     end;
     #
     # Findind a matrix  P  such that  "x"*P*"y"^T = \pi(x*y), where "x" and
