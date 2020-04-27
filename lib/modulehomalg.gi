@@ -1930,3 +1930,157 @@ InstallMethod( IsNthSyzygy,
     return IsDirectSummand( M, N ); 
 end
   );
+
+InstallMethod ( RightApproximationByAddM, 
+    "for a list of modules and a module",
+    true,
+    [ IsList, IsPathAlgebraMatModule ],
+    0,
+    function( modulelist, C )
+        
+    local   A,  K,  f,  M,  n,  gen_ntoCthroughM,  hom_ntoC,  
+            Vgen_ntoCthroughM,  Vhom_ntoC,  U,  pi,  addhoms,  i,  
+            newM,  projections,  homs;
+    
+    A := RightActingAlgebra( C );
+    if Length( modulelist ) = 0 then
+        return ZeroMapping( ZeroModule( A ), C );
+    fi;
+    if not ForAll( modulelist, m -> RightActingAlgebra( m ) = A ) then
+        Error( "The entered list of modules is not all over the same algebra as the module being approximated.\n" );
+    fi;
+    
+    K := LeftActingDomain( C );
+    f := RightApproximationByAddM( modulelist[ 1 ], C );
+    M := Source( f );
+    for n in [ 2..Length( modulelist ) ] do
+        gen_ntoCthroughM := List( HomOverAlgebra( modulelist[ n ], M ), h -> h * f );
+        hom_ntoC := HomOverAlgebra( modulelist[ n ], C );
+        if Length( hom_ntoC ) > 0 then 
+            Vgen_ntoCthroughM := List( gen_ntoCthroughM, h -> Flat( MatricesOfPathAlgebraMatModuleHomomorphism( h ) ) );    
+            Vhom_ntoC := List( hom_ntoC, h -> Flat( MatricesOfPathAlgebraMatModuleHomomorphism( h ) ) );
+            U := FullRowSpace( K, Length( Vhom_ntoC[ 1 ] ) );
+            pi := NaturalHomomorphismBySubspace( U, Subspace( U, Vgen_ntoCthroughM ) );
+            addhoms := [ ];
+            for i in [ 1..Length( Vhom_ntoC ) ] do
+                if not IsZero( ImageElm( pi, Vhom_ntoC[ i ] ) ) then
+                    Add( addhoms, i );
+                fi;
+            od;
+            newM := [ M ];
+            for i in [ 1..Length( addhoms ) ] do
+                Add( newM, modulelist[ n ] );
+            od;
+            M := DirectSumOfQPAModules( newM );
+            projections := DirectSumProjections( M );
+            homs := [ f ];
+            for i in [ 1..Length( addhoms ) ] do
+                Add( homs, hom_ntoC[ i ] );
+            od;
+            
+            f := Sum( List( [ 1..Length( projections ) ], i -> projections[ i ] * homs[ i ] ) );
+        fi;
+    od; 
+
+    return f;
+end
+  );
+
+InstallMethod ( RadicalRightApproximationByAddM, 
+    "for a list of modules and a module",
+    true,
+    [ IsList, IsInt ],
+    0,
+    function( modulelist, t )
+        
+    local   length,  moduleset,  N,  f,  K,  M,  endoN,  radendoN,  
+            BradendoN,  gen_NtoM,  radhomNN,  Vgen_NtoM,  VradhomNN,  
+            U,  pi,  addhoms,  i,  newM,  projections,  homs;
+    
+    length := Length( modulelist );
+    if not t in [ 1..length ] then
+        Error( "The entered integer is not in the correct interval.\n" );
+    fi;
+    
+    moduleset := [ 1..length ];
+    RemoveSet( moduleset, t );
+    N := modulelist[ t ];
+    f := RightApproximationByAddM( modulelist{ moduleset }, N );
+    K := LeftActingDomain( N );
+    M := Source( f );
+    
+    endoN := EndOverAlgebra( N );
+    radendoN := RadicalOfAlgebra( endoN );
+    BradendoN := Basis( radendoN );
+    gen_NtoM := List( HomOverAlgebra( N, M ), h -> h * f );
+    radhomNN := List( BradendoN, b -> FromEndMToHomMM( N, b ) );
+    if Length( radhomNN ) > 0 then 
+        Vgen_NtoM := List( gen_NtoM, h -> Flat( MatricesOfPathAlgebraMatModuleHomomorphism( h ) ) );    
+        VradhomNN := List( radhomNN, h -> Flat( MatricesOfPathAlgebraMatModuleHomomorphism( h ) ) );
+        U := FullRowSpace( K, Length( VradhomNN[ 1 ] ) );
+        pi := NaturalHomomorphismBySubspace( U, Subspace( U, Vgen_NtoM ) );
+        addhoms := [ ];
+        for i in [ 1..Length( VradhomNN ) ] do
+            if not IsZero( ImageElm( pi, VradhomNN[ i ] ) ) then
+                Add( addhoms, i );
+            fi;
+        od;
+        newM := [ M ];
+        for i in addhoms do
+            Add( newM, N );
+        od;
+        M := DirectSumOfQPAModules( newM );
+        projections := DirectSumProjections( M );
+        homs := [ f ];
+        for i in addhoms do
+            Add( homs, radhomNN[ i ] );
+        od;
+        
+        f := Sum( List( [ 1..Length( projections ) ], i -> projections[ i ] * homs[ i ] ) );
+    fi;
+        
+    return f;
+end
+  );
+
+InstallMethod ( ProjectiveResolutionOfSimpleModuleOverEndo, 
+    "for a list of modules, an index of the list, and an integer",
+    true,
+    [ IsList, IsInt, IsInt ],
+    0,
+    function( modulelist, t, length )
+    
+    local   f,  syzygies,  n,  U,  m,  test;
+    
+    if length < 0 then
+        Error( "The entered length is less than zero.\n" );
+    fi;
+    f := RadicalRightApproximationByAddM( modulelist, t );    
+    syzygies := [ ];
+    for n in [ 1..length - 2 ] do
+        if Dimension( Source( f ) ) = 0 then
+            return [ n - 1, syzygies ];
+        fi;
+        if IsInjective( f ) then
+            return [ n, syzygies ];
+        fi;    
+        U := Kernel( f );
+        for m in modulelist do
+            repeat
+                test := CommonDirectSummand( U, m );
+                if test <> false then 
+                    U := test[ 2 ];
+                fi;
+            until
+              test = false;
+        od;
+        if Dimension( U ) = 0 then
+            return [ n + 1, syzygies ];
+        fi;
+        Add( syzygies, U );
+        f := RightApproximationByAddM( modulelist, U );
+    od;
+    
+    return [ Concatenation( "projdim > ", String( t ) ), syzygies ];
+end
+  );

@@ -57,3 +57,6 @@ DeclareSynonym( "RightMutationOfCotiltingModuleComplement", RightMutationOfTilti
 DeclareOperation( "RightApproximationByPerpT", [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ]);
 DeclareOperation( "LeftApproximationByAddTHat", [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ]);
 DeclareOperation( "IsNthSyzygy", [ IsPathAlgebraMatModule, IS_INT ] );
+DeclareOperation( "RightApproximationByAddM", [ IsList, IsPathAlgebraMatModule ] );
+DeclareOperation( "RadicalRightApproximationByAddM", [ IsList, IsInt ] );
+DeclareOperation( "ProjectiveResolutionOfSimpleModuleOverEndo", [ IsList, IsInt, IsInt ] );

@@ -442,18 +442,34 @@ gap> LiftingMorphismFromProjective(f,p);
 </ManSection>
 
 <ManSection>
-    <Oper Name="RightApproximationByAddM" Arg="C, M" Comm=""/>
-   <Attr Name="MinimalRightApproximation" Arg="M, C" Comm=""/>
-   <Attr Name="MinimalRightAddMApproximation" Arg="M, C" Comm=""/>
-   <Description>
+  <Oper Name="RightApproximationByAddM" Arg="M, C/modulelist, C" Comm=""/>
+  <Attr Name="MinimalRightApproximation" Arg="M, C" Comm=""/>
+  <Attr Name="MinimalRightAddMApproximation" Arg="M, C" Comm=""/>
+  <Description>
      Arguments: <Arg>M</Arg>, <Arg>C</Arg> - two modules.<Br />
    </Description>
    <Returns>
      the minimal right <M>\add M</M>-approximation in the two last
-     versions of the module <Arg>C</Arg>. In the first it returns some
-     right approximation.  Note: The order of the arguments is
+     versions of the module <Arg>C</Arg>. In the two first it returns some
+     right approximation, where in the first version the input is two
+     modules, while in the second version the input is a list of
+     modules and a module.  Note: The order of the arguments is
      opposite of the order for minimal left approximations.
    </Returns>
+</ManSection>
+
+<ManSection>
+  <Oper Name="RadicalRightApproximationByAddM" Arg="modulelist, t" Comm=""/>
+  <Description>
+    Arguments: <Arg>modulelist</Arg>, <A>t</A> - a list of modules and
+    an index of this list.<Br />
+  </Description>
+  <Returns>
+    a radical right approximation of <C>moduleslist[ t ]</C> by the additive closure of the
+    modules in the list of modules <A>modulelist</A>, that is, returns
+    a homomorphism <M>f\colon M_{M_t} \to M_t</M>, where <M>M_t</M> is
+    the t-th module in the <A>modulelist</A>. 
+  </Returns>
 </ManSection>
 
 <ManSection>
@@ -611,6 +627,28 @@ finds the <Arg>n</Arg>-th syzygy of the module
      algebra over which the modules are defined is available via the
      attribute <C>ParentAlgebra</C>. 
    </Description>
+</ManSection>
+
+<ManSection>
+   <Oper Name="ProjectiveResolutionOfSimpleModuleOverEndo"
+	 Arg="modulelist, t, length" Comm=""/>
+   <Description>
+     Arguments: <Arg>modulelist</Arg> - a list of module, <Arg>t</Arg>
+     - an index of the list of modules, <Arg>length</Arg> - length of
+     the resolution.<Br />
+   </Description>
+   <Returns>information about the projective dimension and
+   non-projective summands of the syzygies of the simple module
+   corresponding to the <A>t</A>-th indecomposable projective module
+   over the endomorphism ring of the direct sum of all the modules in
+   <A>modulelist</A> (all assumed to be indecomposable).  The
+   non-projective summands in the syzygies from the second syzygy up
+   to the <A>length</A>-syzygy are always returned.  If the projective
+   dimension is less or equal to <A>length</A>, the projective
+   dimension is returned.  Otherwise, it returns that the
+   projective dimension is bigger that <A>length</A>.  The output has
+   the format <C>[ info on projective dimension, syzygies ]</C>. 
+   </Returns>
 </ManSection>
 
 <ManSection>
