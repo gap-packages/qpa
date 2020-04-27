@@ -959,7 +959,7 @@ Here we collect the predefined representations/modules over a finite
   </ManSection>
 
 <ManSection>
-   <Oper Name="ElementOfIndecProjective" Arg="A, m, s" Comm="for a
+   <Oper Name="ElementInIndecProjective" Arg="A, m, s" Comm="for a
 							     QuiverAlgebra,
 							     an element in
 							     indec. projective

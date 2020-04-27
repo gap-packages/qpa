@@ -2839,7 +2839,7 @@ InstallMethod ( SaveAlgebra,
     numberofarrows := Length( arrows );
     temp := "";
     for a in arrows do
-        if number > 0 then
+        if number > 0 and ( number mod 6 <> 0 ) then
             temp := Concatenation( temp, ", ", String( a ),":", String( SourceOfPath( a ) ), "->", String( TargetOfPath( a ) ) );
         else
             temp := Concatenation( String( a ),":", String( SourceOfPath( a ) ), "->", String( TargetOfPath( a ) ) );
@@ -2989,6 +2989,9 @@ InstallMethod ( ReadAlgebra,
         end;
     else
         Error("The encountered field is not supported,\n");
+    fi;
+    if algebratype = "IsPathAlgebra" then
+       return KQ;
     fi;
         #
         # Finding the relations.
