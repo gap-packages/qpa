@@ -1697,7 +1697,7 @@ InstallMethod( Centre,
         fi;
     od;
     
-    return Subalgebra(A, basis);
+    return SubalgebraWithOne( A, basis );
 end
   );
 
