@@ -781,3 +781,136 @@ InstallMethod ( TensorProductOfModules,
    
    return [ Range( h ), elementarytensor ];
 end);
+
+InstallMethod( TransposeOfModuleHomomorphism,
+    "for a homomorphism a path algebra module",
+    [ IsPathAlgebraMatModuleHomomorphism ], 0,
+    function( f ) 
+
+    local   B,  C,  d0,  d0prime,  kerd0,  kerd0prime,  d1temp,  
+            d1primetemp,  d1,  d1prime,  f0,  f1prime,  f1,  homstar,  
+            Dhomstar,  h;
+
+    B := Source( f );
+    C := Range( f );
+    d0 := ProjectiveCover( B );
+    d0prime := ProjectiveCover( C );
+    kerd0 := KernelInclusion( d0 );
+    kerd0prime := KernelInclusion( d0prime );
+    d1temp := ProjectiveCover( Source( kerd0 ) ); 
+    d1primetemp := ProjectiveCover( Source( kerd0prime ) );
+    d1 := d1temp * kerd0;
+    d1prime := d1primetemp * kerd0prime;
+    f0 := LiftingMorphismFromProjective( d0prime, d0 * f );
+    f1prime := MorphismOnKernel( d0, d0prime, f0, f );
+    f1 := LiftingMorphismFromProjective( d1primetemp, d1temp * f1prime );
+    
+    homstar := List( [ d1, d1prime, f1, f0 ], StarOfModuleHomomorphism );
+    h := MorphismOnCoKernel( homstar[ 2 ], homstar[ 1 ], homstar[ 4 ], homstar[ 3 ] );
+    
+    return h;
+end
+  );
+
+InstallMethod( TrD,
+    "for a homomorphism a path algebra module",
+    [ IsPathAlgebraMatModuleHomomorphism ], 0,
+    function( f )
+    
+    local   h,  B,  C;
+    
+    h := TransposeOfModuleHomomorphism( DualOfModuleHomomorphism( f ) );
+    B := TrD( Source( f ) );
+    C := TrD( Range( f ) );
+    h := RightModuleHomOverAlgebra( B, C, h!.maps );
+    
+    return h;
+end
+  );
+
+InstallMethod( DTr,
+    "for a homomorphism a path algebra module",
+    [ IsPathAlgebraMatModuleHomomorphism ], 0,
+    function( f )
+    
+    local   h,  B,  C;
+    
+    h := DualOfModuleHomomorphism( TransposeOfModuleHomomorphism( f ) );
+    B := DTr( Source( f ) );
+    C := DTr( Range( f ) );
+    h := RightModuleHomOverAlgebra( B, C, h!.maps );
+    
+    return h;
+
+    return DualOfModuleHomomorphism( TransposeOfModuleHomomorphism( f ) );
+end
+  );
+
+#######################################################################
+##
+#O  DTr( <f>, <n> )
+##
+##  This function returns returns DTr^n( <f> ) of a module homomorphism <f>.
+##  It will also print "Computing step i ..." when computing the ith 
+##  DTr. <n> must be an integer.
+##  
+InstallOtherMethod( DTr,
+   "for a path algebra module homomorphism",
+   [ IsPathAlgebraMatModuleHomomorphism, IS_INT ], 0,
+   function( f, n )
+
+   local g, i;
+
+   g := f;
+   if n < 0 then 
+      for i in [ 1..-n ] do
+         Print( "Computing step ",i,"...\n" );
+         g := TrD( g );
+      od;
+   else 
+      if n >= 1 then 
+         for i in [ 1..n ] do
+            Print( "Computing step ",i,"...\n" );
+            g := DTr( g );
+         od;
+      fi;
+   fi;
+
+   return g;
+end
+  );
+
+#######################################################################
+##
+#O  TrD( <f>, <n> )
+##  
+##  This function returns returns TrD^n( <f> ) of a module homomorphism <f>.
+##  It will also print "Computing step i ..." when computing the ith 
+##  TrD. <n> must be an integer.
+##  
+##
+InstallOtherMethod( TrD,
+   "for a path algebra module homomorphism",
+   [ IsPathAlgebraMatModuleHomomorphism, IS_INT ], 0,
+   function( f, n )
+
+   local g, i;
+
+   g := f;
+   if n < 0 then 
+      for i in [ 1..-n ] do
+         Print( "Computing step ",i,"...\n" );
+         g := DTr( g );
+      od;
+   else 
+      if n >= 1 then 
+         for i in [ 1..n ] do
+         Print( "Computing step ",i,"...\n" );
+            g := TrD( g );
+         od;
+      fi;
+   fi;
+
+   return g;
+end
+  ); 
