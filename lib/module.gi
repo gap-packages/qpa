@@ -568,7 +568,7 @@ InstallMethod(RightModuleOverPathAlgebra,
           basis := CreateModuleBasis(Fam);
           dim_vector := vertices;
        else 
-    	  basis := [ ZeroModElement(Fam, Zero(K)) ];
+    	  basis := [ PathModuleElem( Fam, ZeroModElement( Fam, Zero( K ) ) ) ];
           dim_vector := List(vlist, x -> 0);
        fi;
        M := RightAlgebraModuleByGenerators(R, \^, basis);
@@ -737,7 +737,7 @@ InstallMethod(RightModuleOverPathAlgebraNC,
           basis := CreateModuleBasis(Fam);
           dim_vector := vertices;
        else 
-    	  basis := [ ZeroModElement(Fam, Zero(K)) ];
+    	  basis := [ PathModuleElem( Fam, ZeroModElement( Fam, Zero( K ) ) ) ];
           dim_vector := List(vlist, x -> 0);
        fi;
        M := RightAlgebraModuleByGenerators(R, \^, basis);
@@ -899,7 +899,7 @@ InstallOtherMethod(RightModuleOverPathAlgebra,
        if dim_M > 0 then 
           basis := CreateModuleBasis(Fam);
        else 
-    	  basis := [ ZeroModElement(Fam, Zero(K)) ];
+    	  basis := [ PathModuleElem( Fam, ZeroModElement( Fam, Zero( K ) ) ) ];
        fi;
        M := RightAlgebraModuleByGenerators(A, \^, basis);
        SetIsPathAlgebraMatModule(M,true);

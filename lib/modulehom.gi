@@ -2366,8 +2366,20 @@ InstallMethod ( LiftingMorphismFromProjective,
 #  Checking if the input is as required
 # 
     P := Source(g);
-    if IsProjectiveModule(P) and IsDirectSumOfModules(P) and IsSurjective(f) and ( Range(f) = Range(g) ) then 
-# 
+    if not IsProjectiveModule(P) then
+        Error( "The source of the second map is not projective.\n" );
+    fi;
+    if not IsSurjective(f) then
+        Error( "The first map is not surjective.\n" );        
+    fi;
+    if not ( Range(f) = Range(g) ) then
+        Error( "The entered maps do not have a common range.\n" );
+    fi;
+    if IsZero( P ) then
+        return ZeroMapping( P, Source( f ) );
+    fi;
+    if IsDirectSumOfModules(P) then  	  
+#   
 #
         K := LeftActingDomain(P);
         inclusions  := DirectSumInclusions(P);
