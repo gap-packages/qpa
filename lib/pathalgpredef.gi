@@ -832,3 +832,84 @@ InstallMethod ( BrauerConfigurationAlgebra,
     return A;
 end
 );
+
+InstallMethod( PreprojectiveAlgebra,
+    "for a path algebra module and an integer",
+    [ IsPathAlgebraMatModule, IsInt ], 0,
+    function( M, n )
+    
+    local   P,  dimlistP,  revdimlistP,  top,  K,  dimlist,  dimP,  
+            sizeP,  VP,  VecSpP,  support,  i,  products,  zero,  j,  
+            p,  bas_no_p,  q,  bas_no_q,  h,  temp,  r,  s,  A;
+    
+    P := List( [ 0..n ], i -> HomOverAlgebra( M, TrD( M, i ) ) );
+    dimlistP := List( P, Length );
+    revdimlistP := Reversed( dimlistP );
+    top := PositionNonZero( revdimlistP ); 
+    if top = n + 2 then 
+        Error( "The preprojective algebra is not necessarily finite dimensional.\n" );
+    fi;
+
+    top := n + 2 - top;
+    P := P{ [ 1..top ] };
+    dimlistP := dimlistP{ [ 1..top ] };
+    K := LeftActingDomain( M );
+    dimlist := List( [ 0..top - 1 ], i -> ZeroMapping( M, TrD( M, i ) ) );
+    dimlist := List( dimlist, h -> Length( Flat( h!.maps ) ) );
+    dimP := Sum( dimlistP );
+    sizeP := Sum( dimlist );
+    VP := List( P, p -> List( p, g -> Flat( g!.maps ) ) );
+    VecSpP := [ ];
+    support := [ ];
+    for i in [ 1..top ] do
+        if Length( VP[ i ] ) = 0 then
+            Add( VecSpP, TrivialSubspace( K^( dimlist[ i ] ) ) );
+        else
+            Add( support, i );
+            Add( VecSpP, Subspace( K^( dimlist[ i ] ), VP[ i ], "basis" ) );
+        fi;
+    od;
+    
+    products := EmptySCTable( dimP, Zero( K ) );
+    zero := Flat( List( [ 1..dimP ], u -> [ Zero( K ), u ] ) );
+    for i in support do
+        for j in support do
+            for p in P[ i ] do
+                bas_no_p := Position( P[ i ], p );
+                if i > 1 then 
+                    bas_no_p := Sum( dimlistP{ [ 1..i - 1 ] } ) + bas_no_p;
+                fi;
+                for q in P[ j ] do
+                    bas_no_q := Position( P[ j ], q );
+                    if j > 1 then 
+                        bas_no_q := Sum( dimlistP{ [ 1..j - 1 ] } ) + bas_no_q;
+                    fi;
+                    if i + j - 1 > top then
+                        SetEntrySCTable( products, bas_no_p, bas_no_q, zero );
+                    else
+                        h := p * TrD( q, i - 1 );
+                        temp := [ ];
+                        for r in [ 1..i + j - 2 ] do
+                            Add( temp, Zero( K^( dimlistP[ r ] ) ) );
+                        od;
+                        Add( temp, Coefficients( Basis( VecSpP[ i + j - 1 ] ), Flat( h!.maps ) ) );
+                        if i + j <= Length( dimlistP ) then 
+                            for r in [ i + j..Length( dimlistP ) ] do
+                                Add( temp, Zero( K^( dimlistP[ r ] ) ) );
+                            od;
+                        fi;
+                        temp := Flat( temp );
+                        s := Length( temp );
+                        temp := Flat( List( [ 1..s ], u -> [ temp[ u ], u ] ) );
+                        SetEntrySCTable( products, bas_no_p, bas_no_q, temp );
+                    fi;
+                od;
+            od;
+        od;
+    od;
+    
+    A := AlgebraByStructureConstants( K, products );
+    
+    return AlgebraAsQuiverAlgebra( A );
+end
+  );

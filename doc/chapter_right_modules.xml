@@ -1078,6 +1078,16 @@ Here we collect the predefined representations/modules over a finite
 </ManSection>
 
 <ManSection>
+   <Oper Name="DTr" Arg="f, [ n ]" Comm="for a
+					 PathAlgebraMatModuleHomomorphism
+					 and an integer"/>
+   <Description> 
+    Arguments: <Arg>f</Arg> -- a path algebra module homomorphism and
+    <Arg>n</Arg> -- an integer.<Br /></Description>
+   <Returns>the <Arg>n</Arg>-th power of the dual of the transpose of the homomorphism <Arg>f</Arg>. </Returns>
+</ManSection>
+
+<ManSection>
    <Attr Name="NakayamaFunctorOfModule" Arg="M" Comm="for a PathAlgebraMatModule"/>
    <Description> 
     Arguments: <Arg>M</Arg> -- a <C>PathAlgebraMatModule</C>.
@@ -1183,11 +1193,30 @@ Here we collect the predefined representations/modules over a finite
 </ManSection>
 
 <ManSection>
+   <Oper Name="TrD" Arg="f, [ n ]" Comm="for a
+					 PathAlgebraMatModuleHomomorphism
+					 and an integer"/>
+   <Description> 
+    Arguments: <Arg>f</Arg> -- a path algebra module homomorphism,
+    <Arg>n</Arg> -- an integer.<Br /></Description>
+   <Returns>the <Arg>n</Arg>-th power of the transpose of the dual of the homomorphism <Arg>f</Arg>. </Returns>
+</ManSection>
+
+
+<ManSection>
    <Attr Name="TransposeOfModule" Arg="M" Comm="for a PathAlgebraMatModule"/>
    <Description> 
     Arguments: <Arg>M</Arg> -- a path algebra module.
    <Br /></Description>
    <Returns>the transpose of the module <Arg>M</Arg>.</Returns>
+</ManSection>
+
+<ManSection>
+   <Attr Name="TransposeOfModuleHomomorphism" Arg="f" Comm="for a PathAlgebraMatModuleHomomorphism"/>
+   <Description> 
+    Arguments: <Arg>f</Arg> -- a path algebra module homomorphism.
+   <Br /></Description>
+   <Returns>the transpose of the module homomorphism <Arg>f</Arg>.</Returns>
 </ManSection>
 
 </Section>

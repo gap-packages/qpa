@@ -19,3 +19,4 @@ DeclareProperty( "IsPosetAlgebra", IsQuiverAlgebra );
 DeclareOperation( "PosetAlgebra", [ IsField, IsPoset ] ); 
 DeclareAttribute( "PosetOfPosetAlgebra", IsPosetAlgebra );
 DeclareOperation( "BrauerConfigurationAlgebra", [IsField, IsList] );
+DeclareOperation( "PreprojectiveAlgebra", [ IsPathAlgebraMatModule, IsInt ] );
