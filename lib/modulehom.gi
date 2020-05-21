@@ -4334,7 +4334,7 @@ InstallMethod( FromIdentityToDoubleStarHomomorphism,
                             if DimensionVector( Pop[ i ] )[ l ] = 0 then
                                 Add( mats, NullMat( 1, 1, K ) );
                             else
-                                Add( mats, NullMat( 1, DimensionVector( Pop[ i ] )[ l ] ) );
+                                Add( mats, NullMat( 1, DimensionVector( Pop[ i ] )[ l ], K ) );
                             fi;
                         else
                             if DimensionVector( Pop[ i ] )[ l ] = 0 then
