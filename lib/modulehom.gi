@@ -4341,7 +4341,11 @@ InstallMethod( FromIdentityToDoubleStarHomomorphism,
                                 Add( mats, NullMat( Length( V[ l ], 1, K ) ) );
                             else
                                 mstar := List( V[ l ], g -> ImageElm( g, m ) );
-                                mstar := List( mstar, w -> ElementOfQuotientOfPathAlgebra( fam, ElementInIndecProjective( A, w, l ), false ) );
+				if IsPathAlgebra( A ) then
+				    mstar := List( mstar, w -> ElementInIndecProjective( A, w, l ) ); 
+				else
+				    mstar := List( mstar, w -> ElementOfQuotientOfPathAlgebra( fam, ElementInIndecProjective( A, w, l ), false ) );
+				fi;
                                 mstar := List( mstar, w -> OppositePathAlgebraElement( w ) );
                                 mstar := List( mstar, w -> Coefficients( basisPop[ i ], w ) );
                                 mstar := List( mstar, w -> LinearCombination( Basis( Pop[ i ] ), w ) );
