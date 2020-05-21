@@ -4231,3 +4231,139 @@ function( A, n )
      
 end
   );
+
+#######################################################################
+##
+#A  FromIdentityToDoubleStarHomomorphism( <M> )
+##
+##  Returns the homomorphism from  M  to  M^{**}  for module  <M>.
+##
+InstallMethod( FromIdentityToDoubleStarHomomorphism, 
+    "for a path algebra module",
+    [ IsPathAlgebraMatModule ],
+    function( M )
+    
+    local   A,  Aop,  K,  P,  num_vert,  V,  BV,  BasisVflat,  b,  
+            Mstar,  dim_vect_star,  Pop,  Vop,  BVop,  BasisVflatop,  
+            Mdstar,  dim_vect_dstar,  BM,  dimM,  matrices,  basisPop,  
+            fam,  i,  temp,  start,  j,  m,  mats,  l,  mstar,  h,  
+            hflat,  startpos,  endpos;
+    # 
+    # Setting up necessary infrastructure.
+    # 
+    A := RightActingAlgebra( M );
+    Aop := OppositeAlgebra( A );
+    K := LeftActingDomain( M ); 
+    P := IndecProjectiveModules( A );
+    num_vert := Length( P );
+    #
+    # Finding the vector spaces in each vertex in the representation of 
+    # Hom_A(M,A)  and making a vector space of the flatten matrices in 
+    # each basis vector in  Hom_A(M,e_iA).
+    #
+    V := List( P, p -> HomOverAlgebra( M, p ) );
+    BV := List( V, v -> List( v, x -> 
+                  Flat( MatricesOfPathAlgebraMatModuleHomomorphism( x ) ) ) );
+    BasisVflat := [];
+    for b in BV do
+        if Length( b ) <> 0 then 
+            Add( BasisVflat, 
+                Basis( Subspace( FullRowSpace( K, Length( b[ 1 ] ) ), b, "basis"), b ) ); 
+        else 
+            Add( BasisVflat, Basis( TrivialSubspace( K^1 ) ) );
+        fi;
+    od;
+    #
+    # Computing M^*.
+    #
+    Mstar := StarOfModule( M );
+    dim_vect_star := DimensionVector( Mstar );
+    #
+    # Finding the vector spaces in each vertex in the representation of 
+    # Hom_Aop(M^*,Aop)  and making a vector space of the flatten matrices in 
+    # each basis vector in  Hom_Aop(M^*,e^op_iAop).
+    #
+    Pop := IndecProjectiveModules( Aop );
+    Vop := List( Pop, p -> HomOverAlgebra( Mstar, p ) );
+    BVop := List( Vop, v -> List( v, x -> 
+                  Flat( MatricesOfPathAlgebraMatModuleHomomorphism( x ) ) ) );
+    BasisVflatop := [];
+    for b in BVop do
+        if Length( b ) <> 0 then 
+            Add( BasisVflatop, 
+                Basis( Subspace( FullRowSpace( K, Length( b[ 1 ] ) ), b, "basis"), b ) ); 
+        else 
+            Add( BasisVflatop, Basis( TrivialSubspace( K^1 ) ) );
+        fi;
+    od;
+    #
+    # Computing M^{**}
+    #    
+    Mdstar := StarOfModule( Mstar ); 
+    dim_vect_dstar := DimensionVector( Mdstar );
+    #
+    # Computing the morphism from  M ----> M^**
+    #    
+    BM := BasisVectors( Basis( M ) );
+    dimM := DimensionVector( M );
+    matrices := [ ];
+    basisPop := List( BasisOfProjectives( Aop ), b -> Flat( b ) );
+    basisPop := List( basisPop, b -> Basis( Subspace( Aop, b, "basis" ) ) );
+    fam := ElementsFamily( FamilyObj( A ) );
+    for i in [ 1..num_vert ] do
+        if dimM[ i ] = 0 then
+            if dim_vect_dstar[ i ] = 0 then 
+                Add( matrices, NullMat( 1, 1, K ) );
+            else
+                Add( matrices, NullMat( 1, dim_vect_dstar[ i ], K ) );
+            fi;
+        else
+            if dim_vect_dstar[ i ] = 0 then
+                Add( matrices, NullMat( dimM[ i ], 1, K ) );
+            else
+            #
+            # For each m in M[ i ] construct the map from  M^* ---> A given by  g |---> g( m )
+            #
+                temp := [ ];
+                start := Sum( dimM{ [ 1..i - 1 ] } );
+                for j in [ 1..dimM[ i ] ] do
+                    m := BM[ start + j ];
+                    mats := [ ];
+                    for l in [ 1..num_vert ] do
+                        if Length( V[ l ] ) = 0 then
+                            if DimensionVector( Pop[ i ] )[ l ] = 0 then
+                                Add( mats, NullMat( 1, 1, K ) );
+                            else
+                                Add( mats, NullMat( 1, DimensionVector( Pop[ i ] )[ l ] ) );
+                            fi;
+                        else
+                            if DimensionVector( Pop[ i ] )[ l ] = 0 then
+                                Add( mats, NullMat( Length( V[ l ], 1, K ) ) );
+                            else
+                                mstar := List( V[ l ], g -> ImageElm( g, m ) );
+                                mstar := List( mstar, w -> ElementOfQuotientOfPathAlgebra( fam, ElementInIndecProjective( A, w, l ), false ) );
+                                mstar := List( mstar, w -> OppositePathAlgebraElement( w ) );
+                                mstar := List( mstar, w -> Coefficients( basisPop[ i ], w ) );
+                                mstar := List( mstar, w -> LinearCombination( Basis( Pop[ i ] ), w ) );
+                                mstar := List( mstar, w -> ExtRepOfObj( ExtRepOfObj( w ) )[ l ]  );
+                                Add( mats, mstar );
+                            fi;
+                        fi;
+                    od;
+                    h := RightModuleHomOverAlgebra( Mstar, Pop[ i ], mats );
+                    hflat := Flat( MatricesOfPathAlgebraMatModuleHomomorphism( h ) );
+                    mstar := Coefficients( BasisVflatop[ i ], hflat );
+                    startpos := Sum( dim_vect_dstar{ [ 1..i - 1 ] } ) + 1;
+                    endpos := startpos + dim_vect_dstar[ i ] - 1;
+                    mstar := LinearCombination( BasisVectors( Basis( Mdstar ) ){ [ startpos..endpos ] }, mstar );
+                    mstar := ExtRepOfObj( ExtRepOfObj( mstar ) )[ i ];
+                    Add( temp, mstar );
+                od;
+                Add( matrices, temp );
+            fi;
+        fi;
+    od;
+    
+    return RightModuleHomOverAlgebra( M, Mdstar, matrices ); 
+end
+);

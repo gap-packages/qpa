@@ -541,6 +541,17 @@ gap> N := RightModuleOverPathAlgebra(A,mat);
 </ManSection>
 
 <ManSection>
+   <Attr Name="FromIdentityToDoubleStarHomomorphism" Arg="M" Comm="for a
+   PathAlgebraMatModule"/>
+   <Description> 
+   Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>).
+   <Br /></Description>
+   <Returns>the homomorphism from <Arg>M</Arg> to the double star of
+   the module <Arg>M</Arg>. 
+   </Returns>
+</ManSection>
+
+<ManSection>
    <Oper Name="IntersectionOfSubmodules" Arg="list" Comm="for a list
    of PathAlgebraMatModule submodules"/>
    <Description> 
