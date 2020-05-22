@@ -4338,7 +4338,7 @@ InstallMethod( FromIdentityToDoubleStarHomomorphism,
                             fi;
                         else
                             if DimensionVector( Pop[ i ] )[ l ] = 0 then
-                                Add( mats, NullMat( Length( V[ l ], 1, K ) ) );
+                                Add( mats, NullMat( Length( V[ l ] ), 1, K ) );
                             else
                                 mstar := List( V[ l ], g -> ImageElm( g, m ) );
 				if IsPathAlgebra( A ) then
