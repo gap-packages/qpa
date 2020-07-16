@@ -72,3 +72,4 @@ DeclareOperation( "AllModulesOfLengthAtMost" , [ IsQuiverAlgebra, IS_INT ] );
 DeclareOperation( "AllModulesOfLengthPlusOne" , [ IsList ] );
 DeclareOperation( "AllIndecModulesOfLengthAtMost" , [ IsQuiverAlgebra, IS_INT ] );
 DeclareAttribute( "FromIdentityToDoubleStarHomomorphism", IsPathAlgebraMatModule );
+DeclareOperation( "MatrixOfHomomorphismBetweenProjectives", [ IsPathAlgebraMatModuleHomomorphism ] );

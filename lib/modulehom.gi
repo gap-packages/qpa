@@ -4371,3 +4371,48 @@ InstallMethod( FromIdentityToDoubleStarHomomorphism,
     return RightModuleHomOverAlgebra( M, Mdstar, matrices ); 
 end
 );
+
+#######################################################################
+##
+#O  MatrixOfHomomorphismBetweenProjectives( <f> )
+##
+##  Given a homomorphism  <f> from <P = \oplus v_iA> to <P' = \oplus w_iA>
+##  where <v_i> and <w_i> are vertices, this function finds the 
+##  homomorphism as a matrix in <\oplus v_iAw_i>. 
+##  
+InstallMethod( MatrixOfHomomorphismBetweenProjectives, 
+  "for a homomorphism between projectives",
+  true,
+  [ IsPathAlgebraMatModuleHomomorphism ], 0,
+  function( f )
+    
+    local   zero,  projections,  inclusions,  A,  imageofgenerators,  
+            l,  indexofprojectives;
+    
+    zero := Zero( OriginalPathAlgebra( RightActingAlgebra( Source( f ) ) ) );
+    if IsZero( Range( f ) ) then 
+        return [ [ zero ] ];
+    fi;
+    projections := DirectSumProjections( Range( f ) );
+    if IsZero( Source( f ) ) then
+        return [ List( [ 1..Length( projections ) ], i -> zero ) ];
+    fi;
+    inclusions := DirectSumInclusions( Source( f ) );
+    if not IsDirectSumOfModules( Source( f ) ) or not IsDirectSumOfModules( Range( f ) ) then
+        Error( "The enter projectives are not a direct sum indecomposable projectives.\n" );
+    fi;
+    
+    A := RightActingAlgebra( Source( f ) );
+    imageofgenerators := List( inclusions, x -> ImageElm( x,  MinimalGeneratingSetOfModule( Source( x ) )[ 1 ] ) );
+    imageofgenerators := List( imageofgenerators, x -> ImageElm( f, x ) );
+    l := Length( projections );
+    imageofgenerators := List( imageofgenerators, x -> List( projections, p -> ImageElm( p, x ) ) );
+    indexofprojectives := List( projections, x -> SupportModuleElement( MinimalGeneratingSetOfModule( Range( x ) )[ 1 ] )[ 
+1 ] );
+    indexofprojectives := List( indexofprojectives, x -> VertexPosition( x ) ); 
+    imageofgenerators := List( imageofgenerators, x -> List( [ 1..l ], 
+                                 y -> ElementInIndecProjective( A, x[ y ], indexofprojectives[ y ] ) ) ); 
+    
+    return TransposedMat( imageofgenerators );
+end
+  );

@@ -858,6 +858,19 @@ gap> Kernel(p);
 </ManSection>
 
 <ManSection>
+  <Oper Name="MatrixOfHomomorphismBetweenProjectives" Arg="f"
+  Comm="for a PathAlgebraMatHomomorphism"/>
+  <Description>
+  Arguments: <Arg>f</Arg> -- a homomorphism between two projective modules.<Br />
+  </Description>
+  <Returns> for a homomorphism  <Arg>f</Arg> of projective
+  <M>A</M>-modules from <M>P = \oplus v_iA</M> to <M>P' = \oplus
+  w_iA</M>, where <M>v_i</M> and <M>w_i</M> are vertices,  the 
+  homomorphism as a matrix in <M>\oplus v_iAw_i</M>. 
+  </Returns>
+</ManSection>
+
+<ManSection>
    <Attr Name="RightMinimalVersion" Arg="f" Comm=""/>
    <Description>
      Arguments: <Arg>f</Arg> - a homomorphism between two
