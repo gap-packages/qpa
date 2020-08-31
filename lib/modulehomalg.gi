@@ -656,7 +656,7 @@ InstallMethod( ExtOverAlgebra,
 #
       genssyzygyN := List(H, x -> Flat(x!.maps));
       if Length(genssyzygyN) = 0 then
-         return [[],[],[]];
+         return [ g, [ ], [ ] ];
       else
          VsyzygyN := VectorSpace(K, genssyzygyN);
 #
@@ -682,7 +682,7 @@ InstallMethod( ExtOverAlgebra,
          pi := NaturalHomomorphismBySubspace(VsyzygyN, VImg);
          ext := Range(pi);
          if Dimension(Range(pi)) = 0 then 
-            return [g,[],[]];
+            return [ g, [ ], [ ] ];
          else 
 #
 # Sending elements of ext back to Hom(Syz(M),N)
