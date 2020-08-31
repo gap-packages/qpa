@@ -548,7 +548,7 @@ true ]]>
    <Oper Name="NthSyzygy" Arg="M, n" Comm="for a
    PathAlgebraMatModule"/>
    <Description> 
-    Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>), <Arg>n</Arg> -- a positive integer.
+    Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>), <Arg>n</Arg> -- a non-negative integer.
    <Br /></Description>
    <Returns>the <Arg>n</Arg>-th syzygy of <Arg>M</Arg>.
    </Returns>

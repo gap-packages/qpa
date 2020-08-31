@@ -3,7 +3,7 @@ DeclareOperation( "PullBack", [ IsPathAlgebraMatModuleHomomorphism, IsPathAlgebr
 DeclareOperation( "IsOmegaPeriodic", [IsPathAlgebraMatModule, IS_INT ] );
 DeclareOperation( "IsTauPeriodic", [IsPathAlgebraMatModule, IS_INT ] );
 DeclareAttribute( "1stSyzygy", IsPathAlgebraMatModule );
-DeclareOperation( "NthSyzygy", [ IsPathAlgebraMatModule, IsPosInt ] );
+DeclareOperation( "NthSyzygy", [ IsPathAlgebraMatModule, IsInt ] );
 DeclareOperation( "LeftApproximationByAddM", [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ]);
 DeclareOperation( "RightApproximationByAddM", [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ]);
 DeclareOperation( "MinimalRightApproximation", [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ]);

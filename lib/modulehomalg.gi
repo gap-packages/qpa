@@ -348,11 +348,17 @@ end
 ##
 InstallMethod( NthSyzygy,
    "for a path algebra module and a positive integer",
-   [ IsPathAlgebraMatModule, IsPosInt ], 0,
+   [ IsPathAlgebraMatModule, IsInt ], 0,
    function( M, n ) 
 
   local projres, diff;
- 
+
+  if n < 0 then
+     Error( "Entered integer is negative.\n" );
+  fi;
+  if n = 0 then
+     return M;
+  fi;
   projres := ProjectiveResolution( M ); 
   diff := DifferentialOfComplex( projres, n - 1 ); 
   
