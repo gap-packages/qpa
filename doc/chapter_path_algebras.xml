@@ -2058,7 +2058,8 @@ true]]>
 <ManSection>
     <Oper Name="PreprojectiveAlgebra" Arg="M, n"/>
     <Description>
-      Arguments: <Arg>M</Arg> - a path algebra module over finite dimensional algebra over a
+      Arguments: <Arg>M</Arg> - a path algebra module over finite
+      dimensional hereditary algebra over a
       finite field, <Arg>n</Arg> - an integer.<Br />
     </Description>
     <Returns>the preprojective algebra of the module <Arg>M</Arg> if

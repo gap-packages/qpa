@@ -838,10 +838,15 @@ InstallMethod( PreprojectiveAlgebra,
     [ IsPathAlgebraMatModule, IsInt ], 0,
     function( M, n )
     
-    local   P,  dimlistP,  revdimlistP,  top,  K,  dimlist,  dimP,  
-            sizeP,  VP,  VecSpP,  support,  i,  products,  zero,  j,  
-            p,  bas_no_p,  q,  bas_no_q,  h,  temp,  r,  s,  A;
+  local R, P, dimlistP, revdimlistP, top, K, dimlist, dimP, sizeP, VP, 
+        VecSpP, support, i, products, zero, j, p, bas_no_p, q, 
+        bas_no_q, h, temp, r, s, A;
     
+    R := RightActingAlgebra( M );
+    if not IsHereditaryAlgebra( R ) then 
+      TryNextMethod( );
+      # TODO: Implement method for not hereditary algebras.
+    fi;
     P := List( [ 0..n ], i -> HomOverAlgebra( M, TrD( M, i ) ) );
     dimlistP := List( P, Length );
     revdimlistP := Reversed( dimlistP );
