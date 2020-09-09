@@ -1,4 +1,61 @@
 ==========================================================================
+Changes from version 1.30 to 1.31:
+==========================================================================
+
+Added functions in this release:
+----------------------------------------------------------------------
+
+DecomposeModuleViaCharPoly (experimental)
+DecomposeModuleViaTop (experimentral)
+DTr, TrD on homomorphisms
+FrobeniusForm
+FrobeniusLinearFunctional
+FromIdentityToDoubleStarHomomorphism
+MatrixOfHomomorphismBetweenProjectives
+PreprojectiveAlgebra
+ProjectiveResolutionOfSimpleModuleOverEndo
+QuiverAlgebraOfeAe
+RadicalRightApproximationByAddM
+TopOfModule for morphisms
+TransposeOfModule on homomorphisms
+
+
+Discontinued/removed functions:
+------------------------------------------------------------
+
+
+Changed code for:
+----------------------------------------------------------------------
+BlockSplittingIdempotents
+Center
+DualOfAlgebraAsModuleOverEnvelopingAlgebra
+ExtOverAlgebra
+Kernel
+NthSyzygy
+QuiverAlgebraOfAmodAeA
+
+
+Fixed bugs in:
+----------------------------------------------------------------------
+CotiltingModule
+DualOfModule
+ImageProjectiveInclusion
+IsCotiltingModule
+IsFiniteTypeAlgebra
+IsSymmetricAlgebra
+LiftingMorphismFromProjective
+Poset
+RightModuleOverPathAlgebra
+SaveAlgebra
+StarOfModuleHomomorphism
+
+
+Miscellaneous
+----------------------------------------------------------------------
+Added CONTRIBUTING.md
+
+
+==========================================================================
 Changes from version 1.29 to 1.30:
 ==========================================================================
 
