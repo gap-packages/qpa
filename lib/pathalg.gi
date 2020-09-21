@@ -2010,6 +2010,9 @@ InstallMethod( IsSymmetricAlgebra,
     local   b, BA, x, y;
 
     b := FrobeniusForm( A );
+    if b = false then
+       return false;
+    fi;
     BA := Basis( A );
     for x in BA do
     	for y in BA do
