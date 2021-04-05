@@ -918,3 +918,43 @@ InstallMethod( PreprojectiveAlgebra,
     return AlgebraAsQuiverAlgebra( A );
 end
   );
+
+#######################################################################
+##
+#O  AdmissibleSequenceGenerator( <num_vert, height> )
+##
+##  Constructs admissible sequences of Nakayama algebras with <num_vert>
+##  number of vertices, and indecomposable projective modules of length
+##  at most <height>. 
+## 
+InstallMethod( AdmissibleSequenceGenerator, 
+    "for two positive integers",
+    [ IsPosInt, IsPosInt ], 0,
+    function( num_vert, height )
+    
+    local   set,  sets,  sequences,  admiss_sequences,  m,  test,  i;
+    
+    set := [ 2..height ];
+    sets := List( [ 1..num_vert - 1 ], i -> set );
+    Add( sets, [ 1..height ] );
+    sequences := Cartesian( sets );
+    admiss_sequences := [ ];
+    for m in sequences do
+        test := true;
+        i := 1;
+        while ( test and ( i < num_vert ) ) do
+            test := ( ( m[ i + 1 ] >= m[ i ] - 1 ) and
+                      ( m[ i ] - 1 >= 1 ) );  
+            i := i + 1;
+        od;
+        if test then 
+            test := ( m[ 1 ] >= m[ num_vert ] - 1 );
+        fi;
+        if test then 
+            Add( admiss_sequences, m );
+        fi;
+    od;
+    
+    return admiss_sequences;
+end
+  );
