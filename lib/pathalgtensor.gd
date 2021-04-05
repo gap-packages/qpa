@@ -67,3 +67,4 @@ DeclareAttribute( "DualOfAlgebraAsModuleOverEnvelopingAlgebra", IsQuiverAlgebra 
 DeclareAttribute( "TrivialExtensionOfQuiverAlgebraLevel", IsQuiverAlgebra );
 DeclareAttribute( "TrivialExtensionOfQuiverAlgebra", IsQuiverAlgebra );
 DeclareAttribute( "EnvelopingAlgebraHomomorphism", IsAlgebraHomomorphism );
+DeclareAttribute( "TrivialExtensionOfQuiverAlgebraProjection", IsQuiverAlgebra );

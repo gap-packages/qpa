@@ -765,3 +765,35 @@ InstallMethod( EnvelopingAlgebraHomomorphism,
     return g;
 end
   );
+
+#######################################################################
+##
+#O  TrivialExtensionOfQuiverAlgebraProjection( <A> )
+##
+##  Constructs the natural algebra projection form trivial extension  
+##  T(A)  to  A.
+## 
+InstallMethod( TrivialExtensionOfQuiverAlgebraProjection, 
+    "for an algebra",
+    [ IsQuiverAlgebra ], 0,
+    function( A )
+    
+    local   TA,  gensTA,  gensA,  newarrows,  i,  f;
+    
+    if not IsFiniteDimensional( A ) then
+        return fail;
+    fi;
+    TA := TrivialExtensionOfQuiverAlgebra( A );
+    gensTA := GeneratorsOfAlgebraWithOne( TA );
+    gensA := ShallowCopy( GeneratorsOfAlgebraWithOne( A ) );
+    newarrows := Length( gensTA ) - Length( gensA );
+    for i in [ 1..newarrows ] do
+        Add( gensA, Zero( A ) );
+    od;
+    f := AlgebraHomomorphismByImages( TA, A, gensTA, gensA );
+    f!.generators := gensTA;
+    f!.genimages := gensA;
+    
+    return f;
+end
+  );

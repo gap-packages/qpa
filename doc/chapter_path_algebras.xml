@@ -1975,6 +1975,15 @@ true]]>
     </Returns>
   </ManSection>
 
+   <ManSection>
+    <Attr Name="TrivialExtensionOfQuiverAlgebraProjection" Arg=" A "/>
+    <Description>
+      Arguments: <Arg>A</Arg> -- a finite dimensional (admissible quotient of) a path algebra <Arg>A</Arg>. <Br />
+    </Description>
+    <Returns>the natural algebra projection form trivial extension  <M>T(A)</M>  to  <Arg>A</Arg>.
+    </Returns>
+  </ManSection>
+
 </Section>
 
 <Section Label="qpa:operationsonquiveralgebras">
