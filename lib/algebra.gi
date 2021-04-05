@@ -909,3 +909,33 @@ InstallMethod ( BlocksOfAlgebra,
   return Alist;
 end
   );
+
+#######################################################################
+##
+#A  OppositeAlgebraHomomorphism( <f> )
+##
+##  Constructs the opposite of an algebra homomorphism. 
+## 
+InstallMethod( OppositeAlgebraHomomorphism, 
+    "for an algebra",
+    [ IsAlgebraHomomorphism ], 0,
+    function( f )
+    
+    local   A,  B,  Aop,  Bop,  gensandimages,  gensAop,  imagesBop,  
+            g;
+    
+    A := Source( f ); 
+    B := Range( f );
+    Aop := OppositeAlgebra( A );
+    Bop := OppositeAlgebra( B );
+    gensandimages := MappingGeneratorsImages( f );
+    gensAop := List( gensandimages[ 1 ], OppositePathAlgebraElement );
+    imagesBop := List( gensandimages[ 2 ], OppositePathAlgebraElement );
+    g := AlgebraHomomorphismByImages( Aop, Bop, gensAop, imagesBop );
+    g!.generators := gensAop;
+    g!.genimages := imagesBop;
+    
+    return g;
+end
+  );
+

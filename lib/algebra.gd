@@ -25,3 +25,5 @@ DeclareOperation( "LiftingCompleteSetOfOrthogonalIdempotents", [IsAlgebraGeneral
 DeclareOperation( "FindMultiplicativeIdentity", [ IsAlgebra ] );
 DeclareOperation( "AlgebraAsQuiverAlgebra", [ IsAlgebra ]);
 DeclareOperation( "BlocksOfAlgebra", [ IsAlgebra ]);
+DeclareAttribute( "OppositeAlgebraHomomorphism", IsAlgebraHomomorphism );
+

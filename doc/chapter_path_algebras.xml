@@ -1656,6 +1656,17 @@ a*b]]>
     </Returns>
   </ManSection>
 
+  <ManSection>
+  <Attr Name="OppositeAlgebraHomomorphism" Arg="A"/>
+  <Description>
+    Arguments: <Arg>A</Arg> -- an algebra homomorphism of two (quotients) of path algebras.<Br />
+  </Description>
+  <Returns>
+  algebra homomorphism between the corresponding opposite algebras.
+  </Returns>
+</ManSection>
+  
+
   The following example illustrates the use of
   <Ref Attr="OppositePathAlgebra"/> and
   <Ref Oper="OppositePathAlgebraElement"/>.
