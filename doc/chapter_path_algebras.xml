@@ -1919,7 +1919,19 @@ true]]>
     </Description>
     <Returns>the enveloping algebra <M><Arg>A</Arg>^\text{e}
       = <Arg>A</Arg>^\text{op} \tensor <Arg>A</Arg></M>
-      of <Arg>A</Arg>
+      of <Arg>A</Arg>.
+    </Returns>
+  </ManSection>
+
+    <ManSection>
+    <Attr Name="EnvelopingAlgebraHomomorphism" Arg="f"/>
+    <Description>
+      Arguments: <Arg>f</Arg> -- an algebra homomorphism of two (quotients of) a path
+      algebras. <Br /> 
+    </Description>
+    <Returns>the algebra homomorphism between the corresponding
+    enveloping algebras the source of <Arg>f</Arg> and the range of
+    <Arg>f</Arg>. 
     </Returns>
   </ManSection>
 
