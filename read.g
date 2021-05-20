@@ -41,6 +41,8 @@ ReadPackage("QPA", "lib/derivedcat.gi");
 ReadPackage("QPA", "lib/pathalgreptype.gi");
 ReadPackage("QPA", "lib/quivergraphalgorithms.gi");
 ReadPackage("QPA", "lib/combinatorialrep.gi");
+ReadPackage("QPA", "lib/validity.gi");
+ReadPackage("QPA", "lib/stringalgebra.gi");
 
 ReadPackage("QPA", "lib/degorderfinitetype.gi");
 ReadPackage("QPA", "lib/documentation.gi");
