@@ -1103,6 +1103,270 @@ true ]]>
 </Example>
   
 </Section>
+	
+<Section><Heading> Operations on String Algebras</Heading>
+A quiver is a quadruple <Math>Q = (Q_0, Q_1, s, t)</Math> where <Math>Q_0</Math>
+is the set of vertices, <Math>Q_1</Math> is the set of arrows and <Math>s, t :
+Q_1 \rightarrow Q_0</Math> are source and target functions where for each <Math>
+\alpha \in Q_1</Math>, <Math>s(\alpha)</Math> and <Math>t(\alpha)</Math> denotes
+starting and ending vertex of <Math>\alpha</Math> respectively. For the functions
+defined in this section the quiver has to be constructed using first construction
+of <Ref Sect="Basic Construction"/>. The arrows in <Math>Q_1</Math> should be
+small Roman letters defined in alphabetical order as in the example below. These
+operations can handle string algebras with number of arrows less than or equal
+to 26. Say that a finite sequence <M>\alpha_n\alpha_{n-1}...\alpha_1</M> is a
+path in <M>Q</M> if <M>s(\alpha_{i+1}) = t(\alpha_i)</M> for all <M>1 \leq i \leq n-1</M>
+The source and target of the path are <M>s(\alpha_1)</M> and <M>t(\alpha_n)</M>
+respectively. We denote by <Math>\rho</Math> a set of monomial relations on
+<Math>Q</Math>. Every relation in <M>\rho</M> is a finite sequence <M>\alpha_1
+\alpha_{2}...\alpha_n</M> of elements of <M>Q_1</M> with <M>n \geq 2</M> such
+that <M>\alpha_n \alpha_{n-1}...\alpha_1</M> is a path.
+<M>\newline</M>
+
+For a quiver <Math>Q</Math>, we define two functions <M>\sigma, \epsilon : Q_1
+\rightarrow \{-1, 1\}</M> such that
+<List>
+    <Item> if <M>b_1 \neq b_2</M> such that <M>s(b_1) = s(b_2)</M>,
+    then <M>\sigma(b_1) = -\sigma(b_2)</M>;</Item>
+    <Item> if <M>b_1 \neq b_2</M> such that <M>t(b_1) = t(b_2)</M>,
+    then <M>\epsilon(b_1) = -\epsilon(b_2)</M>;</Item>
+    <Item> if <M>s(b_1) = t(b_2)</M> and <M>b_1b_2 \notin \rho</M>,
+    then <M>\sigma(b_1) = -\epsilon(b_2)</M>.</Item>
+</List>
+Let us denote the inverse of the set of arrows in <M>Q_1</M> by the
+corresponding capital letters. For example if <M>b</M> is an arrow in <M>Q_1</M>
+the its inverse is denoted by <M>B</M>. The set of the inverse arrows is denoted
+by <M>Q_1^{-1}</M>. We extend the definition of <M>\sigma</M> and
+<M>\epsilon</M> to <M>Q_1 \cup Q_1^{-1}</M> so that <M>\sigma(B) =
+\epsilon(b)</M> and <M>\epsilon(B) = \sigma(b)</M> for all <M>b \in Q_1</M>.
+Note that a <Emph>string</Emph> of positive length is a walk along the arrows of
+<M>Q</M> and their inverses such that it does not contain paths obtained by
+reversing relations in <M>\rho</M> and their inverses as substrings. We also
+extend the definition of <M>\sigma</M> and <M>\epsilon</M> to all strings; if
+<M>\alpha = \alpha_n ...\alpha_2 \alpha_1</M>, then <M>\sigma(\alpha) =
+\sigma(\alpha_1)</M> and <M>\epsilon(\alpha) = \epsilon(\alpha_n)</M>.
+<M>\newline</M>
+
+For each vertex <M>v\in Q_0</M>, we have a zero length lazy string starting and
+ending at vertex <M>v</M>, denoted by <M>1_v</M>. The inverse of this string is
+<M>1_v</M> itself. The main purpose of defining <M>\sigma</M> and <M>\epsilon</M>
+is to distinguish <M>1_v</M> with its inverse. We denote this zero length string
+as <M>(v,1)</M> and <M>(v,-1)</M> and set <M>\sigma((v,i)) := -i</M> and
+<M>\epsilon((v,i)) := i</M>. The concatenation <M>(v,i)u</M> of strings is
+defined if and only if <M>\epsilon(u) = i</M> and the concatenation <M>u(v,i)</M>
+is defined if and only if <M>\sigma(u) = -i</M>. Moreover if <M>\alpha = \alpha_n
+\alpha_{n-1} ... \alpha_2 \alpha_1</M> and <M>\beta = \beta_m \beta_{m-1} ...
+\beta_2 \beta_1</M> are two strings such that <M>s(\alpha) = t(\beta)</M>, their
+concatenation is the string <M>\alpha\beta = \alpha_n ... \alpha_1 \beta_m ...
+\beta_1</M>. Note that, for a given quiver <M>Q</M>, the functions <M>\sigma,
+\epsilon</M> are not unique. A choice of <M>\sigma</M> and <M>\epsilon</M>
+functions is computed within our codes and utilized in other functions.
+
+<ManSection>
+  <Oper Name="IsValidString" Arg="Q,rho,input_str" Comm="A quiver, a list of
+    monomial relations and an input collection of characters"/>
+  <Description>
+    Arguments: <Arg>Q</Arg> -- a quiver,
+    <Arg>rho</Arg> -- a list of monomial relations,
+    <Arg>input_str</Arg> -- an input collection of characters.<Br />
+  </Description>
+  <Returns>
+    "Not a String Algebra" if the algebra presented by <Arg>(Q,rho)</Arg>
+    is not a string algebra, "Valid Positive Length String" if <Arg>input_str</Arg>
+    is a string of positive length in the corresponding string algebra,
+    "Valid Zero Length String", if <Arg>input_str</Arg> is a zero length string
+    in the corresponding string algebra, "Invalid String" if <Arg>input_str</Arg>
+    is not a string in the corresponding string algebra
+  </Returns>
+</ManSection>
+
+<ManSection>
+  <Oper Name="StringsLessThan" Arg="Q,rho,level" Comm="A quiver, a list of monomial
+    relations and an integer"/>
+  <Description>
+    Arguments: <Arg>Q</Arg> -- a quiver,
+    <Arg>rho</Arg> -- a list of monomial relations,
+    <Arg>level</Arg> -- an integer.<Br />
+  </Description>
+  <Returns>
+    "Not a String Algebra" if the algebra presented by <Arg>(Q,rho)</Arg>
+    is not a string algebra, an empty list if <Arg>level</Arg>
+    is a negative integer, a list of all strings of length less than or
+    equal to <Arg>level</Arg> if <Arg>level</Arg> is a non-negative integer.
+  </Returns>
+</ManSection>
+
+A string <M>u</M> is called <M>\textbf{cyclic}</M> if <M>s(u) = t(u)</M>. A cyclic
+string is called <M>\textbf{primitive}</M> if it can not be written as an n-fold
+concatenation <M>\mathfrak{v}^n</M> for any string <M>\mathfrak{v}</M> and any
+<M>n \in \mathbb{N}</M>. If <M>\mathfrak{b}</M> is a primitive cyclic string such
+that <M>\mathfrak{b}^m</M> exists, for all <M>m \in \mathbb{N}</M>, then
+<M>\mathfrak{b} </M> is called a <M>\textbf{band}</M>.
+
+<ManSection>
+  <Oper Name="IsABand" Arg="Q,rho,input_str" Comm="A quiver, a list of monomial
+    relations and an input collection of characters"/>
+  <Description>
+    Arguments: <Arg>Q</Arg> -- a quiver,
+    <Arg>rho</Arg> -- a list of monomial relations,
+    <Arg>input_str</Arg> -- an input collection of characters.<Br />
+  </Description>
+  <Returns>
+    "Not a String Algebra" if the algebra presented by <Arg>(Q,rho)</Arg> is not
+    a string algebra, "Invalid String" if <Arg>input_str</Arg> is not a string
+    in the corresponding string algebra, <M>0</M> if <Arg>input_str</Arg> is a
+    valid string but not a band, <M>1</M> if <Arg>input_str</Arg> is a band in
+    the corresponding string algebra.
+  </Returns>
+</ManSection>
+
+<ManSection>
+  <Oper Name="BandsLessThan" Arg="Q,rho,level" Comm="A quiver, a list of monomial
+    relations and an integer"/>
+  <Description>
+    Arguments: <Arg>Q</Arg> -- a quiver,
+    <Arg>rho</Arg> -- a list of monomial relations,
+    <Arg>level</Arg> -- an integer.<Br />
+  </Description>
+  <Returns>
+    "Not a String Algebra" if the algebra presented by <Arg>(Q,rho)</Arg> is not
+    a string algebra, an empty list if <Arg>level</Arg> is a negative integer,
+    a list of all bands of length less than or equal to <Arg>level</Arg>
+    if <Arg>level</Arg> is a non-negative integer.
+  </Returns>
+</ManSection>
+
+Two bands <M>\mathfrak{b}_1</M> and <M>\mathfrak{b}_2</M> of a string algebra are
+said to be equivalent if they are cyclic permutations of each other. For any band
+<M>\mathfrak{b}</M>, output of <M>\texttt{BandsLessThan}</M> function contains
+all bands equivalent to <M>\mathfrak{b}</M>. A representative of each equivalence
+class is chosen such that the first syllable from right is an inverse syllable
+and the last syllable from right is a direct syllable. This new list is returned
+as the output of the following function.
+
+<ManSection>
+  <Oper Name="BandRepresentativesLessThan" Arg="Q,rho,level" Comm="A quiver, a list of monomial
+    relations and an integer"/>
+  <Description>
+    Arguments: <Arg>Q</Arg> -- a quiver,
+    <Arg>rho</Arg> -- a list of monomial relations,
+    <Arg>level</Arg> -- an integer.<Br />
+  </Description>
+  <Returns>
+    "Not a String Algebra" if the algebra presented by <Arg>(Q,rho)</Arg> is not
+    a string algebra, an empty list if <Arg>level</Arg> is negative integer,
+    a list of all band representatives of length less than or equal to
+    <Arg>level</Arg> if <Arg>level</Arg> is a non-negative integer.
+  </Returns>
+</ManSection>
+
+
+A string algebra with finite number of bands is called a domestic string algebra.
+
+
+<ManSection>
+  <Oper Name="IsDomesticStringAlgebra" Arg="Q,rho" Comm="A quiver, a list of monomial
+    relations"/>
+  <Description>
+    Arguments: <Arg>Q</Arg> -- a quiver,
+    <Arg>rho</Arg> -- a list of monomial relations. <Br />
+  </Description>
+  <Returns>
+    "Not a String Algebra" if the algebra presented by <Arg>(Q,rho)</Arg> is not
+    a string algebra, <M>0</M> if the corresponding string algebra is non-domestic,
+    <M>1</M> if the corresponding string algebra is domestic.
+  </Returns>
+</ManSection>
+
+
+A string is <M>\textbf{band-free}</M> if it does not contain any cyclic permutation of
+a band as a substring. Let <M>Ba(\Lambda)</M> denote the collection of all bands
+up to cyclic permutation and <M>Q_0^{Ba}</M> denote a fixed set of representatives
+of bands in <M>Ba(\Lambda)</M>. For <M>\mathfrak{b}_1, \mathfrak{b}_2 \in Q_0^{Ba}</M>,
+we say that a finite string <M>u</M> is a weak bridge <M>\mathfrak{b}_1 \xrightarrow{u}
+\mathfrak{b}_2</M> if it is band-free and if <M>\mathfrak{b}_2 u \mathfrak{b}_1</M>
+is a string.<M>\newline</M>
+We say that a weak bridge
+<M>\mathfrak{b}_1 \xrightarrow{u} \mathfrak{b}_2</M> is a bridge if there is
+<M>\textbf{no}</M> <M>\mathfrak{b}\in Q_0^{Ba}</M> and weak bridges
+<M>\mathfrak{b}_1 \xrightarrow{u_1} \mathfrak{b}</M> and
+<M>\mathfrak{b} \xrightarrow{u_2} \mathfrak{b}_2</M> such that one of the following holds :
+<List>
+    <Item>
+      <M>\mathfrak{u} = \mathfrak{u_2}\mathfrak{u_1}</M>, where <M>\mathfrak{u_1}</M>
+      and <M>\mathfrak{u_2}</M> are positive length strings,
+    </Item>
+    <Item>
+      <M>\mathfrak{u} = \mathfrak{u_2'}\mathfrak{u_1'}</M>, for some positive
+      length strings <M>\mathfrak{u_1'}, \mathfrak{u_2'}</M> such that <M>\mathfrak{u_2}
+      = \mathfrak{u_2'} \mathfrak{u_2''}</M>, <M>\mathfrak{u_1} = \mathfrak{u_1''}
+      \mathfrak{u_1'}</M> and <M>\mathfrak{b} = \mathfrak{u_1''} \mathfrak{u_2''}</M>.
+    </Item>
+</List>
+
+<ManSection>
+  <Oper Name="BridgeQuiver" Arg="Q,rho" Comm="A quiver, a list of monomial relations"/>
+  <Description>
+    Arguments: <Arg>Q</Arg>  a quiver,
+    <Arg>rho</Arg>  a list of monomial relations.<Br />
+  </Description>
+  <Returns>
+    "Not a String Algebra" if the algebra presented by <Arg>(Q,rho)</Arg>
+    is not a string algebra, <M>0</M> if the corresponding string algebra is
+    non-domestic, the bridge quiver of the corresponding string algebra
+    if it is domestic.
+  </Returns>
+</ManSection>
+
+
+
+<ManSection>
+  <Oper Name="LocalARQuiver" Arg="Q,rho,input_str" Comm="A quiver, a list of monomial relations
+    and an input collection of characters"/>
+  <Description>
+    Arguments: <Arg>Q</Arg> -- a quiver,
+    <Arg>rho</Arg> -- a list of monomial relations,
+    <Arg>input_str</Arg> -- an input collection of characters.<Br />
+  </Description>
+  <Returns>
+    "Not a String Algebra" if the algebra presented by <Arg>(Q,rho)</Arg>
+    is not a string algebra, the list of (equivalence classes of)
+    irreducible maps, i.e., the arrows of the Auslander-Reiten quiver, whose
+    source or target is the string module corresponding to <Arg>input_str</Arg>.
+  </Returns>
+</ManSection>
+
+<Example><![CDATA[
+gap> Q := Quiver(4, [[1,2,"a"], [1,2,"b"], [2,3,"c"], [3,4,"d"], [3,4,"e"]]);
+<quiver with 4 vertices and 5 arrows>
+gap> rho := ["bc", "cd"];
+[ "bc", "cd" ]
+gap> IsValidString(Q,rho,"eca");
+"Valid Positive Length String"
+gap> StringsLessThan(Q,rho,2);
+[ "(1,1)", "b", "Ab", "(1,-1)", "a", "ca", "Ba", "(2,1)", "c", "B", "ec", "aB",
+ "(2,-1)", "A", "bA", "(3,1)", "e", "De", "(3,-1)", "d", "C", "Ed", "AC",
+ "(4,1)", "E", "dE", "CE", "(4,-1)", "D", "eD" ]
+gap> IsABand(Q,rho,"eca");
+0
+gap> IsABand(Q,rho,"Ab");
+1
+gap> BandsLessThan(Q,rho,3);
+[ "Ab", "Ba", "aB", "bA", "De", "Ed", "dE", "eD" ]
+gap> BandRepresentativesLessThan(Q,rho,3);
+[ "aB", "bA", "dE", "eD" ]
+gap> IsDomesticStringAlgebra(Q,rho);
+true
+gap> Q1 := BridgeQuiver(Q,rho);
+<quiver with 4 vertices and 2 arrows>
+gap> Display(Q1);
+Quiver( ["v1","v2","v3","v4"], [["v3","v2","CE"],["v1","v4","ec"]] )
+gap> LocalARQuiver(Q,rho,"eca");
+[ "The cannonical embedding StringModule(eca) to StringModule(eDeca)",
+  "The cannonical projection StringModule(ecaBa) to StringModule(eca)" ] ]]>
+</Example>
+
+</Section>
 
 <Section><Heading>Attributes and Operations (for Quotients) of Path
     Algebras</Heading> 
