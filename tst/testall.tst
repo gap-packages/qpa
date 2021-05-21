@@ -292,6 +292,37 @@ Quiver contains an (un)oriented cycle.
 Have checked representation type of the algebra modulo the square of the radic\
 al.
 false
+#
+#functions related to string algebras
+gap> Q1 := Quiver(4, [[1,2,"a"], [1,2,"b"], [2,3,"c"], [3,4,"d"], [3,4,"e"]]);
+<quiver with 4 vertices and 5 arrows>
+gap> rho := ["bc", "cd"];
+[ "bc", "cd" ]
+gap> IsValidString(Q1,rho,"eca");
+"Valid Positive Length String"
+gap> StringsLessThan(Q1,rho,2);
+[ "(1,1)", "b", "Ab", "(1,-1)", "a", "ca", "Ba", "(2,1)", "c", "B", "ec", "aB",
+ "(2,-1)", "A", "bA", "(3,1)", "e", "De", "(3,-1)", "d", "C", "Ed", "AC",
+ "(4,1)", "E", "dE", "CE", "(4,-1)", "D", "eD" ]
+gap> IsABand(Q,rho,"eca");
+0
+gap> IsABand(Q,rho,"Ab");
+1
+gap> BandsLessThan(Q1,rho,3);
+[ "Ab", "Ba", "aB", "bA", "De", "Ed", "dE", "eD" ]
+gap> BandRepresentativesLessThan(Q1,rho,3);
+[ "aB", "bA", "dE", "eD" ]
+gap> IsDomesticStringAlgebra(Q1,rho);
+true
+gap> Q3 := BridgeQuiver(Q1,rho);
+<quiver with 4 vertices and 2 arrows>
+gap> Display(Q3);
+Quiver( ["v1","v2","v3","v4"], [["v3","v2","CE"],["v1","v4","ec"]] )
+gap> LocalARQuiver(Q1,rho,"eca");
+[ "The cannonical embedding StringModule(eca) to StringModule(eDeca)",
+  "The cannonical projection StringModule(ecaBa) to StringModule(eca)" ]
+#
+
 gap> CartanMatrix(A);
 [ [ 1, 4, 3 ], [ 0, 2, 2 ], [ 1, 2, 2 ] ]
 gap> Center(A);
