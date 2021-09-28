@@ -1937,56 +1937,68 @@ InstallMethod( IsNthSyzygy,
 end
   );
 
-InstallMethod ( RightApproximationByAddM, 
-    "for a list of modules and a module",
+#######################################################################
+##
+#O  RightApproximationByAddM( <L>, <C> )
+##
+##  Given a list of module <L> over a finite dimensional quotient A of
+##  a path algebra and a module <C> over  A, this function computes
+##  a right approximation of <C> in the additive closure of the modules
+##  in the list <L>.
+##
+InstallMethod ( RightApproximationByAddM,
+    "for a list of modules and one module",
     true,
     [ IsList, IsPathAlgebraMatModule ],
     0,
-    function( modulelist, C )
-        
-    local   A,  K,  f,  M,  n,  gen_ntoCthroughM,  hom_ntoC,  
-            Vgen_ntoCthroughM,  Vhom_ntoC,  U,  pi,  addhoms,  i,  
-            newM,  projections,  homs;
-    
+    function( L, C )
+
+    local   A,  K,  approximation,  i,  homL_iC,  homL_ilessthanL_i,  
+            homL_iapproxC,  endL_i,  radendL_i,  RadendL_i,  radmaps,  
+            generators,  radgenerators,  generatorshomL_iC,  g,  V,  
+            t,  M,  projections,  f;
+
     A := RightActingAlgebra( C );
-    if Length( modulelist ) = 0 then
-        return ZeroMapping( ZeroModule( A ), C );
+    if Length( L ) = 0 then
+      return ZeroMapping( ZeroModule( A ), C );
     fi;
-    if not ForAll( modulelist, m -> RightActingAlgebra( m ) = A ) then
-        Error( "The entered list of modules is not all over the same algebra as the module being approximated.\n" );
+    if not ForAll( L, l -> RightActingAlgebra( l ) = A ) then
+      Error( "Not all modules in the list of modules entered are modules over the same algebra.\n" );
     fi;
     
-    K := LeftActingDomain( C );
-    f := RightApproximationByAddM( modulelist[ 1 ], C );
-    M := Source( f );
-    for n in [ 2..Length( modulelist ) ] do
-        gen_ntoCthroughM := List( HomOverAlgebra( modulelist[ n ], M ), h -> h * f );
-        hom_ntoC := HomOverAlgebra( modulelist[ n ], C );
-        if Length( hom_ntoC ) > 0 then 
-            Vgen_ntoCthroughM := List( gen_ntoCthroughM, h -> Flat( MatricesOfPathAlgebraMatModuleHomomorphism( h ) ) );    
-            Vhom_ntoC := List( hom_ntoC, h -> Flat( MatricesOfPathAlgebraMatModuleHomomorphism( h ) ) );
-            U := FullRowSpace( K, Length( Vhom_ntoC[ 1 ] ) );
-            pi := NaturalHomomorphismBySubspace( U, Subspace( U, Vgen_ntoCthroughM ) );
-            addhoms := [ ];
-            for i in [ 1..Length( Vhom_ntoC ) ] do
-                if not IsZero( ImageElm( pi, Vhom_ntoC[ i ] ) ) then
-                    Add( addhoms, i );
-                fi;
-            od;
-            newM := [ M ];
-            for i in [ 1..Length( addhoms ) ] do
-                Add( newM, modulelist[ n ] );
-            od;
-            M := DirectSumOfQPAModules( newM );
-            projections := DirectSumProjections( M );
-            homs := [ f ];
-            for i in [ 1..Length( addhoms ) ] do
-                Add( homs, hom_ntoC[ i ] );
-            od;
-            
-            f := Sum( List( [ 1..Length( projections ) ], i -> projections[ i ] * homs[ i ] ) );
+    K := LeftActingDomain( A );
+    approximation := [ ];
+    for i in [ 1..Length( L ) ] do
+      homL_iC := HomOverAlgebra( L[ i ], C );
+      if Length( homL_iC ) > 0 then
+        homL_ilessthanL_i := List( [ 1..Length(approximation) ], r -> HomOverAlgebra( L[ i ], Source( approximation[ r ] ) ) );
+        homL_iapproxC := Flat( List( [ 1..Length(approximation) ], r -> homL_ilessthanL_i[ r ] * approximation[ r ] ) );
+        homL_iapproxC := Filtered( homL_iapproxC, h -> not IsZero( h ) );
+        endL_i := EndOverAlgebra( L[ i ] );
+        radendL_i := RadicalOfAlgebra( endL_i );
+        RadendL_i := List( BasisVectors( Basis( radendL_i ) ), FromEndMToHomMM );
+        radmaps := Flat( List( homL_iC, h -> RadendL_i * h ) );
+        generators := List( homL_iapproxC, h -> Flat( MatricesOfPathAlgebraMatModuleHomomorphism( h ) ) );
+        radgenerators := List( radmaps, h -> Flat( MatricesOfPathAlgebraMatModuleHomomorphism( h ) ) );
+        Append( generators, radgenerators );
+        generatorshomL_iC := List( homL_iC, h -> Flat( MatricesOfPathAlgebraMatModuleHomomorphism( h ) ) );
+        if Length( generators ) = 0 then
+          generators := [ Flat( MatricesOfPathAlgebraMatModuleHomomorphism( ZeroMapping( L[ i ],C ) ) ) ];
         fi;
-    od; 
+        for g in generatorshomL_iC do
+          V := VectorSpace( K, generators );
+          if not g in V then
+            Add( generators, g );
+            t := Position( generatorshomL_iC, g );
+            Add( approximation, homL_iC[ t ] );
+          fi;
+        od;
+      fi;
+    od;
+    
+    M := DirectSumOfQPAModules( List( approximation, Source ) );
+    projections := DirectSumProjections( M );
+    f := Sum( List( [ 1..Length( projections ) ], i -> projections[ i ] * approximation[ i ] ) );
 
     return f;
 end
