@@ -2087,7 +2087,10 @@ InstallMethod( IsIndecomposableModule,
     function( M )
     
     local K; 
-    
+
+    if IsZero( M ) then
+       return false;
+    fi;
     K := LeftActingDomain(M);
     if IsFinite(K) then 
         return Length(DecomposeModule(M)) = 1;

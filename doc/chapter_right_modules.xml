@@ -637,7 +637,9 @@ gap> inc := DirectSumInclusions(N2);
     Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>).
    <Br /></Description>
    <Returns>true if <Arg>M</Arg> is an indecomposable module, if the
-   field, over which the algebra <Arg>M</Arg> is defined over, is finite.
+   field, over which the algebra <Arg>M</Arg> is defined over, is
+   finite.  If <Arg>M</Arg> is the zero module, then <C>false</C>
+   is returned.
    </Returns>
 </ManSection>
 
