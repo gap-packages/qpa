@@ -2236,13 +2236,12 @@ InstallMethod( ProjectivePathAlgebraPresentation,
         [ IsPathAlgebraMatModule ], 0,
         function( M ) 
 
-    local A, B, Q, fam, KQ, gens, I, gb, gbb, rtgbofI, K, 
-          num_vert, verticesinpathalg, vertices,  verticesinalg, 
-          arrows, BB, i, j, B_M, G, MM, projective_cover, r, 
-          test, vertex_list, P, PI_list, zero_in_P, g, temp, 
-          matrix, solutions, Solutions, projective_vector, s, 
-          a, syzygyoverKQ, U, RG, f0, f1, run_time, rad, 
-          vector, part, newpart, zero, BBnew, mat;
+    local   A,  B,  Q,  fam,  KQ,  gens,  K,  I,  gb,  gbb,  rtgbofI,  
+            num_vert,  verticesinpathalg,  vertices,  verticesinalg,  
+            arrows,  BB,  B_M,  G,  MM,  projective_cover,  i,  r,  j,  
+            matrix,  solutions,  Solutions,  projective_vector,  s,  
+            vertex_list,  P,  f0,  PI_list,  zero_in_P,  g,  temp,  
+            syzygyoverKQ,  U,  RG,  redRG,  f1,  mat;
 
     A := RightActingAlgebra(M);
     B := CanonicalBasis(A);
@@ -2344,10 +2343,10 @@ InstallMethod( ProjectivePathAlgebraPresentation,
         fam := ElementsFamily(FamilyObj(P));
         U := SubAlgebraModule(P,syzygyoverKQ);
         RG := RightGroebnerBasisOfModule(U);
-        f1 := CompletelyReduceGroebnerBasisForModule(RG);
-        f1 := List(f1, x -> ObjByExtRep(fam, x));
+        redRG := CompletelyReduceGroebnerBasisForModule(RG);
+        f1 := List( redRG, x -> ObjByExtRep(fam, x));
         mat := TransposedMat(List(f1, x -> x![1]![1]));
-        return [P,U,f0,f1,mat];
+        return [ P, U, f0, f1, mat, redRG ];
     fi;
 end
 );
