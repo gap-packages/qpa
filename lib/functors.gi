@@ -589,7 +589,24 @@ InstallMethod( NakayamaFunctorOfModule,
         
     function( M );
     
-    return DualOfModule(StarOfModule(M));
+    return DualOfModule( StarOfModule( M ) );
+end
+  );
+
+#######################################################################
+##
+#A  OppositeNakayamaFunctorOfModule( <M> )
+##
+##  This function takes as an argument a module over an algebra  A  and
+##  computes module Hom_A(Hom_K( M, K ), A )  over  A. 
+##  
+InstallMethod( OppositeNakayamaFunctorOfModule, 
+    "for a matrix",
+    [ IsPathAlgebraMatModule ],
+        
+    function( M );
+    
+    return StarOfModule( DualOfModule( M ) );
 end
   );
 
@@ -608,7 +625,26 @@ InstallMethod( NakayamaFunctorOfModuleHomomorphism,
         
     function( f ); 
     
-    return DualOfModuleHomomorphism(StarOfModuleHomomorphism(f));
+    return DualOfModuleHomomorphism( StarOfModuleHomomorphism( f ) );
+end
+);
+
+#######################################################################
+##
+#A  OppositeNakayamaFunctorOfModuleHomomorphism( <f> )
+##
+##  This function takes as an argument a homomorphism  f  between two 
+##  modules  M  and  N  over an algebra  A  and computes the induced 
+##  homomorphism from the module  Hom_K(Hom_A(N, A), K)  to the module  
+##  Hom_K(Hom_A(M, A), K)  over  A. 
+##
+InstallMethod( OppositeNakayamaFunctorOfModuleHomomorphism, 
+    "for a matrix",
+    [ IsPathAlgebraMatModuleHomomorphism ],
+        
+    function( f ); 
+    
+    return StarOfModuleHomomorphism( DualOfModuleHomomorphism( f ) );
 end
 );
 
