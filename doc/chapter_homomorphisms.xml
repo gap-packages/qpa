@@ -578,7 +578,11 @@ true ]]>
      Arguments: <Arg>M</Arg> - a module.<Br />
    </Description>
    <Returns>all the different submodules of a module given as
-   inclusions into the module <Arg>M</Arg>.
+   inclusions into the module <Arg>M</Arg>.  It returns the list of
+   submodules as a list of lists according to the length of the
+   submodules, namely, first a list of the zero module, second a list
+   of all simple submodules, third a list of all submodules of length
+   2, and so on.
    </Returns>
    <Description>
     This function is only implemented for algebras over a finite
