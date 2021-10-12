@@ -555,7 +555,7 @@ function( Q, rho, input_str )
             SIntChar(temp[Length(temp)]) - SIntChar('A') + 1]))[2])
             - SIntChar('0');
             temp2 := IncomingArrowsOfVertex(VerticesOfQuiver(Q)[x]);
-            if Length() = 2 then
+            if Length(temp2) = 2 then
                 if SIntChar(String(temp2[1])[1])
                   - SIntChar(temp[Length(temp)]) = 32 then
                     y := String(temp2[2])[1];
