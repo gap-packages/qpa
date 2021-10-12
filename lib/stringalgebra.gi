@@ -126,43 +126,11 @@ InstallMethod( StringsLessThan,
 true,
 [ IsQuiver, IsList, IsInt ], 0,
 function ( Q, rho, level )
-    local QuiverRho, Incoming_Arrows, Outgoing_Arrows, making_tree, direct_left,
+    local QuiverRho, making_tree, direct_left,
     inverse_left, k, tree, array, i, vertex, sigma_eps;
 
-    Incoming_Arrows := function(Q, v)
-        local i, a, b;
-        a := [];
-        for i in [1..NumberOfArrows(Q)] do
-            Append(a, [SIntChar(String(TargetOfPath(ArrowsOfQuiver(Q)[i]))[2])
-            - SIntChar('0')]);
-        od;
-        b := [];
-        for i in [1..Length(a)] do
-            if v = a[i] then
-                Append(b, [ArrowsOfQuiver(Q)[i]]);
-            fi;
-        od;
-        return b;
-    end;
-
-    Outgoing_Arrows := function(Q,v)
-        local i, a, b;
-        a := [];
-        for i in [1..NumberOfArrows(Q)] do
-            Append(a, [SIntChar(String(SourceOfPath(ArrowsOfQuiver(Q)[i]))[2])
-            - SIntChar('0')]);
-        od;
-        b := [];
-        for i in [1..Length(a)] do
-            if v = a[i] then
-                Append(b, [ArrowsOfQuiver(Q)[i]]);
-            fi;
-        od;
-        return b;
-    end;
-
     direct_left := function(Q, rho, input_str, sigma, eps)
-        local x, y, z, temp, output, num, num_digits, j;
+        local x, y, z, temp, temp3, output, num, num_digits, j;
         output := IsValidString(Q, rho, input_str);
         #if output <> "Valid Positive Length String" then
         #       return output;
@@ -181,7 +149,7 @@ function ( Q, rho, level )
                 (SIntChar(input_str[j]) - SIntChar('0')) * 10^(num_digits - j + 1);
             od;
 
-            temp := Outgoing_Arrows(Q, num);
+            temp := OutgoingArrowsOfVertex(VerticesOfQuiver(Q)[num]);
             if input_str[num_digits + 3] = '1' then
                 if Length(temp) = 1 and
                   sigma[SIntChar(String(temp[1])[1]) - SIntChar('a') + 1] = -1 then
@@ -214,18 +182,21 @@ function ( Q, rho, level )
         if SIntChar(input_str[1]) > 96 then
             x := SIntChar(String(TargetOfPath(ArrowsOfQuiver(Q)[
             SIntChar(input_str[1]) - SIntChar('a') + 1]))[2]) - SIntChar('0');
-            if Length(Outgoing_Arrows(Q, x)) = 2 then
-                z := [String(Outgoing_Arrows(Q, x)[1])[1]];
+
+            temp3 := OutgoingArrowsOfVertex(VerticesOfQuiver(Q)[x]);
+
+            if Length(temp3) = 2 then
+                z := [String(temp3[1])[1]];
                 Append(z, input_str);
                 if IsValidString(Q, rho, z) = "Invalid String" then
-                    z := [String(Outgoing_Arrows(Q, x)[2])[1]];
+                    z := [String(temp3[2])[1]];
                     Append(z, input_str);
                     if IsValidString(Q, rho, z) = "Invalid String" then
                         return "Cannot Perform The Operation";
                     fi;
                 fi;
-            elif Length(Outgoing_Arrows(Q, x)) = 1 then
-                z := [String(Outgoing_Arrows(Q, x)[1])[1]];
+            elif Length(temp3) = 1 then
+                z := [String(temp3[1])[1]];
                 Append(z, input_str);
                 if IsValidString(Q,rho,z) = "Invalid String" then
                     return "Cannot Perform The Operation";
@@ -235,12 +206,15 @@ function ( Q, rho, level )
         else
             x := SIntChar(String(SourceOfPath(ArrowsOfQuiver(Q)[
             SIntChar(input_str[1]) - SIntChar('A') + 1]))[2]) - SIntChar('0');
-            if Length(Outgoing_Arrows(Q, x)) = 2 then
-                if SIntChar(String(Outgoing_Arrows(Q, x)[1])[1])
+
+            temp3 := OutgoingArrowsOfVertex(VerticesOfQuiver(Q)[x]);
+
+            if Length(temp3) = 2 then
+                if SIntChar(String(temp3[1])[1])
                   - SIntChar(input_str[1]) = 32 then
-                    y := String(Outgoing_Arrows(Q, x)[2])[1];
+                    y := String(temp3[2])[1];
                 else
-                    y := String(Outgoing_Arrows(Q, x)[1])[1];
+                    y := String(temp3[1])[1];
                 fi;
                 z := [y];
                 Append(z, input_str);
@@ -255,7 +229,7 @@ function ( Q, rho, level )
     end;
 
     inverse_left := function(Q, rho, input_str, sigma, eps)
-        local x, y, z, temp, output, num, num_digits, j;
+        local x, y, z, temp, output, num, num_digits, j, temp2, temp3;
         output := IsValidString(Q, rho, input_str);
         #if output = "Valid Positive Length String" then
         #  return output;
@@ -273,7 +247,7 @@ function ( Q, rho, level )
                 num := num +
                 (SIntChar(input_str[j]) - SIntChar('0')) * 10^(num_digits - j + 1);
             od;
-            temp := Incoming_Arrows(Q, num);
+            temp := IncomingArrowsOfVertex(VerticesOfQuiver(Q)[num]);
             if input_str[num_digits + 3] = '1' then
                 if Length(temp) = 1 and eps[SIntChar(String(temp[1])[1])
                   - SIntChar('a') + 1] = -1 then
@@ -306,11 +280,14 @@ function ( Q, rho, level )
         if SIntChar(input_str[1]) > 96 then
             x := SIntChar(String(TargetOfPath(ArrowsOfQuiver(Q)[
             SIntChar(input_str[1]) - SIntChar('a') + 1]))[2]) - SIntChar('0');
-            if Length(Incoming_Arrows(Q, x)) = 2 then
-                if String(Incoming_Arrows(Q, x)[1])[1] = input_str[1] then
-                    y := String(Incoming_Arrows(Q, x)[2])[1];
+
+            temp2 := IncomingArrowsOfVertex(VerticesOfQuiver(Q)[x]);
+
+            if Length(temp2) = 2 then
+                if String(temp2[1])[1] = input_str[1] then
+                    y := String(temp2[2])[1];
                 else
-                    y := String(Incoming_Arrows(Q, x)[1])[1];
+                    y := String(temp2[1])[1];
                 fi;
                 z := [CharInt(SIntChar(y) - 32)];
                 Append(z, input_str);
@@ -323,18 +300,21 @@ function ( Q, rho, level )
         else
             x := SIntChar(String(SourceOfPath(ArrowsOfQuiver(Q)[
             SIntChar(input_str[1]) - SIntChar('A') + 1]))[2]) - SIntChar('0');
-            if Length(Incoming_Arrows(Q, x)) = 2 then
-                z := [CharInt(SIntChar(String(Incoming_Arrows(Q, x)[1])[1]) - 32)];
+
+            temp2 := IncomingArrowsOfVertex(VerticesOfQuiver(Q)[x]);
+
+            if Length(temp2) = 2 then
+                z := [CharInt(SIntChar(String(temp2[1])[1]) - 32)];
                 Append(z, input_str);
                 if IsValidString(Q, rho, z) = "Invalid String" then
-                    z := [CharInt(SIntChar(String(Incoming_Arrows(Q, x)[2])[1]) - 32)];
+                    z := [CharInt(SIntChar(String(temp2[2])[1]) - 32)];
                     Append(z, input_str);
                     if IsValidString(Q, rho, z) = "Invalid String" then
                         return "Cannot Perform The Operation";
                     fi;
                 fi;
-            elif Length(Incoming_Arrows(Q, x)) = 1 then
-                z := [CharInt(SIntChar(String(Incoming_Arrows(Q, x)[1])[1]) - 32)];
+            elif Length(temp2) = 1 then
+                z := [CharInt(SIntChar(String(temp2[1])[1]) - 32)];
                 Append(z, input_str);
                 if IsValidString(Q, rho, z) = "Invalid String" then
                     return "Cannot Perform The Operation";
@@ -347,7 +327,7 @@ function ( Q, rho, level )
 
     sigma_eps := function( Q, rho1 )
         local QuiverRho, Composable_Matrix, IsComposable, temp_in, temp_out, i,
-        j, k, sigma, eps, rho;
+        j, k, sigma, eps, rho, temp2, temp3;
 
         QuiverRho := function(Q,rho)
             local rho_q, i, j, k, arr, arr1;
@@ -406,11 +386,11 @@ function ( Q, rho, level )
         end;
 
         temp_in := function(Q, i, j)
-            return SIntChar(String(Incoming_Arrows(Q, i)[j])[1]) - SIntChar('a') + 1;
+            return SIntChar(String(IncomingArrowsOfVertex(VerticesOfQuiver(Q)[i])[j])[1]) - SIntChar('a') + 1;
         end;
 
         temp_out := function(Q, i, j)
-            return SIntChar(String(Outgoing_Arrows(Q, i)[j])[1]) - SIntChar('a') + 1;
+            return SIntChar(String(OutgoingArrowsOfVertex(VerticesOfQuiver(Q)[i])[j])[1]) - SIntChar('a') + 1;
         end;
 
         sigma := [];
@@ -423,22 +403,20 @@ function ( Q, rho, level )
         rho := QuiverRho(Q, rho1);
 
         for i in [1..NumberOfVertices(Q)] do
-            if Length(Incoming_Arrows(Q, i)) = 2 then
+            temp2 := IncomingArrowsOfVertex(VerticesOfQuiver(Q)[i]);
+            temp3 := OutgoingArrowsOfVertex(VerticesOfQuiver(Q)[i]);
+            if Length(temp2) = 2 then
                 eps[temp_in(Q, i, 1)] := 1;
                 eps[temp_in(Q, i, 2)] := -1;
-                if Length(Outgoing_Arrows(Q, i)) = 1 then
-                    if IsComposable(Q, rho, Outgoing_Arrows(Q, i)[1],
-                      Incoming_Arrows(Q, i)[1]) = 1 then
+                if Length(temp3) = 1 then
+                    if IsComposable(Q, rho, temp3[1], temp2[1]) = 1 then
                         sigma[temp_out(Q, i, 1)] := -1;
-                    elif IsComposable(Q, rho, Outgoing_Arrows(Q, i)[1],
-                      Incoming_Arrows(Q, i)[2]) = 1 then
+                    elif IsComposable(Q, rho, temp3[1], temp2[2]) = 1 then
                         sigma[temp_out(Q, i, 1)] := 1;
                     fi;
-                elif Length(Outgoing_Arrows(Q, i)) = 2 then
-                    if IsComposable(Q, rho, Outgoing_Arrows(Q, i)[1],
-                      Incoming_Arrows(Q, i)[1]) = 1 or
-                      IsComposable(Q, rho, Outgoing_Arrows(Q, i)[2],
-                      Incoming_Arrows(Q, i)[2]) = 1 then
+                elif Length(temp3) = 2 then
+                    if IsComposable(Q, rho, temp3[1], temp2[1]) = 1 or
+                      IsComposable(Q, rho, temp3[2], temp2[2]) = 1 then
                         sigma[temp_out(Q, i, 1)] := -1;
                         sigma[temp_out(Q, i, 2)] := 1;
                     else
@@ -446,21 +424,21 @@ function ( Q, rho, level )
                         sigma[temp_out(Q, i, 2)] := -1;
                     fi;
                 fi;
-            elif Length(Incoming_Arrows(Q, i)) = 1 then
-                if Length(Outgoing_Arrows(Q, i)) = 1 then
+            elif Length(temp2) = 1 then
+                if Length(temp3) = 1 then
                     eps[temp_in(Q, i, 1)] := 1;
                     sigma[temp_out(Q, i, 1)] := -1;
-                elif Length(Outgoing_Arrows(Q, i)) = 2 then
+                elif Length(temp3) = 2 then
                     sigma[temp_out(Q, i, 1)] := 1;
                     sigma[temp_out(Q, i, 2)] := -1;
-                    if IsComposable(Q, rho, Outgoing_Arrows(Q, i)[1],
-                      Incoming_Arrows(Q, i)[1]) = 1 then
+                    if IsComposable(Q, rho, temp3[1],
+                      temp2[1]) = 1 then
                         eps[temp_in(Q, i, 1)] := -1;
                     else
                         eps[temp_in(Q, i, 1)] := 1;
                     fi;
                 fi;
-            elif Length(Incoming_Arrows(Q, i)) = 0 then
+            elif Length(temp2) = 0 then
               sigma[temp_out(Q, i, 1)] := 1;
               sigma[temp_out(Q, i, 2)] := -1;
             fi;
@@ -637,7 +615,7 @@ InstallMethod( IsDomesticStringAlgebra,
 true,
 [ IsQuiver, IsList], 0,
 function( Q, rho )
-    local sigma_eps, Incoming_Arrows, Outgoing_Arrows, direct_left,
+    local sigma_eps, direct_left,
     inverse_right, NumberOfJoints, MaximumLengthOFDirectString, ToVerifyStrAlg,
     k, kQ, gens, rel, arr1, arr, i, j, N, L, level, b, count, arr_quiver, len, temp;
 
@@ -666,40 +644,8 @@ function( Q, rho )
       return "Not a String Algebra";
     fi;
 
-    Incoming_Arrows := function(Q, v)
-        local i, a, b;
-        a := [];
-        for i in [1..NumberOfArrows(Q)] do
-            Append(a, [SIntChar(String(TargetOfPath(ArrowsOfQuiver(Q)[i]))[2])
-            - SIntChar('0')]);
-        od;
-        b := [];
-        for i in [1..Length(a)] do
-            if v = a[i] then
-                Append(b, [ArrowsOfQuiver(Q)[i]]);
-            fi;
-        od;
-        return b;
-    end;
-
-    Outgoing_Arrows := function(Q, v)
-        local i, a, b;
-        a := [];
-        for i in [1..NumberOfArrows(Q)] do
-            Append(a, [SIntChar(String(SourceOfPath(ArrowsOfQuiver(Q)[i]))[2])
-            - SIntChar('0')]);
-        od;
-        b := [];
-        for i in [1..Length(a)] do
-            if v = a[i] then
-                Append(b, [ArrowsOfQuiver(Q)[i]]);
-            fi;
-        od;
-        return b;
-    end;
-
     direct_left := function(Q, rho, input_str, sigma, eps)
-        local x, y, z, temp, output, num, num_digits, j;
+        local x, y, z, temp, temp3, output, num, num_digits, j;
         output := IsValidString(Q, rho, input_str);
         #if output <> "Valid Positive Length String" then
         #       return output;
@@ -718,7 +664,7 @@ function( Q, rho )
                 (SIntChar(input_str[j]) - SIntChar('0')) * 10^(num_digits - j + 1);
             od;
 
-            temp := Outgoing_Arrows(Q, num);
+            temp := OutgoingArrowsOfVertex(VerticesOfQuiver(Q)[num]);
             if input_str[num_digits + 3] = '1' then
                 if Length(temp) = 1 and
                   sigma[SIntChar(String(temp[1])[1]) - SIntChar('a') + 1] = -1 then
@@ -751,18 +697,21 @@ function( Q, rho )
         if SIntChar(input_str[1]) > 96 then
             x := SIntChar(String(TargetOfPath(ArrowsOfQuiver(Q)[
             SIntChar(input_str[1]) - SIntChar('a') + 1]))[2]) - SIntChar('0');
-            if Length(Outgoing_Arrows(Q, x)) = 2 then
-                z := [String(Outgoing_Arrows(Q, x)[1])[1]];
+
+            temp3 := OutgoingArrowsOfVertex(VerticesOfQuiver(Q)[x]);
+
+            if Length(temp3) = 2 then
+                z := [String(temp3[1])[1]];
                 Append(z, input_str);
                 if IsValidString(Q, rho, z) = "Invalid String" then
-                    z := [String(Outgoing_Arrows(Q, x)[2])[1]];
+                    z := [String(temp3[2])[1]];
                     Append(z, input_str);
                     if IsValidString(Q, rho, z) = "Invalid String" then
                         return "Cannot Perform The Operation";
                     fi;
                 fi;
-            elif Length(Outgoing_Arrows(Q, x)) = 1 then
-                z := [String(Outgoing_Arrows(Q, x)[1])[1]];
+            elif Length(temp3) = 1 then
+                z := [String(temp3[1])[1]];
                 Append(z, input_str);
                 if IsValidString(Q,rho,z) = "Invalid String" then
                     return "Cannot Perform The Operation";
@@ -772,12 +721,15 @@ function( Q, rho )
         else
             x := SIntChar(String(SourceOfPath(ArrowsOfQuiver(Q)[
             SIntChar(input_str[1]) - SIntChar('A') + 1]))[2]) - SIntChar('0');
-            if Length(Outgoing_Arrows(Q, x)) = 2 then
-                if SIntChar(String(Outgoing_Arrows(Q, x)[1])[1])
+
+            temp3 := OutgoingArrowsOfVertex(VerticesOfQuiver(Q)[x]);
+
+            if Length(temp3) = 2 then
+                if SIntChar(String(temp3[1])[1])
                   - SIntChar(input_str[1]) = 32 then
-                    y := String(Outgoing_Arrows(Q, x)[2])[1];
+                    y := String(temp3[2])[1];
                 else
-                    y := String(Outgoing_Arrows(Q, x)[1])[1];
+                    y := String(temp3[1])[1];
                 fi;
                 z := [y];
                 Append(z, input_str);
@@ -792,7 +744,7 @@ function( Q, rho )
     end;
 
     inverse_right := function(Q, rho, input_str, sigma, eps)
-        local x, y, z, temp, output, i, num_digits, num, j;
+        local x, y, z, temp, temp3, output, i, num_digits, num, j;
         #if IsValidString(Q,rho,input_str) = "Invalid String" then
         #  return "Invalid String";
         #fi;
@@ -810,7 +762,7 @@ function( Q, rho )
                 num := num +
                 (SIntChar(input_str[j]) - SIntChar('0')) * 10^(num_digits - j + 1);
             od;
-            temp := Outgoing_Arrows(Q,num);
+            temp := OutgoingArrowsOfVertex(VerticesOfQuiver(Q)[num]);
             if input_str[num_digits + 3] = '1' then
                 if Length(temp) = 1 and sigma[SIntChar(String(temp[1])[1])
                   - SIntChar('a') + 1] = 1 then
@@ -850,11 +802,14 @@ function( Q, rho )
         if SIntChar(temp[Length(temp)]) > 96 then
             x := SIntChar(String(SourceOfPath(ArrowsOfQuiver(Q)[
             SIntChar(temp[Length(temp)]) - SIntChar('a') + 1]))[2]) - SIntChar('0');
-            if Length(Outgoing_Arrows(Q, x)) = 2 then
-                if String(Outgoing_Arrows(Q, x)[1])[1] = temp[Length(temp)] then
-                    y := String(Outgoing_Arrows(Q, x)[2])[1];
+
+            temp3 := OutgoingArrowsOfVertex(VerticesOfQuiver(Q)[x]);
+
+            if Length(temp3) = 2 then
+                if String(temp3[1])[1] = temp[Length(temp)] then
+                    y := String(temp3[2])[1];
                 else
-                    y := String(Outgoing_Arrows(Q, x)[1])[1];
+                    y := String(temp3[1])[1];
                 fi;
                 z := [CharInt(SIntChar(y) - 32)];
                 Append(temp, z);
@@ -867,19 +822,22 @@ function( Q, rho )
         else
             x := SIntChar(String(TargetOfPath(ArrowsOfQuiver(Q)[
             SIntChar(temp[Length(temp)]) - SIntChar('A') + 1]))[2]) - SIntChar('0');
-            if Length(Outgoing_Arrows(Q,x)) = 2 then
-                z := [CharInt(SIntChar(String(Outgoing_Arrows(Q, x)[1])[1]) - 32)];
+
+            temp3 := OutgoingArrowsOfVertex(VerticesOfQuiver(Q)[x]);
+
+            if Length(temp3) = 2 then
+                z := [CharInt(SIntChar(String(temp3[1])[1]) - 32)];
                 temp := Concatenation(temp, z);
                 if IsValidString(Q, rho, temp) = "Invalid String" then
                     temp := input_str;
-                    z := [CharInt(SIntChar(String(Outgoing_Arrows(Q, x)[2])[1]) - 32)];
+                    z := [CharInt(SIntChar(String(temp3[2])[1]) - 32)];
                     Append(temp, z);
                     if IsValidString(Q, rho, temp) = "Invalid String" then
                         return "Cannot Perform The Operation";
                     fi;
                 fi;
-            elif Length(Outgoing_Arrows(Q, x)) = 1 then
-                z := [CharInt(SIntChar(String(Outgoing_Arrows(Q, x)[1])[1]) - 32)];
+            elif Length(temp3) = 1 then
+                z := [CharInt(SIntChar(String(temp3[1])[1]) - 32)];
                 Append(temp, z);
                 if IsValidString(Q, rho, temp) = "Invalid String" then
                     return "Cannot Perform The Operation";
@@ -892,7 +850,7 @@ function( Q, rho )
 
     sigma_eps := function( Q, rho1 )
         local QuiverRho, Composable_Matrix, IsComposable, temp_in, temp_out, i,
-        j, k, sigma, eps, rho;
+        j, k, sigma, eps, rho, temp2, temp3;
 
         QuiverRho := function(Q,rho)
             local rho_q, i, j, k, arr, arr1;
@@ -951,11 +909,11 @@ function( Q, rho )
         end;
 
         temp_in := function(Q, i, j)
-            return SIntChar(String(Incoming_Arrows(Q, i)[j])[1]) - SIntChar('a') + 1;
+            return SIntChar(String(IncomingArrowsOfVertex(VerticesOfQuiver(Q)[i])[j])[1]) - SIntChar('a') + 1;
         end;
 
         temp_out := function(Q, i, j)
-            return SIntChar(String(Outgoing_Arrows(Q, i)[j])[1]) - SIntChar('a') + 1;
+            return SIntChar(String(OutgoingArrowsOfVertex(VerticesOfQuiver(Q)[i])[j])[1]) - SIntChar('a') + 1;
         end;
 
         sigma := [];
@@ -968,22 +926,22 @@ function( Q, rho )
         rho := QuiverRho(Q, rho1);
 
         for i in [1..NumberOfVertices(Q)] do
-            if Length(Incoming_Arrows(Q, i)) = 2 then
+            temp2 := IncomingArrowsOfVertex(VerticesOfQuiver(Q)[i]);
+            temp3 := OutgoingArrowsOfVertex(VerticesOfQuiver(Q)[i]);
+            if Length(temp2) = 2 then
                 eps[temp_in(Q, i, 1)] := 1;
                 eps[temp_in(Q, i, 2)] := -1;
-                if Length(Outgoing_Arrows(Q, i)) = 1 then
-                    if IsComposable(Q, rho, Outgoing_Arrows(Q, i)[1],
-                      Incoming_Arrows(Q, i)[1]) = 1 then
+                if Length(temp3) = 1 then
+                    if IsComposable(Q, rho, temp3[1],
+                      temp2[1]) = 1 then
                         sigma[temp_out(Q, i, 1)] := -1;
-                    elif IsComposable(Q, rho, Outgoing_Arrows(Q, i)[1],
-                      Incoming_Arrows(Q, i)[2]) = 1 then
+                    elif IsComposable(Q, rho, temp3[1], temp2[2]) = 1 then
                         sigma[temp_out(Q, i, 1)] := 1;
                     fi;
-                elif Length(Outgoing_Arrows(Q, i)) = 2 then
-                    if IsComposable(Q, rho, Outgoing_Arrows(Q, i)[1],
-                      Incoming_Arrows(Q, i)[1]) = 1 or
-                      IsComposable(Q, rho, Outgoing_Arrows(Q, i)[2],
-                      Incoming_Arrows(Q, i)[2]) = 1 then
+                elif Length(temp3) = 2 then
+                    if IsComposable(Q, rho, temp3[1], temp2[1]) = 1 or
+                      IsComposable(Q, rho, temp3[2],
+                      temp2[2]) = 1 then
                         sigma[temp_out(Q, i, 1)] := -1;
                         sigma[temp_out(Q, i, 2)] := 1;
                     else
@@ -991,21 +949,21 @@ function( Q, rho )
                         sigma[temp_out(Q, i, 2)] := -1;
                     fi;
                 fi;
-            elif Length(Incoming_Arrows(Q, i)) = 1 then
-                if Length(Outgoing_Arrows(Q, i)) = 1 then
+            elif Length(temp2) = 1 then
+                if Length(temp3) = 1 then
                     eps[temp_in(Q, i, 1)] := 1;
                     sigma[temp_out(Q, i, 1)] := -1;
-                elif Length(Outgoing_Arrows(Q, i)) = 2 then
+                elif Length(temp3) = 2 then
                     sigma[temp_out(Q, i, 1)] := 1;
                     sigma[temp_out(Q, i, 2)] := -1;
-                    if IsComposable(Q, rho, Outgoing_Arrows(Q, i)[1],
-                      Incoming_Arrows(Q, i)[1]) = 1 then
+                    if IsComposable(Q, rho, temp3[1],
+                      temp2[1]) = 1 then
                         eps[temp_in(Q, i, 1)] := -1;
                     else
                         eps[temp_in(Q, i, 1)] := 1;
                     fi;
                 fi;
-            elif Length(Incoming_Arrows(Q, i)) = 0 then
+            elif Length(temp2) = 0 then
               sigma[temp_out(Q, i, 1)] := 1;
               sigma[temp_out(Q, i, 2)] := -1;
             fi;
@@ -1083,10 +1041,10 @@ true,
 function( Q, rho )
     local sigma_eps, arr, arr1,kQ, gens,rel, SourceOfArrow, TargetOfArrow,
     KMPSearch, computeLPSarray,Q2, CyclicPermutationOfABand, NumberOfJoints,
-    MaximumLengthOFDirectString, inverse_right, direct_left, Outgoing_Arrows,
-    Incoming_Arrows, WeakBridgeQuiver,BridgeQuiver, BandFreeStrings,
-    IsBandFreeString, wb, wb1, lambda, i, j, k, str, temp, array, array1, perm,
-    Q1, num, l, N, L, level, q, b, br, tempo, count, arr_quiver, len;
+    MaximumLengthOFDirectString, inverse_right, direct_left, WeakBridgeQuiver,
+    BridgeQuiver, BandFreeStrings, IsBandFreeString, wb, wb1, lambda, i, j, k,
+    str, temp, array, array1, perm, Q1, num, l, N, L, level, q, b, br, tempo,
+    count, arr_quiver, len;
 
     k := Rationals;
     kQ := PathAlgebra(k, Q);
@@ -1162,40 +1120,8 @@ function( Q, rho )
         return array;
     end;
 
-    Incoming_Arrows := function(Q, v)
-        local i, a, b;
-        a := [];
-        for i in [1..NumberOfArrows(Q)] do
-            Append(a, [SIntChar(String(TargetOfPath(ArrowsOfQuiver(Q)[i]))[2])
-            - SIntChar('0')]);
-        od;
-        b := [];
-        for i in [1..Length(a)] do
-            if v = a[i] then
-                Append(b, [ArrowsOfQuiver(Q)[i]]);
-            fi;
-        od;
-        return b;
-    end;
-
-    Outgoing_Arrows := function(Q, v)
-        local i, a, b;
-        a := [];
-        for i in [1..NumberOfArrows(Q)] do
-            Append(a, [SIntChar(String(SourceOfPath(ArrowsOfQuiver(Q)[i]))[2])
-            - SIntChar('0')]);
-        od;
-        b := [];
-        for i in [1..Length(a)] do
-            if v = a[i] then
-                Append(b, [ArrowsOfQuiver(Q)[i]]);
-            fi;
-        od;
-        return b;
-    end;
-
     direct_left := function(Q, rho, input_str, sigma, eps)
-        local x, y, z, temp, output, num, num_digits, j;
+        local x, y, z, temp, temp3, output, num, num_digits, j;
         output := IsValidString(Q, rho, input_str);
         #if output <> "Valid Positive Length String" then
         #       return output;
@@ -1214,7 +1140,7 @@ function( Q, rho )
                 (SIntChar(input_str[j]) - SIntChar('0')) * 10^(num_digits - j + 1);
             od;
 
-            temp := Outgoing_Arrows(Q, num);
+            temp := OutgoingArrowsOfVertex(VerticesOfQuiver(Q)[num]);
             if input_str[num_digits + 3] = '1' then
                 if Length(temp) = 1 and
                   sigma[SIntChar(String(temp[1])[1]) - SIntChar('a') + 1] = -1 then
@@ -1247,18 +1173,21 @@ function( Q, rho )
         if SIntChar(input_str[1]) > 96 then
             x := SIntChar(String(TargetOfPath(ArrowsOfQuiver(Q)[
             SIntChar(input_str[1]) - SIntChar('a') + 1]))[2]) - SIntChar('0');
-            if Length(Outgoing_Arrows(Q, x)) = 2 then
-                z := [String(Outgoing_Arrows(Q, x)[1])[1]];
+
+            temp3 := OutgoingArrowsOfVertex(VerticesOfQuiver(Q)[x]);
+
+            if Length(temp3) = 2 then
+                z := [String(temp3[1])[1]];
                 Append(z, input_str);
                 if IsValidString(Q, rho, z) = "Invalid String" then
-                    z := [String(Outgoing_Arrows(Q, x)[2])[1]];
+                    z := [String(temp3[2])[1]];
                     Append(z, input_str);
                     if IsValidString(Q, rho, z) = "Invalid String" then
                         return "Cannot Perform The Operation";
                     fi;
                 fi;
-            elif Length(Outgoing_Arrows(Q, x)) = 1 then
-                z := [String(Outgoing_Arrows(Q, x)[1])[1]];
+            elif Length(temp3) = 1 then
+                z := [String(temp3[1])[1]];
                 Append(z, input_str);
                 if IsValidString(Q,rho,z) = "Invalid String" then
                     return "Cannot Perform The Operation";
@@ -1268,12 +1197,15 @@ function( Q, rho )
         else
             x := SIntChar(String(SourceOfPath(ArrowsOfQuiver(Q)[
             SIntChar(input_str[1]) - SIntChar('A') + 1]))[2]) - SIntChar('0');
-            if Length(Outgoing_Arrows(Q, x)) = 2 then
-                if SIntChar(String(Outgoing_Arrows(Q, x)[1])[1])
+
+            temp3 := OutgoingArrowsOfVertex(VerticesOfQuiver(Q)[x]);
+
+            if Length(temp3) = 2 then
+                if SIntChar(String(temp3[1])[1])
                   - SIntChar(input_str[1]) = 32 then
-                    y := String(Outgoing_Arrows(Q, x)[2])[1];
+                    y := String(temp3[2])[1];
                 else
-                    y := String(Outgoing_Arrows(Q, x)[1])[1];
+                    y := String(temp3[1])[1];
                 fi;
                 z := [y];
                 Append(z, input_str);
@@ -1288,7 +1220,7 @@ function( Q, rho )
     end;
 
     inverse_right := function(Q, rho, input_str, sigma, eps)
-        local x, y, z, temp, output, i, num_digits, num, j;
+        local x, y, z, temp, temp3, output, i, num_digits, num, j;
         #if IsValidString(Q,rho,input_str) = "Invalid String" then
         #  return "Invalid String";
         #fi;
@@ -1306,7 +1238,7 @@ function( Q, rho )
                 num := num +
                 (SIntChar(input_str[j]) - SIntChar('0')) * 10^(num_digits - j + 1);
             od;
-            temp := Outgoing_Arrows(Q,num);
+            temp := OutgoingArrowsOfVertex(VerticesOfQuiver(Q)[num]);
             if input_str[num_digits + 3] = '1' then
                 if Length(temp) = 1 and sigma[SIntChar(String(temp[1])[1])
                   - SIntChar('a') + 1] = 1 then
@@ -1346,11 +1278,14 @@ function( Q, rho )
         if SIntChar(temp[Length(temp)]) > 96 then
             x := SIntChar(String(SourceOfPath(ArrowsOfQuiver(Q)[
             SIntChar(temp[Length(temp)]) - SIntChar('a') + 1]))[2]) - SIntChar('0');
-            if Length(Outgoing_Arrows(Q, x)) = 2 then
-                if String(Outgoing_Arrows(Q, x)[1])[1] = temp[Length(temp)] then
-                    y := String(Outgoing_Arrows(Q, x)[2])[1];
+
+            temp3 := OutgoingArrowsOfVertex(VerticesOfQuiver(Q)[x]);
+
+            if Length(temp3) = 2 then
+                if String(temp3[1])[1] = temp[Length(temp)] then
+                    y := String(temp3[2])[1];
                 else
-                    y := String(Outgoing_Arrows(Q, x)[1])[1];
+                    y := String(temp3[1])[1];
                 fi;
                 z := [CharInt(SIntChar(y) - 32)];
                 Append(temp, z);
@@ -1363,19 +1298,22 @@ function( Q, rho )
         else
             x := SIntChar(String(TargetOfPath(ArrowsOfQuiver(Q)[
             SIntChar(temp[Length(temp)]) - SIntChar('A') + 1]))[2]) - SIntChar('0');
-            if Length(Outgoing_Arrows(Q,x)) = 2 then
-                z := [CharInt(SIntChar(String(Outgoing_Arrows(Q, x)[1])[1]) - 32)];
+
+            temp3 := OutgoingArrowsOfVertex(VerticesOfQuiver(Q)[x]);
+
+            if Length(temp3) = 2 then
+                z := [CharInt(SIntChar(String(temp3[1])[1]) - 32)];
                 temp := Concatenation(temp, z);
                 if IsValidString(Q, rho, temp) = "Invalid String" then
                     temp := input_str;
-                    z := [CharInt(SIntChar(String(Outgoing_Arrows(Q, x)[2])[1]) - 32)];
+                    z := [CharInt(SIntChar(String(temp3[2])[1]) - 32)];
                     Append(temp, z);
                     if IsValidString(Q, rho, temp) = "Invalid String" then
                         return "Cannot Perform The Operation";
                     fi;
                 fi;
-            elif Length(Outgoing_Arrows(Q, x)) = 1 then
-                z := [CharInt(SIntChar(String(Outgoing_Arrows(Q, x)[1])[1]) - 32)];
+            elif Length(temp3) = 1 then
+                z := [CharInt(SIntChar(String(temp3[1])[1]) - 32)];
                 Append(temp, z);
                 if IsValidString(Q, rho, temp) = "Invalid String" then
                     return "Cannot Perform The Operation";
@@ -1388,7 +1326,7 @@ function( Q, rho )
 
     sigma_eps := function( Q, rho1 )
         local QuiverRho, Composable_Matrix, IsComposable, temp_in, temp_out, i,
-        j, k, sigma, eps, rho;
+        j, k, sigma, eps, rho, temp2, temp3;
 
         QuiverRho := function(Q,rho)
             local rho_q, i, j, k, arr, arr1;
@@ -1447,11 +1385,11 @@ function( Q, rho )
         end;
 
         temp_in := function(Q, i, j)
-            return SIntChar(String(Incoming_Arrows(Q, i)[j])[1]) - SIntChar('a') + 1;
+            return SIntChar(String(IncomingArrowsOfVertex(VerticesOfQuiver(Q)[i])[j])[1]) - SIntChar('a') + 1;
         end;
 
         temp_out := function(Q, i, j)
-            return SIntChar(String(Outgoing_Arrows(Q, i)[j])[1]) - SIntChar('a') + 1;
+            return SIntChar(String(OutgoingArrowsOfVertex(VerticesOfQuiver(Q)[i])[j])[1]) - SIntChar('a') + 1;
         end;
 
         sigma := [];
@@ -1464,22 +1402,20 @@ function( Q, rho )
         rho := QuiverRho(Q, rho1);
 
         for i in [1..NumberOfVertices(Q)] do
-            if Length(Incoming_Arrows(Q, i)) = 2 then
+            temp2 := IncomingArrowsOfVertex(VerticesOfQuiver(Q)[i]);
+            temp3 := OutgoingArrowsOfVertex(VerticesOfQuiver(Q)[i]);
+            if Length(temp2) = 2 then
                 eps[temp_in(Q, i, 1)] := 1;
                 eps[temp_in(Q, i, 2)] := -1;
-                if Length(Outgoing_Arrows(Q, i)) = 1 then
-                    if IsComposable(Q, rho, Outgoing_Arrows(Q, i)[1],
-                      Incoming_Arrows(Q, i)[1]) = 1 then
+                if Length(temp3) = 1 then
+                    if IsComposable(Q, rho, temp3[1], temp2[1]) = 1 then
                         sigma[temp_out(Q, i, 1)] := -1;
-                    elif IsComposable(Q, rho, Outgoing_Arrows(Q, i)[1],
-                      Incoming_Arrows(Q, i)[2]) = 1 then
+                    elif IsComposable(Q, rho, temp3[1], temp2[2]) = 1 then
                         sigma[temp_out(Q, i, 1)] := 1;
                     fi;
-                elif Length(Outgoing_Arrows(Q, i)) = 2 then
-                    if IsComposable(Q, rho, Outgoing_Arrows(Q, i)[1],
-                      Incoming_Arrows(Q, i)[1]) = 1 or
-                      IsComposable(Q, rho, Outgoing_Arrows(Q, i)[2],
-                      Incoming_Arrows(Q, i)[2]) = 1 then
+                elif Length(temp3) = 2 then
+                    if IsComposable(Q, rho, temp3[1], temp2[1]) = 1 or
+                      IsComposable(Q, rho, temp3[2], temp2[2]) = 1 then
                         sigma[temp_out(Q, i, 1)] := -1;
                         sigma[temp_out(Q, i, 2)] := 1;
                     else
@@ -1487,21 +1423,21 @@ function( Q, rho )
                         sigma[temp_out(Q, i, 2)] := -1;
                     fi;
                 fi;
-            elif Length(Incoming_Arrows(Q, i)) = 1 then
-                if Length(Outgoing_Arrows(Q, i)) = 1 then
+            elif Length(temp2) = 1 then
+                if Length(temp3) = 1 then
                     eps[temp_in(Q, i, 1)] := 1;
                     sigma[temp_out(Q, i, 1)] := -1;
-                elif Length(Outgoing_Arrows(Q, i)) = 2 then
+                elif Length(temp3) = 2 then
                     sigma[temp_out(Q, i, 1)] := 1;
                     sigma[temp_out(Q, i, 2)] := -1;
-                    if IsComposable(Q, rho, Outgoing_Arrows(Q, i)[1],
-                      Incoming_Arrows(Q, i)[1]) = 1 then
+                    if IsComposable(Q, rho, temp3[1],
+                      temp2[1]) = 1 then
                         eps[temp_in(Q, i, 1)] := -1;
                     else
                         eps[temp_in(Q, i, 1)] := 1;
                     fi;
                 fi;
-            elif Length(Incoming_Arrows(Q, i)) = 0 then
+            elif Length(temp2) = 0 then
               sigma[temp_out(Q, i, 1)] := 1;
               sigma[temp_out(Q, i, 2)] := -1;
             fi;
