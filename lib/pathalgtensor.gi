@@ -239,12 +239,27 @@ InstallMethod( TensorProductOfAlgebras,
     return TensorProductOfPathAlgebras( [ pa1, pa2 ] );
 end );
 
+
+#####################################################################
+#
+# Helene Bjørshol proved in her bachelor thesis at IMF, NTNU, spring
+# 2021 that a Groebner basis of the tensor product of two quiver
+# algebras, are given by the Groebner basis elements induced from 
+# each factor of the tensor product in addition to all the 
+# commutativity relations  
+#     ( a x o(b) ) * ( t(a) x b ) - ( o(a) x b ) * ( a x t(b) )
+# for all arrows a and b from the first and the second factor of the
+# tensor product.  This results in a huge speed up of the function
+# compared to the previous implementation.
+#
 InstallGlobalFunction( TensorProductOfPathAlgebras,
         function( PAs )
 
     local   field,  Qs,  product_q,  product_pa,  inc_q,  inc_pa,  
             make_comm_rel,  paths,  comm_rels,  get_relators,  
-            orig_rels,  induced_rels,  tensor_rels,  tensor_product;
+            get_groebner_basis,  orig_rels,  induced_rels,  
+            tensor_rels,  orig_grbs,  induced_grb,  tensor_grb,  I,  
+            product_pa_grb,  tensor_product;
 
     field := LeftActingDomain( PAs[ 1 ] );
     if field <> LeftActingDomain( PAs[ 2 ] ) then
@@ -292,7 +307,17 @@ InstallGlobalFunction( TensorProductOfPathAlgebras,
             return [ ];
         fi;
     end;
-
+    get_groebner_basis := function( C )
+        local fam;
+        
+        if IsQuotientOfPathAlgebra( C ) then
+            fam := ElementsFamily( FamilyObj( C ) );
+            return GroebnerBasisOfIdeal( fam!.ideal );
+        else
+            return [ ];
+        fi;
+    end;
+    
     # The relations of the two original path algebras:
     orig_rels := List( PAs, get_relators );
     
@@ -303,9 +328,23 @@ InstallGlobalFunction( TensorProductOfPathAlgebras,
 
     # All the relations for the tensor product:
     tensor_rels := Concatenation( comm_rels, induced_rels );
-    tensor_product := product_pa / tensor_rels;
-    SetTensorProductDecomposition( tensor_product, PAs );
     
+    # The Groebner basis of the two original path algebras:
+    orig_grbs := List( PAs, get_groebner_basis );
+    
+    # The original Groebner bases included into the product quiver:
+    induced_grb := List( Concatenation( Cartesian( orig_grbs[ 1 ], VerticesOfPathAlgebra( PAs[ 2 ] ) ),
+                                         Cartesian( VerticesOfPathAlgebra( PAs[ 1 ] ), orig_grbs[ 2 ] ) ),
+                          function( factors ) return SimpleTensor( factors, product_pa ); end );
+                          
+    # All the Groebner basis elements for the tensor product:
+    tensor_grb := Concatenation( induced_grb, comm_rels );
+    
+    I := Ideal( product_pa, tensor_rels );
+    product_pa_grb := GroebnerBasis( I, tensor_grb );
+    tensor_product := product_pa / I;
+    SetTensorProductDecomposition( tensor_product, PAs );
+
     return tensor_product;
 end );
 
