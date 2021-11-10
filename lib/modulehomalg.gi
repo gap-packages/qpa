@@ -980,34 +980,28 @@ InstallMethod ( DominantDimensionOfModule,
     # 
     # If the module  <M>  is injective and projective, then the dominant dimension of 
     # <M>  is infinite.
-    if IsInjectiveModule(M) and IsProjectiveModule(M) then 
+    if IsInjectiveModule( M ) and IsProjectiveModule( M ) then 
         return infinity;
     fi;
-    Mop := DualOfModule(M);
+    
+    Mop := DualOfModule( M );
     #
-    # Compute the minimal projective resolution of the module  Mop.
-    #
-    resop := ProjectiveResolution(Mop);
-    dimension := 0;
     # Check how far out the modules in the minimal projective resolution of Mop
     # is injective.
-    if IsInjectiveModule(ObjectOfComplex(resop,0)) then
-        if Dimension(ObjectOfComplex(resop,1)) = 0 then
-            return infinity;
-        else
-            j := 1;
-            while ( j < n + 1 ) and ( IsInjectiveModule(ObjectOfComplex(resop,j)) ) do 
-                    j := j + 1;
-            od; 
-            if ( j < n + 1 ) then # if this happens, then j-th projective is not injective and domdim equal to j for <M>.
-                dimension := Maximum(dimension, j);
-            else                    # if this happens, then j = n + 1. 
-                if not IsInjectiveModule(ObjectOfComplex(resop,n + 1)) then # then domdim is  n  of  <M>.
-                    dimension := Maximum(dimension, n);
-                else                                                      # then domdim is > n  for  <M>.
-                    return false;
-                fi;
-            fi;
+    #
+    resop := ProjectiveResolution( Mop );
+    dimension := 0;
+    j := 0;
+    while ( j < n ) and ( IsInjectiveModule( ObjectOfComplex( resop, j ) ) ) do 
+        j := j + 1;
+    od; 
+    if ( j < n ) then # if this happens, then j-th projective is not injective and domdim equal to j for <M>.
+        dimension := Maximum( dimension, j );
+    else                    # if this happens, then j = n. 
+        if not IsInjectiveModule( ObjectOfComplex( resop, n  ) ) then # then domdim is  n  of  <M>.
+            dimension := Maximum( dimension, n );
+        else                                                      # then domdim is > n  for  <M>.
+            return false;
         fi;
     fi;
 
@@ -1032,34 +1026,31 @@ InstallMethod ( DominantDimensionOfAlgebra,
     0,
     function( A, n )
 
-    local P, domdimlist, M, test, pos, finite_ones;
-    
+    local   P,  domdimlist,  pos_infinite,  pos_false,  pos_finite;
     #
     # If the algebra  <A>  is not a finite dimensional, try another method.
     #
-    if not IsFiniteDimensional(A) then
-        TryNextMethod();
+    if not IsFiniteDimensional( A ) then
+        TryNextMethod( );
     fi;
     # 
     # If the algebra  <A>  is selfinjective, then the dominant dimension of 
     # <A>  is infinite.
-    if IsSelfinjectiveAlgebra(A) then 
+    if IsSelfinjectiveAlgebra( A ) then 
         return infinity;
     fi;
-    P := IndecProjectiveModules(A);
-    domdimlist := [];
-    for M in P do
-        test := DominantDimensionOfModule(M,n);   # Checking the dominant dimension of each indec. projective module. 
-        if test = false then
-            return false;
-        fi;
-        Add(domdimlist,test); 
-    od; 
-    pos := Positions(domdimlist,infinity); # positions of the indec. projective modules with infinite domdim.
-    finite_ones := [1..Length(P)]; 
-    SubtractSet(finite_ones,pos); # positions of the indec. projective modules with finite domdim.
+    P := IndecProjectiveModules( A );
+    domdimlist := List( P, p -> DominantDimensionOfModule( p, n ) );   # Checking the dominant dimension of each indec. projective module. 
+    pos_infinite := Positions( domdimlist, infinity ); # positions of the indec. projective modules with infinite domdim.
+    pos_false := Positions( domdimlist, false ); # positions of the indec. projective modules with bigger dom.dim. than n.
+    pos_finite := [ 1..Length( P ) ];     
+    SubtractSet( pos_finite, Union( pos_infinite, pos_false ) ); # positions of the indec. projective modules with domdim less or equal to n.
     
-    return Minimum(domdimlist{finite_ones});
+    if Length( pos_finite ) = 0 then 
+        return false;
+    else
+        return Minimum( domdimlist{ pos_finite } );
+    fi;
 end
   );
 
