@@ -1,6 +1,12 @@
-DeclareOperation("IsABand", [ IsQuiverSA, IsList, IsString ]);
-DeclareOperation("StringsLessThan", [ IsQuiverSA, IsList, IsPosInt ]);
-DeclareOperation("BandsLessThan", [ IsQuiverSA, IsList, IsPosInt ]);
-DeclareOperation("BandRepresentativesLessThan", [ IsQuiverSA, IsList, IsPosInt ]);
-DeclareOperation("IsDomesticStringAlgebra", [ IsQuiverSA, IsList ]);
-DeclareOperation("BridgeQuiver", [ IsQuiverSA, IsList ]);
+DeclareGlobalFunction( "computeLPSarray" );
+DeclareGlobalFunction( "SourceOfArrow" );
+DeclareGlobalFunction( "TargetOfArrow" );
+DeclareGlobalFunction( "CyclicPermutationOfABand" );
+DeclareGlobalFunction( "MaximumLengthOfDirectString" );
+DeclareGlobalFunction( "NumberOfJoints" );
+DeclareOperation("IsABand", [ IsAlgebra, IsString ]);
+DeclareOperation("StringsLessThan", [ IsAlgebra, IsPosInt ]);
+DeclareOperation("BandsLessThan", [ IsAlgebra, IsPosInt ]);
+DeclareOperation("BandRepresentativesLessThan", [ IsAlgebra, IsPosInt ]);
+DeclareOperation("IsDomesticStringAlgebra", [ IsAlgebra ]);
+DeclareOperation("BridgeQuiver", [ IsAlgebra ]);
