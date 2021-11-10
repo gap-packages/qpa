@@ -22,9 +22,21 @@ end
 );
 
 InstallGlobalFunction( QPAStringSigmaEps,
-  function( Q, rho1 )
-    local Composable_Matrix, IsComposable, temp_in, temp_out,
-    i, j, k, sigma, eps, rho, x, y;
+  function( A )
+    local Q, rho1, rho, i, onerel, tworel, str, Composable_Matrix, IsComposable, temp_in, temp_out,
+    j, k, sigma, eps, x, y;
+
+    Q := QuiverOfPathAlgebra(A);
+    rho := RelationsOfAlgebra(A);
+
+    rho1 := [];
+    for i in [1..Length(rho)] do
+        onerel := CoefficientsAndMagmaElements(rho[i]);
+        tworel := WalkOfPath(onerel[1]);
+        str := Concatenation(List(tworel, a -> String(a)));
+        Append(rho1, [str]);
+    od;
+
     Composable_Matrix := function(Q,rho)
         local mat, x, str, i, j;
         mat := [];
@@ -124,43 +136,44 @@ end
 );
 
 InstallMethod( IsValidString,
-"for quivers and relations and strings",
+"for stringalgebras and strings",
 true,
-[ IsQuiverSA, IsList, IsString ], 0,
-function( Q, rho, input_str )
-    local IsValidStringSA, IsReducedWalk, IsValidWalk,
-    k, kQ, gens ,rel, arr1, arr, i, j, x, y, temp;
-    k := Rationals;
-    kQ := PathAlgebra(k,Q);
-    gens := GeneratorsOfAlgebra(kQ);
-    rel := [];
-    for i in [1..Length(rho)] do
-        arr := [];
-        for j in [1..Length(rho[i])] do
-            temp := 0;
-            for k in [NumberOfVertices(Q) + 1..NumberOfVertices(Q) +
-              NumberOfArrows(Q)] do
-                if rho[i][j] = String(gens[k])[5] then
-                    Add(arr,gens[k]);
-                    temp := 1;
-                    break;
-                fi;
-            od;
-            if temp = 0 then
-              Error("The relations should be a word of arrows of the quiver");
-              return 0;
-            fi;
-        od;
-        arr1 := arr[1];
-        for k in [2..Length(arr)] do
-            arr1 := arr1*arr[k];
-        od;
-        Add(rel, arr1);
-    od;
-    if IsStringAlgebra(kQ/rel) = false then
-      Error("The input quiver and relations do not represent a String Algebra");
+[ IsAlgebra, IsString ], 0,
+function( A, input_str )
+    local IsValidStringSA, IsReducedWalk, IsValidWalk, Q, rho1, rho, vertices, arrows, i, x, y, str;
+    if IsStringAlgebra(A) = false then
+      Error("The input algebra is not a string algebra");
       return 0;
     fi;
+
+    Q := QuiverOfPathAlgebra(A);
+    rho1 := RelationsOfAlgebra(A);
+
+    vertices := VerticesOfQuiver(Q);
+    arrows := ArrowsOfQuiver(Q);
+
+    for i in [1..Length(vertices)] do
+      if Length(String(vertices[i])) <> 2 or String(vertices[i])[1] <> 'v' or
+        String(vertices[i])[2] <> String(i)[1] then
+        Error("The Quiver of A is not acceptable");
+        return 0;
+      fi;
+    od;
+
+    for i in [1..Length(arrows)] do
+      if Length(String(arrows[i])) <> 1 or String(arrows[i])[1] <> CharInt(i+96) then
+        Error("The Quiver of A is not acceptable");
+        return 0;
+      fi;
+    od;
+
+    rho := [];
+    for i in [1..Length(rho1)] do
+        x := CoefficientsAndMagmaElements(rho1[i]);
+        y := WalkOfPath(x[1]);
+        str := Concatenation(List(y, a -> String(a)));
+        Append(rho, [str]);
+    od;
 
     IsReducedWalk := function(Q, input_str)
         local x,y,i,j;
@@ -264,11 +277,11 @@ function( Q, rho, input_str )
         fi;
     end;
 
-    IsValidStringSA := function(Q, rho1, input_str)
+    IsValidStringSA := function(A, Q, rho1, input_str)
         local i, j, k, rel, temp, temp_caps, temp1, y, x, l, length, count, num,
         num_digits, lit, sigma, eps, array, rho;
         rho := QPAStringQuiverRho(Q,rho1);
-        array := QPAStringSigmaEps(Q,rho1);
+        array := QPAStringSigmaEps(A);
         sigma := array[1];
         eps := array[2];
         num := NumberOfVertices(Q);
@@ -445,17 +458,18 @@ function( Q, rho, input_str )
         fi;
     end;
 
-    return IsValidStringSA(Q, rho, input_str);
+    return IsValidStringSA(A, Q, rho, input_str);
 end
 );
 
 InstallGlobalFunction( QPAStringDirectLeft,
-  function(Q, rho, input_str, sigma, eps)
-    local x, y, z, temp, output, num, num_digits, j, temp3;
-    output := IsValidString(Q, rho, input_str);
+  function(A, input_str, sigma, eps)
+    local Q, x, y, z, temp, output, num, num_digits, j, temp3;
+    output := IsValidString(A, input_str);
     #if output <> "Valid Positive Length String" then
     #       return output;
     #fi;
+    Q := QuiverOfPathAlgebra(A);
     if output = true and input_str[1] = '(' then
         num := NumberOfVertices(Q);
         num_digits := 0;
@@ -509,17 +523,17 @@ InstallGlobalFunction( QPAStringDirectLeft,
         if Length(temp3) = 2 then
             z := [String(temp3[1])[1]];
             Append(z, input_str);
-            if IsValidString(Q, rho, z) = false then
+            if IsValidString(A, z) = false then
                 z := [String(temp3[2])[1]];
                 Append(z, input_str);
-                if IsValidString(Q, rho, z) = false then
+                if IsValidString(A, z) = false then
                     return "Cannot Perform The Operation";
                 fi;
             fi;
         elif Length(temp3) = 1 then
             z := [String(temp3[1])[1]];
             Append(z, input_str);
-            if IsValidString(Q,rho,z) = false then
+            if IsValidString(A, z) = false then
                 return "Cannot Perform The Operation";
             fi;
         else return "Cannot Perform The Operation";
@@ -539,7 +553,7 @@ InstallGlobalFunction( QPAStringDirectLeft,
             fi;
             z := [y];
             Append(z, input_str);
-            if IsValidString(Q, rho, z) = false then
+            if IsValidString(A, z) = false then
                 return "Cannot Perform The Operation";
             fi;
         else
@@ -551,12 +565,13 @@ end
 );
 
 InstallGlobalFunction( QPAStringInverseLeft,
-  function(Q, rho, input_str, sigma, eps)
-    local x, y, z, temp, output, num, num_digits, j, temp2;
-    output := IsValidString(Q, rho, input_str);
+  function(A, input_str, sigma, eps)
+    local Q, x, y, z, temp, output, num, num_digits, j, temp2;
+    output := IsValidString(A, input_str);
     #if output = "Valid Positive Length String" then
     #  return output;
     #fi;
+    Q := QuiverOfPathAlgebra(A);
     if output = true and input_str[1] = '(' then
         num := NumberOfVertices(Q);
         num_digits := 0;
@@ -614,7 +629,7 @@ InstallGlobalFunction( QPAStringInverseLeft,
             fi;
             z := [CharInt(SIntChar(y) - 32)];
             Append(z, input_str);
-            if IsValidString(Q, rho, z) = false then
+            if IsValidString(A, z) = false then
                 return "Cannot Perform The Operation";
             fi;
         else
@@ -629,17 +644,17 @@ InstallGlobalFunction( QPAStringInverseLeft,
         if Length(temp2) = 2 then
             z := [CharInt(SIntChar(String(temp2[1])[1]) - 32)];
             Append(z, input_str);
-            if IsValidString(Q, rho, z) = false then
+            if IsValidString(A, z) = false then
                 z := [CharInt(SIntChar(String(temp2[2])[1]) - 32)];
                 Append(z, input_str);
-                if IsValidString(Q, rho, z) = false then
+                if IsValidString(A, z) = false then
                     return "Cannot Perform The Operation";
                 fi;
             fi;
         elif Length(temp2) = 1 then
             z := [CharInt(SIntChar(String(temp2[1])[1]) - 32)];
             Append(z, input_str);
-            if IsValidString(Q, rho, z) = false then
+            if IsValidString(A, z) = false then
                 return "Cannot Perform The Operation";
             fi;
         else return "Cannot Perform The Operation";
@@ -650,12 +665,13 @@ end
 );
 
 InstallGlobalFunction( QPAStringDirectRight,
-  function(Q, rho, input_str, sigma, eps)
-    local x, y, z, temp, output, i, num, num_digits, j, temp2;
+  function(A, input_str, sigma, eps)
+    local Q, x, y, z, temp, output, i, num, num_digits, j, temp2;
     #if IsValidString(Q,rho,input_str) = false then
     #return false;
     #fi;
-    output := IsValidString(Q, rho, input_str);
+    output := IsValidString(A, input_str);
+    Q := QuiverOfPathAlgebra(A);
 
     if output = true and input_str[1] = '(' then
         num := NumberOfVertices(Q);
@@ -712,18 +728,18 @@ InstallGlobalFunction( QPAStringDirectRight,
         if Length(temp2) = 2 then
             z := [String(temp2[1])[1]];
             temp := Concatenation(temp, z);
-            if IsValidString(Q, rho, temp) = false then
+            if IsValidString(A, temp) = false then
                 z := [String(temp2[2])[1]];
                 temp := input_str;
                 temp := Concatenation(temp, z);
-                if IsValidString(Q, rho, temp) = false then
+                if IsValidString(A, temp) = false then
                     return "Cannot Perform The Operation";
                 fi;
             fi;
         elif Length(temp2) = 1 then
             z := [String(temp2[1])[1]];
             temp := Concatenation(temp, z);
-            if IsValidString(Q, rho, temp) = false then
+            if IsValidString(A, temp) = false then
                 return "Cannot Perform The Operation";
             fi;
         else return "Cannot Perform The Operation";
@@ -742,7 +758,7 @@ InstallGlobalFunction( QPAStringDirectRight,
             fi;
             z := [y];
             temp := Concatenation(temp, z);
-            if IsValidString(Q, rho, temp) = false then
+            if IsValidString(A, temp) = false then
                 return "Cannot Perform The Operation";
             fi;
         else
@@ -754,12 +770,14 @@ end
 );
 
 InstallGlobalFunction( QPAStringInverseRight,
-  function(Q, rho, input_str, sigma, eps)
-    local x, y, z, temp, output, i, num_digits, num, j, temp3;
+  function(A, input_str, sigma, eps)
+    local Q, x, y, z, temp, output, i, num_digits, num, j, temp3;
     #if IsValidString(Q,rho,input_str) = false then
     #  return false;
     #fi;
-    output := IsValidString(Q, rho, input_str);
+    output := IsValidString(A, input_str);
+    Q := QuiverOfPathAlgebra(A);
+
     if output = true and input_str[1] = '(' then
         num := NumberOfVertices(Q);
         num_digits := 0;
@@ -824,7 +842,7 @@ InstallGlobalFunction( QPAStringInverseRight,
             fi;
             z := [CharInt(SIntChar(y) - 32)];
             Append(temp, z);
-            if IsValidString(Q, rho, temp) = false then
+            if IsValidString(A, temp) = false then
                 return "Cannot Perform The Operation";
             fi;
         else
@@ -839,18 +857,18 @@ InstallGlobalFunction( QPAStringInverseRight,
         if Length(temp3) = 2 then
             z := [CharInt(SIntChar(String(temp3[1])[1]) - 32)];
             temp := Concatenation(temp, z);
-            if IsValidString(Q, rho, temp) = false then
+            if IsValidString(A, temp) = false then
                 temp := input_str;
                 z := [CharInt(SIntChar(String(temp3[2])[1]) - 32)];
                 Append(temp, z);
-                if IsValidString(Q, rho, temp) = false then
+                if IsValidString(A, temp) = false then
                     return "Cannot Perform The Operation";
                 fi;
             fi;
         elif Length(temp3) = 1 then
             z := [CharInt(SIntChar(String(temp3[1])[1]) - 32)];
             Append(temp, z);
-            if IsValidString(Q, rho, temp) = false then
+            if IsValidString(A, temp) = false then
                 return "Cannot Perform The Operation";
             fi;
         else return "Cannot Perform The Operation";
@@ -861,97 +879,106 @@ end
 );
 
 InstallMethod( LocalARQuiver,
-"for quivers and relations and strings",
+"for stringalgebras and strings",
 true,
-[ IsQuiverSA, IsList, IsString ], 0,
-function( Q, rho, input_str )
-    local arr, temp, temp1, temp2, temp3, La, Lb, Ra, Rb, array,
+[ IsAlgebra, IsString ], 0,
+function( A, input_str )
+    local Q, rho1, rho, vertices, arrows, onerel, tworel, str, arr, temp, temp1,
+    temp2, temp3, La, Lb, Ra, Rb, array,
     sigma, eps, k, kQ, rel, arr1, gens, i, j;
 
-    k := Rationals;
-    kQ := PathAlgebra(k,Q);
-    gens := GeneratorsOfAlgebra(kQ);
-    rel := [];
-    for i in [1..Length(rho)] do
-        arr := [];
-        for j in [1..Length(rho[i])] do
-            for k in [NumberOfVertices(Q) + 1..NumberOfVertices(Q) +
-              NumberOfArrows(Q)] do
-                if rho[i][j] = String(gens[k])[5] then
-                    Add(arr, gens[k]);
-                    break;
-                fi;
-            od;
-        od;
-        arr1 := arr[1];
-        for k in [2..Length(arr)] do
-            arr1 := arr1 * arr[k];
-        od;
-        Add(rel, arr1);
-    od;
-    if IsStringAlgebra(kQ/rel) = false then
-      Error("The input quiver and relations do not represent a String Algebra");
+    if IsStringAlgebra(A) = false then
+      Error("The input algebra is not a string algebra");
       return 0;
     fi;
 
-    temp := IsValidString(Q, rho, input_str);
+    Q := QuiverOfPathAlgebra(A);
+    rho1 := RelationsOfAlgebra(A);
+
+    vertices := VerticesOfQuiver(Q);
+    arrows := ArrowsOfQuiver(Q);
+
+    for i in [1..Length(vertices)] do
+      if Length(String(vertices[i])) <> 2 or String(vertices[i])[1] <> 'v' or
+        String(vertices[i])[2] <> String(i)[1] then
+        Error("The Quiver of A is not acceptable");
+        return 0;
+      fi;
+    od;
+
+    for i in [1..Length(arrows)] do
+      if Length(String(arrows[i])) <> 1 or String(arrows[i])[1] <> CharInt(i+96) then
+        Error("The Quiver of A is not acceptable");
+        return 0;
+      fi;
+    od;
+
+    rho := [];
+    for i in [1..Length(rho1)] do
+        onerel := CoefficientsAndMagmaElements(rho1[i]);
+        tworel := WalkOfPath(onerel[1]);
+        str := Concatenation(List(tworel, a -> String(a)));
+        Append(rho, [str]);
+    od;
+
+    temp := IsValidString(A, input_str);
     if temp = false then
         Error("The input string is invalid");
     fi;
 
-    array := QPAStringSigmaEps(Q,rho);
+    array := QPAStringSigmaEps(A);
     sigma := array[1];
     eps := array[2];
 
-    La := function(Q, rho, input_str)
+    La := function(A, input_str)
         local x,y;
         #output := IsValidString(Q,rho,input_str);
         #if output <> "Valid Positive Length String" and output <> "Valid Zero Length String" then return output;
         #fi;
-        x := QPAStringInverseLeft(Q, rho, input_str, sigma, eps);
+        x := QPAStringInverseLeft(A, input_str, sigma, eps);
         if x = "Cannot Perform The Operation" then return 0;
         fi;
         while true do
-            y := QPAStringDirectLeft(Q, rho, x, sigma, eps);
+            y := QPAStringDirectLeft(A, x, sigma, eps);
             if y = "Cannot Perform The Operation" then return x;
             else x := y;
             fi;
         od;
     end;
 
-    Lb := function(Q, rho, input_str)
+    Lb := function(A, input_str)
         local x, y;
-        x := QPAStringDirectLeft(Q, rho, input_str, sigma, eps);
+        x := QPAStringDirectLeft(A, input_str, sigma, eps);
         if x = "Cannot Perform The Operation" then return 0;
         fi;
         while true do
-            y := QPAStringInverseLeft(Q, rho, x, sigma, eps);
+            y := QPAStringInverseLeft(A, x, sigma, eps);
             if y = "Cannot Perform The Operation" then return x;
             else x := y;
             fi;
         od;
     end;
 
-    Ra := function(Q, rho, input_str)
+    Ra := function(A, input_str)
         local x, y;
-        x := QPAStringInverseRight(Q, rho, input_str, sigma, eps);
+        x := QPAStringInverseRight(A, input_str, sigma, eps);
         if x = "Cannot Perform The Operation" then return 0;
         fi;
         while true do
-            y := QPAStringDirectRight(Q, rho, x, sigma, eps);
+            y := QPAStringDirectRight(A, x, sigma, eps);
             if y = "Cannot Perform The Operation" then return x;
             else x := y;
             fi;
         od;
     end;
 
-    Rb := function(Q, rho, input_str)
+    Rb := function(A, input_str)
         local x, y;
-        x := QPAStringDirectRight(Q, rho, input_str, sigma, eps);
+        x := QPAStringDirectRight(A, input_str, sigma, eps);
         if x = "Cannot Perform The Operation" then return 0;
         fi;
         while true do
-            y := QPAStringInverseRight(Q, rho, x, sigma, eps);
+            y := QPAStringInverseRight(A, x, sigma, eps);
             if y = "Cannot Perform The Operation" then return x;
             else x := y;
             fi;
@@ -959,25 +986,25 @@ function( Q, rho, input_str )
     end;
 
     arr := [];
-    temp1 := La(Q, rho, input_str);
+    temp1 := La(A, input_str);
     if temp1 <> 0 then
         Append(arr, [Concatenation
         ("The cannonical embedding StringModule(", input_str, ") to StringModule(", temp1, ")")]);
     fi;
 
-    temp1 := Lb(Q, rho, input_str);
+    temp1 := Lb(A, input_str);
     if temp1 <> 0 then
         Append(arr, [Concatenation
         ("The cannonical projection StringModule(", temp1, ") to StringModule(", input_str, ")")]);
     fi;
 
-    temp1 := Ra(Q, rho, input_str);
+    temp1 := Ra(A, input_str);
     if temp1 <> 0 then
         Append(arr, [Concatenation
         ("The cannonical projection StringModule(", temp1, ") to StringModule(", input_str, ")")]);
     fi;
 
-    temp1 := Rb(Q, rho, input_str);
+    temp1 := Rb(A, input_str);
     if temp1 <> 0 then
         Append(arr, [Concatenation
         ("The cannonical embedding StringModule(", input_str, ") to StringModule(", temp1, ")")]);
