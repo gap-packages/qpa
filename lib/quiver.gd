@@ -25,6 +25,7 @@ DeclareAttribute("NeighborsOfVertex", IsQuiverVertex, "mutable" );
 DeclareGlobalFunction( "Path" );
 DeclareCategory("IsQuiver", IsSemigroup and IsRecord);
 DeclareRepresentation("IsQuiverRep", IsQuiver and IsComponentObjectRep,["pieces"]);
+DeclareCategory("IsQuiverSA", IsQuiver);
 DeclareRepresentation("IsQuiverIteratorRep", IsComponentObjectRep, ["quiver","position"]);
 
 # DeclareRepresentation( "IsQuiverEnumerator",

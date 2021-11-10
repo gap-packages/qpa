@@ -397,7 +397,7 @@ InstallMethod( PrintObj,
 InstallGlobalFunction( Quiver,
   function( arg )
 
-    local vertices, arrows, vertices_by_name, arrow_spec_size,
+    local temp, vertices, arrows, vertices_by_name, arrow_spec_size,
           name, u, v, i, j, k, msg, arrow_count, Q,
           matrix, record, Fam, zero, frompos, topos;
 
@@ -412,6 +412,8 @@ InstallGlobalFunction( Quiver,
     SetSourceOfPath( zero, zero );
     SetTargetOfPath( zero, zero );
     SetZero(Fam, zero);
+
+    temp := 0;
 
     # Quiver(N, [arrow_spec])
     if Length( arg ) = 2 and IsPosInt( arg[1] ) and IsList( arg[2] ) then
@@ -458,6 +460,16 @@ InstallGlobalFunction( Quiver,
         fi;
 
         arrows[i] := Path( Fam, u, v, name );
+      od;
+      
+      temp := 1;
+
+      for i in [1..Length(arg[2])] do
+
+        if String(arrows[i]) <> [CharInt(i+96)] then
+          temp := 0;
+          break;
+        fi;
       od;
 
     # Quiver([vertex_name, ...], [arrow_spec, ...])
@@ -579,9 +591,15 @@ InstallGlobalFunction( Quiver,
       record.( String(i) ) := i;
     od;
 
-    Q:= Objectify( NewType( CollectionsFamily(Fam), 
-                            IsQuiverRep and IsAttributeStoringRep ),
-                   rec( pieces := record ) );
+    if temp = 1 then
+      Q:= Objectify( NewType( CollectionsFamily(Fam),
+                              IsQuiverSA and IsQuiverRep and IsAttributeStoringRep ),
+                     rec( pieces := record ) );
+    else
+      Q:= Objectify( NewType( CollectionsFamily(Fam),
+                              IsQuiverRep and IsAttributeStoringRep ),
+                     rec( pieces := record ) );
+    fi;
 
     Fam!.quiver := Q;
     SetVerticesOfQuiver( Q, vertices );
