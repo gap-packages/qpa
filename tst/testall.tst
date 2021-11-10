@@ -296,31 +296,38 @@ false
 #functions related to string algebras
 gap> Q1 := Quiver(4, [[1,2,"a"], [1,2,"b"], [2,3,"c"], [3,4,"d"], [3,4,"e"]]);
 <quiver with 4 vertices and 5 arrows>
-gap> rho := ["bc", "cd"];
-[ "bc", "cd" ]
-gap> IsValidString(Q1,rho,"eca");
-"Valid Positive Length String"
-gap> StringsLessThan(Q1,rho,2);
-[ "(1,1)", "b", "Ab", "(1,-1)", "a", "ca", "Ba", "(2,1)", "c", "B", "ec", "aB",
- "(2,-1)", "A", "bA", "(3,1)", "e", "De", "(3,-1)", "d", "C", "Ed", "AC",
- "(4,1)", "E", "dE", "CE", "(4,-1)", "D", "eD" ]
-gap> IsABand(Q,rho,"eca");
-0
-gap> IsABand(Q,rho,"Ab");
-1
-gap> BandsLessThan(Q1,rho,3);
-[ "Ab", "Ba", "aB", "bA", "De", "Ed", "dE", "eD" ]
-gap> BandRepresentativesLessThan(Q1,rho,3);
-[ "aB", "bA", "dE", "eD" ]
-gap> IsDomesticStringAlgebra(Q1,rho);
+gap> k := Rationals;
+Rationals
+gap> kQ1 := PathAlgebra(k,Q1);
+<Rationals[<quiver with 4 vertices and 5 arrows>]>
+gap> rho := [kQ1.b*kQ1.c, kQ1.c*kQ1.d];
+[ (1)*b*c, (1)*c*d ]
+gap> A1 := kQ1/rho;
+<Rationals[<quiver with 4 vertices and 5 arrows>]/
+<two-sided ideal in <Rationals[<quiver with 4 vertices and 5 arrows>]>, (2 generators)>>
+gap> IsValidString(A1,"eca");
 true
-gap> Q3 := BridgeQuiver(Q1,rho);
+gap> StringsLessThan(A1, 2);
+[ "(1,1)", "b", "Ab", "(1,-1)", "a", "ca", "Ba", "(2,1)", "c", "B", "ec", "aB",
+"(2,-1)", "A", "bA", "(3,1)", "e", "De", "(3,-1)", "d", "C", "Ed", "AC",
+"(4,1)", "E", "dE", "CE", "(4,-1)", "D", "eD" ]
+gap> IsABand(A1,"eca");
+false
+gap> IsABand(A1,"Ab");
+true
+gap> BandsLessThan(A1,3);
+[ "Ab", "Ba", "aB", "bA", "De", "Ed", "dE", "eD" ]
+gap> BandRepresentativesLessThan(A1,3);
+[ "aB", "bA", "dE", "eD" ]
+gap> IsDomesticStringAlgebra(A1);
+true
+gap> Q2 := BridgeQuiver(A1);
 <quiver with 4 vertices and 2 arrows>
-gap> Display(Q3);
+gap> Display(Q2);
 Quiver( ["v1","v2","v3","v4"], [["v3","v2","CE"],["v1","v4","ec"]] )
-gap> LocalARQuiver(Q1,rho,"eca");
+gap> LocalARQuiver(A1,"eca");
 [ "The cannonical embedding StringModule(eca) to StringModule(eDeca)",
-  "The cannonical projection StringModule(ecaBa) to StringModule(eca)" ]
+"The cannonical projection StringModule(ecaBa) to StringModule(eca)" ]
 #
 
 gap> CartanMatrix(A);
