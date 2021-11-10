@@ -85,18 +85,21 @@ rel4 := [A.a*A.b, A.a^2, A.b^3];
 quo4 := A/rel4;;
 IsSpecialBiserialAlgebra(quo4); IsStringAlgebra(quo4);
 ##########
-Q := Quiver(4, [[1,2,"a"], [1,2,"b"], [2,3,"c"], [3,4,"d"], [3,4,"e"]]);
-rho := ["bc", "cd"];
-IsValidString(Q,rho,"eca");
-StringsLessThan(Q,rho,2);
-IsABand(Q,rho,"eca");
-IsABand(Q,rho,"Ab");
-BandsLessThan(Q,rho,3);
-BandRepresentativesLessThan(Q,rho,3);
-IsDomesticStringAlgebra(Q,rho);
-Q1 := BridgeQuiver(Q,rho);
-Display(Q1);
-LocalARQuiver(Q,rho,"eca");
+Q1 := Quiver(4, [[1,2,"a"], [1,2,"b"], [2,3,"c"], [3,4,"d"], [3,4,"e"]]);
+k := Rationals;
+kQ1 := PathAlgebra(k,Q1);
+rho := [kQ1.b*kQ1.c, kQ1.c*kQ1.d];
+A1 := kQ1/rho;
+IsValidString(A1,"eca");
+StringsLessThan(A1,2);
+IsABand(A1,"eca");
+IsABand(A1,"Ab");
+BandsLessThan(A1,3);
+BandRepresentativesLessThan(A1,3);
+IsDomesticStringAlgebra(A1);
+Q2 := BridgeQuiver(A1);
+Display(Q2);
+LocalARQuiver(A1,"eca");
 ##########
 Q := Quiver( [ "u", "v" ], [ [ "u", "u", "a" ], 
              [ "u", "v", "b" ] ] );
