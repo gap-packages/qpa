@@ -1838,8 +1838,8 @@ InstallMethod ( RightApproximationByPerpT,
     0,
     function( T, M )
 
-    local   n,  projres,  exactsequences,  currentsequences,  f,  i,  g,  
-            h,  alpha,  t, fprime;
+    local   n,  projres,  exactsequences,  f,  i,  beta,  g,  h,  
+            alpha,  fprime;
     
     if not IsCotiltingModule( T ) then
         Error("the first argument is not a cotilting module,\n");
@@ -1854,6 +1854,8 @@ InstallMethod ( RightApproximationByPerpT,
                               ImageProjection(DifferentialOfComplex(projres, i)) ]); 
     f := MinimalLeftApproximation( Source( exactsequences[ n ][ 1 ] ), T );    
     for i in [ 1..n ] do
+      beta := IsomorphismOfModules( Source( exactsequences[ n + 1 - i ][ 1 ] ), Source( f ) );
+      f := beta * f;
       g := PushOut( exactsequences[ n + 1 - i ][ 1 ], f )[ 1 ];
       h := CoKernelProjection( g );
       alpha := IsomorphismOfModules( Range( h ), Range( exactsequences[ n + 1 - i ][ 2 ] ) );
