@@ -1969,31 +1969,31 @@ end
 ##  This function determines if the algebra  A  is a symmetric algebra,
 ##  if it is a (quotient of a) path algebra. 
 ##
-#InstallMethod( IsSymmetricAlgebra, 
-#    "for a quotient of a path algebra",
-#    [ IsQuiverAlgebra ], 0,
-#    function( A )
-#
-#   local   M,  DM;
-#
-#    if not IsFiniteDimensional( A ) then 
-#        return false;
-#    fi;
-#    if IsPathAlgebra( A ) then
-#        return Length( ArrowsOfQuiver( QuiverOfPathAlgebra( A ) ) ) = 0;
-#    fi;    
-#    #
-#    # By now we know that the algebra is a finite dimensional quotient of a path algebra.
-#    #
-#    if not IsSelfinjectiveAlgebra( A ) then
-#        return false;
-#    fi;
-#    M := AlgebraAsModuleOverEnvelopingAlgebra( A );
-#    DM := DualOfAlgebraAsModuleOverEnvelopingAlgebra( A );
-#
-#    return IsomorphicModules( M, DM );
-#end
-#);
+InstallMethod( IsSymmetricAlgebra, 
+    "for a quotient of a path algebra",
+    [ IsQuiverAlgebra ], 0,
+    function( A )
+
+   local   M,  DM;
+
+    if not IsFiniteDimensional( A ) then 
+        return false;
+    fi;
+    if IsPathAlgebra( A ) then
+        return Length( ArrowsOfQuiver( QuiverOfPathAlgebra( A ) ) ) = 0;
+    fi;    
+    #
+    # By now we know that the algebra is a finite dimensional quotient of a path algebra.
+    #
+    if not IsSelfinjectiveAlgebra( A ) then
+        return false;
+    fi;
+    M := AlgebraAsModuleOverEnvelopingAlgebra( A );
+    DM := DualOfAlgebraAsModuleOverEnvelopingAlgebra( A );
+
+    return IsomorphicModules( M, DM );
+end
+);
 
 #######################################################################
 ##
@@ -2002,29 +2002,29 @@ end
 ##  This function determines if the algebra  A  is a symmetric algebra,
 ##  if it is a (quotient of a) path algebra. 
 ##
-InstallMethod( IsSymmetricAlgebra, 
-    "for a quotient of a path algebra",
-    [ IsQuiverAlgebra ], 0,
-    function( A )
-
-    local   b, BA, x, y;
-
-    b := FrobeniusForm( A );
-    if b = false then
-       return false;
-    fi;
-    BA := Basis( A );
-    for x in BA do
-    	for y in BA do
-	    if b( x, y ) <> b( y, x ) then
-	       return false;
-	    fi;
-	od;
-    od;
-
-    return true;
-end
-);
+#InstallMethod( IsSymmetricAlgebra, 
+#    "for a quotient of a path algebra",
+#    [ IsQuiverAlgebra ], 0,
+#    function( A )
+#
+#    local   b, BA, x, y;
+#
+#    b := FrobeniusForm( A );
+#    if b = false then
+#       return false;
+#    fi;
+#    BA := Basis( A );
+#    for x in BA do
+#    	for y in BA do
+#	    if b( x, y ) <> b( y, x ) then
+#	       return false;
+#	    fi;
+#	od;
+#    od;
+#
+#    return true;
+#end
+#);
 
 #######################################################################
 ##
