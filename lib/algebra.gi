@@ -245,7 +245,7 @@ InstallMethod( \*,
     function( a, b )
         return Objectify(TypeObj(a), [b*a![1]]);
     end );
-InstallMethod( AINV,
+InstallMethod( AdditiveInverseSameMutability,
     "for an opposite algebra element",
     true,
     [ IsOppositeAlgebraElement and IsPackedElementDefaultRep ], 0,
