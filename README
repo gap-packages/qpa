@@ -96,6 +96,16 @@ regarding the use of QPA, or follow the URL
 to see the current manual/documentation of QPA (still work in
 progress, not brilliant at this point).
 
+A tool for working with quivers in QPA is QPA-draw by Luke Kershaw (https//github.com/l-kershaw).  
+You find this at 
+
+     https://l-kershaw.github.io/qpa-draw/   
+
+Currently the functionality includes converting back and forth between
+
+    a drawing of a quiver, and
+    a machine readable form for use with QPA.
+
 Contact
 -------
 
