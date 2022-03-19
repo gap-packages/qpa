@@ -48,7 +48,7 @@ with GAP, so if you download this version or any later version QPA
 will be installed at the same time as GAP is installed.  Follow the
 instructions for installing GAP on the web page
 
-  http://www.gap-system.org/Download/index.html
+  https://www.gap-system.org/Download/index.html
 
 After having successfully started GAP, give the command
 

@@ -1123,7 +1123,7 @@ by only including the files in the git repository. That means, for
 instance, that the PDF file of the manual is not included in the
 packed distribution. However you can find it on the homepage:
 
-                   http://www.math.ntnu.no/~oyvinso/QPA/
+                   https://folk.ntnu.no/oyvinso/QPA/
 
 We are planning to move from GAP 4.4 to GAP 4.6. The reason for doing
 this is that this opens new possibilities. For instance, it would then
