@@ -5,7 +5,7 @@ Version := "1.32",
 Date := "04/03/2021", # dd/mm/yyyy format
 License := "GPL-2.0-or-later",
 
-ArchiveURL := Concatenation( "https://folk.ntnu.no/oyvinso/QPA/qpa-",~Version),
+ArchiveURL := Concatenation( "https://folk.ntnu.no/oyvinso/QPA/qpa-",~.Version),
 
 ArchiveFormats := ".tar.gz",
 
