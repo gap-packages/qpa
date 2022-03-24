@@ -1,4 +1,43 @@
 ==========================================================================
+Changes from version 1.32 to 1.33:
+==========================================================================
+
+Added functions in this release:
+----------------------------------------------------------------------
+AdmissibleSequenceGenerator
+EnvelopingAlgebraHomomorphism
+OppositeAlgebraHomomorphism
+TrivialExtensionOfQuiverAlgebraProjection
+Functions for string algebras - see stringalgebra.gd and valitdity.gd
+
+Discontinued/removed functions:
+------------------------------------------------------------
+None
+
+Changed code for:
+----------------------------------------------------------------------
+AllSubmodulesOfModule
+IsIndecomposableModule
+ProjectivePathAlgebraPresentation
+RightApproximationByAddM
+TensorProductOfPathAlgebras
+
+Fixed bugs in:
+----------------------------------------------------------------------
+DominantDimensionOfAlgebra
+IsSymmetricAlgebra
+RightApproximationByPerpT
+
+Miscellaneous
+----------------------------------------------------------------------
+Added file makedoc.g
+Updated README
+Upadated PackageInfo.g
+Updated testall.tst
+Removed AINV
+
+
+==========================================================================
 Changes from version 1.31 to 1.32:
 ==========================================================================
 
