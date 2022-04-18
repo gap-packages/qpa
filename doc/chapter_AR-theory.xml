@@ -51,6 +51,24 @@ Auslander-Reiten theory in QPA.<P/>
   </Description>
 </ManSection>
 
+<ManSection>
+  <Attr Name="IrreducibleMorphismsEndingIn" Arg="M" Comm=""/>
+  <Attr Name="IrreducibleMorphismsStartingIn" Arg="M" Comm=""/>
+  <Description>
+    Arguments: <Arg>M</Arg> - an indecomposable module<Br />
+  </Description>
+  <Returns>the collection of irreducible morphisms ending and starting
+  in the module <Arg>M</Arg>, respectively.  The argument is assumed
+  to be an indecomposable module.
+  </Returns>
+  <Description>
+    The irreducible morphisms are returned as a list of maps.  Even in
+    the case of only one irreducible morphism, it is returned as a
+    list.  The function assumes that the module <Arg>M</Arg> is
+    indecomposable over a quiver algebra with a finite field as the
+    ground ring.
+  </Description>
+</ManSection>
 
 <ManSection>
      <Oper Name="IsTauPeriodic" Arg="M, n" Comm="for a
