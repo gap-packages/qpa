@@ -2367,14 +2367,19 @@ true]]>
 </ManSection>
 
 <ManSection>
-    <Oper Name="PreprojectiveAlgebra" Arg="M, n"/>
+  <Oper Name="PreprojectiveAlgebra" Arg="M, n"/>
+  <Oper Name="PreprojectiveAlgebra" Arg="A"/>  
     <Description>
-      Arguments: <Arg>M</Arg> - a path algebra module over finite
+      Arguments (first version): <Arg>M</Arg> - a path algebra module over finite
       dimensional hereditary algebra over a
       finite field, <Arg>n</Arg> - an integer.<Br />
+      Arguments (second version): <Arg>A</Arg> - a path algebra.<Br />
     </Description>
-    <Returns>the preprojective algebra of the module <Arg>M</Arg> if
-    it only has support up to degree <Arg>n</Arg>. 
+    <Returns>in the first version the preprojective algebra of the
+    module <Arg>M</Arg> if it only has support up to degree
+    <Arg>n</Arg>.  In the second version it returns the preprojective
+    algebra of a hereditary algebra given by a path algebra over a
+    field. 
     </Returns> 
   </ManSection>
  

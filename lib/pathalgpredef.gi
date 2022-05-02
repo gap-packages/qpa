@@ -919,6 +919,32 @@ InstallMethod( PreprojectiveAlgebra,
 end
   );
 
+InstallOtherMethod( PreprojectiveAlgebra,
+   "for a path algebra",
+   [ IsPathAlgebra ], 0,
+   function( A ) 
+
+  local K, Q, Qdouble, preA, arrows, relation, num_arrows, i, 
+        vertices, relations;
+
+   K := LeftActingDomain( A );
+   Q := QuiverOfPathAlgebra( A );
+   Qdouble := DoubleQuiver( Q );
+   preA := PathAlgebra( K, Qdouble );
+   arrows := ArrowsOfQuiver( Qdouble );
+   relation := Zero( preA );
+   num_arrows := Length( arrows ) / 2;
+   
+   for i in [ 1..num_arrows ] do
+     relation := relation + One( preA ) * arrows[ 2 * i - 1 ] * arrows[ 2 * i ] - One( preA ) * arrows[ 2 * i ] * arrows[ 2 * i - 1 ];
+   od;
+   vertices := VerticesOfQuiver( Qdouble );
+   relations := List( vertices, v -> ( One( preA ) * v ) * relation * ( One( preA ) * v ) );
+   
+   return preA / relations;
+end
+);
+
 #######################################################################
 ##
 #O  AdmissibleSequenceGenerator( <num_vert, height> )
