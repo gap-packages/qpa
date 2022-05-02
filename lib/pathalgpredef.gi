@@ -929,6 +929,9 @@ InstallOtherMethod( PreprojectiveAlgebra,
 
    K := LeftActingDomain( A );
    Q := QuiverOfPathAlgebra( A );
+   if not IsAcyclicQuiver( Q ) then
+     Error( "The entered quiver has an oriented cycle.\n" );
+   fi;
    Qdouble := DoubleQuiver( Q );
    preA := PathAlgebra( K, Qdouble );
    arrows := ArrowsOfQuiver( Qdouble );
