@@ -154,6 +154,64 @@ end
 
 #######################################################################
 ##
+#O  IrreducibleMorphismsEndingIn( <M> )
+##
+##  Given an indecomposable module  <M> over a quiver algebra with a
+##  finite field as a ground ring, this function finds the collection of
+##  irredusible homomorphisms ending in  <M>. 
+##  
+InstallMethod( IrreducibleMorphismsEndingIn, 
+  "for a PathAlgebraMatModule",
+  true,
+  [ IsPathAlgebraMatModule ], 0,
+  function( M )
+    
+  local rasm, decomp;
+
+    if not IsFinite( LeftActingDomain( M ) ) then
+      Error( "Module is not over a quiver algebra with a finite field as ground ring.\n" );
+    fi;
+    if IsProjectiveModule( M ) then 
+      rasm := RadicalOfModuleInclusion( M );
+    else 
+      rasm := AlmostSplitSequence( M )[ 2 ];
+    fi;
+    decomp := DecomposeModuleWithInclusions( Source( rasm ) );
+    
+    return List( decomp, f -> f * rasm );
+end
+  );
+
+#######################################################################
+##
+#O  IrreducibleMorphismsStartingIn( <M> )
+##
+##  Given an indecomposable module  <M> over a quiver algebra with a
+##  finite field as a ground ring, this function finds the collection of
+##  irredusible homomorphisms starting in  <M>. 
+##  
+InstallMethod( IrreducibleMorphismsStartingIn, 
+  "for a PathAlgebraMatModule",
+  true,
+  [ IsPathAlgebraMatModule ], 0,
+  function( M )
+    
+  local DM, rasmop;
+    
+    if not IsFinite( LeftActingDomain( M ) ) then
+      Error( "Module is not over a quiver algebra with a finite field as ground ring.\n" );
+    fi;
+    DM := DualOfModule( M );
+    rasmop := IrreducibleMorphismsEndingIn( DM );
+    
+    return List( rasmop, f -> DualOfModuleHomomorphism( f ) );
+end
+  );
+
+
+
+#######################################################################
+##
 #O  PredecessorsOfModule( <M>, <n> )
 ##
 ##  Given an indecomposable non-projective PathAlgebraMatModule  M  
