@@ -1362,3 +1362,32 @@ InstallMethod( DynkinQuiver,
     fi;
 end
   );
+
+##########################################################################
+##
+#A DeclearAttribute( "DoubleQuiver", [ Q ] )
+##
+## Returns the double of the quiver  Q  where each arrow  a  in  Q  gets a
+## companion  abar  going in the opposite direction.
+##
+InstallMethod( DoubleQuiver,
+   "for a quiver",
+   [ IsQuiver ], 0,
+   function( Q ) 
+
+  local vertices, arrows, newvertices, newarrows, a, origin, terminus;
+
+   vertices := VerticesOfQuiver( Q );
+   arrows := ArrowsOfQuiver( Q );
+   newvertices := List( vertices, String );
+   newarrows := [];
+   for a in arrows do
+       origin := String( SourceOfPath( a ) );
+       terminus := String( TargetOfPath( a ) );
+       Add( newarrows, [ origin, terminus, String( a ) ] );
+       Add( newarrows, [ terminus, origin, Concatenation( String( a ), "bar" ) ] );
+   od;
+   
+   return Quiver( newvertices, newarrows );
+end
+);

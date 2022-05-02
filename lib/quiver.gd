@@ -63,3 +63,4 @@ DeclareOperation( "DynkinQuiverAn", [ IS_INT, IsList ] );
 DeclareOperation( "DynkinQuiverEn", [ IS_INT, IsList ] );
 DeclareOperation( "DynkinQuiverDn", [ IS_INT, IsList ] );
 DeclareOperation( "DynkinQuiver", [ IsString, IS_INT, IsList ] );
+DeclareAttribute( "DoubleQuiver", IsQuiver );

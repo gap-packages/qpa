@@ -447,6 +447,22 @@ gap> ConnectedComponentsOfQuiver(Q);
 </Example>
 
 <ManSection>
+   <Attr Name="DoubleQuiver" Arg="quiver" Comm=""/>
+   <Description>Arguments: <Arg>quiver</Arg> -- a quiver.<Br /></Description>
+   <Returns>
+     the double quiver of <Arg>quiver</Arg>.
+   </Returns>
+   <Description>
+     The vertices in the double quiver are labelled by the same labels
+     as in the original quiver. The "old" arrows in the double quiver are
+     labelled by the same labels as in the original, and the "new" arrows
+     in the double quiver are labelled by the same labels as in the
+     original quiver with the string "bar" added.
+     <P/>
+   </Description> 
+  </ManSection>
+
+<ManSection>
    <Attr Name="SeparatedQuiver" Arg="quiver" Comm=""/>
    <Description>Arguments: <Arg>quiver</Arg> -- a quiver.<Br /></Description>
    <Returns>
