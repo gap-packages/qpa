@@ -1560,7 +1560,8 @@ computed yet).
    </Description>
    <Returns>
      false if <Arg>A</Arg> is not selfinjective algebra. Otherwise it
-     returns the order of the Nakayama autormorphism of <Arg>A</Arg>. 
+     returns the order of the Nakayama autormorphism of <Arg>A</Arg>
+     AS AN ELEMENT OF <M>\operatorname{Aut}(A)</M>. 
    </Returns>
 </ManSection>
  
