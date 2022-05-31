@@ -719,12 +719,18 @@ true ]]>
 </ManSection>
 
 <ManSection>
-   <Oper Name="HomOverAlgebra" Arg="M, N" Comm=""/>
+  <Oper Name="HomOverAlgebra" Arg="M, N" Comm=""/>
+  <Oper Name="HomOverAlgebraWithBasisFunction" Arg="M, N" Comm=""/>
    <Description>
      Arguments: <Arg>M</Arg>, <Arg>N</Arg> - two modules.<Br />
    </Description>
    <Returns>a basis for the vector space of homomorphisms from <Arg>M</Arg>
-   to <Arg>N</Arg>.</Returns>
+   to <Arg>N</Arg> in the first version.  In the second version it
+   also returns a list of length two, where the first entry is the
+   basis found by <C>HomOverAlgebra</C> and  the second entry is a
+   function from the space of homomorphisms from  <Arg>M</Arg>  to
+   <Arg>N</Arg>  to the vector space with the basis given by the first
+   entry.</Returns> 
    <Description>
     The function checks if <Arg>M</Arg> and <Arg>N</Arg> are modules
     over the same algebra, and returns an error message and fail

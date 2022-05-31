@@ -838,86 +838,88 @@ InstallMethod( PreprojectiveAlgebra,
     [ IsPathAlgebraMatModule, IsInt ], 0,
     function( M, n )
     
-  local R, P, dimlistP, revdimlistP, top, K, dimlist, dimP, sizeP, VP, 
-        VecSpP, support, i, products, zero, j, p, bas_no_p, q, 
-        bas_no_q, h, temp, r, s, A;
-    
-    R := RightActingAlgebra( M );
-    if not IsHereditaryAlgebra( R ) then 
-      TryNextMethod( );
-      # TODO: Implement method for not hereditary algebras.
-    fi;
-    P := List( [ 0..n ], i -> HomOverAlgebra( M, TrD( M, i ) ) );
-    dimlistP := List( P, Length );
-    revdimlistP := Reversed( dimlistP );
-    top := PositionNonZero( revdimlistP ); 
-    if top = n + 2 then 
-        Error( "The preprojective algebra is not necessarily finite dimensional.\n" );
-    fi;
+  local R, P, dimlistP, revdimlistP, top, K, degrees, origin, i, 
+        target, V, dimV, products, zero, i_first, j, f, r, first, s, 
+        g, gpowers, u, h, temp, i_times_j, ir_first, v, A;
 
-    top := n + 2 - top;
-    P := P{ [ 1..top ] };
-    dimlistP := dimlistP{ [ 1..top ] };
-    K := LeftActingDomain( M );
-    dimlist := List( [ 0..top - 1 ], i -> ZeroMapping( M, TrD( M, i ) ) );
-    dimlist := List( dimlist, h -> Length( Flat( h!.maps ) ) );
-    dimP := Sum( dimlistP );
-    sizeP := Sum( dimlist );
-    VP := List( P, p -> List( p, g -> Flat( g!.maps ) ) );
-    VecSpP := [ ];
-    support := [ ];
-    for i in [ 1..top ] do
-        if Length( VP[ i ] ) = 0 then
-            Add( VecSpP, TrivialSubspace( K^( dimlist[ i ] ) ) );
+  R := RightActingAlgebra( M );
+  if not IsHereditaryAlgebra( R ) then 
+    TryNextMethod( );
+    # TODO: Implement method for not hereditary algebras.
+  fi;
+  P := List( [ 0..n ], i -> HomOverAlgebraWithBasisFunction( M, TrD( M, i ) ) );
+  if Dimension( TrD( M, n+1 ) ) > 0 then
+    Error( "Must increase the second argument.\n" );
+  fi;
+  dimlistP := List( P, p -> Length( p[ 1 ] ) );
+  revdimlistP := Reversed( dimlistP );
+  top := n + 2 - PositionNonZero( revdimlistP ); 
+  P := P{ [ 1..top ] };
+  dimlistP := dimlistP{ [ 1..top ] };
+  K := LeftActingDomain( M );
+  degrees := [];
+  origin := 1;
+  for i in [ 1..top ] do
+    target := origin + dimlistP[ i ] - 1;
+    Add( degrees, [ origin..target ] );
+    origin := target + 1;
+  od;
+  V := FullRowSpace( K, target );
+  dimV := Dimension( V );
+  products := EmptySCTable( dimV, Zero( K ) );
+  zero := List( [ 1..dimV ], u -> [ Zero( K ), u ] );
+  zero := Flat( zero );
+
+  for i in [ 1..top ] do 
+    if i = 1 then 
+      i_first := 0;
+    else
+      i_first := Maximum( degrees[ i - 1 ] );
+    fi;
+    for j in degrees[ i ] do
+      f := P[ i ][ 1 ][ j - i_first ];
+      for r in [ 1..top ] do
+        if r = 1 then 
+          first := 0;
         else
-            Add( support, i );
-            Add( VecSpP, Subspace( K^( dimlist[ i ] ), VP[ i ], "basis" ) );
+          first := Maximum( degrees[ r - 1 ] );
         fi;
-    od;
-    
-    products := EmptySCTable( dimP, Zero( K ) );
-    zero := Flat( List( [ 1..dimP ], u -> [ Zero( K ), u ] ) );
-    for i in support do
-        for j in support do
-            for p in P[ i ] do
-                bas_no_p := Position( P[ i ], p );
-                if i > 1 then 
-                    bas_no_p := Sum( dimlistP{ [ 1..i - 1 ] } ) + bas_no_p;
-                fi;
-                for q in P[ j ] do
-                    bas_no_q := Position( P[ j ], q );
-                    if j > 1 then 
-                        bas_no_q := Sum( dimlistP{ [ 1..j - 1 ] } ) + bas_no_q;
-                    fi;
-                    if i + j - 1 > top then
-                        SetEntrySCTable( products, bas_no_p, bas_no_q, zero );
-                    else
-                        h := p * TrD( q, i - 1 );
-                        temp := [ ];
-                        for r in [ 1..i + j - 2 ] do
-                            Add( temp, Zero( K^( dimlistP[ r ] ) ) );
-                        od;
-                        Add( temp, Coefficients( Basis( VecSpP[ i + j - 1 ] ), Flat( h!.maps ) ) );
-                        if i + j <= Length( dimlistP ) then 
-                            for r in [ i + j..Length( dimlistP ) ] do
-                                Add( temp, Zero( K^( dimlistP[ r ] ) ) );
-                            od;
-                        fi;
-                        temp := Flat( temp );
-                        s := Length( temp );
-                        temp := Flat( List( [ 1..s ], u -> [ temp[ u ], u ] ) );
-                        SetEntrySCTable( products, bas_no_p, bas_no_q, temp );
-                    fi;
-                od;
+        for s in degrees[ r ] do
+          if i + r - 1 > top then 
+            SetEntrySCTable( products, j, s, zero );
+          else            
+            g := P[ r ][ 1 ][ s - first ];
+            gpowers := g;
+            for u in [ 1..i - 1 ] do
+              gpowers := DualOfModuleHomomorphism( gpowers );
+              gpowers := TransposeOfModuleHomomorphism( gpowers );
             od;
+            h := f * gpowers;
+            temp := P[ i + r - 1 ][ 2 ]( h );
+            i_times_j := [ ];
+            if i + r = 2 then 
+              ir_first := 0;
+            else
+              ir_first := Maximum( degrees[ i + r - 2 ] );
+            fi;
+            for v in [ 1..dimV ] do
+              if v in degrees[ i + r - 1 ] then
+                Append( i_times_j, [ temp[ v - ir_first ], v ] );
+              else
+                Append( i_times_j, [ Zero( K ), v ] );
+              fi;
+            od;
+            SetEntrySCTable( products, j, s, i_times_j );            
+          fi;
         od;
+      od;
     od;
-    
-    A := AlgebraByStructureConstants( K, products );
-    
-    return AlgebraAsQuiverAlgebra( A );
+  od;
+  A := AlgebraByStructureConstants( K, products );
+  
+  return AlgebraAsQuiverAlgebra( A );
 end
-  );
+);
 
 InstallOtherMethod( PreprojectiveAlgebra,
    "for a path algebra",
