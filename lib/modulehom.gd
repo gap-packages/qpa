@@ -8,7 +8,8 @@ DeclareRepresentation("IsPathAlgebraMatModuleHomomorphismRep", IsComponentObject
 DeclareOperation( "RightModuleHomOverAlgebra", [IsPathAlgebraMatModule, IsPathAlgebraMatModule, IsList] ); 
 DeclareAttribute( "PathAlgebraOfMatModuleMap", IsPathAlgebraMatModuleHomomorphism );
 DeclareOperation( "MatricesOfPathAlgebraMatModuleHomomorphism", [IsPathAlgebraMatModuleHomomorphism ] ); 
-DeclareOperation( "HomOverAlgebra", [IsPathAlgebraMatModule, IsPathAlgebraMatModule ] ); 
+DeclareOperation( "HomOverAlgebra", [IsPathAlgebraMatModule, IsPathAlgebraMatModule ] );
+DeclareOperation( "HomOverAlgebraWithBasisFunction", [IsPathAlgebraMatModule, IsPathAlgebraMatModule ] );
 DeclareAttribute( "EndOverAlgebra", IsPathAlgebraMatModule ); 
 DeclareOperation( "NumberOfNonIsoDirSummands", [IsPathAlgebraMatModule ] ); 
 DeclareOperation( "LiftIdempotents", [IsPathAlgebraMatModule ] ); 

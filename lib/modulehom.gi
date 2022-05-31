@@ -1687,6 +1687,52 @@ end
 
 #######################################################################
 ##
+#O  HomOverAlgebraWithBasisFunction( <M>, <N> )
+##
+##  This function returns a list with two enteries. The first entry is 
+##  a basis of the vector space of homomorphisms from the module  <M>
+##  to the module  <N>.  The second entry is a function from the space 
+##  of homomorphisms from  <M>  to  <N>  to the vector space with the 
+##  given by the first entry.  The algorithm it uses is based purely 
+##  on linear algebra.
+##
+InstallMethod( HomOverAlgebraWithBasisFunction,
+    "for two representations of a quiver",
+    [ IsPathAlgebraMatModule, IsPathAlgebraMatModule ], 0,
+    function( M, N )
+
+    local homs, F, basis, V, W, HomB, transfermat, coefficients;
+
+
+    homs := HomOverAlgebra( M, N );
+    F := LeftActingDomain( RightActingAlgebra( M ) );
+    
+    if Length( homs ) > 0 then
+      basis := List( homs, h -> Flat( h!.maps ) );
+      V := FullRowSpace( F, Length( basis[ 1 ] ) );
+      W := Subspace( V, basis, "basis" );
+      HomB := Basis( W );
+      transfermat := List( basis, b -> Coefficients( HomB, b ) );
+      coefficients := function( h )
+        local hflat, coeff;
+               
+        hflat := Flat( h!.maps );
+        coeff := Coefficients( HomB, hflat );
+        
+        return coeff * transfermat^(-1);
+      end;
+    else
+      coefficients := function( h );
+        return [ Zero( F ) ];
+      end;
+    fi;
+    
+    return [ homs, coefficients ];
+end
+);
+
+#######################################################################
+##
 #A  EndOverAlgebra( <M>, <N> )
 ##
 ##  This function computes endomorphism ring of the module  <M>  and
