@@ -1,4 +1,35 @@
 ==========================================================================
+Changes from version 1.33 to 1.34:
+==========================================================================
+
+Added functions in this release:
+----------------------------------------------------------------------
+
+DoubleQuiver
+HomOverAlgebraWithBasisFunction
+IrreducibleMorphismsEndingIn
+IrreducibleMorphismsStartingIn
+PreprojectiveAlgebra, added classical implementation
+
+Discontinued/removed functions:
+------------------------------------------------------------
+None
+
+Changed code for:
+----------------------------------------------------------------------
+None
+
+Fixed bugs in:
+----------------------------------------------------------------------
+None
+
+Miscellaneous
+----------------------------------------------------------------------
+
+Updated documentation for OrderOfNakayamaAutomorphism
+
+
+==========================================================================
 Changes from version 1.32 to 1.33:
 ==========================================================================
 
