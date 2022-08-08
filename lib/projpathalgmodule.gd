@@ -4,7 +4,10 @@
 DeclareInfoClass( "InfoPathAlgebraModule" );
 
 DeclareProperty( "IsPathAlgebraModule", IsAlgebraModule );
+InstallTrueMethod( IsAlgebraModule, IsPathAlgebraModule );
+
 DeclareProperty( "IsVertexProjectiveModule", IsPathAlgebraModule );
+InstallTrueMethod( IsPathAlgebraModule, IsVertexProjectiveModule );
 
 DeclareCategory( "IsPathAlgebraVector", IsVector );
 DeclareCategoryCollections( "IsPathAlgebraVector" );
@@ -35,12 +38,19 @@ DeclareOperation( "RightGroebnerBasisOfModule", [IsRing, IsHomogeneousList] );
 DeclareCategory( "IsPathAlgebraModuleGroebnerBasis", IsObject );
 DeclareProperty( "IsRightPathAlgebraModuleGroebnerBasis",
                  IsPathAlgebraModuleGroebnerBasis );
+InstallTrueMethod( IsPathAlgebraModuleGroebnerBasis,
+                   IsRightPathAlgebraModuleGroebnerBasis );
 DeclareProperty( "IsLeftPathAlgebraModuleGroebnerBasis",
                  IsPathAlgebraModuleGroebnerBasis );
+InstallTrueMethod( IsPathAlgebraModuleGroebnerBasis,
+                   IsLeftPathAlgebraModuleGroebnerBasis );
+
+
 DeclareAttribute( "UnderlyingModule", IsPathAlgebraModuleGroebnerBasis );
 DeclareRepresentation( "IsPathAlgebraModuleGroebnerBasisDefaultRep",
     IsAttributeStoringRep, ["staticDictionaries", "gbasisElems"] );
 DeclareProperty( "IsFpPathAlgebraModule", IsAlgebraModule );
+InstallTrueMethod( IsAlgebraModule, IsFpPathAlgebraModule );
 
 DeclareCategory( "IsFpPathAlgebraVector", IsPathAlgebraVector );
 DeclareCategoryCollections( "IsFpPathAlgebraVector" );

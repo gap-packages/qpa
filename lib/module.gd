@@ -8,6 +8,8 @@ DeclareCategoryCollections( "IsPathModuleElem" );
 DeclareGlobalFunction("PathModuleElem");
 DeclareCategory("IsBasisOfPathModuleElemVectorSpace", IsBasis);
 DeclareProperty("IsPathAlgebraMatModule", IsAlgebraModule);
+InstallTrueMethod( IsAlgebraModule, IsPathAlgebraMatModule );
+
 DeclareOperation("RightModuleOverPathAlgebra", [IsQuiverAlgebra, IsCollection]);
 DeclareOperation("RightModuleOverPathAlgebraNC", [IsQuiverAlgebra, IsCollection]);
 DeclareOperation("SubmoduleAsModule", [IsAlgebraModule]);

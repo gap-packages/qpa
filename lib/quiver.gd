@@ -15,6 +15,7 @@ DeclareAttribute("TargetOfPath", IsPath);
 DeclareAttribute("LengthOfPath", IsPath);
 DeclareAttribute("WalkOfPath", IsPath);
 DeclareProperty("IsZeroPath", IsPath);
+InstallTrueMethod( IsPath, IsZeroPath );
 
 DeclareAttribute("IncomingArrowsOfVertex", IsQuiverVertex, "mutable");
 DeclareAttribute("OutgoingArrowsOfVertex", IsQuiverVertex, "mutable");

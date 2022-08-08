@@ -308,7 +308,7 @@ InstallGlobalFunction( FactorPathAlgebraByRelators,
 );
 
 
-InstallMethod( NaturalHomomorphismByIdeal,
+InstallOtherMethod( NaturalHomomorphismByIdeal,
   "for a path algebra and ideal",
   IsIdenticalObj,
   [ IsPathRing, IsFLMLOR ],
