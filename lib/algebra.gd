@@ -6,6 +6,7 @@ DeclareCategory( "IsOppositeAlgebraElement", IsRingElement );
 DeclareCategoryCollections( "IsOppositeAlgebraElement" );
 DeclareCategoryFamily( "IsOppositeAlgebraElement" );
 DeclareProperty( "IsOppositeAlgebra", IsAlgebra);
+InstallTrueMethod( IsAlgebra, IsOppositeAlgebra );
 DeclareAttribute( "UnderlyingAlgebra", IsOppositeAlgebra);
 DeclareOperation( "OppositeAlgebra", [IsAlgebra]);
 DeclareAttribute( "RadicalSeriesOfAlgebra", IsAlgebra );
