@@ -2810,30 +2810,25 @@ InstallMethod ( SaveAlgebra,
     #
     # Storing vertices.
     #
-    number := 0;
+    number := 1;
     numberofvertices := Length( vertices );
     AppendTo( output, "Vertices:\n" );    
     temp := "";
-    for v in vertices do
-        if number > 0 then
-            temp := Concatenation( temp, ", ", String( v ) );
-        else
+
+    for v in vertices do 
+        if number = 1 then 
             temp := String( v );
+        elif number mod 10 = 1 then
+            temp := Concatenation( temp, ",\n", String( v ));
+        else 
+            temp := Concatenation( temp, ", ", String( v ));
+        fi;
+        if number = numberofvertices then 
+            WriteLine( output, temp );
+            break;
         fi;
         number := number + 1;
-        if number mod 10 = 0 then
-            if number = numberofvertices then
-                WriteLine( output, temp );
-            else 
-                temp := Concatenation( temp, "," );
-                WriteLine( output, temp );
-            fi;
-            temp := ""; 
-        fi;
     od;
-    if ( number = numberofvertices ) and ( number mod 10 <> 0 ) then
-        WriteLine( output, temp );
-    fi;
     #
     # Storing the arrows.
     #
@@ -2935,10 +2930,9 @@ InstallMethod ( ReadAlgebra,
     RemoveCharacters( temp, " " );
     vertices := SplitString( temp, "," );
     temp := NormalizedWhitespace( ReadLine( inputfile ) );
-        # Could use StartsWith below.
-    while temp{[ 1..6 ]} <> "Arrows" do
+    while not StartsWith(temp, "Arrows") do
         RemoveCharacters( temp, " " );
-        Append( vertices, SplitString( temp, "," ) );
+        Append( vertices, SplitString( temp, "", ", " ) );
         temp := NormalizedWhitespace( ReadLine( inputfile ) );
     od;
         #

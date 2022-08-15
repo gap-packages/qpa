@@ -1039,5 +1039,17 @@ function( x, y ) ... end
 gap> UnitForm([[2,1],[1,2]]);
 [ [ 2, 1 ], [ 1, 2 ] ]
 
+
+# 
+# Testing ReadAlgebra/SaveAlgebra
+gap> A := PathAlgebra(Rationals, DynkinQuiver("A", 11, ["r","r","r","r","r","r","r","r","r","r"]));
+<Rationals[<quiver with 11 vertices and 10 arrows>]>
+gap> SaveAlgebra(A, Filename(DirectoryCurrent(), "writealgebratest~"), "delete");
+true
+gap> ReadAlgebra("writealgebratest~");
+<Rationals[<quiver with 11 vertices and 10 arrows>]>
+gap> RemoveFile("writealgebratest~");
+true
+
 #
 gap> STOP_TEST("qpa.tst");
