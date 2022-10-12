@@ -474,7 +474,7 @@ end );
 ##  Returns the length of the complex <C>. If C is a zero complex, then
 ##  the length is zero. If C is a finite complex, the length is the
 ##  upper bound - the lower bound + 1. If C is an infinite complex, the
-##  lenght is infinity.
+##  length is infinity.
 ##  
 InstallMethod( LengthOfComplex,
 [ IsQPAComplex ],
@@ -573,7 +573,7 @@ end );
 ##  cutive differentials, returning either true or false.
 ##
 ##  Returns true if func(d_i, d_{i+1}) is true for all i. Fails if this
-##  is uknown, i.e. if the complex is infinite and not repeating.
+##  is unknown, i.e. if the complex is infinite and not repeating.
 ##  
 InstallMethod( ForEveryDegree, # TODO: misleading name?
 [ IsQPAComplex, IsFunction ],

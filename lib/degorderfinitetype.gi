@@ -163,7 +163,7 @@ InstallGlobalFunction( ARQuiverNumerical,
       #return T;
     
     #########################################################################
-    else # descritpion of meshes 
+    else # description of meshes 
 
       # Check if LL[1],...,LL[p] define projectives  
       for i in [1..p] do

@@ -350,7 +350,7 @@ end
 ##  Given an onto homomorphism  <f>  of finite dimensional algebras, an 
 ##  idempotent  <v>  in the source of  <f>  and an idempotent  <w>  in 
 ##  the range of  <f>, such that the kernel of  <f>  is nilpotent and 
-##  f(v)  and  w  are two ortogonal idempotents in the range of  <f>, 
+##  f(v)  and  w  are two orthogonal idempotents in the range of  <f>, 
 ##  this function returns an idempotent  e  in the source of  <f>, such
 ##  that  \{v, e\}  is a pair of orthogonal idempotents in the source of 
 ##  <f>. 

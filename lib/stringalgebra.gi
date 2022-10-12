@@ -764,7 +764,7 @@ function( A )
     od;
 
     if IsAcyclicQuiver(Quiver(len, arr_quiver)) = false then
-        Error("The String Algebra representated by the input is not a Domestic String Algebra.");
+        Error("The String Algebra represented by the input is not a Domestic String Algebra.");
         return 0;
     fi;
 

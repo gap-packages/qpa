@@ -1611,7 +1611,7 @@ InstallGlobalFunction(CheckBlocksForCycles,
          for p in adj do
              t:=TargetOfPath(p);
              k:=ExtRepOfObj(t)[1]*4;
-             #Look for block transisition
+             #Look for block transition
              e:=block[ExtRepOfObj(p)[1]];
              if e>0 then
                  if b>0 and e<>b then

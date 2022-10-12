@@ -730,7 +730,7 @@ end );
 #M  Cut( <list>, <pos> )
 ##
 ##  Returns a new IsHalfInfList which the old IsHalfInfList except
-##  that the positions with indeces smaller than <pos> is removed.
+##  that the positions with indices smaller than <pos> is removed.
 ##  
 InstallMethod( Cut,
 [ IsHalfInfList, IsInt ],
@@ -775,7 +775,7 @@ end );
 ##
 #M  PositivePartFrom( <list>, <pos> )
 ##
-##  Returns a new IsInfList with only the positions with indeces 
+##  Returns a new IsInfList with only the positions with indices 
 ##  greater than or equal to <pos>.
 ##  
 InstallMethod( PositivePartFrom,
@@ -797,7 +797,7 @@ end );
 ##
 #M  NegativePartFrom( <list>, <pos> )
 ##
-##  Returns a new IsInfList with only the positions with indeces 
+##  Returns a new IsInfList with only the positions with indices 
 ##  smaller than or equal to <pos>.
 ##  
 InstallMethod( NegativePartFrom,
@@ -821,8 +821,8 @@ end );
 #M  Splice( <positiveList>, <negativeList>, <joinPosition> )
 ##
 ##  Returns a new IsInfList which is identical to <positiveList> for
-##  indeces greater than <joinPosition> and identical to <negativeList>
-##  for indeces smaller than or equal to <joinPosition>.
+##  indices greater than <joinPosition> and identical to <negativeList>
+##  for indices smaller than or equal to <joinPosition>.
 ##  
 InstallMethod( Splice,
 [ IsInfList, IsInfList, IsInt ],

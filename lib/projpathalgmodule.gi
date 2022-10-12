@@ -654,7 +654,7 @@ end
 
 
 InstallMethod( NewBasis,
-  "for a space of path algebra vectors and a homogenous list",
+  "for a space of path algebra vectors and a homogeneous list",
   IsIdenticalObj,
   [ IsFreeLeftModule and IsPathAlgebraVectorCollection, IsList ], 0,
   function( V, vectors )
@@ -673,7 +673,7 @@ end
   );
 
 InstallMethod( NewBasis,
-  "for a space of path algebra vectors and a homogenous list",
+  "for a space of path algebra vectors and a homogeneous list",
   IsIdenticalObj,
   [ IsFreeLeftModule and IsPathAlgebraModule, IsList ], 0,
   function( V, vectors )
@@ -2226,7 +2226,7 @@ end
 ##  cover of  <M>, (2) a submodule  U  of  P  such that P/U is isomorphic
 ##  to  <M>, (3) module generators of  P, (4) module generators for  U
 ##  which forms a completely reduced right Groebner basis for  U, and 
-##  (5) a matrix with enteries in the path algebra which gives the map 
+##  (5) a matrix with entries in the path algebra which gives the map 
 ##  from  U  to  P, if  U  were considered a direct sum of vertex projective
 ##  modules over the path algebra. 
 ##

@@ -91,7 +91,7 @@ end);
 ##
 ##  This function constructs a homomorphism  f  from the module  <M>  to
 ##  the module  <N>  from the linear maps given in  <linmaps>. The 
-##  function chechs if  <M>  and  <N>  are modules over the same algebra 
+##  function checks if  <M>  and  <N>  are modules over the same algebra 
 ##  and checks if the linear maps  <linmaps>  defines a homomorphism from  
 ##  <M>  to  <N>. The source and the range of  f  can be recovered from 
 ##  f  via the function  Source(f)  and  Range(f). The linear maps can 
@@ -1689,7 +1689,7 @@ end
 ##
 #O  HomOverAlgebraWithBasisFunction( <M>, <N> )
 ##
-##  This function returns a list with two enteries. The first entry is 
+##  This function returns a list with two entries. The first entry is 
 ##  a basis of the vector space of homomorphisms from the module  <M>
 ##  to the module  <N>.  The second entry is a function from the space 
 ##  of homomorphisms from  <M>  to  <N>  to the vector space with the 

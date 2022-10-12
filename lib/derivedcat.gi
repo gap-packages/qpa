@@ -1189,7 +1189,7 @@ end);
 ## Output:
 ## let M' = M/(+Mj) where Mj is M_a1 + M_a2 + ... + M_ar
 ## the output is [inclusion, projection] where inclusion is the canonical
-## inclusion M' --> M and projection is the canonical prjection M --> M'
+## inclusion M' --> M and projection is the canonical projection M --> M'
 ## if M' = 0, then a pair of appropriate zero maps is returned.
 ##
 InstallMethod( DirectSumMinusSummands,
