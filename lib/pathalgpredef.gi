@@ -199,7 +199,7 @@ InstallMethod ( CanonicalAlgebra,
         # Checking the input.
         #
     if Length(weights) <> Length(relcoeff) + 2 then
-        Error("number of arms in the quiver don't match the number of coeffiecients for the relations in the quiver,");
+        Error("number of arms in the quiver don't match the number of coefficients for the relations in the quiver,");
     fi;
     if not ForAll( weights, x -> x >= 2) then
         Error("not all weights are greater or equal to 2,");
@@ -607,7 +607,7 @@ end
 ##  Given a field  <K>  and a brauer configuration
 ##  <brauer_configuration> in the form
 ##  [[vertices], [polygons], [orientations]] this function constructs
-##  the brauer configuration algebra assosiated to the brauer
+##  the Brauer configuration algebra associated to the Brauer
 ##  configuration. 
 ##
 InstallMethod ( BrauerConfigurationAlgebra,

@@ -1485,7 +1485,7 @@ end
 ##
 ##  This function checks if the module  <N>  has a finite resolution
 ##  in  add<M>  of length at most  <n>.  If it does, then this 
-##  resoultion is returned, otherwise false is returned. 
+##  resolution is returned, otherwise false is returned. 
 ##
 InstallMethod( HaveFiniteResolutionInAddM,
     "for two PathAlgebraMatModules and a positive integer",
@@ -1827,7 +1827,7 @@ end
 ##
 #O  RightApproximationByPerpT( <T>, <M> )
 ##
-##  Returns the minimal rightt $\widehat{\add T}$-approximation of the 
+##  Returns the minimal right $\widehat{\add T}$-approximation of the 
 ##  module  <M>.  It checks if  <T>  is a cotilting module, and if not
 ##  it returns an error message. 
 ## 
