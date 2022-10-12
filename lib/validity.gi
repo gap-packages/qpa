@@ -989,25 +989,25 @@ function( A, input_str )
     temp1 := La(A, input_str);
     if temp1 <> 0 then
         Append(arr, [Concatenation
-        ("The cannonical embedding StringModule(", input_str, ") to StringModule(", temp1, ")")]);
+        ("The canonical embedding StringModule(", input_str, ") to StringModule(", temp1, ")")]);
     fi;
 
     temp1 := Lb(A, input_str);
     if temp1 <> 0 then
         Append(arr, [Concatenation
-        ("The cannonical projection StringModule(", temp1, ") to StringModule(", input_str, ")")]);
+        ("The canonical projection StringModule(", temp1, ") to StringModule(", input_str, ")")]);
     fi;
 
     temp1 := Ra(A, input_str);
     if temp1 <> 0 then
         Append(arr, [Concatenation
-        ("The cannonical projection StringModule(", temp1, ") to StringModule(", input_str, ")")]);
+        ("The canonical projection StringModule(", temp1, ") to StringModule(", input_str, ")")]);
     fi;
 
     temp1 := Rb(A, input_str);
     if temp1 <> 0 then
         Append(arr, [Concatenation
-        ("The cannonical embedding StringModule(", input_str, ") to StringModule(", temp1, ")")]);
+        ("The canonical embedding StringModule(", input_str, ") to StringModule(", temp1, ")")]);
     fi;
     return arr;
 end

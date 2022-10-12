@@ -324,8 +324,8 @@ gap> Q2 := BridgeQuiver(A1);
 gap> Display(Q2);
 Quiver( ["v1","v2","v3","v4"], [["v3","v2","CE"],["v1","v4","ec"]] )
 gap> LocalARQuiver(A1,"eca");
-[ "The cannonical embedding StringModule(eca) to StringModule(eDeca)",
-  "The cannonical projection StringModule(ecaBa) to StringModule(eca)" ]
+[ "The canonical embedding StringModule(eca) to StringModule(eDeca)",
+  "The canonical projection StringModule(ecaBa) to StringModule(eca)" ]
 gap> CartanMatrix(A);
 [ [ 1, 4, 3 ], [ 0, 2, 2 ], [ 1, 2, 2 ] ]
 gap> Center(A);

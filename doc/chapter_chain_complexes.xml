@@ -87,14 +87,14 @@ such objects.
 <Filt Type="Category" Name="IsInfList"/>
 <Description>
   An infinite list is an immutable representation of a list with
-  possibly infinite range of indeces.  It consists of three parts: The
+  possibly infinite range of indices.  It consists of three parts: The
   ``middle part'' is finite and covers some range <M>[a,b]</M> of
   indices, the ``positive part'' covers the range <M>[b+1,\infty)</M> of
-  indices, and the ``negative part'' convers the range
+  indices, and the ``negative part'' covers the range
   <M>(-\infty,a-1]</M> of indices.  Note that none of the three parts
   are mandatory: The middle part may be an empty list, and the
   positive part may be set to <C>fail</C> to achieve index range
-  ending at <M>b &lt; \infty</M>.  Similary, if the index range has
+  ending at <M>b &lt; \infty</M>.  Similarly, if the index range has
   lower bound <M>a &lt; \infty</M>, put the negative part to be
   <C>fail</C>.
   <P />
@@ -131,7 +131,7 @@ such objects.
 <ManSection Label="IsHalfInfList">
 <Filt Type="Category" Name="IsHalfInfList" />
 <Description>
-  A half infinite list is a representation of a list with indeces in
+  A half infinite list is a representation of a list with indices in
   the range <M>[a,\infty)</M> or <M>(-\infty,b]</M>.  An infinite list
   is typically made from two half infinite lists, and half infinite
   lists can be extracted from an infinite list.  Hence, the half
@@ -183,7 +183,7 @@ such objects.
     argument.  Here <C>initialValue</C> is the value at position
     <C>start</C>.  Similarly, <C>posFunction</C> returns the value at
     any position <M>i</M>, and it may or may not store the values
-    between the previous computed indeces and the newly computed
+    between the previous computed indices and the newly computed
     index.  The default value of <C>storeValues</C> is <C>true</C> for
     <C>"next"</C> and <C>"pos"</C>, and <C>false</C> for
     <C>"repeat"</C>.  The type <C>"next/repeat"</C> works exactly like
@@ -424,7 +424,7 @@ gap> inflist^0; inflist^5; inflist^6; inflist^-1; inflist^-4;
 <ManSection>
   <Func Name="MakeInfList" Arg="basePosition, middle, positive, negative, callback" />
   <Description>
-    Argments: <A>basePosition</A> -- an integer, <A>middle</A> -- a
+    Arguments: <A>basePosition</A> -- an integer, <A>middle</A> -- a
     list, <A>positive</A> -- a list describing the positive part, <A>negative</A> --
     a list describing the negative part. <Br />
   </Description>
@@ -571,7 +571,7 @@ true ]]>
     Arguments: <A>list</A> -- an infinite list. <Br />
   </Description>
   <Returns>The highest index <M>i</M> such that the value at position
-  <M>i</M> is known withouth computation.
+  <M>i</M> is known without computation.
   </Returns>
   <Description>
   </Description>
@@ -583,7 +583,7 @@ true ]]>
     Arguments: <A>list</A> -- an infinite list. <Br />
   </Description>
   <Returns>The lowest index <M>i</M> such that the value at position
-  <M>i</M> is known withouth computation.
+  <M>i</M> is known without computation.
   </Returns>
   <Description>
   </Description>
@@ -673,8 +673,8 @@ true ]]>
     integer.<Br />
   </Description>
   <Returns>A new infinite list which is identical to <A>positiveList</A>
-  for indeces greater than <A>joinPosition</A> and identical to
-  <A>negativeList</A> for indeces smaller than or equal to <A>joinPosition</A>.
+  for indices greater than <A>joinPosition</A> and identical to
+  <A>negativeList</A> for indices smaller than or equal to <A>joinPosition</A>.
   </Returns>
   <Description>
   </Description>
@@ -1215,8 +1215,8 @@ gap> Homology := CoKernel(h);
   </Returns>
   <Description>The length is defined as follows: If <Arg>C</Arg> is a
   zero complex, the length is zero. If <Arg>C</Arg> is a finite
-  complex, the lenght is the upper bound -- the lower bound +
-  1. If <Arg>C</Arg> is an inifinite complex, the lenght is infinity.
+  complex, the length is the upper bound -- the lower bound +
+  1. If <Arg>C</Arg> is an infinite complex, the length is infinity.
   </Description>
 </ManSection>
 
@@ -1674,7 +1674,7 @@ respectively.  Then the number of new chain maps which are created
 is <M>S+R</M>.<P/>
 
 The last four arguments describe the individual differentials of the
-new complex, as well as the inidividual morphisms which constitute
+new complex, as well as the individual morphisms which constitute
 each of the new chain maps.  These arguments are treated in a similar
 way to the last four arguments to the <Ref Func="Complex"/> and
 <Ref Func="ChainMap"/> constructors.  In those constructors, the last

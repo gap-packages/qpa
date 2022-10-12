@@ -64,7 +64,7 @@ basis are computed by the <Package>GBNP</Package> package.
     <Description> 
       While philosophically something that isn't a complete Groebner 
       basis isn't a Groebner basis at all, this property can be used in 
-      conjuction with other properties to see if the the Groebner basis 
+      conjunction with other properties to see if the the Groebner basis 
       contains enough information for computations. An example of a 
       system that creates incomplete Groebner bases is `Opal'.<Br /> 
       <Emph>Note:</Emph> The current package used for creating Groebner 
@@ -93,7 +93,7 @@ basis are computed by the <Package>GBNP</Package> package.
       Arguments: <Arg>GB</Arg> -- a Groebner basis.<Br /> 
     </Description> 
     <Returns> 
-      true when <Arg>GB</Arg> is a Groebner basis which is homogenous. 
+      true when <Arg>GB</Arg> is a Groebner basis which is homogeneous. 
     </Returns> 
 </ManSection> 
 
@@ -206,7 +206,7 @@ true ]]>
    <Description>
      This is used mainly for the construction of right Groebner basis,
     but is made available for general use in case there are other
-    unforseen applications.
+    unforeseen applications.
    </Description>
   </ManSection>
 
