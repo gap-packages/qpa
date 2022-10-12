@@ -360,7 +360,7 @@ Explain how the vertices and arrows are ordered.<P/>
    <Returns>
      the opposite quiver of <Arg>quiver</Arg>, where the vertices are
      labelled "name in original quiver" + "_op" and the arrows are
-     labelled "name in orginal quiver" + "_op".
+     labelled "name in original quiver" + "_op".
    </Returns>
    <Description>
      This attribute contains the opposite quiver of a quiver, that

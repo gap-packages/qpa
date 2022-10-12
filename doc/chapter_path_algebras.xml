@@ -361,7 +361,7 @@ For several functions in <Package>QPA</Package> to function properly
 one needs to have a Groebner basis attached to the quotient one wants
 to construct, or equivalently a Groebner basis for the ideal one is
 factoring out. For this to work the ideal must admit a finite Groebner
-basis. However, to our knowlegde there is no algorithm for determining
+basis. However, to our knowledge there is no algorithm for determining
 if an ideal has a finite Groebner basis. On the other hand, it is
 known that if the factor algebra is finite dimensional, then the ideal
 has a finite Groebner basis (independent of the ordering of the
@@ -410,8 +410,8 @@ gap> A := kQ/I;
 <two-sided ideal in <Rationals[<quiver with 1 vertices and 2 arrows>]>
     , (3 generators)>>
 gap> IndecProjectiveModules(A);
-Compute a Groebner basis of the ideal you are factoring out with befor\
-e you form the quotient algebra, or you have entered an algebra which \
+Compute a Groebner basis of the ideal you are factoring out with before \
+you form the quotient algebra, or you have entered an algebra which \
 is not finite dimensional.
 fail]]>
 </Example> 
@@ -749,7 +749,7 @@ gap> quot := FQ/I;
   <Returns>true whenever <Arg>A</Arg> is a quotient of a path algebra
   by an admissible ideal constructed by the command <C>\/</C> with
   arguments a path algebra and a list of relations, <C>KQ/rels</C>,
-  where <C>rels</C> is a list of relations. Otherewise it returns an error message. 
+  where <C>rels</C> is a list of relations. Otherwise it returns an error message. 
   </Returns>
 </ManSection>
 
@@ -1362,8 +1362,8 @@ gap> Q1 := BridgeQuiver(Q,rho);
 gap> Display(Q1);
 Quiver( ["v1","v2","v3","v4"], [["v3","v2","CE"],["v1","v4","ec"]] )
 gap> LocalARQuiver(Q,rho,"eca");
-[ "The cannonical embedding StringModule(eca) to StringModule(eDeca)",
-  "The cannonical projection StringModule(ecaBa) to StringModule(eca)" ] ]]>
+[ "The canonical embedding StringModule(eca) to StringModule(eDeca)",
+  "The canonical projection StringModule(ecaBa) to StringModule(eca)" ] ]]>
 </Example>
 
 </Section>
@@ -1687,7 +1687,7 @@ false ]]>
     the Brauer configuration algebra corresponding to the brauer configuration
     <Arg>brauer_configuration</Arg> over the field <Arg>field</Arg>. If the brauer configuration entered is not valid, fail is returned.
   </Returns>
-  <Description>The <Arg>brauer_configuration</Arg> consists of vertices, polygons/edges, and orientations corrresponding to a Brauer Configuration or Brauer Tree. Each vertex must have the form ["vertexname", multiplicity]. Each edge/polygon must have the form ["edgename", "vertex1name", "vertex2name", ...]. There must be an orientation corresponding to each vertex. Orientations must have the form ["edge1name/polygon1name", "edge2name/polygon2name", ...].</Description>
+  <Description>The <Arg>brauer_configuration</Arg> consists of vertices, polygons/edges, and orientations corresponding to a Brauer Configuration or Brauer Tree. Each vertex must have the form ["vertexname", multiplicity]. Each edge/polygon must have the form ["edgename", "vertex1name", "vertex2name", ...]. There must be an orientation corresponding to each vertex. Orientations must have the form ["edge1name/polygon1name", "edge2name/polygon2name", ...].</Description>
 </ManSection>
 
 <Example><![CDATA[ 

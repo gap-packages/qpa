@@ -712,7 +712,7 @@ true ]]>
    module defined by the support of the element <Arg>m</Arg>
    to the module <Arg>M</Arg>.</Returns>
    <Description>
-    The function checks if <Arg>m</Arg> is an elememt in <Arg>M</Arg>
+    The function checks if <Arg>m</Arg> is an element in <Arg>M</Arg>
     and if the element <Arg>m</Arg> is supported in only one
     vertex. Otherwise it returns fail.
    </Description>

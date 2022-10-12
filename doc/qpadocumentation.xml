@@ -50,7 +50,7 @@
     structures for quivers, quotients of path algebras,
     representations of quivers with relations and complexes of
     modules. Basic operations on representations of quivers are
-    implemented as well as contructing minimal projective resolutions
+    implemented as well as constructing minimal projective resolutions
     of modules (using using linear algebra). A not necessarily minimal
     projective resolution constructed by using Groebner basis theory
     and a paper by Green-Solberg-Zacharia, "Minimal projective

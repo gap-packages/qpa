@@ -39,7 +39,7 @@ AdmissibleSequenceGenerator
 EnvelopingAlgebraHomomorphism
 OppositeAlgebraHomomorphism
 TrivialExtensionOfQuiverAlgebraProjection
-Functions for string algebras - see stringalgebra.gd and valitdity.gd
+Functions for string algebras - see stringalgebra.gd and validity.gd
 
 Discontinued/removed functions:
 ------------------------------------------------------------
@@ -63,7 +63,7 @@ Miscellaneous
 ----------------------------------------------------------------------
 Added file makedoc.g
 Updated README
-Upadated PackageInfo.g
+Updated PackageInfo.g
 Updated testall.tst
 Removed AINV
 
@@ -238,7 +238,7 @@ Added Travis CI and Codecov integration (Alexander Konovalov)
 Fixed broken link to issues page.
 Fixed files in examples (Erich Neun)
 Improved the efficiency of the operation CommonDirectSummand.
-Removed the absolete MutableNullMat and replaced it with NullMat.
+Removed the obsolete MutableNullMat and replaced it with NullMat.
 
 ==========================================================================
 Changes from version 1.26 to 1.27:
@@ -291,7 +291,7 @@ TensorProductOfModules
 Miscellaneous
 ----------------------------------------------------------------------
 
-Updated coordiantes for people and URL's in PackageInfo.g
+Updated coordinates for people and URL's in PackageInfo.g
 
 
 ==========================================================================
@@ -319,7 +319,7 @@ Added source repository and issue tracker to PackageInfo.g
 Changes from version 1.23 to 1.24:
 ==========================================================================
 
-Delete the file banner.g, as this file now is absolete.
+Delete the file banner.g, as this file now is obsolete.
 
 Updated doc/chapterintroduction.xml to take into account that QPA is now
 a deposited package in GAP. 

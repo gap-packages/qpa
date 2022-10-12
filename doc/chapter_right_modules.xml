@@ -1295,7 +1295,7 @@ in <Math>R</Math>.
      sum <Math>vA \oplus wA</Math>, in that order.  Elements of the
      modules are vectors of algebra elements, and in each component,
      each path begins with the vertex in that position in the list of
-     vertices.  Right projective modules are implementated as algebra
+     vertices.  Right projective modules are implemented as algebra
      modules (see <Ref BookName="ref" Label="representations of algebras"/>) and all
      operations for algebra modules are applicable to right
      projective modules.  In particular, one can construct submodules
@@ -1557,7 +1557,7 @@ Basis( <9-dimensional right-module over <GF(11)[<quiver with
      <Math>P/U</Math> is isomorphic to <Arg>M</Arg>, (3) module
      generators of <Math>P</Math>, (4) module generators for
      <Math>U</Math> which forms a completely reduced right Groebner
-     basis for <Math>U</Math>, and (5) a matrix with enteries in the
+     basis for <Math>U</Math>, and (5) a matrix with entries in the
      path algebra which gives the map from <Math>U</Math> to
      <Math>P</Math>, if <Math>U</Math> were considered a direct sum of
      vertex projective modules over the path algebra.
