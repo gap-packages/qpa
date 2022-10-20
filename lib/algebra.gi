@@ -638,15 +638,13 @@ InstallMethod ( AlgebraAsQuiverAlgebra,
     0,
     function( A )
 
-    local   F,  idA,  C,  id,  centralidempotentsinA,  radA,  g,  
-            centralidem,  factoralgebradecomp,  c,  temp,  
-            dimcomponents,  pi,  ppowerr,  gens,  D,  idD,  order,  
-            generatorinD,  K,  alghom,  vertices,  radAsquare,  h,  
-            radAmodsquare,  arrows,  adjacencymatrix,  i,  j,  t,  Q,  
-            KQ,  Jtplus1,  n,  images,  AA,  AAgens,  AAvertices,  
-            AAarrows,  f,  B,  matrix,  fam,  b,  tempx,  walk,  
-            length,  image,  solutions,  Solutions,  
-            radSoluplusSolurad,  V,  W,  idealgens;
+  local F, idA, C, id, centralidempotentsinA, radA, g, centralidem, 
+        factoralgebradecomp, c, temp, dimcomponents, pi, ppowerr, 
+        gens, D, idD, order, generatorinD, K, i, alghom, vertices, 
+        radAsquare, h, radAmodsquare, arrows, adjacencymatrix, j, t, 
+        Q, KQ, Jt, n, images, AA, AAgens, AAvertices, AAarrows, f, B, 
+        matrix, fam, b, tempx, walk, length, image, solutions, 
+        idealgens, I;
     #
     # Checking if  <A>  is a finite dimensional algebra over a finite field.
     #
@@ -781,100 +779,85 @@ InstallMethod ( AlgebraAsQuiverAlgebra,
     #
     # Defining the quiver of the algebra  <A>  and storing it in  <Q>. 
     #
-    t := Length(RadicalSeriesOfAlgebra(A)) - 1; # then (A)^t = (0) 
-    Q := Quiver(adjacencymatrix);
-    KQ := PathAlgebra(K,Q);
-    Jtplus1 := NthPowerOfArrowIdeal(KQ,t + 1);
-    n := NumberOfVertices(Q);
-    images := ShallowCopy(vertices);   #  images of the vertices/trivial paths
+    t := Length( RadicalSeriesOfAlgebra( A ) ) - 1; # then (rad A)^t = (0) 
+    Q := Quiver( adjacencymatrix );
+    KQ := PathAlgebra( K, Q );
+    Jt := NthPowerOfArrowIdeal( KQ, t );
+    n := NumberOfVertices( Q );
+    images := ShallowCopy( vertices );   #  images of the vertices/trivial paths
     for i in [ 1 .. n ] do
         for j in [ 1 .. n ] do
-            Append(images,arrows[i][j]);
+            Append( images,arrows[ i ][ j ] );
         od;
     od;
     #
-    #  Define  AA := KQ/J^(t + 1), where t = the Loewy length of  <A>, and 
+    #  Define  AA := KQ/J^t, where t = the Loewy length of  <A>, and 
     #  in addition define f : AA ---> A. Find this as a linear map and find 
     #  the kernel, and construct the relations from this.
-    #    
-    #  Under her gaar noe galt.
     #
-    if Length(Jtplus1) = 0 then 
+    if Length( Jt ) = 0 then 
         AA := KQ;
-        AAgens := GeneratorsOfAlgebra(AA);
-        AAvertices := AAgens{[1..n]};
-        AAarrows := AAgens{[n + 1..Length(AAgens)]};
-        f := [AA,A,AAgens{[1..Length(AAgens)]},images];
+        AAgens := GeneratorsOfAlgebra( AA );
+        AAvertices := AAgens{ [ 1..n ] };
+        AAarrows := AAgens{ [ n + 1..Length( AAgens ) ] };
+        f := [ AA, A, AAgens{ [ 1..Length( AAgens ) ] }, images ];
     else
-        AA := KQ/Jtplus1;
-        AAgens := GeneratorsOfAlgebra(AA);
-        AAvertices := AAgens{[2..n + 1]};
-        AAarrows := AAgens{[n + 2..Length(AAgens)]};
-        f := [AA,A,AAgens{[2..Length(AAgens)]},images];
+        AA := KQ/Jt;
+        AAgens := GeneratorsOfAlgebra( AA );
+        AAvertices := AAgens{ [ 2..n + 1 ] };
+        AAarrows := AAgens{ [ n + 2..Length( AAgens ) ] };
+        f := [ AA, A, AAgens{ [ 2..Length( AAgens ) ] }, images ];
     fi;
     #
     #  First giving the ring surjection  AA ---> A  as a linear map.  Stored
     #  in the matrix called  <matrix>.
     #
-    B := BasisVectors(Basis(AA)); 
+    B := BasisVectors( Basis( AA ) ); 
     matrix := []; 
-    fam := ElementsFamily(FamilyObj(AA)); 
+    fam := ElementsFamily( FamilyObj( AA ) ); 
     for b in B do
-        if IsPathAlgebra(AA) then 
-            temp := CoefficientsAndMagmaElements(b);
+        if IsPathAlgebra( AA ) then 
+            temp := CoefficientsAndMagmaElements( b );
         else 
-            temp := CoefficientsAndMagmaElements(b![1]);
+            temp := CoefficientsAndMagmaElements( b![ 1 ] );
         fi;
-        n := Length(temp)/2;
-        tempx := Zero(f[2]);
-        for i in [0..n - 1] do
+        n := Length( temp )/2;
+        tempx := Zero( f[ 2 ] );
+        for i in [ 0..n - 1 ] do
             # for each term compute the image. 
-            walk := WalkOfPath(temp[2*i + 1]); 
-            length := Length(walk); 
-            image := One(A); 
+            walk := WalkOfPath( temp[ 2 * i + 1 ] ); 
+            length := Length( walk ); 
+            image := One( A ); 
             if length = 0 then 
-                if IsPathAlgebra(AA) then
-                    image := image*f[4][Position(f[3], temp[2*i + 1]*One(AA))];
+                if IsPathAlgebra( AA ) then
+                    image := image * f[ 4 ][ Position( f[ 3 ], temp[ 2 * i + 1 ] * One( AA ) ) ];
                 else
                     image := image*f[4][Position(f[3],ElementOfQuotientOfPathAlgebra(fam, temp[2*i + 1]*One(KQ), true))];
                 fi;
             else 
-                for j in [1..length] do
-                    image := image*f[4][Position(f[3],walk[j]*One(AA))];
+                for j in [ 1..length ] do
+                    image := image * f[ 4 ][ Position( f[ 3 ], walk[ j ] * One( AA ) ) ];
                 od;
             fi;
-            tempx := tempx + ImageElm(alghom,temp[2*i + 2])*image;
+            tempx := tempx + ImageElm( alghom, temp[ 2 * i + 2 ] ) * image;
         od;
-        Add(matrix, Coefficients(Basis(f[2]),tempx));
+        Add( matrix, Coefficients( Basis( f[ 2 ] ), tempx ) );
     od;    
     #
     #  Finding a vector space basis for the kernel of the ring surjection  AA ---> A.
     #
-    solutions := NullspaceMat(matrix);
-    Solutions := List(solutions, x -> LinearCombination(B,x));  # solutions as elements in  AA.
-    #
-    #  Finding a generating set for  J(Ker f) + (ker f)J. 
-    #
-    radSoluplusSolurad := List(AAarrows, x -> Filtered(Solutions*x, y -> y <> Zero(y)));
-    Append(radSoluplusSolurad, List(AAarrows, x -> Filtered(x*Solutions, y -> y <> Zero(y))));
-    radSoluplusSolurad := Flat(radSoluplusSolurad);
-    V := Subspace(AA, Solutions);
-    W := Subspace(V, radSoluplusSolurad);
-    h := NaturalHomomorphismBySubspace(V,W);  
-    #
-    #  Constructing the relations in  KQ.
+    solutions := NullspaceMat( matrix );
+    idealgens := List( solutions, x -> LinearCombination( B, x ) );  # solutions as elements in  AA.
     # 
-    idealgens := List(BasisVectors(Basis(Range(h))), x -> PreImagesRepresentative(h,x));
+    # Lifting the relations back to KQ.
     #
-    #  Lifting the relations back to  KQ  and returning the answer.
-    #
-    if not IsPathAlgebra(AA) then
-        idealgens := List(idealgens, x -> x![1]);
-    fi;
-    if Length(idealgens) = 0 then 
-        return [AA, images];
+    if not IsPathAlgebra( AA ) then
+        idealgens := List( idealgens, x -> x![ 1 ] );
+    fi;    
+    if Length( idealgens ) = 0 then 
+        return [ AA, images ];
     else
-        return [KQ/idealgens, images];
+        return [ KQ/idealgens, images ];
     fi;
 end
   );
