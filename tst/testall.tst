@@ -997,9 +997,9 @@ gap> LowerBound(C);
 gap> LengthOfComplex(C);
 3
 gap> HighestKnownDegree(C);
-+inf
+infinity
 gap> LowestKnownDegree(C);
--inf
+-infinity
 gap> IsExactSequence(C);
 false
 gap> IsExactInDegree(C,1);

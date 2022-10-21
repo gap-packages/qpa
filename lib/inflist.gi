@@ -1,89 +1,5 @@
 #######################################################################
 ##
-#V  PositiveInfinity 
-##
-##  A global variable representing positive infinity.  Has the prop-
-##  erty that it is greater than any given integer.
-##  
-InstallValue( PositiveInfinity,
-              Objectify( NewType( FamilyObj(0),
-                                  IsInfiniteNumber and IsPositionalObjectRep ),
-                         [] ) );
-
-#######################################################################
-##
-#V  NegativeInfinity 
-##
-##  A global variable representing positive infinity.  Has the prop-
-##  erty that it is smaller than any given integer.
-##  
-InstallValue( NegativeInfinity,
-              Objectify( NewType( FamilyObj(0),
-                                  IsInfiniteNumber and IsPositionalObjectRep ),
-                         [] ) );
-
-#######################################################################
-##
-#M  \=( <x>, <y> )
-##
-##  Equality test for infinite numbers.  Two infinite numbers are
-##  the same if they are the same object, and one infinite number is
-##  never equal to any other object than itself.
-##  
-InstallMethod( \=,
-    [ IsInfiniteNumber, IsInfiniteNumber ],
-    IsIdenticalObj );
-InstallMethod( \=,
-    [ IsInfiniteNumber, IsObject ],
-    ReturnFalse );
-InstallMethod( \=,
-    [ IsObject, IsInfiniteNumber ],
-    ReturnFalse );
-
-#######################################################################
-##
-#M  \<( <x>, <y> )
-##
-##  Comparison test for infinite number vs. integer.  If <x> = Negative
-##  Infinity and <y> is an integer, then return TRUE.  If <y> = Positive
-##  Infinity and <x> is an integer, then return TRUE.  If <x> = Negative
-##  Infinity and <y> = PositiveInfinity, then return TRUE.  In all other
-##  cases return FALSE.
-##  
-InstallMethod( \<,
-[ IsInfiniteNumber, IsInt ],
-function( infnum, num )
-    return infnum = NegativeInfinity;
-end );
-InstallMethod( \<,
-[ IsInt, IsInfiniteNumber ],
-function( num, infnum )
-        return infnum = PositiveInfinity;
-    end );
-InstallMethod( \<,
-[ IsInfiniteNumber, IsInfiniteNumber ],
-function( n1, n2 )
-        return n1 = NegativeInfinity and n2 = PositiveInfinity;
-    end );
-
-#######################################################################
-##
-#M  PrintObj( <n> )
-##
-##  Prints an infinite number (as "+inf" or "-inf").
-##  
-InstallMethod( PrintObj,
-[ IsInfiniteNumber ],
-function( n )
-        if n = PositiveInfinity then
-            Print( "+inf" );
-	else
-            Print( "-inf" );
-	fi;
-    end );
-
-#######################################################################
-##
 #F  MakeHalfInfList( <start>, <direction>, <typeWithArgs>, <callback>, <repeatifyCallback> )
 ##
 ##  Creates a IsHalfInfList with start index <start>, <direction> is
@@ -362,7 +278,7 @@ function( list )
         fi;
     else
         if InfListType( list ) = "repeat" then
-            return NegativeInfinity;
+          return -infinity;
         elif Length( list!.values ) = 0 and InfListType( list ) <> "repeat" then
             return "none";
         else
@@ -389,7 +305,7 @@ function( list )
         fi;
     else
         if InfListType( list ) = "repeat" then
-            return PositiveInfinity;
+          return infinity;
         elif Length( list!.values ) = 0 and InfListType( list ) <> "repeat" then
             return "none";
         else
@@ -617,13 +533,13 @@ InstallMethod( UpperBound,
 [ IsInfList ],
 function( list )
     if PositivePart( list ) <> fail then
-        return PositiveInfinity;
+      return infinity;
     elif Length( MiddlePart( list ) ) > 0 then
         return MiddleEnd( list );
     elif NegativePart( list ) <> fail then
         return StartPosition( NegativePart( list ) );
     else
-        return NegativeInfinity;
+      return -infinity;
     fi;
 end );
 
@@ -638,13 +554,13 @@ InstallMethod( LowerBound,
 [ IsInfList ],
 function( list )
     if NegativePart( list ) <> fail then
-        return NegativeInfinity;
+      return -infinity;
     elif Length( MiddlePart( list ) ) > 0 then
         return MiddleStart( list );
     elif PositivePart( list ) <> fail then
         return StartPosition( PositivePart( list ) );
     else
-        return PositiveInfinity;
+      return infinity;
     fi;
 end );
 

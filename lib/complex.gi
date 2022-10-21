@@ -460,7 +460,7 @@ function( C )
         return true;
     elif IsInt( upbound ) and IsInt( lowbound ) then
         return true;
-    elif IsInfiniteNumber( upbound ) or IsInfiniteNumber( lowbound ) then
+      elif ( upbound in [ -infinity, infinity ] ) or ( lowbound in [ -infinity, infinity ] ) then
         return false;
     else
         return fail;
@@ -486,7 +486,7 @@ function( C )
     elif finiteness = true then
         return UpperBound( C ) - LowerBound( C ) + 1;
     elif finiteness = false then
-        return PositiveInfinity;
+      return infinity;
     else
         return fail;
     fi;
@@ -615,7 +615,7 @@ function( C )
     positive := PositivePart( diffs );
 
     if IsZeroComplex( C ) then
-        return NegativeInfinity;
+      return -infinity;
     elif IsRepeating( positive ) and Length( RepeatingList( positive ) ) = 1
       and cat.isZeroObj( ObjectOfComplex( C, StartPosition( positive ) ) ) then
         i := MiddleEnd( diffs ) - 1;
@@ -627,7 +627,7 @@ function( C )
         od;
         return i;
     elif IsRepeating( positive ) then
-        return PositiveInfinity;
+      return infinity;
     else
         return fail;
     fi;
@@ -653,7 +653,7 @@ function( C )
     negative := NegativePart( diffs );
 
     if IsZeroComplex( C ) then
-        return PositiveInfinity;
+      return infinity;
     elif IsRepeating( negative ) and Length( RepeatingList( negative ) ) = 1
       and cat.isZeroObj( ObjectOfComplex( C, StartPosition( negative ) ) ) then
         i := MiddleStart( diffs );
@@ -665,7 +665,7 @@ function( C )
         od;
         return i;
     elif IsRepeating( negative ) then
-        return NegativeInfinity;
+      return -infinity;
     else
         return fail;
     fi;
@@ -1216,7 +1216,7 @@ function( C )
         Print( "--- -> " );
     fi;
 
-    if IsPositiveRepeating( C ) and upbound = PositiveInfinity then
+    if IsPositiveRepeating( C ) and upbound = infinity then
         Print( "[ " );
         for i in Reversed( PositiveRepeatDegrees( C ) ) do
             Print( i, ":", cat.objStr( ObjectOfComplex( C, i ) ), " -> " );
@@ -1230,7 +1230,7 @@ function( C )
       od;
     fi;
 
-    if IsNegativeRepeating( C ) and lowbound = NegativeInfinity then
+    if IsNegativeRepeating( C ) and lowbound = -infinity then
         Print( "[ " );
         for i in Reversed( NegativeRepeatDegrees( C ) ) do
             Print( i, ":", cat.objStr( ObjectOfComplex( C, i ) ), " -> " );

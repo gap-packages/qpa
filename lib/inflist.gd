@@ -1,6 +1,5 @@
-DeclareCategory( "IsInfiniteNumber", IsObject );
-DeclareGlobalVariable( "PositiveInfinity" );
-DeclareGlobalVariable( "NegativeInfinity" );
+BindGlobal("PositiveInfinity", infinity); 
+BindGlobal("NegativeInfinity", -infinity);
 
 DeclareCategory( "IsInfList", IsObject );
 DeclareCategory( "IsHalfInfList", IsObject );
