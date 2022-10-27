@@ -795,13 +795,12 @@ InstallMethod( Enumerator,
   end
 );
 
-
 InstallMethod( IsDoneIterator,
   "method for iterator of quivers",
   true,
   [ IsIterator and IsMutable and IsQuiverIteratorRep ], 0,
   function( iter )
-    return NextPath( iter!.quiver, iter!.position ) = fail;
+    return iter!.position = [];
   end
 );
 
@@ -817,8 +816,8 @@ InstallMethod( NextIterator,
     if( next = fail ) then
       return fail;
     else
-      iter!.position := next[1];
-      return next[2];
+      iter!.position := next[2];
+      return next[1];
     fi;
 
   end
@@ -899,73 +898,27 @@ InstallMethod( NextPath,
   true,
   [ IsQuiver, IsObject ], 0,
   function( Q, list )
-    local arrows, word_size, current_position,
-          BuildPath, IncrementPosition;
-    
+    local current_position, res, next_arrow;
+
     current_position := ShallowCopy( list );
 
-    if( current_position = fail ) then
-      return fail;
+    if current_position = 0 then 
+        current_position := ShallowCopy( VerticesOfQuiver(Q) );
+    fi;
+    if current_position = [] then
+        return fail;
     fi;
 
-    arrows := ArrowsOfQuiver(Q);
-    IncrementPosition := function( pos_list )
-      local last_letter;
-
-      last_letter := Length( pos_list );
-      # if you have run out of arrows, increment the at last_letter-1
-      if( pos_list[last_letter] = Length(arrows) ) then
-        pos_list[last_letter] := 1; 
-        if( last_letter > 1 ) then
-          pos_list{[1 .. last_letter - 1]} :=
-            IncrementPosition( pos_list{[1 .. last_letter - 1]} ){[1 .. last_letter - 1]};
-        fi;
-        # If you have exhausted all paths of this length, add an arrow
-        if( ForAll( pos_list, p -> p = 1 ) ) then
-          Add(pos_list, 1);
-        fi; 
-      else
-        pos_list[last_letter] := pos_list[last_letter] + 1;
-      fi;
-      return pos_list;
-    end;
-
-    BuildPath := function( pos_list )
-      local i,  path;  # Used to iterate through position list.
-          
-      path := arrows[ pos_list[1] ];
-      for i in [2 .. Length(pos_list) ] do
-        path := path * arrows[ pos_list[i] ];
-      od;
-      return path;
-    end;
-    
-    # first loop through vertices of quiver
-   if( not IsList( current_position ) ) then
-      current_position := current_position + 1;
-      if( current_position <= Length( VerticesOfQuiver(Q) ) ) then
-        return [current_position, VerticesOfQuiver(Q)[current_position]];
-      else
-        # if you are out of vertices, start building paths
-        current_position := [ 1 ];
-      fi;
-    else
-      current_position := IncrementPosition(current_position);
-    fi;
-    
-    while( BuildPath(current_position) = Zero(Q) ) do
-      if( ForAll( current_position, p -> p = 1 ) ) then
-        if( IsZero(AdjacencyMatrixOfQuiver(Q) ^ Length( current_position)) ) then
-          return fail;
-        fi;
-      fi;
-      current_position := IncrementPosition(current_position);
+    for next_arrow in OutgoingArrowsOfVertex(TargetOfPath(current_position[1])) do
+        Add(current_position, current_position[1]*next_arrow);
     od;
-
-    return [current_position, BuildPath(current_position)];
+    res := current_position[1];
+    Remove(current_position, 1);
+    return [res, current_position];
 
   end
 );
+
 
 InstallMethod( ViewObj,
   "for quiver",
