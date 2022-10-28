@@ -1052,4 +1052,15 @@ gap> RemoveFile("writealgebratest~");
 true
 
 #
+# Testing iterators/enumerators of path algebras
+gap> e := Enumerator(Quiver(5, [[1,3],[2,3],[3, 4],[3,5]]));
+<object>
+gap> [e[1], e[2], e[3], e[4], e[5], e[6], e[7], e[8], e[9], e[10], e[11], e[12], e[13], e[14]];
+[ v1, v2, v3, v4, v5, a1, a2, a3, a4, a1*a3, a1*a4, a2*a3, a2*a4, fail ]
+gap> e := Enumerator(Quiver(1, [[1,1],[1,1]]));
+<object>
+gap> [e[1], e[2], e[3], e[4], e[5], e[6], e[7], e[8], e[9], e[10], e[11], e[12], e[13], e[14], e[15], e[16], e[17], e[18], e[19], e[20] ];
+[ v1, a1, a2, a1^2, a1*a2, a2*a1, a2^2, a1^3, a1^2*a2, a1*a2*a1, a1*a2^2, a2*a1^2, a2*a1*a2, a2^2*a1, a2^3, a1^4, a1^3*a2, a1^2*a2*a1, a1^2*a2^2, a1*a2*a1^2 ]
+
+
 gap> STOP_TEST("qpa.tst");
