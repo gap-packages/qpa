@@ -32,7 +32,7 @@ InstallGlobalFunction(
       u := arg[2];
       v := arg[3];
       arrow_name := arg[4];
-      path:= Objectify( NewType( arg[1], 
+      path:= Objectify( NewType( arg[1],
                         IsArrow and IsArrowRep and IsAttributeStoringRep ),
                         rec( arrow_name := arrow_name ) );
       SetSourceOfPath( path, u );
@@ -70,7 +70,7 @@ InstallGlobalFunction(
 );
 
 
-InstallMethod(ExtRepOfObj, 
+InstallMethod(ExtRepOfObj,
   "for zero paths",
   true, [IsZeroPath], 0,
   P -> [0]
@@ -403,9 +403,9 @@ InstallGlobalFunction( Quiver,
 
     vertices := [];
     arrows := [];
-    
+
     # Create a new family for paths in this quiver.
-    Fam := NewFamily( Concatenation( "FamilyOfPathsWithin", UniqueQuiverName() ), IsPath ); 
+    Fam := NewFamily( Concatenation( "FamilyOfPathsWithin", UniqueQuiverName() ), IsPath );
     SetFilterObj( Fam, IsPathFamily );
     zero := Objectify( NewType( Fam, IsPath and IsAttributeStoringRep ), rec() );
     SetIsZeroPath( zero, true );
@@ -427,7 +427,7 @@ InstallGlobalFunction( Quiver,
           matrix[i][j] := 0;
         od;
       od;
-            
+
       if( Length( arg[2] ) > 0 ) then
         arrow_spec_size := Length( arg[2][1] );
       else
@@ -461,7 +461,7 @@ InstallGlobalFunction( Quiver,
 
         arrows[i] := Path( Fam, u, v, name );
       od;
-      
+
       temp := 1;
 
       for i in [1..Length(arg[2])] do
@@ -486,7 +486,7 @@ InstallGlobalFunction( Quiver,
         od;
 
       od;
-            
+
       if( Length( arg[2] ) > 0 ) then
         arrow_spec_size := Length( arg[2][1] );
         vertices_by_name := not IsPosInt( arg[2][1][1] );
@@ -536,7 +536,7 @@ InstallGlobalFunction( Quiver,
           matrix[frompos][topos] := matrix[frompos][topos] + 1;
 
         fi;
-         
+
         if( arrow_spec_size = 3 ) then
           name := arg[2][i][3];
         else
@@ -574,7 +574,7 @@ InstallGlobalFunction( Quiver,
         od;
 
       od;
-    
+
     else
       # no argument given, error
       Error("usage: Quiver(<N>, <[arrow_spec, ...]>), \
@@ -616,7 +616,7 @@ InstallGlobalFunction( Quiver,
       GeneratorsOfMagma(Q)[i]!.gen_pos := i;
     od;
 
-    SetOrderingOfQuiver( Q, 
+    SetOrderingOfQuiver( Q,
       LengthOrdering(Q,LeftLexicographicOrdering(Q,GeneratorsOfMagma( Q )))
     );
 
@@ -649,16 +649,16 @@ InstallGlobalFunction( UniqueQuiverName,
 );
 
 
-InstallMethod( OrderedBy, 
+InstallMethod( OrderedBy,
   "for a quiver and an ordering",
   true,
   [IsQuiver, IsQuiverOrdering], 0,
   function(Q, O)
     local Fam, new_vertices, new_arrows, new_Q, v, a, new_v, new_a,
           record, zero;
-    
+
     # Create a new family for paths in this quiver.
-    Fam := NewFamily( Concatenation( "FamilyOfPathsWithin", UniqueQuiverName() ), IsPath ); 
+    Fam := NewFamily( Concatenation( "FamilyOfPathsWithin", UniqueQuiverName() ), IsPath );
     SetFilterObj( Fam, IsPathFamily );
     zero := Objectify( NewType( Fam, IsPath and IsAttributeStoringRep ), rec() );
     SetIsZeroPath( zero, true );
@@ -694,7 +694,7 @@ InstallMethod( OrderedBy,
       record.( String(a) ) := a;
     od;
 
-    new_Q:= Objectify( NewType( CollectionsFamily(Fam), 
+    new_Q:= Objectify( NewType( CollectionsFamily(Fam),
                                 IsQuiverRep and IsAttributeStoringRep ),
                        rec( pieces := record ) );
 
@@ -706,7 +706,7 @@ InstallMethod( OrderedBy,
     SetNumberOfArrows( new_Q, Length( new_arrows ) );
     SetGeneratorsOfMagma( new_Q, Concatenation( new_vertices, new_arrows ) );
     SetAdjacencyMatrixOfQuiver( new_Q, AdjacencyMatrixOfQuiver(Q) );
-    SetOrderingOfQuiver( new_Q, O ); 
+    SetOrderingOfQuiver( new_Q, O );
     SetZero(new_Q, zero);
     SetIsWholeFamily(new_Q, true);
 
@@ -770,8 +770,8 @@ InstallMethod( Iterator,
   function( Q )
 
     local iter;
-    
-    iter := Objectify( NewType( IteratorsFamily, 
+
+    iter := Objectify( NewType( IteratorsFamily,
                        IsIterator and IsMutable and IsQuiverIteratorRep ),
                        rec( quiver := Q, position := 0 ) );
     return iter;
@@ -787,7 +787,7 @@ InstallMethod( Enumerator,
   function( Q )
 
     local enum;
-    
+
     enum := Objectify( NewType( FamilyObj( Q ), IsQuiverEnumerator ),
                        rec( quiver := Q ) );
     return enum;
@@ -825,7 +825,7 @@ InstallMethod( NextIterator,
 
 
 InstallMethod( \[\],
-  true, 
+  true,
   [ IsQuiverEnumerator, IsPosInt ],
   0,
   function( enum, number )
@@ -834,13 +834,13 @@ InstallMethod( \[\],
     i := 0;
     pos := 0;
     for i in [1..number] do
-        res := NextPath(enum!.quiver, pos);
+      res := NextPath(enum!.quiver, pos);
 
-        if res = fail then 
-            return fail;
-        fi;
+      if res = fail then
+        return fail;
+      fi;
 
-        pos := res[2];
+      pos := res[2];
     od;
 
     return res[1];
@@ -857,15 +857,15 @@ InstallMethod( NextPath,
 
     current_position := ShallowCopy( list );
 
-    if current_position = 0 then 
-        current_position := ShallowCopy( VerticesOfQuiver(Q) );
+    if current_position = 0 then
+      current_position := ShallowCopy( VerticesOfQuiver(Q) );
     fi;
     if current_position = [] then
-        return fail;
+      return fail;
     fi;
 
-    for next_arrow in OutgoingArrowsOfVertex(TargetOfPath(current_position[1])) do
-        Add(current_position, current_position[1]*next_arrow);
+    for next_arrow in OutgoingArrowsOfVertex( TargetOfPath(current_position[1]) ) do
+      Add(current_position, current_position[1]*next_arrow);
     od;
     res := current_position[1];
     Remove(current_position, 1);
@@ -887,7 +887,7 @@ InstallMethod( ViewObj,
     Print( NumberOfArrows(Q) );
     Print( " arrows>" );
 end
-);  
+);
 
 InstallMethod( PrintObj,
   "for quiver",
@@ -907,9 +907,9 @@ InstallMethod( PrintObj,
       Print( "\"");
       first := false;
     od;
-    
+
     Print( "], [" );
-    
+
     first := true;
     for i in ArrowsOfQuiver(Q) do
       if( not first ) then
@@ -929,8 +929,8 @@ InstallMethod( PrintObj,
 
   end
 );
-  
-  
+
+
 InstallMethod( QuiverContainingPath,
         "for a path",
         [ IsPath ],
@@ -1008,7 +1008,7 @@ InstallMethod( OppositeQuiver,
     SetOppositeQuiver( Q_op, Q );
     SetOppositeQuiverNameMap( Q, op_name );
     SetOppositeQuiverNameMap( Q_op, deop_name );
-    
+
     return Q_op;
 end );
 
@@ -1029,7 +1029,7 @@ InstallMethod( OppositePath,
     return Product( walk_op );
 end );
 
-InstallMethod( SeparatedQuiver, 
+InstallMethod( SeparatedQuiver,
     "for a quiver",
     true,
     [ IsQuiver ],
@@ -1039,16 +1039,16 @@ InstallMethod( SeparatedQuiver,
     local oldarrows, vertices, arrows;
     #
     # Calling the vertices in the separated quiver for <label> and <label>', when
-    # <label> is the name of a vertex in the old quiver. For an arrow  a : v ---> w 
-    # in the quiver, we call the corresponding arrow  v ---> w'  also  a  in the 
-    # separated quiver. 
+    # <label> is the name of a vertex in the old quiver. For an arrow  a : v ---> w
+    # in the quiver, we call the corresponding arrow  v ---> w'  also  a  in the
+    # separated quiver.
     #
-    vertices := List(VerticesOfQuiver(Q), v -> String(v)); 
-    Append(vertices, List(vertices, v -> Concatenation(v,"'"))); 
-    oldarrows := ArrowsOfQuiver(Q); 
+    vertices := List(VerticesOfQuiver(Q), v -> String(v));
+    Append(vertices, List(vertices, v -> Concatenation(v,"'")));
+    oldarrows := ArrowsOfQuiver(Q);
     arrows := List(oldarrows, a -> [String(SourceOfPath(a)),Concatenation(String(TargetOfPath(a)),"'"),String(a)]);
-    
-    return Quiver(vertices,arrows); 
+
+    return Quiver(vertices,arrows);
 end
   );
 
@@ -1058,31 +1058,31 @@ end
 ##
 ## Returns the Dynkin quiver A_n  with  n  vertices names 1, 2, 3,..., n,
 ## and arrows with names 1 -- a_1 -- 2 -- a_2 -- .... -- a_{n-1} -- n.
-## The orientation is given by a list of  l's  and r's, ["r","l","l",...], 
-## where an  l  in coordinate  i  means that the  i-th arrow is oriented 
+## The orientation is given by a list of  l's  and r's, ["r","l","l",...],
+## where an  l  in coordinate  i  means that the  i-th arrow is oriented
 ## to the left and an  r  means oriented to the right.
-## 
+##
 InstallMethod( DynkinQuiverAn,
     "for a positive integer and a list",
     [ IS_INT, IsList ],
-        
+
     function( n, orientation )
     local vertices, arrows, i, Q;
-    
-    if n <= 0 then 
+
+    if n <= 0 then
         Error("the quiver must have at least one vertex,\n ");
     fi;
-    if Length(orientation) > n - 1 then 
+    if Length(orientation) > n - 1 then
         Error("too many orientation parameters compared to the number of arrows,\n ");
     fi;
-    if Length(orientation) < n - 1 then 
+    if Length(orientation) < n - 1 then
         Error("too few orientation parameters compared to the number of arrows,\n ");
     fi;
     if not IsSubset(Set(["l","r"]), Set(orientation)) then
         Error("the orientation parameters are not in the set [\"l\",\"r\"],\n");
     fi;
     #
-    # Naming the verties and the arrows in A_n.  The vertices are named 
+    # Naming the verties and the arrows in A_n.  The vertices are named
     # "1", "2", "3", and so on.  The arrows are named as follows
     #         1 -- a_1 -- 2 -- a_2 -- 3 .... n - 1 -- a_{n-1} -- n
     #
@@ -1096,44 +1096,44 @@ InstallMethod( DynkinQuiverAn,
         fi;
     od;
     Q := Quiver(vertices, arrows);
-    SetIsDynkinQuiver(Q, true); 
+    SetIsDynkinQuiver(Q, true);
     return Q;
-end 
+end
   );
 
 ##########################################################################
 ##
 #O DeclearOperations( "DynkinQuiverEn", [ n, orientation ] )
 ##
-## Returns the Dynkin quiver E_n  with  n + 1  vertices, for n = 6, 7, 8, 
-## names 1, 2, 3,..., n + 1, and arrows with names 
+## Returns the Dynkin quiver E_n  with  n + 1  vertices, for n = 6, 7, 8,
+## names 1, 2, 3,..., n + 1, and arrows with names
 ##                         n
 ##                         |
 ##                       a_{n-1}
 ##                         |
 ## 1 -- a_1 -- 2 -- a_2 -- 3 -- a_3 -- 4 -- a_4 -- .... -- a_{n-2} -- n - 1.
 ##
-## The orientation is given by a list of  n - 2  characters l's  and r's 
-## for the orientation of the arrows {a_1, a_2,..., a_{n-2}} and one d  
-## or  u  for the orientation down or up for the arrow  a_{n-1}, for instance, 
+## The orientation is given by a list of  n - 2  characters l's  and r's
+## for the orientation of the arrows {a_1, a_2,..., a_{n-2}} and one d
+## or  u  for the orientation down or up for the arrow  a_{n-1}, for instance,
 ##                  ["r","l","l",...,"r","d"],
-## where an  l  in coordinate  i  means that the  i-th arrow is oriented 
+## where an  l  in coordinate  i  means that the  i-th arrow is oriented
 ## to the left and an  r  means oriented to the right.
-## 
+##
 InstallMethod( DynkinQuiverEn,
     "for a positive integer and a list",
     [ IS_INT, IsList ],
-        
+
     function( n, orientation )
     local vertices, arrows, i, Q;
-    
+
     if not n in [6, 7, 8] then
         Error("the entered value  n  is not 6, 7 or 8,\n");
     fi;
-    if Length(orientation) > n - 1 then 
+    if Length(orientation) > n - 1 then
         Error("too many orientation parameters compared to the number of arrows,\n ");
     fi;
-    if Length(orientation) < n - 1 then 
+    if Length(orientation) < n - 1 then
         Error("too few orientation parameters compared to the number of arrows,\n ");
     fi;
     if not IsSubset(Set(["l","r"]), Set(orientation{[1..n - 2]})) then
@@ -1143,7 +1143,7 @@ InstallMethod( DynkinQuiverEn,
         Error("the last orientation parameter is not in the set [\"d\",\"u\"],\n");
     fi;
     #
-    # Naming the verties and the arrows in E_n.  The vertices are named 
+    # Naming the verties and the arrows in E_n.  The vertices are named
     # "1", "2", "3", and so on in the following way.  The arrows are named as follows
     #                             n
     #                             |
@@ -1166,19 +1166,19 @@ InstallMethod( DynkinQuiverEn,
         Add(arrows, [vertices[3], vertices[n], Concatenation("a_",String(n - 1))]);
     fi;
     Q := Quiver(vertices, arrows);
-    SetIsDynkinQuiver(Q, true);     
+    SetIsDynkinQuiver(Q, true);
     return Q;
-end 
+end
   );
 
 ##########################################################################
 ##
 #O DeclearOperations( "DynkinQuiverDn", [ n, orientation ] )
 ##
-## Returns the Dynkin quiver D_n  with  n  vertices, for n >= 4, with  
-## names 4, 5, 6,..., n, and arrows with names 
-##         
-##     1   
+## Returns the Dynkin quiver D_n  with  n  vertices, for n >= 4, with
+## names 4, 5, 6,..., n, and arrows with names
+##
+##     1
 ##       \ 
 ##        a_1
 ##         \
@@ -1187,35 +1187,35 @@ end
 ##        a_2
 ##       /
 ##      2
-##      
-## The orientation is given by a list of  n - 1 characters l's  and r's for the 
-## orientation of the arrows {a_1, a_2,..., a_{n-1}}, for instance,  
-## ["r","l","l",...,"r"], where an  l  in coordinate  i  means that the  
+##
+## The orientation is given by a list of  n - 1 characters l's  and r's for the
+## orientation of the arrows {a_1, a_2,..., a_{n-1}}, for instance,
+## ["r","l","l",...,"r"], where an  l  in coordinate  i  means that the
 ## i-th arrow is oriented to the left and an  r  means oriented to the right.
-## 
+##
 InstallMethod( DynkinQuiverDn,
     "for a positive integer and a list",
     [ IS_INT, IsList ],
-        
+
     function( n, orientation )
     local vertices, arrows, i, Q;
-    
+
     if not n >= 4 then
         Error("the entered value  n  is not greater or equal to 4,\n");
     fi;
-    if Length(orientation) > n - 1 then 
+    if Length(orientation) > n - 1 then
         Error("too many orientation parameters compared to the number of arrows,\n ");
     fi;
-    if Length(orientation) < n - 1 then 
+    if Length(orientation) < n - 1 then
         Error("too few orientation parameters compared to the number of arrows,\n ");
     fi;
     if not IsSubset(Set(["l","r"]), Set(orientation{[1..n-1]})) then
         Error("the orientation parameters are not in the set [\"l\",\"r\"],\n");
     fi;
     #
-    # Naming the verties and the arrows in D_n.  The vertices are named 
+    # Naming the verties and the arrows in D_n.  The vertices are named
     # "1", "2", "3", and so on in the following way.  The arrows are named as follows
-    #     1  
+    #     1
     #       \ 
     #        a_1
     #         \
@@ -1231,7 +1231,7 @@ InstallMethod( DynkinQuiverDn,
         if orientation[i] = "l" then
             Add(arrows, [vertices[3], vertices[i], Concatenation("a_",String(i))]);
         else
-            Add(arrows, [vertices[i], vertices[3], Concatenation("a_",String(i))]);    
+            Add(arrows, [vertices[i], vertices[3], Concatenation("a_",String(i))]);
         fi;
     od;
     for i in [3..n-1] do
@@ -1242,9 +1242,9 @@ InstallMethod( DynkinQuiverDn,
         fi;
     od;
     Q := Quiver(vertices, arrows);
-    SetIsDynkinQuiver(Q, true);     
+    SetIsDynkinQuiver(Q, true);
     return Q;
-end 
+end
   );
 
 ##########################################################################
@@ -1252,13 +1252,13 @@ end
 #O DeclearOperation( "DynkinQuiver", [ Delta, n, orientation ] )
 ##
 ## Returns the Dynkin quiver of type  Delta, where  Delta  is A, D or E.
-## 
+##
 InstallMethod( DynkinQuiver,
     "for a positive integer and a list",
     [ IsString, IS_INT, IsList ],
-        
+
     function( Delta, n, orientation );
-    
+
     if String(Delta) = "A" then
         return DynkinQuiverAn(n, orientation);
     fi;
@@ -1281,7 +1281,7 @@ end
 InstallMethod( DoubleQuiver,
    "for a quiver",
    [ IsQuiver ], 0,
-   function( Q ) 
+   function( Q )
 
   local vertices, arrows, newvertices, newarrows, a, origin, terminus;
 
@@ -1295,7 +1295,7 @@ InstallMethod( DoubleQuiver,
        Add( newarrows, [ origin, terminus, String( a ) ] );
        Add( newarrows, [ terminus, origin, Concatenation( String( a ), "bar" ) ] );
    od;
-   
+
    return Quiver( newvertices, newarrows );
 end
 );
