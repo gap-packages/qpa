@@ -789,7 +789,7 @@ InstallMethod( Enumerator,
     local enum;
     
     enum := Objectify( NewType( FamilyObj( Q ), IsQuiverEnumerator ),
-                       rec( quiver := Q, cache := WeakPointerObj( [] ) ) );
+                       rec( quiver := Q ) );
     return enum;
 
   end
@@ -829,66 +829,21 @@ InstallMethod( \[\],
   [ IsQuiverEnumerator, IsPosInt ],
   0,
   function( enum, number )
-    local path_length, paths_of_length, matrix, pos, i, j, result, orig_num;
+    local i, pos, res;
 
-    result := ElmWPObj( enum!.cache, number);
+    i := 0;
+    pos := 0;
+    for i in [1..number] do
+        res := NextPath(enum!.quiver, pos);
 
-    if result <> fail then
-        return result;
-    fi;
-
-    orig_num := number;
-
-    if( number <= Length(VerticesOfQuiver(enum!.quiver) ) ) then
-      return VerticesOfQuiver(enum!.quiver)[number];
-    else
-      number := number - Length(VerticesOfQuiver(enum!.quiver));
-    fi;
-
-    path_length := 1;
-
-    while number >= 1 do
-      paths_of_length := 0;
-      matrix := AdjacencyMatrixOfQuiver(enum!.quiver) ^ path_length;
-
-      if IsZero(matrix) then
-        return fail;
-      fi;
-
-      for i in [ 1 .. Length(matrix) ] do
-        for j in [ 1 .. Length( matrix[i] ) ] do
-          paths_of_length := paths_of_length + matrix[i][j];
-        od;
-      od;
-
-      if number <= paths_of_length then
-        if path_length = 1 then
-          pos := Length( VerticesOfQuiver(enum!.quiver) );
-        else
-          pos := [];
-          for i in [ 1 .. path_length - 1 ] do
-            pos[i] := Length( ArrowsOfQuiver(enum!.quiver) );
-          od;
+        if res = fail then 
+            return fail;
         fi;
 
-        for i in [ 1 .. number ] do
-          result := NextPath( enum!.quiver, pos );
-          if result = fail then
-            Error("This should never happen!");
-          fi;
-          pos := result[1];
-        od;
-
-        SetElmWPObj( enum!.cache, orig_num, result[2] );
-        return result[2];
-
-      else
-        path_length := path_length + 1;
-        number := number - paths_of_length;
-      fi;
-
+        pos := res[2];
     od;
 
+    return res[1];
   end
 );
 
