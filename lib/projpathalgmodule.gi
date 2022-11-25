@@ -2219,8 +2219,8 @@ end
 #O  ProjectivePathAlgebraPresentation( <M> ) 
 ##
 ##  This function takes as input a  PathAlgebraMatModule  and constructs
-##  a projetive presentation of this module over the path algebra over
-##  which it is defined, ie. a projetive resolution of length 1. It 
+##  a projective presentation of this module over the path algebra over
+##  which it is defined, ie. a projective resolution of length 1. It 
 ##  returns a list of five elements: (1) a projective module  P  over 
 ##  the path algebra, which modulo the relations induced the projective 
 ##  cover of  <M>, (2) a submodule  U  of  P  such that P/U is isomorphic

@@ -204,7 +204,7 @@ gap> N := RightModuleOverPathAlgebra(A,mat);;]]>
      Arguments: <Arg>M</Arg> - a PathAlgebraMatModule.<Br />
    </Description>
    <Description>
-     If the injetive dimension of the module  <Arg>M</Arg>  has been
+     If the injective dimension of the module  <Arg>M</Arg>  has been
      computed, then the projective dimension is returned.  
    </Description>
 </ManSection>

@@ -158,7 +158,7 @@ end
 ##
 ##  Given an indecomposable module  <M> over a quiver algebra with a
 ##  finite field as a ground ring, this function finds the collection of
-##  irredusible homomorphisms ending in  <M>. 
+##  irreductible homomorphisms ending in  <M>. 
 ##  
 InstallMethod( IrreducibleMorphismsEndingIn, 
   "for a PathAlgebraMatModule",
@@ -188,7 +188,7 @@ end
 ##
 ##  Given an indecomposable module  <M> over a quiver algebra with a
 ##  finite field as a ground ring, this function finds the collection of
-##  irredusible homomorphisms starting in  <M>. 
+##  irreductible homomorphisms starting in  <M>. 
 ##  
 InstallMethod( IrreducibleMorphismsStartingIn, 
   "for a PathAlgebraMatModule",
