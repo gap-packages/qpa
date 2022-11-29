@@ -12,7 +12,7 @@
 ##	Returns true if <A> is of finite representation type.
 ##  Returns false if <A> is of infinite representation type.
 ##  Returns fail if we can not determine the representation type
-##  (i.e. it imposible from theoretical/algorithmic point of view
+##  (i.e. it impossible from theoretical/algorithmic point of view
 ##  or a suitable criterion has not been implemented yet).
 ##
 ##  Note for developers: this function can be a collection

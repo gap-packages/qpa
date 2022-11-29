@@ -958,7 +958,7 @@ end
 #O  DominantDimensionOfModule( <M>, <n> )
 ##
 ##  Returns the dominant dimension of the module  <M>  if it is less or
-##  equal to  <n>. If the module  <M>  is injectiv and projective, then 
+##  equal to  <n>. If the module  <M>  is injective and projective, then 
 ##  it returns infinity. Otherwise it returns false.
 ##  
 InstallMethod ( DominantDimensionOfModule, 
