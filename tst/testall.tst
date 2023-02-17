@@ -1063,4 +1063,43 @@ gap> [e[1], e[2], e[3], e[4], e[5], e[6], e[7], e[8], e[9], e[10], e[11], e[12],
 [ v1, a1, a2, a1^2, a1*a2, a2*a1, a2^2, a1^3, a1^2*a2, a1*a2*a1, a1*a2^2, a2*a1^2, a2*a1*a2, a2^2*a1, a2^3, a1^4, a1^3*a2, a1^2*a2*a1, a1^2*a2^2, a1*a2*a1^2 ]
 
 
+
+
+
+#
+# Testing isolated vertices
+gap> Q := Quiver(3, [ [1, 2, "a"] ]);
+<quiver with 3 vertices and 1 arrows>
+gap> K := Rationals;
+Rationals
+gap> KQ := PathAlgebra(K, Q);
+<Rationals[<quiver with 3 vertices and 1 arrows>]>
+
+# Testing kernels and cokernels for isolated vertices:
+gap> module := RightModuleOverPathAlgebra(KQ, [1, 1, 2], [["a", [[1]]]]);
+<[ 1, 1, 2 ]>
+gap> homomorphism := RightModuleHomOverAlgebra(module, module, [ [[1]], [[1]], [ [1, 0], [0, 0] ]  ]);
+<<[ 1, 1, 2 ]> ---> <[ 1, 1, 2 ]>>
+gap> CoKernel(homomorphism);
+<[0, 0, 1]>
+gap> Kernel(homomorphism);
+<[0, 0, 1]>
+
+# Testing submodules for isolated vertices:
+gap> S := RightModuleOverPathAlgebra(KQ, [0, 0, 1], []);
+<[ 0, 0, 1 ]>
+gap> x := BasisVectors(Basis(S))[1];
+[ [ 0 ], [ 0 ], [ 1 ] ]
+gap> Source(SubRepresentationInclusion(S, [x]));
+<[0, 0, 1]>
+
+# Testing restrictions via algebra homomorphisms for isolated vertices:
+gap> RestrictionViaAlgebraHomomorphism(IdentityMapping(KQ), module);
+<[1, 1, 2]>
+
+# Testing RightAlgebraModuleToPathAlgebraMatModule for isolated vertices:
+gap> RightAlgebraModuleToPathAlgebraMatModule(module);
+<[ 1, 1, 2 ]>
+
+
 gap> STOP_TEST("qpa.tst");
