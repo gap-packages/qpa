@@ -1969,7 +1969,7 @@ InstallMethod ( RightApproximationByAddM,
         homL_iapproxC := Filtered( homL_iapproxC, h -> not IsZero( h ) );
         endL_i := EndOverAlgebra( L[ i ] );
         radendL_i := RadicalOfAlgebra( endL_i );
-        RadendL_i := List( BasisVectors( Basis( radendL_i ) ), FromEndMToHomMM );
+        RadendL_i := List( BasisVectors( Basis( radendL_i ) ), x -> FromEndMToHomMM( L[i], x) );
         radmaps := Flat( List( homL_iC, h -> RadendL_i * h ) );
         generators := List( homL_iapproxC, h -> Flat( MatricesOfPathAlgebraMatModuleHomomorphism( h ) ) );
         radgenerators := List( radmaps, h -> Flat( MatricesOfPathAlgebraMatModuleHomomorphism( h ) ) );
