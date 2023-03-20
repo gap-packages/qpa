@@ -1980,7 +1980,7 @@ InstallMethod ( RightAlgebraModuleToPathAlgebraMatModule,
     local A, vertices, num_vert, B, arrows, generators_in_vertices, 
           vertexwise_basis, i, j, vertices_Q, mat, arrows_as_paths, 
           a, partial_mat, source, target, source_index, target_index, 
-          rows, cols, arrow, b, vector;
+          rows, cols, arrow, b, vector, dimvect;
     
     if not IsFiniteDimensional(M) then
         Error("the entered module is not finite dimensional,\n");
@@ -2025,19 +2025,18 @@ InstallMethod ( RightAlgebraModuleToPathAlgebraMatModule,
         rows := Length(BasisVectors(vertexwise_basis[source_index]));
         cols := Length(BasisVectors(vertexwise_basis[target_index]));
         arrow := TipMonomial(a);
-        if ( rows = 0 or cols = 0 ) then
-            partial_mat := [arrow,[rows,cols]];
-            Add(mat,partial_mat);
-        else 
+        if rows <> 0 and cols <> 0 then
             for b in BasisVectors(vertexwise_basis[source_index]) do
                 vector := Coefficients(vertexwise_basis[target_index], b^a); 
                 Add(partial_mat,vector);
             od;
-            Add(mat,[arrow,partial_mat]);
+            Add(mat,[String(arrow),partial_mat]);
         fi;
     od;
     
-    return RightModuleOverPathAlgebra(A,mat);
+    dimvect := List(vertexwise_basis, b -> Length(b));
+    
+    return RightModuleOverPathAlgebra(A, dimvect, mat);
 end
   );
 
@@ -2233,7 +2232,7 @@ InstallMethod( RestrictionViaAlgebraHomomorphism,
     function( f, M )
 
     local   K,  A,  B,  vertices,  V,  BV,  arrows,  mats,  a,  
-            startpos,  endpos;
+            startpos,  endpos, dimvect;
     
     K := LeftActingDomain( M );
     A := Source( f );
@@ -2250,14 +2249,14 @@ InstallMethod( RestrictionViaAlgebraHomomorphism,
     for a in arrows do
         startpos := Position( vertices, One( A ) * SourceOfPath ( a ) );
         endpos := Position( vertices, One( A ) * TargetOfPath ( a ) );        
-        if IsEmpty( BV[ startpos ] ) or IsEmpty( BV[ endpos ] ) then
-            Add( mats, [ a, [ Length( BV[ startpos ] ), Length( BV[ endpos ] ) ] ] );
-        else
-            Add( mats, [ a, List( BV[ startpos ], m -> Coefficients( BV[ endpos ], m ^ ImageElm( f, One( A ) * a ) ) ) ] );
+        if not IsEmpty( BV[ startpos ] ) and not IsEmpty( BV[ endpos ] ) then
+            Add( mats, [ String(a), List( BV[ startpos ], m -> Coefficients( BV[ endpos ], m ^ ImageElm( f, One( A ) * a ) ) ) ] );
         fi;
     od;
     
-    return RightModuleOverPathAlgebra( A, mats ); 
+    dimvect := List(BV, b -> Length(b));
+    
+    return RightModuleOverPathAlgebra( A, dimvect, mats ); 
 end
   );
 

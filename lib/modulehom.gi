@@ -533,20 +533,18 @@ InstallMethod( SubRepresentationInclusion,
             pi := Position(vertices,im_a);
             
             arrow := arrows_of_quiver[Position(arrows_as_path,a)];
-            if ( dim_vect_sub[pd] = 0 ) or ( dim_vect_sub[pi] = 0 ) then 
-                mat := [dim_vect_sub[pd],dim_vect_sub[pi]];
-            else 
+            if dim_vect_sub[pd] <> 0 and dim_vect_sub[pi] <> 0 then 
                 for m in submod_list{dim_size[pd]} do
                     Add(mat,Coefficients(basis_submod,Coefficients(basis_M,m^a)){dim_size[pi]}); 
                 od;
+                Add(big_mat,[String(arrow),mat]);
             fi;
-            Add(big_mat,[arrow,mat]);
         od;
         
         if IsPathAlgebra(A) then 
-            submodule := RightModuleOverPathAlgebra(A,big_mat);
+            submodule := RightModuleOverPathAlgebra(A, dim_vect_sub, big_mat);
         else
-            submodule := RightModuleOverPathAlgebra(A,big_mat); 
+            submodule := RightModuleOverPathAlgebra(A, dim_vect_sub, big_mat); 
         fi;      
 
 #
@@ -771,18 +769,16 @@ InstallMethod ( KernelInclusion,
 # the induced action on the basis of Ker f_i.
 #
         for a in arrows do
-            apos := Position(arrows,a);
             i := Position(vertices,SourceOfPath(a));
             j := Position(vertices,TargetOfPath(a));
-            matrix := [];
-            if ( dim_K[i] = 0 ) or ( dim_K[j] = 0 ) then 
-                matrix := [dim_K[i],dim_K[j]];
-            else 
+            if dim_K[i] <> 0 and dim_K[j] <> 0 then
+                apos := Position(arrows,a);
+                matrix := [];
                 for k in [1..Length(V_list[i])] do
                     Add(matrix,Coefficients(V_list[j],V_list[i][k]*mats[apos]));
                 od;
+                Add(kermats,[String(a),matrix]);
             fi;
-            Add(kermats,[a,matrix]);
         od;
 #
 # Extracting the basis vectors of each Ker f_i, as a subspace of M_i,
@@ -804,9 +800,9 @@ InstallMethod ( KernelInclusion,
             fi;
         od;
         if IsPathAlgebra(A) then 
-            Kerf := RightModuleOverPathAlgebra(A,kermats);
+            Kerf := RightModuleOverPathAlgebra(A, dim_K, kermats);
         else 
-            Kerf := RightModuleOverPathAlgebra(A,kermats);
+            Kerf := RightModuleOverPathAlgebra(A, dim_K, kermats);
         fi;
         kermap := RightModuleHomOverAlgebra(Kerf,M,V_list);
     fi;  
@@ -1110,7 +1106,7 @@ InstallMethod ( CoKernelProjection,
     local M, N, image, A, K, num_vert, vertices, arrows, basis_list,i, n, v,
           pos, dim_N, V, W, projection, coker, basis_coker, basis_N, a, b,
           mat, mats, source_a, target_a, pos_a, bb, cokermat, C, map, partmap,
-          morph;
+          morph, dimvec_coker;
 
     M := Source(f);
     N := Range(f);
@@ -1156,27 +1152,27 @@ InstallMethod ( CoKernelProjection,
     mats := MatricesOfPathAlgebraModule(N);
     arrows := ArrowsOfQuiver(QuiverOfPathAlgebra(A));
     cokermat := [];
-    for a in arrows do 
-        mat := [];
+    for a in arrows do
         source_a := Position(vertices,SourceOfPath(a)*One(A));
         target_a := Position(vertices,TargetOfPath(a)*One(A));
-        pos_a := Position(arrows,a);
-        if ( Length(basis_coker[source_a]) = 0 ) or ( Length(basis_coker[target_a]) = 0 ) then
-            mat := [Length(basis_coker[source_a]),Length(basis_coker[target_a])];
-        else  
+        if Length(basis_coker[source_a]) <> 0 and Length(basis_coker[target_a]) <> 0 then
+            mat := [];
+            pos_a := Position(arrows,a);
             for b in basis_coker[source_a] do
                 bb := PreImagesRepresentative(projection[source_a],b);
                 bb := bb*mats[pos_a]; # computing bb^a
                 Add(mat,Coefficients(basis_coker[target_a],Image(projection[target_a],bb)));
             od;
+            Add(cokermat,[String(a),mat]);
         fi;
-        Add(cokermat,[a,mat]);
     od;
     
-    if IsPathAlgebra(A) then 
-        C := RightModuleOverPathAlgebra(A,cokermat);
+    dimvec_coker := List(basis_coker, basis -> Length(basis));
+    
+    if IsPathAlgebra(A) then
+        C := RightModuleOverPathAlgebra(A, dimvec_coker, cokermat);
     else
-        C := RightModuleOverPathAlgebra(A,cokermat);
+        C := RightModuleOverPathAlgebra(A, dimvec_coker, cokermat);
     fi;
 #
 # Finding the map for Range(f) to the cokernel 
