@@ -348,12 +348,13 @@ end
 ##
 ##  This function finds the almost split sequence in <Math>^\perp T</Math>
 ##  ending in the module  <M>, if the module is indecomposable and
-##  not projective. It returns fail if the module is in <Math>Add T</Math>
-##  projective. The almost split sequence is returned as a pair of maps,
-##  the monomorphism and the epimorphism.  The function assumes that the
-##  module  <M>  is indecomposable and in <Math>^\perp T</Math>, and 
-##  the range of the epimorphism is a module that is isomorphic to the 
-##  input, not necessarily identical. 
+##  not projective (that is, a projective object in <Math>^\perp T</Math>). 
+##  It returns fail if the module  <M> is in projective. The almost split 
+##  sequence is returned as a pair of maps, the monomorphism and the 
+##  epimorphism.  The function assumes that the module  <M>  is 
+##  indecomposable and in <Math>^\perp T</Math>, and the range of the 
+##  epimorphism is a module that is isomorphic to the input, not 
+##  necessarily identical. 
 ##
 InstallMethod( AlmostSplitSequenceInPerpT, 
     "for a PathAlgebraMatModule and a starting point",
@@ -362,10 +363,10 @@ InstallMethod( AlmostSplitSequenceInPerpT,
 
     local   ass,  f,  g;
 
-    if not IsCotiltingModule( T ) then
+    if not HasIsCotiltingModule( T ) then
         Error("The first argument should be a cotilting module.  Apply CotiltingModule( T, n ).\n");
     fi;
-    if CommonDirectSummand( T, M ) <> false then
+    if IsProjectiveModule( M ) then 
        return fail;
     fi;
     ass := AlmostSplitSequence( M );

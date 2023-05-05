@@ -39,10 +39,13 @@ Auslander-Reiten theory in QPA.<P/>
     module<Br />
   </Description>
   <Returns>the almost split sequence in <Math>^\perp T</Math> ending
-  in the module <Arg>M</Arg>, if the module is indecomposable. It
-  returns fail if the module is in <Math>\add T</Math> projective.
+  in the module <Arg>M</Arg>, if the module is indecomposable and not
+  projective (that is, not projective object in <Math>^\perp T</Math>). It
+  returns fail if the module <Arg>M</Arg> is in <Math>\add T</Math> projective.
   The almost split sequence is returned as a pair of maps, the
-  monomorphism and the epimorphism. 
+  monomorphism and the epimorphism, and the range of the 
+  epimorphism is a module that is isomorphic to the input, not
+  necessarily identical. 
   </Returns>
   <Description> The function assumes that the module <Arg>M</Arg> is
   indecomposable and in <Math>^\perp T</Math>, and the range of the
