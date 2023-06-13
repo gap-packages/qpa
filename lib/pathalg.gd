@@ -100,3 +100,6 @@ DeclareProperty( "IsTriangularReduced", IsQuiverAlgebra );
 DeclareOperation( "PathRemoval", [ IsElementOfMagmaRingModuloRelations, IsList ] );
 DeclareOperation( "QuiverAlgebraOfAmodAeA", [ IsQuiverAlgebra, IsList ] );
 DeclareOperation( "QuiverAlgebraOfeAe", [ IsQuiverAlgebra, IsObject ] );
+DeclareOperation( "SupportOfQuiverAlgebraElement", [ IsQuiverAlgebra, IsObject ] );
+DeclareOperation( "LeftSupportOfQuiverAlgebraElement", [ IsQuiverAlgebra, IsObject ] );
+DeclareOperation( "RightSupportOfQuiverAlgebraElement", [ IsQuiverAlgebra, IsObject ] );

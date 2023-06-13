@@ -322,6 +322,25 @@ true ]]>
 </ManSection>
 
 <ManSection>
+HIT
+<Oper Name="SupportOfQuiverAlgebraElement" Arg="algebra, element" Comm=""/>
+<Oper Name="LeftSupportOfQuiverAlgebraElement" Arg="algebra, element" Comm=""/>
+<Oper Name="RIghtSupportOfQuiverAlgebraElement" Arg="algebra, element" Comm=""/>
+   <Description>
+     Arguments: <Arg>algebra</Arg> -- a QuiverAlgebra,
+     <Arg>element</Arg> -- an element of the QuiverAlgebra<Br />
+   </Description>
+   <Returns>the second version returns a list of the index of the
+   vertices such that the product from the left is non-zero, the third
+   version returns a list of the index of the
+   vertices such that the product from the right is non-zero, and the
+   first version returns the both of the previous lists of indices of
+   vertices. 
+   </Returns>  
+</ManSection>
+
+
+<ManSection>
    <Oper Name="VertexPosition" Arg="element" Comm=""/>
    <Description>
      Arguments: <Arg>element</Arg> -- an element of the path algebra
