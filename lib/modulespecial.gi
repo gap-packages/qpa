@@ -375,3 +375,60 @@ InstallOtherMethod ( ElementInIndecProjective,
     return LinearCombination( B, elem );
 end 
 );
+
+#######################################################################
+##
+#O  ElementIn_vA_AsElementInIndecProj( <A>, <m> )
+##
+##  Given a finite dimension path algebra A, an element m  in  vA  for 
+##  for some vertex v, this function computes the element  m  
+##  correspond to in the indecomposable projective representation 
+##  corresponding to the vertex  v.
+##
+InstallMethod ( ElementIn_vA_AsElementInIndecProj, 
+    "for an element in a quotient of a path algebra",
+    true,
+    [ IsQuiverAlgebra, IsObject ],
+    0,
+    function( A, m )
+  
+  local leftsupport, pos, P, dimP, B, rightsupport, Q, vertices, elem, 
+        r, mpart, mtemp, mtip, posmtip;
+  
+  if not ( m in A ) then 
+    Error( "The entered element is not in the given algebra.\n" );
+  fi;
+  
+  if IsZero( m ) then
+    Error( "The entered element is zero.\n" );
+  fi;
+  
+  leftsupport := LeftSupportOfQuiverAlgebraElement( A, m );
+  if Length( leftsupport ) > 1 then
+    Error( "Entered element is not left uniform.\n" );
+  fi;
+
+  pos := leftsupport[ 1 ];
+  P := IndecProjectiveModules( A )[ pos ];
+  dimP := DimensionVector( P );
+  B := BasisOfProjectives( A )[ pos ];
+  rightsupport := RightSupportOfQuiverAlgebraElement( A, m );
+
+  Q := QuiverOfPathAlgebra( OriginalPathAlgebra( A ) );
+  vertices := List( VerticesOfQuiver( Q ), v -> One( A ) * v );
+
+  elem := Zero( P );
+  for r in rightsupport do
+    mpart := m * vertices[ r ];
+    mtemp := mpart;
+    while not IsZero( mtemp ) do
+      mtip := Tip( mtemp );
+      mtemp := mtemp - TipCoefficient( mtip ) * mtip;
+      posmtip := Position( B[ r ], mtip );
+      elem := elem + TipCoefficient( mtip ) * BasisVectors( Basis( P ) )[ Sum( dimP{ [ 1..r - 1 ] } ) + posmtip ];
+    od;
+  od;
+  
+  return elem;
+end
+);

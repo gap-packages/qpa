@@ -986,6 +986,20 @@ Here we collect the predefined representations/modules over a finite
    <Arg>m</Arg> in the right ideal from which the indecomposable
    projective representation is constructed.</Returns>
 </ManSection>
+
+<ManSection>
+   <Oper Name="ElementIn_vA_AsElementInIndecProj" Arg="A, m" Comm="for a
+							     QuiverAlgebra,
+							     an element in
+							     vA for a
+							     vertex v"/>
+   <Description> 
+    Arguments: <Arg>A</Arg> -- a QuiverAlgebra, <Arg>m</Arg> -- an
+    element in <Arg>vA</Arg> for a vertex <Arg>v</Arg>.
+   <Br /></Description>
+   <Returns>the corresponding element in the indecomposable projective
+   representation assosicated with the vertex <Arg>v</Arg>.</Returns>
+</ManSection>
   
   <ManSection>
     <Attr Name="IndecInjectiveModules" Arg="A" Comm="for an algebra"/>
