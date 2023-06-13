@@ -322,7 +322,6 @@ true ]]>
 </ManSection>
 
 <ManSection>
-HIT
 <Oper Name="SupportOfQuiverAlgebraElement" Arg="algebra, element" Comm=""/>
 <Oper Name="LeftSupportOfQuiverAlgebraElement" Arg="algebra, element" Comm=""/>
 <Oper Name="RIghtSupportOfQuiverAlgebraElement" Arg="algebra, element" Comm=""/>
