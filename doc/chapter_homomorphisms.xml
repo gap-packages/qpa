@@ -881,6 +881,22 @@ gap> Kernel(p);
 </ManSection>
 
 <ManSection>
+  <Oper Name="FromMatrixToHomomorphismOfProjectives" Arg="A, mat,
+							  vert1, vert0"
+  Comm="for a QuiverAlgebra, matrix in the QuiverAlgebra, two lists of
+	vertex indices"/>
+  <Description>
+  Arguments: <Arg>A</Arg> -- a QuiverAlgebra, <Arg>mat</Arg> -- a
+  matrix over <Arg>A</Arg>, <Arg>vert1, vert0</Arg> -- two lists of
+  vertex indices<Br />
+  </Description>
+  <Returns> a homomorphism of projective <Arg>A</Arg>-modules from <M>P_1 = \oplus w_iA</M> to <M>P_0 = \oplus
+  v_iA</M>, where <M>w_i</M> and <M>v_i</M> are vertices determined by
+  the two last arguments. 
+  </Returns>
+</ManSection>
+
+<ManSection>
    <Attr Name="RightMinimalVersion" Arg="f" Comm=""/>
    <Description>
      Arguments: <Arg>f</Arg> - a homomorphism between two

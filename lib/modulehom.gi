@@ -4283,3 +4283,113 @@ InstallMethod( MatrixOfHomomorphismBetweenProjectives,
     return TransposedMat( imageofgenerators );
 end
   );
+
+InstallMethod( FromMatrixToHomomorphismOfProjectives, 
+    "for a matrix of elements in a quotient of a path algebra, and two list of vertices",
+    true,
+    [ IsQuiverAlgebra, IsMatrix, IsHomogeneousList, IsHomogeneousList ],
+    0,
+    function( A, mat, vert1, vert0 )               
+
+  local m, P0vert, supprows, rowcount, row, tempsupp, r, test, P1vert, 
+        suppcolumns, P1, P1projections, P0, P0inclusions, newmat, P, 
+        dimmat, i, temp, j, fam, vfam, elem;
+    
+    for m in mat do
+      if not ForAll( m, a -> a in A ) then
+        Error( "The entered matrix is not a homogeneous matrix in one and the same algebra.\n" );
+      fi;
+    od;
+    
+    P0vert := [ ];
+    supprows := List( mat, row -> List( row, r -> LeftSupportOfQuiverAlgebraElement( A, r ) ) );
+    rowcount := 0;
+    for row in supprows do
+      rowcount := rowcount + 1;
+      tempsupp := [];
+      for r in row do
+        if r <> [] then
+          if Length( r ) > 1 then
+            Error( "The entered matrix is not given by uniform elements.\n" );
+          else
+            Add( tempsupp, r[ 1 ] );
+          fi;
+        fi;
+      od;
+      if Length( tempsupp ) > 0 then 
+        test := tempsupp[ 1 ];
+        if not ForAll( tempsupp, t -> t = test ) then
+          Error( "The entered matrix is not row homogeneous.\n" );
+        fi;
+      fi;
+      if tempsupp = [] then 
+        Add( P0vert, vert0[ rowcount ] );
+      else
+        Add( P0vert, test );
+      fi;
+    od;
+    
+    P1vert := [ ];
+    suppcolumns := List( TransposedMat( mat ), row -> List( row, r -> RightSupportOfQuiverAlgebraElement( A, r ) ) );
+    rowcount := 0;
+    for row in suppcolumns do
+      rowcount := rowcount + 1;
+      tempsupp := [];
+      for r in row do
+        if r <> [] then
+          if Length( r ) > 1 then
+            Error( "The entered matrix is not given by uniform elements.\n" );
+          else
+            Add( tempsupp, r[ 1 ] );
+          fi;
+        fi;
+      od;
+      if Length( tempsupp ) > 0 and not ForAll( tempsupp, t -> t = tempsupp[ 1 ] ) then
+        Error( "The entered matrix is not column homogeneous.\n" );
+      fi;
+      if tempsupp = [] then
+        Add( P1vert, vert1[ rowcount ] );
+      else
+        Add( P1vert, tempsupp[ 1 ] );
+      fi;
+    od;
+
+    if ( P1vert <> vert1 ) or ( P0vert <> vert0 ) then
+      Error( "Discrepency between entered list of vertices and support in the entered matrix.\n" );
+    fi;
+    
+    P1 := DirectSumOfQPAModules( List( vert1, v -> IndecProjectiveModules( A )[ v ] ) );
+    P1projections := DirectSumProjections( P1 );
+    P0 := DirectSumOfQPAModules( List( vert0, v -> IndecProjectiveModules( A )[ v ] ) );
+    P0inclusions := DirectSumInclusions( P0 );
+    
+    newmat := [];
+    P := IndecProjectiveModules( A );
+    dimmat := DimensionsMat( mat );
+    for i in [ 1..dimmat[ 1 ] ] do
+      temp := [];
+      for j in [ 1..dimmat[ 2 ] ] do
+        r := mat[ i ][ j ];
+        if IsZero( r ) then
+          Add( temp, ZeroMapping( Range( P1projections[ j ] ), Source( P0inclusions[ i ] ) ) );
+        else
+          fam := FamilyObj( Zero( Source( P0inclusions[ i ] ) )![ 1 ] );
+          vfam := FamilyObj( Zero( Source( P0inclusions[ i ] ) ) );
+          elem := ElementIn_vA_AsElementInIndecProj( A, r );
+          elem := ExtRepOfObj( ExtRepOfObj( elem ) );
+          elem := ObjByExtRep(vfam, PathModuleElem( fam, elem ) );
+          Add( temp, HomFromProjective( elem, Source( P0inclusions[ i ] ) ) );
+        fi;
+      od;
+      Add( newmat, temp );
+    od;
+    
+    for i in [ 1..dimmat[ 1 ] ] do
+      for j in [ 1..dimmat[ 2 ] ] do
+        newmat[ i ][ j ] := P1projections[ j ] * newmat[ i ][ j ] * P0inclusions[ i ];
+      od;
+    od;
+    
+    return Sum( Flat( newmat ) );
+end
+  );
