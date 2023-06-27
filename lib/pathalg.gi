@@ -3340,3 +3340,56 @@ InstallMethod ( QuiverAlgebraOfeAe,
     return AA; 
 end
 );
+
+InstallMethod ( LeftSupportOfQuiverAlgebraElement,
+"for an element in a (quotient of a) path algebra", 
+  true,
+  [ IsQuiverAlgebra, IsObject ],
+  0,
+  function( A, m )
+
+  local Q, vertices, leftsupport;
+  
+  if not ( m in A ) then 
+    Error( "The entered element is not in the given algebra.\n" );
+  fi;
+  
+  Q := QuiverOfPathAlgebra( OriginalPathAlgebra( A ) );
+  vertices := List( VerticesOfQuiver( Q ), v -> One( A ) * v );
+  leftsupport := PositionsNonzero( vertices * m );
+  
+  return leftsupport;
+end
+  );
+  
+InstallMethod ( RightSupportOfQuiverAlgebraElement,
+"for an element in a (quotient of a) path algebra", 
+  true,
+  [ IsQuiverAlgebra, IsObject ],
+  0,
+  function( A, m )
+
+  local Q, vertices, rightsupport;
+  
+  if not ( m in A ) then 
+    Error( "The entered element is not in the given algebra.\n" );
+  fi;
+  
+  Q := QuiverOfPathAlgebra( OriginalPathAlgebra( A ) );
+  vertices := List( VerticesOfQuiver( Q ), v -> One( A ) * v );
+  rightsupport := PositionsNonzero(  m * vertices );
+  
+  return rightsupport;
+end
+  );
+
+InstallMethod ( SupportOfQuiverAlgebraElement, 
+  "for an element in a (quotient of a) path algebra", 
+  true,
+  [ IsQuiverAlgebra, IsObject ],
+  0,
+  function( A, m );
+
+  return [ LeftSupportOfQuiverAlgebraElement( A, m ), RightSupportOfQuiverAlgebraElement( A, m ) ];
+end
+  );
