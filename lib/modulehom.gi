@@ -4355,7 +4355,7 @@ InstallMethod( FromMatrixToHomomorphismOfProjectives,
     od;
 
     if ( P1vert <> vert1 ) or ( P0vert <> vert0 ) then
-      Error( "Discrepency between entered list of vertices and support in the entered matrix.\n" );
+      Error( "Discrepancy between entered list of vertices and support in the entered matrix.\n" );
     fi;
     
     P1 := DirectSumOfQPAModules( List( vert1, v -> IndecProjectiveModules( A )[ v ] ) );
