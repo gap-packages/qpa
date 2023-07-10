@@ -329,7 +329,7 @@ InstallMethod( IsWeaklyPositiveUnitForm,
             fi;
         od;
         #
-        #  Preforming reduction of unit form.
+        #  Performing reduction of unit form.
         #
         if breakflag then 
             reductionnumber := Length(reductionpairs); 
