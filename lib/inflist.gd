@@ -43,8 +43,6 @@ DeclareGlobalFunction( "InfConcatenation" );
 DeclareOperation( "InfList", [ IsInfList, IsFunction ] );
 DeclareOperation( "HalfInfList", [ IsHalfInfList, IsFunction ] );
 
-DeclareGlobalVariable( "IntegersList" );
-
 DeclareRepresentation( "IsHalfInfListDefaultRep",
                        IsComponentObjectRep and IsAttributeStoringRep,
                        [ "values", "start", "direction",

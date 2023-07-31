@@ -842,5 +842,4 @@ end );
 ##
 ##  An IsInfList with the integer i at position i.
 ##
-InstallValue( IntegersList, FunctionInfList( IdFunc ) );
-
+BindGlobal( "IntegersList", FunctionInfList( IdFunc ) );
