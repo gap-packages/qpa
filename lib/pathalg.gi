@@ -3157,7 +3157,7 @@ InstallMethod ( QuiverAlgebraOfAmodAeA,
         for i in [ 0..Length( r )/2 - 1 ] do
             temp := WalkOfPath( r[ 2 * i + 1 ] ); 
             temp := List( temp, t -> newarrows[ Position( newarrowlabels, String( t ) ) ] );
-            newrel := newrel + r[ 2 ] * One( KQ ) * Product( temp );
+            newrel := newrel + r[ 2 * i + 2 ] * One( KQ ) * Product( temp );
         od;
         Add( convertedrelations, newrel );
     od;
