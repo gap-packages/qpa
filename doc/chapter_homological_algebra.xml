@@ -583,7 +583,7 @@ finds the <Arg>n</Arg>-th syzygy of the module
 </ManSection>
 
 <ManSection>
-   <Oper Name="ProjDimensionOfModule" Arg="M, " Comm="for a
+   <Oper Name="ProjDimensionOfModule" Arg="M, n" Comm="for a
 						      PathAlgebraMatModule
 						      and a positive integer"/>
    <Description>
