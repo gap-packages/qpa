@@ -1,4 +1,51 @@
 ==========================================================================
+Changes from version 1.34 to 1.35:
+==========================================================================
+
+Added functions in this release:
+----------------------------------------------------------------------
+ElementIn_vA_AsElementInIndecProj
+FromMatrixToHomomorphismOfProjectives
+LeftSupportQuiverAlgebraElement
+RightSupportQuiverAlgebraElement 
+SupportQuiverAlgebraElement 
+
+Discontinued/removed functions:
+------------------------------------------------------------
+None
+
+Changed code for:
+----------------------------------------------------------------------
+1stSyzygy
+
+Fixed bugs in:
+----------------------------------------------------------------------
+AlgebraAsQuiverAlgebra
+AlmostSplitSequenceInPerpT
+EndOfModuleAsQuiverAlgebra
+Enumerator (Quiver)
+QuiverAlgebraOfAmodAeA
+ReadAlgebra
+SaveAlgebra
+RightApproximationByAddM (list version)
+
+Bugs for isolated vertices fixed in:
+     CoKernelProjection
+     KernelInclusion
+     RestrictionViaAlgebraHomomorphism
+     RightAlgebraModuleToPathAlgebraMatModule
+     SubRepresentationInclusion
+
+
+Miscellaneous
+----------------------------------------------------------------------
+Added computation of a basis of a algebra of an acyclic quiver
+Enumerator test added for quivers
+Fixed typos in CHANGES, documentation, headers of functions
+Updated documentation for 
+
+
+==========================================================================
 Changes from version 1.33 to 1.34:
 ==========================================================================
 
