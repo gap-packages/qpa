@@ -1129,7 +1129,7 @@ Q_1 \rightarrow Q_0</Math> are source and target functions where for each <Math>
 \alpha \in Q_1</Math>, <Math>s(\alpha)</Math> and <Math>t(\alpha)</Math> denotes
 starting and ending vertex of <Math>\alpha</Math> respectively. For the functions
 defined in this section the quiver has to be constructed using first construction
-of <Ref Sect="Basic Construction"/>. The arrows in <Math>Q_1</Math> should be
+of <Ref Sect="Constructing Quivers"/>. The arrows in <Math>Q_1</Math> should be
 small Roman letters defined in alphabetical order as in the example below. These
 operations can handle string algebras with number of arrows less than or equal
 to 26. Say that a finite sequence <M>\alpha_n\alpha_{n-1}...\alpha_1</M> is a
