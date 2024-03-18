@@ -251,7 +251,8 @@ gap> N := RightModuleOverPathAlgebra(A,mat);;]]>
     Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>), <Arg>n</Arg> -- a positive integer.
    <Br /></Description>
    <Returns><C>true</C>, if the representation <Arg>M</Arg> is isomorphic
-     to a <Arg>n</Arg>-th syzygy of some module, and false otherwise.
+     to a direct summand of an <Arg>n</Arg>-th syzygy of some module
+     or is a projective module, and false otherwise. 
    </Returns>
 </ManSection>
 
