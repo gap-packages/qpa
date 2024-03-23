@@ -25,18 +25,22 @@ jobs:
       matrix:
         gap-branch:
           - master
+          - stable-4.13
           - stable-4.12
           - stable-4.11
           - stable-4.10
           - stable-4.9
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: gap-actions/setup-gap@v2
         with:
           GAPBRANCH: ${{ matrix.gap-branch }}
       - uses: gap-actions/build-pkg@v1
       - uses: gap-actions/run-pkg-tests@v2
+      - uses: gap-actions/run-pkg-tests@v2
+        with:
+          only-needed: true
       - uses: gap-actions/process-coverage@v2
       - uses: codecov/codecov-action@v3
 
@@ -46,13 +50,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: gap-actions/setup-gap@v2
       - uses: gap-actions/build-pkg-docs@v1
         with:
           use-latex: 'true'
       - name: 'Upload documentation'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: manual
           path: ./doc/manual.pdf
