@@ -185,7 +185,7 @@ end
 #O  DecomposeModule( <M> )
 ##
 ##  This function is an extension of above version of DecomposeModule
-##  as this version takes adavantage of the fact that an argument might
+##  as this version takes advantage of the fact that an argument might
 ##  have an direct sum decomposition already through being created by
 ##  the command  DirectSumOfQPAModules.
 ##

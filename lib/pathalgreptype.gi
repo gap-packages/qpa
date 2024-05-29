@@ -167,8 +167,8 @@ InstallMethod( IsFiniteTypeAlgebra,
     #
     if IsSpecialBiserialAlgebra(A) then
         if IsUAcyclicQuiver(Q) then
-            # Follows from [A. Skowronski, J.Waschb¨usch. Representation-finite biserial algebras. 
-            # Journal f¨ur Mathematik. Band 345, 1983.]: Special biserial algebra is of fin. rep. type
+            # Follows from [A. Skowronski, J.WaschbÂ¨usch. Representation-finite biserial algebras. 
+            # Journal fÂ¨ur Mathematik. Band 345, 1983.]: Special biserial algebra is of fin. rep. type
             # <=> it contains no "primitive strings".
             # TODO: full application of above thm, i.e. not only for quivers with no unoriented cycles.
             # But even now it covers quite large class of "not very complicated" algebras of finite type.
