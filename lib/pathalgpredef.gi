@@ -719,7 +719,7 @@ InstallMethod ( BrauerConfigurationAlgebra,
         Sort(orientations[i]);
         Sort(polygons_containing[i]);
         if orientations[i] <> polygons_containing[i] then
-            Print("Orientations must contain exactly the edges or polygons which contain the corrosponding vertex.\n");
+            Print("Orientations must contain exactly the edges or polygons which contain the corresponding vertex.\n");
             return fail;
         fi;
     od;
