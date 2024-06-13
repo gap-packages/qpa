@@ -1101,5 +1101,37 @@ gap> RestrictionViaAlgebraHomomorphism(IdentityMapping(KQ), module);
 gap> RightAlgebraModuleToPathAlgebraMatModule(module);
 <[ 1, 1, 2 ]>
 
+# Testing AreDerivedEquivalent for two algebras of genus one
+
+gap> Q := Quiver(6,[[2,1,"a"],[3,2,"b"],[1,4,"c"],[4,2,"d"],[3,5,"e"],[5,4,"f"],[4,6,"g"],[6,5,"h"],[5,6,"i"]]);
+<quiver with 6 vertices and 9 arrows>
+gap> kQ := PathAlgebra(Rationals,Q);
+<Rationals[<quiver with 6 vertices and 9 arrows>]>
+gap> AssignGeneratorVariables(kQ);
+#I  Assigned the global variables [ v1, v2, v3, v4, v5, v6, a, b, c, d, e, f, g, h, i ]
+gap> rel := [a*c, c*d, d*a, e*f, f*g, g*h, h*i];
+[ (1)*a*c, (1)*c*d, (1)*d*a, (1)*e*f, (1)*f*g, (1)*g*h, (1)*h*i ]
+gap> I := Ideal(kQ,rel);
+<two-sided ideal in <Rationals[<quiver with 6 vertices and 9 arrows>]>, (7 generators)>
+gap> A := kQ/I;
+<Rationals[<quiver with 6 vertices and 9 arrows>]/
+<two-sided ideal in <Rationals[<quiver with 6 vertices and 9 arrows>]>, (7 generators)>>
+gap> AreDerivedEquivalent(A,A);
+true
+gap> Q := Quiver(6,[[2,1,"a"],[1,3,"b"],[3,2,"c"],[1,5,"d"],[2,6,"e"],[3,4,"f"],[4,5,"g"],[5,6,"h"],[6,4,"i"]]);
+<quiver with 6 vertices and 9 arrows>
+gap> kQ := PathAlgebra(Rationals,Q);
+<Rationals[<quiver with 6 vertices and 9 arrows>]>
+gap> AssignGeneratorVariables(kQ);;
+gap> rel := [a*b, b*c, c*a, f*g, g*h, h*i];
+[ (1)*a*b, (1)*b*c, (1)*c*a, (1)*f*g, (1)*g*h, (1)*h*i ]
+gap> I := Ideal(kQ,rel);
+<two-sided ideal in <Rationals[<quiver with 6 vertices and 9 arrows>]>, (6 generators)>
+gap> B := kQ/I;
+<Rationals[<quiver with 6 vertices and 9 arrows>]/
+<two-sided ideal in <Rationals[<quiver with 6 vertices and 9 arrows>]>, (6 generators)>>
+gap> AreDerivedEquivalent(A,B);
+true
+
 
 gap> STOP_TEST("qpa.tst");
