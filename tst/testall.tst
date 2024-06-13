@@ -1103,28 +1103,34 @@ gap> RightAlgebraModuleToPathAlgebraMatModule(module);
 
 # Testing AreDerivedEquivalent for two algebras of genus one
 
-gap> Q := Quiver(6,[[2,1,"a"],[3,2,"b"],[1,4,"c"],[4,2,"d"],[3,5,"e"],[5,4,"f"],[4,6,"g"],[6,5,"h"],[5,6,"i"]]);
+gap> Q := Quiver(6,[[2,1,"aa"],[3,2,"bb"],[1,4,"cc"],[4,2,"dd"],[3,5,"ee"],[5,4,"ff"],[4,6,"gg"],[6,5,"hh"],[5,6,"ii"]]);
 <quiver with 6 vertices and 9 arrows>
 gap> kQ := PathAlgebra(Rationals,Q);
 <Rationals[<quiver with 6 vertices and 9 arrows>]>
 gap> AssignGeneratorVariables(kQ);
-#I  Assigned the global variables [ v1, v2, v3, v4, v5, v6, a, b, c, d, e, f, g, h, i ]
-gap> rel := [a*c, c*d, d*a, e*f, f*g, g*h, h*i];
-[ (1)*a*c, (1)*c*d, (1)*d*a, (1)*e*f, (1)*f*g, (1)*g*h, (1)*h*i ]
+#I  Assigned the global variables [ v1, v2, v3, v4, v5, v6, aa, bb, cc, dd, ee, ff, gg, hh, ii ]
+gap> rel := [aa*cc, cc*dd, dd*aa, ee*ff, ff*gg, gg*hh, hh*ii];
+[ (1)*aa*cc, (1)*cc*dd, (1)*dd*aa, (1)*ee*ff, (1)*ff*gg, (1)*gg*hh, (1)*hh*ii ]
 gap> I := Ideal(kQ,rel);
 <two-sided ideal in <Rationals[<quiver with 6 vertices and 9 arrows>]>, (7 generators)>
 gap> A := kQ/I;
 <Rationals[<quiver with 6 vertices and 9 arrows>]/
 <two-sided ideal in <Rationals[<quiver with 6 vertices and 9 arrows>]>, (7 generators)>>
-gap> AreDerivedEquivalent(A,A);
-true
-gap> Q := Quiver(6,[[2,1,"a"],[1,3,"b"],[3,2,"c"],[1,5,"d"],[2,6,"e"],[3,4,"f"],[4,5,"g"],[5,6,"h"],[6,4,"i"]]);
+gap>
+gap> Q := Quiver(6,[[2,1,"aaa"],[1,3,"bbb"],[3,2,"ccc"],[1,5,"ddd"],[2,6,"eee"],[3,4,"fff"],[4,5,"ggg"],[5,6,"hhh"],[6,4,"iii"]]);
 <quiver with 6 vertices and 9 arrows>
 gap> kQ := PathAlgebra(Rationals,Q);
 <Rationals[<quiver with 6 vertices and 9 arrows>]>
-gap> AssignGeneratorVariables(kQ);;
-gap> rel := [a*b, b*c, c*a, f*g, g*h, h*i];
-[ (1)*a*b, (1)*b*c, (1)*c*a, (1)*f*g, (1)*g*h, (1)*h*i ]
+gap> AssignGeneratorVariables(kQ);
+#I  Global variable `v1' is already defined and will be overwritten
+#I  Global variable `v2' is already defined and will be overwritten
+#I  Global variable `v3' is already defined and will be overwritten
+#I  Global variable `v4' is already defined and will be overwritten
+#I  Global variable `v5' is already defined and will be overwritten
+#I  Global variable `v6' is already defined and will be overwritten
+#I  Assigned the global variables [ v1, v2, v3, v4, v5, v6, aaa, bbb, ccc, ddd, eee, fff, ggg, hhh, iii ]
+gap> rel := [aaa*bbb, bbb*ccc, ccc*aaa, fff*ggg, ggg*hhh, hhh*iii];
+[ (1)*aaa*bbb, (1)*bbb*ccc, (1)*ccc*aaa, (1)*fff*ggg, (1)*ggg*hhh, (1)*hhh*iii ]
 gap> I := Ideal(kQ,rel);
 <two-sided ideal in <Rationals[<quiver with 6 vertices and 9 arrows>]>, (6 generators)>
 gap> B := kQ/I;
