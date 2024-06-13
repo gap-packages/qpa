@@ -46,5 +46,6 @@ ReadPackage("QPA", "lib/stringalgebra.gi");
 
 ReadPackage("QPA", "lib/degorderfinitetype.gi");
 ReadPackage("QPA", "lib/documentation.gi");
+ReadPackage("QPA", "lib/combinatorialmap.gi");
 
 #E  read.g . . . . . . . . . . . . . . . . . . . . . . . . . . . .  ends here

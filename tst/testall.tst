@@ -1101,5 +1101,43 @@ gap> RestrictionViaAlgebraHomomorphism(IdentityMapping(KQ), module);
 gap> RightAlgebraModuleToPathAlgebraMatModule(module);
 <[ 1, 1, 2 ]>
 
+# Testing AreDerivedEquivalent for two algebras of genus one
+
+gap> Q := Quiver(6,[[2,1,"aa"],[3,2,"bb"],[1,4,"cc"],[4,2,"dd"],[3,5,"ee"],[5,4,"ff"],[4,6,"gg"],[6,5,"hh"],[5,6,"ii"]]);
+<quiver with 6 vertices and 9 arrows>
+gap> kQ := PathAlgebra(Rationals,Q);
+<Rationals[<quiver with 6 vertices and 9 arrows>]>
+gap> AssignGeneratorVariables(kQ);
+#I  Assigned the global variables [ v1, v2, v3, v4, v5, v6, aa, bb, cc, dd, ee, ff, gg, hh, ii ]
+gap> rel := [aa*cc, cc*dd, dd*aa, ee*ff, ff*gg, gg*hh, hh*ii];
+[ (1)*aa*cc, (1)*cc*dd, (1)*dd*aa, (1)*ee*ff, (1)*ff*gg, (1)*gg*hh, (1)*hh*ii ]
+gap> I := Ideal(kQ,rel);
+<two-sided ideal in <Rationals[<quiver with 6 vertices and 9 arrows>]>, (7 generators)>
+gap> A := kQ/I;
+<Rationals[<quiver with 6 vertices and 9 arrows>]/
+<two-sided ideal in <Rationals[<quiver with 6 vertices and 9 arrows>]>, (7 generators)>>
+gap>
+gap> Q := Quiver(6,[[2,1,"aaa"],[1,3,"bbb"],[3,2,"ccc"],[1,5,"ddd"],[2,6,"eee"],[3,4,"fff"],[4,5,"ggg"],[5,6,"hhh"],[6,4,"iii"]]);
+<quiver with 6 vertices and 9 arrows>
+gap> kQ := PathAlgebra(Rationals,Q);
+<Rationals[<quiver with 6 vertices and 9 arrows>]>
+gap> AssignGeneratorVariables(kQ);
+#I  Global variable `v1' is already defined and will be overwritten
+#I  Global variable `v2' is already defined and will be overwritten
+#I  Global variable `v3' is already defined and will be overwritten
+#I  Global variable `v4' is already defined and will be overwritten
+#I  Global variable `v5' is already defined and will be overwritten
+#I  Global variable `v6' is already defined and will be overwritten
+#I  Assigned the global variables [ v1, v2, v3, v4, v5, v6, aaa, bbb, ccc, ddd, eee, fff, ggg, hhh, iii ]
+gap> rel := [aaa*bbb, bbb*ccc, ccc*aaa, fff*ggg, ggg*hhh, hhh*iii];
+[ (1)*aaa*bbb, (1)*bbb*ccc, (1)*ccc*aaa, (1)*fff*ggg, (1)*ggg*hhh, (1)*hhh*iii ]
+gap> I := Ideal(kQ,rel);
+<two-sided ideal in <Rationals[<quiver with 6 vertices and 9 arrows>]>, (6 generators)>
+gap> B := kQ/I;
+<Rationals[<quiver with 6 vertices and 9 arrows>]/
+<two-sided ideal in <Rationals[<quiver with 6 vertices and 9 arrows>]>, (6 generators)>>
+gap> AreDerivedEquivalent(A,B);
+true
+
 
 gap> STOP_TEST("qpa.tst");

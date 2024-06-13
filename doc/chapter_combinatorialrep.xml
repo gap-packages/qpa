@@ -164,4 +164,253 @@ matrices with 2 along the diagonal.
 
 
 </Section>
+
+<Section Label="Combinatorial Maps">
+<Heading>Combinatorial Maps</Heading>
+
+<ManSection>
+
+<InfoClass Name="CombinatorialMap", Label="size, ordering, pairing, marked edges" Arg="n, sigma, iota, m" />
+
+<Description> Arguments : <Arg>n</Arg> -- number of half-edges, <Arg>sigma</Arg> -- a permutation specifying the ordering of half-edges aroud vertices, <Arg>iota</Arg> -- an involution pairing the half-edges, <Arg>m</Arg> -- a list of marked half-edges
+</Description>
+
+<Returns> a combinatorial map, which is an object from the category
+<Ref Filt="IsCombinatorialMap"/>.</Returns>
+
+<Description>
+    The size of the underlying set given by <Arg>size</Arg> is given a positive integer, the ordering and the pairing are given by two permutations <Arg>ordering</Arg> and <Arg>paring</Arg> of a set of <Arg>size</Arg> elements ({1, 2,..., <Arg>size</Arg>}) and the marked half-edges are given as a list of integers in {1, 2,..., <Arg>size</Arg>}.
+</Description>
+
+</ManSection>
+
+<ManSection>
+
+<Attr Name="FacesOfCombinatorialMap", Label="map", Arg="map" />
+
+<Description> Argument : <Arg>map</Arg> -- a combinatorial map.
+</Description>
+
+<Returns> the list of faces of the combinatorial map <Arg>map</Arg>. </Returns
+    
+<Description>
+    The faces are given by a list of half-edges of <Arg>map</Arg>.
+</Description>
+
+</ManSection>
+
+<ManSection>
+
+<Attr Name="GenusOfCombinatorialMap", Label="map", Arg="map" />
+
+<Description> Argument : <Arg>map</Arg> -- a combinatorial map.
+</Description>
+
+<Returns> the genus of the surface represented by the combinatorial map <Arg>map</Arg>.
+    
+</ManSection>
+    
+<ManSection>
+
+<Attr Name="DualOfCombinatorialMap", Label="map", Arg="map" />
+
+<Description> Argument : <Arg>map</Arg> -- a combinatorial map.
+</Description>
+
+<Returns> the dual combinatorial map of <Arg>map</Arg>.
+
+</ManSection>
+
+<ManSection>
+
+<Attr Name="MaximalPathsOfGentleAlgebra", Label="algebra", Arg="A" />
+
+<Description> Argument : <Arg>A</Arg> -- a gentle algebra.
+</Description>
+
+<Returns> the list of maximal paths of the quiver with relations defining <Arg>A</Arg>.
+    
+<Description>
+    Only returns paths of non-zero length.
+</Description>
+
+</ManSection>
+    
+<ManSection>
+    
+<Oper Name="RemoveEdgeOfCombinatorialMap", Label="map, edge", Arg="combmap,E" />
+
+<Description> Argument : <Arg>map</Arg> -- a combinatorial map, <Arg>edge</Arg> -- a list of two paired half-edges.
+</Description>
+
+<Returns> the combinatorial map obtained by removing <Arg>edge</Arg> from the combinatorial map <Arg>map</Arg>.
+    
+<Description>
+    The argument <Arg>edge</Arg> has to be a list consisting of two half-edges of <Arg>map</Arg> that are paired. The returned combinatorial map does not change size, the two removed half-edges are now fixed by the pairing and ordering so do not appear in non-trivial orbits.
+</Description>
+
+</ManSection>
+
+<ManSection>
+
+<Attr Name="CombinatorialMapOfGentleAlgebra", Label="algebra", Arg="A" />
+
+<Description> Argument : <Arg>A</Arg> -- a gentle algebra.
+</Description>
+
+<Returns> the combinatorial map corresponding to the Brauer Graph of the trivial extension of <Arg>algebra</Arg> with regard to its dual.
+
+<Description> The function assumes that <Arg>algebra</Arg> is gentle.
+</Description>
+
+</ManSection>
+
+<ManSection>
+
+<Attr Name="MarkedBoundariesOfCombinatorialMap", Label="map", Arg="map" />
+
+<Description> Argument : <Arg>map</Arg> -- a combinatorial map.
+</Description>
+
+<Returns> a list consisting of pairs [Face,numberofmarkedpoints] where Face is a face of the combinatorial map <Arg>map</Arg> and numberofmarkedpoints is the number of marked half-edges on the corresponding boundary component.
+    
+</ManSection>
+    
+<ManSection>
+
+<Oper Name="WindingNumber", Label="map, curve", Arg="map,gamma" />
+    
+<Description> Argument : <Arg>map</Arg> -- a combinatorial map, <Arg>gamma</Arg> -- a list of half-edges forming a closed curve on the surface.
+</Description>
+    
+<Returns> the combinatorial winding number of <Arg>gamma</Arg> on the dissected surface given by <Arg>map</Arg>.
+
+</ManSection>
+    
+<ManSection>
+
+<Attr Name="BoundaryCurvesOfCombinatorialMap", Label="map", Arg="map" />
+
+
+<Description> Argument : <Arg>map</Arg> -- a combinatorial map.
+</Description>
+
+<Returns> a list whose elements are lists of half-edges of the combiantorial map <map>. Each of these lists corresponds to a closed curve homotopic to a boundary component of the surface represented by <map>.
+
+<Description> The closed curves are represented by a list of adjacent half-edges. The orientation of these curves is chosen so that the corresponding boundary component is to the right. The returned curves correspond to the curves in minimal position in regards to the dual dissection of the surface. In the case of the disk, the boundary curve is trivial and the empty list is returned.
+</Description>
+
+</ManSection>
+
+
+<ManSection>
+
+<Oper Name="DepthSearchCombinatorialMap", Label="map, halfedge", Arg="combmap,x" />
+
+<Description> Argument : <Arg>map</Arg> -- a combinatorial map, <Arg>x</Arg> -- a half-edge of <Arg>map</Arg>
+</Description>
+
+<Returns> a list of pairs of paired half-edges of the combinatorial map <Arg>map</Arg> corresponding to the cover tree of the underlying graph of <Arg>map</Arg> obtained by a depth first search with root the vertex to which is attached <Arg>x</Arg>.
+
+
+<Description> The paired half-edges of the cover tree are oriented towards the root of the cover tree.
+</Description>
+
+</ManSection>
+
+<ManSection>
+
+<Oper Name="WidthSearchCombinatorialMap", Label="map, halfedge", Arg="combmap,x" />
+
+<Description> Argument : <Arg>map</Arg> -- a combinatorial map, <Arg>x</Arg> -- a half-edge of <Arg>map</Arg>
+</Description>
+
+<Returns> a list of pairs of paired half-edges of the combinatorial map <Arg>map</Arg> corresponding to the cover tree of the underlying graph of <Arg>map</Arg> obtained by a width first search with root the vertex to which is attached <Arg>x</Arg>.
+
+
+<Description> The paired half-edges of the cover tree are oriented towards the root of the cover tree.
+</Description>
+
+</ManSection>
+
+<ManSection>
+
+<Attr Name="NonSeperatingCurve", Label="map", Arg="map" />
+
+<Description> Argument : <Arg>map</Arg> -- a combinatorial map.
+</Description>
+
+<Returns> a list of half-edges of the combinatorial map <Arg>map</Arg> corresponding to a non-seperating closed curve of the surface.
+
+<Description> This function must be used on a combinatorial map of genus at least one.
+</Description>
+
+</ManSection>
+
+<ManSection>
+
+<Oper Name="CutNonSepCombinatorialMap", Label="map, curve, index", Arg="map, alpha, index" />
+
+<Description> Arguments : <Arg>map</Arg> -- a combinatorial map, <Arg>alpha</Arg> -- a list of half-edges, <Arg>index</Arg> -- a list.
+</Description>
+
+<Returns> a triplet [newmap, [boundary1,boundary2], newindex] where newmap is the combinatorial map obtained by cutting the surface represented by <Arg>map</Arg> along the closed curve <Arg>curve</Arg>. The lists boundary1 and boundary2 are the boundaries of newmap that were created by the cut.
+
+<Description> The argument <Arg>index</Arg> is a list whose i-th element is the half-edge to which i corresponds in some original combinatorial map. The result newindex is the updated index for newmap where all created half-edges are added.
+</Description>
+
+</ManSection>
+
+<ManSection>
+
+<Oper Name="JoinCurveCombinatorialMap", Label="map, boundary1, boundary2, index", Arg="map, bound1, bound2, index" />
+
+<Description> Arguments : <Arg>map</Arg> -- a combinatorial map, <Arg>boundary1</Arg> -- a list of half-edges, <Arg>boundary2</Arg> -- a list of half-edges, <Arg>index</Arg> -- a list.
+</Description>
+
+<Returns> a list corresponding to a simple curve of <Arg>map</Arg> joining the two boundaries <Arg>boundary1</Arg> and <Arg>boundary2</Arg> in such a way that using <Arg>index</Arg> it corresponds to a closed curve on the original combinatorial map.
+
+<Description> The list consists of adjacent half-edges of <Arg>map</Arg> which form the closed curve.
+</Description>
+
+</ManSection>
+
+<ManSection>
+
+<Oper Name="CutJoinCurveCombinatorialMap", Label="map, boundary1, boundary2, curve, index", Arg="map, bound1, bound2, beta, index" />
+
+
+<Description> Arguments : <Arg>map</Arg> -- a combinatorial map, <Arg>boundary1</Arg> -- a list of half-edges, <Arg>boundary2</Arg> -- a list of half-edges, <Arg>beta</Arg> -- a list of half-edges corresponding to a curve, <Arg>index</Arg> -- a list.
+</Description>
+
+<Returns> the pair [newmap, newindex] where newmap is the combinatorial map obtained by cutting the combinatorial map <Arg>map</Arg> along <Arg>curve</Arg> which has to be a simple curve joining <Arg>boundary1</Arg> and <Arg>boundary2</Arg>
+    
+</ManSection>
+
+
+<ManSection>
+    
+<Attr Name="HomologyBasisOfCombinatorialMap", Label="map", Arg="map" />
+
+<Description> Argument : <Arg>map</Arg> -- a combinatorial map. </Description>
+
+<Returns> a list of pairs [a_i,b_i] where a_i and b_i are lists of half-edges of the combinatorial map <Arg>map</Arg> forming a closed curve such that the a_i and b_i form a simplectic basis of the first homology group of the surface represented by <Arg>map</Arg> for the intersection form.
+
+</ManSection>
+
+    
+<ManSection>
+    
+<Oper Name="AreDerivedEquivalent", Label="A,B", Arg="A,B" />
+
+<Description> Arguments : <Arg>A</Arg> -- a gentle algebra, <Arg>B</Arg> -- a gentle algebra. </Descrption>
+
+<Returns> true if <Arg>A</Arg> and <Arg>B</Arg> are derived equivalent and false otherwise. The arguments must be gentle algebras over the same field.
+
+</ManSection>
+
+
+
+
+</Section>
 </Chapter>
