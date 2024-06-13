@@ -170,7 +170,7 @@ matrices with 2 along the diagonal.
 
 <ManSection>
 
-<Oper Name="CombinatorialMap", Label="combinatorialmap" Arg="n, sigma, iota, m" />
+<Oper Name="CombinatorialMap" Label="combinatorialmap" Arg="n, sigma, iota, m" />
 
 <Description> Arguments : <Arg>n</Arg> -- number of half-edges, <Arg>sigma</Arg> -- a permutation specifying the ordering of half-edges aroud vertices, <Arg>iota</Arg> -- an involution pairing the half-edges, <Arg>m</Arg> -- a list of marked half-edges
 </Description>
@@ -186,7 +186,7 @@ matrices with 2 along the diagonal.
 
 <ManSection>
 
-<Attr Name="FacesOfCombinatorialMap", Label="map", Arg="map" />
+<Attr Name="FacesOfCombinatorialMap" Label="map" Arg="map" />
 
 <Description> Argument : <Arg>map</Arg> -- a combinatorial map.
 </Description>
@@ -201,7 +201,7 @@ matrices with 2 along the diagonal.
 
 <ManSection>
 
-<Attr Name="GenusOfCombinatorialMap", Label="map", Arg="map" />
+<Attr Name="GenusOfCombinatorialMap" Label="map" Arg="map" />
 
 <Description> Argument : <Arg>map</Arg> -- a combinatorial map.
 </Description>
@@ -212,7 +212,7 @@ matrices with 2 along the diagonal.
     
 <ManSection>
 
-<Attr Name="DualOfCombinatorialMap", Label="map", Arg="map" />
+<Attr Name="DualOfCombinatorialMap" Label="map" Arg="map" />
 
 <Description> Argument : <Arg>map</Arg> -- a combinatorial map.
 </Description>
@@ -223,7 +223,7 @@ matrices with 2 along the diagonal.
 
 <ManSection>
 
-<Attr Name="MaximalPathsOfGentleAlgebra", Label="algebra", Arg="A" />
+<Attr Name="MaximalPathsOfGentleAlgebra" Label="algebra" Arg="A" />
 
 <Description> Argument : <Arg>A</Arg> -- a gentle algebra.
 </Description>
@@ -238,7 +238,7 @@ matrices with 2 along the diagonal.
     
 <ManSection>
     
-<Oper Name="RemoveEdgeOfCombinatorialMap", Label="map, edge", Arg="combmap,E" />
+<Oper Name="RemoveEdgeOfCombinatorialMap" Label="map, edge" Arg="combmap,E" />
 
 <Description> Argument : <Arg>map</Arg> -- a combinatorial map, <Arg>edge</Arg> -- a list of two paired half-edges.
 </Description>
@@ -253,7 +253,7 @@ matrices with 2 along the diagonal.
 
 <ManSection>
 
-<Attr Name="CombinatorialMapOfGentleAlgebra", Label="algebra", Arg="A" />
+<Attr Name="CombinatorialMapOfGentleAlgebra" Label="algebra" Arg="A" />
 
 <Description> Argument : <Arg>A</Arg> -- a gentle algebra.
 </Description>
@@ -267,7 +267,7 @@ matrices with 2 along the diagonal.
 
 <ManSection>
 
-<Attr Name="MarkedBoundariesOfCombinatorialMap", Label="map", Arg="map" />
+<Attr Name="MarkedBoundariesOfCombinatorialMap" Label="map" Arg="map" />
 
 <Description> Argument : <Arg>map</Arg> -- a combinatorial map.
 </Description>
@@ -278,7 +278,7 @@ matrices with 2 along the diagonal.
     
 <ManSection>
 
-<Oper Name="WindingNumber", Label="map, curve", Arg="map,gamma" />
+<Oper Name="WindingNumber" Label="map, curve" Arg="map,gamma" />
     
 <Description> Argument : <Arg>map</Arg> -- a combinatorial map, <Arg>gamma</Arg> -- a list of half-edges forming a closed curve on the surface.
 </Description>
@@ -289,7 +289,7 @@ matrices with 2 along the diagonal.
     
 <ManSection>
 
-<Attr Name="BoundaryCurvesOfCombinatorialMap", Label="map", Arg="map" />
+<Attr Name="BoundaryCurvesOfCombinatorialMap" Label="map" Arg="map" />
 
 
 <Description> Argument : <Arg>map</Arg> -- a combinatorial map.
@@ -305,7 +305,7 @@ matrices with 2 along the diagonal.
 
 <ManSection>
 
-<Oper Name="DepthSearchCombinatorialMap", Label="map, halfedge", Arg="combmap,x" />
+<Oper Name="DepthSearchCombinatorialMap" Label="map, halfedge" Arg="combmap,x" />
 
 <Description> Argument : <Arg>map</Arg> -- a combinatorial map, <Arg>x</Arg> -- a half-edge of <Arg>map</Arg>
 </Description>
@@ -320,7 +320,7 @@ matrices with 2 along the diagonal.
 
 <ManSection>
 
-<Oper Name="WidthSearchCombinatorialMap", Label="map, halfedge", Arg="combmap,x" />
+<Oper Name="WidthSearchCombinatorialMap" Label="map, halfedge" Arg="combmap,x" />
 
 <Description> Argument : <Arg>map</Arg> -- a combinatorial map, <Arg>x</Arg> -- a half-edge of <Arg>map</Arg>
 </Description>
@@ -335,7 +335,7 @@ matrices with 2 along the diagonal.
 
 <ManSection>
 
-<Attr Name="NonSeperatingCurve", Label="map", Arg="map" />
+<Attr Name="NonSeperatingCurve" Label="map" Arg="map" />
 
 <Description> Argument : <Arg>map</Arg> -- a combinatorial map.
 </Description>
@@ -349,7 +349,7 @@ matrices with 2 along the diagonal.
 
 <ManSection>
 
-<Oper Name="CutNonSepCombinatorialMap", Label="map, curve, index", Arg="map, alpha, index" />
+<Oper Name="CutNonSepCombinatorialMap" Label="map, curve, index" Arg="map, alpha, index" />
 
 <Description> Arguments : <Arg>map</Arg> -- a combinatorial map, <Arg>alpha</Arg> -- a list of half-edges, <Arg>index</Arg> -- a list.
 </Description>
@@ -363,7 +363,7 @@ matrices with 2 along the diagonal.
 
 <ManSection>
 
-<Oper Name="JoinCurveCombinatorialMap", Label="map, boundary1, boundary2, index", Arg="map, bound1, bound2, index" />
+<Oper Name="JoinCurveCombinatorialMap" Label="map, boundary1, boundary2, index" Arg="map, bound1, bound2, index" />
 
 <Description> Arguments : <Arg>map</Arg> -- a combinatorial map, <Arg>boundary1</Arg> -- a list of half-edges, <Arg>boundary2</Arg> -- a list of half-edges, <Arg>index</Arg> -- a list.
 </Description>
@@ -377,7 +377,7 @@ matrices with 2 along the diagonal.
 
 <ManSection>
 
-<Oper Name="CutJoinCurveCombinatorialMap", Label="map, boundary1, boundary2, curve, index", Arg="map, bound1, bound2, beta, index" />
+<Oper Name="CutJoinCurveCombinatorialMap" Label="map, boundary1, boundary2, curve, index" Arg="map, bound1, bound2, beta, index" />
 
 
 <Description> Arguments : <Arg>map</Arg> -- a combinatorial map, <Arg>boundary1</Arg> -- a list of half-edges, <Arg>boundary2</Arg> -- a list of half-edges, <Arg>beta</Arg> -- a list of half-edges corresponding to a curve, <Arg>index</Arg> -- a list.
@@ -390,7 +390,7 @@ matrices with 2 along the diagonal.
 
 <ManSection>
     
-<Attr Name="HomologyBasisOfCombinatorialMap", Label="map", Arg="map" />
+<Attr Name="HomologyBasisOfCombinatorialMap" Label="map" Arg="map" />
 
 <Description> Argument : <Arg>map</Arg> -- a combinatorial map. </Description>
 
@@ -401,7 +401,7 @@ matrices with 2 along the diagonal.
     
 <ManSection>
     
-<Oper Name="AreDerivedEquivalent", Label="A,B", Arg="A,B" />
+<Oper Name="AreDerivedEquivalent" Label="A,B" Arg="A,B" />
 
 <Description> Arguments : <Arg>A</Arg> -- a gentle algebra, <Arg>B</Arg> -- a gentle algebra. </Descrption>
 
