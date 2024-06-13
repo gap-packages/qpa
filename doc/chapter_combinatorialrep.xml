@@ -170,7 +170,7 @@ matrices with 2 along the diagonal.
 
 <ManSection>
 
-<Oper Name="CombinatorialMap", Label="size, ordering, pairing, marked edges" Arg="n, sigma, iota, m" />
+<Oper Name="CombinatorialMap", Label="combinatorialmap" Arg="n, sigma, iota, m" />
 
 <Description> Arguments : <Arg>n</Arg> -- number of half-edges, <Arg>sigma</Arg> -- a permutation specifying the ordering of half-edges aroud vertices, <Arg>iota</Arg> -- an involution pairing the half-edges, <Arg>m</Arg> -- a list of marked half-edges
 </Description>
