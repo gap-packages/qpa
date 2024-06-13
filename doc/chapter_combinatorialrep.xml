@@ -191,7 +191,7 @@ matrices with 2 along the diagonal.
 <Description> Argument : <Arg>map</Arg> -- a combinatorial map.
 </Description>
 
-<Returns> the list of faces of the combinatorial map <Arg>map</Arg>. </Returns
+<Returns> the list of faces of the combinatorial map <Arg>map</Arg>. </Returns>
     
 <Description>
     The faces are given by a list of half-edges of <Arg>map</Arg>.
@@ -206,7 +206,7 @@ matrices with 2 along the diagonal.
 <Description> Argument : <Arg>map</Arg> -- a combinatorial map.
 </Description>
 
-<Returns> the genus of the surface represented by the combinatorial map <Arg>map</Arg>.
+<Returns> the genus of the surface represented by the combinatorial map <Arg>map</Arg>.</Returns>
     
 </ManSection>
     
@@ -217,7 +217,7 @@ matrices with 2 along the diagonal.
 <Description> Argument : <Arg>map</Arg> -- a combinatorial map.
 </Description>
 
-<Returns> the dual combinatorial map of <Arg>map</Arg>.
+<Returns> the dual combinatorial map of <Arg>map</Arg>. </Returns>
 
 </ManSection>
 
@@ -228,7 +228,7 @@ matrices with 2 along the diagonal.
 <Description> Argument : <Arg>A</Arg> -- a gentle algebra.
 </Description>
 
-<Returns> the list of maximal paths of the quiver with relations defining <Arg>A</Arg>.
+<Returns> the list of maximal paths of the quiver with relations defining <Arg>A</Arg>. </Returns>
     
 <Description>
     Only returns paths of non-zero length.
@@ -243,7 +243,9 @@ matrices with 2 along the diagonal.
 <Description> Argument : <Arg>map</Arg> -- a combinatorial map, <Arg>edge</Arg> -- a list of two paired half-edges.
 </Description>
 
-<Returns> the combinatorial map obtained by removing <Arg>edge</Arg> from the combinatorial map <Arg>map</Arg>.
+<Returns> the combinatorial map obtained by removing <Arg>edge</Arg>
+from the combinatorial map <Arg>map</Arg>. </Returns>
+
     
 <Description>
     The argument <Arg>edge</Arg> has to be a list consisting of two half-edges of <Arg>map</Arg> that are paired. The returned combinatorial map does not change size, the two removed half-edges are now fixed by the pairing and ordering so do not appear in non-trivial orbits.
@@ -258,7 +260,9 @@ matrices with 2 along the diagonal.
 <Description> Argument : <Arg>A</Arg> -- a gentle algebra.
 </Description>
 
-<Returns> the combinatorial map corresponding to the Brauer Graph of the trivial extension of <Arg>algebra</Arg> with regard to its dual.
+<Returns> the combinatorial map corresponding to the Brauer Graph of
+the trivial extension of <Arg>algebra</Arg> with regard to its dual. </Returns>
+
 
 <Description> The function assumes that <Arg>algebra</Arg> is gentle.
 </Description>
@@ -272,7 +276,11 @@ matrices with 2 along the diagonal.
 <Description> Argument : <Arg>map</Arg> -- a combinatorial map.
 </Description>
 
-<Returns> a list consisting of pairs [Face,numberofmarkedpoints] where Face is a face of the combinatorial map <Arg>map</Arg> and numberofmarkedpoints is the number of marked half-edges on the corresponding boundary component.
+<Returns> a list consisting of pairs [Face,numberofmarkedpoints] where
+Face is a face of the combinatorial map <Arg>map</Arg> and
+numberofmarkedpoints is the number of marked half-edges on the
+corresponding boundary component. </Returns>
+
     
 </ManSection>
     
@@ -283,7 +291,9 @@ matrices with 2 along the diagonal.
 <Description> Argument : <Arg>map</Arg> -- a combinatorial map, <Arg>gamma</Arg> -- a list of half-edges forming a closed curve on the surface.
 </Description>
     
-<Returns> the combinatorial winding number of <Arg>gamma</Arg> on the dissected surface given by <Arg>map</Arg>.
+<Returns> the combinatorial winding number of <Arg>gamma</Arg> on the
+dissected surface given by <Arg>map</Arg>. </Returns>
+
 
 </ManSection>
     
@@ -295,7 +305,11 @@ matrices with 2 along the diagonal.
 <Description> Argument : <Arg>map</Arg> -- a combinatorial map.
 </Description>
 
-<Returns> a list whose elements are lists of half-edges of the combiantorial map <map>. Each of these lists corresponds to a closed curve homotopic to a boundary component of the surface represented by <map>.
+<Returns> a list whose elements are lists of half-edges of the
+combiantorial map <Arg>map</Arg>. Each of these lists corresponds to a closed
+curve homotopic to a boundary component of the surface represented by
+<Arg>map</Arg>. </Returns>
+
 
 <Description> The closed curves are represented by a list of adjacent half-edges. The orientation of these curves is chosen so that the corresponding boundary component is to the right. The returned curves correspond to the curves in minimal position in regards to the dual dissection of the surface. In the case of the disk, the boundary curve is trivial and the empty list is returned.
 </Description>
@@ -310,7 +324,11 @@ matrices with 2 along the diagonal.
 <Description> Argument : <Arg>map</Arg> -- a combinatorial map, <Arg>x</Arg> -- a half-edge of <Arg>map</Arg>
 </Description>
 
-<Returns> a list of pairs of paired half-edges of the combinatorial map <Arg>map</Arg> corresponding to the cover tree of the underlying graph of <Arg>map</Arg> obtained by a depth first search with root the vertex to which is attached <Arg>x</Arg>.
+<Returns> a list of pairs of paired half-edges of the combinatorial
+map <Arg>map</Arg> corresponding to the cover tree of the underlying
+graph of <Arg>map</Arg> obtained by a depth first search with root the
+vertex to which is attached <Arg>x</Arg>. </Returns>
+
 
 
 <Description> The paired half-edges of the cover tree are oriented towards the root of the cover tree.
@@ -325,8 +343,10 @@ matrices with 2 along the diagonal.
 <Description> Argument : <Arg>map</Arg> -- a combinatorial map, <Arg>x</Arg> -- a half-edge of <Arg>map</Arg>
 </Description>
 
-<Returns> a list of pairs of paired half-edges of the combinatorial map <Arg>map</Arg> corresponding to the cover tree of the underlying graph of <Arg>map</Arg> obtained by a width first search with root the vertex to which is attached <Arg>x</Arg>.
-
+<Returns> a list of pairs of paired half-edges of the combinatorial
+map <Arg>map</Arg> corresponding to the cover tree of the underlying
+graph of <Arg>map</Arg> obtained by a width first search with root the
+vertex to which is attached <Arg>x</Arg>. </Returns>
 
 <Description> The paired half-edges of the cover tree are oriented towards the root of the cover tree.
 </Description>
@@ -340,7 +360,9 @@ matrices with 2 along the diagonal.
 <Description> Argument : <Arg>map</Arg> -- a combinatorial map.
 </Description>
 
-<Returns> a list of half-edges of the combinatorial map <Arg>map</Arg> corresponding to a non-seperating closed curve of the surface.
+<Returns> a list of half-edges of the combinatorial map <Arg>map</Arg>
+corresponding to a non-seperating closed curve of the surface. </Returns>
+
 
 <Description> This function must be used on a combinatorial map of genus at least one.
 </Description>
@@ -354,9 +376,17 @@ matrices with 2 along the diagonal.
 <Description> Arguments : <Arg>map</Arg> -- a combinatorial map, <Arg>alpha</Arg> -- a list of half-edges, <Arg>index</Arg> -- a list.
 </Description>
 
-<Returns> a triplet [newmap, [boundary1,boundary2], newindex] where newmap is the combinatorial map obtained by cutting the surface represented by <Arg>map</Arg> along the closed curve <Arg>curve</Arg>. The lists boundary1 and boundary2 are the boundaries of newmap that were created by the cut.
+<Returns> a triplet [newmap, [boundary1,boundary2], newindex] where
+newmap is the combinatorial map obtained by cutting the surface
+represented by <Arg>map</Arg> along the closed curve
+<Arg>curve</Arg>. The lists boundary1 and boundary2 are the boundaries
+of newmap that were created by the cut. </Returns>
 
-<Description> The argument <Arg>index</Arg> is a list whose i-th element is the half-edge to which i corresponds in some original combinatorial map. The result newindex is the updated index for newmap where all created half-edges are added.
+
+<Description> The argument <Arg>index</Arg> is a list whose i-th
+element is the half-edge to which i corresponds in some original
+combinatorial map. The result newindex is the updated index for newmap
+where all created half-edges are added.
 </Description>
 
 </ManSection>
@@ -368,7 +398,11 @@ matrices with 2 along the diagonal.
 <Description> Arguments : <Arg>map</Arg> -- a combinatorial map, <Arg>boundary1</Arg> -- a list of half-edges, <Arg>boundary2</Arg> -- a list of half-edges, <Arg>index</Arg> -- a list.
 </Description>
 
-<Returns> a list corresponding to a simple curve of <Arg>map</Arg> joining the two boundaries <Arg>boundary1</Arg> and <Arg>boundary2</Arg> in such a way that using <Arg>index</Arg> it corresponds to a closed curve on the original combinatorial map.
+<Returns> a list corresponding to a simple curve of <Arg>map</Arg>
+joining the two boundaries <Arg>boundary1</Arg> and
+<Arg>boundary2</Arg> in such a way that using <Arg>index</Arg> it
+corresponds to a closed curve on the original combinatorial
+map. </Returns>
 
 <Description> The list consists of adjacent half-edges of <Arg>map</Arg> which form the closed curve.
 </Description>
@@ -383,7 +417,10 @@ matrices with 2 along the diagonal.
 <Description> Arguments : <Arg>map</Arg> -- a combinatorial map, <Arg>boundary1</Arg> -- a list of half-edges, <Arg>boundary2</Arg> -- a list of half-edges, <Arg>beta</Arg> -- a list of half-edges corresponding to a curve, <Arg>index</Arg> -- a list.
 </Description>
 
-<Returns> the pair [newmap, newindex] where newmap is the combinatorial map obtained by cutting the combinatorial map <Arg>map</Arg> along <Arg>curve</Arg> which has to be a simple curve joining <Arg>boundary1</Arg> and <Arg>boundary2</Arg>
+<Returns> the pair [newmap, newindex] where newmap is the
+combinatorial map obtained by cutting the combinatorial map
+<Arg>map</Arg> along <Arg>curve</Arg> which has to be a simple curve
+joining <Arg>boundary1</Arg> and <Arg>boundary2</Arg></Returns>
     
 </ManSection>
 
@@ -394,7 +431,12 @@ matrices with 2 along the diagonal.
 
 <Description> Argument : <Arg>map</Arg> -- a combinatorial map. </Description>
 
-<Returns> a list of pairs [a_i,b_i] where a_i and b_i are lists of half-edges of the combinatorial map <Arg>map</Arg> forming a closed curve such that the a_i and b_i form a simplectic basis of the first homology group of the surface represented by <Arg>map</Arg> for the intersection form.
+<Returns> a list of pairs [a_i,b_i] where a_i and b_i are lists of
+half-edges of the combinatorial map <Arg>map</Arg> forming a closed
+curve such that the a_i and b_i form a simplectic basis of the first
+homology group of the surface represented by <Arg>map</Arg> for the
+intersection form. </Returns>
+
 
 </ManSection>
 
@@ -403,9 +445,12 @@ matrices with 2 along the diagonal.
     
 <Oper Name="AreDerivedEquivalent" Label="A,B" Arg="A,B" />
 
-<Description> Arguments : <Arg>A</Arg> -- a gentle algebra, <Arg>B</Arg> -- a gentle algebra. </Descrption>
+<Description> Arguments : <Arg>A</Arg> -- a gentle algebra, <Arg>B</Arg> -- a gentle algebra. </Description>
 
-<Returns> true if <Arg>A</Arg> and <Arg>B</Arg> are derived equivalent and false otherwise. The arguments must be gentle algebras over the same field.
+<Returns> true if <Arg>A</Arg> and <Arg>B</Arg> are derived equivalent
+and false otherwise. The arguments must be gentle algebras over the
+same field. </Returns>
+
 
 </ManSection>
 
