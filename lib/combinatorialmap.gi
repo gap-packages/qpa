@@ -1061,7 +1061,7 @@ InstallMethod( AreDerivedEquivalent ,
         od;
         
         for pair in wnumberBasisA do
-            if IsOddInt(pair[1]) or IsOddInt[pair[2]] then
+            if IsOddInt( pair[1] ) or IsOddInt( pair[2] ) then
                 oddA := true;
             fi;
         od;
@@ -1073,7 +1073,7 @@ InstallMethod( AreDerivedEquivalent ,
         od;
         
         for pair in wnumberBasisA do
-            if IsOddInt(pair[1]) or IsOddInt[pair[2]] then
+            if IsOddInt( pair[1] ) or IsOddInt( pair[2] ) then
                 oddA := true;
             fi;
         od;
