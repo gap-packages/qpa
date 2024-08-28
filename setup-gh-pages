@@ -89,18 +89,20 @@ git remote add -f gh-gap https://github.com/gap-system/GitHubPagesForGAP 2>/dev/
 # there is a ${remote}/gh-pages branch, create `gh-pages` tracking
 # the remote; otherwise, create a fresh `gh-pages` branch
 IsNewBranch=No
-if ! git rev-parse -q --verify gh-pages
+if git rev-parse -q --verify gh-pages
 then
+    notice "Using existing gh-pages branch"
+else
     # fetch remote changes, so that we can see if there
     # is a remote gh-pages branch
     git fetch ${remote}
 
     if git rev-parse -q --verify ${remote}/gh-pages
     then
-        # track the existing remote gh-pages branch
+        notice "Track existing remote gh-pages branch"
         git branch --track gh-pages ${remote}/gh-pages
     else
-        # create a fresh gh-pages branch from the new remote
+        notice "Create a fresh gh-pages branch"
         git branch --no-track gh-pages gh-gap/gh-pages
 
         # ... then push it and set up tracking
@@ -120,6 +122,8 @@ fi
 
 if [[ ${IsNewBranch} = Yes ]]
 then
+    notice "Updating new gh-pages branch"
+
     cp -f ../PackageInfo.g ../README* .
 
     [[ -d doc ]] && git rm -rf doc
