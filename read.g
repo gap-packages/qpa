@@ -24,6 +24,7 @@ ReadPackage("QPA", "lib/moduledecomp.gi");
 ReadPackage("QPA", "lib/idempotent.gi");
 ReadPackage("QPA", "lib/gbnp.gi");
 ReadPackage("QPA", "lib/gbhighlevel.gi");
+ReadPackage("QPA", "lib/invlenlexgrb.gi");
 ReadPackage("QPA", "lib/moduleprojres.gi");
 ReadPackage("QPA", "lib/pathalgtensor.gi");
 ReadPackage("QPA", "lib/pathalgpredef.gi");

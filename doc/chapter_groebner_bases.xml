@@ -319,4 +319,138 @@ supported in the future.
 </ManSection>
 
 </Section>
+
+<Section><Heading>Constructing a Groebner Basis for inverse length ordeing</Heading>
+
+<ManSection>
+   <Oper Name="TipInvLenInvLex" Arg="e" Comm=""/>
+   <Description>
+     Arguments: <Arg>e</Arg> -- an element of a path algebra.<Br />
+   </Description>
+   <Returns>the tip of the element <Arg>e</Arg> under the inverse
+   length inverse lexicographic ordering. 
+   </Returns>
+</ManSection>
+
+<ManSection>
+   <Oper Name="TipCoefficientInvLenInvLex" Arg="e" Comm=""/>
+   <Description>
+     Arguments: <Arg>e</Arg> -- an element of a path algebra.<Br />
+   </Description>
+   <Returns>the coefficient of the tip of the element <Arg>e</Arg> under the inverse
+   length inverse lexicographic ordering. 
+   </Returns>
+</ManSection>
+
+<ManSection>
+   <Oper Name="TipMonomialInvLenInvLex" Arg="e" Comm=""/>
+   <Description>
+     Arguments: <Arg>e</Arg> -- element of a path algebra.<Br />
+   </Description>
+   <Returns>the path/monomial which is the tip of the element <Arg>e</Arg> under the inverse
+   length inverse lexicographic ordering. 
+   </Returns>
+</ManSection>
+
+<ManSection>
+   <Oper Name="TipWalkInvLenInvLex" Arg="e" Comm=""/>
+   <Description>
+     Arguments: <Arg>e</Arg> -- element of a path algebra.<Br />
+   </Description>
+   <Returns>the path/monomial which is the tip of the element
+   <Arg>e</Arg> under the inverse length inverse lexicographic
+   ordering as a list of arrows in the underlying quiver. 
+   </Returns>
+</ManSection>
+
+<ManSection>
+   <Oper Name="GroebnerBasisInvLenInvLex" Arg="els, A" Comm=""/>
+   <Description>
+     Arguments: <Arg>els</Arg>, <Arg>A</Arg>  -- a list of elements in
+     an algebra and an algebra.<Br />
+   </Description>
+   <Returns>a Groebner basis for an admissible ideal with generators
+   <Arg>els</Arg> in a path algebra <Arg>A</Arg>. 
+   </Returns>
+</ManSection>
+
+<ManSection>
+   <Oper Name="RemainderOfDivisionInvLenInvLexGroebnerBasis" Arg="y,
+								  X, A" Comm=""/>
+   <Description>
+     Arguments: <Arg>y</Arg>, <Arg>X</Arg>, <Arg>A</Arg>-- an element
+     and a list of elements in a path algebra, and a path algebra.<Br />
+   </Description>
+   <Returns>the remainder of reducing <Arg>y</Arg> modulo the list of
+   elements <Arg>X</Arg> in the path algebra <Arg>A</Arg>. 
+   </Returns>
+</ManSection>
+
+ <ManSection>
+   <Oper Name="ReducedListInvLenInvLexQPA" Arg="" Comm=""/>
+   <Description>
+     Arguments: <Arg>els</Arg>, <Arg>A</Arg>  -- a list of elements in
+     a path algebra and a path algebra.<Br />
+   </Description>
+   <Returns>a reduced list of the elements <Arg>els</Arg> by computing
+   the remainder of an element on the list by the previous elements on
+   the list by first starting with the last element on the list and
+   moving forward on the list.  
+   </Returns>
+ </ManSection>
+
+ <ManSection>
+   <Oper Name="TipReducedListInvLenInvLex" Arg="els, A" Comm=""/>
+   <Description>
+     Arguments: <Arg>els</Arg>, <Arg>A</Arg>  -- a list of elements in
+     a path algebra and a path algebra.<Br />
+   </Description>
+   <Returns>a reduced list of which generate the same ideal of tips. 
+   </Returns>
+ </ManSection>
+
+  <ManSection>
+   <Oper Name="LeftmostOccurrenceInvLenInvLex" Arg="b, c" Comm=""/>
+   <Description>
+     Arguments: <Arg>b</Arg>,  <Arg>c</Arg> -- two list of elements.<Br />
+   </Description>
+   <Returns>the leftmost occurrence of the list <Arg>c</Arg> in the
+   list <Arg>b</Arg> if it exists, otherwise it returns fail.
+   </Returns>
+ </ManSection>
+
+  <ManSection>
+   <Oper Name="BiggestHomogeneousPartInvLenInvLex" Arg="e" Comm=""/>
+   <Description>
+     Arguments: <Arg>e</Arg> -- an IsElementOfMagmaRingModuloRelations.<Br />
+   </Description>
+   <Returns>the biggest homogeneous part of the element <Arg>e</Arg>
+   under the inverse length inverse lexicographic ordering.
+   </Returns>
+ </ManSection>
+
+  <ManSection>
+   <Oper Name="BiggestHomogeneousPartInvLenInvLex" Arg="elems" Comm=""/>
+   <Description>
+     Arguments: <Arg>elems</Arg> -- a list of elements in a path algebra.<Br />
+   </Description>
+   <Returns>the list of the biggest homogeneous part of each element
+   in the list <Arg>elems</Arg> under the inverse length inverse
+   lexicographic ordering. 
+   </Returns>
+  </ManSection>
+
+  <ManSection>
+   <Oper Name="TruncateElement" Arg="elem, s" Comm=""/>
+   <Description>
+     Arguments: <Arg>elem</Arg>, <Arg>s</Arg> -- an element in a path
+     algebra and a positive integer.<Br />
+   </Description>
+   <Returns>the part of the element <Arg>elem</Arg> which consists of
+   the paths of length less than <Arg>s</Arg>.
+   </Returns>
+ </ManSection>
+
+</Section>
+
 </Chapter>
