@@ -2632,6 +2632,38 @@ InstallMethod ( AssignGeneratorVariables,
 end 
 );
 
+InstallMethod( AssociatedGradedAlgebra,
+  "for an admissible path algebra",
+  [ IsQuiverAlgebra ],
+  function( A )
+
+  local rels, kQ, admiss, fam, I, grb, assrels;
+
+  if not IsFiniteDimensional( A ) then
+     Error( "The entered algebra is not finite dimensional.\n" );
+  fi;
+  if IsPathAlgebra( A ) then
+    return A;
+  fi;
+  
+  rels := RelationsOfAlgebra( A );
+  kQ := OriginalPathAlgebra( A );
+  if HasIsAdmissibleQuotientOfPathAlgebra( A ) then
+     admiss := IsAdmissibleQuotientOfPathAlgebra( A );
+  else
+    fam := ElementsFamily( FamilyObj( A ) );
+    I := fam!.ideal;
+    if not IsAdmissibleIdeal( I ) then
+      Error( "The entered algebra is not an admissible quotient of a path algebra.\n" );
+    fi;
+  fi;
+  grb := GroebnerBasisInvLenInvLex( rels, kQ );
+  assrels :=  BiggestHomogeneousPartInvLenInvLex( grb );
+
+  return kQ / assrels;
+end
+);
+
 #######################################################################
 ##
 #O  AssociatedMonomialAlgebra( <M> )

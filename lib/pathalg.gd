@@ -93,6 +93,7 @@ DeclareAttribute( "FrobeniusForm", IsQuotientOfPathAlgebra );
 DeclareAttribute( "FrobeniusLinearFunctional", IsQuotientOfPathAlgebra );
 DeclareAttribute( "OrderOfNakayamaAutomorphism", IsQuotientOfPathAlgebra );
 DeclareAttribute( "AssociatedMonomialAlgebra", IsQuiverAlgebra );
+DeclareAttribute( "AssociatedGradedAlgebra", IsQuiverAlgebra );
 DeclareProperty( "IsMonomialAlgebra", IsQuiverAlgebra );
 DeclareOperation( "SaveAlgebra", [ IsQuiverAlgebra, IsString, IsString ]);
 DeclareOperation( "ReadAlgebra", [ IsString ]);

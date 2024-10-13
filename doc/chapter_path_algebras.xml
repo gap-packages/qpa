@@ -85,6 +85,17 @@ true
 <Section><Heading>Attributes and Operations for Path Algebras</Heading>
 
 <ManSection>
+  <Attr Name="AssociatedGradedAlgebra" Arg="A" />
+  <Description>
+    Arguments: <Arg>A</Arg> -- a quiver algebra.<Br />
+  </Description>
+  <Returns>
+    the associated graded algebra of  <Arg>A</Arg> with to the radical
+    filtration of the algebra. 
+  </Returns>
+</ManSection>
+
+<ManSection>
   <Attr Name="AssociatedMonomialAlgebra" Arg="A" />
   <Description>
     Arguments: <Arg>A</Arg> -- a quiver algebra.<Br />
