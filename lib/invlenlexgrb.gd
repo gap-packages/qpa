@@ -1,0 +1,12 @@
+DeclareOperation( "TipInvLenInvLex", [ IsRingElement ] );
+DeclareOperation( "TipCoefficientInvLenInvLex", [ IsRingElement ] );
+DeclareOperation( "TipMonomialInvLenInvLex", [ IsRingElement ] );
+DeclareOperation( "TipWalkInvLenInvLex", [ IsRingElement ] );
+DeclareOperation( "GroebnerBasisInvLenInvLex", [ IsList, IsPathAlgebra ] );
+DeclareOperation( "RemainderOfDivisionInvLenInvLexGroebnerBasis", [ IsElementOfMagmaRingModuloRelations, IsList, IsPathAlgebra ] );
+DeclareOperation( "ReducedListInvLenInvLexQPA", [ IsList, IsPathAlgebra ] );
+DeclareOperation( "TipReducedListInvLenInvLex", [ IsList, IsPathAlgebra ] );
+DeclareOperation( "LeftmostOccurrenceInvLenInvLex", [ IsList, IsList ] );
+DeclareOperation( "BiggestHomogeneousPartInvLenInvLex", [ IsElementOfMagmaRingModuloRelations ] );
+DeclareOperation( "BiggestHomogeneousPartInvLenInvLex", [ IsHomogeneousList ] );
+DeclareOperation( "TruncateElement", [ IsRingElement, IsPosInt ] );
