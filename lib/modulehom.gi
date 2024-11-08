@@ -3728,7 +3728,7 @@ InstallMethod( TraceOfModule,
     if Length(homMN) = 0 then
         return ZeroMapping(ZeroModule(RightActingAlgebra(N)),N);
     fi;
-    B := BasisVectors(Basis(M));
+    B := MinimalGeneratingSetOfModule( M );
     trace := Flat(List(B, b -> List(homMN, f -> ImageElm(f,b))));
     
     return SubRepresentationInclusion(N,trace);
