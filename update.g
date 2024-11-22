@@ -158,7 +158,9 @@ GeneratePackageYML:=function(pkg)
     od;
     AppendTo(stream, "\n");
 
-    AppendTo(stream, "status: ", pkg.Status, "\n");
+    if IsBound(pkg.Status) then
+        AppendTo(stream, "status: ", pkg.Status, "\n");
+    fi;
     if IsRecord(pkg.PackageDoc) then
         AppendTo(stream, "doc-html: ", pkg.PackageDoc.HTMLStart, "\n");
         AppendTo(stream, "doc-pdf: ", pkg.PackageDoc.PDFFile, "\n");
