@@ -432,3 +432,23 @@ InstallMethod ( ElementIn_vA_AsElementInIndecProj,
   return elem;
 end
 );
+
+InstallMethod( RandomModule, 
+    "for a QuiverAlgebra and a pair of positive integers",
+    true, 
+    [ IsQuiverAlgebra, IsPosInt, IsPosInt ], 0,
+    function( A, m, n )
+
+  local k, num_vert, P, P1, P0, homP1P0, random_f;
+
+    k := LeftActingDomain( A );
+    P := IndecProjectiveModules( A );
+    num_vert := Length( P );
+    P1 := DirectSumOfQPAModules( List( [ 1..m ], i -> P[ Random( [ 1..num_vert ] ) ] ) );
+    P0 := DirectSumOfQPAModules( List( [ 1..n ], i -> P[ Random( [ 1..num_vert ] ) ] ) ); 
+    homP1P0 := HomOverAlgebra( P1, P0 );
+    random_f := Sum( List( homP1P0, g -> Random( k ) * g ) );
+    
+    return CoKernel( random_f );
+end
+);

@@ -12,3 +12,4 @@ DeclareAttribute( "ZeroModule", IsQuiverAlgebra );
 DeclareAttribute( "BasisOfProjectives", IsQuiverAlgebra );  
 DeclareOperation( "ElementInIndecProjective", [ IsQuotientOfPathAlgebra, IsAlgebraModuleElement, IS_INT ]);
 DeclareOperation( "ElementIn_vA_AsElementInIndecProj", [ IsQuiverAlgebra, IsObject ] );
+DeclareOperation( "RandomModule", [ IsQuiverAlgebra, IsPosInt, IsPosInt ] );

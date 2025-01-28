@@ -850,6 +850,17 @@ gap> inc := DirectSumInclusions(N2);
 </ManSection>
 
 <ManSection>
+   <Oper Name="RandomModule" Arg="A, m, n" Comm=""/>
+   <Description> 
+    Arguments: <Arg>A, m, n</Arg> -- a quiver algebra module, two
+    positive integers.
+   <Br /></Description>
+   <Returns>a random module over the quiver algebra <Arg>A</Arg> with
+   a projective presentation <M>P_1 ---> P_0</M> where they have
+   <Arg>m</Arg> and <Arg>n</Arg> indecomposable projectives as direct summands.</Returns>
+</ManSection>
+
+<ManSection>
    <Oper Name="SocleSeries" Arg="M" Comm=""/>
    <Description> 
     Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>).
