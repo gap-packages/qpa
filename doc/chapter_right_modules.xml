@@ -852,7 +852,7 @@ gap> inc := DirectSumInclusions(N2);
 <ManSection>
    <Oper Name="RandomModule" Arg="A, m, n" Comm=""/>
    <Description> 
-    Arguments: <Arg>A, m, n</Arg> -- a quiver algebra module, two
+    Arguments: <Arg>A, m, n</Arg> -- a quiver algebra, two
     positive integers.
    <Br /></Description>
    <Returns>a random module over the quiver algebra <Arg>A</Arg> with
