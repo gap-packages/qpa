@@ -451,7 +451,6 @@ InstallMethod( RandomModule,
       P0 := DirectSumOfQPAModules( List( [ 1..n ], i -> P[ Random( [ 1..num_vert ] ) ] ) ); 
       homP1P0 := HomOverAlgebra( P1, P0 );
       if Length( homP1P0 ) > 0 then
-      	Print( "The value of i is: ",i,"\n" );
         random_f := Sum( List( homP1P0, g -> Random( k ) * g ) );
 	return CoKernel( random_f );
       fi;
