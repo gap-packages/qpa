@@ -4262,7 +4262,7 @@ InstallMethod( MatrixOfHomomorphismBetweenProjectives,
     fi;
     projections := DirectSumProjections( Range( f ) );
     if IsZero( Source( f ) ) then
-        return [ List( [ 1..Length( projections ) ], i -> zero ) ];
+        return TransposedMat( [ List( [ 1..Length( projections ) ], i -> zero ) ] );
     fi;
     inclusions := DirectSumInclusions( Source( f ) );
     if not IsDirectSumOfModules( Source( f ) ) or not IsDirectSumOfModules( Range( f ) ) then
