@@ -97,6 +97,16 @@ gap> IsPathAlgebraMatModuleHomomorphism(f);
 true ]]>
 </Example>
 
+<ManSection>
+   <Oper Name="UnderlyingLinearMap" Arg="f" Comm=""/>
+   <Description>
+     Arguments: <Arg>f</Arg> - a homomorphism between two representations.<Br />
+   </Description>
+   <Returns>the homomorphism <Arg>f</Arg> as a matrix, where the
+   homomorphism on a zero vectorspace is represented by a zero
+   matrix. The linear map/matrix operates on row vectors.</Returns>
+</ManSection>
+
 </Section>
 
 <Section><Heading>Generalities of homomorphisms</Heading>

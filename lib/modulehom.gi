@@ -4393,3 +4393,43 @@ InstallMethod( FromMatrixToHomomorphismOfProjectives,
     return Sum( Flat( newmat ) );
 end
   );
+
+#######################################################################
+##
+#O  UnderlyingLinearMap( <f> )
+##
+##  This function finds the homomorphism <f> as a linear transformation
+##  and returns it as a matrix. 
+##
+InstallMethod( UnderlyingLinearMap,
+  "for a PathAlgebraMatModuleHomomorphism",
+  [ IsPathAlgebraMatModuleHomomorphism ],
+
+  function( f )
+  local dimvect1, dimvect2, dim1, dim2, k, matrix, start1, start2,
+    stopp1, stopp2, mats, m, n1, n2, blocks;
+
+  dimvect1 := DimensionVector( Source( f ) );
+  dimvect2 := DimensionVector( Range( f ) );
+  dim1 := Dimension( Source( f ) ) + Length( Positions( dimvect1, 0 ) );
+  dim2 := Dimension( Range( f ) )  + Length( Positions( dimvect2, 0 ) );   
+  k := LeftActingDomain( Source( f ) );
+  matrix := NullMat( dim1, dim2, k );
+  start1 := 1;
+  start2 := 1;
+  stopp1 := 0;
+  stopp2 := 0;
+  mats := MatricesOfPathAlgebraMatModuleHomomorphism( f );
+  for m in mats do
+    n1 := DimensionsMat( m )[ 1 ];
+    n2 := DimensionsMat( m )[ 2 ];
+    stopp1 := stopp1 + n1;
+    stopp2 := stopp2 + n2;
+    matrix{[ start1..stopp1 ]}{[ start2..stopp2 ]} := m;
+    start1 := stopp1 + 1;
+    start2 := stopp2 + 1;
+  od;
+
+  return matrix;
+end
+);
