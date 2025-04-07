@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<title>GAP (QPA) - Chapter 9: Auslander-Reiten theory</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="GAPDoc2HTML" />
+<link rel="stylesheet" type="text/css" href="manual.css" />
+<script src="manual.js" type="text/javascript"></script>
+<script type="text/javascript">overwriteStyle();</script>
+</head>
+<body class="chap9"  onload="jscontent()">
+
+
+<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0.html">Top</a>  <a href="chap1.html">1</a>  <a href="chap2.html">2</a>  <a href="chap3.html">3</a>  <a href="chap4.html">4</a>  <a href="chap5.html">5</a>  <a href="chap6.html">6</a>  <a href="chap7.html">7</a>  <a href="chap8.html">8</a>  <a href="chap9.html">9</a>  <a href="chap10.html">10</a>  <a href="chap11.html">11</a>  <a href="chap12.html">12</a>  <a href="chap13.html">13</a>  <a href="chapBib.html">Bib</a>  <a href="chapInd.html">Ind</a>  </div>
+
+<div class="chlinkprevnexttop">&nbsp;<a href="chap0.html">[Top of Book]</a>&nbsp;  <a href="chap0.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap8.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap10.html">[Next Chapter]</a>&nbsp;  </div>
+
+<p id="mathjaxlink" class="pcenter"><a href="chap9_mj.html">[MathJax on]</a></p>
+<p><a id="X855427278501E7FB" name="X855427278501E7FB"></a></p>
+<div class="ChapSects"><a href="chap9.html#X855427278501E7FB">9 <span class="Heading">Auslander-Reiten theory</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap9.html#X79B0EA987E050C6D">9.1 <span class="Heading">Almost split sequences and AR-quivers</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap9.html#X87BADA287BD9972C">9.1-1 AlmostSplitSequence</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap9.html#X7E8DBA647B3EC71B">9.1-2 AlmostSplitSequenceInPerpT</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap9.html#X8774261F862EC761">9.1-3 IrreducibleMorphismsEndingIn</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap9.html#X873085DD8534F600">9.1-4 IsTauPeriodic</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap9.html#X81A363848166449D">9.1-5 PredecessorOfModule</a></span>
+</div></div>
+</div>
+
+<h3>9 <span class="Heading">Auslander-Reiten theory</span></h3>
+
+<p>This chapter describes the functions implemented for almost split sequences and Auslander-Reiten theory in QPA.</p>
+
+<p><a id="X79B0EA987E050C6D" name="X79B0EA987E050C6D"></a></p>
+
+<h4>9.1 <span class="Heading">Almost split sequences and AR-quivers</span></h4>
+
+<p><a id="X87BADA287BD9972C" name="X87BADA287BD9972C"></a></p>
+
+<h5>9.1-1 AlmostSplitSequence</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; AlmostSplitSequence</code>( <var class="Arg">M</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; AlmostSplitSequence</code>( <var class="Arg">M</var>, <var class="Arg">e</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> - an indecomposable non-projective module, <var class="Arg">e</var> - either l = left or r = right<br /></p>
+
+<p>Returns: the almost split sequence ending in the module <var class="Arg">M</var> if it is indecomposable and not projective, for the first variant. The second variant finds the almost split sequence starting or ending in the module <var class="Arg">M</var> depending on whether the second argument <var class="Arg">e</var> is l or r (l = almost split sequence starting with <var class="Arg">M</var>, or r = almost split sequence ending in <var class="Arg">M</var>), if the module is indecomposable and not injective or not projective, respectively. It returns fail if the module is injective (l) or projective (r).</p>
+
+<p>The almost split sequence is returned as a pair of maps, the monomorphism and the epimorphism. The function assumes that the module <var class="Arg">M</var> is indecomposable, and the source of the monomorphism (l) or the range of the epimorphism (r) is a module that is isomorphic to <var class="Arg">M</var>, not necessarily identical.</p>
+
+<p><a id="X7E8DBA647B3EC71B" name="X7E8DBA647B3EC71B"></a></p>
+
+<h5>9.1-2 AlmostSplitSequenceInPerpT</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; AlmostSplitSequenceInPerpT</code>( <var class="Arg">T</var>, <var class="Arg">M</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">T</var> - a cotilting module, <var class="Arg">M</var> - an indecomposable non-projective module<br /></p>
+
+<p>Returns: the almost split sequence in <span class="Math">^\perp T</span> ending in the module <var class="Arg">M</var>, if the module is indecomposable and not projective (that is, not projective object in <span class="Math">^\perp T</span>). It returns fail if the module <var class="Arg">M</var> is in <span class="Math">\add T</span> projective. The almost split sequence is returned as a pair of maps, the monomorphism and the epimorphism, and the range of the epimorphism is a module that is isomorphic to the input, not necessarily identical.</p>
+
+<p>The function assumes that the module <var class="Arg">M</var> is indecomposable and in <span class="Math">^\perp T</span>, and the range of the epimorphism is a module that is isomorphic to the input, not necessarily identical.</p>
+
+<p><a id="X8774261F862EC761" name="X8774261F862EC761"></a></p>
+
+<h5>9.1-3 IrreducibleMorphismsEndingIn</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IrreducibleMorphismsEndingIn</code>( <var class="Arg">M</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IrreducibleMorphismsStartingIn</code>( <var class="Arg">M</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> - an indecomposable module<br /></p>
+
+<p>Returns: the collection of irreducible morphisms ending and starting in the module <var class="Arg">M</var>, respectively. The argument is assumed to be an indecomposable module.</p>
+
+<p>The irreducible morphisms are returned as a list of maps. Even in the case of only one irreducible morphism, it is returned as a list. The function assumes that the module <var class="Arg">M</var> is indecomposable over a quiver algebra with a finite field as the ground ring.</p>
+
+<p><a id="X873085DD8534F600" name="X873085DD8534F600"></a></p>
+
+<h5>9.1-4 IsTauPeriodic</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsTauPeriodic</code>( <var class="Arg">M</var>, <var class="Arg">n</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> -- a path algebra module (<code class="code">PathAlgebraMatModule</code>), <var class="Arg">n</var> -- be a positive integer. <br /></p>
+
+<p>Returns: <code class="code">i</code>, where <code class="code">i</code> is the smallest positive integer less or equal <code class="code">n</code> such that the representation <var class="Arg">M</var> is isomorphic to the <span class="SimpleMath">τ^i(M)</span>, and false otherwise.</p>
+
+<p><a id="X81A363848166449D" name="X81A363848166449D"></a></p>
+
+<h5>9.1-5 PredecessorOfModule</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; PredecessorOfModule</code>( <var class="Arg">M</var>, <var class="Arg">n</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> - an indecomposable non-projective module and <var class="Arg">n</var> - a positive integer.<br /></p>
+
+<p>Returns: the predecessors of the module <var class="Arg">M</var> in the AR-quiver of the algebra <var class="Arg">M</var> is given over of distance less or equal to <var class="Arg">n</var>.</p>
+
+<p>It returns two lists, the first is the indecomposable modules in the different layers and the second is the valuations for the arrows in the AR-quiver. The different entries in the first list are the modules at distance zero, one, two, three, and so on, until layer <var class="Arg">n</var>. The <code class="code">m</code>-th entry in the second list is the valuations of the irreducible morphism from indecomposable module number <code class="code">i</code> in layer <code class="code">m+1</code> to indecomposable module number <code class="code">j</code> in layer <code class="code">m</code> for the values of <code class="code">i</code> and <code class="code">j</code> there is an irreducible morphism. Whenever <code class="code">false</code> occur in the output, it means that this valuation has not been computed. The function assumes that the module <var class="Arg">M</var> is indecomposable and that the quotient of the path algebra is given over a finite field.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">A := KroneckerAlgebra(GF(4),2);       </span>
+&lt;GF(2^2)[&lt;quiver with 2 vertices and 2 arrows&gt;]&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">S := SimpleModules(A)[1];             </span>
+&lt;[ 1, 0 ]&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ass := AlmostSplitSequence(S);   </span>
+[ &lt;&lt;[ 3, 2 ]&gt; ---&gt; &lt;[ 4, 2 ]&gt;&gt;
+    , &lt;&lt;[ 4, 2 ]&gt; ---&gt; &lt;[ 1, 0 ]&gt;&gt;
+     ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">DecomposeModule(Range(ass[1]));</span>
+[ &lt;[ 2, 1 ]&gt;, &lt;[ 2, 1 ]&gt; ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">PredecessorsOfModule(S,5);   </span>
+[ [ [ &lt;[ 1, 0 ]&gt; ], [ &lt;[ 2, 1 ]&gt; ], [ &lt;[ 3, 2 ]&gt; ], [ &lt;[ 4, 3 ]&gt; ], 
+      [ &lt;[ 5, 4 ]&gt; ], [ &lt;[ 6, 5 ]&gt; ] ], 
+  [ [ [ 1, 1, [ 2, false ] ] ], [ [ 1, 1, [ 2, 2 ] ] ], 
+      [ [ 1, 1, [ 2, 2 ] ] ], [ [ 1, 1, [ 2, 2 ] ] ], 
+      [ [ 1, 1, [ false, 2 ] ] ] ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">A:=NakayamaAlgebra([5,4,3,2,1],GF(4));</span>
+&lt;GF(2^2)[&lt;quiver with 5 vertices and 4 arrows&gt;]&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">S := SimpleModules(A)[1];             </span>
+&lt;[ 1, 0, 0, 0, 0 ]&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">PredecessorsOfModule(S,5);</span>
+[ [ [ &lt;[ 1, 0, 0, 0, 0 ]&gt; ], [ &lt;[ 1, 1, 0, 0, 0 ]&gt; ], 
+      [ &lt;[ 0, 1, 0, 0, 0 ]&gt;, &lt;[ 1, 1, 1, 0, 0 ]&gt; ], 
+      [ &lt;[ 0, 1, 1, 0, 0 ]&gt;, &lt;[ 1, 1, 1, 1, 0 ]&gt; ], 
+      [ &lt;[ 0, 0, 1, 0, 0 ]&gt;, &lt;[ 0, 1, 1, 1, 0 ]&gt;, &lt;[ 1, 1, 1, 1, 1 ]&gt; 
+         ], [ &lt;[ 0, 0, 1, 1, 0 ]&gt;, &lt;[ 0, 1, 1, 1, 1 ]&gt; ] ], 
+  [ [ [ 1, 1, [ 1, false ] ] ], 
+      [ [ 1, 1, [ 1, 1 ] ], [ 2, 1, [ 1, false ] ] ], 
+      [ [ 1, 1, [ 1, 1 ] ], [ 1, 2, [ 1, 1 ] ], 
+          [ 2, 2, [ 1, false ] ] ], 
+      [ [ 1, 1, [ 1, 1 ] ], [ 2, 1, [ 1, 1 ] ], [ 2, 2, [ 1, 1 ] ], 
+          [ 3, 2, [ 1, false ] ] ], 
+      [ [ 1, 1, [ false, 1 ] ], [ 1, 2, [ false, 1 ] ], 
+          [ 2, 2, [ false, 1 ] ], [ 2, 3, [ false, 1 ] ] ] ] ] 
+</pre></div>
+
+
+<div class="chlinkprevnextbot">&nbsp;<a href="chap0.html">[Top of Book]</a>&nbsp;  <a href="chap0.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap8.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap10.html">[Next Chapter]</a>&nbsp;  </div>
+
+
+<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0.html">Top</a>  <a href="chap1.html">1</a>  <a href="chap2.html">2</a>  <a href="chap3.html">3</a>  <a href="chap4.html">4</a>  <a href="chap5.html">5</a>  <a href="chap6.html">6</a>  <a href="chap7.html">7</a>  <a href="chap8.html">8</a>  <a href="chap9.html">9</a>  <a href="chap10.html">10</a>  <a href="chap11.html">11</a>  <a href="chap12.html">12</a>  <a href="chap13.html">13</a>  <a href="chapBib.html">Bib</a>  <a href="chapInd.html">Ind</a>  </div>
+
+<hr />
+<p class="foot">generated by <a href="https://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc">GAPDoc2HTML</a></p>
+</body>
+</html>

@@ -1,0 +1,136 @@
+  
+  [1X9 [33X[0;0YAuslander-Reiten theory[133X[101X
+  
+  [33X[0;0YThis  chapter describes the functions implemented for almost split sequences
+  and Auslander-Reiten theory in QPA.[133X
+  
+  
+  [1X9.1 [33X[0;0YAlmost split sequences and AR-quivers[133X[101X
+  
+  [1X9.1-1 AlmostSplitSequence[101X
+  
+  [33X[1;0Y[29X[2XAlmostSplitSequence[102X( [3XM[103X ) [32X attribute[133X
+  [33X[1;0Y[29X[2XAlmostSplitSequence[102X( [3XM[103X, [3Xe[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments:  [3XM[103X - an indecomposable non-projective module, [3Xe[103X - either l = left
+  or r = right[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe  almost  split  sequence  ending  in  the  module  [3XM[103X  if it is
+            indecomposable  and  not  projective,  for  the first variant. The
+            second  variant finds the almost split sequence starting or ending
+            in the module [3XM[103X depending on whether the second argument [3Xe[103X is l or
+            r  (l = almost split sequence starting with [3XM[103X, or r = almost split
+            sequence  ending  in  [3XM[103X),  if the module is indecomposable and not
+            injective  or not projective, respectively. It returns fail if the
+            module is injective (l) or projective (r).[133X
+  
+  [33X[0;0YThe  almost  split  sequence is returned as a pair of maps, the monomorphism
+  and   the   epimorphism.   The   function  assumes  that  the  module  [3XM[103X  is
+  indecomposable,  and  the source of the monomorphism (l) or the range of the
+  epimorphism  (r)  is  a  module  that  is  isomorphic  to [3XM[103X, not necessarily
+  identical.[133X
+  
+  [1X9.1-2 AlmostSplitSequenceInPerpT[101X
+  
+  [33X[1;0Y[29X[2XAlmostSplitSequenceInPerpT[102X( [3XT[103X, [3XM[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments:  [3XT[103X  -  a  cotilting  module, [3XM[103X - an indecomposable non-projective
+  module[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe  almost  split sequence in [23X^\perp T[123X ending in the module [3XM[103X, if
+            the  module  is  indecomposable  and  not projective (that is, not
+            projective object in [23X^\perp T[123X). It returns fail if the module [3XM[103X is
+            in  [23X\add  T[123X projective. The almost split sequence is returned as a
+            pair  of maps, the monomorphism and the epimorphism, and the range
+            of  the  epimorphism  is a module that is isomorphic to the input,
+            not necessarily identical.[133X
+  
+  [33X[0;0YThe  function  assumes  that the module [3XM[103X is indecomposable and in [23X^\perp T[123X,
+  and  the  range  of  the  epimorphism  is a module that is isomorphic to the
+  input, not necessarily identical.[133X
+  
+  [1X9.1-3 IrreducibleMorphismsEndingIn[101X
+  
+  [33X[1;0Y[29X[2XIrreducibleMorphismsEndingIn[102X( [3XM[103X ) [32X attribute[133X
+  [33X[1;0Y[29X[2XIrreducibleMorphismsStartingIn[102X( [3XM[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3XM[103X - an indecomposable module[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe collection of irreducible morphisms ending and starting in the
+            module   [3XM[103X,  respectively.  The  argument  is  assumed  to  be  an
+            indecomposable module.[133X
+  
+  [33X[0;0YThe  irreducible  morphisms are returned as a list of maps. Even in the case
+  of  only  one  irreducible  morphism, it is returned as a list. The function
+  assumes  that  the  module  [3XM[103X is indecomposable over a quiver algebra with a
+  finite field as the ground ring.[133X
+  
+  [1X9.1-4 IsTauPeriodic[101X
+  
+  [33X[1;0Y[29X[2XIsTauPeriodic[102X( [3XM[103X, [3Xn[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments:  [3XM[103X  --  a  path  algebra module ([10XPathAlgebraMatModule[110X), [3Xn[103X -- be a
+  positive integer.[133X
+  
+  [6XReturns:[106X  [33X[0;10Y[10Xi[110X,  where  [10Xi[110X is the smallest positive integer less or equal [10Xn[110X such
+            that  the  representation [3XM[103X is isomorphic to the [22Xτ^i(M)[122X, and false
+            otherwise.[133X
+  
+  [1X9.1-5 PredecessorOfModule[101X
+  
+  [33X[1;0Y[29X[2XPredecessorOfModule[102X( [3XM[103X, [3Xn[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments:  [3XM[103X  -  an indecomposable non-projective module and [3Xn[103X - a positive
+  integer.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe predecessors of the module [3XM[103X in the AR-quiver of the algebra [3XM[103X
+            is given over of distance less or equal to [3Xn[103X.[133X
+  
+  [33X[0;0YIt  returns  two  lists,  the  first  is  the  indecomposable modules in the
+  different  layers  and  the  second  is the valuations for the arrows in the
+  AR-quiver.  The  different  entries  in  the  first  list are the modules at
+  distance  zero, one, two, three, and so on, until layer [3Xn[103X. The [10Xm[110X-th entry in
+  the  second  list  is  the  valuations  of  the  irreducible  morphism  from
+  indecomposable  module number [10Xi[110X in layer [10Xm+1[110X to indecomposable module number
+  [10Xj[110X  in  layer  [10Xm[110X  for the values of [10Xi[110X and [10Xj[110X there is an irreducible morphism.
+  Whenever  [10Xfalse[110X  occur  in  the output, it means that this valuation has not
+  been  computed. The function assumes that the module [3XM[103X is indecomposable and
+  that the quotient of the path algebra is given over a finite field.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XA := KroneckerAlgebra(GF(4),2);       [127X[104X
+    [4X[28X<GF(2^2)[<quiver with 2 vertices and 2 arrows>]>[128X[104X
+    [4X[25Xgap>[125X [27XS := SimpleModules(A)[1];             [127X[104X
+    [4X[28X<[ 1, 0 ]>[128X[104X
+    [4X[25Xgap>[125X [27Xass := AlmostSplitSequence(S);   [127X[104X
+    [4X[28X[ <<[ 3, 2 ]> ---> <[ 4, 2 ]>>[128X[104X
+    [4X[28X    , <<[ 4, 2 ]> ---> <[ 1, 0 ]>>[128X[104X
+    [4X[28X     ][128X[104X
+    [4X[25Xgap>[125X [27XDecomposeModule(Range(ass[1]));[127X[104X
+    [4X[28X[ <[ 2, 1 ]>, <[ 2, 1 ]> ][128X[104X
+    [4X[25Xgap>[125X [27XPredecessorsOfModule(S,5);   [127X[104X
+    [4X[28X[ [ [ <[ 1, 0 ]> ], [ <[ 2, 1 ]> ], [ <[ 3, 2 ]> ], [ <[ 4, 3 ]> ], [128X[104X
+    [4X[28X      [ <[ 5, 4 ]> ], [ <[ 6, 5 ]> ] ], [128X[104X
+    [4X[28X  [ [ [ 1, 1, [ 2, false ] ] ], [ [ 1, 1, [ 2, 2 ] ] ], [128X[104X
+    [4X[28X      [ [ 1, 1, [ 2, 2 ] ] ], [ [ 1, 1, [ 2, 2 ] ] ], [128X[104X
+    [4X[28X      [ [ 1, 1, [ false, 2 ] ] ] ] ][128X[104X
+    [4X[25Xgap>[125X [27XA:=NakayamaAlgebra([5,4,3,2,1],GF(4));[127X[104X
+    [4X[28X<GF(2^2)[<quiver with 5 vertices and 4 arrows>]>[128X[104X
+    [4X[25Xgap>[125X [27XS := SimpleModules(A)[1];             [127X[104X
+    [4X[28X<[ 1, 0, 0, 0, 0 ]>[128X[104X
+    [4X[25Xgap>[125X [27XPredecessorsOfModule(S,5);[127X[104X
+    [4X[28X[ [ [ <[ 1, 0, 0, 0, 0 ]> ], [ <[ 1, 1, 0, 0, 0 ]> ], [128X[104X
+    [4X[28X      [ <[ 0, 1, 0, 0, 0 ]>, <[ 1, 1, 1, 0, 0 ]> ], [128X[104X
+    [4X[28X      [ <[ 0, 1, 1, 0, 0 ]>, <[ 1, 1, 1, 1, 0 ]> ], [128X[104X
+    [4X[28X      [ <[ 0, 0, 1, 0, 0 ]>, <[ 0, 1, 1, 1, 0 ]>, <[ 1, 1, 1, 1, 1 ]> [128X[104X
+    [4X[28X         ], [ <[ 0, 0, 1, 1, 0 ]>, <[ 0, 1, 1, 1, 1 ]> ] ], [128X[104X
+    [4X[28X  [ [ [ 1, 1, [ 1, false ] ] ], [128X[104X
+    [4X[28X      [ [ 1, 1, [ 1, 1 ] ], [ 2, 1, [ 1, false ] ] ], [128X[104X
+    [4X[28X      [ [ 1, 1, [ 1, 1 ] ], [ 1, 2, [ 1, 1 ] ], [128X[104X
+    [4X[28X          [ 2, 2, [ 1, false ] ] ], [128X[104X
+    [4X[28X      [ [ 1, 1, [ 1, 1 ] ], [ 2, 1, [ 1, 1 ] ], [ 2, 2, [ 1, 1 ] ], [128X[104X
+    [4X[28X          [ 3, 2, [ 1, false ] ] ], [128X[104X
+    [4X[28X      [ [ 1, 1, [ false, 1 ] ], [ 1, 2, [ false, 1 ] ], [128X[104X
+    [4X[28X          [ 2, 2, [ false, 1 ] ], [ 2, 3, [ false, 1 ] ] ] ] ] [128X[104X
+  [4X[32X[104X
+  

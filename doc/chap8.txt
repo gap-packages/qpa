@@ -1,0 +1,653 @@
+  
+  [1X8 [33X[0;0YHomological algebra[133X[101X
+  
+  [33X[0;0YThis chapter describes the homological algebra that is implemented in QPA.[133X
+  
+  [33X[0;0YThe example used throughout this chapter is the following.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XQ := Quiver(3,[[1,2,"a"],[1,2,"b"],[2,2,"c"],[2,3,"d"],[127X[104X
+    [4X[25X>[125X [27X[3,1,"e"]]);;[127X[104X
+    [4X[25Xgap>[125X [27XKQ := PathAlgebra(Rationals, Q);;[127X[104X
+    [4X[25Xgap>[125X [27XAssignGeneratorVariables(KQ);;[127X[104X
+    [4X[25Xgap>[125X [27Xrels := [d*e,c^2,a*c*d-b*d,e*a];;[127X[104X
+    [4X[25Xgap>[125X [27XA := KQ/rels;;[127X[104X
+    [4X[25Xgap>[125X [27Xmat := [["a",[[1,2],[0,3],[1,5]]],["b",[[2,0],[3,0],[5,0]]],[127X[104X
+    [4X[25X>[125X [27X["c",[[0,0],[1,0]]],["d",[[1,2],[0,1]]],["e",[[0,0,0],[0,0,0]]]];;[127X[104X
+    [4X[25Xgap>[125X [27XN := RightModuleOverPathAlgebra(A,mat);;[127X[104X
+  [4X[32X[104X
+  
+  
+  [1X8.1 [33X[0;0YHomological algebra[133X[101X
+  
+  [1X8.1-1 1stSyzygy[101X
+  
+  [33X[1;0Y[29X[2X1stSyzygy[102X( [3XM[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3XM[103X -- a path algebra module ([10XPathAlgebraMatModule[110X).[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe first syzygy of the representation [3XM[103X as a representation.[133X
+  
+  [1X8.1-2 AllComplementsOfAlmostCompleteTiltingModule[101X
+  
+  [33X[1;0Y[29X[2XAllComplementsOfAlmostCompleteTiltingModule[102X( [3XM[103X, [3XX[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XAllComplementsOfAlmostCompleteCotiltingModule[102X( [3XM[103X, [3XX[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XM[103X, [3XX[103X - two PathAlgebraMatModule's.[133X
+  
+  [6XReturns:[106X  [33X[0;10Yall  the  complements of the almost complete (co-)tilting module [3XM[103X
+            as  two  exact  sequences,  the first is all complements which are
+            gotten  as  an  [3Xadd  M[103X-resolution  of  [3XX[103X  and  the  second  is all
+            complements  which  are  gotten  as an [3Xadd M[103X-coresolution of [3XX[103X. If
+            there  are  no complements to the left of [3XX[103X, then an empty list is
+            returned. Similarly for to the right of [3XX[103X. In particular, if [3XX[103X has
+            no other complements the list [10X[[],[]][110X is returned.[133X
+  
+  [1X8.1-3 CotiltingModule[101X
+  
+  [33X[1;0Y[29X[2XCotiltingModule[102X( [3XM[103X, [3Xn[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XM[103X, [3Xn[103X - a PathAlgebraMatModule and a positive integer.[133X
+  
+  [6XReturns:[106X  [33X[0;10Yfalse  if  [3XM[103X  is  not a cotilting module of injective dimension at
+            most [3Xa[103X. Otherwise, it returns the injective dimension of [3XM[103X and the
+            resolution of all indecomposable injective modules in [3Xadd M[103X.[133X
+  
+  [1X8.1-4 DominantDimensionOfAlgebra[101X
+  
+  [33X[1;0Y[29X[2XDominantDimensionOfAlgebra[102X( [3XA[103X, [3Xn[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XA[103X, [3Xn[103X - a quiver algebra, a positive integer.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe  dominant dimension of the algebra [3XA[103X if the dominant dimension
+            is  less  or  equal  to  [3Xn[103X.  If  the  function can decide that the
+            dominant dimension is infinite, it returns [10Xinfinity[110X. Otherwise, if
+            the dominant dimension is larger than [3Xn[103X, then it returns [10Xfalse[110X.[133X
+  
+  [1X8.1-5 DominantDimensionOfModule[101X
+  
+  [33X[1;0Y[29X[2XDominantDimensionOfModule[102X( [3XM[103X, [3Xn[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XM[103X, [3Xn[103X - a PathAlgebraMatModule, a positive integer.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe  dominant  dimension of the module [3XM[103X if the dominant dimension
+            is  less  or  equal  to  [3Xn[103X.  If  the  function can decide that the
+            dominant dimension is infinite, it returns [10Xinfinity[110X. Otherwise, if
+            the dominant dimension is larger than [3Xn[103X, then it returns [10Xfalse[110X.[133X
+  
+  [1X8.1-6 ExtAlgebraGenerators[101X
+  
+  [33X[1;0Y[29X[2XExtAlgebraGenerators[102X( [3XM[103X, [3Xn[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XM[103X - a module, [3Xn[103X - a positive integer.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya  list  of  three  elements,  where  the  first  element  is  the
+            dimensions of Ext^[0..n](M,M), the second element is the number of
+            minimal generators in the degrees [0..n], and the third element is
+            the generators in these degrees.[133X
+  
+  [33X[0;0YThis  function  computes  the generators of the Ext-algebra [23XExt^*(M,M)[123X up to
+  degree [3Xn[103X.[133X
+  
+  [1X8.1-7 ExtOverAlgebra[101X
+  
+  [33X[1;0Y[29X[2XExtOverAlgebra[102X( [3XM[103X, [3XN[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XM[103X, [3XN[103X - two modules.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya  list  of three elements [2XExtOverAlgebra[102X, where the first element
+            is  the  map  from the first syzygy, [22XΩ(M)[122X to the projective cover,
+            [22XP(M)[122X of the module [3XM[103X, the second element is a basis of [23X\Ext^1(M,N)[123X
+            in terms of elements in [23X\Hom(\Omega(M),N)[123X and the third element is
+            a   function   that   takes  as  an  argument  a  homomorphism  in
+            [10XHom(Omega(M),N)[110X  and returns the coefficients of this element when
+            written in terms of the basis of [23X\Ext^1(M,N)[123X.[133X
+  
+  [33X[0;0YThe  function  checks  if  the  arguments  [3XM[103X  and  [3XN[103X are modules of the same
+  algebra,  and returns an error message otherwise. It [23X\Ext^1(M,N)[123X is zero, an
+  empty list is returned.[133X
+  
+  [1X8.1-8 FaithfulDimension[101X
+  
+  [33X[1;0Y[29X[2XFaithfulDimension[102X( [3XM[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3XM[103X - a PathAlgebraMatModule.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe faithful dimension of the module [3XM[103X.[133X
+  
+  [1X8.1-9 GlobalDimensionOfAlgebra[101X
+  
+  [33X[1;0Y[29X[2XGlobalDimensionOfAlgebra[102X( [3XA[103X, [3Xn[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XA[103X, [3Xn[103X - a quiver algebra, a positive integer.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe global dimension of [3XA[103X if the global dimension is less or equal
+            to  [3Xn[103X.  If  the  function  can decide that the global dimension is
+            infinite,  it returns [10Xinfinity[110X. Otherwise, if the global dimension
+            is larger than [3Xn[103X, then it returns [10Xfalse[110X.[133X
+  
+  [1X8.1-10 GorensteinDimension[101X
+  
+  [33X[1;0Y[29X[2XGorensteinDimension[102X( [3XA[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3XA[103X - a quiver algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe  Gorenstein  dimension  of  [3XA[103X, if the Gorenstein dimension has
+            been computed. Otherwise it returns an error message.[133X
+  
+  [1X8.1-11 GorensteinDimensionOfAlgebra[101X
+  
+  [33X[1;0Y[29X[2XGorensteinDimensionOfAlgebra[102X( [3XA[103X, [3Xn[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XA[103X, [3Xn[103X - a quiver algebra, a positive integer.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe  Gorenstein dimension of [3XA[103X if the Gorenstein dimension is less
+            or  equal  to  [3Xn[103X. Otherwise, if the Gorenstein dimension is larger
+            than [3Xn[103X, then it returns [10Xfalse[110X.[133X
+  
+  [1X8.1-12 HaveFiniteCoresolutionInAddM[101X
+  
+  [33X[1;0Y[29X[2XHaveFiniteCoresolutionInAddM[102X( [3XN[103X, [3XM[103X, [3Xn[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XN[103X, [3XM[103X, [3Xn[103X - two PathAlgebraMatModule's and an integer.[133X
+  
+  [6XReturns:[106X  [33X[0;10Yfalse if [3XN[103X does not have a coresolution of length at most [3Xn[103X in [3Xadd
+            M[103X, otherwise it returns the coresolution of [3XN[103X of length at most [3Xn[103X.[133X
+  
+  [1X8.1-13 HaveFiniteResolutionInAddM[101X
+  
+  [33X[1;0Y[29X[2XHaveFiniteResolutionInAddM[102X( [3XN[103X, [3XM[103X, [3Xn[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XN[103X, [3XM[103X, [3Xn[103X - two PathAlgebraMatModule's and an integer.[133X
+  
+  [6XReturns:[106X  [33X[0;10Yfalse  if  [3XN[103X does not have a resolution of length at most [3Xn[103X in [3Xadd
+            M[103X, otherwise it returns the resolution of [3XN[103X of length at most [3Xn[103X.[133X
+  
+  [1X8.1-14 InjDimension[101X
+  
+  [33X[1;0Y[29X[2XInjDimension[102X( [3XM[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3XM[103X - a PathAlgebraMatModule.[133X
+  
+  [33X[0;0YIf  the  injective  dimension  of  the  module [3XM[103X has been computed, then the
+  projective dimension is returned.[133X
+  
+  [1X8.1-15 InjDimensionOfModule[101X
+  
+  [33X[1;0Y[29X[2XInjDimensionOfModule[102X( [3XM[103X, [3Xn[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XM, n[103X - a PathAlgebraMatModule, a positive integer.[133X
+  
+  [6XReturns:[106X  [33X[0;10YReturns  the  injective dimension of the module [3XM[103X if it is less or
+            equal to [3Xn[103X. Otherwise it returns false.[133X
+  
+  [1X8.1-16 InjectiveEnvelope[101X
+  
+  [33X[1;0Y[29X[2XInjectiveEnvelope[102X( [3XM[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3XM[103X - a module.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe injective envelope of [3XM[103X, that is, returns the map [23XM\to I(M)[123X.[133X
+  
+  [33X[0;0YIf the module [3XM[103X is zero, then the zero map from [3XM[103X is returned.[133X
+  
+  [1X8.1-17 IsCotiltingModule[101X
+  
+  [33X[1;0Y[29X[2XIsCotiltingModule[102X( [3XM[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3XM[103X - a PathAlgebraMatModule.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue  if  the  module [3XM[103X has been checked to be a cotilting mdoule,
+            otherwise it returns an error message.[133X
+  
+  [1X8.1-18 IsNthSyzygy[101X
+  
+  [33X[1;0Y[29X[2XIsNthSyzygy[102X( [3XM[103X, [3Xn[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments:  [3XM[103X  --  a  path  algebra  module  ([10XPathAlgebraMatModule[110X),  [3Xn[103X -- a
+  positive integer.[133X
+  
+  [6XReturns:[106X  [33X[0;10Y[10Xtrue[110X, if the representation [3XM[103X is isomorphic to a direct summand of
+            an [3Xn[103X-th syzygy of some module or is a projective module, and false
+            otherwise.[133X
+  
+  [1X8.1-19 IsOmegaPeriodic[101X
+  
+  [33X[1;0Y[29X[2XIsOmegaPeriodic[102X( [3XM[103X, [3Xn[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments:  [3XM[103X  --  a  path  algebra  module  ([10XPathAlgebraMatModule[110X),  [3Xn[103X -- a
+  positive integer.[133X
+  
+  [6XReturns:[106X  [33X[0;10Y[10Xi[110X,  where  [10Xi[110X is the smallest positive integer less or equal [10Xn[110X such
+            that  the  representation [3XM[103X is isomorphic to the [10Xi[110X-th syzygy of [3XM[103X,
+            and false otherwise.[133X
+  
+  [1X8.1-20 IsTtiltingModule[101X
+  
+  [33X[1;0Y[29X[2XIsTtiltingModule[102X( [3XM[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3XM[103X - a PathAlgebraMatModule.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue  if  the  module  [3XM[103X  has been checked to be a tilting mdoule,
+            otherwise it returns an error message.[133X
+  
+  [1X8.1-21 IyamaGenerator[101X
+  
+  [33X[1;0Y[29X[2XIyamaGenerator[102X( [3XM[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XM[103X -- a path algebra module ([10XPathAlgebraMatModule[110X).[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya  module [23XN[123X such that [3XM[103X is a direct summand of [23XN[123X and such that the
+            global dimension of the endomorphism ring of [23XN[123X is finite using the
+            algorithm provided by Osamu Iyama (add reference here).[133X
+  
+  [1X8.1-22 LeftApproximationByAddTHat[101X
+  
+  [33X[1;0Y[29X[2XLeftApproximationByAddTHat[102X( [3XT[103X, [3XM[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XT[103X, [3XM[103X -- two path algebra modules ([10XPathAlgebraMatModule[110X).[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe minimal left [22Xwidehatadd T[122X-approximation of [3XM[103X.[133X
+  
+  [33X[0;0YThe  function  checks  if the first argument is a cotilting module, that is,
+  checks  if  the attribute of [10XIsCotiltingModule[110X is set. This attribute can be
+  set  by giving the command [10XCotiltingModule( T, n )[110X for some positive integer
+  [10Xn[110X which is at least the injective dimension of the module [3XT[103X.[133X
+  
+  [1X8.1-23 LeftFacMApproximation[101X
+  
+  [33X[1;0Y[29X[2XLeftFacMApproximation[102X( [3XC[103X, [3XM[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XMinimalLeftFacMApproximation[102X( [3XC[103X, [3XM[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XC[103X, [3XM[103X -- two path algebra modules ([10XPathAlgebraMatModule[110X).[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya  left  [23X\operatorname{Fac} M[123X-approximation of the module [23XC[123X, where
+            the   first   version  returns  a  not  necessarily  minimal  left
+            [23X\operatorname{Fac}   M[123X-approximation  and  the  second  returns  a
+            minimal approximation.[133X
+  
+  [1X8.1-24 LeftMutationOfTiltingModuleComplement[101X
+  
+  [33X[1;0Y[29X[2XLeftMutationOfTiltingModuleComplement[102X( [3XM[103X, [3XN[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XLeftMutationOfCotiltingModuleComplement[102X( [3XM[103X, [3XN[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XM[103X, [3XN[103X -- two path algebra modules ([10XPathAlgebraMatModule[110X).[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya  left  mutation  of  the  complement  [3XN[103X  of  the almost complete
+            tilting/cotilting module [3XM[103X, if such a complement exists. Otherwise
+            it returns false.[133X
+  
+  [1X8.1-25 LeftSubMApproximation[101X
+  
+  [33X[1;0Y[29X[2XLeftSubMApproximation[102X( [3XC[103X, [3XM[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XMinimalLeftSubMApproximation[102X( [3XC[103X, [3XM[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XC[103X, [3XM[103X -- two path algebra modules ([10XPathAlgebraMatModule[110X).[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya minimal left [23X\operatorname{Sub} M[123X-approximation of the module [23XC[123X.[133X
+  
+  [1X8.1-26 LiftingInclusionMorphisms[101X
+  
+  [33X[1;0Y[29X[2XLiftingInclusionMorphisms[102X( [3Xf[103X, [3Xg[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xf[103X, [3Xg[103X - two homomorphisms with common range.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya  factorization  of  [3Xg[103X  in terms of [3Xf[103X, whenever possible and [10Xfail[110X
+            otherwise.[133X
+  
+  [33X[0;0YGiven  two  inclusions  [23Xf\colon  B\to  C[123X  and  [23Xg\colon A\to C[123X, this function
+  constructs  a  morphism from [23XA[123X to [23XB[123X, whenever the image of [3Xg[103X is contained in
+  the  image of [3Xf[103X. Otherwise the function returns fail. The function checks if
+  [3Xf[103X and [3Xg[103X are one-to-one, if they have the same range and if the image of [3Xg[103X is
+  contained in the image of [3Xf[103X.[133X
+  
+  [1X8.1-27 LiftingMorphismFromProjective[101X
+  
+  [33X[1;0Y[29X[2XLiftingMorphismFromProjective[102X( [3Xf[103X, [3Xg[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xf[103X, [3Xg[103X - two homomorphisms with common range.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya  factorization  of  [3Xg[103X  in terms of [3Xf[103X, whenever possible and [10Xfail[110X
+            otherwise.[133X
+  
+  [33X[0;0YGiven  two  morphisms [23Xf\colon B\to C[123X and [23Xg\colon P\to C[123X, where [23XP[123X is a direct
+  sum     of     indecomposable    projective    modules    constructed    via
+  [10XDirectSumOfQPAModules[110X and [3Xf[103X an epimorphism, this function finds a lifting of
+  [3Xg[103X  to  [23XB[123X.  The  function  checks  if  [23XP[123X  is  a  direct sum of indecomposable
+  projective modules, if [3Xf[103X is onto and if [3Xf[103X and [3Xg[103X have the same range.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XB := BasisVectors(Basis(N));[127X[104X
+    [4X[28X[ [ [ 1, 0, 0 ], [ 0, 0 ], [ 0, 0 ] ], [128X[104X
+    [4X[28X  [ [ 0, 1, 0 ], [ 0, 0 ], [ 0, 0 ] ], [128X[104X
+    [4X[28X  [ [ 0, 0, 1 ], [ 0, 0 ], [ 0, 0 ] ], [128X[104X
+    [4X[28X  [ [ 0, 0, 0 ], [ 1, 0 ], [ 0, 0 ] ], [128X[104X
+    [4X[28X  [ [ 0, 0, 0 ], [ 0, 1 ], [ 0, 0 ] ], [128X[104X
+    [4X[28X  [ [ 0, 0, 0 ], [ 0, 0 ], [ 1, 0 ] ], [128X[104X
+    [4X[28X  [ [ 0, 0, 0 ], [ 0, 0 ], [ 0, 1 ] ] ][128X[104X
+    [4X[25Xgap>[125X [27Xg := SubRepresentationInclusion(N,[B[1],B[4]]);[127X[104X
+    [4X[28X<<[ 1, 2, 2 ]> ---> <[ 3, 2, 2 ]>>[128X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27Xf := SubRepresentationInclusion(N,[B[1],B[2]]);[127X[104X
+    [4X[28X<<[ 2, 2, 2 ]> ---> <[ 3, 2, 2 ]>>[128X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27XLiftingInclusionMorphisms(f,g);[127X[104X
+    [4X[28X<<[ 1, 2, 2 ]> ---> <[ 2, 2, 2 ]>>[128X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27XS := SimpleModules(A); [127X[104X
+    [4X[28X[ <[ 1, 0, 0 ]>, <[ 0, 1, 0 ]>, <[ 0, 0, 1 ]> ][128X[104X
+    [4X[25Xgap>[125X [27XhomNS := HomOverAlgebra(N,S[1]);[127X[104X
+    [4X[28X[ <<[ 3, 2, 2 ]> ---> <[ 1, 0, 0 ]>>[128X[104X
+    [4X[28X    , <<[ 3, 2, 2 ]> ---> <[ 1, 0, 0 ]>>[128X[104X
+    [4X[28X    , <<[ 3, 2, 2 ]> ---> <[ 1, 0, 0 ]>>[128X[104X
+    [4X[28X     ][128X[104X
+    [4X[25Xgap>[125X [27Xf := homNS[1];[127X[104X
+    [4X[28X<<[ 3, 2, 2 ]> ---> <[ 1, 0, 0 ]>>[128X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27Xp := ProjectiveCover(S[1]);[127X[104X
+    [4X[28X<<[ 1, 4, 3 ]> ---> <[ 1, 0, 0 ]>>[128X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27XLiftingMorphismFromProjective(f,p);[127X[104X
+    [4X[28X<<[ 1, 4, 3 ]> ---> <[ 3, 2, 2 ]>>[128X[104X
+    [4X[28X[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*a], [(1)*b], [(1)*c], [(1)*d], [(1)*e] [128X[104X
+    [4X[28X ] )> > [128X[104X
+  [4X[32X[104X
+  
+  [1X8.1-28 LeftApproximationByAddM[101X
+  
+  [33X[1;0Y[29X[2XLeftApproximationByAddM[102X( [3XC[103X, [3XM[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XMinimalLeftAddMApproximation[102X( [3XC[103X, [3XM[103X ) [32X attribute[133X
+  [33X[1;0Y[29X[2XMinimalLeftApproximation[102X( [3XC[103X, [3XM[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3XC[103X, [3XM[103X - two modules.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe  minimal  left [22Xadd M[122X-approximation in the two last versions of
+            the  module  [3XC[103X.  In  the first it returns some left approximation.
+            Note:  The  order  of  the  arguments is opposite of the order for
+            minimal right approximations.[133X
+  
+  [1X8.1-29 RightApproximationByAddM[101X
+  
+  [33X[1;0Y[29X[2XRightApproximationByAddM[102X( [3XM[103X, [3XC/modulelist[103X, [3XC[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XMinimalRightApproximation[102X( [3XM[103X, [3XC[103X ) [32X attribute[133X
+  [33X[1;0Y[29X[2XMinimalRightAddMApproximation[102X( [3XM[103X, [3XC[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3XM[103X, [3XC[103X - two modules.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe  minimal right [22Xadd M[122X-approximation in the two last versions of
+            the   module   [3XC[103X.   In   the  two  first  it  returns  some  right
+            approximation,  where  in  the  first  version  the  input  is two
+            modules,  while  in  the  second  version  the  input is a list of
+            modules and a module. Note: The order of the arguments is opposite
+            of the order for minimal left approximations.[133X
+  
+  [1X8.1-30 RadicalRightApproximationByAddM[101X
+  
+  [33X[1;0Y[29X[2XRadicalRightApproximationByAddM[102X( [3Xmodulelist[103X, [3Xt[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xmodulelist[103X, [3Xt[103X - a list of modules and an index of this list.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya  radical right approximation of [10Xmoduleslist[ t ][110X by the additive
+            closure of the modules in the list of modules [3Xmodulelist[103X, that is,
+            returns  a  homomorphism  [22Xf:  M_M_t  -> M_t[122X, where [22XM_t[122X is the t-th
+            module in the [3Xmodulelist[103X.[133X
+  
+  [1X8.1-31 MorphismOnKernel[101X
+  
+  [33X[1;0Y[29X[2XMorphismOnKernel[102X( [3Xf[103X, [3Xg[103X, [3Xalpha[103X, [3Xbeta[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XMorphismOnImage[102X( [3Xf[103X, [3Xg[103X, [3Xalpha[103X, [3Xbeta[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XMorphismOnCoKernel[102X( [3Xf[103X, [3Xg[103X, [3Xalpha[103X, [3Xbeta[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xf[103X, [3Xg[103X, [3Xalpha[103X, [3Xbeta[103X - four homomorphisms of modules.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe  morphism  induced on the kernels, the images or the cokernels
+            of  the morphisms [3Xf[103X and [3Xg[103X, respectively, whenever [22Xf: A-> B[122X, [22Xβ: B->
+            B'[122X, [22Xα: A-> A'[122X and [22Xg: A'-> B'[122X forms a commutative diagram.[133X
+  
+  [33X[0;0YIt  is checked if [3Xf[103X, [3Xg[103X, [3Xalpha[103X, [3Xbeta[103X forms a commutative diagram, that is, if
+  [23Xf \beta - \alpha g = 0[123X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xhom := HomOverAlgebra(N,N);[127X[104X
+    [4X[28X[ <<[ 3, 2, 2 ]> ---> <[ 3, 2, 2 ]>>[128X[104X
+    [4X[28X    , <<[ 3, 2, 2 ]> ---> <[ 3, 2, 2 ]>>[128X[104X
+    [4X[28X    , <<[ 3, 2, 2 ]> ---> <[ 3, 2, 2 ]>>[128X[104X
+    [4X[28X    , <<[ 3, 2, 2 ]> ---> <[ 3, 2, 2 ]>>[128X[104X
+    [4X[28X    , <<[ 3, 2, 2 ]> ---> <[ 3, 2, 2 ]>>[128X[104X
+    [4X[28X     ][128X[104X
+    [4X[25Xgap>[125X [27Xg := MorphismOnKernel(hom[1],hom[2],hom[1],hom[2]);[127X[104X
+    [4X[28X<<[ 2, 2, 2 ]> ---> <[ 2, 2, 2 ]>>[128X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27XIsomorphicModules(Source(g),Range(g));[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27Xp := ProjectiveCover(N);[127X[104X
+    [4X[28X<<[ 3, 12, 9 ]> ---> <[ 3, 2, 2 ]>>[128X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27XN1 := Kernel(p);[127X[104X
+    [4X[28X<[ 0, 10, 7 ]>[128X[104X
+    [4X[25Xgap>[125X [27Xpullback := PullBack(p,hom[1]);[127X[104X
+    [4X[28X[ <<[ 3, 12, 9 ]> ---> <[ 3, 2, 2 ]>>[128X[104X
+    [4X[28X    , <<[ 3, 12, 9 ]> ---> <[ 3, 12, 9 ]>>[128X[104X
+    [4X[28X     ][128X[104X
+    [4X[25Xgap>[125X [27XKernel(pullback[1]);[127X[104X
+    [4X[28X<[ 0, 10, 7 ]>[128X[104X
+    [4X[25Xgap>[125X [27XIsomorphicModules(N1,Kernel(pullback[1]));[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27Xt := LiftingMorphismFromProjective(p,p*hom[1]);[127X[104X
+    [4X[28X<<[ 3, 12, 9 ]> ---> <[ 3, 12, 9 ]>>[128X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27Xs := MorphismOnKernel(p,p,t,hom[1]);    [127X[104X
+    [4X[28X<<[ 0, 10, 7 ]> ---> <[ 0, 10, 7 ]>>[128X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27XSource(s) = N1;[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27Xq := KernelInclusion(p);[127X[104X
+    [4X[28X<<[ 0, 10, 7 ]> ---> <[ 3, 12, 9 ]>>[128X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27Xpushout := PushOut(q,s);[127X[104X
+    [4X[28X[ <<[ 0, 10, 7 ]> ---> <[ 3, 12, 9 ]>>[128X[104X
+    [4X[28X    , <<[ 3, 12, 9 ]> ---> <[ 3, 12, 9 ]>>[128X[104X
+    [4X[28X     ][128X[104X
+    [4X[25Xgap>[125X [27XU := CoKernel(pushout[1]);[127X[104X
+    [4X[28X<[ 3, 2, 2 ]>[128X[104X
+    [4X[25Xgap>[125X [27XIsomorphicModules(U,N);[127X[104X
+    [4X[28Xtrue [128X[104X
+  [4X[32X[104X
+  
+  [1X8.1-32 NthSyzygy[101X
+  
+  [33X[1;0Y[29X[2XNthSyzygy[102X( [3XM[103X, [3Xn[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments:  [3XM[103X  --  a  path  algebra  module  ([10XPathAlgebraMatModule[110X),  [3Xn[103X -- a
+  non-negative integer.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe [3Xn[103X-th syzygy of [3XM[103X.[133X
+  
+  [33X[0;0YThis  functions  computes  a  projective  resolution of [3XM[103X and finds the [3Xn[103X-th
+  syzygy of the module [3XM[103X.[133X
+  
+  [1X8.1-33 NumberOfComplementsOfAlmostCompleteTiltingModule[101X
+  
+  [33X[1;0Y[29X[2XNumberOfComplementsOfAlmostCompleteTiltingModule[102X( [3XM[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XNumberOfComplementsOfAlmostCompleteCotiltingModule[102X( [3XM[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XM[103X -- a PathAlgebraMatModule.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe  number  complements  of  an almost complete tilting/cotilting
+            module [3XM[103X, assuming that [3XM[103X is an almost complete tilting module.[133X
+  
+  [1X8.1-34 ProjDimension[101X
+  
+  [33X[1;0Y[29X[2XProjDimension[102X( [3XM[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3XM[103X - a PathAlgebraMatModule.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe projective dimension of the module [3XM[103X, if it has been computed.[133X
+  
+  [1X8.1-35 ProjDimensionOfModule[101X
+  
+  [33X[1;0Y[29X[2XProjDimensionOfModule[102X( [3XM[103X, [3Xn[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XM, n[103X - a PathAlgebraMatModule, a positive integer.[133X
+  
+  [6XReturns:[106X  [33X[0;10YReturns  the projective dimension of the module [3XM[103X if it is less or
+            equal to [3Xn[103X. Otherwise it returns false.[133X
+  
+  [1X8.1-36 ProjectiveCover[101X
+  
+  [33X[1;0Y[29X[2XProjectiveCover[102X( [3XM[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3XM[103X - a module.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe projective cover of [3XM[103X, that is, returns the map [23XP(M)\to M[123X.[133X
+  
+  [33X[0;0YIf the module [3XM[103X is zero, then the zero map to [3XM[103X is returned.[133X
+  
+  [1X8.1-37 ProjectiveResolutionOfPathAlgebraModule[101X
+  
+  [33X[1;0Y[29X[2XProjectiveResolutionOfPathAlgebraModule[102X( [3XM[103X, [3Xn[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments:  [3XM[103X - a path algebra module ([10XPathAlgebraMatModule[110X), [3Xn[103X - a positive
+  integer.[133X
+  
+  [6XReturns:[106X  [33X[0;10Yin  terms  of attributes [10XRProjectives[110X, [10XProjectivesFList[110X and [10XMaps[110X a
+            projective  resolution of [3XM[103X out to stage [3Xn[103X, where [10XRProjectives[110X are
+            the  projectives  in  the resolution lifted up to projectives over
+            the  path  algebra,  [10XProjectivesFList[110X  are  the  generators of the
+            projective  modules  given in [10XRProjectives[110X in terms of elements in
+            the  first  projective  in  the  resolution  and [10XMaps[110X contains the
+            information about the maps in the resolution.[133X
+  
+  [33X[0;0YThe algorithm for computing this projective resolution is based on the paper
+  [GSZ01].  In  addition,  the  algebra  over which the modules are defined is
+  available via the attribute [10XParentAlgebra[110X.[133X
+  
+  [1X8.1-38 ProjectiveResolutionOfSimpleModuleOverEndo[101X
+  
+  [33X[1;0Y[29X[2XProjectiveResolutionOfSimpleModuleOverEndo[102X( [3Xmodulelist[103X, [3Xt[103X, [3Xlength[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments:  [3Xmodulelist[103X  -  a  list  of  module,  [3Xt[103X - an index of the list of
+  modules, [3Xlength[103X - length of the resolution.[133X
+  
+  [6XReturns:[106X  [33X[0;10Yinformation  about  the  projective  dimension  and non-projective
+            summands of the syzygies of the simple module corresponding to the
+            [3Xt[103X-th  indecomposable  projective module over the endomorphism ring
+            of the direct sum of all the modules in [3Xmodulelist[103X (all assumed to
+            be  indecomposable).  The  non-projective summands in the syzygies
+            from  the  second  syzygy  up  to  the  [3Xlength[103X-syzygy  are  always
+            returned.  If the projective dimension is less or equal to [3Xlength[103X,
+            the  projective  dimension is returned. Otherwise, it returns that
+            the projective dimension is bigger that [3Xlength[103X. The output has the
+            format [10X[ info on projective dimension, syzygies ][110X.[133X
+  
+  [1X8.1-39 PullBack[101X
+  
+  [33X[1;0Y[29X[2XPullBack[102X( [3Xf[103X, [3Xg[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xf[103X, [3Xg[103X - two homomorphisms with a common range.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe pullback of the maps [3Xf[103X and [3Xg[103X.[133X
+  
+  [33X[0;0YIt is checked if [3Xf[103X and [3Xg[103X have the same range. Given the input [23Xf\colon A\to B[123X
+  (horizontal  map)  and  [23Xg\colon  C\to  B[123X  (vertical  map), the pullback [23XE[123X is
+  returned as the two homomorphisms [23X[f',g'][123X, where [23Xf'\colon E\to C[123X (horizontal
+  map) and [23Xg'\colon E\to A[123X (vertical map).[133X
+  
+  [1X8.1-40 PushOut[101X
+  
+  [33X[1;0Y[29X[2XPushOut[102X( [3Xf[103X, [3Xg[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xf[103X, [3Xg[103X - two homomorphisms between modules with a common source.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe pushout of the maps [3Xf[103X and [3Xg[103X.[133X
+  
+  [33X[0;0YIt  is checked if [3Xf[103X and [3Xg[103X have the same source. Given the input [23Xf\colon A\to
+  B[123X  (horizontal  map)  and  [23Xg\colon  A\to  C[123X (vertical map), the pushout [23XE[123X is
+  returned as the two homomorphisms [23X[f',g'][123X, where [23Xf'\colon C\to E[123X (horizontal
+  map) and [23Xg'\colon B\to E[123X (vertical map).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XS := SimpleModules(A);[127X[104X
+    [4X[28X[ <[ 1, 0, 0 ]>, <[ 0, 1, 0 ]>, <[ 0, 0, 1 ]> ][128X[104X
+    [4X[25Xgap>[125X [27XExt := ExtOverAlgebra(S[2],S[2]);[127X[104X
+    [4X[28X[ <<[ 0, 1, 2 ]> ---> <[ 0, 2, 2 ]>>[128X[104X
+    [4X[28X    , [ <<[ 0, 1, 2 ]> ---> <[ 0, 1, 0 ]>>[128X[104X
+    [4X[28X         ], function( map ) ... end ][128X[104X
+    [4X[25Xgap>[125X [27XLength(Ext[2]);[127X[104X
+    [4X[28X1[128X[104X
+    [4X[25Xgap>[125X [27X# i.e. Ext^1(S[2],S[2]) is 1-dimensional[127X[104X
+    [4X[25Xgap>[125X [27Xpushout := PushOut(Ext[2][1],Ext[1]);   [127X[104X
+    [4X[28X[ <<[ 0, 2, 2 ]> ---> <[ 0, 2, 0 ]>>[128X[104X
+    [4X[28X    , <<[ 0, 1, 0 ]> ---> <[ 0, 2, 0 ]>>[128X[104X
+    [4X[28X     ][128X[104X
+    [4X[25Xgap>[125X [27Xf := CoKernelProjection(pushout[1]);[127X[104X
+    [4X[28X<<[ 0, 2, 0 ]> ---> <[ 0, 0, 0 ]>>[128X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27XU := Range(pushout[1]); [127X[104X
+    [4X[28X<[ 0, 2, 0 ]> [128X[104X
+  [4X[32X[104X
+  
+  [1X8.1-41 RightApproximationByPerpT[101X
+  
+  [33X[1;0Y[29X[2XRightApproximationByPerpT[102X( [3XT[103X, [3XM[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XT[103X, [3XM[103X -- two path algebra modules ([10XPathAlgebraMatModule[110X).[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe minimal right [22X^perp T[122X-approximation of [3XM[103X.[133X
+  
+  [33X[0;0YThe  function  checks  if the first argument is a cotilting module, that is,
+  checks  if  the attribute of [10XIsCotiltingModule[110X is set. This attribute can be
+  set  by giving the command [10XCotiltingModule( T, n )[110X for some positive integer
+  [10Xn[110X which is at least the injective dimension of the module [3XT[103X.[133X
+  
+  [1X8.1-42 RightFacMApproximation[101X
+  
+  [33X[1;0Y[29X[2XRightFacMApproximation[102X( [3XM[103X, [3XC[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XMinimalRightFacMApproximation[102X( [3XM[103X, [3XC[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XM[103X, [3XC[103X -- two path algebra modules ([10XPathAlgebraMatModule[110X).[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya  minimal  right [23X\operatorname{Fac} M[123X-approximation of the module
+            [23XC[123X.[133X
+  
+  [1X8.1-43 RightMutationOfTiltingModuleComplement[101X
+  
+  [33X[1;0Y[29X[2XRightMutationOfTiltingModuleComplement[102X( [3XM[103X, [3XN[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XRightMutationOfCotiltingModuleComplement[102X( [3XM[103X, [3XN[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XM[103X, [3XN[103X -- two path algebra modules ([10XPathAlgebraMatModule[110X).[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya  right  mutation  of  the  complement  [3XN[103X  of the almost complete
+            tilting/cotilting module [3XM[103X, if such a complement exists. Otherwise
+            it returns false.[133X
+  
+  [1X8.1-44 RightSubMApproximation[101X
+  
+  [33X[1;0Y[29X[2XRightSubMApproximation[102X( [3XM[103X, [3XC[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XMinimalRightSubMApproximation[102X( [3XM[103X, [3XC[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XM[103X, [3XC[103X -- two path algebra modules ([10XPathAlgebraMatModule[110X).[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya  right [23X\operatorname{Sub} M[123X-approximation of the module [23XC[123X, where
+            the   first  version  returns  a  not  necessarily  minimal  right
+            [23X\operatorname{Sub}   M[123X-approximation  and  the  second  returns  a
+            minimal approximation.[133X
+  
+  [1X8.1-45 N_RigidModule[101X
+  
+  [33X[1;0Y[29X[2XN_RigidModule[102X( [3XM[103X, [3Xn[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XM[103X, [3Xn[103X - a PathAlgebraMatModule, an integer.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue if [3XM[103X is a [3Xn[103X-rigid module. Otherwise it returns false.[133X
+  
+  [1X8.1-46 TiltingModule[101X
+  
+  [33X[1;0Y[29X[2XTiltingModule[102X( [3XM[103X, [3Xn[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XM[103X, [3Xn[103X - a PathAlgebraMatModule and a positive integer.[133X
+  
+  [6XReturns:[106X  [33X[0;10Yfalse if [3XM[103X is not a tilting module of projective dimension at most
+            [3Xn[103X.  Otherwise,  it  returns  the projective dimension of [3XM[103X and the
+            coresolution of all indecomposable projective modules in [22Xadd M[122X.[133X
+  

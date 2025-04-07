@@ -1,11 +1,1062 @@
-<!DOCTYPE html>
-<html lang="en">
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
-	<meta charset="UTF-8" />
-	<title>Placeholder</title>
+<title>GAP (QPA) - Contents</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="GAPDoc2HTML" />
+<link rel="stylesheet" type="text/css" href="manual.css" />
+<script src="manual.js" type="text/javascript"></script>
+<script type="text/javascript">overwriteStyle();</script>
 </head>
-<body>
-<h1>Placeholder!</h1>
-<a href="..">Back</a>
+<body class="chap0"  onload="jscontent()">
+
+
+<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0.html">Top</a>  <a href="chap1.html">1</a>  <a href="chap2.html">2</a>  <a href="chap3.html">3</a>  <a href="chap4.html">4</a>  <a href="chap5.html">5</a>  <a href="chap6.html">6</a>  <a href="chap7.html">7</a>  <a href="chap8.html">8</a>  <a href="chap9.html">9</a>  <a href="chap10.html">10</a>  <a href="chap11.html">11</a>  <a href="chap12.html">12</a>  <a href="chap13.html">13</a>  <a href="chapBib.html">Bib</a>  <a href="chapInd.html">Ind</a>  </div>
+
+<div class="chlinkprevnexttop">&nbsp;<a href="chap0.html">[Top of Book]</a>&nbsp;  <a href="chap0.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap1.html">[Next Chapter]</a>&nbsp;  </div>
+
+<p id="mathjaxlink" class="pcenter"><a href="chap0_mj.html">[MathJax on]</a></p>
+<p><a id="X7D2C85EC87DD46E5" name="X7D2C85EC87DD46E5"></a></p>
+<div class="pcenter">
+
+<h1>QPA</h1>
+
+
+<h2>Quivers and Path Algebras</h2>
+
+<p>Version 1.35</p>
+
+<p>January 2024</p>
+
+</div>
+<p>
+  </p>
+<p><b>The QPA-team
+          
+	      
+           
+  </b>
+<br />Email: <span class="URL"><a href="mailto:oyvind.solberg@ntnu.no">oyvind.solberg@ntnu.no</a></span>
+<br />Homepage: <span class="URL"><a href="https://folk.ntnu.no/oyvinso/QPA/">https://folk.ntnu.no/oyvinso/QPA/</a></span>
+<br />Address: <br />Department of Mathematical Sciences<br /> NTNU<br /> N-7491 Trondheim<br /> Norway
+</p>
+
+<p><a id="X7AA6C5737B711C89" name="X7AA6C5737B711C89"></a></p>
+<h3>Abstract</h3>
+<p>The GAP4 deposited package <strong class="pkg">QPA</strong> extends the GAP functionality for computations with finite dimensional quotients of path algebras. <strong class="pkg">QPA</strong> has data structures for quivers, quotients of path algebras, representations of quivers with relations and complexes of modules. Basic operations on representations of quivers are implemented as well as constructing minimal projective resolutions of modules (using using linear algebra). A not necessarily minimal projective resolution constructed by using Groebner basis theory and a paper by Green-Solberg-Zacharia, "Minimal projective resolutions", has been implemented. A goal is to have a test for finite representation type. This work has started, but there is a long way left. Part of this work is to implement/port the functionality and data structures that was available in CREP.</p>
+
+<p><a id="X81488B807F2A1CF1" name="X81488B807F2A1CF1"></a></p>
+<h3>Copyright</h3>
+<p>© 2014-2024 by The QPA-team.</p>
+
+<p><strong class="pkg">QPA</strong> is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version. For details, see the FSF’s own site (<span class="URL"><a href="https://www.gnu.org/licenses/gpl.html">https://www.gnu.org/licenses/gpl.html</a></span>).</p>
+
+<p>If you obtained <strong class="pkg">QPA</strong>, we would be grateful for a short notification sent to one of members of the QPA-team. If you publish a result which was partially obtained with the usage of <strong class="pkg">QPA</strong>, please cite it in the following form:</p>
+
+<p>The QPA-team, <strong class="pkg">QPA</strong> - Quivers, path algebras and representations, Version 1.35; 2024 (<span class="URL"><a href="https://folk.ntnu.no/oyvinso/QPA/">https://folk.ntnu.no/oyvinso/QPA/</a></span>)</p>
+
+<p><a id="X82A988D47DFAFCFA" name="X82A988D47DFAFCFA"></a></p>
+<h3>Acknowledgements</h3>
+<p>The system design of <strong class="pkg">QPA</strong> was initiated by Edward L. Green, Lenwood S. Heath, and Craig A. Struble. It was continued and completed by Randall Cone and Edward Green. We would like to thank the following people for their contributions:</p>
+
+<div class="pcenter"><table class="GAPDocTablenoborder">
+<tr>
+<td class="tdleft">Chain complexes</td>
+<td class="tdleft">Kristin Krogh Arnesen and Øystein Skartsæterhagen</td>
+</tr>
+<tr>
+<td class="tdleft">Degeneration order for modules in finite type</td>
+<td class="tdleft">Andrzej Mroz</td>
+</tr>
+<tr>
+<td class="tdleft">GBNP interface (for Groebner bases)</td>
+<td class="tdleft">Randall Cone</td>
+</tr>
+<tr>
+<td class="tdleft">Homomorphisms of modules</td>
+<td class="tdleft">Øyvind Solberg and Anette Wraalsen</td>
+</tr>
+<tr>
+<td class="tdleft">Koszul duals</td>
+<td class="tdleft">Stephen Corwin</td>
+</tr>
+<tr>
+<td class="tdleft">Matrix representations of path algebras</td>
+<td class="tdleft">Øyvind Solberg and George Yuhasz</td>
+</tr>
+<tr>
+<td class="tdleft">Opposite algebra and tensor products of algebras</td>
+<td class="tdleft">Øystein Skartsæterhagen</td>
+</tr>
+<tr>
+<td class="tdleft">Predefined classes of algebras</td>
+<td class="tdleft">Andrzej Mroz and Øyvind Solberg</td>
+</tr>
+<tr>
+<td class="tdleft">Projective resolutions (using Groebnar basis)</td>
+<td class="tdleft">Randall Cone and Øyvind Solberg</td>
+</tr>
+<tr>
+<td class="tdleft">Projective resolutions (using linear algebra)</td>
+<td class="tdleft">Øyvind Solberg</td>
+</tr>
+<tr>
+<td class="tdleft">Quickstart</td>
+<td class="tdleft">Kristin Krogh Arnesen</td>
+</tr>
+<tr>
+<td class="tdleft">Quivers, path algebras</td>
+<td class="tdleft">Gerard Brunick</td>
+</tr>
+<tr>
+<td class="tdleft">The bounded derived category</td>
+<td class="tdleft">Kristin Krogh Arnesen and Øystein Skartsæterhagen</td>
+</tr>
+<tr>
+<td class="tdleft">Unitforms</td>
+<td class="tdleft">Øyvind Solberg</td>
+</tr>
+<tr>
+<td class="tdleft"></td>
+<td class="tdleft"></td>
+</tr>
+<tr>
+<td class="tdleft"></td>
+<td class="tdleft"></td>
+</tr>
+<tr>
+<td class="tdleft"></td>
+<td class="tdleft"></td>
+</tr>
+<tr>
+<td class="tdleft"></td>
+<td class="tdleft"></td>
+</tr>
+<tr>
+<td class="tdleft"></td>
+<td class="tdleft"></td>
+</tr>
+<tr>
+<td class="tdleft"></td>
+<td class="tdleft"></td>
+</tr>
+<tr>
+<td class="tdleft"></td>
+<td class="tdleft"></td>
+</tr>
+<tr>
+<td class="tdleft"></td>
+<td class="tdleft"></td>
+</tr>
+<tr>
+<td class="tdleft"></td>
+<td class="tdleft"></td>
+</tr>
+<tr>
+<td class="tdleft"></td>
+<td class="tdleft"></td>
+</tr>
+<tr>
+<td class="tdleft"></td>
+<td class="tdleft"></td>
+</tr>
+<tr>
+<td class="tdleft"></td>
+<td class="tdleft"></td>
+</tr>
+<tr>
+<td class="tdleft"></td>
+<td class="tdleft"></td>
+</tr>
+<tr>
+<td class="tdleft"></td>
+<td class="tdleft"></td>
+</tr>
+<tr>
+<td class="tdleft"></td>
+<td class="tdleft"></td>
+</tr>
+<tr>
+<td class="tdleft"></td>
+<td class="tdleft"></td>
+</tr>
+</table><br />
+</div>
+
+<p><a id="X8537FEB07AF2BEC8" name="X8537FEB07AF2BEC8"></a></p>
+
+<div class="contents">
+<h3>Contents<a id="contents" name="contents"></a></h3>
+
+<div class="ContChap"><a href="chap1.html#X7DFB63A97E67C0A1">1 <span class="Heading">Introduction</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap1.html#X8557083378F2A3B2">1.1 <span class="Heading">General aims</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap1.html#X7DB566D5785B7DBC">1.2 <span class="Heading">Installation and system requirements</span></a>
+</span>
+</div>
+</div>
+<div class="ContChap"><a href="chap2.html#X7F83DF528480AEA3">2 <span class="Heading">Quickstart</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap2.html#X7D3488D984288697">2.1 <span class="Heading">Example 1 -- quivers, path
+algebras and quotients of path algebras</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap2.html#X7D0E555F79FFD1EE">2.2 <span class="Heading">Example 2 -- Introducing modules</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap2.html#X790BB3A1815A9B4D">2.3 <span class="Heading">Example 3 -- Constructing modules and module homomorphisms</span></a>
+</span>
+</div>
+</div>
+<div class="ContChap"><a href="chap3.html#X7FA7E6B581D41A94">3 <span class="Heading">Quivers</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap3.html#X7C14F4617F7E9F09">3.1 <span class="Heading">Information class, Quivers</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X786A65F07FA1BB78">3.1-1 InfoQuiver</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap3.html#X860B15D57EAB46D7">3.2 <span class="Heading">Constructing Quivers</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7BD8455A7F2C5CA3">3.2-1 Quiver</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7EE08F058702A717">3.2-2 DynkinQuiver</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X83E498008233E2DD">3.2-3 OrderedBy</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap3.html#X80BB6B6183134D88">3.3 <span class="Heading">Categories and Properties of Quivers</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7E9C03497FD7778B">3.3-1 IsQuiver</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X82E99C5F8624BD86">3.3-2 IsAcyclicQuiver</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X846C44937B3AF09A">3.3-3 IsUAcyclicQuiver</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7909BF627C5D0D4A">3.3-4 IsConnectedQuiver</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7A2B55BD7B6F0360">3.3-5 IsTreeQuiver</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X85EC85B58688CCCC">3.3-6 IsDynkinQuiver</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap3.html#X78BBB63B828EB9FB">3.4 <span class="Heading">Orderings of paths in a
+    quiver</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap3.html#X80CF69E37B54F3C1">3.5 <span class="Heading">Attributes and Operations for Quivers</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X8198B2897FF5AC4B">3.5-1 .</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7C82A4BC7FB329D8">3.5-2 VerticesOfQuiver</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X82C42D7D820D5F9B">3.5-3 ArrowsOfQuiver</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7AF572F081AEFE98">3.5-4 AdjacencyMatrixOfQuiver</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7B4A7F0F813E63FC">3.5-5 GeneratorsOfQuiver</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X822BD7F37F8AF016">3.5-6 NumberOfVertices</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7AC77C9C7D069663">3.5-7 NumberOfArrows</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X84D1D1AA82689B03">3.5-8 OrderingOfQuiver</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X84B82F6F84A442AB">3.5-9 OppositeQuiver</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X87B9B85483CBB238">3.5-10 FullSubquiver</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X824D7C768708F006">3.5-11 ConnectedComponentsOfQuiver</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7C4BB3E5872FD483">3.5-12 DoubleQuiver</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7B4EA2D6869BBAF3">3.5-13 SeparatedQuiver</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap3.html#X862A804B80C5A47D">3.6 <span class="Heading">Categories and Properties of Paths</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X78B503DB83F2B6DE">3.6-1 IsPath</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X791474408297F7A0">3.6-2 IsQuiverVertex</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X8266C9B8840C12EB">3.6-3 IsArrow</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X8624A0B0795149CF">3.6-4 IsZeroPath</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap3.html#X7C8294338676C80E">3.7 <span class="Heading">Attributes and Operations of Paths</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X84D8493C7AAF4ACC">3.7-1 SourceOfPath</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X86827D3F78F51815">3.7-2 TargetOfPath</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7FF179D17C4F9FAC">3.7-3 LengthOfPath</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X781A8E06850E47B4">3.7-4 WalkOfPath</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7857704878577048">3.7-5 *</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X806A4814806A4814">3.7-6 =</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7DAD2700853E8C21">3.7-7 &lt;</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap3.html#X8158F0D27C4628FB">3.8 <span class="Heading">Attributes of Vertices</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X85E53C177F80E77E">3.8-1 IncomingArrowsOfVertex</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X8345D79381E46D73">3.8-2 OutgoingArrowsOfVertex</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7C9CD0527CB9E6EF">3.8-3 InDegreeOfVertex</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7A09EB648070276D">3.8-4 OutDegreeOfVertex</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7A557B4C83B7C601">3.8-5 NeighborsOfVertex</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap3.html#X79540DAB85902432">3.9 <span class="Heading">Posets</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X80854BB778E3833E">3.9-1 Poset</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X858ADA3B7A684421">3.9-2 Size</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7AF9E0CD850F8B03">3.9-3 UnderlyingSet</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X8468B5F77EBA547A">3.9-4 PartialOrderOfPoset</a></span>
+</div></div>
+</div>
+<div class="ContChap"><a href="chap4.html#X7E8A43A484CE0BA8">4 <span class="Heading">Path Algebras</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4.html#X7DFB63A97E67C0A1">4.1 <span class="Heading">Introduction</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4.html#X848A225A84A15B1E">4.2 <span class="Heading">Constructing Path Algebras</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7CA1C87B8202C2E9">4.2-1 PathAlgebra</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4.html#X85A3A8767E7C11AD">4.3 <span class="Heading">Categories and Properties of Path Algebras</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X8255FDF78315E1B3">4.3-1 IsPathAlgebra</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4.html#X7DE2F2A48492041A">4.4 <span class="Heading">Attributes and Operations for Path Algebras</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7D8F5BDF85DA7B14">4.4-1 AssociatedGradedAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7DF51D297E0E6A8B">4.4-2 AssociatedMonomialAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X83FBA499856580B0">4.4-3 QuiverOfPathAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X8279084B828E5FD7">4.4-4 OrderingOfAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X86CDD46F7F05ADE9">4.4-5 .</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4.html#X7CEF60107CE4616B">4.5 <span class="Heading">Operations on Path Algebra Elements</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X841C00E87E19528E">4.5-1 ElementOfPathAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7E3FAB1F803E26FF">4.5-2 &lt;</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X853C8B0B8665BFBB">4.5-3 IsLeftUniform</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7C06BE7483992634">4.5-4 IsRightUniform</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X8735FBE180797557">4.5-5 IsUniform</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X84C98E687A3A84D8">4.5-6 LeadingTerm</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X80710E9B7D8340BD">4.5-7 LeadingCoefficient</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7B3EAE41795598A5">4.5-8 LeadingMonomial</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X8172B40181E1B7D2">4.5-9 MakeUniformOnRight</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X796249A682818750">4.5-10 MappedExpression</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7D6DDDF178B0F2D9">4.5-11 SupportOfQuiverAlgebraElement</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X849AC0F67A131929">4.5-12 VertexPosition</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X86795D8E7ED73048">4.5-13 RelationsOfAlgebra</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4.html#X7F0D555379C97A6E">4.6 <span class="Heading">Constructing Quotients of Path Algebras</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X814203E281F3272E">4.6-1 AssignGeneratorVariables</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4.html#X812C0F8D7E4B1134">4.7 <span class="Heading">Ideals and operations
+    on ideals</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X82ACACDD7D8E9B25">4.7-1 Ideal</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7EACC0D285D18E19">4.7-2 IdealOfQuotient</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X859C987B7C5F0D8D">4.7-3 PathsOfLengthTwo</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X830187497E0BD4F0">4.7-4 NthPowerOfArrowIdeal</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X824D550E8371098C">4.7-5 AddNthPowerToRelations</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X83E8D45B82356D8E"><code>4.7-6 \in</code></a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4.html#X82A1683E7A402E73">4.8 <span class="Heading">Categories and properties of ideals</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7F40193B877D76BC">4.8-1 IsAdmissibleIdeal</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X818EE2B9789BB175">4.8-2 IsIdealInPathAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7C40D53785D67A9E">4.8-3 IsMonomialIdeal</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X841058F8850FA9D3">4.8-4 IsQuadraticIdeal</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4.html#X7C45A01B7A587D9E">4.9 <span class="Heading">Operations on ideals</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7C1D2A2481599348">4.9-1 ProductOfIdeals</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7B0035AF7B030BDF">4.9-2 QuadraticPerpOfPathAlgebraIdeal</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4.html#X85D4E72B787B1C49">4.10 <span class="Heading">Attributes of ideals</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7D2896F27C976231">4.10-1 GroebnerBasisOfIdeal</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4.html#X7A3CA333873389AD">4.11 <span class="Heading">Categories and Properties of Quotients of Path Algebras</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7ACDD33087F98B88">4.11-1 IsAdmissibleQuotientOfPathAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X790DB9BF831B577D">4.11-2 IsQuotientOfPathAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X802DB9FB824B0167">4.11-3 IsFiniteDimensional</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X8523C98A870CF7B5">4.11-4 IsCanonicalAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X78C9AA2085058DFA">4.11-5 IsDistributiveAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7EF4868B84CC749E">4.11-6 IsFiniteGlobalDimensionAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X796625487F5F92A7">4.11-7 IsGentleAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7E6BE2187B48691D">4.11-8 IsGorensteinAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X859FF8F2865D0A3A">4.11-9 IsHereditaryAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7809E044817388D1">4.11-10 IsKroneckerAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7952044F8303A688">4.11-11 IsMonomialAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7CB110A7873F7942">4.11-12 IsNakayamaAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X8798B8BA7A145A2D">4.11-13 IsQuiverAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7A8D13FE8379776E">4.11-14 IsRadicalSquareZeroAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X82F25BFD7D43AB10">4.11-15 IsSchurianAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X8555FC6B85FE9C6D">4.11-16 IsSelfinjectiveAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X8558D44A79AA16CD">4.11-17 IsSemicommutativeAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X85A8EC2287F35DC1">4.11-18 IsSemisimpleAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7D7AC1D07A9607DF">4.11-19 IsSpecialBiserialAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X86F0E4AF7C9916CB">4.11-20 IsStringAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X79DA912C82D01EE8">4.11-21 IsSymmetricAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X87EC06D18021AD76">4.11-22 IsTriangularReduced</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7EF281F980319375">4.11-23 IsWeaklySymmetricAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X81C569797E900AE9">4.11-24 BongartzTest</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X8140D2557A23CDAC">4.11-25 IsFiniteTypeAlgebra</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4.html#X861E6670814290D0">4.12 <span class="Heading"> Operations on String Algebras</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X85F2FFFD78355788">4.12-1 IsValidString</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X85B82A4086AA53D6">4.12-2 StringsLessThan</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7F5B0A1A7AAF2C18">4.12-3 IsABand</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X85FFA183800621EA">4.12-4 BandsLessThan</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X870DB8577F0ABF0E">4.12-5 BandRepresentativesLessThan</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7C42DD687CE572DF">4.12-6 IsDomesticStringAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X85D0616C82375B5C">4.12-7 BridgeQuiver</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X82DBBB737885C73B">4.12-8 LocalARQuiver</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4.html#X86647D317A961513">4.13 <span class="Heading">Attributes and Operations (for Quotients) of Path
+    Algebras</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X84E3FEF587CB66C3">4.13-1 CartanMatrix</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7F8084A67A3BE874">4.13-2 Centre/Center</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X835A161E8524797A">4.13-3 ComplexityOfAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X815CB1D47CB174ED">4.13-4 CoxeterMatrix</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7F6F526C86052150">4.13-5 CoxeterPolynomial</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7E6926C6850E7C4E">4.13-6 Dimension</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7A3EACE782DC2198">4.13-7 FrobeniusForm</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X789D1DB97C1B9A0D">4.13-8 FrobeniusLinearFunctional</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7D511B3E7A50AB2A">4.13-9 GlobalDimension</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7BEA44FB819910B6">4.13-10 LoewyLength</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X818AF5A979F8E539">4.13-11 NakayamaAutomorphism</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7C068FE379FBCE18">4.13-12 NakayamaPermutation</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X78E378EB83BA3D8A">4.13-13 OrderOfNakayamaAutomorphism</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X782EFE477EC0C1C6">4.13-14 RadicalSeriesOfAlgebra</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4.html#X7BD7DB497917893C">4.14 <span class="Heading">Attributes and Operations on Elements
+ of Quotients of Path Algebra</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X87495684791B5742">4.14-1 IsElementOfQuotientOfPathAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X80B32F667BF6AFD8">4.14-2 Coefficients</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X8271E6F27C2C826E">4.14-3 IsNormalForm</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X837DD99B7A233FB5">4.14-4 &lt;</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7F2527747A3D0D6D">4.14-5 ElementOfQuotientOfPathAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X8088721187BA8D82">4.14-6 OriginalPathAlgebra</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4.html#X7B209E0A7DD93C08">4.15 <span class="Heading">Predefined classes and classes 
+  of (quotients of) path algebras</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X820AE0208636B9AA">4.15-1 BrauerConfigurationAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7E63A4F37856A075">4.15-2 CanonicalAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X83498D3D856CC08A">4.15-3 KroneckerAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7C678A08836F77CC">4.15-4 NakayamaAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X8369BB398212101C">4.15-5 AdmissibleSequenceGenerator</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X78C675F2836D1B18">4.15-6 PosetAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7F877C5F839A3AA9">4.15-7 PosetOfPosetAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7EF1AE62790D7486">4.15-8 TruncatedPathAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X87E17E137E2B0FC4">4.15-9 IsSpecialBiserialQuiver</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4.html#X840BAB827C62AA4C">4.16 <span class="Heading">Opposite algebras</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X85794BE082B632B9">4.16-1 OppositePath</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X87A86AFB782211D6">4.16-2 OppositePathAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X82C303CE808D54C1">4.16-3 OppositePathAlgebraElement</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X86B3EDE679B2493E">4.16-4 OppositeAlgebraHomomorphism</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4.html#X842527EC7F90C8C5">4.17 <span class="Heading">Tensor products of path algebras</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X835BBBE18104654A">4.17-1 QuiverProduct</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X858517C18242C2F1">4.17-2 QuiverProductDecomposition</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X80E3731882B80106">4.17-3 IsQuiverProductDecomposition</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X856E8B5B7F550647">4.17-4 IncludeInProductQuiver</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X8455692C7E282C6C">4.17-5 ProjectFromProductQuiver</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7A9026937BDDFA6C">4.17-6 TensorProductOfAlgebras</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7EE8921D787C8377">4.17-7 TensorAlgebrasInclusion</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7B31F4F680135E72">4.17-8 SimpleTensor</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7F0EBF88866A537D">4.17-9 TensorProductDecomposition</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X820195C47E2BE7E0">4.17-10 EnvelopingAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X8210F6627AB95229">4.17-11 EnvelopingAlgebraHomomorphism</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7AE13B567B5F72FC">4.17-12 IsEnvelopingAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X80D827747ACD76FA">4.17-13 AlgebraAsModuleOverEnvelopingAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7A4C262287D74AB0">4.17-14 DualOfAlgebraAsModuleOverEnvelopingAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X8101415F7FFB34CF">4.17-15 TrivialExtensionOfQuiverAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X81D98182822E8911">4.17-16 TrivialExtensionOfQuiverAlgebraProjection</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4.html#X79B8B91F8097BB80">4.18 <span class="Heading">Operations on quiver algebras</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7EE5A11883B86971">4.18-1 QuiverAlgebraOfAmodAeA</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7B2D7385829F5EC6">4.18-2 QuiverAlgebraOfeAe</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4.html#X8561BCB6835D561F">4.19 <span class="Heading">Finite dimensional algebras over finite fields</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X810A29FB7E6EA24D">4.19-1 AlgebraAsQuiverAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7E9078077EE8B51B">4.19-2 BlocksOfAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X84B423137F933795">4.19-3 IsBasicAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7D30E9C878221B42">4.19-4 IsElementaryAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7B35109B8176FE56">4.19-5 PreprojectiveAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X80C0C6C37C4A2ABD">4.19-6 PrimitiveIdempotents</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4.html#X7DDBF6F47A2E021C">4.20 <span class="Heading">Algebras</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X821B7B047871B42D">4.20-1 LiftingCompleteSetOfOrthogonalIdempotents</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X83041BDF78BF3CCA">4.20-2 LiftingIdempotent</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4.html#X850B9F12806FF76B">4.21 <span class="Heading">Saving and reading quotients of path algebras to and from a
+  file</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X82A638C77FA75549">4.21-1 ReadAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7E60DDCE848CB739">4.21-2 SaveAlgebra</a></span>
+</div></div>
+</div>
+<div class="ContChap"><a href="chap5.html#X8371E66387CB2E49">5 <span class="Heading">Groebner Basis</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap5.html#X850B47047FD4D709">5.1 <span class="Heading">Constructing a Groebner Basis</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5.html#X8451936885F68598">5.1-1 InfoGroebnerBasis</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5.html#X7A43611E876B7560">5.1-2 GroebnerBasis</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap5.html#X79C7DC5D873A14D0">5.2 <span class="Heading">Categories and Properties of Groebner
+    Basis</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5.html#X85C0C1CD87C70AAA">5.2-1 IsCompletelyReducedGroebnerBasis</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5.html#X86E7D0AE87CA048D">5.2-2 IsCompleteGroebnerBasis</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5.html#X7BFD28E687AADFBB">5.2-3 IsGroebnerBasis</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5.html#X799FD421784D1FFC">5.2-4 IsHomogeneousGroebnerBasis</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5.html#X8592E4C87E41A15A">5.2-5 IsTipReducedGroebnerBasis</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap5.html#X84EF455882169920">5.3 <span class="Heading">Attributes and Operations for Groebner Basis</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5.html#X8722C1577C236116">5.3-1 AdmitsFinitelyManyNontips</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5.html#X878AC1107E9671BA">5.3-2 CompletelyReduce</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5.html#X7FF28B7B80759D24">5.3-3 CompletelyReduceGroebnerBasis</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5.html#X7EF8910F82B45EC7">5.3-4 Enumerator</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5.html#X8137C99A7934C1CA">5.3-5 IsPrefixOfTipInTipIdeal</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5.html#X83ADF8287ED0668E">5.3-6 Iterator</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5.html#X7EAA029F8071ACC6">5.3-7 Nontips</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5.html#X7840F54D8240C288">5.3-8 NontipSize</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5.html#X7C6CD739788E7F59">5.3-9 TipReduce</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5.html#X7B4F38D6852DF8B6">5.3-10 TipReduceGroebnerBasis</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap5.html#X82C1C09486934532">5.4 <span class="Heading">Right Groebner Basis</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5.html#X86EC39527F33EABE">5.4-1 IsRightGroebnerBasis</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5.html#X7B29B9207D20EA9E">5.4-2 RightGroebnerBasis</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5.html#X812BFF79867FF73A">5.4-3 RightGroebnerBasisOfIdeal</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap5.html#X79E642237BD3931E">5.5 <span class="Heading">Constructing a Groebner Basis for inverse length ordeing</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5.html#X7D04F1807CA77001">5.5-1 TipInvLenInvLex</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5.html#X7E8CDBBF8029A9AA">5.5-2 TipCoefficientInvLenInvLex</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5.html#X7BFF3AB87D32B76A">5.5-3 TipMonomialInvLenInvLex</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5.html#X8493D6E87F831A7A">5.5-4 TipWalkInvLenInvLex</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5.html#X80EA7F088416E2D4">5.5-5 GroebnerBasisInvLenInvLex</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5.html#X857EAAD47D52A736">5.5-6 RemainderOfDivisionInvLenInvLexGroebnerBasis</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5.html#X8390998285C727E1">5.5-7 ReducedListInvLenInvLexQPA</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5.html#X7D96FEDA7F69B266">5.5-8 TipReducedListInvLenInvLex</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5.html#X7A6E562C8414E151">5.5-9 LeftmostOccurrenceInvLenInvLex</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5.html#X84B52C118749406D">5.5-10 BiggestHomogeneousPartInvLenInvLex</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5.html#X84B52C118749406D">5.5-11 BiggestHomogeneousPartInvLenInvLex</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5.html#X7CE1DF847FDA0162">5.5-12 TruncateElement</a></span>
+</div></div>
+</div>
+<div class="ContChap"><a href="chap6.html#X87EFC38F7BC77B27">6 <span class="Heading">Right Modules over Path
+Algebras</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap6.html#X86DD15DF877834FD">6.1 <span class="Heading">Modules of matrix type</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X85E5097D82D9BE62">6.1-1 RightModuleOverPathAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X844DD9B386A6AC56">6.1-2 RightAlgebraModuleToPathAlgebraMatModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X823D5739809A2D9A"><code>6.1-3 \=</code></a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap6.html#X869F4DD2877A99BA">6.2 <span class="Heading">Categories Of Matrix Modules</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X8710CC447F1F7B17">6.2-1 IsPathAlgebraMatModule</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap6.html#X862F510485ADBC67">6.3 <span class="Heading">Acting on Module Elements</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7BB4066E7D5B15B8">6.3-1 ^</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap6.html#X7E5B84B1832D839E">6.4 <span class="Heading">Operations on representations</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X830B834D7F2F0FAD">6.4-1 AnnihilatorOfModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X83404C0B7C15E7D0">6.4-2 BasicVersionOfModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7CD05524803C7777">6.4-3 BlockDecompositionOfModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X85AC0E7C7E3E697D">6.4-4 BlockSplittingIdempotents</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X8687EC4878E755CC">6.4-5 CommonDirectSummand</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X8376806384B96066">6.4-6 ComplexityOfModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7B0588497D5008A4">6.4-7 DecomposeModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X81EF6AE97A4F77FA">6.4-8 DecomposeModuleProbabilistic</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7A4A2B0F7BB16D0D">6.4-9 DecomposeModuleViaCharPoly</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X848EAC6C833C95B1">6.4-10 DecomposeModuleViaTop</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7E957BFE7897F504">6.4-11 DecomposeModuleWithMultiplicities</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7E38D5A48344C173">6.4-12 Dimension</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7B5EA4B0820DE28C">6.4-13 DimensionVector</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7BDD77707A013FBE">6.4-14 DirectSumOfQPAModules</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X857807CF8560B3C4">6.4-15 DirectSumInclusions</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X80CFB7E47A785E12">6.4-16 DirectSumProjections</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X837AE1BF7F31AD7C">6.4-17 FromIdentityToDoubleStarHomomorphism</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7FE61CFE7A138755">6.4-18 IntersectionOfSubmodules</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7E24DCE07E98E50D">6.4-19 IsDirectSummand</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7A50C15B87236111">6.4-20 IsDirectSumOfModules</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7C9BFC678598DBF6">6.4-21 IsExceptionalModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X82102F847994003E">6.4-22 IsIndecomposableModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7E5246D4831DB250">6.4-23 IsInAdditiveClosure</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X803C2799861FFBC5">6.4-24 IsInjectiveModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7D198BB5808D38F2">6.4-25 IsomorphicModules</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X8359AC9585777CA1">6.4-26 IsProjectiveModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7ECEEC6F873A7BA6">6.4-27 IsRigidModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7A8BC26E866E44DD">6.4-28 IsSemisimpleModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7D2067E57E0244F8">6.4-29 IsSimpleQPAModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7B766424838EE6EA">6.4-30 IsTauRigidModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X82663AD8832DD57F">6.4-31 LoewyLength</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X82BDA47282F9BBA7">6.4-32 IsZero</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X81BB198380631A9B">6.4-33 MatricesOfPathAlgebraModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7B480767836D0764">6.4-34 MaximalCommonDirectSummand</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7CD05FF985A1D1B3">6.4-35 NumberOfNonIsoDirSummands</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X821FA104861FF19B">6.4-36 MinimalGeneratingSetOfModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7E44920683157DE2">6.4-37 RadicalOfModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7929281B848A9FBE">6.4-38 RadicalSeries</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X798A50297D2F186E">6.4-39 RandomModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X84A724267E6F136D">6.4-40 SocleSeries</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X79DF34618798E866">6.4-41 SocleOfModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X858AC23C83AC843E">6.4-42 SubRepresentation</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X8653599686499CD6">6.4-43 SumOfSubmodules</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X856EA09A83A5A636">6.4-44 SupportModuleElement</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X87F571327E43AFB4">6.4-45 TopOfModule</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap6.html#X7919F94382D9B38B">6.5 <span class="Heading">Special representations</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X8048CD27796253CA">6.5-1 BasisOfProjectives</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X822401E583C75FCE">6.5-2 ElementInIndecProjective</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7E298A807E5EB1A8">6.5-3 ElementIn_vA_AsElementInIndecProj</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X87741234871B1F5C">6.5-4 IndecInjectiveModules</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X85EDCFE27F66093F">6.5-5 IndecProjectiveModules</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7C61261F7C5E53B8">6.5-6 SimpleModules</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7CCE2D12807AA35A">6.5-7 ZeroModule</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap6.html#X7D99BF5A87DDC099">6.6 <span class="Heading">Functors on representations</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X82D7B50A7ACA47BF">6.6-1 DualOfModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X847DDC417BFB8515">6.6-2 DualOfModuleHomomorphism</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X82D31F887C14E921">6.6-3 DTr</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X82D31F887C14E921">6.6-4 DTr</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X82ACC83D7EF5B32C">6.6-5 NakayamaFunctorOfModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X865C241C86D6168F">6.6-6 NakayamaFunctorOfModuleHomomorphism</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X78E724307D9FE41D">6.6-7 OppositeNakayamaFunctorOfModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X82A057C5824917FA">6.6-8 OppositeNakayamaFunctorOfModuleHomomorphism</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X818DD1A67A5C03AB">6.6-9 RestrictionViaAlgebraHomomorphism</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X86267BD982DB2221">6.6-10 RestrictionViaAlgebraHomomorphismMap</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7F07712F786AAEFD">6.6-11 StarOfModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X80AF678D795B6C57">6.6-12 StarOfModuleHomomorphism</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X814EE88D8474A99D">6.6-13 TensorProductOfModules</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7939949279208FA3">6.6-14 TrD</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7939949279208FA3">6.6-15 TrD</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X79C0B620842128AF">6.6-16 TransposeOfModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X80C4C3BF80B39D66">6.6-17 TransposeOfModuleHomomorphism</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap6.html#X84F07A1579CBC26A">6.7 <span class="Heading">Vertex projective modules and submodules thereof</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X79175B097A0718FE">6.7-1 RightProjectiveModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X855EFF36842AA3AE">6.7-2 CompletelyReduceGroebnerBasisForModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7D931FBF7BF64C7C">6.7-3 IsLeftDivisible</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X82A8398478788A5A">6.7-4 IsPathAlgebraModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X83DC9F63800A8812">6.7-5 IsPathAlgebraVector</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7935C4407BCB6F38">6.7-6 LeadingCoefficient (of PathAlgebraVector)</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X87DE0FE482A17ECC">6.7-7 LeadingComponent</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X839C070B7BAAE5DC">6.7-8 LeadingPosition</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7E705C5C825D9187">6.7-9 LeadingTerm (of PathAlgebraVector)</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X8593BCDB8402C46C">6.7-10 LeftDivision</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X8749643879D32A01">6.7-11 ^</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X87B186CE868FCB30">6.7-12 &lt;</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7F51DF007F51DF00">6.7-13 /</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7B3C31F17E6FB3CD">6.7-14 PathAlgebraVector</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X850B83A0801EE970">6.7-15 ProjectivePathAlgebraPresentation</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7F5109637D496354">6.7-16 RightGroebnerBasisOfModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7F5D460187F89CB7">6.7-17 TargetVertex</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7CDBA7818700F9D2">6.7-18 UniformGeneratorsOfModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X78E05C8F7ADE2BCD">6.7-19 Vectorize</a></span>
+</div></div>
+</div>
+<div class="ContChap"><a href="chap7.html#X7C049EFC82A7CAA7">7 <span class="Heading">Homomorphisms of Right Modules
+    over Path Algebras</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap7.html#X7B18E84678FA5EE0">7.1 <span class="Heading">Categories and representation of homomorphisms</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X79AE9787877E0A28">7.1-1 IsPathAlgebraModuleHomomorphism</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X8318ED607FE21F55">7.1-2 RightModuleHomOverAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X8752DBF3814CC4D5">7.1-3 UnderlyingLinearMap</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap7.html#X830529F9800BF688">7.2 <span class="Heading">Generalities of homomorphisms</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X82F8641E84AD4922"><code>7.2-1 \= (maps)</code></a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X7FA09A067BE00277"><code>7.2-2 \+ (maps)</code></a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X8315573C7C90717E"><code>7.2-3 \* (maps)</code></a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X7F6E2378786AC02A">7.2-4 CoKernelOfWhat</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X7EBAE0368470A603">7.2-5 IdentityMapping</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X7CFAB0157BFB1806">7.2-6 ImageElm</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X8781348F7F5796A0">7.2-7 ImagesSet</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X78EE24857C79789E">7.2-8 ImageOfWhat</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X7F065FD7822C0A12">7.2-9 IsInjective</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X7E07BBF57B92BA56">7.2-10 IsIsomorphism</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X7E5D33B8853B9490">7.2-11 IsLeftMinimal</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X876706C77FB707E5">7.2-12 IsRightMinimal</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X80A66EFA862E56BC">7.2-13 IsSplitEpimorphism</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X7DFACF1F7D7F7EE9">7.2-14 IsSplitMonomorphism</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X784ECE847E005B8F">7.2-15 IsSurjective</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X82BDA47282F9BBA7">7.2-16 IsZero</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X7EF520F67BA7F082">7.2-17 KernelOfWhat</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X7A40540E79DBD804">7.2-18 LeftInverseOfHomomorphism</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X7B63FBAF84533D75">7.2-19 MatricesOfPathAlgebraMatModuleHomomorphism</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X7D3B488586DA3938">7.2-20 PathAlgebraOfMatModuleMap</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X7AE24A1586B7DE79">7.2-21 PreImagesRepresentative</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X829F76BB80BD55DB">7.2-22 Range</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X8105F85B8260C4F9">7.2-23 RightInverseOfHomomorphism</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X7DE8173F80E07AB1">7.2-24 Source</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X804B376481243046">7.2-25 Zero</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X795FF8DC785F110A">7.2-26 ZeroMapping</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X81CA4D9E7D50A9A8">7.2-27 HomomorphismFromImages</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap7.html#X7E8D1A3F7C03CFF1">7.3 <span class="Heading">Homomorphisms and modules constructed from homomorphisms and modules</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X7864A84A80553958">7.3-1 AllIndecModulesOfLengthAtMost</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X83B5C7D484D98A34">7.3-2 AllModulesOfLengthAtMost</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X84F2D28D7F8694DC">7.3-3 AllSimpleSubmodulesOfModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X7C3D5CF978CF5058">7.3-4 AllSubmodulesOfModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X875F177A82BF9B8B">7.3-5 CoKernel</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X8267B6477A8F808F">7.3-6 CoKernelProjection</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X7D302484872EBCA5">7.3-7 EndModuloProjOverAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X8179107081C47D81">7.3-8 EndOfModuleAsQuiverAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X79FDBE1B795308A9">7.3-9 EndOverAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X7E9554FC7A4616E1">7.3-10 FromEndMToHomMM</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X7F4EECD880D88DC8">7.3-11 FromHomMMToEndM</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X78B00ECD7C33C43C">7.3-12 HomFactoringThroughProjOverAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X844682C07989D181">7.3-13 HomFromProjective</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X8681E72F7FD4BFCE">7.3-14 HomOverAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X87F4D35A826599C6">7.3-15 Image</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X7B076247877382A9">7.3-16 ImageInclusion</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X7F336D357FE717EC">7.3-17 ImageProjection</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X83B9B54A841BE792">7.3-18 ImageProjectionInclusion</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X8212964C83E70122">7.3-19 IsomorphismOfModules</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X7DCD99628504B810">7.3-20 Kernel</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X7F2D09C07F6DDBF8">7.3-21 LeftMinimalVersion</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X7CC14E9C804AF143">7.3-22 MatrixOfHomomorphismBetweenProjectives</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X7F6CFBA086101B54">7.3-23 FromMatrixToHomomorphismOfProjectives</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X7D479D1C7C4DF55B">7.3-24 RightMinimalVersion</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X7BF04DAE78E98D9C">7.3-25 RadicalOfModuleInclusion</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X7A103F4F8169D8C5">7.3-26 RejectOfModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X82EB23337C5F4DBB">7.3-27 SocleOfModuleInclusion</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X7E9BF05587D4A86A">7.3-28 SubRepresentationInclusion</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X804BD7CD804E63C4">7.3-29 TopOfModuleProjection</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X7DB504E184361BBE">7.3-30 TraceOfModule</a></span>
+</div></div>
+</div>
+<div class="ContChap"><a href="chap8.html#X7D310EDE847865C1">8 <span class="Heading">Homological algebra</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap8.html#X7D310EDE847865C1">8.1 <span class="Heading">Homological algebra</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap8.html#X7EC01D588141BB96">8.1-1 1stSyzygy</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap8.html#X7902D1477B9FF116">8.1-2 AllComplementsOfAlmostCompleteTiltingModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap8.html#X81479679781E04FA">8.1-3 CotiltingModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap8.html#X7D6AD2AB87865333">8.1-4 DominantDimensionOfAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap8.html#X8582841B79A11466">8.1-5 DominantDimensionOfModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap8.html#X7B9209CD7A46F544">8.1-6 ExtAlgebraGenerators</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap8.html#X787217547958E9C3">8.1-7 ExtOverAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap8.html#X7A7BF8178390DB7A">8.1-8 FaithfulDimension</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap8.html#X7B2001337C48B3C9">8.1-9 GlobalDimensionOfAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap8.html#X8380C47D80FAAED8">8.1-10 GorensteinDimension</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap8.html#X84BC33C07B4BBBC0">8.1-11 GorensteinDimensionOfAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap8.html#X7B1A0308813BA30F">8.1-12 HaveFiniteCoresolutionInAddM</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap8.html#X83271D587CD605E1">8.1-13 HaveFiniteResolutionInAddM</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap8.html#X80C6D02F7B543CC9">8.1-14 InjDimension</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap8.html#X7C16FB658383C36F">8.1-15 InjDimensionOfModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap8.html#X8434C5FC87773723">8.1-16 InjectiveEnvelope</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap8.html#X81910CD67E69BBF4">8.1-17 IsCotiltingModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap8.html#X7AA1E69C7A1009DA">8.1-18 IsNthSyzygy</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap8.html#X7BE6A5B586463067">8.1-19 IsOmegaPeriodic</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap8.html#X7CA63DA785F30E99">8.1-20 IsTtiltingModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap8.html#X7B433C86806B60A4">8.1-21 IyamaGenerator</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap8.html#X80800F4F80398356">8.1-22 LeftApproximationByAddTHat</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap8.html#X806A7DF7864D9431">8.1-23 LeftFacMApproximation</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap8.html#X82720AAD7E80714B">8.1-24 LeftMutationOfTiltingModuleComplement</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap8.html#X86EB50377F2E910D">8.1-25 LeftSubMApproximation</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap8.html#X848B51017E269802">8.1-26 LiftingInclusionMorphisms</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap8.html#X7A10EF0587ADA535">8.1-27 LiftingMorphismFromProjective</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap8.html#X853E593B83DDD4B8">8.1-28 LeftApproximationByAddM</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap8.html#X7F689558823AC784">8.1-29 RightApproximationByAddM</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap8.html#X7947619F7C8539E0">8.1-30 RadicalRightApproximationByAddM</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap8.html#X87AB8D2E8660869D">8.1-31 MorphismOnKernel</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap8.html#X7EB51A487B5B239D">8.1-32 NthSyzygy</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap8.html#X788CD7B282582D93">8.1-33 NumberOfComplementsOfAlmostCompleteTiltingModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap8.html#X7D3A779D7EFF32D1">8.1-34 ProjDimension</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap8.html#X86DA085884BAF968">8.1-35 ProjDimensionOfModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap8.html#X83257E2F7F8E0068">8.1-36 ProjectiveCover</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap8.html#X8346B3997D9AB706">8.1-37 ProjectiveResolutionOfPathAlgebraModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap8.html#X80678790799AEC16">8.1-38 ProjectiveResolutionOfSimpleModuleOverEndo</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap8.html#X7C705F2A79F8E43C">8.1-39 PullBack</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap8.html#X81A2D49D85923894">8.1-40 PushOut</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap8.html#X7C8B72157BDE0957">8.1-41 RightApproximationByPerpT</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap8.html#X873C632A83DF48E2">8.1-42 RightFacMApproximation</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap8.html#X8018953F7951F8F2">8.1-43 RightMutationOfTiltingModuleComplement</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap8.html#X81BD4EEA831D4A54">8.1-44 RightSubMApproximation</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap8.html#X78CA656D7D4F2446">8.1-45 N_RigidModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap8.html#X824D52847879AB91">8.1-46 TiltingModule</a></span>
+</div></div>
+</div>
+<div class="ContChap"><a href="chap9.html#X855427278501E7FB">9 <span class="Heading">Auslander-Reiten theory</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap9.html#X79B0EA987E050C6D">9.1 <span class="Heading">Almost split sequences and AR-quivers</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap9.html#X87BADA287BD9972C">9.1-1 AlmostSplitSequence</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap9.html#X7E8DBA647B3EC71B">9.1-2 AlmostSplitSequenceInPerpT</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap9.html#X8774261F862EC761">9.1-3 IrreducibleMorphismsEndingIn</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap9.html#X873085DD8534F600">9.1-4 IsTauPeriodic</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap9.html#X81A363848166449D">9.1-5 PredecessorOfModule</a></span>
+</div></div>
+</div>
+<div class="ContChap"><a href="chap10.html#X7A06103979B92808">10 <span class="Heading">Chain complexes</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap10.html#X7DFB63A97E67C0A1">10.1 <span class="Heading">Introduction</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap10.html#X7AC5660E80079755">10.2 <span class="Heading">Infinite lists</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X8466C7117CEC99D2">10.2-1 IsInfiniteNumber</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7F12EE4479A03527">10.2-2 PositiveInfinity</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X8759931784478A4D">10.2-3 NegativeInfinity</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X84731DA279E797A5">10.2-4 IsInfList</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X87524BBB7C2F9FCB">10.2-5 IsHalfInfList</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7D21FB1A7D21FB1A"><code>10.2-6 \^</code></a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7E01944C83F87EED">10.2-7 MakeHalfInfList</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X8458C2698505C12B">10.2-8 StartPosition</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X812437C47A208D4A">10.2-9 Direction</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7C3728BF7ED7149A">10.2-10 InfListType</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X82AA0979868A6967">10.2-11 RepeatingList</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7AF21D62848B270B">10.2-12 ElementFunction</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X8728A2107F27D68F">10.2-13 IsStoringValues</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X86888FBD8559B29B">10.2-14 NewValueCallback</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X856E1541834688C6">10.2-15 IsRepeating</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X8208162D7F3CC139">10.2-16 InitialValue</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7F12274E794510CA">10.2-17 LowestKnownPosition</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7B5E57F0859BEE17">10.2-18 HighestKnownValue</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X81F7B0AB84D6319B">10.2-19 Shift</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7D8067A7842BC4A4">10.2-20 Cut</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X79A67E377B71C540">10.2-21 HalfInfList</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7CE66EBA844DBB57">10.2-22 MakeInfListFromHalfInfLists</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X801DE2517D08C19E">10.2-23 MakeInfList</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7EEB276380E1584F">10.2-24 FunctionInfList</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X78C7FBAE83914790">10.2-25 ConstantInfList</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7D68E0627F556E14">10.2-26 FiniteInfList</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X8134072B7C7309CD">10.2-27 MiddleStart</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7EB933657AF3D723">10.2-28 MiddleEnd</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7AC3ECBB7BC93594">10.2-29 MiddlePart</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7896D6DD788046E7">10.2-30 PositivePart</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X81B768838567F98D">10.2-31 NegativePart</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X8511A0B88003B989">10.2-32 HighestKnownPosition</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7F12274E794510CA">10.2-33 LowestKnownPosition</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7A5CB74485184FEE">10.2-34 UpperBound</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X807CC5AD7FDFA4E3">10.2-35 LowerBound</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7A311EBE79F31AEA">10.2-36 FinitePartAsList</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X8028ED6883CFA39C">10.2-37 PositivePartFrom</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7863903B7E281CF6">10.2-38 NegativePartFrom</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X81F7B0AB84D6319B">10.2-39 Shift</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X80153272857B2EDE">10.2-40 Splice</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X84FC63C183F0A977">10.2-41 InfConcatenation</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7F4CF360858E80A6">10.2-42 InfList</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X791D879483C59410">10.2-43 IntegersList</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap10.html#X7CAF603281B94AC8">10.3 <span class="Heading">Representation of categories</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7F0E546178977963">10.3-1 IsCat</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7BB9B02E7E76FF9C">10.3-2 CatOfRightAlgebraModules</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap10.html#X7EC3D95F7C791F7E">10.4 <span class="Heading">Making a complex</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X838C9EBD87B8CB9D">10.4-1 IsQPAComplex</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7E0CE8AC87533991">10.4-2 IsZeroComplex</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7E51958C86D73D17">10.4-3 Complex</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X80F8DD20789BBBC0">10.4-4 ZeroComplex</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7C75868E82A831C8">10.4-5 FiniteComplex</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X80B47D78785F6859">10.4-6 StalkComplex</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7A685484784087FE">10.4-7 ShortExactSequence</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap10.html#X7F7E0C197FA31B29">10.5 <span class="Heading">Information about a complex</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7BBF131485F3C792">10.5-1 CatOfComplex</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X8239596E87830A51">10.5-2 ObjectOfComplex</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7B597AC77A3D71F9">10.5-3 DifferentialOfComplex</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X858D2D1A8674D2EC">10.5-4 DifferentialsOfComplex</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X85FBFD9C8382C93B">10.5-5 CyclesOfComplex</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X8168D8CC7805FE30">10.5-6 BoundariesOfComplex</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7F8D61447AB57EF3">10.5-7 HomologyOfComplex</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7DCBCF7682DC87FC">10.5-8 IsFiniteComplex</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7A5CB74485184FEE">10.5-9 UpperBound</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X807CC5AD7FDFA4E3">10.5-10 LowerBound</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7C1F81277A5AC8B4">10.5-11 LengthOfComplex</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X82D615CD796C9C0A">10.5-12 HighestKnownDegree</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X868105FF86FA1B6E">10.5-13 LowestKnownDegree</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X793465497B435197">10.5-14 IsExactSequence</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7A6AE1C378E2EEE2">10.5-15 IsExactInDegree</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X87ADD4F685457000">10.5-16 IsShortExactSequence</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X849C525A7F6EBF6D">10.5-17 ForEveryDegree</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap10.html#X8764E5C88284301B">10.6 <span class="Heading">Transforming and combining complexes</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X81F7B0AB84D6319B">10.6-1 Shift</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X86B56AC87A433E5B">10.6-2 ShiftUnsigned</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7897A65085171913">10.6-3 YonedaProduct</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X87E1CA507EB6B86E">10.6-4 BrutalTruncationBelow</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7CE9481684DD304E">10.6-5 BrutalTruncationAbove</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X8547C51781BBB48F">10.6-6 BrutalTruncation</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7E3E34167B79248A">10.6-7 SyzygyTruncation</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7C729A2587E5DA8D">10.6-8 CosyzygyTruncation</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X797FC6037F6605E7">10.6-9 SyzygyCosyzygyTruncation</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap10.html#X85F418EB859E7597">10.7 <span class="Heading">Chain maps</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7F76E62D837F0E66">10.7-1 IsChainMap</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7BCD94877DF261C4">10.7-2 ChainMap</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7C9597F6810F195E">10.7-3 ZeroChainMap</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X8699B48A783E1900">10.7-4 FiniteChainMap</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X805BA1698394DE4C">10.7-5 ComplexAndChainMaps</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7F20B8807ECE404E">10.7-6 MorphismOfChainMap</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X792B5B8684A75F72">10.7-7 MorphismsOfChainMap</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X78EC487B79B20DDE">10.7-8 ComparisonLifting</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7A95C5E78298E0C6">10.7-9 ComparisonLiftingToProjectiveResolution</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7EF42CF48165D831">10.7-10 MappingCone</a></span>
+</div></div>
+</div>
+<div class="ContChap"><a href="chap11.html#X7EDB390B82D9E644">11 <span class="Heading">Projective resolutions and the bounded derived category</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap11.html#X7C2FFD3E7D0D5D7F">11.1 <span class="Heading">Projective and injective complexes</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap11.html#X854F304E7A7F6FF2">11.1-1 InjectiveResolution</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap11.html#X8581C1F37EA425DE">11.1-2 IsProjectiveComplex</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap11.html#X7BDFFF987E99A5EA">11.1-3 IsInjectiveComplex</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap11.html#X8273999C7B352F22">11.1-4 ProjectiveResolution</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap11.html#X83D4593C80C2C4F6">11.2 <span class="Heading">The bounded derived category</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap11.html#X7BC3EE977FA24151">11.2-1 ProjectiveResolutionOfComplex</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap11.html#X84F050D07B19ABC4">11.2-2 ProjectiveToInjectiveComplex</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap11.html#X82CB35E07DD2D96D">11.2-3 TauOfComplex</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap11.html#X85861B017AEEC50B">11.2-4 <span class="Heading">Example</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap11.html#X84D4D700876395AF">11.2-5 StarOfMapBetweenProjectives</a></span>
+</div></div>
+</div>
+<div class="ContChap"><a href="chap12.html#X7F34F6A77A24AF1C">12 <span class="Heading">Combinatorial representation theory</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap12.html#X7DFB63A97E67C0A1">12.1 <span class="Heading">Introduction</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap12.html#X81C656897FC2CE5A">12.2 <span class="Heading">Different unit forms</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap12.html#X79E906FD7B3DF010">12.2-1 IsUnitForm</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap12.html#X81A3BD6C8027B193">12.2-2 BilinearFormOfUnitForm</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap12.html#X857561F27D797EEC">12.2-3 IsWeaklyNonnegativeUnitForm</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap12.html#X7F822DCA87F05BBC">12.2-4 IsWeaklyPositiveUnitForm</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap12.html#X79CAF63A806BCF80">12.2-5 PositiveRootsOfUnitForm</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap12.html#X799A82E58690F9C5">12.2-6 QuadraticFormOfUnitForm</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap12.html#X7837555780590360">12.2-7 SymmetricMatrixOfUnitForm</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap12.html#X8404227F7C6BB5D4">12.2-8 TitsUnitFormOfAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap12.html#X836F702A845D1A84">12.2-9 EulerBilinearFormOfAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap12.html#X7D52745781DF8980">12.2-10 UnitForm</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap12.html#X8779DC4586048F1F">12.3 <span class="Heading">Combinatorial Maps</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap12.html#X814C0E20858B22D6">12.3-1 CombinatorialMap</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap12.html#X82713DF87D1FA0D0">12.3-2 FacesOfCombinatorialMap</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap12.html#X86E5D64679A503C5">12.3-3 GenusOfCombinatorialMap</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap12.html#X83BC50DC822EB5F8">12.3-4 DualOfCombinatorialMap</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap12.html#X86AFE052783F5542">12.3-5 MaximalPathsOfGentleAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap12.html#X84E2EE177F234189">12.3-6 RemoveEdgeOfCombinatorialMap</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap12.html#X7A5333CC814054FF">12.3-7 CombinatorialMapOfGentleAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap12.html#X7E23962982506CB4">12.3-8 MarkedBoundariesOfCombinatorialMap</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap12.html#X84D1EB9379681C62">12.3-9 WindingNumber</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap12.html#X8599C842827591B3">12.3-10 BoundaryCurvesOfCombinatorialMap</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap12.html#X7C1850CF83BDBB05">12.3-11 DepthSearchCombinatorialMap</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap12.html#X80952CEC808FFB52">12.3-12 WidthSearchCombinatorialMap</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap12.html#X85C23E5180E0F1BB">12.3-13 NonSeperatingCurve</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap12.html#X8233249683293DCD">12.3-14 CutNonSepCombinatorialMap</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap12.html#X7ECDA130870127F0">12.3-15 JoinCurveCombinatorialMap</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap12.html#X78D7425B7DB40019">12.3-16 CutJoinCurveCombinatorialMap</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap12.html#X874A2B0B84D732B2">12.3-17 HomologyBasisOfCombinatorialMap</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap12.html#X82C2709B7CC86B07">12.3-18 AreDerivedEquivalent</a></span>
+</div></div>
+</div>
+<div class="ContChap"><a href="chap13.html#X82CC1A63854C04F1">13 <span class="Heading">Degeneration order for modules in finite type</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap13.html#X7DFB63A97E67C0A1">13.1 <span class="Heading">Introduction</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap13.html#X78ED07E37FC2BD46">13.2 <span class="Heading">Basic definitions</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap13.html#X7B3AC0B87DF8A219">13.3 <span class="Heading">Defining Auslander-Reiten quiver in finite type</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap13.html#X841AD2EF7FD636B9">13.3-1 ARQuiverNumerical</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap13.html#X7CFA7C7D861B2D4E">13.3-2 IsARQuiverNumerical</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap13.html#X861D4F9E8238AA6E">13.3-3 NumberOfIndecomposables</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap13.html#X80BCA6AE80665A4B">13.3-4 NumberOfProjectives</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap13.html#X7D5967788791362B">13.4 <span class="Heading">Elementary operations</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap13.html#X7C89E06784FB86C4">13.4-1 DimensionVector</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap13.html#X869602A97DFBCA30">13.4-2 DimHom</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap13.html#X8017F302837B903A">13.4-3 DimEnd</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap13.html#X835E686B7BDF5A09">13.4-4 OrbitDim</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap13.html#X782CF3C47A7DDFC0">13.4-5 OrbitCodim</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap13.html#X85D9166A85499D99">13.4-6 DegOrderLEQ</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap13.html#X790BD2D9813320B6">13.4-7 DegOrderLEQNC</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap13.html#X877D07357EEA1418">13.4-8 PrintMultiplicityVector</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap13.html#X83C7434A7AC586CE">13.4-9 PrintMultiplicityVectors</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap13.html#X7B0F730F82B4FACA">13.5 <span class="Heading">Operations returning families of modules</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap13.html#X7DE8B7ED854B4EA1">13.5-1 ModulesOfDimVect</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap13.html#X871CF6EE8579FEC8">13.5-2 DegOrderPredecessors</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap13.html#X7EBEA7DA85E645EB">13.5-3 DegOrderDirectPredecessors</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap13.html#X84930921811486F3">13.5-4 DegOrderPredecessorsWithDirect</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap13.html#X7DB3AC3685859104">13.5-5 DegOrderSuccessors</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap13.html#X7C477F4E81CA6791">13.5-6 DegOrderDirectSuccessors</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap13.html#X7EA7BB8986E8FAF3">13.5-7 DegOrderSuccessorsWithDirect</a></span>
+</div></div>
+</div>
+<div class="ContChap"><a href="chapBib.html"><span class="Heading">References</span></a></div>
+<div class="ContChap"><a href="chapInd.html"><span class="Heading">Index</span></a></div>
+<br />
+</div>
+
+<div class="chlinkprevnextbot">&nbsp;<a href="chap0.html">[Top of Book]</a>&nbsp;  <a href="chap0.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap1.html">[Next Chapter]</a>&nbsp;  </div>
+
+
+<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0.html">Top</a>  <a href="chap1.html">1</a>  <a href="chap2.html">2</a>  <a href="chap3.html">3</a>  <a href="chap4.html">4</a>  <a href="chap5.html">5</a>  <a href="chap6.html">6</a>  <a href="chap7.html">7</a>  <a href="chap8.html">8</a>  <a href="chap9.html">9</a>  <a href="chap10.html">10</a>  <a href="chap11.html">11</a>  <a href="chap12.html">12</a>  <a href="chap13.html">13</a>  <a href="chapBib.html">Bib</a>  <a href="chapInd.html">Ind</a>  </div>
+
+<hr />
+<p class="foot">generated by <a href="https://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc">GAPDoc2HTML</a></p>
 </body>
 </html>

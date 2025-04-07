@@ -1,0 +1,949 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<script type="text/javascript"
+  src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<title>GAP (QPA) - Chapter 7: Homomorphisms of Right Modules
+    over Path Algebras</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="GAPDoc2HTML" />
+<link rel="stylesheet" type="text/css" href="manual.css" />
+<script src="manual.js" type="text/javascript"></script>
+<script type="text/javascript">overwriteStyle();</script>
+</head>
+<body class="chap7"  onload="jscontent()">
+
+
+<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chap3_mj.html">3</a>  <a href="chap4_mj.html">4</a>  <a href="chap5_mj.html">5</a>  <a href="chap6_mj.html">6</a>  <a href="chap7_mj.html">7</a>  <a href="chap8_mj.html">8</a>  <a href="chap9_mj.html">9</a>  <a href="chap10_mj.html">10</a>  <a href="chap11_mj.html">11</a>  <a href="chap12_mj.html">12</a>  <a href="chap13_mj.html">13</a>  <a href="chapBib_mj.html">Bib</a>  <a href="chapInd_mj.html">Ind</a>  </div>
+
+<div class="chlinkprevnexttop">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap6_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap8_mj.html">[Next Chapter]</a>&nbsp;  </div>
+
+<p id="mathjaxlink" class="pcenter"><a href="chap7.html">[MathJax off]</a></p>
+<p><a id="X7C049EFC82A7CAA7" name="X7C049EFC82A7CAA7"></a></p>
+<div class="ChapSects"><a href="chap7_mj.html#X7C049EFC82A7CAA7">7 <span class="Heading">Homomorphisms of Right Modules
+    over Path Algebras</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap7_mj.html#X7B18E84678FA5EE0">7.1 <span class="Heading">Categories and representation of homomorphisms</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X79AE9787877E0A28">7.1-1 IsPathAlgebraModuleHomomorphism</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X8318ED607FE21F55">7.1-2 RightModuleHomOverAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X8752DBF3814CC4D5">7.1-3 UnderlyingLinearMap</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap7_mj.html#X830529F9800BF688">7.2 <span class="Heading">Generalities of homomorphisms</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X82F8641E84AD4922"><code>7.2-1 \= (maps)</code></a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X7FA09A067BE00277"><code>7.2-2 \+ (maps)</code></a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X8315573C7C90717E"><code>7.2-3 \* (maps)</code></a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X7F6E2378786AC02A">7.2-4 CoKernelOfWhat</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X7EBAE0368470A603">7.2-5 IdentityMapping</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X7CFAB0157BFB1806">7.2-6 ImageElm</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X8781348F7F5796A0">7.2-7 ImagesSet</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X78EE24857C79789E">7.2-8 ImageOfWhat</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X7F065FD7822C0A12">7.2-9 IsInjective</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X7E07BBF57B92BA56">7.2-10 IsIsomorphism</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X7E5D33B8853B9490">7.2-11 IsLeftMinimal</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X876706C77FB707E5">7.2-12 IsRightMinimal</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X80A66EFA862E56BC">7.2-13 IsSplitEpimorphism</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X7DFACF1F7D7F7EE9">7.2-14 IsSplitMonomorphism</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X784ECE847E005B8F">7.2-15 IsSurjective</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X82BDA47282F9BBA7">7.2-16 IsZero</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X7EF520F67BA7F082">7.2-17 KernelOfWhat</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X7A40540E79DBD804">7.2-18 LeftInverseOfHomomorphism</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X7B63FBAF84533D75">7.2-19 MatricesOfPathAlgebraMatModuleHomomorphism</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X7D3B488586DA3938">7.2-20 PathAlgebraOfMatModuleMap</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X7AE24A1586B7DE79">7.2-21 PreImagesRepresentative</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X829F76BB80BD55DB">7.2-22 Range</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X8105F85B8260C4F9">7.2-23 RightInverseOfHomomorphism</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X7DE8173F80E07AB1">7.2-24 Source</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X804B376481243046">7.2-25 Zero</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X795FF8DC785F110A">7.2-26 ZeroMapping</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X81CA4D9E7D50A9A8">7.2-27 HomomorphismFromImages</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap7_mj.html#X7E8D1A3F7C03CFF1">7.3 <span class="Heading">Homomorphisms and modules constructed from homomorphisms and modules</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X7864A84A80553958">7.3-1 AllIndecModulesOfLengthAtMost</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X83B5C7D484D98A34">7.3-2 AllModulesOfLengthAtMost</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X84F2D28D7F8694DC">7.3-3 AllSimpleSubmodulesOfModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X7C3D5CF978CF5058">7.3-4 AllSubmodulesOfModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X875F177A82BF9B8B">7.3-5 CoKernel</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X8267B6477A8F808F">7.3-6 CoKernelProjection</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X7D302484872EBCA5">7.3-7 EndModuloProjOverAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X8179107081C47D81">7.3-8 EndOfModuleAsQuiverAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X79FDBE1B795308A9">7.3-9 EndOverAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X7E9554FC7A4616E1">7.3-10 FromEndMToHomMM</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X7F4EECD880D88DC8">7.3-11 FromHomMMToEndM</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X78B00ECD7C33C43C">7.3-12 HomFactoringThroughProjOverAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X844682C07989D181">7.3-13 HomFromProjective</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X8681E72F7FD4BFCE">7.3-14 HomOverAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X87F4D35A826599C6">7.3-15 Image</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X7B076247877382A9">7.3-16 ImageInclusion</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X7F336D357FE717EC">7.3-17 ImageProjection</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X83B9B54A841BE792">7.3-18 ImageProjectionInclusion</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X8212964C83E70122">7.3-19 IsomorphismOfModules</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X7DCD99628504B810">7.3-20 Kernel</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X7F2D09C07F6DDBF8">7.3-21 LeftMinimalVersion</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X7CC14E9C804AF143">7.3-22 MatrixOfHomomorphismBetweenProjectives</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X7F6CFBA086101B54">7.3-23 FromMatrixToHomomorphismOfProjectives</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X7D479D1C7C4DF55B">7.3-24 RightMinimalVersion</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X7BF04DAE78E98D9C">7.3-25 RadicalOfModuleInclusion</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X7A103F4F8169D8C5">7.3-26 RejectOfModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X82EB23337C5F4DBB">7.3-27 SocleOfModuleInclusion</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X7E9BF05587D4A86A">7.3-28 SubRepresentationInclusion</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X804BD7CD804E63C4">7.3-29 TopOfModuleProjection</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X7DB504E184361BBE">7.3-30 TraceOfModule</a></span>
+</div></div>
+</div>
+
+<h3>7 <span class="Heading">Homomorphisms of Right Modules
+    over Path Algebras</span></h3>
+
+<p>This chapter describes the categories, representations, attributes, and operations on homomorphisms between representations of quivers.</p>
+
+<p>Given two homorphisms <span class="SimpleMath">\(f\colon L\to M\)</span> and <span class="SimpleMath">\(g\colon M\to N\)</span>, then the composition is written <span class="SimpleMath">\(f*g\)</span>. The elements in the modules or the representations of a quiver are row vectors. Therefore the homomorphisms between two modules are acting on these row vectors, that is, if <span class="SimpleMath">\(m_i\)</span> is in <span class="SimpleMath">\(M[i]\)</span> and <span class="SimpleMath">\(g_i\colon M[i]\to N[i]\)</span> represents the linear map, then the value of <span class="SimpleMath">\(g\)</span> applied to <span class="SimpleMath">\(m_i\)</span> is the matrix product <span class="SimpleMath">\(m_i*g_i\)</span>.</p>
+
+<p>The example used throughout this chapter is the following.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Q := Quiver(3,[[1,2,"a"],[1,2,"b"],[2,2,"c"],[2,3,"d"],[3,1,"e"]]);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">KQ := PathAlgebra(Rationals, Q);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">AssignGeneratorVariables(KQ);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">rels := [d*e,c^2,a*c*d-b*d,e*a];;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">A := KQ/rels;;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">mat :=[["a",[[1,2],[0,3],[1,5]]],["b",[[2,0],[3,0],[5,0]]],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">["c",[[0,0],[1,0]]],["d",[[1,2],[0,1]]],["e",[[0,0,0],[0,0,0]]]];;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">N := RightModuleOverPathAlgebra(A,mat);; </span>
+</pre></div>
+
+<p><a id="X7B18E84678FA5EE0" name="X7B18E84678FA5EE0"></a></p>
+
+<h4>7.1 <span class="Heading">Categories and representation of homomorphisms</span></h4>
+
+<p><a id="X79AE9787877E0A28" name="X79AE9787877E0A28"></a></p>
+
+<h5>7.1-1 IsPathAlgebraModuleHomomorphism</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsPathAlgebraModuleHomomorphism</code>( <var class="Arg">f</var> )</td><td class="tdright">(&nbsp;filter&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">f</var> - any object in GAP.<br /></p>
+
+<p>Returns: true or false depending on if <var class="Arg">f</var> belongs to the categories <code class="code">IsPathAlgebraModuleHomomorphism</code>.</p>
+
+<p>This defines the category <code class="func">IsPathAlgebraModuleHomomorphism</code>.</p>
+
+<p><a id="X8318ED607FE21F55" name="X8318ED607FE21F55"></a></p>
+
+<h5>7.1-2 RightModuleHomOverAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; RightModuleHomOverAlgebra</code>( <var class="Arg">M</var>, <var class="Arg">N</var>, <var class="Arg">mats</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var>, <var class="Arg">N</var> - two modules over the same (quotient of a) path algebra, <var class="Arg">mats</var> - a list of matrices, one for each vertex in the quiver of the path algebra.<br /></p>
+
+<p>Returns: a homomorphism in the category <code class="code">IsPathAlgebraModuleHomomorphism</code> from the module <var class="Arg">M</var> to the module <var class="Arg">N</var> given by the matrices <var class="Arg">mats</var>.</p>
+
+<p>The arguments <var class="Arg">M</var> and <var class="Arg">N</var> are two modules over the same algebra (this is checked), and <var class="Arg">mats</var> is a list of matrices <code class="code">mats[i]</code>, where <code class="code">mats[i]</code> represents the linear map from <code class="code">M[i]</code> to <code class="code">N[i]</code> with <code class="code">i</code> running through all the vertices in the same order as when the underlying quiver was created. If both <code class="code">DimensionVector(M)[i]</code> and <code class="code">DimensionVector(N)[i]</code> are non-zero, then <code class="code">mats[i]</code> is a <code class="code">DimensionVector(M)[i]</code> by <code class="code">DimensionVector(N)[i]</code> matrix. If <code class="code">DimensionVector(M)[i]</code> is zero and <code class="code">DimensionVector(N)[i]</code> is non-zero, then <code class="code">mats[i]</code> must be the zero <code class="code">1</code> by <code class="code">DimensionVector(N)[i]</code> matrix. Similarly for the other way around. If both <code class="code">DimensionVector(M)[i]</code> and <code class="code">DimensionVector(N)[i]</code> are zero, then <code class="code">mats[i]</code> must be the <code class="code">1</code> by <code class="code">1</code> zero matrix. The function checks if <var class="Arg">mats</var> is a homomorphism from the module <var class="Arg">M</var> to the module <var class="Arg">N</var> by checking that the matrices given in <var class="Arg">mats</var> have the correct size and satisfy the appropriate commutativity conditions with the matrices in the modules given by <var class="Arg">M</var> and <var class="Arg">N</var>. The source (or domain) and the range (or codomain) of the homomorphism constructed can by obtained again by <code class="func">Range</code> (<a href="chap7_mj.html#X829F76BB80BD55DB"><span class="RefLink">7.2-22</span></a>) and by <code class="func">Source</code> (<a href="chap7_mj.html#X7DE8173F80E07AB1"><span class="RefLink">7.2-24</span></a>), respectively.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">L := RightModuleOverPathAlgebra(A,[["a",[0,1]],["b",[0,1]],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">["c",[[0]]],["d",[[1]]],["e",[1,0]]]);</span>
+&lt;[ 0, 1, 1 ]&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">DimensionVector(L);</span>
+[ 0, 1, 1 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">f := RightModuleHomOverAlgebra(L,N,[[[0,0,0]], [[1,0]], </span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">[[1,2]]]);</span>
+&lt;&lt;[ 0, 1, 1 ]&gt; ---&gt; &lt;[ 3, 2, 2 ]&gt;&gt;
+
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsPathAlgebraMatModuleHomomorphism(f);</span>
+true 
+</pre></div>
+
+<p><a id="X8752DBF3814CC4D5" name="X8752DBF3814CC4D5"></a></p>
+
+<h5>7.1-3 UnderlyingLinearMap</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; UnderlyingLinearMap</code>( <var class="Arg">f</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">f</var> - a homomorphism between two representations.<br /></p>
+
+<p>Returns: the homomorphism <var class="Arg">f</var> as a matrix, where the homomorphism on a zero vectorspace is represented by a zero matrix. The linear map/matrix operates on row vectors.</p>
+
+<p><a id="X830529F9800BF688" name="X830529F9800BF688"></a></p>
+
+<h4>7.2 <span class="Heading">Generalities of homomorphisms</span></h4>
+
+<p><a id="X82F8641E84AD4922" name="X82F8641E84AD4922"></a></p>
+
+<h5><code>7.2-1 \= (maps)</code></h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; \= (maps)</code>( <var class="Arg">f</var>, <var class="Arg">g</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">f</var>, <var class="Arg">g</var> - two homomorphisms between two modules.<br /></p>
+
+<p>Returns: true, if <code class="code">Source(f) = Source(g)</code>, <code class="code">Range(f) = Range(g)</code>, and the matrices defining the maps <var class="Arg">f</var> and <var class="Arg">g</var> coincide.</p>
+
+<p><a id="X7FA09A067BE00277" name="X7FA09A067BE00277"></a></p>
+
+<h5><code>7.2-2 \+ (maps)</code></h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; \+ (maps)</code>( <var class="Arg">f</var>, <var class="Arg">g</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">f</var>, <var class="Arg">g</var> - two homomorphisms between two modules.<br /></p>
+
+<p>Returns: the sum <var class="Arg">f+g</var> of the maps <var class="Arg">f</var> and <var class="Arg">g</var>.</p>
+
+<p>The function checks if the maps have the same source and the same range, and returns an error message otherwise.</p>
+
+<p><a id="X8315573C7C90717E" name="X8315573C7C90717E"></a></p>
+
+<h5><code>7.2-3 \* (maps)</code></h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; \* (maps)</code>( <var class="Arg">f</var>, <var class="Arg">g</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">f</var>, <var class="Arg">g</var> - two homomorphisms between two modules, or one scalar and one homomorphism between modules.<br /></p>
+
+<p>Returns: the composition <var class="Arg">fg</var> of the maps <var class="Arg">f</var> and <var class="Arg">g</var>, if the input are maps between representations of the same quivers. If <var class="Arg">f</var> or <var class="Arg">g</var> is a scalar, it returns the natural action of scalars on the maps between representations.</p>
+
+<p>The function checks if the maps are composable, in the first case and in the second case it checks if the scalar is in the correct field, and returns an error message otherwise.</p>
+
+<p><a id="X7F6E2378786AC02A" name="X7F6E2378786AC02A"></a></p>
+
+<h5>7.2-4 CoKernelOfWhat</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; CoKernelOfWhat</code>( <var class="Arg">f</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">f</var> - a homomorphism between two modules.<br /></p>
+
+<p>Returns: a homomorphism <var class="Arg">g</var>, if <var class="Arg">f</var> has been computed as the cokernel of the homomorphism <var class="Arg">g</var>.</p>
+
+<p><a id="X7EBAE0368470A603" name="X7EBAE0368470A603"></a></p>
+
+<h5>7.2-5 IdentityMapping</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IdentityMapping</code>( <var class="Arg">M</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> - a module.<br /></p>
+
+<p>Returns: the identity map between <var class="Arg">M</var> and <var class="Arg">M</var>.</p>
+
+<p><a id="X7CFAB0157BFB1806" name="X7CFAB0157BFB1806"></a></p>
+
+<h5>7.2-6 ImageElm</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ImageElm</code>( <var class="Arg">f</var>, <var class="Arg">elem</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">f</var> - a homomorphism between two modules, <var class="Arg">elem</var> - an element in the source of <var class="Arg">f</var>.<br /></p>
+
+<p>Returns: the image of the element <var class="Arg">elem</var> in the source (or domain) of the homomorphism <var class="Arg">f</var>.</p>
+
+<p>The function checks if <var class="Arg">elem</var> is an element in the source of <var class="Arg">f</var>, and it returns an error message otherwise.</p>
+
+<p><a id="X8781348F7F5796A0" name="X8781348F7F5796A0"></a></p>
+
+<h5>7.2-7 ImagesSet</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ImagesSet</code>( <var class="Arg">f</var>, <var class="Arg">elts</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">f</var> - a homomorphism between two modules, <var class="Arg">elts</var> - an element in the source of <var class="Arg">f</var>, or the source of <var class="Arg">f</var>.<br /></p>
+
+<p>Returns: the non-zero images of a set of elements <var class="Arg">elts</var> in the source of the homomorphism <var class="Arg">f</var>, or if <var class="Arg">elts</var> is the source of <var class="Arg">f</var>, it returns a basis of the image.</p>
+
+<p>The function checks if the set of elements <var class="Arg">elts</var> consists of elements in the source of <var class="Arg">f</var>, and it returns an error message otherwise.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">B := BasisVectors(Basis(N)); </span>
+[ [ [ 1, 0, 0 ], [ 0, 0 ], [ 0, 0 ] ], 
+  [ [ 0, 1, 0 ], [ 0, 0 ], [ 0, 0 ] ], 
+  [ [ 0, 0, 1 ], [ 0, 0 ], [ 0, 0 ] ], 
+  [ [ 0, 0, 0 ], [ 1, 0 ], [ 0, 0 ] ], 
+  [ [ 0, 0, 0 ], [ 0, 1 ], [ 0, 0 ] ], 
+  [ [ 0, 0, 0 ], [ 0, 0 ], [ 1, 0 ] ], 
+  [ [ 0, 0, 0 ], [ 0, 0 ], [ 0, 1 ] ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">PreImagesRepresentative(f,B[4]);     </span>
+[ [ 0 ], [ 1 ], [ 0 ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">PreImagesRepresentative(f,B[5]);</span>
+fail
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">BL := BasisVectors(Basis(L));</span>
+[ [ [ 0 ], [ 1 ], [ 0 ] ], [ [ 0 ], [ 0 ], [ 1 ] ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ImageElm(f,BL[1]);</span>
+[ [ 0, 0, 0 ], [ 1, 0 ], [ 0, 0 ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ImagesSet(f,L);</span>
+[ [ [ 0, 0, 0 ], [ 1, 0 ], [ 0, 0 ] ], 
+  [ [ 0, 0, 0 ], [ 0, 0 ], [ 1, 2 ] ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ImagesSet(f,BL);</span>
+[ [ [ 0, 0, 0 ], [ 1, 0 ], [ 0, 0 ] ], 
+  [ [ 0, 0, 0 ], [ 0, 0 ], [ 1, 2 ] ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">z := Zero(f);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">f = z;</span>
+false
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Range(f) = Range(z);</span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">y := ZeroMapping(L,N);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">y = z;            </span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">id := IdentityMapping(N);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">f*id;;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">#This causes an error!</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">id*f;</span>
+Error, codomain of the first argument is not equal to the domain of th\
+e second argument,  called from
+&lt;function&gt;( &lt;arguments&gt; ) called from read-eval-loop
+Entering break read-eval-print loop ...
+you can 'quit;' to quit to outer loop, or
+you can 'return;' to continue
+<span class="GAPbrkprompt">brk&gt;</span> <span class="GAPinput">quit;;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">2*f + z;</span>
+&lt;&lt;[ 0, 1, 1 ]&gt; ---&gt; &lt;[ 3, 2, 2 ]&gt;&gt; 
+</pre></div>
+
+<p><a id="X78EE24857C79789E" name="X78EE24857C79789E"></a></p>
+
+<h5>7.2-8 ImageOfWhat</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ImageOfWhat</code>( <var class="Arg">f</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">f</var> - a homomorphism between two modules.<br /></p>
+
+<p>Returns: a homomorphism <var class="Arg">g</var>, if <var class="Arg">f</var> has been computed as the image projection or the image inclusion of the homomorphism <var class="Arg">g</var>.</p>
+
+<p><a id="X7F065FD7822C0A12" name="X7F065FD7822C0A12"></a></p>
+
+<h5>7.2-9 IsInjective</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsInjective</code>( <var class="Arg">f</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">f</var> - a homomorphism between two modules.<br /></p>
+
+<p>Returns: <code class="code">true</code> if the homomorphism <var class="Arg">f</var> is one-to-one.</p>
+
+<p><a id="X7E07BBF57B92BA56" name="X7E07BBF57B92BA56"></a></p>
+
+<h5>7.2-10 IsIsomorphism</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsIsomorphism</code>( <var class="Arg">f</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">f</var> - a homomorphism between two modules.<br /></p>
+
+<p>Returns: <code class="code">true</code> if the homomorphism <var class="Arg">f</var> is an isomorphism.</p>
+
+<p><a id="X7E5D33B8853B9490" name="X7E5D33B8853B9490"></a></p>
+
+<h5>7.2-11 IsLeftMinimal</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsLeftMinimal</code>( <var class="Arg">f</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">f</var> - a homomorphism between two modules.<br /></p>
+
+<p>Returns: <code class="code">true</code> if the homomorphism <var class="Arg">f</var> is left minimal.</p>
+
+<p><a id="X876706C77FB707E5" name="X876706C77FB707E5"></a></p>
+
+<h5>7.2-12 IsRightMinimal</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsRightMinimal</code>( <var class="Arg">f</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">f</var> - a homomorphism between two modules.<br /></p>
+
+<p>Returns: <code class="code">true</code> if the homomorphism <var class="Arg">f</var> is right minimal.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">L := RightModuleOverPathAlgebra(A,[["a",[0,1]],["b",[0,1]],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">["c",[[0]]],["d",[[1]]],["e",[1,0]]]);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">f := RightModuleHomOverAlgebra(L,N,[[[0,0,0]], [[1,0]], </span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">[[1,2]]]);</span>
+&lt;&lt;[ 0, 1, 1 ]&gt; ---&gt; &lt;[ 3, 2, 2 ]&gt;&gt;
+
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">g := CoKernelProjection(f);</span>
+&lt;&lt;[ 3, 2, 2 ]&gt; ---&gt; &lt;[ 3, 1, 1 ]&gt;&gt;
+
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">CoKernelOfWhat(g) = f;</span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">h := ImageProjection(f);</span>
+&lt;&lt;[ 0, 1, 1 ]&gt; ---&gt; &lt;[ 0, 1, 1 ]&gt;&gt;
+
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ImageOfWhat(h) = f;</span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsInjective(f); IsSurjective(f); IsIsomorphism(f); </span>
+true
+false
+false
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsIsomorphism(h);</span>
+true 
+</pre></div>
+
+<p><a id="X80A66EFA862E56BC" name="X80A66EFA862E56BC"></a></p>
+
+<h5>7.2-13 IsSplitEpimorphism</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsSplitEpimorphism</code>( <var class="Arg">f</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">f</var> - a homomorphism between two modules.<br /></p>
+
+<p>Returns: <code class="code">true</code> if the homomorphism <var class="Arg">f</var> is a splittable epimorphism, otherwise <code class="code">false</code>.</p>
+
+<p><a id="X7DFACF1F7D7F7EE9" name="X7DFACF1F7D7F7EE9"></a></p>
+
+<h5>7.2-14 IsSplitMonomorphism</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsSplitMonomorphism</code>( <var class="Arg">f</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">f</var> - a homomorphism between two modules.<br /></p>
+
+<p>Returns: <code class="code">true</code> if the homomorphism <var class="Arg">f</var> is a splittable monomorphism, otherwise <code class="code">false</code>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">S := SimpleModules(A)[1];;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">H := HomOverAlgebra(N,S);; </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsSplitMonomorphism(H[1]);  </span>
+false
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsSplitEpimorphism(H[1]);</span>
+true
+</pre></div>
+
+<p><a id="X784ECE847E005B8F" name="X784ECE847E005B8F"></a></p>
+
+<h5>7.2-15 IsSurjective</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsSurjective</code>( <var class="Arg">f</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">f</var> - a homomorphism between two modules.<br /></p>
+
+<p>Returns: <code class="code">true</code> if the homomorphism <var class="Arg">f</var> is onto.</p>
+
+<p><a id="X82BDA47282F9BBA7" name="X82BDA47282F9BBA7"></a></p>
+
+<h5>7.2-16 IsZero</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsZero</code>( <var class="Arg">f</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">f</var> - a homomorphism between two modules.<br /></p>
+
+<p>Returns: <code class="code">true</code> if the homomorphism <var class="Arg">f</var> is a zero homomorphism.</p>
+
+<p><a id="X7EF520F67BA7F082" name="X7EF520F67BA7F082"></a></p>
+
+<h5>7.2-17 KernelOfWhat</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; KernelOfWhat</code>( <var class="Arg">f</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">f</var> - a homomorphism between two modules.<br /></p>
+
+<p>Returns: a homomorphism <var class="Arg">g</var>, if <var class="Arg">f</var> has been computed as the kernel of the homomorphism <var class="Arg">g</var>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">L := RightModuleOverPathAlgebra(A,[["a",[0,1]],["b",[0,1]],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">["c",[[0]]],["d",[[1]]],["e",[1,0]]]);</span>
+&lt;[ 0, 1, 1 ]&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">f := RightModuleHomOverAlgebra(L,N,[[[0,0,0]], [[1,0]], </span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">[[1,2]]]);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsZero(0*f);</span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">g := KernelInclusion(f);</span>
+&lt;&lt;[ 0, 0, 0 ]&gt; ---&gt; &lt;[ 0, 1, 1 ]&gt;&gt;
+
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">KnownAttributesOfObject(g);</span>
+[ "Range", "Source", "PathAlgebraOfMatModuleMap", "KernelOfWhat" ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">KernelOfWhat(g) = f;</span>
+true 
+</pre></div>
+
+<p><a id="X7A40540E79DBD804" name="X7A40540E79DBD804"></a></p>
+
+<h5>7.2-18 LeftInverseOfHomomorphism</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; LeftInverseOfHomomorphism</code>( <var class="Arg">f</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">f</var> - a homomorphism between two modules.<br /></p>
+
+<p>Returns: <code class="code">false</code> if the homomorphism <var class="Arg">f</var> is not a splittable epimorphism, otherwise it returns a splitting of the split epimorphism <var class="Arg">f</var>.</p>
+
+<p><a id="X7B63FBAF84533D75" name="X7B63FBAF84533D75"></a></p>
+
+<h5>7.2-19 MatricesOfPathAlgebraMatModuleHomomorphism</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; MatricesOfPathAlgebraMatModuleHomomorphism</code>( <var class="Arg">f</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">f</var> - a homomorphism between two modules.<br /></p>
+
+<p>Returns: the matrices defining the homomorphism <var class="Arg">f</var>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">MatricesOfPathAlgebraMatModuleHomomorphism(f);</span>
+[ [ [ 0, 0, 0 ] ], [ [ 1, 0 ] ], [ [ 1, 2 ] ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Range(f);</span>
+&lt;[ 3, 2, 2 ]&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Source(f);</span>
+&lt;[ 0, 1, 1 ]&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Source(f) = L;</span>
+true 
+</pre></div>
+
+<p><a id="X7D3B488586DA3938" name="X7D3B488586DA3938"></a></p>
+
+<h5>7.2-20 PathAlgebraOfMatModuleMap</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; PathAlgebraOfMatModuleMap</code>( <var class="Arg">f</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">f</var> -- a homomorphism between two path algebra modules (<code class="code">PathAlgebraMatModule</code>). <br /></p>
+
+<p>Returns: the algebra over which the range and the source of the homomorphism <var class="Arg">f</var> is defined.</p>
+
+<p><a id="X7AE24A1586B7DE79" name="X7AE24A1586B7DE79"></a></p>
+
+<h5>7.2-21 PreImagesRepresentative</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; PreImagesRepresentative</code>( <var class="Arg">f</var>, <var class="Arg">elem</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">f</var> - a homomorphism between two modules, <var class="Arg">elem</var> - an element in the range of <var class="Arg">f</var>.<br /></p>
+
+<p>Returns: a preimage of the element <var class="Arg">elem</var> in the range (or codomain) the homomorphism <var class="Arg">f</var> if a preimage exists, otherwise it returns <code class="code">fail</code>.</p>
+
+<p>The function checks if <var class="Arg">elem</var> is an element in the range of <var class="Arg">f</var> and returns an error message if not.</p>
+
+<p><a id="X829F76BB80BD55DB" name="X829F76BB80BD55DB"></a></p>
+
+<h5>7.2-22 Range</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Range</code>( <var class="Arg">f</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">f</var> - a homomorphism between two modules.<br /></p>
+
+<p>Returns: the range (or codomain) the homomorphism <var class="Arg">f</var>.</p>
+
+<p><a id="X8105F85B8260C4F9" name="X8105F85B8260C4F9"></a></p>
+
+<h5>7.2-23 RightInverseOfHomomorphism</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; RightInverseOfHomomorphism</code>( <var class="Arg">f</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">f</var> - a homomorphism between two modules.<br /></p>
+
+<p>Returns: <code class="code">false</code> if the homomorphism <var class="Arg">f</var> is not a splittable monomorphism, otherwise it returns a splitting of the split monomorphism <var class="Arg">f</var>.</p>
+
+<p><a id="X7DE8173F80E07AB1" name="X7DE8173F80E07AB1"></a></p>
+
+<h5>7.2-24 Source</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Source</code>( <var class="Arg">f</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">f</var> - a homomorphism between two modules.<br /></p>
+
+<p>Returns: the source (or domain) the homomorphism <var class="Arg">f</var>.</p>
+
+<p><a id="X804B376481243046" name="X804B376481243046"></a></p>
+
+<h5>7.2-25 Zero</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Zero</code>( <var class="Arg">f</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">f</var> - a homomorphism between two modules.<br /></p>
+
+<p>Returns: the zero map between <code class="code">Source(f)</code> and <code class="code">Range(f)</code>.</p>
+
+<p><a id="X795FF8DC785F110A" name="X795FF8DC785F110A"></a></p>
+
+<h5>7.2-26 ZeroMapping</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ZeroMapping</code>( <var class="Arg">M</var>, <var class="Arg">N</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var>, <var class="Arg">N</var> - two modules.<br /></p>
+
+<p>Returns: the zero map between <var class="Arg">M</var> and <var class="Arg">N</var>.</p>
+
+<p><a id="X81CA4D9E7D50A9A8" name="X81CA4D9E7D50A9A8"></a></p>
+
+<h5>7.2-27 HomomorphismFromImages</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; HomomorphismFromImages</code>( <var class="Arg">M</var>, <var class="Arg">N</var>, <var class="Arg">genImages</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var>, <var class="Arg">N</var> -- two modules, <var class="Arg">genImages</var> -- a list.<br /></p>
+
+<p>Returns: A map <span class="SimpleMath">\(f\)</span> between <var class="Arg">M</var> and <var class="Arg">N</var>, given by <var class="Arg">genImages</var>.</p>
+
+<p>Let <code class="code">B</code> be the basis <code class="code">BasisVectors( Basis( M ) )</code> of <var class="Arg">M</var>. Then the number of elements of <code class="code">genImages</code> should be equal to the number of elements of <code class="code">B</code>, and <code class="code">genImages[i]</code> is an element of <code class="code">N</code> and the image of <code class="code">B[i]</code> under <code class="code">f</code>. The method fails if <code class="code">f</code> is not a homomorphism, or if <code class="code">B[i]</code> and <code class="code">genImages[i]</code> are supported in different vertices.</p>
+
+<p><a id="X7E8D1A3F7C03CFF1" name="X7E8D1A3F7C03CFF1"></a></p>
+
+<h4>7.3 <span class="Heading">Homomorphisms and modules constructed from homomorphisms and modules</span></h4>
+
+<p><a id="X7864A84A80553958" name="X7864A84A80553958"></a></p>
+
+<h5>7.3-1 AllIndecModulesOfLengthAtMost</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; AllIndecModulesOfLengthAtMost</code>( <var class="Arg">A</var>, <var class="Arg">n</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A, n</var> - an algebra over a finite field, an integer.<br /></p>
+
+<p>Returns: all the different indecomposable modules over the algebra <var class="Arg">A</var> of length at most <var class="Arg">n</var>.</p>
+
+<p>This function is only implemented for algebras over a finite field.</p>
+
+<p><a id="X83B5C7D484D98A34" name="X83B5C7D484D98A34"></a></p>
+
+<h5>7.3-2 AllModulesOfLengthAtMost</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; AllModulesOfLengthAtMost</code>( <var class="Arg">A</var>, <var class="Arg">n</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A, n</var> - an algebra over a finite field, an integer.<br /></p>
+
+<p>Returns: all the different modules over the algebra <var class="Arg">A</var> of length at most <var class="Arg">n</var>.</p>
+
+<p>This function is only implemented for algebras over a finite field.</p>
+
+<p><a id="X84F2D28D7F8694DC" name="X84F2D28D7F8694DC"></a></p>
+
+<h5>7.3-3 AllSimpleSubmodulesOfModule</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; AllSimpleSubmodulesOfModule</code>( <var class="Arg">M</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> - a module.<br /></p>
+
+<p>Returns: all the different simple submodules of a module given as inclusions into the module <var class="Arg">M</var>.</p>
+
+<p>This function is only implemented for algebras over a finite field.</p>
+
+<p><a id="X7C3D5CF978CF5058" name="X7C3D5CF978CF5058"></a></p>
+
+<h5>7.3-4 AllSubmodulesOfModule</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; AllSubmodulesOfModule</code>( <var class="Arg">M</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> - a module.<br /></p>
+
+<p>Returns: all the different submodules of a module given as inclusions into the module <var class="Arg">M</var>. It returns the list of submodules as a list of lists according to the length of the submodules, namely, first a list of the zero module, second a list of all simple submodules, third a list of all submodules of length 2, and so on.</p>
+
+<p>This function is only implemented for algebras over a finite field.</p>
+
+<p><a id="X875F177A82BF9B8B" name="X875F177A82BF9B8B"></a></p>
+
+<h5>7.3-5 CoKernel</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; CoKernel</code>( <var class="Arg">f</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">f</var> - a homomorphism between two modules.<br /></p>
+
+<p>Returns: the cokernel of a homomorphism <var class="Arg">f</var> between two modules.</p>
+
+<p>This function returns the cokernel of the homomorphism <var class="Arg">f</var> as a module.</p>
+
+<p><a id="X8267B6477A8F808F" name="X8267B6477A8F808F"></a></p>
+
+<h5>7.3-6 CoKernelProjection</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; CoKernelProjection</code>( <var class="Arg">f</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">f</var> - a homomorphism between two modules.<br /></p>
+
+<p>Returns: the cokernel of a homomorphism <var class="Arg">f</var> between two modules.</p>
+
+<p>This function returns the cokernel of the homomorphism <var class="Arg">f</var> as the projection homomorphism from the range of the homomorphism <var class="Arg">f</var> to the cokernel of the homomorphism <var class="Arg">f</var>.</p>
+
+<p><a id="X7D302484872EBCA5" name="X7D302484872EBCA5"></a></p>
+
+<h5>7.3-7 EndModuloProjOverAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; EndModuloProjOverAlgebra</code>( <var class="Arg">M</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> - a module.<br /></p>
+
+<p>Returns: the natural homomorphism from the endomorphism ring of <var class="Arg">M</var> to the endomorphism ring of <var class="Arg">M</var> modulo the ideal generated by those endomorphisms of <var class="Arg">M</var> which factor through a projective module.</p>
+
+<p>The operation returns an error message if the zero module is entered as an argument.</p>
+
+<p><a id="X8179107081C47D81" name="X8179107081C47D81"></a></p>
+
+<h5>7.3-8 EndOfModuleAsQuiverAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; EndOfModuleAsQuiverAlgebra</code>( <var class="Arg">M</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> - a PathAlgebraMatModule.<br /></p>
+
+<p>Returns: a list of three elements, (i) the endomorphism ring of <var class="Arg">M</var>, (ii) the adjacency matrix of the quiver of the endomorphism ring and (iii) the endomorphism ring as a quiver algebra.</p>
+
+<p>Suppose <var class="Arg">M</var> is a module over a quiver algebra over a field <span class="SimpleMath">\(K\)</span>. The function checks if the endomorphism ring of <var class="Arg">M</var> is K-elementary (not necessary for it to be a quiver algebra, but this is a TODO improvement), and returns error message otherwise.</p>
+
+<p><a id="X79FDBE1B795308A9" name="X79FDBE1B795308A9"></a></p>
+
+<h5>7.3-9 EndOverAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; EndOverAlgebra</code>( <var class="Arg">M</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> - a module.<br /></p>
+
+<p>Returns: the endomorphism ring of <var class="Arg">M</var> as a subalgebra of the direct sum of the full matrix rings of <code class="code">DimensionVector(M)[i] x DimensionVector(M)[i]</code>, where <var class="Arg">i</var> runs over all vertices where <code class="code">DimensionVector(M)[i]</code> is non-zero.</p>
+
+<p>The endomorphism is an algebra with one, and one can apply for example <code class="code">RadicalOfAlgebra</code> to find the radical of the endomorphism ring.</p>
+
+<p><a id="X7E9554FC7A4616E1" name="X7E9554FC7A4616E1"></a></p>
+
+<h5>7.3-10 FromEndMToHomMM</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; FromEndMToHomMM</code>( <var class="Arg">f</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">f</var> -- an element in <code class="code">EndOverAlgebra(M)</code>.<br /></p>
+
+<p>Returns: the homomorphism from <var class="Arg">M</var> to <var class="Arg">M</var> corresponding to the element <var class="Arg">f</var> in the endomorphism ring <code class="code">EndOverAlgebra(M)</code> of <var class="Arg">M</var>.</p>
+
+<p><a id="X7F4EECD880D88DC8" name="X7F4EECD880D88DC8"></a></p>
+
+<h5>7.3-11 FromHomMMToEndM</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; FromHomMMToEndM</code>( <var class="Arg">f</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">f</var> -- an element in <code class="code">HomOverAlgebra(M,M)</code>.<br /></p>
+
+<p>Returns: the element <var class="Arg">f</var> in the endomorphism ring <code class="code">EndOverAlgebra(M)</code> of <var class="Arg">M</var> corresponding to the the homomorphism from <var class="Arg">M</var> to <var class="Arg">M</var> given by <var class="Arg">f</var>.</p>
+
+<p><a id="X78B00ECD7C33C43C" name="X78B00ECD7C33C43C"></a></p>
+
+<h5>7.3-12 HomFactoringThroughProjOverAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; HomFactoringThroughProjOverAlgebra</code>( <var class="Arg">M</var>, <var class="Arg">N</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var>, <var class="Arg">N</var> - two modules.<br /></p>
+
+<p>Returns: a basis for the vector space of homomorphisms from <var class="Arg">M</var> to <var class="Arg">N</var> which factors through a projective module.</p>
+
+<p>The function checks if <var class="Arg">M</var> and <var class="Arg">N</var> are modules over the same algebra, and returns an error message otherwise.</p>
+
+<p><a id="X844682C07989D181" name="X844682C07989D181"></a></p>
+
+<h5>7.3-13 HomFromProjective</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; HomFromProjective</code>( <var class="Arg">m</var>, <var class="Arg">M</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">m</var>, <var class="Arg">M</var> - an element and a module.<br /></p>
+
+<p>Returns: the homomorphism from the indecomposable projective module defined by the support of the element <var class="Arg">m</var> to the module <var class="Arg">M</var>.</p>
+
+<p>The function checks if <var class="Arg">m</var> is an element in <var class="Arg">M</var> and if the element <var class="Arg">m</var> is supported in only one vertex. Otherwise it returns fail.</p>
+
+<p><a id="X8681E72F7FD4BFCE" name="X8681E72F7FD4BFCE"></a></p>
+
+<h5>7.3-14 HomOverAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; HomOverAlgebra</code>( <var class="Arg">M</var>, <var class="Arg">N</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; HomOverAlgebraWithBasisFunction</code>( <var class="Arg">M</var>, <var class="Arg">N</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var>, <var class="Arg">N</var> - two modules.<br /></p>
+
+<p>Returns: a basis for the vector space of homomorphisms from <var class="Arg">M</var> to <var class="Arg">N</var> in the first version. In the second version it also returns a list of length two, where the first entry is the basis found by <code class="code">HomOverAlgebra</code> and the second entry is a function from the space of homomorphisms from <var class="Arg">M</var> to <var class="Arg">N</var> to the vector space with the basis given by the first entry.</p>
+
+<p>The function checks if <var class="Arg">M</var> and <var class="Arg">N</var> are modules over the same algebra, and returns an error message and fail otherwise.</p>
+
+<p><a id="X87F4D35A826599C6" name="X87F4D35A826599C6"></a></p>
+
+<h5>7.3-15 Image</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Image</code>( <var class="Arg">f</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">f</var> - a homomorphism between two modules.<br /></p>
+
+<p>Returns: the image of a homomorphism <var class="Arg">f</var> as a module.</p>
+
+<p><a id="X7B076247877382A9" name="X7B076247877382A9"></a></p>
+
+<h5>7.3-16 ImageInclusion</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ImageInclusion</code>( <var class="Arg">f</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">f</var> - a homomorphism between two modules.<br /></p>
+
+<p>Returns: the inclusion of the image of a homomorphism <var class="Arg">f</var> into the range of <var class="Arg">f</var>.</p>
+
+<p><a id="X7F336D357FE717EC" name="X7F336D357FE717EC"></a></p>
+
+<h5>7.3-17 ImageProjection</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ImageProjection</code>( <var class="Arg">f</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">f</var> - a homomorphism between two modules.<br /></p>
+
+<p>Returns: the projection from the source of <var class="Arg">f</var> to the image of the homomorphism <var class="Arg">f</var>.</p>
+
+<p><a id="X83B9B54A841BE792" name="X83B9B54A841BE792"></a></p>
+
+<h5>7.3-18 ImageProjectionInclusion</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ImageProjectionInclusion</code>( <var class="Arg">f</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">f</var> - a homomorphism between two modules.<br /></p>
+
+<p>Returns: both the projection from the source of <var class="Arg">f</var> to the image of the homomorphism <var class="Arg">f</var> and the inclusion of the image of a homomorphism <var class="Arg">f</var> into the range of <var class="Arg">f</var> as a list of two elements (first the projection and then the inclusion).</p>
+
+<p><a id="X8212964C83E70122" name="X8212964C83E70122"></a></p>
+
+<h5>7.3-19 IsomorphismOfModules</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsomorphismOfModules</code>( <var class="Arg">M</var>, <var class="Arg">N</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M, N</var> - two PathAlgebraMatModules.<br /></p>
+
+<p>Returns: false if <var class="Arg">M</var> and <var class="Arg">N</var> are two non-isomorphic modules, otherwise it returns an isomorphism from <var class="Arg">M</var> to <var class="Arg">N</var>.</p>
+
+<p>The function checks if <var class="Arg">M</var> and <var class="Arg">N</var> are modules over the same algebra, and returns an error message otherwise.</p>
+
+<p><a id="X7DCD99628504B810" name="X7DCD99628504B810"></a></p>
+
+<h5>7.3-20 Kernel</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Kernel</code>( <var class="Arg">f</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; KernelInclusion</code>( <var class="Arg">f</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">f</var> - a homomorphism between two modules.<br /></p>
+
+<p>Returns: the kernel of a homomorphism <var class="Arg">f</var> between two modules.</p>
+
+<p>The first variant <code class="func">Kernel</code> returns the kernel of the homomorphism <var class="Arg">f</var> as a module, while the latter one returns the inclusion homomorphism of the kernel into the source of the homomorphism <var class="Arg">f</var>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">hom := HomOverAlgebra(N,N);</span>
+[ &lt;&lt;[ 3, 2, 2 ]&gt; ---&gt; &lt;[ 3, 2, 2 ]&gt;&gt;
+    , &lt;&lt;[ 3, 2, 2 ]&gt; ---&gt; &lt;[ 3, 2, 2 ]&gt;&gt;
+    , &lt;&lt;[ 3, 2, 2 ]&gt; ---&gt; &lt;[ 3, 2, 2 ]&gt;&gt;
+    , &lt;&lt;[ 3, 2, 2 ]&gt; ---&gt; &lt;[ 3, 2, 2 ]&gt;&gt;
+    , &lt;&lt;[ 3, 2, 2 ]&gt; ---&gt; &lt;[ 3, 2, 2 ]&gt;&gt;
+     ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">g := hom[1];</span>
+&lt;&lt;[ 3, 2, 2 ]&gt; ---&gt; &lt;[ 3, 2, 2 ]&gt;&gt;
+
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">M := CoKernel(g);</span>
+&lt;[ 2, 2, 2 ]&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">f := CoKernelProjection(g);</span>
+&lt;&lt;[ 3, 2, 2 ]&gt; ---&gt; &lt;[ 2, 2, 2 ]&gt;&gt;
+
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Range(f) = M;</span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">endo := EndOverAlgebra(N);</span>
+&lt;algebra-with-one of dimension 5 over Rationals&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">RadicalOfAlgebra(endo);</span>
+&lt;algebra of dimension 3 over Rationals&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">B := BasisVectors(Basis(N));</span>
+[ [ [ 1, 0, 0 ], [ 0, 0 ], [ 0, 0 ] ], 
+  [ [ 0, 1, 0 ], [ 0, 0 ], [ 0, 0 ] ], 
+  [ [ 0, 0, 1 ], [ 0, 0 ], [ 0, 0 ] ], 
+  [ [ 0, 0, 0 ], [ 1, 0 ], [ 0, 0 ] ], 
+  [ [ 0, 0, 0 ], [ 0, 1 ], [ 0, 0 ] ], 
+  [ [ 0, 0, 0 ], [ 0, 0 ], [ 1, 0 ] ], 
+  [ [ 0, 0, 0 ], [ 0, 0 ], [ 0, 1 ] ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">p := HomFromProjective(B[1],N);</span>
+&lt;&lt;[ 1, 4, 3 ]&gt; ---&gt; &lt;[ 3, 2, 2 ]&gt;&gt;
+
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">U := Image(p);</span>
+&lt;[ 1, 2, 2 ]&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">projinc := ImageProjectionInclusion(p);</span>
+[ &lt;&lt;[ 1, 4, 3 ]&gt; ---&gt; &lt;[ 1, 2, 2 ]&gt;&gt;
+    , &lt;&lt;[ 1, 2, 2 ]&gt; ---&gt; &lt;[ 3, 2, 2 ]&gt;&gt;
+     ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">U = Range(projinc[1]);                                      </span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Kernel(p);</span>
+&lt;[ 0, 2, 1 ]&gt; 
+</pre></div>
+
+<p><a id="X7F2D09C07F6DDBF8" name="X7F2D09C07F6DDBF8"></a></p>
+
+<h5>7.3-21 LeftMinimalVersion</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; LeftMinimalVersion</code>( <var class="Arg">f</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">f</var> - a homomorphism between two modules.<br /></p>
+
+<p>Returns: the left minimal version <var class="Arg">f'</var> of the homomorphism <var class="Arg">f</var> together with the a list <code class="code">B</code> of modules such that the direct sum of the modules, <code class="code">Range(f')</code> and the modules in the list <code class="code">B</code> is isomorphic to <code class="code">Range(f)</code>.</p>
+
+<p><a id="X7CC14E9C804AF143" name="X7CC14E9C804AF143"></a></p>
+
+<h5>7.3-22 MatrixOfHomomorphismBetweenProjectives</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; MatrixOfHomomorphismBetweenProjectives</code>( <var class="Arg">f</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">f</var> -- a homomorphism between two projective modules.<br /></p>
+
+<p>Returns: for a homomorphism <var class="Arg">f</var> of projective <span class="SimpleMath">\(A\)</span>-modules from <span class="SimpleMath">\(P = \oplus v_iA\)</span> to <span class="SimpleMath">\(P' = \oplus w_iA\)</span>, where <span class="SimpleMath">\(v_i\)</span> and <span class="SimpleMath">\(w_i\)</span> are vertices, the homomorphism as a matrix in <span class="SimpleMath">\(\oplus v_iAw_i\)</span>.</p>
+
+<p><a id="X7F6CFBA086101B54" name="X7F6CFBA086101B54"></a></p>
+
+<h5>7.3-23 FromMatrixToHomomorphismOfProjectives</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; FromMatrixToHomomorphismOfProjectives</code>( <var class="Arg">A</var>, <var class="Arg">mat</var>, <var class="Arg">vert1</var>, <var class="Arg">vert0</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> -- a QuiverAlgebra, <var class="Arg">mat</var> -- a matrix over <var class="Arg">A</var>, <var class="Arg">vert1, vert0</var> -- two lists of vertex indices<br /></p>
+
+<p>Returns: a homomorphism of projective <var class="Arg">A</var>-modules from <span class="SimpleMath">\(P_1 = \oplus w_iA\)</span> to <span class="SimpleMath">\(P_0 = \oplus v_iA\)</span>, where <span class="SimpleMath">\(w_i\)</span> and <span class="SimpleMath">\(v_i\)</span> are vertices determined by the two last arguments.</p>
+
+<p><a id="X7D479D1C7C4DF55B" name="X7D479D1C7C4DF55B"></a></p>
+
+<h5>7.3-24 RightMinimalVersion</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; RightMinimalVersion</code>( <var class="Arg">f</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">f</var> - a homomorphism between two modules.<br /></p>
+
+<p>Returns: the right minimal version <var class="Arg">f'</var> of the homomorphism <var class="Arg">f</var> together with the a list <code class="code">B</code> of modules such that the direct sum of the modules, <code class="code">Source(f')</code> and the modules on the list <code class="code">B</code> is isomorphic to <code class="code">Source(f)</code>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">H:= HomOverAlgebra(N,N);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">RightMinimalVersion(H[1]);   </span>
+[ &lt;&lt;[ 1, 0, 0 ]&gt; ---&gt; &lt;[ 3, 2, 2 ]&gt;&gt;
+    , [ &lt;[ 2, 2, 2 ]&gt; ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">LeftMinimalVersion(H[1]);             </span>
+[ &lt;&lt;[ 3, 2, 2 ]&gt; ---&gt; &lt;[ 1, 0, 0 ]&gt;&gt;
+    , [ &lt;[ 2, 2, 2 ]&gt; ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">S := SimpleModules(A)[1];;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">MinimalRightApproximation(N,S);</span>
+&lt;&lt;[ 1, 0, 0 ]&gt; ---&gt; &lt;[ 1, 0, 0 ]&gt;&gt;
+
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">S := SimpleModules(A)[3];;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">MinimalLeftApproximation(S,N);   </span>
+&lt;&lt;[ 0, 0, 1 ]&gt; ---&gt; &lt;[ 2, 2, 2 ]&gt;&gt; 
+</pre></div>
+
+<p><a id="X7BF04DAE78E98D9C" name="X7BF04DAE78E98D9C"></a></p>
+
+<h5>7.3-25 RadicalOfModuleInclusion</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; RadicalOfModuleInclusion</code>( <var class="Arg">M</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> - a module.<br /></p>
+
+<p>Returns: the inclusion of the radical of the module <var class="Arg">M</var> into <var class="Arg">M</var>.</p>
+
+<p>The radical of <var class="Arg">M</var> can be accessed using <code class="code">Source</code>, or it can be computed directly via the command <code class="func">RadicalOfModule</code> (<a href="chap6_mj.html#X7E44920683157DE2"><span class="RefLink">6.4-37</span></a>). If the algebra over which <var class="Arg">M</var> is a module is not a finite dimensional path algebra or an admissible quotient of a path algebra, then it will search for other methods.</p>
+
+<p><a id="X7A103F4F8169D8C5" name="X7A103F4F8169D8C5"></a></p>
+
+<h5>7.3-26 RejectOfModule</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; RejectOfModule</code>( <var class="Arg">M</var>, <var class="Arg">N</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">N</var>, <var class="Arg">M</var> -- two path algebra modules (<code class="code">PathAlgebraMatModule</code>).<br /></p>
+
+<p>Returns: the reject of the module <var class="Arg">M</var> in the module <var class="Arg">N</var> as an inclusion homomorhpism from the reject of <var class="Arg">M</var> into <var class="Arg">N</var>.</p>
+
+<p><a id="X82EB23337C5F4DBB" name="X82EB23337C5F4DBB"></a></p>
+
+<h5>7.3-27 SocleOfModuleInclusion</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; SocleOfModuleInclusion</code>( <var class="Arg">M</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> - a module.<br /></p>
+
+<p>Returns: the inclusion of the socle of the module <var class="Arg">M</var> into <var class="Arg">M</var>.</p>
+
+<p>The socle of <var class="Arg">M</var> can be accessed using <code class="code">Source</code>, or it can be computed directly via the command <code class="func">SocleOfModule</code> (<a href="chap6_mj.html#X79DF34618798E866"><span class="RefLink">6.4-41</span></a>).</p>
+
+<p><a id="X7E9BF05587D4A86A" name="X7E9BF05587D4A86A"></a></p>
+
+<h5>7.3-28 SubRepresentationInclusion</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; SubRepresentationInclusion</code>( <var class="Arg">M</var>, <var class="Arg">gens</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> - a module, <var class="Arg">gens</var> - a list of elements in <var class="Arg">M</var>.<br /></p>
+
+<p>Returns: the inclusion of the submodule generated by the generators <var class="Arg">gens</var> into the module <var class="Arg">M</var>.</p>
+
+<p>The function checks if <var class="Arg">gens</var> consists of elements in <var class="Arg">M</var>, and returns an error message otherwise. The module given by the submodule generated by the generators <var class="Arg">gens</var> can be accessed using <code class="code">Source</code>.</p>
+
+<p><a id="X804BD7CD804E63C4" name="X804BD7CD804E63C4"></a></p>
+
+<h5>7.3-29 TopOfModuleProjection</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; TopOfModuleProjection</code>( <var class="Arg">M</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> - a module.<br /></p>
+
+<p>Returns: the projection from the module <var class="Arg">M</var> to the top of the module <var class="Arg">M</var>.</p>
+
+<p>The module given by the top of the module <var class="Arg">M</var> can be accessed using <code class="code">Range</code> of the homomorphism.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">f := RadicalOfModuleInclusion(N);</span>
+&lt;&lt;[ 0, 2, 2 ]&gt; ---&gt; &lt;[ 3, 2, 2 ]&gt;&gt;
+
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">radN := Source(f);</span>
+&lt;[ 0, 2, 2 ]&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">g := SocleOfModuleInclusion(N);</span>
+&lt;&lt;[ 1, 0, 2 ]&gt; ---&gt; &lt;[ 3, 2, 2 ]&gt;&gt;
+
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">U := SubRepresentationInclusion(N,[B[5]+B[6],B[7]]);</span>
+&lt;&lt;[ 0, 2, 2 ]&gt; ---&gt; &lt;[ 3, 2, 2 ]&gt;&gt;
+
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">h := TopOfModuleProjection(N);</span>
+&lt;&lt;[ 3, 2, 2 ]&gt; ---&gt; &lt;[ 3, 0, 0 ]&gt;&gt; 
+</pre></div>
+
+<p><a id="X7DB504E184361BBE" name="X7DB504E184361BBE"></a></p>
+
+<h5>7.3-30 TraceOfModule</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; TraceOfModule</code>( <var class="Arg">M</var>, <var class="Arg">N</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var>, <var class="Arg">C</var> -- two path algebra modules (<code class="code">PathAlgebraMatModule</code>).<br /></p>
+
+<p>Returns: the trace of the module <var class="Arg">M</var> in the module <var class="Arg">N</var> as an inclusion homomorhpism from the trace of <var class="Arg">M</var> to <var class="Arg">N</var>.</p>
+
+
+<div class="chlinkprevnextbot">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap6_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap8_mj.html">[Next Chapter]</a>&nbsp;  </div>
+
+
+<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chap3_mj.html">3</a>  <a href="chap4_mj.html">4</a>  <a href="chap5_mj.html">5</a>  <a href="chap6_mj.html">6</a>  <a href="chap7_mj.html">7</a>  <a href="chap8_mj.html">8</a>  <a href="chap9_mj.html">9</a>  <a href="chap10_mj.html">10</a>  <a href="chap11_mj.html">11</a>  <a href="chap12_mj.html">12</a>  <a href="chap13_mj.html">13</a>  <a href="chapBib_mj.html">Bib</a>  <a href="chapInd_mj.html">Ind</a>  </div>
+
+<hr />
+<p class="foot">generated by <a href="https://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc">GAPDoc2HTML</a></p>
+</body>
+</html>

@@ -1,102 +1,97 @@
-#############################################################################
-##  
-##  Demo PackageInfo.g for the GitHubPagesForGAP
-##
-
 SetPackageInfo( rec(
+PackageName := "QPA",
+Subtitle := "Quivers and Path Algebras",
+Version := "1.35",
+Date := "04/01/2024", # dd/mm/yyyy format
+License := "GPL-2.0-or-later",
 
-PackageName := "GitHubPagesForGAP",
+ArchiveURL := Concatenation( "https://folk.ntnu.no/oyvinso/QPA/qpa-",~.Version),
 
-Subtitle := "A GitHub Pages generator for GAP packages",
-Version := "0.3",
-Date := "10/11/2019", # dd/mm/yyyy format
-License := "0BSD",
+ArchiveFormats := ".tar.gz",
 
 Persons := [
-  rec(
-    LastName      := "Horn",
-    FirstNames    := "Max",
+  rec( 
+    LastName      := "Green",
+    FirstNames    := "Edward",
     IsAuthor      := true,
     IsMaintainer  := true,
-    Email         := "max.horn@uni-siegen.de",
-    WWWHome       := "https://www.quendi.de/math",
-    PostalAddress := Concatenation(
-                       "Department Mathematik\n",
-                       "Universität Siegen\n",
-                       "Walter-Flex-Straße 3\n",
-                       "57072 Siegen\n",
-                       "Germany" ),
-    Place         := "Siegen",
-    Institution   := "Universität Siegen"
-  ),
-
-  rec(
-    LastName      := "Thor",
-    FirstNames    := "A. U.",
+    Email         := "green@math.vt.edu",
+    WWWHome       := "http://www.math.vt.edu/people/green",
+    PostalAddress := Concatenation( [
+		       "Department of Mathematics\n",
+		       "Virginia Polytechnic Institute and State  University\n",
+		       "Blacksburg, Virginia\n",
+                       "U.S.A." ] ),
+    Place         := "Blacksburg",
+    Institution   := "Virginia Polytechnic Institute and State  University"
+           ),
+  rec( 
+    LastName      := "Solberg",
+    FirstNames    := "Oeyvind",
     IsAuthor      := true,
-    IsMaintainer  := false,
-    #Email         := "author@example.com",
-  ),
-
-  rec(
-    LastName      := "Itor",
-    FirstNames    := "Jan",
-    IsAuthor      := false,
     IsMaintainer  := true,
-    #Email         := "janitor@example.com",
-  ),
+    Email         := "oyvind.solberg@ntnu.no",
+    WWWHome       := "https://folk.ntnu.no/oyvinso/",
+    PostalAddress := Concatenation( [
+		       "Department of Mathematical Sciences\n",
+		       "NTNU\n",
+		       "N-7491 Trondheim\n",
+                       "Norway" ] ),
+    Place         := "Trondheim",
+    Institution   := "Norwegian University of Science and Technology"
+  )              
 ],
 
-Status := "other",
+Status := "deposited",
 
-# The following are not strictly necessary in your own PackageInfo.g
-# (in the sense that update.g only looks at the usual fields
-# like PackageWWWHome, ArchiveURL etc.). But they are convenient
-# if you use exactly the scheme for your package website that we propose.
-GithubUser := "gap-system",
-GithubRepository := ~.PackageName,
-GithubWWW := Concatenation("https://github.com/", ~.GithubUser, "/", ~.GithubRepository),
+##  You must provide the next two entries if and only if the status is 
+##  "accepted" because is was successfully refereed:
+# format: 'name (place)'
+# CommunicatedBy := "Mike Atkinson (St. Andrews)",
+#CommunicatedBy := "",
+# format: mm/yyyy
+# AcceptDate := "08/1999",
+#AcceptDate := "",
 
-PackageWWWHome := Concatenation("https://", ~.GithubUser, ".github.io/", ~.GithubRepository, "/"),
-README_URL     := Concatenation( ~.PackageWWWHome, "README.md" ),
-PackageInfoURL := Concatenation( ~.PackageWWWHome, "PackageInfo.g" ),
-# The following assumes you are using the Github releases system. If not, adjust
-# it accordingly.
-ArchiveURL     := Concatenation(~.GithubWWW,
-                    "/releases/download/v", ~.Version, "/",
-                    ~.GithubRepository, "-", ~.Version),
+README_URL := "https://folk.ntnu.no/oyvinso/QPA/README",
+PackageInfoURL := "https://folk.ntnu.no/oyvinso/QPA/PackageInfo.g",
 
-ArchiveFormats := ".tar.gz .tar.bz2",
+SourceRepository := rec( 
+  Type := "git", 
+  URL := "https://github.com/gap-packages/qpa"
+),
+IssueTrackerURL := Concatenation( ~.SourceRepository.URL, "/issues" ),
 
-AbstractHTML := 
-  "This is a pseudo package that contains no actual\
-  <span class=\"pkgname\">GAP</span> code. Instead, it is a template for other\
-  GAP packages that allows to quickly setup GitHub Pages.",
-
+AbstractHTML := "The <span class=\"pkgname\">QPA</span> package provides data structures \
+                   and algorithms for doing computations with finite dimensional quotients \
+                   of path algebras, and finitely generated modules over such algebras. The \
+                   current version of the QPA package has data structures for quivers, \
+                   quotients of path algebras, and modules, homomorphisms and complexes of \
+                   modules over quotients of path algebras.",
+                   
+PackageWWWHome := "https://folk.ntnu.no/oyvinso/QPA/",
+               
 PackageDoc := rec(
-  BookName  := "GitHubPagesForGAP",
+  BookName  := "QPA",
   ArchiveURLSubset := ["doc"],
-  HTMLStart := "doc/chap0.html",
+  HTMLStart := "doc/chap0_mj.html",
   PDFFile   := "doc/manual.pdf",
   SixFile   := "doc/manual.six",
-  LongTitle := "A GitHub Pages generator for GAP packages",
+  LongTitle := "Quivers and Path Algebras",
+  Autoload  := true
 ),
 
-# The following dependencies are fake and for testing / demo purposes
 Dependencies := rec(
-  GAP := ">=4.8.1",
-  NeededOtherPackages := [
-    ["GAPDoc", ">= 1.2"],
-    ["IO", ">= 4.1"],
-  ],
-  SuggestedOtherPackages := [["orb", ">= 4.2"]],
+  GAP := ">=4.5",
+  NeededOtherPackages := [["GBNP", ">=0.9.5"]],
+  SuggestedOtherPackages := [],
   ExternalConditions := []
+                      
 ),
 
 AvailabilityTest := ReturnTrue,
 
-Keywords := ["GitHub Pages", "GAP"]
+TestFile := "tst/testall.g",
 
+Keywords := ["quiver","path algebra"],
 ));
-
-

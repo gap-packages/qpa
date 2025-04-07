@@ -1,0 +1,424 @@
+  
+  [1X13 [33X[0;0YDegeneration order for modules in finite type[133X[101X
+  
+  
+  [1X13.1 [33X[0;0YIntroduction[133X[101X
+  
+  [33X[0;0YThis  is an implementation of several tools for computing degeneration order
+  for  modules  over  algebras  of  finite  type.  It  can  be  treated  as  a
+  "subpackage"  of  QPA and used separately since the functions do not use any
+  of QPA routines so far.[133X
+  [33X[0;0YThis  subpackage  has a little bit different philosophy than QPA in general.
+  Namely, the "starting point" is not an algebra A defined by a Gabriel quiver
+  with  relations  but an Auslander-Reiten (A-R) quiver of the category mod A,
+  defined   by  numerical  data  (see  [2XARQuiverNumerical[102X  ([14X13.3-1[114X)).  All  the
+  indecomposables  (actually  their  isoclasses)  have  unique natural numbers
+  established  at  the beginning, by invoking [2XARQuiverNumerical[102X ([14X13.3-1[114X). This
+  function should be used before all further computations. An arbitrary module
+  M  is  identified by its multiplicity vector (the sequence of multiplicities
+  of all the indecomposables appearing in a direct sum decomposition of M).[133X
+  [33X[0;0YHere  we  always  assume that A is an algebra of finite representation type.
+  Note  that  in this case deg-order coincide with Hom-order, and this fact is
+  used  in the algorithms of this subpackage. The main goal of this subpackage
+  is  to give tools for testing a deg-order relation between two A-modules and
+  determining  (direct)  deg-order  predecessors  and successors (see [14X13.2[114X for
+  basic  definitions  from  this theory). As a side effect one can also obtain
+  the  dimensions  of  Hom-spaces between arbitrary modules (and in particular
+  the dimension vectors of indecomposable modules).[133X
+  
+  
+  [1X13.2 [33X[0;0YBasic definitions[133X[101X
+  
+  [33X[0;0YHere  we  briefly  recall the basic notions we use in all the functions from
+  this chapter.[133X
+  
+  [33X[0;0YLet  A  be  an  algebra.  We  say that for two A-modules M and N of the same
+  dimension  vector  d,  M  degenerates  to N (N is a degeneration of M) iff N
+  belongs  to  a  Zariski  closure  of the orbit of M in a variety [23Xmod_A(d)[123X of
+  A-modules  of  dimension vector d. If it is the case, we write [23XM <= N[123X. It is
+  well known that[133X
+  
+  [33X[0;0Y(1)  The relation [23X<=[123X is a partial order on the set of isomorphism classes of
+  A-modules of dimension vector d.[133X
+  [33X[0;0Y(2)  If  A  is  an  algebra of finite representation type, [23X<=[123X coincides with
+  so-called  Hom-order [23X<=_{Hom}[123X, defined as follows: [23XM <=_{Hom} N[123X iff [23X[X,M] <=
+  [X,N][123X  for  all  indecomposable A-modules X, where by [23X[Y,Z][123X we denote always
+  the dimension of a Hom-space between Y and Z.[133X
+  
+  [33X[0;0YFurther,  if [23XM < N[123X (i.e. [23XM <= N[123X and M is not isomorphic to N), we say that M
+  is  a  deg-order  predecessor  of N (resp. N is a deg-order successor of M).
+  Moreover,  we say that M is a direct deg-order predecessor of N if [23XM < N[123X and
+  there is no M' such that [23XM < M' < N[123X (similarly for successors).[133X
+  
+  
+  [1X13.3 [33X[0;0YDefining Auslander-Reiten quiver in finite type[133X[101X
+  
+  [1X13.3-1 ARQuiverNumerical[101X
+  
+  [33X[1;0Y[29X[2XARQuiverNumerical[102X( [3Xind[103X, [3Xproj[103X, [3Xlist[103X ) [32X function[133X
+  [33X[1;0Y[29X[2XARQuiverNumerical[102X( [3Xname[103X ) [32X function[133X
+  [33X[1;0Y[29X[2XARQuiverNumerical[102X( [3Xname[103X, [3Xparam1[103X ) [32X function[133X
+  [33X[1;0Y[29X[2XARQuiverNumerical[102X( [3Xname[103X, [3Xparam1[103X, [3Xparam2[103X ) [32X function[133X
+  
+  [33X[0;0YArguments: [3Xind[103X - number of indecomposable modules in our category;[133X
+  [33X[0;0Y[3Xproj[103X - number of indecomposable projective modules in our category;[133X
+  [33X[0;0Y[3Xlist[103X  - list of lists containing description of meshes in A-R quiver defined
+  as follows:[133X
+  [33X[0;0Y[3Xlist[103X[i] = description of mesh ending in vertex (indec. mod.) number i having
+  the shape [a1,...,an,t] where[133X
+  [33X[0;0Ya1,...,an = numbers of direct predecessors of i in A-R quiver;[133X
+  [33X[0;0Yt = number of tau(i), or 0 if tau i does not exist (iff i is projective).[133X
+  [33X[0;0YIn  particular  if i is projective [3Xlist[103X[i]=[a1,...,an,0] where a1,...,an are
+  indec. summands of rad(i).[133X
+  
+  [33X[0;0YOR:[133X
+  [33X[0;0Y[3Xlist[103X second version - if the first element of [3Xlist[103X is a string "orbits" then
+  the  remaining  elements  should provide an alternative (shorter than above)
+  description of A-R quiver as follows.[133X
+  [33X[0;0Y[3Xlist[103X[2]   is   a  list  of  descriptions  of  orbits  identified  by  chosen
+  representatives.  We  assume  that  in case an orbit is non-periodic, then a
+  projective  module  is its representative. Each element of list [3Xlist[103X[2] is a
+  description of i-th orbit and has the shape:[133X
+  [33X[0;0Y[10X[l, [i1,t1], ... , [is,ts]][110X where[133X
+  [33X[0;0Yl = length of orbit - 1[133X
+  [33X[0;0Y[10X[i1,t1],  ...  ,  [is,ts][110X all the direct predecessors of a representative of
+  this orbit, of the shape tau^{-t1}(i1), and i1 denotes the representative of
+  orbit no. i1, and so on.[133X
+  [33X[0;0YWe assume first p elements of [3Xlist[103X[2] are the orbits of projectives.[133X
+  
+  [33X[0;0YREMARK:  we  ALWAYS  assume  that  indecomposables  with numbers 1..[3Xproj[103X are
+  projectives   and  the  only  projectives  (further  dimension  vectors  are
+  interpreted according to this order of projectives!).[133X
+  
+  [33X[0;0YAlternative arguments:[133X
+  [33X[0;0Y[3Xname[103X = string with the name of predefined A-R quiver;[133X
+  [33X[0;0Y[3Xparam1[103X = (optional) parameter for [3Xname[103X;[133X
+  [33X[0;0Y[3Xparam2[103X = (optional) second parameter for [3Xname[103X.[133X
+  [33X[0;0YCall  ARQuiverNumerical("what")  to  get  a description of all the names and
+  parameters for currently available predefined A-R quivers.[133X
+  
+  [6XReturns:[106X  [33X[0;10Yan object from the category [2XIsARQuiverNumerical[102X ([14X13.3-2[114X).[133X
+  
+  [33X[0;0YThis   function  "initializes"  Auslander-Reiten  quiver  and  performs  all
+  necessary  preliminary computations concerning mainly determining the matrix
+  of dimensions of all Hom-spaces between indecomposables.[133X
+  
+  [33X[0;0YExamples.[133X
+  [33X[0;0YBelow we define an A-R quiver of a path algebra of the Dynkin quiver D4 with
+  subspace orientation of arrows.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xa := ARQuiverNumerical(12, 4, [ [0],[1,0],[1,0],[1,0],[2,3,4,1],[5,2],[5,3],[5,4],[6,7,8,5],[9,6],[9,7],[9,8] ]);[127X[104X
+    [4X[28X<ARQuiverNumerical with 12 indecomposables and 4 projectives>[128X[104X
+    [4X[28X [128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  same  A-R  quiver  (with  possibly  little bit different enumeration of
+  indecomposables) can be obtained by invoking:[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xb := ARQuiverNumerical(12, 4, ["orbits", [ [2], [2,[1,0]], [2,[1,0]], [2,[1,0]] ] ]);[127X[104X
+    [4X[28X<ARQuiverNumerical with 12 indecomposables and 4 projectives>[128X[104X
+    [4X[28X [128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThis A-R quiver can be also obtained by:[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xa := ARQuiverNumerical("D4 subspace");[127X[104X
+    [4X[28X<ARQuiverNumerical with 12 indecomposables and 4 projectives>[128X[104X
+    [4X[28X [128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0Ysince this is one of the predefined A-R quivers.[133X
+  [33X[0;0YAnother   example   of   predefined   A-R   quiver:   for  an  algebra  from
+  Bongartz-Gabriel  list  of  maximal  finite  type  algebras  with two simple
+  modules. This is an algebra with number 5 on this list.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xa := ARQuiverNumerical("BG", 5);[127X[104X
+    [4X[28X<ARQuiverNumerical with 72 indecomposables and 2 projectives>[128X[104X
+    [4X[28X [128X[104X
+  [4X[32X[104X
+  
+  [1X13.3-2 IsARQuiverNumerical[101X
+  
+  [33X[1;0Y[29X[2XIsARQuiverNumerical[102X [32X Category[133X
+  
+  [33X[0;0YObjects  from  this category represent Auslander-Reiten (finite) quivers and
+  additionally  contain  all  data  necessary  for  further  computations  (as
+  components accessed as usual by !.name-of-component):[133X
+  [33X[0;0YARdesc  =  numerical  description of AR quiver (as [3Xlist[103X in [2XARQuiverNumerical[102X
+  ([14X13.3-1[114X)),[133X
+  [33X[0;0YDimHomMat = matrix [dim Hom (i,j)] (=> rows 1..p contain dim. vectors of all
+  indecomposables),[133X
+  [33X[0;0YSimples = list of numbers of simple modules.[133X
+  
+  [1X13.3-3 NumberOfIndecomposables[101X
+  
+  [33X[1;0Y[29X[2XNumberOfIndecomposables[102X( [3XAR[103X ) [32X attribute[133X
+  
+  [33X[0;0YArgument: [3XAR[103X - an object from the category [2XIsARQuiverNumerical[102X ([14X13.3-2[114X).[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe number of indecomposable modules in [3XAR[103X.[133X
+  
+  [1X13.3-4 NumberOfProjectives[101X
+  
+  [33X[1;0Y[29X[2XNumberOfProjectives[102X( [3XAR[103X ) [32X attribute[133X
+  
+  [33X[0;0YArgument: [3XAR[103X - an object from the category [2XIsARQuiverNumerical[102X ([14X13.3-2[114X).[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe number of indecomposable projective modules in [3XAR[103X.[133X
+  
+  
+  [1X13.4 [33X[0;0YElementary operations[133X[101X
+  
+  [1X13.4-1 DimensionVector[101X
+  
+  [33X[1;0Y[29X[2XDimensionVector[102X( [3XAR[103X, [3XM[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XAR[103X - an object from the category [2XIsARQuiverNumerical[102X ([14X13.3-2[114X);[133X
+  [33X[0;0Y[3XM[103X - a number of an indecomposable module in [3XAR[103X or a multiplicity vector (cf.
+  [14X13.1[114X).[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya  dimension vector of a module [3XM[103X in the form of a list. The order
+            of  dimensions in this list corresponds to an order of projectives
+            defined in [3XAR[103X (cf. [2XARQuiverNumerical[102X ([14X13.3-1[114X)).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xa := ARQuiverNumerical("D4 subspace");[127X[104X
+    [4X[28X<ARQuiverNumerical with 12 indecomposables and 4 projectives>[128X[104X
+    [4X[25Xgap>[125X [27XDimensionVector(a, 7);[127X[104X
+    [4X[28X[ 1, 1, 0, 1 ][128X[104X
+    [4X[25Xgap>[125X [27XDimensionVector(a, [0,1,0,0,0,0,2,0,0,0,0,0]);[127X[104X
+    [4X[28X[ 3, 3, 0, 2 ][128X[104X
+    [4X[28X [128X[104X
+  [4X[32X[104X
+  
+  [1X13.4-2 DimHom[101X
+  
+  [33X[1;0Y[29X[2XDimHom[102X( [3XAR[103X, [3XM[103X, [3XN[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XAR[103X - an object from the category [2XIsARQuiverNumerical[102X ([14X13.3-2[114X);[133X
+  [33X[0;0Y[3XM[103X - a number of indecomposable module in [3XAR[103X or a multiplicity vector;[133X
+  [33X[0;0Y[3XN[103X  -  a  number of indecomposable module in [3XAR[103X or a multiplicity vector (cf.
+  [14X13.1[114X).[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe dimension of the homomorphism space between modules [3XM[103X and [3XN[103X.[133X
+  
+  [1X13.4-3 DimEnd[101X
+  
+  [33X[1;0Y[29X[2XDimEnd[102X( [3XAR[103X, [3XM[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XAR[103X - an object from the category [2XIsARQuiverNumerical[102X ([14X13.3-2[114X);[133X
+  [33X[0;0Y[3XM[103X  -  a  number of indecomposable module in [3XAR[103X or a multiplicity vector (cf.
+  [14X13.1[114X).[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe dimension of the endomorphism algebra of a module [3XM[103X.[133X
+  
+  [1X13.4-4 OrbitDim[101X
+  
+  [33X[1;0Y[29X[2XOrbitDim[102X( [3XAR[103X, [3XM[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XAR[103X - an object from the category [2XIsARQuiverNumerical[102X ([14X13.3-2[114X);[133X
+  [33X[0;0Y[3XM[103X  -  a  number of indecomposable module in [3XAR[103X or a multiplicity vector (cf.
+  [14X13.1[114X).[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe  dimension  of  the  orbit  of  module  [3XM[103X  (in  the variety of
+            representations of quiver with relations).[133X
+  
+  [33X[0;0YOrbitDim([3XM[103X)    =   d_1^2+...+d_p^2   -   dim   End([3XM[103X),   where   (d_i)_i   =
+  DimensionVector([3XM[103X).[133X
+  
+  [1X13.4-5 OrbitCodim[101X
+  
+  [33X[1;0Y[29X[2XOrbitCodim[102X( [3XAR[103X, [3XM[103X, [3XN[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XAR[103X - an object from the category [2XIsARQuiverNumerical[102X ([14X13.3-2[114X);[133X
+  [33X[0;0Y[3XM[103X - a number of indecomposable module in [3XAR[103X or a multiplicity vector;[133X
+  [33X[0;0Y[3XN[103X  -  a  number of indecomposable module in [3XAR[103X or a multiplicity vector (cf.
+  [14X13.1[114X).[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe  codimension  of orbits of modules [3XM[103X and [3XN[103X (= dim End([3XN[103X) - dim
+            End([3XM[103X)). [explain more???][133X
+  
+  [33X[0;0YNOTE:  The function does not check if it makes sense, i.e. if [3XM[103X and [3XN[103X are in
+  the same variety ( = dimension vectors coincide)![133X
+  
+  [1X13.4-6 DegOrderLEQ[101X
+  
+  [33X[1;0Y[29X[2XDegOrderLEQ[102X( [3XAR[103X, [3XM[103X, [3XN[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XAR[103X - an object from the category [2XIsARQuiverNumerical[102X ([14X13.3-2[114X);[133X
+  [33X[0;0Y[3XM[103X - a number of indecomposable module in [3XAR[103X or a multiplicity vector;[133X
+  [33X[0;0Y[3XN[103X  -  a  number of indecomposable module in [3XAR[103X or a multiplicity vector (cf.
+  [14X13.1[114X).[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue  if  [3XM[103X[23X<=[123X[3XN[103X in a degeneration order i.e. if [3XN[103X is a degeneration
+            of [3XM[103X (see [14X13.2[114X), and false otherwise.[133X
+  
+  [33X[0;0YNOTE:  Function  checks  if  it makes sense, i.e. if [3XM[103X and [3XN[103X are in the same
+  variety  (  =  dimension  vectors  coincide).  If  not, it returns false and
+  additionally prints warning.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xa := ARQuiverNumerical("R nilp");[127X[104X
+    [4X[28X<ARQuiverNumerical with 7 indecomposables and 2 projectives>[128X[104X
+    [4X[25Xgap>[125X [27XDimensionVector(a, 2);  DimensionVector(a, 3);[127X[104X
+    [4X[28X[ 2, 1 ][128X[104X
+    [4X[28X[ 2, 1 ][128X[104X
+    [4X[25Xgap>[125X [27XDegOrderLEQ(a, 2, 3);[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27XDegOrderLEQ(a, 3, 2);[127X[104X
+    [4X[28Xfalse[128X[104X
+    [4X[28X [128X[104X
+  [4X[32X[104X
+  
+  [1X13.4-7 DegOrderLEQNC[101X
+  
+  [33X[1;0Y[29X[2XDegOrderLEQNC[102X( [3XAR[103X, [3XM[103X, [3XN[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XAR[103X - an object from the category [2XIsARQuiverNumerical[102X ([14X13.3-2[114X);[133X
+  [33X[0;0Y[3XM[103X - a number of indecomposable module in [3XAR[103X or a multiplicity vector;[133X
+  [33X[0;0Y[3XN[103X  -  a  number of indecomposable module in [3XAR[103X or a multiplicity vector (cf.
+  [14X13.1[114X).[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue  if  [3XM[103X[23X<=[123X[3XN[103X in a degeneration order i.e. if [3XN[103X is a degeneration
+            of [3XM[103X (see [14X13.2[114X), and false otherwise.[133X
+  
+  [33X[0;0YNOTE:  Function does Not Check ("NC") if it makes sense, i.e. if [3XM[103X and [3XN[103X are
+  in  the  same  variety  (  = dimension vectors coincide). If not, the result
+  doesn't make sense![133X
+  [33X[0;0YIt is useful when one wants to speed up computations (does not need to check
+  the dimension vectors).[133X
+  
+  [1X13.4-8 PrintMultiplicityVector[101X
+  
+  [33X[1;0Y[29X[2XPrintMultiplicityVector[102X( [3XM[103X ) [32X operation[133X
+  
+  [33X[0;0Y[3XM[103X - a list = multiplicity vector (cf. [14X13.1[114X).[133X
+  
+  [33X[0;0YThis  function  prints  the  multiplicity  vector [3XM[103X in a more "readable" way
+  (especially  useful  if [3XM[103X is long and sparse). It prints a "sum" of non-zero
+  multiplicities in the form "multiplicity * (number-of-indecomposable)".[133X
+  
+  [1X13.4-9 PrintMultiplicityVectors[101X
+  
+  [33X[1;0Y[29X[2XPrintMultiplicityVectors[102X( [3Xlist[103X ) [32X operation[133X
+  
+  [33X[0;0Y[3Xlist[103X - a list of multiplicity vectors (cf. [14X13.1[114X).[133X
+  
+  [33X[0;0YThis  function  prints  all the multiplicity vectors from the [3Xlist[103X in a more
+  "readable" way, as [2XPrintMultiplicityVector[102X ([14X13.4-8[114X).[133X
+  
+  
+  [1X13.5 [33X[0;0YOperations returning families of modules[133X[101X
+  
+  [33X[0;0YThe   functions   from   this  section  use  quite  advanced  algorithms  on
+  (potentially)  big  amount  of data, so their runtimes can be long for "big"
+  A-R quivers![133X
+  
+  [1X13.5-1 ModulesOfDimVect[101X
+  
+  [33X[1;0Y[29X[2XModulesOfDimVect[102X( [3XAR[103X, [3Xwhich[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XAR[103X - an object from the category [2XIsARQuiverNumerical[102X ([14X13.3-2[114X);[133X
+  [33X[0;0Y[3Xwhich[103X  -  a  number  of an indecomposable module in [3XAR[103X or a dimension vector
+  (see [2XDimensionVector[102X ([14X13.4-1[114X)).[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya  list  of  all  modules  (= multiplicity vectors, see [14X13.1[114X) with
+            dimension vector equal to [3Xwhich[103X.[133X
+  
+  [1X13.5-2 DegOrderPredecessors[101X
+  
+  [33X[1;0Y[29X[2XDegOrderPredecessors[102X( [3XAR[103X, [3XM[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XAR[103X - an object from the category [2XIsARQuiverNumerical[102X ([14X13.3-2[114X);[133X
+  [33X[0;0Y[3XM[103X  -  a  number of indecomposable module in [3XAR[103X or a multiplicity vector (cf.
+  [14X13.1[114X).[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya  list  of  all  modules  (=  multiplicity vectors) which are the
+            predecessors of module [3XM[103X in a degeneration order (see [14X13.2[114X).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xa := ARQuiverNumerical("BG", 5);[127X[104X
+    [4X[28X<ARQuiverNumerical with 72 indecomposables and 2 projectives>[128X[104X
+    [4X[25Xgap>[125X [27Xpreds := DegOrderPredecessors(a, 60);; Length(preds);[127X[104X
+    [4X[28X18[128X[104X
+    [4X[25Xgap>[125X [27XDegOrderLEQ(a, preds[7], 60);[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27Xdpreds := DegOrderDirectPredecessors(a, 60);; Length(dpreds);[127X[104X
+    [4X[28X5[128X[104X
+    [4X[25Xgap>[125X [27XPrintMultiplicityVectors(dpreds);[127X[104X
+    [4X[28X1*(14) + 1*(64)[128X[104X
+    [4X[28X1*(10) + 1*(71)[128X[104X
+    [4X[28X1*(9) + 1*(67)[128X[104X
+    [4X[28X1*(5) + 1*(17) + 1*(72)[128X[104X
+    [4X[28X1*(1) + 1*(5) + 1*(20)[128X[104X
+    [4X[28X [128X[104X
+  [4X[32X[104X
+  
+  [1X13.5-3 DegOrderDirectPredecessors[101X
+  
+  [33X[1;0Y[29X[2XDegOrderDirectPredecessors[102X( [3XAR[103X, [3XM[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XAR[103X - an object from the category [2XIsARQuiverNumerical[102X ([14X13.3-2[114X);[133X
+  [33X[0;0Y[3XM[103X  -  a  number of indecomposable module in [3XAR[103X or a multiplicity vector (cf.
+  [14X13.1[114X).[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya  list  of  all  modules  (=  multiplicity vectors) which are the
+            direct  predecessors  of  module  [3XM[103X  in  a degeneration order (see
+            [14X13.2[114X).[133X
+  
+  [1X13.5-4 DegOrderPredecessorsWithDirect[101X
+  
+  [33X[1;0Y[29X[2XDegOrderPredecessorsWithDirect[102X( [3XAR[103X, [3XM[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XAR[103X - an object from the category [2XIsARQuiverNumerical[102X ([14X13.3-2[114X);[133X
+  [33X[0;0Y[3XM[103X  -  a  number of indecomposable module in [3XAR[103X or a multiplicity vector (cf.
+  [14X13.1[114X).[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya pair (2-element list) [[3Xp[103X, [3Xdp[103X] where[133X
+            [33X[0;10Y[3Xp[103X = the same as a result of [2XDegOrderPredecessors[102X ([14X13.5-2[114X);[133X
+            [33X[0;10Y[3Xdp[103X = the same as a result of [2XDegOrderDirectPredecessors[102X ([14X13.5-3[114X);[133X
+  
+  [33X[0;0YThe function generates predecessors only once, so the runtime is exactly the
+  same as DegOrderDirectPredecessors.[133X
+  
+  [1X13.5-5 DegOrderSuccessors[101X
+  
+  [33X[1;0Y[29X[2XDegOrderSuccessors[102X( [3XAR[103X, [3XM[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XAR[103X - an object from the category [2XIsARQuiverNumerical[102X ([14X13.3-2[114X);[133X
+  [33X[0;0Y[3XM[103X  -  a  number of indecomposable module in [3XAR[103X or a multiplicity vector (cf.
+  [14X13.1[114X).[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya  list  of  all  modules  (=  multiplicity vectors) which are the
+            successors of module [3XM[103X in a degeneration order (see [14X13.2[114X).[133X
+  
+  [1X13.5-6 DegOrderDirectSuccessors[101X
+  
+  [33X[1;0Y[29X[2XDegOrderDirectSuccessors[102X( [3XAR[103X, [3XM[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XAR[103X - an object from the category [2XIsARQuiverNumerical[102X ([14X13.3-2[114X);[133X
+  [33X[0;0Y[3XM[103X  -  a  number of indecomposable module in [3XAR[103X or a multiplicity vector (cf.
+  [14X13.1[114X).[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya  list  of  all  modules  (=  multiplicity vectors) which are the
+            direct successors of module [3XM[103X in a degeneration order (see [14X13.2[114X).[133X
+  
+  [1X13.5-7 DegOrderSuccessorsWithDirect[101X
+  
+  [33X[1;0Y[29X[2XDegOrderSuccessorsWithDirect[102X( [3XAR[103X, [3XM[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XAR[103X - an object from the category [2XIsARQuiverNumerical[102X ([14X13.3-2[114X);[133X
+  [33X[0;0Y[3XM[103X  -  a  number of indecomposable module in [3XAR[103X or a multiplicity vector (cf.
+  [14X13.1[114X).[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya pair (2-element list) [[3Xs[103X, [3Xds[103X] where[133X
+            [33X[0;10Y[3Xs[103X = the same as a result of [2XDegOrderSuccessors[102X ([14X13.5-5[114X);[133X
+            [33X[0;10Y[3Xds[103X = the same as a result of [2XDegOrderDirectSuccessors[102X ([14X13.5-6[114X);[133X
+  
+  [33X[0;0YThe  function  generates successors only once, so the runtime is exactly the
+  same as DegOrderDirectSuccessors.[133X
+  

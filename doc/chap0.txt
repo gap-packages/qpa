@@ -1,1 +1,745 @@
-Placeholder
+  
+  
+                                      [1XQPA[101X
+  
+  
+                           [1XQuivers and Path Algebras[101X
+  
+  
+                                  Version 1.35
+  
+  
+                                  January 2024
+  
+  
+                                  The QPA-team
+  
+  
+  
+  
+  
+  The QPA-team
+      Email:    [7Xmailto:oyvind.solberg@ntnu.no[107X
+      Homepage: [7Xhttps://folk.ntnu.no/oyvinso/QPA/[107X
+      Address:  [33X[0;14YDepartment of Mathematical Sciences[133X
+                [33X[0;14YNTNU[133X
+                [33X[0;14YN-7491 Trondheim[133X
+                [33X[0;14YNorway[133X
+  
+  
+  
+  -------------------------------------------------------
+  [1XAbstract[101X
+  [33X[0;0YThe   GAP4   deposited   package  [5XQPA[105X  extends  the  GAP  functionality  for
+  computations  with  finite  dimensional  quotients of path algebras. [5XQPA[105X has
+  data  structures for quivers, quotients of path algebras, representations of
+  quivers  with  relations  and  complexes  of  modules.  Basic  operations on
+  representations  of  quivers are implemented as well as constructing minimal
+  projective  resolutions  of  modules  (using  using  linear  algebra). A not
+  necessarily  minimal  projective  resolution  constructed  by using Groebner
+  basis  theory  and  a  paper  by Green-Solberg-Zacharia, "Minimal projective
+  resolutions",  has  been  implemented.  A  goal is to have a test for finite
+  representation  type.  This  work has started, but there is a long way left.
+  Part of this work is to implement/port the functionality and data structures
+  that was available in CREP.[133X
+  
+  
+  -------------------------------------------------------
+  [1XCopyright[101X
+  [33X[0;0Y© 2014-2024 by The QPA-team.[133X
+  
+  [33X[0;0Y[5XQPA[105X  is  free  software;  you can redistribute it and/or modify it under the
+  terms  of  the  GNU General Public License as published by the Free Software
+  Foundation;  either  version 2 of the License, or (at your option) any later
+  version.      For      details,      see      the     FSF’s     own     site
+  ([7Xhttps://www.gnu.org/licenses/gpl.html[107X).[133X
+  
+  [33X[0;0YIf  you  obtained [5XQPA[105X, we would be grateful for a short notification sent to
+  one  of members of the QPA-team. If you publish a result which was partially
+  obtained with the usage of [5XQPA[105X, please cite it in the following form:[133X
+  
+  [33X[0;0YThe  QPA-team,  [5XQPA[105X  -  Quivers,  path algebras and representations, Version
+  1.35; 2024 ([7Xhttps://folk.ntnu.no/oyvinso/QPA/[107X)[133X
+  
+  
+  -------------------------------------------------------
+  [1XAcknowledgements[101X
+  [33X[0;0YThe system design of [5XQPA[105X was initiated by Edward L. Green, Lenwood S. Heath,
+  and  Craig  A.  Struble.  It was continued and completed by Randall Cone and
+  Edward  Green.  We  would  like  to  thank  the  following  people for their
+  contributions:[133X
+  
+        Chain complexes                                    Kristin Krogh Arnesen and Øystein Skartsæterhagen   
+        Degeneration order for modules in finite type      Andrzej Mroz                                        
+        GBNP interface (for Groebner bases)                Randall Cone                                        
+        Homomorphisms of modules                           Øyvind Solberg and Anette Wraalsen                  
+        Koszul duals                                       Stephen Corwin                                      
+        Matrix representations of path algebras            Øyvind Solberg and George Yuhasz                    
+        Opposite algebra and tensor products of algebras   Øystein Skartsæterhagen                             
+        Predefined classes of algebras                     Andrzej Mroz and Øyvind Solberg                     
+        Projective resolutions (using Groebnar basis)      Randall Cone and Øyvind Solberg                     
+        Projective resolutions (using linear algebra)      Øyvind Solberg                                      
+        Quickstart                                         Kristin Krogh Arnesen                               
+        Quivers, path algebras                             Gerard Brunick                                      
+        The bounded derived category                       Kristin Krogh Arnesen and Øystein Skartsæterhagen   
+        Unitforms                                          Øyvind Solberg                                      
+                                                                                                               
+                                                                                                               
+                                                                                                               
+                                                                                                               
+                                                                                                               
+                                                                                                               
+                                                                                                               
+                                                                                                               
+                                                                                                               
+                                                                                                               
+                                                                                                               
+                                                                                                               
+                                                                                                               
+                                                                                                               
+                                                                                                               
+                                                                                                               
+  
+  
+  -------------------------------------------------------
+  
+  
+  [1XContents (QPA)[101X
+  
+  1 [33X[0;0YIntroduction[133X
+    1.1 [33X[0;0YGeneral aims[133X
+    1.2 [33X[0;0YInstallation and system requirements[133X
+  2 [33X[0;0YQuickstart[133X
+    2.1 [33X[0;0YExample 1 -- quivers, path algebras and quotients of path algebras[133X
+    2.2 [33X[0;0YExample 2 -- Introducing modules[133X
+    2.3 [33X[0;0YExample 3 -- Constructing modules and module homomorphisms[133X
+  3 [33X[0;0YQuivers[133X
+    3.1 [33X[0;0YInformation class, Quivers[133X
+      3.1-1 InfoQuiver
+    3.2 [33X[0;0YConstructing Quivers[133X
+      3.2-1 Quiver
+      3.2-2 DynkinQuiver
+      3.2-3 OrderedBy
+    3.3 [33X[0;0YCategories and Properties of Quivers[133X
+      3.3-1 IsQuiver
+      3.3-2 IsAcyclicQuiver
+      3.3-3 IsUAcyclicQuiver
+      3.3-4 IsConnectedQuiver
+      3.3-5 IsTreeQuiver
+      3.3-6 IsDynkinQuiver
+    3.4 [33X[0;0YOrderings of paths in a quiver[133X
+    3.5 [33X[0;0YAttributes and Operations for Quivers[133X
+      3.5-1 .
+      3.5-2 VerticesOfQuiver
+      3.5-3 ArrowsOfQuiver
+      3.5-4 AdjacencyMatrixOfQuiver
+      3.5-5 GeneratorsOfQuiver
+      3.5-6 NumberOfVertices
+      3.5-7 NumberOfArrows
+      3.5-8 OrderingOfQuiver
+      3.5-9 OppositeQuiver
+      3.5-10 FullSubquiver
+      3.5-11 ConnectedComponentsOfQuiver
+      3.5-12 DoubleQuiver
+      3.5-13 SeparatedQuiver
+    3.6 [33X[0;0YCategories and Properties of Paths[133X
+      3.6-1 IsPath
+      3.6-2 IsQuiverVertex
+      3.6-3 IsArrow
+      3.6-4 IsZeroPath
+    3.7 [33X[0;0YAttributes and Operations of Paths[133X
+      3.7-1 SourceOfPath
+      3.7-2 TargetOfPath
+      3.7-3 LengthOfPath
+      3.7-4 WalkOfPath
+      3.7-5 *
+      3.7-6 =
+      3.7-7 <
+    3.8 [33X[0;0YAttributes of Vertices[133X
+      3.8-1 IncomingArrowsOfVertex
+      3.8-2 OutgoingArrowsOfVertex
+      3.8-3 InDegreeOfVertex
+      3.8-4 OutDegreeOfVertex
+      3.8-5 NeighborsOfVertex
+    3.9 [33X[0;0YPosets[133X
+      3.9-1 Poset
+      3.9-2 Size
+      3.9-3 UnderlyingSet
+      3.9-4 PartialOrderOfPoset
+  4 [33X[0;0YPath Algebras[133X
+    4.1 [33X[0;0YIntroduction[133X
+    4.2 [33X[0;0YConstructing Path Algebras[133X
+      4.2-1 PathAlgebra
+    4.3 [33X[0;0YCategories and Properties of Path Algebras[133X
+      4.3-1 IsPathAlgebra
+    4.4 [33X[0;0YAttributes and Operations for Path Algebras[133X
+      4.4-1 AssociatedGradedAlgebra
+      4.4-2 AssociatedMonomialAlgebra
+      4.4-3 QuiverOfPathAlgebra
+      4.4-4 OrderingOfAlgebra
+      4.4-5 .
+    4.5 [33X[0;0YOperations on Path Algebra Elements[133X
+      4.5-1 ElementOfPathAlgebra
+      4.5-2 <
+      4.5-3 IsLeftUniform
+      4.5-4 IsRightUniform
+      4.5-5 IsUniform
+      4.5-6 LeadingTerm
+      4.5-7 LeadingCoefficient
+      4.5-8 LeadingMonomial
+      4.5-9 MakeUniformOnRight
+      4.5-10 MappedExpression
+      4.5-11 SupportOfQuiverAlgebraElement
+      4.5-12 VertexPosition
+      4.5-13 RelationsOfAlgebra
+    4.6 [33X[0;0YConstructing Quotients of Path Algebras[133X
+      4.6-1 AssignGeneratorVariables
+    4.7 [33X[0;0YIdeals and operations on ideals[133X
+      4.7-1 Ideal
+      4.7-2 IdealOfQuotient
+      4.7-3 PathsOfLengthTwo
+      4.7-4 NthPowerOfArrowIdeal
+      4.7-5 AddNthPowerToRelations
+      4.7-6 \in
+    4.8 [33X[0;0YCategories and properties of ideals[133X
+      4.8-1 IsAdmissibleIdeal
+      4.8-2 IsIdealInPathAlgebra
+      4.8-3 IsMonomialIdeal
+      4.8-4 IsQuadraticIdeal
+    4.9 [33X[0;0YOperations on ideals[133X
+      4.9-1 ProductOfIdeals
+      4.9-2 QuadraticPerpOfPathAlgebraIdeal
+    4.10 [33X[0;0YAttributes of ideals[133X
+      4.10-1 GroebnerBasisOfIdeal
+    4.11 [33X[0;0YCategories and Properties of Quotients of Path Algebras[133X
+      4.11-1 IsAdmissibleQuotientOfPathAlgebra
+      4.11-2 IsQuotientOfPathAlgebra
+      4.11-3 IsFiniteDimensional
+      4.11-4 IsCanonicalAlgebra
+      4.11-5 IsDistributiveAlgebra
+      4.11-6 IsFiniteGlobalDimensionAlgebra
+      4.11-7 IsGentleAlgebra
+      4.11-8 IsGorensteinAlgebra
+      4.11-9 IsHereditaryAlgebra
+      4.11-10 IsKroneckerAlgebra
+      4.11-11 IsMonomialAlgebra
+      4.11-12 IsNakayamaAlgebra
+      4.11-13 IsQuiverAlgebra
+      4.11-14 IsRadicalSquareZeroAlgebra
+      4.11-15 IsSchurianAlgebra
+      4.11-16 IsSelfinjectiveAlgebra
+      4.11-17 IsSemicommutativeAlgebra
+      4.11-18 IsSemisimpleAlgebra
+      4.11-19 IsSpecialBiserialAlgebra
+      4.11-20 IsStringAlgebra
+      4.11-21 IsSymmetricAlgebra
+      4.11-22 IsTriangularReduced
+      4.11-23 IsWeaklySymmetricAlgebra
+      4.11-24 BongartzTest
+      4.11-25 IsFiniteTypeAlgebra
+    4.12 [33X[0;0YOperations on String Algebras[133X
+      4.12-1 IsValidString
+      4.12-2 StringsLessThan
+      4.12-3 IsABand
+      4.12-4 BandsLessThan
+      4.12-5 BandRepresentativesLessThan
+      4.12-6 IsDomesticStringAlgebra
+      4.12-7 BridgeQuiver
+      4.12-8 LocalARQuiver
+    4.13 [33X[0;0YAttributes and Operations (for Quotients) of Path Algebras[133X
+      4.13-1 CartanMatrix
+      4.13-2 Centre/Center
+      4.13-3 ComplexityOfAlgebra
+      4.13-4 CoxeterMatrix
+      4.13-5 CoxeterPolynomial
+      4.13-6 Dimension
+      4.13-7 FrobeniusForm
+      4.13-8 FrobeniusLinearFunctional
+      4.13-9 GlobalDimension
+      4.13-10 LoewyLength
+      4.13-11 NakayamaAutomorphism
+      4.13-12 NakayamaPermutation
+      4.13-13 OrderOfNakayamaAutomorphism
+      4.13-14 RadicalSeriesOfAlgebra
+    4.14 [33X[0;0YAttributes and Operations on Elements of Quotients of Path Algebra[133X
+      4.14-1 IsElementOfQuotientOfPathAlgebra
+      4.14-2 Coefficients
+      4.14-3 IsNormalForm
+      4.14-4 <
+      4.14-5 ElementOfQuotientOfPathAlgebra
+      4.14-6 OriginalPathAlgebra
+    4.15 [33X[0;0YPredefined classes and classes of (quotients of) path algebras[133X
+      4.15-1 BrauerConfigurationAlgebra
+      4.15-2 CanonicalAlgebra
+      4.15-3 KroneckerAlgebra
+      4.15-4 NakayamaAlgebra
+      4.15-5 AdmissibleSequenceGenerator
+      4.15-6 PosetAlgebra
+      4.15-7 PosetOfPosetAlgebra
+      4.15-8 TruncatedPathAlgebra
+      4.15-9 IsSpecialBiserialQuiver
+    4.16 [33X[0;0YOpposite algebras[133X
+      4.16-1 OppositePath
+      4.16-2 OppositePathAlgebra
+      4.16-3 OppositePathAlgebraElement
+      4.16-4 OppositeAlgebraHomomorphism
+    4.17 [33X[0;0YTensor products of path algebras[133X
+      4.17-1 QuiverProduct
+      4.17-2 QuiverProductDecomposition
+      4.17-3 IsQuiverProductDecomposition
+      4.17-4 IncludeInProductQuiver
+      4.17-5 ProjectFromProductQuiver
+      4.17-6 TensorProductOfAlgebras
+      4.17-7 TensorAlgebrasInclusion
+      4.17-8 SimpleTensor
+      4.17-9 TensorProductDecomposition
+      4.17-10 EnvelopingAlgebra
+      4.17-11 EnvelopingAlgebraHomomorphism
+      4.17-12 IsEnvelopingAlgebra
+      4.17-13 AlgebraAsModuleOverEnvelopingAlgebra
+      4.17-14 DualOfAlgebraAsModuleOverEnvelopingAlgebra
+      4.17-15 TrivialExtensionOfQuiverAlgebra
+      4.17-16 TrivialExtensionOfQuiverAlgebraProjection
+    4.18 [33X[0;0YOperations on quiver algebras[133X
+      4.18-1 QuiverAlgebraOfAmodAeA
+      4.18-2 QuiverAlgebraOfeAe
+    4.19 [33X[0;0YFinite dimensional algebras over finite fields[133X
+      4.19-1 AlgebraAsQuiverAlgebra
+      4.19-2 BlocksOfAlgebra
+      4.19-3 IsBasicAlgebra
+      4.19-4 IsElementaryAlgebra
+      4.19-5 PreprojectiveAlgebra
+      4.19-6 PrimitiveIdempotents
+    4.20 [33X[0;0YAlgebras[133X
+      4.20-1 LiftingCompleteSetOfOrthogonalIdempotents
+      4.20-2 LiftingIdempotent
+    4.21 [33X[0;0YSaving and reading quotients of path algebras to and from a file[133X
+      4.21-1 ReadAlgebra
+      4.21-2 SaveAlgebra
+  5 [33X[0;0YGroebner Basis[133X
+    5.1 [33X[0;0YConstructing a Groebner Basis[133X
+      5.1-1 InfoGroebnerBasis
+      5.1-2 GroebnerBasis
+    5.2 [33X[0;0YCategories and Properties of Groebner Basis[133X
+      5.2-1 IsCompletelyReducedGroebnerBasis
+      5.2-2 IsCompleteGroebnerBasis
+      5.2-3 IsGroebnerBasis
+      5.2-4 IsHomogeneousGroebnerBasis
+      5.2-5 IsTipReducedGroebnerBasis
+    5.3 [33X[0;0YAttributes and Operations for Groebner Basis[133X
+      5.3-1 AdmitsFinitelyManyNontips
+      5.3-2 CompletelyReduce
+      5.3-3 CompletelyReduceGroebnerBasis
+      5.3-4 Enumerator
+      5.3-5 IsPrefixOfTipInTipIdeal
+      5.3-6 Iterator
+      5.3-7 Nontips
+      5.3-8 NontipSize
+      5.3-9 TipReduce
+      5.3-10 TipReduceGroebnerBasis
+    5.4 [33X[0;0YRight Groebner Basis[133X
+      5.4-1 IsRightGroebnerBasis
+      5.4-2 RightGroebnerBasis
+      5.4-3 RightGroebnerBasisOfIdeal
+    5.5 [33X[0;0YConstructing a Groebner Basis for inverse length ordeing[133X
+      5.5-1 TipInvLenInvLex
+      5.5-2 TipCoefficientInvLenInvLex
+      5.5-3 TipMonomialInvLenInvLex
+      5.5-4 TipWalkInvLenInvLex
+      5.5-5 GroebnerBasisInvLenInvLex
+      5.5-6 RemainderOfDivisionInvLenInvLexGroebnerBasis
+      5.5-7 ReducedListInvLenInvLexQPA
+      5.5-8 TipReducedListInvLenInvLex
+      5.5-9 LeftmostOccurrenceInvLenInvLex
+      5.5-10 BiggestHomogeneousPartInvLenInvLex
+      5.5-11 BiggestHomogeneousPartInvLenInvLex
+      5.5-12 TruncateElement
+  6 [33X[0;0YRight Modules over Path Algebras[133X
+    6.1 [33X[0;0YModules of matrix type[133X
+      6.1-1 RightModuleOverPathAlgebra
+      6.1-2 RightAlgebraModuleToPathAlgebraMatModule
+      6.1-3 \=
+    6.2 [33X[0;0YCategories Of Matrix Modules[133X
+      6.2-1 IsPathAlgebraMatModule
+    6.3 [33X[0;0YActing on Module Elements[133X
+      6.3-1 ^
+    6.4 [33X[0;0YOperations on representations[133X
+      6.4-1 AnnihilatorOfModule
+      6.4-2 BasicVersionOfModule
+      6.4-3 BlockDecompositionOfModule
+      6.4-4 BlockSplittingIdempotents
+      6.4-5 CommonDirectSummand
+      6.4-6 ComplexityOfModule
+      6.4-7 DecomposeModule
+      6.4-8 DecomposeModuleProbabilistic
+      6.4-9 DecomposeModuleViaCharPoly
+      6.4-10 DecomposeModuleViaTop
+      6.4-11 DecomposeModuleWithMultiplicities
+      6.4-12 Dimension
+      6.4-13 DimensionVector
+      6.4-14 DirectSumOfQPAModules
+      6.4-15 DirectSumInclusions
+      6.4-16 DirectSumProjections
+      6.4-17 FromIdentityToDoubleStarHomomorphism
+      6.4-18 IntersectionOfSubmodules
+      6.4-19 IsDirectSummand
+      6.4-20 IsDirectSumOfModules
+      6.4-21 IsExceptionalModule
+      6.4-22 IsIndecomposableModule
+      6.4-23 IsInAdditiveClosure
+      6.4-24 IsInjectiveModule
+      6.4-25 IsomorphicModules
+      6.4-26 IsProjectiveModule
+      6.4-27 IsRigidModule
+      6.4-28 IsSemisimpleModule
+      6.4-29 IsSimpleQPAModule
+      6.4-30 IsTauRigidModule
+      6.4-31 LoewyLength
+      6.4-32 IsZero
+      6.4-33 MatricesOfPathAlgebraModule
+      6.4-34 MaximalCommonDirectSummand
+      6.4-35 NumberOfNonIsoDirSummands
+      6.4-36 MinimalGeneratingSetOfModule
+      6.4-37 RadicalOfModule
+      6.4-38 RadicalSeries
+      6.4-39 RandomModule
+      6.4-40 SocleSeries
+      6.4-41 SocleOfModule
+      6.4-42 SubRepresentation
+      6.4-43 SumOfSubmodules
+      6.4-44 SupportModuleElement
+      6.4-45 TopOfModule
+    6.5 [33X[0;0YSpecial representations[133X
+      6.5-1 BasisOfProjectives
+      6.5-2 ElementInIndecProjective
+      6.5-3 ElementIn_vA_AsElementInIndecProj
+      6.5-4 IndecInjectiveModules
+      6.5-5 IndecProjectiveModules
+      6.5-6 SimpleModules
+      6.5-7 ZeroModule
+    6.6 [33X[0;0YFunctors on representations[133X
+      6.6-1 DualOfModule
+      6.6-2 DualOfModuleHomomorphism
+      6.6-3 DTr
+      6.6-4 DTr
+      6.6-5 NakayamaFunctorOfModule
+      6.6-6 NakayamaFunctorOfModuleHomomorphism
+      6.6-7 OppositeNakayamaFunctorOfModule
+      6.6-8 OppositeNakayamaFunctorOfModuleHomomorphism
+      6.6-9 RestrictionViaAlgebraHomomorphism
+      6.6-10 RestrictionViaAlgebraHomomorphismMap
+      6.6-11 StarOfModule
+      6.6-12 StarOfModuleHomomorphism
+      6.6-13 TensorProductOfModules
+      6.6-14 TrD
+      6.6-15 TrD
+      6.6-16 TransposeOfModule
+      6.6-17 TransposeOfModuleHomomorphism
+    6.7 [33X[0;0YVertex projective modules and submodules thereof[133X
+      6.7-1 RightProjectiveModule
+      6.7-2 CompletelyReduceGroebnerBasisForModule
+      6.7-3 IsLeftDivisible
+      6.7-4 IsPathAlgebraModule
+      6.7-5 IsPathAlgebraVector
+      6.7-6 LeadingCoefficient (of PathAlgebraVector)
+      6.7-7 LeadingComponent
+      6.7-8 LeadingPosition
+      6.7-9 LeadingTerm (of PathAlgebraVector)
+      6.7-10 LeftDivision
+      6.7-11 ^
+      6.7-12 <
+      6.7-13 /
+      6.7-14 PathAlgebraVector
+      6.7-15 ProjectivePathAlgebraPresentation
+      6.7-16 RightGroebnerBasisOfModule
+      6.7-17 TargetVertex
+      6.7-18 UniformGeneratorsOfModule
+      6.7-19 Vectorize
+  7 [33X[0;0YHomomorphisms of Right Modules over Path Algebras[133X
+    7.1 [33X[0;0YCategories and representation of homomorphisms[133X
+      7.1-1 IsPathAlgebraModuleHomomorphism
+      7.1-2 RightModuleHomOverAlgebra
+      7.1-3 UnderlyingLinearMap
+    7.2 [33X[0;0YGeneralities of homomorphisms[133X
+      7.2-1 \= (maps)
+      7.2-2 \+ (maps)
+      7.2-3 \* (maps)
+      7.2-4 CoKernelOfWhat
+      7.2-5 IdentityMapping
+      7.2-6 ImageElm
+      7.2-7 ImagesSet
+      7.2-8 ImageOfWhat
+      7.2-9 IsInjective
+      7.2-10 IsIsomorphism
+      7.2-11 IsLeftMinimal
+      7.2-12 IsRightMinimal
+      7.2-13 IsSplitEpimorphism
+      7.2-14 IsSplitMonomorphism
+      7.2-15 IsSurjective
+      7.2-16 IsZero
+      7.2-17 KernelOfWhat
+      7.2-18 LeftInverseOfHomomorphism
+      7.2-19 MatricesOfPathAlgebraMatModuleHomomorphism
+      7.2-20 PathAlgebraOfMatModuleMap
+      7.2-21 PreImagesRepresentative
+      7.2-22 Range
+      7.2-23 RightInverseOfHomomorphism
+      7.2-24 Source
+      7.2-25 Zero
+      7.2-26 ZeroMapping
+      7.2-27 HomomorphismFromImages
+    7.3 [33X[0;0YHomomorphisms and modules constructed from homomorphisms and modules[133X
+      7.3-1 AllIndecModulesOfLengthAtMost
+      7.3-2 AllModulesOfLengthAtMost
+      7.3-3 AllSimpleSubmodulesOfModule
+      7.3-4 AllSubmodulesOfModule
+      7.3-5 CoKernel
+      7.3-6 CoKernelProjection
+      7.3-7 EndModuloProjOverAlgebra
+      7.3-8 EndOfModuleAsQuiverAlgebra
+      7.3-9 EndOverAlgebra
+      7.3-10 FromEndMToHomMM
+      7.3-11 FromHomMMToEndM
+      7.3-12 HomFactoringThroughProjOverAlgebra
+      7.3-13 HomFromProjective
+      7.3-14 HomOverAlgebra
+      7.3-15 Image
+      7.3-16 ImageInclusion
+      7.3-17 ImageProjection
+      7.3-18 ImageProjectionInclusion
+      7.3-19 IsomorphismOfModules
+      7.3-20 Kernel
+      7.3-21 LeftMinimalVersion
+      7.3-22 MatrixOfHomomorphismBetweenProjectives
+      7.3-23 FromMatrixToHomomorphismOfProjectives
+      7.3-24 RightMinimalVersion
+      7.3-25 RadicalOfModuleInclusion
+      7.3-26 RejectOfModule
+      7.3-27 SocleOfModuleInclusion
+      7.3-28 SubRepresentationInclusion
+      7.3-29 TopOfModuleProjection
+      7.3-30 TraceOfModule
+  8 [33X[0;0YHomological algebra[133X
+    8.1 [33X[0;0YHomological algebra[133X
+      8.1-1 1stSyzygy
+      8.1-2 AllComplementsOfAlmostCompleteTiltingModule
+      8.1-3 CotiltingModule
+      8.1-4 DominantDimensionOfAlgebra
+      8.1-5 DominantDimensionOfModule
+      8.1-6 ExtAlgebraGenerators
+      8.1-7 ExtOverAlgebra
+      8.1-8 FaithfulDimension
+      8.1-9 GlobalDimensionOfAlgebra
+      8.1-10 GorensteinDimension
+      8.1-11 GorensteinDimensionOfAlgebra
+      8.1-12 HaveFiniteCoresolutionInAddM
+      8.1-13 HaveFiniteResolutionInAddM
+      8.1-14 InjDimension
+      8.1-15 InjDimensionOfModule
+      8.1-16 InjectiveEnvelope
+      8.1-17 IsCotiltingModule
+      8.1-18 IsNthSyzygy
+      8.1-19 IsOmegaPeriodic
+      8.1-20 IsTtiltingModule
+      8.1-21 IyamaGenerator
+      8.1-22 LeftApproximationByAddTHat
+      8.1-23 LeftFacMApproximation
+      8.1-24 LeftMutationOfTiltingModuleComplement
+      8.1-25 LeftSubMApproximation
+      8.1-26 LiftingInclusionMorphisms
+      8.1-27 LiftingMorphismFromProjective
+      8.1-28 LeftApproximationByAddM
+      8.1-29 RightApproximationByAddM
+      8.1-30 RadicalRightApproximationByAddM
+      8.1-31 MorphismOnKernel
+      8.1-32 NthSyzygy
+      8.1-33 NumberOfComplementsOfAlmostCompleteTiltingModule
+      8.1-34 ProjDimension
+      8.1-35 ProjDimensionOfModule
+      8.1-36 ProjectiveCover
+      8.1-37 ProjectiveResolutionOfPathAlgebraModule
+      8.1-38 ProjectiveResolutionOfSimpleModuleOverEndo
+      8.1-39 PullBack
+      8.1-40 PushOut
+      8.1-41 RightApproximationByPerpT
+      8.1-42 RightFacMApproximation
+      8.1-43 RightMutationOfTiltingModuleComplement
+      8.1-44 RightSubMApproximation
+      8.1-45 N_RigidModule
+      8.1-46 TiltingModule
+  9 [33X[0;0YAuslander-Reiten theory[133X
+    9.1 [33X[0;0YAlmost split sequences and AR-quivers[133X
+      9.1-1 AlmostSplitSequence
+      9.1-2 AlmostSplitSequenceInPerpT
+      9.1-3 IrreducibleMorphismsEndingIn
+      9.1-4 IsTauPeriodic
+      9.1-5 PredecessorOfModule
+  10 [33X[0;0YChain complexes[133X
+    10.1 [33X[0;0YIntroduction[133X
+    10.2 [33X[0;0YInfinite lists[133X
+      10.2-1 IsInfiniteNumber
+      10.2-2 PositiveInfinity
+      10.2-3 NegativeInfinity
+      10.2-4 IsInfList
+      10.2-5 IsHalfInfList
+      10.2-6 \^
+      10.2-7 MakeHalfInfList
+      10.2-8 StartPosition
+      10.2-9 Direction
+      10.2-10 InfListType
+      10.2-11 RepeatingList
+      10.2-12 ElementFunction
+      10.2-13 IsStoringValues
+      10.2-14 NewValueCallback
+      10.2-15 IsRepeating
+      10.2-16 InitialValue
+      10.2-17 LowestKnownPosition
+      10.2-18 HighestKnownValue
+      10.2-19 Shift
+      10.2-20 Cut
+      10.2-21 HalfInfList
+      10.2-22 MakeInfListFromHalfInfLists
+      10.2-23 MakeInfList
+      10.2-24 FunctionInfList
+      10.2-25 ConstantInfList
+      10.2-26 FiniteInfList
+      10.2-27 MiddleStart
+      10.2-28 MiddleEnd
+      10.2-29 MiddlePart
+      10.2-30 PositivePart
+      10.2-31 NegativePart
+      10.2-32 HighestKnownPosition
+      10.2-33 LowestKnownPosition
+      10.2-34 UpperBound
+      10.2-35 LowerBound
+      10.2-36 FinitePartAsList
+      10.2-37 PositivePartFrom
+      10.2-38 NegativePartFrom
+      10.2-39 Shift
+      10.2-40 Splice
+      10.2-41 InfConcatenation
+      10.2-42 InfList
+      10.2-43 IntegersList
+    10.3 [33X[0;0YRepresentation of categories[133X
+      10.3-1 IsCat
+      10.3-2 CatOfRightAlgebraModules
+    10.4 [33X[0;0YMaking a complex[133X
+      10.4-1 IsQPAComplex
+      10.4-2 IsZeroComplex
+      10.4-3 Complex
+      10.4-4 ZeroComplex
+      10.4-5 FiniteComplex
+      10.4-6 StalkComplex
+      10.4-7 ShortExactSequence
+    10.5 [33X[0;0YInformation about a complex[133X
+      10.5-1 CatOfComplex
+      10.5-2 ObjectOfComplex
+      10.5-3 DifferentialOfComplex
+      10.5-4 DifferentialsOfComplex
+      10.5-5 CyclesOfComplex
+      10.5-6 BoundariesOfComplex
+      10.5-7 HomologyOfComplex
+      10.5-8 IsFiniteComplex
+      10.5-9 UpperBound
+      10.5-10 LowerBound
+      10.5-11 LengthOfComplex
+      10.5-12 HighestKnownDegree
+      10.5-13 LowestKnownDegree
+      10.5-14 IsExactSequence
+      10.5-15 IsExactInDegree
+      10.5-16 IsShortExactSequence
+      10.5-17 ForEveryDegree
+    10.6 [33X[0;0YTransforming and combining complexes[133X
+      10.6-1 Shift
+      10.6-2 ShiftUnsigned
+      10.6-3 YonedaProduct
+      10.6-4 BrutalTruncationBelow
+      10.6-5 BrutalTruncationAbove
+      10.6-6 BrutalTruncation
+      10.6-7 SyzygyTruncation
+      10.6-8 CosyzygyTruncation
+      10.6-9 SyzygyCosyzygyTruncation
+    10.7 [33X[0;0YChain maps[133X
+      10.7-1 IsChainMap
+      10.7-2 ChainMap
+      10.7-3 ZeroChainMap
+      10.7-4 FiniteChainMap
+      10.7-5 ComplexAndChainMaps
+      10.7-6 MorphismOfChainMap
+      10.7-7 MorphismsOfChainMap
+      10.7-8 ComparisonLifting
+      10.7-9 ComparisonLiftingToProjectiveResolution
+      10.7-10 MappingCone
+  11 [33X[0;0YProjective resolutions and the bounded derived category[133X
+    11.1 [33X[0;0YProjective and injective complexes[133X
+      11.1-1 InjectiveResolution
+      11.1-2 IsProjectiveComplex
+      11.1-3 IsInjectiveComplex
+      11.1-4 ProjectiveResolution
+    11.2 [33X[0;0YThe bounded derived category[133X
+      11.2-1 ProjectiveResolutionOfComplex
+      11.2-2 ProjectiveToInjectiveComplex
+      11.2-3 TauOfComplex
+      11.2-4 [33X[0;0YExample[133X
+      11.2-5 StarOfMapBetweenProjectives
+  12 [33X[0;0YCombinatorial representation theory[133X
+    12.1 [33X[0;0YIntroduction[133X
+    12.2 [33X[0;0YDifferent unit forms[133X
+      12.2-1 IsUnitForm
+      12.2-2 BilinearFormOfUnitForm
+      12.2-3 IsWeaklyNonnegativeUnitForm
+      12.2-4 IsWeaklyPositiveUnitForm
+      12.2-5 PositiveRootsOfUnitForm
+      12.2-6 QuadraticFormOfUnitForm
+      12.2-7 SymmetricMatrixOfUnitForm
+      12.2-8 TitsUnitFormOfAlgebra
+      12.2-9 EulerBilinearFormOfAlgebra
+      12.2-10 UnitForm
+    12.3 [33X[0;0YCombinatorial Maps[133X
+      12.3-1 CombinatorialMap
+      12.3-2 FacesOfCombinatorialMap
+      12.3-3 GenusOfCombinatorialMap
+      12.3-4 DualOfCombinatorialMap
+      12.3-5 MaximalPathsOfGentleAlgebra
+      12.3-6 RemoveEdgeOfCombinatorialMap
+      12.3-7 CombinatorialMapOfGentleAlgebra
+      12.3-8 MarkedBoundariesOfCombinatorialMap
+      12.3-9 WindingNumber
+      12.3-10 BoundaryCurvesOfCombinatorialMap
+      12.3-11 DepthSearchCombinatorialMap
+      12.3-12 WidthSearchCombinatorialMap
+      12.3-13 NonSeperatingCurve
+      12.3-14 CutNonSepCombinatorialMap
+      12.3-15 JoinCurveCombinatorialMap
+      12.3-16 CutJoinCurveCombinatorialMap
+      12.3-17 HomologyBasisOfCombinatorialMap
+      12.3-18 AreDerivedEquivalent
+  13 [33X[0;0YDegeneration order for modules in finite type[133X
+    13.1 [33X[0;0YIntroduction[133X
+    13.2 [33X[0;0YBasic definitions[133X
+    13.3 [33X[0;0YDefining Auslander-Reiten quiver in finite type[133X
+      13.3-1 ARQuiverNumerical
+      13.3-2 IsARQuiverNumerical
+      13.3-3 NumberOfIndecomposables
+      13.3-4 NumberOfProjectives
+    13.4 [33X[0;0YElementary operations[133X
+      13.4-1 DimensionVector
+      13.4-2 DimHom
+      13.4-3 DimEnd
+      13.4-4 OrbitDim
+      13.4-5 OrbitCodim
+      13.4-6 DegOrderLEQ
+      13.4-7 DegOrderLEQNC
+      13.4-8 PrintMultiplicityVector
+      13.4-9 PrintMultiplicityVectors
+    13.5 [33X[0;0YOperations returning families of modules[133X
+      13.5-1 ModulesOfDimVect
+      13.5-2 DegOrderPredecessors
+      13.5-3 DegOrderDirectPredecessors
+      13.5-4 DegOrderPredecessorsWithDirect
+      13.5-5 DegOrderSuccessors
+      13.5-6 DegOrderDirectSuccessors
+      13.5-7 DegOrderSuccessorsWithDirect
+  
+  
+  [32X

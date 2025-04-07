@@ -1,0 +1,1657 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<script type="text/javascript"
+  src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<title>GAP (QPA) - Chapter 10: Chain complexes</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="GAPDoc2HTML" />
+<link rel="stylesheet" type="text/css" href="manual.css" />
+<script src="manual.js" type="text/javascript"></script>
+<script type="text/javascript">overwriteStyle();</script>
+</head>
+<body class="chap10"  onload="jscontent()">
+
+
+<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chap3_mj.html">3</a>  <a href="chap4_mj.html">4</a>  <a href="chap5_mj.html">5</a>  <a href="chap6_mj.html">6</a>  <a href="chap7_mj.html">7</a>  <a href="chap8_mj.html">8</a>  <a href="chap9_mj.html">9</a>  <a href="chap10_mj.html">10</a>  <a href="chap11_mj.html">11</a>  <a href="chap12_mj.html">12</a>  <a href="chap13_mj.html">13</a>  <a href="chapBib_mj.html">Bib</a>  <a href="chapInd_mj.html">Ind</a>  </div>
+
+<div class="chlinkprevnexttop">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap9_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap11_mj.html">[Next Chapter]</a>&nbsp;  </div>
+
+<p id="mathjaxlink" class="pcenter"><a href="chap10.html">[MathJax off]</a></p>
+<p><a id="X7A06103979B92808" name="X7A06103979B92808"></a></p>
+<div class="ChapSects"><a href="chap10_mj.html#X7A06103979B92808">10 <span class="Heading">Chain complexes</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap10_mj.html#X7DFB63A97E67C0A1">10.1 <span class="Heading">Introduction</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap10_mj.html#X7AC5660E80079755">10.2 <span class="Heading">Infinite lists</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X8466C7117CEC99D2">10.2-1 IsInfiniteNumber</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X7F12EE4479A03527">10.2-2 PositiveInfinity</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X8759931784478A4D">10.2-3 NegativeInfinity</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X84731DA279E797A5">10.2-4 IsInfList</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X87524BBB7C2F9FCB">10.2-5 IsHalfInfList</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X7D21FB1A7D21FB1A"><code>10.2-6 \^</code></a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X7E01944C83F87EED">10.2-7 MakeHalfInfList</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X8458C2698505C12B">10.2-8 StartPosition</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X812437C47A208D4A">10.2-9 Direction</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X7C3728BF7ED7149A">10.2-10 InfListType</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X82AA0979868A6967">10.2-11 RepeatingList</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X7AF21D62848B270B">10.2-12 ElementFunction</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X8728A2107F27D68F">10.2-13 IsStoringValues</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X86888FBD8559B29B">10.2-14 NewValueCallback</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X856E1541834688C6">10.2-15 IsRepeating</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X8208162D7F3CC139">10.2-16 InitialValue</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X7F12274E794510CA">10.2-17 LowestKnownPosition</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X7B5E57F0859BEE17">10.2-18 HighestKnownValue</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X81F7B0AB84D6319B">10.2-19 Shift</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X7D8067A7842BC4A4">10.2-20 Cut</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X79A67E377B71C540">10.2-21 HalfInfList</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X7CE66EBA844DBB57">10.2-22 MakeInfListFromHalfInfLists</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X801DE2517D08C19E">10.2-23 MakeInfList</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X7EEB276380E1584F">10.2-24 FunctionInfList</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X78C7FBAE83914790">10.2-25 ConstantInfList</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X7D68E0627F556E14">10.2-26 FiniteInfList</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X8134072B7C7309CD">10.2-27 MiddleStart</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X7EB933657AF3D723">10.2-28 MiddleEnd</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X7AC3ECBB7BC93594">10.2-29 MiddlePart</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X7896D6DD788046E7">10.2-30 PositivePart</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X81B768838567F98D">10.2-31 NegativePart</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X8511A0B88003B989">10.2-32 HighestKnownPosition</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X7F12274E794510CA">10.2-33 LowestKnownPosition</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X7A5CB74485184FEE">10.2-34 UpperBound</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X807CC5AD7FDFA4E3">10.2-35 LowerBound</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X7A311EBE79F31AEA">10.2-36 FinitePartAsList</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X8028ED6883CFA39C">10.2-37 PositivePartFrom</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X7863903B7E281CF6">10.2-38 NegativePartFrom</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X81F7B0AB84D6319B">10.2-39 Shift</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X80153272857B2EDE">10.2-40 Splice</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X84FC63C183F0A977">10.2-41 InfConcatenation</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X7F4CF360858E80A6">10.2-42 InfList</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X791D879483C59410">10.2-43 IntegersList</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap10_mj.html#X7CAF603281B94AC8">10.3 <span class="Heading">Representation of categories</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X7F0E546178977963">10.3-1 IsCat</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X7BB9B02E7E76FF9C">10.3-2 CatOfRightAlgebraModules</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap10_mj.html#X7EC3D95F7C791F7E">10.4 <span class="Heading">Making a complex</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X838C9EBD87B8CB9D">10.4-1 IsQPAComplex</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X7E0CE8AC87533991">10.4-2 IsZeroComplex</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X7E51958C86D73D17">10.4-3 Complex</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X80F8DD20789BBBC0">10.4-4 ZeroComplex</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X7C75868E82A831C8">10.4-5 FiniteComplex</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X80B47D78785F6859">10.4-6 StalkComplex</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X7A685484784087FE">10.4-7 ShortExactSequence</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap10_mj.html#X7F7E0C197FA31B29">10.5 <span class="Heading">Information about a complex</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X7BBF131485F3C792">10.5-1 CatOfComplex</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X8239596E87830A51">10.5-2 ObjectOfComplex</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X7B597AC77A3D71F9">10.5-3 DifferentialOfComplex</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X858D2D1A8674D2EC">10.5-4 DifferentialsOfComplex</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X85FBFD9C8382C93B">10.5-5 CyclesOfComplex</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X8168D8CC7805FE30">10.5-6 BoundariesOfComplex</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X7F8D61447AB57EF3">10.5-7 HomologyOfComplex</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X7DCBCF7682DC87FC">10.5-8 IsFiniteComplex</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X7A5CB74485184FEE">10.5-9 UpperBound</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X807CC5AD7FDFA4E3">10.5-10 LowerBound</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X7C1F81277A5AC8B4">10.5-11 LengthOfComplex</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X82D615CD796C9C0A">10.5-12 HighestKnownDegree</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X868105FF86FA1B6E">10.5-13 LowestKnownDegree</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X793465497B435197">10.5-14 IsExactSequence</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X7A6AE1C378E2EEE2">10.5-15 IsExactInDegree</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X87ADD4F685457000">10.5-16 IsShortExactSequence</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X849C525A7F6EBF6D">10.5-17 ForEveryDegree</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap10_mj.html#X8764E5C88284301B">10.6 <span class="Heading">Transforming and combining complexes</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X81F7B0AB84D6319B">10.6-1 Shift</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X86B56AC87A433E5B">10.6-2 ShiftUnsigned</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X7897A65085171913">10.6-3 YonedaProduct</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X87E1CA507EB6B86E">10.6-4 BrutalTruncationBelow</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X7CE9481684DD304E">10.6-5 BrutalTruncationAbove</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X8547C51781BBB48F">10.6-6 BrutalTruncation</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X7E3E34167B79248A">10.6-7 SyzygyTruncation</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X7C729A2587E5DA8D">10.6-8 CosyzygyTruncation</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X797FC6037F6605E7">10.6-9 SyzygyCosyzygyTruncation</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap10_mj.html#X85F418EB859E7597">10.7 <span class="Heading">Chain maps</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X7F76E62D837F0E66">10.7-1 IsChainMap</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X7BCD94877DF261C4">10.7-2 ChainMap</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X7C9597F6810F195E">10.7-3 ZeroChainMap</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X8699B48A783E1900">10.7-4 FiniteChainMap</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X805BA1698394DE4C">10.7-5 ComplexAndChainMaps</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X7F20B8807ECE404E">10.7-6 MorphismOfChainMap</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X792B5B8684A75F72">10.7-7 MorphismsOfChainMap</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X78EC487B79B20DDE">10.7-8 ComparisonLifting</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X7A95C5E78298E0C6">10.7-9 ComparisonLiftingToProjectiveResolution</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10_mj.html#X7EF42CF48165D831">10.7-10 MappingCone</a></span>
+</div></div>
+</div>
+
+<h3>10 <span class="Heading">Chain complexes</span></h3>
+
+<p><a id="X7DFB63A97E67C0A1" name="X7DFB63A97E67C0A1"></a></p>
+
+<h4>10.1 <span class="Heading">Introduction</span></h4>
+
+<p>If <span class="SimpleMath">\(\mathcal{A}\)</span> is an abelian category, then a chain complex of objects of <span class="SimpleMath">\(\mathcal A\)</span> is a sequence</p>
+
+<p class="center">\[
+  \cdots \longrightarrow C_{i+1} \stackrel{d_{i+1}}{\longrightarrow}
+  C_i \stackrel{d_i}{\longrightarrow} C_{i-1}
+  \stackrel{d_{i-1}}{\longrightarrow} \cdots
+\]</p>
+
+<p>where <span class="SimpleMath">\(C_i\)</span> is an object of <span class="SimpleMath">\(\mathcal A\)</span> for all <span class="SimpleMath">\(i\)</span>, and <span class="SimpleMath">\(d_i\)</span> is a morphism of <span class="SimpleMath">\(\mathcal A\)</span> for all <span class="SimpleMath">\(i\)</span> such that the composition of two consecutive maps of the complex is zero. The maps are called the differentials of the complex. A complex is called <em>bounded above</em> (resp. below) if there is a bound <span class="SimpleMath">\(b\)</span> such that <span class="SimpleMath">\(C_i = 0\)</span> for all <span class="SimpleMath">\(i&gt;b\)</span> (resp. <span class="SimpleMath">\(i&lt;b\)</span>). A complex is <em>bounded</em> if it is both bounded below and bounded above.</p>
+
+<p>The challenge when representing chain complexes in software is to handle their infinite nature. If a complex is not bounded, or not known to be bounded, how can we represent it in an immutable way? Our solution is to use a category called <code class="code">InfList</code> (for ``infinite list'') to store the differentials of the complex. The properties of the <code class="code">IsInfList</code> category is described in <a href="chap10_mj.html#X7AC5660E80079755"><span class="RefLink">10.2</span></a>. An <code class="code">IsQPAComplex</code> object consists of one <code class="code">IsInfList</code> for the differentials, and it also has an <code class="code">IsCat</code> object as an attribute. The <code class="code">IsCat</code> category is a representation of an abelian category, see <a href="chap10_mj.html#X7CAF603281B94AC8"><span class="RefLink">10.3</span></a>.</p>
+
+<p>To work with bounded complexes one does not need to know much about the <code class="code">IsInfList</code> category. A bounded complex can be created by simply giving a list of the differentials and the degree of the first differential as input (see <code class="func">FiniteComplex</code> (<a href="chap10_mj.html#X7C75868E82A831C8"><span class="RefLink">10.4-5</span></a>)), and to create a stalk complex the stalk object and its degree suffice as input (see <code class="func">StalkComplex</code> (<a href="chap10_mj.html#X80B47D78785F6859"><span class="RefLink">10.4-6</span></a>)). In both cases an <code class="code">IsCat</code> object is also needed.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">C := FiniteComplex(cat, 1, [g,f]);</span>
+0 -&gt; 2:(1,0) -&gt; 1:(2,2) -&gt; 0:(1,1) -&gt; 0 
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Ms := StalkComplex(cat, M, 3);</span>
+0 -&gt; 3:(2,2) -&gt; 0 
+</pre></div>
+
+<p><a id="X7AC5660E80079755" name="X7AC5660E80079755"></a></p>
+
+<h4>10.2 <span class="Heading">Infinite lists</span></h4>
+
+<p>In this section we give documentation for the <code class="code">IsInfList</code> category. We start by giving a representation of <span class="SimpleMath">\(\pm \infty\)</span>. Then we quickly describe the <code class="code">IsInfList</code> category, before we turn to the underlying structure of the infinite lists -- the half infinite lists (<code class="code">IsHalfInfList</code>). Most of the functionality of the infinite lists come from this category. Finally, we give the constructors for infinite lists, and some methods for manipulating such objects.</p>
+
+<p><a id="X8466C7117CEC99D2" name="X8466C7117CEC99D2"></a></p>
+
+<h5>10.2-1 IsInfiniteNumber</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsInfiniteNumber</code></td><td class="tdright">(&nbsp;category&nbsp;)</td></tr></table></div>
+<p>A category for infinite numbers.</p>
+
+<p><a id="X7F12EE4479A03527" name="X7F12EE4479A03527"></a></p>
+
+<h5>10.2-2 PositiveInfinity</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; PositiveInfinity</code></td><td class="tdright">(&nbsp;var&nbsp;)</td></tr></table></div>
+<p>A global variable representing the number <span class="SimpleMath">\(\infty\)</span>. It is greater than any integer, but it can not be compared to numbers which are not integers. It belongs to the <code class="code">IsInfiniteNumber</code> category.</p>
+
+<p><a id="X8759931784478A4D" name="X8759931784478A4D"></a></p>
+
+<h5>10.2-3 NegativeInfinity</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; NegativeInfinity</code></td><td class="tdright">(&nbsp;var&nbsp;)</td></tr></table></div>
+<p>A global variable representing the number <span class="SimpleMath">\(-\infty\)</span>. It is smaller than any integer, but it can not be compared to numbers which are not integers. It belongs to the <code class="code">IsInfiniteNumber</code> category.</p>
+
+<p><a id="X84731DA279E797A5" name="X84731DA279E797A5"></a></p>
+
+<h5>10.2-4 IsInfList</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsInfList</code></td><td class="tdright">(&nbsp;category&nbsp;)</td></tr></table></div>
+<p>An infinite list is an immutable representation of a list with possibly infinite range of indices. It consists of three parts: The ``middle part'' is finite and covers some range <span class="SimpleMath">\([a,b]\)</span> of indices, the ``positive part'' covers the range <span class="SimpleMath">\([b+1,\infty)\)</span> of indices, and the ``negative part'' covers the range <span class="SimpleMath">\((-\infty,a-1]\)</span> of indices. Note that none of the three parts are mandatory: The middle part may be an empty list, and the positive part may be set to <code class="code">fail</code> to achieve index range ending at <span class="SimpleMath">\(b &lt; \infty\)</span>. Similarly, if the index range has lower bound <span class="SimpleMath">\(a &lt; \infty\)</span>, put the negative part to be <code class="code">fail</code>.</p>
+
+<p>Each of the two infinite parts are described in one of the following ways: (1) A finite list which is repeated indefinitely; (2) A function which takes an index in the list as argument and returns the corresponding list item; (3) A function which takes an item from the list as argument and returns the next item.</p>
+
+<p>The two infinite parts are represented as ``half infinite lists'', see <a href="chap10_mj.html#X87524BBB7C2F9FCB"><span class="RefLink">10.2-5</span></a>. An infinite list can be constructed in the following ways:</p>
+
+
+<ul>
+<li><p>From two half infinite lists and a middle part, <code class="func">MakeInfListFromHalfInfLists</code> (<a href="chap10_mj.html#X7CE66EBA844DBB57"><span class="RefLink">10.2-22</span></a>).</p>
+
+</li>
+<li><p>Directly, by giving the same input as when constructing the above, <code class="func">MakeInfList</code> (<a href="chap10_mj.html#X801DE2517D08C19E"><span class="RefLink">10.2-23</span></a>).</p>
+
+</li>
+<li><p>If all values of the infinite list are the image of the index under a function <span class="SimpleMath">\(f\)</span>, one can use <code class="func">FunctionInfList</code> (<a href="chap10_mj.html#X7EEB276380E1584F"><span class="RefLink">10.2-24</span></a>).</p>
+
+</li>
+<li><p>If all values of the infinite list are the same, one can use <code class="func">ConstantInfList</code> (<a href="chap10_mj.html#X78C7FBAE83914790"><span class="RefLink">10.2-25</span></a>).</p>
+
+</li>
+<li><p>If the infinite list has a finite range, one can use <code class="func">FiniteInfList</code> (<a href="chap10_mj.html#X7D68E0627F556E14"><span class="RefLink">10.2-26</span></a>).</p>
+
+</li>
+</ul>
+<p>In addition, new infinite lists can be constructed from others by shift, splice, concatenation, extracting parts or applying a function to the elements.</p>
+
+<p><a id="X87524BBB7C2F9FCB" name="X87524BBB7C2F9FCB"></a></p>
+
+<h5>10.2-5 IsHalfInfList</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsHalfInfList</code></td><td class="tdright">(&nbsp;category&nbsp;)</td></tr></table></div>
+<p>A half infinite list is a representation of a list with indices in the range <span class="SimpleMath">\([a,\infty)\)</span> or <span class="SimpleMath">\((-\infty,b]\)</span>. An infinite list is typically made from two half infinite lists, and half infinite lists can be extracted from an infinite list. Hence, the half infinite list stores much of the information about an infinite list. One main difference between an infinite list and a half infinite list is that the half infinite list does not have any finite part, as the ``middle'' part of an infinite list.</p>
+
+<p><a id="X7D21FB1A7D21FB1A" name="X7D21FB1A7D21FB1A"></a></p>
+
+<h5><code>10.2-6 \^</code></h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; \^</code>( <var class="Arg">list</var>, <var class="Arg">pos</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">list</var> -- either an infinite list or a half infinite list, <var class="Arg">pos</var> -- a valid index for <var class="Arg">list</var>.</p>
+
+<p>Returns: The value at position <var class="Arg">pos</var> of <var class="Arg">list</var>.</p>
+
+<p><a id="X7E01944C83F87EED" name="X7E01944C83F87EED"></a></p>
+
+<h5>10.2-7 MakeHalfInfList</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; MakeHalfInfList</code>( <var class="Arg">start</var>, <var class="Arg">direction</var>, <var class="Arg">typeWithArgs</var>, <var class="Arg">callback</var>, <var class="Arg">repeatifyCallback</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">start</var> -- an integer, <var class="Arg">direction</var> -- either <span class="SimpleMath">\(1\)</span> or <span class="SimpleMath">\(-1\)</span>, <var class="Arg">typeWithArgs</var> -- a list which may have different formats, <var class="Arg">callback</var> -- a function, <var class="Arg">repeatifyCallback</var> -- a function. <br /></p>
+
+<p>Returns: A newly created half infinite list with index range from <var class="Arg">start</var> to <span class="SimpleMath">\(\infty\)</span>, or from <span class="SimpleMath">\(-\infty\)</span> to <var class="Arg">start</var>.</p>
+
+<p>If the range should be <span class="SimpleMath">\([\mathtt{start},\infty)\)</span> then the value of <var class="Arg">direction</var> is <span class="SimpleMath">\(1\)</span>. if the range should be <span class="SimpleMath">\((-\infty,\mathtt{start}]\)</span>, then the value of <var class="Arg">direction</var> is <span class="SimpleMath">\(-1\)</span>.</p>
+
+<p>The argument <var class="Arg">typeWithArgs</var> can take one of the following forms:</p>
+
+
+<ul>
+<li><p><code class="code">[ "repeat", repeatList ]</code></p>
+
+</li>
+<li><p><code class="code">[ "next", nextFunction, initialValue ]</code></p>
+
+</li>
+<li><p><code class="code">[ "next/repeat", nextFunction, initialValue ]</code></p>
+
+</li>
+<li><p><code class="code">[ "pos", posFunction ]</code></p>
+
+</li>
+<li><p><code class="code">[ "pos", posFunction, storeValues ]</code></p>
+
+</li>
+</ul>
+<p><code class="code">repeatList</code> is a list of values that should be repeated in the half infinite list. <code class="code">nextFunction</code> returns the value at position <span class="SimpleMath">\(i\)</span>, given the value at the previous position as argument. Here <code class="code">initialValue</code> is the value at position <code class="code">start</code>. Similarly, <code class="code">posFunction</code> returns the value at any position <span class="SimpleMath">\(i\)</span>, and it may or may not store the values between the previous computed indices and the newly computed index. The default value of <code class="code">storeValues</code> is <code class="code">true</code> for <code class="code">"next"</code> and <code class="code">"pos"</code>, and <code class="code">false</code> for <code class="code">"repeat"</code>. The type <code class="code">"next/repeat"</code> works exactly like the type <code class="code">"next"</code>, except that when values in the list are computed, the list will try to discover if the values are repeating. If this happens, the function <var class="Arg">repeatifyCallback</var> is called with two arguments: the non-repeating part at the beginning as a normal list (this might be empty) and a new HalfInfList of type <code class="code">"repeat"</code> for the repeating part.</p>
+
+<p>The argument <code class="code">callback</code> is a function that is called whenever a new value of the list is computed. It takes three arguments: The current position, the direction and the type (that is, <code class="code">typeWithArgs[1]</code>). If no callback function is needed, use <code class="code">false</code>.</p>
+
+<p>All the information given to create the list is stored, and can be retrieved later by the operations listed in <a href="chap10_mj.html#X8458C2698505C12B"><span class="RefLink">10.2-8</span></a>--<a href="chap10_mj.html#X7B5E57F0859BEE17"><span class="RefLink">10.2-18</span></a>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput"># make a HalfInfList from 0 to inf which repeats the list [ 2, 4, 6 ]</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">list1 := MakeHalfInfList( 0, 1, [ "repeat", [ 2, 4, 6 ] ], false );</span>
+&lt;object&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">list1^0;</span>
+2
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">list1^5;</span>
+6
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput"># make a HalfInfList from 0 to inf with x^2 in position x</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">f := function(x) return x^2; end;;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">list2 := MakeHalfInfList( 0, 1, [ "pos", f, false ], false );</span>
+&lt;object&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">list2^0;</span>
+0
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">list2^10;</span>
+100 
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput"># make a HalfInfList from 0 to -inf where each new value adds 3</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput"># to the previous and the value in position 0 is 10</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">g := function(x) return x+3; end;;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">list3 := MakeHalfInfList( 0, -1, [ "next", g, 7 ], false );</span>
+&lt;object&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">list3^0;</span>
+10
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">list3^-10;</span>
+40 
+</pre></div>
+
+<p><a id="X8458C2698505C12B" name="X8458C2698505C12B"></a></p>
+
+<h5>10.2-8 StartPosition</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; StartPosition</code>( <var class="Arg">list</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p><var class="Arg">list</var> -- a half infinite list.<br /></p>
+
+<p>Returns: The start position of <var class="Arg">list</var>.</p>
+
+<p><a id="X812437C47A208D4A" name="X812437C47A208D4A"></a></p>
+
+<h5>10.2-9 Direction</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Direction</code>( <var class="Arg">list</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p><var class="Arg">list</var> -- a half infinite list.<br /></p>
+
+<p>Returns: The direction of <var class="Arg">list</var> (either <span class="SimpleMath">\(1\)</span> or <span class="SimpleMath">\(-1\)</span>).</p>
+
+<p><a id="X7C3728BF7ED7149A" name="X7C3728BF7ED7149A"></a></p>
+
+<h5>10.2-10 InfListType</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; InfListType</code>( <var class="Arg">list</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p><var class="Arg">list</var> -- a half infinite list.<br /></p>
+
+<p>Returns: The type of <var class="Arg">list</var> (either <code class="code">"pos"</code>, <code class="code">"repeat"</code> or <code class="code">"next"</code>).</p>
+
+<p><a id="X82AA0979868A6967" name="X82AA0979868A6967"></a></p>
+
+<h5>10.2-11 RepeatingList</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; RepeatingList</code>( <var class="Arg">list</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p><var class="Arg">list</var> -- a half infinite list.<br /></p>
+
+<p>Returns: The repeating list of <var class="Arg">list</var> if <var class="Arg">list</var> is of type <code class="code">"repeat"</code>, and <code class="code">fail</code> otherwise.</p>
+
+<p><a id="X7AF21D62848B270B" name="X7AF21D62848B270B"></a></p>
+
+<h5>10.2-12 ElementFunction</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ElementFunction</code>( <var class="Arg">list</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p><var class="Arg">list</var> -- a half infinite list.<br /></p>
+
+<p>Returns: The element function of <var class="Arg">list</var> if <var class="Arg">list</var> is of type <code class="code">"next"</code> or <code class="code">"pos"</code>, and <code class="code">fail</code> otherwise.</p>
+
+<p><a id="X8728A2107F27D68F" name="X8728A2107F27D68F"></a></p>
+
+<h5>10.2-13 IsStoringValues</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsStoringValues</code>( <var class="Arg">list</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p><var class="Arg">list</var> -- a half infinite list.<br /></p>
+
+<p>Returns: <code class="code">true</code> if all elements of the list are stored, <code class="code">false</code> otherwise.</p>
+
+<p><a id="X86888FBD8559B29B" name="X86888FBD8559B29B"></a></p>
+
+<h5>10.2-14 NewValueCallback</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; NewValueCallback</code>( <var class="Arg">list</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p><var class="Arg">list</var> -- a half infinite list.<br /></p>
+
+<p>Returns: The callback function of the list.</p>
+
+<p><a id="X856E1541834688C6" name="X856E1541834688C6"></a></p>
+
+<h5>10.2-15 IsRepeating</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsRepeating</code>( <var class="Arg">list</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p><var class="Arg">list</var> -- a half infinite list.<br /></p>
+
+<p>Returns: <code class="code">true</code> if the type of the list is <code class="code">"repeat"</code>.</p>
+
+<p><a id="X8208162D7F3CC139" name="X8208162D7F3CC139"></a></p>
+
+<h5>10.2-16 InitialValue</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; InitialValue</code>( <var class="Arg">list</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p><var class="Arg">list</var> -- a half infinite list.<br /></p>
+
+<p>Returns: If the list is of type <code class="code">"next"</code> then the initial value is returned, otherwise it fails.</p>
+
+<p><a id="X7F12274E794510CA" name="X7F12274E794510CA"></a></p>
+
+<h5>10.2-17 LowestKnownPosition</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; LowestKnownPosition</code>( <var class="Arg">list</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p><var class="Arg">list</var> -- a half infinite list.<br /></p>
+
+<p>Returns: The lowest index <span class="SimpleMath">\(i\)</span> such that the value at position <span class="SimpleMath">\(i\)</span> is known without computation (that is, it is either stored, or the list has type <code class="code">"repeat"</code>).</p>
+
+<p><a id="X7B5E57F0859BEE17" name="X7B5E57F0859BEE17"></a></p>
+
+<h5>10.2-18 HighestKnownValue</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; HighestKnownValue</code>( <var class="Arg">list</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p><var class="Arg">list</var> -- a half infinite list.<br /></p>
+
+<p>Returns: The highest index <span class="SimpleMath">\(i\)</span> such that the value at position <span class="SimpleMath">\(i\)</span> is known without computation (that is, it is either stored, or the list has type <code class="code">"repeat"</code>).</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput"># we reuse the IsHalfInfLists from the previous example</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">HighestKnownPosition(list1);</span>
++inf
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">HighestKnownPosition(list2);</span>
+"none"
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">HighestKnownPosition(list3);</span>
+0 
+</pre></div>
+
+<p><a id="X81F7B0AB84D6319B" name="X81F7B0AB84D6319B"></a></p>
+
+<h5>10.2-19 Shift</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Shift</code>( <var class="Arg">list</var>, <var class="Arg">shift</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">list</var> -- a half infinite list, <var class="Arg">shift</var> -- an integer.<br /></p>
+
+<p>Returns: A new half infinite list which is <var class="Arg">list</var> with all values shifted <var class="Arg">shift</var> positions to the right if <var class="Arg">shift</var> is positive, and to the left if <var class="Arg">shift</var> is negative.</p>
+
+<p><a id="X7D8067A7842BC4A4" name="X7D8067A7842BC4A4"></a></p>
+
+<h5>10.2-20 Cut</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Cut</code>( <var class="Arg">list</var>, <var class="Arg">pos</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">list</var> -- a half infinite list, <var class="Arg">pos</var> -- an integer within the range of <var class="Arg">list</var>.<br /></p>
+
+<p>Returns: A new half infinite list which is <var class="Arg">list</var> with some part cut off.</p>
+
+<p>If the direction of <var class="Arg">list</var> is positive, then the new list has range from <code class="code">cut</code> to <span class="SimpleMath">\(\infty\)</span>. If the direction of <var class="Arg">list</var> is negative, then the new list has range from <span class="SimpleMath">\(-\infty\)</span> to <code class="code">cut</code>. The values at position <span class="SimpleMath">\(i\)</span> of the new half infinite list is the same as the value at position <span class="SimpleMath">\(i\)</span> of <var class="Arg">list</var>.</p>
+
+<p><a id="X79A67E377B71C540" name="X79A67E377B71C540"></a></p>
+
+<h5>10.2-21 HalfInfList</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; HalfInfList</code>( <var class="Arg">list</var>, <var class="Arg">func</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">list</var> -- a half infinite list, <var class="Arg">func</var> -- a function which takes an element of the list as argument. <br /></p>
+
+<p>Returns: A half infinite list with the same range as <var class="Arg">list</var>, where the value at position <span class="SimpleMath">\(i\)</span> is the image of the value at position <span class="SimpleMath">\(i\)</span> of <var class="Arg">list</var> under <var class="Arg">func</var>.</p>
+
+<p><a id="X7CE66EBA844DBB57" name="X7CE66EBA844DBB57"></a></p>
+
+<h5>10.2-22 MakeInfListFromHalfInfLists</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; MakeInfListFromHalfInfLists</code>( <var class="Arg">basePosition</var>, <var class="Arg">middle</var>, <var class="Arg">positive</var>, <var class="Arg">negative</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">basePosition</var> -- an integer, <var class="Arg">middle</var> -- a list, <var class="Arg">positive</var> -- a half infinite list, <var class="Arg">negative</var> -- a half infinite list. <br /></p>
+
+<p>Returns: An infinite list with <var class="Arg">middle</var> as is middle part, <var class="Arg">positive</var> as its positive part and <var class="Arg">negative</var> as its negative part.</p>
+
+<p>The starting position of <var class="Arg">positive</var> must be <code class="code">basePosition + Length( middle )</code>, and the starting position of <var class="Arg">negative</var> must be <code class="code">basePosition - 1</code>. The returned list has <code class="code">middle[1]</code> in position <var class="Arg">basePosition</var>, <code class="code">middle[2]</code> in position <var class="Arg">basePosition + 1</var> and so on. Note that one probably wants the <var class="Arg">positive</var> half infinite list to have direction <span class="SimpleMath">\(1\)</span>, and the <var class="Arg">negative</var> half infinite list to have direction <span class="SimpleMath">\(-1\)</span>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput"># we want to construct an infinite list with 0 in position</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput"># 0 to 5, and x^2 in position x where x goes from 6 to inf, </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput"># and alternatingly 1 and -1 in position -1 to -inf.</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">#</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">basePosition := 0;;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">middle := [0,0,0,0,0,0];;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">f := function(x) return x^2; end;;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">positive := MakeHalfInfList( 6, 1, [ "pos", f, false ], false );</span>
+&lt;object&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">altList := [ 1, -1 ];;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">negative := MakeHalfInfList( -1, -1, [ "repeat", altList ], false );</span>
+&lt;object&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">inflist := MakeInfListFromHalfInfLists( basePosition, middle,</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">                                           positive, negative );</span>
+&lt;object&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">inflist^0; inflist^5; inflist^6; inflist^-1; inflist^-4;</span>
+0
+0
+36
+1
+-1 
+</pre></div>
+
+<p><a id="X801DE2517D08C19E" name="X801DE2517D08C19E"></a></p>
+
+<h5>10.2-23 MakeInfList</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; MakeInfList</code>( <var class="Arg">basePosition</var>, <var class="Arg">middle</var>, <var class="Arg">positive</var>, <var class="Arg">negative</var>, <var class="Arg">callback</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">basePosition</var> -- an integer, <var class="Arg">middle</var> -- a list, <var class="Arg">positive</var> -- a list describing the positive part, <var class="Arg">negative</var> -- a list describing the negative part. <br /></p>
+
+<p>Returns: An infinite list with <var class="Arg">middle</var> as is middle part, <var class="Arg">positive</var> as its positive part and <var class="Arg">negative</var> as its negative part.</p>
+
+<p>The major difference between this construction and the previous is that here the half infinite lists that will make the positive and negative parts are not entered directly as arguments. Instead, one enters ``description lists'', which are of the same format as the argument <var class="Arg">typeWithArgs</var> of <code class="func">MakeHalfInfList</code> (<a href="chap10_mj.html#X7E01944C83F87EED"><span class="RefLink">10.2-7</span></a>). If the positive and/or negative part is specified with type <code class="code">"next/repeat"</code>, then it will initially be of type <code class="code">"next"</code>, but will be replaced by a HalfInfList of type <code class="code">"repeat"</code> if it is discovered that the values are repeating.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput"># we construct the same infinite list as in the previous example</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">basePosition := 0;;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">middle := [0,0,0,0,0,0];;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">f := function(x) return x^2; end;;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">altList := [ 1, -1 ];;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">inflist2 := MakeInfList( 0, middle, [ "pos", f, false ], [ "repeat", </span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">                            altList ], false );</span>
+&lt;object&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">inflist2^0; inflist2^5; inflist2^6; inflist2^-1; inflist2^-4;</span>
+0
+0
+36
+1
+-1
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">n := function( x ) return ( x + 1 ) mod 5; end;;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">list := MakeInfList( 0, [ 0 ], [ "next/repeat", n, 0 ],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">                        [ "repeat", [ 0 ] ], false );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">list^2;</span>
+2
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsRepeating( PositivePart( list ) );</span>
+false
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">list^11;</span>
+1
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsRepeating( PositivePart( list ) );</span>
+true 
+</pre></div>
+
+<p><a id="X7EEB276380E1584F" name="X7EEB276380E1584F"></a></p>
+
+<h5>10.2-24 FunctionInfList</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; FunctionInfList</code>( <var class="Arg">func</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">func</var> -- a function that takes an integer as argument.<br /></p>
+
+<p>Returns: An infinite list where the value at position <span class="SimpleMath">\(i\)</span> is the function <var class="Arg">func</var> applied to <span class="SimpleMath">\(i\)</span>.</p>
+
+<p><a id="X78C7FBAE83914790" name="X78C7FBAE83914790"></a></p>
+
+<h5>10.2-25 ConstantInfList</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ConstantInfList</code>( <var class="Arg">value</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">value</var> -- an object.<br /></p>
+
+<p>Returns: An infinite list which has the object <var class="Arg">value</var> in every position.</p>
+
+<p><a id="X7D68E0627F556E14" name="X7D68E0627F556E14"></a></p>
+
+<h5>10.2-26 FiniteInfList</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; FiniteInfList</code>( <var class="Arg">basePosition</var>, <var class="Arg">list</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">basePosition</var> -- an integer, <var class="Arg">list</var> -- a list of length <span class="SimpleMath">\(n\)</span>.<br /></p>
+
+<p>Returns: An infinite list with <span class="SimpleMath">\(\mathtt{list[1]},\ldots,\mathtt{list[n]}\)</span> in positions <span class="SimpleMath">\(\mathtt{basePosition},\ldots,\)</span> <span class="SimpleMath">\(\mathtt{basePosition + n}\)</span>.</p>
+
+<p>The range of this list is <span class="SimpleMath">\([\mathtt{basePosition}, \mathtt{basePosition + n}]\)</span>.</p>
+
+<p><a id="X8134072B7C7309CD" name="X8134072B7C7309CD"></a></p>
+
+<h5>10.2-27 MiddleStart</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; MiddleStart</code>( <var class="Arg">list</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">list</var> -- an infinite list. <br /></p>
+
+<p>Returns: The starting position of the "middle" part of <var class="Arg">list</var>.</p>
+
+<p><a id="X7EB933657AF3D723" name="X7EB933657AF3D723"></a></p>
+
+<h5>10.2-28 MiddleEnd</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; MiddleEnd</code>( <var class="Arg">list</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">list</var> -- an infinite list. <br /></p>
+
+<p>Returns: The ending position of the middle part of <var class="Arg">list</var>.</p>
+
+<p><a id="X7AC3ECBB7BC93594" name="X7AC3ECBB7BC93594"></a></p>
+
+<h5>10.2-29 MiddlePart</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; MiddlePart</code>( <var class="Arg">list</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">list</var> -- an infinite list. <br /></p>
+
+<p>Returns: The middle part (as a list) of <var class="Arg">list</var>.</p>
+
+<p><a id="X7896D6DD788046E7" name="X7896D6DD788046E7"></a></p>
+
+<h5>10.2-30 PositivePart</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; PositivePart</code>( <var class="Arg">list</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">list</var> -- an infinite list. <br /></p>
+
+<p>Returns: The positive part (as a half infinite list) of <var class="Arg">list</var>.</p>
+
+<p><a id="X81B768838567F98D" name="X81B768838567F98D"></a></p>
+
+<h5>10.2-31 NegativePart</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; NegativePart</code>( <var class="Arg">list</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">list</var> -- an infinite list. <br /></p>
+
+<p>Returns: The negative part (as a halft infinite list) of <var class="Arg">list</var>.</p>
+
+<p><a id="X8511A0B88003B989" name="X8511A0B88003B989"></a></p>
+
+<h5>10.2-32 HighestKnownPosition</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; HighestKnownPosition</code>( <var class="Arg">list</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">list</var> -- an infinite list. <br /></p>
+
+<p>Returns: The highest index <span class="SimpleMath">\(i\)</span> such that the value at position <span class="SimpleMath">\(i\)</span> is known without computation.</p>
+
+<p><a id="X7F12274E794510CA" name="X7F12274E794510CA"></a></p>
+
+<h5>10.2-33 LowestKnownPosition</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; LowestKnownPosition</code>( <var class="Arg">list</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">list</var> -- an infinite list. <br /></p>
+
+<p>Returns: The lowest index <span class="SimpleMath">\(i\)</span> such that the value at position <span class="SimpleMath">\(i\)</span> is known without computation.</p>
+
+<p><a id="X7A5CB74485184FEE" name="X7A5CB74485184FEE"></a></p>
+
+<h5>10.2-34 UpperBound</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; UpperBound</code>( <var class="Arg">list</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">list</var> -- an infinite list. <br /></p>
+
+<p>Returns: The highest index in the range of the list.</p>
+
+<p><a id="X807CC5AD7FDFA4E3" name="X807CC5AD7FDFA4E3"></a></p>
+
+<h5>10.2-35 LowerBound</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; LowerBound</code>( <var class="Arg">list</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">list</var> -- an infinite list. <br /></p>
+
+<p>Returns: The lowest index in the range of the list.</p>
+
+<p><a id="X7A311EBE79F31AEA" name="X7A311EBE79F31AEA"></a></p>
+
+<h5>10.2-36 FinitePartAsList</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; FinitePartAsList</code>( <var class="Arg">list</var>, <var class="Arg">startPos</var>, <var class="Arg">endPos</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">list</var> -- an infinite list, <var class="Arg">startPos</var> -- an integer, <var class="Arg">endPos</var> -- an integer.<br /></p>
+
+<p>Returns: A list containing the values of <var class="Arg">list</var> in positions <span class="SimpleMath">\(\mathtt{endPos},\ldots,\mathtt{startPos}\)</span>.</p>
+
+<p>Note that both integers in the input must be within the index range of <var class="Arg">list</var>.</p>
+
+<p><a id="X8028ED6883CFA39C" name="X8028ED6883CFA39C"></a></p>
+
+<h5>10.2-37 PositivePartFrom</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; PositivePartFrom</code>( <var class="Arg">list</var>, <var class="Arg">pos</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">list</var> -- an infinite list, <var class="Arg">pos</var> -- an integer.<br /></p>
+
+<p>Returns: An infinite list (<em>not</em> a half infinite list) with index range from <code class="code">pos</code> to <code class="code">UpperBound(list)</code>.</p>
+
+<p>The value at position <span class="SimpleMath">\(i\)</span> of the new infinite list is the same as the value at position <span class="SimpleMath">\(i\)</span> of <var class="Arg">list</var>.</p>
+
+<p><a id="X7863903B7E281CF6" name="X7863903B7E281CF6"></a></p>
+
+<h5>10.2-38 NegativePartFrom</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; NegativePartFrom</code>( <var class="Arg">list</var>, <var class="Arg">pos</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">list</var> -- an infinite list, <var class="Arg">pos</var> -- an integer.<br /></p>
+
+<p>Returns: An infinite list (<em>not</em> a half infinite list) with index range from <code class="code">LowerBound(list)</code> to <code class="code">pos</code>.</p>
+
+<p>The value at position <span class="SimpleMath">\(i\)</span> of the new infinite list is the same as the value at position <span class="SimpleMath">\(i\)</span> of <var class="Arg">list</var>.</p>
+
+<p><a id="X81F7B0AB84D6319B" name="X81F7B0AB84D6319B"></a></p>
+
+<h5>10.2-39 Shift</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Shift</code>( <var class="Arg">list</var>, <var class="Arg">shift</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">list</var> -- an infinite list, <var class="Arg">shift</var> -- an integer.<br /></p>
+
+<p>Returns: A new infinite list which is <var class="Arg">list</var> with all values shifted <var class="Arg">shift</var> positions to the right if <var class="Arg">shift</var> is positive, and to the left if <var class="Arg">shift</var> is negative.</p>
+
+<p><a id="X80153272857B2EDE" name="X80153272857B2EDE"></a></p>
+
+<h5>10.2-40 Splice</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Splice</code>( <var class="Arg">positiveList</var>, <var class="Arg">negativeList</var>, <var class="Arg">joinPosition</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">positiveList</var> -- an infinite list, <var class="Arg">negativeList</var> -- an infinite list, <var class="Arg">joinPosition</var> -- an integer.<br /></p>
+
+<p>Returns: A new infinite list which is identical to <var class="Arg">positiveList</var> for indices greater than <var class="Arg">joinPosition</var> and identical to <var class="Arg">negativeList</var> for indices smaller than or equal to <var class="Arg">joinPosition</var>.</p>
+
+<p><a id="X84FC63C183F0A977" name="X84FC63C183F0A977"></a></p>
+
+<h5>10.2-41 InfConcatenation</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; InfConcatenation</code>( <var class="Arg">arg</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">arg</var> -- a number of infinite lists. <br /></p>
+
+<p>Returns: A new infinite list.</p>
+
+<p>If the length of <var class="Arg">arg</var> is greater than or equal to <span class="SimpleMath">\(2\)</span>, then the new infinite list consists of the following parts: It has the positive part of <code class="code">arg[1]</code>, and the middle part is the concatenation of the middle parts of all lists in <var class="Arg">arg</var>, such that <code class="code">MiddleEnd</code> of the new list is the same as <code class="code">MiddleEnd( arg[1] )</code>. The negative part of the new list is the negative part of <code class="code">arg[Length(arg)]</code>, although shiftet so that it starts in the correct position.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput"># we do an InfConcatenation of three lists.</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">f := function(x) return x; end;;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">g := function(x) return x+1; end;;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">h := function(x) return x^2; end;;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">InfList1 := MakeInfList( 0, [ 10 ], [ "pos", f, false ], </span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">                            [ "repeat", [ 10, 15 ] ], false );</span>
+&lt;object&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">InfList2 := MakeInfList( 0, [ 20 ], [ "pos", g, false ], </span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">                            [ "repeat", [ 20, 25 ] ], false );</span>
+&lt;object&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">InfList3 := MakeInfList( 0, [ 30 ], [ "pos", h, false ], </span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">                            [ "repeat", [ 30, 35 ] ], false );</span>
+&lt;object&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">concList := InfConcatenation( InfList1, InfList2, InfList3 );</span>
+&lt;object&gt; 
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">MiddlePart(concList);</span>
+[ 30, 20, 10 ] 
+</pre></div>
+
+<p>The newly created <code class="code">concList</code> looks as follows around the middle part:</p>
+
+<p class="center">\[
+  \begin{array}{lrrrrrrrrrrr}
+  \text{position} &amp; \cdots &amp; 3
+  &amp; 2 &amp; 1 &amp; 0 &amp; -1 &amp; -2 &amp; -3 &amp; -4 &amp; -5
+  &amp; \cdots \\
+  \text{value} &amp; \cdots &amp; 3
+  &amp; 2 &amp; 1 &amp; 10 &amp; 20 &amp; 30 &amp; 30 &amp; 35 &amp; 30
+  &amp; \cdots \\
+  \end{array}
+\]</p>
+
+<p><a id="X7F4CF360858E80A6" name="X7F4CF360858E80A6"></a></p>
+
+<h5>10.2-42 InfList</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; InfList</code>( <var class="Arg">list</var>, <var class="Arg">func</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">list</var> -- an infinite list, <var class="Arg">func</var> -- a function which takes an element of the list as argument. <br /></p>
+
+<p>Returns: An infinite list with the same range as <var class="Arg">list</var>, where the value at position <span class="SimpleMath">\(i\)</span> is the image of the value at position <span class="SimpleMath">\(i\)</span> of <var class="Arg">list</var> under <var class="Arg">func</var>.</p>
+
+<p><a id="X791D879483C59410" name="X791D879483C59410"></a></p>
+
+<h5>10.2-43 IntegersList</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IntegersList</code></td><td class="tdright">(&nbsp;global variable&nbsp;)</td></tr></table></div>
+<p>An infinite list with range <span class="SimpleMath">\((-\infty,\infty)\)</span> where the value at position <span class="SimpleMath">\(i\)</span> is the number <span class="SimpleMath">\(i\)</span> (that is, a representation of the integers).</p>
+
+<p><a id="X7CAF603281B94AC8" name="X7CAF603281B94AC8"></a></p>
+
+<h4>10.3 <span class="Heading">Representation of categories</span></h4>
+
+<p>A chain complex consists of objects and morphisms from some category. In QPA, this category will usually be the category of right modules over some quotient of a path algebra.</p>
+
+<p><a id="X7F0E546178977963" name="X7F0E546178977963"></a></p>
+
+<h5>10.3-1 IsCat</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsCat</code></td><td class="tdright">(&nbsp;category&nbsp;)</td></tr></table></div>
+<p>The category for categories. A category is a record, storing a number of properties that is specified within each category. Two categories can be compared using <code class="code">=</code>. Currently, the only implemented category is the one of right modules over a (quotient of a) path algebra.</p>
+
+<p><a id="X7BB9B02E7E76FF9C" name="X7BB9B02E7E76FF9C"></a></p>
+
+<h5>10.3-2 CatOfRightAlgebraModules</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; CatOfRightAlgebraModules</code>( <var class="Arg">A</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> -- a (quotient of a) path algebra.<br /></p>
+
+<p>Returns: The category mod <span class="SimpleMath">\(A\)</span>.</p>
+
+<p>mod <span class="SimpleMath">\(A\)</span> has several properties, which can be accessed using the <code class="code">.</code> mark. Some of the properties store functions. All properties are demonstrated in the following example.</p>
+
+
+<ul>
+<li><p><code class="code">zeroObj</code> -- returns the zero module of mod <span class="SimpleMath">\(A\)</span>.</p>
+
+</li>
+<li><p><code class="code">isZeroObj</code> -- returns true if the given module is zero.</p>
+
+</li>
+<li><p><code class="code">zeroMap</code> -- returns the ZeroMapping function.</p>
+
+</li>
+<li><p><code class="code">isZeroMapping</code> -- returns the IsZero test.</p>
+
+</li>
+<li><p><code class="code">composeMaps</code> -- returns the composition of the two given maps.</p>
+
+</li>
+<li><p><code class="code">ker</code> -- returns the Kernel function.</p>
+
+</li>
+<li><p><code class="code">im</code> -- returns the Image function.</p>
+
+</li>
+<li><p><code class="code">isExact</code> -- returns true if two consecutive maps are exact.</p>
+
+</li>
+</ul>
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">alg;</span>
+&lt;algebra-with-one over Rationals, with 7 generators&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput"># L, M, and N are alg-modules</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput"># f: L --&gt; M and g: M --&gt; N are non-zero morphisms</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">cat := CatOfRightAlgebraModules(alg);</span>
+&lt;cat: right modules over algebra&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">cat.zeroObj;</span>
+&lt;right-module over &lt;algebra-with-one over Rationals, with 7 generators&gt;&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">cat.isZeroObj(M);</span>
+false
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">cat.zeroMap(M,N);</span>
+&lt;mapping: &lt;3-dimensional right-module over AlgebraWithOne( Rationals, 
+[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*v4], [(1)*a], [(1)*b], [(1)*c] ])&gt; -&gt; 
+  &lt;1-dimensional right-module over AlgebraWithOne( Rationals,
+  [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*v4], [(1)*a], [(1)*b], [(1)*c] ] )&gt; &gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">cat.composeMaps(g,f);</span>
+&lt;mapping: &lt;1-dimensional right-module over AlgebraWithOne( Rationals, 
+  [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*v4], [(1)*a], [(1)*b], [(1)*c]]
+  -&gt; &lt;1-dimensional right-module over AlgebraWithOne( Rationals,
+  [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*v4], [(1)*a], [(1)*b], [(1)*c] ] )&gt; &gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">cat.ker(g);</span>
+&lt;2-dimensional right-module over &lt;algebra-with-one over Rationals,
+  with 7 generators&gt;&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">cat.isExact(g,f);</span>
+false 
+</pre></div>
+
+<p><a id="X7EC3D95F7C791F7E" name="X7EC3D95F7C791F7E"></a></p>
+
+<h4>10.4 <span class="Heading">Making a complex</span></h4>
+
+<p>The most general constructor for complexes is the function <code class="func">Complex</code> (<a href="chap10_mj.html#X7E51958C86D73D17"><span class="RefLink">10.4-3</span></a>). In addition to this, there are constructors for common special cases:</p>
+
+
+<ul>
+<li><p><code class="func">ZeroComplex</code> (<a href="chap10_mj.html#X80F8DD20789BBBC0"><span class="RefLink">10.4-4</span></a>)</p>
+
+</li>
+<li><p><code class="func">StalkComplex</code> (<a href="chap10_mj.html#X80B47D78785F6859"><span class="RefLink">10.4-6</span></a>)</p>
+
+</li>
+<li><p><code class="func">FiniteComplex</code> (<a href="chap10_mj.html#X7C75868E82A831C8"><span class="RefLink">10.4-5</span></a>)</p>
+
+</li>
+<li><p><code class="func">ShortExactSequence</code> (<a href="chap10_mj.html#X7A685484784087FE"><span class="RefLink">10.4-7</span></a>)</p>
+
+</li>
+</ul>
+<p><a id="X838C9EBD87B8CB9D" name="X838C9EBD87B8CB9D"></a></p>
+
+<h5>10.4-1 IsQPAComplex</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsQPAComplex</code></td><td class="tdright">(&nbsp;category&nbsp;)</td></tr></table></div>
+<p>The category for chain complexes.</p>
+
+<p><a id="X7E0CE8AC87533991" name="X7E0CE8AC87533991"></a></p>
+
+<h5>10.4-2 IsZeroComplex</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsZeroComplex</code></td><td class="tdright">(&nbsp;category&nbsp;)</td></tr></table></div>
+<p>Category for zero complexes, subcategory of <code class="func">IsQPAComplex</code> (<a href="chap10_mj.html#X838C9EBD87B8CB9D"><span class="RefLink">10.4-1</span></a>).</p>
+
+<p><a id="X7E51958C86D73D17" name="X7E51958C86D73D17"></a></p>
+
+<h5>10.4-3 Complex</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Complex</code>( <var class="Arg">cat</var>, <var class="Arg">baseDegree</var>, <var class="Arg">middle</var>, <var class="Arg">positive</var>, <var class="Arg">negative</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Returns: A newly created chain complex</p>
+
+<p>The first argument, <var class="Arg">cat</var> is an <code class="func">IsCat</code> (<a href="chap10_mj.html#X7F0E546178977963"><span class="RefLink">10.3-1</span></a>) object describing the category to create a chain complex over.</p>
+
+<p>The rest of the arguments describe the differentials of the complex. These are divided into three parts: one finite (<q>middle</q>) and two infinite (<q>positive</q> and <q>negative</q>). The positive part contains all differentials in degrees higher than those in the middle part, and the negative part contains all differentials in degrees lower than those in the middle part. (The middle part may be placed anywhere, so the positive part can -- despite its name -- contain some differentials of negative degree. Conversely, the negative part can contain some differentials of positive degree.)</p>
+
+<p>The argument <var class="Arg">middle</var> is a list containing the differentials for the middle part. The argument <var class="Arg">baseDegree</var> gives the degree of the first differential in this list. The second differential is placed in degree <span class="SimpleMath">\(\textit{baseDegree}+1\)</span>, and so on. Thus, the middle part consists of the degrees</p>
+
+<p class="center">\[
+<var class="Arg">baseDegree</var>,\quad
+<var class="Arg">baseDegree</var> + 1,\quad
+\ldots\quad
+<var class="Arg">baseDegree</var> + \text{Length}(<var class="Arg">middle</var>).
+\]</p>
+
+<p>Each of the arguments <var class="Arg">positive</var> and <var class="Arg">negative</var> can be one of the following:</p>
+
+
+<ul>
+<li><p>The string <code class="code">"zero"</code>, meaning that the part contains only zero objects and zero morphisms.</p>
+
+</li>
+<li><p>A list of the form <code class="code">[ "repeat", L ]</code>, where <code class="code">L</code> is a list of morphisms. The part will contain the differentials in <code class="code">L</code> repeated infinitely many times. The convention for the order of elements in <code class="code">L</code> is that <code class="code">L[1]</code> is the differential which is closest to the middle part, and <code class="code">L[Length(L)]</code> is farthest away from the middle part.</p>
+
+</li>
+<li><p>A list of the form <code class="code">[ "pos", f ]</code> or <code class="code">[ "pos", f, store ]</code>, where <code class="code">f</code> is a function of two arguments, and <code class="code">store</code> (if included) is a boolean. The function <code class="code">f</code> is used to compute the differentials in this part. The function <code class="code">f</code> is not called immediately by the <code class="code">Complex</code> constructor, but will be called later as the differentials in this part are needed. The function call <code class="code">f(C,i)</code> (where <code class="code">C</code> is the complex and <code class="code">i</code> an integer) should produce the differential in degree <code class="code">i</code>. The function may use <code class="code">C</code> to look up other differentials in the complex, as long as this does not cause an infinite loop. If <code class="code">store</code> is <code class="code">true</code> (or not specified), each computed differential is stored, and they are computed in order from the one closest to the middle part, regardless of which order they are requested in.</p>
+
+</li>
+<li><p>A list of the form <code class="code">[ "next", f, init ]</code>, where <code class="code">f</code> is a function of one argument, and <code class="code">init</code> is a morphism. The function <code class="code">f</code> is used to compute the differentials in this part. For the first differential in the part (that is, the one closest to the middle part), <code class="code">f</code> is called with <code class="code">init</code> as argument. For the next differential, <code class="code">f</code> is called with the first differential as argument, and so on. Thus, the differentials are</p>
+
+<p class="center">\[
+    f(\text{init}),\quad
+    f^2(\text{init}),\quad
+    f^3(\text{init}),\quad \ldots
+  \]</p>
+
+<p>Each differential is stored when it has been computed.</p>
+
+</li>
+<li><p>A list of the form <code class="code">[ "next/repeat", f, init ]</code>. This works like the type <code class="code">"next"</code>, but may be automatically converted to type <code class="code">"repeat"</code> later, if it is discovered that the differentials are repeating.</p>
+
+</li>
+</ul>
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">A := PathAlgebra( Rationals, Quiver( 2, [ [ 1, 2, "a" ] ] ) );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">M := RightModuleOverPathAlgebra( A, [ 2, 2 ], [ [ "a", [ [ 1, 0 ], [ 0, 1 ] ] ] ] );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">d := RightModuleHomOverAlgebra( M, M, [ [ [ 0, 0 ], [ 1, 0 ] ], [ [ 0, 0 ], [ 1, 0 ] ] ] );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsZero( d * d );</span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">C := Complex( CatOfRightAlgebraModules( A ), 0, [ d ],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">                 [ "next/repeat", function( x ) return d; end, d ], "zero" );</span>
+--- -&gt; 0:(2,2) -&gt; -1:(2,2) -&gt; 0
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ObjectOfComplex( C, 3 );</span>
+&lt;[ 2, 2 ]&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">C;</span>
+--- -&gt; [ 1:(2,2) -&gt; ] 0:(2,2) -&gt; -1:(2,2) -&gt; 0 
+</pre></div>
+
+<p><a id="X80F8DD20789BBBC0" name="X80F8DD20789BBBC0"></a></p>
+
+<h5>10.4-4 ZeroComplex</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ZeroComplex</code>( <var class="Arg">cat</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Returns: A newly created zero complex</p>
+
+<p>This function creates a zero complex (a complex consisting of only zero objects and zero morphisms) over the category described by the <code class="func">IsCat</code> (<a href="chap10_mj.html#X7F0E546178977963"><span class="RefLink">10.3-1</span></a>) object <var class="Arg">cat</var>.</p>
+
+<p><a id="X7C75868E82A831C8" name="X7C75868E82A831C8"></a></p>
+
+<h5>10.4-5 FiniteComplex</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; FiniteComplex</code>( <var class="Arg">cat</var>, <var class="Arg">baseDegree</var>, <var class="Arg">differentials</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Returns: A newly created complex</p>
+
+<p>This function creates a complex where all but finitely many objects are the zero object.</p>
+
+<p>The argument <var class="Arg">cat</var> is an <code class="func">IsCat</code> (<a href="chap10_mj.html#X7F0E546178977963"><span class="RefLink">10.3-1</span></a>) object describing the category to create a chain complex over.</p>
+
+<p>The argument <var class="Arg">differentials</var> is a list of morphisms. The argument <var class="Arg">baseDegree</var> gives the degree for the first differential in this list. The subsequent differentials are placed in degrees <span class="SimpleMath">\(\textit{baseDegree}+1\)</span>, and so on.</p>
+
+<p>This means that the <var class="Arg">differentials</var> argument specifies the differentials in degrees</p>
+
+<p class="center">\[
+<var class="Arg">baseDegree</var>,\quad
+<var class="Arg">baseDegree</var> + 1,\quad
+\ldots \quad
+<var class="Arg">baseDegree</var> + \text{Length}(<var class="Arg">differentials</var>);
+\]</p>
+
+<p>and thus implicitly the objects in degrees</p>
+
+<p class="center">\[
+<var class="Arg">baseDegree</var> - 1,\quad
+<var class="Arg">baseDegree</var>,\quad
+\ldots \quad
+<var class="Arg">baseDegree</var> + \text{Length}(<var class="Arg">differentials</var>).
+\]</p>
+
+<p>All other objects in the complex are zero.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput"># L, M and N are modules over the same algebra A</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput"># cat is the category mod A</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput"># f: L --&gt; M and g: M --&gt; N maps</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">C := FiniteComplex(cat, 1, [g,f]);</span>
+0 -&gt; 2:(1,0) -&gt; 1:(2,2) -&gt; 0:(1,1) -&gt; 0 
+</pre></div>
+
+<p><a id="X80B47D78785F6859" name="X80B47D78785F6859"></a></p>
+
+<h5>10.4-6 StalkComplex</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; StalkComplex</code>( <var class="Arg">cat</var>, <var class="Arg">obj</var>, <var class="Arg">degree</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">cat</var> -- a category, <var class="Arg">obj</var> -- an object in <var class="Arg">cat</var>, <var class="Arg">degree</var> -- the degree <var class="Arg">obj</var> should be placed in.<br /></p>
+
+<p>Returns: a newly created complex.</p>
+
+<p>The new complex is a stalk complex with <var class="Arg">obj</var> in position <var class="Arg">degree</var>, and zero elsewhere.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Ms := StalkComplex(cat, M, 3);</span>
+0 -&gt; 3:(2,2) -&gt; 0 
+</pre></div>
+
+<p><a id="X7A685484784087FE" name="X7A685484784087FE"></a></p>
+
+<h5>10.4-7 ShortExactSequence</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ShortExactSequence</code>( <var class="Arg">cat</var>, <var class="Arg">f</var>, <var class="Arg">g</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">cat</var> -- a category, <var class="Arg">f</var> and <var class="Arg">g</var> -- maps in <var class="Arg">cat</var>, where <var class="Arg">f</var>: <span class="SimpleMath">\(A \rightarrow B\)</span> and <var class="Arg">g</var>: <span class="SimpleMath">\(B \rightarrow C\)</span>.<br /></p>
+
+<p>Returns: a newly created complex.</p>
+
+<p>If the sequence <span class="SimpleMath">\(0 \rightarrow A \rightarrow B \rightarrow C \rightarrow 0\)</span> is exact, this complex (with <span class="SimpleMath">\(B\)</span> in degree 0) is returned.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ses := ShortExactSequence(cat, f, g);</span>
+0 -&gt; 1:(0,0,1,0) -&gt; 0:(0,1,1,1) -&gt; -1:(0,1,0,1) -&gt; 0 
+</pre></div>
+
+<p><a id="X7F7E0C197FA31B29" name="X7F7E0C197FA31B29"></a></p>
+
+<h4>10.5 <span class="Heading">Information about a complex</span></h4>
+
+<p><a id="X7BBF131485F3C792" name="X7BBF131485F3C792"></a></p>
+
+<h5>10.5-1 CatOfComplex</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; CatOfComplex</code>( <var class="Arg">C</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Returns: The category the objects of the complex <var class="Arg">C</var> live in.</p>
+
+<p><a id="X8239596E87830A51" name="X8239596E87830A51"></a></p>
+
+<h5>10.5-2 ObjectOfComplex</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ObjectOfComplex</code>( <var class="Arg">C</var>, <var class="Arg">i</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">C</var> -- a complex, <var class="Arg">i</var> -- an integer.<br /></p>
+
+<p>Returns: The object at position <var class="Arg">i</var> in the complex.</p>
+
+<p><a id="X7B597AC77A3D71F9" name="X7B597AC77A3D71F9"></a></p>
+
+<h5>10.5-3 DifferentialOfComplex</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; DifferentialOfComplex</code>( <var class="Arg">C</var>, <var class="Arg">i</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">C</var> -- a complex, <var class="Arg">i</var> -- an integer.<br /></p>
+
+<p>Returns: The map in <var class="Arg">C</var> between objects at positions <span class="SimpleMath">\(i\)</span> and <span class="SimpleMath">\(i-1\)</span>.</p>
+
+<p><a id="X858D2D1A8674D2EC" name="X858D2D1A8674D2EC"></a></p>
+
+<h5>10.5-4 DifferentialsOfComplex</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; DifferentialsOfComplex</code>( <var class="Arg">C</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">C</var> -- a complex<br /></p>
+
+<p>Returns: The differentials of the complex, stored as an <code class="code">IsInfList</code> object.</p>
+
+<p><a id="X85FBFD9C8382C93B" name="X85FBFD9C8382C93B"></a></p>
+
+<h5>10.5-5 CyclesOfComplex</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; CyclesOfComplex</code>( <var class="Arg">C</var>, <var class="Arg">i</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">C</var> -- a complex, <var class="Arg">i</var> -- an integer. <br /></p>
+
+<p>Returns: The <span class="SimpleMath">\(i\)</span>-cycle of the complex, that is the subobject <span class="SimpleMath">\(Ker(d_i)\)</span> of <code class="code">ObjectOfComplex(C,i)</code>.</p>
+
+<p><a id="X8168D8CC7805FE30" name="X8168D8CC7805FE30"></a></p>
+
+<h5>10.5-6 BoundariesOfComplex</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; BoundariesOfComplex</code>( <var class="Arg">C</var>, <var class="Arg">i</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">C</var> -- a complex, <var class="Arg">i</var> -- an integer. <br /></p>
+
+<p>Returns: The <span class="SimpleMath">\(i\)</span>-boundary of the complex, that is the subobject <span class="SimpleMath">\(Im(d_{i+1})\)</span> of <code class="code">ObjectOfComplex(C,i)</code>.</p>
+
+<p><a id="X7F8D61447AB57EF3" name="X7F8D61447AB57EF3"></a></p>
+
+<h5>10.5-7 HomologyOfComplex</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; HomologyOfComplex</code>( <var class="Arg">C</var>, <var class="Arg">i</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">C</var> -- a complex, <var class="Arg">i</var> -- an integer.<br /></p>
+
+<p>Returns: The <span class="SimpleMath">\(i\)</span>th homology of the complex, that is, <span class="SimpleMath">\(Ker(d_i)/Im(d_{i+1})\)</span>.</p>
+
+<p>Note: this operation is currently not available. When working in the category of right <span class="SimpleMath">\(kQ/I\)</span>-modules, it is possible to "cheat" and use the following procedure to compute the homology of a complex:</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">C;                     </span>
+0 -&gt; 4:(0,1) -&gt; 3:(1,0) -&gt; 2:(2,2) -&gt; 1:(1,1) -&gt; 0:(2,2) -&gt; 0
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput"># Want to compute the homology in degree 2</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">f := DifferentialOfComplex(C,3);</span>
+&lt;mapping: &lt;1-dimensional right-module over AlgebraWithOne( Rationals, 
+  [ [(1)*v1], [(1)*v2], [(1)*a], [(1)*b] ] )&gt; -&gt;
+  &lt; 4-dimensional right-module over AlgebraWithOne( Rationals, 
+  [ [(1)*v1], [(1)*v2], [(1)*a], [(1)*b] ] )&gt; &gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">g := KernelInclusion(DifferentialOfComplex(C,2));</span>
+  &lt;mapping: &lt;2-dimensional right-module over AlgebraWithOne( Rationals, 
+  [ [(1)*v1], [(1)*v2], [(1)*a], [(1)*b] ] )&gt; -&gt;
+  &lt; 4-dimensional right-module over AlgebraWithOne( Rationals, 
+  [ [(1)*v1], [(1)*v2], [(1)*a], [(1)*b] ] )&gt; &gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput"># We know that Im f is included in Ker g, so can find the</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput"># lifting morphism h from C_3 to Ker g.</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">h := LiftingInclusionMorphisms(g,f);</span>
+  &lt;mapping: &lt;1-dimensional right-module over AlgebraWithOne( Rationals, 
+  [ [(1)*v1], [(1)*v2], [(1)*a], [(1)*b] ] )&gt; -&gt;
+  &lt; 2-dimensional right-module over AlgebraWithOne( Rationals, 
+  [ [(1)*v1], [(1)*v2], [(1)*a], [(1)*b] ] )&gt; &gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput"># The cokernel of h is Ker g / Im f </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Homology := CoKernel(h);</span>
+&lt;1-dimensional right-module over &lt;algebra-with-one over Rationals, with 
+  4 generators&gt;&gt; 
+</pre></div>
+
+<p><a id="X7DCBCF7682DC87FC" name="X7DCBCF7682DC87FC"></a></p>
+
+<h5>10.5-8 IsFiniteComplex</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsFiniteComplex</code>( <var class="Arg">C</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">C</var> -- a complex.<br /></p>
+
+<p>Returns: true if <var class="Arg">C</var> is a finite complex, false otherwise.</p>
+
+<p><a id="X7A5CB74485184FEE" name="X7A5CB74485184FEE"></a></p>
+
+<h5>10.5-9 UpperBound</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; UpperBound</code>( <var class="Arg">C</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">C</var> -- a complex.<br /></p>
+
+<p>Returns: If it exists: The smallest integer <span class="SimpleMath">\(i\)</span> such that the object at position <span class="SimpleMath">\(i\)</span> is non-zero, but for all <span class="SimpleMath">\(j &gt; i\)</span> the object at position <span class="SimpleMath">\(j\)</span> is zero.</p>
+
+<p>If <var class="Arg">C</var> is not a finite complex, the operation will return fail or infinity, depending on how <var class="Arg">C</var> was defined.</p>
+
+<p><a id="X807CC5AD7FDFA4E3" name="X807CC5AD7FDFA4E3"></a></p>
+
+<h5>10.5-10 LowerBound</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; LowerBound</code>( <var class="Arg">C</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">C</var> -- a complex.<br /></p>
+
+<p>Returns: If it exists: The greatest integer <span class="SimpleMath">\(i\)</span> such that the object at position <span class="SimpleMath">\(i\)</span> is non-zero, but for all <span class="SimpleMath">\(j &lt; i\)</span> the object at position <span class="SimpleMath">\(j\)</span> is zero.</p>
+
+<p>If <var class="Arg">C</var> is not a finite complex, the operation will return fail or negative infinity, depending on how <var class="Arg">C</var> was defined.</p>
+
+<p><a id="X7C1F81277A5AC8B4" name="X7C1F81277A5AC8B4"></a></p>
+
+<h5>10.5-11 LengthOfComplex</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; LengthOfComplex</code>( <var class="Arg">C</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">C</var> -- a complex.<br /></p>
+
+<p>Returns: the length of the complex.</p>
+
+<p>The length is defined as follows: If <var class="Arg">C</var> is a zero complex, the length is zero. If <var class="Arg">C</var> is a finite complex, the length is the upper bound -- the lower bound + 1. If <var class="Arg">C</var> is an infinite complex, the length is infinity.</p>
+
+<p><a id="X82D615CD796C9C0A" name="X82D615CD796C9C0A"></a></p>
+
+<h5>10.5-12 HighestKnownDegree</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; HighestKnownDegree</code>( <var class="Arg">C</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">C</var> -- a complex.<br /></p>
+
+<p>Returns: The greatest integer <span class="SimpleMath">\(i\)</span> such that the object at position <span class="SimpleMath">\(i\)</span> is known (or computed).</p>
+
+<p>For a finite complex, this will be infinity.</p>
+
+<p><a id="X868105FF86FA1B6E" name="X868105FF86FA1B6E"></a></p>
+
+<h5>10.5-13 LowestKnownDegree</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; LowestKnownDegree</code>( <var class="Arg">C</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">C</var> -- a complex.<br /></p>
+
+<p>Returns: The smallest integer <span class="SimpleMath">\(i\)</span> such that the object at position <span class="SimpleMath">\(i\)</span> is known (or computed).</p>
+
+<p>For a finite complex, this will be negative infinity.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">C;</span>
+0 -&gt; 4:(0,1) -&gt; 3:(1,0) -&gt; 2:(2,2) -&gt; 1:(1,1) -&gt; 0:(2,2) -&gt; 0
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsFiniteComplex(C);</span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">UpperBound(C);</span>
+4
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">LowerBound(C);</span>
+0
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">LengthOfComplex(C);</span>
+5
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">HighestKnownDegree(C);</span>
++inf
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">LowestKnownDegree(C);</span>
+-inf 
+</pre></div>
+
+<p><a id="X793465497B435197" name="X793465497B435197"></a></p>
+
+<h5>10.5-14 IsExactSequence</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsExactSequence</code>( <var class="Arg">C</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">C</var> -- a complex.<br /></p>
+
+<p>Returns: true if <var class="Arg">C</var> is exact at every position.</p>
+
+<p>If the complex is not finite and not repeating, the function fails.</p>
+
+<p><a id="X7A6AE1C378E2EEE2" name="X7A6AE1C378E2EEE2"></a></p>
+
+<h5>10.5-15 IsExactInDegree</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsExactInDegree</code>( <var class="Arg">C</var>, <var class="Arg">i</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">C</var> -- a complex, <var class="Arg">i</var> -- an integer.<br /></p>
+
+<p>Returns: true if <var class="Arg">C</var> is exact at position <var class="Arg">i</var>.</p>
+
+<p><a id="X87ADD4F685457000" name="X87ADD4F685457000"></a></p>
+
+<h5>10.5-16 IsShortExactSequence</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsShortExactSequence</code>( <var class="Arg">C</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">C</var> -- a complex.<br /></p>
+
+<p>Returns: true if <var class="Arg">C</var> is exact and of the form</p>
+
+<p class="center">\[
+      \ldots \rightarrow 0 \rightarrow A \rightarrow B \rightarrow C
+      \rightarrow 0 \rightarrow \ldots
+    \]</p>
+
+<p>This could be positioned in any degree (as opposed to the construction of a short exact sequence, where <span class="SimpleMath">\(B\)</span> will be put in degree zero).</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">C;                </span>
+0 -&gt; 4:(0,1) -&gt; 3:(1,0) -&gt; 2:(2,2) -&gt; 1:(1,1) -&gt; 0:(2,2) -&gt; 0
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsExactSequence(C);</span>
+false
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsExactInDegree(C,1);</span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsExactInDegree(C,2);</span>
+false 
+</pre></div>
+
+<p><a id="X849C525A7F6EBF6D" name="X849C525A7F6EBF6D"></a></p>
+
+<h5>10.5-17 ForEveryDegree</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ForEveryDegree</code>( <var class="Arg">C</var>, <var class="Arg">func</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">C</var> -- a complex, <var class="Arg">func</var> -- a function operating on two consecutive maps.<br /></p>
+
+<p>Returns: true if <var class="Arg">func</var> returns true for any two consecutive differentials, fail if this can not be decided, false otherwise.</p>
+
+<p><a id="X8764E5C88284301B" name="X8764E5C88284301B"></a></p>
+
+<h4>10.6 <span class="Heading">Transforming and combining complexes</span></h4>
+
+<p><a id="X81F7B0AB84D6319B" name="X81F7B0AB84D6319B"></a></p>
+
+<h5>10.6-1 Shift</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Shift</code>( <var class="Arg">C</var>, <var class="Arg">i</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">C</var> -- a complex, <var class="Arg">i</var> -- an integer.<br /></p>
+
+<p>Returns: A new complex, which is a shift of <var class="Arg">C</var>.</p>
+
+<p>If <var class="Arg">i</var> &gt; 0, the complex is shifted to the left. If <var class="Arg">i</var> &lt; 0, the complex is shifted to the right. Note that shifting might change the differentials: In the shifted complex, <span class="SimpleMath">\(d_{new}\)</span> is defined to be <span class="SimpleMath">\((-1)^i d_{old}\)</span>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">C;</span>
+0 -&gt; 4:(0,1) -&gt; 3:(1,0) -&gt; 2:(2,2) -&gt; 1:(1,1) -&gt; 0:(2,2) -&gt; 0
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Shift(C,1);</span>
+0 -&gt; 3:(0,1) -&gt; 2:(1,0) -&gt; 1:(2,2) -&gt; 0:(1,1) -&gt; -1:(2,2) -&gt; 0
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">D := Shift(C,-1);</span>
+0 -&gt; 5:(0,1) -&gt; 4:(1,0) -&gt; 3:(2,2) -&gt; 2:(1,1) -&gt; 1:(2,2) -&gt; 0
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">dc := DifferentialOfComplex(C,3)!.maps;</span>
+[ [ [ 1, 0 ] ], [ [ 0, 0 ] ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">dd := DifferentialOfComplex(D,4)!.maps;</span>
+[ [ [ -1, 0 ] ], [ [ 0, 0 ] ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">MatricesOfPathAlgebraMatModuleHomomorphism(dc);</span>
+[ [ [ 1, 0 ] ], [ [ 0, 0 ] ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">MatricesOfPathAlgebraMatModuleHomomorphism(dd);</span>
+[ [ [ -1, 0 ] ], [ [ 0, 0 ] ] ] 
+</pre></div>
+
+<p><a id="X86B56AC87A433E5B" name="X86B56AC87A433E5B"></a></p>
+
+<h5>10.6-2 ShiftUnsigned</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ShiftUnsigned</code>( <var class="Arg">C</var>, <var class="Arg">i</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">C</var> -- a complex, <var class="Arg">i</var> -- an integer.<br /></p>
+
+<p>Returns: A new complex, which is a shift of <var class="Arg">C</var>.</p>
+
+<p>Does the same as <code class="code">Shift</code>, except it does not change the sign of the differential. Although this is a non-mathematical definition of shift, it is still useful for technical purposes, when manipulating and creating complexes.</p>
+
+<p><a id="X7897A65085171913" name="X7897A65085171913"></a></p>
+
+<h5>10.6-3 YonedaProduct</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; YonedaProduct</code>( <var class="Arg">C</var>, <var class="Arg">D</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">C</var>, <var class="Arg">D</var> -- complexes.<br /></p>
+
+<p>Returns: The Yoneda product of the two complexes, which is a complex.</p>
+
+<p>To compute the Yoneda product, <var class="Arg">C</var> and <var class="Arg">D</var> must be such that the object in degree <code class="code">LowerBound(C)</code> equals the object in degree <code class="code">UpperBound(D)</code>, that is</p>
+
+<p class="center">\[
+      \ldots \rightarrow C_{i+1} \rightarrow C_{i} \rightarrow A
+      \rightarrow 0 \rightarrow \ldots
+    \]</p>
+
+<p class="center">\[
+      \ldots \rightarrow 0 \rightarrow A \rightarrow D_{j} \rightarrow D_{j-1}
+      \rightarrow \ldots
+    \]</p>
+
+<p>The product is of this form:</p>
+
+<p class="center">\[
+      \ldots \rightarrow C_{i+1} \rightarrow C_{i} \rightarrow D_{j}
+      \rightarrow D_{j-1} \rightarrow \ldots
+    \]</p>
+
+<p>where the map <span class="SimpleMath">\(C_{i} \rightarrow D_{j}\)</span> is the composition of the maps <span class="SimpleMath">\(C_{i} \rightarrow A\)</span> and <span class="SimpleMath">\(A \rightarrow D_{j}\)</span>. Also, the object <span class="SimpleMath">\(D_{j}\)</span> is in degree <span class="SimpleMath">\(j\)</span>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">C2;</span>
+0 -&gt; 4:(0,1) -&gt; 3:(1,0) -&gt; 2:(2,2) -&gt; 1:(1,1) -&gt; 0:(0,0) -&gt; 0
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">C3;</span>
+0 -&gt; -1:(1,1) -&gt; -2:(2,2) -&gt; -3:(1,1) -&gt; 0
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">YonedaProduct(C2,C3);</span>
+0 -&gt; 1:(0,1) -&gt; 0:(1,0) -&gt; -1:(2,2) -&gt; -2:(2,2) -&gt; -3:(1,1) -&gt; 0 
+</pre></div>
+
+<p><a id="X87E1CA507EB6B86E" name="X87E1CA507EB6B86E"></a></p>
+
+<h5>10.6-4 BrutalTruncationBelow</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; BrutalTruncationBelow</code>( <var class="Arg">C</var>, <var class="Arg">i</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">C</var> -- a complex, <var class="Arg">i</var> -- an integer.<br /></p>
+
+<p>Returns: A newly created complex.</p>
+
+<p>Replace all objects with degree <span class="SimpleMath">\(j\)</span> &lt; <span class="SimpleMath">\(i\)</span> with zero. The differentials affected will also become zero.</p>
+
+<p><a id="X7CE9481684DD304E" name="X7CE9481684DD304E"></a></p>
+
+<h5>10.6-5 BrutalTruncationAbove</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; BrutalTruncationAbove</code>( <var class="Arg">C</var>, <var class="Arg">i</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">C</var> -- a complex, <var class="Arg">i</var> -- an integer.<br /></p>
+
+<p>Returns: A newly created complex.</p>
+
+<p>Replace all objects with degree <span class="SimpleMath">\(j\)</span> &gt; <span class="SimpleMath">\(i\)</span> with zero. The differentials affected will also become zero.</p>
+
+<p><a id="X8547C51781BBB48F" name="X8547C51781BBB48F"></a></p>
+
+<h5>10.6-6 BrutalTruncation</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; BrutalTruncation</code>( <var class="Arg">C</var>, <var class="Arg">i</var>, <var class="Arg">j</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">C</var> -- a complex, <var class="Arg">i, j</var> -- integers.<br /></p>
+
+<p>Returns: A newly created complex.</p>
+
+<p>Brutally truncates in both ends. The integer arguments must be ordered such that <var class="Arg">i</var> &gt; <var class="Arg">j</var>.</p>
+
+<p><a id="X7E3E34167B79248A" name="X7E3E34167B79248A"></a></p>
+
+<h5>10.6-7 SyzygyTruncation</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; SyzygyTruncation</code>( <var class="Arg">C</var>, <var class="Arg">i</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">C</var> -- a complex, <var class="Arg">i</var> -- an integer.<br /></p>
+
+<p>Returns: A newly created complex.</p>
+
+<p>Replace the object in degree <span class="SimpleMath">\(i\)</span> with the kernel of <span class="SimpleMath">\(d_i\)</span>, and <span class="SimpleMath">\(d_{i+1}\)</span> with the natural inclusion. All objects in degree <span class="SimpleMath">\(j &gt; i+1\)</span> are replaced with zero.</p>
+
+<p><a id="X7C729A2587E5DA8D" name="X7C729A2587E5DA8D"></a></p>
+
+<h5>10.6-8 CosyzygyTruncation</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; CosyzygyTruncation</code>( <var class="Arg">C</var>, <var class="Arg">i</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">C</var> -- a complex, <var class="Arg">i</var> -- an integer.<br /></p>
+
+<p>Returns: A newly created complex.</p>
+
+<p>Replace the object in degree <span class="SimpleMath">\(i-2\)</span> with the cokernel of <span class="SimpleMath">\(d_i\)</span>, and <span class="SimpleMath">\(d_{i-1}\)</span> with the natural projection. All objects in degree <span class="SimpleMath">\(j &lt; i-2\)</span> are replaced with zero.</p>
+
+<p><a id="X797FC6037F6605E7" name="X797FC6037F6605E7"></a></p>
+
+<h5>10.6-9 SyzygyCosyzygyTruncation</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; SyzygyCosyzygyTruncation</code>( <var class="Arg">C</var>, <var class="Arg">i</var>, <var class="Arg">j</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">C</var> -- a complex, <var class="Arg">i</var> -- an integer.<br /></p>
+
+<p>Returns: A newly created complex.</p>
+
+<p>Performs both the above truncations. The integer arguments must be ordered such that <var class="Arg">i</var> &gt; <var class="Arg">j</var>.</p>
+
+<p><a id="X85F418EB859E7597" name="X85F418EB859E7597"></a></p>
+
+<h4>10.7 <span class="Heading">Chain maps</span></h4>
+
+<p>An <code class="func">IsChainMap</code> (<a href="chap10_mj.html#X7F76E62D837F0E66"><span class="RefLink">10.7-1</span></a>) object represents a chain map between two complexes over the same category.</p>
+
+<p><a id="X7F76E62D837F0E66" name="X7F76E62D837F0E66"></a></p>
+
+<h5>10.7-1 IsChainMap</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsChainMap</code></td><td class="tdright">(&nbsp;category&nbsp;)</td></tr></table></div>
+<p>The category for chain maps.</p>
+
+<p><a id="X7BCD94877DF261C4" name="X7BCD94877DF261C4"></a></p>
+
+<h5>10.7-2 ChainMap</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ChainMap</code>( <var class="Arg">source</var>, <var class="Arg">range</var>, <var class="Arg">basePosition</var>, <var class="Arg">middle</var>, <var class="Arg">positive</var>, <var class="Arg">negative</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">source</var>, <var class="Arg">range</var> -- complexes, <var class="Arg">basePosition</var> -- an integer, <var class="Arg">middle</var> -- a list of morphisms, <var class="Arg">positive</var> -- a list or the string <code class="code">"zero"</code>, <var class="Arg">negative</var> -- a list or the string <code class="code">"zero"</code>. <br /></p>
+
+<p>Returns: A newly created chain map</p>
+
+<p>The arguments <var class="Arg">source</var> and <var class="Arg">range</var> are the complexes which the new chain map should map between.</p>
+
+<p>The rest of the arguments describe the individual morphisms which constitute the chain map, in a similar way to the last four arguments to the <code class="func">Complex</code> (<a href="chap10_mj.html#X7E51958C86D73D17"><span class="RefLink">10.4-3</span></a>) function.</p>
+
+<p>The morphisms of the chain map are divided into three parts: one finite (<q>middle</q>) and two infinite (<q>positive</q> and <q>negative</q>). The positive part contains all morphisms in degrees higher than those in the middle part, and the negative part contains all morphisms in degrees lower than those in the middle part. (The middle part may be placed anywhere, so the positive part can -- despite its name -- contain some morphisms of negative degree. Conversely, the negative part can contain some morphisms of positive degree.)</p>
+
+<p>The argument <var class="Arg">middle</var> is a list containing the morphisms for the middle part. The argument <var class="Arg">baseDegree</var> gives the degree of the first morphism in this list. The second morphism is placed in degree <span class="SimpleMath">\(\textit{baseDegree}+1\)</span>, and so on. Thus, the middle part consists of the degrees</p>
+
+<p class="center">\[
+<var class="Arg">baseDegree</var>,\quad
+<var class="Arg">baseDegree</var> + 1,\quad
+\ldots\quad
+<var class="Arg">baseDegree</var> + \text{Length}(<var class="Arg">middle</var>) - 1.
+\]</p>
+
+<p>Each of the arguments <var class="Arg">positive</var> and <var class="Arg">negative</var> can be one of the following:</p>
+
+
+<ul>
+<li><p>The string <code class="code">"zero"</code>, meaning that the part contains only zero morphisms.</p>
+
+</li>
+<li><p>A list of the form <code class="code">[ "repeat", L ]</code>, where <code class="code">L</code> is a list of morphisms. The part will contain the morphisms in <code class="code">L</code> repeated infinitely many times. The convention for the order of elements in <code class="code">L</code> is that <code class="code">L[1]</code> is the morphism which is closest to the middle part, and <code class="code">L[Length(L)]</code> is farthest away from the middle part. (Using this only makes sense if the objects of both the source and range complex repeat in a compatible way.)</p>
+
+</li>
+<li><p>A list of the form <code class="code">[ "pos", f ]</code> or <code class="code">[ "pos", f, store ]</code>, where <code class="code">f</code> is a function of two arguments, and <code class="code">store</code> (if included) is a boolean. The function <code class="code">f</code> is used to compute the morphisms in this part. The function <code class="code">f</code> is not called immediately by the <code class="code">ChainMap</code> constructor, but will be called later as the morphisms in this part are needed. The function call <code class="code">f(M,i)</code> (where <code class="code">M</code> is the chain map and <code class="code">i</code> an integer) should produce the morphism in degree <code class="code">i</code>. The function may use <code class="code">M</code> to look up other morphisms in the chain map (and to access the source and range complexes), as long as this does not cause an infinite loop. If <code class="code">store</code> is <code class="code">true</code> (or not specified), each computed morphism is stored, and they are computed in order from the one closest to the middle part, regardless of which order they are requested in.</p>
+
+</li>
+<li><p>A list of the form <code class="code">[ "next", f, init ]</code>, where <code class="code">f</code> is a function of one argument, and <code class="code">init</code> is a morphism. The function <code class="code">f</code> is used to compute the morphisms in this part. For the first morphism in the part (that is, the one closest to the middle part), <code class="code">f</code> is called with <code class="code">init</code> as argument. For the next morphism, <code class="code">f</code> is called with the first morphism as argument, and so on. Thus, the morphisms are</p>
+
+<p class="center">\[
+    f(\text{init}),\quad
+    f^2(\text{init}),\quad
+    f^3(\text{init}),\quad \ldots
+  \]</p>
+
+<p>Each morphism is stored when it has been computed.</p>
+
+</li>
+</ul>
+<p><a id="X7C9597F6810F195E" name="X7C9597F6810F195E"></a></p>
+
+<h5>10.7-3 ZeroChainMap</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ZeroChainMap</code>( <var class="Arg">source</var>, <var class="Arg">range</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Returns: A newly created zero chain map</p>
+
+<p>This function creates a zero chain map (a chain map in which every morphism is zero) from the complex <var class="Arg">source</var> to the complex <var class="Arg">range</var>.</p>
+
+<p><a id="X8699B48A783E1900" name="X8699B48A783E1900"></a></p>
+
+<h5>10.7-4 FiniteChainMap</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; FiniteChainMap</code>( <var class="Arg">source</var>, <var class="Arg">range</var>, <var class="Arg">baseDegree</var>, <var class="Arg">morphisms</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Returns: A newly created chain map</p>
+
+<p>This function creates a complex where all but finitely many morphisms are zero.</p>
+
+<p>The arguments <var class="Arg">source</var> and <var class="Arg">range</var> are the complexes which the new chain map should map between.</p>
+
+<p>The argument <var class="Arg">morphisms</var> is a list of morphisms. The argument <var class="Arg">baseDegree</var> gives the degree for the first morphism in this list. The subsequent morphisms are placed in degrees <span class="SimpleMath">\(\textit{baseDegree}+1\)</span>, and so on.</p>
+
+<p>This means that the <var class="Arg">morphisms</var> argument specifies the morphisms in degrees</p>
+
+<p class="center">\[
+<var class="Arg">baseDegree</var>,\quad
+<var class="Arg">baseDegree</var> + 1,\quad
+\ldots \quad
+<var class="Arg">baseDegree</var> + \text{Length}(<var class="Arg">morphisms</var>) - 1.
+\]</p>
+
+<p>All other morphisms in the chain map are zero.</p>
+
+<p><a id="X805BA1698394DE4C" name="X805BA1698394DE4C"></a></p>
+
+<h5>10.7-5 ComplexAndChainMaps</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ComplexAndChainMaps</code>( <var class="Arg">sourceComplexes</var>, <var class="Arg">rangeComplexes</var>, <var class="Arg">basePosition</var>, <var class="Arg">middle</var>, <var class="Arg">positive</var>, <var class="Arg">negative</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">sourceComplexes</var> -- a list of complexes, <var class="Arg">rangeComplexes</var> -- a list of complexes, <var class="Arg">basePosition</var> -- an integer, <var class="Arg">middle</var> -- a list of morphisms, <var class="Arg">positive</var> -- a list or the string <code class="code">"zero"</code>, <var class="Arg">negative</var> -- a list or the string <code class="code">"zero"</code>. <br /></p>
+
+<p>Returns: A list consisting of a newly created complex, and one or more newly created chain maps.</p>
+
+<p>This is a combined constructor to make one complex and a set of chain maps at the same time. All the chain maps will have the new complex as either source or range.</p>
+
+<p>The argument <var class="Arg">sourceComplexes</var> is a list of the complexes to be sources of the chain maps which have the new complex as range. The argument <var class="Arg">rangeComplexes</var> is a list of the complexes to be ranges of the chain maps which have the new complex as source.</p>
+
+<p>Let <span class="SimpleMath">\(S\)</span> and <span class="SimpleMath">\(R\)</span> stand for the lengths of the lists <var class="Arg">sourceComplexes</var> and <var class="Arg">rangeComplexes</var>, respectively. Then the number of new chain maps which are created is <span class="SimpleMath">\(S+R\)</span>.</p>
+
+<p>The last four arguments describe the individual differentials of the new complex, as well as the individual morphisms which constitute each of the new chain maps. These arguments are treated in a similar way to the last four arguments to the <code class="func">Complex</code> (<a href="chap10_mj.html#X7E51958C86D73D17"><span class="RefLink">10.4-3</span></a>) and <code class="func">ChainMap</code> (<a href="chap10_mj.html#X7BCD94877DF261C4"><span class="RefLink">10.7-2</span></a>) constructors. In those constructors, the last four arguments describe, for each degree, how to get the differential or morphism for that degree. Here, we for each degree need both a differential for the complex, and one morphism for each chain map. So for each degree <span class="SimpleMath">\(i\)</span>, we will have a list</p>
+
+<p class="center">\[
+L_i =
+[ d_i,
+  m_i^1, \ldots, m_i^S,
+  n_i^1, \ldots, n_i^R ],
+\]</p>
+
+<p>where <span class="SimpleMath">\(d_i\)</span> is the differential for the new complex in degree <span class="SimpleMath">\(i\)</span>, <span class="SimpleMath">\(m_i^j\)</span> is the morphism in degree <span class="SimpleMath">\(i\)</span> of the chain map from <code class="code">sourceComplexes[j]</code> to the new complex, and <span class="SimpleMath">\(n_i^j\)</span> is the morphism in degree <span class="SimpleMath">\(i\)</span> of the chain map from the new complex to <code class="code">rangeComplexes[j]</code>.</p>
+
+<p>The degrees of the new complex and chain maps are divided into three parts: one finite (<q>middle</q>) and two infinite (<q>positive</q> and <q>negative</q>). The positive part contains all degrees higher than those in the middle part, and the negative part contains all degrees lower than those in the middle part.</p>
+
+<p>The argument <var class="Arg">middle</var> is a list containing the lists <span class="SimpleMath">\(L_i\)</span> for the middle part. The argument <var class="Arg">baseDegree</var> gives the degree of the first morphism in this list. The second morphism is placed in degree <span class="SimpleMath">\(\textit{baseDegree}+1\)</span>, and so on. Thus, the middle part consists of the degrees</p>
+
+<p class="center">\[
+<var class="Arg">baseDegree</var>,\quad
+<var class="Arg">baseDegree</var> + 1,\quad
+\ldots\quad
+<var class="Arg">baseDegree</var> + \text{Length}(<var class="Arg">middle</var>) - 1.
+\]</p>
+
+<p>Each of the arguments <var class="Arg">positive</var> and <var class="Arg">negative</var> can be one of the following:</p>
+
+
+<ul>
+<li><p>The string <code class="code">"zero"</code>, meaning that the part contains only zero morphisms.</p>
+
+</li>
+<li><p>A list of the form <code class="code">[ "repeat", L ]</code>, where <code class="code">L</code> is a list of morphisms. The part will contain the morphisms in <code class="code">L</code> repeated infinitely many times. The convention for the order of elements in <code class="code">L</code> is that <code class="code">L[1]</code> is the morphism which is closest to the middle part, and <code class="code">L[Length(L)]</code> is farthest away from the middle part. (Using this only makes sense if the objects of both the source and range complex repeat in a compatible way.)</p>
+
+</li>
+<li><p>A list of the form <code class="code">[ "pos", f ]</code> or <code class="code">[ "pos", f, store ]</code>, where <code class="code">f</code> is a function of two arguments, and <code class="code">store</code> (if included) is a boolean. The function <code class="code">f</code> is used to compute the morphisms in this part. The function <code class="code">f</code> is not called immediately by the <code class="code">ChainMap</code> constructor, but will be called later as the morphisms in this part are needed. The function call <code class="code">f(M,i)</code> (where <code class="code">M</code> is the chain map and <code class="code">i</code> an integer) should produce the morphism in degree <code class="code">i</code>. The function may use <code class="code">M</code> to look up other morphisms in the chain map (and to access the source and range complexes), as long as this does not cause an infinite loop. If <code class="code">store</code> is <code class="code">true</code> (or not specified), each computed morphism is stored, and they are computed in order from the one closest to the middle part, regardless of which order they are requested in.</p>
+
+</li>
+<li><p>A list of the form <code class="code">[ "next", f, init ]</code>, where <code class="code">f</code> is a function of one argument, and <code class="code">init</code> is a morphism. The function <code class="code">f</code> is used to compute the morphisms in this part. For the first morphism in the part (that is, the one closest to the middle part), <code class="code">f</code> is called with <code class="code">init</code> as argument. For the next morphism, <code class="code">f</code> is called with the first morphism as argument, and so on. Thus, the morphisms are</p>
+
+<p class="center">\[
+    f(\text{init}),\quad
+    f^2(\text{init}),\quad
+    f^3(\text{init}),\quad \ldots
+  \]</p>
+
+<p>Each morphism is stored when it has been computed.</p>
+
+</li>
+</ul>
+<p>The return value of the <code class="code">ComplexAndChainMaps</code> constructor is a list</p>
+
+<p class="center">\[
+[ C,
+  M_1, \ldots, M_S,
+  N_1, \ldots, N_R ],
+\]</p>
+
+<p>where <span class="SimpleMath">\(C\)</span> is the new complex, <span class="SimpleMath">\(M_1,\ldots,M_S\)</span> are the new chain maps with <span class="SimpleMath">\(C\)</span> as range, and <span class="SimpleMath">\(N_1,\ldots,N_R\)</span> are the new chain maps with <span class="SimpleMath">\(C\)</span> as source.</p>
+
+<p><a id="X7F20B8807ECE404E" name="X7F20B8807ECE404E"></a></p>
+
+<h5>10.7-6 MorphismOfChainMap</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; MorphismOfChainMap</code>( <var class="Arg">M</var>, <var class="Arg">i</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> -- a chain map, <var class="Arg">i</var> -- an integer.<br /></p>
+
+<p>Returns: The morphism at position <var class="Arg">i</var> in the chain map.</p>
+
+<p><a id="X792B5B8684A75F72" name="X792B5B8684A75F72"></a></p>
+
+<h5>10.7-7 MorphismsOfChainMap</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; MorphismsOfChainMap</code>( <var class="Arg">M</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> -- a chain map.<br /></p>
+
+<p>Returns: The morphisms of the chain map, stored as an <code class="func">IsInfList</code> (<a href="chap10_mj.html#X84731DA279E797A5"><span class="RefLink">10.2-4</span></a>) object.</p>
+
+<p><a id="X78EC487B79B20DDE" name="X78EC487B79B20DDE"></a></p>
+
+<h5>10.7-8 ComparisonLifting</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ComparisonLifting</code>( <var class="Arg">f</var>, <var class="Arg">PC</var>, <var class="Arg">EC</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">f</var> -- a map between modules <span class="SimpleMath">\(M\)</span> and <span class="SimpleMath">\(N\)</span>, <var class="Arg">PC</var> -- a chain complex, <var class="Arg">EC</var> -- a chain complex.<br /></p>
+
+<p>Returns: The map <var class="Arg">f</var> lifted to a chain map from <var class="Arg">PC</var> to <var class="Arg">EC</var>.</p>
+
+<p>The complex <var class="Arg">PC</var> must have <span class="SimpleMath">\(M\)</span> in some fixed degree <span class="SimpleMath">\(i\)</span>, it should be bounded with only zero objects in degrees smaller than <span class="SimpleMath">\(i\)</span>, and it should have only projective objects in degrees greater than <span class="SimpleMath">\(i\)</span> (or projective objects in degrees <span class="SimpleMath">\([i+1,j]\)</span> and zero in degrees greater than <span class="SimpleMath">\(j\)</span>). The complex <var class="Arg">EC</var> should also have zero in degrees smaller than <span class="SimpleMath">\(i\)</span>, it should have <span class="SimpleMath">\(N\)</span> in degree <span class="SimpleMath">\(i\)</span> and it should be exact for all degrees. The returned chain map has <var class="Arg">f</var> in degree <span class="SimpleMath">\(i\)</span>.</p>
+
+<p><a id="X7A95C5E78298E0C6" name="X7A95C5E78298E0C6"></a></p>
+
+<h5>10.7-9 ComparisonLiftingToProjectiveResolution</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ComparisonLiftingToProjectiveResolution</code>( <var class="Arg">f</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">f</var> -- a map between modules <span class="SimpleMath">\(M\)</span> and <span class="SimpleMath">\(N\)</span>.<br /></p>
+
+<p>Returns: The map <var class="Arg">f</var> lifted to a chain map from the projective resolution of <span class="SimpleMath">\(M\)</span> to the projective resolution of <span class="SimpleMath">\(N\)</span>.</p>
+
+<p>The returned chain map has <var class="Arg">f</var> in degree <span class="SimpleMath">\(-1\)</span> (the projective resolution of a module includes the module itself in degree <span class="SimpleMath">\(-1\)</span>).</p>
+
+<p><a id="X7EF42CF48165D831" name="X7EF42CF48165D831"></a></p>
+
+<h5>10.7-10 MappingCone</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; MappingCone</code>( <var class="Arg">f</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">f</var> -- a chain map between chain complexes <span class="SimpleMath">\(A\)</span> and <span class="SimpleMath">\(B\)</span>. <br /></p>
+
+<p>Returns: A list with the mapping cone of <var class="Arg">f</var> and the inclusion of <span class="SimpleMath">\(B\)</span> into the cone, and the projection of the cone onto <span class="SimpleMath">\(A[-1]\)</span>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput"># Constructs a quiver and a quotient of a path algebra</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Q := Quiver( 4, [ [1,2,"a"], [2,3,"b"], [3,4,"c"] ] );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">PA := PathAlgebra( Rationals, Q );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">rels := [ PA.a*PA.b ];;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">gb := GBNPGroebnerBasis( rels, PA );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">I := Ideal( PA, gb );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">grb := GroebnerBasis( I, gb );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">alg := PA/I;;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput"></span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput"># Two modules M and N, and a map between them</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">M := RightModuleOverPathAlgebra( alg, [0,1,1,0], [["b", [[1]] ]] );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">N := RightModuleOverPathAlgebra( alg, [0,1,0,0], [] );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">f := RightModuleHomOverAlgebra(M, N, [ [[0]],[[1]],[[0]],[[0]] ]);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput"></span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput"># Lifts f to a map between the projective resolutions of M and N</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">lf := ComparisonLiftingToProjectiveResolution(f);</span>
+&lt;chain map&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput"></span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput"># Computes the mapping cone of the chain map</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">H := MappingCone(lf);</span>
+[ --- -&gt; -1:(0,1,0,0) -&gt; ---, &lt;chain map&gt;, &lt;chain map&gt; ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">cone := H[1];</span>
+--- -&gt; -1:(0,1,0,0) -&gt; ---
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ObjectOfComplex(Source(lf),0);</span>
+&lt;[ 0, 1, 1, 1 ]&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ObjectOfComplex(Range(lf),1);</span>
+&lt;[ 0, 0, 1, 1 ]&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ObjectOfComplex(cone,1);</span>
+&lt;[ 0, 1, 2, 2 ]&gt; 
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Source(H[2]) = Range(lf);</span>
+true
+</pre></div>
+
+
+<div class="chlinkprevnextbot">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap9_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap11_mj.html">[Next Chapter]</a>&nbsp;  </div>
+
+
+<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chap3_mj.html">3</a>  <a href="chap4_mj.html">4</a>  <a href="chap5_mj.html">5</a>  <a href="chap6_mj.html">6</a>  <a href="chap7_mj.html">7</a>  <a href="chap8_mj.html">8</a>  <a href="chap9_mj.html">9</a>  <a href="chap10_mj.html">10</a>  <a href="chap11_mj.html">11</a>  <a href="chap12_mj.html">12</a>  <a href="chap13_mj.html">13</a>  <a href="chapBib_mj.html">Bib</a>  <a href="chapInd_mj.html">Ind</a>  </div>
+
+<hr />
+<p class="foot">generated by <a href="https://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc">GAPDoc2HTML</a></p>
+</body>
+</html>

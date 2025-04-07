@@ -1,0 +1,191 @@
+  
+  [1X11 [33X[0;0YProjective resolutions and the bounded derived category[133X[101X
+  
+  [33X[0;0YWhat  is  implemented  so  far for working with the bounded derived category
+  [23X\mathcal{D}^{b}(  \modc A )[123X. We use the isomorphism [23X\mathcal{D}^{b}( \modc A
+  )  \cong  \mathcal{K}^{-,b}(\proj  A)[123X, and will hence need a way to describe
+  complexes where all objectives are projective (or, dually, injective).[133X
+  
+  
+  [1X11.1 [33X[0;0YProjective and injective complexes[133X[101X
+  
+  [1X11.1-1 InjectiveResolution[101X
+  
+  [33X[1;0Y[29X[2XInjectiveResolution[102X( [3XM[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XM[103X -- a module.[133X
+  
+  [6XReturns:[106X  [33X[0;10YThe injective resolution of [3XM[103X with [3XM[103X in degree [23X-1[123X.[133X
+  
+  [1X11.1-2 IsProjectiveComplex[101X
+  
+  [33X[1;0Y[29X[2XIsProjectiveComplex[102X( [3XC[103X ) [32X property[133X
+  
+  [33X[0;0YArguments: [3XC[103X -- a complex.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue if [3XC[103X is either a finite complex of projectives or an infinite
+            complex  of  projectives  constructed  as  a projective resolution
+            ([2XProjectiveResolutionOfComplex[102X ([14X11.2-1[114X)), false otherwise.[133X
+  
+  [33X[0;0YA  complex  for  which this property is true, will be printed in a different
+  manner  than  ordinary complexes. Instead of writing the dimension vector of
+  the  objects  in  each degree, the indecomposable direct summands are listed
+  (for  instance  [10XP1[110X, [10XP2[110X … , where [23XP_i[123X is the indecomposable projective module
+  corresponding  to  vertex  [23Xi[123X  of the quiver). Note that if a complex is both
+  projective and injective, it is printed as a projective complex.[133X
+  
+  [1X11.1-3 IsInjectiveComplex[101X
+  
+  [33X[1;0Y[29X[2XIsInjectiveComplex[102X( [3XC[103X ) [32X property[133X
+  
+  [33X[0;0YArguments: [3XC[103X -- a complex.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue  if [3XC[103X is either a finite complex of injectives or an infinite
+            complex  of  injectives constructed as [23XD\mathrm{Hom}_{A}(-,A)[123X of a
+            projective  complex ([2XProjectiveToInjectiveComplex[102X ([14X11.2-2[114X)), false
+            otherwise.[133X
+  
+  [33X[0;0YA  complex  for  which this property is true, will be printed in a different
+  manner  than  ordinary complexes. Instead of writing the dimension vector of
+  the  objects  in  each degree, the indecomposable direct summands are listed
+  (for  instance  [10XI1[110X,  [10XI2[110X … , where [23XI_i[123X is the indecomposable injective module
+  corresponding  to  vertex  [23Xi[123X  of the quiver). Note that if a complex is both
+  projective and injective, it is printed as a projective complex.[133X
+  
+  [1X11.1-4 ProjectiveResolution[101X
+  
+  [33X[1;0Y[29X[2XProjectiveResolution[102X( [3XM[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XM[103X -- a module.[133X
+  
+  [6XReturns:[106X  [33X[0;10YThe projective resolution of [3XM[103X with [3XM[103X in degree [23X-1[123X.[133X
+  
+  
+  [1X11.2 [33X[0;0YThe bounded derived category[133X[101X
+  
+  [33X[0;0YLet  [23X\mathcal{D}^{b}( \modc A )[123X denote the bounded derived category. If [23XC[123X is
+  an  element  of  [23X\mathcal{D}^{b}(  \modc  A )[123X, that is, a bounded complex of
+  [23XA[123X-modules, there exists a projective resolution [23XP[123X of [23XC[123X which is a complex of
+  projective  [23XA[123X-modules quasi-isomorphic to [23XC[123X. Moreover, there exists such a [23XP[123X
+  with the following properties:[133X
+  
+  [30X    [33X[0;6Y[23XP[123X is minimal (in the homotopy category).[133X
+  
+  [30X    [33X[0;6Y[23XC[123X is bounded, so [23XC_i = 0[123X for [23Xi < k[123X for a lower bound [23Xk[123X and [23XC_i = 0[123X for
+        [23Xi  > j[123X for an upper bound [23Xj[123X. Then [23XP_i = 0[123X for [23Xi < k[123X, and [23XP[123X is exact in
+        degree [23Xi[123X for [23Xi > j[123X.[133X
+  
+  [33X[0;0YThe   function  [10XProjectiveResolutionOfComplex[110X  computes  such  a  projective
+  resolution  of  any  bounded complex. If [23XA[123X has finite global dimension, then
+  [23X\mathcal{D}^{b}(  \modc  A )[123X has AR-triangles, and there exists an algorithm
+  for computing the AR-translation of a complex [23XC \in \mathcal{D}^{b}( \modc A
+  )[123X:[133X
+  
+  [30X    [33X[0;6YCompute a projective resolution [23XP'[123X of [23XC[123X.[133X
+  
+  [30X    [33X[0;6YShift [23XP'[123X one degree to the right.[133X
+  
+  [30X    [33X[0;6YCompute [23XI = D\mathrm{Hom}_{A}(P',A)[123X to get a complex of injectives.[133X
+  
+  [30X    [33X[0;6YCompute a projective resolution [23XP[123X of [23XI[123X.[133X
+  
+  [33X[0;0YThen  [23XP[123X is the AR-translation of [23XC[123X, sometimes written [23X\tau(C)[123X. The following
+  documents  the  [5XQPA[105X  functions  for  working  with  complexes in the derived
+  category.[133X
+  
+  [1X11.2-1 ProjectiveResolutionOfComplex[101X
+  
+  [33X[1;0Y[29X[2XProjectiveResolutionOfComplex[102X( [3XC[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XC[103X -- a finite complex.[133X
+  
+  [6XReturns:[106X  [33X[0;10YA projective complex [23XP[123X which is the projective resolution of [23XC[123X, as
+            described in the introduction to this section.[133X
+  
+  [33X[0;0YIf the algebra has infinite global dimension, the projective resolution of [23XC[123X
+  could possibly be infinite.[133X
+  
+  [1X11.2-2 ProjectiveToInjectiveComplex[101X
+  
+  [33X[1;0Y[29X[2XProjectiveToInjectiveComplex[102X( [3XP[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XProjectiveToInjectiveFiniteComplex[102X( [3XP[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XP[103X -- a bounded below projective complex.[133X
+  
+  [6XReturns:[106X  [33X[0;10YAn injective complex [23XI = D\mathrm{Hom}_{A}(P,A)[123X.[133X
+  
+  [33X[0;0Y[23XP[123X  and  [23XI[123X  will  always  have the same length. Especially, if [23XP[123X is unbounded
+  above,  then  so is [23XI[123X. If [23XP[123X is a finite complex (that is; [10XLengthOfComplex(P)[110X
+  is an integer) then the simpler method [10XProjectiveToInjectiveFiniteComplex[110X is
+  used.[133X
+  
+  [1X11.2-3 TauOfComplex[101X
+  
+  [33X[1;0Y[29X[2XTauOfComplex[102X( [3XC[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XC[103X -- a finite complex over an algebra of finite global dimension.[133X
+  
+  [6XReturns:[106X  [33X[0;10YA projective complex [23XP[123X which is the AR-translation of [3XC[103X.[133X
+  
+  [33X[0;0YThis  function  only  works when the algebra has finite global dimension. It
+  will always assume that both the projective resolutions computed are finite.[133X
+  
+  
+  [1X11.2-4 [33X[0;0YExample[133X[101X
+  
+  [33X[0;0YThe   following  example  illustrates  the  above  mentioned  functions  and
+  properties.     Note    that    both    [10XProjectiveResolutionOfComplex[110X    and
+  [10XProjectiveToInjectiveComplex[110X  return complexes with a nonzero [13Xpositive[113X part,
+  whereas  [10XTauOfComplex[110X  always  returns  a  complex for which [10XIsFiniteComplex[110X
+  returns  true. Also note that after the complex [10XC[110X in the example is found to
+  have the [10XIsInjectiveComplex[110X property, the printing of the complex changes.[133X
+  
+  [33X[0;0YThe  algebra in the example is [23XkQ/I[123X, where [23XQ[123X is the quiver [23X1 \longrightarrow
+  2  \longrightarrow 3[123X and [23XI[123X is generated by the composition of the arrows. We
+  construct [23XC[123X as the stalk complex with the injective [23XI_1[123X in degree 0.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xalg;[127X[104X
+    [4X[28X<Rationals[<quiver with 3 vertices and 2 arrows>]/[128X[104X
+    [4X[28X<two-sided ideal in <Rationals[<quiver with 3 vertices and 2 arrows>]>, [128X[104X
+    [4X[28X  (1 generators)>>[128X[104X
+    [4X[25Xgap>[125X [27Xcat := CatOfRightAlgebraModules(alg);[127X[104X
+    [4X[28X<cat: right modules over algebra>[128X[104X
+    [4X[25Xgap>[125X [27XC := StalkComplex(cat, IndecInjectiveModules(alg)[1], 0);[127X[104X
+    [4X[28X0 -> 0:(1,0,0) -> 0[128X[104X
+    [4X[25Xgap>[125X [27XProjC := ProjectiveResolutionOfComplex(C);[127X[104X
+    [4X[28X--- -> 0: P1 -> 0[128X[104X
+    [4X[25Xgap>[125X [27XInjC := ProjectiveToInjectiveComplex(ProjC);[127X[104X
+    [4X[28X--- -> 1: I2 -> 0: I1 -> 0[128X[104X
+    [4X[25Xgap>[125X [27XTauC := TauOfComplex(C);[127X[104X
+    [4X[28X0 -> 1: P3 -> 0[128X[104X
+    [4X[25Xgap>[125X [27XIsProjectiveComplex(C);[127X[104X
+    [4X[28Xfalse[128X[104X
+    [4X[25Xgap>[125X [27XIsInjectiveComplex(C);[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27XC;[127X[104X
+    [4X[28X0 -> 0: I1 -> 0 [128X[104X
+  [4X[32X[104X
+  
+  [1X11.2-5 StarOfMapBetweenProjectives[101X
+  
+  [33X[1;0Y[29X[2XStarOfMapBetweenProjectives[102X( [3Xf[103X, [3Xlist_i[103X, [3Xlist_j[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XStarOfMapBetweenIndecProjectives[102X( [3Xf[103X, [3Xi[103X, [3Xlist_j[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XStarOfMapBetweenDecompProjectives[102X( [3Xf[103X, [3Xlist_i[103X, [3Xlist_j[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments:  [3Xf[103X -- a map between to projective modules [23XP = \bigoplus P_i[123X and [23XQ
+  =  \bigoplus  Q_j[123X,  each  of  which  were  constructed  as  direct  sums  of
+  indecomposable  projective  modules;  [3Xlist_i[103X -- describes the summands of [23XP[123X;
+  [3Xlist_j[103X  --  describes  the  summands  of [23XQ[123X. If [23XP = P_1 \oplus P_3 \oplus P_3[123X
+  (where  [23XP_i[123X  is  the  indecomposable projective representation in vertex [23Xi[123X),
+  then [3Xlist_i[103X is [1,3,3].[133X
+  
+  [6XReturns:[106X  [33X[0;10YThe  map [23Xf^* = \Hom_A(f,A): \Hom_A(Q,A) \rightarrow \Hom_A(P,A)[123X in
+            [23XA^{\mathrm{op}}[123X (where [23XA[123X is the original algebra).[133X
+  
+  [33X[0;0YThe  function  [10XStarOfMapBetweenProjectives[110X  is  supposed  to  be called from
+  within the [10XProjectiveToInjectiveComplex[110X method, and might not do as expected
+  when called from somewhere else.[133X
+  
+  [33X[0;0YThe other similarly named functions are called from within the first.[133X
+  

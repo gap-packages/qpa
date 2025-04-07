@@ -1,0 +1,1348 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<script type="text/javascript"
+  src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<title>GAP (QPA) - Chapter 6: Right Modules over Path
+Algebras</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="GAPDoc2HTML" />
+<link rel="stylesheet" type="text/css" href="manual.css" />
+<script src="manual.js" type="text/javascript"></script>
+<script type="text/javascript">overwriteStyle();</script>
+</head>
+<body class="chap6"  onload="jscontent()">
+
+
+<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chap3_mj.html">3</a>  <a href="chap4_mj.html">4</a>  <a href="chap5_mj.html">5</a>  <a href="chap6_mj.html">6</a>  <a href="chap7_mj.html">7</a>  <a href="chap8_mj.html">8</a>  <a href="chap9_mj.html">9</a>  <a href="chap10_mj.html">10</a>  <a href="chap11_mj.html">11</a>  <a href="chap12_mj.html">12</a>  <a href="chap13_mj.html">13</a>  <a href="chapBib_mj.html">Bib</a>  <a href="chapInd_mj.html">Ind</a>  </div>
+
+<div class="chlinkprevnexttop">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap5_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap7_mj.html">[Next Chapter]</a>&nbsp;  </div>
+
+<p id="mathjaxlink" class="pcenter"><a href="chap6.html">[MathJax off]</a></p>
+<p><a id="X87EFC38F7BC77B27" name="X87EFC38F7BC77B27"></a></p>
+<div class="ChapSects"><a href="chap6_mj.html#X87EFC38F7BC77B27">6 <span class="Heading">Right Modules over Path
+Algebras</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap6_mj.html#X86DD15DF877834FD">6.1 <span class="Heading">Modules of matrix type</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X85E5097D82D9BE62">6.1-1 RightModuleOverPathAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X844DD9B386A6AC56">6.1-2 RightAlgebraModuleToPathAlgebraMatModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X823D5739809A2D9A"><code>6.1-3 \=</code></a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap6_mj.html#X869F4DD2877A99BA">6.2 <span class="Heading">Categories Of Matrix Modules</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X8710CC447F1F7B17">6.2-1 IsPathAlgebraMatModule</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap6_mj.html#X862F510485ADBC67">6.3 <span class="Heading">Acting on Module Elements</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X7BB4066E7D5B15B8">6.3-1 ^</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap6_mj.html#X7E5B84B1832D839E">6.4 <span class="Heading">Operations on representations</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X830B834D7F2F0FAD">6.4-1 AnnihilatorOfModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X83404C0B7C15E7D0">6.4-2 BasicVersionOfModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X7CD05524803C7777">6.4-3 BlockDecompositionOfModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X85AC0E7C7E3E697D">6.4-4 BlockSplittingIdempotents</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X8687EC4878E755CC">6.4-5 CommonDirectSummand</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X8376806384B96066">6.4-6 ComplexityOfModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X7B0588497D5008A4">6.4-7 DecomposeModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X81EF6AE97A4F77FA">6.4-8 DecomposeModuleProbabilistic</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X7A4A2B0F7BB16D0D">6.4-9 DecomposeModuleViaCharPoly</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X848EAC6C833C95B1">6.4-10 DecomposeModuleViaTop</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X7E957BFE7897F504">6.4-11 DecomposeModuleWithMultiplicities</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X7E38D5A48344C173">6.4-12 Dimension</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X7B5EA4B0820DE28C">6.4-13 DimensionVector</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X7BDD77707A013FBE">6.4-14 DirectSumOfQPAModules</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X857807CF8560B3C4">6.4-15 DirectSumInclusions</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X80CFB7E47A785E12">6.4-16 DirectSumProjections</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X837AE1BF7F31AD7C">6.4-17 FromIdentityToDoubleStarHomomorphism</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X7FE61CFE7A138755">6.4-18 IntersectionOfSubmodules</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X7E24DCE07E98E50D">6.4-19 IsDirectSummand</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X7A50C15B87236111">6.4-20 IsDirectSumOfModules</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X7C9BFC678598DBF6">6.4-21 IsExceptionalModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X82102F847994003E">6.4-22 IsIndecomposableModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X7E5246D4831DB250">6.4-23 IsInAdditiveClosure</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X803C2799861FFBC5">6.4-24 IsInjectiveModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X7D198BB5808D38F2">6.4-25 IsomorphicModules</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X8359AC9585777CA1">6.4-26 IsProjectiveModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X7ECEEC6F873A7BA6">6.4-27 IsRigidModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X7A8BC26E866E44DD">6.4-28 IsSemisimpleModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X7D2067E57E0244F8">6.4-29 IsSimpleQPAModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X7B766424838EE6EA">6.4-30 IsTauRigidModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X82663AD8832DD57F">6.4-31 LoewyLength</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X82BDA47282F9BBA7">6.4-32 IsZero</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X81BB198380631A9B">6.4-33 MatricesOfPathAlgebraModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X7B480767836D0764">6.4-34 MaximalCommonDirectSummand</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X7CD05FF985A1D1B3">6.4-35 NumberOfNonIsoDirSummands</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X821FA104861FF19B">6.4-36 MinimalGeneratingSetOfModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X7E44920683157DE2">6.4-37 RadicalOfModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X7929281B848A9FBE">6.4-38 RadicalSeries</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X798A50297D2F186E">6.4-39 RandomModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X84A724267E6F136D">6.4-40 SocleSeries</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X79DF34618798E866">6.4-41 SocleOfModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X858AC23C83AC843E">6.4-42 SubRepresentation</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X8653599686499CD6">6.4-43 SumOfSubmodules</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X856EA09A83A5A636">6.4-44 SupportModuleElement</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X87F571327E43AFB4">6.4-45 TopOfModule</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap6_mj.html#X7919F94382D9B38B">6.5 <span class="Heading">Special representations</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X8048CD27796253CA">6.5-1 BasisOfProjectives</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X822401E583C75FCE">6.5-2 ElementInIndecProjective</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X7E298A807E5EB1A8">6.5-3 ElementIn_vA_AsElementInIndecProj</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X87741234871B1F5C">6.5-4 IndecInjectiveModules</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X85EDCFE27F66093F">6.5-5 IndecProjectiveModules</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X7C61261F7C5E53B8">6.5-6 SimpleModules</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X7CCE2D12807AA35A">6.5-7 ZeroModule</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap6_mj.html#X7D99BF5A87DDC099">6.6 <span class="Heading">Functors on representations</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X82D7B50A7ACA47BF">6.6-1 DualOfModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X847DDC417BFB8515">6.6-2 DualOfModuleHomomorphism</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X82D31F887C14E921">6.6-3 DTr</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X82D31F887C14E921">6.6-4 DTr</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X82ACC83D7EF5B32C">6.6-5 NakayamaFunctorOfModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X865C241C86D6168F">6.6-6 NakayamaFunctorOfModuleHomomorphism</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X78E724307D9FE41D">6.6-7 OppositeNakayamaFunctorOfModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X82A057C5824917FA">6.6-8 OppositeNakayamaFunctorOfModuleHomomorphism</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X818DD1A67A5C03AB">6.6-9 RestrictionViaAlgebraHomomorphism</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X86267BD982DB2221">6.6-10 RestrictionViaAlgebraHomomorphismMap</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X7F07712F786AAEFD">6.6-11 StarOfModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X80AF678D795B6C57">6.6-12 StarOfModuleHomomorphism</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X814EE88D8474A99D">6.6-13 TensorProductOfModules</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X7939949279208FA3">6.6-14 TrD</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X7939949279208FA3">6.6-15 TrD</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X79C0B620842128AF">6.6-16 TransposeOfModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X80C4C3BF80B39D66">6.6-17 TransposeOfModuleHomomorphism</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap6_mj.html#X84F07A1579CBC26A">6.7 <span class="Heading">Vertex projective modules and submodules thereof</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X79175B097A0718FE">6.7-1 RightProjectiveModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X855EFF36842AA3AE">6.7-2 CompletelyReduceGroebnerBasisForModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X7D931FBF7BF64C7C">6.7-3 IsLeftDivisible</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X82A8398478788A5A">6.7-4 IsPathAlgebraModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X83DC9F63800A8812">6.7-5 IsPathAlgebraVector</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X7935C4407BCB6F38">6.7-6 LeadingCoefficient (of PathAlgebraVector)</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X87DE0FE482A17ECC">6.7-7 LeadingComponent</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X839C070B7BAAE5DC">6.7-8 LeadingPosition</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X7E705C5C825D9187">6.7-9 LeadingTerm (of PathAlgebraVector)</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X8593BCDB8402C46C">6.7-10 LeftDivision</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X8749643879D32A01">6.7-11 ^</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X87B186CE868FCB30">6.7-12 &lt;</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X7F51DF007F51DF00">6.7-13 /</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X7B3C31F17E6FB3CD">6.7-14 PathAlgebraVector</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X850B83A0801EE970">6.7-15 ProjectivePathAlgebraPresentation</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X7F5109637D496354">6.7-16 RightGroebnerBasisOfModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X7F5D460187F89CB7">6.7-17 TargetVertex</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X7CDBA7818700F9D2">6.7-18 UniformGeneratorsOfModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X78E05C8F7ADE2BCD">6.7-19 Vectorize</a></span>
+</div></div>
+</div>
+
+<h3>6 <span class="Heading">Right Modules over Path
+Algebras</span></h3>
+
+<p>There are two implementations of right modules over path algebras. The first type are matrix modules that are defined by vector spaces and linear transformations. The second type is presentations defined by vertex projective modules (see <a href="chap6_mj.html#X84F07A1579CBC26A"><span class="RefLink">6.7</span></a>).</p>
+
+<p><a id="X86DD15DF877834FD" name="X86DD15DF877834FD"></a></p>
+
+<h4>6.1 <span class="Heading">Modules of matrix type</span></h4>
+
+<p>The first implementation of right modules over path algebras views them as a collection of vector spaces and linear transformations. Each vertex in the path algebra is associated with a vector space over the field of the algebra. For each vertex <span class="SimpleMath">\(v\)</span> of the algebra there is a vector space <span class="SimpleMath">\(V\)</span>. Arrows of the algebra are then associated with linear transformations which map the vector space of the source vertex to the vector space of the target vertex. For example, if <span class="SimpleMath">\(a\)</span> is an arrow from <span class="SimpleMath">\(v\)</span> to <span class="SimpleMath">\(w\)</span>, then there is a transformation from vector space <span class="SimpleMath">\(V\)</span> to <span class="SimpleMath">\(W\)</span>. Given the dimension vector of the module we want to construct, the information we need to provide is the non-zero linear transformations. The size of the matrices for the zero linear transformation are given when we know the dimension vector. Alternatively, if we enter all the transformations, we can create the vector spaces of the correct dimension, and check to make sure the dimensions all agree. We can create a module in this way as follows.</p>
+
+<p><a id="X85E5097D82D9BE62" name="X85E5097D82D9BE62"></a></p>
+
+<h5>6.1-1 RightModuleOverPathAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; RightModuleOverPathAlgebra</code>( <var class="Arg">A</var>, <var class="Arg">dim_vector</var>, <var class="Arg">gens</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; RightModuleOverPathAlgebra</code>( <var class="Arg">A</var>, <var class="Arg">mats</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; RightModuleOverPathAlgebraNC</code>( <var class="Arg">A</var>, <var class="Arg">mats</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> -- a (quotient of a) path algebra and <var class="Arg">dim_vector</var> -- the dimension vector of the module, <var class="Arg">gens</var> or <var class="Arg">mats</var> -- a list of matrices. For further explanations, see below. <br /></p>
+
+<p>Returns: a module over a path algebra or over a qoutient of a path algebra.</p>
+
+<p>In the first function call, the second argument <var class="Arg">dim_vector</var> is the dimension vector of the module, and the last argument <var class="Arg">gens</var> (maybe an empty list <code class="code">[]</code>) is a list of elements of the form <code class="code">["label",matrix]</code>. This function constructs a right module over a (quotient of a) path algebra <var class="Arg">A</var> with dimension vector <var class="Arg">dim_vector</var>, and where the generators/arrows with a non-zero action is given in the list <var class="Arg">gens</var>. The format of the list <var class="Arg">gens</var> is [["a",[matrix_a]],["b",[matrix_b]],...], where "a" and "b" are labels of arrows used when the underlying quiver was created and matrix_? is the action of the algebra element corresponding to the arrow with label "?". The action of the arrows can be entered in any order. The function checks (i) if the algebra <var class="Arg">A</var> is a (quotient of a) path algebra, (ii) if the matrices of the action of the arrows have the correct size according to the dimension vector entered, (iii) also whether or not the relations of the algebra are satisfied and (iv) if all matrices are over the correct field.</p>
+
+<p>In the second function call, the list of matrices <var class="Arg">mats</var> can take on three different forms. The function checks (i), (ii), (iii) and (iv) as above.</p>
+
+<p>1) The argument <var class="Arg">mats</var> can be a list of blocks of matrices where each block is of the form, `["name of arrow",matrix]'. So if you named your arrows when you created the quiver, then you can associate a matrix with that arrow explicitly.</p>
+
+<p>2) The argument <var class="Arg">mats</var> is just a list of matrices, and the matrices will be associated to the arrows in the order of arrow creation. If when creating the quiver, the arrow <span class="SimpleMath">\(a\)</span> was created first, then <span class="SimpleMath">\(a\)</span> would be associated with the first matrix.</p>
+
+<p>3) The method is very much the same as the second method. If <var class="Arg">arrows</var> is a list of the arrows of the quiver (obtained for instance through <code class="code">arrows := ArrowsOfQuiver(Q);</code>), the argument <var class="Arg">mats</var> can have the format <code class="code">[[arrows[1],matrix_1],[arrows[2],matrix_2],.... ].</code></p>
+
+<p>If you would like the trivial vector space at any vertex, then for each incoming arrow "a", associate it with a list of the form <code class="code">["a",[n,0]]</code> where n is the dimension of the vector space at the source vertex of the arrow. Likewise for all outgoing arrows "b", associate them to a block of form <code class="code">["b",[0,n]]</code> where n is the dimension of the vector space at the target vertex of the arrow.</p>
+
+<p>The third function call is the same as the second except that the check (iv) is not performed.</p>
+
+<p>A warning though, the function assumes that you do not mix the styles of inputting the matrices/linear transformations associated to the arrows in the quiver. Furthermore in the two last versions, each arrow needs to be assigned a matrix, otherwise an error will be returned.</p>
+
+<p><a id="X844DD9B386A6AC56" name="X844DD9B386A6AC56"></a></p>
+
+<h5>6.1-2 RightAlgebraModuleToPathAlgebraMatModule</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; RightAlgebraModuleToPathAlgebraMatModule</code>( <var class="Arg">M</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> -- a right module over an algebra. <br /></p>
+
+<p>Returns: a module over a (qoutient of a) path algebra.</p>
+
+<p>This function constructs a right module over a (quotient of a) path algebra <span class="SimpleMath">\(A\)</span> from a RightAlgebraModule over the same algebra <span class="SimpleMath">\(A\)</span>. The function checks if <span class="SimpleMath">\(A\)</span> actually is a quotient of a path algebra and if the module <span class="SimpleMath">\(M\)</span> is finite dimensional and if not, it returns an error message.</p>
+
+<p><a id="X823D5739809A2D9A" name="X823D5739809A2D9A"></a></p>
+
+<h5><code>6.1-3 \=</code></h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; \=</code>( <var class="Arg">M</var>, <var class="Arg">N</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M, N</var> -- two path algebra matrix modules. <br /></p>
+
+<p>Returns: true if <var class="Arg">M</var> and <var class="Arg">N</var> has the same dimension vectors and the same matrices defining the module structure.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Q := Quiver(2, [[1, 2, "a"], [2, 1, "b"],[1, 1, "c"]]);</span>
+&lt;quiver with 2 vertices and 3 arrows&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">P := PathAlgebra(Rationals, Q);</span>
+&lt;Rationals[&lt;quiver with 2 vertices and 3 arrows&gt;]&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">matrices := [["a", [[1,0,0],[0,1,0]]], </span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput"> ["b", [[0,1],[1,0],[0,1]]],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput"> ["c", [[0,0],[1,0]]]];</span>
+[ [ "a", [ [ 1, 0, 0 ], [ 0, 1, 0 ] ] ], 
+  [ "b", [ [ 0, 1 ], [ 1, 0 ], [ 0, 1 ] ] ], 
+  [ "c", [ [ 0, 0 ], [ 1, 0 ] ] ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">M := RightModuleOverPathAlgebra(P,matrices);</span>
+&lt;[ 2, 3 ]&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">mats := [ [[1,0,0], [0,1,0]], [[0,1],[1,0],[0,1]], </span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">          [[0,0],[1,0]] ];; </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">N := RightModuleOverPathAlgebra(P,mats); </span>
+&lt;[ 2, 3 ]&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">arrows := ArrowsOfQuiver(Q);</span>
+[ a, b, c ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">mats := [[arrows[1], [[1,0,0],[0,1,0]]],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">         [arrows[2], [[0,1],[1,0],[0,1]]], </span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">         [arrows[3], [[0,0],[1,0]]]];;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">N := RightModuleOverPathAlgebra(P,mats); </span>
+&lt;[ 2, 3 ]&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput"># Next we give the vertex simple associate to vertex 1. </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">M := RightModuleOverPathAlgebra(P,[["a",[1,0]],["b",[0,1]],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">             ["c",[[0]]]]);</span>
+&lt;[ 1, 0 ]&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput"># The zero module. </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">M := RightModuleOverPathAlgebra(P,[["a",[0,0]],["b",[0,0]],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">             ["c",[0,0]]]);</span>
+&lt;[ 0, 0 ]&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Dimension(M);</span>
+0
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Basis(M);</span>
+Basis( &lt;[ 0, 0 ]&gt;, ... )
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">matrices := [["a", [[1,0,0],[0,1,0]]], ["b",</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput"> [[0,1],[1,0],[0,1]]], ["c", [[0,0],[1,0]]]];</span>
+[ [ "a", [ [ 1, 0, 0 ], [ 0, 1, 0 ] ] ], 
+  [ "b", [ [ 0, 1 ], [ 1, 0 ], [ 0, 1 ] ] ], 
+  [ "c", [ [ 0, 0 ], [ 1, 0 ] ] ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">M := RightModuleOverPathAlgebra(P,[2,3],matrices);</span>
+&lt;[ 2, 3 ]&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">M := RightModuleOverPathAlgebra(P,[2,3],[]);  </span>
+&lt;[ 2, 3 ]&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">A := P/[P.c^2 - P.a*P.b, P.a*P.b*P.c, P.b*P.c];         </span>
+&lt;Rationals[&lt;quiver with 2 vertices and 3 arrows&gt;]/
+&lt;two-sided ideal in &lt;Rationals[&lt;quiver with 2 vertices and 3 arrows&gt;]&gt;
+    , (4 generators)&gt;&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Dimension(A);</span>
+9
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Amod := RightAlgebraModule(A,\*,A);                       </span>
+&lt;9-dimensional right-module over &lt;Rationals[&lt;quiver with 
+2 vertices and 3 arrows&gt;]/
+&lt;two-sided ideal in &lt;Rationals[&lt;quiver with 2 vertices and 3 arrows&gt;]&gt;
+    , (4 generators)&gt;&gt;&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">RightAlgebraModuleToPathAlgebraMatModule(Amod);</span>
+&lt;[ 4, 5 ]&gt; 
+</pre></div>
+
+<p><a id="X869F4DD2877A99BA" name="X869F4DD2877A99BA"></a></p>
+
+<h4>6.2 <span class="Heading">Categories Of Matrix Modules</span></h4>
+
+<p><a id="X8710CC447F1F7B17" name="X8710CC447F1F7B17"></a></p>
+
+<h5>6.2-1 IsPathAlgebraMatModule</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsPathAlgebraMatModule</code>( <var class="Arg">object</var> )</td><td class="tdright">(&nbsp;filter&nbsp;)</td></tr></table></div>
+<p>Returns: true or false depending on whether <var class="Arg">object</var> belongs to the category <code class="code">IsPathAlgebraMatModule</code>.</p>
+
+<p>These matrix modules fall under the category `IsAlgebraModule' with the added filter of `IsPathAlgebraMatModule'. Operations available for algebra modules can be applied to path algebra modules. See <a href="/Users/oyvinso/gap-4.14.0/doc/ref/chap62_mj.html#X818DE6C57D1A4B33"><span class="RefLink">Reference: Representations of Algebras</span></a> for more details. These modules are also vector spaces over the field of the path algebra. So refer to <a href="/Users/oyvinso/gap-4.14.0/doc/ref/chap61_mj.html#X7DAD6700787EC845"><span class="RefLink">Reference: Vector Spaces</span></a> for descriptions of the basis and elementwise operations available.</p>
+
+<p><a id="X862F510485ADBC67" name="X862F510485ADBC67"></a></p>
+
+<h4>6.3 <span class="Heading">Acting on Module Elements</span></h4>
+
+<p><a id="X7BB4066E7D5B15B8" name="X7BB4066E7D5B15B8"></a></p>
+
+<h5>6.3-1 ^</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ^</code>( <var class="Arg">m</var>, <var class="Arg">p</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">m</var> -- an element in a module, <var class="Arg">p</var> -- an element in a quiver algebra. <br /></p>
+
+<p>Returns: the element <var class="Arg">m</var> multiplied with <var class="Arg">p</var>.</p>
+
+<p>When you act on an module element <span class="SimpleMath">\(m\)</span> by an arrow <span class="SimpleMath">\(a\)</span> from <span class="SimpleMath">\(v\)</span> to <span class="SimpleMath">\(w\)</span>, the component of <span class="SimpleMath">\(m\)</span> from <span class="SimpleMath">\(V\)</span> is acted on by <span class="SimpleMath">\(L\)</span> the transformation associated to <span class="SimpleMath">\(a\)</span> and placed in the component <span class="SimpleMath">\(W\)</span>. All other components are given the value <span class="SimpleMath">\(0\)</span>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput"># Using the path algebra P from the above example. </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">matrices := [["a", [[1,0,0],[0,1,0]]], </span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">["b", [[0,1],[1,0],[0,1]]], ["c", [[0,0],[1,0]]]];</span>
+[ [ "a", [ [ 1, 0, 0 ], [ 0, 1, 0 ] ] ], 
+  [ "b", [ [ 0, 1 ], [ 1, 0 ], [ 0, 1 ] ] ], 
+  [ "c", [ [ 0, 0 ], [ 1, 0 ] ] ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">M := RightModuleOverPathAlgebra(P,matrices);</span>
+&lt;[ 2, 3 ]&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">B:=BasisVectors(Basis(M));</span>
+[ [ [ 1, 0 ], [ 0, 0, 0 ] ], [ [ 0, 1 ], [ 0, 0, 0 ] ], 
+  [ [ 0, 0 ], [ 1, 0, 0 ] ], [ [ 0, 0 ], [ 0, 1, 0 ] ], 
+  [ [ 0, 0 ], [ 0, 0, 1 ] ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">B[1] + B[3];</span>
+[ [ 1, 0 ], [ 1, 0, 0 ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">4*B[2];</span>
+[ [ 0, 4 ], [ 0, 0, 0 ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">m := 5*B[1] + 2*B[4]+B[5];</span>
+[ [ 5, 0 ], [ 0, 2, 1 ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">m^(P.a*P.b-P.c);</span>
+[ [ 0, 5 ], [ 0, 0, 0 ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">B[1]^P.a;</span>
+[ [ 0, 0 ], [ 1, 0, 0 ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">B[2]^P.b;</span>
+[ [ 0, 0 ], [ 0, 0, 0 ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">B[4]^(P.b*P.c);</span>
+[ [ 0, 0 ], [ 0, 0, 0 ] ] 
+</pre></div>
+
+<p><a id="X7E5B84B1832D839E" name="X7E5B84B1832D839E"></a></p>
+
+<h4>6.4 <span class="Heading">Operations on representations</span></h4>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Q  := Quiver(3,[[1,2,"a"],[1,2,"b"],[2,2,"c"],[2,3,"d"],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">[3,1,"e"]]);</span>
+&lt;quiver with 3 vertices and 5 arrows&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">KQ := PathAlgebra(Rationals, Q);</span>
+&lt;Rationals[&lt;quiver with 3 vertices and 5 arrows&gt;]&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">gens := GeneratorsOfAlgebra(KQ);</span>
+[ (1)*v1, (1)*v2, (1)*v3, (1)*a, (1)*b, (1)*c, (1)*d, (1)*e ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">u := gens[1];; v := gens[2];;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">w := gens[3];; a := gens[4];;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">b := gens[5];; c := gens[6];;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">d := gens[7];; e := gens[8];;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">rels := [d*e,c^2,a*c*d-b*d,e*a];;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">A := KQ/rels;</span>
+&lt;Rationals[&lt;quiver with 3 vertices and 5 arrows&gt;]/
+&lt;two-sided ideal in &lt;Rationals[&lt;quiver with 3 vertices and 5 arrows&gt;]&gt;
+    , (5 generators)&gt;&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">mat := [["a",[[1,2],[0,3],[1,5]]],["b",[[2,0],[3,0],[5,0]]],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">["c",[[0,0],[1,0]]],["d",[[1,2],[0,1]]],["e",[[0,0,0],[0,0,0]]]];;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">N := RightModuleOverPathAlgebra(A,mat);   </span>
+&lt;[ 3, 2, 2 ]&gt; 
+</pre></div>
+
+<p><a id="X830B834D7F2F0FAD" name="X830B834D7F2F0FAD"></a></p>
+
+<h5>6.4-1 AnnihilatorOfModule</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; AnnihilatorOfModule</code>( <var class="Arg">M</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> -- a path algebra module. <br /></p>
+
+<p>Returns: a basis of the annihilator of the module <var class="Arg">M</var> in the finite dimensional algebra over which <var class="Arg">M</var> is a module.</p>
+
+<p><a id="X83404C0B7C15E7D0" name="X83404C0B7C15E7D0"></a></p>
+
+<h5>6.4-2 BasicVersionOfModule</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; BasicVersionOfModule</code>( <var class="Arg">M</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> -- a path algebra module. <br /></p>
+
+<p>Returns: a basic version of the entered module <var class="Arg">M</var>, that is, if <span class="SimpleMath">\(M \simeq M_1^{n_1} \oplus \cdots \oplus M_t^{n_t},\)</span> where <span class="SimpleMath">\(M_i\)</span> is indecomposable, then <span class="SimpleMath">\(M_1\oplus \cdots \oplus M_t\)</span> is returned. At present, this function only work at best for finite dimensional (quotients of a) path algebra over a finite field. If <var class="Arg">M</var> is zero, then <var class="Arg">M</var> is returned.</p>
+
+<p><a id="X7CD05524803C7777" name="X7CD05524803C7777"></a></p>
+
+<h5>6.4-3 BlockDecompositionOfModule</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; BlockDecompositionOfModule</code>( <var class="Arg">M</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> -- a path algebra module. <br /></p>
+
+<p>Returns: a set of modules <span class="SimpleMath">\(\{M_1,..., M_t\}\)</span> such that <span class="SimpleMath">\(M \simeq M_1\oplus \cdots \oplus M_t,\)</span> where each <span class="SimpleMath">\(M_i\)</span> is isomorphic to <span class="SimpleMath">\(X_i^{n_i}\)</span> for some indecomposable module <span class="SimpleMath">\(X_i\)</span> and positive integer <span class="SimpleMath">\(n_i\)</span> for all <span class="SimpleMath">\(i\)</span>, where <span class="SimpleMath">\(X_i\not\simeq X_j\)</span> for <span class="SimpleMath">\(i\neq j\)</span>.</p>
+
+<p><a id="X85AC0E7C7E3E697D" name="X85AC0E7C7E3E697D"></a></p>
+
+<h5>6.4-4 BlockSplittingIdempotents</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; BlockSplittingIdempotents</code>( <var class="Arg">M</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> -- a path algebra module. <br /></p>
+
+<p>Returns: a set <span class="SimpleMath">\(\{e_1,..., e_t\}\)</span> of idempotents in the endomorphism of <var class="Arg">M</var> such that <span class="SimpleMath">\(M \simeq \Im e_1\oplus \cdots \oplus \Im e_t,\)</span> where each <span class="SimpleMath">\(\Im e_i\)</span> is isomorphic to <span class="SimpleMath">\(X_i^{n_i}\)</span> for some module <span class="SimpleMath">\(X_i\)</span> and positive integer <span class="SimpleMath">\(n_i\)</span> for all <span class="SimpleMath">\(i\)</span>.</p>
+
+<p><a id="X8687EC4878E755CC" name="X8687EC4878E755CC"></a></p>
+
+<h5>6.4-5 CommonDirectSummand</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; CommonDirectSummand</code>( <var class="Arg">M</var>, <var class="Arg">N</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> and <var class="Arg">N</var> -- two path algebra modules. <br /></p>
+
+<p>Returns: a list of four modules [<var class="Arg">X</var>,<var class="Arg">U</var>,<var class="Arg">X</var>, <var class="Arg">V</var>], where <var class="Arg">X</var> is one common non-zero direct summand of <var class="Arg">M</var> and <var class="Arg">N</var>, the sum of <var class="Arg">X</var> and <var class="Arg">U</var> is <var class="Arg">M</var> and the sum of <var class="Arg">X</var> and <var class="Arg">V</var> is <var class="Arg">N</var>, if such a non-zero direct summand exists. Otherwise it returns false.</p>
+
+<p>The function checks if <var class="Arg">M</var> and <var class="Arg">N</var> are <code class="code">PathAlgebraMatModule</code>s over the same (quotient of a) path algebra.</p>
+
+<p><a id="X8376806384B96066" name="X8376806384B96066"></a></p>
+
+<h5>6.4-6 ComplexityOfModule</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ComplexityOfModule</code>( <var class="Arg">M</var>, <var class="Arg">n</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> -- path algebdra module, <var class="Arg">n</var> -- a positive integer. <br /></p>
+
+<p>Returns: an estimate of the complexity of the module <var class="Arg">M</var>.</p>
+
+<p>The function checks if the algebra over which the module <var class="Arg">M</var> lives is known to have finite global dimension. If so, it returns complexity zero. Otherwise it tries to estimate the complexity in the following way. Recall that if a function <span class="SimpleMath">\(f(x)\)</span> is a polynomial in <span class="SimpleMath">\(x\)</span>, the degree of <span class="SimpleMath">\(f(x)\)</span> is given by <span class="SimpleMath">\(\lim_{n\to\infty} \frac{\log |f(n)|}{\log n}\)</span>. So then this function computes an estimate of the complexity of <var class="Arg">M</var> by approximating the complexity by considering the limit <span class="SimpleMath">\(\lim_{m\to \infty} \log \frac{\dim(P(M)(m))}{\log m}\)</span> where <span class="SimpleMath">\(P(M)(m)\)</span> is the <span class="SimpleMath">\(m\)</span>-th projective in a minimal projective resolution of <var class="Arg">M</var> at stage <span class="SimpleMath">\(m\)</span>. This limit is estimated by <span class="SimpleMath">\(\frac{\log \dim(P(M)(n))}{\log n}\)</span>.</p>
+
+<p><a id="X7B0588497D5008A4" name="X7B0588497D5008A4"></a></p>
+
+<h5>6.4-7 DecomposeModule</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; DecomposeModule</code>( <var class="Arg">M</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; DecomposeModuleWithInclusions</code>( <var class="Arg">M</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> -- a path algebra module. <br /></p>
+
+<p>Returns: a list of indecomposable modules whose direct sum is isomorphic to the module <var class="Arg">M</var> in first variant. The second variant returns a list of inclusions into <var class="Arg">M</var> with the sum of the images is isomorphic to the module <var class="Arg">M</var>.</p>
+
+<p>Warning: the function is not properly tested and it at best only works properly over finite fields.</p>
+
+<p><a id="X81EF6AE97A4F77FA" name="X81EF6AE97A4F77FA"></a></p>
+
+<h5>6.4-8 DecomposeModuleProbabilistic</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; DecomposeModuleProbabilistic</code>( <var class="Arg">HomMM</var>, <var class="Arg">M</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">HomMM</var>, <var class="Arg">M</var> -- a list of basis elements of the Hom-space of the entered module and a path algebra module. <br /></p>
+
+<p>Returns: with (hopefully high probability) a list of indecomposable modules whose direct sum is isomorphic to the module <var class="Arg">M</var>.</p>
+
+<p>Given a module <var class="Arg">M</var> over a finite dimensional quotient of a path algebra over a finite field, this function tries to decompose the entered module <var class="Arg">M</var> by choosing random elements in the endomorphism ring of <var class="Arg">M</var> which are non-nilpotent and non-invertible. Such elements splits the module in two direct summands, and the procedure does this as long as it finds such elements. The output is not guaranteed to be a list of indecomposable modules, but their direct sum is isomorphic to the entered module <var class="Arg">M</var>. This was constructed as joint effort by the participants at the workshop "Persistence, Representations, and Computation", February 26th - March 2nd, 2018". This is an experimental function, so use with caution.</p>
+
+<p><a id="X7A4A2B0F7BB16D0D" name="X7A4A2B0F7BB16D0D"></a></p>
+
+<h5>6.4-9 DecomposeModuleViaCharPoly</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; DecomposeModuleViaCharPoly</code>( <var class="Arg">M</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> -- a path algebra module. <br /></p>
+
+<p>Returns: a list with high probability of indecomposable modules whose direct sum is isomorphic to the module <var class="Arg">M</var>.</p>
+
+<p>Given a module <var class="Arg">M</var> over a finite dimensional quotient of a path algebra over a finite field, this function decomposes the entered module <var class="Arg">M</var> by computing the endomorphism ring of <var class="Arg">M</var> and choosing random elements in it. This is an experimental function, so use with caution.</p>
+
+<p><a id="X848EAC6C833C95B1" name="X848EAC6C833C95B1"></a></p>
+
+<h5>6.4-10 DecomposeModuleViaTop</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; DecomposeModuleViaTop</code>( <var class="Arg">M</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> -- a path algebra module. <br /></p>
+
+<p>Returns: a list of indecomposable modules whose direct sum is isomorphic to the module <var class="Arg">M</var>.</p>
+
+<p>Given a module <var class="Arg">M</var> over a finite dimensional quotient of a path algebra over a finite field, this function decomposes the entered module <var class="Arg">M</var> by finding the image <span class="SimpleMath">\(\Sigma\)</span> of the endomorphism ring of <var class="Arg">M</var> in the endomorphism ring of the top of <var class="Arg">M</var>, in <span class="SimpleMath">\(\Sigma\)</span> finds a complete set of primitive idempotents, lifts them back to the endomorphism ring of <var class="Arg">M</var> and decomposes <var class="Arg">M</var>. This is an experimental function, so use with caution.</p>
+
+<p><a id="X7E957BFE7897F504" name="X7E957BFE7897F504"></a></p>
+
+<h5>6.4-11 DecomposeModuleWithMultiplicities</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; DecomposeModuleWithMultiplicities</code>( <var class="Arg">M</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> -- a path algebra module. <br /></p>
+
+<p>Returns: a list of length two, where the first entry is a list of all indecomposable non-isomorphic direct summands of <var class="Arg">M</var> and the second entry is the list of the multiplicities of these direct summand in the module <var class="Arg">M</var>.</p>
+
+<p>Warning: the function is not properly tested and it at best only works properly over finite fields.</p>
+
+<p><a id="X7E38D5A48344C173" name="X7E38D5A48344C173"></a></p>
+
+<h5>6.4-12 Dimension</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Dimension</code>( <var class="Arg">M</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> -- a path algebra module (<code class="code">PathAlgebraMatModule</code>). <br /></p>
+
+<p>Returns: the dimension of the representation <var class="Arg">M</var>.</p>
+
+<p><a id="X7B5EA4B0820DE28C" name="X7B5EA4B0820DE28C"></a></p>
+
+<h5>6.4-13 DimensionVector</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; DimensionVector</code>( <var class="Arg">M</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> -- a path algebra module (<code class="code">PathAlgebraMatModule</code>). <br /></p>
+
+<p>Returns: the dimension vector of the representation <var class="Arg">M</var>.</p>
+
+<p><a id="X7BDD77707A013FBE" name="X7BDD77707A013FBE"></a></p>
+
+<h5>6.4-14 DirectSumOfQPAModules</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; DirectSumOfQPAModules</code>( <var class="Arg">L</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">L</var> -- a list of <code class="code">PathAlgebraMatModule</code>s over the same (quotient of a) path algebra. <br /></p>
+
+<p>Returns: the direct sum of the representations contained in the list <var class="Arg">L</var>.</p>
+
+<p>In addition three attributes are attached to the result, <code class="func">IsDirectSumOfModules</code> (<a href="chap6_mj.html#X7A50C15B87236111"><span class="RefLink">6.4-20</span></a>), <code class="func">DirectSumProjections</code> (<a href="chap6_mj.html#X80CFB7E47A785E12"><span class="RefLink">6.4-16</span></a>) <code class="func">DirectSumInclusions</code> (<a href="chap6_mj.html#X857807CF8560B3C4"><span class="RefLink">6.4-15</span></a>).</p>
+
+<p><a id="X857807CF8560B3C4" name="X857807CF8560B3C4"></a></p>
+
+<h5>6.4-15 DirectSumInclusions</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; DirectSumInclusions</code>( <var class="Arg">M</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> -- a path algebra module (<code class="code">PathAlgebraMatModule</code>). <br /></p>
+
+<p>Returns: the list of inclusions from the individual modules to their direct sum, when a direct sum has been constructed using <code class="func">DirectSumOfQPAModules</code> (<a href="chap6_mj.html#X7BDD77707A013FBE"><span class="RefLink">6.4-14</span></a>).</p>
+
+<p><a id="X80CFB7E47A785E12" name="X80CFB7E47A785E12"></a></p>
+
+<h5>6.4-16 DirectSumProjections</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; DirectSumProjections</code>( <var class="Arg">M</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> -- a path algebra module (<code class="code">PathAlgebraMatModule</code>). <br /></p>
+
+<p>Returns: the list of projections from the direct sum to the individual modules used to construct direct sum, when a direct sum has been constructed using <code class="func">DirectSumOfQPAModules</code> (<a href="chap6_mj.html#X7BDD77707A013FBE"><span class="RefLink">6.4-14</span></a>).</p>
+
+<p><a id="X837AE1BF7F31AD7C" name="X837AE1BF7F31AD7C"></a></p>
+
+<h5>6.4-17 FromIdentityToDoubleStarHomomorphism</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; FromIdentityToDoubleStarHomomorphism</code>( <var class="Arg">M</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> -- a path algebra module (<code class="code">PathAlgebraMatModule</code>). <br /></p>
+
+<p>Returns: the homomorphism from <var class="Arg">M</var> to the double star of the module <var class="Arg">M</var>.</p>
+
+<p><a id="X7FE61CFE7A138755" name="X7FE61CFE7A138755"></a></p>
+
+<h5>6.4-18 IntersectionOfSubmodules</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IntersectionOfSubmodules</code>( <var class="Arg">list</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">f, g</var> or <var class="Arg">list</var> -- two homomorphisms of PathAlgebraMatModules or a list of such. <br /></p>
+
+<p>Returns: the subrepresentation given by the intersection of all the submodules given by the inclusions <var class="Arg">f</var> and <var class="Arg">g</var> or <var class="Arg">list</var>.</p>
+
+<p>The function checks if <var class="Arg">list</var> is non-empty and if <span class="SimpleMath">\(\textit{f}\colon M\to X\)</span> and <span class="SimpleMath">\(\textit{g}\colon N\to X\)</span> or all the homomorphism in <var class="Arg">list</var> have the same range and if they all are inclusions. If the function is given two arguments <var class="Arg">f</var> and <var class="Arg">g</var>, then it returns <span class="SimpleMath">\([f',g',g'*f]\)</span>, where <span class="SimpleMath">\(f'\colon E\to N\)</span>, <span class="SimpleMath">\(g'\colon E\to M\)</span>, and <span class="SimpleMath">\(E\)</span> is the pullback of <var class="Arg">f</var> and <var class="Arg">g</var>. For a list of inclusions it returns a monomorphism from a module isomorphic to the intersection to <span class="SimpleMath">\(X\)</span>.</p>
+
+<p><a id="X7E24DCE07E98E50D" name="X7E24DCE07E98E50D"></a></p>
+
+<h5>6.4-19 IsDirectSummand</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsDirectSummand</code>( <var class="Arg">M</var>, <var class="Arg">N</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M, N</var> -- two path algebra modules (<code class="code">PathAlgebraMatModule</code>s). <br /></p>
+
+<p>Returns: true if <var class="Arg">M</var> is isomorphic to a direct summand of <var class="Arg">N</var>, otherwise false.</p>
+
+<p>The function checks if <var class="Arg">M</var> and <var class="Arg">N</var> are <code class="code">PathAlgebraMatModule</code>s over the same (quotient of a) path algebra.</p>
+
+<p><a id="X7A50C15B87236111" name="X7A50C15B87236111"></a></p>
+
+<h5>6.4-20 IsDirectSumOfModules</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsDirectSumOfModules</code>( <var class="Arg">M</var> )</td><td class="tdright">(&nbsp;filter&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> -- a path algebra module (<code class="code">PathAlgebraMatModule</code>). <br /></p>
+
+<p>Returns: true if <var class="Arg">M</var> is constructed via the command <code class="func">DirectSumOfQPAModules</code> (<a href="chap6_mj.html#X7BDD77707A013FBE"><span class="RefLink">6.4-14</span></a>).</p>
+
+<p>Using the example above.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">N2 := DirectSumOfQPAModules([N,N]);</span>
+&lt;[ 6, 4, 4 ]&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">proj := DirectSumProjections(N2);</span>
+[ &lt;&lt;[ 6, 4, 4 ]&gt; ---&gt; &lt;[ 3, 2, 2 ]&gt;&gt;
+    , &lt;&lt;[ 6, 4, 4 ]&gt; ---&gt; &lt;[ 3, 2, 2 ]&gt;&gt;
+     ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">inc := DirectSumInclusions(N2);</span>
+[ &lt;&lt;[ 3, 2, 2 ]&gt; ---&gt; &lt;[ 6, 4, 4 ]&gt;&gt;
+    , &lt;&lt;[ 3, 2, 2 ]&gt; ---&gt; &lt;[ 6, 4, 4 ]&gt;&gt;
+     ] 
+</pre></div>
+
+<p><a id="X7C9BFC678598DBF6" name="X7C9BFC678598DBF6"></a></p>
+
+<h5>6.4-21 IsExceptionalModule</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsExceptionalModule</code>( <var class="Arg">M</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> -- a path algebra module (<code class="code">PathAlgebraMatModule</code>). <br /></p>
+
+<p>Returns: true if <var class="Arg">M</var> is an exceptional module, otherwise false, if the field, over which the algebra <var class="Arg">M</var> is defined over, is finite.</p>
+
+<p>The module <var class="Arg">M</var> is an exceptional module, if it is indecomposable and <span class="SimpleMath">\(\Ext^1(M,M)=(0)\)</span>.</p>
+
+<p><a id="X82102F847994003E" name="X82102F847994003E"></a></p>
+
+<h5>6.4-22 IsIndecomposableModule</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsIndecomposableModule</code>( <var class="Arg">M</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> -- a path algebra module (<code class="code">PathAlgebraMatModule</code>). <br /></p>
+
+<p>Returns: true if <var class="Arg">M</var> is an indecomposable module, if the field, over which the algebra <var class="Arg">M</var> is defined over, is finite. If <var class="Arg">M</var> is the zero module, then <code class="code">false</code> is returned.</p>
+
+<p><a id="X7E5246D4831DB250" name="X7E5246D4831DB250"></a></p>
+
+<h5>6.4-23 IsInAdditiveClosure</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsInAdditiveClosure</code>( <var class="Arg">M</var>, <var class="Arg">N</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M, N</var> -- two path algebra modules (<code class="code">PathAlgebraMatModule</code>s). <br /></p>
+
+<p>Returns: true if <var class="Arg">M</var> is in the additive closure of the module <var class="Arg">N</var>, otherwise false.</p>
+
+<p>The function checks if <var class="Arg">M</var> and <var class="Arg">N</var> are <code class="code">PathAlgebraMatModule</code>s over the same (quotient of a) path algebra.</p>
+
+<p><a id="X803C2799861FFBC5" name="X803C2799861FFBC5"></a></p>
+
+<h5>6.4-24 IsInjectiveModule</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsInjectiveModule</code>( <var class="Arg">M</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> -- a path algebra module (<code class="code">PathAlgebraMatModule</code>). <br /></p>
+
+<p>Returns: true if the representation <var class="Arg">M</var> is injective.</p>
+
+<p><a id="X7D198BB5808D38F2" name="X7D198BB5808D38F2"></a></p>
+
+<h5>6.4-25 IsomorphicModules</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsomorphicModules</code>( <var class="Arg">M</var>, <var class="Arg">N</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M, N</var> -- two path algebra modules (<code class="code">PathAlgebraMatModule</code>s). <br /></p>
+
+<p>Returns: true or false depending on whether <var class="Arg">M</var> and <var class="Arg">N</var> are isomorphic or not.</p>
+
+<p>The function first checks if the modules <var class="Arg">M</var> and <var class="Arg">N</var> are modules over the same algebra, and returns fail if not. The function returns true if the modules are isomorphic, otherwise false.</p>
+
+<p><a id="X8359AC9585777CA1" name="X8359AC9585777CA1"></a></p>
+
+<h5>6.4-26 IsProjectiveModule</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsProjectiveModule</code>( <var class="Arg">M</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> -- a path algebra module (<code class="code">PathAlgebraMatModule</code>). <br /></p>
+
+<p>Returns: true if the representation <var class="Arg">M</var> is projective.</p>
+
+<p><a id="X7ECEEC6F873A7BA6" name="X7ECEEC6F873A7BA6"></a></p>
+
+<h5>6.4-27 IsRigidModule</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsRigidModule</code>( <var class="Arg">M</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> -- a path algebra module (<code class="code">PathAlgebraMatModule</code>). <br /></p>
+
+<p>Returns: true if <var class="Arg">M</var> is a rigid module, otherwise false.</p>
+
+<p>The module <var class="Arg">M</var> is a rigid module, if <span class="SimpleMath">\(\Ext^1(M,M)=(0)\)</span>.</p>
+
+<p><a id="X7A8BC26E866E44DD" name="X7A8BC26E866E44DD"></a></p>
+
+<h5>6.4-28 IsSemisimpleModule</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsSemisimpleModule</code>( <var class="Arg">M</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> -- a path algebra module (<code class="code">PathAlgebraMatModule</code>). <br /></p>
+
+<p>Returns: true if the representation <var class="Arg">M</var> is semisimple.</p>
+
+<p><a id="X7D2067E57E0244F8" name="X7D2067E57E0244F8"></a></p>
+
+<h5>6.4-29 IsSimpleQPAModule</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsSimpleQPAModule</code>( <var class="Arg">M</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> -- a path algebra module (<code class="code">PathAlgebraMatModule</code>). <br /></p>
+
+<p>Returns: true if the representation <var class="Arg">M</var> is simple.</p>
+
+<p><a id="X7B766424838EE6EA" name="X7B766424838EE6EA"></a></p>
+
+<h5>6.4-30 IsTauRigidModule</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsTauRigidModule</code>( <var class="Arg">M</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> -- a path algebra module (<code class="code">PathAlgebraMatModule</code>). <br /></p>
+
+<p>Returns: true if <var class="Arg">M</var> is a <span class="SimpleMath">\(\tau\)</span>-rigid module, otherwise false.</p>
+
+<p>The module <var class="Arg">M</var> is a <span class="SimpleMath">\(\tau\)</span>-rigid module, if <span class="SimpleMath">\(\Hom(M,\tau M)=(0)\)</span>.</p>
+
+<p><a id="X82663AD8832DD57F" name="X82663AD8832DD57F"></a></p>
+
+<h5>6.4-31 LoewyLength</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; LoewyLength</code>( <var class="Arg">M</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> -- a path algebra module (<code class="code">PathAlgebraMatModule</code>). <br /></p>
+
+<p>Returns: the Loewy length of the module <var class="Arg">M</var>.</p>
+
+<p>The function checks that the module <var class="Arg">M</var> is a module over a finite dimensional quotient of a path algebra, and returns fail otherwise (This is not implemented yet).</p>
+
+<p><a id="X82BDA47282F9BBA7" name="X82BDA47282F9BBA7"></a></p>
+
+<h5>6.4-32 IsZero</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsZero</code>( <var class="Arg">M</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> -- a path algebra module (<code class="code">PathAlgebraMatModule</code>). <br /></p>
+
+<p>Returns: true if <var class="Arg">M</var> is the zero module, otherwise false.</p>
+
+<p><a id="X81BB198380631A9B" name="X81BB198380631A9B"></a></p>
+
+<h5>6.4-33 MatricesOfPathAlgebraModule</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; MatricesOfPathAlgebraModule</code>( <var class="Arg">M</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> -- a path algebra module (<code class="code">PathAlgebraMatModule</code>). <br /></p>
+
+<p>Returns: a list of the matrices that defines the representation <var class="Arg">M</var> as a right module of the acting path algebra.</p>
+
+<p>The list of matrices that are returned are not the same identical to the matrices entered to define the representation if there is zero vector space in at least one vertex. Then zero matrices of the appropriate size are returned.</p>
+
+<p><a id="X7B480767836D0764" name="X7B480767836D0764"></a></p>
+
+<h5>6.4-34 MaximalCommonDirectSummand</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; MaximalCommonDirectSummand</code>( <var class="Arg">M</var>, <var class="Arg">N</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M, N</var> -- two path algebra modules (<code class="code">PathAlgebraMatModule</code>s). <br /></p>
+
+<p>Returns: a list of three modules [<var class="Arg">X</var>,<var class="Arg">U</var>,<var class="Arg">V</var>], where <var class="Arg">X</var> is a maximal common non-zero direct summand of <var class="Arg">M</var> and <var class="Arg">N</var>, the sum of <var class="Arg">X</var> and <var class="Arg">U</var> is <var class="Arg">M</var> and the sum of <var class="Arg">X</var> and <var class="Arg">V</var> is <var class="Arg">N</var>, if such a non-zero maximal direct summand exists. Otherwise it returns false.</p>
+
+<p>The function checks if <var class="Arg">M</var> and <var class="Arg">N</var> are <code class="code">PathAlgebraMatModule</code>s over the same (quotient of a) path algebra.</p>
+
+<p><a id="X7CD05FF985A1D1B3" name="X7CD05FF985A1D1B3"></a></p>
+
+<h5>6.4-35 NumberOfNonIsoDirSummands</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; NumberOfNonIsoDirSummands</code>( <var class="Arg">M</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> -- a path algebra modules (<code class="code">PathAlgebraMatModule</code>s). <br /></p>
+
+<p>Returns: a list with two elements: (1) the number of non-isomorphic indecomposable direct summands of the module <var class="Arg">M</var> and (2) the dimensions of the simple blocks of the semisimple ring <span class="SimpleMath">\(\End(M)/\rad \End(M)\)</span>.</p>
+
+<p><a id="X821FA104861FF19B" name="X821FA104861FF19B"></a></p>
+
+<h5>6.4-36 MinimalGeneratingSetOfModule</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; MinimalGeneratingSetOfModule</code>( <var class="Arg">M</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> -- a path algebra module (<code class="code">PathAlgebraMatModule</code>). <br /></p>
+
+<p>Returns: a minimal generator set of the module <var class="Arg">M</var> as a module of the path algebra it is defined over.</p>
+
+<p><a id="X7E44920683157DE2" name="X7E44920683157DE2"></a></p>
+
+<h5>6.4-37 RadicalOfModule</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; RadicalOfModule</code>( <var class="Arg">M</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> -- a path algebra module (<code class="code">PathAlgebraMatModule</code>). <br /></p>
+
+<p>Returns: the radical of the module <var class="Arg">M</var>.</p>
+
+<p>This returns only the representation given by the radical of the module <var class="Arg">M</var>. The operation <code class="func">RadicalOfModuleInclusion</code> (<a href="chap7_mj.html#X7BF04DAE78E98D9C"><span class="RefLink">7.3-25</span></a>) computes the inclusion of the radical of <var class="Arg">M</var> into <var class="Arg">M</var>. This function applies when the algebra over which <var class="Arg">M</var> is defined is an admissible quotient of a path algebra.</p>
+
+<p><a id="X7929281B848A9FBE" name="X7929281B848A9FBE"></a></p>
+
+<h5>6.4-38 RadicalSeries</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; RadicalSeries</code>( <var class="Arg">M</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> -- a path algebra module (<code class="code">PathAlgebraMatModule</code>). <br /></p>
+
+<p>Returns: the radical series of the module <var class="Arg">M</var>.</p>
+
+<p>The function gives the radical series as a list of vectors <code class="code">[n_1,...,n_s]</code>, where the algebra has <span class="SimpleMath">\(s\)</span> isomorphism classes of simple modules and the numbers give the multiplicity of each simple. The first vector listed corresponds to the top layer, and so on.</p>
+
+<p><a id="X798A50297D2F186E" name="X798A50297D2F186E"></a></p>
+
+<h5>6.4-39 RandomModule</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; RandomModule</code>( <var class="Arg">A</var>, <var class="Arg">m</var>, <var class="Arg">n</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A, m, n</var> -- a quiver algebra, two positive integers. <br /></p>
+
+<p>Returns: a random module over the quiver algebra <var class="Arg">A</var> with a projective presentation <span class="SimpleMath">\(P_1 ---&gt; P_0\)</span> where they have <var class="Arg">m</var> and <var class="Arg">n</var> indecomposable projectives as direct summands.</p>
+
+<p><a id="X84A724267E6F136D" name="X84A724267E6F136D"></a></p>
+
+<h5>6.4-40 SocleSeries</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; SocleSeries</code>( <var class="Arg">M</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> -- a path algebra module (<code class="code">PathAlgebraMatModule</code>). <br /></p>
+
+<p>Returns: the socle series of the module <var class="Arg">M</var>.</p>
+
+<p>The function gives the socle series as a list of vectors <code class="code">[n_1,...,n_s]</code>, where the algebra has <span class="SimpleMath">\(s\)</span> isomorphism classes of simple modules and the numbers give the multiplicity of each simple. The last vector listed corresponds to the socle layer, and so on backwards.</p>
+
+<p><a id="X79DF34618798E866" name="X79DF34618798E866"></a></p>
+
+<h5>6.4-41 SocleOfModule</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; SocleOfModule</code>( <var class="Arg">M</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> -- a path algebra module (<code class="code">PathAlgebraMatModule</code>). <br /></p>
+
+<p>Returns: the socle of the module <var class="Arg">M</var>.</p>
+
+<p>This operation only return the representation given by the socle of the module <var class="Arg">M</var>. The inclusion the socle of <var class="Arg">M</var> into <var class="Arg">M</var> can be computed using <code class="func">SocleOfModuleInclusion</code> (<a href="chap7_mj.html#X82EB23337C5F4DBB"><span class="RefLink">7.3-27</span></a>).</p>
+
+<p><a id="X858AC23C83AC843E" name="X858AC23C83AC843E"></a></p>
+
+<h5>6.4-42 SubRepresentation</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; SubRepresentation</code>( <var class="Arg">M</var>, <var class="Arg">gens</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> -- a path algebra module (<code class="code">PathAlgebraMatModule</code>), <var class="Arg">gens</var> -- elements in <var class="Arg">M</var>. <br /></p>
+
+<p>Returns: the submodule of the module <var class="Arg">M</var> generated by the elements <var class="Arg">gens</var>.</p>
+
+<p>The function checks if <var class="Arg">gens</var> are elements in <var class="Arg">M</var>, and returns an error message otherwise. The inclusion of the submodule generated by the elements <var class="Arg">gens</var> into <var class="Arg">M</var> can be computed using <code class="func">SubRepresentationInclusion</code> (<a href="chap7_mj.html#X7E9BF05587D4A86A"><span class="RefLink">7.3-28</span></a>).</p>
+
+<p><a id="X8653599686499CD6" name="X8653599686499CD6"></a></p>
+
+<h5>6.4-43 SumOfSubmodules</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; SumOfSubmodules</code>( <var class="Arg">list</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">f, g</var> or <var class="Arg">list</var> -- two inclusions of PathAlgebraMatModules or a list of such. <br /></p>
+
+<p>Returns: the subrepresentation given by the sum of all the submodules given by the inclusions <var class="Arg">f, g</var> or <var class="Arg">list</var>.</p>
+
+<p>The function checks if <var class="Arg">list</var> is non-empty and if <span class="SimpleMath">\(\textit{f}\colon M\to X\)</span> and <span class="SimpleMath">\(\textit{g}\colon N\to X\)</span> or all the homomorphism in <var class="Arg">list</var> have the same range and if they all are inclusions. If the function is given two arguments <var class="Arg">f</var> and <var class="Arg">g</var>, then it returns <span class="SimpleMath">\([h,f',g']\)</span>, where <span class="SimpleMath">\(h\colon M + N\to X\)</span>, <span class="SimpleMath">\(f'\colon M\to M + N\)</span> and <span class="SimpleMath">\(g'\colon N\to M + N\)</span>. For a list of inclusions it returns a monomorphism from a module isomorphic to the sum of the subrepresentations to <span class="SimpleMath">\(X\)</span>.</p>
+
+<p><a id="X856EA09A83A5A636" name="X856EA09A83A5A636"></a></p>
+
+<h5>6.4-44 SupportModuleElement</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; SupportModuleElement</code>( <var class="Arg">m</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">m</var> -- an element of a path algebra module. <br /></p>
+
+<p>Returns: the primitive idempotents <var class="Arg">v</var> in the algebra over which the module containing the element <var class="Arg">m</var> is a module, such that <var class="Arg">m^v</var> is non-zero.</p>
+
+<p>The function checks if <var class="Arg">m</var> is an element in a module over a (quotient of a) path algebra, and returns fail otherwise.</p>
+
+<p><a id="X87F571327E43AFB4" name="X87F571327E43AFB4"></a></p>
+
+<h5>6.4-45 TopOfModule</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; TopOfModule</code>( <var class="Arg">M</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> or <var class="Arg">f</var> -- a path algebra module or a homomorphism thereof. <br /></p>
+
+<p>Returns: the top of the module <var class="Arg">M</var> or the homomorphism induced on the top of the modules associated to the homomorphism <var class="Arg">f</var>.</p>
+
+<p>This returns only the representation given by the top of the module <var class="Arg">M</var> or the homomorphism induced on the top of the modules associated to the entered homomorphism. The operation <code class="func">TopOfModuleProjection</code> (<a href="chap7_mj.html#X804BD7CD804E63C4"><span class="RefLink">7.3-29</span></a>) computes the projection of the module <var class="Arg">M</var> onto the top of the module <var class="Arg">M</var>.</p>
+
+<p><a id="X7919F94382D9B38B" name="X7919F94382D9B38B"></a></p>
+
+<h4>6.5 <span class="Heading">Special representations</span></h4>
+
+<p>Here we collect the predefined representations/modules over a finite dimensional quotient of a path algebra.</p>
+
+<p><a id="X8048CD27796253CA" name="X8048CD27796253CA"></a></p>
+
+<h5>6.5-1 BasisOfProjectives</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; BasisOfProjectives</code>( <var class="Arg">A</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> -- a finite dimensional (quotient of a) path algebra. <br /></p>
+
+<p>Returns: a list of bases for all the indecomposable projective representations over <var class="Arg">A</var>. The basis for each indecomposable projective is given a list of elements in nontips in <var class="Arg">A</var>.</p>
+
+<p>The function checks if the algebra <var class="Arg">A</var> is a finite dimensional (quotient of a) path algebra, and returns an error message otherwise.</p>
+
+<p><a id="X822401E583C75FCE" name="X822401E583C75FCE"></a></p>
+
+<h5>6.5-2 ElementInIndecProjective</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ElementInIndecProjective</code>( <var class="Arg">A</var>, <var class="Arg">m</var>, <var class="Arg">s</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> -- a QuiverAlgebra, <var class="Arg">m</var> -- an element in an indecomposable projective representation, <var class="Arg">s</var> -- an integer. <br /></p>
+
+<p>Returns: the element in the path algebra corresponding to <var class="Arg">m</var> in the right ideal from which the indecomposable projective representation is constructed.</p>
+
+<p><a id="X7E298A807E5EB1A8" name="X7E298A807E5EB1A8"></a></p>
+
+<h5>6.5-3 ElementIn_vA_AsElementInIndecProj</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ElementIn_vA_AsElementInIndecProj</code>( <var class="Arg">A</var>, <var class="Arg">m</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> -- a QuiverAlgebra, <var class="Arg">m</var> -- an element in <var class="Arg">vA</var> for a vertex <var class="Arg">v</var>. <br /></p>
+
+<p>Returns: the corresponding element in the indecomposable projective representation assosicated with the vertex <var class="Arg">v</var>.</p>
+
+<p><a id="X87741234871B1F5C" name="X87741234871B1F5C"></a></p>
+
+<h5>6.5-4 IndecInjectiveModules</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IndecInjectiveModules</code>( <var class="Arg">A</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> -- a finite dimensional (quotient of a) path algebra. <br /></p>
+
+<p>Returns: a list of all the non-isomorphic indecomposable injective representations over <var class="Arg">A</var>.</p>
+
+<p>The function checks if the algebra <var class="Arg">A</var> is a finite dimensional (quotient of a) path algebra, and returns an error message otherwise.</p>
+
+<p><a id="X85EDCFE27F66093F" name="X85EDCFE27F66093F"></a></p>
+
+<h5>6.5-5 IndecProjectiveModules</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IndecProjectiveModules</code>( <var class="Arg">A</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> -- a finite dimensional (quotient of a) path algebra. <br /></p>
+
+<p>Returns: a list of all the non-isomorphic indecomposable projective representations over <var class="Arg">A</var>.</p>
+
+<p>The function checks if the algebra <var class="Arg">A</var> is a finite dimensional (quotient of a) path algebra, and returns an error message otherwise.</p>
+
+<p><a id="X7C61261F7C5E53B8" name="X7C61261F7C5E53B8"></a></p>
+
+<h5>6.5-6 SimpleModules</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; SimpleModules</code>( <var class="Arg">A</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> -- a finite dimensional (admissible quotient of a) path algebra. <br /></p>
+
+<p>Returns: a list of all the simple representations over <var class="Arg">A</var> .</p>
+
+<p>The function checks if the algebra <var class="Arg">A</var> is a finite dimensional (admissible quotient of a) path algebra, and returns an error message otherwise.</p>
+
+<p><a id="X7CCE2D12807AA35A" name="X7CCE2D12807AA35A"></a></p>
+
+<h5>6.5-7 ZeroModule</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ZeroModule</code>( <var class="Arg">A</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> -- a finite dimensional (quotient of a) path algebra. <br /></p>
+
+<p>Returns: the zero representation over <var class="Arg">A</var>.</p>
+
+<p>The function checks if the algebra <var class="Arg">A</var> is a finite dimensional (quotient of a) path algebra, and returns an error message otherwise.</p>
+
+<p><a id="X7D99BF5A87DDC099" name="X7D99BF5A87DDC099"></a></p>
+
+<h4>6.6 <span class="Heading">Functors on representations</span></h4>
+
+<p><a id="X82D7B50A7ACA47BF" name="X82D7B50A7ACA47BF"></a></p>
+
+<h5>6.6-1 DualOfModule</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; DualOfModule</code>( <var class="Arg">M</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> -- a <code class="code">PathAlgebraMatModule</code>. <br /></p>
+
+<p>Returns: the dual of <var class="Arg">M</var> over the opposite algebra <span class="SimpleMath">\(A^\op\)</span>, if <var class="Arg">M</var> is a module over <span class="SimpleMath">\(A\)</span>.</p>
+
+<p><a id="X847DDC417BFB8515" name="X847DDC417BFB8515"></a></p>
+
+<h5>6.6-2 DualOfModuleHomomorphism</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; DualOfModuleHomomorphism</code>( <var class="Arg">f</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">f</var> -- a map between two representations <var class="Arg">M</var> and <var class="Arg">N</var> over a path algebra <span class="SimpleMath">\(A\)</span>. <br /></p>
+
+<p>Returns: the dual of this map over the opposite path algebra <var class="Arg">A^\op</var>.</p>
+
+<p><a id="X82D31F887C14E921" name="X82D31F887C14E921"></a></p>
+
+<h5>6.6-3 DTr</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; DTr</code>( <var class="Arg">M</var>[, <var class="Arg">n</var>] )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; DualOfTranspose</code>( <var class="Arg">M</var>[, <var class="Arg">n</var>] )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> -- a path algebra module, (optional) <var class="Arg">n</var> -- an integer. <br /></p>
+
+<p>Returns: the dual of the transpose of <var class="Arg">M</var> when called with only one argument, while it returns the dual of the transpose applied to <var class="Arg">M</var> <var class="Arg">n</var> times otherwise. If <var class="Arg">n</var> is negative, then powers of <code class="code">TrD</code> are computed. <code class="func">DualOfTranspose</code> is a synonym for <code class="func">DTr</code>.</p>
+
+<p><a id="X82D31F887C14E921" name="X82D31F887C14E921"></a></p>
+
+<h5>6.6-4 DTr</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; DTr</code>( <var class="Arg">f</var>[, <var class="Arg">n</var>] )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">f</var> -- a path algebra module homomorphism and <var class="Arg">n</var> -- an integer.<br /></p>
+
+<p>Returns: the <var class="Arg">n</var>-th power of the dual of the transpose of the homomorphism <var class="Arg">f</var>.</p>
+
+<p><a id="X82ACC83D7EF5B32C" name="X82ACC83D7EF5B32C"></a></p>
+
+<h5>6.6-5 NakayamaFunctorOfModule</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; NakayamaFunctorOfModule</code>( <var class="Arg">M</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> -- a <code class="code">PathAlgebraMatModule</code>. <br /></p>
+
+<p>Returns: the module <span class="SimpleMath">\(\Hom_K(\Hom_A(M,A), K)\)</span> over <span class="SimpleMath">\(A\)</span>, when <var class="Arg">M</var> is a module over a <span class="SimpleMath">\(K\)</span>-algebra <span class="SimpleMath">\(A\)</span>.</p>
+
+<p><a id="X865C241C86D6168F" name="X865C241C86D6168F"></a></p>
+
+<h5>6.6-6 NakayamaFunctorOfModuleHomomorphism</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; NakayamaFunctorOfModuleHomomorphism</code>( <var class="Arg">f</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">f</var> -- a map between two modules <var class="Arg">M</var> and <var class="Arg">N</var> over a path algebra <span class="SimpleMath">\(A\)</span>. <br /></p>
+
+<p>Returns: the homomorphism induced by <span class="SimpleMath">\(f\colon M\to N\)</span> from the module <span class="SimpleMath">\(\Hom_K(\Hom_A(M,A),K)\)</span> to <span class="SimpleMath">\(\Hom_K(\Hom_A(N,A), K)\)</span>, when <var class="Arg">f</var> is a module homomorphism over a <span class="SimpleMath">\(K\)</span>-algebra <var class="Arg">A</var>.</p>
+
+<p><a id="X78E724307D9FE41D" name="X78E724307D9FE41D"></a></p>
+
+<h5>6.6-7 OppositeNakayamaFunctorOfModule</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; OppositeNakayamaFunctorOfModule</code>( <var class="Arg">M</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> -- a <code class="code">PathAlgebraMatModule</code>. <br /></p>
+
+<p>Returns: the module <span class="SimpleMath">\(\Hom_A(\Hom_K(M,K), A)\)</span> over <span class="SimpleMath">\(A\)</span>, when <var class="Arg">M</var> is a module over a <span class="SimpleMath">\(K\)</span>-algebra <span class="SimpleMath">\(A\)</span>.</p>
+
+<p><a id="X82A057C5824917FA" name="X82A057C5824917FA"></a></p>
+
+<h5>6.6-8 OppositeNakayamaFunctorOfModuleHomomorphism</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; OppositeNakayamaFunctorOfModuleHomomorphism</code>( <var class="Arg">f</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">f</var> -- a map between two modules <var class="Arg">M</var> and <var class="Arg">N</var> over a path algebra <span class="SimpleMath">\(A\)</span>. <br /></p>
+
+<p>Returns: the homomorphism induced by <span class="SimpleMath">\(f\colon M\to N\)</span> from the module <span class="SimpleMath">\(\Hom_A(\Hom_K(M,K),A)\)</span> to <span class="SimpleMath">\(\Hom_A(\Hom_K(N,K), A)\)</span>, when <var class="Arg">f</var> is a module homomorphism over a <span class="SimpleMath">\(K\)</span>-algebra <var class="Arg">A</var>.</p>
+
+<p><a id="X818DD1A67A5C03AB" name="X818DD1A67A5C03AB"></a></p>
+
+<h5>6.6-9 RestrictionViaAlgebraHomomorphism</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; RestrictionViaAlgebraHomomorphism</code>( <var class="Arg">f</var>, <var class="Arg">M</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">f</var> -- an IsAlgebraHomomorphism, <var class="Arg">M</var> -- an IsPathAlgebraMatModule. <br /></p>
+
+<p>Returns: Given an algebra homomorphism <span class="SimpleMath">\(f \colon A \hookrightarrow B\)</span> and a module <var class="Arg">M</var> over <span class="SimpleMath">\(B\)</span>, this function returns <var class="Arg">M</var> as a module over <span class="SimpleMath">\(A\)</span>.</p>
+
+<p><a id="X86267BD982DB2221" name="X86267BD982DB2221"></a></p>
+
+<h5>6.6-10 RestrictionViaAlgebraHomomorphismMap</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; RestrictionViaAlgebraHomomorphismMap</code>( <var class="Arg">f</var>, <var class="Arg">h</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">f</var> -- an IsAlgebraHomomorphism, <var class="Arg">h</var> -- an IsPathAlgebraMatModuleHomomorphism. <br /></p>
+
+<p>Returns: Given an algebra homomorphism <span class="SimpleMath">\(f \colon A \hookrightarrow B\)</span> and a homomorphism of modules <var class="Arg">h</var> from <span class="SimpleMath">\(M\)</span> to <span class="SimpleMath">\(N\)</span> over <span class="SimpleMath">\(B\)</span>, this function returns the induced homomorphism induced by <var class="Arg">h</var> as a homomorphism over <span class="SimpleMath">\(A\)</span>.</p>
+
+<p><a id="X7F07712F786AAEFD" name="X7F07712F786AAEFD"></a></p>
+
+<h5>6.6-11 StarOfModule</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; StarOfModule</code>( <var class="Arg">M</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> -- a <code class="code">PathAlgebraMatModule</code>. <br /></p>
+
+<p>Returns: the module <span class="SimpleMath">\(\Hom_A(M,A)\)</span> over the opposite of <span class="SimpleMath">\(A\)</span>, when <var class="Arg">M</var> is a module over an algebra <span class="SimpleMath">\(A\)</span>.</p>
+
+<p><a id="X80AF678D795B6C57" name="X80AF678D795B6C57"></a></p>
+
+<h5>6.6-12 StarOfModuleHomomorphism</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; StarOfModuleHomomorphism</code>( <var class="Arg">f</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">f</var> -- a map between two modules <var class="Arg">M</var> and <var class="Arg">N</var> over a path algebra <span class="SimpleMath">\(A\)</span>. <br /></p>
+
+<p>Returns: the homomorphism induced by <span class="SimpleMath">\(f\colon M\to N\)</span> from the module <span class="SimpleMath">\(\Hom_A(N,A)\)</span> to <span class="SimpleMath">\(\Hom_A(M,A)\)</span>, when <var class="Arg">f</var> is a module homomorphism over an algebra <var class="Arg">A</var>.</p>
+
+<p><a id="X814EE88D8474A99D" name="X814EE88D8474A99D"></a></p>
+
+<h5>6.6-13 TensorProductOfModules</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; TensorProductOfModules</code>( <var class="Arg">M</var>, <var class="Arg">N</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var>, <var class="Arg">N</var> -- two path algebra modules<br /></p>
+
+<p>Returns: the tensor product <span class="SimpleMath">\(M\otimes_A N\)</span> as a vector space and a function <span class="SimpleMath">\(M\times N \to M\otimes_A N\)</span>, given two representations <var class="Arg">M</var> and <var class="Arg">N</var>, where <var class="Arg">M</var> is a right module over <span class="SimpleMath">\(A\)</span> and <var class="Arg">N</var> is a right module over the opposite of <span class="SimpleMath">\(A\)</span>.</p>
+
+<p><a id="X7939949279208FA3" name="X7939949279208FA3"></a></p>
+
+<h5>6.6-14 TrD</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; TrD</code>( <var class="Arg">M</var>[, <var class="Arg">n</var>] )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; TransposeOfDual</code>( <var class="Arg">M</var>[, <var class="Arg">n</var>] )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> -- a path algebra module, (optional) <var class="Arg">n</var> -- an integer. <br /></p>
+
+<p>Returns: the transpose of the dual of <var class="Arg">M</var> when called with only one argument, while it returns the transpose of the dual applied to <var class="Arg">M</var> <var class="Arg">n</var> times otherwise. If <var class="Arg">n</var> is negative, then powers of <code class="code">TrD</code> are computed. <code class="func">TransposeOfDual</code> is a synonym for <code class="func">TrD</code>.</p>
+
+<p><a id="X7939949279208FA3" name="X7939949279208FA3"></a></p>
+
+<h5>6.6-15 TrD</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; TrD</code>( <var class="Arg">f</var>[, <var class="Arg">n</var>] )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">f</var> -- a path algebra module homomorphism, <var class="Arg">n</var> -- an integer.<br /></p>
+
+<p>Returns: the <var class="Arg">n</var>-th power of the transpose of the dual of the homomorphism <var class="Arg">f</var>.</p>
+
+<p><a id="X79C0B620842128AF" name="X79C0B620842128AF"></a></p>
+
+<h5>6.6-16 TransposeOfModule</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; TransposeOfModule</code>( <var class="Arg">M</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> -- a path algebra module. <br /></p>
+
+<p>Returns: the transpose of the module <var class="Arg">M</var>.</p>
+
+<p><a id="X80C4C3BF80B39D66" name="X80C4C3BF80B39D66"></a></p>
+
+<h5>6.6-17 TransposeOfModuleHomomorphism</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; TransposeOfModuleHomomorphism</code>( <var class="Arg">f</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">f</var> -- a path algebra module homomorphism. <br /></p>
+
+<p>Returns: the transpose of the module homomorphism <var class="Arg">f</var>.</p>
+
+<p><a id="X84F07A1579CBC26A" name="X84F07A1579CBC26A"></a></p>
+
+<h4>6.7 <span class="Heading">Vertex projective modules and submodules thereof</span></h4>
+
+<p>In general, if <span class="SimpleMath">\(R\)</span> is a ring and <span class="SimpleMath">\(e\)</span> is an idempotent of <span class="SimpleMath">\(R\)</span>, then <span class="SimpleMath">\(eR\)</span> is a projective module of <span class="SimpleMath">\(R\)</span>. Then we can form a direct sum of these projective modules together to form larger projective module. One can construct more general modules by providing a <var class="Arg">vertex projective presentation</var>. In this case, <span class="SimpleMath">\(M\)</span> is the cokernel as given by the following exact sequence: <span class="SimpleMath">\(\oplus_{j=1}^{r} w(j)R \rightarrow \oplus_{i=1}^{g} v(i)R \rightarrow{M} \rightarrow 0\)</span> for some map between <span class="SimpleMath">\(\oplus_{j=1}^{r} w(j)R\)</span> and <span class="SimpleMath">\(\oplus_{i=1}^{g} v(i)R\)</span>. The maps <span class="SimpleMath">\(w\)</span> and <span class="SimpleMath">\(v\)</span> map the integers to some idempotent in <span class="SimpleMath">\(R\)</span>.</p>
+
+<p><a id="X79175B097A0718FE" name="X79175B097A0718FE"></a></p>
+
+<h5>6.7-1 RightProjectiveModule</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; RightProjectiveModule</code>( <var class="Arg">A</var>, <var class="Arg">verts</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> -- a (quotient of a) path algebra, <var class="Arg">verts</var> -- a list of vertices. <br /></p>
+
+<p>Returns: the right projective module over <var class="Arg">A</var> which is the direct sum of projective modules of the form <var class="Arg">vA</var> where the vertices are taken from <var class="Arg">verts</var>.</p>
+
+<p>The module created is in the category <code class="code">IsPathAlgebraModule</code>. In this implementation the algebra can be a quotient of a path algebra. So if the list was <span class="SimpleMath">\([v,w]\)</span> then the module created will be the direct sum <span class="SimpleMath">\(vA \oplus wA\)</span>, in that order. Elements of the modules are vectors of algebra elements, and in each component, each path begins with the vertex in that position in the list of vertices. Right projective modules are implemented as algebra modules (see <a href="/Users/oyvinso/gap-4.14.0/doc/ref/chap62_mj.html#X818DE6C57D1A4B33"><span class="RefLink">Reference: Representations of Algebras</span></a>) and all operations for algebra modules are applicable to right projective modules. In particular, one can construct submodules using <code class="func">SubAlgebraModule</code> (<a href="/Users/oyvinso/gap-4.14.0/doc/ref/chap62_mj.html#X8742A7D27F26AFAB"><span class="RefLink">Reference: SubAlgebraModule</span></a>).</p>
+
+<p>Here we create the right projective module <span class="SimpleMath">\(P = vA \oplus vA \oplus wA\)</span>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">F := GF(11);</span>
+GF(11)
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Q := Quiver(["v","w", "x"],[["v","w","a"],["v","w","b"],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">["w","x","c"]]);</span>
+&lt;quiver with 3 vertices and 3 arrows&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">A := PathAlgebra(F,Q);</span>
+&lt;GF(11)[&lt;quiver with 3 vertices and 3 arrows&gt;]&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">P := RightProjectiveModule(A,[A.v,A.v,A.w]);</span>
+&lt;right-module over &lt;GF(11)[&lt;quiver with 3 vertices and 3 arrows&gt;]&gt;&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Dimension(P);</span>
+12 
+</pre></div>
+
+<p><a id="X855EFF36842AA3AE" name="X855EFF36842AA3AE"></a></p>
+
+<h5>6.7-2 CompletelyReduceGroebnerBasisForModule</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; CompletelyReduceGroebnerBasisForModule</code>( <var class="Arg">GB</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">GB</var> -- an right Groebner basis for a (submodule of a) vertex projective module over a path algebra. <br /></p>
+
+<p>Returns: a completely reduced right Groebner basis from the entered Groebner basis <var class="Arg">GB</var>.</p>
+
+<p>This function takes as input an right Groebner basis for a vertex projective module or a submodule thereof, an constructs completely reduced right Groebner from it.</p>
+
+<p><a id="X7D931FBF7BF64C7C" name="X7D931FBF7BF64C7C"></a></p>
+
+<h5>6.7-3 IsLeftDivisible</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsLeftDivisible</code>( <var class="Arg">x</var>, <var class="Arg">y</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">x, y</var> -- two path algebra vectors. <br /></p>
+
+<p>Returns: true if the tip of <var class="Arg">y</var> left divides the tip of <var class="Arg">x</var>. False otherwise.</p>
+
+<p>Given two PathAlgebraVectors <var class="Arg">x</var> and <var class="Arg">y</var>, then <var class="Arg">y</var> is said to left divide <var class="Arg">x</var>, if the tip of <var class="Arg">x</var> and the tip of <var class="Arg">y</var> occur in the same coordinate, and the tipmonomial of the tip of <var class="Arg">y</var> leftdivides the tipmonomial of the tip of <var class="Arg">x</var>.</p>
+
+<p><a id="X82A8398478788A5A" name="X82A8398478788A5A"></a></p>
+
+<h5>6.7-4 IsPathAlgebraModule</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsPathAlgebraModule</code>( <var class="Arg">P</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">P</var> -- any object. <br /></p>
+
+<p>Returns: true if the argument <var class="Arg">P</var> is in the category <code class="code">IsPathAlgebraModule</code>.</p>
+
+<p><a id="X83DC9F63800A8812" name="X83DC9F63800A8812"></a></p>
+
+<h5>6.7-5 IsPathAlgebraVector</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsPathAlgebraVector</code>( <var class="Arg">v</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">v</var> -- a path algebra vector. <br /></p>
+
+<p>Returns: true if <var class="Arg">v</var> has been constructed as a PathAlgebraVector. Otherwise it returns false.</p>
+
+<p><a id="X7935C4407BCB6F38" name="X7935C4407BCB6F38"></a></p>
+
+<h5>6.7-6 LeadingCoefficient (of PathAlgebraVector)</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; LeadingCoefficient (of PathAlgebraVector)</code>( <var class="Arg">x</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">x</var> -- an element in a PathAlgebraModule. <br /></p>
+
+<p>Returns: the coefficient of the leading term/tip of a <code class="code">PathAlgebraVector</code>.</p>
+
+<p>The tip of the element <var class="Arg">x</var> can by found by applying the command <code class="func">LeadingTerm (of PathAlgebraVector)</code> (<a href="chap6_mj.html#X7E705C5C825D9187"><span class="RefLink">6.7-9</span></a>).</p>
+
+<p><a id="X87DE0FE482A17ECC" name="X87DE0FE482A17ECC"></a></p>
+
+<h5>6.7-7 LeadingComponent</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; LeadingComponent</code>( <var class="Arg">v</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">v</var> -- a path algebra vector. <br /></p>
+
+<p>Returns: <code class="code">v[pos]</code>, where <code class="code">pos</code> is the coordinate for the tip of the vector, whenever <var class="Arg">v</var> is non-zero. That is, it returns the coordinate of the vector <var class="Arg">v</var> where the tip occors. It returns zero otherwise.</p>
+
+<p><a id="X839C070B7BAAE5DC" name="X839C070B7BAAE5DC"></a></p>
+
+<h5>6.7-8 LeadingPosition</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; LeadingPosition</code>( <var class="Arg">v</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">v</var> -- a path algebra vector. <br /></p>
+
+<p>Returns: the coordinate in which the tip of the vector occurs.</p>
+
+<p><a id="X7E705C5C825D9187" name="X7E705C5C825D9187"></a></p>
+
+<h5>6.7-9 LeadingTerm (of PathAlgebraVector)</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; LeadingTerm (of PathAlgebraVector)</code>( <var class="Arg">x</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">x</var> -- an element in a PathAlgebraModule. <br /></p>
+
+<p>Returns: the leading term/tip of a <code class="code">PathAlgebraVector</code>.</p>
+
+<p>The tip of the element <var class="Arg">x</var> is computed using the following order: the tip is computed for each coordinate, if the largest of these occur as a tip of several coordinates, then the coordinate with the smallest index from 1 to the length of vector is chosen. The position of the tip was computed when the <code class="code">PathAlgebraVector</code> was created.</p>
+
+<p><a id="X8593BCDB8402C46C" name="X8593BCDB8402C46C"></a></p>
+
+<h5>6.7-10 LeftDivision</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; LeftDivision</code>( <var class="Arg">x</var>, <var class="Arg">y</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">x, y</var> -- two path algebra vectors. <br /></p>
+
+<p>Returns: a scalar multiple of a path, say <span class="SimpleMath">\(\lambda\)</span> such that the tips of <span class="SimpleMath">\(y*\lambda\)</span> and <span class="SimpleMath">\(x\)</span> are the same, if the tip of <var class="Arg">y</var> left divides the tip of <var class="Arg">x</var>. False otherwise.</p>
+
+<p>In the following example, we create two elements in <span class="SimpleMath">\(P\)</span>, perform some elementwise operations, and then construct a submodule using the two elements as generators.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">p1 := Vectorize(P,[A.b*A.c,A.a*A.c,A.c]);</span>
+[ (Z(11)^0)*b*c, (Z(11)^0)*a*c, (Z(11)^0)*c ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">p2 := Vectorize(P,[A.a,A.b,A.w]);</span>
+[ (Z(11)^0)*a, (Z(11)^0)*b, (Z(11)^0)*w ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">2*p1 + p2;</span>
+[ (Z(11)^0)*a+(Z(11))*b*c, (Z(11)^0)*b+(Z(11))*a*c, 
+  (Z(11)^0)*w+(Z(11))*c ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">S := SubAlgebraModule(P,[p1,p2]);</span>
+&lt;right-module over &lt;GF(11)[&lt;quiver with 3 vertices and 3 arrows&gt;]&gt;&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Dimension(S);</span>
+3 
+</pre></div>
+
+<p><a id="X8749643879D32A01" name="X8749643879D32A01"></a></p>
+
+<h5>6.7-11 ^</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ^</code>( <var class="Arg">m</var>, <var class="Arg">a</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">m</var> -- an element of a path algebra module, <var class="Arg">a</var> -- an element of a path algebra. <br /></p>
+
+<p>Returns: the element <var class="Arg">m</var> multiplied with <var class="Arg">a</var>.</p>
+
+<p>This action is defined by multiplying each component in <var class="Arg">m</var> by <var class="Arg">a</var> on the right.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">p2^(A.c - A.w);</span>
+[ (Z(11)^5)*a+(Z(11)^0)*a*c, (Z(11)^5)*b+(Z(11)^0)*b*c, 
+  (Z(11)^5)*w+(Z(11)^0)*c ] 
+</pre></div>
+
+<p><a id="X87B186CE868FCB30" name="X87B186CE868FCB30"></a></p>
+
+<h5>6.7-12 &lt;</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; &lt;</code>( <var class="Arg">m1</var>, <var class="Arg">m2</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">m1, m2</var> -- two elements of a PathAlgebraModule. <br /></p>
+
+<p>Returns: `true' if <var class="Arg">m1</var> is less than <var class="Arg">m2</var> and false otherwise.</p>
+
+<p>Elements are compared componentwise from left to right using the ordering of the underlying algebra. The element <var class="Arg">m1</var> is less than <var class="Arg">m2</var> if the first time components are not equal, the component of <var class="Arg">m1</var> is less than the corresponding component of <var class="Arg">m2</var>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">p1 &lt; p2;</span>
+false 
+</pre></div>
+
+<p><a id="X7F51DF007F51DF00" name="X7F51DF007F51DF00"></a></p>
+
+<h5>6.7-13 /</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; /</code>( <var class="Arg">M</var>, <var class="Arg">N</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M, N</var> -- two finite dimensional <code class="code">PathAlgebraModule</code>s. <br /></p>
+
+<p>Returns: the factor module <span class="SimpleMath">\(M/N\)</span>.</p>
+
+<p>This module is again a right algebra module, and all applicable methods and operations are available for the resulting factor module. Furthermore, the resulting module is a vector space, so operations for computing bases and dimensions are also available.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">PS := P/S;</span>
+&lt;9-dimensional right-module over &lt;GF(11)[&lt;quiver with 3 vertices and 
+3 arrows&gt;]&gt;&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Basis(PS);</span>
+Basis( &lt;9-dimensional right-module over &lt;GF(11)[&lt;quiver with 
+3 vertices and 3 arrows&gt;]&gt;&gt;, 
+[ [ [ &lt;zero&gt; of ..., (Z(11)^0)*v, &lt;zero&gt; of ... ] ], 
+  [ [ (Z(11)^0)*v, &lt;zero&gt; of ..., &lt;zero&gt; of ... ] ], 
+  [ [ &lt;zero&gt; of ..., &lt;zero&gt; of ..., (Z(11)^0)*w ] ], 
+  [ [ &lt;zero&gt; of ..., (Z(11)^0)*a, &lt;zero&gt; of ... ] ], 
+  [ [ (Z(11)^0)*a, &lt;zero&gt; of ..., &lt;zero&gt; of ... ] ], 
+  [ [ (Z(11)^0)*b, &lt;zero&gt; of ..., &lt;zero&gt; of ... ] ], 
+  [ [ &lt;zero&gt; of ..., &lt;zero&gt; of ..., (Z(11)^0)*c ] ], 
+  [ [ &lt;zero&gt; of ..., (Z(11)^0)*a*c, &lt;zero&gt; of ... ] ], 
+  [ [ (Z(11)^0)*a*c, &lt;zero&gt; of ..., &lt;zero&gt; of ... ] ] ] ) 
+</pre></div>
+
+<p><a id="X7B3C31F17E6FB3CD" name="X7B3C31F17E6FB3CD"></a></p>
+
+<h5>6.7-14 PathAlgebraVector</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; PathAlgebraVector</code>( <var class="Arg">fam</var>, <var class="Arg">components</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">fam</var> -- a PathAlgebraVectorFamily, <var class="Arg">components</var> -- a homogeneous list of elements. <br /></p>
+
+<p>Returns: a PathAlgebraVector in the PathAlgebraVectorFamily <var class="Arg">fam</var> with the components of the vector being equal to <var class="Arg">components</var>.</p>
+
+<p>This function is typically used when constructing elements of a module constructed by the command <code class="code">RightProjectiveModule</code>. If <code class="code">P</code> is constructed as say, <code class="code">P := RightProjectiveModule(KQ, [KQ.v1, KQ.v1, KQ.v2])</code>, then <code class="code">ExtRepOfObj(p)</code>, where <code class="code">p</code> is an element if <code class="code">P</code> is a <code class="code">PathAlgebraVector</code>. The tip is computed using the following ordering: the tip is computed for each coordinate, if the largest of these occur as a tip of several coordinates, then the coordinate with the smallest index from 1 to the length of vector is chosen.</p>
+
+<p><a id="X850B83A0801EE970" name="X850B83A0801EE970"></a></p>
+
+<h5>6.7-15 ProjectivePathAlgebraPresentation</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ProjectivePathAlgebraPresentation</code>( <var class="Arg">M</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> -- a finite dimensional module over a (quotient of a) path algebra. <br /></p>
+
+<p>Returns: a projective presentation of the entered module <var class="Arg">M</var> over a (qoutient of a) path algebra <span class="SimpleMath">\(A\)</span>. The projective presentation, or resolution is over the path algebra form which <span class="SimpleMath">\(A\)</span> was constructed.</p>
+
+<p>This function takes as input a PathAlgebraMatModule and constructs a projective presentation of this module over the path algebra over which it is defined, i.e. a projective resolution of length 1. It returns a list of five elements: (1) a projective module <span class="SimpleMath">\(P\)</span> over the path algebra, which modulo the relations induced the projective cover of <var class="Arg">M</var>, (2) a submodule <span class="SimpleMath">\(U\)</span> of <span class="SimpleMath">\(P\)</span> such that <span class="SimpleMath">\(P/U\)</span> is isomorphic to <var class="Arg">M</var>, (3) module generators of <span class="SimpleMath">\(P\)</span>, (4) module generators for <span class="SimpleMath">\(U\)</span> which forms a completely reduced right Groebner basis for <span class="SimpleMath">\(U\)</span>, and (5) a matrix with entries in the path algebra which gives the map from <span class="SimpleMath">\(U\)</span> to <span class="SimpleMath">\(P\)</span>, if <span class="SimpleMath">\(U\)</span> were considered a direct sum of vertex projective modules over the path algebra.</p>
+
+<p><a id="X7F5109637D496354" name="X7F5109637D496354"></a></p>
+
+<h5>6.7-16 RightGroebnerBasisOfModule</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; RightGroebnerBasisOfModule</code>( <var class="Arg">M</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> -- a PathAlgebraModule. <br /></p>
+
+<p>Returns: a right Groebner basis for the module <var class="Arg">M</var>.</p>
+
+<p>It checks if the acting algebra on the module <var class="Arg">M</var> is a path algebra, and it returns an error message otherwise. The elements in the right Groebner basis that is constructed, can be retrieved by the command <code class="code">BasisVectors</code>. The underlying module is likewise returned by the command <code class="code">UnderlyingModule</code>. The output of the function is satisfying the filter/category <code class="code">IsRightPathAlgebraModuleGroebnerBasis</code>.</p>
+
+<p><a id="X7F5D460187F89CB7" name="X7F5D460187F89CB7"></a></p>
+
+<h5>6.7-17 TargetVertex</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; TargetVertex</code>( <var class="Arg">v</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">v</var> -- a PathAlgebraVector. <br /></p>
+
+<p>Returns: a vertex <span class="SimpleMath">\(w\)</span> such that <span class="SimpleMath">\(v*w = v\)</span>, if such a vertex exists, and fail otherwise.</p>
+
+<p>Given a PathAlgebraVector <var class="Arg">v</var>, if <var class="Arg">v</var> is right uniform, this function finds the vertex <span class="SimpleMath">\(w\)</span> such that <span class="SimpleMath">\(v*w = v\)</span> whenever <var class="Arg">v</var> is non-zero, and returns the zero path otherwise. If <var class="Arg">v</var> is not right uniform it returns fail.</p>
+
+<p><a id="X7CDBA7818700F9D2" name="X7CDBA7818700F9D2"></a></p>
+
+<h5>6.7-18 UniformGeneratorsOfModule</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; UniformGeneratorsOfModule</code>( <var class="Arg">M</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> -- a <code class="code">PathAlgebraModule</code>. <br /></p>
+
+<p>Returns: a set of right uniform generators of the mdoule <var class="Arg">M</var>. If <var class="Arg">M</var> is the zero module, then it returns an empty list.</p>
+
+<p><a id="X78E05C8F7ADE2BCD" name="X78E05C8F7ADE2BCD"></a></p>
+
+<h5>6.7-19 Vectorize</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Vectorize</code>( <var class="Arg">M</var>, <var class="Arg">components</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> -- a module over a path algebra, <var class="Arg">components</var> -- a list of elements of <var class="Arg">M</var>. <br /></p>
+
+<p>Returns: a vector in <var class="Arg">M</var> from a list of path algebra elements <var class="Arg">components</var>, which defines the components in the resulting vector.</p>
+
+<p>The returned vector is normalized, so the vector's components may not match the input components.</p>
+
+
+<div class="chlinkprevnextbot">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap5_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap7_mj.html">[Next Chapter]</a>&nbsp;  </div>
+
+
+<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chap3_mj.html">3</a>  <a href="chap4_mj.html">4</a>  <a href="chap5_mj.html">5</a>  <a href="chap6_mj.html">6</a>  <a href="chap7_mj.html">7</a>  <a href="chap8_mj.html">8</a>  <a href="chap9_mj.html">9</a>  <a href="chap10_mj.html">10</a>  <a href="chap11_mj.html">11</a>  <a href="chap12_mj.html">12</a>  <a href="chap13_mj.html">13</a>  <a href="chapBib_mj.html">Bib</a>  <a href="chapInd_mj.html">Ind</a>  </div>
+
+<hr />
+<p class="foot">generated by <a href="https://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc">GAPDoc2HTML</a></p>
+</body>
+</html>

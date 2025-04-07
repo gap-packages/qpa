@@ -1,0 +1,47 @@
+  
+  [1X1 [33X[0;0YIntroduction[133X[101X
+  
+  
+  [1X1.1 [33X[0;0YGeneral aims[133X[101X
+  
+  [33X[0;0YThe  overall  aim of [5XQPA[105X is to provide computational tools in basic research
+  in  mathematics  (algebra). It seeks to furnish users within and outside the
+  area  of  representation  theory  of  finite  dimensional  algebras  with  a
+  computational  software  package  that  will help in exploring a problem and
+  testing  conjectures.  As  with  all  software  development,  new  ideas and
+  question  will arise. The ability to study and compute examples will help in
+  proving  or  disproving well-established questions/conjectures. Furthermore,
+  it will enable us to consider new examples which were not accessible by hand
+  or  other  means  before.  In  this  way,  we  hope that [5XQPA[105X will aid in the
+  development,  not  only  of  the  area  of  representation  theory of finite
+  dimensional  algebras,  but  also  of  a  broad  variety  of  other areas of
+  mathematics,  where such structures occur. In addition we aspire to create a
+  research   environment   for   international  cooperation  on  computational
+  representation theory of finite dimensional algebras.[133X
+  
+  
+  [1X1.2 [33X[0;0YInstallation and system requirements[133X[101X
+  
+  [33X[0;0YSince  the release of GAP version 4.7.8, the package [5XQPA[105X is distributed with
+  GAP,  so  if  you  download  this  version  or any later version of GAP, the
+  package  [5XQPA[105X  will be installed at the same time as GAP is installed. Follow
+  the     instructions    for    installing    GAP    on    the    web    page
+  [7Xhttps://www.gap-system.org/Download/index.html[107X   After  having  successfully
+  started GAP, give the command[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XLoadPackage("qpa");[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0Ywhich loads QPA and you can start using QPA.[133X
+  
+  [33X[0;0YOne can also clone the QPA git repository from[133X
+  
+  [30X    [33X[0;6Y[7Xhttps://github.com/gap-packages/qpa[107X[133X
+  
+  [33X[0;0Yto follow the QPA development. Follow the instructions on[133X
+  
+  [30X    [33X[0;6Y[7Xhttps://folk.ntnu.no/oyvinso/QPA/[107X[133X
+  
+  [33X[0;0Yto install QPA by cloning the the git repository.[133X
+  

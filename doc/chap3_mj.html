@@ -1,0 +1,699 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<script type="text/javascript"
+  src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<title>GAP (QPA) - Chapter 3: Quivers</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="GAPDoc2HTML" />
+<link rel="stylesheet" type="text/css" href="manual.css" />
+<script src="manual.js" type="text/javascript"></script>
+<script type="text/javascript">overwriteStyle();</script>
+</head>
+<body class="chap3"  onload="jscontent()">
+
+
+<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chap3_mj.html">3</a>  <a href="chap4_mj.html">4</a>  <a href="chap5_mj.html">5</a>  <a href="chap6_mj.html">6</a>  <a href="chap7_mj.html">7</a>  <a href="chap8_mj.html">8</a>  <a href="chap9_mj.html">9</a>  <a href="chap10_mj.html">10</a>  <a href="chap11_mj.html">11</a>  <a href="chap12_mj.html">12</a>  <a href="chap13_mj.html">13</a>  <a href="chapBib_mj.html">Bib</a>  <a href="chapInd_mj.html">Ind</a>  </div>
+
+<div class="chlinkprevnexttop">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap2_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap4_mj.html">[Next Chapter]</a>&nbsp;  </div>
+
+<p id="mathjaxlink" class="pcenter"><a href="chap3.html">[MathJax off]</a></p>
+<p><a id="X7FA7E6B581D41A94" name="X7FA7E6B581D41A94"></a></p>
+<div class="ChapSects"><a href="chap3_mj.html#X7FA7E6B581D41A94">3 <span class="Heading">Quivers</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap3_mj.html#X7C14F4617F7E9F09">3.1 <span class="Heading">Information class, Quivers</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X786A65F07FA1BB78">3.1-1 InfoQuiver</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap3_mj.html#X860B15D57EAB46D7">3.2 <span class="Heading">Constructing Quivers</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X7BD8455A7F2C5CA3">3.2-1 Quiver</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X7EE08F058702A717">3.2-2 DynkinQuiver</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X83E498008233E2DD">3.2-3 OrderedBy</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap3_mj.html#X80BB6B6183134D88">3.3 <span class="Heading">Categories and Properties of Quivers</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X7E9C03497FD7778B">3.3-1 IsQuiver</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X82E99C5F8624BD86">3.3-2 IsAcyclicQuiver</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X846C44937B3AF09A">3.3-3 IsUAcyclicQuiver</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X7909BF627C5D0D4A">3.3-4 IsConnectedQuiver</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X7A2B55BD7B6F0360">3.3-5 IsTreeQuiver</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X85EC85B58688CCCC">3.3-6 IsDynkinQuiver</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap3_mj.html#X78BBB63B828EB9FB">3.4 <span class="Heading">Orderings of paths in a
+    quiver</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap3_mj.html#X80CF69E37B54F3C1">3.5 <span class="Heading">Attributes and Operations for Quivers</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X8198B2897FF5AC4B">3.5-1 .</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X7C82A4BC7FB329D8">3.5-2 VerticesOfQuiver</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X82C42D7D820D5F9B">3.5-3 ArrowsOfQuiver</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X7AF572F081AEFE98">3.5-4 AdjacencyMatrixOfQuiver</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X7B4A7F0F813E63FC">3.5-5 GeneratorsOfQuiver</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X822BD7F37F8AF016">3.5-6 NumberOfVertices</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X7AC77C9C7D069663">3.5-7 NumberOfArrows</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X84D1D1AA82689B03">3.5-8 OrderingOfQuiver</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X84B82F6F84A442AB">3.5-9 OppositeQuiver</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X87B9B85483CBB238">3.5-10 FullSubquiver</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X824D7C768708F006">3.5-11 ConnectedComponentsOfQuiver</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X7C4BB3E5872FD483">3.5-12 DoubleQuiver</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X7B4EA2D6869BBAF3">3.5-13 SeparatedQuiver</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap3_mj.html#X862A804B80C5A47D">3.6 <span class="Heading">Categories and Properties of Paths</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X78B503DB83F2B6DE">3.6-1 IsPath</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X791474408297F7A0">3.6-2 IsQuiverVertex</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X8266C9B8840C12EB">3.6-3 IsArrow</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X8624A0B0795149CF">3.6-4 IsZeroPath</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap3_mj.html#X7C8294338676C80E">3.7 <span class="Heading">Attributes and Operations of Paths</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X84D8493C7AAF4ACC">3.7-1 SourceOfPath</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X86827D3F78F51815">3.7-2 TargetOfPath</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X7FF179D17C4F9FAC">3.7-3 LengthOfPath</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X781A8E06850E47B4">3.7-4 WalkOfPath</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X7857704878577048">3.7-5 *</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X806A4814806A4814">3.7-6 =</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X7DAD2700853E8C21">3.7-7 &lt;</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap3_mj.html#X8158F0D27C4628FB">3.8 <span class="Heading">Attributes of Vertices</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X85E53C177F80E77E">3.8-1 IncomingArrowsOfVertex</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X8345D79381E46D73">3.8-2 OutgoingArrowsOfVertex</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X7C9CD0527CB9E6EF">3.8-3 InDegreeOfVertex</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X7A09EB648070276D">3.8-4 OutDegreeOfVertex</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X7A557B4C83B7C601">3.8-5 NeighborsOfVertex</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap3_mj.html#X79540DAB85902432">3.9 <span class="Heading">Posets</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X80854BB778E3833E">3.9-1 Poset</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X858ADA3B7A684421">3.9-2 Size</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X7AF9E0CD850F8B03">3.9-3 UnderlyingSet</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X8468B5F77EBA547A">3.9-4 PartialOrderOfPoset</a></span>
+</div></div>
+</div>
+
+<h3>3 <span class="Heading">Quivers</span></h3>
+
+<p><a id="X7C14F4617F7E9F09" name="X7C14F4617F7E9F09"></a></p>
+
+<h4>3.1 <span class="Heading">Information class, Quivers</span></h4>
+
+<p>A quiver <span class="SimpleMath">\(Q\)</span> is a set derived from a labeled directed multigraph with loops <span class="SimpleMath">\(\Gamma\)</span>. An element of <span class="SimpleMath">\(Q\)</span> is called a *path*, and falls into one of three classes. The first class is the set of *vertices* of <span class="SimpleMath">\(\Gamma\)</span>. The second class is the set of *walks* in <span class="SimpleMath">\(\Gamma\)</span> of length at least one, each of which is represented by the corresponding sequence of *arrows* in <span class="SimpleMath">\(\Gamma\)</span>. The third class is the singleton set containing the distinguished *zero path*, usually denoted <span class="SimpleMath">\(0\)</span>. An associative multiplication is defined on <span class="SimpleMath">\(Q\)</span>.</p>
+
+<p>This chapter describes the functions in <strong class="pkg">QPA</strong> that deal with paths and quivers. The functions for constructing paths in Section <a href="chap4_mj.html#X848A225A84A15B1E"><span class="RefLink">4.2</span></a> are normally not useful in isolation; typically, they are invoked by the functions for constructing quivers in Section <a href="chap3_mj.html#X860B15D57EAB46D7"><span class="RefLink">3.2</span></a>.</p>
+
+<p><a id="X786A65F07FA1BB78" name="X786A65F07FA1BB78"></a></p>
+
+<h5>3.1-1 InfoQuiver</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; InfoQuiver</code></td><td class="tdright">(&nbsp;info class&nbsp;)</td></tr></table></div>
+<p>is the info class for functions dealing with quivers.</p>
+
+<p><a id="X860B15D57EAB46D7" name="X860B15D57EAB46D7"></a></p>
+
+<h4>3.2 <span class="Heading">Constructing Quivers</span></h4>
+
+<p><a id="X7BD8455A7F2C5CA3" name="X7BD8455A7F2C5CA3"></a></p>
+
+<h5>3.2-1 Quiver</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Quiver</code>( <var class="Arg">N</var>, <var class="Arg">arrows</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Quiver</code>( <var class="Arg">vertices</var>, <var class="Arg">arrows</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Quiver</code>( <var class="Arg">adjacencymatrix</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Arguments: First construction: <var class="Arg">N</var> -- number of vertices, <var class="Arg">arrows</var> -- a list of arrows to specify the graph <span class="SimpleMath">\(\Gamma\)</span>. Second construction: <var class="Arg">vertices</var> -- a list of vertex names, <var class="Arg">arrows</var> -- a list of arrows. Third construction: takes an adjacency matrix for the graph <span class="SimpleMath">\(\Gamma\)</span>. <br /></p>
+
+<p>Returns: a quiver, which is an object from the category <code class="func">IsQuiver</code> (<a href="chap3_mj.html#X7E9C03497FD7778B"><span class="RefLink">3.3-1</span></a>).</p>
+
+<p>In the first and third constructions, the vertices are named `v1, v2, ...'. In the second construction, unique vertex names are given as strings in the list that is the first parameter. Each arrow is a list consisting of a source vertex and a target vertex, followed optionally by an arrow name as a string.</p>
+
+<p>Vertices and arrows are referenced as record components using the dot (`.') operator.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">q1 := Quiver(["u","v"],[["u","u","a"],["u","v","b"], </span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">              ["v","u","c"],["v","v","d"]]);</span>
+&lt;quiver with 2 vertices and 4 arrows&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">VerticesOfQuiver(q1);</span>
+[ u, v ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ArrowsOfQuiver(q1);</span>
+[ a, b, c, d ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">q2 := Quiver(2,[[1,1],[2,1],[1,2]]);</span>
+&lt;quiver with 2 vertices and 3 arrows&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ArrowsOfQuiver(q2);</span>
+[ a1, a2, a3 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">VerticesOfQuiver(q2);</span>
+[ v1, v2 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">q3 := Quiver(2,[[1,1,"a"],[2,1,"b"],[1,2,"c"]]);</span>
+&lt;quiver with 2 vertices and 3 arrows&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ArrowsOfQuiver(q3);</span>
+[ a, b, c ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">q4 := Quiver([[1,1],[2,1]]);</span>
+&lt;quiver with 2 vertices and 5 arrows&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">VerticesOfQuiver(q4);</span>
+[ v1, v2 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ArrowsOfQuiver(q4);</span>
+[ a1, a2, a3, a4, a5 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">SourceOfPath(q4.a2);</span>
+v1
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">TargetOfPath(q4.a2);</span>
+v2
+</pre></div>
+
+<p><a id="X7EE08F058702A717" name="X7EE08F058702A717"></a></p>
+
+<h5>3.2-2 DynkinQuiver</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; DynkinQuiver</code>( <var class="Arg">Delta</var>, <var class="Arg">n</var>, <var class="Arg">orientation</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">Delta</var>, <var class="Arg">n</var>, <var class="Arg">orientation</var> -- a character (A,D,E), a positive integer, and a list giving the orientation. <br /></p>
+
+<p>Returns: a Dynkin quiver of type <var class="Arg">Delta</var> ("A", "D", or "E") with index <var class="Arg">n</var> and orientation of the arrows given by the list <var class="Arg">orientation</var>.</p>
+
+<p>If <var class="Arg">Delta</var> is equal to "A" with index <var class="Arg">n</var>, then the list <var class="Arg">orientation</var> is of the form <code class="code">["r", "l", "l", ...,"r", "l"]</code> of length <var class="Arg">n-1</var>, where "l" or "r" in coordinate <span class="SimpleMath">\(i\)</span> means that the arrow <span class="SimpleMath">\(a_i\)</span> is oriented to the left or to the right, respectively. The vertices and the arrows are named as in the following diagram <span class="SimpleMath">\(\xymatrix{1\ar@{-}[r]^-{a_1} &amp; 2\ar@{-}[r]^-{a_2} &amp; \ar@{--}[r] &amp; \ar@{-}[r]^-{a_{n-2}} &amp; n - 1 \ar@{-}[r]^-{a_{n-1}} &amp; n }\)</span><br /> If <var class="Arg">Delta</var> is equal to "D" with index <var class="Arg">n</var> and <var class="Arg">n</var> greater or equal to <span class="SimpleMath">\(4\)</span>, then the list <var class="Arg">orientation</var> is of the form <code class="code">["r", "l", "l", ...,"r", "l"]</code> of length <var class="Arg">n-1</var>, where "l" or "r" in coordinate <span class="SimpleMath">\(i\)</span> means that the arrow <span class="SimpleMath">\(a_i\)</span> is oriented to the left or to the right, respectively. The vertices and the arrows are named as in the following diagram <span class="SimpleMath">\(\xymatrix{1\ar@{-}[dr]^-{a_1} &amp; &amp; &amp; &amp; &amp; \\ &amp; 3\ar@{-}[r]^{a_3} &amp; \ar@{--}[r] &amp; \ar@{-}[r]^-{a_{n-2}} &amp; n - 1 \ar@{-}[r]^-{a_{n-1}} &amp; n \\ 2\ar@{-}[ur]_-{a_2} &amp; &amp; &amp; &amp; &amp; }\)</span> <br /> If <var class="Arg">Delta</var> is equal to "E" with index <var class="Arg">n</var> and <var class="Arg">n</var> in <span class="SimpleMath">\([6,7,8]\)</span>, then the list <var class="Arg">orientation</var> is of the form <code class="code">["r", "l", "l", ...,"r", "l","d"]</code> of length <var class="Arg">n-1</var>, where "l" or "r" in the <var class="Arg">n - 2</var> first coordinates and at coordinate <span class="SimpleMath">\(i\)</span> means that the arrow <span class="SimpleMath">\(a_i\)</span> is oriented to the left or to the right, respectively, and the last orientation parameter is "d" or "u" indicating if the arrow <span class="SimpleMath">\(a_{n-1}\)</span> is oriented down or up. The vertices and the arrows are named as in the following diagram <span class="SimpleMath">\(\xymatrix{ &amp; &amp; n\ar@{-}[d]^{a_{n-1}} &amp; &amp; &amp; &amp; &amp; \\ 1\ar@{-}[r]^{a_1} &amp; 2\ar@{-}[r]^{a_2} &amp; 3\ar@{-}[r]^-{a_3} &amp; \ar@{--}[r] &amp;\ar@{-}[r] &amp; n - 2 \ar@{-}[r]^-{a_{n-2}} &amp; n - 1} \)</span> <br /></p>
+
+<p><a id="X83E498008233E2DD" name="X83E498008233E2DD"></a></p>
+
+<h5>3.2-3 OrderedBy</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; OrderedBy</code>( <var class="Arg">quiver</var>, <var class="Arg">ordering</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Returns: a copy of <var class="Arg">quiver</var> whose elements are ordered by <var class="Arg">ordering</var>. The default ordering of a quiver is length left lexicographic. See Section <a href="chap3_mj.html#X78BBB63B828EB9FB"><span class="RefLink">3.4</span></a> for more information.</p>
+
+<p><a id="X80BB6B6183134D88" name="X80BB6B6183134D88"></a></p>
+
+<h4>3.3 <span class="Heading">Categories and Properties of Quivers</span></h4>
+
+<p><a id="X7E9C03497FD7778B" name="X7E9C03497FD7778B"></a></p>
+
+<h5>3.3-1 IsQuiver</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsQuiver</code>( <var class="Arg">object</var> )</td><td class="tdright">(&nbsp;category&nbsp;)</td></tr></table></div>
+<p>Returns: true when <var class="Arg">object</var> is a quiver.</p>
+
+<p><a id="X82E99C5F8624BD86" name="X82E99C5F8624BD86"></a></p>
+
+<h5>3.3-2 IsAcyclicQuiver</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsAcyclicQuiver</code>( <var class="Arg">quiver</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
+<p>Returns: true when <var class="Arg">quiver</var> is a quiver with no oriented cycles.</p>
+
+<p><a id="X846C44937B3AF09A" name="X846C44937B3AF09A"></a></p>
+
+<h5>3.3-3 IsUAcyclicQuiver</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsUAcyclicQuiver</code>( <var class="Arg">quiver</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
+<p>Returns: true when <var class="Arg">quiver</var> is a quiver with no unoriented cycles. Note: an oriented cycle is also an unoriented cycle!</p>
+
+<p><a id="X7909BF627C5D0D4A" name="X7909BF627C5D0D4A"></a></p>
+
+<h5>3.3-4 IsConnectedQuiver</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsConnectedQuiver</code>( <var class="Arg">quiver</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
+<p>Returns: true when <var class="Arg">quiver</var> is a connected quiver (i.e. each pair of vertices is connected by an unoriented path in <var class="Arg">quiver</var>).</p>
+
+<p><a id="X7A2B55BD7B6F0360" name="X7A2B55BD7B6F0360"></a></p>
+
+<h5>3.3-5 IsTreeQuiver</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsTreeQuiver</code>( <var class="Arg">quiver</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
+<p>Returns: true when <var class="Arg">quiver</var> is a tree as a graph (i.e. it is connected and contains no unoriented cycles).</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">q1 := Quiver(2,[[1,2]]);</span>
+&lt;quiver with 2 vertices and 1 arrows&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsQuiver("v1");</span>
+false
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsQuiver(q1);</span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsAcyclicQuiver(q1); IsUAcyclicQuiver(q1); </span>
+true
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsConnectedQuiver(q1); IsTreeQuiver(q1);</span>
+true
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">q2 := Quiver(["u","v"],[["u","v"],["v","u"]]);</span>
+&lt;quiver with 2 vertices and 2 arrows&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsAcyclicQuiver(q2); IsUAcyclicQuiver(q2); </span>
+false
+false
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsConnectedQuiver(q2); IsTreeQuiver(q2);</span>
+true
+false
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">q3 := Quiver(["u","v"],[["u","v"],["u","v"]]);</span>
+&lt;quiver with 2 vertices and 2 arrows&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsAcyclicQuiver(q3); IsUAcyclicQuiver(q3); </span>
+true
+false
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsConnectedQuiver(q3); IsTreeQuiver(q3); </span>
+true
+false
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">q4 := Quiver(2, []);</span>
+&lt;quiver with 2 vertices and 0 arrows&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsAcyclicQuiver(q4); IsUAcyclicQuiver(q4); </span>
+true
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsConnectedQuiver(q4); IsTreeQuiver(q4);</span>
+false
+false
+</pre></div>
+
+<p><a id="X85EC85B58688CCCC" name="X85EC85B58688CCCC"></a></p>
+
+<h5>3.3-6 IsDynkinQuiver</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsDynkinQuiver</code>( <var class="Arg">quiver</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
+<p>Returns: true when <var class="Arg">quiver</var> is a Dynkin quiver (more precisely, when underlying undirected graph of <var class="Arg">quiver</var> is a Dynkin diagram).</p>
+
+<p>This function prints an additional information. If it returns true, it prints the Dynkin type of <var class="Arg">quiver</var>, i.e. A_n, D_m, E_6, E_7 or E_8. Moreover, in case <var class="Arg">quiver</var> is not connected or contains an unoriented cycle, the function also prints a respective info.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">q1 := Quiver(4,[[1,4],[4,2],[3,4]]);</span>
+&lt;quiver with 4 vertices and 3 arrows&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsDynkinQuiver(q1);</span>
+D_4
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">q2 := Quiver(2,[[1,2],[1,2]]);</span>
+&lt;quiver with 2 vertices and 2 arrows&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsDynkinQuiver(q2);</span>
+Quiver contains an (un)oriented cycle.
+false
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">q3 := Quiver(5,[[1,5],[2,5],[3,5],[4,5]]);</span>
+&lt;quiver with 5 vertices and 4 arrows&gt;
+</pre></div>
+
+<p><a id="X78BBB63B828EB9FB" name="X78BBB63B828EB9FB"></a></p>
+
+<h4>3.4 <span class="Heading">Orderings of paths in a
+    quiver</span></h4>
+
+<p>The only supported ordering on the paths in a quiver is length left lexicographic ordering. The reason for this is that <strong class="pkg">QPA</strong> does not have its own functions for computing Groebner basis. Instead they are computed using the <strong class="pkg">GAP</strong>-package <strong class="pkg">GBNP</strong>. The interface with this package, which is provided by the <strong class="pkg">QPA</strong>, only supports the length left lexicographic ordering, even though <strong class="pkg">GBNP</strong> supports more orderings.</p>
+
+<p>For constructing a quiver, there are three different methods. TODO: Explain how the vertices and arrows are ordered.</p>
+
+<p><a id="X80CF69E37B54F3C1" name="X80CF69E37B54F3C1"></a></p>
+
+<h4>3.5 <span class="Heading">Attributes and Operations for Quivers</span></h4>
+
+<p><a id="X8198B2897FF5AC4B" name="X8198B2897FF5AC4B"></a></p>
+
+<h5>3.5-1 .</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; .</code>( <var class="Arg">Q</var>, <var class="Arg">element</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">Q</var> -- a quiver, and <var class="Arg">element</var> -- a vertex or an arrow.</p>
+
+<p>The operation <code class="func">.</code> allows access to generators of the quiver. If you have named your vertices and arrows then the access looks like `<var class="Arg">Q</var>.<var class="Arg">name of element</var>'. If you have not named the elements of the quiver, then the default names are v1, v2, ... and a1, a2, ... in the order they are created.</p>
+
+<p><a id="X7C82A4BC7FB329D8" name="X7C82A4BC7FB329D8"></a></p>
+
+<h5>3.5-2 VerticesOfQuiver</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; VerticesOfQuiver</code>( <var class="Arg">quiver</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Returns: a list of paths that are vertices in <var class="Arg">quiver</var>.</p>
+
+<p><a id="X82C42D7D820D5F9B" name="X82C42D7D820D5F9B"></a></p>
+
+<h5>3.5-3 ArrowsOfQuiver</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ArrowsOfQuiver</code>( <var class="Arg">quiver</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Returns: a list of paths that are arrows in <var class="Arg">quiver</var>.</p>
+
+<p><a id="X7AF572F081AEFE98" name="X7AF572F081AEFE98"></a></p>
+
+<h5>3.5-4 AdjacencyMatrixOfQuiver</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; AdjacencyMatrixOfQuiver</code>( <var class="Arg">quiver</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Returns: the adjacency matrix of <var class="Arg">quiver</var>.</p>
+
+<p><a id="X7B4A7F0F813E63FC" name="X7B4A7F0F813E63FC"></a></p>
+
+<h5>3.5-5 GeneratorsOfQuiver</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GeneratorsOfQuiver</code>( <var class="Arg">quiver</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Returns: a list of the vertices and the arrows in <var class="Arg">quiver</var>.</p>
+
+<p><a id="X822BD7F37F8AF016" name="X822BD7F37F8AF016"></a></p>
+
+<h5>3.5-6 NumberOfVertices</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; NumberOfVertices</code>( <var class="Arg">quiver</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Returns: the number of vertices in <var class="Arg">quiver</var>.</p>
+
+<p><a id="X7AC77C9C7D069663" name="X7AC77C9C7D069663"></a></p>
+
+<h5>3.5-7 NumberOfArrows</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; NumberOfArrows</code>( <var class="Arg">quiver</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Returns: the number of arrows in <var class="Arg">quiver</var>.</p>
+
+<p><a id="X84D1D1AA82689B03" name="X84D1D1AA82689B03"></a></p>
+
+<h5>3.5-8 OrderingOfQuiver</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; OrderingOfQuiver</code>( <var class="Arg">quiver</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Returns: the ordering used to order elements in <var class="Arg">quiver</var>. See Section <a href="chap3_mj.html#X78BBB63B828EB9FB"><span class="RefLink">3.4</span></a> for more information.</p>
+
+<p><a id="X84B82F6F84A442AB" name="X84B82F6F84A442AB"></a></p>
+
+<h5>3.5-9 OppositeQuiver</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; OppositeQuiver</code>( <var class="Arg">quiver</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Returns: the opposite quiver of <var class="Arg">quiver</var>, where the vertices are labelled "name in original quiver" + "_op" and the arrows are labelled "name in original quiver" + "_op".</p>
+
+<p>This attribute contains the opposite quiver of a quiver, that is, a quiver which is the same except that every arrow goes in the opposite direction.</p>
+
+<p>The operation <code class="func">OppositePath</code> (<a href="chap4_mj.html#X85794BE082B632B9"><span class="RefLink">4.16-1</span></a>) takes a path in a quiver to the corresponding path in the opposite quiver.</p>
+
+<p>The opposite of the opposite of a quiver <span class="SimpleMath">\(Q\)</span> is isomorphic to <span class="SimpleMath">\(Q\)</span>. In QPA, we regard these two quivers to be the same, so the call <code class="code">OppositeQuiver(OppositeQuiver(Q))</code> returns the object <code class="code">Q</code>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">q1 := Quiver(["u","v"],[["u","u","a"],["u","v","b"],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">              ["v","u","c"],["v","v","d"]]);</span>
+&lt;quiver with 2 vertices and 4 arrows&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">q1.a;</span>
+a
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">q1.v;</span>
+v
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">VerticesOfQuiver(q1);</span>
+[ u, v ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ArrowsOfQuiver(q1);</span>
+[ a, b, c, d ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">AdjacencyMatrixOfQuiver(q1);</span>
+[ [ 1, 1 ], [ 1, 1 ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GeneratorsOfQuiver(q1);</span>
+[ u, v, a, b, c, d ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">NumberOfVertices(q1);</span>
+2
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">NumberOfArrows(q1);</span>
+4
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">OrderingOfQuiver(q1);</span>
+&lt;length left lexicographic ordering&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">q1_op := OppositeQuiver(q1);</span>
+&lt;quiver with 2 vertices and 4 arrows&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">VerticesOfQuiver(q1_op);</span>
+[ u_op, v_op ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ArrowsOfQuiver(q1_op);</span>
+[ a_op, b_op, c_op, d_op ]
+</pre></div>
+
+<p><a id="X87B9B85483CBB238" name="X87B9B85483CBB238"></a></p>
+
+<h5>3.5-10 FullSubquiver</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; FullSubquiver</code>( <var class="Arg">quiver</var>, <var class="Arg">list</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: This function returns a quiver which is a full subquiver of a <var class="Arg">quiver</var> induced by the <var class="Arg">list</var> of its vertices.</p>
+
+<p>The names of vertices and arrows in resulting (sub)quiver remain the same as in original one. The function checks if <var class="Arg">list</var> consists of vertices of <var class="Arg">quiver</var>.</p>
+
+<p><a id="X824D7C768708F006" name="X824D7C768708F006"></a></p>
+
+<h5>3.5-11 ConnectedComponentsOfQuiver</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ConnectedComponentsOfQuiver</code>( <var class="Arg">quiver</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: This function returns a list of quivers which are all connected components of a <var class="Arg">quiver</var>.</p>
+
+<p>The names of vertices and arrows in resulting (sub)quiver remain the same as in original one. The function sets the property <code class="func">IsConnectedQuiver</code> (<a href="chap3_mj.html#X7909BF627C5D0D4A"><span class="RefLink">3.3-4</span></a>) to true for all the components.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Q := Quiver(6, [ [1,2],[1,1],[3,2],[4,5],[4,5] ]);</span>
+&lt;quiver with 6 vertices and 5 arrows&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">VerticesOfQuiver(Q);</span>
+[ v1, v2, v3, v4, v5, v6 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">FullSubquiver(Q, [Q.v1, Q.v2]);</span>
+&lt;quiver with 2 vertices and 2 arrows&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ConnectedComponentsOfQuiver(Q);</span>
+[ &lt;quiver with 3 vertices and 3 arrows&gt;, 
+  &lt;quiver with 2 vertices and 2 arrows&gt;, 
+  &lt;quiver with 1 vertices and 0 arrows&gt; ]
+</pre></div>
+
+<p><a id="X7C4BB3E5872FD483" name="X7C4BB3E5872FD483"></a></p>
+
+<h5>3.5-12 DoubleQuiver</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; DoubleQuiver</code>( <var class="Arg">quiver</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">quiver</var> -- a quiver.<br /></p>
+
+<p>Returns: the double quiver of <var class="Arg">quiver</var>.</p>
+
+<p>The vertices in the double quiver are labelled by the same labels as in the original quiver. The "old" arrows in the double quiver are labelled by the same labels as in the original, and the "new" arrows in the double quiver are labelled by the same labels as in the original quiver with the string "bar" added.</p>
+
+<p><a id="X7B4EA2D6869BBAF3" name="X7B4EA2D6869BBAF3"></a></p>
+
+<h5>3.5-13 SeparatedQuiver</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; SeparatedQuiver</code>( <var class="Arg">quiver</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">quiver</var> -- a quiver.<br /></p>
+
+<p>Returns: the separated quiver of <var class="Arg">quiver</var>.</p>
+
+<p>The vertices in the separated quiver are labelled <span class="SimpleMath">\(v\)</span> and <span class="SimpleMath">\(v'\)</span> for each vertex <span class="SimpleMath">\(v\)</span> in <var class="Arg">quiver</var>, and for each arrow <span class="SimpleMath">\(a\colon v \to w\)</span> in <var class="Arg">quiver</var> the arrow <span class="SimpleMath">\(v\to w'\)</span> is labelled <span class="SimpleMath">\(a\)</span>.</p>
+
+<p><a id="X862A804B80C5A47D" name="X862A804B80C5A47D"></a></p>
+
+<h4>3.6 <span class="Heading">Categories and Properties of Paths</span></h4>
+
+<p><a id="X78B503DB83F2B6DE" name="X78B503DB83F2B6DE"></a></p>
+
+<h5>3.6-1 IsPath</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsPath</code>( <var class="Arg">object</var> )</td><td class="tdright">(&nbsp;category&nbsp;)</td></tr></table></div>
+<p>All path objects are in this category.</p>
+
+<p><a id="X791474408297F7A0" name="X791474408297F7A0"></a></p>
+
+<h5>3.6-2 IsQuiverVertex</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsQuiverVertex</code>( <var class="Arg">object</var> )</td><td class="tdright">(&nbsp;category&nbsp;)</td></tr></table></div>
+<p>All vertices are in this category.</p>
+
+<p><a id="X8266C9B8840C12EB" name="X8266C9B8840C12EB"></a></p>
+
+<h5>3.6-3 IsArrow</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsArrow</code>( <var class="Arg">object</var> )</td><td class="tdright">(&nbsp;category&nbsp;)</td></tr></table></div>
+<p>All arrows are in this category.</p>
+
+<p><a id="X8624A0B0795149CF" name="X8624A0B0795149CF"></a></p>
+
+<h5>3.6-4 IsZeroPath</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsZeroPath</code>( <var class="Arg">object</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
+<p>is true when <var class="Arg">object</var> is the zero path.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">q1 := Quiver(["u","v"],[["u","u","a"],["u","v","b"],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">              ["v","u","c"],["v","v","d"]]);</span>
+&lt;quiver with 2 vertices and 4 arrows&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsPath(q1.b);</span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsPath(q1.u);</span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsQuiverVertex(q1.c);</span>
+false
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsZeroPath(q1.d);</span>
+false
+</pre></div>
+
+<p><a id="X7C8294338676C80E" name="X7C8294338676C80E"></a></p>
+
+<h4>3.7 <span class="Heading">Attributes and Operations of Paths</span></h4>
+
+<p><a id="X84D8493C7AAF4ACC" name="X84D8493C7AAF4ACC"></a></p>
+
+<h5>3.7-1 SourceOfPath</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; SourceOfPath</code>( <var class="Arg">path</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Returns: the source (first) vertex of <var class="Arg">path</var>.</p>
+
+<p><a id="X86827D3F78F51815" name="X86827D3F78F51815"></a></p>
+
+<h5>3.7-2 TargetOfPath</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; TargetOfPath</code>( <var class="Arg">path</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Returns: the target (last) vertex of <var class="Arg">path</var>.</p>
+
+<p><a id="X7FF179D17C4F9FAC" name="X7FF179D17C4F9FAC"></a></p>
+
+<h5>3.7-3 LengthOfPath</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; LengthOfPath</code>( <var class="Arg">path</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Returns: the length of <var class="Arg">path</var>.</p>
+
+<p><a id="X781A8E06850E47B4" name="X781A8E06850E47B4"></a></p>
+
+<h5>3.7-4 WalkOfPath</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; WalkOfPath</code>( <var class="Arg">path</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Returns: a list of the arrows that constitute <var class="Arg">path</var> in order.</p>
+
+<p><a id="X7857704878577048" name="X7857704878577048"></a></p>
+
+<h5>3.7-5 *</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; *</code>( <var class="Arg">p</var>, <var class="Arg">q</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">p</var> and <var class="Arg">q</var> -- two paths in the same quiver. <br /></p>
+
+<p>Returns: the multiplication of the paths. If the paths are not in the same quiver an error is returned. If the target of <var class="Arg">p</var> differs from the source of <var class="Arg">q</var>, then the result is the zero path. Otherwise, if either path is a vertex, then the result is the other path. Finally, if both are paths of length at least 1, then the result is the concatenation of the walks of the two paths.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">q1 := Quiver(["u","v"],[["u","u","a"],["u","v","b"],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">              ["v","u","c"],["v","v","d"]]);</span>
+&lt;quiver with 2 vertices and 4 arrows&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">SourceOfPath(q1.v);</span>
+v
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">p1:=q1.a*q1.b*q1.d*q1.d;</span>
+a*b*d^2
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">TargetOfPath(p1);</span>
+v
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">p2:=q1.b*q1.b;</span>
+0
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">WalkOfPath(p1);</span>
+[ a, b, d, d ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">WalkOfPath(q1.a);</span>
+[ a ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">LengthOfPath(p1);</span>
+4
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">LengthOfPath(q1.v);</span>
+0
+</pre></div>
+
+<p><a id="X806A4814806A4814" name="X806A4814806A4814"></a></p>
+
+<h5>3.7-6 =</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; =</code>( <var class="Arg">p</var>, <var class="Arg">q</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">p</var> and <var class="Arg">q</var> -- two paths in the same quiver. <br /></p>
+
+<p>Returns: true if the two paths are equal. Two paths are equal if they have the same source and the same target and if they have the same walks.</p>
+
+<p><a id="X7DAD2700853E8C21" name="X7DAD2700853E8C21"></a></p>
+
+<h5>3.7-7 &lt;</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; &lt;</code>( <var class="Arg">p</var>, <var class="Arg">q</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">p</var> and <var class="Arg">q</var> -- two paths in the same quiver. <br /></p>
+
+<p>Returns: a comparison of the two paths with respect to the ordering of the quiver.</p>
+
+<p><a id="X8158F0D27C4628FB" name="X8158F0D27C4628FB"></a></p>
+
+<h4>3.8 <span class="Heading">Attributes of Vertices</span></h4>
+
+<p><a id="X85E53C177F80E77E" name="X85E53C177F80E77E"></a></p>
+
+<h5>3.8-1 IncomingArrowsOfVertex</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IncomingArrowsOfVertex</code>( <var class="Arg">vertex</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Returns: a list of arrows having <var class="Arg">vertex</var> as target. Only meaningful if <var class="Arg">vertex</var> is in a quiver.</p>
+
+<p><a id="X8345D79381E46D73" name="X8345D79381E46D73"></a></p>
+
+<h5>3.8-2 OutgoingArrowsOfVertex</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; OutgoingArrowsOfVertex</code>( <var class="Arg">vertex</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Returns: a list of arrows having <var class="Arg">vertex</var> as source.</p>
+
+<p><a id="X7C9CD0527CB9E6EF" name="X7C9CD0527CB9E6EF"></a></p>
+
+<h5>3.8-3 InDegreeOfVertex</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; InDegreeOfVertex</code>( <var class="Arg">vertex</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Returns: the number of arrows having <var class="Arg">vertex</var> as target. Only meaningful if <var class="Arg">vertex</var> is in a quiver.</p>
+
+<p><a id="X7A09EB648070276D" name="X7A09EB648070276D"></a></p>
+
+<h5>3.8-4 OutDegreeOfVertex</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; OutDegreeOfVertex</code>( <var class="Arg">vertex</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Returns: the number of arrows having <var class="Arg">vertex</var> as source.</p>
+
+<p><a id="X7A557B4C83B7C601" name="X7A557B4C83B7C601"></a></p>
+
+<h5>3.8-5 NeighborsOfVertex</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; NeighborsOfVertex</code>( <var class="Arg">vertex</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Returns: a list of neighbors of <var class="Arg">vertex</var>, that is, vertices that are targets of arrows having <var class="Arg">vertex</var> as source.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">q1 := Quiver(["u","v"],[["u","u","a"],["u","v","b"],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">              ["v","u","c"],["v","v","d"]]);</span>
+&lt;quiver with 2 vertices and 4 arrows&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">OutgoingArrowsOfVertex(q1.u);</span>
+[ a, b ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">InDegreeOfVertex(q1.u);</span>
+2
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">NeighborsOfVertex(q1.v);</span>
+[ u, v ]
+</pre></div>
+
+<p><a id="X79540DAB85902432" name="X79540DAB85902432"></a></p>
+
+<h4>3.9 <span class="Heading">Posets</span></h4>
+
+<p>This implementation of posets was done by the HomAlg-project.</p>
+
+<p><a id="X80854BB778E3833E" name="X80854BB778E3833E"></a></p>
+
+<h5>3.9-1 Poset</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Poset</code>( <var class="Arg">P</var>, <var class="Arg">rel</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">P</var> a list and <var class="Arg">rel</var> -- a list of pairs from <var class="Arg">P</var>. <br /></p>
+
+<p>Returns: the poset defined on the points <var class="Arg">P</var> and the relations generated by <var class="Arg">rel</var>.</p>
+
+<p>The elements in <var class="Arg">P</var> is given as a list, and for example <code class="code">["a", "b", "c", "d"]</code> and the relations are given as a list of lists, for instance in the above case: <code class="code">[ ["a", "b", "c"], ["b", "d"], ["c", "d"]].</code> The first list means that <span class="SimpleMath">\(a &lt; b\)</span> and <span class="SimpleMath">\(a &lt; c\)</span>, and the second one means <span class="SimpleMath">\(b &lt; d\)</span> and finally the last one means <span class="SimpleMath">\(c &lt; d\)</span>.</p>
+
+<p><a id="X858ADA3B7A684421" name="X858ADA3B7A684421"></a></p>
+
+<h5>3.9-2 Size</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Size</code>( <var class="Arg">P</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Returns: the number of elements of the poset <var class="Arg">P</var>.</p>
+
+<p><a id="X7AF9E0CD850F8B03" name="X7AF9E0CD850F8B03"></a></p>
+
+<h5>3.9-3 UnderlyingSet</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; UnderlyingSet</code>( <var class="Arg">P</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">P</var> -- poset. <br /></p>
+
+<p>Returns: the underlying set of the poset <var class="Arg">P</var>.</p>
+
+<p><a id="X8468B5F77EBA547A" name="X8468B5F77EBA547A"></a></p>
+
+<h5>3.9-4 PartialOrderOfPoset</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; PartialOrderOfPoset</code>( <var class="Arg">P</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">P</var> -- poset. <br /></p>
+
+<p>Returns: the partial order of the poset <var class="Arg">P</var> as a function.</p>
+
+
+<div class="chlinkprevnextbot">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap2_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap4_mj.html">[Next Chapter]</a>&nbsp;  </div>
+
+
+<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chap3_mj.html">3</a>  <a href="chap4_mj.html">4</a>  <a href="chap5_mj.html">5</a>  <a href="chap6_mj.html">6</a>  <a href="chap7_mj.html">7</a>  <a href="chap8_mj.html">8</a>  <a href="chap9_mj.html">9</a>  <a href="chap10_mj.html">10</a>  <a href="chap11_mj.html">11</a>  <a href="chap12_mj.html">12</a>  <a href="chap13_mj.html">13</a>  <a href="chapBib_mj.html">Bib</a>  <a href="chapInd_mj.html">Ind</a>  </div>
+
+<hr />
+<p class="foot">generated by <a href="https://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc">GAPDoc2HTML</a></p>
+</body>
+</html>

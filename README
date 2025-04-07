@@ -1,0 +1,118 @@
+The QPA package for GAP 4.12
+==================================
+
+Version 1.35; January 4th, 2024
+Copyright (C) 2024 The QPA-team, 	
+             https://folk.ntnu.no/oyvinso/QPA/
+
+Introduction
+------------
+
+The "Quivers and Path Algebras" team has as a goal to develop a GAP
+package(s) for carrying out computations for finite dimensional
+quotients of path algebras over the fields that are available in
+GAP. The package we aim to develop for GAP is called QPA for Quivers
+and Path Algebras.
+
+QPA is designed as a GAP >= 4.5.x share package providing new functions in
+noncommutative algebra. For the current functions provided by QPA follow
+the URL
+              https://folk.ntnu.no/oyvinso/QPA/
+
+and look at WhatYouCanDoList.
+
+Contents
+--------
+
+The following should be included with this version of QPA.
+
+
+    CHANGES  	  - files containing the history of changes in 
+               	    QPA since version 1.05.
+    LICENSE  	  - the license governing QPA usage
+    PackageInfo.g - contains metainformation about the package
+    README        - this file
+    doc      	  - the user manuals
+    examples 	  - manual examples in separate files, chapterwise 
+    init.g   	  - package initialization
+    lib        	  - the GAP source code
+    read.g   	  - package initialization
+    tst      	  - tests for the package
+    version       - contains the version number of the latest version
+
+Installation
+------------
+
+Since the release of GAP version 4.7.8, the package QPA is distributed
+with GAP, so if you download this version or any later version QPA
+will be installed at the same time as GAP is installed.  Follow the
+instructions for installing GAP on the web page
+
+  https://www.gap-system.org/Download/index.html
+
+After having successfully started GAP, give the command
+
+gap> LoadPackage("qpa");
+
+which loads QPA and you can start using QPA.
+
+For GAP version 4.7.7 or older, or you want a newer version of QPA than
+the one that is distributed with GAP, follow the following instructions:
+
+1.  Locate a pkg-directory where GAP searches for packages, see
+    9.2 GAP Root Directories in the GAP manual for more information.
+2a. Download a release of QPA from
+          https://github.com/gap-packages/qpa/releases
+    and unpack it in the pkg-directory you located in 1.
+2b. Alternatively, clone the git-repository of QPA by giving the following
+    command:
+        git clone https://github.com/gap-packages/qpa.git qpa
+    when you are in the pkg-directory you located in 1.
+    For making the documentation for QPA give the command  
+      	   MakeQPADocumentation();
+    inside a gap-session with QPA loaded.
+    For later obtaining the latest version of QPA, give the command
+      	 git pull
+    when you are inside the qpa-directory. 
+
+
+Using QPA
+----------
+
+To load the QPA-package, give the command
+
+     LoadPackage("qpa");
+
+To avoid having to load QPA each time you use GAP, you can add "qpa"
+to the user preference PackagesToLoad, as explained in
+
+https://www.mail-archive.com/forum@mail.gap-system.org/msg02528.html
+
+See the user manual in the doc directory for more information
+regarding the use of QPA, or follow the URL
+
+     https://folk.ntnu.no/oyvinso/QPA/manual.pdf
+
+to see the current manual/documentation of QPA (still work in
+progress, not brilliant at this point).
+
+A tool for working with quivers in QPA is QPA-draw by Luke Kershaw (https://github.com/l-kershaw).  
+You find this at 
+
+     https://l-kershaw.github.io/qpa-draw/   
+
+Currently the functionality includes converting back and forth between
+
+    a drawing of a quiver, and
+    a machine readable form for use with QPA.
+
+Contact
+-------
+
+If you have a question or encounter any problems regarding QPA, you
+can either:
+
+ * contact one of the QPA-team members, see the webpage
+              https://folk.ntnu.no/oyvinso/QPA
+or
+ * report an issue at https://github.com/gap-packages/qpa/issues/new

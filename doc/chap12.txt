@@ -1,0 +1,354 @@
+  
+  [1X12 [33X[0;0YCombinatorial representation theory[133X[101X
+  
+  
+  [1X12.1 [33X[0;0YIntroduction[133X[101X
+  
+  [33X[0;0YHere  we introduce the implementation of the software package CREP initially
+  designed for MAPLE.[133X
+  
+  
+  [1X12.2 [33X[0;0YDifferent unit forms[133X[101X
+  
+  [1X12.2-1 IsUnitForm[101X
+  
+  [33X[1;0Y[29X[2XIsUnitForm[102X [32X Category[133X
+  
+  [33X[0;0YThe  category  for  unit  forms,  which  we identify with symmetric integral
+  matrices with 2 along the diagonal.[133X
+  
+  [1X12.2-2 BilinearFormOfUnitForm[101X
+  
+  [33X[1;0Y[29X[2XBilinearFormOfUnitForm[102X( [3XB[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3XB[103X -- a unit form.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe bilinear form associated to a unit form [3XB[103X.[133X
+  
+  [33X[0;0YThe  bilinear  form  associated  to  the  unitform  [3XB[103X given by a matrix [10XB[110X is
+  defined for two vectors [10Xx[110X and [10Xy[110X as: [22Xx*B*y^T[122X.[133X
+  
+  [1X12.2-3 IsWeaklyNonnegativeUnitForm[101X
+  
+  [33X[1;0Y[29X[2XIsWeaklyNonnegativeUnitForm[102X( [3XB[103X ) [32X property[133X
+  
+  [33X[0;0YArguments: [3XB[103X -- a unit form.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue is the unitform [3XB[103X is weakly non-negative, otherwise false.[133X
+  
+  [33X[0;0YThe  unit  form  [3XB[103X is weakly non-negative is [22XB(x,y) ≥ 0[122X for all [22Xx≠ 0[122X in [22XZ^n[122X,
+  where [22Xn[122X is the dimension of the square matrix associated to [3XB[103X.[133X
+  
+  [1X12.2-4 IsWeaklyPositiveUnitForm[101X
+  
+  [33X[1;0Y[29X[2XIsWeaklyPositiveUnitForm[102X( [3XB[103X ) [32X property[133X
+  
+  [33X[0;0YArguments: [3XB[103X -- a unit form.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue is the unitform [3XB[103X is weakly positive, otherwise false.[133X
+  
+  [33X[0;0YThe  unit form [3XB[103X is weakly positive if [22XB(x,y) > 0[122X for all [22Xx≠ 0[122X in [22XZ^n[122X, where
+  [22Xn[122X is the dimension of the square matrix associated to [3XB[103X.[133X
+  
+  [1X12.2-5 PositiveRootsOfUnitForm[101X
+  
+  [33X[1;0Y[29X[2XPositiveRootsOfUnitForm[102X( [3XB[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3XB[103X -- a unit form.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe  positive  roots  of  a  unit form, if the unit form is weakly
+            positive. If they have not been computed, an error message will be
+            returned saying "no method found!".[133X
+  
+  [33X[0;0YThis  attribute  will  be  attached  to  [3XB[103X  when [10XIsWeaklyPositiveUnitForm[110X is
+  applied to [3XB[103X and it is weakly positive.[133X
+  
+  [1X12.2-6 QuadraticFormOfUnitForm[101X
+  
+  [33X[1;0Y[29X[2XQuadraticFormOfUnitForm[102X( [3XB[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3XB[103X -- a unit form.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe quadratic form associated to a unit form [3XB[103X.[133X
+  
+  [33X[0;0YThe  quadratic  form  associated  to  the  unitform [3XB[103X given by a matrix [10XB[110X is
+  defined for a vector [10Xx[110X as: [22Xfrac12x*B*x^T[122X.[133X
+  
+  [1X12.2-7 SymmetricMatrixOfUnitForm[101X
+  
+  [33X[1;0Y[29X[2XSymmetricMatrixOfUnitForm[102X( [3XB[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3XB[103X -- a unit form.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe symmetric integral matrix which defines the unit form [3XB[103X.[133X
+  
+  [1X12.2-8 TitsUnitFormOfAlgebra[101X
+  
+  [33X[1;0Y[29X[2XTitsUnitFormOfAlgebra[102X( [3XA[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments:  [3XA[103X  --  a  finite dimensional (quotient of a) path algebra (by an
+  admissible ideal).[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe Tits unit form associated to the algebra [3XA[103X.[133X
+  
+  [33X[0;0YThis  function  returns the Tits unitform associated to a finite dimensional
+  quotient  of  a  path  algebra by an admissible ideal or path algebra, given
+  that the underlying quiver has no loops or minimal relations that starts and
+  ends  in the same vertex. That is, then it returns a symmetric matrix [22XB[122X such
+  that  for  [22Xx  =  (x_1,...,x_n) (1/2)*(x_1,...,x_n)B(x_1,...,x_n)^T = ∑_i=1^n
+  x_i^2 - ∑_i,j dim_k Ext^1(S_i,S_j)x_ix_j + ∑_i,j dim_k Ext^2(S_i,S_j)x_ix_j[122X,
+  where [22Xn[122X is the number of vertices in [22XQ[122X.[133X
+  
+  [1X12.2-9 EulerBilinearFormOfAlgebra[101X
+  
+  [33X[1;0Y[29X[2XEulerBilinearFormOfAlgebra[102X( [3XA[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments:  [3XA[103X  --  a  finite dimensional (quotient of a) path algebra (by an
+  admissible ideal).[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe  Euler (non-symmetric) bilinear form associated to the algebra
+            [3XA[103X.[133X
+  
+  [33X[0;0YThis  function returns the Euler (non-symmetric) bilinear form associated to
+  a  finite  dimensional  (basic)  quotient  of  a path algebra [3XA[103X. That is, it
+  returns a bilinear form (function) defined by[133X
+  [33X[0;0Y[22Xf(x,y) = x*CartanMatrix(A)^(-1)*y[122X[133X
+  [33X[0;0YIt makes sense only in case [3XA[103X is of finite global dimension.[133X
+  
+  [1X12.2-10 UnitForm[101X
+  
+  [33X[1;0Y[29X[2XUnitForm[102X( [3XB[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XB[103X -- an integral matrix.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe  unit  form  in the category [2XIsUnitForm[102X ([14X12.2-1[114X) associated to
+            the matrix [3XB[103X.[133X
+  
+  [33X[0;0YThe  function  checks  if  [3XB[103X is a symmetric integral matrix with 2 along the
+  diagonal,  and  returns  an error message otherwise. In addition it sets the
+  attributes,    [2XBilinearFormOfUnitForm[102X    ([14X12.2-2[114X),   [2XQuadraticFormOfUnitForm[102X
+  ([14X12.2-6[114X) and [2XSymmetricMatrixOfUnitForm[102X ([14X12.2-7[114X).[133X
+  
+  
+  [1X12.3 [33X[0;0YCombinatorial Maps[133X[101X
+  
+  [1X12.3-1 CombinatorialMap[101X
+  
+  [33X[1;0Y[29X[2XCombinatorialMap[102X( [3Xn[103X, [3Xsigma[103X, [3Xiota[103X, [3Xm[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments : [3Xn[103X -- number of half-edges, [3Xsigma[103X -- a permutation specifying the
+  ordering  of  half-edges  aroud  vertices, [3Xiota[103X -- an involution pairing the
+  half-edges, [3Xm[103X -- a list of marked half-edges[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya  combinatorial  map,  which  is  an  object  from  the  category
+            [2XIsCombinatorialMap[102X ([14X???IsCombinatorialMap???[114X).[133X
+  
+  [33X[0;0YThe  size  of  the underlying set given by [3Xsize[103X is given a positive integer,
+  the  ordering  and  the  pairing  are given by two permutations [3Xordering[103X and
+  [3Xparing[103X  of  a  set  of  [3Xsize[103X  elements  ({1,  2,...,  [3Xsize[103X})  and the marked
+  half-edges are given as a list of integers in {1, 2,..., [3Xsize[103X}.[133X
+  
+  [1X12.3-2 FacesOfCombinatorialMap[101X
+  
+  [33X[1;0Y[29X[2XFacesOfCombinatorialMap[102X( [3Xmap[103X ) [32X attribute[133X
+  
+  [33X[0;0YArgument : [3Xmap[103X -- a combinatorial map.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe list of faces of the combinatorial map [3Xmap[103X.[133X
+  
+  [33X[0;0YThe faces are given by a list of half-edges of [3Xmap[103X.[133X
+  
+  [1X12.3-3 GenusOfCombinatorialMap[101X
+  
+  [33X[1;0Y[29X[2XGenusOfCombinatorialMap[102X( [3Xmap[103X ) [32X attribute[133X
+  
+  [33X[0;0YArgument : [3Xmap[103X -- a combinatorial map.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe genus of the surface represented by the combinatorial map [3Xmap[103X.[133X
+  
+  [1X12.3-4 DualOfCombinatorialMap[101X
+  
+  [33X[1;0Y[29X[2XDualOfCombinatorialMap[102X( [3Xmap[103X ) [32X attribute[133X
+  
+  [33X[0;0YArgument : [3Xmap[103X -- a combinatorial map.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe dual combinatorial map of [3Xmap[103X.[133X
+  
+  [1X12.3-5 MaximalPathsOfGentleAlgebra[101X
+  
+  [33X[1;0Y[29X[2XMaximalPathsOfGentleAlgebra[102X( [3XA[103X ) [32X attribute[133X
+  
+  [33X[0;0YArgument : [3XA[103X -- a gentle algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe list of maximal paths of the quiver with relations defining [3XA[103X.[133X
+  
+  [33X[0;0YOnly returns paths of non-zero length.[133X
+  
+  [1X12.3-6 RemoveEdgeOfCombinatorialMap[101X
+  
+  [33X[1;0Y[29X[2XRemoveEdgeOfCombinatorialMap[102X( [3Xcombmap[103X, [3XE[103X ) [32X operation[133X
+  
+  [33X[0;0YArgument  :  [3Xmap[103X  --  a  combinatorial  map,  [3Xedge[103X  --  a list of two paired
+  half-edges.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe   combinatorial   map  obtained  by  removing  [3Xedge[103X  from  the
+            combinatorial map [3Xmap[103X.[133X
+  
+  [33X[0;0YThe  argument [3Xedge[103X has to be a list consisting of two half-edges of [3Xmap[103X that
+  are  paired.  The  returned  combinatorial map does not change size, the two
+  removed  half-edges  are  now  fixed  by  the pairing and ordering so do not
+  appear in non-trivial orbits.[133X
+  
+  [1X12.3-7 CombinatorialMapOfGentleAlgebra[101X
+  
+  [33X[1;0Y[29X[2XCombinatorialMapOfGentleAlgebra[102X( [3XA[103X ) [32X attribute[133X
+  
+  [33X[0;0YArgument : [3XA[103X -- a gentle algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe  combinatorial  map  corresponding  to the Brauer Graph of the
+            trivial extension of [3Xalgebra[103X with regard to its dual.[133X
+  
+  [33X[0;0YThe function assumes that [3Xalgebra[103X is gentle.[133X
+  
+  [1X12.3-8 MarkedBoundariesOfCombinatorialMap[101X
+  
+  [33X[1;0Y[29X[2XMarkedBoundariesOfCombinatorialMap[102X( [3Xmap[103X ) [32X attribute[133X
+  
+  [33X[0;0YArgument : [3Xmap[103X -- a combinatorial map.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya  list consisting of pairs [Face,numberofmarkedpoints] where Face
+            is a face of the combinatorial map [3Xmap[103X and numberofmarkedpoints is
+            the  number  of  marked  half-edges  on the corresponding boundary
+            component.[133X
+  
+  [1X12.3-9 WindingNumber[101X
+  
+  [33X[1;0Y[29X[2XWindingNumber[102X( [3Xmap[103X, [3Xgamma[103X ) [32X operation[133X
+  
+  [33X[0;0YArgument : [3Xmap[103X -- a combinatorial map, [3Xgamma[103X -- a list of half-edges forming
+  a closed curve on the surface.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe combinatorial winding number of [3Xgamma[103X on the dissected surface
+            given by [3Xmap[103X.[133X
+  
+  [1X12.3-10 BoundaryCurvesOfCombinatorialMap[101X
+  
+  [33X[1;0Y[29X[2XBoundaryCurvesOfCombinatorialMap[102X( [3Xmap[103X ) [32X attribute[133X
+  
+  [33X[0;0YArgument : [3Xmap[103X -- a combinatorial map.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya list whose elements are lists of half-edges of the combiantorial
+            map  [3Xmap[103X.  Each  of  these  lists  corresponds  to  a closed curve
+            homotopic  to  a  boundary component of the surface represented by
+            [3Xmap[103X.[133X
+  
+  [33X[0;0YThe  closed  curves  are  represented  by a list of adjacent half-edges. The
+  orientation  of  these  curves  is chosen so that the corresponding boundary
+  component  is  to the right. The returned curves correspond to the curves in
+  minimal  position  in  regards to the dual dissection of the surface. In the
+  case  of  the  disk,  the  boundary  curve  is trivial and the empty list is
+  returned.[133X
+  
+  [1X12.3-11 DepthSearchCombinatorialMap[101X
+  
+  [33X[1;0Y[29X[2XDepthSearchCombinatorialMap[102X( [3Xcombmap[103X, [3Xx[103X ) [32X operation[133X
+  
+  [33X[0;0YArgument : [3Xmap[103X -- a combinatorial map, [3Xx[103X -- a half-edge of [3Xmap[103X[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya  list of pairs of paired half-edges of the combinatorial map [3Xmap[103X
+            corresponding  to  the  cover  tree of the underlying graph of [3Xmap[103X
+            obtained  by a depth first search with root the vertex to which is
+            attached [3Xx[103X.[133X
+  
+  [33X[0;0YThe paired half-edges of the cover tree are oriented towards the root of the
+  cover tree.[133X
+  
+  [1X12.3-12 WidthSearchCombinatorialMap[101X
+  
+  [33X[1;0Y[29X[2XWidthSearchCombinatorialMap[102X( [3Xcombmap[103X, [3Xx[103X ) [32X operation[133X
+  
+  [33X[0;0YArgument : [3Xmap[103X -- a combinatorial map, [3Xx[103X -- a half-edge of [3Xmap[103X[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya  list of pairs of paired half-edges of the combinatorial map [3Xmap[103X
+            corresponding  to  the  cover  tree of the underlying graph of [3Xmap[103X
+            obtained  by a width first search with root the vertex to which is
+            attached [3Xx[103X.[133X
+  
+  [33X[0;0YThe paired half-edges of the cover tree are oriented towards the root of the
+  cover tree.[133X
+  
+  [1X12.3-13 NonSeperatingCurve[101X
+  
+  [33X[1;0Y[29X[2XNonSeperatingCurve[102X( [3Xmap[103X ) [32X attribute[133X
+  
+  [33X[0;0YArgument : [3Xmap[103X -- a combinatorial map.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya list of half-edges of the combinatorial map [3Xmap[103X corresponding to
+            a non-seperating closed curve of the surface.[133X
+  
+  [33X[0;0YThis function must be used on a combinatorial map of genus at least one.[133X
+  
+  [1X12.3-14 CutNonSepCombinatorialMap[101X
+  
+  [33X[1;0Y[29X[2XCutNonSepCombinatorialMap[102X( [3Xmap[103X, [3Xalpha[103X, [3Xindex[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments : [3Xmap[103X -- a combinatorial map, [3Xalpha[103X -- a list of half-edges, [3Xindex[103X
+  -- a list.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya  triplet  [newmap, [boundary1,boundary2], newindex] where newmap
+            is   the   combinatorial  map  obtained  by  cutting  the  surface
+            represented  by  [3Xmap[103X  along  the  closed  curve  [3Xcurve[103X.  The lists
+            boundary1  and  boundary2  are  the boundaries of newmap that were
+            created by the cut.[133X
+  
+  [33X[0;0YThe  argument [3Xindex[103X is a list whose i-th element is the half-edge to which i
+  corresponds  in  some original combinatorial map. The result newindex is the
+  updated index for newmap where all created half-edges are added.[133X
+  
+  [1X12.3-15 JoinCurveCombinatorialMap[101X
+  
+  [33X[1;0Y[29X[2XJoinCurveCombinatorialMap[102X( [3Xmap[103X, [3Xbound1[103X, [3Xbound2[103X, [3Xindex[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments  :  [3Xmap[103X -- a combinatorial map, [3Xboundary1[103X -- a list of half-edges,
+  [3Xboundary2[103X -- a list of half-edges, [3Xindex[103X -- a list.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya  list  corresponding  to  a  simple curve of [3Xmap[103X joining the two
+            boundaries  [3Xboundary1[103X and [3Xboundary2[103X in such a way that using [3Xindex[103X
+            it  corresponds  to  a  closed curve on the original combinatorial
+            map.[133X
+  
+  [33X[0;0YThe list consists of adjacent half-edges of [3Xmap[103X which form the closed curve.[133X
+  
+  [1X12.3-16 CutJoinCurveCombinatorialMap[101X
+  
+  [33X[1;0Y[29X[2XCutJoinCurveCombinatorialMap[102X( [3Xmap[103X, [3Xbound1[103X, [3Xbound2[103X, [3Xbeta[103X, [3Xindex[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments  :  [3Xmap[103X -- a combinatorial map, [3Xboundary1[103X -- a list of half-edges,
+  [3Xboundary2[103X   --   a  list  of  half-edges,  [3Xbeta[103X  --  a  list  of  half-edges
+  corresponding to a curve, [3Xindex[103X -- a list.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe  pair [newmap, newindex] where newmap is the combinatorial map
+            obtained  by  cutting  the combinatorial map [3Xmap[103X along [3Xcurve[103X which
+            has to be a simple curve joining [3Xboundary1[103X and [3Xboundary2[103X[133X
+  
+  [1X12.3-17 HomologyBasisOfCombinatorialMap[101X
+  
+  [33X[1;0Y[29X[2XHomologyBasisOfCombinatorialMap[102X( [3Xmap[103X ) [32X attribute[133X
+  
+  [33X[0;0YArgument : [3Xmap[103X -- a combinatorial map.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya  list  of  pairs  [a_i,b_i]  where  a_i  and  b_i  are  lists of
+            half-edges  of  the  combinatorial  map [3Xmap[103X forming a closed curve
+            such  that  the  a_i  and b_i form a simplectic basis of the first
+            homology   group  of  the  surface  represented  by  [3Xmap[103X  for  the
+            intersection form.[133X
+  
+  [1X12.3-18 AreDerivedEquivalent[101X
+  
+  [33X[1;0Y[29X[2XAreDerivedEquivalent[102X( [3XA[103X, [3XB[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments : [3XA[103X -- a gentle algebra, [3XB[103X -- a gentle algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue  if  [3XA[103X  and [3XB[103X are derived equivalent and false otherwise. The
+            arguments must be gentle algebras over the same field.[133X
+  

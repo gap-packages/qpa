@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<title>GAP (QPA) - Chapter 11: Projective resolutions and the bounded derived category</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="GAPDoc2HTML" />
+<link rel="stylesheet" type="text/css" href="manual.css" />
+<script src="manual.js" type="text/javascript"></script>
+<script type="text/javascript">overwriteStyle();</script>
+</head>
+<body class="chap11"  onload="jscontent()">
+
+
+<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0.html">Top</a>  <a href="chap1.html">1</a>  <a href="chap2.html">2</a>  <a href="chap3.html">3</a>  <a href="chap4.html">4</a>  <a href="chap5.html">5</a>  <a href="chap6.html">6</a>  <a href="chap7.html">7</a>  <a href="chap8.html">8</a>  <a href="chap9.html">9</a>  <a href="chap10.html">10</a>  <a href="chap11.html">11</a>  <a href="chap12.html">12</a>  <a href="chap13.html">13</a>  <a href="chapBib.html">Bib</a>  <a href="chapInd.html">Ind</a>  </div>
+
+<div class="chlinkprevnexttop">&nbsp;<a href="chap0.html">[Top of Book]</a>&nbsp;  <a href="chap0.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap10.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap12.html">[Next Chapter]</a>&nbsp;  </div>
+
+<p id="mathjaxlink" class="pcenter"><a href="chap11_mj.html">[MathJax on]</a></p>
+<p><a id="X7EDB390B82D9E644" name="X7EDB390B82D9E644"></a></p>
+<div class="ChapSects"><a href="chap11.html#X7EDB390B82D9E644">11 <span class="Heading">Projective resolutions and the bounded derived category</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap11.html#X7C2FFD3E7D0D5D7F">11.1 <span class="Heading">Projective and injective complexes</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap11.html#X854F304E7A7F6FF2">11.1-1 InjectiveResolution</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap11.html#X8581C1F37EA425DE">11.1-2 IsProjectiveComplex</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap11.html#X7BDFFF987E99A5EA">11.1-3 IsInjectiveComplex</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap11.html#X8273999C7B352F22">11.1-4 ProjectiveResolution</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap11.html#X83D4593C80C2C4F6">11.2 <span class="Heading">The bounded derived category</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap11.html#X7BC3EE977FA24151">11.2-1 ProjectiveResolutionOfComplex</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap11.html#X84F050D07B19ABC4">11.2-2 ProjectiveToInjectiveComplex</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap11.html#X82CB35E07DD2D96D">11.2-3 TauOfComplex</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap11.html#X85861B017AEEC50B">11.2-4 <span class="Heading">Example</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap11.html#X84D4D700876395AF">11.2-5 StarOfMapBetweenProjectives</a></span>
+</div></div>
+</div>
+
+<h3>11 <span class="Heading">Projective resolutions and the bounded derived category</span></h3>
+
+<p>What is implemented so far for working with the bounded derived category <span class="Math">\mathcal{D}^{b}( \modc A )</span>. We use the isomorphism <span class="Math">\mathcal{D}^{b}( \modc A ) \cong \mathcal{K}^{-,b}(\proj A)</span>, and will hence need a way to describe complexes where all objectives are projective (or, dually, injective).</p>
+
+<p><a id="X7C2FFD3E7D0D5D7F" name="X7C2FFD3E7D0D5D7F"></a></p>
+
+<h4>11.1 <span class="Heading">Projective and injective complexes</span></h4>
+
+<p><a id="X854F304E7A7F6FF2" name="X854F304E7A7F6FF2"></a></p>
+
+<h5>11.1-1 InjectiveResolution</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; InjectiveResolution</code>( <var class="Arg">M</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> -- a module.<br /></p>
+
+<p>Returns: The injective resolution of <var class="Arg">M</var> with <var class="Arg">M</var> in degree <span class="Math">-1</span>.</p>
+
+<p><a id="X8581C1F37EA425DE" name="X8581C1F37EA425DE"></a></p>
+
+<h5>11.1-2 IsProjectiveComplex</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsProjectiveComplex</code>( <var class="Arg">C</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">C</var> -- a complex.<br /></p>
+
+<p>Returns: true if <var class="Arg">C</var> is either a finite complex of projectives or an infinite complex of projectives constructed as a projective resolution (<code class="func">ProjectiveResolutionOfComplex</code> (<a href="chap11.html#X7BC3EE977FA24151"><span class="RefLink">11.2-1</span></a>)), false otherwise.</p>
+
+<p>A complex for which this property is true, will be printed in a different manner than ordinary complexes. Instead of writing the dimension vector of the objects in each degree, the indecomposable direct summands are listed (for instance <code class="code">P1</code>, <code class="code">P2</code> … , where <span class="Math">P_i</span> is the indecomposable projective module corresponding to vertex <span class="Math">i</span> of the quiver). Note that if a complex is both projective and injective, it is printed as a projective complex.</p>
+
+<p><a id="X7BDFFF987E99A5EA" name="X7BDFFF987E99A5EA"></a></p>
+
+<h5>11.1-3 IsInjectiveComplex</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsInjectiveComplex</code>( <var class="Arg">C</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">C</var> -- a complex.<br /></p>
+
+<p>Returns: true if <var class="Arg">C</var> is either a finite complex of injectives or an infinite complex of injectives constructed as <span class="Math">D\mathrm{Hom}_{A}(-,A)</span> of a projective complex (<code class="func">ProjectiveToInjectiveComplex</code> (<a href="chap11.html#X84F050D07B19ABC4"><span class="RefLink">11.2-2</span></a>)), false otherwise.</p>
+
+<p>A complex for which this property is true, will be printed in a different manner than ordinary complexes. Instead of writing the dimension vector of the objects in each degree, the indecomposable direct summands are listed (for instance <code class="code">I1</code>, <code class="code">I2</code> … , where <span class="Math">I_i</span> is the indecomposable injective module corresponding to vertex <span class="Math">i</span> of the quiver). Note that if a complex is both projective and injective, it is printed as a projective complex.</p>
+
+<p><a id="X8273999C7B352F22" name="X8273999C7B352F22"></a></p>
+
+<h5>11.1-4 ProjectiveResolution</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ProjectiveResolution</code>( <var class="Arg">M</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">M</var> -- a module.<br /></p>
+
+<p>Returns: The projective resolution of <var class="Arg">M</var> with <var class="Arg">M</var> in degree <span class="Math">-1</span>.</p>
+
+<p><a id="X83D4593C80C2C4F6" name="X83D4593C80C2C4F6"></a></p>
+
+<h4>11.2 <span class="Heading">The bounded derived category</span></h4>
+
+<p>Let <span class="Math">\mathcal{D}^{b}( \modc A )</span> denote the bounded derived category. If <span class="Math">C</span> is an element of <span class="Math">\mathcal{D}^{b}( \modc A )</span>, that is, a bounded complex of <span class="Math">A</span>-modules, there exists a projective resolution <span class="Math">P</span> of <span class="Math">C</span> which is a complex of projective <span class="Math">A</span>-modules quasi-isomorphic to <span class="Math">C</span>. Moreover, there exists such a <span class="Math">P</span> with the following properties:</p>
+
+
+<ul>
+<li><p><span class="Math">P</span> is minimal (in the homotopy category).</p>
+
+</li>
+<li><p><span class="Math">C</span> is bounded, so <span class="Math">C_i = 0</span> for <span class="Math">i &lt; k</span> for a lower bound <span class="Math">k</span> and <span class="Math">C_i = 0</span> for <span class="Math">i &gt; j</span> for an upper bound <span class="Math">j</span>. Then <span class="Math">P_i = 0</span> for <span class="Math">i &lt; k</span>, and <span class="Math">P</span> is exact in degree <span class="Math">i</span> for <span class="Math">i &gt; j</span>.</p>
+
+</li>
+</ul>
+<p>The function <code class="code">ProjectiveResolutionOfComplex</code> computes such a projective resolution of any bounded complex. If <span class="Math">A</span> has finite global dimension, then <span class="Math">\mathcal{D}^{b}( \modc A )</span> has AR-triangles, and there exists an algorithm for computing the AR-translation of a complex <span class="Math">C \in \mathcal{D}^{b}( \modc A )</span>:</p>
+
+
+<ul>
+<li><p>Compute a projective resolution <span class="Math">P'</span> of <span class="Math">C</span>.</p>
+
+</li>
+<li><p>Shift <span class="Math">P'</span> one degree to the right.</p>
+
+</li>
+<li><p>Compute <span class="Math">I = D\mathrm{Hom}_{A}(P',A)</span> to get a complex of injectives.</p>
+
+</li>
+<li><p>Compute a projective resolution <span class="Math">P</span> of <span class="Math">I</span>.</p>
+
+</li>
+</ul>
+<p>Then <span class="Math">P</span> is the AR-translation of <span class="Math">C</span>, sometimes written <span class="Math">\tau(C)</span>. The following documents the <strong class="pkg">QPA</strong> functions for working with complexes in the derived category.</p>
+
+<p><a id="X7BC3EE977FA24151" name="X7BC3EE977FA24151"></a></p>
+
+<h5>11.2-1 ProjectiveResolutionOfComplex</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ProjectiveResolutionOfComplex</code>( <var class="Arg">C</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">C</var> -- a finite complex.<br /></p>
+
+<p>Returns: A projective complex <span class="Math">P</span> which is the projective resolution of <span class="Math">C</span>, as described in the introduction to this section.</p>
+
+<p>If the algebra has infinite global dimension, the projective resolution of <span class="Math">C</span> could possibly be infinite.</p>
+
+<p><a id="X84F050D07B19ABC4" name="X84F050D07B19ABC4"></a></p>
+
+<h5>11.2-2 ProjectiveToInjectiveComplex</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ProjectiveToInjectiveComplex</code>( <var class="Arg">P</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ProjectiveToInjectiveFiniteComplex</code>( <var class="Arg">P</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">P</var> -- a bounded below projective complex.<br /></p>
+
+<p>Returns: An injective complex <span class="Math">I = D\mathrm{Hom}_{A}(P,A)</span>.</p>
+
+<p><span class="Math">P</span> and <span class="Math">I</span> will always have the same length. Especially, if <span class="Math">P</span> is unbounded above, then so is <span class="Math">I</span>. If <span class="Math">P</span> is a finite complex (that is; <code class="code">LengthOfComplex(P)</code> is an integer) then the simpler method <code class="code">ProjectiveToInjectiveFiniteComplex</code> is used.</p>
+
+<p><a id="X82CB35E07DD2D96D" name="X82CB35E07DD2D96D"></a></p>
+
+<h5>11.2-3 TauOfComplex</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; TauOfComplex</code>( <var class="Arg">C</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">C</var> -- a finite complex over an algebra of finite global dimension.<br /></p>
+
+<p>Returns: A projective complex <span class="Math">P</span> which is the AR-translation of <var class="Arg">C</var>.</p>
+
+<p>This function only works when the algebra has finite global dimension. It will always assume that both the projective resolutions computed are finite.</p>
+
+<p><a id="X85861B017AEEC50B" name="X85861B017AEEC50B"></a></p>
+
+<h5>11.2-4 <span class="Heading">Example</span></h5>
+
+<p>The following example illustrates the above mentioned functions and properties. Note that both <code class="code">ProjectiveResolutionOfComplex</code> and <code class="code">ProjectiveToInjectiveComplex</code> return complexes with a nonzero <em>positive</em> part, whereas <code class="code">TauOfComplex</code> always returns a complex for which <code class="code">IsFiniteComplex</code> returns true. Also note that after the complex <code class="code">C</code> in the example is found to have the <code class="code">IsInjectiveComplex</code> property, the printing of the complex changes.</p>
+
+<p>The algebra in the example is <span class="Math">kQ/I</span>, where <span class="Math">Q</span> is the quiver <span class="Math">1 \longrightarrow 2 \longrightarrow 3</span> and <span class="Math">I</span> is generated by the composition of the arrows. We construct <span class="Math">C</span> as the stalk complex with the injective <span class="Math">I_1</span> in degree 0.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">alg;</span>
+&lt;Rationals[&lt;quiver with 3 vertices and 2 arrows&gt;]/
+&lt;two-sided ideal in &lt;Rationals[&lt;quiver with 3 vertices and 2 arrows&gt;]&gt;, 
+  (1 generators)&gt;&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">cat := CatOfRightAlgebraModules(alg);</span>
+&lt;cat: right modules over algebra&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">C := StalkComplex(cat, IndecInjectiveModules(alg)[1], 0);</span>
+0 -&gt; 0:(1,0,0) -&gt; 0
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ProjC := ProjectiveResolutionOfComplex(C);</span>
+--- -&gt; 0: P1 -&gt; 0
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">InjC := ProjectiveToInjectiveComplex(ProjC);</span>
+--- -&gt; 1: I2 -&gt; 0: I1 -&gt; 0
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">TauC := TauOfComplex(C);</span>
+0 -&gt; 1: P3 -&gt; 0
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsProjectiveComplex(C);</span>
+false
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsInjectiveComplex(C);</span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">C;</span>
+0 -&gt; 0: I1 -&gt; 0 
+</pre></div>
+
+<p><a id="X84D4D700876395AF" name="X84D4D700876395AF"></a></p>
+
+<h5>11.2-5 StarOfMapBetweenProjectives</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; StarOfMapBetweenProjectives</code>( <var class="Arg">f</var>, <var class="Arg">list_i</var>, <var class="Arg">list_j</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; StarOfMapBetweenIndecProjectives</code>( <var class="Arg">f</var>, <var class="Arg">i</var>, <var class="Arg">list_j</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; StarOfMapBetweenDecompProjectives</code>( <var class="Arg">f</var>, <var class="Arg">list_i</var>, <var class="Arg">list_j</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">f</var> -- a map between to projective modules <span class="Math">P = \bigoplus P_i</span> and <span class="Math">Q = \bigoplus Q_j</span>, each of which were constructed as direct sums of indecomposable projective modules; <var class="Arg">list_i</var> -- describes the summands of <span class="Math">P</span>; <var class="Arg">list_j</var> -- describes the summands of <span class="Math">Q</span>. If <span class="Math">P = P_1 \oplus P_3 \oplus P_3</span> (where <span class="Math">P_i</span> is the indecomposable projective representation in vertex <span class="Math">i</span>), then <var class="Arg">list_i</var> is [1,3,3].<br /></p>
+
+<p>Returns: The map <span class="Math">f^* = \Hom_A(f,A): \Hom_A(Q,A) \rightarrow \Hom_A(P,A)</span> in <span class="Math">A^{\mathrm{op}}</span> (where <span class="Math">A</span> is the original algebra).</p>
+
+<p>The function <code class="code">StarOfMapBetweenProjectives</code> is supposed to be called from within the <code class="code">ProjectiveToInjectiveComplex</code> method, and might not do as expected when called from somewhere else.</p>
+
+<p>The other similarly named functions are called from within the first.</p>
+
+
+<div class="chlinkprevnextbot">&nbsp;<a href="chap0.html">[Top of Book]</a>&nbsp;  <a href="chap0.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap10.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap12.html">[Next Chapter]</a>&nbsp;  </div>
+
+
+<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0.html">Top</a>  <a href="chap1.html">1</a>  <a href="chap2.html">2</a>  <a href="chap3.html">3</a>  <a href="chap4.html">4</a>  <a href="chap5.html">5</a>  <a href="chap6.html">6</a>  <a href="chap7.html">7</a>  <a href="chap8.html">8</a>  <a href="chap9.html">9</a>  <a href="chap10.html">10</a>  <a href="chap11.html">11</a>  <a href="chap12.html">12</a>  <a href="chap13.html">13</a>  <a href="chapBib.html">Bib</a>  <a href="chapInd.html">Ind</a>  </div>
+
+<hr />
+<p class="foot">generated by <a href="https://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc">GAPDoc2HTML</a></p>
+</body>
+</html>

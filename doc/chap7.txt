@@ -1,0 +1,882 @@
+  
+  [1X7 [33X[0;0YHomomorphisms of Right Modules over Path Algebras[133X[101X
+  
+  [33X[0;0YThis  chapter  describes  the  categories,  representations, attributes, and
+  operations on homomorphisms between representations of quivers.[133X
+  
+  [33X[0;0YGiven  two  homorphisms  [23Xf\colon  L\to  M[123X  and  [23Xg\colon  M\to  N[123X,  then  the
+  composition   is   written   [23Xf*g[123X.   The  elements  in  the  modules  or  the
+  representations  of  a  quiver  are row vectors. Therefore the homomorphisms
+  between  two  modules are acting on these row vectors, that is, if [23Xm_i[123X is in
+  [23XM[i][123X and [23Xg_i\colon M[i]\to N[i][123X represents the linear map, then the value of
+  [23Xg[123X applied to [23Xm_i[123X is the matrix product [23Xm_i*g_i[123X.[133X
+  
+  [33X[0;0YThe example used throughout this chapter is the following.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XQ := Quiver(3,[[1,2,"a"],[1,2,"b"],[2,2,"c"],[2,3,"d"],[3,1,"e"]]);;[127X[104X
+    [4X[25Xgap>[125X [27XKQ := PathAlgebra(Rationals, Q);;[127X[104X
+    [4X[25Xgap>[125X [27XAssignGeneratorVariables(KQ);;[127X[104X
+    [4X[25Xgap>[125X [27Xrels := [d*e,c^2,a*c*d-b*d,e*a];;[127X[104X
+    [4X[25Xgap>[125X [27XA := KQ/rels;;[127X[104X
+    [4X[25Xgap>[125X [27Xmat :=[["a",[[1,2],[0,3],[1,5]]],["b",[[2,0],[3,0],[5,0]]],[127X[104X
+    [4X[25X>[125X [27X["c",[[0,0],[1,0]]],["d",[[1,2],[0,1]]],["e",[[0,0,0],[0,0,0]]]];;[127X[104X
+    [4X[25Xgap>[125X [27XN := RightModuleOverPathAlgebra(A,mat);; [127X[104X
+  [4X[32X[104X
+  
+  
+  [1X7.1 [33X[0;0YCategories and representation of homomorphisms[133X[101X
+  
+  [1X7.1-1 IsPathAlgebraModuleHomomorphism[101X
+  
+  [33X[1;0Y[29X[2XIsPathAlgebraModuleHomomorphism[102X( [3Xf[103X ) [32X filter[133X
+  
+  [33X[0;0YArguments: [3Xf[103X - any object in GAP.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue  or  false  depending  on  if  [3Xf[103X  belongs  to  the categories
+            [10XIsPathAlgebraModuleHomomorphism[110X.[133X
+  
+  [33X[0;0YThis defines the category [2XIsPathAlgebraModuleHomomorphism[102X.[133X
+  
+  [1X7.1-2 RightModuleHomOverAlgebra[101X
+  
+  [33X[1;0Y[29X[2XRightModuleHomOverAlgebra[102X( [3XM[103X, [3XN[103X, [3Xmats[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments:  [3XM[103X,  [3XN[103X  - two modules over the same (quotient of a) path algebra,
+  [3Xmats[103X  -  a  list  of matrices, one for each vertex in the quiver of the path
+  algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya  homomorphism  in  the  category [10XIsPathAlgebraModuleHomomorphism[110X
+            from the module [3XM[103X to the module [3XN[103X given by the matrices [3Xmats[103X.[133X
+  
+  [33X[0;0YThe  arguments  [3XM[103X  and  [3XN[103X  are  two  modules  over the same algebra (this is
+  checked),  and  [3Xmats[103X is a list of matrices [10Xmats[i][110X, where [10Xmats[i][110X represents
+  the  linear map from [10XM[i][110X to [10XN[i][110X with [10Xi[110X running through all the vertices in
+  the  same  order  as  when  the  underlying  quiver  was  created.  If  both
+  [10XDimensionVector(M)[i][110X  and  [10XDimensionVector(N)[i][110X are non-zero, then [10Xmats[i][110X
+  is    a    [10XDimensionVector(M)[i][110X   by   [10XDimensionVector(N)[i][110X   matrix.   If
+  [10XDimensionVector(M)[i][110X  is  zero  and [10XDimensionVector(N)[i][110X is non-zero, then
+  [10Xmats[i][110X  must  be  the zero [10X1[110X by [10XDimensionVector(N)[i][110X matrix. Similarly for
+  the    other    way    around.    If    both    [10XDimensionVector(M)[i][110X    and
+  [10XDimensionVector(N)[i][110X are zero, then [10Xmats[i][110X must be the [10X1[110X by [10X1[110X zero matrix.
+  The  function  checks  if  [3Xmats[103X  is  a homomorphism from the module [3XM[103X to the
+  module  [3XN[103X  by checking that the matrices given in [3Xmats[103X have the correct size
+  and  satisfy  the  appropriate commutativity conditions with the matrices in
+  the  modules  given  by  [3XM[103X  and  [3XN[103X. The source (or domain) and the range (or
+  codomain)  of  the  homomorphism  constructed can by obtained again by [2XRange[102X
+  ([14X7.2-22[114X) and by [2XSource[102X ([14X7.2-24[114X), respectively.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XL := RightModuleOverPathAlgebra(A,[["a",[0,1]],["b",[0,1]],[127X[104X
+    [4X[25X>[125X [27X["c",[[0]]],["d",[[1]]],["e",[1,0]]]);[127X[104X
+    [4X[28X<[ 0, 1, 1 ]>[128X[104X
+    [4X[25Xgap>[125X [27XDimensionVector(L);[127X[104X
+    [4X[28X[ 0, 1, 1 ][128X[104X
+    [4X[25Xgap>[125X [27Xf := RightModuleHomOverAlgebra(L,N,[[[0,0,0]], [[1,0]], [127X[104X
+    [4X[25X>[125X [27X[[1,2]]]);[127X[104X
+    [4X[28X<<[ 0, 1, 1 ]> ---> <[ 3, 2, 2 ]>>[128X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27XIsPathAlgebraMatModuleHomomorphism(f);[127X[104X
+    [4X[28Xtrue [128X[104X
+  [4X[32X[104X
+  
+  [1X7.1-3 UnderlyingLinearMap[101X
+  
+  [33X[1;0Y[29X[2XUnderlyingLinearMap[102X( [3Xf[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xf[103X - a homomorphism between two representations.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe  homomorphism  [3Xf[103X as a matrix, where the homomorphism on a zero
+            vectorspace is represented by a zero matrix. The linear map/matrix
+            operates on row vectors.[133X
+  
+  
+  [1X7.2 [33X[0;0YGeneralities of homomorphisms[133X[101X
+  
+  [1X7.2-1 \= (maps)[101X
+  
+  [33X[1;0Y[29X[2X\= (maps)[102X( [3Xf[103X, [3Xg[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xf[103X, [3Xg[103X - two homomorphisms between two modules.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue,  if  [10XSource(f)  =  Source(g)[110X,  [10XRange(f)  = Range(g)[110X, and the
+            matrices defining the maps [3Xf[103X and [3Xg[103X coincide.[133X
+  
+  [1X7.2-2 \+ (maps)[101X
+  
+  [33X[1;0Y[29X[2X\+ (maps)[102X( [3Xf[103X, [3Xg[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xf[103X, [3Xg[103X - two homomorphisms between two modules.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe sum [3Xf+g[103X of the maps [3Xf[103X and [3Xg[103X.[133X
+  
+  [33X[0;0YThe function checks if the maps have the same source and the same range, and
+  returns an error message otherwise.[133X
+  
+  [1X7.2-3 \* (maps)[101X
+  
+  [33X[1;0Y[29X[2X\* (maps)[102X( [3Xf[103X, [3Xg[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments:  [3Xf[103X,  [3Xg[103X - two homomorphisms between two modules, or one scalar and
+  one homomorphism between modules.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe  composition  [3Xfg[103X  of  the  maps [3Xf[103X and [3Xg[103X, if the input are maps
+            between  representations  of  the  same  quivers.  If  [3Xf[103X or [3Xg[103X is a
+            scalar,  it  returns  the  natural  action  of scalars on the maps
+            between representations.[133X
+  
+  [33X[0;0YThe function checks if the maps are composable, in the first case and in the
+  second  case it checks if the scalar is in the correct field, and returns an
+  error message otherwise.[133X
+  
+  [1X7.2-4 CoKernelOfWhat[101X
+  
+  [33X[1;0Y[29X[2XCoKernelOfWhat[102X( [3Xf[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3Xf[103X - a homomorphism between two modules.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya  homomorphism  [3Xg[103X,  if [3Xf[103X has been computed as the cokernel of the
+            homomorphism [3Xg[103X.[133X
+  
+  [1X7.2-5 IdentityMapping[101X
+  
+  [33X[1;0Y[29X[2XIdentityMapping[102X( [3XM[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XM[103X - a module.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe identity map between [3XM[103X and [3XM[103X.[133X
+  
+  [1X7.2-6 ImageElm[101X
+  
+  [33X[1;0Y[29X[2XImageElm[102X( [3Xf[103X, [3Xelem[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments:  [3Xf[103X - a homomorphism between two modules, [3Xelem[103X - an element in the
+  source of [3Xf[103X.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe  image  of  the  element [3Xelem[103X in the source (or domain) of the
+            homomorphism [3Xf[103X.[133X
+  
+  [33X[0;0YThe function checks if [3Xelem[103X is an element in the source of [3Xf[103X, and it returns
+  an error message otherwise.[133X
+  
+  [1X7.2-7 ImagesSet[101X
+  
+  [33X[1;0Y[29X[2XImagesSet[102X( [3Xf[103X, [3Xelts[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments:  [3Xf[103X - a homomorphism between two modules, [3Xelts[103X - an element in the
+  source of [3Xf[103X, or the source of [3Xf[103X.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe non-zero images of a set of elements [3Xelts[103X in the source of the
+            homomorphism  [3Xf[103X, or if [3Xelts[103X is the source of [3Xf[103X, it returns a basis
+            of the image.[133X
+  
+  [33X[0;0YThe  function checks if the set of elements [3Xelts[103X consists of elements in the
+  source of [3Xf[103X, and it returns an error message otherwise.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XB := BasisVectors(Basis(N)); [127X[104X
+    [4X[28X[ [ [ 1, 0, 0 ], [ 0, 0 ], [ 0, 0 ] ], [128X[104X
+    [4X[28X  [ [ 0, 1, 0 ], [ 0, 0 ], [ 0, 0 ] ], [128X[104X
+    [4X[28X  [ [ 0, 0, 1 ], [ 0, 0 ], [ 0, 0 ] ], [128X[104X
+    [4X[28X  [ [ 0, 0, 0 ], [ 1, 0 ], [ 0, 0 ] ], [128X[104X
+    [4X[28X  [ [ 0, 0, 0 ], [ 0, 1 ], [ 0, 0 ] ], [128X[104X
+    [4X[28X  [ [ 0, 0, 0 ], [ 0, 0 ], [ 1, 0 ] ], [128X[104X
+    [4X[28X  [ [ 0, 0, 0 ], [ 0, 0 ], [ 0, 1 ] ] ][128X[104X
+    [4X[25Xgap>[125X [27XPreImagesRepresentative(f,B[4]);     [127X[104X
+    [4X[28X[ [ 0 ], [ 1 ], [ 0 ] ][128X[104X
+    [4X[25Xgap>[125X [27XPreImagesRepresentative(f,B[5]);[127X[104X
+    [4X[28Xfail[128X[104X
+    [4X[25Xgap>[125X [27XBL := BasisVectors(Basis(L));[127X[104X
+    [4X[28X[ [ [ 0 ], [ 1 ], [ 0 ] ], [ [ 0 ], [ 0 ], [ 1 ] ] ][128X[104X
+    [4X[25Xgap>[125X [27XImageElm(f,BL[1]);[127X[104X
+    [4X[28X[ [ 0, 0, 0 ], [ 1, 0 ], [ 0, 0 ] ][128X[104X
+    [4X[25Xgap>[125X [27XImagesSet(f,L);[127X[104X
+    [4X[28X[ [ [ 0, 0, 0 ], [ 1, 0 ], [ 0, 0 ] ], [128X[104X
+    [4X[28X  [ [ 0, 0, 0 ], [ 0, 0 ], [ 1, 2 ] ] ][128X[104X
+    [4X[25Xgap>[125X [27XImagesSet(f,BL);[127X[104X
+    [4X[28X[ [ [ 0, 0, 0 ], [ 1, 0 ], [ 0, 0 ] ], [128X[104X
+    [4X[28X  [ [ 0, 0, 0 ], [ 0, 0 ], [ 1, 2 ] ] ][128X[104X
+    [4X[25Xgap>[125X [27Xz := Zero(f);;[127X[104X
+    [4X[25Xgap>[125X [27Xf = z;[127X[104X
+    [4X[28Xfalse[128X[104X
+    [4X[25Xgap>[125X [27XRange(f) = Range(z);[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27Xy := ZeroMapping(L,N);;[127X[104X
+    [4X[25Xgap>[125X [27Xy = z;            [127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27Xid := IdentityMapping(N);;[127X[104X
+    [4X[25Xgap>[125X [27Xf*id;;[127X[104X
+    [4X[25Xgap>[125X [27X#This causes an error![127X[104X
+    [4X[25Xgap>[125X [27Xid*f;[127X[104X
+    [4X[28XError, codomain of the first argument is not equal to the domain of th\[128X[104X
+    [4X[28Xe second argument,  called from[128X[104X
+    [4X[28X<function>( <arguments> ) called from read-eval-loop[128X[104X
+    [4X[28XEntering break read-eval-print loop ...[128X[104X
+    [4X[28Xyou can 'quit;' to quit to outer loop, or[128X[104X
+    [4X[28Xyou can 'return;' to continue[128X[104X
+    [4X[26Xbrk>[126X [27Xquit;;[127X[104X
+    [4X[25Xgap>[125X [27X2*f + z;[127X[104X
+    [4X[28X<<[ 0, 1, 1 ]> ---> <[ 3, 2, 2 ]>> [128X[104X
+  [4X[32X[104X
+  
+  [1X7.2-8 ImageOfWhat[101X
+  
+  [33X[1;0Y[29X[2XImageOfWhat[102X( [3Xf[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3Xf[103X - a homomorphism between two modules.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya  homomorphism  [3Xg[103X, if [3Xf[103X has been computed as the image projection
+            or the image inclusion of the homomorphism [3Xg[103X.[133X
+  
+  [1X7.2-9 IsInjective[101X
+  
+  [33X[1;0Y[29X[2XIsInjective[102X( [3Xf[103X ) [32X property[133X
+  
+  [33X[0;0YArguments: [3Xf[103X - a homomorphism between two modules.[133X
+  
+  [6XReturns:[106X  [33X[0;10Y[10Xtrue[110X if the homomorphism [3Xf[103X is one-to-one.[133X
+  
+  [1X7.2-10 IsIsomorphism[101X
+  
+  [33X[1;0Y[29X[2XIsIsomorphism[102X( [3Xf[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xf[103X - a homomorphism between two modules.[133X
+  
+  [6XReturns:[106X  [33X[0;10Y[10Xtrue[110X if the homomorphism [3Xf[103X is an isomorphism.[133X
+  
+  [1X7.2-11 IsLeftMinimal[101X
+  
+  [33X[1;0Y[29X[2XIsLeftMinimal[102X( [3Xf[103X ) [32X property[133X
+  
+  [33X[0;0YArguments: [3Xf[103X - a homomorphism between two modules.[133X
+  
+  [6XReturns:[106X  [33X[0;10Y[10Xtrue[110X if the homomorphism [3Xf[103X is left minimal.[133X
+  
+  [1X7.2-12 IsRightMinimal[101X
+  
+  [33X[1;0Y[29X[2XIsRightMinimal[102X( [3Xf[103X ) [32X property[133X
+  
+  [33X[0;0YArguments: [3Xf[103X - a homomorphism between two modules.[133X
+  
+  [6XReturns:[106X  [33X[0;10Y[10Xtrue[110X if the homomorphism [3Xf[103X is right minimal.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XL := RightModuleOverPathAlgebra(A,[["a",[0,1]],["b",[0,1]],[127X[104X
+    [4X[25X>[125X [27X["c",[[0]]],["d",[[1]]],["e",[1,0]]]);;[127X[104X
+    [4X[25Xgap>[125X [27Xf := RightModuleHomOverAlgebra(L,N,[[[0,0,0]], [[1,0]], [127X[104X
+    [4X[25X>[125X [27X[[1,2]]]);[127X[104X
+    [4X[28X<<[ 0, 1, 1 ]> ---> <[ 3, 2, 2 ]>>[128X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27Xg := CoKernelProjection(f);[127X[104X
+    [4X[28X<<[ 3, 2, 2 ]> ---> <[ 3, 1, 1 ]>>[128X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27XCoKernelOfWhat(g) = f;[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27Xh := ImageProjection(f);[127X[104X
+    [4X[28X<<[ 0, 1, 1 ]> ---> <[ 0, 1, 1 ]>>[128X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27XImageOfWhat(h) = f;[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27XIsInjective(f); IsSurjective(f); IsIsomorphism(f); [127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[28Xfalse[128X[104X
+    [4X[28Xfalse[128X[104X
+    [4X[25Xgap>[125X [27XIsIsomorphism(h);[127X[104X
+    [4X[28Xtrue [128X[104X
+  [4X[32X[104X
+  
+  [1X7.2-13 IsSplitEpimorphism[101X
+  
+  [33X[1;0Y[29X[2XIsSplitEpimorphism[102X( [3Xf[103X ) [32X property[133X
+  
+  [33X[0;0YArguments: [3Xf[103X - a homomorphism between two modules.[133X
+  
+  [6XReturns:[106X  [33X[0;10Y[10Xtrue[110X  if the homomorphism [3Xf[103X is a splittable epimorphism, otherwise
+            [10Xfalse[110X.[133X
+  
+  [1X7.2-14 IsSplitMonomorphism[101X
+  
+  [33X[1;0Y[29X[2XIsSplitMonomorphism[102X( [3Xf[103X ) [32X property[133X
+  
+  [33X[0;0YArguments: [3Xf[103X - a homomorphism between two modules.[133X
+  
+  [6XReturns:[106X  [33X[0;10Y[10Xtrue[110X if the homomorphism [3Xf[103X is a splittable monomorphism, otherwise
+            [10Xfalse[110X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XS := SimpleModules(A)[1];;[127X[104X
+    [4X[25Xgap>[125X [27XH := HomOverAlgebra(N,S);; [127X[104X
+    [4X[25Xgap>[125X [27XIsSplitMonomorphism(H[1]);  [127X[104X
+    [4X[28Xfalse[128X[104X
+    [4X[25Xgap>[125X [27XIsSplitEpimorphism(H[1]);[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  [1X7.2-15 IsSurjective[101X
+  
+  [33X[1;0Y[29X[2XIsSurjective[102X( [3Xf[103X ) [32X property[133X
+  
+  [33X[0;0YArguments: [3Xf[103X - a homomorphism between two modules.[133X
+  
+  [6XReturns:[106X  [33X[0;10Y[10Xtrue[110X if the homomorphism [3Xf[103X is onto.[133X
+  
+  [1X7.2-16 IsZero[101X
+  
+  [33X[1;0Y[29X[2XIsZero[102X( [3Xf[103X ) [32X property[133X
+  
+  [33X[0;0YArguments: [3Xf[103X - a homomorphism between two modules.[133X
+  
+  [6XReturns:[106X  [33X[0;10Y[10Xtrue[110X if the homomorphism [3Xf[103X is a zero homomorphism.[133X
+  
+  [1X7.2-17 KernelOfWhat[101X
+  
+  [33X[1;0Y[29X[2XKernelOfWhat[102X( [3Xf[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3Xf[103X - a homomorphism between two modules.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya  homomorphism  [3Xg[103X,  if  [3Xf[103X  has been computed as the kernel of the
+            homomorphism [3Xg[103X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XL := RightModuleOverPathAlgebra(A,[["a",[0,1]],["b",[0,1]],[127X[104X
+    [4X[25X>[125X [27X["c",[[0]]],["d",[[1]]],["e",[1,0]]]);[127X[104X
+    [4X[28X<[ 0, 1, 1 ]>[128X[104X
+    [4X[25Xgap>[125X [27Xf := RightModuleHomOverAlgebra(L,N,[[[0,0,0]], [[1,0]], [127X[104X
+    [4X[25X>[125X [27X[[1,2]]]);;[127X[104X
+    [4X[25Xgap>[125X [27XIsZero(0*f);[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27Xg := KernelInclusion(f);[127X[104X
+    [4X[28X<<[ 0, 0, 0 ]> ---> <[ 0, 1, 1 ]>>[128X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27XKnownAttributesOfObject(g);[127X[104X
+    [4X[28X[ "Range", "Source", "PathAlgebraOfMatModuleMap", "KernelOfWhat" ][128X[104X
+    [4X[25Xgap>[125X [27XKernelOfWhat(g) = f;[127X[104X
+    [4X[28Xtrue [128X[104X
+  [4X[32X[104X
+  
+  [1X7.2-18 LeftInverseOfHomomorphism[101X
+  
+  [33X[1;0Y[29X[2XLeftInverseOfHomomorphism[102X( [3Xf[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3Xf[103X - a homomorphism between two modules.[133X
+  
+  [6XReturns:[106X  [33X[0;10Y[10Xfalse[110X  if  the  homomorphism  [3Xf[103X  is  not a splittable epimorphism,
+            otherwise it returns a splitting of the split epimorphism [3Xf[103X.[133X
+  
+  [1X7.2-19 MatricesOfPathAlgebraMatModuleHomomorphism[101X
+  
+  [33X[1;0Y[29X[2XMatricesOfPathAlgebraMatModuleHomomorphism[102X( [3Xf[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xf[103X - a homomorphism between two modules.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe matrices defining the homomorphism [3Xf[103X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XMatricesOfPathAlgebraMatModuleHomomorphism(f);[127X[104X
+    [4X[28X[ [ [ 0, 0, 0 ] ], [ [ 1, 0 ] ], [ [ 1, 2 ] ] ][128X[104X
+    [4X[25Xgap>[125X [27XRange(f);[127X[104X
+    [4X[28X<[ 3, 2, 2 ]>[128X[104X
+    [4X[25Xgap>[125X [27XSource(f);[127X[104X
+    [4X[28X<[ 0, 1, 1 ]>[128X[104X
+    [4X[25Xgap>[125X [27XSource(f) = L;[127X[104X
+    [4X[28Xtrue [128X[104X
+  [4X[32X[104X
+  
+  [1X7.2-20 PathAlgebraOfMatModuleMap[101X
+  
+  [33X[1;0Y[29X[2XPathAlgebraOfMatModuleMap[102X( [3Xf[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments:   [3Xf[103X   --   a   homomorphism  between  two  path  algebra  modules
+  ([10XPathAlgebraMatModule[110X).[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe   algebra   over  which  the  range  and  the  source  of  the
+            homomorphism [3Xf[103X is defined.[133X
+  
+  [1X7.2-21 PreImagesRepresentative[101X
+  
+  [33X[1;0Y[29X[2XPreImagesRepresentative[102X( [3Xf[103X, [3Xelem[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments:  [3Xf[103X - a homomorphism between two modules, [3Xelem[103X - an element in the
+  range of [3Xf[103X.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya  preimage  of  the  element  [3Xelem[103X in the range (or codomain) the
+            homomorphism [3Xf[103X if a preimage exists, otherwise it returns [10Xfail[110X.[133X
+  
+  [33X[0;0YThe  function  checks if [3Xelem[103X is an element in the range of [3Xf[103X and returns an
+  error message if not.[133X
+  
+  [1X7.2-22 Range[101X
+  
+  [33X[1;0Y[29X[2XRange[102X( [3Xf[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3Xf[103X - a homomorphism between two modules.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe range (or codomain) the homomorphism [3Xf[103X.[133X
+  
+  [1X7.2-23 RightInverseOfHomomorphism[101X
+  
+  [33X[1;0Y[29X[2XRightInverseOfHomomorphism[102X( [3Xf[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3Xf[103X - a homomorphism between two modules.[133X
+  
+  [6XReturns:[106X  [33X[0;10Y[10Xfalse[110X  if  the  homomorphism  [3Xf[103X  is not a splittable monomorphism,
+            otherwise it returns a splitting of the split monomorphism [3Xf[103X.[133X
+  
+  [1X7.2-24 Source[101X
+  
+  [33X[1;0Y[29X[2XSource[102X( [3Xf[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3Xf[103X - a homomorphism between two modules.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe source (or domain) the homomorphism [3Xf[103X.[133X
+  
+  [1X7.2-25 Zero[101X
+  
+  [33X[1;0Y[29X[2XZero[102X( [3Xf[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xf[103X - a homomorphism between two modules.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe zero map between [10XSource(f)[110X and [10XRange(f)[110X.[133X
+  
+  [1X7.2-26 ZeroMapping[101X
+  
+  [33X[1;0Y[29X[2XZeroMapping[102X( [3XM[103X, [3XN[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XM[103X, [3XN[103X - two modules.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe zero map between [3XM[103X and [3XN[103X.[133X
+  
+  [1X7.2-27 HomomorphismFromImages[101X
+  
+  [33X[1;0Y[29X[2XHomomorphismFromImages[102X( [3XM[103X, [3XN[103X, [3XgenImages[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XM[103X, [3XN[103X -- two modules, [3XgenImages[103X -- a list.[133X
+  
+  [6XReturns:[106X  [33X[0;10YA map [22Xf[122X between [3XM[103X and [3XN[103X, given by [3XgenImages[103X.[133X
+  
+  [33X[0;0YLet  [10XB[110X  be  the  basis  [10XBasisVectors(  Basis( M ) )[110X of [3XM[103X. Then the number of
+  elements  of  [10XgenImages[110X  should be equal to the number of elements of [10XB[110X, and
+  [10XgenImages[i][110X  is  an  element of [10XN[110X and the image of [10XB[i][110X under [10Xf[110X. The method
+  fails  if [10Xf[110X is not a homomorphism, or if [10XB[i][110X and [10XgenImages[i][110X are supported
+  in different vertices.[133X
+  
+  
+  [1X7.3 [33X[0;0YHomomorphisms and modules constructed from homomorphisms and modules[133X[101X
+  
+  [1X7.3-1 AllIndecModulesOfLengthAtMost[101X
+  
+  [33X[1;0Y[29X[2XAllIndecModulesOfLengthAtMost[102X( [3XA[103X, [3Xn[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XA, n[103X - an algebra over a finite field, an integer.[133X
+  
+  [6XReturns:[106X  [33X[0;10Yall  the  different  indecomposable  modules over the algebra [3XA[103X of
+            length at most [3Xn[103X.[133X
+  
+  [33X[0;0YThis function is only implemented for algebras over a finite field.[133X
+  
+  [1X7.3-2 AllModulesOfLengthAtMost[101X
+  
+  [33X[1;0Y[29X[2XAllModulesOfLengthAtMost[102X( [3XA[103X, [3Xn[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XA, n[103X - an algebra over a finite field, an integer.[133X
+  
+  [6XReturns:[106X  [33X[0;10Yall the different modules over the algebra [3XA[103X of length at most [3Xn[103X.[133X
+  
+  [33X[0;0YThis function is only implemented for algebras over a finite field.[133X
+  
+  [1X7.3-3 AllSimpleSubmodulesOfModule[101X
+  
+  [33X[1;0Y[29X[2XAllSimpleSubmodulesOfModule[102X( [3XM[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XM[103X - a module.[133X
+  
+  [6XReturns:[106X  [33X[0;10Yall   the  different  simple  submodules  of  a  module  given  as
+            inclusions into the module [3XM[103X.[133X
+  
+  [33X[0;0YThis function is only implemented for algebras over a finite field.[133X
+  
+  [1X7.3-4 AllSubmodulesOfModule[101X
+  
+  [33X[1;0Y[29X[2XAllSubmodulesOfModule[102X( [3XM[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XM[103X - a module.[133X
+  
+  [6XReturns:[106X  [33X[0;10Yall  the different submodules of a module given as inclusions into
+            the module [3XM[103X. It returns the list of submodules as a list of lists
+            according to the length of the submodules, namely, first a list of
+            the  zero  module, second a list of all simple submodules, third a
+            list of all submodules of length 2, and so on.[133X
+  
+  [33X[0;0YThis function is only implemented for algebras over a finite field.[133X
+  
+  [1X7.3-5 CoKernel[101X
+  
+  [33X[1;0Y[29X[2XCoKernel[102X( [3Xf[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3Xf[103X - a homomorphism between two modules.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe cokernel of a homomorphism [3Xf[103X between two modules.[133X
+  
+  [33X[0;0YThis function returns the cokernel of the homomorphism [3Xf[103X as a module.[133X
+  
+  [1X7.3-6 CoKernelProjection[101X
+  
+  [33X[1;0Y[29X[2XCoKernelProjection[102X( [3Xf[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3Xf[103X - a homomorphism between two modules.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe cokernel of a homomorphism [3Xf[103X between two modules.[133X
+  
+  [33X[0;0YThis  function  returns the cokernel of the homomorphism [3Xf[103X as the projection
+  homomorphism  from  the  range  of the homomorphism [3Xf[103X to the cokernel of the
+  homomorphism [3Xf[103X.[133X
+  
+  [1X7.3-7 EndModuloProjOverAlgebra[101X
+  
+  [33X[1;0Y[29X[2XEndModuloProjOverAlgebra[102X( [3XM[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XM[103X - a module.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe  natural  homomorphism  from the endomorphism ring of [3XM[103X to the
+            endomorphism  ring  of  [3XM[103X  modulo  the  ideal  generated  by those
+            endomorphisms of [3XM[103X which factor through a projective module.[133X
+  
+  [33X[0;0YThe  operation  returns an error message if the zero module is entered as an
+  argument.[133X
+  
+  [1X7.3-8 EndOfModuleAsQuiverAlgebra[101X
+  
+  [33X[1;0Y[29X[2XEndOfModuleAsQuiverAlgebra[102X( [3XM[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XM[103X - a PathAlgebraMatModule.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya list of three elements, (i) the endomorphism ring of [3XM[103X, (ii) the
+            adjacency  matrix of the quiver of the endomorphism ring and (iii)
+            the endomorphism ring as a quiver algebra.[133X
+  
+  [33X[0;0YSuppose  [3XM[103X  is  a  module over a quiver algebra over a field [22XK[122X. The function
+  checks  if  the endomorphism ring of [3XM[103X is K-elementary (not necessary for it
+  to  be  a quiver algebra, but this is a TODO improvement), and returns error
+  message otherwise.[133X
+  
+  [1X7.3-9 EndOverAlgebra[101X
+  
+  [33X[1;0Y[29X[2XEndOverAlgebra[102X( [3XM[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3XM[103X - a module.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe  endomorphism  ring  of [3XM[103X as a subalgebra of the direct sum of
+            the    full    matrix    rings    of    [10XDimensionVector(M)[i]    x
+            DimensionVector(M)[i][110X,  where  [3Xi[103X  runs  over  all  vertices  where
+            [10XDimensionVector(M)[i][110X is non-zero.[133X
+  
+  [33X[0;0YThe  endomorphism  is  an  algebra  with  one, and one can apply for example
+  [10XRadicalOfAlgebra[110X to find the radical of the endomorphism ring.[133X
+  
+  [1X7.3-10 FromEndMToHomMM[101X
+  
+  [33X[1;0Y[29X[2XFromEndMToHomMM[102X( [3Xf[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xf[103X -- an element in [10XEndOverAlgebra(M)[110X.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe homomorphism from [3XM[103X to [3XM[103X corresponding to the element [3Xf[103X in the
+            endomorphism ring [10XEndOverAlgebra(M)[110X of [3XM[103X.[133X
+  
+  [1X7.3-11 FromHomMMToEndM[101X
+  
+  [33X[1;0Y[29X[2XFromHomMMToEndM[102X( [3Xf[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xf[103X -- an element in [10XHomOverAlgebra(M,M)[110X.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe  element  [3Xf[103X  in  the  endomorphism ring [10XEndOverAlgebra(M)[110X of [3XM[103X
+            corresponding to the the homomorphism from [3XM[103X to [3XM[103X given by [3Xf[103X.[133X
+  
+  [1X7.3-12 HomFactoringThroughProjOverAlgebra[101X
+  
+  [33X[1;0Y[29X[2XHomFactoringThroughProjOverAlgebra[102X( [3XM[103X, [3XN[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XM[103X, [3XN[103X - two modules.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya  basis  for  the vector space of homomorphisms from [3XM[103X to [3XN[103X which
+            factors through a projective module.[133X
+  
+  [33X[0;0YThe  function  checks  if  [3XM[103X  and  [3XN[103X  are modules over the same algebra, and
+  returns an error message otherwise.[133X
+  
+  [1X7.3-13 HomFromProjective[101X
+  
+  [33X[1;0Y[29X[2XHomFromProjective[102X( [3Xm[103X, [3XM[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xm[103X, [3XM[103X - an element and a module.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe homomorphism from the indecomposable projective module defined
+            by the support of the element [3Xm[103X to the module [3XM[103X.[133X
+  
+  [33X[0;0YThe  function  checks  if  [3Xm[103X  is  an  element  in  [3XM[103X and if the element [3Xm[103X is
+  supported in only one vertex. Otherwise it returns fail.[133X
+  
+  [1X7.3-14 HomOverAlgebra[101X
+  
+  [33X[1;0Y[29X[2XHomOverAlgebra[102X( [3XM[103X, [3XN[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XHomOverAlgebraWithBasisFunction[102X( [3XM[103X, [3XN[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XM[103X, [3XN[103X - two modules.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya  basis  for the vector space of homomorphisms from [3XM[103X to [3XN[103X in the
+            first  version.  In  the  second version it also returns a list of
+            length   two,  where  the  first  entry  is  the  basis  found  by
+            [10XHomOverAlgebra[110X  and  the second entry is a function from the space
+            of  homomorphisms  from  [3XM[103X to [3XN[103X to the vector space with the basis
+            given by the first entry.[133X
+  
+  [33X[0;0YThe  function  checks  if  [3XM[103X  and  [3XN[103X  are modules over the same algebra, and
+  returns an error message and fail otherwise.[133X
+  
+  [1X7.3-15 Image[101X
+  
+  [33X[1;0Y[29X[2XImage[102X( [3Xf[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3Xf[103X - a homomorphism between two modules.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe image of a homomorphism [3Xf[103X as a module.[133X
+  
+  [1X7.3-16 ImageInclusion[101X
+  
+  [33X[1;0Y[29X[2XImageInclusion[102X( [3Xf[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3Xf[103X - a homomorphism between two modules.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe  inclusion  of the image of a homomorphism [3Xf[103X into the range of
+            [3Xf[103X.[133X
+  
+  [1X7.3-17 ImageProjection[101X
+  
+  [33X[1;0Y[29X[2XImageProjection[102X( [3Xf[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3Xf[103X - a homomorphism between two modules.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe  projection  from  the  source  of  [3Xf[103X  to  the  image  of  the
+            homomorphism [3Xf[103X.[133X
+  
+  [1X7.3-18 ImageProjectionInclusion[101X
+  
+  [33X[1;0Y[29X[2XImageProjectionInclusion[102X( [3Xf[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3Xf[103X - a homomorphism between two modules.[133X
+  
+  [6XReturns:[106X  [33X[0;10Yboth  the  projection  from  the  source  of [3Xf[103X to the image of the
+            homomorphism  [3Xf[103X and the inclusion of the image of a homomorphism [3Xf[103X
+            into  the  range  of  [3Xf[103X  as  a  list  of  two  elements (first the
+            projection and then the inclusion).[133X
+  
+  [1X7.3-19 IsomorphismOfModules[101X
+  
+  [33X[1;0Y[29X[2XIsomorphismOfModules[102X( [3XM[103X, [3XN[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XM, N[103X - two PathAlgebraMatModules.[133X
+  
+  [6XReturns:[106X  [33X[0;10Yfalse  if  [3XM[103X  and  [3XN[103X  are two non-isomorphic modules, otherwise it
+            returns an isomorphism from [3XM[103X to [3XN[103X.[133X
+  
+  [33X[0;0YThe  function  checks  if  [3XM[103X  and  [3XN[103X  are modules over the same algebra, and
+  returns an error message otherwise.[133X
+  
+  [1X7.3-20 Kernel[101X
+  
+  [33X[1;0Y[29X[2XKernel[102X( [3Xf[103X ) [32X attribute[133X
+  [33X[1;0Y[29X[2XKernelInclusion[102X( [3Xf[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3Xf[103X - a homomorphism between two modules.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe kernel of a homomorphism [3Xf[103X between two modules.[133X
+  
+  [33X[0;0YThe  first  variant  [2XKernel[102X  returns  the  kernel of the homomorphism [3Xf[103X as a
+  module,  while  the  latter  one  returns  the inclusion homomorphism of the
+  kernel into the source of the homomorphism [3Xf[103X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xhom := HomOverAlgebra(N,N);[127X[104X
+    [4X[28X[ <<[ 3, 2, 2 ]> ---> <[ 3, 2, 2 ]>>[128X[104X
+    [4X[28X    , <<[ 3, 2, 2 ]> ---> <[ 3, 2, 2 ]>>[128X[104X
+    [4X[28X    , <<[ 3, 2, 2 ]> ---> <[ 3, 2, 2 ]>>[128X[104X
+    [4X[28X    , <<[ 3, 2, 2 ]> ---> <[ 3, 2, 2 ]>>[128X[104X
+    [4X[28X    , <<[ 3, 2, 2 ]> ---> <[ 3, 2, 2 ]>>[128X[104X
+    [4X[28X     ][128X[104X
+    [4X[25Xgap>[125X [27Xg := hom[1];[127X[104X
+    [4X[28X<<[ 3, 2, 2 ]> ---> <[ 3, 2, 2 ]>>[128X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27XM := CoKernel(g);[127X[104X
+    [4X[28X<[ 2, 2, 2 ]>[128X[104X
+    [4X[25Xgap>[125X [27Xf := CoKernelProjection(g);[127X[104X
+    [4X[28X<<[ 3, 2, 2 ]> ---> <[ 2, 2, 2 ]>>[128X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27XRange(f) = M;[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27Xendo := EndOverAlgebra(N);[127X[104X
+    [4X[28X<algebra-with-one of dimension 5 over Rationals>[128X[104X
+    [4X[25Xgap>[125X [27XRadicalOfAlgebra(endo);[127X[104X
+    [4X[28X<algebra of dimension 3 over Rationals>[128X[104X
+    [4X[25Xgap>[125X [27XB := BasisVectors(Basis(N));[127X[104X
+    [4X[28X[ [ [ 1, 0, 0 ], [ 0, 0 ], [ 0, 0 ] ], [128X[104X
+    [4X[28X  [ [ 0, 1, 0 ], [ 0, 0 ], [ 0, 0 ] ], [128X[104X
+    [4X[28X  [ [ 0, 0, 1 ], [ 0, 0 ], [ 0, 0 ] ], [128X[104X
+    [4X[28X  [ [ 0, 0, 0 ], [ 1, 0 ], [ 0, 0 ] ], [128X[104X
+    [4X[28X  [ [ 0, 0, 0 ], [ 0, 1 ], [ 0, 0 ] ], [128X[104X
+    [4X[28X  [ [ 0, 0, 0 ], [ 0, 0 ], [ 1, 0 ] ], [128X[104X
+    [4X[28X  [ [ 0, 0, 0 ], [ 0, 0 ], [ 0, 1 ] ] ][128X[104X
+    [4X[25Xgap>[125X [27Xp := HomFromProjective(B[1],N);[127X[104X
+    [4X[28X<<[ 1, 4, 3 ]> ---> <[ 3, 2, 2 ]>>[128X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27XU := Image(p);[127X[104X
+    [4X[28X<[ 1, 2, 2 ]>[128X[104X
+    [4X[25Xgap>[125X [27Xprojinc := ImageProjectionInclusion(p);[127X[104X
+    [4X[28X[ <<[ 1, 4, 3 ]> ---> <[ 1, 2, 2 ]>>[128X[104X
+    [4X[28X    , <<[ 1, 2, 2 ]> ---> <[ 3, 2, 2 ]>>[128X[104X
+    [4X[28X     ][128X[104X
+    [4X[25Xgap>[125X [27XU = Range(projinc[1]);                                      [127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27XKernel(p);[127X[104X
+    [4X[28X<[ 0, 2, 1 ]> [128X[104X
+  [4X[32X[104X
+  
+  [1X7.3-21 LeftMinimalVersion[101X
+  
+  [33X[1;0Y[29X[2XLeftMinimalVersion[102X( [3Xf[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3Xf[103X - a homomorphism between two modules.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe  left  minimal  version [3Xf'[103X of the homomorphism [3Xf[103X together with
+            the  a  list [10XB[110X of modules such that the direct sum of the modules,
+            [10XRange(f')[110X and the modules in the list [10XB[110X is isomorphic to [10XRange(f)[110X.[133X
+  
+  [1X7.3-22 MatrixOfHomomorphismBetweenProjectives[101X
+  
+  [33X[1;0Y[29X[2XMatrixOfHomomorphismBetweenProjectives[102X( [3Xf[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xf[103X -- a homomorphism between two projective modules.[133X
+  
+  [6XReturns:[106X  [33X[0;10Yfor a homomorphism [3Xf[103X of projective [22XA[122X-modules from [22XP = ⊕ v_iA[122X to [22XP'
+            =  ⊕  w_iA[122X,  where [22Xv_i[122X and [22Xw_i[122X are vertices, the homomorphism as a
+            matrix in [22X⊕ v_iAw_i[122X.[133X
+  
+  [1X7.3-23 FromMatrixToHomomorphismOfProjectives[101X
+  
+  [33X[1;0Y[29X[2XFromMatrixToHomomorphismOfProjectives[102X( [3XA[103X, [3Xmat[103X, [3Xvert1[103X, [3Xvert0[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XA[103X -- a QuiverAlgebra, [3Xmat[103X -- a matrix over [3XA[103X, [3Xvert1, vert0[103X -- two
+  lists of vertex indices[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya  homomorphism of projective [3XA[103X-modules from [22XP_1 = ⊕ w_iA[122X to [22XP_0 =
+            ⊕  v_iA[122X, where [22Xw_i[122X and [22Xv_i[122X are vertices determined by the two last
+            arguments.[133X
+  
+  [1X7.3-24 RightMinimalVersion[101X
+  
+  [33X[1;0Y[29X[2XRightMinimalVersion[102X( [3Xf[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3Xf[103X - a homomorphism between two modules.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe  right  minimal version [3Xf'[103X of the homomorphism [3Xf[103X together with
+            the  a  list [10XB[110X of modules such that the direct sum of the modules,
+            [10XSource(f')[110X  and  the  modules  on  the  list  [10XB[110X  is  isomorphic to
+            [10XSource(f)[110X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XH:= HomOverAlgebra(N,N);;[127X[104X
+    [4X[25Xgap>[125X [27XRightMinimalVersion(H[1]);   [127X[104X
+    [4X[28X[ <<[ 1, 0, 0 ]> ---> <[ 3, 2, 2 ]>>[128X[104X
+    [4X[28X    , [ <[ 2, 2, 2 ]> ] ][128X[104X
+    [4X[25Xgap>[125X [27XLeftMinimalVersion(H[1]);             [127X[104X
+    [4X[28X[ <<[ 3, 2, 2 ]> ---> <[ 1, 0, 0 ]>>[128X[104X
+    [4X[28X    , [ <[ 2, 2, 2 ]> ] ][128X[104X
+    [4X[25Xgap>[125X [27XS := SimpleModules(A)[1];;[127X[104X
+    [4X[25Xgap>[125X [27XMinimalRightApproximation(N,S);[127X[104X
+    [4X[28X<<[ 1, 0, 0 ]> ---> <[ 1, 0, 0 ]>>[128X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27XS := SimpleModules(A)[3];;[127X[104X
+    [4X[25Xgap>[125X [27XMinimalLeftApproximation(S,N);   [127X[104X
+    [4X[28X<<[ 0, 0, 1 ]> ---> <[ 2, 2, 2 ]>> [128X[104X
+  [4X[32X[104X
+  
+  [1X7.3-25 RadicalOfModuleInclusion[101X
+  
+  [33X[1;0Y[29X[2XRadicalOfModuleInclusion[102X( [3XM[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3XM[103X - a module.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe inclusion of the radical of the module [3XM[103X into [3XM[103X.[133X
+  
+  [33X[0;0YThe  radical  of  [3XM[103X  can  be  accessed  using  [10XSource[110X, or it can be computed
+  directly via the command [2XRadicalOfModule[102X ([14X6.4-37[114X). If the algebra over which
+  [3XM[103X  is  a  module  is  not a finite dimensional path algebra or an admissible
+  quotient of a path algebra, then it will search for other methods.[133X
+  
+  [1X7.3-26 RejectOfModule[101X
+  
+  [33X[1;0Y[29X[2XRejectOfModule[102X( [3XM[103X, [3XN[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XN[103X, [3XM[103X -- two path algebra modules ([10XPathAlgebraMatModule[110X).[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe  reject  of  the  module  [3XM[103X  in  the  module [3XN[103X as an inclusion
+            homomorhpism from the reject of [3XM[103X into [3XN[103X.[133X
+  
+  [1X7.3-27 SocleOfModuleInclusion[101X
+  
+  [33X[1;0Y[29X[2XSocleOfModuleInclusion[102X( [3XM[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XM[103X - a module.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe inclusion of the socle of the module [3XM[103X into [3XM[103X.[133X
+  
+  [33X[0;0YThe  socle of [3XM[103X can be accessed using [10XSource[110X, or it can be computed directly
+  via the command [2XSocleOfModule[102X ([14X6.4-41[114X).[133X
+  
+  [1X7.3-28 SubRepresentationInclusion[101X
+  
+  [33X[1;0Y[29X[2XSubRepresentationInclusion[102X( [3XM[103X, [3Xgens[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XM[103X - a module, [3Xgens[103X - a list of elements in [3XM[103X.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe  inclusion  of  the submodule generated by the generators [3Xgens[103X
+            into the module [3XM[103X.[133X
+  
+  [33X[0;0YThe  function checks if [3Xgens[103X consists of elements in [3XM[103X, and returns an error
+  message  otherwise.  The  module  given  by  the  submodule generated by the
+  generators [3Xgens[103X can be accessed using [10XSource[110X.[133X
+  
+  [1X7.3-29 TopOfModuleProjection[101X
+  
+  [33X[1;0Y[29X[2XTopOfModuleProjection[102X( [3XM[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XM[103X - a module.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe projection from the module [3XM[103X to the top of the module [3XM[103X.[133X
+  
+  [33X[0;0YThe  module  given by the top of the module [3XM[103X can be accessed using [10XRange[110X of
+  the homomorphism.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xf := RadicalOfModuleInclusion(N);[127X[104X
+    [4X[28X<<[ 0, 2, 2 ]> ---> <[ 3, 2, 2 ]>>[128X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27XradN := Source(f);[127X[104X
+    [4X[28X<[ 0, 2, 2 ]>[128X[104X
+    [4X[25Xgap>[125X [27Xg := SocleOfModuleInclusion(N);[127X[104X
+    [4X[28X<<[ 1, 0, 2 ]> ---> <[ 3, 2, 2 ]>>[128X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27XU := SubRepresentationInclusion(N,[B[5]+B[6],B[7]]);[127X[104X
+    [4X[28X<<[ 0, 2, 2 ]> ---> <[ 3, 2, 2 ]>>[128X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27Xh := TopOfModuleProjection(N);[127X[104X
+    [4X[28X<<[ 3, 2, 2 ]> ---> <[ 3, 0, 0 ]>> [128X[104X
+  [4X[32X[104X
+  
+  [1X7.3-30 TraceOfModule[101X
+  
+  [33X[1;0Y[29X[2XTraceOfModule[102X( [3XM[103X, [3XN[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XM[103X, [3XC[103X -- two path algebra modules ([10XPathAlgebraMatModule[110X).[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe  trace  of  the  module  [3XM[103X  in  the  module  [3XN[103X as an inclusion
+            homomorhpism from the trace of [3XM[103X to [3XN[103X.[133X
+  

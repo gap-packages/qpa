@@ -1,0 +1,2046 @@
+  
+  [1X4 [33X[0;0YPath Algebras[133X[101X
+  
+  
+  [1X4.1 [33X[0;0YIntroduction[133X[101X
+  
+  [33X[0;0YA  path algebra is an algebra constructed from a field [23XF[123X (see Chapter 56 and
+  57  in the [5XGAP[105X manual for information about fields) and a quiver [23XQ[123X. The path
+  algebra  [23XFQ[123X  contains  all  finite  linear  combinations of paths of [23XQ[123X. This
+  chapter  describes  the  functions  in  [5XQPA[105X that deal with path algebras and
+  quotients  of  path algebras. Path algebras are algebras, so see Chapter 60:
+  Algebras  in  the  [5XGAP[105X  manual  for  functionality such as generators, basis
+  functions, and mappings.[133X
+  
+  [33X[0;0YThe  only  supported  ordering  of elements in a path algebra is length left
+  lexicographic ordering. See [14X3.4[114X for more information.[133X
+  
+  
+  [1X4.2 [33X[0;0YConstructing Path Algebras[133X[101X
+  
+  [1X4.2-1 PathAlgebra[101X
+  
+  [33X[1;0Y[29X[2XPathAlgebra[102X( [3XF[103X, [3XQ[103X ) [32X function[133X
+  
+  [33X[0;0YArguments: [3XF[103X -- a field, [3XQ[103X -- a quiver.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe path algebra [3XFQ[103X of [3XQ[103X over the field [3XF[103X.[133X
+  
+  [33X[0;0YFor  construction  of fields, see the [5XGAP[105X documentation. The elements of the
+  path algebra [3XFQ[103X will be ordered by left length-lexicographic ordering.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XQ := Quiver( ["u","v"] , [ ["u","u","a"], ["u","v","b"], [127X[104X
+    [4X[25X>[125X [27X["v","u","c"], ["v","v","d"] ] );[127X[104X
+    [4X[28X<quiver with 2 vertices and 4 arrows>[128X[104X
+    [4X[25Xgap>[125X [27XF := Rationals;[127X[104X
+    [4X[28XRationals[128X[104X
+    [4X[25Xgap>[125X [27XFQ := PathAlgebra(F,Q);[127X[104X
+    [4X[28X<Rationals[<quiver with 2 vertices and 4 arrows>]>[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X4.3 [33X[0;0YCategories and Properties of Path Algebras[133X[101X
+  
+  [1X4.3-1 IsPathAlgebra[101X
+  
+  [33X[1;0Y[29X[2XIsPathAlgebra[102X( [3Xobject[103X ) [32X property[133X
+  
+  [33X[0;0YArguments: [3Xobject[103X -- any object in [5XGAP[105X.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue whenever [3Xobject[103X is a path algebra.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XIsPathAlgebra(FQ);[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X4.4 [33X[0;0YAttributes and Operations for Path Algebras[133X[101X
+  
+  [1X4.4-1 AssociatedGradedAlgebra[101X
+  
+  [33X[1;0Y[29X[2XAssociatedGradedAlgebra[102X( [3XA[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3XA[103X -- a quiver algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe  associated graded algebra of [3XA[103X with to the radical filtration
+            of the algebra.[133X
+  
+  [1X4.4-2 AssociatedMonomialAlgebra[101X
+  
+  [33X[1;0Y[29X[2XAssociatedMonomialAlgebra[102X( [3XA[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3XA[103X -- a quiver algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe  associated monomial algebra of [3XA[103X with respect to the Groebner
+            basis the path algebra is endoved with.[133X
+  
+  [1X4.4-3 QuiverOfPathAlgebra[101X
+  
+  [33X[1;0Y[29X[2XQuiverOfPathAlgebra[102X( [3XFQ[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3XFQ[103X -- a path algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe quiver from which [3XFQ[103X was constructed.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XQuiverOfPathAlgebra(FQ);[127X[104X
+    [4X[28X<quiver with 2 vertices and 4 arrows> [128X[104X
+  [4X[32X[104X
+  
+  [1X4.4-4 OrderingOfAlgebra[101X
+  
+  [33X[1;0Y[29X[2XOrderingOfAlgebra[102X( [3XFQ[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3XFQ[103X -- a path algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe ordering of the quiver of the path algebra.[133X
+  
+  [33X[0;0Y[13XNote:[113X  As  of  the  current  version  of [5XQPA[105X, only left length lexicographic
+  ordering is supported.[133X
+  
+  [1X4.4-5 .[101X
+  
+  [33X[1;0Y[29X[2X.[102X( [3XFQ[103X, [3Xgenerator[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments:  [3XFQ[103X  --  a path algebra, [3Xgenerator[103X -- a vertex or an arrow in the
+  quiver [3XQ[103X.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe [3Xgenerator[103X as an element of the path algebra.[133X
+  
+  [33X[0;0YOther elements of the path algebra can be constructed as linear combinations
+  of the generators. For further operations on elements, see below.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XFQ.a;[127X[104X
+    [4X[28X(1)*a[128X[104X
+    [4X[25Xgap>[125X [27XFQ.v;[127X[104X
+    [4X[28X(1)*v[128X[104X
+    [4X[25Xgap>[125X [27Xelem := 2*FQ.a - 3*FQ.v;[127X[104X
+    [4X[28X(-3)*v+(2)*a[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X4.5 [33X[0;0YOperations on Path Algebra Elements[133X[101X
+  
+  [1X4.5-1 ElementOfPathAlgebra[101X
+  
+  [33X[1;0Y[29X[2XElementOfPathAlgebra[102X( [3XPA[103X, [3Xpath[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments:  [3XPA[103X -- a path algebra, [3Xpath[103X -- a path in the quiver from which [3XPA[103X
+  was constructed.[133X
+  
+  [6XReturns:[106X  [33X[0;10YThe  embedding  of  [3Xpath[103X  into  the path algebra [3XPA[103X, or it returns
+            false  if  [3Xpath[103X  is not an element of the quiver from which [3XPA[103X was
+            constructed.[133X
+  
+  [1X4.5-2 <[101X
+  
+  [33X[1;0Y[29X[2X<[102X( [3Xa[103X, [3Xb[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xa[103X and [3Xb[103X -- two elements of the same path algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10YTrue  whenever  [3Xa[103X  is smaller than [3Xb[103X, according to the ordering of
+            the path algebra.[133X
+  
+  [1X4.5-3 IsLeftUniform[101X
+  
+  [33X[1;0Y[29X[2XIsLeftUniform[102X( [3Xelement[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xelement[103X -- an element of the path algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue if each monomial in [3Xelement[103X has the same source vertex, false
+            otherwise.[133X
+  
+  [1X4.5-4 IsRightUniform[101X
+  
+  [33X[1;0Y[29X[2XIsRightUniform[102X( [3Xelement[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xelement[103X -- an element of the path algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue if each monomial in [3Xelement[103X has the same target vertex, false
+            otherwise.[133X
+  
+  [1X4.5-5 IsUniform[101X
+  
+  [33X[1;0Y[29X[2XIsUniform[102X( [3Xelement[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xelement[103X -- an element of the path algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue whenever [3Xelement[103X is both left and right uniform.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XIsLeftUniform(elem);[127X[104X
+    [4X[28Xfalse[128X[104X
+    [4X[25Xgap>[125X [27XIsRightUniform(elem);[127X[104X
+    [4X[28Xfalse[128X[104X
+    [4X[25Xgap>[125X [27XIsUniform(elem);[127X[104X
+    [4X[28Xfalse[128X[104X
+    [4X[25Xgap>[125X [27Xanother := FQ.a*FQ.b + FQ.b*FQ.d*FQ.c*FQ.b*FQ.d;[127X[104X
+    [4X[28X(1)*a*b+(1)*b*d*c*b*d[128X[104X
+    [4X[25Xgap>[125X [27XIsLeftUniform(another);[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27XIsRightUniform(another);[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27XIsUniform(another);[127X[104X
+    [4X[28Xtrue [128X[104X
+  [4X[32X[104X
+  
+  [1X4.5-6 LeadingTerm[101X
+  
+  [33X[1;0Y[29X[2XLeadingTerm[102X( [3Xelement[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XTip[102X( [3Xelement[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xelement[103X -- an element of the path algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe  term  in  [3Xelement[103X  whose  monomial  is  largest  among  those
+            monomials  that  have  nonzero coefficients (known as the "tip" of
+            [3Xelement[103X).[133X
+  
+  [33X[0;0Y[13XNote: [113X The two operations are equivalent.[133X
+  
+  [1X4.5-7 LeadingCoefficient[101X
+  
+  [33X[1;0Y[29X[2XLeadingCoefficient[102X( [3Xelement[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XTipCoefficient[102X( [3Xelement[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xelement[103X -- an element of the path algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe  coefficient of the tip of [3Xelement[103X (which is an element of the
+            field).[133X
+  
+  [33X[0;0Y[13XNote: [113X The two operations are equivalent.[133X
+  
+  [1X4.5-8 LeadingMonomial[101X
+  
+  [33X[1;0Y[29X[2XLeadingMonomial[102X( [3Xelement[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XTipMonomial[102X( [3Xelement[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xelement[103X -- an element of the path algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe  monomial  of  the  tip of [3Xelement[103X (which is an element of the
+            underlying quiver, not of the path algebra).[133X
+  
+  [33X[0;0Y[13XNote: [113X The two operations are equivalent.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xelem := FQ.a*FQ.b*FQ.c + FQ.b*FQ.d*FQ.c+FQ.d*FQ.d;[127X[104X
+    [4X[28X(1)*d^2+(1)*a*b*c+(1)*b*d*c[128X[104X
+    [4X[25Xgap>[125X [27XLeadingTerm(elem);[127X[104X
+    [4X[28X(1)*b*d*c[128X[104X
+    [4X[25Xgap>[125X [27XLeadingCoefficient(elem);[127X[104X
+    [4X[28X1[128X[104X
+    [4X[25Xgap>[125X [27Xmon := LeadingMonomial(elem);[127X[104X
+    [4X[28Xb*d*c[128X[104X
+    [4X[25Xgap>[125X [27Xmon in FQ;[127X[104X
+    [4X[28Xfalse[128X[104X
+    [4X[25Xgap>[125X [27Xmon in Q;[127X[104X
+    [4X[28Xtrue [128X[104X
+  [4X[32X[104X
+  
+  [1X4.5-9 MakeUniformOnRight[101X
+  
+  [33X[1;0Y[29X[2XMakeUniformOnRight[102X( [3Xelems[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xelems[103X -- a list of elements in a path algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya  list  of  right  uniform  elements generated by each element of
+            [3Xelems[103X.[133X
+  
+  [1X4.5-10 MappedExpression[101X
+  
+  [33X[1;0Y[29X[2XMappedExpression[102X( [3Xexpr[103X, [3Xgens1[103X, [3Xgens2[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments:   [3Xexpr[103X  --  element  of  a  path  algebra,  [3Xgens1[103X  and  [3Xgens2[103X  --
+  equal-length lists of generators for subalgebras.[133X
+  
+  [6XReturns:[106X  [33X[0;10Y[3Xexpr[103X as an element of the subalgebra generated by [3Xgens2[103X.[133X
+  
+  [33X[0;0YThe  element  [3Xexpr[103X  must  be in the subalgebra generated by [3Xgens1[103X. The lists
+  define  a  mapping of each generator in [3Xgens1[103X to the corresponding generator
+  in [3Xgens2[103X. The value returned is the evaluation of the mapping at [3Xexpr[103X.[133X
+  
+  [1X4.5-11 SupportOfQuiverAlgebraElement[101X
+  
+  [33X[1;0Y[29X[2XSupportOfQuiverAlgebraElement[102X( [3Xalgebra[103X, [3Xelement[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XLeftSupportOfQuiverAlgebraElement[102X( [3Xalgebra[103X, [3Xelement[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XRIghtSupportOfQuiverAlgebraElement[102X( [3Xalgebra[103X, [3Xelement[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments:  [3Xalgebra[103X  --  a  QuiverAlgebra,  [3Xelement[103X  --  an  element  of the
+  QuiverAlgebra[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe  second  version  returns  a list of the index of the vertices
+            such that the product from the left is non-zero, the third version
+            returns  a list of the index of the vertices such that the product
+            from the right is non-zero, and the first version returns the both
+            of the previous lists of indices of vertices.[133X
+  
+  [1X4.5-12 VertexPosition[101X
+  
+  [33X[1;0Y[29X[2XVertexPosition[102X( [3Xelement[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments:  [3Xelement[103X -- an element of the path algebra on the form [23Xk*v[123X, where
+  [23Xv[123X is a vertex of the underlying quiver and [23Xk[123X is an element of the field.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe  position  of  the  vertex  [3Xv[103X  in  the list of vertices of the
+            quiver.[133X
+  
+  [1X4.5-13 RelationsOfAlgebra[101X
+  
+  [33X[1;0Y[29X[2XRelationsOfAlgebra[102X( [3XA[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3XA[103X -- a quiver algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya  set  of  generators  for  the ideal in the path algebra [22XkQ[122X from
+            which the algebra [3XFQ[103X was constructed. If [3XA[103X is a path algebra, then
+            an empty list is returned.[133X
+  
+  
+  [1X4.6 [33X[0;0YConstructing Quotients of Path Algebras[133X[101X
+  
+  [33X[0;0YIn  the  introduction we saw already one way of constructing a quotient of a
+  path  algebra.  In  addition  to  this  there are at least two other ways of
+  constructing  a  quotient of a path algebra; one with factoring out an ideal
+  and one where a Groebner basis is attached to the quotient. We discuss these
+  two next.[133X
+  
+  [33X[0;0YFor  several  functions  in  [5XQPA[105X  to  function  properly one needs to have a
+  Groebner  basis  attached  to  the  quotient  one  wants  to  construct,  or
+  equivalently  a  Groebner basis for the ideal one is factoring out. For this
+  to  work  the  ideal  must  admit  a  finite Groebner basis. However, to our
+  knowledge  there  is  no  algorithm for determining if an ideal has a finite
+  Groebner basis. On the other hand, it is known that if the factor algebra is
+  finite  dimensional, then the ideal has a finite Groebner basis (independent
+  of  the  ordering  of  the  elements, see [Gre00] ). In addition to having a
+  finite  Groebner basis, several functions also need that the factoring ideal
+  is  admissible.  A quotient of a path algebra by an admissible ideal belongs
+  to  the category [2XIsAdmissibleQuotientOfPathAlgebra[102X ([14X4.11-1[114X). The method used
+  in  the  introduction constructs a quotient in this category. However, there
+  are situations where it is interesting to analyze quotients of path algebras
+  by a non-admissible ideal, so we provide also additional methods.[133X
+  
+  [33X[0;0YIn  the  example  below, we construct a factor of a path algebra purely with
+  commands  in  [5XGAP[105X (cf. also Chapter 60: Algebras in the [5XGAP[105X manual on how to
+  construct  an  ideal  and  a  quotient  of  an algebra). Functions which use
+  Groebner   bases  like  [2XIsFiniteDimensional[102X  ([14X4.11-3[114X),  [2XDimension[102X  ([14X4.13-6[114X),
+  [2XIsSpecialBiserialAlgebra[102X  ([14X4.11-19[114X)  or  a  membership test [2X\in[102X ([14X4.7-6[114X) will
+  work  properly  (they simply compute the Groebner basis if it is necessary).
+  But some "older" functions (like [2XIndecProjectiveModules[102X ([14X6.5-5[114X)) can fail or
+  give  an  incorrect  answer!  This  way of constructing a quotient of a path
+  algebra  can  be useful e.g. if we know that computing a Groebner basis will
+  take  a  long time and we do not need this because we want to deal only with
+  modules.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XQ := Quiver( 1, [ [1,1,"a"], [1,1,"b"] ] );[127X[104X
+    [4X[28X<quiver with 1 vertices and 2 arrows>[128X[104X
+    [4X[25Xgap>[125X [27XkQ := PathAlgebra(Rationals, Q);[127X[104X
+    [4X[28X<Rationals[<quiver with 1 vertices and 2 arrows>]>[128X[104X
+    [4X[25Xgap>[125X [27Xgens := GeneratorsOfAlgebra(kQ);[127X[104X
+    [4X[28X[ (1)*v1, (1)*a, (1)*b ][128X[104X
+    [4X[25Xgap>[125X [27Xa := gens[2];[127X[104X
+    [4X[28X(1)*a[128X[104X
+    [4X[25Xgap>[125X [27Xb := gens[3];[127X[104X
+    [4X[28X(1)*b[128X[104X
+    [4X[25Xgap>[125X [27Xrelations := [a^2,a*b-b*a, b*b];[127X[104X
+    [4X[28X[ (1)*a^2, (1)*a*b+(-1)*b*a, (1)*b^2 ][128X[104X
+    [4X[25Xgap>[125X [27XI := Ideal(kQ,relations);[127X[104X
+    [4X[28X<two-sided ideal in <Rationals[<quiver with 1 vertices and 2 arrows>]>[128X[104X
+    [4X[28X    , (3 generators)>[128X[104X
+    [4X[25Xgap>[125X [27XA := kQ/I;[127X[104X
+    [4X[28X<Rationals[<quiver with 1 vertices and 2 arrows>]/[128X[104X
+    [4X[28X<two-sided ideal in <Rationals[<quiver with 1 vertices and 2 arrows>]>[128X[104X
+    [4X[28X    , (3 generators)>>[128X[104X
+    [4X[25Xgap>[125X [27XIndecProjectiveModules(A);[127X[104X
+    [4X[28XCompute a Groebner basis of the ideal you are factoring out with before \[128X[104X
+    [4X[28Xyou form the quotient algebra, or you have entered an algebra which \[128X[104X
+    [4X[28Xis not finite dimensional.[128X[104X
+    [4X[28Xfail[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YTo  resolve  this  matter, we need to compute the Gröbner basis of the ideal
+  generated by the relations in [23XkQ[123X (yes, it seems like we are going in circles
+  here.  Remember,  then,  that an ideal in the "mathematical sense" may exist
+  independently  of  the  a  corresponding  [10XIdeal[110X object in [5XGAP[105X. Also, Gröbner
+  bases  in  [5XQPA[105X are handled by the [5XGBNP[105X package, with constructor methods not
+  dependent  on  [10XIdeal[110X objects. After creating the ideal [23XI[123X, we need to perform
+  yet  another  Gröbner  basis operation which just set a respective attribute
+  for [23XI[123X, see [2XGroebnerBasis[102X ([14X5.1-2[114X).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xgb := GBNPGroebnerBasis(relations,kQ);[127X[104X
+    [4X[28X[ (1)*a^2, (-1)*a*b+(1)*b*a, (1)*b^2 ][128X[104X
+    [4X[25Xgap>[125X [27XI := Ideal(kQ,gb);                    [127X[104X
+    [4X[28X<two-sided ideal in <Rationals[<quiver with 1 vertices and 2 arrows>]>, [128X[104X
+    [4X[28X  (3 generators)>[128X[104X
+    [4X[25Xgap>[125X [27XGroebnerBasis(I,gb);                  [127X[104X
+    [4X[28X<complete two-sided Groebner basis containing 3 elements>[128X[104X
+    [4X[25Xgap>[125X [27XIndecProjectiveModules(A);                                                [127X[104X
+    [4X[28Xfail[128X[104X
+    [4X[25Xgap>[125X [27XA := kQ/I;                                                                [127X[104X
+    [4X[28X<Rationals[<quiver with 1 vertices and 2 arrows>]/[128X[104X
+    [4X[28X<two-sided ideal in <Rationals[<quiver with 1 vertices and 2 arrows>]>, [128X[104X
+    [4X[28X  (3 generators)>>[128X[104X
+    [4X[25Xgap>[125X [27XIndecProjectiveModules(A);[127X[104X
+    [4X[28X[ <[ 4 ]> ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YNote that the instruction [10XA := kQ/relations;[110X used in Introduction is exactly
+  an  abbreviation  for  a  sequence of instructions with Groebner basis as in
+  above example.[133X
+  
+  [33X[0;0YMost  [5XQPA[105X  operations working on algebras handle path algebras and quotients
+  of path algebras in the same way (when this makes sense). However, there are
+  still a few operations which does not work properly when given a quotient of
+  a  path  algebra.  When  constructing a quotient of a path algebra one needs
+  define  the  ideal  one  is factoring out. Above this has been done with the
+  commands[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xgens := GeneratorsOfAlgebra(kQ);[127X[104X
+    [4X[28X[ (1)*v1, (1)*a, (1)*b ][128X[104X
+    [4X[25Xgap>[125X [27Xa := gens[2];[127X[104X
+    [4X[28X(1)*a[128X[104X
+    [4X[25Xgap>[125X [27Xb := gens[3];[127X[104X
+    [4X[28X(1)*b[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe following command makes this process easier.[133X
+  
+  [1X4.6-1 AssignGeneratorVariables[101X
+  
+  [33X[1;0Y[29X[2XAssignGeneratorVariables[102X( [3XA[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XA[103X -- a quiver algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10YTakes a quiver algebra [3XA[103X as an argument and creates variables, say
+            [22Xv_1,...,v_n[122X  for  the vertices, and [22Xa_1,...,a_t[122X for the arrows for
+            the  corresponding  elements  in  [3XA[103X,  whenever  the quiver for the
+            quiver  algebra [3XA[103X is was constructed with the vertices being named
+            [22Xv_1,...,v_n[122X and the arrows being named [22Xa_1,...,a_t[122X.[133X
+  
+  [33X[0;0YHere is an example of its use.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XAssignGeneratorVariables(kQ);[127X[104X
+    [4X[28X#I  Assigned the global variables [ v1, a, b ][128X[104X
+    [4X[25Xgap>[125X [27Xv1; a; b;[127X[104X
+    [4X[28X(1)*v1[128X[104X
+    [4X[28X(1)*a[128X[104X
+    [4X[28X(1)*b[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X4.7 [33X[0;0YIdeals and operations on ideals[133X[101X
+  
+  [1X4.7-1 Ideal[101X
+  
+  [33X[1;0Y[29X[2XIdeal[102X( [3XFQ[103X, [3Xelems[103X ) [32X function[133X
+  
+  [33X[0;0YArguments: [3XFQ[103X -- a path algebra, [3Xelems[103X -- a list of elements in [3XFQ[103X.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe   ideal   of   [3XFQ[103X   generated   by  [3Xelems[103X  with  the  property
+            [2XIsIdealInPathAlgebra[102X ([14X4.8-2[114X).[133X
+  
+  [33X[0;0YFor more on ideals, see the [5XGAP[105X reference manual (Chapter 60.6).[133X
+  [33X[0;0Y[13XTechnical  info:[113X  Ideal is a synonym for a global GAP function TwoSidedIdeal
+  which     calls     an    operation    TwoSidedIdealByGenerators    (synonym
+  IdealByGenerators) for an algebra (FLMLOR).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xgb := GBNPGroebnerBasis(relations,kQ);[127X[104X
+    [4X[28X[ (1)*a^2, (-1)*a*b+(1)*b*a, (1)*b^2 ][128X[104X
+    [4X[25Xgap>[125X [27XI := Ideal(kQ,gb);[127X[104X
+    [4X[28X<two-sided ideal in <Rationals[<quiver with 1 vertices and 2 arrows>]>[128X[104X
+    [4X[28X    , (3 generators)>[128X[104X
+    [4X[25Xgap>[125X [27XGroebnerBasis(I,gb);[127X[104X
+    [4X[28X<complete two-sided Groebner basis containing 3 elements>[128X[104X
+    [4X[25Xgap>[125X [27XIndecProjectiveModules(A);[127X[104X
+    [4X[28X[ <[ 4 ]> ][128X[104X
+    [4X[25Xgap>[125X [27XA := kQ/I;[127X[104X
+    [4X[28X<Rationals[<quiver with 1 vertices and 2 arrows>]/[128X[104X
+    [4X[28X<two-sided ideal in <Rationals[<quiver with 1 vertices and 2 arrows>]>[128X[104X
+    [4X[28X    , (3 generators)>>[128X[104X
+    [4X[25Xgap>[125X [27XIndecProjectiveModules(A);[127X[104X
+    [4X[28X[ <[ 4 ]> ][128X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  [1X4.7-2 IdealOfQuotient[101X
+  
+  [33X[1;0Y[29X[2XIdealOfQuotient[102X( [3XA[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3XA[103X -- a quiver algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe ideal in the path algebra [22XkQ[122X from which [3XA[103X was constructed.[133X
+  
+  [1X4.7-3 PathsOfLengthTwo[101X
+  
+  [33X[1;0Y[29X[2XPathsOfLengthTwo[102X( [3XQ[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XQ[103X -- a quiver.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya  list  of  all paths of length two in [3XQ[103X, sorted by [10X<[110X. Fails with
+            error message if [3XQ[103X is not a Quiver object.[133X
+  
+  [1X4.7-4 NthPowerOfArrowIdeal[101X
+  
+  [33X[1;0Y[29X[2XNthPowerOfArrowIdeal[102X( [3XFQ[103X, [3Xn[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XFQ[103X -- a path algebra, [3Xn[103X -- a positive integer.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe ideal generated all the paths of length [3Xn[103X in [3XFQ[103X.[133X
+  
+  [1X4.7-5 AddNthPowerToRelations[101X
+  
+  [33X[1;0Y[29X[2XAddNthPowerToRelations[102X( [3XFQ[103X, [3Xrels[103X, [3Xn[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XFQ[103X -- a path algebra, [3Xrels[103X -- a (possibly empty) list of elements
+  in [3XFQ[103X, [3Xn[103X -- a positive integer.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe  list  [3Xrels[103X  with  the  paths of length [3Xn[103X of [3XFQ[103X appended (will
+            change the list [3Xrels[103X).[133X
+  
+  [1X4.7-6 \in[101X
+  
+  [33X[1;0Y[29X[2X\in[102X( [3Xelt[103X, [3XI[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xelt[103X - an element in a path algebra, [3XI[103X - an ideal in the same path
+  algebra (i.e. with [2XIsIdealInPathAlgebra[102X ([14X4.8-2[114X) property).[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue, if [3Xelt[103X belongs to [3XI[103X.[133X
+  
+  [33X[0;0YIt  performs  the  membership  test  for  an  ideal  in  path  algebra using
+  completely reduced Groebner bases machinery.[133X
+  [33X[0;0Y[13XTechnical info:[113X For the efficiency reasons, it computes Groebner basis for [3XI[103X
+  only   if   it   has   not   been   computed  yet.  Similarly,  it  performs
+  CompletelyReduceGroebnerBasis  only  if  it  has  not  been reduced yet. The
+  method can change the existing Groebner basis.[133X
+  [33X[0;0Y[13XRemark:[113X It works only in case [3XI[103X is in the arrow ideal.[133X
+  
+  
+  [1X4.8 [33X[0;0YCategories and properties of ideals[133X[101X
+  
+  [1X4.8-1 IsAdmissibleIdeal[101X
+  
+  [33X[1;0Y[29X[2XIsAdmissibleIdeal[102X( [3XI[103X ) [32X property[133X
+  
+  [33X[0;0YArguments: [3XI[103X -- an IsIdealInPathAlgebra object.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue  whenever  [3XI[103X is an [13Xadmissible[113X ideal in a path algebra, i.e. [3XI[103X
+            is  a  subset of [22XJ^2[122X and [3XI[103X contains [22XJ^n[122X for some [22Xn[122X, where [22XJ[122X is the
+            arrow ideal.[133X
+  
+  [33X[0;0Y[13XTechnical  note:[113X  The second condition is checked by the nilpotency index of
+  the  radical  and  checking if the ideal generated by the arrows to one plus
+  this  index  is  in  the  ideal  of  the relations (this uses Groebner bases
+  machinery).[133X
+  
+  [1X4.8-2 IsIdealInPathAlgebra[101X
+  
+  [33X[1;0Y[29X[2XIsIdealInPathAlgebra[102X( [3XI[103X ) [32X property[133X
+  
+  [33X[0;0YArguments: [3XI[103X -- an IsFLMLOR object.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue whenever [3XI[103X is an ideal in a path algebra.[133X
+  
+  [1X4.8-3 IsMonomialIdeal[101X
+  
+  [33X[1;0Y[29X[2XIsMonomialIdeal[102X( [3XI[103X ) [32X property[133X
+  
+  [33X[0;0YArguments: [3XI[103X -- an IsIdealInPathAlgebra object.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue  whenever  [3XI[103X is a [13Xmonomial[113X ideal in a path algebra, i.e. [3XI[103X is
+            generated by a set of monomials (= "zero-relations").[133X
+  
+  [33X[0;0Y[13XTechnical  note:[113X It uses the observation: [3XI[103X is a monomial ideal iff Groebner
+  basis  of  [3XI[103X is a set of monomials. It computes Groebner basis for [3XI[103X only in
+  case   it  has  not  been  computed  yet  and  a  usual  set  of  generators
+  (GeneratorsOfIdeal) is not a set of monomials.[133X
+  
+  [1X4.8-4 IsQuadraticIdeal[101X
+  
+  [33X[1;0Y[29X[2XIsQuadraticIdeal[102X( [3Xrels[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xrels[103X -- a list of elements in a path algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue  whenever  [3Xrels[103X  is  a list of elements in the linear span of
+            degree  two  elements of a path algebra. It returns false whenever
+            [3Xrels[103X  is  a  list  of  elements  in a path algebra, but not in the
+            linear  span of degree two of a path algebra. Otherwise it returns
+            fail.[133X
+  
+  
+  [1X4.9 [33X[0;0YOperations on ideals[133X[101X
+  
+  [1X4.9-1 ProductOfIdeals[101X
+  
+  [33X[1;0Y[29X[2XProductOfIdeals[102X( [3XI[103X, [3XJ[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XI, J[103X -- two ideals in a path algebra [3XKQ[103X.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe  ideal  formed  by the product of the ideals [3XI[103X and [3XJ[103X, whenever
+            the ideal [3XJ[103X admits finitely many nontips in [3XKQ[103X.[133X
+  
+  [33X[0;0YThe  function  checks  if the two ideals are ideals in the same path algebra
+  and that [3XJ[103X admits finitely many nontips in [3XKQ[103X.[133X
+  
+  [1X4.9-2 QuadraticPerpOfPathAlgebraIdeal[101X
+  
+  [33X[1;0Y[29X[2XQuadraticPerpOfPathAlgebraIdeal[102X( [3Xrels[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xrels[103X -- a list of elements in a path algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Yfail  if  [3Xrels[103X  is  not  a  list of elements in the linear span of
+            degree  two  elements of a path algebra [3XKQ[103X. Otherwise it returns a
+            list of length two, where the first element is a set of generators
+            for  the ideal [23X[3Xrels[103X^\perp[123X in opposite algebra of [3XKQ[103X and the second
+            element is the opposite algebra of [3XKQ[103X.[133X
+  
+  
+  [1X4.10 [33X[0;0YAttributes of ideals[133X[101X
+  
+  [33X[0;0YFor  many  of the functions related to quotients, you will need to compute a
+  Groebner  basis  of  the  ideal.  This  is  done  with the GBNP package. The
+  following  example shows how to set a Groebner basis for an ideal (note that
+  this  must  be  done  before  the quotient is constructed). See the next two
+  chapters for more on Groebner bases.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xrels := [FQ.a - FQ.b*FQ.c, FQ.d*FQ.d];[127X[104X
+    [4X[28X[ (1)*a+(-1)*b*c, (1)*d^2 ][128X[104X
+    [4X[25Xgap>[125X [27Xgb := GBNPGroebnerBasis(rels, FQ); [127X[104X
+    [4X[28X[ (-1)*a+(1)*b*c, (1)*d^2 ][128X[104X
+    [4X[25Xgap>[125X [27XI := Ideal(FQ, gb);[127X[104X
+    [4X[28X<two-sided ideal in <Rationals[<quiver with 2 vertices and 4 arrows>]>[128X[104X
+    [4X[28X    , (2 generators)>[128X[104X
+    [4X[25Xgap>[125X [27XGroebnerBasis(I, gb);[127X[104X
+    [4X[28X<complete two-sided Groebner basis containing 2 elements>[128X[104X
+    [4X[25Xgap>[125X [27Xquot := FQ/I;[127X[104X
+    [4X[28X<Rationals[<quiver with 2 vertices and 4 arrows>]/[128X[104X
+    [4X[28X<two-sided ideal in <Rationals[<quiver with 2 vertices and 4 arrows>]>[128X[104X
+    [4X[28X    , (2 generators)>>[128X[104X
+  [4X[32X[104X
+  
+  [1X4.10-1 GroebnerBasisOfIdeal[101X
+  
+  [33X[1;0Y[29X[2XGroebnerBasisOfIdeal[102X( [3XI[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3XI[103X -- an ideal in path algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya Groebner basis of ideal [3XI[103X (if it has been already computed!).[133X
+  
+  [33X[0;0YThis attribute is set only by an operation [2XGroebnerBasis[102X ([14X5.1-2[114X).[133X
+  
+  
+  [1X4.11 [33X[0;0YCategories and Properties of Quotients of Path Algebras[133X[101X
+  
+  [1X4.11-1 IsAdmissibleQuotientOfPathAlgebra[101X
+  
+  [33X[1;0Y[29X[2XIsAdmissibleQuotientOfPathAlgebra[102X( [3XA[103X ) [32X filter[133X
+  
+  [33X[0;0YArguments: [3XA[103X -- any object.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue  whenever  [3XA[103X is a quotient of a path algebra by an admissible
+            ideal  constructed by the command [10X\/[110X with arguments a path algebra
+            and  a  list  of  relations,  [10XKQ/rels[110X,  where  [10Xrels[110X  is  a list of
+            relations. Otherwise it returns an error message.[133X
+  
+  [1X4.11-2 IsQuotientOfPathAlgebra[101X
+  
+  [33X[1;0Y[29X[2XIsQuotientOfPathAlgebra[102X( [3Xobject[103X ) [32X property[133X
+  
+  [33X[0;0YArgument: [3Xobject[103X -- any object in [5XGAP[105X.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue whenever [3Xobject[103X is a quotient of a path algebra.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xquot := FQ/I;[127X[104X
+    [4X[28X<Rationals[<quiver with 2 vertices and 4 arrows>]/[128X[104X
+    [4X[28X<two-sided ideal in <Rationals[<quiver with 2 vertices and 4 arrows>]>[128X[104X
+    [4X[28X    , (2 generators)>>[128X[104X
+    [4X[25Xgap>[125X [27XIsQuotientOfPathAlgebra(quot);[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27XIsQuotientOfPathAlgebra(FQ);[127X[104X
+    [4X[28Xfalse[128X[104X
+  [4X[32X[104X
+  
+  [1X4.11-3 IsFiniteDimensional[101X
+  
+  [33X[1;0Y[29X[2XIsFiniteDimensional[102X( [3XA[103X ) [32X property[133X
+  
+  [33X[0;0YArguments: [3XA[103X -- a path algebra or a quotient of a path algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue whenever [3XA[103X is a finite dimensional algebra.[133X
+  
+  [33X[0;0Y[13XTechnical  note:[113X  For  a  path  algebra it uses a standard [5XGAP[105X method. For a
+  quotient  of  a  path  algebra it uses Groebner bases machinery (it computes
+  Groebner basis for the ideal only in case it has not been computed yet).[133X
+  
+  [1X4.11-4 IsCanonicalAlgebra[101X
+  
+  [33X[1;0Y[29X[2XIsCanonicalAlgebra[102X( [3XA[103X ) [32X property[133X
+  
+  [33X[0;0YArguments: [3XA[103X -- a path algebra or a quotient of a path algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue  if  [3XA[103X has been constructed by the operation [2XCanonicalAlgebra[102X
+            ([14X4.15-2[114X), otherwise "Error, no method found".[133X
+  
+  [1X4.11-5 IsDistributiveAlgebra[101X
+  
+  [33X[1;0Y[29X[2XIsDistributiveAlgebra[102X( [3XA[103X ) [32X property[133X
+  
+  [33X[0;0YArguments: [3XA[103X -- a path algebra or a quotient of a path algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue  if  [3XA[103X  is  an  admissible  quotient  of  a  path algebra and
+            distributive.  Otherwise  it  returns  false if [3XA[103X is an admissible
+            quotient of a path algebra and distributive. If [3XA[103X is a quotient of
+            a  path algebra, but not an admissible quotient, then it looks for
+            other methods. There are not further methods implemented in QPA as
+            of now.[133X
+  
+  [1X4.11-6 IsFiniteGlobalDimensionAlgebra[101X
+  
+  [33X[1;0Y[29X[2XIsFiniteGlobalDimensionAlgebra[102X( [3XA[103X ) [32X property[133X
+  
+  [33X[0;0YArguments: [3XA[103X - an algebra over a field.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue  if  it is known that the entered algebra [3XA[103X has finite global
+            dimension.[133X
+  
+  [33X[0;0YThere  is  no  method  associated  to  this,  so if it is not known that the
+  algebra has finite global dimension, then an error message saying "no method
+  found!" is return.[133X
+  
+  [1X4.11-7 IsGentleAlgebra[101X
+  
+  [33X[1;0Y[29X[2XIsGentleAlgebra[102X( [3XA[103X ) [32X property[133X
+  
+  [33X[0;0YArguments: [3XA[103X -- a path algebra or a quotient of a path algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue if the algebra [3XA[103X is a gentle algebra. Otherwise false.[133X
+  
+  [1X4.11-8 IsGorensteinAlgebra[101X
+  
+  [33X[1;0Y[29X[2XIsGorensteinAlgebra[102X( [3XA[103X ) [32X property[133X
+  
+  [33X[0;0YArguments: [3XA[103X -- an algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue  if it is known that [3XA[103X is a Gorenstein algebra. If unknown it
+            returns an error message saying "no method found!".[133X
+  
+  [33X[0;0YThere is no method installed for this yet.[133X
+  
+  [1X4.11-9 IsHereditaryAlgebra[101X
+  
+  [33X[1;0Y[29X[2XIsHereditaryAlgebra[102X( [3XA[103X ) [32X property[133X
+  
+  [33X[0;0YArguments: [3XA[103X -- an admissible quotient of a path algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue if [3XA[103X is a hereditary algebra and false otherwise.[133X
+  
+  [1X4.11-10 IsKroneckerAlgebra[101X
+  
+  [33X[1;0Y[29X[2XIsKroneckerAlgebra[102X( [3XA[103X ) [32X property[133X
+  
+  [33X[0;0YArguments: [3XA[103X -- a path algebra or a quotient of a path algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue  if  [3XA[103X has been constructed by the operation [2XKroneckerAlgebra[102X
+            ([14X4.15-3[114X), otherwise "Error, no method found".[133X
+  
+  [1X4.11-11 IsMonomialAlgebra[101X
+  
+  [33X[1;0Y[29X[2XIsMonomialAlgebra[102X( [3XA[103X ) [32X property[133X
+  
+  [33X[0;0YArguments: [3XA[103X -- a quiver algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue  when  [3XA[103X  is  given  as [10XkQ/I[110X and [10XI[110X is a monomial ideal in [10XkQ[110X,
+            otherwise it returns false.[133X
+  
+  [1X4.11-12 IsNakayamaAlgebra[101X
+  
+  [33X[1;0Y[29X[2XIsNakayamaAlgebra[102X( [3XA[103X ) [32X property[133X
+  
+  [33X[0;0YArguments: [3XA[103X -- a path algebra or a quotient of a path algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue  if  [3XA[103X  has been constructed by the operation [2XNakayamaAlgebra[102X
+            ([14X4.15-4[114X), otherwise "Error, no method found".[133X
+  
+  [1X4.11-13 IsQuiverAlgebra[101X
+  
+  [33X[1;0Y[29X[2XIsQuiverAlgebra[102X( [3XA[103X ) [32X filter[133X
+  
+  [33X[0;0YArguments: [3XA[103X -- an algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue  if  [3XA[103X  is  a  path  algebra  or a quotient of a path algebra
+            algebra, otherwise false.[133X
+  
+  [1X4.11-14 IsRadicalSquareZeroAlgebra[101X
+  
+  [33X[1;0Y[29X[2XIsRadicalSquareZeroAlgebra[102X( [3XA[103X ) [32X property[133X
+  
+  [33X[0;0YArguments: [3XA[103X -- an algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue if [3XA[103X is a radical square zero algebra, otherwise false.[133X
+  
+  [1X4.11-15 IsSchurianAlgebra[101X
+  
+  [33X[1;0Y[29X[2XIsSchurianAlgebra[102X( [3XA[103X ) [32X property[133X
+  
+  [33X[0;0YArguments: [3XA[103X -- a path algebra or a quotient of a path algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue  if [3XA[103X is a schurian algebra. By definition it means that: for
+            all [23Xx,y\in Q_0[123X we have [23X\dim A(x,y)\leq 1 [123X.[133X
+  
+  [33X[0;0Y[13XNote:[113X This method fail when a Groebner basis for ideal has not been computed
+  before creating a quotient![133X
+  
+  [1X4.11-16 IsSelfinjectiveAlgebra[101X
+  
+  [33X[1;0Y[29X[2XIsSelfinjectiveAlgebra[102X( [3XA[103X ) [32X property[133X
+  
+  [33X[0;0YArguments: [3XA[103X -- a path algebra or a quotient of a path algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Yfail  if [3XA[103X is not finite dimensional. Otherwise it returns true or
+            false according to whether [3XA[103X is selfinjective or not.[133X
+  
+  [1X4.11-17 IsSemicommutativeAlgebra[101X
+  
+  [33X[1;0Y[29X[2XIsSemicommutativeAlgebra[102X( [3XA[103X ) [32X property[133X
+  
+  [33X[0;0YArguments: [3XA[103X -- a path algebra or a quotient of a path algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue  if  [3XA[103X  is  a semicommutative algebra. By definition it means
+            that:[133X
+            [33X[0;10Y1. [3XA[103X is schurian (cf. [2XIsSchurianAlgebra[102X ([14X4.11-15[114X)).[133X
+            [33X[0;10Y2. Quiver [23XQ[123X of [3XA[103X is acyclic (cf. [2XIsAcyclicQuiver[102X ([14X3.3-2[114X)).[133X
+            [33X[0;10Y3.  For  all  pairs  of  vertices [23X(x,y)[123X the following condition is
+            satisfied:  for  every  two  paths  [23XP,P'[123X  from  [23Xx[123X  to  [23Xy[123X:  [23XP\in  I
+            \Leftrightarrow P'\in I[123X.[133X
+  
+  [33X[0;0Y[13XNote:[113X This method fail when a Groebner basis for ideal has not been computed
+  before creating a quotient![133X
+  
+  [1X4.11-18 IsSemisimpleAlgebra[101X
+  
+  [33X[1;0Y[29X[2XIsSemisimpleAlgebra[102X( [3XA[103X ) [32X property[133X
+  
+  [33X[0;0YArguments: [3XA[103X - an algebra over a field.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue if the entered algebra [3XA[103X is semisimple, false otherwise.[133X
+  
+  [33X[0;0YChecks  if  the  algebra  is  finite  dimensional.  If  it  is an admissible
+  quotients of a path algebra, it only checks if the underlying quiver has any
+  arrows  or not. Otherwise, it computes the radical of the algebra and checks
+  if it is zero.[133X
+  
+  [1X4.11-19 IsSpecialBiserialAlgebra[101X
+  
+  [33X[1;0Y[29X[2XIsSpecialBiserialAlgebra[102X( [3XA[103X ) [32X property[133X
+  
+  [33X[0;0YArguments: [3XA[103X -- a path algebra or a quotient of a path algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue  whenever [3XA[103X is a [13Xspecial biserial algebra[113X, i.e. [3XA=KQ/I[103X, where
+            [3XQ[103X  is  [2XIsSpecialBiserialQuiver[102X  ([14X4.15-9[114X), [3XI[103X is an admissible ideal
+            ([2XIsAdmissibleIdeal[102X ([14X4.8-1[114X)) and [3XI[103X satisfies the "special biserial"
+            conditions, i.e.:[133X
+  
+            [30X    [33X[0;16Yfor  any  arrow [22Xa[122X there exists at most one arrow [22Xb[122X such that
+                  [22Xab[122X does not belong to [3XI[103X[133X
+  
+            [30X    [33X[0;16Ythere  exists  at  most  one  arrow  [22Xc[122X such that [22Xca[122X does not
+                  belong to [22XI[122X.[133X
+  
+  [33X[0;0Y[13XNote:[113X  e.g. a path algebra of one loop IS NOT special biserial, but one loop
+  IS   special  biserial  quiver  (see  [2XIsSpecialBiserialQuiver[102X  ([14X4.15-9[114X)  for
+  examples).[133X
+  
+  [1X4.11-20 IsStringAlgebra[101X
+  
+  [33X[1;0Y[29X[2XIsStringAlgebra[102X( [3XA[103X ) [32X property[133X
+  
+  [33X[0;0YArguments: [3XA[103X -- a path algebra or a quotient of a path algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue  whenever  [3XA[103X  is  a  [13Xstring[113X  (special biserial) algebra, i.e.
+            [3XA=KQ/I[103X  is  a  special  biserial algebra ([2XIsSpecialBiserialAlgebra[102X
+            ([14X4.11-19[114X)  and  [3XI[103X  is  generated by monomials (= "zero-relations")
+            (cf.   [2XIsMonomialIdeal[102X   ([14X4.8-3[114X)).   See   [2XIsSpecialBiserialQuiver[102X
+            ([14X4.15-9[114X) for examples.[133X
+  
+  [1X4.11-21 IsSymmetricAlgebra[101X
+  
+  [33X[1;0Y[29X[2XIsSymmetricAlgebra[102X( [3XA[103X ) [32X property[133X
+  
+  [33X[0;0YArguments: [3XA[103X -- a path algebra or a quotient of a path algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Yfail  if  [3XA[103X  is not finite dimensional or does not have a Groebner
+            basis.  Otherwise  it returns true or false according to whether [3XA[103X
+            is symmetric or not.[133X
+  
+  [1X4.11-22 IsTriangularReduced[101X
+  
+  [33X[1;0Y[29X[2XIsTriangularReduced[102X( [3XA[103X ) [32X property[133X
+  
+  [33X[0;0YArguments: [3XA[103X - a finite dimensional QuiverAlgebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Y[10Xfalse[110X  if the algebra [3XA[103X is triangular reducable, that is, there is
+            a  sum  over  vertices  [22Xe[122X  such  that  [22XeA(1 - e) = (0)[122X for [22Xe≠ 0,1[122X.
+            Otherwise, it returns [10Xtrue[110X.[133X
+  
+  [33X[0;0YThe  function  checks  if  the  algebra [3XA[103X is finite dimensional and gives an
+  error message otherwise.[133X
+  
+  [1X4.11-23 IsWeaklySymmetricAlgebra[101X
+  
+  [33X[1;0Y[29X[2XIsWeaklySymmetricAlgebra[102X( [3XA[103X ) [32X property[133X
+  
+  [33X[0;0YArguments: [3XA[103X -- a path algebra or a quotient of a path algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Yfail  if  [3XA[103X  is not finite dimensional or does not have a Groebner
+            basis.  Otherwise  it returns true or false according to whether [3XA[103X
+            is weakly symmetric or not.[133X
+  
+  [1X4.11-24 BongartzTest[101X
+  
+  [33X[1;0Y[29X[2XBongartzTest[102X( [3XA[103X, [3Xbound[103X ) [32X property[133X
+  
+  [33X[0;0YArguments: [3XA, bound[103X -- a path algebra or a quotient of a path algebra and an
+  integer.[133X
+  
+  [6XReturns:[106X  [33X[0;10Yfalse  if  there  exists  a  [22Xτ[122X-translate of a simple, injective or
+            projective [3XA[103X-module up to the power [3Xbound[103X has dimension greater or
+            equal  to  [22Xmax{2dim  A,  30}[122X. Then [3XA[103X is of infinite representation
+            type. Returns fail otherwise.[133X
+  
+  [1X4.11-25 IsFiniteTypeAlgebra[101X
+  
+  [33X[1;0Y[29X[2XIsFiniteTypeAlgebra[102X( [3XA[103X ) [32X property[133X
+  
+  [33X[0;0YArguments: [3XA[103X -- a path algebra or a quotient of a path algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10YReturns  true if [3XA[103X is of finite representation type. Returns false
+            if  [3XA[103X  is  of infinite representation type. Returns fail if we can
+            not  determine  the  representation  type (i.e. it impossible from
+            theoretical/algorithmic  point of view or a suitable criterion has
+            not  been  implemented  yet;  the  implementation is in progress).
+            Note:  in  case  [3XA[103X  is  a  path algebra the function is completely
+            implemented.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XQ := Quiver(5, [ [1,2,"a"], [2,4,"b"], [3,2,"c"], [2,5,"d"] ]);[127X[104X
+    [4X[28X<quiver with 5 vertices and 4 arrows>[128X[104X
+    [4X[25Xgap>[125X [27XA := PathAlgebra(Rationals, Q);[127X[104X
+    [4X[28X<Rationals[<quiver with 5 vertices and 4 arrows>]>[128X[104X
+    [4X[25Xgap>[125X [27XIsFiniteTypeAlgebra(A);[127X[104X
+    [4X[28XInfinite type![128X[104X
+    [4X[28XQuiver is not a (union of) Dynkin quiver(s).[128X[104X
+    [4X[28Xfalse[128X[104X
+    [4X[25Xgap>[125X [27Xquo := A/[A.a*A.b, A.c*A.d];;[127X[104X
+    [4X[25Xgap>[125X [27XIsFiniteTypeAlgebra(quo);[127X[104X
+    [4X[28XFinite type![128X[104X
+    [4X[28XSpecial biserial algebra with no unoriented cycles in Q.[128X[104X
+    [4X[28Xtrue [128X[104X
+  [4X[32X[104X
+  
+  
+  [1X4.12 [33X[0;0YOperations on String Algebras[133X[101X
+  
+  [33X[0;0YA  quiver  is  a  quadruple  [23XQ  =  (Q_0,  Q_1, s, t)[123X where [23XQ_0[123X is the set of
+  vertices, [23XQ_1[123X is the set of arrows and [23Xs, t : Q_1 \rightarrow Q_0[123X are source
+  and target functions where for each [23X \alpha \in Q_1[123X, [23Xs(\alpha)[123X and [23Xt(\alpha)[123X
+  denotes starting and ending vertex of [23X\alpha[123X respectively. For the functions
+  defined  in  this  section  the  quiver  has  to  be constructed using first
+  construction of [14X3.2[114X. The arrows in [23XQ_1[123X should be small Roman letters defined
+  in  alphabetical  order as in the example below. These operations can handle
+  string  algebras  with number of arrows less than or equal to 26. Say that a
+  finite sequence [22Xα_nα_n-1...α_1[122X is a path in [22XQ[122X if [22Xs(α_i+1) = t(α_i)[122X for all [22X1
+  ≤  i  ≤  n-1[122X  The  source  and  target  of  the  path  are [22Xs(α_1)[122X and [22Xt(α_n)[122X
+  respectively.  We  denote  by  [23X\rho[123X  a set of monomial relations on [23XQ[123X. Every
+  relation in [22Xρ[122X is a finite sequence [22Xα_1 α_2...α_n[122X of elements of [22XQ_1[122X with [22Xn ≥
+  2[122X such that [22Xα_n α_n-1...α_1[122X is a path. [22Xnewline[122X For a quiver [23XQ[123X, we define two
+  functions [22Xσ, ϵ : Q_1 → {-1, 1}[122X such that[133X
+  
+  [30X    [33X[0;6Yif [22Xb_1 ≠ b_2[122X such that [22Xs(b_1) = s(b_2)[122X, then [22Xσ(b_1) = -σ(b_2)[122X;[133X
+  
+  [30X    [33X[0;6Yif [22Xb_1 ≠ b_2[122X such that [22Xt(b_1) = t(b_2)[122X, then [22Xϵ(b_1) = -ϵ(b_2)[122X;[133X
+  
+  [30X    [33X[0;6Yif [22Xs(b_1) = t(b_2)[122X and [22Xb_1b_2 ∉ ρ[122X, then [22Xσ(b_1) = -ϵ(b_2)[122X.[133X
+  
+  [33X[0;0YLet  us  denote the inverse of the set of arrows in [22XQ_1[122X by the corresponding
+  capital  letters.  For  example  if  [22Xb[122X is an arrow in [22XQ_1[122X the its inverse is
+  denoted  by [22XB[122X. The set of the inverse arrows is denoted by [22XQ_1^-1[122X. We extend
+  the  definition  of  [22Xσ[122X  and [22Xϵ[122X to [22XQ_1 ∪ Q_1^-1[122X so that [22Xσ(B) = ϵ(b)[122X and [22Xϵ(B) =
+  σ(b)[122X  for all [22Xb ∈ Q_1[122X. Note that a [13Xstring[113X of positive length is a walk along
+  the  arrows  of  [22XQ[122X  and  their  inverses such that it does not contain paths
+  obtained  by  reversing  relations in [22Xρ[122X and their inverses as substrings. We
+  also extend the definition of [22Xσ[122X and [22Xϵ[122X to all strings; if [22Xα = α_n ...α_2 α_1[122X,
+  then  [22Xσ(α)  =  σ(α_1)[122X  and [22Xϵ(α) = ϵ(α_n)[122X. [22Xnewline[122X For each vertex [22Xv∈ Q_0[122X, we
+  have  a  zero length lazy string starting and ending at vertex [22Xv[122X, denoted by
+  [22X1_v[122X.  The inverse of this string is [22X1_v[122X itself. The main purpose of defining
+  [22Xσ[122X  and  [22Xϵ[122X is to distinguish [22X1_v[122X with its inverse. We denote this zero length
+  string  as  [22X(v,1)[122X  and  [22X(v,-1)[122X and set [22Xσ((v,i)) := -i[122X and [22Xϵ((v,i)) := i[122X. The
+  concatenation  [22X(v,i)u[122X  of strings is defined if and only if [22Xϵ(u) = i[122X and the
+  concatenation  [22Xu(v,i)[122X  is  defined if and only if [22Xσ(u) = -i[122X. Moreover if [22Xα =
+  α_n  α_n-1  ...  α_2  α_1[122X and [22Xβ = β_m β_m-1 ... β_2 β_1[122X are two strings such
+  that [22Xs(α) = t(β)[122X, their concatenation is the string [22Xαβ = α_n ... α_1 β_m ...
+  β_1[122X.  Note  that, for a given quiver [22XQ[122X, the functions [22Xσ, ϵ[122X are not unique. A
+  choice  of  [22Xσ[122X  and  [22Xϵ[122X functions is computed within our codes and utilized in
+  other functions.[133X
+  
+  [1X4.12-1 IsValidString[101X
+  
+  [33X[1;0Y[29X[2XIsValidString[102X( [3XQ[103X, [3Xrho[103X, [3Xinput_str[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments:  [3XQ[103X -- a quiver, [3Xrho[103X -- a list of monomial relations, [3Xinput_str[103X --
+  an input collection of characters.[133X
+  
+  [6XReturns:[106X  [33X[0;10Y"Not  a String Algebra" if the algebra presented by [3X(Q,rho)[103X is not
+            a string algebra, "Valid Positive Length String" if [3Xinput_str[103X is a
+            string  of  positive  length  in the corresponding string algebra,
+            "Valid  Zero  Length String", if [3Xinput_str[103X is a zero length string
+            in the corresponding string algebra, "Invalid String" if [3Xinput_str[103X
+            is not a string in the corresponding string algebra[133X
+  
+  [1X4.12-2 StringsLessThan[101X
+  
+  [33X[1;0Y[29X[2XStringsLessThan[102X( [3XQ[103X, [3Xrho[103X, [3Xlevel[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments:  [3XQ[103X  -- a quiver, [3Xrho[103X -- a list of monomial relations, [3Xlevel[103X -- an
+  integer.[133X
+  
+  [6XReturns:[106X  [33X[0;10Y"Not  a String Algebra" if the algebra presented by [3X(Q,rho)[103X is not
+            a  string algebra, an empty list if [3Xlevel[103X is a negative integer, a
+            list of all strings of length less than or equal to [3Xlevel[103X if [3Xlevel[103X
+            is a non-negative integer.[133X
+  
+  [33X[0;0YA  string [22Xu[122X is called [22Xtextbfcyclic[122X if [22Xs(u) = t(u)[122X. A cyclic string is called
+  [22Xtextbfprimitive[122X  if  it  can  not  be  written  as  an  n-fold concatenation
+  [22Xmathfrakv^n[122X  for  any  string  [22Xmathfrakv[122X  and  any  [22Xn ∈ N[122X. If [22Xmathfrakb[122X is a
+  primitive  cyclic  string  such that [22Xmathfrakb^m[122X exists, for all [22Xm ∈ N[122X, then
+  [22Xmathfrakb[122X is called a [22Xtextbfband[122X.[133X
+  
+  [1X4.12-3 IsABand[101X
+  
+  [33X[1;0Y[29X[2XIsABand[102X( [3XQ[103X, [3Xrho[103X, [3Xinput_str[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments:  [3XQ[103X -- a quiver, [3Xrho[103X -- a list of monomial relations, [3Xinput_str[103X --
+  an input collection of characters.[133X
+  
+  [6XReturns:[106X  [33X[0;10Y"Not  a String Algebra" if the algebra presented by [3X(Q,rho)[103X is not
+            a string algebra, "Invalid String" if [3Xinput_str[103X is not a string in
+            the corresponding string algebra, [22X0[122X if [3Xinput_str[103X is a valid string
+            but  not  a  band,  [22X1[122X  if [3Xinput_str[103X is a band in the corresponding
+            string algebra.[133X
+  
+  [1X4.12-4 BandsLessThan[101X
+  
+  [33X[1;0Y[29X[2XBandsLessThan[102X( [3XQ[103X, [3Xrho[103X, [3Xlevel[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments:  [3XQ[103X  -- a quiver, [3Xrho[103X -- a list of monomial relations, [3Xlevel[103X -- an
+  integer.[133X
+  
+  [6XReturns:[106X  [33X[0;10Y"Not  a String Algebra" if the algebra presented by [3X(Q,rho)[103X is not
+            a  string algebra, an empty list if [3Xlevel[103X is a negative integer, a
+            list  of  all bands of length less than or equal to [3Xlevel[103X if [3Xlevel[103X
+            is a non-negative integer.[133X
+  
+  [33X[0;0YTwo  bands  [22Xmathfrakb_1[122X  and  [22Xmathfrakb_2[122X of a string algebra are said to be
+  equivalent  if  they  are  cyclic  permutations  of each other. For any band
+  [22Xmathfrakb[122X,   output  of  [22XtextttBandsLessThan[122X  function  contains  all  bands
+  equivalent  to  [22Xmathfrakb[122X.  A  representative  of  each equivalence class is
+  chosen  such  that  the first syllable from right is an inverse syllable and
+  the last syllable from right is a direct syllable. This new list is returned
+  as the output of the following function.[133X
+  
+  [1X4.12-5 BandRepresentativesLessThan[101X
+  
+  [33X[1;0Y[29X[2XBandRepresentativesLessThan[102X( [3XQ[103X, [3Xrho[103X, [3Xlevel[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments:  [3XQ[103X  -- a quiver, [3Xrho[103X -- a list of monomial relations, [3Xlevel[103X -- an
+  integer.[133X
+  
+  [6XReturns:[106X  [33X[0;10Y"Not  a String Algebra" if the algebra presented by [3X(Q,rho)[103X is not
+            a  string  algebra,  an empty list if [3Xlevel[103X is negative integer, a
+            list  of  all band representatives of length less than or equal to
+            [3Xlevel[103X if [3Xlevel[103X is a non-negative integer.[133X
+  
+  [33X[0;0YA  string  algebra  with  finite number of bands is called a domestic string
+  algebra.[133X
+  
+  [1X4.12-6 IsDomesticStringAlgebra[101X
+  
+  [33X[1;0Y[29X[2XIsDomesticStringAlgebra[102X( [3XQ[103X, [3Xrho[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XQ[103X -- a quiver, [3Xrho[103X -- a list of monomial relations.[133X
+  
+  [6XReturns:[106X  [33X[0;10Y"Not  a String Algebra" if the algebra presented by [3X(Q,rho)[103X is not
+            a  string  algebra,  [22X0[122X  if  the  corresponding  string  algebra is
+            non-domestic, [22X1[122X if the corresponding string algebra is domestic.[133X
+  
+  [33X[0;0YA string is [22Xtextbfband-free[122X if it does not contain any cyclic permutation of
+  a  band  as  a substring. Let [22XBa(Λ)[122X denote the collection of all bands up to
+  cyclic permutation and [22XQ_0^Ba[122X denote a fixed set of representatives of bands
+  in [22XBa(Λ)[122X. For [22Xmathfrakb_1, mathfrakb_2 ∈ Q_0^Ba[122X, we say that a finite string
+  [22Xu[122X  is  a weak bridge [22Xmathfrakb_1 xrightarrowu mathfrakb_2[122X if it is band-free
+  and  if  [22Xmathfrakb_2  u  mathfrakb_1[122X  is a string.[22Xnewline[122X We say that a weak
+  bridge [22Xmathfrakb_1 xrightarrowu mathfrakb_2[122X is a bridge if there is [22Xtextbfno[122X
+  [22Xmathfrakb∈  Q_0^Ba[122X and weak bridges [22Xmathfrakb_1 xrightarrowu_1 mathfrakb[122X and
+  [22Xmathfrakb xrightarrowu_2 mathfrakb_2[122X such that one of the following holds :[133X
+  
+  [30X    [33X[0;6Y[22Xmathfraku  = mathfraku_2mathfraku_1[122X, where [22Xmathfraku_1[122X and [22Xmathfraku_2[122X
+        are positive length strings,[133X
+  
+  [30X    [33X[0;6Y[22Xmathfraku = mathfraku_2'mathfraku_1'[122X, for some positive length strings
+        [22Xmathfraku_1',   mathfraku_2'[122X  such  that  [22Xmathfraku_2  =  mathfraku_2'
+        mathfraku_2''[122X,  [22Xmathfraku_1 = mathfraku_1'' mathfraku_1'[122X and [22Xmathfrakb
+        = mathfraku_1'' mathfraku_2''[122X.[133X
+  
+  [1X4.12-7 BridgeQuiver[101X
+  
+  [33X[1;0Y[29X[2XBridgeQuiver[102X( [3XQ[103X, [3Xrho[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XQ[103X a quiver, [3Xrho[103X a list of monomial relations.[133X
+  
+  [6XReturns:[106X  [33X[0;10Y"Not  a String Algebra" if the algebra presented by [3X(Q,rho)[103X is not
+            a  string  algebra,  [22X0[122X  if  the  corresponding  string  algebra is
+            non-domestic,  the  bridge  quiver  of  the  corresponding  string
+            algebra if it is domestic.[133X
+  
+  [1X4.12-8 LocalARQuiver[101X
+  
+  [33X[1;0Y[29X[2XLocalARQuiver[102X( [3XQ[103X, [3Xrho[103X, [3Xinput_str[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments:  [3XQ[103X -- a quiver, [3Xrho[103X -- a list of monomial relations, [3Xinput_str[103X --
+  an input collection of characters.[133X
+  
+  [6XReturns:[106X  [33X[0;10Y"Not  a String Algebra" if the algebra presented by [3X(Q,rho)[103X is not
+            a string algebra, the list of (equivalence classes of) irreducible
+            maps,  i.e.,  the  arrows  of  the  Auslander-Reiten quiver, whose
+            source or target is the string module corresponding to [3Xinput_str[103X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XQ := Quiver(4, [[1,2,"a"], [1,2,"b"], [2,3,"c"], [3,4,"d"], [3,4,"e"]]);[127X[104X
+    [4X[28X<quiver with 4 vertices and 5 arrows>[128X[104X
+    [4X[25Xgap>[125X [27Xrho := ["bc", "cd"];[127X[104X
+    [4X[28X[ "bc", "cd" ][128X[104X
+    [4X[25Xgap>[125X [27XIsValidString(Q,rho,"eca");[127X[104X
+    [4X[28X"Valid Positive Length String"[128X[104X
+    [4X[25Xgap>[125X [27XStringsLessThan(Q,rho,2);[127X[104X
+    [4X[28X[ "(1,1)", "b", "Ab", "(1,-1)", "a", "ca", "Ba", "(2,1)", "c", "B", "ec", "aB",[128X[104X
+    [4X[28X "(2,-1)", "A", "bA", "(3,1)", "e", "De", "(3,-1)", "d", "C", "Ed", "AC",[128X[104X
+    [4X[28X "(4,1)", "E", "dE", "CE", "(4,-1)", "D", "eD" ][128X[104X
+    [4X[25Xgap>[125X [27XIsABand(Q,rho,"eca");[127X[104X
+    [4X[28X0[128X[104X
+    [4X[25Xgap>[125X [27XIsABand(Q,rho,"Ab");[127X[104X
+    [4X[28X1[128X[104X
+    [4X[25Xgap>[125X [27XBandsLessThan(Q,rho,3);[127X[104X
+    [4X[28X[ "Ab", "Ba", "aB", "bA", "De", "Ed", "dE", "eD" ][128X[104X
+    [4X[25Xgap>[125X [27XBandRepresentativesLessThan(Q,rho,3);[127X[104X
+    [4X[28X[ "aB", "bA", "dE", "eD" ][128X[104X
+    [4X[25Xgap>[125X [27XIsDomesticStringAlgebra(Q,rho);[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27XQ1 := BridgeQuiver(Q,rho);[127X[104X
+    [4X[28X<quiver with 4 vertices and 2 arrows>[128X[104X
+    [4X[25Xgap>[125X [27XDisplay(Q1);[127X[104X
+    [4X[28XQuiver( ["v1","v2","v3","v4"], [["v3","v2","CE"],["v1","v4","ec"]] )[128X[104X
+    [4X[25Xgap>[125X [27XLocalARQuiver(Q,rho,"eca");[127X[104X
+    [4X[28X[ "The canonical embedding StringModule(eca) to StringModule(eDeca)",[128X[104X
+    [4X[28X  "The canonical projection StringModule(ecaBa) to StringModule(eca)" ] [128X[104X
+  [4X[32X[104X
+  
+  
+  [1X4.13 [33X[0;0YAttributes and Operations (for Quotients) of Path Algebras[133X[101X
+  
+  [1X4.13-1 CartanMatrix[101X
+  
+  [33X[1;0Y[29X[2XCartanMatrix[102X( [3XA[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XA[103X -- a path algebra or a quotient of a path algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe Cartan matrix of the algebra [3XA[103X, after having checked that [3XA[103X is
+            a finite dimensional quotient of a path algebra.[133X
+  
+  [1X4.13-2 Centre/Center[101X
+  
+  [33X[1;0Y[29X[2XCentre/Center[102X( [3XA[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XA[103X -- a path algebra or a quotient of a path algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe centre of the algebra [3XA[103X as a subalgebra.[133X
+  
+  [33X[0;0YThe  function computes the center of [3XA[103X if [3XA[103X is a finite dimensional quotient
+  of  a  path  algebra  or  [3XA[103X  is  a  path  algebra with on restriction on the
+  underlying quiver.[133X
+  
+  [1X4.13-3 ComplexityOfAlgebra[101X
+  
+  [33X[1;0Y[29X[2XComplexityOfAlgebra[102X( [3XA[103X, [3Xn[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments:  [3XA[103X  --  a  path  algebra  or a quotient of a path algebra, [3Xn[103X -- a
+  positive integer.[133X
+  
+  [6XReturns:[106X  [33X[0;10Yan estimate of the complexity of the algebra [3XA[103X.[133X
+  
+  [33X[0;0YThe  function  checks  if  the  algebra  [3XA[103X  is  known  to have finite global
+  dimension. If so, it returns complexity zero. Otherwise it tries to estimate
+  the  complexity  in  the  following way. Recall that if a function [22Xf(x)[122X is a
+  polynomial  in  [22Xx[122X, the degree of [22Xf(x)[122X is given by [22Xlim_n->∞ fraclog |f(n)|log
+  n[122X.  So  then this function computes an estimate of the maximal complexity of
+  the  simple  modules  over  [3XA[103X by approximating the complexity of each simple
+  module  [22XS[122X by considering the limit [22Xlim_m-> ∞ log fracdim(P(S)(m))log m[122X where
+  [22XP(S)(m)[122X  is  the  [22Xm[122X-th projective in a minimal projective resolution of [3XS[103X at
+  stage [22Xm[122X. This limit is estimated by [22Xfraclog dim(P(S)(n))log n[122X.[133X
+  
+  [1X4.13-4 CoxeterMatrix[101X
+  
+  [33X[1;0Y[29X[2XCoxeterMatrix[102X( [3XA[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3XA[103X -- a path algebra or a quotient of a path algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe  Coxeter  matrix of the algebra [3XA[103X, after having checked that [3XA[103X
+            is a finite dimensional quotient of a path algebra.[133X
+  
+  [1X4.13-5 CoxeterPolynomial[101X
+  
+  [33X[1;0Y[29X[2XCoxeterPolynomial[102X( [3XA[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3XA[103X -- a path algebra or a quotient of a path algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe Coxeter polynomial of the algebra [3XA[103X, after having checked that
+            [3XA[103X is a finite dimensional quotient of a path algebra.[133X
+  
+  [1X4.13-6 Dimension[101X
+  
+  [33X[1;0Y[29X[2XDimension[102X( [3XA[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3XA[103X -- a path algebra or a quotient of a path algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe  dimension  of  the  algebra  [3XA[103X  or  [13Xinfinity[113X  in case [3XA[103X is an
+            infinite dimensional algebra.[133X
+  
+  [33X[0;0YFor  a  quotient  of  a  path  algebra  it uses Groebner bases machinery (it
+  computes  Groebner basis for the ideal only in case it has not been computed
+  yet).[133X
+  
+  [1X4.13-7 FrobeniusForm[101X
+  
+  [33X[1;0Y[29X[2XFrobeniusForm[102X( [3XA[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3XA[103X -- a quotient of a path algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Yfalse  if [3XA[103X is not selfinjective algebra. Otherwise it returns the
+            Frobenius form of [3XA[103X.[133X
+  
+  [1X4.13-8 FrobeniusLinearFunctional[101X
+  
+  [33X[1;0Y[29X[2XFrobeniusLinearFunctional[102X( [3XA[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3XA[103X -- a quotient of a path algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Yfalse  if [3XA[103X is not selfinjective algebra. Otherwise it returns the
+            Frobenius  linear  functional of [3XA[103X, which is used to construct the
+            Frobenius form.[133X
+  
+  [1X4.13-9 GlobalDimension[101X
+  
+  [33X[1;0Y[29X[2XGlobalDimension[102X( [3XA[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3XA[103X -- an algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe global dimension of the algebra [3XA[103X if it is known. Otherwise it
+            returns an error message saying "no method found!".[133X
+  
+  [33X[0;0YThere is no method installed for this yet.[133X
+  
+  [1X4.13-10 LoewyLength[101X
+  
+  [33X[1;0Y[29X[2XLoewyLength[102X( [3XA[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3XA[103X -- a path algebra or a quotient of a path algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Yfail  if  [3XA[103X  is  not  finite dimensional. Otherwise it returns the
+            Loewy length of the algebra [3XA[103X.[133X
+  
+  [1X4.13-11 NakayamaAutomorphism[101X
+  
+  [33X[1;0Y[29X[2XNakayamaAutomorphism[102X( [3XA[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3XA[103X -- a path algebra or a quotient of a path algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Yfalse  if [3XA[103X is not selfinjective algebra. Otherwise it returns the
+            Nakayama automorphism of [3XA[103X.[133X
+  
+  [1X4.13-12 NakayamaPermutation[101X
+  
+  [33X[1;0Y[29X[2XNakayamaPermutation[102X( [3XA[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3XA[103X -- a path algebra or a quotient of a path algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Yfalse  if  [3XA[103X  is not selfinjective algebra. Otherwise it returns a
+            list  of  two elements where the first is the Nakayama permutation
+            on  the  simple modules and the second is the Nakayama permutation
+            on the index set of the simple modules of [3XA[103X.[133X
+  
+  [1X4.13-13 OrderOfNakayamaAutomorphism[101X
+  
+  [33X[1;0Y[29X[2XOrderOfNakayamaAutomorphism[102X( [3XA[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3XA[103X -- a path algebra or a quotient of a path algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Yfalse  if [3XA[103X is not selfinjective algebra. Otherwise it returns the
+            order  of  the  Nakayama  autormorphism  of  [3XA[103X  AS  AN  ELEMENT OF
+            [22XoperatornameAut(A)[122X.[133X
+  
+  [1X4.13-14 RadicalSeriesOfAlgebra[101X
+  
+  [33X[1;0Y[29X[2XRadicalSeriesOfAlgebra[102X( [3XA[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3XA[103X -- an algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe  radical  series  of  the algebra [3XA[103X in a list, where the first
+            element is the algebra [3XA[103X itself, then radical of [3XA[103X, radical square
+            of [3XA[103X, and so on.[133X
+  
+  
+  [1X4.14 [33X[0;0YAttributes and Operations on Elements of Quotients of Path Algebra[133X[101X
+  
+  [1X4.14-1 IsElementOfQuotientOfPathAlgebra[101X
+  
+  [33X[1;0Y[29X[2XIsElementOfQuotientOfPathAlgebra[102X( [3Xobject[103X ) [32X property[133X
+  
+  [33X[0;0YArguments: [3Xobject[103X -- any object in [5XGAP[105X.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue  whenever  [3Xobject[103X  is  an  element of some quotient of a path
+            algebra.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xelem := quot.a*quot.b;[127X[104X
+    [4X[28X[(1)*a*b][128X[104X
+    [4X[25Xgap>[125X [27XIsElementOfQuotientOfPathAlgebra(elem);[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27XIsElementOfQuotientOfPathAlgebra(FQ.a*FQ.b);    [127X[104X
+    [4X[28Xfalse [128X[104X
+  [4X[32X[104X
+  
+  [1X4.14-2 Coefficients[101X
+  
+  [33X[1;0Y[29X[2XCoefficients[102X( [3XB[103X, [3Xelement[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments:  [3XB,  element[103X  --  a  basis  for  a quotient of a path algebra and
+  element thereof.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe  coefficients of the [3Xelement[103X in terms of the canonical basis [3XB[103X
+            of the quotient of a path algebra in which [3Xelement[103X is an element.[133X
+  
+  [1X4.14-3 IsNormalForm[101X
+  
+  [33X[1;0Y[29X[2XIsNormalForm[102X( [3Xelement[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xelement[103X -- an element of a path algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue if [3Xelement[103X is known to be in normal form.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X gap> IsNormalForm(elem);  [128X[104X
+    [4X[28X true  [128X[104X
+  [4X[32X[104X
+  
+  [1X4.14-4 <[101X
+  
+  [33X[1;0Y[29X[2X<[102X( [3Xa[103X, [3Xb[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xa[103X and [3Xb[103X -- elements from a path algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue whenever [3Xa[103X < [3Xb[103X.[133X
+  
+  [1X4.14-5 ElementOfQuotientOfPathAlgebra[101X
+  
+  [33X[1;0Y[29X[2XElementOfQuotientOfPathAlgebra[102X( [3Xfamily[103X, [3Xelement[103X, [3Xcomputenormal[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments:  [3Xfamily[103X  -- a family of elements, [3Xelement[103X -- an element of a path
+  algebra, [3Xcomputenormal[103X -- true or false.[133X
+  
+  [6XReturns:[106X  [33X[0;10YThe  projection  of  [3Xelement[103X into the quotient given by [3Xfamily[103X. If
+            [3Xcomputenormal[103X  is false, then the normal form of the projection of
+            [3Xelement[103X is returned.[133X
+  
+  [33X[0;0Y[3Xfamily[103X  is  the  ElementsFamily  of  the  family  of  the algebra [3Xelement[103X is
+  projected into.[133X
+  
+  [1X4.14-6 OriginalPathAlgebra[101X
+  
+  [33X[1;0Y[29X[2XOriginalPathAlgebra[102X( [3Xalgebra[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3Xalgebra[103X -- an algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya path algebra.[133X
+  
+  [33X[0;0YIf  [3Xalgebra[103X  is  a quotient of a path algebra or just a path algebra itself,
+  the  returned algebra is the path algebra it was constructed from. Otherwise
+  it  returns  an  error  saying  that  the algebra entered was not given as a
+  quotient of a path algebra.[133X
+  
+  
+  [1X4.15 [33X[0;0YPredefined classes and classes of (quotients of) path algebras[133X[101X
+  
+  [1X4.15-1 BrauerConfigurationAlgebra[101X
+  
+  [33X[1;0Y[29X[2XBrauerConfigurationAlgebra[102X( [3Xfield[103X, [3Xbrauer_configuration[103X ) [32X function[133X
+  
+  [33X[0;0YArguments:  [3Xfield[103X  --  a  field,  [3Xbrauer_configuration[103X -- a list of the form
+  [[vertices], [edges/polygons], [orientations]].[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe  Brauer  configuration  algebra  corresponding  to  the brauer
+            configuration  [3Xbrauer_configuration[103X  over  the field [3Xfield[103X. If the
+            brauer configuration entered is not valid, fail is returned.[133X
+  
+  [33X[0;0YThe   [3Xbrauer_configuration[103X   consists   of   vertices,  polygons/edges,  and
+  orientations  corresponding  to  a Brauer Configuration or Brauer Tree. Each
+  vertex  must  have  the form ["vertexname", multiplicity]. Each edge/polygon
+  must  have  the  form ["edgename", "vertex1name", "vertex2name", ...]. There
+  must  be an orientation corresponding to each vertex. Orientations must have
+  the form ["edge1name/polygon1name", "edge2name/polygon2name", ...].[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xalg := BrauerConfigurationAlgebra(Rationals, [ [ [ "v1", 1 ], [ "v2", 1 ], [ "v3", 2 ] ], [ [ "e1", "v1", "v2" ], [ "e2", "v2", "v3" ] ], [ [ "e1" ], [ "e1", "e2" ], ["e2" ] ]]);[127X[104X
+    [4X[28X<A quotient of the path algebra <Rationals[<quiver with 2 vertices and [128X[104X
+    [4X[28X3 arrows>]> modulo the ideal [128X[104X
+    [4X[28X<two-sided ideal in <Rationals[<quiver with 2 vertices and 3 arrows>]>, [128X[104X
+    [4X[28X  (5 generators)>>[128X[104X
+  [4X[32X[104X
+  
+  [1X4.15-2 CanonicalAlgebra[101X
+  
+  [33X[1;0Y[29X[2XCanonicalAlgebra[102X( [3Xfield[103X, [3Xweights[103X[, [3Xrelcoeff[103X] ) [32X operation[133X
+  
+  [33X[0;0YArguments:  [3Xfield[103X  --  a  field,  [3Xweights[103X -- a list of positive integers, [,
+  [3Xrelcoeff[103X -- a list of non-zero elements in the field.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe  canonical algebra over the [3Xfield[103X with the quiver given by the
+            weight   sequence   [3Xweights[103X   and   the  relations  given  by  the
+            coefficients [3Xrelcoeff[103X.[133X
+  
+  [33X[0;0YIt  function  checks  if  all  the  [3Xweights[103X are greater or equal to two, the
+  number  of weights is at least two, the number of coefficients is the number
+  of  [3Xweights[103X  -  2,  the  coefficients  for  the  relations  are in field and
+  non-zero.  If  only  the  two  first arguments are given, then the number of
+  weights must be two.[133X
+  
+  [1X4.15-3 KroneckerAlgebra[101X
+  
+  [33X[1;0Y[29X[2XKroneckerAlgebra[102X( [3Xfield[103X, [3Xn[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xfield[103X -- a field, [3Xn[103X -- a positive integer.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe [3Xn[103X-Kronecker algebra over the field [3Xfield[103X.[133X
+  
+  [33X[0;0YIt  function checks if the number [3Xn[103X of arrows is greater or equal to two and
+  returns an error message if not.[133X
+  
+  [1X4.15-4 NakayamaAlgebra[101X
+  
+  [33X[1;0Y[29X[2XNakayamaAlgebra[102X( [3Xadmiss-seq[103X, [3Xfield[103X ) [32X function[133X
+  
+  [33X[0;0YArguments: [3Xfield[103X -- a field, [3Xadmiss-seq[103X -- a list of positive integers.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe  Nakayama  algebra  corresponding  to  the admissible sequence
+            [3Xadmiss-seq[103X over the field [3Xfield[103X. If the entered sequence is not an
+            admissible sequence, the sequence is returned.[133X
+  
+  [33X[0;0YThe [3Xadmiss-seq[103X consists of the dimensions of the projective representations.[133X
+  
+  [1X4.15-5 AdmissibleSequenceGenerator[101X
+  
+  [33X[1;0Y[29X[2XAdmissibleSequenceGenerator[102X( [3Xnum_vert[103X, [3Xheight[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xnum_vert[103X, [3Xheight[103X -- two positive integers.[133X
+  
+  [6XReturns:[106X  [33X[0;10Yall admissible sequences of Nakayama algebras with [3Xnum_vert[103X number
+            of  vertices,  and  indecomposable projective modules of length at
+            most [3Xheight[103X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xalg := NakayamaAlgebra([2,1], Rationals);[127X[104X
+    [4X[28X<Rationals[<quiver with 2 vertices and 1 arrows>]>[128X[104X
+    [4X[25Xgap>[125X [27XQuiverOfPathAlgebra(alg);[127X[104X
+    [4X[28X<quiver with 2 vertices and 1 arrows>[128X[104X
+  [4X[32X[104X
+  
+  [1X4.15-6 PosetAlgebra[101X
+  
+  [33X[1;0Y[29X[2XPosetAlgebra[102X( [3XF[103X, [3XP[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XF[103X -- a field, [3XP[103X -- a poset.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe poset algebra associated to the poset [3XP[103X over the field [3XK[103X.[133X
+  
+  [1X4.15-7 PosetOfPosetAlgebra[101X
+  
+  [33X[1;0Y[29X[2XPosetOfPosetAlgebra[102X( [3XA[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3XA[103X -- a poset algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe poset from which that poset algebra [3XA[103X is constructed.[133X
+  
+  [1X4.15-8 TruncatedPathAlgebra[101X
+  
+  [33X[1;0Y[29X[2XTruncatedPathAlgebra[102X( [3XF[103X, [3XQ[103X, [3Xn[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XF[103X -- a field, [3XQ[103X -- a quiver, [3Xn[103X -- a positive integer.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe truncated path algebra [3XKQ/I[103X, where [3XI[103X is the ideal generated by
+            all paths of length [3Xn[103X in [3XKQ[103X.[133X
+  
+  [1X4.15-9 IsSpecialBiserialQuiver[101X
+  
+  [33X[1;0Y[29X[2XIsSpecialBiserialQuiver[102X( [3XQ[103X ) [32X property[133X
+  
+  [33X[0;0YArguments: [3XQ[103X -- a quiver.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue  whenever [3XQ[103X is a [13X"special biserial"[113X quiver, i.e. every vertex
+            in [3XQ[103X is a source (resp. target) of at most 2 arrows.[133X
+  
+  [33X[0;0Y[13XNote:[113X  e.g. a path algebra of one loop IS NOT special biserial, but one loop
+  IS  special biserial quiver (cf. [2XIsSpecialBiserialAlgebra[102X ([14X4.11-19[114X) and also
+  an Example below).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XQ := Quiver(1, [ [1,1,"a"], [1,1,"b"] ]);;  [127X[104X
+    [4X[25Xgap>[125X [27XA := PathAlgebra(Rationals, Q);;[127X[104X
+    [4X[25Xgap>[125X [27XIsSpecialBiserialAlgebra(A); IsStringAlgebra(A);[127X[104X
+    [4X[28Xfalse[128X[104X
+    [4X[28Xfalse[128X[104X
+    [4X[25Xgap>[125X [27Xrel1 := [A.a*A.b, A.a^2, A.b^2];  [127X[104X
+    [4X[28X[ (1)*a*b, (1)*a^2, (1)*b^2 ][128X[104X
+    [4X[25Xgap>[125X [27Xquo1 := A/rel1;;[127X[104X
+    [4X[25Xgap>[125X [27XIsSpecialBiserialAlgebra(quo1); IsStringAlgebra(quo1);[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27Xrel2 := [A.a*A.b-A.b*A.a, A.a^2, A.b^2];  [127X[104X
+    [4X[28X[ (1)*a*b+(-1)*b*a, (1)*a^2, (1)*b^2 ][128X[104X
+    [4X[25Xgap>[125X [27Xquo2 := A/rel2;;[127X[104X
+    [4X[25Xgap>[125X [27XIsSpecialBiserialAlgebra(quo2); IsStringAlgebra(quo2);[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[28Xfalse[128X[104X
+    [4X[25Xgap>[125X [27Xrel3 := [A.a*A.b+A.b*A.a, A.a^2, A.b^2, A.b*A.a];   [127X[104X
+    [4X[28X[ (1)*a*b+(1)*b*a, (1)*a^2, (1)*b^2, (1)*b*a ][128X[104X
+    [4X[25Xgap>[125X [27Xquo3 := A/rel3;;[127X[104X
+    [4X[25Xgap>[125X [27XIsSpecialBiserialAlgebra(quo3); IsStringAlgebra(quo3);[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27Xrel4 := [A.a*A.b, A.a^2, A.b^3]; [127X[104X
+    [4X[28X[ (1)*a*b, (1)*a^2, (1)*b^3 ][128X[104X
+    [4X[25Xgap>[125X [27Xquo4 := A/rel4;;[127X[104X
+    [4X[25Xgap>[125X [27XIsSpecialBiserialAlgebra(quo4); IsStringAlgebra(quo4);[127X[104X
+    [4X[28Xfalse[128X[104X
+    [4X[28Xfalse [128X[104X
+  [4X[32X[104X
+  
+  
+  [1X4.16 [33X[0;0YOpposite algebras[133X[101X
+  
+  [1X4.16-1 OppositePath[101X
+  
+  [33X[1;0Y[29X[2XOppositePath[102X( [3Xp[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xp[103X -- a path.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe path corresponding to [3Xp[103X in the opposite quiver.[133X
+  
+  [33X[0;0YThe  following  example  illustrates  the  use of [2XOppositeQuiver[102X ([14X3.5-9[114X) and
+  [2XOppositePath[102X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XQ := Quiver( [ "u", "v" ], [ [ "u", "u", "a" ], [127X[104X
+    [4X[25X>[125X [27X             [ "u", "v", "b" ] ] );[127X[104X
+    [4X[28X<quiver with 2 vertices and 2 arrows>[128X[104X
+    [4X[25Xgap>[125X [27XQop := OppositeQuiver(Q);[127X[104X
+    [4X[28X<quiver with 2 vertices and 2 arrows>[128X[104X
+    [4X[25Xgap>[125X [27XVerticesOfQuiver( Qop );[127X[104X
+    [4X[28X[ u_op, v_op ][128X[104X
+    [4X[25Xgap>[125X [27XArrowsOfQuiver( Qop );[127X[104X
+    [4X[28X[ a_op, b_op ][128X[104X
+    [4X[25Xgap>[125X [27XOppositePath( Q.a * Q.b );[127X[104X
+    [4X[28Xb_op*a_op[128X[104X
+    [4X[25Xgap>[125X [27XIsIdenticalObj( Q, OppositeQuiver( Qop ) );[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27XOppositePath( Qop.b_op * Qop.a_op );[127X[104X
+    [4X[28Xa*b[128X[104X
+  [4X[32X[104X
+  
+  [1X4.16-2 OppositePathAlgebra[101X
+  
+  [33X[1;0Y[29X[2XOppositePathAlgebra[102X( [3XA[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3XA[103X -- a path algebra or quotient of path algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe opposite algebra [22X[3XA[103X^op[122X.[133X
+  
+  [33X[0;0YThis attribute contains the opposite algebra of an algebra.[133X
+  
+  [33X[0;0YThe opposite algebra of a path algebra is the path algebra over the opposite
+  quiver  (as  given  by  [2XOppositeQuiver[102X  ([14X3.5-9[114X)).  The opposite algebra of a
+  quotient  of  a  path  algebra  has  the  opposite  quiver  and the opposite
+  relations of the original algebra.[133X
+  
+  [33X[0;0YThe function [2XOppositePathAlgebraElement[102X ([14X4.16-3[114X) takes an algebra element to
+  the corresponding element in the opposite algebra.[133X
+  
+  [33X[0;0YThe  opposite of the opposite of an algebra [22XA[122X is isomorphic to [22XA[122X. In QPA, we
+  regard    these    two    algebras   to   be   the   same,   so   the   call
+  [10XOppositePathAlgebra(OppositePathAlgebra(A))[110X returns the object [10XA[110X.[133X
+  
+  [1X4.16-3 OppositePathAlgebraElement[101X
+  
+  [33X[1;0Y[29X[2XOppositePathAlgebraElement[102X( [3Xx[103X ) [32X function[133X
+  
+  [33X[0;0YArguments: [3Xx[103X -- a path.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe element corresponding to [3Xx[103X in the opposite algebra.[133X
+  
+  [1X4.16-4 OppositeAlgebraHomomorphism[101X
+  
+  [33X[1;0Y[29X[2XOppositeAlgebraHomomorphism[102X( [3XA[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3XA[103X -- an algebra homomorphism of two (quotients) of path algebras.[133X
+  
+  [6XReturns:[106X  [33X[0;10Yalgebra homomorphism between the corresponding opposite algebras.[133X
+  
+  [33X[0;0YThe  following  example  illustrates the use of [2XOppositePathAlgebra[102X ([14X4.16-2[114X)
+  and [2XOppositePathAlgebraElement[102X ([14X4.16-3[114X).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XQ := Quiver( [ "u", "v" ], [ [ "u", "u", "a" ], [127X[104X
+    [4X[25X>[125X [27X             [ "u", "v", "b" ] ] );[127X[104X
+    [4X[28X<quiver with 2 vertices and 2 arrows>[128X[104X
+    [4X[25Xgap>[125X [27XA := PathAlgebra( Rationals, Q );[127X[104X
+    [4X[28X<Rationals[<quiver with 2 vertices and 2 arrows>]>[128X[104X
+    [4X[25Xgap>[125X [27XOppositePathAlgebra( A );[127X[104X
+    [4X[28X<Rationals[<quiver with 2 vertices and 2 arrows>]>[128X[104X
+    [4X[25Xgap>[125X [27XOppositePathAlgebraElement( A.u + 2*A.a + 5*A.a*A.b );[127X[104X
+    [4X[28X(1)*u_op+(2)*a_op+(5)*b_op*a_op[128X[104X
+    [4X[25Xgap>[125X [27XIsIdenticalObj( A, [127X[104X
+    [4X[25X>[125X [27X        OppositePathAlgebra( OppositePathAlgebra( A ) ) );[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X4.17 [33X[0;0YTensor products of path algebras[133X[101X
+  
+  [33X[0;0YIf  [22XΛ[122X and [22XΓ[122X are quotients of path algebras over the same field [22XF[122X, then their
+  tensor product [22XΛ tensor_F Γ[122X is also a quotient of a path algebra over [22XF[122X.[133X
+  
+  [33X[0;0YThe quiver for the tensor product path algebra is the [2XQuiverProduct[102X ([14X4.17-1[114X)
+  of the quivers of the original algebras.[133X
+  
+  [33X[0;0YThe  operation [2XTensorProductOfAlgebras[102X ([14X4.17-6[114X) computes the tensor products
+  of two quotients of path algebras as a quotient of a path algebra.[133X
+  
+  [1X4.17-1 QuiverProduct[101X
+  
+  [33X[1;0Y[29X[2XQuiverProduct[102X( [3XQ1[103X, [3XQ2[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XQ1[103X and [3XQ2[103X -- quivers.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe product quiver [22X[3XQ1[103X quiverproduct [3XQ2[103X[122X.[133X
+  
+  [33X[0;0YA  vertex in [22X[3XQ1[103X quiverproduct [3XQ2[103X[122X which is made by combining a vertex named [10Xu[110X
+  in  [3XQ1[103X  with a vertex [10Xv[110X in [3XQ2[103X is named [10Xu_v[110X. Arrows are named similarly (they
+  are  made  by  combining  an  arrow  from  one quiver with a vertex from the
+  other).[133X
+  
+  [1X4.17-2 QuiverProductDecomposition[101X
+  
+  [33X[1;0Y[29X[2XQuiverProductDecomposition[102X( [3XQ[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3XQ[103X -- a quiver.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe  original  quivers  [3XQ[103X is a product of, if [3XQ[103X was created by the
+            [2XQuiverProduct[102X ([14X4.17-1[114X) operation.[133X
+  
+  [33X[0;0YThe   value   of   this   attribute   is   an   object   in   the   category
+  [2XIsQuiverProductDecomposition[102X ([14X4.17-3[114X).[133X
+  
+  [1X4.17-3 IsQuiverProductDecomposition[101X
+  
+  [33X[1;0Y[29X[2XIsQuiverProductDecomposition[102X( [3Xobject[103X ) [32X category[133X
+  
+  [33X[0;0YArguments: [3Xobject[103X -- any object in [5XGAP[105X.[133X
+  
+  [33X[0;0YCategory  for  objects  containing  information about the relation between a
+  product quiver and the quivers it is a product of. The quiver factors can be
+  extracted  from  the  decomposition  object  by  using the [] notation (like
+  accessing  elements of a list). The decomposition object is also used by the
+  operations   [2XIncludeInProductQuiver[102X  ([14X4.17-4[114X)  and  [2XProjectFromProductQuiver[102X
+  ([14X4.17-5[114X).[133X
+  
+  [1X4.17-4 IncludeInProductQuiver[101X
+  
+  [33X[1;0Y[29X[2XIncludeInProductQuiver[102X( [3XL[103X, [3XQ[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments:  [3XL[103X  --  a  list  containing the paths [22Xq_1[122X and [22Xq_2[122X, [22XQ[122X -- a product
+  quiver.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya path in [3XQ[103X.[133X
+  
+  [33X[0;0YIncludes  paths  [22Xq_1[122X  and  [22Xq_2[122X  from  two  quivers into the product of these
+  quivers, [3XQ[103X. If at least one of [22Xq_1[122X and [22Xq_2[122X is a vertex, there is exactly one
+  possible  inclusion.  If  they are both non-trivial paths, there are several
+  possibilities.  This operation constructs the path which is the inclusion of
+  [22Xq_1[122X  at the source of [22Xq_2[122X multiplied with the inclusion of [22Xq_2[122X at the target
+  of [22Xq_1[122X.[133X
+  
+  [1X4.17-5 ProjectFromProductQuiver[101X
+  
+  [33X[1;0Y[29X[2XProjectFromProductQuiver[102X( [3Xi[103X, [3Xp[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xi[103X -- a positive integer, [3Xp[103X -- a path in the product quiver.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe projection of the product quiver path [3Xp[103X to one of the factors.
+            Which  factor  it  should  be  projected  to  is  specified by the
+            argument [3Xi[103X.[133X
+  
+  [33X[0;0YThe  following  example  shows how the operations related to quiver products
+  are used.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xq1 := Quiver( [ "u1", "u2" ], [ [ "u1", "u2", "a" ] ] );[127X[104X
+    [4X[28X<quiver with 2 vertices and 1 arrows>[128X[104X
+    [4X[25Xgap>[125X [27Xq2 := Quiver( [ "v1", "v2", "v3" ],[127X[104X
+    [4X[28X                      [ [ "v1", "v2", "b" ],[128X[104X
+    [4X[28X                        [ "v2", "v3", "c" ] ] );[128X[104X
+    [4X[28X<quiver with 3 vertices and 2 arrows>[128X[104X
+    [4X[25Xgap>[125X [27Xq1_q2 := QuiverProduct( q1, q2 );[127X[104X
+    [4X[28X<quiver with 6 vertices and 7 arrows>[128X[104X
+    [4X[25Xgap>[125X [27Xq1_q2.u1_b * q1_q2.a_v2;[127X[104X
+    [4X[28Xu1_b*a_v2[128X[104X
+    [4X[25Xgap>[125X [27XIncludeInProductQuiver( [ q1.a, q2.b * q2.c ], q1_q2 );[127X[104X
+    [4X[28Xa_v1*u2_b*u2_c[128X[104X
+    [4X[25Xgap>[125X [27XProjectFromProductQuiver( 2, q1_q2.a_v1 * q1_q2.u2_b * q1_q2.u2_c );[127X[104X
+    [4X[28Xb*c[128X[104X
+    [4X[25Xgap>[125X [27Xq1_q2_dec := QuiverProductDecomposition( q1_q2 );[127X[104X
+    [4X[28X<object>[128X[104X
+    [4X[25Xgap>[125X [27Xq1_q2_dec[ 1 ];[127X[104X
+    [4X[28X<quiver with 2 vertices and 1 arrows>[128X[104X
+    [4X[25Xgap>[125X [27Xq1_q2_dec[ 1 ] = q1;[127X[104X
+    [4X[28Xtrue  [128X[104X
+  [4X[32X[104X
+  
+  [1X4.17-6 TensorProductOfAlgebras[101X
+  
+  [33X[1;0Y[29X[2XTensorProductOfAlgebras[102X( [3XFQ1[103X, [3XFQ2[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XFQ1[103X and [3XFQ2[103X -- (quotients of) path algebras.[133X
+  
+  [6XReturns:[106X  [33X[0;10YThe tensor product of [3XFQ1[103X and [3XFQ2[103X.[133X
+  
+  [33X[0;0YThe   result  is  a  quotient  of  a  path  algebra,  whose  quiver  is  the
+  [2XQuiverProduct[102X ([14X4.17-1[114X) of the quivers of the operands.[133X
+  
+  [1X4.17-7 TensorAlgebrasInclusion[101X
+  
+  [33X[1;0Y[29X[2XTensorAlgebrasInclusion[102X( [3XT[103X, [3Xn[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XT[103X -- quiver algebra, [3Xn[103X -- 1 or 2.[133X
+  
+  [6XReturns:[106X  [33X[0;10YReturns  the inclusion [22XA ↪ A ⊗ B[122X or the inclusion [22XB ↪ A ⊗ B[122X if [22Xn =
+            1[122X or [22Xn = 2[122X, respectively.[133X
+  
+  [1X4.17-8 SimpleTensor[101X
+  
+  [33X[1;0Y[29X[2XSimpleTensor[102X( [3XL[103X, [3XT[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XL[103X -- a list containing two elements [22Xx[122X and [22Xy[122X of two (quotients of)
+  path algebras, [3XT[103X -- the tensor product of these algebras.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe simple tensor [22Xx tensor y[122X.[133X
+  
+  [33X[0;0Y[22Xx  tensor  y[122X is in the tensor product [3XT[103X (produced by [2XTensorProductOfAlgebras[102X
+  ([14X4.17-6[114X)).[133X
+  
+  [1X4.17-9 TensorProductDecomposition[101X
+  
+  [33X[1;0Y[29X[2XTensorProductDecomposition[102X( [3XT[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3XT[103X -- a tensor product of path algebras.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya list of the factors in the tensor product.[133X
+  
+  [33X[0;0Y[3XT[103X should be produced by [2XTensorProductOfAlgebras[102X ([14X4.17-6[114X)).[133X
+  
+  [33X[0;0YThe  following  example  shows  how  the  operations  for tensor products of
+  quotients of path algebras are used.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xq1 := Quiver( [ "u1", "u2" ], [ [ "u1", "u2", "a" ] ] );[127X[104X
+    [4X[28X<quiver with 2 vertices and 1 arrows>[128X[104X
+    [4X[25Xgap>[125X [27Xq2 := Quiver( [ "v1", "v2", "v3", "v4" ],[127X[104X
+    [4X[25X>[125X [27X                      [ [ "v1", "v2", "b" ],[127X[104X
+    [4X[25X>[125X [27X                        [ "v1", "v3", "c" ],[127X[104X
+    [4X[25X>[125X [27X                        [ "v2", "v4", "d" ],[127X[104X
+    [4X[25X>[125X [27X                        [ "v3", "v4", "e" ] ] );[127X[104X
+    [4X[28X<quiver with 4 vertices and 4 arrows>[128X[104X
+    [4X[25Xgap>[125X [27Xfq1 := PathAlgebra( Rationals, q1 );[127X[104X
+    [4X[28X<Rationals[<quiver with 2 vertices and 1 arrows>]>[128X[104X
+    [4X[25Xgap>[125X [27Xfq2 := PathAlgebra( Rationals, q2 );[127X[104X
+    [4X[28X<Rationals[<quiver with 4 vertices and 4 arrows>]>[128X[104X
+    [4X[25Xgap>[125X [27XI := Ideal( fq2, [ fq2.b * fq2.d - fq2.c * fq2.e ] );[127X[104X
+    [4X[28X<two-sided ideal in <Rationals[<quiver with 4 vertices and 4 arrows>]>[128X[104X
+    [4X[28X    , (1 generators)>[128X[104X
+    [4X[25Xgap>[125X [27Xquot := fq2 / I;[127X[104X
+    [4X[28X<Rationals[<quiver with 4 vertices and 4 arrows>]/[128X[104X
+    [4X[28X<two-sided ideal in <Rationals[<quiver with 4 vertices and 4 arrows>]>[128X[104X
+    [4X[28X    , (1 generators)>>[128X[104X
+    [4X[25Xgap>[125X [27Xt := TensorProductOfAlgebras( fq1, quot );[127X[104X
+    [4X[28X<Rationals[<quiver with 8 vertices and 12 arrows>]/[128X[104X
+    [4X[28X<two-sided ideal in <Rationals[<quiver with 8 vertices and [128X[104X
+    [4X[28X    12 arrows>]>, (6 generators)>>[128X[104X
+    [4X[25Xgap>[125X [27XSimpleTensor( [ fq1.a, quot.b ], t );[127X[104X
+    [4X[28X[(1)*u1_b*a_v2][128X[104X
+    [4X[25Xgap>[125X [27Xt_dec := TensorProductDecomposition( t );[127X[104X
+    [4X[28X[ <Rationals[<quiver with 2 vertices and 1 arrows>]>, [128X[104X
+    [4X[28X  <Rationals[<quiver with 4 vertices and 4 arrows>]/[128X[104X
+    [4X[28X    <two-sided ideal in <Rationals[<quiver with 4 vertices and [128X[104X
+    [4X[28X        4 arrows>]>, (1 generators)>> ][128X[104X
+    [4X[25Xgap>[125X [27Xt_dec[ 1 ] = fq1;[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  [1X4.17-10 EnvelopingAlgebra[101X
+  
+  [33X[1;0Y[29X[2XEnvelopingAlgebra[102X( [3XA[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3XA[103X -- a (quotient of) a path algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe enveloping algebra [22X[3XA[103X^e = [3XA[103X^op tensor [3XA[103X[122X of [3XA[103X.[133X
+  
+  [1X4.17-11 EnvelopingAlgebraHomomorphism[101X
+  
+  [33X[1;0Y[29X[2XEnvelopingAlgebraHomomorphism[102X( [3Xf[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments:  [3Xf[103X  --  an  algebra  homomorphism  of  two  (quotients of) a path
+  algebras.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe  algebra  homomorphism  between  the  corresponding enveloping
+            algebras the source of [3Xf[103X and the range of [3Xf[103X.[133X
+  
+  [1X4.17-12 IsEnvelopingAlgebra[101X
+  
+  [33X[1;0Y[29X[2XIsEnvelopingAlgebra[102X( [3XA[103X ) [32X property[133X
+  
+  [33X[0;0YArguments: [3XA[103X -- an algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue if and only if [3XA[103X is the result of a call to [2XEnvelopingAlgebra[102X
+            ([14X4.17-10[114X).[133X
+  
+  [1X4.17-13 AlgebraAsModuleOverEnvelopingAlgebra[101X
+  
+  [33X[1;0Y[29X[2XAlgebraAsModuleOverEnvelopingAlgebra[102X( [3XA[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3XA[103X -- a (quotient of a) path algebra [3XA[103X.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe algebra [3XA[103X as a right module over the enveloping algebra of [3XA[103X.[133X
+  
+  [1X4.17-14 DualOfAlgebraAsModuleOverEnvelopingAlgebra[101X
+  
+  [33X[1;0Y[29X[2XDualOfAlgebraAsModuleOverEnvelopingAlgebra[102X( [3XA[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3XA[103X -- a finite dimensional (admissible quotient of) a path algebra
+  [3XA[103X.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe algebra [3XA[103X as a right module over the enveloping algebra of [3XA[103X.[133X
+  
+  [1X4.17-15 TrivialExtensionOfQuiverAlgebra[101X
+  
+  [33X[1;0Y[29X[2XTrivialExtensionOfQuiverAlgebra[102X( [3XA[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3XA[103X -- a finite dimensional (admissible quotient of) a path algebra
+  [3XA[103X.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe  trivial extension algebra [22XT(A)=A⊕ D(A)[122X of the entered algebra
+            [3XA[103X.[133X
+  
+  [1X4.17-16 TrivialExtensionOfQuiverAlgebraProjection[101X
+  
+  [33X[1;0Y[29X[2XTrivialExtensionOfQuiverAlgebraProjection[102X( [3XA[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3XA[103X -- a finite dimensional (admissible quotient of) a path algebra
+  [3XA[103X.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe natural algebra projection form trivial extension [22XT(A)[122X to [3XA[103X.[133X
+  
+  
+  [1X4.18 [33X[0;0YOperations on quiver algebras[133X[101X
+  
+  [1X4.18-1 QuiverAlgebraOfAmodAeA[101X
+  
+  [33X[1;0Y[29X[2XQuiverAlgebraOfAmodAeA[102X( [3XA[103X, [3Xelist[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments:  [3XA[103X,  [3Xelist[103X  -  a  finite dimensional quiver algebra and a list of
+  integers.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya  quiver algebra isomorphic [3XA[103X modulo the ideal generated by a sum
+            of vertices in [3XA[103X.[133X
+  
+  [33X[0;0YGiven a quiver algebra [3XA[103X and a sum of vertices [22Xe[122X, this function computes the
+  quiver  algebra  [22XA/AeA[122X.  The  list  [3Xelist[103X  is a list of integers, where each
+  integer  occurring  in the list corresponds to the position of the vertex in
+  the vertices defining the idempotent [22Xe[122X.[133X
+  
+  [1X4.18-2 QuiverAlgebraOfeAe[101X
+  
+  [33X[1;0Y[29X[2XQuiverAlgebraOfeAe[102X( [3XA[103X, [3Xelist[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XA[103X, [3Xe[103X - a finite dimensional quiver algebra and an idempotent.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya  quiver  algebra  isomorphic [22XeAe[122X, where [3XA[103X is the entered algebra
+            and [3Xe[103X is the entered idempotent.[133X
+  
+  [33X[0;0YGiven  a  quiver  algebra  [3XA[103X and an idempotent [3Xe[103X, this function computes the
+  quiver algebra isomorphic to [22XeAe[122X. The function checks if the entered element
+  [3Xe[103X is an idempotent in [3XA[103X.[133X
+  
+  
+  [1X4.19 [33X[0;0YFinite dimensional algebras over finite fields[133X[101X
+  
+  [1X4.19-1 AlgebraAsQuiverAlgebra[101X
+  
+  [33X[1;0Y[29X[2XAlgebraAsQuiverAlgebra[102X( [3XA[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XA[103X - a finite dimensional algebra over a finite field.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya (quotient of a) path algebra isomorphic to the entered algebra [3XA[103X
+            whenever possible and a list of the images of the vertices and the
+            arrows in this path algebra in [3XA[103X.[133X
+  
+  [33X[0;0YThe  operation  only  applies  when [3XA[103X is a finite dimensional indecomposable
+  algebra  over  a  finite  field,  otherwise  it returns an error message. It
+  checks  the  algebra [3XA[103X is basic and elementary over some field and otherwise
+  it  returns  an  error  message.  In  the  list  of images the images of the
+  vertices are listed first and then the images of the arrows.[133X
+  
+  [1X4.19-2 BlocksOfAlgebra[101X
+  
+  [33X[1;0Y[29X[2XBlocksOfAlgebra[102X( [3XA[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XA[103X - a finite dimensional algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya  block  decomposition  of  the  entered  algebra  [3XA[103X as a list of
+            indecomposable algebras.[133X
+  
+  [1X4.19-3 IsBasicAlgebra[101X
+  
+  [33X[1;0Y[29X[2XIsBasicAlgebra[102X( [3XA[103X ) [32X property[133X
+  
+  [33X[0;0YArguments: [3XA[103X - a finite dimensional algebra over a finite field.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue  if  the  entered  algebra  [3XA[103X is a (finite dimensional) basic
+            algebra  and false otherwise. This method only applies to algebras
+            over finite fields.[133X
+  
+  [1X4.19-4 IsElementaryAlgebra[101X
+  
+  [33X[1;0Y[29X[2XIsElementaryAlgebra[102X( [3XA[103X ) [32X property[133X
+  
+  [33X[0;0YArguments: [3XA[103X - a finite dimensional algebra over a finite field.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue if the entered algebra [3XA[103X is a (finite dimensional) elementary
+            algebra  and false otherwise. This method only applies to algebras
+            over finite fields.[133X
+  
+  [33X[0;0YThe  algebra  [3XA[103X need not to be an elementary algebra over the field which it
+  is defined, but be an elementary algebra over a field extension.[133X
+  
+  [1X4.19-5 PreprojectiveAlgebra[101X
+  
+  [33X[1;0Y[29X[2XPreprojectiveAlgebra[102X( [3XM[103X, [3Xn[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XPreprojectiveAlgebra[102X( [3XA[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments (first version): [3XM[103X - a path algebra module over finite dimensional
+  hereditary algebra over a finite field, [3Xn[103X - an integer.[133X
+  [33X[0;0YArguments (second version): [3XA[103X - a path algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Yin  the first version the preprojective algebra of the module [3XM[103X if
+            it  only  has  support  up  to  degree [3Xn[103X. In the second version it
+            returns the preprojective algebra of a hereditary algebra given by
+            a path algebra over a field.[133X
+  
+  [1X4.19-6 PrimitiveIdempotents[101X
+  
+  [33X[1;0Y[29X[2XPrimitiveIdempotents[102X( [3XA[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3XA[103X - a finite dimensional simple algebra over a finite field.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya  complete  set  of  primitive  idempotents [23X\{ e_i \}[123X such that [23XA
+            \simeq Ae_1 + ... + Ae_n[123X.[133X
+  
+  [33X[0;0YTODO: Understand what this function actually does.[133X
+  
+  
+  [1X4.20 [33X[0;0YAlgebras[133X[101X
+  
+  [1X4.20-1 LiftingCompleteSetOfOrthogonalIdempotents[101X
+  
+  [33X[1;0Y[29X[2XLiftingCompleteSetOfOrthogonalIdempotents[102X( [3Xf[103X, [3Xe[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments:  [3Xmap[103X - an algebra homomorphism, [3Xidempotents[103X elements in the range
+  of [3Xmap[103X.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya  complete  set  of orthogonal idempotents in [10XSource(f)[110X which are
+            liftings of the entered [3Xidempotents[103X whenever possible.[133X
+  
+  [33X[0;0YThe  operation  only  applies when the domain of [3Xf[103X is finite dimensional. It
+  checks  if  the  list  of  elements  [3Xidempotents[103X  is  a  set complete set of
+  orthogonal  idempotents.  If  some  idempotent  in [3Xidempotents[103X is not in the
+  image  of  [3Xmap[103X,  then  an  error  message is returned. If all idempotents in
+  [3Xidempotents[103X  has  a  preimage, then this operation returns a complete set of
+  orthogonal  of  idempotents  which  is  a  lifting  of  the  idempotents  in
+  [3Xidempotents[103X to the source of [3Xf[103X whenever possible or it returns fail.[133X
+  
+  [1X4.20-2 LiftingIdempotent[101X
+  
+  [33X[1;0Y[29X[2XLiftingIdempotent[102X( [3Xf[103X, [3Xe[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xf[103X - an algebra homomorphism, [3Xe[103X an element in the range of [3Xf[103X.[133X
+  
+  [6XReturns:[106X  [33X[0;10Yan idempotent [22Xa[122X in [10XSource(f)[110X such that [10XImageElm(f, a) = e[110X whenever
+            possible.  If  [3Xe[103X  is  not  in  the image of [3Xf[103X, an error message is
+            given, and if [3Xe[103X does not have a preimage by [3Xf[103X [10Xfail[110X is returned.[133X
+  
+  [33X[0;0YThe  operation  only  applies when the domain of [3Xf[103X is finite dimensional. It
+  checks  if  the  element  [3Xe[103X is an idempotent. If [3Xe[103X is not in the image of [3Xf[103X,
+  then  an error message is returned. If [3Xe[103X has a preimage, then this operation
+  returns  a  lifting  of [3Xe[103X to the source of [3Xf[103X whenever possible or it returns
+  fail.  Using  the  algorithm  described  in the proof of Proposition 27.1 in
+  Anderson  and  Fuller, Rings and categories of modules, second edition, GMT,
+  Springer-Verlag.[133X
+  
+  
+  [1X4.21 [33X[0;0YSaving and reading quotients of path algebras to and from a file[133X[101X
+  
+  [1X4.21-1 ReadAlgebra[101X
+  
+  [33X[1;0Y[29X[2XReadAlgebra[102X( [3Xstring[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xstring[103X - a name of a file.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya  finite  dimension quotient [22XA[122X of a path algebra saved by command
+            [10XSaveAlgebra[110X  to the file [3Xstring[103X. This function creates the algebra
+            [22XA[122X  again,  which  can  be  saved to a file again with the function
+            [10XSaveAlgebra[110X.[133X
+  
+  [1X4.21-2 SaveAlgebra[101X
+  
+  [33X[1;0Y[29X[2XSaveAlgebra[102X( [3XA[103X, [3Xstring[103X, [3Xaction[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XA[103X - an algebra, [3Xstring[103X - a name of a file, [3Xaction[103X - a string.[133X
+  
+  [6XReturns:[106X  [33X[0;10Yor  creates  a file with name [3Xstring[103X, storing the algebra [3XA[103X, which
+            can   be   opened   again   with   the  function  [10XReadAlgebra[110X  and
+            reconstructed.  The  last  argument  [3Xaction[103X  decides  if  the file
+            [3Xstring[103X,   if   it  exists  already,  should  be  overwritten,  not
+            overwritten  or  the user should be prompted for an answer to this
+            question.  The  corresponding user inputs are: "delete", "keep" or
+            "query".[133X
+  

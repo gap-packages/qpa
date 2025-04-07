@@ -1,0 +1,381 @@
+  
+  [1X5 [33X[0;0YGroebner Basis[133X[101X
+  
+  [33X[0;0YThis  chapter  contains  the  declarations  and  implementations  needed for
+  Groebner  basis. Currently, we do not provide algorithms to actually compute
+  Groebner  basis;  instead, the declarations and implementations are provided
+  here  for [5XGAP[105X objects and the actual elements of Groebner basis are computed
+  by the [5XGBNP[105X package.[133X
+  
+  
+  [1X5.1 [33X[0;0YConstructing a Groebner Basis[133X[101X
+  
+  [1X5.1-1 InfoGroebnerBasis[101X
+  
+  [33X[1;0Y[29X[2XInfoGroebnerBasis[102X [32X info class[133X
+  
+  [33X[0;0Yis the info class for functions dealing with Groebner basis.[133X
+  
+  [1X5.1-2 GroebnerBasis[101X
+  
+  [33X[1;0Y[29X[2XGroebnerBasis[102X( [3XI[103X, [3Xrels[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XI[103X -- an ideal, [3Xrels[103X -- a list of relations generating [3XI[103X.[133X
+  
+  [6XReturns:[106X  [33X[0;10Yan   object  [3XGB[103X  in  the  [2XIsGroebnerBasis[102X  ([14X5.2-3[114X)  category  with
+            [2XIsCompleteGroebnerBasis[102X ([14X5.2-2[114X) property set on true.[133X
+  
+  [33X[0;0YSets also [3XGB[103X as a value of the attribute [2XGroebnerBasisOfIdeal[102X ([14X4.10-1[114X) for [3XI[103X
+  (so one has an access to it by calling GroebnerBasisOfIdeal([3XI[103X)).[133X
+  [33X[0;0YThere  are  absolutely no computations and no checks for correctness in this
+  function.  Giving a set of relations that does not form a Groebner basis may
+  result  in incorrect answers or unexpected errors. This function is intended
+  to  be used by packages providing access to external Groebner basis programs
+  and should be invoked before further computations on Groebner basis or ideal
+  I (cf. also [2XIsCompleteGroebnerBasis[102X ([14X5.2-2[114X)).[133X
+  
+  
+  [1X5.2 [33X[0;0YCategories and Properties of Groebner Basis[133X[101X
+  
+  [1X5.2-1 IsCompletelyReducedGroebnerBasis[101X
+  
+  [33X[1;0Y[29X[2XIsCompletelyReducedGroebnerBasis[102X( [3Xgb[103X ) [32X property[133X
+  
+  [33X[0;0YArguments: [3XGB[103X -- a Groebner basis.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue when [3XGB[103X is a Groebner basis which is completely reduced.[133X
+  
+  [1X5.2-2 IsCompleteGroebnerBasis[101X
+  
+  [33X[1;0Y[29X[2XIsCompleteGroebnerBasis[102X( [3Xgb[103X ) [32X property[133X
+  
+  [33X[0;0YArguments: [3XGB[103X -- a Groebner basis.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue when [3XGB[103X is a complete Groebner basis.[133X
+  
+  [33X[0;0YWhile philosophically something that isn't a complete Groebner basis isn't a
+  Groebner  basis  at all, this property can be used in conjunction with other
+  properties  to see if the the Groebner basis contains enough information for
+  computations.  An example of a system that creates incomplete Groebner bases
+  is `Opal'.[133X
+  [33X[0;0Y[13XNote:[113X The current package used for creating Groebner bases is [5XGBNP[105X, and this
+  package does not create incomplete Groebner bases.[133X
+  
+  [1X5.2-3 IsGroebnerBasis[101X
+  
+  [33X[1;0Y[29X[2XIsGroebnerBasis[102X( [3Xobject[103X ) [32X category[133X
+  
+  [33X[0;0YArguments: [3Xobject[103X -- any object in [5XGAP[105X.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue when [3Xobject[103X is a Groebner basis and false otherwise.[133X
+  
+  [33X[0;0YThe  function only returns true for Groebner bases that has been set as such
+  using the [10XGroebnerBasis[110X function, as illustrated in the following example.[133X
+  
+  [1X5.2-4 IsHomogeneousGroebnerBasis[101X
+  
+  [33X[1;0Y[29X[2XIsHomogeneousGroebnerBasis[102X( [3Xgb[103X ) [32X property[133X
+  
+  [33X[0;0YArguments: [3XGB[103X -- a Groebner basis.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue when [3XGB[103X is a Groebner basis which is homogeneous.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XQ := Quiver( 3, [ [1,2,"a"], [2,3,"b"] ] );[127X[104X
+    [4X[28X<quiver with 3 vertices and 2 arrows>[128X[104X
+    [4X[25Xgap>[125X [27XPA := PathAlgebra( Rationals, Q );[127X[104X
+    [4X[28X<Rationals[<quiver with 3 vertices and 2 arrows>]>[128X[104X
+    [4X[25Xgap>[125X [27Xrels := [ PA.a*PA.b ];[127X[104X
+    [4X[28X[ (1)*a*b ][128X[104X
+    [4X[25Xgap>[125X [27Xgb := GBNPGroebnerBasis( rels, PA );[127X[104X
+    [4X[28X[ (1)*a*b ][128X[104X
+    [4X[25Xgap>[125X [27XI := Ideal( PA, gb );[127X[104X
+    [4X[28X<two-sided ideal in <Rationals[<quiver with 3 vertices and 2 arrows>]>[128X[104X
+    [4X[28X    , (1 generators)>[128X[104X
+    [4X[25Xgap>[125X [27Xgrb := GroebnerBasis( I, gb );[127X[104X
+    [4X[28X<complete two-sided Groebner basis containing 1 elements>[128X[104X
+    [4X[25Xgap>[125X [27Xalg := PA/I;[127X[104X
+    [4X[28X<Rationals[<quiver with 3 vertices and 2 arrows>]/[128X[104X
+    [4X[28X<two-sided ideal in <Rationals[<quiver with 3 vertices and 2 arrows>]>[128X[104X
+    [4X[28X    , (1 generators)>>[128X[104X
+    [4X[25Xgap>[125X [27XIsGroebnerBasis(gb);[127X[104X
+    [4X[28Xfalse[128X[104X
+    [4X[25Xgap>[125X [27XIsGroebnerBasis(grb);[127X[104X
+    [4X[28Xtrue [128X[104X
+  [4X[32X[104X
+  
+  [1X5.2-5 IsTipReducedGroebnerBasis[101X
+  
+  [33X[1;0Y[29X[2XIsTipReducedGroebnerBasis[102X( [3Xgb[103X ) [32X property[133X
+  
+  [33X[0;0YArguments: [3XGB[103X -- a Groebner Basis.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue when [3XGB[103X is a Groebner basis which is tip reduced.[133X
+  
+  
+  [1X5.3 [33X[0;0YAttributes and Operations for Groebner Basis[133X[101X
+  
+  [1X5.3-1 AdmitsFinitelyManyNontips[101X
+  
+  [33X[1;0Y[29X[2XAdmitsFinitelyManyNontips[102X( [3XGB[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XGB[103X -- a complete Groebner basis.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue  if  the Groebner basis admits only finitely many nontips and
+            false otherwise.[133X
+  
+  [1X5.3-2 CompletelyReduce[101X
+  
+  [33X[1;0Y[29X[2XCompletelyReduce[102X( [3XGB[103X, [3Xa[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XGB[103X -- a Groebner basis, [3Xa[103X -- an element in a path algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Y[3Xa[103X reduced by [3XGB[103X.[133X
+  
+  [33X[0;0YIf [3Xa[103X is already completely reduced, the original element [3Xa[103X is returned.[133X
+  
+  [1X5.3-3 CompletelyReduceGroebnerBasis[101X
+  
+  [33X[1;0Y[29X[2XCompletelyReduceGroebnerBasis[102X( [3XGB[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XGB[103X -- a Groebner basis.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe  completely  reduced  Groebner basis of the ideal generated by
+            [3XGB[103X.[133X
+  
+  [33X[0;0YThe  operation modifies a Groebner basis [3XGB[103X such that each relation in [3XGB[103X is
+  completely     reduced.     The     [10XIsCompletelyReducedGroebnerBasis[110X     and
+  [10XIsTipReducedGroebnerBasis[110X  properties are set as a result of this operation.
+  The  resulting  relations  will  be  placed in sorted order according to the
+  ordering of [3XGB[103X.[133X
+  
+  [1X5.3-4 Enumerator[101X
+  
+  [33X[1;0Y[29X[2XEnumerator[102X( [3XGB[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XGB[103X -- a Groebner basis.[133X
+  
+  [6XReturns:[106X  [33X[0;10Yan  enumerat  that enumerates the relations making up the Groebner
+            basis.[133X
+  
+  [33X[0;0YThese  relations should be enumerated in ascending order with respect to the
+  ordering for the family the elements are contained in.[133X
+  
+  [1X5.3-5 IsPrefixOfTipInTipIdeal[101X
+  
+  [33X[1;0Y[29X[2XIsPrefixOfTipInTipIdeal[102X( [3XGB[103X, [3XR[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XGB[103X -- a Groebner basis, [3XR[103X -- a relation.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue if the tip of the relation [3XR[103X is in the tip ideal generated by
+            the tips of [3XGB[103X.[133X
+  
+  [33X[0;0YThis  is  used  mainly  for the construction of right Groebner basis, but is
+  made   available  for  general  use  in  case  there  are  other  unforeseen
+  applications.[133X
+  
+  [1X5.3-6 Iterator[101X
+  
+  [33X[1;0Y[29X[2XIterator[102X( [3XGB[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XGB[103X -- a Groebner basis.[133X
+  
+  [6XReturns:[106X  [33X[0;10Yan  iterator  (in  the  IsIterator  category,  see the [5XGAP[105X manual,
+            chapter 28.7).[133X
+  
+  [33X[0;0YCreates  an iterator that iterates over the relations making up the Groebner
+  basis.  These relations are iterated over in ascending order with respect to
+  the ordering for the family the elements are contained in.[133X
+  
+  [1X5.3-7 Nontips[101X
+  
+  [33X[1;0Y[29X[2XNontips[102X( [3XGB[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3XGB[103X -- a Groebner basis.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya list of nontip elements for [3XGB[103X.[133X
+  
+  [33X[0;0YIn order to compute the nontip elements, the Groebner basis must be complete
+  and  tip reduced, and there must be a finite number of nontips. If there are
+  an infinite number of nontips, the operation returns `fail'.[133X
+  
+  [1X5.3-8 NontipSize[101X
+  
+  [33X[1;0Y[29X[2XNontipSize[102X( [3XGB[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XGB[103X -- a complete Groebner basis.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe number of nontips admitted by [3XGB[103X.[133X
+  
+  [1X5.3-9 TipReduce[101X
+  
+  [33X[1;0Y[29X[2XTipReduce[102X( [3XGB[103X, [3Xa[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XGB[103X -- a Groebner basis, [3Xa[103X - an element in a path algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe element [3Xa[103X tip reduced by the Groebner basis.[133X
+  
+  [33X[0;0YIf [3Xa[103X is already tip reduced, then the original [3Xa[103X is returned.[133X
+  
+  [1X5.3-10 TipReduceGroebnerBasis[101X
+  
+  [33X[1;0Y[29X[2XTipReduceGroebnerBasis[102X( [3XGB[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XGB[103X -- a Groebner basis.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya tip reduced Groebner basis.[133X
+  
+  [33X[0;0YThe  returned  Groebner  basis  is  equivalent  to  [3XGB[103X  If [3XGB[103X is already tip
+  reduced,  this  function  returns  the original object [3XGB[103X, possibly with the
+  addition of the `IsTipReduced`' property set.[133X
+  
+  
+  [1X5.4 [33X[0;0YRight Groebner Basis[133X[101X
+  
+  [33X[0;0YIn  this  section  we support right Groebner basis for two-sided ideals with
+  Groebner basis. More general cases may be supported in the future.[133X
+  
+  [1X5.4-1 IsRightGroebnerBasis[101X
+  
+  [33X[1;0Y[29X[2XIsRightGroebnerBasis[102X( [3Xobject[103X ) [32X property[133X
+  
+  [33X[0;0YArguments: [3Xobject[103X -- any object in [5XGAP[105X.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue when [3Xobject[103X is a right Groebner basis.[133X
+  
+  [1X5.4-2 RightGroebnerBasis[101X
+  
+  [33X[1;0Y[29X[2XRightGroebnerBasis[102X( [3XI[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XI[103X -- a right ideal.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya  right Groebner basis for [3XI[103X, which must support a right Groebner
+            basis  theory.  Right  now,  this  requires  that [3XI[103X has a complete
+            Groebner basis.[133X
+  
+  [1X5.4-3 RightGroebnerBasisOfIdeal[101X
+  
+  [33X[1;0Y[29X[2XRightGroebnerBasisOfIdeal[102X( [3XI[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3XI[103X -- a right ideal.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya  right  Groebner  basis  of  a  right  ideal, [3XI[103X, if one has been
+            computed.[133X
+  
+  
+  [1X5.5 [33X[0;0YConstructing a Groebner Basis for inverse length ordeing[133X[101X
+  
+  [1X5.5-1 TipInvLenInvLex[101X
+  
+  [33X[1;0Y[29X[2XTipInvLenInvLex[102X( [3Xe[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xe[103X -- an element of a path algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe  tip  of  the  element  [3Xe[103X  under  the  inverse  length inverse
+            lexicographic ordering.[133X
+  
+  [1X5.5-2 TipCoefficientInvLenInvLex[101X
+  
+  [33X[1;0Y[29X[2XTipCoefficientInvLenInvLex[102X( [3Xe[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xe[103X -- an element of a path algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe  coefficient  of  the  tip  of the element [3Xe[103X under the inverse
+            length inverse lexicographic ordering.[133X
+  
+  [1X5.5-3 TipMonomialInvLenInvLex[101X
+  
+  [33X[1;0Y[29X[2XTipMonomialInvLenInvLex[102X( [3Xe[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xe[103X -- element of a path algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe  path/monomial  which  is  the  tip of the element [3Xe[103X under the
+            inverse length inverse lexicographic ordering.[133X
+  
+  [1X5.5-4 TipWalkInvLenInvLex[101X
+  
+  [33X[1;0Y[29X[2XTipWalkInvLenInvLex[102X( [3Xe[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xe[103X -- element of a path algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe  path/monomial  which  is  the  tip of the element [3Xe[103X under the
+            inverse  length inverse lexicographic ordering as a list of arrows
+            in the underlying quiver.[133X
+  
+  [1X5.5-5 GroebnerBasisInvLenInvLex[101X
+  
+  [33X[1;0Y[29X[2XGroebnerBasisInvLenInvLex[102X( [3Xels[103X, [3XA[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xels[103X, [3XA[103X -- a list of elements in an algebra and an algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya  Groebner basis for an admissible ideal with generators [3Xels[103X in a
+            path algebra [3XA[103X.[133X
+  
+  [1X5.5-6 RemainderOfDivisionInvLenInvLexGroebnerBasis[101X
+  
+  [33X[1;0Y[29X[2XRemainderOfDivisionInvLenInvLexGroebnerBasis[102X( [3Xy[103X, [3XX[103X, [3XA[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments:  [3Xy[103X,  [3XX[103X,  [3XA[103X-- an element and a list of elements in a path algebra,
+  and a path algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe  remainder  of reducing [3Xy[103X modulo the list of elements [3XX[103X in the
+            path algebra [3XA[103X.[133X
+  
+  [1X5.5-7 ReducedListInvLenInvLexQPA[101X
+  
+  [33X[1;0Y[29X[2XReducedListInvLenInvLexQPA[102X(  ) [32X operation[133X
+  
+  [33X[0;0YArguments:  [3Xels[103X,  [3XA[103X  --  a  list  of  elements  in a path algebra and a path
+  algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya  reduced  list of the elements [3Xels[103X by computing the remainder of
+            an  element  on  the  list by the previous elements on the list by
+            first  starting  with  the  last  element  on  the list and moving
+            forward on the list.[133X
+  
+  [1X5.5-8 TipReducedListInvLenInvLex[101X
+  
+  [33X[1;0Y[29X[2XTipReducedListInvLenInvLex[102X( [3Xels[103X, [3XA[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments:  [3Xels[103X,  [3XA[103X  --  a  list  of  elements  in a path algebra and a path
+  algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya reduced list of which generate the same ideal of tips.[133X
+  
+  [1X5.5-9 LeftmostOccurrenceInvLenInvLex[101X
+  
+  [33X[1;0Y[29X[2XLeftmostOccurrenceInvLenInvLex[102X( [3Xb[103X, [3Xc[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xb[103X, [3Xc[103X -- two list of elements.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe  leftmost occurrence of the list [3Xc[103X in the list [3Xb[103X if it exists,
+            otherwise it returns fail.[133X
+  
+  [1X5.5-10 BiggestHomogeneousPartInvLenInvLex[101X
+  
+  [33X[1;0Y[29X[2XBiggestHomogeneousPartInvLenInvLex[102X( [3Xe[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xe[103X -- an IsElementOfMagmaRingModuloRelations.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe  biggest  homogeneous  part of the element [3Xe[103X under the inverse
+            length inverse lexicographic ordering.[133X
+  
+  [1X5.5-11 BiggestHomogeneousPartInvLenInvLex[101X
+  
+  [33X[1;0Y[29X[2XBiggestHomogeneousPartInvLenInvLex[102X( [3Xelems[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xelems[103X -- a list of elements in a path algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe  list  of  the biggest homogeneous part of each element in the
+            list   [3Xelems[103X   under  the  inverse  length  inverse  lexicographic
+            ordering.[133X
+  
+  [1X5.5-12 TruncateElement[101X
+  
+  [33X[1;0Y[29X[2XTruncateElement[102X( [3Xelem[103X, [3Xs[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xelem[103X, [3Xs[103X -- an element in a path algebra and a positive integer.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe part of the element [3Xelem[103X which consists of the paths of length
+            less than [3Xs[103X.[133X
+  

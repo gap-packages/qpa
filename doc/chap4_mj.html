@@ -1,0 +1,2072 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<script type="text/javascript"
+  src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<title>GAP (QPA) - Chapter 4: Path Algebras</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="GAPDoc2HTML" />
+<link rel="stylesheet" type="text/css" href="manual.css" />
+<script src="manual.js" type="text/javascript"></script>
+<script type="text/javascript">overwriteStyle();</script>
+</head>
+<body class="chap4"  onload="jscontent()">
+
+
+<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chap3_mj.html">3</a>  <a href="chap4_mj.html">4</a>  <a href="chap5_mj.html">5</a>  <a href="chap6_mj.html">6</a>  <a href="chap7_mj.html">7</a>  <a href="chap8_mj.html">8</a>  <a href="chap9_mj.html">9</a>  <a href="chap10_mj.html">10</a>  <a href="chap11_mj.html">11</a>  <a href="chap12_mj.html">12</a>  <a href="chap13_mj.html">13</a>  <a href="chapBib_mj.html">Bib</a>  <a href="chapInd_mj.html">Ind</a>  </div>
+
+<div class="chlinkprevnexttop">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap3_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap5_mj.html">[Next Chapter]</a>&nbsp;  </div>
+
+<p id="mathjaxlink" class="pcenter"><a href="chap4.html">[MathJax off]</a></p>
+<p><a id="X7E8A43A484CE0BA8" name="X7E8A43A484CE0BA8"></a></p>
+<div class="ChapSects"><a href="chap4_mj.html#X7E8A43A484CE0BA8">4 <span class="Heading">Path Algebras</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4_mj.html#X7DFB63A97E67C0A1">4.1 <span class="Heading">Introduction</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4_mj.html#X848A225A84A15B1E">4.2 <span class="Heading">Constructing Path Algebras</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7CA1C87B8202C2E9">4.2-1 PathAlgebra</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4_mj.html#X85A3A8767E7C11AD">4.3 <span class="Heading">Categories and Properties of Path Algebras</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X8255FDF78315E1B3">4.3-1 IsPathAlgebra</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4_mj.html#X7DE2F2A48492041A">4.4 <span class="Heading">Attributes and Operations for Path Algebras</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7D8F5BDF85DA7B14">4.4-1 AssociatedGradedAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7DF51D297E0E6A8B">4.4-2 AssociatedMonomialAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X83FBA499856580B0">4.4-3 QuiverOfPathAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X8279084B828E5FD7">4.4-4 OrderingOfAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X86CDD46F7F05ADE9">4.4-5 .</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4_mj.html#X7CEF60107CE4616B">4.5 <span class="Heading">Operations on Path Algebra Elements</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X841C00E87E19528E">4.5-1 ElementOfPathAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7E3FAB1F803E26FF">4.5-2 &lt;</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X853C8B0B8665BFBB">4.5-3 IsLeftUniform</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7C06BE7483992634">4.5-4 IsRightUniform</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X8735FBE180797557">4.5-5 IsUniform</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X84C98E687A3A84D8">4.5-6 LeadingTerm</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X80710E9B7D8340BD">4.5-7 LeadingCoefficient</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7B3EAE41795598A5">4.5-8 LeadingMonomial</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X8172B40181E1B7D2">4.5-9 MakeUniformOnRight</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X796249A682818750">4.5-10 MappedExpression</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7D6DDDF178B0F2D9">4.5-11 SupportOfQuiverAlgebraElement</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X849AC0F67A131929">4.5-12 VertexPosition</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X86795D8E7ED73048">4.5-13 RelationsOfAlgebra</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4_mj.html#X7F0D555379C97A6E">4.6 <span class="Heading">Constructing Quotients of Path Algebras</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X814203E281F3272E">4.6-1 AssignGeneratorVariables</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4_mj.html#X812C0F8D7E4B1134">4.7 <span class="Heading">Ideals and operations
+    on ideals</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X82ACACDD7D8E9B25">4.7-1 Ideal</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7EACC0D285D18E19">4.7-2 IdealOfQuotient</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X859C987B7C5F0D8D">4.7-3 PathsOfLengthTwo</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X830187497E0BD4F0">4.7-4 NthPowerOfArrowIdeal</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X824D550E8371098C">4.7-5 AddNthPowerToRelations</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X83E8D45B82356D8E"><code>4.7-6 \in</code></a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4_mj.html#X82A1683E7A402E73">4.8 <span class="Heading">Categories and properties of ideals</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7F40193B877D76BC">4.8-1 IsAdmissibleIdeal</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X818EE2B9789BB175">4.8-2 IsIdealInPathAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7C40D53785D67A9E">4.8-3 IsMonomialIdeal</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X841058F8850FA9D3">4.8-4 IsQuadraticIdeal</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4_mj.html#X7C45A01B7A587D9E">4.9 <span class="Heading">Operations on ideals</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7C1D2A2481599348">4.9-1 ProductOfIdeals</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7B0035AF7B030BDF">4.9-2 QuadraticPerpOfPathAlgebraIdeal</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4_mj.html#X85D4E72B787B1C49">4.10 <span class="Heading">Attributes of ideals</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7D2896F27C976231">4.10-1 GroebnerBasisOfIdeal</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4_mj.html#X7A3CA333873389AD">4.11 <span class="Heading">Categories and Properties of Quotients of Path Algebras</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7ACDD33087F98B88">4.11-1 IsAdmissibleQuotientOfPathAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X790DB9BF831B577D">4.11-2 IsQuotientOfPathAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X802DB9FB824B0167">4.11-3 IsFiniteDimensional</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X8523C98A870CF7B5">4.11-4 IsCanonicalAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X78C9AA2085058DFA">4.11-5 IsDistributiveAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7EF4868B84CC749E">4.11-6 IsFiniteGlobalDimensionAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X796625487F5F92A7">4.11-7 IsGentleAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7E6BE2187B48691D">4.11-8 IsGorensteinAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X859FF8F2865D0A3A">4.11-9 IsHereditaryAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7809E044817388D1">4.11-10 IsKroneckerAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7952044F8303A688">4.11-11 IsMonomialAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7CB110A7873F7942">4.11-12 IsNakayamaAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X8798B8BA7A145A2D">4.11-13 IsQuiverAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7A8D13FE8379776E">4.11-14 IsRadicalSquareZeroAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X82F25BFD7D43AB10">4.11-15 IsSchurianAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X8555FC6B85FE9C6D">4.11-16 IsSelfinjectiveAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X8558D44A79AA16CD">4.11-17 IsSemicommutativeAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X85A8EC2287F35DC1">4.11-18 IsSemisimpleAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7D7AC1D07A9607DF">4.11-19 IsSpecialBiserialAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X86F0E4AF7C9916CB">4.11-20 IsStringAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X79DA912C82D01EE8">4.11-21 IsSymmetricAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X87EC06D18021AD76">4.11-22 IsTriangularReduced</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7EF281F980319375">4.11-23 IsWeaklySymmetricAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X81C569797E900AE9">4.11-24 BongartzTest</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X8140D2557A23CDAC">4.11-25 IsFiniteTypeAlgebra</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4_mj.html#X861E6670814290D0">4.12 <span class="Heading"> Operations on String Algebras</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X85F2FFFD78355788">4.12-1 IsValidString</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X85B82A4086AA53D6">4.12-2 StringsLessThan</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7F5B0A1A7AAF2C18">4.12-3 IsABand</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X85FFA183800621EA">4.12-4 BandsLessThan</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X870DB8577F0ABF0E">4.12-5 BandRepresentativesLessThan</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7C42DD687CE572DF">4.12-6 IsDomesticStringAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X85D0616C82375B5C">4.12-7 BridgeQuiver</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X82DBBB737885C73B">4.12-8 LocalARQuiver</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4_mj.html#X86647D317A961513">4.13 <span class="Heading">Attributes and Operations (for Quotients) of Path
+    Algebras</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X84E3FEF587CB66C3">4.13-1 CartanMatrix</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7F8084A67A3BE874">4.13-2 Centre/Center</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X835A161E8524797A">4.13-3 ComplexityOfAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X815CB1D47CB174ED">4.13-4 CoxeterMatrix</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7F6F526C86052150">4.13-5 CoxeterPolynomial</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7E6926C6850E7C4E">4.13-6 Dimension</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7A3EACE782DC2198">4.13-7 FrobeniusForm</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X789D1DB97C1B9A0D">4.13-8 FrobeniusLinearFunctional</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7D511B3E7A50AB2A">4.13-9 GlobalDimension</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7BEA44FB819910B6">4.13-10 LoewyLength</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X818AF5A979F8E539">4.13-11 NakayamaAutomorphism</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7C068FE379FBCE18">4.13-12 NakayamaPermutation</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X78E378EB83BA3D8A">4.13-13 OrderOfNakayamaAutomorphism</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X782EFE477EC0C1C6">4.13-14 RadicalSeriesOfAlgebra</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4_mj.html#X7BD7DB497917893C">4.14 <span class="Heading">Attributes and Operations on Elements
+ of Quotients of Path Algebra</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X87495684791B5742">4.14-1 IsElementOfQuotientOfPathAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X80B32F667BF6AFD8">4.14-2 Coefficients</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X8271E6F27C2C826E">4.14-3 IsNormalForm</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X837DD99B7A233FB5">4.14-4 &lt;</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7F2527747A3D0D6D">4.14-5 ElementOfQuotientOfPathAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X8088721187BA8D82">4.14-6 OriginalPathAlgebra</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4_mj.html#X7B209E0A7DD93C08">4.15 <span class="Heading">Predefined classes and classes 
+  of (quotients of) path algebras</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X820AE0208636B9AA">4.15-1 BrauerConfigurationAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7E63A4F37856A075">4.15-2 CanonicalAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X83498D3D856CC08A">4.15-3 KroneckerAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7C678A08836F77CC">4.15-4 NakayamaAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X8369BB398212101C">4.15-5 AdmissibleSequenceGenerator</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X78C675F2836D1B18">4.15-6 PosetAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7F877C5F839A3AA9">4.15-7 PosetOfPosetAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7EF1AE62790D7486">4.15-8 TruncatedPathAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X87E17E137E2B0FC4">4.15-9 IsSpecialBiserialQuiver</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4_mj.html#X840BAB827C62AA4C">4.16 <span class="Heading">Opposite algebras</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X85794BE082B632B9">4.16-1 OppositePath</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X87A86AFB782211D6">4.16-2 OppositePathAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X82C303CE808D54C1">4.16-3 OppositePathAlgebraElement</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X86B3EDE679B2493E">4.16-4 OppositeAlgebraHomomorphism</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4_mj.html#X842527EC7F90C8C5">4.17 <span class="Heading">Tensor products of path algebras</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X835BBBE18104654A">4.17-1 QuiverProduct</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X858517C18242C2F1">4.17-2 QuiverProductDecomposition</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X80E3731882B80106">4.17-3 IsQuiverProductDecomposition</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X856E8B5B7F550647">4.17-4 IncludeInProductQuiver</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X8455692C7E282C6C">4.17-5 ProjectFromProductQuiver</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7A9026937BDDFA6C">4.17-6 TensorProductOfAlgebras</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7EE8921D787C8377">4.17-7 TensorAlgebrasInclusion</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7B31F4F680135E72">4.17-8 SimpleTensor</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7F0EBF88866A537D">4.17-9 TensorProductDecomposition</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X820195C47E2BE7E0">4.17-10 EnvelopingAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X8210F6627AB95229">4.17-11 EnvelopingAlgebraHomomorphism</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7AE13B567B5F72FC">4.17-12 IsEnvelopingAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X80D827747ACD76FA">4.17-13 AlgebraAsModuleOverEnvelopingAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7A4C262287D74AB0">4.17-14 DualOfAlgebraAsModuleOverEnvelopingAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X8101415F7FFB34CF">4.17-15 TrivialExtensionOfQuiverAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X81D98182822E8911">4.17-16 TrivialExtensionOfQuiverAlgebraProjection</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4_mj.html#X79B8B91F8097BB80">4.18 <span class="Heading">Operations on quiver algebras</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7EE5A11883B86971">4.18-1 QuiverAlgebraOfAmodAeA</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7B2D7385829F5EC6">4.18-2 QuiverAlgebraOfeAe</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4_mj.html#X8561BCB6835D561F">4.19 <span class="Heading">Finite dimensional algebras over finite fields</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X810A29FB7E6EA24D">4.19-1 AlgebraAsQuiverAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7E9078077EE8B51B">4.19-2 BlocksOfAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X84B423137F933795">4.19-3 IsBasicAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7D30E9C878221B42">4.19-4 IsElementaryAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7B35109B8176FE56">4.19-5 PreprojectiveAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X80C0C6C37C4A2ABD">4.19-6 PrimitiveIdempotents</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4_mj.html#X7DDBF6F47A2E021C">4.20 <span class="Heading">Algebras</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X821B7B047871B42D">4.20-1 LiftingCompleteSetOfOrthogonalIdempotents</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X83041BDF78BF3CCA">4.20-2 LiftingIdempotent</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4_mj.html#X850B9F12806FF76B">4.21 <span class="Heading">Saving and reading quotients of path algebras to and from a
+  file</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X82A638C77FA75549">4.21-1 ReadAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7E60DDCE848CB739">4.21-2 SaveAlgebra</a></span>
+</div></div>
+</div>
+
+<h3>4 <span class="Heading">Path Algebras</span></h3>
+
+<p><a id="X7DFB63A97E67C0A1" name="X7DFB63A97E67C0A1"></a></p>
+
+<h4>4.1 <span class="Heading">Introduction</span></h4>
+
+<p>A path algebra is an algebra constructed from a field <span class="SimpleMath">\(F\)</span> (see Chapter 56 and 57 in the <strong class="pkg">GAP</strong> manual for information about fields) and a quiver <span class="SimpleMath">\(Q\)</span>. The path algebra <span class="SimpleMath">\(FQ\)</span> contains all finite linear combinations of paths of <span class="SimpleMath">\(Q\)</span>. This chapter describes the functions in <strong class="pkg">QPA</strong> that deal with path algebras and quotients of path algebras. Path algebras are algebras, so see Chapter 60: Algebras in the <strong class="pkg">GAP</strong> manual for functionality such as generators, basis functions, and mappings.</p>
+
+<p>The only supported ordering of elements in a path algebra is length left lexicographic ordering. See <a href="chap3_mj.html#X78BBB63B828EB9FB"><span class="RefLink">3.4</span></a> for more information.</p>
+
+<p><a id="X848A225A84A15B1E" name="X848A225A84A15B1E"></a></p>
+
+<h4>4.2 <span class="Heading">Constructing Path Algebras</span></h4>
+
+<p><a id="X7CA1C87B8202C2E9" name="X7CA1C87B8202C2E9"></a></p>
+
+<h5>4.2-1 PathAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; PathAlgebra</code>( <var class="Arg">F</var>, <var class="Arg">Q</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">F</var> -- a field, <var class="Arg">Q</var> -- a quiver.<br /></p>
+
+<p>Returns: the path algebra <var class="Arg">FQ</var> of <var class="Arg">Q</var> over the field <var class="Arg">F</var>.</p>
+
+<p>For construction of fields, see the <strong class="pkg">GAP</strong> documentation. The elements of the path algebra <var class="Arg">FQ</var> will be ordered by left length-lexicographic ordering.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Q := Quiver( ["u","v"] , [ ["u","u","a"], ["u","v","b"], </span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">["v","u","c"], ["v","v","d"] ] );</span>
+&lt;quiver with 2 vertices and 4 arrows&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">F := Rationals;</span>
+Rationals
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">FQ := PathAlgebra(F,Q);</span>
+&lt;Rationals[&lt;quiver with 2 vertices and 4 arrows&gt;]&gt;
+</pre></div>
+
+<p><a id="X85A3A8767E7C11AD" name="X85A3A8767E7C11AD"></a></p>
+
+<h4>4.3 <span class="Heading">Categories and Properties of Path Algebras</span></h4>
+
+<p><a id="X8255FDF78315E1B3" name="X8255FDF78315E1B3"></a></p>
+
+<h5>4.3-1 IsPathAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsPathAlgebra</code>( <var class="Arg">object</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">object</var> -- any object in <strong class="pkg">GAP</strong>. <br /></p>
+
+<p>Returns: true whenever <var class="Arg">object</var> is a path algebra.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsPathAlgebra(FQ);</span>
+true
+</pre></div>
+
+<p><a id="X7DE2F2A48492041A" name="X7DE2F2A48492041A"></a></p>
+
+<h4>4.4 <span class="Heading">Attributes and Operations for Path Algebras</span></h4>
+
+<p><a id="X7D8F5BDF85DA7B14" name="X7D8F5BDF85DA7B14"></a></p>
+
+<h5>4.4-1 AssociatedGradedAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; AssociatedGradedAlgebra</code>( <var class="Arg">A</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> -- a quiver algebra.<br /></p>
+
+<p>Returns: the associated graded algebra of <var class="Arg">A</var> with to the radical filtration of the algebra.</p>
+
+<p><a id="X7DF51D297E0E6A8B" name="X7DF51D297E0E6A8B"></a></p>
+
+<h5>4.4-2 AssociatedMonomialAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; AssociatedMonomialAlgebra</code>( <var class="Arg">A</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> -- a quiver algebra.<br /></p>
+
+<p>Returns: the associated monomial algebra of <var class="Arg">A</var> with respect to the Groebner basis the path algebra is endoved with.</p>
+
+<p><a id="X83FBA499856580B0" name="X83FBA499856580B0"></a></p>
+
+<h5>4.4-3 QuiverOfPathAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; QuiverOfPathAlgebra</code>( <var class="Arg">FQ</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">FQ</var> -- a path algebra. <br /></p>
+
+<p>Returns: the quiver from which <var class="Arg">FQ</var> was constructed.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">QuiverOfPathAlgebra(FQ);</span>
+&lt;quiver with 2 vertices and 4 arrows&gt; 
+</pre></div>
+
+<p><a id="X8279084B828E5FD7" name="X8279084B828E5FD7"></a></p>
+
+<h5>4.4-4 OrderingOfAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; OrderingOfAlgebra</code>( <var class="Arg">FQ</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">FQ</var> -- a path algebra.<br /></p>
+
+<p>Returns: the ordering of the quiver of the path algebra.</p>
+
+<p><em>Note:</em> As of the current version of <strong class="pkg">QPA</strong>, only left length lexicographic ordering is supported.</p>
+
+<p><a id="X86CDD46F7F05ADE9" name="X86CDD46F7F05ADE9"></a></p>
+
+<h5>4.4-5 .</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; .</code>( <var class="Arg">FQ</var>, <var class="Arg">generator</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">FQ</var> -- a path algebra, <var class="Arg">generator</var> -- a vertex or an arrow in the quiver <var class="Arg">Q</var>. <br /></p>
+
+<p>Returns: the <var class="Arg">generator</var> as an element of the path algebra.</p>
+
+<p>Other elements of the path algebra can be constructed as linear combinations of the generators. For further operations on elements, see below.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">FQ.a;</span>
+(1)*a
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">FQ.v;</span>
+(1)*v
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">elem := 2*FQ.a - 3*FQ.v;</span>
+(-3)*v+(2)*a
+</pre></div>
+
+<p><a id="X7CEF60107CE4616B" name="X7CEF60107CE4616B"></a></p>
+
+<h4>4.5 <span class="Heading">Operations on Path Algebra Elements</span></h4>
+
+<p><a id="X841C00E87E19528E" name="X841C00E87E19528E"></a></p>
+
+<h5>4.5-1 ElementOfPathAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ElementOfPathAlgebra</code>( <var class="Arg">PA</var>, <var class="Arg">path</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">PA</var> -- a path algebra, <var class="Arg">path</var> -- a path in the quiver from which <var class="Arg">PA</var> was constructed.<br /></p>
+
+<p>Returns: The embedding of <var class="Arg">path</var> into the path algebra <var class="Arg">PA</var>, or it returns false if <var class="Arg">path</var> is not an element of the quiver from which <var class="Arg">PA</var> was constructed.</p>
+
+<p><a id="X7E3FAB1F803E26FF" name="X7E3FAB1F803E26FF"></a></p>
+
+<h5>4.5-2 &lt;</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; &lt;</code>( <var class="Arg">a</var>, <var class="Arg">b</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">a</var> and <var class="Arg">b</var> -- two elements of the same path algebra.<br /></p>
+
+<p>Returns: True whenever <var class="Arg">a</var> is smaller than <var class="Arg">b</var>, according to the ordering of the path algebra.</p>
+
+<p><a id="X853C8B0B8665BFBB" name="X853C8B0B8665BFBB"></a></p>
+
+<h5>4.5-3 IsLeftUniform</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsLeftUniform</code>( <var class="Arg">element</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">element</var> -- an element of the path algebra.<br /></p>
+
+<p>Returns: true if each monomial in <var class="Arg">element</var> has the same source vertex, false otherwise.</p>
+
+<p><a id="X7C06BE7483992634" name="X7C06BE7483992634"></a></p>
+
+<h5>4.5-4 IsRightUniform</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsRightUniform</code>( <var class="Arg">element</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">element</var> -- an element of the path algebra.<br /></p>
+
+<p>Returns: true if each monomial in <var class="Arg">element</var> has the same target vertex, false otherwise.</p>
+
+<p><a id="X8735FBE180797557" name="X8735FBE180797557"></a></p>
+
+<h5>4.5-5 IsUniform</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsUniform</code>( <var class="Arg">element</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">element</var> -- an element of the path algebra. <br /></p>
+
+<p>Returns: true whenever <var class="Arg">element</var> is both left and right uniform.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsLeftUniform(elem);</span>
+false
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsRightUniform(elem);</span>
+false
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsUniform(elem);</span>
+false
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">another := FQ.a*FQ.b + FQ.b*FQ.d*FQ.c*FQ.b*FQ.d;</span>
+(1)*a*b+(1)*b*d*c*b*d
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsLeftUniform(another);</span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsRightUniform(another);</span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsUniform(another);</span>
+true 
+</pre></div>
+
+<p><a id="X84C98E687A3A84D8" name="X84C98E687A3A84D8"></a></p>
+
+<h5>4.5-6 LeadingTerm</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; LeadingTerm</code>( <var class="Arg">element</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Tip</code>( <var class="Arg">element</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">element</var> -- an element of the path algebra. <br /></p>
+
+<p>Returns: the term in <var class="Arg">element</var> whose monomial is largest among those monomials that have nonzero coefficients (known as the "tip" of <var class="Arg">element</var>).</p>
+
+<p><em>Note: </em> The two operations are equivalent.</p>
+
+<p><a id="X80710E9B7D8340BD" name="X80710E9B7D8340BD"></a></p>
+
+<h5>4.5-7 LeadingCoefficient</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; LeadingCoefficient</code>( <var class="Arg">element</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; TipCoefficient</code>( <var class="Arg">element</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">element</var> -- an element of the path algebra. <br /></p>
+
+<p>Returns: the coefficient of the tip of <var class="Arg">element</var> (which is an element of the field).</p>
+
+<p><em>Note: </em> The two operations are equivalent.</p>
+
+<p><a id="X7B3EAE41795598A5" name="X7B3EAE41795598A5"></a></p>
+
+<h5>4.5-8 LeadingMonomial</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; LeadingMonomial</code>( <var class="Arg">element</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; TipMonomial</code>( <var class="Arg">element</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">element</var> -- an element of the path algebra. <br /></p>
+
+<p>Returns: the monomial of the tip of <var class="Arg">element</var> (which is an element of the underlying quiver, not of the path algebra).</p>
+
+<p><em>Note: </em> The two operations are equivalent.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">elem := FQ.a*FQ.b*FQ.c + FQ.b*FQ.d*FQ.c+FQ.d*FQ.d;</span>
+(1)*d^2+(1)*a*b*c+(1)*b*d*c
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">LeadingTerm(elem);</span>
+(1)*b*d*c
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">LeadingCoefficient(elem);</span>
+1
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">mon := LeadingMonomial(elem);</span>
+b*d*c
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">mon in FQ;</span>
+false
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">mon in Q;</span>
+true 
+</pre></div>
+
+<p><a id="X8172B40181E1B7D2" name="X8172B40181E1B7D2"></a></p>
+
+<h5>4.5-9 MakeUniformOnRight</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; MakeUniformOnRight</code>( <var class="Arg">elems</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">elems</var> -- a list of elements in a path algebra.<br /></p>
+
+<p>Returns: a list of right uniform elements generated by each element of <var class="Arg">elems</var>.</p>
+
+<p><a id="X796249A682818750" name="X796249A682818750"></a></p>
+
+<h5>4.5-10 MappedExpression</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; MappedExpression</code>( <var class="Arg">expr</var>, <var class="Arg">gens1</var>, <var class="Arg">gens2</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">expr</var> -- element of a path algebra, <var class="Arg">gens1</var> and <var class="Arg">gens2</var> -- equal-length lists of generators for subalgebras.<br /></p>
+
+<p>Returns: <var class="Arg">expr</var> as an element of the subalgebra generated by <var class="Arg">gens2</var>.</p>
+
+<p>The element <var class="Arg">expr</var> must be in the subalgebra generated by <var class="Arg">gens1</var>. The lists define a mapping of each generator in <var class="Arg">gens1</var> to the corresponding generator in <var class="Arg">gens2</var>. The value returned is the evaluation of the mapping at <var class="Arg">expr</var>.</p>
+
+<p><a id="X7D6DDDF178B0F2D9" name="X7D6DDDF178B0F2D9"></a></p>
+
+<h5>4.5-11 SupportOfQuiverAlgebraElement</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; SupportOfQuiverAlgebraElement</code>( <var class="Arg">algebra</var>, <var class="Arg">element</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; LeftSupportOfQuiverAlgebraElement</code>( <var class="Arg">algebra</var>, <var class="Arg">element</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; RIghtSupportOfQuiverAlgebraElement</code>( <var class="Arg">algebra</var>, <var class="Arg">element</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">algebra</var> -- a QuiverAlgebra, <var class="Arg">element</var> -- an element of the QuiverAlgebra<br /></p>
+
+<p>Returns: the second version returns a list of the index of the vertices such that the product from the left is non-zero, the third version returns a list of the index of the vertices such that the product from the right is non-zero, and the first version returns the both of the previous lists of indices of vertices.</p>
+
+<p><a id="X849AC0F67A131929" name="X849AC0F67A131929"></a></p>
+
+<h5>4.5-12 VertexPosition</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; VertexPosition</code>( <var class="Arg">element</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">element</var> -- an element of the path algebra on the form <span class="SimpleMath">\(k*v\)</span>, where <span class="SimpleMath">\(v\)</span> is a vertex of the underlying quiver and <span class="SimpleMath">\(k\)</span> is an element of the field.<br /></p>
+
+<p>Returns: the position of the vertex <var class="Arg">v</var> in the list of vertices of the quiver.</p>
+
+<p><a id="X86795D8E7ED73048" name="X86795D8E7ED73048"></a></p>
+
+<h5>4.5-13 RelationsOfAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; RelationsOfAlgebra</code>( <var class="Arg">A</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> -- a quiver algebra. <br /></p>
+
+<p>Returns: a set of generators for the ideal in the path algebra <span class="SimpleMath">\(kQ\)</span> from which the algebra <var class="Arg">FQ</var> was constructed. If <var class="Arg">A</var> is a path algebra, then an empty list is returned.</p>
+
+<p><a id="X7F0D555379C97A6E" name="X7F0D555379C97A6E"></a></p>
+
+<h4>4.6 <span class="Heading">Constructing Quotients of Path Algebras</span></h4>
+
+<p>In the introduction we saw already one way of constructing a quotient of a path algebra. In addition to this there are at least two other ways of constructing a quotient of a path algebra; one with factoring out an ideal and one where a Groebner basis is attached to the quotient. We discuss these two next.</p>
+
+<p>For several functions in <strong class="pkg">QPA</strong> to function properly one needs to have a Groebner basis attached to the quotient one wants to construct, or equivalently a Groebner basis for the ideal one is factoring out. For this to work the ideal must admit a finite Groebner basis. However, to our knowledge there is no algorithm for determining if an ideal has a finite Groebner basis. On the other hand, it is known that if the factor algebra is finite dimensional, then the ideal has a finite Groebner basis (independent of the ordering of the elements, see <a href="chapBib_mj.html#biBGreen">[Gre00]</a> ). In addition to having a finite Groebner basis, several functions also need that the factoring ideal is admissible. A quotient of a path algebra by an admissible ideal belongs to the category <code class="func">IsAdmissibleQuotientOfPathAlgebra</code> (<a href="chap4_mj.html#X7ACDD33087F98B88"><span class="RefLink">4.11-1</span></a>). The method used in the introduction constructs a quotient in this category. However, there are situations where it is interesting to analyze quotients of path algebras by a non-admissible ideal, so we provide also additional methods.</p>
+
+<p>In the example below, we construct a factor of a path algebra purely with commands in <strong class="pkg">GAP</strong> (cf. also Chapter 60: Algebras in the <strong class="pkg">GAP</strong> manual on how to construct an ideal and a quotient of an algebra). Functions which use Groebner bases like <code class="func">IsFiniteDimensional</code> (<a href="chap4_mj.html#X802DB9FB824B0167"><span class="RefLink">4.11-3</span></a>), <code class="func">Dimension</code> (<a href="chap4_mj.html#X7E6926C6850E7C4E"><span class="RefLink">4.13-6</span></a>), <code class="func">IsSpecialBiserialAlgebra</code> (<a href="chap4_mj.html#X7D7AC1D07A9607DF"><span class="RefLink">4.11-19</span></a>) or a membership test <code class="func">\in</code> (<a href="chap4_mj.html#X83E8D45B82356D8E"><span class="RefLink">4.7-6</span></a>) will work properly (they simply compute the Groebner basis if it is necessary). But some "older" functions (like <code class="func">IndecProjectiveModules</code> (<a href="chap6_mj.html#X85EDCFE27F66093F"><span class="RefLink">6.5-5</span></a>)) can fail or give an incorrect answer! This way of constructing a quotient of a path algebra can be useful e.g. if we know that computing a Groebner basis will take a long time and we do not need this because we want to deal only with modules.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Q := Quiver( 1, [ [1,1,"a"], [1,1,"b"] ] );</span>
+&lt;quiver with 1 vertices and 2 arrows&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">kQ := PathAlgebra(Rationals, Q);</span>
+&lt;Rationals[&lt;quiver with 1 vertices and 2 arrows&gt;]&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">gens := GeneratorsOfAlgebra(kQ);</span>
+[ (1)*v1, (1)*a, (1)*b ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">a := gens[2];</span>
+(1)*a
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">b := gens[3];</span>
+(1)*b
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">relations := [a^2,a*b-b*a, b*b];</span>
+[ (1)*a^2, (1)*a*b+(-1)*b*a, (1)*b^2 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">I := Ideal(kQ,relations);</span>
+&lt;two-sided ideal in &lt;Rationals[&lt;quiver with 1 vertices and 2 arrows&gt;]&gt;
+    , (3 generators)&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">A := kQ/I;</span>
+&lt;Rationals[&lt;quiver with 1 vertices and 2 arrows&gt;]/
+&lt;two-sided ideal in &lt;Rationals[&lt;quiver with 1 vertices and 2 arrows&gt;]&gt;
+    , (3 generators)&gt;&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IndecProjectiveModules(A);</span>
+Compute a Groebner basis of the ideal you are factoring out with before \
+you form the quotient algebra, or you have entered an algebra which \
+is not finite dimensional.
+fail
+</pre></div>
+
+<p>To resolve this matter, we need to compute the Gröbner basis of the ideal generated by the relations in <span class="SimpleMath">\(kQ\)</span> (yes, it seems like we are going in circles here. Remember, then, that an ideal in the "mathematical sense" may exist independently of the a corresponding <code class="code">Ideal</code> object in <strong class="pkg">GAP</strong>. Also, Gröbner bases in <strong class="pkg">QPA</strong> are handled by the <strong class="pkg">GBNP</strong> package, with constructor methods not dependent on <code class="code">Ideal</code> objects. After creating the ideal <span class="SimpleMath">\(I\)</span>, we need to perform yet another Gröbner basis operation which just set a respective attribute for <span class="SimpleMath">\(I\)</span>, see <code class="func">GroebnerBasis</code> (<a href="chap5_mj.html#X7A43611E876B7560"><span class="RefLink">5.1-2</span></a>).</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">gb := GBNPGroebnerBasis(relations,kQ);</span>
+[ (1)*a^2, (-1)*a*b+(1)*b*a, (1)*b^2 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">I := Ideal(kQ,gb);                    </span>
+&lt;two-sided ideal in &lt;Rationals[&lt;quiver with 1 vertices and 2 arrows&gt;]&gt;, 
+  (3 generators)&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GroebnerBasis(I,gb);                  </span>
+&lt;complete two-sided Groebner basis containing 3 elements&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IndecProjectiveModules(A);                                                </span>
+fail
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">A := kQ/I;                                                                </span>
+&lt;Rationals[&lt;quiver with 1 vertices and 2 arrows&gt;]/
+&lt;two-sided ideal in &lt;Rationals[&lt;quiver with 1 vertices and 2 arrows&gt;]&gt;, 
+  (3 generators)&gt;&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IndecProjectiveModules(A);</span>
+[ &lt;[ 4 ]&gt; ]
+</pre></div>
+
+<p>Note that the instruction <code class="code">A := kQ/relations;</code> used in Introduction is exactly an abbreviation for a sequence of instructions with Groebner basis as in above example.</p>
+
+<p>Most <strong class="pkg">QPA</strong> operations working on algebras handle path algebras and quotients of path algebras in the same way (when this makes sense). However, there are still a few operations which does not work properly when given a quotient of a path algebra. When constructing a quotient of a path algebra one needs define the ideal one is factoring out. Above this has been done with the commands</p>
+
+
+<div class="example"><pre> 
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">gens := GeneratorsOfAlgebra(kQ);</span>
+[ (1)*v1, (1)*a, (1)*b ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">a := gens[2];</span>
+(1)*a
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">b := gens[3];</span>
+(1)*b
+</pre></div>
+
+<p>The following command makes this process easier.</p>
+
+<p><a id="X814203E281F3272E" name="X814203E281F3272E"></a></p>
+
+<h5>4.6-1 AssignGeneratorVariables</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; AssignGeneratorVariables</code>( <var class="Arg">A</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> -- a quiver algebra.<br /></p>
+
+<p>Returns: Takes a quiver algebra <var class="Arg">A</var> as an argument and creates variables, say <span class="SimpleMath">\(v_1,...,v_n\)</span> for the vertices, and <span class="SimpleMath">\(a_1,...,a_t\)</span> for the arrows for the corresponding elements in <var class="Arg">A</var>, whenever the quiver for the quiver algebra <var class="Arg">A</var> is was constructed with the vertices being named <span class="SimpleMath">\(v_1,...,v_n\)</span> and the arrows being named <span class="SimpleMath">\(a_1,...,a_t\)</span>.</p>
+
+<p>Here is an example of its use.</p>
+
+
+<div class="example"><pre> 
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">AssignGeneratorVariables(kQ);</span>
+#I  Assigned the global variables [ v1, a, b ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">v1; a; b;</span>
+(1)*v1
+(1)*a
+(1)*b
+</pre></div>
+
+<p><a id="X812C0F8D7E4B1134" name="X812C0F8D7E4B1134"></a></p>
+
+<h4>4.7 <span class="Heading">Ideals and operations
+    on ideals</span></h4>
+
+<p><a id="X82ACACDD7D8E9B25" name="X82ACACDD7D8E9B25"></a></p>
+
+<h5>4.7-1 Ideal</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Ideal</code>( <var class="Arg">FQ</var>, <var class="Arg">elems</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">FQ</var> -- a path algebra, <var class="Arg">elems</var> -- a list of elements in <var class="Arg">FQ</var>.<br /></p>
+
+<p>Returns: the ideal of <var class="Arg">FQ</var> generated by <var class="Arg">elems</var> with the property <code class="func">IsIdealInPathAlgebra</code> (<a href="chap4_mj.html#X818EE2B9789BB175"><span class="RefLink">4.8-2</span></a>).</p>
+
+<p>For more on ideals, see the <strong class="pkg">GAP</strong> reference manual (Chapter 60.6). <br /> <em>Technical info:</em> Ideal is a synonym for a global GAP function TwoSidedIdeal which calls an operation TwoSidedIdealByGenerators (synonym IdealByGenerators) for an algebra (FLMLOR).</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">gb := GBNPGroebnerBasis(relations,kQ);</span>
+[ (1)*a^2, (-1)*a*b+(1)*b*a, (1)*b^2 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">I := Ideal(kQ,gb);</span>
+&lt;two-sided ideal in &lt;Rationals[&lt;quiver with 1 vertices and 2 arrows&gt;]&gt;
+    , (3 generators)&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GroebnerBasis(I,gb);</span>
+&lt;complete two-sided Groebner basis containing 3 elements&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IndecProjectiveModules(A);</span>
+[ &lt;[ 4 ]&gt; ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">A := kQ/I;</span>
+&lt;Rationals[&lt;quiver with 1 vertices and 2 arrows&gt;]/
+&lt;two-sided ideal in &lt;Rationals[&lt;quiver with 1 vertices and 2 arrows&gt;]&gt;
+    , (3 generators)&gt;&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IndecProjectiveModules(A);</span>
+[ &lt;[ 4 ]&gt; ]
+true
+</pre></div>
+
+<p><a id="X7EACC0D285D18E19" name="X7EACC0D285D18E19"></a></p>
+
+<h5>4.7-2 IdealOfQuotient</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IdealOfQuotient</code>( <var class="Arg">A</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> -- a quiver algebra. <br /></p>
+
+<p>Returns: the ideal in the path algebra <span class="SimpleMath">\(kQ\)</span> from which <var class="Arg">A</var> was constructed.</p>
+
+<p><a id="X859C987B7C5F0D8D" name="X859C987B7C5F0D8D"></a></p>
+
+<h5>4.7-3 PathsOfLengthTwo</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; PathsOfLengthTwo</code>( <var class="Arg">Q</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">Q</var> -- a quiver.<br /></p>
+
+<p>Returns: a list of all paths of length two in <var class="Arg">Q</var>, sorted by <code class="code">&lt;</code>. Fails with error message if <var class="Arg">Q</var> is not a Quiver object.</p>
+
+<p><a id="X830187497E0BD4F0" name="X830187497E0BD4F0"></a></p>
+
+<h5>4.7-4 NthPowerOfArrowIdeal</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; NthPowerOfArrowIdeal</code>( <var class="Arg">FQ</var>, <var class="Arg">n</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">FQ</var> -- a path algebra, <var class="Arg">n</var> -- a positive integer.<br /></p>
+
+<p>Returns: the ideal generated all the paths of length <var class="Arg">n</var> in <var class="Arg">FQ</var>.</p>
+
+<p><a id="X824D550E8371098C" name="X824D550E8371098C"></a></p>
+
+<h5>4.7-5 AddNthPowerToRelations</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; AddNthPowerToRelations</code>( <var class="Arg">FQ</var>, <var class="Arg">rels</var>, <var class="Arg">n</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">FQ</var> -- a path algebra, <var class="Arg">rels</var> -- a (possibly empty) list of elements in <var class="Arg">FQ</var>, <var class="Arg">n</var> -- a positive integer.<br /></p>
+
+<p>Returns: the list <var class="Arg">rels</var> with the paths of length <var class="Arg">n</var> of <var class="Arg">FQ</var> appended (will change the list <var class="Arg">rels</var>).</p>
+
+<p><a id="X83E8D45B82356D8E" name="X83E8D45B82356D8E"></a></p>
+
+<h5><code>4.7-6 \in</code></h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; \in</code>( <var class="Arg">elt</var>, <var class="Arg">I</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">elt</var> - an element in a path algebra, <var class="Arg">I</var> - an ideal in the same path algebra (i.e. with <code class="func">IsIdealInPathAlgebra</code> (<a href="chap4_mj.html#X818EE2B9789BB175"><span class="RefLink">4.8-2</span></a>) property).<br /></p>
+
+<p>Returns: true, if <var class="Arg">elt</var> belongs to <var class="Arg">I</var>.</p>
+
+<p>It performs the membership test for an ideal in path algebra using completely reduced Groebner bases machinery. <br /> <em>Technical info:</em> For the efficiency reasons, it computes Groebner basis for <var class="Arg">I</var> only if it has not been computed yet. Similarly, it performs CompletelyReduceGroebnerBasis only if it has not been reduced yet. The method can change the existing Groebner basis.<br /> <em>Remark:</em> It works only in case <var class="Arg">I</var> is in the arrow ideal.</p>
+
+<p><a id="X82A1683E7A402E73" name="X82A1683E7A402E73"></a></p>
+
+<h4>4.8 <span class="Heading">Categories and properties of ideals</span></h4>
+
+<p><a id="X7F40193B877D76BC" name="X7F40193B877D76BC"></a></p>
+
+<h5>4.8-1 IsAdmissibleIdeal</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsAdmissibleIdeal</code>( <var class="Arg">I</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">I</var> -- an IsIdealInPathAlgebra object. <br /></p>
+
+<p>Returns: true whenever <var class="Arg">I</var> is an <em>admissible</em> ideal in a path algebra, i.e. <var class="Arg">I</var> is a subset of <span class="SimpleMath">\(J^2\)</span> and <var class="Arg">I</var> contains <span class="SimpleMath">\(J^n\)</span> for some <span class="SimpleMath">\(n\)</span>, where <span class="SimpleMath">\(J\)</span> is the arrow ideal.</p>
+
+<p><em>Technical note:</em> The second condition is checked by the nilpotency index of the radical and checking if the ideal generated by the arrows to one plus this index is in the ideal of the relations (this uses Groebner bases machinery).</p>
+
+<p><a id="X818EE2B9789BB175" name="X818EE2B9789BB175"></a></p>
+
+<h5>4.8-2 IsIdealInPathAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsIdealInPathAlgebra</code>( <var class="Arg">I</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">I</var> -- an IsFLMLOR object. <br /></p>
+
+<p>Returns: true whenever <var class="Arg">I</var> is an ideal in a path algebra.</p>
+
+<p><a id="X7C40D53785D67A9E" name="X7C40D53785D67A9E"></a></p>
+
+<h5>4.8-3 IsMonomialIdeal</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsMonomialIdeal</code>( <var class="Arg">I</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">I</var> -- an IsIdealInPathAlgebra object. <br /></p>
+
+<p>Returns: true whenever <var class="Arg">I</var> is a <em>monomial</em> ideal in a path algebra, i.e. <var class="Arg">I</var> is generated by a set of monomials (= "zero-relations").</p>
+
+<p><em>Technical note:</em> It uses the observation: <var class="Arg">I</var> is a monomial ideal iff Groebner basis of <var class="Arg">I</var> is a set of monomials. It computes Groebner basis for <var class="Arg">I</var> only in case it has not been computed yet and a usual set of generators (GeneratorsOfIdeal) is not a set of monomials.</p>
+
+<p><a id="X841058F8850FA9D3" name="X841058F8850FA9D3"></a></p>
+
+<h5>4.8-4 IsQuadraticIdeal</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsQuadraticIdeal</code>( <var class="Arg">rels</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">rels</var> -- a list of elements in a path algebra.<br /></p>
+
+<p>Returns: true whenever <var class="Arg">rels</var> is a list of elements in the linear span of degree two elements of a path algebra. It returns false whenever <var class="Arg">rels</var> is a list of elements in a path algebra, but not in the linear span of degree two of a path algebra. Otherwise it returns fail.</p>
+
+<p><a id="X7C45A01B7A587D9E" name="X7C45A01B7A587D9E"></a></p>
+
+<h4>4.9 <span class="Heading">Operations on ideals</span></h4>
+
+<p><a id="X7C1D2A2481599348" name="X7C1D2A2481599348"></a></p>
+
+<h5>4.9-1 ProductOfIdeals</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ProductOfIdeals</code>( <var class="Arg">I</var>, <var class="Arg">J</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">I, J</var> -- two ideals in a path algebra <var class="Arg">KQ</var>.<br /></p>
+
+<p>Returns: the ideal formed by the product of the ideals <var class="Arg">I</var> and <var class="Arg">J</var>, whenever the ideal <var class="Arg">J</var> admits finitely many nontips in <var class="Arg">KQ</var>.</p>
+
+<p>The function checks if the two ideals are ideals in the same path algebra and that <var class="Arg">J</var> admits finitely many nontips in <var class="Arg">KQ</var>.</p>
+
+<p><a id="X7B0035AF7B030BDF" name="X7B0035AF7B030BDF"></a></p>
+
+<h5>4.9-2 QuadraticPerpOfPathAlgebraIdeal</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; QuadraticPerpOfPathAlgebraIdeal</code>( <var class="Arg">rels</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">rels</var> -- a list of elements in a path algebra.<br /></p>
+
+<p>Returns: fail if <var class="Arg">rels</var> is not a list of elements in the linear span of degree two elements of a path algebra <var class="Arg">KQ</var>. Otherwise it returns a list of length two, where the first element is a set of generators for the ideal <span class="SimpleMath">\(\textit{rels}^\perp\)</span> in opposite algebra of <var class="Arg">KQ</var> and the second element is the opposite algebra of <var class="Arg">KQ</var>.</p>
+
+<p><a id="X85D4E72B787B1C49" name="X85D4E72B787B1C49"></a></p>
+
+<h4>4.10 <span class="Heading">Attributes of ideals</span></h4>
+
+<p>For many of the functions related to quotients, you will need to compute a Groebner basis of the ideal. This is done with the GBNP package. The following example shows how to set a Groebner basis for an ideal (note that this must be done before the quotient is constructed). See the next two chapters for more on Groebner bases.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">rels := [FQ.a - FQ.b*FQ.c, FQ.d*FQ.d];</span>
+[ (1)*a+(-1)*b*c, (1)*d^2 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">gb := GBNPGroebnerBasis(rels, FQ); </span>
+[ (-1)*a+(1)*b*c, (1)*d^2 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">I := Ideal(FQ, gb);</span>
+&lt;two-sided ideal in &lt;Rationals[&lt;quiver with 2 vertices and 4 arrows&gt;]&gt;
+    , (2 generators)&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GroebnerBasis(I, gb);</span>
+&lt;complete two-sided Groebner basis containing 2 elements&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">quot := FQ/I;</span>
+&lt;Rationals[&lt;quiver with 2 vertices and 4 arrows&gt;]/
+&lt;two-sided ideal in &lt;Rationals[&lt;quiver with 2 vertices and 4 arrows&gt;]&gt;
+    , (2 generators)&gt;&gt;
+</pre></div>
+
+<p><a id="X7D2896F27C976231" name="X7D2896F27C976231"></a></p>
+
+<h5>4.10-1 GroebnerBasisOfIdeal</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GroebnerBasisOfIdeal</code>( <var class="Arg">I</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">I</var> -- an ideal in path algebra.<br /></p>
+
+<p>Returns: a Groebner basis of ideal <var class="Arg">I</var> (if it has been already computed!).</p>
+
+<p>This attribute is set only by an operation <code class="func">GroebnerBasis</code> (<a href="chap5_mj.html#X7A43611E876B7560"><span class="RefLink">5.1-2</span></a>).</p>
+
+<p><a id="X7A3CA333873389AD" name="X7A3CA333873389AD"></a></p>
+
+<h4>4.11 <span class="Heading">Categories and Properties of Quotients of Path Algebras</span></h4>
+
+<p><a id="X7ACDD33087F98B88" name="X7ACDD33087F98B88"></a></p>
+
+<h5>4.11-1 IsAdmissibleQuotientOfPathAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsAdmissibleQuotientOfPathAlgebra</code>( <var class="Arg">A</var> )</td><td class="tdright">(&nbsp;filter&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> -- any object.<br /></p>
+
+<p>Returns: true whenever <var class="Arg">A</var> is a quotient of a path algebra by an admissible ideal constructed by the command <code class="code">\/</code> with arguments a path algebra and a list of relations, <code class="code">KQ/rels</code>, where <code class="code">rels</code> is a list of relations. Otherwise it returns an error message.</p>
+
+<p><a id="X790DB9BF831B577D" name="X790DB9BF831B577D"></a></p>
+
+<h5>4.11-2 IsQuotientOfPathAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsQuotientOfPathAlgebra</code>( <var class="Arg">object</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
+<p>Argument: <var class="Arg">object</var> -- any object in <strong class="pkg">GAP</strong>.<br /></p>
+
+<p>Returns: true whenever <var class="Arg">object</var> is a quotient of a path algebra.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">quot := FQ/I;</span>
+&lt;Rationals[&lt;quiver with 2 vertices and 4 arrows&gt;]/
+&lt;two-sided ideal in &lt;Rationals[&lt;quiver with 2 vertices and 4 arrows&gt;]&gt;
+    , (2 generators)&gt;&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsQuotientOfPathAlgebra(quot);</span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsQuotientOfPathAlgebra(FQ);</span>
+false
+</pre></div>
+
+<p><a id="X802DB9FB824B0167" name="X802DB9FB824B0167"></a></p>
+
+<h5>4.11-3 IsFiniteDimensional</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsFiniteDimensional</code>( <var class="Arg">A</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> -- a path algebra or a quotient of a path algebra. <br /></p>
+
+<p>Returns: true whenever <var class="Arg">A</var> is a finite dimensional algebra.</p>
+
+<p><em>Technical note:</em> For a path algebra it uses a standard <strong class="pkg">GAP</strong> method. For a quotient of a path algebra it uses Groebner bases machinery (it computes Groebner basis for the ideal only in case it has not been computed yet).</p>
+
+<p><a id="X8523C98A870CF7B5" name="X8523C98A870CF7B5"></a></p>
+
+<h5>4.11-4 IsCanonicalAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsCanonicalAlgebra</code>( <var class="Arg">A</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> -- a path algebra or a quotient of a path algebra.<br /></p>
+
+<p>Returns: true if <var class="Arg">A</var> has been constructed by the operation <code class="func">CanonicalAlgebra</code> (<a href="chap4_mj.html#X7E63A4F37856A075"><span class="RefLink">4.15-2</span></a>), otherwise "Error, no method found".</p>
+
+<p><a id="X78C9AA2085058DFA" name="X78C9AA2085058DFA"></a></p>
+
+<h5>4.11-5 IsDistributiveAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsDistributiveAlgebra</code>( <var class="Arg">A</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> -- a path algebra or a quotient of a path algebra.<br /></p>
+
+<p>Returns: true if <var class="Arg">A</var> is an admissible quotient of a path algebra and distributive. Otherwise it returns false if <var class="Arg">A</var> is an admissible quotient of a path algebra and distributive. If <var class="Arg">A</var> is a quotient of a path algebra, but not an admissible quotient, then it looks for other methods. There are not further methods implemented in QPA as of now.</p>
+
+<p><a id="X7EF4868B84CC749E" name="X7EF4868B84CC749E"></a></p>
+
+<h5>4.11-6 IsFiniteGlobalDimensionAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsFiniteGlobalDimensionAlgebra</code>( <var class="Arg">A</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> - an algebra over a field.<br /></p>
+
+<p>Returns: true if it is known that the entered algebra <var class="Arg">A</var> has finite global dimension.</p>
+
+<p>There is no method associated to this, so if it is not known that the algebra has finite global dimension, then an error message saying "no method found!" is return.</p>
+
+<p><a id="X796625487F5F92A7" name="X796625487F5F92A7"></a></p>
+
+<h5>4.11-7 IsGentleAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsGentleAlgebra</code>( <var class="Arg">A</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> -- a path algebra or a quotient of a path algebra.<br /></p>
+
+<p>Returns: true if the algebra <var class="Arg">A</var> is a gentle algebra. Otherwise false.</p>
+
+<p><a id="X7E6BE2187B48691D" name="X7E6BE2187B48691D"></a></p>
+
+<h5>4.11-8 IsGorensteinAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsGorensteinAlgebra</code>( <var class="Arg">A</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> -- an algebra.<br /></p>
+
+<p>Returns: true if it is known that <var class="Arg">A</var> is a Gorenstein algebra. If unknown it returns an error message saying "no method found!".</p>
+
+<p>There is no method installed for this yet.</p>
+
+<p><a id="X859FF8F2865D0A3A" name="X859FF8F2865D0A3A"></a></p>
+
+<h5>4.11-9 IsHereditaryAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsHereditaryAlgebra</code>( <var class="Arg">A</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> -- an admissible quotient of a path algebra.<br /></p>
+
+<p>Returns: true if <var class="Arg">A</var> is a hereditary algebra and false otherwise.</p>
+
+<p><a id="X7809E044817388D1" name="X7809E044817388D1"></a></p>
+
+<h5>4.11-10 IsKroneckerAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsKroneckerAlgebra</code>( <var class="Arg">A</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> -- a path algebra or a quotient of a path algebra.<br /></p>
+
+<p>Returns: true if <var class="Arg">A</var> has been constructed by the operation <code class="func">KroneckerAlgebra</code> (<a href="chap4_mj.html#X83498D3D856CC08A"><span class="RefLink">4.15-3</span></a>), otherwise "Error, no method found".</p>
+
+<p><a id="X7952044F8303A688" name="X7952044F8303A688"></a></p>
+
+<h5>4.11-11 IsMonomialAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsMonomialAlgebra</code>( <var class="Arg">A</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> -- a quiver algebra.<br /></p>
+
+<p>Returns: true when <var class="Arg">A</var> is given as <code class="code">kQ/I</code> and <code class="code">I</code> is a monomial ideal in <code class="code">kQ</code>, otherwise it returns false.</p>
+
+<p><a id="X7CB110A7873F7942" name="X7CB110A7873F7942"></a></p>
+
+<h5>4.11-12 IsNakayamaAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsNakayamaAlgebra</code>( <var class="Arg">A</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> -- a path algebra or a quotient of a path algebra.<br /></p>
+
+<p>Returns: true if <var class="Arg">A</var> has been constructed by the operation <code class="func">NakayamaAlgebra</code> (<a href="chap4_mj.html#X7C678A08836F77CC"><span class="RefLink">4.15-4</span></a>), otherwise "Error, no method found".</p>
+
+<p><a id="X8798B8BA7A145A2D" name="X8798B8BA7A145A2D"></a></p>
+
+<h5>4.11-13 IsQuiverAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsQuiverAlgebra</code>( <var class="Arg">A</var> )</td><td class="tdright">(&nbsp;filter&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> -- an algebra.<br /></p>
+
+<p>Returns: true if <var class="Arg">A</var> is a path algebra or a quotient of a path algebra algebra, otherwise false.</p>
+
+<p><a id="X7A8D13FE8379776E" name="X7A8D13FE8379776E"></a></p>
+
+<h5>4.11-14 IsRadicalSquareZeroAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsRadicalSquareZeroAlgebra</code>( <var class="Arg">A</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> -- an algebra.<br /></p>
+
+<p>Returns: true if <var class="Arg">A</var> is a radical square zero algebra, otherwise false.</p>
+
+<p><a id="X82F25BFD7D43AB10" name="X82F25BFD7D43AB10"></a></p>
+
+<h5>4.11-15 IsSchurianAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsSchurianAlgebra</code>( <var class="Arg">A</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> -- a path algebra or a quotient of a path algebra.<br /></p>
+
+<p>Returns: true if <var class="Arg">A</var> is a schurian algebra. By definition it means that: for all <span class="SimpleMath">\(x,y\in Q_0\)</span> we have <span class="SimpleMath">\(\dim A(x,y)\leq 1 \)</span>.</p>
+
+<p><em>Note:</em> This method fail when a Groebner basis for ideal has not been computed before creating a quotient!</p>
+
+<p><a id="X8555FC6B85FE9C6D" name="X8555FC6B85FE9C6D"></a></p>
+
+<h5>4.11-16 IsSelfinjectiveAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsSelfinjectiveAlgebra</code>( <var class="Arg">A</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> -- a path algebra or a quotient of a path algebra.<br /></p>
+
+<p>Returns: fail if <var class="Arg">A</var> is not finite dimensional. Otherwise it returns true or false according to whether <var class="Arg">A</var> is selfinjective or not.</p>
+
+<p><a id="X8558D44A79AA16CD" name="X8558D44A79AA16CD"></a></p>
+
+<h5>4.11-17 IsSemicommutativeAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsSemicommutativeAlgebra</code>( <var class="Arg">A</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> -- a path algebra or a quotient of a path algebra.<br /></p>
+
+<p>Returns: true if <var class="Arg">A</var> is a semicommutative algebra. By definition it means that:<br /> 1. <var class="Arg">A</var> is schurian (cf. <code class="func">IsSchurianAlgebra</code> (<a href="chap4_mj.html#X82F25BFD7D43AB10"><span class="RefLink">4.11-15</span></a>)).<br /> 2. Quiver <span class="SimpleMath">\(Q\)</span> of <var class="Arg">A</var> is acyclic (cf. <code class="func">IsAcyclicQuiver</code> (<a href="chap3_mj.html#X82E99C5F8624BD86"><span class="RefLink">3.3-2</span></a>)).<br /> 3. For all pairs of vertices <span class="SimpleMath">\((x,y)\)</span> the following condition is satisfied: for every two paths <span class="SimpleMath">\(P,P'\)</span> from <span class="SimpleMath">\(x\)</span> to <span class="SimpleMath">\(y\)</span>: <span class="SimpleMath">\(P\in I \Leftrightarrow P'\in I\)</span>.</p>
+
+<p><em>Note:</em> This method fail when a Groebner basis for ideal has not been computed before creating a quotient!</p>
+
+<p><a id="X85A8EC2287F35DC1" name="X85A8EC2287F35DC1"></a></p>
+
+<h5>4.11-18 IsSemisimpleAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsSemisimpleAlgebra</code>( <var class="Arg">A</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> - an algebra over a field.<br /></p>
+
+<p>Returns: true if the entered algebra <var class="Arg">A</var> is semisimple, false otherwise.</p>
+
+<p>Checks if the algebra is finite dimensional. If it is an admissible quotients of a path algebra, it only checks if the underlying quiver has any arrows or not. Otherwise, it computes the radical of the algebra and checks if it is zero.</p>
+
+<p><a id="X7D7AC1D07A9607DF" name="X7D7AC1D07A9607DF"></a></p>
+
+<h5>4.11-19 IsSpecialBiserialAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsSpecialBiserialAlgebra</code>( <var class="Arg">A</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> -- a path algebra or a quotient of a path algebra. <br /></p>
+
+<p>Returns: true whenever <var class="Arg">A</var> is a <em>special biserial algebra</em>, i.e. <var class="Arg">A=KQ/I</var>, where <var class="Arg">Q</var> is <code class="func">IsSpecialBiserialQuiver</code> (<a href="chap4_mj.html#X87E17E137E2B0FC4"><span class="RefLink">4.15-9</span></a>), <var class="Arg">I</var> is an admissible ideal (<code class="func">IsAdmissibleIdeal</code> (<a href="chap4_mj.html#X7F40193B877D76BC"><span class="RefLink">4.8-1</span></a>)) and <var class="Arg">I</var> satisfies the "special biserial" conditions, i.e.:</p>
+
+
+<ul>
+<li><p>for any arrow <span class="SimpleMath">\(a\)</span> there exists at most one arrow <span class="SimpleMath">\(b\)</span> such that <span class="SimpleMath">\(ab\)</span> does not belong to <var class="Arg">I</var></p>
+
+</li>
+<li><p>there exists at most one arrow <span class="SimpleMath">\(c\)</span> such that <span class="SimpleMath">\(ca\)</span> does not belong to <span class="SimpleMath">\(I\)</span>.</p>
+
+</li>
+</ul>
+<p><em>Note:</em> e.g. a path algebra of one loop IS NOT special biserial, but one loop IS special biserial quiver (see <code class="func">IsSpecialBiserialQuiver</code> (<a href="chap4_mj.html#X87E17E137E2B0FC4"><span class="RefLink">4.15-9</span></a>) for examples).</p>
+
+<p><a id="X86F0E4AF7C9916CB" name="X86F0E4AF7C9916CB"></a></p>
+
+<h5>4.11-20 IsStringAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsStringAlgebra</code>( <var class="Arg">A</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> -- a path algebra or a quotient of a path algebra. <br /></p>
+
+<p>Returns: true whenever <var class="Arg">A</var> is a <em>string</em> (special biserial) algebra, i.e. <var class="Arg">A=KQ/I</var> is a special biserial algebra (<code class="func">IsSpecialBiserialAlgebra</code> (<a href="chap4_mj.html#X7D7AC1D07A9607DF"><span class="RefLink">4.11-19</span></a>) and <var class="Arg">I</var> is generated by monomials (= "zero-relations") (cf. <code class="func">IsMonomialIdeal</code> (<a href="chap4_mj.html#X7C40D53785D67A9E"><span class="RefLink">4.8-3</span></a>)). See <code class="func">IsSpecialBiserialQuiver</code> (<a href="chap4_mj.html#X87E17E137E2B0FC4"><span class="RefLink">4.15-9</span></a>) for examples.</p>
+
+<p><a id="X79DA912C82D01EE8" name="X79DA912C82D01EE8"></a></p>
+
+<h5>4.11-21 IsSymmetricAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsSymmetricAlgebra</code>( <var class="Arg">A</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> -- a path algebra or a quotient of a path algebra.<br /></p>
+
+<p>Returns: fail if <var class="Arg">A</var> is not finite dimensional or does not have a Groebner basis. Otherwise it returns true or false according to whether <var class="Arg">A</var> is symmetric or not.</p>
+
+<p><a id="X87EC06D18021AD76" name="X87EC06D18021AD76"></a></p>
+
+<h5>4.11-22 IsTriangularReduced</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsTriangularReduced</code>( <var class="Arg">A</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> - a finite dimensional QuiverAlgebra.<br /></p>
+
+<p>Returns: <code class="code">false</code> if the algebra <var class="Arg">A</var> is triangular reducable, that is, there is a sum over vertices <span class="SimpleMath">\(e\)</span> such that <span class="SimpleMath">\(eA(1 - e) = (0)\)</span> for <span class="SimpleMath">\(e\neq 0,1\)</span>. Otherwise, it returns <code class="code">true</code>.</p>
+
+<p>The function checks if the algebra <var class="Arg">A</var> is finite dimensional and gives an error message otherwise.</p>
+
+<p><a id="X7EF281F980319375" name="X7EF281F980319375"></a></p>
+
+<h5>4.11-23 IsWeaklySymmetricAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsWeaklySymmetricAlgebra</code>( <var class="Arg">A</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> -- a path algebra or a quotient of a path algebra.<br /></p>
+
+<p>Returns: fail if <var class="Arg">A</var> is not finite dimensional or does not have a Groebner basis. Otherwise it returns true or false according to whether <var class="Arg">A</var> is weakly symmetric or not.</p>
+
+<p><a id="X81C569797E900AE9" name="X81C569797E900AE9"></a></p>
+
+<h5>4.11-24 BongartzTest</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; BongartzTest</code>( <var class="Arg">A</var>, <var class="Arg">bound</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A, bound</var> -- a path algebra or a quotient of a path algebra and an integer.<br /></p>
+
+<p>Returns: false if there exists a <span class="SimpleMath">\(\tau\)</span>-translate of a simple, injective or projective <var class="Arg">A</var>-module up to the power <var class="Arg">bound</var> has dimension greater or equal to <span class="SimpleMath">\(\max\{2\dim A, 30\}\)</span>. Then <var class="Arg">A</var> is of infinite representation type. Returns fail otherwise.</p>
+
+<p><a id="X8140D2557A23CDAC" name="X8140D2557A23CDAC"></a></p>
+
+<h5>4.11-25 IsFiniteTypeAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsFiniteTypeAlgebra</code>( <var class="Arg">A</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> -- a path algebra or a quotient of a path algebra.<br /></p>
+
+<p>Returns: Returns true if <var class="Arg">A</var> is of finite representation type. Returns false if <var class="Arg">A</var> is of infinite representation type. Returns fail if we can not determine the representation type (i.e. it impossible from theoretical/algorithmic point of view or a suitable criterion has not been implemented yet; the implementation is in progress). Note: in case <var class="Arg">A</var> is a path algebra the function is completely implemented.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Q := Quiver(5, [ [1,2,"a"], [2,4,"b"], [3,2,"c"], [2,5,"d"] ]);</span>
+&lt;quiver with 5 vertices and 4 arrows&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">A := PathAlgebra(Rationals, Q);</span>
+&lt;Rationals[&lt;quiver with 5 vertices and 4 arrows&gt;]&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsFiniteTypeAlgebra(A);</span>
+Infinite type!
+Quiver is not a (union of) Dynkin quiver(s).
+false
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">quo := A/[A.a*A.b, A.c*A.d];;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsFiniteTypeAlgebra(quo);</span>
+Finite type!
+Special biserial algebra with no unoriented cycles in Q.
+true 
+</pre></div>
+
+<p><a id="X861E6670814290D0" name="X861E6670814290D0"></a></p>
+
+<h4>4.12 <span class="Heading"> Operations on String Algebras</span></h4>
+
+<p>A quiver is a quadruple <span class="SimpleMath">\(Q = (Q_0, Q_1, s, t)\)</span> where <span class="SimpleMath">\(Q_0\)</span> is the set of vertices, <span class="SimpleMath">\(Q_1\)</span> is the set of arrows and <span class="SimpleMath">\(s, t : Q_1 \rightarrow Q_0\)</span> are source and target functions where for each <span class="SimpleMath">\( \alpha \in Q_1\)</span>, <span class="SimpleMath">\(s(\alpha)\)</span> and <span class="SimpleMath">\(t(\alpha)\)</span> denotes starting and ending vertex of <span class="SimpleMath">\(\alpha\)</span> respectively. For the functions defined in this section the quiver has to be constructed using first construction of <a href="chap3_mj.html#X860B15D57EAB46D7"><span class="RefLink">3.2</span></a>. The arrows in <span class="SimpleMath">\(Q_1\)</span> should be small Roman letters defined in alphabetical order as in the example below. These operations can handle string algebras with number of arrows less than or equal to 26. Say that a finite sequence <span class="SimpleMath">\(\alpha_n\alpha_{n-1}...\alpha_1\)</span> is a path in <span class="SimpleMath">\(Q\)</span> if <span class="SimpleMath">\(s(\alpha_{i+1}) = t(\alpha_i)\)</span> for all <span class="SimpleMath">\(1 \leq i \leq n-1\)</span> The source and target of the path are <span class="SimpleMath">\(s(\alpha_1)\)</span> and <span class="SimpleMath">\(t(\alpha_n)\)</span> respectively. We denote by <span class="SimpleMath">\(\rho\)</span> a set of monomial relations on <span class="SimpleMath">\(Q\)</span>. Every relation in <span class="SimpleMath">\(\rho\)</span> is a finite sequence <span class="SimpleMath">\(\alpha_1 \alpha_{2}...\alpha_n\)</span> of elements of <span class="SimpleMath">\(Q_1\)</span> with <span class="SimpleMath">\(n \geq 2\)</span> such that <span class="SimpleMath">\(\alpha_n \alpha_{n-1}...\alpha_1\)</span> is a path. <span class="SimpleMath">\(\newline\)</span> For a quiver <span class="SimpleMath">\(Q\)</span>, we define two functions <span class="SimpleMath">\(\sigma, \epsilon : Q_1 \rightarrow \{-1, 1\}\)</span> such that</p>
+
+
+<ul>
+<li><p>if <span class="SimpleMath">\(b_1 \neq b_2\)</span> such that <span class="SimpleMath">\(s(b_1) = s(b_2)\)</span>, then <span class="SimpleMath">\(\sigma(b_1) = -\sigma(b_2)\)</span>;</p>
+
+</li>
+<li><p>if <span class="SimpleMath">\(b_1 \neq b_2\)</span> such that <span class="SimpleMath">\(t(b_1) = t(b_2)\)</span>, then <span class="SimpleMath">\(\epsilon(b_1) = -\epsilon(b_2)\)</span>;</p>
+
+</li>
+<li><p>if <span class="SimpleMath">\(s(b_1) = t(b_2)\)</span> and <span class="SimpleMath">\(b_1b_2 \notin \rho\)</span>, then <span class="SimpleMath">\(\sigma(b_1) = -\epsilon(b_2)\)</span>.</p>
+
+</li>
+</ul>
+<p>Let us denote the inverse of the set of arrows in <span class="SimpleMath">\(Q_1\)</span> by the corresponding capital letters. For example if <span class="SimpleMath">\(b\)</span> is an arrow in <span class="SimpleMath">\(Q_1\)</span> the its inverse is denoted by <span class="SimpleMath">\(B\)</span>. The set of the inverse arrows is denoted by <span class="SimpleMath">\(Q_1^{-1}\)</span>. We extend the definition of <span class="SimpleMath">\(\sigma\)</span> and <span class="SimpleMath">\(\epsilon\)</span> to <span class="SimpleMath">\(Q_1 \cup Q_1^{-1}\)</span> so that <span class="SimpleMath">\(\sigma(B) = \epsilon(b)\)</span> and <span class="SimpleMath">\(\epsilon(B) = \sigma(b)\)</span> for all <span class="SimpleMath">\(b \in Q_1\)</span>. Note that a <em>string</em> of positive length is a walk along the arrows of <span class="SimpleMath">\(Q\)</span> and their inverses such that it does not contain paths obtained by reversing relations in <span class="SimpleMath">\(\rho\)</span> and their inverses as substrings. We also extend the definition of <span class="SimpleMath">\(\sigma\)</span> and <span class="SimpleMath">\(\epsilon\)</span> to all strings; if <span class="SimpleMath">\(\alpha = \alpha_n ...\alpha_2 \alpha_1\)</span>, then <span class="SimpleMath">\(\sigma(\alpha) = \sigma(\alpha_1)\)</span> and <span class="SimpleMath">\(\epsilon(\alpha) = \epsilon(\alpha_n)\)</span>. <span class="SimpleMath">\(\newline\)</span> For each vertex <span class="SimpleMath">\(v\in Q_0\)</span>, we have a zero length lazy string starting and ending at vertex <span class="SimpleMath">\(v\)</span>, denoted by <span class="SimpleMath">\(1_v\)</span>. The inverse of this string is <span class="SimpleMath">\(1_v\)</span> itself. The main purpose of defining <span class="SimpleMath">\(\sigma\)</span> and <span class="SimpleMath">\(\epsilon\)</span> is to distinguish <span class="SimpleMath">\(1_v\)</span> with its inverse. We denote this zero length string as <span class="SimpleMath">\((v,1)\)</span> and <span class="SimpleMath">\((v,-1)\)</span> and set <span class="SimpleMath">\(\sigma((v,i)) := -i\)</span> and <span class="SimpleMath">\(\epsilon((v,i)) := i\)</span>. The concatenation <span class="SimpleMath">\((v,i)u\)</span> of strings is defined if and only if <span class="SimpleMath">\(\epsilon(u) = i\)</span> and the concatenation <span class="SimpleMath">\(u(v,i)\)</span> is defined if and only if <span class="SimpleMath">\(\sigma(u) = -i\)</span>. Moreover if <span class="SimpleMath">\(\alpha = \alpha_n \alpha_{n-1} ... \alpha_2 \alpha_1\)</span> and <span class="SimpleMath">\(\beta = \beta_m \beta_{m-1} ... \beta_2 \beta_1\)</span> are two strings such that <span class="SimpleMath">\(s(\alpha) = t(\beta)\)</span>, their concatenation is the string <span class="SimpleMath">\(\alpha\beta = \alpha_n ... \alpha_1 \beta_m ... \beta_1\)</span>. Note that, for a given quiver <span class="SimpleMath">\(Q\)</span>, the functions <span class="SimpleMath">\(\sigma, \epsilon\)</span> are not unique. A choice of <span class="SimpleMath">\(\sigma\)</span> and <span class="SimpleMath">\(\epsilon\)</span> functions is computed within our codes and utilized in other functions.</p>
+
+<p><a id="X85F2FFFD78355788" name="X85F2FFFD78355788"></a></p>
+
+<h5>4.12-1 IsValidString</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsValidString</code>( <var class="Arg">Q</var>, <var class="Arg">rho</var>, <var class="Arg">input_str</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">Q</var> -- a quiver, <var class="Arg">rho</var> -- a list of monomial relations, <var class="Arg">input_str</var> -- an input collection of characters.<br /></p>
+
+<p>Returns: "Not a String Algebra" if the algebra presented by <var class="Arg">(Q,rho)</var> is not a string algebra, "Valid Positive Length String" if <var class="Arg">input_str</var> is a string of positive length in the corresponding string algebra, "Valid Zero Length String", if <var class="Arg">input_str</var> is a zero length string in the corresponding string algebra, "Invalid String" if <var class="Arg">input_str</var> is not a string in the corresponding string algebra</p>
+
+<p><a id="X85B82A4086AA53D6" name="X85B82A4086AA53D6"></a></p>
+
+<h5>4.12-2 StringsLessThan</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; StringsLessThan</code>( <var class="Arg">Q</var>, <var class="Arg">rho</var>, <var class="Arg">level</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">Q</var> -- a quiver, <var class="Arg">rho</var> -- a list of monomial relations, <var class="Arg">level</var> -- an integer.<br /></p>
+
+<p>Returns: "Not a String Algebra" if the algebra presented by <var class="Arg">(Q,rho)</var> is not a string algebra, an empty list if <var class="Arg">level</var> is a negative integer, a list of all strings of length less than or equal to <var class="Arg">level</var> if <var class="Arg">level</var> is a non-negative integer.</p>
+
+<p>A string <span class="SimpleMath">\(u\)</span> is called <span class="SimpleMath">\(\textbf{cyclic}\)</span> if <span class="SimpleMath">\(s(u) = t(u)\)</span>. A cyclic string is called <span class="SimpleMath">\(\textbf{primitive}\)</span> if it can not be written as an n-fold concatenation <span class="SimpleMath">\(\mathfrak{v}^n\)</span> for any string <span class="SimpleMath">\(\mathfrak{v}\)</span> and any <span class="SimpleMath">\(n \in \mathbb{N}\)</span>. If <span class="SimpleMath">\(\mathfrak{b}\)</span> is a primitive cyclic string such that <span class="SimpleMath">\(\mathfrak{b}^m\)</span> exists, for all <span class="SimpleMath">\(m \in \mathbb{N}\)</span>, then <span class="SimpleMath">\(\mathfrak{b} \)</span> is called a <span class="SimpleMath">\(\textbf{band}\)</span>.</p>
+
+<p><a id="X7F5B0A1A7AAF2C18" name="X7F5B0A1A7AAF2C18"></a></p>
+
+<h5>4.12-3 IsABand</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsABand</code>( <var class="Arg">Q</var>, <var class="Arg">rho</var>, <var class="Arg">input_str</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">Q</var> -- a quiver, <var class="Arg">rho</var> -- a list of monomial relations, <var class="Arg">input_str</var> -- an input collection of characters.<br /></p>
+
+<p>Returns: "Not a String Algebra" if the algebra presented by <var class="Arg">(Q,rho)</var> is not a string algebra, "Invalid String" if <var class="Arg">input_str</var> is not a string in the corresponding string algebra, <span class="SimpleMath">\(0\)</span> if <var class="Arg">input_str</var> is a valid string but not a band, <span class="SimpleMath">\(1\)</span> if <var class="Arg">input_str</var> is a band in the corresponding string algebra.</p>
+
+<p><a id="X85FFA183800621EA" name="X85FFA183800621EA"></a></p>
+
+<h5>4.12-4 BandsLessThan</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; BandsLessThan</code>( <var class="Arg">Q</var>, <var class="Arg">rho</var>, <var class="Arg">level</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">Q</var> -- a quiver, <var class="Arg">rho</var> -- a list of monomial relations, <var class="Arg">level</var> -- an integer.<br /></p>
+
+<p>Returns: "Not a String Algebra" if the algebra presented by <var class="Arg">(Q,rho)</var> is not a string algebra, an empty list if <var class="Arg">level</var> is a negative integer, a list of all bands of length less than or equal to <var class="Arg">level</var> if <var class="Arg">level</var> is a non-negative integer.</p>
+
+<p>Two bands <span class="SimpleMath">\(\mathfrak{b}_1\)</span> and <span class="SimpleMath">\(\mathfrak{b}_2\)</span> of a string algebra are said to be equivalent if they are cyclic permutations of each other. For any band <span class="SimpleMath">\(\mathfrak{b}\)</span>, output of <span class="SimpleMath">\(\texttt{BandsLessThan}\)</span> function contains all bands equivalent to <span class="SimpleMath">\(\mathfrak{b}\)</span>. A representative of each equivalence class is chosen such that the first syllable from right is an inverse syllable and the last syllable from right is a direct syllable. This new list is returned as the output of the following function.</p>
+
+<p><a id="X870DB8577F0ABF0E" name="X870DB8577F0ABF0E"></a></p>
+
+<h5>4.12-5 BandRepresentativesLessThan</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; BandRepresentativesLessThan</code>( <var class="Arg">Q</var>, <var class="Arg">rho</var>, <var class="Arg">level</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">Q</var> -- a quiver, <var class="Arg">rho</var> -- a list of monomial relations, <var class="Arg">level</var> -- an integer.<br /></p>
+
+<p>Returns: "Not a String Algebra" if the algebra presented by <var class="Arg">(Q,rho)</var> is not a string algebra, an empty list if <var class="Arg">level</var> is negative integer, a list of all band representatives of length less than or equal to <var class="Arg">level</var> if <var class="Arg">level</var> is a non-negative integer.</p>
+
+<p>A string algebra with finite number of bands is called a domestic string algebra.</p>
+
+<p><a id="X7C42DD687CE572DF" name="X7C42DD687CE572DF"></a></p>
+
+<h5>4.12-6 IsDomesticStringAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsDomesticStringAlgebra</code>( <var class="Arg">Q</var>, <var class="Arg">rho</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">Q</var> -- a quiver, <var class="Arg">rho</var> -- a list of monomial relations. <br /></p>
+
+<p>Returns: "Not a String Algebra" if the algebra presented by <var class="Arg">(Q,rho)</var> is not a string algebra, <span class="SimpleMath">\(0\)</span> if the corresponding string algebra is non-domestic, <span class="SimpleMath">\(1\)</span> if the corresponding string algebra is domestic.</p>
+
+<p>A string is <span class="SimpleMath">\(\textbf{band-free}\)</span> if it does not contain any cyclic permutation of a band as a substring. Let <span class="SimpleMath">\(Ba(\Lambda)\)</span> denote the collection of all bands up to cyclic permutation and <span class="SimpleMath">\(Q_0^{Ba}\)</span> denote a fixed set of representatives of bands in <span class="SimpleMath">\(Ba(\Lambda)\)</span>. For <span class="SimpleMath">\(\mathfrak{b}_1, \mathfrak{b}_2 \in Q_0^{Ba}\)</span>, we say that a finite string <span class="SimpleMath">\(u\)</span> is a weak bridge <span class="SimpleMath">\(\mathfrak{b}_1 \xrightarrow{u} \mathfrak{b}_2\)</span> if it is band-free and if <span class="SimpleMath">\(\mathfrak{b}_2 u \mathfrak{b}_1\)</span> is a string.<span class="SimpleMath">\(\newline\)</span> We say that a weak bridge <span class="SimpleMath">\(\mathfrak{b}_1 \xrightarrow{u} \mathfrak{b}_2\)</span> is a bridge if there is <span class="SimpleMath">\(\textbf{no}\)</span> <span class="SimpleMath">\(\mathfrak{b}\in Q_0^{Ba}\)</span> and weak bridges <span class="SimpleMath">\(\mathfrak{b}_1 \xrightarrow{u_1} \mathfrak{b}\)</span> and <span class="SimpleMath">\(\mathfrak{b} \xrightarrow{u_2} \mathfrak{b}_2\)</span> such that one of the following holds :</p>
+
+
+<ul>
+<li><p><span class="SimpleMath">\(\mathfrak{u} = \mathfrak{u_2}\mathfrak{u_1}\)</span>, where <span class="SimpleMath">\(\mathfrak{u_1}\)</span> and <span class="SimpleMath">\(\mathfrak{u_2}\)</span> are positive length strings,</p>
+
+</li>
+<li><p><span class="SimpleMath">\(\mathfrak{u} = \mathfrak{u_2'}\mathfrak{u_1'}\)</span>, for some positive length strings <span class="SimpleMath">\(\mathfrak{u_1'}, \mathfrak{u_2'}\)</span> such that <span class="SimpleMath">\(\mathfrak{u_2} = \mathfrak{u_2'} \mathfrak{u_2''}\)</span>, <span class="SimpleMath">\(\mathfrak{u_1} = \mathfrak{u_1''} \mathfrak{u_1'}\)</span> and <span class="SimpleMath">\(\mathfrak{b} = \mathfrak{u_1''} \mathfrak{u_2''}\)</span>.</p>
+
+</li>
+</ul>
+<p><a id="X85D0616C82375B5C" name="X85D0616C82375B5C"></a></p>
+
+<h5>4.12-7 BridgeQuiver</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; BridgeQuiver</code>( <var class="Arg">Q</var>, <var class="Arg">rho</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">Q</var> a quiver, <var class="Arg">rho</var> a list of monomial relations.<br /></p>
+
+<p>Returns: "Not a String Algebra" if the algebra presented by <var class="Arg">(Q,rho)</var> is not a string algebra, <span class="SimpleMath">\(0\)</span> if the corresponding string algebra is non-domestic, the bridge quiver of the corresponding string algebra if it is domestic.</p>
+
+<p><a id="X82DBBB737885C73B" name="X82DBBB737885C73B"></a></p>
+
+<h5>4.12-8 LocalARQuiver</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; LocalARQuiver</code>( <var class="Arg">Q</var>, <var class="Arg">rho</var>, <var class="Arg">input_str</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">Q</var> -- a quiver, <var class="Arg">rho</var> -- a list of monomial relations, <var class="Arg">input_str</var> -- an input collection of characters.<br /></p>
+
+<p>Returns: "Not a String Algebra" if the algebra presented by <var class="Arg">(Q,rho)</var> is not a string algebra, the list of (equivalence classes of) irreducible maps, i.e., the arrows of the Auslander-Reiten quiver, whose source or target is the string module corresponding to <var class="Arg">input_str</var>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Q := Quiver(4, [[1,2,"a"], [1,2,"b"], [2,3,"c"], [3,4,"d"], [3,4,"e"]]);</span>
+&lt;quiver with 4 vertices and 5 arrows&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">rho := ["bc", "cd"];</span>
+[ "bc", "cd" ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsValidString(Q,rho,"eca");</span>
+"Valid Positive Length String"
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">StringsLessThan(Q,rho,2);</span>
+[ "(1,1)", "b", "Ab", "(1,-1)", "a", "ca", "Ba", "(2,1)", "c", "B", "ec", "aB",
+ "(2,-1)", "A", "bA", "(3,1)", "e", "De", "(3,-1)", "d", "C", "Ed", "AC",
+ "(4,1)", "E", "dE", "CE", "(4,-1)", "D", "eD" ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsABand(Q,rho,"eca");</span>
+0
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsABand(Q,rho,"Ab");</span>
+1
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">BandsLessThan(Q,rho,3);</span>
+[ "Ab", "Ba", "aB", "bA", "De", "Ed", "dE", "eD" ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">BandRepresentativesLessThan(Q,rho,3);</span>
+[ "aB", "bA", "dE", "eD" ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsDomesticStringAlgebra(Q,rho);</span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Q1 := BridgeQuiver(Q,rho);</span>
+&lt;quiver with 4 vertices and 2 arrows&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Display(Q1);</span>
+Quiver( ["v1","v2","v3","v4"], [["v3","v2","CE"],["v1","v4","ec"]] )
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">LocalARQuiver(Q,rho,"eca");</span>
+[ "The canonical embedding StringModule(eca) to StringModule(eDeca)",
+  "The canonical projection StringModule(ecaBa) to StringModule(eca)" ] 
+</pre></div>
+
+<p><a id="X86647D317A961513" name="X86647D317A961513"></a></p>
+
+<h4>4.13 <span class="Heading">Attributes and Operations (for Quotients) of Path
+    Algebras</span></h4>
+
+<p><a id="X84E3FEF587CB66C3" name="X84E3FEF587CB66C3"></a></p>
+
+<h5>4.13-1 CartanMatrix</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; CartanMatrix</code>( <var class="Arg">A</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> -- a path algebra or a quotient of a path algebra.<br /></p>
+
+<p>Returns: the Cartan matrix of the algebra <var class="Arg">A</var>, after having checked that <var class="Arg">A</var> is a finite dimensional quotient of a path algebra.</p>
+
+<p><a id="X7F8084A67A3BE874" name="X7F8084A67A3BE874"></a></p>
+
+<h5>4.13-2 Centre/Center</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Centre/Center</code>( <var class="Arg">A</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> -- a path algebra or a quotient of a path algebra.<br /></p>
+
+<p>Returns: the centre of the algebra <var class="Arg">A</var> as a subalgebra.</p>
+
+<p>The function computes the center of <var class="Arg">A</var> if <var class="Arg">A</var> is a finite dimensional quotient of a path algebra or <var class="Arg">A</var> is a path algebra with on restriction on the underlying quiver.</p>
+
+<p><a id="X835A161E8524797A" name="X835A161E8524797A"></a></p>
+
+<h5>4.13-3 ComplexityOfAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ComplexityOfAlgebra</code>( <var class="Arg">A</var>, <var class="Arg">n</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> -- a path algebra or a quotient of a path algebra, <var class="Arg">n</var> -- a positive integer.<br /></p>
+
+<p>Returns: an estimate of the complexity of the algebra <var class="Arg">A</var>.</p>
+
+<p>The function checks if the algebra <var class="Arg">A</var> is known to have finite global dimension. If so, it returns complexity zero. Otherwise it tries to estimate the complexity in the following way. Recall that if a function <span class="SimpleMath">\(f(x)\)</span> is a polynomial in <span class="SimpleMath">\(x\)</span>, the degree of <span class="SimpleMath">\(f(x)\)</span> is given by <span class="SimpleMath">\(\lim_{n\to\infty} \frac{\log |f(n)|}{\log n}\)</span>. So then this function computes an estimate of the maximal complexity of the simple modules over <var class="Arg">A</var> by approximating the complexity of each simple module <span class="SimpleMath">\(S\)</span> by considering the limit <span class="SimpleMath">\(\lim_{m\to \infty} \log \frac{\dim(P(S)(m))}{\log m}\)</span> where <span class="SimpleMath">\(P(S)(m)\)</span> is the <span class="SimpleMath">\(m\)</span>-th projective in a minimal projective resolution of <var class="Arg">S</var> at stage <span class="SimpleMath">\(m\)</span>. This limit is estimated by <span class="SimpleMath">\(\frac{\log \dim(P(S)(n))}{\log n}\)</span>.</p>
+
+<p><a id="X815CB1D47CB174ED" name="X815CB1D47CB174ED"></a></p>
+
+<h5>4.13-4 CoxeterMatrix</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; CoxeterMatrix</code>( <var class="Arg">A</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> -- a path algebra or a quotient of a path algebra.<br /></p>
+
+<p>Returns: the Coxeter matrix of the algebra <var class="Arg">A</var>, after having checked that <var class="Arg">A</var> is a finite dimensional quotient of a path algebra.</p>
+
+<p><a id="X7F6F526C86052150" name="X7F6F526C86052150"></a></p>
+
+<h5>4.13-5 CoxeterPolynomial</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; CoxeterPolynomial</code>( <var class="Arg">A</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> -- a path algebra or a quotient of a path algebra.<br /></p>
+
+<p>Returns: the Coxeter polynomial of the algebra <var class="Arg">A</var>, after having checked that <var class="Arg">A</var> is a finite dimensional quotient of a path algebra.</p>
+
+<p><a id="X7E6926C6850E7C4E" name="X7E6926C6850E7C4E"></a></p>
+
+<h5>4.13-6 Dimension</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Dimension</code>( <var class="Arg">A</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> -- a path algebra or a quotient of a path algebra.<br /></p>
+
+<p>Returns: the dimension of the algebra <var class="Arg">A</var> or <em>infinity</em> in case <var class="Arg">A</var> is an infinite dimensional algebra.</p>
+
+<p>For a quotient of a path algebra it uses Groebner bases machinery (it computes Groebner basis for the ideal only in case it has not been computed yet).</p>
+
+<p><a id="X7A3EACE782DC2198" name="X7A3EACE782DC2198"></a></p>
+
+<h5>4.13-7 FrobeniusForm</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; FrobeniusForm</code>( <var class="Arg">A</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> -- a quotient of a path algebra.<br /></p>
+
+<p>Returns: false if <var class="Arg">A</var> is not selfinjective algebra. Otherwise it returns the Frobenius form of <var class="Arg">A</var>.</p>
+
+<p><a id="X789D1DB97C1B9A0D" name="X789D1DB97C1B9A0D"></a></p>
+
+<h5>4.13-8 FrobeniusLinearFunctional</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; FrobeniusLinearFunctional</code>( <var class="Arg">A</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> -- a quotient of a path algebra.<br /></p>
+
+<p>Returns: false if <var class="Arg">A</var> is not selfinjective algebra. Otherwise it returns the Frobenius linear functional of <var class="Arg">A</var>, which is used to construct the Frobenius form.</p>
+
+<p><a id="X7D511B3E7A50AB2A" name="X7D511B3E7A50AB2A"></a></p>
+
+<h5>4.13-9 GlobalDimension</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GlobalDimension</code>( <var class="Arg">A</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> -- an algebra.<br /></p>
+
+<p>Returns: the global dimension of the algebra <var class="Arg">A</var> if it is known. Otherwise it returns an error message saying "no method found!".</p>
+
+<p>There is no method installed for this yet.</p>
+
+<p><a id="X7BEA44FB819910B6" name="X7BEA44FB819910B6"></a></p>
+
+<h5>4.13-10 LoewyLength</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; LoewyLength</code>( <var class="Arg">A</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> -- a path algebra or a quotient of a path algebra.<br /></p>
+
+<p>Returns: fail if <var class="Arg">A</var> is not finite dimensional. Otherwise it returns the Loewy length of the algebra <var class="Arg">A</var>.</p>
+
+<p><a id="X818AF5A979F8E539" name="X818AF5A979F8E539"></a></p>
+
+<h5>4.13-11 NakayamaAutomorphism</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; NakayamaAutomorphism</code>( <var class="Arg">A</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> -- a path algebra or a quotient of a path algebra.<br /></p>
+
+<p>Returns: false if <var class="Arg">A</var> is not selfinjective algebra. Otherwise it returns the Nakayama automorphism of <var class="Arg">A</var>.</p>
+
+<p><a id="X7C068FE379FBCE18" name="X7C068FE379FBCE18"></a></p>
+
+<h5>4.13-12 NakayamaPermutation</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; NakayamaPermutation</code>( <var class="Arg">A</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> -- a path algebra or a quotient of a path algebra.<br /></p>
+
+<p>Returns: false if <var class="Arg">A</var> is not selfinjective algebra. Otherwise it returns a list of two elements where the first is the Nakayama permutation on the simple modules and the second is the Nakayama permutation on the index set of the simple modules of <var class="Arg">A</var>.</p>
+
+<p><a id="X78E378EB83BA3D8A" name="X78E378EB83BA3D8A"></a></p>
+
+<h5>4.13-13 OrderOfNakayamaAutomorphism</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; OrderOfNakayamaAutomorphism</code>( <var class="Arg">A</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> -- a path algebra or a quotient of a path algebra.<br /></p>
+
+<p>Returns: false if <var class="Arg">A</var> is not selfinjective algebra. Otherwise it returns the order of the Nakayama autormorphism of <var class="Arg">A</var> AS AN ELEMENT OF <span class="SimpleMath">\(\operatorname{Aut}(A)\)</span>.</p>
+
+<p><a id="X782EFE477EC0C1C6" name="X782EFE477EC0C1C6"></a></p>
+
+<h5>4.13-14 RadicalSeriesOfAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; RadicalSeriesOfAlgebra</code>( <var class="Arg">A</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> -- an algebra.<br /></p>
+
+<p>Returns: the radical series of the algebra <var class="Arg">A</var> in a list, where the first element is the algebra <var class="Arg">A</var> itself, then radical of <var class="Arg">A</var>, radical square of <var class="Arg">A</var>, and so on.</p>
+
+<p><a id="X7BD7DB497917893C" name="X7BD7DB497917893C"></a></p>
+
+<h4>4.14 <span class="Heading">Attributes and Operations on Elements
+ of Quotients of Path Algebra</span></h4>
+
+<p><a id="X87495684791B5742" name="X87495684791B5742"></a></p>
+
+<h5>4.14-1 IsElementOfQuotientOfPathAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsElementOfQuotientOfPathAlgebra</code>( <var class="Arg">object</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">object</var> -- any object in <strong class="pkg">GAP</strong>.<br /></p>
+
+<p>Returns: true whenever <var class="Arg">object</var> is an element of some quotient of a path algebra.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">elem := quot.a*quot.b;</span>
+[(1)*a*b]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsElementOfQuotientOfPathAlgebra(elem);</span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsElementOfQuotientOfPathAlgebra(FQ.a*FQ.b);    </span>
+false 
+</pre></div>
+
+<p><a id="X80B32F667BF6AFD8" name="X80B32F667BF6AFD8"></a></p>
+
+<h5>4.14-2 Coefficients</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Coefficients</code>( <var class="Arg">B</var>, <var class="Arg">element</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">B, element</var> -- a basis for a quotient of a path algebra and element thereof.<br /></p>
+
+<p>Returns: the coefficients of the <var class="Arg">element</var> in terms of the canonical basis <var class="Arg">B</var> of the quotient of a path algebra in which <var class="Arg">element</var> is an element.</p>
+
+<p><a id="X8271E6F27C2C826E" name="X8271E6F27C2C826E"></a></p>
+
+<h5>4.14-3 IsNormalForm</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsNormalForm</code>( <var class="Arg">element</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">element</var> -- an element of a path algebra.<br /></p>
+
+<p>Returns: true if <var class="Arg">element</var> is known to be in normal form.</p>
+
+
+<div class="example"><pre> 
+ gap&gt; IsNormalForm(elem);  
+ true  
+</pre></div>
+
+<p><a id="X837DD99B7A233FB5" name="X837DD99B7A233FB5"></a></p>
+
+<h5>4.14-4 &lt;</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; &lt;</code>( <var class="Arg">a</var>, <var class="Arg">b</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">a</var> and <var class="Arg">b</var> -- elements from a path algebra.<br /></p>
+
+<p>Returns: true whenever <var class="Arg">a</var> &lt; <var class="Arg">b</var>.</p>
+
+<p><a id="X7F2527747A3D0D6D" name="X7F2527747A3D0D6D"></a></p>
+
+<h5>4.14-5 ElementOfQuotientOfPathAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ElementOfQuotientOfPathAlgebra</code>( <var class="Arg">family</var>, <var class="Arg">element</var>, <var class="Arg">computenormal</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">family</var> -- a family of elements, <var class="Arg">element</var> -- an element of a path algebra, <var class="Arg">computenormal</var> -- true or false.<br /></p>
+
+<p>Returns: The projection of <var class="Arg">element</var> into the quotient given by <var class="Arg">family</var>. If <var class="Arg">computenormal</var> is false, then the normal form of the projection of <var class="Arg">element</var> is returned.</p>
+
+<p><var class="Arg">family</var> is the ElementsFamily of the family of the algebra <var class="Arg">element</var> is projected into.</p>
+
+<p><a id="X8088721187BA8D82" name="X8088721187BA8D82"></a></p>
+
+<h5>4.14-6 OriginalPathAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; OriginalPathAlgebra</code>( <var class="Arg">algebra</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">algebra</var> -- an algebra.<br /></p>
+
+<p>Returns: a path algebra.</p>
+
+<p>If <var class="Arg">algebra</var> is a quotient of a path algebra or just a path algebra itself, the returned algebra is the path algebra it was constructed from. Otherwise it returns an error saying that the algebra entered was not given as a quotient of a path algebra.</p>
+
+<p><a id="X7B209E0A7DD93C08" name="X7B209E0A7DD93C08"></a></p>
+
+<h4>4.15 <span class="Heading">Predefined classes and classes 
+  of (quotients of) path algebras</span></h4>
+
+<p><a id="X820AE0208636B9AA" name="X820AE0208636B9AA"></a></p>
+
+<h5>4.15-1 BrauerConfigurationAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; BrauerConfigurationAlgebra</code>( <var class="Arg">field</var>, <var class="Arg">brauer_configuration</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">field</var> -- a field, <var class="Arg">brauer_configuration</var> -- a list of the form [[vertices], [edges/polygons], [orientations]].<br /></p>
+
+<p>Returns: the Brauer configuration algebra corresponding to the brauer configuration <var class="Arg">brauer_configuration</var> over the field <var class="Arg">field</var>. If the brauer configuration entered is not valid, fail is returned.</p>
+
+<p>The <var class="Arg">brauer_configuration</var> consists of vertices, polygons/edges, and orientations corresponding to a Brauer Configuration or Brauer Tree. Each vertex must have the form ["vertexname", multiplicity]. Each edge/polygon must have the form ["edgename", "vertex1name", "vertex2name", ...]. There must be an orientation corresponding to each vertex. Orientations must have the form ["edge1name/polygon1name", "edge2name/polygon2name", ...].</p>
+
+
+<div class="example"><pre> 
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">alg := BrauerConfigurationAlgebra(Rationals, [ [ [ "v1", 1 ], [ "v2", 1 ], [ "v3", 2 ] ], [ [ "e1", "v1", "v2" ], [ "e2", "v2", "v3" ] ], [ [ "e1" ], [ "e1", "e2" ], ["e2" ] ]]);</span>
+&lt;A quotient of the path algebra &lt;Rationals[&lt;quiver with 2 vertices and 
+3 arrows&gt;]&gt; modulo the ideal 
+&lt;two-sided ideal in &lt;Rationals[&lt;quiver with 2 vertices and 3 arrows&gt;]&gt;, 
+  (5 generators)&gt;&gt;
+</pre></div>
+
+<p><a id="X7E63A4F37856A075" name="X7E63A4F37856A075"></a></p>
+
+<h5>4.15-2 CanonicalAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; CanonicalAlgebra</code>( <var class="Arg">field</var>, <var class="Arg">weights</var>[, <var class="Arg">relcoeff</var>] )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">field</var> -- a field, <var class="Arg">weights</var> -- a list of positive integers, [, <var class="Arg">relcoeff</var> -- a list of non-zero elements in the field.<br /></p>
+
+<p>Returns: the canonical algebra over the <var class="Arg">field</var> with the quiver given by the weight sequence <var class="Arg">weights</var> and the relations given by the coefficients <var class="Arg">relcoeff</var>.</p>
+
+<p>It function checks if all the <var class="Arg">weights</var> are greater or equal to two, the number of weights is at least two, the number of coefficients is the number of <var class="Arg">weights</var> - 2, the coefficients for the relations are in field and non-zero. If only the two first arguments are given, then the number of weights must be two.</p>
+
+<p><a id="X83498D3D856CC08A" name="X83498D3D856CC08A"></a></p>
+
+<h5>4.15-3 KroneckerAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; KroneckerAlgebra</code>( <var class="Arg">field</var>, <var class="Arg">n</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">field</var> -- a field, <var class="Arg">n</var> -- a positive integer.<br /></p>
+
+<p>Returns: the <var class="Arg">n</var>-Kronecker algebra over the field <var class="Arg">field</var>.</p>
+
+<p>It function checks if the number <var class="Arg">n</var> of arrows is greater or equal to two and returns an error message if not.</p>
+
+<p><a id="X7C678A08836F77CC" name="X7C678A08836F77CC"></a></p>
+
+<h5>4.15-4 NakayamaAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; NakayamaAlgebra</code>( <var class="Arg">admiss-seq</var>, <var class="Arg">field</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">field</var> -- a field, <var class="Arg">admiss-seq</var> -- a list of positive integers.<br /></p>
+
+<p>Returns: the Nakayama algebra corresponding to the admissible sequence <var class="Arg">admiss-seq</var> over the field <var class="Arg">field</var>. If the entered sequence is not an admissible sequence, the sequence is returned.</p>
+
+<p>The <var class="Arg">admiss-seq</var> consists of the dimensions of the projective representations.</p>
+
+<p><a id="X8369BB398212101C" name="X8369BB398212101C"></a></p>
+
+<h5>4.15-5 AdmissibleSequenceGenerator</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; AdmissibleSequenceGenerator</code>( <var class="Arg">num_vert</var>, <var class="Arg">height</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">num_vert</var>, <var class="Arg">height</var> -- two positive integers.<br /></p>
+
+<p>Returns: all admissible sequences of Nakayama algebras with <var class="Arg">num_vert</var> number of vertices, and indecomposable projective modules of length at most <var class="Arg">height</var>.</p>
+
+
+<div class="example"><pre> 
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">alg := NakayamaAlgebra([2,1], Rationals);</span>
+&lt;Rationals[&lt;quiver with 2 vertices and 1 arrows&gt;]&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">QuiverOfPathAlgebra(alg);</span>
+&lt;quiver with 2 vertices and 1 arrows&gt;
+</pre></div>
+
+<p><a id="X78C675F2836D1B18" name="X78C675F2836D1B18"></a></p>
+
+<h5>4.15-6 PosetAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; PosetAlgebra</code>( <var class="Arg">F</var>, <var class="Arg">P</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">F</var> -- a field, <var class="Arg">P</var> -- a poset.<br /></p>
+
+<p>Returns: the poset algebra associated to the poset <var class="Arg">P</var> over the field <var class="Arg">K</var>.</p>
+
+<p><a id="X7F877C5F839A3AA9" name="X7F877C5F839A3AA9"></a></p>
+
+<h5>4.15-7 PosetOfPosetAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; PosetOfPosetAlgebra</code>( <var class="Arg">A</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> -- a poset algebra.<br /></p>
+
+<p>Returns: the poset from which that poset algebra <var class="Arg">A</var> is constructed.</p>
+
+<p><a id="X7EF1AE62790D7486" name="X7EF1AE62790D7486"></a></p>
+
+<h5>4.15-8 TruncatedPathAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; TruncatedPathAlgebra</code>( <var class="Arg">F</var>, <var class="Arg">Q</var>, <var class="Arg">n</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">F</var> -- a field, <var class="Arg">Q</var> -- a quiver, <var class="Arg">n</var> -- a positive integer.<br /></p>
+
+<p>Returns: the truncated path algebra <var class="Arg">KQ/I</var>, where <var class="Arg">I</var> is the ideal generated by all paths of length <var class="Arg">n</var> in <var class="Arg">KQ</var>.</p>
+
+<p><a id="X87E17E137E2B0FC4" name="X87E17E137E2B0FC4"></a></p>
+
+<h5>4.15-9 IsSpecialBiserialQuiver</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsSpecialBiserialQuiver</code>( <var class="Arg">Q</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">Q</var> -- a quiver. <br /></p>
+
+<p>Returns: true whenever <var class="Arg">Q</var> is a <em>"special biserial"</em> quiver, i.e. every vertex in <var class="Arg">Q</var> is a source (resp. target) of at most 2 arrows.</p>
+
+<p><em>Note:</em> e.g. a path algebra of one loop IS NOT special biserial, but one loop IS special biserial quiver (cf. <code class="func">IsSpecialBiserialAlgebra</code> (<a href="chap4_mj.html#X7D7AC1D07A9607DF"><span class="RefLink">4.11-19</span></a>) and also an Example below).</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Q := Quiver(1, [ [1,1,"a"], [1,1,"b"] ]);;  </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">A := PathAlgebra(Rationals, Q);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsSpecialBiserialAlgebra(A); IsStringAlgebra(A);</span>
+false
+false
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">rel1 := [A.a*A.b, A.a^2, A.b^2];  </span>
+[ (1)*a*b, (1)*a^2, (1)*b^2 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">quo1 := A/rel1;;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsSpecialBiserialAlgebra(quo1); IsStringAlgebra(quo1);</span>
+true
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">rel2 := [A.a*A.b-A.b*A.a, A.a^2, A.b^2];  </span>
+[ (1)*a*b+(-1)*b*a, (1)*a^2, (1)*b^2 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">quo2 := A/rel2;;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsSpecialBiserialAlgebra(quo2); IsStringAlgebra(quo2);</span>
+true
+false
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">rel3 := [A.a*A.b+A.b*A.a, A.a^2, A.b^2, A.b*A.a];   </span>
+[ (1)*a*b+(1)*b*a, (1)*a^2, (1)*b^2, (1)*b*a ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">quo3 := A/rel3;;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsSpecialBiserialAlgebra(quo3); IsStringAlgebra(quo3);</span>
+true
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">rel4 := [A.a*A.b, A.a^2, A.b^3]; </span>
+[ (1)*a*b, (1)*a^2, (1)*b^3 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">quo4 := A/rel4;;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsSpecialBiserialAlgebra(quo4); IsStringAlgebra(quo4);</span>
+false
+false 
+</pre></div>
+
+<p><a id="X840BAB827C62AA4C" name="X840BAB827C62AA4C"></a></p>
+
+<h4>4.16 <span class="Heading">Opposite algebras</span></h4>
+
+<p><a id="X85794BE082B632B9" name="X85794BE082B632B9"></a></p>
+
+<h5>4.16-1 OppositePath</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; OppositePath</code>( <var class="Arg">p</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">p</var> -- a path.<br /></p>
+
+<p>Returns: the path corresponding to <var class="Arg">p</var> in the opposite quiver.</p>
+
+<p>The following example illustrates the use of <code class="func">OppositeQuiver</code> (<a href="chap3_mj.html#X84B82F6F84A442AB"><span class="RefLink">3.5-9</span></a>) and <code class="func">OppositePath</code>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Q := Quiver( [ "u", "v" ], [ [ "u", "u", "a" ], </span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">             [ "u", "v", "b" ] ] );</span>
+&lt;quiver with 2 vertices and 2 arrows&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Qop := OppositeQuiver(Q);</span>
+&lt;quiver with 2 vertices and 2 arrows&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">VerticesOfQuiver( Qop );</span>
+[ u_op, v_op ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ArrowsOfQuiver( Qop );</span>
+[ a_op, b_op ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">OppositePath( Q.a * Q.b );</span>
+b_op*a_op
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsIdenticalObj( Q, OppositeQuiver( Qop ) );</span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">OppositePath( Qop.b_op * Qop.a_op );</span>
+a*b
+</pre></div>
+
+<p><a id="X87A86AFB782211D6" name="X87A86AFB782211D6"></a></p>
+
+<h5>4.16-2 OppositePathAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; OppositePathAlgebra</code>( <var class="Arg">A</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> -- a path algebra or quotient of path algebra.<br /></p>
+
+<p>Returns: the opposite algebra <span class="SimpleMath">\(\textit{A}^\text{op}\)</span>.</p>
+
+<p>This attribute contains the opposite algebra of an algebra.</p>
+
+<p>The opposite algebra of a path algebra is the path algebra over the opposite quiver (as given by <code class="func">OppositeQuiver</code> (<a href="chap3_mj.html#X84B82F6F84A442AB"><span class="RefLink">3.5-9</span></a>)). The opposite algebra of a quotient of a path algebra has the opposite quiver and the opposite relations of the original algebra.</p>
+
+<p>The function <code class="func">OppositePathAlgebraElement</code> (<a href="chap4_mj.html#X82C303CE808D54C1"><span class="RefLink">4.16-3</span></a>) takes an algebra element to the corresponding element in the opposite algebra.</p>
+
+<p>The opposite of the opposite of an algebra <span class="SimpleMath">\(A\)</span> is isomorphic to <span class="SimpleMath">\(A\)</span>. In QPA, we regard these two algebras to be the same, so the call <code class="code">OppositePathAlgebra(OppositePathAlgebra(A))</code> returns the object <code class="code">A</code>.</p>
+
+<p><a id="X82C303CE808D54C1" name="X82C303CE808D54C1"></a></p>
+
+<h5>4.16-3 OppositePathAlgebraElement</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; OppositePathAlgebraElement</code>( <var class="Arg">x</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">x</var> -- a path.<br /></p>
+
+<p>Returns: the element corresponding to <var class="Arg">x</var> in the opposite algebra.</p>
+
+<p><a id="X86B3EDE679B2493E" name="X86B3EDE679B2493E"></a></p>
+
+<h5>4.16-4 OppositeAlgebraHomomorphism</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; OppositeAlgebraHomomorphism</code>( <var class="Arg">A</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> -- an algebra homomorphism of two (quotients) of path algebras.<br /></p>
+
+<p>Returns: algebra homomorphism between the corresponding opposite algebras.</p>
+
+<p>The following example illustrates the use of <code class="func">OppositePathAlgebra</code> (<a href="chap4_mj.html#X87A86AFB782211D6"><span class="RefLink">4.16-2</span></a>) and <code class="func">OppositePathAlgebraElement</code> (<a href="chap4_mj.html#X82C303CE808D54C1"><span class="RefLink">4.16-3</span></a>).</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Q := Quiver( [ "u", "v" ], [ [ "u", "u", "a" ], </span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">             [ "u", "v", "b" ] ] );</span>
+&lt;quiver with 2 vertices and 2 arrows&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">A := PathAlgebra( Rationals, Q );</span>
+&lt;Rationals[&lt;quiver with 2 vertices and 2 arrows&gt;]&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">OppositePathAlgebra( A );</span>
+&lt;Rationals[&lt;quiver with 2 vertices and 2 arrows&gt;]&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">OppositePathAlgebraElement( A.u + 2*A.a + 5*A.a*A.b );</span>
+(1)*u_op+(2)*a_op+(5)*b_op*a_op
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsIdenticalObj( A, </span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">        OppositePathAlgebra( OppositePathAlgebra( A ) ) );</span>
+true
+</pre></div>
+
+<p><a id="X842527EC7F90C8C5" name="X842527EC7F90C8C5"></a></p>
+
+<h4>4.17 <span class="Heading">Tensor products of path algebras</span></h4>
+
+<p>If <span class="SimpleMath">\(\Lambda\)</span> and <span class="SimpleMath">\(\Gamma\)</span> are quotients of path algebras over the same field <span class="SimpleMath">\(F\)</span>, then their tensor product <span class="SimpleMath">\(\Lambda \tensor_F \Gamma\)</span> is also a quotient of a path algebra over <span class="SimpleMath">\(F\)</span>.</p>
+
+<p>The quiver for the tensor product path algebra is the <code class="func">QuiverProduct</code> (<a href="chap4_mj.html#X835BBBE18104654A"><span class="RefLink">4.17-1</span></a>) of the quivers of the original algebras.</p>
+
+<p>The operation <code class="func">TensorProductOfAlgebras</code> (<a href="chap4_mj.html#X7A9026937BDDFA6C"><span class="RefLink">4.17-6</span></a>) computes the tensor products of two quotients of path algebras as a quotient of a path algebra.</p>
+
+<p><a id="X835BBBE18104654A" name="X835BBBE18104654A"></a></p>
+
+<h5>4.17-1 QuiverProduct</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; QuiverProduct</code>( <var class="Arg">Q1</var>, <var class="Arg">Q2</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">Q1</var> and <var class="Arg">Q2</var> -- quivers.<br /></p>
+
+<p>Returns: the product quiver <span class="SimpleMath">\(\textit{Q1} \quiverproduct \textit{Q2}\)</span>.</p>
+
+<p>A vertex in <span class="SimpleMath">\(\textit{Q1} \quiverproduct \textit{Q2}\)</span> which is made by combining a vertex named <code class="code">u</code> in <var class="Arg">Q1</var> with a vertex <code class="code">v</code> in <var class="Arg">Q2</var> is named <code class="code">u_v</code>. Arrows are named similarly (they are made by combining an arrow from one quiver with a vertex from the other).</p>
+
+<p><a id="X858517C18242C2F1" name="X858517C18242C2F1"></a></p>
+
+<h5>4.17-2 QuiverProductDecomposition</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; QuiverProductDecomposition</code>( <var class="Arg">Q</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">Q</var> -- a quiver.<br /></p>
+
+<p>Returns: the original quivers <var class="Arg">Q</var> is a product of, if <var class="Arg">Q</var> was created by the <code class="func">QuiverProduct</code> (<a href="chap4_mj.html#X835BBBE18104654A"><span class="RefLink">4.17-1</span></a>) operation.</p>
+
+<p>The value of this attribute is an object in the category <code class="func">IsQuiverProductDecomposition</code> (<a href="chap4_mj.html#X80E3731882B80106"><span class="RefLink">4.17-3</span></a>).</p>
+
+<p><a id="X80E3731882B80106" name="X80E3731882B80106"></a></p>
+
+<h5>4.17-3 IsQuiverProductDecomposition</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsQuiverProductDecomposition</code>( <var class="Arg">object</var> )</td><td class="tdright">(&nbsp;category&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">object</var> -- any object in <strong class="pkg">GAP</strong>.</p>
+
+<p>Category for objects containing information about the relation between a product quiver and the quivers it is a product of. The quiver factors can be extracted from the decomposition object by using the [] notation (like accessing elements of a list). The decomposition object is also used by the operations <code class="func">IncludeInProductQuiver</code> (<a href="chap4_mj.html#X856E8B5B7F550647"><span class="RefLink">4.17-4</span></a>) and <code class="func">ProjectFromProductQuiver</code> (<a href="chap4_mj.html#X8455692C7E282C6C"><span class="RefLink">4.17-5</span></a>).</p>
+
+<p><a id="X856E8B5B7F550647" name="X856E8B5B7F550647"></a></p>
+
+<h5>4.17-4 IncludeInProductQuiver</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IncludeInProductQuiver</code>( <var class="Arg">L</var>, <var class="Arg">Q</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">L</var> -- a list containing the paths <span class="SimpleMath">\(q_1\)</span> and <span class="SimpleMath">\(q_2\)</span>, <span class="SimpleMath">\(Q\)</span> -- a product quiver.<br /></p>
+
+<p>Returns: a path in <var class="Arg">Q</var>.</p>
+
+<p>Includes paths <span class="SimpleMath">\(q_1\)</span> and <span class="SimpleMath">\(q_2\)</span> from two quivers into the product of these quivers, <var class="Arg">Q</var>. If at least one of <span class="SimpleMath">\(q_1\)</span> and <span class="SimpleMath">\(q_2\)</span> is a vertex, there is exactly one possible inclusion. If they are both non-trivial paths, there are several possibilities. This operation constructs the path which is the inclusion of <span class="SimpleMath">\(q_1\)</span> at the source of <span class="SimpleMath">\(q_2\)</span> multiplied with the inclusion of <span class="SimpleMath">\(q_2\)</span> at the target of <span class="SimpleMath">\(q_1\)</span>.</p>
+
+<p><a id="X8455692C7E282C6C" name="X8455692C7E282C6C"></a></p>
+
+<h5>4.17-5 ProjectFromProductQuiver</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ProjectFromProductQuiver</code>( <var class="Arg">i</var>, <var class="Arg">p</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">i</var> -- a positive integer, <var class="Arg">p</var> -- a path in the product quiver.<br /></p>
+
+<p>Returns: the projection of the product quiver path <var class="Arg">p</var> to one of the factors. Which factor it should be projected to is specified by the argument <var class="Arg">i</var>.</p>
+
+<p>The following example shows how the operations related to quiver products are used.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">q1 := Quiver( [ "u1", "u2" ], [ [ "u1", "u2", "a" ] ] );</span>
+&lt;quiver with 2 vertices and 1 arrows&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">q2 := Quiver( [ "v1", "v2", "v3" ],</span>
+                      [ [ "v1", "v2", "b" ],
+                        [ "v2", "v3", "c" ] ] );
+&lt;quiver with 3 vertices and 2 arrows&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">q1_q2 := QuiverProduct( q1, q2 );</span>
+&lt;quiver with 6 vertices and 7 arrows&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">q1_q2.u1_b * q1_q2.a_v2;</span>
+u1_b*a_v2
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IncludeInProductQuiver( [ q1.a, q2.b * q2.c ], q1_q2 );</span>
+a_v1*u2_b*u2_c
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ProjectFromProductQuiver( 2, q1_q2.a_v1 * q1_q2.u2_b * q1_q2.u2_c );</span>
+b*c
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">q1_q2_dec := QuiverProductDecomposition( q1_q2 );</span>
+&lt;object&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">q1_q2_dec[ 1 ];</span>
+&lt;quiver with 2 vertices and 1 arrows&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">q1_q2_dec[ 1 ] = q1;</span>
+true  
+</pre></div>
+
+<p><a id="X7A9026937BDDFA6C" name="X7A9026937BDDFA6C"></a></p>
+
+<h5>4.17-6 TensorProductOfAlgebras</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; TensorProductOfAlgebras</code>( <var class="Arg">FQ1</var>, <var class="Arg">FQ2</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">FQ1</var> and <var class="Arg">FQ2</var> -- (quotients of) path algebras.<br /></p>
+
+<p>Returns: The tensor product of <var class="Arg">FQ1</var> and <var class="Arg">FQ2</var>.</p>
+
+<p>The result is a quotient of a path algebra, whose quiver is the <code class="func">QuiverProduct</code> (<a href="chap4_mj.html#X835BBBE18104654A"><span class="RefLink">4.17-1</span></a>) of the quivers of the operands.</p>
+
+<p><a id="X7EE8921D787C8377" name="X7EE8921D787C8377"></a></p>
+
+<h5>4.17-7 TensorAlgebrasInclusion</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; TensorAlgebrasInclusion</code>( <var class="Arg">T</var>, <var class="Arg">n</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">T</var> -- quiver algebra, <var class="Arg">n</var> -- 1 or 2.<br /></p>
+
+<p>Returns: Returns the inclusion <span class="SimpleMath">\(A \hookrightarrow A \otimes B\)</span> or the inclusion <span class="SimpleMath">\(B \hookrightarrow A \otimes B\)</span> if <span class="SimpleMath">\(n = 1\)</span> or <span class="SimpleMath">\(n = 2\)</span>, respectively.</p>
+
+<p><a id="X7B31F4F680135E72" name="X7B31F4F680135E72"></a></p>
+
+<h5>4.17-8 SimpleTensor</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; SimpleTensor</code>( <var class="Arg">L</var>, <var class="Arg">T</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">L</var> -- a list containing two elements <span class="SimpleMath">\(x\)</span> and <span class="SimpleMath">\(y\)</span> of two (quotients of) path algebras, <var class="Arg">T</var> -- the tensor product of these algebras.<br /></p>
+
+<p>Returns: the simple tensor <span class="SimpleMath">\(x \tensor y\)</span>.</p>
+
+<p><span class="SimpleMath">\(x \tensor y\)</span> is in the tensor product <var class="Arg">T</var> (produced by <code class="func">TensorProductOfAlgebras</code> (<a href="chap4_mj.html#X7A9026937BDDFA6C"><span class="RefLink">4.17-6</span></a>)).</p>
+
+<p><a id="X7F0EBF88866A537D" name="X7F0EBF88866A537D"></a></p>
+
+<h5>4.17-9 TensorProductDecomposition</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; TensorProductDecomposition</code>( <var class="Arg">T</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">T</var> -- a tensor product of path algebras.<br /></p>
+
+<p>Returns: a list of the factors in the tensor product.</p>
+
+<p><var class="Arg">T</var> should be produced by <code class="func">TensorProductOfAlgebras</code> (<a href="chap4_mj.html#X7A9026937BDDFA6C"><span class="RefLink">4.17-6</span></a>)).</p>
+
+<p>The following example shows how the operations for tensor products of quotients of path algebras are used.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">q1 := Quiver( [ "u1", "u2" ], [ [ "u1", "u2", "a" ] ] );</span>
+&lt;quiver with 2 vertices and 1 arrows&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">q2 := Quiver( [ "v1", "v2", "v3", "v4" ],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">                      [ [ "v1", "v2", "b" ],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">                        [ "v1", "v3", "c" ],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">                        [ "v2", "v4", "d" ],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">                        [ "v3", "v4", "e" ] ] );</span>
+&lt;quiver with 4 vertices and 4 arrows&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">fq1 := PathAlgebra( Rationals, q1 );</span>
+&lt;Rationals[&lt;quiver with 2 vertices and 1 arrows&gt;]&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">fq2 := PathAlgebra( Rationals, q2 );</span>
+&lt;Rationals[&lt;quiver with 4 vertices and 4 arrows&gt;]&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">I := Ideal( fq2, [ fq2.b * fq2.d - fq2.c * fq2.e ] );</span>
+&lt;two-sided ideal in &lt;Rationals[&lt;quiver with 4 vertices and 4 arrows&gt;]&gt;
+    , (1 generators)&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">quot := fq2 / I;</span>
+&lt;Rationals[&lt;quiver with 4 vertices and 4 arrows&gt;]/
+&lt;two-sided ideal in &lt;Rationals[&lt;quiver with 4 vertices and 4 arrows&gt;]&gt;
+    , (1 generators)&gt;&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">t := TensorProductOfAlgebras( fq1, quot );</span>
+&lt;Rationals[&lt;quiver with 8 vertices and 12 arrows&gt;]/
+&lt;two-sided ideal in &lt;Rationals[&lt;quiver with 8 vertices and 
+    12 arrows&gt;]&gt;, (6 generators)&gt;&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">SimpleTensor( [ fq1.a, quot.b ], t );</span>
+[(1)*u1_b*a_v2]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">t_dec := TensorProductDecomposition( t );</span>
+[ &lt;Rationals[&lt;quiver with 2 vertices and 1 arrows&gt;]&gt;, 
+  &lt;Rationals[&lt;quiver with 4 vertices and 4 arrows&gt;]/
+    &lt;two-sided ideal in &lt;Rationals[&lt;quiver with 4 vertices and 
+        4 arrows&gt;]&gt;, (1 generators)&gt;&gt; ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">t_dec[ 1 ] = fq1;</span>
+true
+</pre></div>
+
+<p><a id="X820195C47E2BE7E0" name="X820195C47E2BE7E0"></a></p>
+
+<h5>4.17-10 EnvelopingAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; EnvelopingAlgebra</code>( <var class="Arg">A</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> -- a (quotient of) a path algebra. <br /></p>
+
+<p>Returns: the enveloping algebra <span class="SimpleMath">\(\textit{A}^\text{e} = \textit{A}^\text{op} \tensor \textit{A}\)</span> of <var class="Arg">A</var>.</p>
+
+<p><a id="X8210F6627AB95229" name="X8210F6627AB95229"></a></p>
+
+<h5>4.17-11 EnvelopingAlgebraHomomorphism</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; EnvelopingAlgebraHomomorphism</code>( <var class="Arg">f</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">f</var> -- an algebra homomorphism of two (quotients of) a path algebras. <br /></p>
+
+<p>Returns: the algebra homomorphism between the corresponding enveloping algebras the source of <var class="Arg">f</var> and the range of <var class="Arg">f</var>.</p>
+
+<p><a id="X7AE13B567B5F72FC" name="X7AE13B567B5F72FC"></a></p>
+
+<h5>4.17-12 IsEnvelopingAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsEnvelopingAlgebra</code>( <var class="Arg">A</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> -- an algebra.<br /></p>
+
+<p>Returns: true if and only if <var class="Arg">A</var> is the result of a call to <code class="func">EnvelopingAlgebra</code> (<a href="chap4_mj.html#X820195C47E2BE7E0"><span class="RefLink">4.17-10</span></a>).</p>
+
+<p><a id="X80D827747ACD76FA" name="X80D827747ACD76FA"></a></p>
+
+<h5>4.17-13 AlgebraAsModuleOverEnvelopingAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; AlgebraAsModuleOverEnvelopingAlgebra</code>( <var class="Arg">A</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> -- a (quotient of a) path algebra <var class="Arg">A</var>. <br /></p>
+
+<p>Returns: the algebra <var class="Arg">A</var> as a right module over the enveloping algebra of <var class="Arg">A</var>.</p>
+
+<p><a id="X7A4C262287D74AB0" name="X7A4C262287D74AB0"></a></p>
+
+<h5>4.17-14 DualOfAlgebraAsModuleOverEnvelopingAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; DualOfAlgebraAsModuleOverEnvelopingAlgebra</code>( <var class="Arg">A</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> -- a finite dimensional (admissible quotient of) a path algebra <var class="Arg">A</var>. <br /></p>
+
+<p>Returns: the algebra <var class="Arg">A</var> as a right module over the enveloping algebra of <var class="Arg">A</var>.</p>
+
+<p><a id="X8101415F7FFB34CF" name="X8101415F7FFB34CF"></a></p>
+
+<h5>4.17-15 TrivialExtensionOfQuiverAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; TrivialExtensionOfQuiverAlgebra</code>( <var class="Arg">A</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> -- a finite dimensional (admissible quotient of) a path algebra <var class="Arg">A</var>. <br /></p>
+
+<p>Returns: the trivial extension algebra <span class="SimpleMath">\(T(A)=A\oplus D(A)\)</span> of the entered algebra <var class="Arg">A</var>.</p>
+
+<p><a id="X81D98182822E8911" name="X81D98182822E8911"></a></p>
+
+<h5>4.17-16 TrivialExtensionOfQuiverAlgebraProjection</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; TrivialExtensionOfQuiverAlgebraProjection</code>( <var class="Arg">A</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> -- a finite dimensional (admissible quotient of) a path algebra <var class="Arg">A</var>. <br /></p>
+
+<p>Returns: the natural algebra projection form trivial extension <span class="SimpleMath">\(T(A)\)</span> to <var class="Arg">A</var>.</p>
+
+<p><a id="X79B8B91F8097BB80" name="X79B8B91F8097BB80"></a></p>
+
+<h4>4.18 <span class="Heading">Operations on quiver algebras</span></h4>
+
+<p><a id="X7EE5A11883B86971" name="X7EE5A11883B86971"></a></p>
+
+<h5>4.18-1 QuiverAlgebraOfAmodAeA</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; QuiverAlgebraOfAmodAeA</code>( <var class="Arg">A</var>, <var class="Arg">elist</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var>, <var class="Arg">elist</var> - a finite dimensional quiver algebra and a list of integers.<br /></p>
+
+<p>Returns: a quiver algebra isomorphic <var class="Arg">A</var> modulo the ideal generated by a sum of vertices in <var class="Arg">A</var>.</p>
+
+<p>Given a quiver algebra <var class="Arg">A</var> and a sum of vertices <span class="SimpleMath">\(e\)</span>, this function computes the quiver algebra <span class="SimpleMath">\(A/AeA\)</span>. The list <var class="Arg">elist</var> is a list of integers, where each integer occurring in the list corresponds to the position of the vertex in the vertices defining the idempotent <span class="SimpleMath">\(e\)</span>.</p>
+
+<p><a id="X7B2D7385829F5EC6" name="X7B2D7385829F5EC6"></a></p>
+
+<h5>4.18-2 QuiverAlgebraOfeAe</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; QuiverAlgebraOfeAe</code>( <var class="Arg">A</var>, <var class="Arg">elist</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var>, <var class="Arg">e</var> - a finite dimensional quiver algebra and an idempotent.<br /></p>
+
+<p>Returns: a quiver algebra isomorphic <span class="SimpleMath">\(eAe\)</span>, where <var class="Arg">A</var> is the entered algebra and <var class="Arg">e</var> is the entered idempotent.</p>
+
+<p>Given a quiver algebra <var class="Arg">A</var> and an idempotent <var class="Arg">e</var>, this function computes the quiver algebra isomorphic to <span class="SimpleMath">\(eAe\)</span>. The function checks if the entered element <var class="Arg">e</var> is an idempotent in <var class="Arg">A</var>.</p>
+
+<p><a id="X8561BCB6835D561F" name="X8561BCB6835D561F"></a></p>
+
+<h4>4.19 <span class="Heading">Finite dimensional algebras over finite fields</span></h4>
+
+<p><a id="X810A29FB7E6EA24D" name="X810A29FB7E6EA24D"></a></p>
+
+<h5>4.19-1 AlgebraAsQuiverAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; AlgebraAsQuiverAlgebra</code>( <var class="Arg">A</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> - a finite dimensional algebra over a finite field.<br /></p>
+
+<p>Returns: a (quotient of a) path algebra isomorphic to the entered algebra <var class="Arg">A</var> whenever possible and a list of the images of the vertices and the arrows in this path algebra in <var class="Arg">A</var>.</p>
+
+<p>The operation only applies when <var class="Arg">A</var> is a finite dimensional indecomposable algebra over a finite field, otherwise it returns an error message. It checks the algebra <var class="Arg">A</var> is basic and elementary over some field and otherwise it returns an error message. In the list of images the images of the vertices are listed first and then the images of the arrows.</p>
+
+<p><a id="X7E9078077EE8B51B" name="X7E9078077EE8B51B"></a></p>
+
+<h5>4.19-2 BlocksOfAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; BlocksOfAlgebra</code>( <var class="Arg">A</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> - a finite dimensional algebra.<br /></p>
+
+<p>Returns: a block decomposition of the entered algebra <var class="Arg">A</var> as a list of indecomposable algebras.</p>
+
+<p><a id="X84B423137F933795" name="X84B423137F933795"></a></p>
+
+<h5>4.19-3 IsBasicAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsBasicAlgebra</code>( <var class="Arg">A</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> - a finite dimensional algebra over a finite field.<br /></p>
+
+<p>Returns: true if the entered algebra <var class="Arg">A</var> is a (finite dimensional) basic algebra and false otherwise. This method only applies to algebras over finite fields.</p>
+
+<p><a id="X7D30E9C878221B42" name="X7D30E9C878221B42"></a></p>
+
+<h5>4.19-4 IsElementaryAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsElementaryAlgebra</code>( <var class="Arg">A</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> - a finite dimensional algebra over a finite field.<br /></p>
+
+<p>Returns: true if the entered algebra <var class="Arg">A</var> is a (finite dimensional) elementary algebra and false otherwise. This method only applies to algebras over finite fields.</p>
+
+<p>The algebra <var class="Arg">A</var> need not to be an elementary algebra over the field which it is defined, but be an elementary algebra over a field extension.</p>
+
+<p><a id="X7B35109B8176FE56" name="X7B35109B8176FE56"></a></p>
+
+<h5>4.19-5 PreprojectiveAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; PreprojectiveAlgebra</code>( <var class="Arg">M</var>, <var class="Arg">n</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; PreprojectiveAlgebra</code>( <var class="Arg">A</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments (first version): <var class="Arg">M</var> - a path algebra module over finite dimensional hereditary algebra over a finite field, <var class="Arg">n</var> - an integer.<br /> Arguments (second version): <var class="Arg">A</var> - a path algebra.<br /></p>
+
+<p>Returns: in the first version the preprojective algebra of the module <var class="Arg">M</var> if it only has support up to degree <var class="Arg">n</var>. In the second version it returns the preprojective algebra of a hereditary algebra given by a path algebra over a field.</p>
+
+<p><a id="X80C0C6C37C4A2ABD" name="X80C0C6C37C4A2ABD"></a></p>
+
+<h5>4.19-6 PrimitiveIdempotents</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; PrimitiveIdempotents</code>( <var class="Arg">A</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> - a finite dimensional simple algebra over a finite field.<br /></p>
+
+<p>Returns: a complete set of primitive idempotents <span class="SimpleMath">\(\{ e_i \}\)</span> such that <span class="SimpleMath">\(A \simeq Ae_1 + ... + Ae_n\)</span>.</p>
+
+<p>TODO: Understand what this function actually does.</p>
+
+<p><a id="X7DDBF6F47A2E021C" name="X7DDBF6F47A2E021C"></a></p>
+
+<h4>4.20 <span class="Heading">Algebras</span></h4>
+
+<p><a id="X821B7B047871B42D" name="X821B7B047871B42D"></a></p>
+
+<h5>4.20-1 LiftingCompleteSetOfOrthogonalIdempotents</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; LiftingCompleteSetOfOrthogonalIdempotents</code>( <var class="Arg">f</var>, <var class="Arg">e</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">map</var> - an algebra homomorphism, <var class="Arg">idempotents</var> elements in the range of <var class="Arg">map</var>.<br /></p>
+
+<p>Returns: a complete set of orthogonal idempotents in <code class="code">Source(f)</code> which are liftings of the entered <var class="Arg">idempotents</var> whenever possible.</p>
+
+<p>The operation only applies when the domain of <var class="Arg">f</var> is finite dimensional. It checks if the list of elements <var class="Arg">idempotents</var> is a set complete set of orthogonal idempotents. If some idempotent in <var class="Arg">idempotents</var> is not in the image of <var class="Arg">map</var>, then an error message is returned. If all idempotents in <var class="Arg">idempotents</var> has a preimage, then this operation returns a complete set of orthogonal of idempotents which is a lifting of the idempotents in <var class="Arg">idempotents</var> to the source of <var class="Arg">f</var> whenever possible or it returns fail.</p>
+
+<p><a id="X83041BDF78BF3CCA" name="X83041BDF78BF3CCA"></a></p>
+
+<h5>4.20-2 LiftingIdempotent</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; LiftingIdempotent</code>( <var class="Arg">f</var>, <var class="Arg">e</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">f</var> - an algebra homomorphism, <var class="Arg">e</var> an element in the range of <var class="Arg">f</var>.<br /></p>
+
+<p>Returns: an idempotent <span class="SimpleMath">\(a\)</span> in <code class="code">Source(f)</code> such that <code class="code">ImageElm(f, a) = e</code> whenever possible. If <var class="Arg">e</var> is not in the image of <var class="Arg">f</var>, an error message is given, and if <var class="Arg">e</var> does not have a preimage by <var class="Arg">f</var> <code class="code">fail</code> is returned.</p>
+
+<p>The operation only applies when the domain of <var class="Arg">f</var> is finite dimensional. It checks if the element <var class="Arg">e</var> is an idempotent. If <var class="Arg">e</var> is not in the image of <var class="Arg">f</var>, then an error message is returned. If <var class="Arg">e</var> has a preimage, then this operation returns a lifting of <var class="Arg">e</var> to the source of <var class="Arg">f</var> whenever possible or it returns fail. Using the algorithm described in the proof of Proposition 27.1 in Anderson and Fuller, Rings and categories of modules, second edition, GMT, Springer-Verlag.</p>
+
+<p><a id="X850B9F12806FF76B" name="X850B9F12806FF76B"></a></p>
+
+<h4>4.21 <span class="Heading">Saving and reading quotients of path algebras to and from a
+  file</span></h4>
+
+<p><a id="X82A638C77FA75549" name="X82A638C77FA75549"></a></p>
+
+<h5>4.21-1 ReadAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ReadAlgebra</code>( <var class="Arg">string</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">string</var> - a name of a file.<br /></p>
+
+<p>Returns: a finite dimension quotient <span class="SimpleMath">\(A\)</span> of a path algebra saved by command <code class="code">SaveAlgebra</code> to the file <var class="Arg">string</var>. This function creates the algebra <span class="SimpleMath">\(A\)</span> again, which can be saved to a file again with the function <code class="code">SaveAlgebra</code>.</p>
+
+<p><a id="X7E60DDCE848CB739" name="X7E60DDCE848CB739"></a></p>
+
+<h5>4.21-2 SaveAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; SaveAlgebra</code>( <var class="Arg">A</var>, <var class="Arg">string</var>, <var class="Arg">action</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: <var class="Arg">A</var> - an algebra, <var class="Arg">string</var> - a name of a file, <var class="Arg">action</var> - a string.<br /></p>
+
+<p>Returns: or creates a file with name <var class="Arg">string</var>, storing the algebra <var class="Arg">A</var>, which can be opened again with the function <code class="code">ReadAlgebra</code> and reconstructed. The last argument <var class="Arg">action</var> decides if the file <var class="Arg">string</var>, if it exists already, should be overwritten, not overwritten or the user should be prompted for an answer to this question. The corresponding user inputs are: "delete", "keep" or "query".</p>
+
+
+<div class="chlinkprevnextbot">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap3_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap5_mj.html">[Next Chapter]</a>&nbsp;  </div>
+
+
+<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chap3_mj.html">3</a>  <a href="chap4_mj.html">4</a>  <a href="chap5_mj.html">5</a>  <a href="chap6_mj.html">6</a>  <a href="chap7_mj.html">7</a>  <a href="chap8_mj.html">8</a>  <a href="chap9_mj.html">9</a>  <a href="chap10_mj.html">10</a>  <a href="chap11_mj.html">11</a>  <a href="chap12_mj.html">12</a>  <a href="chap13_mj.html">13</a>  <a href="chapBib_mj.html">Bib</a>  <a href="chapInd_mj.html">Ind</a>  </div>
+
+<hr />
+<p class="foot">generated by <a href="https://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc">GAPDoc2HTML</a></p>
+</body>
+</html>

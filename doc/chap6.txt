@@ -1,0 +1,1371 @@
+  
+  [1X6 [33X[0;0YRight Modules over Path Algebras[133X[101X
+  
+  [33X[0;0YThere are two implementations of right modules over path algebras. The first
+  type  are  matrix  modules  that  are  defined  by  vector spaces and linear
+  transformations.   The  second  type  is  presentations  defined  by  vertex
+  projective modules (see [14X6.7[114X).[133X
+  
+  
+  [1X6.1 [33X[0;0YModules of matrix type[133X[101X
+  
+  [33X[0;0YThe first implementation of right modules over path algebras views them as a
+  collection  of  vector spaces and linear transformations. Each vertex in the
+  path  algebra  is  associated  with  a  vector  space  over the field of the
+  algebra.  For each vertex [23Xv[123X of the algebra there is a vector space [23XV[123X. Arrows
+  of the algebra are then associated with linear transformations which map the
+  vector  space of the source vertex to the vector space of the target vertex.
+  For  example,  if  [23Xa[123X is an arrow from [23Xv[123X to [23Xw[123X, then there is a transformation
+  from  vector  space [23XV[123X to [23XW[123X. Given the dimension vector of the module we want
+  to  construct,  the  information  we  need to provide is the non-zero linear
+  transformations. The size of the matrices for the zero linear transformation
+  are  given when we know the dimension vector. Alternatively, if we enter all
+  the  transformations,  we  can  create  the  vector  spaces  of  the correct
+  dimension,  and check to make sure the dimensions all agree. We can create a
+  module in this way as follows.[133X
+  
+  [1X6.1-1 RightModuleOverPathAlgebra[101X
+  
+  [33X[1;0Y[29X[2XRightModuleOverPathAlgebra[102X( [3XA[103X, [3Xdim_vector[103X, [3Xgens[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XRightModuleOverPathAlgebra[102X( [3XA[103X, [3Xmats[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XRightModuleOverPathAlgebraNC[102X( [3XA[103X, [3Xmats[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments:  [3XA[103X  --  a  (quotient  of  a)  path  algebra and [3Xdim_vector[103X -- the
+  dimension  vector  of  the  module,  [3Xgens[103X or [3Xmats[103X -- a list of matrices. For
+  further explanations, see below.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya module over a path algebra or over a qoutient of a path algebra.[133X
+  
+  [33X[0;0YIn  the first function call, the second argument [3Xdim_vector[103X is the dimension
+  vector of the module, and the last argument [3Xgens[103X (maybe an empty list [10X[][110X) is
+  a  list of elements of the form [10X["label",matrix][110X. This function constructs a
+  right  module  over  a  (quotient of a) path algebra [3XA[103X with dimension vector
+  [3Xdim_vector[103X,  and where the generators/arrows with a non-zero action is given
+  in    the    list    [3Xgens[103X.    The    format    of    the    list   [3Xgens[103X   is
+  [["a",[matrix_a]],["b",[matrix_b]],...],  where  "a"  and  "b" are labels of
+  arrows  used  when  the  underlying  quiver  was created and matrix_? is the
+  action of the algebra element corresponding to the arrow with label "?". The
+  action of the arrows can be entered in any order. The function checks (i) if
+  the algebra [3XA[103X is a (quotient of a) path algebra, (ii) if the matrices of the
+  action of the arrows have the correct size according to the dimension vector
+  entered,  (iii)  also  whether  or  not  the  relations  of  the algebra are
+  satisfied and (iv) if all matrices are over the correct field.[133X
+  
+  [33X[0;0YIn  the  second  function  call, the list of matrices [3Xmats[103X can take on three
+  different forms. The function checks (i), (ii), (iii) and (iv) as above.[133X
+  
+  [33X[0;0Y1) The argument [3Xmats[103X can be a list of blocks of matrices where each block is
+  of  the  form,  `["name of arrow",matrix]'. So if you named your arrows when
+  you  created  the  quiver,  then  you can associate a matrix with that arrow
+  explicitly.[133X
+  
+  [33X[0;0Y2)  The  argument  [3Xmats[103X is just a list of matrices, and the matrices will be
+  associated  to  the  arrows in the order of arrow creation. If when creating
+  the  quiver,  the arrow [23Xa[123X was created first, then [23Xa[123X would be associated with
+  the first matrix.[133X
+  
+  [33X[0;0Y3)  The  method  is  very much the same as the second method. If [3Xarrows[103X is a
+  list  of  the  arrows of the quiver (obtained for instance through [10Xarrows :=
+  ArrowsOfQuiver(Q);[110X),    the    argument    [3Xmats[103X    can   have   the   format
+  [10X[[arrows[1],matrix_1],[arrows[2],matrix_2],.... ].[110X[133X
+  
+  [33X[0;0YIf  you  would  like  the  trivial vector space at any vertex, then for each
+  incoming arrow "a", associate it with a list of the form [10X["a",[n,0]][110X where n
+  is  the  dimension  of  the  vector space at the source vertex of the arrow.
+  Likewise  for  all  outgoing  arrows  "b", associate them to a block of form
+  [10X["b",[0,n]][110X  where  n  is  the  dimension  of the vector space at the target
+  vertex of the arrow.[133X
+  
+  [33X[0;0YThe third function call is the same as the second except that the check (iv)
+  is not performed.[133X
+  
+  [33X[0;0YA  warning  though,  the  function assumes that you do not mix the styles of
+  inputting  the  matrices/linear  transformations associated to the arrows in
+  the  quiver.  Furthermore  in  the two last versions, each arrow needs to be
+  assigned a matrix, otherwise an error will be returned.[133X
+  
+  [1X6.1-2 RightAlgebraModuleToPathAlgebraMatModule[101X
+  
+  [33X[1;0Y[29X[2XRightAlgebraModuleToPathAlgebraMatModule[102X( [3XM[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XM[103X -- a right module over an algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya module over a (qoutient of a) path algebra.[133X
+  
+  [33X[0;0YThis  function constructs a right module over a (quotient of a) path algebra
+  [22XA[122X  from a RightAlgebraModule over the same algebra [22XA[122X. The function checks if
+  [22XA[122X  actually  is  a  quotient of a path algebra and if the module [22XM[122X is finite
+  dimensional and if not, it returns an error message.[133X
+  
+  [1X6.1-3 \=[101X
+  
+  [33X[1;0Y[29X[2X\=[102X( [3XM[103X, [3XN[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XM, N[103X -- two path algebra matrix modules.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue  if  [3XM[103X  and  [3XN[103X  has  the  same dimension vectors and the same
+            matrices defining the module structure.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XQ := Quiver(2, [[1, 2, "a"], [2, 1, "b"],[1, 1, "c"]]);[127X[104X
+    [4X[28X<quiver with 2 vertices and 3 arrows>[128X[104X
+    [4X[25Xgap>[125X [27XP := PathAlgebra(Rationals, Q);[127X[104X
+    [4X[28X<Rationals[<quiver with 2 vertices and 3 arrows>]>[128X[104X
+    [4X[25Xgap>[125X [27Xmatrices := [["a", [[1,0,0],[0,1,0]]], [127X[104X
+    [4X[25X>[125X [27X ["b", [[0,1],[1,0],[0,1]]],[127X[104X
+    [4X[25X>[125X [27X ["c", [[0,0],[1,0]]]];[127X[104X
+    [4X[28X[ [ "a", [ [ 1, 0, 0 ], [ 0, 1, 0 ] ] ], [128X[104X
+    [4X[28X  [ "b", [ [ 0, 1 ], [ 1, 0 ], [ 0, 1 ] ] ], [128X[104X
+    [4X[28X  [ "c", [ [ 0, 0 ], [ 1, 0 ] ] ] ][128X[104X
+    [4X[25Xgap>[125X [27XM := RightModuleOverPathAlgebra(P,matrices);[127X[104X
+    [4X[28X<[ 2, 3 ]>[128X[104X
+    [4X[25Xgap>[125X [27Xmats := [ [[1,0,0], [0,1,0]], [[0,1],[1,0],[0,1]], [127X[104X
+    [4X[25X>[125X [27X          [[0,0],[1,0]] ];; [127X[104X
+    [4X[25Xgap>[125X [27XN := RightModuleOverPathAlgebra(P,mats); [127X[104X
+    [4X[28X<[ 2, 3 ]>[128X[104X
+    [4X[25Xgap>[125X [27Xarrows := ArrowsOfQuiver(Q);[127X[104X
+    [4X[28X[ a, b, c ][128X[104X
+    [4X[25Xgap>[125X [27Xmats := [[arrows[1], [[1,0,0],[0,1,0]]],[127X[104X
+    [4X[25X>[125X [27X         [arrows[2], [[0,1],[1,0],[0,1]]], [127X[104X
+    [4X[25X>[125X [27X         [arrows[3], [[0,0],[1,0]]]];;[127X[104X
+    [4X[25Xgap>[125X [27XN := RightModuleOverPathAlgebra(P,mats); [127X[104X
+    [4X[28X<[ 2, 3 ]>[128X[104X
+    [4X[25Xgap>[125X [27X# Next we give the vertex simple associate to vertex 1. [127X[104X
+    [4X[25Xgap>[125X [27XM := RightModuleOverPathAlgebra(P,[["a",[1,0]],["b",[0,1]],[127X[104X
+    [4X[25X>[125X [27X             ["c",[[0]]]]);[127X[104X
+    [4X[28X<[ 1, 0 ]>[128X[104X
+    [4X[25Xgap>[125X [27X# The zero module. [127X[104X
+    [4X[25Xgap>[125X [27XM := RightModuleOverPathAlgebra(P,[["a",[0,0]],["b",[0,0]],[127X[104X
+    [4X[25X>[125X [27X             ["c",[0,0]]]);[127X[104X
+    [4X[28X<[ 0, 0 ]>[128X[104X
+    [4X[25Xgap>[125X [27XDimension(M);[127X[104X
+    [4X[28X0[128X[104X
+    [4X[25Xgap>[125X [27XBasis(M);[127X[104X
+    [4X[28XBasis( <[ 0, 0 ]>, ... )[128X[104X
+    [4X[25Xgap>[125X [27Xmatrices := [["a", [[1,0,0],[0,1,0]]], ["b",[127X[104X
+    [4X[25X>[125X [27X [[0,1],[1,0],[0,1]]], ["c", [[0,0],[1,0]]]];[127X[104X
+    [4X[28X[ [ "a", [ [ 1, 0, 0 ], [ 0, 1, 0 ] ] ], [128X[104X
+    [4X[28X  [ "b", [ [ 0, 1 ], [ 1, 0 ], [ 0, 1 ] ] ], [128X[104X
+    [4X[28X  [ "c", [ [ 0, 0 ], [ 1, 0 ] ] ] ][128X[104X
+    [4X[25Xgap>[125X [27XM := RightModuleOverPathAlgebra(P,[2,3],matrices);[127X[104X
+    [4X[28X<[ 2, 3 ]>[128X[104X
+    [4X[25Xgap>[125X [27XM := RightModuleOverPathAlgebra(P,[2,3],[]);  [127X[104X
+    [4X[28X<[ 2, 3 ]>[128X[104X
+    [4X[25Xgap>[125X [27XA := P/[P.c^2 - P.a*P.b, P.a*P.b*P.c, P.b*P.c];         [127X[104X
+    [4X[28X<Rationals[<quiver with 2 vertices and 3 arrows>]/[128X[104X
+    [4X[28X<two-sided ideal in <Rationals[<quiver with 2 vertices and 3 arrows>]>[128X[104X
+    [4X[28X    , (4 generators)>>[128X[104X
+    [4X[25Xgap>[125X [27XDimension(A);[127X[104X
+    [4X[28X9[128X[104X
+    [4X[25Xgap>[125X [27XAmod := RightAlgebraModule(A,\*,A);                       [127X[104X
+    [4X[28X<9-dimensional right-module over <Rationals[<quiver with [128X[104X
+    [4X[28X2 vertices and 3 arrows>]/[128X[104X
+    [4X[28X<two-sided ideal in <Rationals[<quiver with 2 vertices and 3 arrows>]>[128X[104X
+    [4X[28X    , (4 generators)>>>[128X[104X
+    [4X[25Xgap>[125X [27XRightAlgebraModuleToPathAlgebraMatModule(Amod);[127X[104X
+    [4X[28X<[ 4, 5 ]> [128X[104X
+  [4X[32X[104X
+  
+  
+  [1X6.2 [33X[0;0YCategories Of Matrix Modules[133X[101X
+  
+  [1X6.2-1 IsPathAlgebraMatModule[101X
+  
+  [33X[1;0Y[29X[2XIsPathAlgebraMatModule[102X( [3Xobject[103X ) [32X filter[133X
+  [6XReturns:[106X  [33X[0;10Ytrue  or false depending on whether [3Xobject[103X belongs to the category
+            [10XIsPathAlgebraMatModule[110X.[133X
+  
+  [33X[0;0YThese  matrix  modules  fall  under  the category `IsAlgebraModule' with the
+  added  filter  of `IsPathAlgebraMatModule'. Operations available for algebra
+  modules   can   be   applied   to   path  algebra  modules.  See  [14XReference:
+  Representations  of Algebras[114X for more details. These modules are also vector
+  spaces  over  the  field  of the path algebra. So refer to [14XReference: Vector
+  Spaces[114X for descriptions of the basis and elementwise operations available.[133X
+  
+  
+  [1X6.3 [33X[0;0YActing on Module Elements[133X[101X
+  
+  [1X6.3-1 ^[101X
+  
+  [33X[1;0Y[29X[2X^[102X( [3Xm[103X, [3Xp[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xm[103X -- an element in a module, [3Xp[103X -- an element in a quiver algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe element [3Xm[103X multiplied with [3Xp[103X.[133X
+  
+  [33X[0;0YWhen you act on an module element [23Xm[123X by an arrow [23Xa[123X from [23Xv[123X to [23Xw[123X, the component
+  of  [23Xm[123X  from [23XV[123X is acted on by [23XL[123X the transformation associated to [23Xa[123X and placed
+  in the component [23XW[123X. All other components are given the value [23X0[123X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27X# Using the path algebra P from the above example. [127X[104X
+    [4X[25Xgap>[125X [27Xmatrices := [["a", [[1,0,0],[0,1,0]]], [127X[104X
+    [4X[25X>[125X [27X["b", [[0,1],[1,0],[0,1]]], ["c", [[0,0],[1,0]]]];[127X[104X
+    [4X[28X[ [ "a", [ [ 1, 0, 0 ], [ 0, 1, 0 ] ] ], [128X[104X
+    [4X[28X  [ "b", [ [ 0, 1 ], [ 1, 0 ], [ 0, 1 ] ] ], [128X[104X
+    [4X[28X  [ "c", [ [ 0, 0 ], [ 1, 0 ] ] ] ][128X[104X
+    [4X[25Xgap>[125X [27XM := RightModuleOverPathAlgebra(P,matrices);[127X[104X
+    [4X[28X<[ 2, 3 ]>[128X[104X
+    [4X[25Xgap>[125X [27XB:=BasisVectors(Basis(M));[127X[104X
+    [4X[28X[ [ [ 1, 0 ], [ 0, 0, 0 ] ], [ [ 0, 1 ], [ 0, 0, 0 ] ], [128X[104X
+    [4X[28X  [ [ 0, 0 ], [ 1, 0, 0 ] ], [ [ 0, 0 ], [ 0, 1, 0 ] ], [128X[104X
+    [4X[28X  [ [ 0, 0 ], [ 0, 0, 1 ] ] ][128X[104X
+    [4X[25Xgap>[125X [27XB[1] + B[3];[127X[104X
+    [4X[28X[ [ 1, 0 ], [ 1, 0, 0 ] ][128X[104X
+    [4X[25Xgap>[125X [27X4*B[2];[127X[104X
+    [4X[28X[ [ 0, 4 ], [ 0, 0, 0 ] ][128X[104X
+    [4X[25Xgap>[125X [27Xm := 5*B[1] + 2*B[4]+B[5];[127X[104X
+    [4X[28X[ [ 5, 0 ], [ 0, 2, 1 ] ][128X[104X
+    [4X[25Xgap>[125X [27Xm^(P.a*P.b-P.c);[127X[104X
+    [4X[28X[ [ 0, 5 ], [ 0, 0, 0 ] ][128X[104X
+    [4X[25Xgap>[125X [27XB[1]^P.a;[127X[104X
+    [4X[28X[ [ 0, 0 ], [ 1, 0, 0 ] ][128X[104X
+    [4X[25Xgap>[125X [27XB[2]^P.b;[127X[104X
+    [4X[28X[ [ 0, 0 ], [ 0, 0, 0 ] ][128X[104X
+    [4X[25Xgap>[125X [27XB[4]^(P.b*P.c);[127X[104X
+    [4X[28X[ [ 0, 0 ], [ 0, 0, 0 ] ] [128X[104X
+  [4X[32X[104X
+  
+  
+  [1X6.4 [33X[0;0YOperations on representations[133X[101X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XQ  := Quiver(3,[[1,2,"a"],[1,2,"b"],[2,2,"c"],[2,3,"d"],[127X[104X
+    [4X[25X>[125X [27X[3,1,"e"]]);[127X[104X
+    [4X[28X<quiver with 3 vertices and 5 arrows>[128X[104X
+    [4X[25Xgap>[125X [27XKQ := PathAlgebra(Rationals, Q);[127X[104X
+    [4X[28X<Rationals[<quiver with 3 vertices and 5 arrows>]>[128X[104X
+    [4X[25Xgap>[125X [27Xgens := GeneratorsOfAlgebra(KQ);[127X[104X
+    [4X[28X[ (1)*v1, (1)*v2, (1)*v3, (1)*a, (1)*b, (1)*c, (1)*d, (1)*e ][128X[104X
+    [4X[25Xgap>[125X [27Xu := gens[1];; v := gens[2];;[127X[104X
+    [4X[25Xgap>[125X [27Xw := gens[3];; a := gens[4];;[127X[104X
+    [4X[25Xgap>[125X [27Xb := gens[5];; c := gens[6];;[127X[104X
+    [4X[25Xgap>[125X [27Xd := gens[7];; e := gens[8];;[127X[104X
+    [4X[25Xgap>[125X [27Xrels := [d*e,c^2,a*c*d-b*d,e*a];;[127X[104X
+    [4X[25Xgap>[125X [27XA := KQ/rels;[127X[104X
+    [4X[28X<Rationals[<quiver with 3 vertices and 5 arrows>]/[128X[104X
+    [4X[28X<two-sided ideal in <Rationals[<quiver with 3 vertices and 5 arrows>]>[128X[104X
+    [4X[28X    , (5 generators)>>[128X[104X
+    [4X[25Xgap>[125X [27Xmat := [["a",[[1,2],[0,3],[1,5]]],["b",[[2,0],[3,0],[5,0]]],[127X[104X
+    [4X[25X>[125X [27X["c",[[0,0],[1,0]]],["d",[[1,2],[0,1]]],["e",[[0,0,0],[0,0,0]]]];;[127X[104X
+    [4X[25Xgap>[125X [27XN := RightModuleOverPathAlgebra(A,mat);   [127X[104X
+    [4X[28X<[ 3, 2, 2 ]> [128X[104X
+  [4X[32X[104X
+  
+  [1X6.4-1 AnnihilatorOfModule[101X
+  
+  [33X[1;0Y[29X[2XAnnihilatorOfModule[102X( [3XM[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XM[103X -- a path algebra module.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya  basis  of  the  annihilator  of  the  module  [3XM[103X  in  the finite
+            dimensional algebra over which [3XM[103X is a module.[133X
+  
+  [1X6.4-2 BasicVersionOfModule[101X
+  
+  [33X[1;0Y[29X[2XBasicVersionOfModule[102X( [3XM[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XM[103X -- a path algebra module.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya  basic  version  of  the  entered module [3XM[103X, that is, if [23XM \simeq
+            M_1^{n_1}   \oplus   \cdots   \oplus   M_t^{n_t},[123X   where  [23XM_i[123X  is
+            indecomposable,  then  [23XM_1\oplus \cdots \oplus M_t[123X is returned. At
+            present,  this  function  only work at best for finite dimensional
+            (quotients  of  a) path algebra over a finite field. If [3XM[103X is zero,
+            then [3XM[103X is returned.[133X
+  
+  [1X6.4-3 BlockDecompositionOfModule[101X
+  
+  [33X[1;0Y[29X[2XBlockDecompositionOfModule[102X( [3XM[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XM[103X -- a path algebra module.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya  set  of  modules  [23X\{M_1,..., M_t\}[123X such that [23XM \simeq M_1\oplus
+            \cdots  \oplus  M_t,[123X where each [23XM_i[123X is isomorphic to [23XX_i^{n_i}[123X for
+            some indecomposable module [23XX_i[123X and positive integer [23Xn_i[123X for all [23Xi[123X,
+            where [22XX_i≄ X_j[122X for [22Xi≠ j[122X.[133X
+  
+  [1X6.4-4 BlockSplittingIdempotents[101X
+  
+  [33X[1;0Y[29X[2XBlockSplittingIdempotents[102X( [3XM[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XM[103X -- a path algebra module.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya  set  [23X\{e_1,...,  e_t\}[123X  of idempotents in the endomorphism of [3XM[103X
+            such that [23XM \simeq \Im e_1\oplus \cdots \oplus \Im e_t,[123X where each
+            [23X\Im  e_i[123X  is  isomorphic  to  [23XX_i^{n_i}[123X  for  some  module [23XX_i[123X and
+            positive integer [23Xn_i[123X for all [23Xi[123X.[133X
+  
+  [1X6.4-5 CommonDirectSummand[101X
+  
+  [33X[1;0Y[29X[2XCommonDirectSummand[102X( [3XM[103X, [3XN[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XM[103X and [3XN[103X -- two path algebra modules.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya  list of four modules [[3XX[103X,[3XU[103X,[3XX[103X, [3XV[103X], where [3XX[103X is one common non-zero
+            direct  summand of [3XM[103X and [3XN[103X, the sum of [3XX[103X and [3XU[103X is [3XM[103X and the sum of
+            [3XX[103X  and [3XV[103X is [3XN[103X, if such a non-zero direct summand exists. Otherwise
+            it returns false.[133X
+  
+  [33X[0;0YThe  function  checks  if  [3XM[103X  and  [3XN[103X are [10XPathAlgebraMatModule[110Xs over the same
+  (quotient of a) path algebra.[133X
+  
+  [1X6.4-6 ComplexityOfModule[101X
+  
+  [33X[1;0Y[29X[2XComplexityOfModule[102X( [3XM[103X, [3Xn[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XM[103X -- path algebdra module, [3Xn[103X -- a positive integer.[133X
+  
+  [6XReturns:[106X  [33X[0;10Yan estimate of the complexity of the module [3XM[103X.[133X
+  
+  [33X[0;0YThe function checks if the algebra over which the module [3XM[103X lives is known to
+  have  finite  global dimension. If so, it returns complexity zero. Otherwise
+  it  tries  to estimate the complexity in the following way. Recall that if a
+  function  [22Xf(x)[122X is a polynomial in [22Xx[122X, the degree of [22Xf(x)[122X is given by [22Xlim_n->∞
+  fraclog  |f(n)|log  n[122X.  So  then  this  function computes an estimate of the
+  complexity  of  [3XM[103X  by  approximating the complexity by considering the limit
+  [22Xlim_m->  ∞ log fracdim(P(M)(m))log m[122X where [22XP(M)(m)[122X is the [22Xm[122X-th projective in
+  a  minimal projective resolution of [3XM[103X at stage [22Xm[122X. This limit is estimated by
+  [22Xfraclog dim(P(M)(n))log n[122X.[133X
+  
+  [1X6.4-7 DecomposeModule[101X
+  
+  [33X[1;0Y[29X[2XDecomposeModule[102X( [3XM[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XDecomposeModuleWithInclusions[102X( [3XM[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XM[103X -- a path algebra module.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya list of indecomposable modules whose direct sum is isomorphic to
+            the  module  [3XM[103X in first variant. The second variant returns a list
+            of  inclusions  into [3XM[103X with the sum of the images is isomorphic to
+            the module [3XM[103X.[133X
+  
+  [33X[0;0YWarning:  the  function  is  not  properly  tested and it at best only works
+  properly over finite fields.[133X
+  
+  [1X6.4-8 DecomposeModuleProbabilistic[101X
+  
+  [33X[1;0Y[29X[2XDecomposeModuleProbabilistic[102X( [3XHomMM[103X, [3XM[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments:  [3XHomMM[103X,  [3XM[103X  --  a  list of basis elements of the Hom-space of the
+  entered module and a path algebra module.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ywith (hopefully high probability) a list of indecomposable modules
+            whose direct sum is isomorphic to the module [3XM[103X.[133X
+  
+  [33X[0;0YGiven a module [3XM[103X over a finite dimensional quotient of a path algebra over a
+  finite  field,  this  function  tries  to  decompose the entered module [3XM[103X by
+  choosing   random   elements  in  the  endomorphism  ring  of  [3XM[103X  which  are
+  non-nilpotent  and  non-invertible.  Such  elements splits the module in two
+  direct  summands,  and  the  procedure  does  this  as long as it finds such
+  elements.  The  output  is  not  guaranteed  to  be a list of indecomposable
+  modules,  but  their  direct sum is isomorphic to the entered module [3XM[103X. This
+  was  constructed  as  joint  effort  by  the  participants  at  the workshop
+  "Persistence,  Representations, and Computation", February 26th - March 2nd,
+  2018". This is an experimental function, so use with caution.[133X
+  
+  [1X6.4-9 DecomposeModuleViaCharPoly[101X
+  
+  [33X[1;0Y[29X[2XDecomposeModuleViaCharPoly[102X( [3XM[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XM[103X -- a path algebra module.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya  list  with  high  probability  of  indecomposable modules whose
+            direct sum is isomorphic to the module [3XM[103X.[133X
+  
+  [33X[0;0YGiven a module [3XM[103X over a finite dimensional quotient of a path algebra over a
+  finite field, this function decomposes the entered module [3XM[103X by computing the
+  endomorphism  ring  of  [3XM[103X  and  choosing  random  elements in it. This is an
+  experimental function, so use with caution.[133X
+  
+  [1X6.4-10 DecomposeModuleViaTop[101X
+  
+  [33X[1;0Y[29X[2XDecomposeModuleViaTop[102X( [3XM[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XM[103X -- a path algebra module.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya list of indecomposable modules whose direct sum is isomorphic to
+            the module [3XM[103X.[133X
+  
+  [33X[0;0YGiven a module [3XM[103X over a finite dimensional quotient of a path algebra over a
+  finite  field,  this function decomposes the entered module [3XM[103X by finding the
+  image [22XΣ[122X of the endomorphism ring of [3XM[103X in the endomorphism ring of the top of
+  [3XM[103X,  in  [22XΣ[122X  finds a complete set of primitive idempotents, lifts them back to
+  the  endomorphism  ring  of  [3XM[103X  and  decomposes  [3XM[103X.  This is an experimental
+  function, so use with caution.[133X
+  
+  [1X6.4-11 DecomposeModuleWithMultiplicities[101X
+  
+  [33X[1;0Y[29X[2XDecomposeModuleWithMultiplicities[102X( [3XM[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XM[103X -- a path algebra module.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya  list  of  length  two,  where  the first entry is a list of all
+            indecomposable  non-isomorphic direct summands of [3XM[103X and the second
+            entry is the list of the multiplicities of these direct summand in
+            the module [3XM[103X.[133X
+  
+  [33X[0;0YWarning:  the  function  is  not  properly  tested and it at best only works
+  properly over finite fields.[133X
+  
+  [1X6.4-12 Dimension[101X
+  
+  [33X[1;0Y[29X[2XDimension[102X( [3XM[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XM[103X -- a path algebra module ([10XPathAlgebraMatModule[110X).[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe dimension of the representation [3XM[103X.[133X
+  
+  [1X6.4-13 DimensionVector[101X
+  
+  [33X[1;0Y[29X[2XDimensionVector[102X( [3XM[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3XM[103X -- a path algebra module ([10XPathAlgebraMatModule[110X).[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe dimension vector of the representation [3XM[103X.[133X
+  
+  [1X6.4-14 DirectSumOfQPAModules[101X
+  
+  [33X[1;0Y[29X[2XDirectSumOfQPAModules[102X( [3XL[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments:  [3XL[103X  -- a list of [10XPathAlgebraMatModule[110Xs over the same (quotient of
+  a) path algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe direct sum of the representations contained in the list [3XL[103X.[133X
+  
+  [33X[0;0YIn    addition    three    attributes    are   attached   to   the   result,
+  [2XIsDirectSumOfModules[102X       ([14X6.4-20[114X),      [2XDirectSumProjections[102X      ([14X6.4-16[114X)
+  [2XDirectSumInclusions[102X ([14X6.4-15[114X).[133X
+  
+  [1X6.4-15 DirectSumInclusions[101X
+  
+  [33X[1;0Y[29X[2XDirectSumInclusions[102X( [3XM[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3XM[103X -- a path algebra module ([10XPathAlgebraMatModule[110X).[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe list of inclusions from the individual modules to their direct
+            sum,    when   a   direct   sum   has   been   constructed   using
+            [2XDirectSumOfQPAModules[102X ([14X6.4-14[114X).[133X
+  
+  [1X6.4-16 DirectSumProjections[101X
+  
+  [33X[1;0Y[29X[2XDirectSumProjections[102X( [3XM[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3XM[103X -- a path algebra module ([10XPathAlgebraMatModule[110X).[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe  list  of  projections  from  the direct sum to the individual
+            modules  used  to construct direct sum, when a direct sum has been
+            constructed using [2XDirectSumOfQPAModules[102X ([14X6.4-14[114X).[133X
+  
+  [1X6.4-17 FromIdentityToDoubleStarHomomorphism[101X
+  
+  [33X[1;0Y[29X[2XFromIdentityToDoubleStarHomomorphism[102X( [3XM[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3XM[103X -- a path algebra module ([10XPathAlgebraMatModule[110X).[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe homomorphism from [3XM[103X to the double star of the module [3XM[103X.[133X
+  
+  [1X6.4-18 IntersectionOfSubmodules[101X
+  
+  [33X[1;0Y[29X[2XIntersectionOfSubmodules[102X( [3Xlist[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments:  [3Xf,  g[103X or [3Xlist[103X -- two homomorphisms of PathAlgebraMatModules or a
+  list of such.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe  subrepresentation  given  by  the  intersection  of  all  the
+            submodules given by the inclusions [3Xf[103X and [3Xg[103X or [3Xlist[103X.[133X
+  
+  [33X[0;0YThe  function  checks if [3Xlist[103X is non-empty and if [23X[3Xf[103X\colon M\to X[123X and [23X[3Xg[103X\colon
+  N\to  X[123X  or all the homomorphism in [3Xlist[103X have the same range and if they all
+  are  inclusions.  If  the  function  is given two arguments [3Xf[103X and [3Xg[103X, then it
+  returns  [23X[f',g',g'*f][123X,  where [23Xf'\colon E\to N[123X, [23Xg'\colon E\to M[123X, and [23XE[123X is the
+  pullback of [3Xf[103X and [3Xg[103X. For a list of inclusions it returns a monomorphism from
+  a module isomorphic to the intersection to [23XX[123X.[133X
+  
+  [1X6.4-19 IsDirectSummand[101X
+  
+  [33X[1;0Y[29X[2XIsDirectSummand[102X( [3XM[103X, [3XN[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XM, N[103X -- two path algebra modules ([10XPathAlgebraMatModule[110Xs).[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue if [3XM[103X is isomorphic to a direct summand of [3XN[103X, otherwise false.[133X
+  
+  [33X[0;0YThe  function  checks  if  [3XM[103X  and  [3XN[103X are [10XPathAlgebraMatModule[110Xs over the same
+  (quotient of a) path algebra.[133X
+  
+  [1X6.4-20 IsDirectSumOfModules[101X
+  
+  [33X[1;0Y[29X[2XIsDirectSumOfModules[102X( [3XM[103X ) [32X filter[133X
+  
+  [33X[0;0YArguments: [3XM[103X -- a path algebra module ([10XPathAlgebraMatModule[110X).[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue  if  [3XM[103X  is  constructed via the command [2XDirectSumOfQPAModules[102X
+            ([14X6.4-14[114X).[133X
+  
+  [33X[0;0YUsing the example above.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XN2 := DirectSumOfQPAModules([N,N]);[127X[104X
+    [4X[28X<[ 6, 4, 4 ]>[128X[104X
+    [4X[25Xgap>[125X [27Xproj := DirectSumProjections(N2);[127X[104X
+    [4X[28X[ <<[ 6, 4, 4 ]> ---> <[ 3, 2, 2 ]>>[128X[104X
+    [4X[28X    , <<[ 6, 4, 4 ]> ---> <[ 3, 2, 2 ]>>[128X[104X
+    [4X[28X     ][128X[104X
+    [4X[25Xgap>[125X [27Xinc := DirectSumInclusions(N2);[127X[104X
+    [4X[28X[ <<[ 3, 2, 2 ]> ---> <[ 6, 4, 4 ]>>[128X[104X
+    [4X[28X    , <<[ 3, 2, 2 ]> ---> <[ 6, 4, 4 ]>>[128X[104X
+    [4X[28X     ] [128X[104X
+  [4X[32X[104X
+  
+  [1X6.4-21 IsExceptionalModule[101X
+  
+  [33X[1;0Y[29X[2XIsExceptionalModule[102X( [3XM[103X ) [32X property[133X
+  
+  [33X[0;0YArguments: [3XM[103X -- a path algebra module ([10XPathAlgebraMatModule[110X).[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue if [3XM[103X is an exceptional module, otherwise false, if the field,
+            over which the algebra [3XM[103X is defined over, is finite.[133X
+  
+  [33X[0;0YThe  module  [3XM[103X  is  an  exceptional  module,  if  it  is  indecomposable and
+  [22XExt^1(M,M)=(0)[122X.[133X
+  
+  [1X6.4-22 IsIndecomposableModule[101X
+  
+  [33X[1;0Y[29X[2XIsIndecomposableModule[102X( [3XM[103X ) [32X property[133X
+  
+  [33X[0;0YArguments: [3XM[103X -- a path algebra module ([10XPathAlgebraMatModule[110X).[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue  if  [3XM[103X  is an indecomposable module, if the field, over which
+            the algebra [3XM[103X is defined over, is finite. If [3XM[103X is the zero module,
+            then [10Xfalse[110X is returned.[133X
+  
+  [1X6.4-23 IsInAdditiveClosure[101X
+  
+  [33X[1;0Y[29X[2XIsInAdditiveClosure[102X( [3XM[103X, [3XN[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XM, N[103X -- two path algebra modules ([10XPathAlgebraMatModule[110Xs).[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue  if  [3XM[103X  is in the additive closure of the module [3XN[103X, otherwise
+            false.[133X
+  
+  [33X[0;0YThe  function  checks  if  [3XM[103X  and  [3XN[103X are [10XPathAlgebraMatModule[110Xs over the same
+  (quotient of a) path algebra.[133X
+  
+  [1X6.4-24 IsInjectiveModule[101X
+  
+  [33X[1;0Y[29X[2XIsInjectiveModule[102X( [3XM[103X ) [32X property[133X
+  
+  [33X[0;0YArguments: [3XM[103X -- a path algebra module ([10XPathAlgebraMatModule[110X).[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue if the representation [3XM[103X is injective.[133X
+  
+  [1X6.4-25 IsomorphicModules[101X
+  
+  [33X[1;0Y[29X[2XIsomorphicModules[102X( [3XM[103X, [3XN[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XM, N[103X -- two path algebra modules ([10XPathAlgebraMatModule[110Xs).[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue or false depending on whether [3XM[103X and [3XN[103X are isomorphic or not.[133X
+  
+  [33X[0;0YThe  function  first checks if the modules [3XM[103X and [3XN[103X are modules over the same
+  algebra,  and  returns fail if not. The function returns true if the modules
+  are isomorphic, otherwise false.[133X
+  
+  [1X6.4-26 IsProjectiveModule[101X
+  
+  [33X[1;0Y[29X[2XIsProjectiveModule[102X( [3XM[103X ) [32X property[133X
+  
+  [33X[0;0YArguments: [3XM[103X -- a path algebra module ([10XPathAlgebraMatModule[110X).[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue if the representation [3XM[103X is projective.[133X
+  
+  [1X6.4-27 IsRigidModule[101X
+  
+  [33X[1;0Y[29X[2XIsRigidModule[102X( [3XM[103X ) [32X property[133X
+  
+  [33X[0;0YArguments: [3XM[103X -- a path algebra module ([10XPathAlgebraMatModule[110X).[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue if [3XM[103X is a rigid module, otherwise false.[133X
+  
+  [33X[0;0YThe module [3XM[103X is a rigid module, if [22XExt^1(M,M)=(0)[122X.[133X
+  
+  [1X6.4-28 IsSemisimpleModule[101X
+  
+  [33X[1;0Y[29X[2XIsSemisimpleModule[102X( [3XM[103X ) [32X property[133X
+  
+  [33X[0;0YArguments: [3XM[103X -- a path algebra module ([10XPathAlgebraMatModule[110X).[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue if the representation [3XM[103X is semisimple.[133X
+  
+  [1X6.4-29 IsSimpleQPAModule[101X
+  
+  [33X[1;0Y[29X[2XIsSimpleQPAModule[102X( [3XM[103X ) [32X property[133X
+  
+  [33X[0;0YArguments: [3XM[103X -- a path algebra module ([10XPathAlgebraMatModule[110X).[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue if the representation [3XM[103X is simple.[133X
+  
+  [1X6.4-30 IsTauRigidModule[101X
+  
+  [33X[1;0Y[29X[2XIsTauRigidModule[102X( [3XM[103X ) [32X property[133X
+  
+  [33X[0;0YArguments: [3XM[103X -- a path algebra module ([10XPathAlgebraMatModule[110X).[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue if [3XM[103X is a [22Xτ[122X-rigid module, otherwise false.[133X
+  
+  [33X[0;0YThe module [3XM[103X is a [22Xτ[122X-rigid module, if [22XHom(M,τ M)=(0)[122X.[133X
+  
+  [1X6.4-31 LoewyLength[101X
+  
+  [33X[1;0Y[29X[2XLoewyLength[102X( [3XM[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3XM[103X -- a path algebra module ([10XPathAlgebraMatModule[110X).[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe Loewy length of the module [3XM[103X.[133X
+  
+  [33X[0;0YThe  function checks that the module [3XM[103X is a module over a finite dimensional
+  quotient  of  a  path  algebra,  and  returns  fail  otherwise  (This is not
+  implemented yet).[133X
+  
+  [1X6.4-32 IsZero[101X
+  
+  [33X[1;0Y[29X[2XIsZero[102X( [3XM[103X ) [32X property[133X
+  
+  [33X[0;0YArguments: [3XM[103X -- a path algebra module ([10XPathAlgebraMatModule[110X).[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue if [3XM[103X is the zero module, otherwise false.[133X
+  
+  [1X6.4-33 MatricesOfPathAlgebraModule[101X
+  
+  [33X[1;0Y[29X[2XMatricesOfPathAlgebraModule[102X( [3XM[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XM[103X -- a path algebra module ([10XPathAlgebraMatModule[110X).[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya  list  of  the  matrices  that defines the representation [3XM[103X as a
+            right module of the acting path algebra.[133X
+  
+  [33X[0;0YThe  list  of  matrices  that are returned are not the same identical to the
+  matrices  entered to define the representation if there is zero vector space
+  in  at  least  one  vertex.  Then  zero matrices of the appropriate size are
+  returned.[133X
+  
+  [1X6.4-34 MaximalCommonDirectSummand[101X
+  
+  [33X[1;0Y[29X[2XMaximalCommonDirectSummand[102X( [3XM[103X, [3XN[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XM, N[103X -- two path algebra modules ([10XPathAlgebraMatModule[110Xs).[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya  list  of  three  modules  [[3XX[103X,[3XU[103X,[3XV[103X],  where [3XX[103X is a maximal common
+            non-zero  direct  summand  of [3XM[103X and [3XN[103X, the sum of [3XX[103X and [3XU[103X is [3XM[103X and
+            the sum of [3XX[103X and [3XV[103X is [3XN[103X, if such a non-zero maximal direct summand
+            exists. Otherwise it returns false.[133X
+  
+  [33X[0;0YThe  function  checks  if  [3XM[103X  and  [3XN[103X are [10XPathAlgebraMatModule[110Xs over the same
+  (quotient of a) path algebra.[133X
+  
+  [1X6.4-35 NumberOfNonIsoDirSummands[101X
+  
+  [33X[1;0Y[29X[2XNumberOfNonIsoDirSummands[102X( [3XM[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XM[103X -- a path algebra modules ([10XPathAlgebraMatModule[110Xs).[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya  list  with  two  elements:  (1)  the  number  of non-isomorphic
+            indecomposable  direct  summands  of  the  module  [3XM[103X  and  (2) the
+            dimensions   of   the   simple   blocks  of  the  semisimple  ring
+            [23X\End(M)/\rad \End(M)[123X.[133X
+  
+  [1X6.4-36 MinimalGeneratingSetOfModule[101X
+  
+  [33X[1;0Y[29X[2XMinimalGeneratingSetOfModule[102X( [3XM[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3XM[103X -- a path algebra module ([10XPathAlgebraMatModule[110X).[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya  minimal  generator  set of the module [3XM[103X as a module of the path
+            algebra it is defined over.[133X
+  
+  [1X6.4-37 RadicalOfModule[101X
+  
+  [33X[1;0Y[29X[2XRadicalOfModule[102X( [3XM[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XM[103X -- a path algebra module ([10XPathAlgebraMatModule[110X).[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe radical of the module [3XM[103X.[133X
+  
+  [33X[0;0YThis  returns  only the representation given by the radical of the module [3XM[103X.
+  The  operation  [2XRadicalOfModuleInclusion[102X  ([14X7.3-25[114X) computes the inclusion of
+  the radical of [3XM[103X into [3XM[103X. This function applies when the algebra over which [3XM[103X
+  is defined is an admissible quotient of a path algebra.[133X
+  
+  [1X6.4-38 RadicalSeries[101X
+  
+  [33X[1;0Y[29X[2XRadicalSeries[102X( [3XM[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XM[103X -- a path algebra module ([10XPathAlgebraMatModule[110X).[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe radical series of the module [3XM[103X.[133X
+  
+  [33X[0;0YThe  function  gives  the radical series as a list of vectors [10X[n_1,...,n_s][110X,
+  where  the  algebra  has  [23Xs[123X  isomorphism  classes  of simple modules and the
+  numbers  give  the  multiplicity  of  each  simple.  The first vector listed
+  corresponds to the top layer, and so on.[133X
+  
+  [1X6.4-39 RandomModule[101X
+  
+  [33X[1;0Y[29X[2XRandomModule[102X( [3XA[103X, [3Xm[103X, [3Xn[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XA, m, n[103X -- a quiver algebra, two positive integers.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya  random  module  over  the  quiver  algebra  [3XA[103X with a projective
+            presentation  [22XP_1  ---> P_0[122X where they have [3Xm[103X and [3Xn[103X indecomposable
+            projectives as direct summands.[133X
+  
+  [1X6.4-40 SocleSeries[101X
+  
+  [33X[1;0Y[29X[2XSocleSeries[102X( [3XM[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XM[103X -- a path algebra module ([10XPathAlgebraMatModule[110X).[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe socle series of the module [3XM[103X.[133X
+  
+  [33X[0;0YThe  function  gives  the  socle  series as a list of vectors [10X[n_1,...,n_s][110X,
+  where  the  algebra  has  [23Xs[123X  isomorphism  classes  of simple modules and the
+  numbers  give  the  multiplicity  of  each  simple.  The  last vector listed
+  corresponds to the socle layer, and so on backwards.[133X
+  
+  [1X6.4-41 SocleOfModule[101X
+  
+  [33X[1;0Y[29X[2XSocleOfModule[102X( [3XM[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XM[103X -- a path algebra module ([10XPathAlgebraMatModule[110X).[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe socle of the module [3XM[103X.[133X
+  
+  [33X[0;0YThis  operation  only  return  the  representation given by the socle of the
+  module  [3XM[103X.  The  inclusion  the  socle  of  [3XM[103X  into  [3XM[103X can be computed using
+  [2XSocleOfModuleInclusion[102X ([14X7.3-27[114X).[133X
+  
+  [1X6.4-42 SubRepresentation[101X
+  
+  [33X[1;0Y[29X[2XSubRepresentation[102X( [3XM[103X, [3Xgens[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments:  [3XM[103X  --  a  path  algebra  module  ([10XPathAlgebraMatModule[110X), [3Xgens[103X --
+  elements in [3XM[103X.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe submodule of the module [3XM[103X generated by the elements [3Xgens[103X.[133X
+  
+  [33X[0;0YThe  function checks if [3Xgens[103X are elements in [3XM[103X, and returns an error message
+  otherwise.  The  inclusion  of  the submodule generated by the elements [3Xgens[103X
+  into [3XM[103X can be computed using [2XSubRepresentationInclusion[102X ([14X7.3-28[114X).[133X
+  
+  [1X6.4-43 SumOfSubmodules[101X
+  
+  [33X[1;0Y[29X[2XSumOfSubmodules[102X( [3Xlist[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xf, g[103X or [3Xlist[103X -- two inclusions of PathAlgebraMatModules or a list
+  of such.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe subrepresentation given by the sum of all the submodules given
+            by the inclusions [3Xf, g[103X or [3Xlist[103X.[133X
+  
+  [33X[0;0YThe  function  checks if [3Xlist[103X is non-empty and if [23X[3Xf[103X\colon M\to X[123X and [23X[3Xg[103X\colon
+  N\to  X[123X  or all the homomorphism in [3Xlist[103X have the same range and if they all
+  are  inclusions.  If  the  function  is given two arguments [3Xf[103X and [3Xg[103X, then it
+  returns  [23X[h,f',g'][123X,  where  [23Xh\colon  M  +  N\to  X[123X,  [23Xf'\colon M\to M + N[123X and
+  [23Xg'\colon N\to M + N[123X. For a list of inclusions it returns a monomorphism from
+  a module isomorphic to the sum of the subrepresentations to [23XX[123X.[133X
+  
+  [1X6.4-44 SupportModuleElement[101X
+  
+  [33X[1;0Y[29X[2XSupportModuleElement[102X( [3Xm[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xm[103X -- an element of a path algebra module.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe  primitive  idempotents [3Xv[103X in the algebra over which the module
+            containing the element [3Xm[103X is a module, such that [3Xm^v[103X is non-zero.[133X
+  
+  [33X[0;0YThe  function  checks  if [3Xm[103X is an element in a module over a (quotient of a)
+  path algebra, and returns fail otherwise.[133X
+  
+  [1X6.4-45 TopOfModule[101X
+  
+  [33X[1;0Y[29X[2XTopOfModule[102X( [3XM[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XM[103X or [3Xf[103X -- a path algebra module or a homomorphism thereof.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe  top of the module [3XM[103X or the homomorphism induced on the top of
+            the modules associated to the homomorphism [3Xf[103X.[133X
+  
+  [33X[0;0YThis returns only the representation given by the top of the module [3XM[103X or the
+  homomorphism  induced  on  the  top of the modules associated to the entered
+  homomorphism.  The  operation  [2XTopOfModuleProjection[102X  ([14X7.3-29[114X)  computes the
+  projection of the module [3XM[103X onto the top of the module [3XM[103X.[133X
+  
+  
+  [1X6.5 [33X[0;0YSpecial representations[133X[101X
+  
+  [33X[0;0YHere  we  collect  the  predefined  representations/modules  over  a  finite
+  dimensional quotient of a path algebra.[133X
+  
+  [1X6.5-1 BasisOfProjectives[101X
+  
+  [33X[1;0Y[29X[2XBasisOfProjectives[102X( [3XA[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3XA[103X -- a finite dimensional (quotient of a) path algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya   list   of   bases   for   all  the  indecomposable  projective
+            representations   over   [3XA[103X.  The  basis  for  each  indecomposable
+            projective is given a list of elements in nontips in [3XA[103X.[133X
+  
+  [33X[0;0YThe function checks if the algebra [3XA[103X is a finite dimensional (quotient of a)
+  path algebra, and returns an error message otherwise.[133X
+  
+  [1X6.5-2 ElementInIndecProjective[101X
+  
+  [33X[1;0Y[29X[2XElementInIndecProjective[102X( [3XA[103X, [3Xm[103X, [3Xs[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments:  [3XA[103X  --  a  QuiverAlgebra,  [3Xm[103X  --  an element in an indecomposable
+  projective representation, [3Xs[103X -- an integer.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe  element  in  the path algebra corresponding to [3Xm[103X in the right
+            ideal  from  which the indecomposable projective representation is
+            constructed.[133X
+  
+  [1X6.5-3 ElementIn_vA_AsElementInIndecProj[101X
+  
+  [33X[1;0Y[29X[2XElementIn_vA_AsElementInIndecProj[102X( [3XA[103X, [3Xm[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XA[103X -- a QuiverAlgebra, [3Xm[103X -- an element in [3XvA[103X for a vertex [3Xv[103X.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe   corresponding   element  in  the  indecomposable  projective
+            representation assosicated with the vertex [3Xv[103X.[133X
+  
+  [1X6.5-4 IndecInjectiveModules[101X
+  
+  [33X[1;0Y[29X[2XIndecInjectiveModules[102X( [3XA[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3XA[103X -- a finite dimensional (quotient of a) path algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya   list   of  all  the  non-isomorphic  indecomposable  injective
+            representations over [3XA[103X.[133X
+  
+  [33X[0;0YThe function checks if the algebra [3XA[103X is a finite dimensional (quotient of a)
+  path algebra, and returns an error message otherwise.[133X
+  
+  [1X6.5-5 IndecProjectiveModules[101X
+  
+  [33X[1;0Y[29X[2XIndecProjectiveModules[102X( [3XA[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3XA[103X -- a finite dimensional (quotient of a) path algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya   list  of  all  the  non-isomorphic  indecomposable  projective
+            representations over [3XA[103X.[133X
+  
+  [33X[0;0YThe function checks if the algebra [3XA[103X is a finite dimensional (quotient of a)
+  path algebra, and returns an error message otherwise.[133X
+  
+  [1X6.5-6 SimpleModules[101X
+  
+  [33X[1;0Y[29X[2XSimpleModules[102X( [3XA[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments:  [3XA[103X  --  a  finite  dimensional  (admissible  quotient  of a) path
+  algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya list of all the simple representations over [3XA[103X .[133X
+  
+  [33X[0;0YThe  function  checks  if  the algebra [3XA[103X is a finite dimensional (admissible
+  quotient of a) path algebra, and returns an error message otherwise.[133X
+  
+  [1X6.5-7 ZeroModule[101X
+  
+  [33X[1;0Y[29X[2XZeroModule[102X( [3XA[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3XA[103X -- a finite dimensional (quotient of a) path algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe zero representation over [3XA[103X.[133X
+  
+  [33X[0;0YThe function checks if the algebra [3XA[103X is a finite dimensional (quotient of a)
+  path algebra, and returns an error message otherwise.[133X
+  
+  
+  [1X6.6 [33X[0;0YFunctors on representations[133X[101X
+  
+  [1X6.6-1 DualOfModule[101X
+  
+  [33X[1;0Y[29X[2XDualOfModule[102X( [3XM[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3XM[103X -- a [10XPathAlgebraMatModule[110X.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe  dual  of  [3XM[103X  over the opposite algebra [22XA^op[122X, if [3XM[103X is a module
+            over [22XA[122X.[133X
+  
+  [1X6.6-2 DualOfModuleHomomorphism[101X
+  
+  [33X[1;0Y[29X[2XDualOfModuleHomomorphism[102X( [3Xf[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments:  [3Xf[103X  --  a  map  between  two  representations [3XM[103X and [3XN[103X over a path
+  algebra [23XA[123X.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe dual of this map over the opposite path algebra [3XA^\op[103X.[133X
+  
+  [1X6.6-3 DTr[101X
+  
+  [33X[1;0Y[29X[2XDTr[102X( [3XM[103X[, [3Xn[103X] ) [32X operation[133X
+  [33X[1;0Y[29X[2XDualOfTranspose[102X( [3XM[103X[, [3Xn[103X] ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XM[103X -- a path algebra module, (optional) [3Xn[103X -- an integer.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe dual of the transpose of [3XM[103X when called with only one argument,
+            while  it  returns  the dual of the transpose applied to [3XM[103X [3Xn[103X times
+            otherwise.  If  [3Xn[103X  is  negative,  then powers of [10XTrD[110X are computed.
+            [2XDualOfTranspose[102X is a synonym for [2XDTr[102X.[133X
+  
+  [1X6.6-4 DTr[101X
+  
+  [33X[1;0Y[29X[2XDTr[102X( [3Xf[103X[, [3Xn[103X] ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xf[103X -- a path algebra module homomorphism and [3Xn[103X -- an integer.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe [3Xn[103X-th power of the dual of the transpose of the homomorphism [3Xf[103X.[133X
+  
+  [1X6.6-5 NakayamaFunctorOfModule[101X
+  
+  [33X[1;0Y[29X[2XNakayamaFunctorOfModule[102X( [3XM[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3XM[103X -- a [10XPathAlgebraMatModule[110X.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe  module [22XHom_K(Hom_A(M,A), K)[122X over [22XA[122X, when [3XM[103X is a module over a
+            [22XK[122X-algebra [22XA[122X.[133X
+  
+  [1X6.6-6 NakayamaFunctorOfModuleHomomorphism[101X
+  
+  [33X[1;0Y[29X[2XNakayamaFunctorOfModuleHomomorphism[102X( [3Xf[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3Xf[103X -- a map between two modules [3XM[103X and [3XN[103X over a path algebra [23XA[123X.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe   homomorphism   induced   by   [22Xf:   M->  N[122X  from  the  module
+            [22XHom_K(Hom_A(M,A),K)[122X  to  [22XHom_K(Hom_A(N,A),  K)[122X, when [3Xf[103X is a module
+            homomorphism over a [22XK[122X-algebra [3XA[103X.[133X
+  
+  [1X6.6-7 OppositeNakayamaFunctorOfModule[101X
+  
+  [33X[1;0Y[29X[2XOppositeNakayamaFunctorOfModule[102X( [3XM[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3XM[103X -- a [10XPathAlgebraMatModule[110X.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe  module [22XHom_A(Hom_K(M,K), A)[122X over [22XA[122X, when [3XM[103X is a module over a
+            [22XK[122X-algebra [22XA[122X.[133X
+  
+  [1X6.6-8 OppositeNakayamaFunctorOfModuleHomomorphism[101X
+  
+  [33X[1;0Y[29X[2XOppositeNakayamaFunctorOfModuleHomomorphism[102X( [3Xf[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3Xf[103X -- a map between two modules [3XM[103X and [3XN[103X over a path algebra [23XA[123X.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe   homomorphism   induced   by   [22Xf:   M->  N[122X  from  the  module
+            [22XHom_A(Hom_K(M,K),A)[122X  to  [22XHom_A(Hom_K(N,K),  A)[122X, when [3Xf[103X is a module
+            homomorphism over a [22XK[122X-algebra [3XA[103X.[133X
+  
+  [1X6.6-9 RestrictionViaAlgebraHomomorphism[101X
+  
+  [33X[1;0Y[29X[2XRestrictionViaAlgebraHomomorphism[102X( [3Xf[103X, [3XM[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xf[103X -- an IsAlgebraHomomorphism, [3XM[103X -- an IsPathAlgebraMatModule.[133X
+  
+  [6XReturns:[106X  [33X[0;10YGiven  an  algebra  homomorphism  [22Xf : A ↪ B[122X and a module [3XM[103X over [22XB[122X,
+            this function returns [3XM[103X as a module over [22XA[122X.[133X
+  
+  [1X6.6-10 RestrictionViaAlgebraHomomorphismMap[101X
+  
+  [33X[1;0Y[29X[2XRestrictionViaAlgebraHomomorphismMap[102X( [3Xf[103X, [3Xh[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments:     [3Xf[103X     --     an     IsAlgebraHomomorphism,     [3Xh[103X     --    an
+  IsPathAlgebraMatModuleHomomorphism.[133X
+  
+  [6XReturns:[106X  [33X[0;10YGiven  an  algebra  homomorphism  [22Xf  : A ↪ B[122X and a homomorphism of
+            modules  [3Xh[103X  from  [22XM[122X to [22XN[122X over [22XB[122X, this function returns the induced
+            homomorphism induced by [3Xh[103X as a homomorphism over [22XA[122X.[133X
+  
+  [1X6.6-11 StarOfModule[101X
+  
+  [33X[1;0Y[29X[2XStarOfModule[102X( [3XM[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3XM[103X -- a [10XPathAlgebraMatModule[110X.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe  module  [22XHom_A(M,A)[122X over the opposite of [22XA[122X, when [3XM[103X is a module
+            over an algebra [22XA[122X.[133X
+  
+  [1X6.6-12 StarOfModuleHomomorphism[101X
+  
+  [33X[1;0Y[29X[2XStarOfModuleHomomorphism[102X( [3Xf[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3Xf[103X -- a map between two modules [3XM[103X and [3XN[103X over a path algebra [23XA[123X.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe homomorphism induced by [22Xf: M-> N[122X from the module [22XHom_A(N,A)[122X to
+            [22XHom_A(M,A)[122X, when [3Xf[103X is a module homomorphism over an algebra [3XA[103X.[133X
+  
+  [1X6.6-13 TensorProductOfModules[101X
+  
+  [33X[1;0Y[29X[2XTensorProductOfModules[102X( [3XM[103X, [3XN[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XM[103X, [3XN[103X -- two path algebra modules[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe tensor product [22XM⊗_A N[122X as a vector space and a function [22XM× N ->
+            M⊗_A  N[122X,  given  two  representations  [3XM[103X and [3XN[103X, where [3XM[103X is a right
+            module over [22XA[122X and [3XN[103X is a right module over the opposite of [22XA[122X.[133X
+  
+  [1X6.6-14 TrD[101X
+  
+  [33X[1;0Y[29X[2XTrD[102X( [3XM[103X[, [3Xn[103X] ) [32X operation[133X
+  [33X[1;0Y[29X[2XTransposeOfDual[102X( [3XM[103X[, [3Xn[103X] ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XM[103X -- a path algebra module, (optional) [3Xn[103X -- an integer.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe transpose of the dual of [3XM[103X when called with only one argument,
+            while  it  returns  the transpose of the dual applied to [3XM[103X [3Xn[103X times
+            otherwise.  If  [3Xn[103X  is  negative,  then powers of [10XTrD[110X are computed.
+            [2XTransposeOfDual[102X is a synonym for [2XTrD[102X.[133X
+  
+  [1X6.6-15 TrD[101X
+  
+  [33X[1;0Y[29X[2XTrD[102X( [3Xf[103X[, [3Xn[103X] ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xf[103X -- a path algebra module homomorphism, [3Xn[103X -- an integer.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe [3Xn[103X-th power of the transpose of the dual of the homomorphism [3Xf[103X.[133X
+  
+  [1X6.6-16 TransposeOfModule[101X
+  
+  [33X[1;0Y[29X[2XTransposeOfModule[102X( [3XM[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3XM[103X -- a path algebra module.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe transpose of the module [3XM[103X.[133X
+  
+  [1X6.6-17 TransposeOfModuleHomomorphism[101X
+  
+  [33X[1;0Y[29X[2XTransposeOfModuleHomomorphism[102X( [3Xf[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3Xf[103X -- a path algebra module homomorphism.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe transpose of the module homomorphism [3Xf[103X.[133X
+  
+  
+  [1X6.7 [33X[0;0YVertex projective modules and submodules thereof[133X[101X
+  
+  [33X[0;0YIn  general,  if  [23XR[123X  is  a  ring  and  [23Xe[123X is an idempotent of [23XR[123X, then [23XeR[123X is a
+  projective  module  of  [23XR[123X. Then we can form a direct sum of these projective
+  modules  together  to  form larger projective module. One can construct more
+  general modules by providing a [3Xvertex projective presentation[103X. In this case,
+  [23XM[123X is the cokernel as given by the following exact sequence: [23X\oplus_{j=1}^{r}
+  w(j)R  \rightarrow  \oplus_{i=1}^{g}  v(i)R \rightarrow{M} \rightarrow 0[123X for
+  some map between [23X\oplus_{j=1}^{r} w(j)R[123X and [23X\oplus_{i=1}^{g} v(i)R[123X. The maps
+  [23Xw[123X and [23Xv[123X map the integers to some idempotent in [23XR[123X.[133X
+  
+  [1X6.7-1 RightProjectiveModule[101X
+  
+  [33X[1;0Y[29X[2XRightProjectiveModule[102X( [3XA[103X, [3Xverts[103X ) [32X function[133X
+  
+  [33X[0;0YArguments: [3XA[103X -- a (quotient of a) path algebra, [3Xverts[103X -- a list of vertices.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe  right  projective  module  over  [3XA[103X which is the direct sum of
+            projective  modules  of  the  form [3XvA[103X where the vertices are taken
+            from [3Xverts[103X.[133X
+  
+  [33X[0;0YThe   module  created  is  in  the  category  [10XIsPathAlgebraModule[110X.  In  this
+  implementation  the  algebra  can be a quotient of a path algebra. So if the
+  list  was [23X[v,w][123X then the module created will be the direct sum [23XvA \oplus wA[123X,
+  in  that order. Elements of the modules are vectors of algebra elements, and
+  in  each component, each path begins with the vertex in that position in the
+  list  of  vertices.  Right  projective  modules  are  implemented as algebra
+  modules  (see [14XReference: Representations of Algebras[114X) and all operations for
+  algebra  modules  are applicable to right projective modules. In particular,
+  one    can   construct   submodules   using   [2XSubAlgebraModule[102X   ([14XReference:
+  SubAlgebraModule[114X).[133X
+  
+  [33X[0;0YHere we create the right projective module [23XP = vA \oplus vA \oplus wA[123X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XF := GF(11);[127X[104X
+    [4X[28XGF(11)[128X[104X
+    [4X[25Xgap>[125X [27XQ := Quiver(["v","w", "x"],[["v","w","a"],["v","w","b"],[127X[104X
+    [4X[25X>[125X [27X["w","x","c"]]);[127X[104X
+    [4X[28X<quiver with 3 vertices and 3 arrows>[128X[104X
+    [4X[25Xgap>[125X [27XA := PathAlgebra(F,Q);[127X[104X
+    [4X[28X<GF(11)[<quiver with 3 vertices and 3 arrows>]>[128X[104X
+    [4X[25Xgap>[125X [27XP := RightProjectiveModule(A,[A.v,A.v,A.w]);[127X[104X
+    [4X[28X<right-module over <GF(11)[<quiver with 3 vertices and 3 arrows>]>>[128X[104X
+    [4X[25Xgap>[125X [27XDimension(P);[127X[104X
+    [4X[28X12 [128X[104X
+  [4X[32X[104X
+  
+  [1X6.7-2 CompletelyReduceGroebnerBasisForModule[101X
+  
+  [33X[1;0Y[29X[2XCompletelyReduceGroebnerBasisForModule[102X( [3XGB[103X ) [32X function[133X
+  
+  [33X[0;0YArguments:  [3XGB[103X  --  an  right  Groebner  basis for a (submodule of a) vertex
+  projective module over a path algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya  completely  reduced  right  Groebner  basis  from  the  entered
+            Groebner basis [3XGB[103X.[133X
+  
+  [33X[0;0YThis function takes as input an right Groebner basis for a vertex projective
+  module  or  a  submodule  thereof,  an  constructs  completely reduced right
+  Groebner from it.[133X
+  
+  [1X6.7-3 IsLeftDivisible[101X
+  
+  [33X[1;0Y[29X[2XIsLeftDivisible[102X( [3Xx[103X, [3Xy[103X ) [32X property[133X
+  
+  [33X[0;0YArguments: [3Xx, y[103X -- two path algebra vectors.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue if the tip of [3Xy[103X left divides the tip of [3Xx[103X. False otherwise.[133X
+  
+  [33X[0;0YGiven  two  PathAlgebraVectors  [3Xx[103X and [3Xy[103X, then [3Xy[103X is said to left divide [3Xx[103X, if
+  the  tip  of  [3Xx[103X  and  the  tip  of  [3Xy[103X  occur in the same coordinate, and the
+  tipmonomial of the tip of [3Xy[103X leftdivides the tipmonomial of the tip of [3Xx[103X.[133X
+  
+  [1X6.7-4 IsPathAlgebraModule[101X
+  
+  [33X[1;0Y[29X[2XIsPathAlgebraModule[102X( [3XP[103X ) [32X property[133X
+  
+  [33X[0;0YArguments: [3XP[103X -- any object.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue if the argument [3XP[103X is in the category [10XIsPathAlgebraModule[110X.[133X
+  
+  [1X6.7-5 IsPathAlgebraVector[101X
+  
+  [33X[1;0Y[29X[2XIsPathAlgebraVector[102X( [3Xv[103X ) [32X property[133X
+  
+  [33X[0;0YArguments: [3Xv[103X -- a path algebra vector.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue  if  [3Xv[103X has been constructed as a PathAlgebraVector. Otherwise
+            it returns false.[133X
+  
+  [1X6.7-6 LeadingCoefficient (of PathAlgebraVector)[101X
+  
+  [33X[1;0Y[29X[2XLeadingCoefficient (of PathAlgebraVector)[102X( [3Xx[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xx[103X -- an element in a PathAlgebraModule.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe coefficient of the leading term/tip of a [10XPathAlgebraVector[110X.[133X
+  
+  [33X[0;0YThe  tip  of  the element [3Xx[103X can by found by applying the command [2XLeadingTerm
+  (of PathAlgebraVector)[102X ([14X6.7-9[114X).[133X
+  
+  [1X6.7-7 LeadingComponent[101X
+  
+  [33X[1;0Y[29X[2XLeadingComponent[102X( [3Xv[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xv[103X -- a path algebra vector.[133X
+  
+  [6XReturns:[106X  [33X[0;10Y[10Xv[pos][110X,  where  [10Xpos[110X  is  the coordinate for the tip of the vector,
+            whenever  [3Xv[103X is non-zero. That is, it returns the coordinate of the
+            vector [3Xv[103X where the tip occors. It returns zero otherwise.[133X
+  
+  [1X6.7-8 LeadingPosition[101X
+  
+  [33X[1;0Y[29X[2XLeadingPosition[102X( [3Xv[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xv[103X -- a path algebra vector.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe coordinate in which the tip of the vector occurs.[133X
+  
+  [1X6.7-9 LeadingTerm (of PathAlgebraVector)[101X
+  
+  [33X[1;0Y[29X[2XLeadingTerm (of PathAlgebraVector)[102X( [3Xx[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xx[103X -- an element in a PathAlgebraModule.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe leading term/tip of a [10XPathAlgebraVector[110X.[133X
+  
+  [33X[0;0YThe  tip  of the element [3Xx[103X is computed using the following order: the tip is
+  computed  for  each  coordinate,  if  the largest of these occur as a tip of
+  several  coordinates,  then the coordinate with the smallest index from 1 to
+  the  length  of  vector is chosen. The position of the tip was computed when
+  the [10XPathAlgebraVector[110X was created.[133X
+  
+  [1X6.7-10 LeftDivision[101X
+  
+  [33X[1;0Y[29X[2XLeftDivision[102X( [3Xx[103X, [3Xy[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xx, y[103X -- two path algebra vectors.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya  scalar  multiple  of  a path, say [23X\lambda[123X such that the tips of
+            [23Xy*\lambda[123X and [23Xx[123X are the same, if the tip of [3Xy[103X left divides the tip
+            of [3Xx[103X. False otherwise.[133X
+  
+  [33X[0;0YIn  the  following  example,  we  create  two  elements  in  [23XP[123X, perform some
+  elementwise  operations,  and  then  construct  a  submodule  using  the two
+  elements as generators.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xp1 := Vectorize(P,[A.b*A.c,A.a*A.c,A.c]);[127X[104X
+    [4X[28X[ (Z(11)^0)*b*c, (Z(11)^0)*a*c, (Z(11)^0)*c ][128X[104X
+    [4X[25Xgap>[125X [27Xp2 := Vectorize(P,[A.a,A.b,A.w]);[127X[104X
+    [4X[28X[ (Z(11)^0)*a, (Z(11)^0)*b, (Z(11)^0)*w ][128X[104X
+    [4X[25Xgap>[125X [27X2*p1 + p2;[127X[104X
+    [4X[28X[ (Z(11)^0)*a+(Z(11))*b*c, (Z(11)^0)*b+(Z(11))*a*c, [128X[104X
+    [4X[28X  (Z(11)^0)*w+(Z(11))*c ][128X[104X
+    [4X[25Xgap>[125X [27XS := SubAlgebraModule(P,[p1,p2]);[127X[104X
+    [4X[28X<right-module over <GF(11)[<quiver with 3 vertices and 3 arrows>]>>[128X[104X
+    [4X[25Xgap>[125X [27XDimension(S);[127X[104X
+    [4X[28X3 [128X[104X
+  [4X[32X[104X
+  
+  [1X6.7-11 ^[101X
+  
+  [33X[1;0Y[29X[2X^[102X( [3Xm[103X, [3Xa[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments:  [3Xm[103X  --  an element of a path algebra module, [3Xa[103X -- an element of a
+  path algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe element [3Xm[103X multiplied with [3Xa[103X.[133X
+  
+  [33X[0;0YThis action is defined by multiplying each component in [3Xm[103X by [3Xa[103X on the right.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xp2^(A.c - A.w);[127X[104X
+    [4X[28X[ (Z(11)^5)*a+(Z(11)^0)*a*c, (Z(11)^5)*b+(Z(11)^0)*b*c, [128X[104X
+    [4X[28X  (Z(11)^5)*w+(Z(11)^0)*c ] [128X[104X
+  [4X[32X[104X
+  
+  [1X6.7-12 <[101X
+  
+  [33X[1;0Y[29X[2X<[102X( [3Xm1[103X, [3Xm2[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xm1, m2[103X -- two elements of a PathAlgebraModule.[133X
+  
+  [6XReturns:[106X  [33X[0;10Y`true' if [3Xm1[103X is less than [3Xm2[103X and false otherwise.[133X
+  
+  [33X[0;0YElements are compared componentwise from left to right using the ordering of
+  the  underlying  algebra.  The  element [3Xm1[103X is less than [3Xm2[103X if the first time
+  components are not equal, the component of [3Xm1[103X is less than the corresponding
+  component of [3Xm2[103X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xp1 < p2;[127X[104X
+    [4X[28Xfalse [128X[104X
+  [4X[32X[104X
+  
+  [1X6.7-13 /[101X
+  
+  [33X[1;0Y[29X[2X/[102X( [3XM[103X, [3XN[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XM, N[103X -- two finite dimensional [10XPathAlgebraModule[110Xs.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe factor module [23XM/N[123X.[133X
+  
+  [33X[0;0YThis  module is again a right algebra module, and all applicable methods and
+  operations  are  available for the resulting factor module. Furthermore, the
+  resulting  module  is  a vector space, so operations for computing bases and
+  dimensions are also available.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XPS := P/S;[127X[104X
+    [4X[28X<9-dimensional right-module over <GF(11)[<quiver with 3 vertices and [128X[104X
+    [4X[28X3 arrows>]>>[128X[104X
+    [4X[25Xgap>[125X [27XBasis(PS);[127X[104X
+    [4X[28XBasis( <9-dimensional right-module over <GF(11)[<quiver with [128X[104X
+    [4X[28X3 vertices and 3 arrows>]>>, [128X[104X
+    [4X[28X[ [ [ <zero> of ..., (Z(11)^0)*v, <zero> of ... ] ], [128X[104X
+    [4X[28X  [ [ (Z(11)^0)*v, <zero> of ..., <zero> of ... ] ], [128X[104X
+    [4X[28X  [ [ <zero> of ..., <zero> of ..., (Z(11)^0)*w ] ], [128X[104X
+    [4X[28X  [ [ <zero> of ..., (Z(11)^0)*a, <zero> of ... ] ], [128X[104X
+    [4X[28X  [ [ (Z(11)^0)*a, <zero> of ..., <zero> of ... ] ], [128X[104X
+    [4X[28X  [ [ (Z(11)^0)*b, <zero> of ..., <zero> of ... ] ], [128X[104X
+    [4X[28X  [ [ <zero> of ..., <zero> of ..., (Z(11)^0)*c ] ], [128X[104X
+    [4X[28X  [ [ <zero> of ..., (Z(11)^0)*a*c, <zero> of ... ] ], [128X[104X
+    [4X[28X  [ [ (Z(11)^0)*a*c, <zero> of ..., <zero> of ... ] ] ] ) [128X[104X
+  [4X[32X[104X
+  
+  [1X6.7-14 PathAlgebraVector[101X
+  
+  [33X[1;0Y[29X[2XPathAlgebraVector[102X( [3Xfam[103X, [3Xcomponents[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments:  [3Xfam[103X  --  a  PathAlgebraVectorFamily, [3Xcomponents[103X -- a homogeneous
+  list of elements.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya  PathAlgebraVector  in  the PathAlgebraVectorFamily [3Xfam[103X with the
+            components of the vector being equal to [3Xcomponents[103X.[133X
+  
+  [33X[0;0YThis  function  is  typically  used  when  constructing elements of a module
+  constructed  by  the  command  [10XRightProjectiveModule[110X. If [10XP[110X is constructed as
+  say,   [10XP   :=   RightProjectiveModule(KQ,   [KQ.v1,   KQ.v1,  KQ.v2])[110X,  then
+  [10XExtRepOfObj(p)[110X,  where  [10Xp[110X is an element if [10XP[110X is a [10XPathAlgebraVector[110X. The tip
+  is  computed  using  the  following  ordering:  the tip is computed for each
+  coordinate,  if  the largest of these occur as a tip of several coordinates,
+  then  the  coordinate with the smallest index from 1 to the length of vector
+  is chosen.[133X
+  
+  [1X6.7-15 ProjectivePathAlgebraPresentation[101X
+  
+  [33X[1;0Y[29X[2XProjectivePathAlgebraPresentation[102X( [3XM[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments:  [3XM[103X  --  a  finite  dimensional module over a (quotient of a) path
+  algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya projective presentation of the entered module [3XM[103X over a (qoutient
+            of  a)  path algebra [23XA[123X. The projective presentation, or resolution
+            is over the path algebra form which [23XA[123X was constructed.[133X
+  
+  [33X[0;0YThis  function  takes  as  input  a  PathAlgebraMatModule  and  constructs a
+  projective  presentation  of this module over the path algebra over which it
+  is  defined,  i.e. a projective resolution of length 1. It returns a list of
+  five elements: (1) a projective module [23XP[123X over the path algebra, which modulo
+  the relations induced the projective cover of [3XM[103X, (2) a submodule [23XU[123X of [23XP[123X such
+  that  [23XP/U[123X  is  isomorphic  to  [3XM[103X,  (3)  module  generators  of [23XP[123X, (4) module
+  generators  for  [23XU[123X which forms a completely reduced right Groebner basis for
+  [23XU[123X,  and  (5)  a  matrix with entries in the path algebra which gives the map
+  from  [23XU[123X to [23XP[123X, if [23XU[123X were considered a direct sum of vertex projective modules
+  over the path algebra.[133X
+  
+  [1X6.7-16 RightGroebnerBasisOfModule[101X
+  
+  [33X[1;0Y[29X[2XRightGroebnerBasisOfModule[102X( [3XM[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3XM[103X -- a PathAlgebraModule.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya right Groebner basis for the module [3XM[103X.[133X
+  
+  [33X[0;0YIt  checks  if  the acting algebra on the module [3XM[103X is a path algebra, and it
+  returns an error message otherwise. The elements in the right Groebner basis
+  that  is  constructed,  can  be  retrieved  by the command [10XBasisVectors[110X. The
+  underlying  module is likewise returned by the command [10XUnderlyingModule[110X. The
+  output    of    the    function    is    satisfying    the   filter/category
+  [10XIsRightPathAlgebraModuleGroebnerBasis[110X.[133X
+  
+  [1X6.7-17 TargetVertex[101X
+  
+  [33X[1;0Y[29X[2XTargetVertex[102X( [3Xv[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xv[103X -- a PathAlgebraVector.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya  vertex  [23Xw[123X  such that [23Xv*w = v[123X, if such a vertex exists, and fail
+            otherwise.[133X
+  
+  [33X[0;0YGiven  a PathAlgebraVector [3Xv[103X, if [3Xv[103X is right uniform, this function finds the
+  vertex [23Xw[123X such that [23Xv*w = v[123X whenever [3Xv[103X is non-zero, and returns the zero path
+  otherwise. If [3Xv[103X is not right uniform it returns fail.[133X
+  
+  [1X6.7-18 UniformGeneratorsOfModule[101X
+  
+  [33X[1;0Y[29X[2XUniformGeneratorsOfModule[102X( [3XM[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3XM[103X -- a [10XPathAlgebraModule[110X.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya  set  of  right  uniform generators of the mdoule [3XM[103X. If [3XM[103X is the
+            zero module, then it returns an empty list.[133X
+  
+  [1X6.7-19 Vectorize[101X
+  
+  [33X[1;0Y[29X[2XVectorize[102X( [3XM[103X, [3Xcomponents[103X ) [32X function[133X
+  
+  [33X[0;0YArguments:  [3XM[103X  --  a  module  over  a  path algebra, [3Xcomponents[103X -- a list of
+  elements of [3XM[103X.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya  vector  in  [3XM[103X  from a list of path algebra elements [3Xcomponents[103X,
+            which defines the components in the resulting vector.[133X
+  
+  [33X[0;0YThe  returned vector is normalized, so the vector's components may not match
+  the input components.[133X
+  

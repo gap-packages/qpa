@@ -1,0 +1,586 @@
+  
+  [1X3 [33X[0;0YQuivers[133X[101X
+  
+  
+  [1X3.1 [33X[0;0YInformation class, Quivers[133X[101X
+  
+  [33X[0;0YA  quiver  [23XQ[123X  is a set derived from a labeled directed multigraph with loops
+  [23X\Gamma[123X.  An  element  of  [23XQ[123X  is called a *path*, and falls into one of three
+  classes.  The  first  class  is  the set of *vertices* of [23X\Gamma[123X. The second
+  class  is the set of *walks* in [23X\Gamma[123X of length at least one, each of which
+  is  represented  by  the  corresponding  sequence of *arrows* in [23X\Gamma[123X. The
+  third  class  is the singleton set containing the distinguished *zero path*,
+  usually denoted [23X0[123X. An associative multiplication is defined on [23XQ[123X.[133X
+  
+  [33X[0;0YThis  chapter  describes  the  functions  in  [5XQPA[105X  that  deal with paths and
+  quivers.  The  functions  for constructing paths in Section [14X4.2[114X are normally
+  not  useful  in  isolation; typically, they are invoked by the functions for
+  constructing quivers in Section [14X3.2[114X.[133X
+  
+  [1X3.1-1 InfoQuiver[101X
+  
+  [33X[1;0Y[29X[2XInfoQuiver[102X [32X info class[133X
+  
+  [33X[0;0Yis the info class for functions dealing with quivers.[133X
+  
+  
+  [1X3.2 [33X[0;0YConstructing Quivers[133X[101X
+  
+  [1X3.2-1 Quiver[101X
+  
+  [33X[1;0Y[29X[2XQuiver[102X( [3XN[103X, [3Xarrows[103X ) [32X function[133X
+  [33X[1;0Y[29X[2XQuiver[102X( [3Xvertices[103X, [3Xarrows[103X ) [32X function[133X
+  [33X[1;0Y[29X[2XQuiver[102X( [3Xadjacencymatrix[103X ) [32X function[133X
+  
+  [33X[0;0YArguments:  First construction: [3XN[103X -- number of vertices, [3Xarrows[103X -- a list of
+  arrows  to specify the graph [23X\Gamma[123X. Second construction: [3Xvertices[103X -- a list
+  of  vertex  names,  [3Xarrows[103X -- a list of arrows. Third construction: takes an
+  adjacency matrix for the graph [23X\Gamma[123X.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya quiver, which is an object from the category [2XIsQuiver[102X ([14X3.3-1[114X).[133X
+  
+  [33X[0;0YIn  the first and third constructions, the vertices are named `v1, v2, ...'.
+  In  the second construction, unique vertex names are given as strings in the
+  list  that  is  the  first  parameter.  Each arrow is a list consisting of a
+  source vertex and a target vertex, followed optionally by an arrow name as a
+  string.[133X
+  
+  [33X[0;0YVertices  and arrows are referenced as record components using the dot (`.')
+  operator.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xq1 := Quiver(["u","v"],[["u","u","a"],["u","v","b"], [127X[104X
+    [4X[25X>[125X [27X              ["v","u","c"],["v","v","d"]]);[127X[104X
+    [4X[28X<quiver with 2 vertices and 4 arrows>[128X[104X
+    [4X[25Xgap>[125X [27XVerticesOfQuiver(q1);[127X[104X
+    [4X[28X[ u, v ][128X[104X
+    [4X[25Xgap>[125X [27XArrowsOfQuiver(q1);[127X[104X
+    [4X[28X[ a, b, c, d ][128X[104X
+    [4X[25Xgap>[125X [27Xq2 := Quiver(2,[[1,1],[2,1],[1,2]]);[127X[104X
+    [4X[28X<quiver with 2 vertices and 3 arrows>[128X[104X
+    [4X[25Xgap>[125X [27XArrowsOfQuiver(q2);[127X[104X
+    [4X[28X[ a1, a2, a3 ][128X[104X
+    [4X[25Xgap>[125X [27XVerticesOfQuiver(q2);[127X[104X
+    [4X[28X[ v1, v2 ][128X[104X
+    [4X[25Xgap>[125X [27Xq3 := Quiver(2,[[1,1,"a"],[2,1,"b"],[1,2,"c"]]);[127X[104X
+    [4X[28X<quiver with 2 vertices and 3 arrows>[128X[104X
+    [4X[25Xgap>[125X [27XArrowsOfQuiver(q3);[127X[104X
+    [4X[28X[ a, b, c ][128X[104X
+    [4X[25Xgap>[125X [27Xq4 := Quiver([[1,1],[2,1]]);[127X[104X
+    [4X[28X<quiver with 2 vertices and 5 arrows>[128X[104X
+    [4X[25Xgap>[125X [27XVerticesOfQuiver(q4);[127X[104X
+    [4X[28X[ v1, v2 ][128X[104X
+    [4X[25Xgap>[125X [27XArrowsOfQuiver(q4);[127X[104X
+    [4X[28X[ a1, a2, a3, a4, a5 ][128X[104X
+    [4X[25Xgap>[125X [27XSourceOfPath(q4.a2);[127X[104X
+    [4X[28Xv1[128X[104X
+    [4X[25Xgap>[125X [27XTargetOfPath(q4.a2);[127X[104X
+    [4X[28Xv2[128X[104X
+  [4X[32X[104X
+  
+  [1X3.2-2 DynkinQuiver[101X
+  
+  [33X[1;0Y[29X[2XDynkinQuiver[102X( [3XDelta[103X, [3Xn[103X, [3Xorientation[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XDelta[103X, [3Xn[103X, [3Xorientation[103X -- a character (A,D,E), a positive integer,
+  and a list giving the orientation.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya  Dynkin quiver of type [3XDelta[103X ("A", "D", or "E") with index [3Xn[103X and
+            orientation of the arrows given by the list [3Xorientation[103X.[133X
+  
+  [33X[0;0YIf  [3XDelta[103X  is equal to "A" with index [3Xn[103X, then the list [3Xorientation[103X is of the
+  form  [10X["r",  "l",  "l",  ...,"r",  "l"][110X  of  length [3Xn-1[103X, where "l" or "r" in
+  coordinate  [22Xi[122X  means  that  the  arrow [22Xa_i[122X is oriented to the left or to the
+  right,  respectively.  The  vertices  and  the  arrows  are  named as in the
+  following   diagram  [22Xxymatrix1ar@-[r]^-a_1  &  2ar@-[r]^-a_2  &  ar@--[r]  &
+  ar@-[r]^-a_n-2} & n - 1 ar@-[r]^-a_n-1} & n[122X[133X
+  [33X[0;0YIf  [3XDelta[103X is equal to "D" with index [3Xn[103X and [3Xn[103X greater or equal to [23X4[123X, then the
+  list [3Xorientation[103X is of the form [10X["r", "l", "l", ...,"r", "l"][110X of length [3Xn-1[103X,
+  where "l" or "r" in coordinate [22Xi[122X means that the arrow [22Xa_i[122X is oriented to the
+  left or to the right, respectively. The vertices and the arrows are named as
+  in  the  following diagram [22Xxymatrix1ar@-[dr]^-a_1 & & & & & & 3ar@-[r]^a_3 &
+  ar@--[r]  & ar@-[r]^-a_n-2} & n - 1 ar@-[r]^-a_n-1} & n 2ar@-[ur]_-a_2 & & &
+  & &[122X[133X
+  [33X[0;0YIf  [3XDelta[103X  is  equal  to  "E"  with  index [3Xn[103X and [3Xn[103X in [23X[6,7,8][123X, then the list
+  [3Xorientation[103X  is of the form [10X["r", "l", "l", ...,"r", "l","d"][110X of length [3Xn-1[103X,
+  where  "l"  or  "r" in the [3Xn - 2[103X first coordinates and at coordinate [22Xi[122X means
+  that  the  arrow  [22Xa_i[122X is oriented to the left or to the right, respectively,
+  and  the  last  orientation  parameter is "d" or "u" indicating if the arrow
+  [22Xa_n-1[122X  is  oriented  down or up. The vertices and the arrows are named as in
+  the  following diagram [22Xxymatrix & & nar@-[d]^a_n-1} & & & & & 1ar@-[r]^a_1 &
+  2ar@-[r]^a_2 & 3ar@-[r]^-a_3 & ar@--[r] &ar@-[r] & n - 2 ar@-[r]^-a_n-2} & n
+  - 1[122X[133X
+  
+  [1X3.2-3 OrderedBy[101X
+  
+  [33X[1;0Y[29X[2XOrderedBy[102X( [3Xquiver[103X, [3Xordering[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ya  copy  of  [3Xquiver[103X  whose  elements  are ordered by [3Xordering[103X. The
+            default  ordering  of  a  quiver is length left lexicographic. See
+            Section [14X3.4[114X for more information.[133X
+  
+  
+  [1X3.3 [33X[0;0YCategories and Properties of Quivers[133X[101X
+  
+  [1X3.3-1 IsQuiver[101X
+  
+  [33X[1;0Y[29X[2XIsQuiver[102X( [3Xobject[103X ) [32X category[133X
+  [6XReturns:[106X  [33X[0;10Ytrue when [3Xobject[103X is a quiver.[133X
+  
+  [1X3.3-2 IsAcyclicQuiver[101X
+  
+  [33X[1;0Y[29X[2XIsAcyclicQuiver[102X( [3Xquiver[103X ) [32X property[133X
+  [6XReturns:[106X  [33X[0;10Ytrue when [3Xquiver[103X is a quiver with no oriented cycles.[133X
+  
+  [1X3.3-3 IsUAcyclicQuiver[101X
+  
+  [33X[1;0Y[29X[2XIsUAcyclicQuiver[102X( [3Xquiver[103X ) [32X property[133X
+  [6XReturns:[106X  [33X[0;10Ytrue  when  [3Xquiver[103X is a quiver with no unoriented cycles. Note: an
+            oriented cycle is also an unoriented cycle![133X
+  
+  [1X3.3-4 IsConnectedQuiver[101X
+  
+  [33X[1;0Y[29X[2XIsConnectedQuiver[102X( [3Xquiver[103X ) [32X property[133X
+  [6XReturns:[106X  [33X[0;10Ytrue when [3Xquiver[103X is a connected quiver (i.e. each pair of vertices
+            is connected by an unoriented path in [3Xquiver[103X).[133X
+  
+  [1X3.3-5 IsTreeQuiver[101X
+  
+  [33X[1;0Y[29X[2XIsTreeQuiver[102X( [3Xquiver[103X ) [32X property[133X
+  [6XReturns:[106X  [33X[0;10Ytrue  when  [3Xquiver[103X  is a tree as a graph (i.e. it is connected and
+            contains no unoriented cycles).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xq1 := Quiver(2,[[1,2]]);[127X[104X
+    [4X[28X<quiver with 2 vertices and 1 arrows>[128X[104X
+    [4X[25Xgap>[125X [27XIsQuiver("v1");[127X[104X
+    [4X[28Xfalse[128X[104X
+    [4X[25Xgap>[125X [27XIsQuiver(q1);[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27XIsAcyclicQuiver(q1); IsUAcyclicQuiver(q1); [127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27XIsConnectedQuiver(q1); IsTreeQuiver(q1);[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27Xq2 := Quiver(["u","v"],[["u","v"],["v","u"]]);[127X[104X
+    [4X[28X<quiver with 2 vertices and 2 arrows>[128X[104X
+    [4X[25Xgap>[125X [27XIsAcyclicQuiver(q2); IsUAcyclicQuiver(q2); [127X[104X
+    [4X[28Xfalse[128X[104X
+    [4X[28Xfalse[128X[104X
+    [4X[25Xgap>[125X [27XIsConnectedQuiver(q2); IsTreeQuiver(q2);[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[28Xfalse[128X[104X
+    [4X[25Xgap>[125X [27Xq3 := Quiver(["u","v"],[["u","v"],["u","v"]]);[127X[104X
+    [4X[28X<quiver with 2 vertices and 2 arrows>[128X[104X
+    [4X[25Xgap>[125X [27XIsAcyclicQuiver(q3); IsUAcyclicQuiver(q3); [127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[28Xfalse[128X[104X
+    [4X[25Xgap>[125X [27XIsConnectedQuiver(q3); IsTreeQuiver(q3); [127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[28Xfalse[128X[104X
+    [4X[25Xgap>[125X [27Xq4 := Quiver(2, []);[127X[104X
+    [4X[28X<quiver with 2 vertices and 0 arrows>[128X[104X
+    [4X[25Xgap>[125X [27XIsAcyclicQuiver(q4); IsUAcyclicQuiver(q4); [127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27XIsConnectedQuiver(q4); IsTreeQuiver(q4);[127X[104X
+    [4X[28Xfalse[128X[104X
+    [4X[28Xfalse[128X[104X
+  [4X[32X[104X
+  
+  [1X3.3-6 IsDynkinQuiver[101X
+  
+  [33X[1;0Y[29X[2XIsDynkinQuiver[102X( [3Xquiver[103X ) [32X property[133X
+  [6XReturns:[106X  [33X[0;10Ytrue  when  [3Xquiver[103X  is  a  Dynkin  quiver  (more  precisely,  when
+            underlying undirected graph of [3Xquiver[103X is a Dynkin diagram).[133X
+  
+  [33X[0;0YThis  function  prints  an  additional  information.  If it returns true, it
+  prints  the Dynkin type of [3Xquiver[103X, i.e. A_n, D_m, E_6, E_7 or E_8. Moreover,
+  in  case  [3Xquiver[103X  is  not  connected  or  contains  an unoriented cycle, the
+  function also prints a respective info.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xq1 := Quiver(4,[[1,4],[4,2],[3,4]]);[127X[104X
+    [4X[28X<quiver with 4 vertices and 3 arrows>[128X[104X
+    [4X[25Xgap>[125X [27XIsDynkinQuiver(q1);[127X[104X
+    [4X[28XD_4[128X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27Xq2 := Quiver(2,[[1,2],[1,2]]);[127X[104X
+    [4X[28X<quiver with 2 vertices and 2 arrows>[128X[104X
+    [4X[25Xgap>[125X [27XIsDynkinQuiver(q2);[127X[104X
+    [4X[28XQuiver contains an (un)oriented cycle.[128X[104X
+    [4X[28Xfalse[128X[104X
+    [4X[25Xgap>[125X [27Xq3 := Quiver(5,[[1,5],[2,5],[3,5],[4,5]]);[127X[104X
+    [4X[28X<quiver with 5 vertices and 4 arrows>[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X3.4 [33X[0;0YOrderings of paths in a quiver[133X[101X
+  
+  [33X[0;0YThe  only  supported  ordering  on  the  paths  in  a  quiver is length left
+  lexicographic  ordering.  The  reason for this is that [5XQPA[105X does not have its
+  own  functions for computing Groebner basis. Instead they are computed using
+  the  [5XGAP[105X-package [5XGBNP[105X. The interface with this package, which is provided by
+  the  [5XQPA[105X,  only supports the length left lexicographic ordering, even though
+  [5XGBNP[105X supports more orderings.[133X
+  
+  [33X[0;0YFor  constructing a quiver, there are three different methods. TODO: Explain
+  how the vertices and arrows are ordered.[133X
+  
+  
+  [1X3.5 [33X[0;0YAttributes and Operations for Quivers[133X[101X
+  
+  [1X3.5-1 .[101X
+  
+  [33X[1;0Y[29X[2X.[102X( [3XQ[103X, [3Xelement[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XQ[103X -- a quiver, and [3Xelement[103X -- a vertex or an arrow.[133X
+  
+  [33X[0;0YThe operation [2X.[102X allows access to generators of the quiver. If you have named
+  your  vertices and arrows then the access looks like `[3XQ[103X.[3Xname of element[103X'. If
+  you  have  not  named the elements of the quiver, then the default names are
+  v1, v2, ... and a1, a2, ... in the order they are created.[133X
+  
+  [1X3.5-2 VerticesOfQuiver[101X
+  
+  [33X[1;0Y[29X[2XVerticesOfQuiver[102X( [3Xquiver[103X ) [32X attribute[133X
+  [6XReturns:[106X  [33X[0;10Ya list of paths that are vertices in [3Xquiver[103X.[133X
+  
+  [1X3.5-3 ArrowsOfQuiver[101X
+  
+  [33X[1;0Y[29X[2XArrowsOfQuiver[102X( [3Xquiver[103X ) [32X attribute[133X
+  [6XReturns:[106X  [33X[0;10Ya list of paths that are arrows in [3Xquiver[103X.[133X
+  
+  [1X3.5-4 AdjacencyMatrixOfQuiver[101X
+  
+  [33X[1;0Y[29X[2XAdjacencyMatrixOfQuiver[102X( [3Xquiver[103X ) [32X attribute[133X
+  [6XReturns:[106X  [33X[0;10Ythe adjacency matrix of [3Xquiver[103X.[133X
+  
+  [1X3.5-5 GeneratorsOfQuiver[101X
+  
+  [33X[1;0Y[29X[2XGeneratorsOfQuiver[102X( [3Xquiver[103X ) [32X attribute[133X
+  [6XReturns:[106X  [33X[0;10Ya list of the vertices and the arrows in [3Xquiver[103X.[133X
+  
+  [1X3.5-6 NumberOfVertices[101X
+  
+  [33X[1;0Y[29X[2XNumberOfVertices[102X( [3Xquiver[103X ) [32X attribute[133X
+  [6XReturns:[106X  [33X[0;10Ythe number of vertices in [3Xquiver[103X.[133X
+  
+  [1X3.5-7 NumberOfArrows[101X
+  
+  [33X[1;0Y[29X[2XNumberOfArrows[102X( [3Xquiver[103X ) [32X attribute[133X
+  [6XReturns:[106X  [33X[0;10Ythe number of arrows in [3Xquiver[103X.[133X
+  
+  [1X3.5-8 OrderingOfQuiver[101X
+  
+  [33X[1;0Y[29X[2XOrderingOfQuiver[102X( [3Xquiver[103X ) [32X attribute[133X
+  [6XReturns:[106X  [33X[0;10Ythe ordering used to order elements in [3Xquiver[103X. See Section [14X3.4[114X for
+            more information.[133X
+  
+  [1X3.5-9 OppositeQuiver[101X
+  
+  [33X[1;0Y[29X[2XOppositeQuiver[102X( [3Xquiver[103X ) [32X attribute[133X
+  [6XReturns:[106X  [33X[0;10Ythe  opposite  quiver  of  [3Xquiver[103X, where the vertices are labelled
+            "name  in  original  quiver"  +  "_op" and the arrows are labelled
+            "name in original quiver" + "_op".[133X
+  
+  [33X[0;0YThis  attribute  contains the opposite quiver of a quiver, that is, a quiver
+  which is the same except that every arrow goes in the opposite direction.[133X
+  
+  [33X[0;0YThe  operation  [2XOppositePath[102X  ([14X4.16-1[114X)  takes  a  path  in  a  quiver to the
+  corresponding path in the opposite quiver.[133X
+  
+  [33X[0;0YThe  opposite  of  the opposite of a quiver [22XQ[122X is isomorphic to [22XQ[122X. In QPA, we
+  regard    these    two    quivers    to   be   the   same,   so   the   call
+  [10XOppositeQuiver(OppositeQuiver(Q))[110X returns the object [10XQ[110X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xq1 := Quiver(["u","v"],[["u","u","a"],["u","v","b"],[127X[104X
+    [4X[25X>[125X [27X              ["v","u","c"],["v","v","d"]]);[127X[104X
+    [4X[28X<quiver with 2 vertices and 4 arrows>[128X[104X
+    [4X[25Xgap>[125X [27Xq1.a;[127X[104X
+    [4X[28Xa[128X[104X
+    [4X[25Xgap>[125X [27Xq1.v;[127X[104X
+    [4X[28Xv[128X[104X
+    [4X[25Xgap>[125X [27XVerticesOfQuiver(q1);[127X[104X
+    [4X[28X[ u, v ][128X[104X
+    [4X[25Xgap>[125X [27XArrowsOfQuiver(q1);[127X[104X
+    [4X[28X[ a, b, c, d ][128X[104X
+    [4X[25Xgap>[125X [27XAdjacencyMatrixOfQuiver(q1);[127X[104X
+    [4X[28X[ [ 1, 1 ], [ 1, 1 ] ][128X[104X
+    [4X[25Xgap>[125X [27XGeneratorsOfQuiver(q1);[127X[104X
+    [4X[28X[ u, v, a, b, c, d ][128X[104X
+    [4X[25Xgap>[125X [27XNumberOfVertices(q1);[127X[104X
+    [4X[28X2[128X[104X
+    [4X[25Xgap>[125X [27XNumberOfArrows(q1);[127X[104X
+    [4X[28X4[128X[104X
+    [4X[25Xgap>[125X [27XOrderingOfQuiver(q1);[127X[104X
+    [4X[28X<length left lexicographic ordering>[128X[104X
+    [4X[25Xgap>[125X [27Xq1_op := OppositeQuiver(q1);[127X[104X
+    [4X[28X<quiver with 2 vertices and 4 arrows>[128X[104X
+    [4X[25Xgap>[125X [27XVerticesOfQuiver(q1_op);[127X[104X
+    [4X[28X[ u_op, v_op ][128X[104X
+    [4X[25Xgap>[125X [27XArrowsOfQuiver(q1_op);[127X[104X
+    [4X[28X[ a_op, b_op, c_op, d_op ][128X[104X
+  [4X[32X[104X
+  
+  [1X3.5-10 FullSubquiver[101X
+  
+  [33X[1;0Y[29X[2XFullSubquiver[102X( [3Xquiver[103X, [3Xlist[103X ) [32X operation[133X
+  [6XReturns:[106X  [33X[0;10YThis  function  returns  a  quiver  which is a full subquiver of a
+            [3Xquiver[103X induced by the [3Xlist[103X of its vertices.[133X
+  
+  [33X[0;0YThe names of vertices and arrows in resulting (sub)quiver remain the same as
+  in original one. The function checks if [3Xlist[103X consists of vertices of [3Xquiver[103X.[133X
+  
+  [1X3.5-11 ConnectedComponentsOfQuiver[101X
+  
+  [33X[1;0Y[29X[2XConnectedComponentsOfQuiver[102X( [3Xquiver[103X ) [32X operation[133X
+  [6XReturns:[106X  [33X[0;10YThis  function  returns  a list of quivers which are all connected
+            components of a [3Xquiver[103X.[133X
+  
+  [33X[0;0YThe names of vertices and arrows in resulting (sub)quiver remain the same as
+  in original one. The function sets the property [2XIsConnectedQuiver[102X ([14X3.3-4[114X) to
+  true for all the components.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XQ := Quiver(6, [ [1,2],[1,1],[3,2],[4,5],[4,5] ]);[127X[104X
+    [4X[28X<quiver with 6 vertices and 5 arrows>[128X[104X
+    [4X[25Xgap>[125X [27XVerticesOfQuiver(Q);[127X[104X
+    [4X[28X[ v1, v2, v3, v4, v5, v6 ][128X[104X
+    [4X[25Xgap>[125X [27XFullSubquiver(Q, [Q.v1, Q.v2]);[127X[104X
+    [4X[28X<quiver with 2 vertices and 2 arrows>[128X[104X
+    [4X[25Xgap>[125X [27XConnectedComponentsOfQuiver(Q);[127X[104X
+    [4X[28X[ <quiver with 3 vertices and 3 arrows>, [128X[104X
+    [4X[28X  <quiver with 2 vertices and 2 arrows>, [128X[104X
+    [4X[28X  <quiver with 1 vertices and 0 arrows> ][128X[104X
+  [4X[32X[104X
+  
+  [1X3.5-12 DoubleQuiver[101X
+  
+  [33X[1;0Y[29X[2XDoubleQuiver[102X( [3Xquiver[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3Xquiver[103X -- a quiver.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe double quiver of [3Xquiver[103X.[133X
+  
+  [33X[0;0YThe  vertices in the double quiver are labelled by the same labels as in the
+  original  quiver.  The "old" arrows in the double quiver are labelled by the
+  same  labels  as  in the original, and the "new" arrows in the double quiver
+  are  labelled  by  the same labels as in the original quiver with the string
+  "bar" added.[133X
+  
+  [1X3.5-13 SeparatedQuiver[101X
+  
+  [33X[1;0Y[29X[2XSeparatedQuiver[102X( [3Xquiver[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3Xquiver[103X -- a quiver.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe separated quiver of [3Xquiver[103X.[133X
+  
+  [33X[0;0YThe vertices in the separated quiver are labelled [22Xv[122X and [22Xv'[122X for each vertex [22Xv[122X
+  in  [3Xquiver[103X,  and  for  each  arrow  [22Xa:  v -> w[122X in [3Xquiver[103X the arrow [22Xv-> w'[122X is
+  labelled [22Xa[122X.[133X
+  
+  
+  [1X3.6 [33X[0;0YCategories and Properties of Paths[133X[101X
+  
+  [1X3.6-1 IsPath[101X
+  
+  [33X[1;0Y[29X[2XIsPath[102X( [3Xobject[103X ) [32X category[133X
+  
+  [33X[0;0YAll path objects are in this category.[133X
+  
+  [1X3.6-2 IsQuiverVertex[101X
+  
+  [33X[1;0Y[29X[2XIsQuiverVertex[102X( [3Xobject[103X ) [32X category[133X
+  
+  [33X[0;0YAll vertices are in this category.[133X
+  
+  [1X3.6-3 IsArrow[101X
+  
+  [33X[1;0Y[29X[2XIsArrow[102X( [3Xobject[103X ) [32X category[133X
+  
+  [33X[0;0YAll arrows are in this category.[133X
+  
+  [1X3.6-4 IsZeroPath[101X
+  
+  [33X[1;0Y[29X[2XIsZeroPath[102X( [3Xobject[103X ) [32X property[133X
+  
+  [33X[0;0Yis true when [3Xobject[103X is the zero path.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xq1 := Quiver(["u","v"],[["u","u","a"],["u","v","b"],[127X[104X
+    [4X[25X>[125X [27X              ["v","u","c"],["v","v","d"]]);[127X[104X
+    [4X[28X<quiver with 2 vertices and 4 arrows>[128X[104X
+    [4X[25Xgap>[125X [27XIsPath(q1.b);[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27XIsPath(q1.u);[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27XIsQuiverVertex(q1.c);[127X[104X
+    [4X[28Xfalse[128X[104X
+    [4X[25Xgap>[125X [27XIsZeroPath(q1.d);[127X[104X
+    [4X[28Xfalse[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X3.7 [33X[0;0YAttributes and Operations of Paths[133X[101X
+  
+  [1X3.7-1 SourceOfPath[101X
+  
+  [33X[1;0Y[29X[2XSourceOfPath[102X( [3Xpath[103X ) [32X attribute[133X
+  [6XReturns:[106X  [33X[0;10Ythe source (first) vertex of [3Xpath[103X.[133X
+  
+  [1X3.7-2 TargetOfPath[101X
+  
+  [33X[1;0Y[29X[2XTargetOfPath[102X( [3Xpath[103X ) [32X attribute[133X
+  [6XReturns:[106X  [33X[0;10Ythe target (last) vertex of [3Xpath[103X.[133X
+  
+  [1X3.7-3 LengthOfPath[101X
+  
+  [33X[1;0Y[29X[2XLengthOfPath[102X( [3Xpath[103X ) [32X attribute[133X
+  [6XReturns:[106X  [33X[0;10Ythe length of [3Xpath[103X.[133X
+  
+  [1X3.7-4 WalkOfPath[101X
+  
+  [33X[1;0Y[29X[2XWalkOfPath[102X( [3Xpath[103X ) [32X attribute[133X
+  [6XReturns:[106X  [33X[0;10Ya list of the arrows that constitute [3Xpath[103X in order.[133X
+  
+  [1X3.7-5 *[101X
+  
+  [33X[1;0Y[29X[2X*[102X( [3Xp[103X, [3Xq[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xp[103X and [3Xq[103X -- two paths in the same quiver.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe  multiplication of the paths. If the paths are not in the same
+            quiver  an  error is returned. If the target of [3Xp[103X differs from the
+            source  of  [3Xq[103X,  then  the  result  is the zero path. Otherwise, if
+            either  path  is  a  vertex,  then  the  result is the other path.
+            Finally,  if  both are paths of length at least 1, then the result
+            is the concatenation of the walks of the two paths.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xq1 := Quiver(["u","v"],[["u","u","a"],["u","v","b"],[127X[104X
+    [4X[25X>[125X [27X              ["v","u","c"],["v","v","d"]]);[127X[104X
+    [4X[28X<quiver with 2 vertices and 4 arrows>[128X[104X
+    [4X[25Xgap>[125X [27XSourceOfPath(q1.v);[127X[104X
+    [4X[28Xv[128X[104X
+    [4X[25Xgap>[125X [27Xp1:=q1.a*q1.b*q1.d*q1.d;[127X[104X
+    [4X[28Xa*b*d^2[128X[104X
+    [4X[25Xgap>[125X [27XTargetOfPath(p1);[127X[104X
+    [4X[28Xv[128X[104X
+    [4X[25Xgap>[125X [27Xp2:=q1.b*q1.b;[127X[104X
+    [4X[28X0[128X[104X
+    [4X[25Xgap>[125X [27XWalkOfPath(p1);[127X[104X
+    [4X[28X[ a, b, d, d ][128X[104X
+    [4X[25Xgap>[125X [27XWalkOfPath(q1.a);[127X[104X
+    [4X[28X[ a ][128X[104X
+    [4X[25Xgap>[125X [27XLengthOfPath(p1);[127X[104X
+    [4X[28X4[128X[104X
+    [4X[25Xgap>[125X [27XLengthOfPath(q1.v);[127X[104X
+    [4X[28X0[128X[104X
+  [4X[32X[104X
+  
+  [1X3.7-6 =[101X
+  
+  [33X[1;0Y[29X[2X=[102X( [3Xp[103X, [3Xq[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xp[103X and [3Xq[103X -- two paths in the same quiver.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue  if the two paths are equal. Two paths are equal if they have
+            the  same  source  and  the  same target and if they have the same
+            walks.[133X
+  
+  [1X3.7-7 <[101X
+  
+  [33X[1;0Y[29X[2X<[102X( [3Xp[103X, [3Xq[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xp[103X and [3Xq[103X -- two paths in the same quiver.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya  comparison of the two paths with respect to the ordering of the
+            quiver.[133X
+  
+  
+  [1X3.8 [33X[0;0YAttributes of Vertices[133X[101X
+  
+  [1X3.8-1 IncomingArrowsOfVertex[101X
+  
+  [33X[1;0Y[29X[2XIncomingArrowsOfVertex[102X( [3Xvertex[103X ) [32X attribute[133X
+  [6XReturns:[106X  [33X[0;10Ya  list  of  arrows  having  [3Xvertex[103X  as target. Only meaningful if
+            [3Xvertex[103X is in a quiver.[133X
+  
+  [1X3.8-2 OutgoingArrowsOfVertex[101X
+  
+  [33X[1;0Y[29X[2XOutgoingArrowsOfVertex[102X( [3Xvertex[103X ) [32X attribute[133X
+  [6XReturns:[106X  [33X[0;10Ya list of arrows having [3Xvertex[103X as source.[133X
+  
+  [1X3.8-3 InDegreeOfVertex[101X
+  
+  [33X[1;0Y[29X[2XInDegreeOfVertex[102X( [3Xvertex[103X ) [32X attribute[133X
+  [6XReturns:[106X  [33X[0;10Ythe  number  of arrows having [3Xvertex[103X as target. Only meaningful if
+            [3Xvertex[103X is in a quiver.[133X
+  
+  [1X3.8-4 OutDegreeOfVertex[101X
+  
+  [33X[1;0Y[29X[2XOutDegreeOfVertex[102X( [3Xvertex[103X ) [32X attribute[133X
+  [6XReturns:[106X  [33X[0;10Ythe number of arrows having [3Xvertex[103X as source.[133X
+  
+  [1X3.8-5 NeighborsOfVertex[101X
+  
+  [33X[1;0Y[29X[2XNeighborsOfVertex[102X( [3Xvertex[103X ) [32X attribute[133X
+  [6XReturns:[106X  [33X[0;10Ya  list of neighbors of [3Xvertex[103X, that is, vertices that are targets
+            of arrows having [3Xvertex[103X as source.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xq1 := Quiver(["u","v"],[["u","u","a"],["u","v","b"],[127X[104X
+    [4X[25X>[125X [27X              ["v","u","c"],["v","v","d"]]);[127X[104X
+    [4X[28X<quiver with 2 vertices and 4 arrows>[128X[104X
+    [4X[25Xgap>[125X [27XOutgoingArrowsOfVertex(q1.u);[127X[104X
+    [4X[28X[ a, b ][128X[104X
+    [4X[25Xgap>[125X [27XInDegreeOfVertex(q1.u);[127X[104X
+    [4X[28X2[128X[104X
+    [4X[25Xgap>[125X [27XNeighborsOfVertex(q1.v);[127X[104X
+    [4X[28X[ u, v ][128X[104X
+  [4X[32X[104X
+  
+  
+  [1X3.9 [33X[0;0YPosets[133X[101X
+  
+  [33X[0;0YThis implementation of posets was done by the HomAlg-project.[133X
+  
+  [1X3.9-1 Poset[101X
+  
+  [33X[1;0Y[29X[2XPoset[102X( [3XP[103X, [3Xrel[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XP[103X a list and [3Xrel[103X -- a list of pairs from [3XP[103X.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe  poset  defined on the points [3XP[103X and the relations generated by
+            [3Xrel[103X.[133X
+  
+  [33X[0;0YThe  elements  in [3XP[103X is given as a list, and for example [10X["a", "b", "c", "d"][110X
+  and  the  relations  are given as a list of lists, for instance in the above
+  case:  [10X[ ["a", "b", "c"], ["b", "d"], ["c", "d"]].[110X The first list means that
+  [22Xa  <  b[122X  and  [22Xa < c[122X, and the second one means [22Xb < d[122X and finally the last one
+  means [22Xc < d[122X.[133X
+  
+  [1X3.9-2 Size[101X
+  
+  [33X[1;0Y[29X[2XSize[102X( [3XP[103X ) [32X attribute[133X
+  [6XReturns:[106X  [33X[0;10Ythe number of elements of the poset [3XP[103X.[133X
+  
+  [1X3.9-3 UnderlyingSet[101X
+  
+  [33X[1;0Y[29X[2XUnderlyingSet[102X( [3XP[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XP[103X -- poset.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe underlying set of the poset [3XP[103X.[133X
+  
+  [1X3.9-4 PartialOrderOfPoset[101X
+  
+  [33X[1;0Y[29X[2XPartialOrderOfPoset[102X( [3XP[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XP[103X -- poset.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe partial order of the poset [3XP[103X as a function.[133X
+  

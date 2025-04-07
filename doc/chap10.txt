@@ -1,0 +1,1641 @@
+  
+  [1X10 [33X[0;0YChain complexes[133X[101X
+  
+  
+  [1X10.1 [33X[0;0YIntroduction[133X[101X
+  
+  [33X[0;0YIf  [22XmathcalA[122X  is  an  abelian  category,  then a chain complex of objects of
+  [22Xmathcal A[122X is a sequence[133X
+  
+  
+  [24X[33X[0;6Y\cdots   \longrightarrow   C_{i+1}  \stackrel{d_{i+1}}{\longrightarrow}  C_i
+  \stackrel{d_i}{\longrightarrow}  C_{i-1} \stackrel{d_{i-1}}{\longrightarrow}
+  \cdots[133X
+  
+  [124X
+  
+  [33X[0;0Ywhere  [22XC_i[122X  is  an  object  of [22Xmathcal A[122X for all [22Xi[122X, and [22Xd_i[122X is a morphism of
+  [22Xmathcal A[122X for all [22Xi[122X such that the composition of two consecutive maps of the
+  complex  is  zero.  The  maps are called the differentials of the complex. A
+  complex  is  called  [13Xbounded  above[113X (resp. below) if there is a bound [22Xb[122X such
+  that  [22XC_i  =  0[122X  for all [22Xi>b[122X (resp. [22Xi<b[122X). A complex is [13Xbounded[113X if it is both
+  bounded below and bounded above.[133X
+  
+  [33X[0;0YThe  challenge  when  representing  chain complexes in software is to handle
+  their  infinite  nature.  If  a  complex  is not bounded, or not known to be
+  bounded, how can we represent it in an immutable way? Our solution is to use
+  a category called [10XInfList[110X (for ``infinite list'') to store the differentials
+  of  the  complex.  The  properties of the [10XIsInfList[110X category is described in
+  [14X10.2[114X.   An   [10XIsQPAComplex[110X   object   consists   of  one  [10XIsInfList[110X  for  the
+  differentials,  and  it  also has an [10XIsCat[110X object as an attribute. The [10XIsCat[110X
+  category is a representation of an abelian category, see [14X10.3[114X.[133X
+  
+  [33X[0;0YTo  work  with  bounded  complexes  one does not need to know much about the
+  [10XIsInfList[110X category. A bounded complex can be created by simply giving a list
+  of  the differentials and the degree of the first differential as input (see
+  [2XFiniteComplex[102X  ([14X10.4-5[114X)), and to create a stalk complex the stalk object and
+  its  degree  suffice  as input (see [2XStalkComplex[102X ([14X10.4-6[114X)). In both cases an
+  [10XIsCat[110X object is also needed.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XC := FiniteComplex(cat, 1, [g,f]);[127X[104X
+    [4X[28X0 -> 2:(1,0) -> 1:(2,2) -> 0:(1,1) -> 0 [128X[104X
+    [4X[25Xgap>[125X [27XMs := StalkComplex(cat, M, 3);[127X[104X
+    [4X[28X0 -> 3:(2,2) -> 0 [128X[104X
+  [4X[32X[104X
+  
+  
+  [1X10.2 [33X[0;0YInfinite lists[133X[101X
+  
+  [33X[0;0YIn  this  section we give documentation for the [10XIsInfList[110X category. We start
+  by  giving  a  representation of [22X± ∞[122X. Then we quickly describe the [10XIsInfList[110X
+  category,  before  we turn to the underlying structure of the infinite lists
+  -- the half infinite lists ([10XIsHalfInfList[110X). Most of the functionality of the
+  infinite  lists  come  from this category. Finally, we give the constructors
+  for infinite lists, and some methods for manipulating such objects.[133X
+  
+  [1X10.2-1 IsInfiniteNumber[101X
+  
+  [33X[1;0Y[29X[2XIsInfiniteNumber[102X [32X Category[133X
+  
+  [33X[0;0YA category for infinite numbers.[133X
+  
+  [1X10.2-2 PositiveInfinity[101X
+  
+  [33X[1;0Y[29X[2XPositiveInfinity[102X [32X Var[133X
+  
+  [33X[0;0YA global variable representing the number [22X∞[122X. It is greater than any integer,
+  but  it can not be compared to numbers which are not integers. It belongs to
+  the [10XIsInfiniteNumber[110X category.[133X
+  
+  [1X10.2-3 NegativeInfinity[101X
+  
+  [33X[1;0Y[29X[2XNegativeInfinity[102X [32X Var[133X
+  
+  [33X[0;0YA  global  variable  representing  the  number  [22X-∞[122X.  It  is smaller than any
+  integer,  but  it  can not be compared to numbers which are not integers. It
+  belongs to the [10XIsInfiniteNumber[110X category.[133X
+  
+  [1X10.2-4 IsInfList[101X
+  
+  [33X[1;0Y[29X[2XIsInfList[102X [32X Category[133X
+  
+  [33X[0;0YAn  infinite  list  is  an  immutable representation of a list with possibly
+  infinite  range  of indices. It consists of three parts: The ``middle part''
+  is  finite  and  covers  some  range [22X[a,b][122X of indices, the ``positive part''
+  covers  the  range  [22X[b+1,∞)[122X of indices, and the ``negative part'' covers the
+  range  [22X(-∞,a-1][122X of indices. Note that none of the three parts are mandatory:
+  The  middle  part  may be an empty list, and the positive part may be set to
+  [10Xfail[110X  to  achieve index range ending at [22Xb < ∞[122X. Similarly, if the index range
+  has lower bound [22Xa < ∞[122X, put the negative part to be [10Xfail[110X.[133X
+  
+  [33X[0;0YEach  of  the two infinite parts are described in one of the following ways:
+  (1) A finite list which is repeated indefinitely; (2) A function which takes
+  an  index  in  the list as argument and returns the corresponding list item;
+  (3) A function which takes an item from the list as argument and returns the
+  next item.[133X
+  
+  [33X[0;0YThe  two  infinite  parts  are  represented  as ``half infinite lists'', see
+  [14X10.2-5[114X. An infinite list can be constructed in the following ways:[133X
+  
+  [30X    [33X[0;6YFrom    two    half    infinite    lists    and    a    middle   part,
+        [2XMakeInfListFromHalfInfLists[102X ([14X10.2-22[114X).[133X
+  
+  [30X    [33X[0;6YDirectly,  by  giving  the  same input as when constructing the above,
+        [2XMakeInfList[102X ([14X10.2-23[114X).[133X
+  
+  [30X    [33X[0;6YIf  all values of the infinite list are the image of the index under a
+        function [22Xf[122X, one can use [2XFunctionInfList[102X ([14X10.2-24[114X).[133X
+  
+  [30X    [33X[0;6YIf  all  values  of  the  infinite  list  are  the  same,  one can use
+        [2XConstantInfList[102X ([14X10.2-25[114X).[133X
+  
+  [30X    [33X[0;6YIf  the  infinite  list  has a finite range, one can use [2XFiniteInfList[102X
+        ([14X10.2-26[114X).[133X
+  
+  [33X[0;0YIn  addition,  new  infinite  lists can be constructed from others by shift,
+  splice,  concatenation,  extracting  parts  or  applying  a  function to the
+  elements.[133X
+  
+  [1X10.2-5 IsHalfInfList[101X
+  
+  [33X[1;0Y[29X[2XIsHalfInfList[102X [32X Category[133X
+  
+  [33X[0;0YA half infinite list is a representation of a list with indices in the range
+  [22X[a,∞)[122X  or  [22X(-∞,b][122X. An infinite list is typically made from two half infinite
+  lists,  and  half  infinite  lists  can  be extracted from an infinite list.
+  Hence,  the  half  infinite  list  stores  much  of the information about an
+  infinite  list.  One  main  difference  between  an infinite list and a half
+  infinite  list is that the half infinite list does not have any finite part,
+  as the ``middle'' part of an infinite list.[133X
+  
+  [1X10.2-6 \^[101X
+  
+  [33X[1;0Y[29X[2X\^[102X( [3Xlist[103X, [3Xpos[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xlist[103X -- either an infinite list or a half infinite list, [3Xpos[103X -- a
+  valid index for [3Xlist[103X.[133X
+  
+  [6XReturns:[106X  [33X[0;10YThe value at position [3Xpos[103X of [3Xlist[103X.[133X
+  
+  [1X10.2-7 MakeHalfInfList[101X
+  
+  [33X[1;0Y[29X[2XMakeHalfInfList[102X( [3Xstart[103X, [3Xdirection[103X, [3XtypeWithArgs[103X, [3Xcallback[103X, [3XrepeatifyCallback[103X ) [32X function[133X
+  
+  [33X[0;0YArguments: [3Xstart[103X -- an integer, [3Xdirection[103X -- either [22X1[122X or [22X-1[122X, [3XtypeWithArgs[103X --
+  a   list   which  may  have  different  formats,  [3Xcallback[103X  --  a  function,
+  [3XrepeatifyCallback[103X -- a function.[133X
+  
+  [6XReturns:[106X  [33X[0;10YA  newly created half infinite list with index range from [3Xstart[103X to
+            [22X∞[122X, or from [22X-∞[122X to [3Xstart[103X.[133X
+  
+  [33X[0;0YIf  the range should be [22X[mathttstart,∞)[122X then the value of [3Xdirection[103X is [22X1[122X. if
+  the range should be [22X(-∞,mathttstart][122X, then the value of [3Xdirection[103X is [22X-1[122X.[133X
+  
+  [33X[0;0YThe argument [3XtypeWithArgs[103X can take one of the following forms:[133X
+  
+  [30X    [33X[0;6Y[10X[ "repeat", repeatList ][110X[133X
+  
+  [30X    [33X[0;6Y[10X[ "next", nextFunction, initialValue ][110X[133X
+  
+  [30X    [33X[0;6Y[10X[ "next/repeat", nextFunction, initialValue ][110X[133X
+  
+  [30X    [33X[0;6Y[10X[ "pos", posFunction ][110X[133X
+  
+  [30X    [33X[0;6Y[10X[ "pos", posFunction, storeValues ][110X[133X
+  
+  [33X[0;0Y[10XrepeatList[110X  is a list of values that should be repeated in the half infinite
+  list.  [10XnextFunction[110X  returns the value at position [22Xi[122X, given the value at the
+  previous  position  as  argument. Here [10XinitialValue[110X is the value at position
+  [10Xstart[110X.  Similarly,  [10XposFunction[110X  returns the value at any position [22Xi[122X, and it
+  may  or  may  not store the values between the previous computed indices and
+  the  newly  computed  index.  The  default  value of [10XstoreValues[110X is [10Xtrue[110X for
+  [10X"next"[110X  and  [10X"pos"[110X,  and  [10Xfalse[110X  for  [10X"repeat"[110X. The type [10X"next/repeat"[110X works
+  exactly  like  the  type  [10X"next"[110X,  except  that  when values in the list are
+  computed, the list will try to discover if the values are repeating. If this
+  happens,  the  function  [3XrepeatifyCallback[103X is called with two arguments: the
+  non-repeating  part  at the beginning as a normal list (this might be empty)
+  and a new HalfInfList of type [10X"repeat"[110X for the repeating part.[133X
+  
+  [33X[0;0YThe  argument  [10Xcallback[110X is a function that is called whenever a new value of
+  the  list  is  computed. It takes three arguments: The current position, the
+  direction  and  the type (that is, [10XtypeWithArgs[1][110X). If no callback function
+  is needed, use [10Xfalse[110X.[133X
+  
+  [33X[0;0YAll the information given to create the list is stored, and can be retrieved
+  later by the operations listed in [14X10.2-8[114X--[14X10.2-18[114X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27X# make a HalfInfList from 0 to inf which repeats the list [ 2, 4, 6 ][127X[104X
+    [4X[25Xgap>[125X [27Xlist1 := MakeHalfInfList( 0, 1, [ "repeat", [ 2, 4, 6 ] ], false );[127X[104X
+    [4X[28X<object>[128X[104X
+    [4X[25Xgap>[125X [27Xlist1^0;[127X[104X
+    [4X[28X2[128X[104X
+    [4X[25Xgap>[125X [27Xlist1^5;[127X[104X
+    [4X[28X6[128X[104X
+    [4X[25Xgap>[125X [27X# make a HalfInfList from 0 to inf with x^2 in position x[127X[104X
+    [4X[25Xgap>[125X [27Xf := function(x) return x^2; end;;[127X[104X
+    [4X[25Xgap>[125X [27Xlist2 := MakeHalfInfList( 0, 1, [ "pos", f, false ], false );[127X[104X
+    [4X[28X<object>[128X[104X
+    [4X[25Xgap>[125X [27Xlist2^0;[127X[104X
+    [4X[28X0[128X[104X
+    [4X[25Xgap>[125X [27Xlist2^10;[127X[104X
+    [4X[28X100 [128X[104X
+    [4X[25Xgap>[125X [27X# make a HalfInfList from 0 to -inf where each new value adds 3[127X[104X
+    [4X[25Xgap>[125X [27X# to the previous and the value in position 0 is 10[127X[104X
+    [4X[25Xgap>[125X [27Xg := function(x) return x+3; end;;[127X[104X
+    [4X[25Xgap>[125X [27Xlist3 := MakeHalfInfList( 0, -1, [ "next", g, 7 ], false );[127X[104X
+    [4X[28X<object>[128X[104X
+    [4X[25Xgap>[125X [27Xlist3^0;[127X[104X
+    [4X[28X10[128X[104X
+    [4X[25Xgap>[125X [27Xlist3^-10;[127X[104X
+    [4X[28X40 [128X[104X
+  [4X[32X[104X
+  
+  [1X10.2-8 StartPosition[101X
+  
+  [33X[1;0Y[29X[2XStartPosition[102X( [3Xlist[103X ) [32X operation[133X
+  
+  [33X[0;0Y[3Xlist[103X -- a half infinite list.[133X
+  
+  [6XReturns:[106X  [33X[0;10YThe start position of [3Xlist[103X.[133X
+  
+  [1X10.2-9 Direction[101X
+  
+  [33X[1;0Y[29X[2XDirection[102X( [3Xlist[103X ) [32X operation[133X
+  
+  [33X[0;0Y[3Xlist[103X -- a half infinite list.[133X
+  
+  [6XReturns:[106X  [33X[0;10YThe direction of [3Xlist[103X (either [22X1[122X or [22X-1[122X).[133X
+  
+  [1X10.2-10 InfListType[101X
+  
+  [33X[1;0Y[29X[2XInfListType[102X( [3Xlist[103X ) [32X operation[133X
+  
+  [33X[0;0Y[3Xlist[103X -- a half infinite list.[133X
+  
+  [6XReturns:[106X  [33X[0;10YThe type of [3Xlist[103X (either [10X"pos"[110X, [10X"repeat"[110X or [10X"next"[110X).[133X
+  
+  [1X10.2-11 RepeatingList[101X
+  
+  [33X[1;0Y[29X[2XRepeatingList[102X( [3Xlist[103X ) [32X operation[133X
+  
+  [33X[0;0Y[3Xlist[103X -- a half infinite list.[133X
+  
+  [6XReturns:[106X  [33X[0;10YThe  repeating  list of [3Xlist[103X if [3Xlist[103X is of type [10X"repeat"[110X, and [10Xfail[110X
+            otherwise.[133X
+  
+  [1X10.2-12 ElementFunction[101X
+  
+  [33X[1;0Y[29X[2XElementFunction[102X( [3Xlist[103X ) [32X operation[133X
+  
+  [33X[0;0Y[3Xlist[103X -- a half infinite list.[133X
+  
+  [6XReturns:[106X  [33X[0;10YThe  element  function of [3Xlist[103X if [3Xlist[103X is of type [10X"next"[110X or [10X"pos"[110X,
+            and [10Xfail[110X otherwise.[133X
+  
+  [1X10.2-13 IsStoringValues[101X
+  
+  [33X[1;0Y[29X[2XIsStoringValues[102X( [3Xlist[103X ) [32X operation[133X
+  
+  [33X[0;0Y[3Xlist[103X -- a half infinite list.[133X
+  
+  [6XReturns:[106X  [33X[0;10Y[10Xtrue[110X if all elements of the list are stored, [10Xfalse[110X otherwise.[133X
+  
+  [1X10.2-14 NewValueCallback[101X
+  
+  [33X[1;0Y[29X[2XNewValueCallback[102X( [3Xlist[103X ) [32X operation[133X
+  
+  [33X[0;0Y[3Xlist[103X -- a half infinite list.[133X
+  
+  [6XReturns:[106X  [33X[0;10YThe callback function of the list.[133X
+  
+  [1X10.2-15 IsRepeating[101X
+  
+  [33X[1;0Y[29X[2XIsRepeating[102X( [3Xlist[103X ) [32X operation[133X
+  
+  [33X[0;0Y[3Xlist[103X -- a half infinite list.[133X
+  
+  [6XReturns:[106X  [33X[0;10Y[10Xtrue[110X if the type of the list is [10X"repeat"[110X.[133X
+  
+  [1X10.2-16 InitialValue[101X
+  
+  [33X[1;0Y[29X[2XInitialValue[102X( [3Xlist[103X ) [32X operation[133X
+  
+  [33X[0;0Y[3Xlist[103X -- a half infinite list.[133X
+  
+  [6XReturns:[106X  [33X[0;10YIf  the list is of type [10X"next"[110X then the initial value is returned,
+            otherwise it fails.[133X
+  
+  [1X10.2-17 LowestKnownPosition[101X
+  
+  [33X[1;0Y[29X[2XLowestKnownPosition[102X( [3Xlist[103X ) [32X operation[133X
+  
+  [33X[0;0Y[3Xlist[103X -- a half infinite list.[133X
+  
+  [6XReturns:[106X  [33X[0;10YThe  lowest  index  [22Xi[122X  such  that the value at position [22Xi[122X is known
+            without computation (that is, it is either stored, or the list has
+            type [10X"repeat"[110X).[133X
+  
+  [1X10.2-18 HighestKnownValue[101X
+  
+  [33X[1;0Y[29X[2XHighestKnownValue[102X( [3Xlist[103X ) [32X operation[133X
+  
+  [33X[0;0Y[3Xlist[103X -- a half infinite list.[133X
+  
+  [6XReturns:[106X  [33X[0;10YThe  highest  index  [22Xi[122X  such that the value at position [22Xi[122X is known
+            without computation (that is, it is either stored, or the list has
+            type [10X"repeat"[110X).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27X# we reuse the IsHalfInfLists from the previous example[127X[104X
+    [4X[25Xgap>[125X [27XHighestKnownPosition(list1);[127X[104X
+    [4X[28X+inf[128X[104X
+    [4X[25Xgap>[125X [27XHighestKnownPosition(list2);[127X[104X
+    [4X[28X"none"[128X[104X
+    [4X[25Xgap>[125X [27XHighestKnownPosition(list3);[127X[104X
+    [4X[28X0 [128X[104X
+  [4X[32X[104X
+  
+  [1X10.2-19 Shift[101X
+  
+  [33X[1;0Y[29X[2XShift[102X( [3Xlist[103X, [3Xshift[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xlist[103X -- a half infinite list, [3Xshift[103X -- an integer.[133X
+  
+  [6XReturns:[106X  [33X[0;10YA  new  half  infinite  list which is [3Xlist[103X with all values shifted
+            [3Xshift[103X positions to the right if [3Xshift[103X is positive, and to the left
+            if [3Xshift[103X is negative.[133X
+  
+  [1X10.2-20 Cut[101X
+  
+  [33X[1;0Y[29X[2XCut[102X( [3Xlist[103X, [3Xpos[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments:  [3Xlist[103X -- a half infinite list, [3Xpos[103X -- an integer within the range
+  of [3Xlist[103X.[133X
+  
+  [6XReturns:[106X  [33X[0;10YA new half infinite list which is [3Xlist[103X with some part cut off.[133X
+  
+  [33X[0;0YIf  the  direction of [3Xlist[103X is positive, then the new list has range from [10Xcut[110X
+  to [22X∞[122X. If the direction of [3Xlist[103X is negative, then the new list has range from
+  [22X-∞[122X  to  [10Xcut[110X.  The  values at position [22Xi[122X of the new half infinite list is the
+  same as the value at position [22Xi[122X of [3Xlist[103X.[133X
+  
+  [1X10.2-21 HalfInfList[101X
+  
+  [33X[1;0Y[29X[2XHalfInfList[102X( [3Xlist[103X, [3Xfunc[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments:  [3Xlist[103X  -- a half infinite list, [3Xfunc[103X -- a function which takes an
+  element of the list as argument.[133X
+  
+  [6XReturns:[106X  [33X[0;10YA  half infinite list with the same range as [3Xlist[103X, where the value
+            at  position  [22Xi[122X  is  the  image of the value at position [22Xi[122X of [3Xlist[103X
+            under [3Xfunc[103X.[133X
+  
+  [1X10.2-22 MakeInfListFromHalfInfLists[101X
+  
+  [33X[1;0Y[29X[2XMakeInfListFromHalfInfLists[102X( [3XbasePosition[103X, [3Xmiddle[103X, [3Xpositive[103X, [3Xnegative[103X ) [32X function[133X
+  
+  [33X[0;0YArguments:  [3XbasePosition[103X -- an integer, [3Xmiddle[103X -- a list, [3Xpositive[103X -- a half
+  infinite list, [3Xnegative[103X -- a half infinite list.[133X
+  
+  [6XReturns:[106X  [33X[0;10YAn  infinite  list  with [3Xmiddle[103X as is middle part, [3Xpositive[103X as its
+            positive part and [3Xnegative[103X as its negative part.[133X
+  
+  [33X[0;0YThe  starting  position of [3Xpositive[103X must be [10XbasePosition + Length( middle )[110X,
+  and the starting position of [3Xnegative[103X must be [10XbasePosition - 1[110X. The returned
+  list   has   [10Xmiddle[1][110X  in  position  [3XbasePosition[103X,  [10Xmiddle[2][110X  in  position
+  [3XbasePosition  +  1[103X and so on. Note that one probably wants the [3Xpositive[103X half
+  infinite  list  to  have direction [22X1[122X, and the [3Xnegative[103X half infinite list to
+  have direction [22X-1[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27X# we want to construct an infinite list with 0 in position[127X[104X
+    [4X[25Xgap>[125X [27X# 0 to 5, and x^2 in position x where x goes from 6 to inf, [127X[104X
+    [4X[25Xgap>[125X [27X# and alternatingly 1 and -1 in position -1 to -inf.[127X[104X
+    [4X[25Xgap>[125X [27X#[127X[104X
+    [4X[25Xgap>[125X [27XbasePosition := 0;;[127X[104X
+    [4X[25Xgap>[125X [27Xmiddle := [0,0,0,0,0,0];;[127X[104X
+    [4X[25Xgap>[125X [27Xf := function(x) return x^2; end;;[127X[104X
+    [4X[25Xgap>[125X [27Xpositive := MakeHalfInfList( 6, 1, [ "pos", f, false ], false );[127X[104X
+    [4X[28X<object>[128X[104X
+    [4X[25Xgap>[125X [27XaltList := [ 1, -1 ];;[127X[104X
+    [4X[25Xgap>[125X [27Xnegative := MakeHalfInfList( -1, -1, [ "repeat", altList ], false );[127X[104X
+    [4X[28X<object>[128X[104X
+    [4X[25Xgap>[125X [27Xinflist := MakeInfListFromHalfInfLists( basePosition, middle,[127X[104X
+    [4X[25X>[125X [27X                                           positive, negative );[127X[104X
+    [4X[28X<object>[128X[104X
+    [4X[25Xgap>[125X [27Xinflist^0; inflist^5; inflist^6; inflist^-1; inflist^-4;[127X[104X
+    [4X[28X0[128X[104X
+    [4X[28X0[128X[104X
+    [4X[28X36[128X[104X
+    [4X[28X1[128X[104X
+    [4X[28X-1 [128X[104X
+  [4X[32X[104X
+  
+  [1X10.2-23 MakeInfList[101X
+  
+  [33X[1;0Y[29X[2XMakeInfList[102X( [3XbasePosition[103X, [3Xmiddle[103X, [3Xpositive[103X, [3Xnegative[103X, [3Xcallback[103X ) [32X function[133X
+  
+  [33X[0;0YArguments:  [3XbasePosition[103X -- an integer, [3Xmiddle[103X -- a list, [3Xpositive[103X -- a list
+  describing  the  positive  part,  [3Xnegative[103X -- a list describing the negative
+  part.[133X
+  
+  [6XReturns:[106X  [33X[0;10YAn  infinite  list  with [3Xmiddle[103X as is middle part, [3Xpositive[103X as its
+            positive part and [3Xnegative[103X as its negative part.[133X
+  
+  [33X[0;0YThe major difference between this construction and the previous is that here
+  the  half  infinite lists that will make the positive and negative parts are
+  not  entered  directly  as  arguments.  Instead,  one  enters  ``description
+  lists'',  which  are  of  the  same  format  as the argument [3XtypeWithArgs[103X of
+  [2XMakeHalfInfList[102X  ([14X10.2-7[114X). If the positive and/or negative part is specified
+  with  type [10X"next/repeat"[110X, then it will initially be of type [10X"next"[110X, but will
+  be  replaced  by a HalfInfList of type [10X"repeat"[110X if it is discovered that the
+  values are repeating.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27X# we construct the same infinite list as in the previous example[127X[104X
+    [4X[25Xgap>[125X [27XbasePosition := 0;;[127X[104X
+    [4X[25Xgap>[125X [27Xmiddle := [0,0,0,0,0,0];;[127X[104X
+    [4X[25Xgap>[125X [27Xf := function(x) return x^2; end;;[127X[104X
+    [4X[25Xgap>[125X [27XaltList := [ 1, -1 ];;[127X[104X
+    [4X[25Xgap>[125X [27Xinflist2 := MakeInfList( 0, middle, [ "pos", f, false ], [ "repeat", [127X[104X
+    [4X[25X>[125X [27X                            altList ], false );[127X[104X
+    [4X[28X<object>[128X[104X
+    [4X[25Xgap>[125X [27Xinflist2^0; inflist2^5; inflist2^6; inflist2^-1; inflist2^-4;[127X[104X
+    [4X[28X0[128X[104X
+    [4X[28X0[128X[104X
+    [4X[28X36[128X[104X
+    [4X[28X1[128X[104X
+    [4X[28X-1[128X[104X
+    [4X[25Xgap>[125X [27Xn := function( x ) return ( x + 1 ) mod 5; end;;[127X[104X
+    [4X[25Xgap>[125X [27Xlist := MakeInfList( 0, [ 0 ], [ "next/repeat", n, 0 ],[127X[104X
+    [4X[25X>[125X [27X                        [ "repeat", [ 0 ] ], false );;[127X[104X
+    [4X[25Xgap>[125X [27Xlist^2;[127X[104X
+    [4X[28X2[128X[104X
+    [4X[25Xgap>[125X [27XIsRepeating( PositivePart( list ) );[127X[104X
+    [4X[28Xfalse[128X[104X
+    [4X[25Xgap>[125X [27Xlist^11;[127X[104X
+    [4X[28X1[128X[104X
+    [4X[25Xgap>[125X [27XIsRepeating( PositivePart( list ) );[127X[104X
+    [4X[28Xtrue [128X[104X
+  [4X[32X[104X
+  
+  [1X10.2-24 FunctionInfList[101X
+  
+  [33X[1;0Y[29X[2XFunctionInfList[102X( [3Xfunc[103X ) [32X function[133X
+  
+  [33X[0;0YArguments: [3Xfunc[103X -- a function that takes an integer as argument.[133X
+  
+  [6XReturns:[106X  [33X[0;10YAn  infinite  list  where  the value at position [22Xi[122X is the function
+            [3Xfunc[103X applied to [22Xi[122X.[133X
+  
+  [1X10.2-25 ConstantInfList[101X
+  
+  [33X[1;0Y[29X[2XConstantInfList[102X( [3Xvalue[103X ) [32X function[133X
+  
+  [33X[0;0YArguments: [3Xvalue[103X -- an object.[133X
+  
+  [6XReturns:[106X  [33X[0;10YAn infinite list which has the object [3Xvalue[103X in every position.[133X
+  
+  [1X10.2-26 FiniteInfList[101X
+  
+  [33X[1;0Y[29X[2XFiniteInfList[102X( [3XbasePosition[103X, [3Xlist[103X ) [32X function[133X
+  
+  [33X[0;0YArguments: [3XbasePosition[103X -- an integer, [3Xlist[103X -- a list of length [22Xn[122X.[133X
+  
+  [6XReturns:[106X  [33X[0;10YAn infinite list with [22Xmathttlist[1],...,mathttlist[n][122X in positions
+            [22XmathttbasePosition,...,[122X [22XmathttbasePosition + n[122X.[133X
+  
+  [33X[0;0YThe range of this list is [22X[mathttbasePosition, mathttbasePosition + n][122X.[133X
+  
+  [1X10.2-27 MiddleStart[101X
+  
+  [33X[1;0Y[29X[2XMiddleStart[102X( [3Xlist[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xlist[103X -- an infinite list.[133X
+  
+  [6XReturns:[106X  [33X[0;10YThe starting position of the "middle" part of [3Xlist[103X.[133X
+  
+  [1X10.2-28 MiddleEnd[101X
+  
+  [33X[1;0Y[29X[2XMiddleEnd[102X( [3Xlist[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xlist[103X -- an infinite list.[133X
+  
+  [6XReturns:[106X  [33X[0;10YThe ending position of the middle part of [3Xlist[103X.[133X
+  
+  [1X10.2-29 MiddlePart[101X
+  
+  [33X[1;0Y[29X[2XMiddlePart[102X( [3Xlist[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xlist[103X -- an infinite list.[133X
+  
+  [6XReturns:[106X  [33X[0;10YThe middle part (as a list) of [3Xlist[103X.[133X
+  
+  [1X10.2-30 PositivePart[101X
+  
+  [33X[1;0Y[29X[2XPositivePart[102X( [3Xlist[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xlist[103X -- an infinite list.[133X
+  
+  [6XReturns:[106X  [33X[0;10YThe positive part (as a half infinite list) of [3Xlist[103X.[133X
+  
+  [1X10.2-31 NegativePart[101X
+  
+  [33X[1;0Y[29X[2XNegativePart[102X( [3Xlist[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xlist[103X -- an infinite list.[133X
+  
+  [6XReturns:[106X  [33X[0;10YThe negative part (as a halft infinite list) of [3Xlist[103X.[133X
+  
+  [1X10.2-32 HighestKnownPosition[101X
+  
+  [33X[1;0Y[29X[2XHighestKnownPosition[102X( [3Xlist[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xlist[103X -- an infinite list.[133X
+  
+  [6XReturns:[106X  [33X[0;10YThe  highest  index  [22Xi[122X  such that the value at position [22Xi[122X is known
+            without computation.[133X
+  
+  [1X10.2-33 LowestKnownPosition[101X
+  
+  [33X[1;0Y[29X[2XLowestKnownPosition[102X( [3Xlist[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xlist[103X -- an infinite list.[133X
+  
+  [6XReturns:[106X  [33X[0;10YThe  lowest  index  [22Xi[122X  such  that the value at position [22Xi[122X is known
+            without computation.[133X
+  
+  [1X10.2-34 UpperBound[101X
+  
+  [33X[1;0Y[29X[2XUpperBound[102X( [3Xlist[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xlist[103X -- an infinite list.[133X
+  
+  [6XReturns:[106X  [33X[0;10YThe highest index in the range of the list.[133X
+  
+  [1X10.2-35 LowerBound[101X
+  
+  [33X[1;0Y[29X[2XLowerBound[102X( [3Xlist[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xlist[103X -- an infinite list.[133X
+  
+  [6XReturns:[106X  [33X[0;10YThe lowest index in the range of the list.[133X
+  
+  [1X10.2-36 FinitePartAsList[101X
+  
+  [33X[1;0Y[29X[2XFinitePartAsList[102X( [3Xlist[103X, [3XstartPos[103X, [3XendPos[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments:  [3Xlist[103X  --  an infinite list, [3XstartPos[103X -- an integer, [3XendPos[103X -- an
+  integer.[133X
+  
+  [6XReturns:[106X  [33X[0;10YA    list   containing   the   values   of   [3Xlist[103X   in   positions
+            [22XmathttendPos,...,mathttstartPos[122X.[133X
+  
+  [33X[0;0YNote that both integers in the input must be within the index range of [3Xlist[103X.[133X
+  
+  [1X10.2-37 PositivePartFrom[101X
+  
+  [33X[1;0Y[29X[2XPositivePartFrom[102X( [3Xlist[103X, [3Xpos[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xlist[103X -- an infinite list, [3Xpos[103X -- an integer.[133X
+  
+  [6XReturns:[106X  [33X[0;10YAn  infinite list ([13Xnot[113X a half infinite list) with index range from
+            [10Xpos[110X to [10XUpperBound(list)[110X.[133X
+  
+  [33X[0;0YThe value at position [22Xi[122X of the new infinite list is the same as the value at
+  position [22Xi[122X of [3Xlist[103X.[133X
+  
+  [1X10.2-38 NegativePartFrom[101X
+  
+  [33X[1;0Y[29X[2XNegativePartFrom[102X( [3Xlist[103X, [3Xpos[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xlist[103X -- an infinite list, [3Xpos[103X -- an integer.[133X
+  
+  [6XReturns:[106X  [33X[0;10YAn  infinite list ([13Xnot[113X a half infinite list) with index range from
+            [10XLowerBound(list)[110X to [10Xpos[110X.[133X
+  
+  [33X[0;0YThe value at position [22Xi[122X of the new infinite list is the same as the value at
+  position [22Xi[122X of [3Xlist[103X.[133X
+  
+  [1X10.2-39 Shift[101X
+  
+  [33X[1;0Y[29X[2XShift[102X( [3Xlist[103X, [3Xshift[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xlist[103X -- an infinite list, [3Xshift[103X -- an integer.[133X
+  
+  [6XReturns:[106X  [33X[0;10YA  new  infinite  list which is [3Xlist[103X with all values shifted [3Xshift[103X
+            positions  to  the  right if [3Xshift[103X is positive, and to the left if
+            [3Xshift[103X is negative.[133X
+  
+  [1X10.2-40 Splice[101X
+  
+  [33X[1;0Y[29X[2XSplice[102X( [3XpositiveList[103X, [3XnegativeList[103X, [3XjoinPosition[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments:  [3XpositiveList[103X  --  an  infinite list, [3XnegativeList[103X -- an infinite
+  list, [3XjoinPosition[103X -- an integer.[133X
+  
+  [6XReturns:[106X  [33X[0;10YA new infinite list which is identical to [3XpositiveList[103X for indices
+            greater  than  [3XjoinPosition[103X  and  identical  to  [3XnegativeList[103X  for
+            indices smaller than or equal to [3XjoinPosition[103X.[133X
+  
+  [1X10.2-41 InfConcatenation[101X
+  
+  [33X[1;0Y[29X[2XInfConcatenation[102X( [3Xarg[103X ) [32X function[133X
+  
+  [33X[0;0YArguments: [3Xarg[103X -- a number of infinite lists.[133X
+  
+  [6XReturns:[106X  [33X[0;10YA new infinite list.[133X
+  
+  [33X[0;0YIf  the  length  of [3Xarg[103X is greater than or equal to [22X2[122X, then the new infinite
+  list  consists  of  the following parts: It has the positive part of [10Xarg[1][110X,
+  and the middle part is the concatenation of the middle parts of all lists in
+  [3Xarg[103X, such that [10XMiddleEnd[110X of the new list is the same as [10XMiddleEnd( arg[1] )[110X.
+  The  negative part of the new list is the negative part of [10Xarg[Length(arg)][110X,
+  although shiftet so that it starts in the correct position.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27X# we do an InfConcatenation of three lists.[127X[104X
+    [4X[25Xgap>[125X [27Xf := function(x) return x; end;;[127X[104X
+    [4X[25Xgap>[125X [27Xg := function(x) return x+1; end;;[127X[104X
+    [4X[25Xgap>[125X [27Xh := function(x) return x^2; end;;[127X[104X
+    [4X[25Xgap>[125X [27XInfList1 := MakeInfList( 0, [ 10 ], [ "pos", f, false ], [127X[104X
+    [4X[25X>[125X [27X                            [ "repeat", [ 10, 15 ] ], false );[127X[104X
+    [4X[28X<object>[128X[104X
+    [4X[25Xgap>[125X [27XInfList2 := MakeInfList( 0, [ 20 ], [ "pos", g, false ], [127X[104X
+    [4X[25X>[125X [27X                            [ "repeat", [ 20, 25 ] ], false );[127X[104X
+    [4X[28X<object>[128X[104X
+    [4X[25Xgap>[125X [27XInfList3 := MakeInfList( 0, [ 30 ], [ "pos", h, false ], [127X[104X
+    [4X[25X>[125X [27X                            [ "repeat", [ 30, 35 ] ], false );[127X[104X
+    [4X[28X<object>[128X[104X
+    [4X[25Xgap>[125X [27XconcList := InfConcatenation( InfList1, InfList2, InfList3 );[127X[104X
+    [4X[28X<object> [128X[104X
+    [4X[25Xgap>[125X [27XMiddlePart(concList);[127X[104X
+    [4X[28X[ 30, 20, 10 ] [128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe newly created [10XconcList[110X looks as follows around the middle part:[133X
+  
+  
+  [24X[33X[0;6Y\begin{array}{lrrrrrrrrrrr}  \text{position} & \cdots & 3 & 2 & 1 & 0 & -1 &
+  -2  & -3 & -4 & -5 & \cdots \\ \text{value} & \cdots & 3 & 2 & 1 & 10 & 20 &
+  30 & 30 & 35 & 30 & \cdots \\ \end{array}[133X
+  
+  [124X
+  
+  [1X10.2-42 InfList[101X
+  
+  [33X[1;0Y[29X[2XInfList[102X( [3Xlist[103X, [3Xfunc[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments:  [3Xlist[103X  --  an  infinite  list,  [3Xfunc[103X -- a function which takes an
+  element of the list as argument.[133X
+  
+  [6XReturns:[106X  [33X[0;10YAn  infinite  list with the same range as [3Xlist[103X, where the value at
+            position  [22Xi[122X  is the image of the value at position [22Xi[122X of [3Xlist[103X under
+            [3Xfunc[103X.[133X
+  
+  [1X10.2-43 IntegersList[101X
+  
+  [33X[1;0Y[29X[2XIntegersList[102X [32X global variable[133X
+  
+  [33X[0;0YAn  infinite  list  with  range  [22X(-∞,∞)[122X where the value at position [22Xi[122X is the
+  number [22Xi[122X (that is, a representation of the integers).[133X
+  
+  
+  [1X10.3 [33X[0;0YRepresentation of categories[133X[101X
+  
+  [33X[0;0YA  chain  complex  consists  of objects and morphisms from some category. In
+  QPA,  this  category will usually be the category of right modules over some
+  quotient of a path algebra.[133X
+  
+  [1X10.3-1 IsCat[101X
+  
+  [33X[1;0Y[29X[2XIsCat[102X [32X Category[133X
+  
+  [33X[0;0YThe  category  for  categories.  A category is a record, storing a number of
+  properties  that  is  specified  within each category. Two categories can be
+  compared  using  [10X=[110X.  Currently,  the only implemented category is the one of
+  right modules over a (quotient of a) path algebra.[133X
+  
+  [1X10.3-2 CatOfRightAlgebraModules[101X
+  
+  [33X[1;0Y[29X[2XCatOfRightAlgebraModules[102X( [3XA[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XA[103X -- a (quotient of a) path algebra.[133X
+  
+  [6XReturns:[106X  [33X[0;10YThe category mod [23XA[123X.[133X
+  
+  [33X[0;0Ymod  [23XA[123X  has several properties, which can be accessed using the [10X.[110X mark. Some
+  of  the  properties  store functions. All properties are demonstrated in the
+  following example.[133X
+  
+  [30X    [33X[0;6Y[10XzeroObj[110X -- returns the zero module of mod [23XA[123X.[133X
+  
+  [30X    [33X[0;6Y[10XisZeroObj[110X -- returns true if the given module is zero.[133X
+  
+  [30X    [33X[0;6Y[10XzeroMap[110X -- returns the ZeroMapping function.[133X
+  
+  [30X    [33X[0;6Y[10XisZeroMapping[110X -- returns the IsZero test.[133X
+  
+  [30X    [33X[0;6Y[10XcomposeMaps[110X -- returns the composition of the two given maps.[133X
+  
+  [30X    [33X[0;6Y[10Xker[110X -- returns the Kernel function.[133X
+  
+  [30X    [33X[0;6Y[10Xim[110X -- returns the Image function.[133X
+  
+  [30X    [33X[0;6Y[10XisExact[110X -- returns true if two consecutive maps are exact.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xalg;[127X[104X
+    [4X[28X<algebra-with-one over Rationals, with 7 generators>[128X[104X
+    [4X[25Xgap>[125X [27X# L, M, and N are alg-modules[127X[104X
+    [4X[25Xgap>[125X [27X# f: L --> M and g: M --> N are non-zero morphisms[127X[104X
+    [4X[25Xgap>[125X [27Xcat := CatOfRightAlgebraModules(alg);[127X[104X
+    [4X[28X<cat: right modules over algebra>[128X[104X
+    [4X[25Xgap>[125X [27Xcat.zeroObj;[127X[104X
+    [4X[28X<right-module over <algebra-with-one over Rationals, with 7 generators>>[128X[104X
+    [4X[25Xgap>[125X [27Xcat.isZeroObj(M);[127X[104X
+    [4X[28Xfalse[128X[104X
+    [4X[25Xgap>[125X [27Xcat.zeroMap(M,N);[127X[104X
+    [4X[28X<mapping: <3-dimensional right-module over AlgebraWithOne( Rationals, [128X[104X
+    [4X[28X[ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*v4], [(1)*a], [(1)*b], [(1)*c] ])> -> [128X[104X
+    [4X[28X  <1-dimensional right-module over AlgebraWithOne( Rationals,[128X[104X
+    [4X[28X  [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*v4], [(1)*a], [(1)*b], [(1)*c] ] )> >[128X[104X
+    [4X[25Xgap>[125X [27Xcat.composeMaps(g,f);[127X[104X
+    [4X[28X<mapping: <1-dimensional right-module over AlgebraWithOne( Rationals, [128X[104X
+    [4X[28X  [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*v4], [(1)*a], [(1)*b], [(1)*c]][128X[104X
+    [4X[28X  -> <1-dimensional right-module over AlgebraWithOne( Rationals,[128X[104X
+    [4X[28X  [ [(1)*v1], [(1)*v2], [(1)*v3], [(1)*v4], [(1)*a], [(1)*b], [(1)*c] ] )> >[128X[104X
+    [4X[25Xgap>[125X [27Xcat.ker(g);[127X[104X
+    [4X[28X<2-dimensional right-module over <algebra-with-one over Rationals,[128X[104X
+    [4X[28X  with 7 generators>>[128X[104X
+    [4X[25Xgap>[125X [27Xcat.isExact(g,f);[127X[104X
+    [4X[28Xfalse [128X[104X
+  [4X[32X[104X
+  
+  
+  [1X10.4 [33X[0;0YMaking a complex[133X[101X
+  
+  [33X[0;0YThe most general constructor for complexes is the function [2XComplex[102X ([14X10.4-3[114X).
+  In addition to this, there are constructors for common special cases:[133X
+  
+  [30X    [33X[0;6Y[2XZeroComplex[102X ([14X10.4-4[114X)[133X
+  
+  [30X    [33X[0;6Y[2XStalkComplex[102X ([14X10.4-6[114X)[133X
+  
+  [30X    [33X[0;6Y[2XFiniteComplex[102X ([14X10.4-5[114X)[133X
+  
+  [30X    [33X[0;6Y[2XShortExactSequence[102X ([14X10.4-7[114X)[133X
+  
+  [1X10.4-1 IsQPAComplex[101X
+  
+  [33X[1;0Y[29X[2XIsQPAComplex[102X [32X Category[133X
+  
+  [33X[0;0YThe category for chain complexes.[133X
+  
+  [1X10.4-2 IsZeroComplex[101X
+  
+  [33X[1;0Y[29X[2XIsZeroComplex[102X [32X Category[133X
+  
+  [33X[0;0YCategory for zero complexes, subcategory of [2XIsQPAComplex[102X ([14X10.4-1[114X).[133X
+  
+  [1X10.4-3 Complex[101X
+  
+  [33X[1;0Y[29X[2XComplex[102X( [3Xcat[103X, [3XbaseDegree[103X, [3Xmiddle[103X, [3Xpositive[103X, [3Xnegative[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10YA newly created chain complex[133X
+  
+  [33X[0;0YThe  first argument, [3Xcat[103X is an [2XIsCat[102X ([14X10.3-1[114X) object describing the category
+  to create a chain complex over.[133X
+  
+  [33X[0;0YThe  rest  of the arguments describe the differentials of the complex. These
+  are divided into three parts: one finite ([21Xmiddle[121X) and two infinite ([21Xpositive[121X
+  and  [21Xnegative[121X).  The  positive  part  contains  all differentials in degrees
+  higher  than  those  in  the middle part, and the negative part contains all
+  differentials  in  degrees  lower than those in the middle part. (The middle
+  part may be placed anywhere, so the positive part can -- despite its name --
+  contain some differentials of negative degree. Conversely, the negative part
+  can contain some differentials of positive degree.)[133X
+  
+  [33X[0;0YThe  argument  [3Xmiddle[103X  is a list containing the differentials for the middle
+  part.  The argument [3XbaseDegree[103X gives the degree of the first differential in
+  this  list. The second differential is placed in degree [22X[3XbaseDegree[103X+1[122X, and so
+  on. Thus, the middle part consists of the degrees[133X
+  
+  
+  [24X[33X[0;6Y[3XbaseDegree[103X,\quad    [3XbaseDegree[103X    +   1,\quad   \ldots\quad   [3XbaseDegree[103X   +
+  \text{Length}([3Xmiddle[103X).[133X
+  
+  [124X
+  
+  [33X[0;0YEach of the arguments [3Xpositive[103X and [3Xnegative[103X can be one of the following:[133X
+  
+  [30X    [33X[0;6YThe  string  [10X"zero"[110X,  meaning that the part contains only zero objects
+        and zero morphisms.[133X
+  
+  [30X    [33X[0;6YA  list  of  the form [10X[ "repeat", L ][110X, where [10XL[110X is a list of morphisms.
+        The  part will contain the differentials in [10XL[110X repeated infinitely many
+        times.  The  convention for the order of elements in [10XL[110X is that [10XL[1][110X is
+        the differential which is closest to the middle part, and [10XL[Length(L)][110X
+        is farthest away from the middle part.[133X
+  
+  [30X    [33X[0;6YA  list  of the form [10X[ "pos", f ][110X or [10X[ "pos", f, store ][110X, where [10Xf[110X is a
+        function  of  two arguments, and [10Xstore[110X (if included) is a boolean. The
+        function  [10Xf[110X  is  used  to  compute the differentials in this part. The
+        function  [10Xf[110X  is not called immediately by the [10XComplex[110X constructor, but
+        will be called later as the differentials in this part are needed. The
+        function  call [10Xf(C,i)[110X (where [10XC[110X is the complex and [10Xi[110X an integer) should
+        produce  the  differential in degree [10Xi[110X. The function may use [10XC[110X to look
+        up  other differentials in the complex, as long as this does not cause
+        an  infinite  loop. If [10Xstore[110X is [10Xtrue[110X (or not specified), each computed
+        differential  is  stored,  and they are computed in order from the one
+        closest  to  the  middle  part,  regardless  of  which  order they are
+        requested in.[133X
+  
+  [30X    [33X[0;6YA  list  of the form [10X[ "next", f, init ][110X, where [10Xf[110X is a function of one
+        argument,  and  [10Xinit[110X  is a morphism. The function [10Xf[110X is used to compute
+        the differentials in this part. For the first differential in the part
+        (that  is,  the one closest to the middle part), [10Xf[110X is called with [10Xinit[110X
+        as  argument.  For  the  next differential, [10Xf[110X is called with the first
+        differential as argument, and so on. Thus, the differentials are[133X
+  
+  
+  [24X      [33X[0;6Yf(\text{init}),\quad   f^2(\text{init}),\quad   f^3(\text{init}),\quad
+        \ldots[133X
+  
+  [124X
+  
+        [33X[0;6YEach differential is stored when it has been computed.[133X
+  
+  [30X    [33X[0;6YA  list  of  the  form [10X[ "next/repeat", f, init ][110X. This works like the
+        type  [10X"next"[110X,  but  may  be  automatically  converted to type [10X"repeat"[110X
+        later, if it is discovered that the differentials are repeating.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XA := PathAlgebra( Rationals, Quiver( 2, [ [ 1, 2, "a" ] ] ) );;[127X[104X
+    [4X[25Xgap>[125X [27XM := RightModuleOverPathAlgebra( A, [ 2, 2 ], [ [ "a", [ [ 1, 0 ], [ 0, 1 ] ] ] ] );;[127X[104X
+    [4X[25Xgap>[125X [27Xd := RightModuleHomOverAlgebra( M, M, [ [ [ 0, 0 ], [ 1, 0 ] ], [ [ 0, 0 ], [ 1, 0 ] ] ] );;[127X[104X
+    [4X[25Xgap>[125X [27XIsZero( d * d );[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27XC := Complex( CatOfRightAlgebraModules( A ), 0, [ d ],[127X[104X
+    [4X[25X>[125X [27X                 [ "next/repeat", function( x ) return d; end, d ], "zero" );[127X[104X
+    [4X[28X--- -> 0:(2,2) -> -1:(2,2) -> 0[128X[104X
+    [4X[25Xgap>[125X [27XObjectOfComplex( C, 3 );[127X[104X
+    [4X[28X<[ 2, 2 ]>[128X[104X
+    [4X[25Xgap>[125X [27XC;[127X[104X
+    [4X[28X--- -> [ 1:(2,2) -> ] 0:(2,2) -> -1:(2,2) -> 0 [128X[104X
+  [4X[32X[104X
+  
+  [1X10.4-4 ZeroComplex[101X
+  
+  [33X[1;0Y[29X[2XZeroComplex[102X( [3Xcat[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10YA newly created zero complex[133X
+  
+  [33X[0;0YThis  function  creates  a  zero  complex (a complex consisting of only zero
+  objects  and  zero  morphisms)  over  the  category  described  by the [2XIsCat[102X
+  ([14X10.3-1[114X) object [3Xcat[103X.[133X
+  
+  [1X10.4-5 FiniteComplex[101X
+  
+  [33X[1;0Y[29X[2XFiniteComplex[102X( [3Xcat[103X, [3XbaseDegree[103X, [3Xdifferentials[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10YA newly created complex[133X
+  
+  [33X[0;0YThis  function creates a complex where all but finitely many objects are the
+  zero object.[133X
+  
+  [33X[0;0YThe  argument  [3Xcat[103X  is  an  [2XIsCat[102X ([14X10.3-1[114X) object describing the category to
+  create a chain complex over.[133X
+  
+  [33X[0;0YThe  argument  [3Xdifferentials[103X is a list of morphisms. The argument [3XbaseDegree[103X
+  gives  the  degree  for  the first differential in this list. The subsequent
+  differentials are placed in degrees [22X[3XbaseDegree[103X+1[122X, and so on.[133X
+  
+  [33X[0;0YThis  means  that  the [3Xdifferentials[103X argument specifies the differentials in
+  degrees[133X
+  
+  
+  [24X[33X[0;6Y[3XbaseDegree[103X,\quad   [3XbaseDegree[103X   +   1,\quad   \ldots   \quad   [3XbaseDegree[103X  +
+  \text{Length}([3Xdifferentials[103X);[133X
+  
+  [124X
+  
+  [33X[0;0Yand thus implicitly the objects in degrees[133X
+  
+  
+  [24X[33X[0;6Y[3XbaseDegree[103X   -   1,\quad   [3XbaseDegree[103X,\quad   \ldots   \quad   [3XbaseDegree[103X  +
+  \text{Length}([3Xdifferentials[103X).[133X
+  
+  [124X
+  
+  [33X[0;0YAll other objects in the complex are zero.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27X# L, M and N are modules over the same algebra A[127X[104X
+    [4X[25Xgap>[125X [27X# cat is the category mod A[127X[104X
+    [4X[25Xgap>[125X [27X# f: L --> M and g: M --> N maps[127X[104X
+    [4X[25Xgap>[125X [27XC := FiniteComplex(cat, 1, [g,f]);[127X[104X
+    [4X[28X0 -> 2:(1,0) -> 1:(2,2) -> 0:(1,1) -> 0 [128X[104X
+  [4X[32X[104X
+  
+  [1X10.4-6 StalkComplex[101X
+  
+  [33X[1;0Y[29X[2XStalkComplex[102X( [3Xcat[103X, [3Xobj[103X, [3Xdegree[103X ) [32X function[133X
+  
+  [33X[0;0YArguments:  [3Xcat[103X -- a category, [3Xobj[103X -- an object in [3Xcat[103X, [3Xdegree[103X -- the degree
+  [3Xobj[103X should be placed in.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya newly created complex.[133X
+  
+  [33X[0;0YThe  new  complex  is  a stalk complex with [3Xobj[103X in position [3Xdegree[103X, and zero
+  elsewhere.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XMs := StalkComplex(cat, M, 3);[127X[104X
+    [4X[28X0 -> 3:(2,2) -> 0 [128X[104X
+  [4X[32X[104X
+  
+  [1X10.4-7 ShortExactSequence[101X
+  
+  [33X[1;0Y[29X[2XShortExactSequence[102X( [3Xcat[103X, [3Xf[103X, [3Xg[103X ) [32X function[133X
+  
+  [33X[0;0YArguments: [3Xcat[103X -- a category, [3Xf[103X and [3Xg[103X -- maps in [3Xcat[103X, where [3Xf[103X: [23XA \rightarrow
+  B[123X and [3Xg[103X: [23XB \rightarrow C[123X.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ya newly created complex.[133X
+  
+  [33X[0;0YIf the sequence [23X0 \rightarrow A \rightarrow B \rightarrow C \rightarrow 0[123X is
+  exact, this complex (with [23XB[123X in degree 0) is returned.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xses := ShortExactSequence(cat, f, g);[127X[104X
+    [4X[28X0 -> 1:(0,0,1,0) -> 0:(0,1,1,1) -> -1:(0,1,0,1) -> 0 [128X[104X
+  [4X[32X[104X
+  
+  
+  [1X10.5 [33X[0;0YInformation about a complex[133X[101X
+  
+  [1X10.5-1 CatOfComplex[101X
+  
+  [33X[1;0Y[29X[2XCatOfComplex[102X( [3XC[103X ) [32X attribute[133X
+  [6XReturns:[106X  [33X[0;10YThe category the objects of the complex [3XC[103X live in.[133X
+  
+  [1X10.5-2 ObjectOfComplex[101X
+  
+  [33X[1;0Y[29X[2XObjectOfComplex[102X( [3XC[103X, [3Xi[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XC[103X -- a complex, [3Xi[103X -- an integer.[133X
+  
+  [6XReturns:[106X  [33X[0;10YThe object at position [3Xi[103X in the complex.[133X
+  
+  [1X10.5-3 DifferentialOfComplex[101X
+  
+  [33X[1;0Y[29X[2XDifferentialOfComplex[102X( [3XC[103X, [3Xi[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XC[103X -- a complex, [3Xi[103X -- an integer.[133X
+  
+  [6XReturns:[106X  [33X[0;10YThe map in [3XC[103X between objects at positions [23Xi[123X and [23Xi-1[123X.[133X
+  
+  [1X10.5-4 DifferentialsOfComplex[101X
+  
+  [33X[1;0Y[29X[2XDifferentialsOfComplex[102X( [3XC[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3XC[103X -- a complex[133X
+  
+  [6XReturns:[106X  [33X[0;10YThe differentials of the complex, stored as an [10XIsInfList[110X object.[133X
+  
+  [1X10.5-5 CyclesOfComplex[101X
+  
+  [33X[1;0Y[29X[2XCyclesOfComplex[102X( [3XC[103X, [3Xi[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XC[103X -- a complex, [3Xi[103X -- an integer.[133X
+  
+  [6XReturns:[106X  [33X[0;10YThe  [23Xi[123X-cycle  of  the  complex,  that is the subobject [23XKer(d_i)[123X of
+            [10XObjectOfComplex(C,i)[110X.[133X
+  
+  [1X10.5-6 BoundariesOfComplex[101X
+  
+  [33X[1;0Y[29X[2XBoundariesOfComplex[102X( [3XC[103X, [3Xi[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XC[103X -- a complex, [3Xi[103X -- an integer.[133X
+  
+  [6XReturns:[106X  [33X[0;10YThe  [23Xi[123X-boundary  of the complex, that is the subobject [23XIm(d_{i+1})[123X
+            of [10XObjectOfComplex(C,i)[110X.[133X
+  
+  [1X10.5-7 HomologyOfComplex[101X
+  
+  [33X[1;0Y[29X[2XHomologyOfComplex[102X( [3XC[103X, [3Xi[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XC[103X -- a complex, [3Xi[103X -- an integer.[133X
+  
+  [6XReturns:[106X  [33X[0;10YThe [23Xi[123Xth homology of the complex, that is, [23XKer(d_i)/Im(d_{i+1})[123X.[133X
+  
+  [33X[0;0YNote:  this  operation  is  currently  not  available.  When  working in the
+  category  of  right  [23XkQ/I[123X-modules,  it  is  possible  to "cheat" and use the
+  following procedure to compute the homology of a complex:[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XC;                     [127X[104X
+    [4X[28X0 -> 4:(0,1) -> 3:(1,0) -> 2:(2,2) -> 1:(1,1) -> 0:(2,2) -> 0[128X[104X
+    [4X[25Xgap>[125X [27X# Want to compute the homology in degree 2[127X[104X
+    [4X[25Xgap>[125X [27Xf := DifferentialOfComplex(C,3);[127X[104X
+    [4X[28X<mapping: <1-dimensional right-module over AlgebraWithOne( Rationals, [128X[104X
+    [4X[28X  [ [(1)*v1], [(1)*v2], [(1)*a], [(1)*b] ] )> ->[128X[104X
+    [4X[28X  < 4-dimensional right-module over AlgebraWithOne( Rationals, [128X[104X
+    [4X[28X  [ [(1)*v1], [(1)*v2], [(1)*a], [(1)*b] ] )> >[128X[104X
+    [4X[25Xgap>[125X [27Xg := KernelInclusion(DifferentialOfComplex(C,2));[127X[104X
+    [4X[28X  <mapping: <2-dimensional right-module over AlgebraWithOne( Rationals, [128X[104X
+    [4X[28X  [ [(1)*v1], [(1)*v2], [(1)*a], [(1)*b] ] )> ->[128X[104X
+    [4X[28X  < 4-dimensional right-module over AlgebraWithOne( Rationals, [128X[104X
+    [4X[28X  [ [(1)*v1], [(1)*v2], [(1)*a], [(1)*b] ] )> >[128X[104X
+    [4X[25Xgap>[125X [27X# We know that Im f is included in Ker g, so can find the[127X[104X
+    [4X[25Xgap>[125X [27X# lifting morphism h from C_3 to Ker g.[127X[104X
+    [4X[25Xgap>[125X [27Xh := LiftingInclusionMorphisms(g,f);[127X[104X
+    [4X[28X  <mapping: <1-dimensional right-module over AlgebraWithOne( Rationals, [128X[104X
+    [4X[28X  [ [(1)*v1], [(1)*v2], [(1)*a], [(1)*b] ] )> ->[128X[104X
+    [4X[28X  < 2-dimensional right-module over AlgebraWithOne( Rationals, [128X[104X
+    [4X[28X  [ [(1)*v1], [(1)*v2], [(1)*a], [(1)*b] ] )> >[128X[104X
+    [4X[25Xgap>[125X [27X# The cokernel of h is Ker g / Im f [127X[104X
+    [4X[25Xgap>[125X [27XHomology := CoKernel(h);[127X[104X
+    [4X[28X<1-dimensional right-module over <algebra-with-one over Rationals, with [128X[104X
+    [4X[28X  4 generators>> [128X[104X
+  [4X[32X[104X
+  
+  [1X10.5-8 IsFiniteComplex[101X
+  
+  [33X[1;0Y[29X[2XIsFiniteComplex[102X( [3XC[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XC[103X -- a complex.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue if [3XC[103X is a finite complex, false otherwise.[133X
+  
+  [1X10.5-9 UpperBound[101X
+  
+  [33X[1;0Y[29X[2XUpperBound[102X( [3XC[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XC[103X -- a complex.[133X
+  
+  [6XReturns:[106X  [33X[0;10YIf  it  exists:  The  smallest  integer  [23Xi[123X such that the object at
+            position [23Xi[123X is non-zero, but for all [23Xj > i[123X the object at position [23Xj[123X
+            is zero.[133X
+  
+  [33X[0;0YIf  [3XC[103X  is  not a finite complex, the operation will return fail or infinity,
+  depending on how [3XC[103X was defined.[133X
+  
+  [1X10.5-10 LowerBound[101X
+  
+  [33X[1;0Y[29X[2XLowerBound[102X( [3XC[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XC[103X -- a complex.[133X
+  
+  [6XReturns:[106X  [33X[0;10YIf  it  exists:  The  greatest  integer  [23Xi[123X such that the object at
+            position [23Xi[123X is non-zero, but for all [23Xj < i[123X the object at position [23Xj[123X
+            is zero.[133X
+  
+  [33X[0;0YIf  [3XC[103X  is  not  a finite complex, the operation will return fail or negative
+  infinity, depending on how [3XC[103X was defined.[133X
+  
+  [1X10.5-11 LengthOfComplex[101X
+  
+  [33X[1;0Y[29X[2XLengthOfComplex[102X( [3XC[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XC[103X -- a complex.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ythe length of the complex.[133X
+  
+  [33X[0;0YThe  length  is  defined  as  follows: If [3XC[103X is a zero complex, the length is
+  zero.  If  [3XC[103X is a finite complex, the length is the upper bound -- the lower
+  bound + 1. If [3XC[103X is an infinite complex, the length is infinity.[133X
+  
+  [1X10.5-12 HighestKnownDegree[101X
+  
+  [33X[1;0Y[29X[2XHighestKnownDegree[102X( [3XC[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XC[103X -- a complex.[133X
+  
+  [6XReturns:[106X  [33X[0;10YThe greatest integer [23Xi[123X such that the object at position [23Xi[123X is known
+            (or computed).[133X
+  
+  [33X[0;0YFor a finite complex, this will be infinity.[133X
+  
+  [1X10.5-13 LowestKnownDegree[101X
+  
+  [33X[1;0Y[29X[2XLowestKnownDegree[102X( [3XC[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XC[103X -- a complex.[133X
+  
+  [6XReturns:[106X  [33X[0;10YThe smallest integer [23Xi[123X such that the object at position [23Xi[123X is known
+            (or computed).[133X
+  
+  [33X[0;0YFor a finite complex, this will be negative infinity.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XC;[127X[104X
+    [4X[28X0 -> 4:(0,1) -> 3:(1,0) -> 2:(2,2) -> 1:(1,1) -> 0:(2,2) -> 0[128X[104X
+    [4X[25Xgap>[125X [27XIsFiniteComplex(C);[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27XUpperBound(C);[127X[104X
+    [4X[28X4[128X[104X
+    [4X[25Xgap>[125X [27XLowerBound(C);[127X[104X
+    [4X[28X0[128X[104X
+    [4X[25Xgap>[125X [27XLengthOfComplex(C);[127X[104X
+    [4X[28X5[128X[104X
+    [4X[25Xgap>[125X [27XHighestKnownDegree(C);[127X[104X
+    [4X[28X+inf[128X[104X
+    [4X[25Xgap>[125X [27XLowestKnownDegree(C);[127X[104X
+    [4X[28X-inf [128X[104X
+  [4X[32X[104X
+  
+  [1X10.5-14 IsExactSequence[101X
+  
+  [33X[1;0Y[29X[2XIsExactSequence[102X( [3XC[103X ) [32X property[133X
+  
+  [33X[0;0YArguments: [3XC[103X -- a complex.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue if [3XC[103X is exact at every position.[133X
+  
+  [33X[0;0YIf the complex is not finite and not repeating, the function fails.[133X
+  
+  [1X10.5-15 IsExactInDegree[101X
+  
+  [33X[1;0Y[29X[2XIsExactInDegree[102X( [3XC[103X, [3Xi[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XC[103X -- a complex, [3Xi[103X -- an integer.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue if [3XC[103X is exact at position [3Xi[103X.[133X
+  
+  [1X10.5-16 IsShortExactSequence[101X
+  
+  [33X[1;0Y[29X[2XIsShortExactSequence[102X( [3XC[103X ) [32X property[133X
+  
+  [33X[0;0YArguments: [3XC[103X -- a complex.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue if [3XC[103X is exact and of the form[133X
+  
+  
+  [24X          [33X[0;10Y\ldots  \rightarrow  0  \rightarrow  A \rightarrow B \rightarrow C
+            \rightarrow 0 \rightarrow \ldots[133X
+  
+  [124X
+  
+            [33X[0;10YThis  could  be  positioned  in  any  degree  (as  opposed  to the
+            construction  of  a  short  exact sequence, where [23XB[123X will be put in
+            degree zero).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XC;                [127X[104X
+    [4X[28X0 -> 4:(0,1) -> 3:(1,0) -> 2:(2,2) -> 1:(1,1) -> 0:(2,2) -> 0[128X[104X
+    [4X[25Xgap>[125X [27XIsExactSequence(C);[127X[104X
+    [4X[28Xfalse[128X[104X
+    [4X[25Xgap>[125X [27XIsExactInDegree(C,1);[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27XIsExactInDegree(C,2);[127X[104X
+    [4X[28Xfalse [128X[104X
+  [4X[32X[104X
+  
+  [1X10.5-17 ForEveryDegree[101X
+  
+  [33X[1;0Y[29X[2XForEveryDegree[102X( [3XC[103X, [3Xfunc[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments:  [3XC[103X  -- a complex, [3Xfunc[103X -- a function operating on two consecutive
+  maps.[133X
+  
+  [6XReturns:[106X  [33X[0;10Ytrue  if  [3Xfunc[103X returns true for any two consecutive differentials,
+            fail if this can not be decided, false otherwise.[133X
+  
+  
+  [1X10.6 [33X[0;0YTransforming and combining complexes[133X[101X
+  
+  [1X10.6-1 Shift[101X
+  
+  [33X[1;0Y[29X[2XShift[102X( [3XC[103X, [3Xi[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XC[103X -- a complex, [3Xi[103X -- an integer.[133X
+  
+  [6XReturns:[106X  [33X[0;10YA new complex, which is a shift of [3XC[103X.[133X
+  
+  [33X[0;0YIf  [3Xi[103X  >  0,  the  complex  is shifted to the left. If [3Xi[103X < 0, the complex is
+  shifted  to the right. Note that shifting might change the differentials: In
+  the shifted complex, [23Xd_{new}[123X is defined to be [23X(-1)^i d_{old}[123X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XC;[127X[104X
+    [4X[28X0 -> 4:(0,1) -> 3:(1,0) -> 2:(2,2) -> 1:(1,1) -> 0:(2,2) -> 0[128X[104X
+    [4X[25Xgap>[125X [27XShift(C,1);[127X[104X
+    [4X[28X0 -> 3:(0,1) -> 2:(1,0) -> 1:(2,2) -> 0:(1,1) -> -1:(2,2) -> 0[128X[104X
+    [4X[25Xgap>[125X [27XD := Shift(C,-1);[127X[104X
+    [4X[28X0 -> 5:(0,1) -> 4:(1,0) -> 3:(2,2) -> 2:(1,1) -> 1:(2,2) -> 0[128X[104X
+    [4X[25Xgap>[125X [27Xdc := DifferentialOfComplex(C,3)!.maps;[127X[104X
+    [4X[28X[ [ [ 1, 0 ] ], [ [ 0, 0 ] ] ][128X[104X
+    [4X[25Xgap>[125X [27Xdd := DifferentialOfComplex(D,4)!.maps;[127X[104X
+    [4X[28X[ [ [ -1, 0 ] ], [ [ 0, 0 ] ] ][128X[104X
+    [4X[25Xgap>[125X [27XMatricesOfPathAlgebraMatModuleHomomorphism(dc);[127X[104X
+    [4X[28X[ [ [ 1, 0 ] ], [ [ 0, 0 ] ] ][128X[104X
+    [4X[25Xgap>[125X [27XMatricesOfPathAlgebraMatModuleHomomorphism(dd);[127X[104X
+    [4X[28X[ [ [ -1, 0 ] ], [ [ 0, 0 ] ] ] [128X[104X
+  [4X[32X[104X
+  
+  [1X10.6-2 ShiftUnsigned[101X
+  
+  [33X[1;0Y[29X[2XShiftUnsigned[102X( [3XC[103X, [3Xi[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XC[103X -- a complex, [3Xi[103X -- an integer.[133X
+  
+  [6XReturns:[106X  [33X[0;10YA new complex, which is a shift of [3XC[103X.[133X
+  
+  [33X[0;0YDoes  the  same  as  [10XShift[110X,  except  it  does  not  change  the  sign of the
+  differential. Although this is a non-mathematical definition of shift, it is
+  still   useful  for  technical  purposes,  when  manipulating  and  creating
+  complexes.[133X
+  
+  [1X10.6-3 YonedaProduct[101X
+  
+  [33X[1;0Y[29X[2XYonedaProduct[102X( [3XC[103X, [3XD[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XC[103X, [3XD[103X -- complexes.[133X
+  
+  [6XReturns:[106X  [33X[0;10YThe Yoneda product of the two complexes, which is a complex.[133X
+  
+  [33X[0;0YTo  compute  the  Yoneda  product,  [3XC[103X  and [3XD[103X must be such that the object in
+  degree [10XLowerBound(C)[110X equals the object in degree [10XUpperBound(D)[110X, that is[133X
+  
+  
+  [24X[33X[0;6Y\ldots  \rightarrow  C_{i+1}  \rightarrow  C_{i} \rightarrow A \rightarrow 0
+  \rightarrow \ldots[133X
+  
+  [124X
+  
+  
+  [24X[33X[0;6Y\ldots  \rightarrow  0  \rightarrow  A \rightarrow D_{j} \rightarrow D_{j-1}
+  \rightarrow \ldots[133X
+  
+  [124X
+  
+  [33X[0;0YThe product is of this form:[133X
+  
+  
+  [24X[33X[0;6Y\ldots  \rightarrow  C_{i+1} \rightarrow C_{i} \rightarrow D_{j} \rightarrow
+  D_{j-1} \rightarrow \ldots[133X
+  
+  [124X
+  
+  [33X[0;0Ywhere  the  map [23XC_{i} \rightarrow D_{j}[123X is the composition of the maps [23XC_{i}
+  \rightarrow  A[123X  and [23XA \rightarrow D_{j}[123X. Also, the object [23XD_{j}[123X is in degree
+  [23Xj[123X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XC2;[127X[104X
+    [4X[28X0 -> 4:(0,1) -> 3:(1,0) -> 2:(2,2) -> 1:(1,1) -> 0:(0,0) -> 0[128X[104X
+    [4X[25Xgap>[125X [27XC3;[127X[104X
+    [4X[28X0 -> -1:(1,1) -> -2:(2,2) -> -3:(1,1) -> 0[128X[104X
+    [4X[25Xgap>[125X [27XYonedaProduct(C2,C3);[127X[104X
+    [4X[28X0 -> 1:(0,1) -> 0:(1,0) -> -1:(2,2) -> -2:(2,2) -> -3:(1,1) -> 0 [128X[104X
+  [4X[32X[104X
+  
+  [1X10.6-4 BrutalTruncationBelow[101X
+  
+  [33X[1;0Y[29X[2XBrutalTruncationBelow[102X( [3XC[103X, [3Xi[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XC[103X -- a complex, [3Xi[103X -- an integer.[133X
+  
+  [6XReturns:[106X  [33X[0;10YA newly created complex.[133X
+  
+  [33X[0;0YReplace  all objects with degree [23Xj[123X < [23Xi[123X with zero. The differentials affected
+  will also become zero.[133X
+  
+  [1X10.6-5 BrutalTruncationAbove[101X
+  
+  [33X[1;0Y[29X[2XBrutalTruncationAbove[102X( [3XC[103X, [3Xi[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XC[103X -- a complex, [3Xi[103X -- an integer.[133X
+  
+  [6XReturns:[106X  [33X[0;10YA newly created complex.[133X
+  
+  [33X[0;0YReplace  all objects with degree [23Xj[123X > [23Xi[123X with zero. The differentials affected
+  will also become zero.[133X
+  
+  [1X10.6-6 BrutalTruncation[101X
+  
+  [33X[1;0Y[29X[2XBrutalTruncation[102X( [3XC[103X, [3Xi[103X, [3Xj[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XC[103X -- a complex, [3Xi, j[103X -- integers.[133X
+  
+  [6XReturns:[106X  [33X[0;10YA newly created complex.[133X
+  
+  [33X[0;0YBrutally  truncates in both ends. The integer arguments must be ordered such
+  that [3Xi[103X > [3Xj[103X.[133X
+  
+  [1X10.6-7 SyzygyTruncation[101X
+  
+  [33X[1;0Y[29X[2XSyzygyTruncation[102X( [3XC[103X, [3Xi[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XC[103X -- a complex, [3Xi[103X -- an integer.[133X
+  
+  [6XReturns:[106X  [33X[0;10YA newly created complex.[133X
+  
+  [33X[0;0YReplace  the  object  in degree [23Xi[123X with the kernel of [23Xd_i[123X, and [22Xd_i+1[122X with the
+  natural inclusion. All objects in degree [22Xj > i+1[122X are replaced with zero.[133X
+  
+  [1X10.6-8 CosyzygyTruncation[101X
+  
+  [33X[1;0Y[29X[2XCosyzygyTruncation[102X( [3XC[103X, [3Xi[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XC[103X -- a complex, [3Xi[103X -- an integer.[133X
+  
+  [6XReturns:[106X  [33X[0;10YA newly created complex.[133X
+  
+  [33X[0;0YReplace  the  object  in degree [23Xi-2[123X with the cokernel of [23Xd_i[123X, and [22Xd_i-1[122X with
+  the  natural  projection.  All  objects  in degree [22Xj < i-2[122X are replaced with
+  zero.[133X
+  
+  [1X10.6-9 SyzygyCosyzygyTruncation[101X
+  
+  [33X[1;0Y[29X[2XSyzygyCosyzygyTruncation[102X( [3XC[103X, [3Xi[103X, [3Xj[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XC[103X -- a complex, [3Xi[103X -- an integer.[133X
+  
+  [6XReturns:[106X  [33X[0;10YA newly created complex.[133X
+  
+  [33X[0;0YPerforms  both  the above truncations. The integer arguments must be ordered
+  such that [3Xi[103X > [3Xj[103X.[133X
+  
+  
+  [1X10.7 [33X[0;0YChain maps[133X[101X
+  
+  [33X[0;0YAn  [2XIsChainMap[102X  ([14X10.7-1[114X) object represents a chain map between two complexes
+  over the same category.[133X
+  
+  [1X10.7-1 IsChainMap[101X
+  
+  [33X[1;0Y[29X[2XIsChainMap[102X [32X Category[133X
+  
+  [33X[0;0YThe category for chain maps.[133X
+  
+  [1X10.7-2 ChainMap[101X
+  
+  [33X[1;0Y[29X[2XChainMap[102X( [3Xsource[103X, [3Xrange[103X, [3XbasePosition[103X, [3Xmiddle[103X, [3Xpositive[103X, [3Xnegative[103X ) [32X function[133X
+  
+  [33X[0;0YArguments: [3Xsource[103X, [3Xrange[103X -- complexes, [3XbasePosition[103X -- an integer, [3Xmiddle[103X --
+  a  list of morphisms, [3Xpositive[103X -- a list or the string [10X"zero"[110X, [3Xnegative[103X -- a
+  list or the string [10X"zero"[110X.[133X
+  
+  [6XReturns:[106X  [33X[0;10YA newly created chain map[133X
+  
+  [33X[0;0YThe  arguments  [3Xsource[103X  and  [3Xrange[103X are the complexes which the new chain map
+  should map between.[133X
+  
+  [33X[0;0YThe rest of the arguments describe the individual morphisms which constitute
+  the  chain  map,  in a similar way to the last four arguments to the [2XComplex[102X
+  ([14X10.4-3[114X) function.[133X
+  
+  [33X[0;0YThe  morphisms  of  the  chain  map are divided into three parts: one finite
+  ([21Xmiddle[121X)  and  two  infinite  ([21Xpositive[121X  and  [21Xnegative[121X).  The  positive part
+  contains  all morphisms in degrees higher than those in the middle part, and
+  the  negative part contains all morphisms in degrees lower than those in the
+  middle  part.  (The middle part may be placed anywhere, so the positive part
+  can  --  despite  its  name  --  contain  some morphisms of negative degree.
+  Conversely,  the  negative  part  can  contain  some  morphisms  of positive
+  degree.)[133X
+  
+  [33X[0;0YThe  argument [3Xmiddle[103X is a list containing the morphisms for the middle part.
+  The argument [3XbaseDegree[103X gives the degree of the first morphism in this list.
+  The  second  morphism is placed in degree [22X[3XbaseDegree[103X+1[122X, and so on. Thus, the
+  middle part consists of the degrees[133X
+  
+  
+  [24X[33X[0;6Y[3XbaseDegree[103X,\quad    [3XbaseDegree[103X    +   1,\quad   \ldots\quad   [3XbaseDegree[103X   +
+  \text{Length}([3Xmiddle[103X) - 1.[133X
+  
+  [124X
+  
+  [33X[0;0YEach of the arguments [3Xpositive[103X and [3Xnegative[103X can be one of the following:[133X
+  
+  [30X    [33X[0;6YThe string [10X"zero"[110X, meaning that the part contains only zero morphisms.[133X
+  
+  [30X    [33X[0;6YA  list  of  the form [10X[ "repeat", L ][110X, where [10XL[110X is a list of morphisms.
+        The  part  will  contain  the  morphisms in [10XL[110X repeated infinitely many
+        times.  The  convention for the order of elements in [10XL[110X is that [10XL[1][110X is
+        the  morphism which is closest to the middle part, and [10XL[Length(L)][110X is
+        farthest  away  from  the middle part. (Using this only makes sense if
+        the  objects  of  both  the  source  and  range  complex  repeat  in a
+        compatible way.)[133X
+  
+  [30X    [33X[0;6YA  list  of the form [10X[ "pos", f ][110X or [10X[ "pos", f, store ][110X, where [10Xf[110X is a
+        function  of  two arguments, and [10Xstore[110X (if included) is a boolean. The
+        function [10Xf[110X is used to compute the morphisms in this part. The function
+        [10Xf[110X  is  not called immediately by the [10XChainMap[110X constructor, but will be
+        called  later  as  the morphisms in this part are needed. The function
+        call [10Xf(M,i)[110X (where [10XM[110X is the chain map and [10Xi[110X an integer) should produce
+        the  morphism  in  degree  [10Xi[110X.  The function may use [10XM[110X to look up other
+        morphisms  in  the  chain  map  (and  to  access  the source and range
+        complexes),  as long as this does not cause an infinite loop. If [10Xstore[110X
+        is [10Xtrue[110X (or not specified), each computed morphism is stored, and they
+        are  computed  in  order  from  the  one  closest  to the middle part,
+        regardless of which order they are requested in.[133X
+  
+  [30X    [33X[0;6YA  list  of the form [10X[ "next", f, init ][110X, where [10Xf[110X is a function of one
+        argument,  and  [10Xinit[110X  is a morphism. The function [10Xf[110X is used to compute
+        the  morphisms  in this part. For the first morphism in the part (that
+        is,  the  one  closest  to  the middle part), [10Xf[110X is called with [10Xinit[110X as
+        argument.  For  the next morphism, [10Xf[110X is called with the first morphism
+        as argument, and so on. Thus, the morphisms are[133X
+  
+  
+  [24X      [33X[0;6Yf(\text{init}),\quad   f^2(\text{init}),\quad   f^3(\text{init}),\quad
+        \ldots[133X
+  
+  [124X
+  
+        [33X[0;6YEach morphism is stored when it has been computed.[133X
+  
+  [1X10.7-3 ZeroChainMap[101X
+  
+  [33X[1;0Y[29X[2XZeroChainMap[102X( [3Xsource[103X, [3Xrange[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10YA newly created zero chain map[133X
+  
+  [33X[0;0YThis  function creates a zero chain map (a chain map in which every morphism
+  is zero) from the complex [3Xsource[103X to the complex [3Xrange[103X.[133X
+  
+  [1X10.7-4 FiniteChainMap[101X
+  
+  [33X[1;0Y[29X[2XFiniteChainMap[102X( [3Xsource[103X, [3Xrange[103X, [3XbaseDegree[103X, [3Xmorphisms[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10YA newly created chain map[133X
+  
+  [33X[0;0YThis  function  creates  a complex where all but finitely many morphisms are
+  zero.[133X
+  
+  [33X[0;0YThe  arguments  [3Xsource[103X  and  [3Xrange[103X are the complexes which the new chain map
+  should map between.[133X
+  
+  [33X[0;0YThe argument [3Xmorphisms[103X is a list of morphisms. The argument [3XbaseDegree[103X gives
+  the degree for the first morphism in this list. The subsequent morphisms are
+  placed in degrees [22X[3XbaseDegree[103X+1[122X, and so on.[133X
+  
+  [33X[0;0YThis means that the [3Xmorphisms[103X argument specifies the morphisms in degrees[133X
+  
+  
+  [24X[33X[0;6Y[3XbaseDegree[103X,\quad   [3XbaseDegree[103X   +   1,\quad   \ldots   \quad   [3XbaseDegree[103X  +
+  \text{Length}([3Xmorphisms[103X) - 1.[133X
+  
+  [124X
+  
+  [33X[0;0YAll other morphisms in the chain map are zero.[133X
+  
+  [1X10.7-5 ComplexAndChainMaps[101X
+  
+  [33X[1;0Y[29X[2XComplexAndChainMaps[102X( [3XsourceComplexes[103X, [3XrangeComplexes[103X, [3XbasePosition[103X, [3Xmiddle[103X, [3Xpositive[103X, [3Xnegative[103X ) [32X function[133X
+  
+  [33X[0;0YArguments:  [3XsourceComplexes[103X -- a list of complexes, [3XrangeComplexes[103X -- a list
+  of  complexes,  [3XbasePosition[103X  --  an integer, [3Xmiddle[103X -- a list of morphisms,
+  [3Xpositive[103X  --  a  list or the string [10X"zero"[110X, [3Xnegative[103X -- a list or the string
+  [10X"zero"[110X.[133X
+  
+  [6XReturns:[106X  [33X[0;10YA  list  consisting  of  a  newly created complex, and one or more
+            newly created chain maps.[133X
+  
+  [33X[0;0YThis  is  a combined constructor to make one complex and a set of chain maps
+  at  the  same  time.  All the chain maps will have the new complex as either
+  source or range.[133X
+  
+  [33X[0;0YThe argument [3XsourceComplexes[103X is a list of the complexes to be sources of the
+  chain  maps which have the new complex as range. The argument [3XrangeComplexes[103X
+  is a list of the complexes to be ranges of the chain maps which have the new
+  complex as source.[133X
+  
+  [33X[0;0YLet  [22XS[122X  and  [22XR[122X  stand  for  the  lengths  of  the  lists [3XsourceComplexes[103X and
+  [3XrangeComplexes[103X,  respectively.  Then  the number of new chain maps which are
+  created is [22XS+R[122X.[133X
+  
+  [33X[0;0YThe  last  four  arguments  describe the individual differentials of the new
+  complex,  as  well  as the individual morphisms which constitute each of the
+  new  chain  maps.  These  arguments are treated in a similar way to the last
+  four  arguments  to the [2XComplex[102X ([14X10.4-3[114X) and [2XChainMap[102X ([14X10.7-2[114X) constructors.
+  In  those  constructors,  the last four arguments describe, for each degree,
+  how  to  get the differential or morphism for that degree. Here, we for each
+  degree  need  both a differential for the complex, and one morphism for each
+  chain map. So for each degree [22Xi[122X, we will have a list[133X
+  
+  
+  [24X[33X[0;6YL_i = [ d_i, m_i^1, \ldots, m_i^S, n_i^1, \ldots, n_i^R ],[133X
+  
+  [124X
+  
+  [33X[0;0Ywhere  [22Xd_i[122X is the differential for the new complex in degree [22Xi[122X, [22Xm_i^j[122X is the
+  morphism  in  degree  [22Xi[122X  of the chain map from [10XsourceComplexes[j][110X to the new
+  complex, and [22Xn_i^j[122X is the morphism in degree [22Xi[122X of the chain map from the new
+  complex to [10XrangeComplexes[j][110X.[133X
+  
+  [33X[0;0YThe  degrees of the new complex and chain maps are divided into three parts:
+  one  finite  ([21Xmiddle[121X) and two infinite ([21Xpositive[121X and [21Xnegative[121X). The positive
+  part  contains  all  degrees  higher  than those in the middle part, and the
+  negative part contains all degrees lower than those in the middle part.[133X
+  
+  [33X[0;0YThe  argument [3Xmiddle[103X is a list containing the lists [22XL_i[122X for the middle part.
+  The argument [3XbaseDegree[103X gives the degree of the first morphism in this list.
+  The  second  morphism is placed in degree [22X[3XbaseDegree[103X+1[122X, and so on. Thus, the
+  middle part consists of the degrees[133X
+  
+  
+  [24X[33X[0;6Y[3XbaseDegree[103X,\quad    [3XbaseDegree[103X    +   1,\quad   \ldots\quad   [3XbaseDegree[103X   +
+  \text{Length}([3Xmiddle[103X) - 1.[133X
+  
+  [124X
+  
+  [33X[0;0YEach of the arguments [3Xpositive[103X and [3Xnegative[103X can be one of the following:[133X
+  
+  [30X    [33X[0;6YThe string [10X"zero"[110X, meaning that the part contains only zero morphisms.[133X
+  
+  [30X    [33X[0;6YA  list  of  the form [10X[ "repeat", L ][110X, where [10XL[110X is a list of morphisms.
+        The  part  will  contain  the  morphisms in [10XL[110X repeated infinitely many
+        times.  The  convention for the order of elements in [10XL[110X is that [10XL[1][110X is
+        the  morphism which is closest to the middle part, and [10XL[Length(L)][110X is
+        farthest  away  from  the middle part. (Using this only makes sense if
+        the  objects  of  both  the  source  and  range  complex  repeat  in a
+        compatible way.)[133X
+  
+  [30X    [33X[0;6YA  list  of the form [10X[ "pos", f ][110X or [10X[ "pos", f, store ][110X, where [10Xf[110X is a
+        function  of  two arguments, and [10Xstore[110X (if included) is a boolean. The
+        function [10Xf[110X is used to compute the morphisms in this part. The function
+        [10Xf[110X  is  not called immediately by the [10XChainMap[110X constructor, but will be
+        called  later  as  the morphisms in this part are needed. The function
+        call [10Xf(M,i)[110X (where [10XM[110X is the chain map and [10Xi[110X an integer) should produce
+        the  morphism  in  degree  [10Xi[110X.  The function may use [10XM[110X to look up other
+        morphisms  in  the  chain  map  (and  to  access  the source and range
+        complexes),  as long as this does not cause an infinite loop. If [10Xstore[110X
+        is [10Xtrue[110X (or not specified), each computed morphism is stored, and they
+        are  computed  in  order  from  the  one  closest  to the middle part,
+        regardless of which order they are requested in.[133X
+  
+  [30X    [33X[0;6YA  list  of the form [10X[ "next", f, init ][110X, where [10Xf[110X is a function of one
+        argument,  and  [10Xinit[110X  is a morphism. The function [10Xf[110X is used to compute
+        the  morphisms  in this part. For the first morphism in the part (that
+        is,  the  one  closest  to  the middle part), [10Xf[110X is called with [10Xinit[110X as
+        argument.  For  the next morphism, [10Xf[110X is called with the first morphism
+        as argument, and so on. Thus, the morphisms are[133X
+  
+  
+  [24X      [33X[0;6Yf(\text{init}),\quad   f^2(\text{init}),\quad   f^3(\text{init}),\quad
+        \ldots[133X
+  
+  [124X
+  
+        [33X[0;6YEach morphism is stored when it has been computed.[133X
+  
+  [33X[0;0YThe return value of the [10XComplexAndChainMaps[110X constructor is a list[133X
+  
+  
+  [24X[33X[0;6Y[ C, M_1, \ldots, M_S, N_1, \ldots, N_R ],[133X
+  
+  [124X
+  
+  [33X[0;0Ywhere  [22XC[122X  is  the  new complex, [22XM_1,...,M_S[122X are the new chain maps with [22XC[122X as
+  range, and [22XN_1,...,N_R[122X are the new chain maps with [22XC[122X as source.[133X
+  
+  [1X10.7-6 MorphismOfChainMap[101X
+  
+  [33X[1;0Y[29X[2XMorphismOfChainMap[102X( [3XM[103X, [3Xi[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3XM[103X -- a chain map, [3Xi[103X -- an integer.[133X
+  
+  [6XReturns:[106X  [33X[0;10YThe morphism at position [3Xi[103X in the chain map.[133X
+  
+  [1X10.7-7 MorphismsOfChainMap[101X
+  
+  [33X[1;0Y[29X[2XMorphismsOfChainMap[102X( [3XM[103X ) [32X attribute[133X
+  
+  [33X[0;0YArguments: [3XM[103X -- a chain map.[133X
+  
+  [6XReturns:[106X  [33X[0;10YThe  morphisms  of  the chain map, stored as an [2XIsInfList[102X ([14X10.2-4[114X)
+            object.[133X
+  
+  [1X10.7-8 ComparisonLifting[101X
+  
+  [33X[1;0Y[29X[2XComparisonLifting[102X( [3Xf[103X, [3XPC[103X, [3XEC[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments:  [3Xf[103X -- a map between modules [22XM[122X and [22XN[122X, [3XPC[103X -- a chain complex, [3XEC[103X --
+  a chain complex.[133X
+  
+  [6XReturns:[106X  [33X[0;10YThe map [3Xf[103X lifted to a chain map from [3XPC[103X to [3XEC[103X.[133X
+  
+  [33X[0;0YThe complex [3XPC[103X must have [22XM[122X in some fixed degree [22Xi[122X, it should be bounded with
+  only  zero  objects  in  degrees  smaller  than  [22Xi[122X,  and it should have only
+  projective  objects  in  degrees  greater  than  [22Xi[122X (or projective objects in
+  degrees  [22X[i+1,j][122X  and zero in degrees greater than [22Xj[122X). The complex [3XEC[103X should
+  also  have  zero in degrees smaller than [22Xi[122X, it should have [22XN[122X in degree [22Xi[122X and
+  it  should  be exact for all degrees. The returned chain map has [3Xf[103X in degree
+  [22Xi[122X.[133X
+  
+  [1X10.7-9 ComparisonLiftingToProjectiveResolution[101X
+  
+  [33X[1;0Y[29X[2XComparisonLiftingToProjectiveResolution[102X( [3Xf[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xf[103X -- a map between modules [22XM[122X and [22XN[122X.[133X
+  
+  [6XReturns:[106X  [33X[0;10YThe  map [3Xf[103X lifted to a chain map from the projective resolution of
+            [22XM[122X to the projective resolution of [22XN[122X.[133X
+  
+  [33X[0;0YThe  returned  chain  map has [3Xf[103X in degree [22X-1[122X (the projective resolution of a
+  module includes the module itself in degree [22X-1[122X).[133X
+  
+  [1X10.7-10 MappingCone[101X
+  
+  [33X[1;0Y[29X[2XMappingCone[102X( [3Xf[103X ) [32X operation[133X
+  
+  [33X[0;0YArguments: [3Xf[103X -- a chain map between chain complexes [22XA[122X and [22XB[122X.[133X
+  
+  [6XReturns:[106X  [33X[0;10YA  list with the mapping cone of [3Xf[103X and the inclusion of [22XB[122X into the
+            cone, and the projection of the cone onto [22XA[-1][122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27X# Constructs a quiver and a quotient of a path algebra[127X[104X
+    [4X[25Xgap>[125X [27XQ := Quiver( 4, [ [1,2,"a"], [2,3,"b"], [3,4,"c"] ] );;[127X[104X
+    [4X[25Xgap>[125X [27XPA := PathAlgebra( Rationals, Q );;[127X[104X
+    [4X[25Xgap>[125X [27Xrels := [ PA.a*PA.b ];;[127X[104X
+    [4X[25Xgap>[125X [27Xgb := GBNPGroebnerBasis( rels, PA );;[127X[104X
+    [4X[25Xgap>[125X [27XI := Ideal( PA, gb );;[127X[104X
+    [4X[25Xgap>[125X [27Xgrb := GroebnerBasis( I, gb );;[127X[104X
+    [4X[25Xgap>[125X [27Xalg := PA/I;;[127X[104X
+    [4X[25Xgap>[125X [27X[127X[104X
+    [4X[25Xgap>[125X [27X# Two modules M and N, and a map between them[127X[104X
+    [4X[25Xgap>[125X [27XM := RightModuleOverPathAlgebra( alg, [0,1,1,0], [["b", [[1]] ]] );;[127X[104X
+    [4X[25Xgap>[125X [27XN := RightModuleOverPathAlgebra( alg, [0,1,0,0], [] );;[127X[104X
+    [4X[25Xgap>[125X [27Xf := RightModuleHomOverAlgebra(M, N, [ [[0]],[[1]],[[0]],[[0]] ]);;[127X[104X
+    [4X[25Xgap>[125X [27X[127X[104X
+    [4X[25Xgap>[125X [27X# Lifts f to a map between the projective resolutions of M and N[127X[104X
+    [4X[25Xgap>[125X [27Xlf := ComparisonLiftingToProjectiveResolution(f);[127X[104X
+    [4X[28X<chain map>[128X[104X
+    [4X[25Xgap>[125X [27X[127X[104X
+    [4X[25Xgap>[125X [27X# Computes the mapping cone of the chain map[127X[104X
+    [4X[25Xgap>[125X [27XH := MappingCone(lf);[127X[104X
+    [4X[28X[ --- -> -1:(0,1,0,0) -> ---, <chain map>, <chain map> ][128X[104X
+    [4X[25Xgap>[125X [27Xcone := H[1];[127X[104X
+    [4X[28X--- -> -1:(0,1,0,0) -> ---[128X[104X
+    [4X[25Xgap>[125X [27XObjectOfComplex(Source(lf),0);[127X[104X
+    [4X[28X<[ 0, 1, 1, 1 ]>[128X[104X
+    [4X[25Xgap>[125X [27XObjectOfComplex(Range(lf),1);[127X[104X
+    [4X[28X<[ 0, 0, 1, 1 ]>[128X[104X
+    [4X[25Xgap>[125X [27XObjectOfComplex(cone,1);[127X[104X
+    [4X[28X<[ 0, 1, 2, 2 ]> [128X[104X
+    [4X[25Xgap>[125X [27XSource(H[2]) = Range(lf);[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
