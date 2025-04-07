@@ -1,8 +1,8 @@
 SetPackageInfo( rec(
-PackageName := "QPA",
+PackageName := "qpa",
 Subtitle := "Quivers and Path Algebras",
 Version := "1.36",
-Date := "04/07/2025", # dd/mm/yyyy format
+Date := "07/04/2025", # dd/mm/yyyy format
 License := "GPL-2.0-or-later",
 
 ArchiveFormats := ".tar.gz",
@@ -53,15 +53,15 @@ Status := "deposited",
 
 SourceRepository := rec(
         Type := "git",
-        URL := Concatenation( "https://github.com/gap-packages/", ~.qpa ),
+        URL := Concatenation( "https://github.com/gap-packages/", ~.PackageName ),
     ),
 IssueTrackerURL := Concatenation( ~.SourceRepository.URL, "/issues" ),
-PackageWWWHome  := Concatenation( "https://gap-packages.github.io/", ~.qpa ),
+PackageWWWHome  := Concatenation( "https://gap-packages.github.io/", ~.PackageName ),
 README_URL      := Concatenation( ~.PackageWWWHome, "/README" ),
 PackageInfoURL  := Concatenation( ~.PackageWWWHome, "/PackageInfo.g" ),
 ArchiveURL      := Concatenation( ~.SourceRepository.URL,
                                      "/releases/download/v", ~.Version,
-                                     "/", ~.qpa, "-", ~.Version ),
+                                     "/", ~.PackageName, "-", ~.Version ),
 
 AbstractHTML := "The <span class=\"pkgname\">QPA</span> package provides data structures \
                    and algorithms for doing computations with finite dimensional quotients \
