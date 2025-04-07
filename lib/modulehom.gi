@@ -1230,61 +1230,17 @@ InstallMethod( TopOfModuleProjection,
     [ IsPathAlgebraMatModule ], 0,
     function( M ) 
 
-    local K, A, Q, vertices, num_vert, incomingarrows, mats, arrows, subspaces,
-          i, a, dim_M, Vspaces, Wspaces, naturalprojections, index,
-          dim_top, matrices, topofmodule, topofmoduleprojection, W;
+  local topofmoduleprojection;
 
-    A := RightActingAlgebra(M);
-    if Dimension(M) = 0 then 
-        return ZeroMapping(M,M);
+    if Dimension( M ) = 0 then 
+        topofmoduleprojection := ZeroMapping( M, M );
     else
-        K := LeftActingDomain(A);
-        Q := QuiverOfPathAlgebra(A);
-        vertices := VerticesOfQuiver(Q);
-        num_vert := Length(vertices);
-        incomingarrows := List([1..num_vert], x -> IncomingArrowsOfVertex(vertices[x]));
-        mats := MatricesOfPathAlgebraModule(M);
-        arrows := ArrowsOfQuiver(Q);
-        subspaces := List([1..num_vert], x -> []);
-        for i in [1..num_vert] do
-            for a in incomingarrows[i] do
-                Append(subspaces[i], StructuralCopy(mats[Position(arrows,a)]));
-            od;
-        od;
-        dim_M := DimensionVector(M);
-        Vspaces := List([1..num_vert], x -> FullRowSpace(K,dim_M[x]));
-        Wspaces := List([1..num_vert], x -> []);
-        for i in [1..num_vert] do
-            if dim_M[i] <> 0 then 
-                Wspaces[i] := Subspace(Vspaces[i],subspaces[i]);
-            else
-                Wspaces[i] := Subspace(Vspaces[i],[]);
-            fi;
-        od;
-        naturalprojections := List([1..num_vert], x -> NaturalHomomorphismBySubspace(Vspaces[x],Wspaces[x]));
-        dim_top := List([1..num_vert], x -> Dimension(Range(naturalprojections[x]))); 
-        index := function( n )
-            if n = 0 then 
-                return 1;
-            else
-                return n;
-            fi;
-        end;
-        matrices := [];
-        for i in [1..num_vert] do
-            if dim_top[i] <> 0 then
-                Add(matrices, List(BasisVectors(Basis(Vspaces[i])), y -> ImageElm(naturalprojections[i],y)));
-            else
-                Add(matrices, NullMat(index(dim_M[i]),1,K));
-            fi;
-        od;
-        topofmodule := RightModuleOverPathAlgebra(A,dim_top,[]);
-        topofmoduleprojection := RightModuleHomOverAlgebra(M,topofmodule,matrices);
-
-        SetTopOfModule(M,topofmodule);
-
-        return topofmoduleprojection;
+	topofmoduleprojection := CoKernelProjection( RadicalOfModuleInclusion( M ) );
     fi;
+    SetTopOfModule( M, Range( topofmoduleprojection ) );
+
+    return topofmoduleprojection;
+
 end
 );
 
