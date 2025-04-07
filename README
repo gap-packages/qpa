@@ -1,8 +1,8 @@
 The QPA package for GAP 4.12
 ==================================
 
-Version 1.35; January 4th, 2024
-Copyright (C) 2024 The QPA-team, 	
+Version 1.36; April 7th, 2025
+Copyright (C) 2025 The QPA-team, 	
              https://folk.ntnu.no/oyvinso/QPA/
 
 Introduction
@@ -15,11 +15,10 @@ GAP. The package we aim to develop for GAP is called QPA for Quivers
 and Path Algebras.
 
 QPA is designed as a GAP >= 4.5.x share package providing new functions in
-noncommutative algebra. For the current functions provided by QPA follow
-the URL
-              https://folk.ntnu.no/oyvinso/QPA/
+noncommutative algebra. For the current functions provided by QPA read the
+manual for QPA:
 
-and look at WhatYouCanDoList.
+              https://folk.ntnu.no/oyvinso/QPA/manual.pdf
 
 Contents
 --------

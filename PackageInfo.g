@@ -1,11 +1,9 @@
 SetPackageInfo( rec(
 PackageName := "QPA",
 Subtitle := "Quivers and Path Algebras",
-Version := "1.35",
-Date := "04/01/2024", # dd/mm/yyyy format
+Version := "1.36",
+Date := "04/07/2025", # dd/mm/yyyy format
 License := "GPL-2.0-or-later",
-
-ArchiveURL := Concatenation( "https://folk.ntnu.no/oyvinso/QPA/qpa-",~.Version),
 
 ArchiveFormats := ".tar.gz",
 
@@ -48,19 +46,22 @@ Status := "deposited",
 ##  "accepted" because is was successfully refereed:
 # format: 'name (place)'
 # CommunicatedBy := "Mike Atkinson (St. Andrews)",
-#CommunicatedBy := "",
+# CommunicatedBy := "",
 # format: mm/yyyy
 # AcceptDate := "08/1999",
 #AcceptDate := "",
 
-README_URL := "https://folk.ntnu.no/oyvinso/QPA/README",
-PackageInfoURL := "https://folk.ntnu.no/oyvinso/QPA/PackageInfo.g",
-
-SourceRepository := rec( 
-  Type := "git", 
-  URL := "https://github.com/gap-packages/qpa"
-),
+SourceRepository := rec(
+        Type := "git",
+        URL := Concatenation( "https://github.com/gap-packages/", ~.qpa ),
+    ),
 IssueTrackerURL := Concatenation( ~.SourceRepository.URL, "/issues" ),
+PackageWWWHome  := Concatenation( "https://gap-packages.github.io/", ~.qpa ),
+README_URL      := Concatenation( ~.PackageWWWHome, "/README" ),
+PackageInfoURL  := Concatenation( ~.PackageWWWHome, "/PackageInfo.g" ),
+ArchiveURL      := Concatenation( ~.SourceRepository.URL,
+                                     "/releases/download/v", ~.Version,
+                                     "/", ~.qpa, "-", ~.Version ),
 
 AbstractHTML := "The <span class=\"pkgname\">QPA</span> package provides data structures \
                    and algorithms for doing computations with finite dimensional quotients \
@@ -69,7 +70,6 @@ AbstractHTML := "The <span class=\"pkgname\">QPA</span> package provides data st
                    quotients of path algebras, and modules, homomorphisms and complexes of \
                    modules over quotients of path algebras.",
                    
-PackageWWWHome := "https://folk.ntnu.no/oyvinso/QPA/",
                
 PackageDoc := rec(
   BookName  := "QPA",

@@ -32,7 +32,7 @@
   </TitleComment>
   <Author>The QPA-team
           <Email>oyvind.solberg@ntnu.no</Email>
-	      <Homepage>https://folk.ntnu.no/oyvinso/QPA/</Homepage>
+	      <Homepage>https://gap-packages.github.io/qpa/</Homepage>
           <Address>
             Department of Mathematical Sciences<Br/>
             NTNU<Br/>
@@ -41,7 +41,7 @@
           </Address> 
   </Author>
 
-  <Date>January 2024</Date> 
+  <Date>April 2025</Date> 
 
   <Abstract>
     The GAP4 deposited package <Package>QPA</Package> extends the
@@ -59,7 +59,7 @@
     long way left. Part of this work is to implement/port the
     functionality and data structures that was available in CREP.
   </Abstract>
-  <Copyright>&copyright; 2014-2024 by The QPA-team.<P/>
+  <Copyright>&copyright; 2014-2025 by The QPA-team.<P/>
 
   <Package>QPA</Package> is free software; you can redistribute it
   and/or modify it under the terms of the GNU General Public License
@@ -74,7 +74,7 @@
   <Package>QPA</Package>, please cite it in the following form:<P/>
   
   The QPA-team, <Package>QPA</Package> - Quivers, path algebras and
-  representations, Version <#Include SYSTEM "../version">; 2024
+  representations, Version <#Include SYSTEM "../version">; 2025
   (<URL>https://folk.ntnu.no/oyvinso/QPA/</URL>)
   </Copyright>
 

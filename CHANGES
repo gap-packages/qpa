@@ -1,4 +1,37 @@
 ==========================================================================
+Changes from version 1.35 to 1.36:
+==========================================================================
+
+Added functions in this release:
+----------------------------------------------------------------------
+AssociatedGradedAlgebra
+Functions for test for derived equivalence of gentle algebras
+RandomModule
+UnderlyingLinearMap
+
+Discontinued/removed functions:
+------------------------------------------------------------
+None
+
+Changed code for:
+----------------------------------------------------------------------
+IsNthSyzygy
+TraceOfModule
+
+Fixed bugs in:
+----------------------------------------------------------------------
+AreDerivedEquivalent
+MatrixOfHomomorphismBetweenProjectives
+RandomModule
+TopOfModuleProjection
+
+Miscellaneous
+----------------------------------------------------------------------
+Add functions for inverse length inverse lexicographic ordering
+Fix documentation
+
+
+==========================================================================
 Changes from version 1.34 to 1.35:
 ==========================================================================
 
