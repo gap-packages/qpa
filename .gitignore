@@ -21,3 +21,5 @@ doc/manual.lab
 doc/manual.pdf
 doc/manual.six
 *.DS_Store
+gh-pages
+tmp
