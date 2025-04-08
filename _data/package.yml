@@ -58,8 +58,9 @@ bibtex: |
       month =            {Apr},
       year =             {2025},
       note =             {GAP package},
-      howpublished =     {\href                                                         {https://gap-packages.github.io/qpa}
-                          {\texttt{https://gap\texttt{\symbol{45}}packages.github.io/}\discretionary {}{}{}\texttt{qpa}}},
+      howpublished =     {\href             {https://gap-packages.github.io/qpa}
+                          {\texttt{https://gap\texttt{\symbol{45}}packages.github.io/}\discretionary
+                          {}{}{}\texttt{qpa}}},
       keywords =         {quiver; path algebra},
       printedkey =       {GS25}
     }
