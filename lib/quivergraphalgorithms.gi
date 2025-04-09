@@ -279,8 +279,8 @@ InstallMethod( IsDynkinQuiver,
           temp_s := SourceOfPath(temp_arr);
         fi;
         counter := counter + 1;
-        arrows := IncomingArrowsOfVertex(temp_s);
-        Append(arrows, OutgoingArrowsOfVertex(temp_s));
+        arrows := ShallowCopy( IncomingArrowsOfVertex( temp_s ) );
+        Append(arrows, ShallowCopy( OutgoingArrowsOfVertex( temp_s ) ) );
         arrows := Difference(arrows, [temp_arr]);
         if Length(arrows) = 1 then
           temp_arr := arrows[1];
@@ -322,8 +322,8 @@ InstallMethod( IsDynkinQuiver,
       if degrees = [3] then
       # necessary condition for being D_n, E_6,7,8 satisfied (
       # (i.e. we have a "star" quiver with 3 arms)  
-        fork_arrows := IncomingArrowsOfVertex(fork_vertex);
-        Append(fork_arrows, OutgoingArrowsOfVertex(fork_vertex));
+        fork_arrows := ShallowCopy( IncomingArrowsOfVertex(fork_vertex) );
+        Append(fork_arrows, ShallowCopy( OutgoingArrowsOfVertex(fork_vertex)) );
         star_type := [];
         for arr in fork_arrows do
           Add(star_type, GoThrough(fork_vertex, arr));
@@ -345,8 +345,6 @@ InstallMethod( IsDynkinQuiver,
     fi;
     
     return false;
-    
-    
     
     end
 ); #IsDynkinQuiver
