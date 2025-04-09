@@ -754,7 +754,7 @@ gap> inc := DirectSumInclusions(N2);
 </ManSection>
 
 <ManSection>
-   <Prop Name="IsZero" Arg="M" Comm="for a PathAlgebraMatModule"/>
+   <Prop Name="IsZero(module)" Arg="M" Comm="for a PathAlgebraMatModule"/>
    <Description> 
     Arguments: <Arg>M</Arg> -- a path algebra module (<C>PathAlgebraMatModule</C>).
    <Br /></Description>
@@ -1100,30 +1100,27 @@ Here we collect the predefined representations/modules over a finite
 </ManSection>
 
 <ManSection>
-   <Oper Name="DTr" Arg="M, [ n ]" Comm="for a PathAlgebraMatModule and an
-   integer"/>
+   <Oper Name="DTr" Arg="M, [ n ] or f, [ n ]" Comm="for a PathAlgebraMatModule and an
+   integer or for a PathAlgebraMatModuleHomomorphism and an integer"/>
    <Oper Name="DualOfTranspose" Arg="M, [ n ]" Comm="for a
    PathAlgebraMatModule"/> 
    <Description> 
-    Arguments: <Arg>M</Arg> -- a path algebra module, (optional) <Arg>n</Arg> -- an integer.
-   <Br /></Description>
-   <Returns>the dual of the transpose of <Arg>M</Arg> when
+    Arguments: (first version) <Arg>M</Arg> -- a path algebra module, (optional) <Arg>n</Arg> -- an integer.
+    <Br />
+(second version) <Arg>f</Arg> -- a path algebra module homomorphism,
+(optional <Arg>n</Arg> -- an integer.<Br />
+(third version) <Arg>M</Arg> -- a path algebra modules, (optional) <Arg>n</Arg> -- an integer.
+    <Br />
+   </Description>
+   <Returns>(first and third version) the dual of the transpose of <Arg>M</Arg> when
    called with only one argument, while it returns the dual of the
    transpose applied to <Arg>M</Arg> <Arg>n</Arg> times
    otherwise. If <Arg>n</Arg> is negative, then powers of <C>TrD</C>
    are computed. <Ref Oper="DualOfTranspose"/> is a synonym for
    <Ref Oper="DTr"/>. </Returns>
+   <Returns>(second version) the <Arg>n</Arg>-th power of the dual of the transpose of the homomorphism <Arg>f</Arg>. </Returns>
 </ManSection>
 
-<ManSection>
-   <Oper Name="DTr" Arg="f, [ n ]" Comm="for a
-					 PathAlgebraMatModuleHomomorphism
-					 and an integer"/>
-   <Description> 
-    Arguments: <Arg>f</Arg> -- a path algebra module homomorphism and
-    <Arg>n</Arg> -- an integer.<Br /></Description>
-   <Returns>the <Arg>n</Arg>-th power of the dual of the transpose of the homomorphism <Arg>f</Arg>. </Returns>
-</ManSection>
 
 <ManSection>
    <Attr Name="NakayamaFunctorOfModule" Arg="M" Comm="for a PathAlgebraMatModule"/>
@@ -1241,28 +1238,22 @@ Here we collect the predefined representations/modules over a finite
 </ManSection>
 
 <ManSection>
-   <Oper Name="TrD" Arg="M, [n]" Comm="for a PathAlgebraMatModule and an
-   integer"/>
+   <Oper Name="TrD" Arg="M, [n] or f, [ n ]" Comm="for a PathAlgebraMatModule and an
+   integer or for a PathAlgebraMatModuleHomomorphism and an integer"/>
    <Oper Name="TransposeOfDual" Arg="M, [n]" Comm="for a PathAlgebraMatModule"/>
    <Description> 
-    Arguments: <Arg>M</Arg> -- a path algebra module, (optional) <Arg>n</Arg> -- an integer.
-   <Br /></Description>
-   <Returns>the transpose of the dual of <Arg>M</Arg> when
+    Arguments: (first version and third version) <Arg>M</Arg> -- a path algebra module, (optional) <Arg>n</Arg> -- an integer.
+    <Br />
+   (second version) <Arg>f</Arg> -- a path algebra module homomorphism,
+   <Arg>n</Arg> -- an integer.<Br />
+   </Description>
+   <Returns>(first and third version) the transpose of the dual of <Arg>M</Arg> when
    called with only one argument, while it returns the transpose of
    the dual applied to <Arg>M</Arg> <Arg>n</Arg> times
    otherwise. If <Arg>n</Arg> is negative, then powers of <C>TrD</C>
    are computed. <Ref Oper="TransposeOfDual"/> is a synonym for
    <Ref Oper="TrD"/>.</Returns>
-</ManSection>
-
-<ManSection>
-   <Oper Name="TrD" Arg="f, [ n ]" Comm="for a
-					 PathAlgebraMatModuleHomomorphism
-					 and an integer"/>
-   <Description> 
-    Arguments: <Arg>f</Arg> -- a path algebra module homomorphism,
-    <Arg>n</Arg> -- an integer.<Br /></Description>
-   <Returns>the <Arg>n</Arg>-th power of the transpose of the dual of the homomorphism <Arg>f</Arg>. </Returns>
+   <Returns>(second version) the <Arg>n</Arg>-th power of the transpose of the dual of the homomorphism <Arg>f</Arg>. </Returns>
 </ManSection>
 
 

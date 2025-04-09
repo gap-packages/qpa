@@ -169,6 +169,15 @@ matrices with 2 along the diagonal.
 <Heading>Combinatorial Maps</Heading>
 
 <ManSection>
+   <Filt Name="IsCombinatorialMap" Arg="" Comm=""/>
+   <Description>
+     This defines the category
+     <Ref Filt="IsCombinatorialMap"/>. 
+   </Description>
+</ManSection> 
+
+
+<ManSection>
 
 <Oper Name="CombinatorialMap" Label="combinatorialmap" Arg="n, sigma, iota, m" />
 

@@ -105,7 +105,7 @@ such objects.
   the list as argument and returns the next item.
   <P />
   The two infinite parts are represented as ``half infinite lists'', see
-  <Ref Subsect="IsHalfInfList" />.  An infinite list can be
+  <Ref Subsect="IsHalfInfListsubsect" />.  An infinite list can be
   constructed in the following ways:
   <List>
     <Item> From two half infinite lists and a middle part, <Ref
@@ -128,7 +128,7 @@ such objects.
 </Description>
 </ManSection>
 
-<ManSection Label="IsHalfInfList">
+<ManSection Label="IsHalfInfListsubsect">
 <Filt Type="Category" Name="IsHalfInfList" />
 <Description>
   A half infinite list is a representation of a list with indices in
@@ -151,7 +151,7 @@ such objects.
   <Returns> The value at position <A>pos</A> of <A>list</A>.</Returns>
 </ManSection>
 
-<ManSection Label="MakeHalfInfList">
+<ManSection Label="MakeHalfInfListsubsect">
   <Func Name="MakeHalfInfList" Arg="start,direction,typeWithArgs,callback,repeatifyCallback"/>
   <Description>Arguments: <A>start</A> -- an integer, <A>direction</A>
   -- either <M>1</M> or <M>-1</M>, <A>typeWithArgs</A> -- a list which
@@ -202,7 +202,7 @@ such objects.
     <P />
     All the information given to create the list is stored, and can be
     retrieved later by the operations listed in <Ref
-    Subsect="StartPosition" />--<Ref Subsect="HighestKnownValue" />.
+    Subsect="StartPositionsubsect" />--<Ref Subsect="HighestKnownValue" />.
   </Description>
 
 </ManSection>
@@ -235,7 +235,7 @@ gap> list3^-10;
 40 ]]>
 </Example>
 
-<ManSection Label="StartPosition">
+<ManSection Label="StartPositionsubsect">
   <Oper Name="StartPosition" Arg="list"/>
   <Description><A>list</A> -- a half infinite list.<Br />
   </Description>
@@ -305,14 +305,14 @@ gap> list3^-10;
 
 <ManSection>
   <Oper Name="LowestKnownPosition" Arg="list" />
-  <Description><A>list</A> -- a half infinite list.<Br />
+  <Description><A>list</A> -- a half infinite list or an infinite list.<Br />
   </Description>
   <Returns>The lowest index <M>i</M> such that the value at position
   <M>i</M> is known without computation (that is, it is either stored,
   or the list has type <C>"repeat"</C>).</Returns>
 </ManSection>
 
-<ManSection Label="HighestKnownPosition">
+<ManSection Label="HighestKnownPositionsubsect">
   <Oper Name="HighestKnownValue" Arg="list" />
   <Description><A>list</A> -- a half infinite list.<Br />
   </Description>
@@ -331,19 +331,8 @@ gap> HighestKnownPosition(list3);
 0 ]]>
 </Example>
 
-<ManSection>
-<Oper Name="Shift" Arg="list, shift" />
-  <Description>
-    Arguments: <A>list</A> -- a half infinite list, <A>shift</A> -- an
-    integer.<Br />
-  </Description>
-  <Returns>A new half infinite list which is <A>list</A> with all values
-  shifted <A>shift</A> positions to the right if <A>shift</A> is
-  positive, and to the left if <A>shift</A> is negative.
-  </Returns>
-  <Description>
-  </Description>
-</ManSection>
+For a description of the command <C>Shift</C> of a half infinite list,
+see <Ref Subsect="Shiftsubsect" />. 
 
 <ManSection>
 <Oper Name="Cut" Arg="list, pos" />
@@ -577,20 +566,10 @@ true ]]>
   </Description>
 </ManSection>
 
-<ManSection>
-  <Oper Name="LowestKnownPosition" Arg="list" />
-  <Description>
-    Arguments: <A>list</A> -- an infinite list. <Br />
-  </Description>
-  <Returns>The lowest index <M>i</M> such that the value at position
-  <M>i</M> is known without computation.
-  </Returns>
-  <Description>
-  </Description>
-</ManSection>
+
 
 <ManSection>
-  <Oper Name="UpperBound" Arg="list" />
+  <Oper Name="UpperBound(list)" Arg="list" />
   <Description>
     Arguments: <A>list</A> -- an infinite list. <Br />
   </Description>
@@ -601,7 +580,7 @@ true ]]>
 </ManSection>
 
 <ManSection>
-  <Oper Name="LowerBound" Arg="list" />
+  <Oper Name="LowerBound(list)" Arg="list" />
   <Description>
     Arguments: <A>list</A> -- an infinite list. <Br />
   </Description>
@@ -651,19 +630,6 @@ true ]]>
   </Description>
 </ManSection>
 
-<ManSection>
-<Oper Name="Shift" Arg="list, shift" />
-  <Description>
-    Arguments: <A>list</A> -- an infinite list, <A>shift</A> -- an
-    integer.<Br />
-  </Description>
-  <Returns>A new infinite list which is <A>list</A> with all values
-  shifted <A>shift</A> positions to the right if <A>shift</A> is
-  positive, and to the left if <A>shift</A> is negative.
-  </Returns>
-  <Description>
-  </Description>
-</ManSection>
 
 <ManSection>
 <Oper Name="Splice" Arg="positiveList, negativeList, joinPosition" />
@@ -1178,7 +1144,7 @@ gap> Homology := CoKernel(h);
 </ManSection>
 
 <ManSection>
-  <Oper Name="UpperBound" Arg="C" />
+  <Oper Name="UpperBound(complex)" Arg="C" />
   <Description>
     Arguments: <Arg>C</Arg> -- a complex.<Br />
   </Description>
@@ -1192,7 +1158,7 @@ gap> Homology := CoKernel(h);
 </ManSection>
 
 <ManSection>
-  <Oper Name="LowerBound" Arg="C" />
+  <Oper Name="LowerBound(complex)" Arg="C" />
   <Description>
     Arguments: <Arg>C</Arg> -- a complex.<Br />
   </Description>
@@ -1331,12 +1297,15 @@ false ]]>
 <Section>
 <Heading>Transforming and combining complexes</Heading>
 
-<ManSection>
-  <Oper Name="Shift" Arg="C, i" />
+<ManSection Label="Shiftsubsect">
+  <Oper Name="Shift" Arg="C, i or list, shift" />
   <Description>
-    Arguments: <Arg>C</Arg> -- a complex, <Arg>i</Arg> -- an integer.<Br />
+    Arguments: (first version) <Arg>C</Arg> -- a complex, <Arg>i</Arg>
+    -- an integer.<Br />
+    (second version) <A>list</A> -- an infinite list, <A>shift</A> -- an
+    integer.<Br />
   </Description>
-  <Returns>A new complex, which is a shift of <Arg>C</Arg>.
+  <Returns>(first version) A new complex, which is a shift of <Arg>C</Arg>.
   </Returns>
   <Description>If <Arg>i</Arg> &gt; 0, the complex is shifted to the
   left. If <Arg>i</Arg> &lt; 0, the complex is shifted to the
@@ -1344,7 +1313,12 @@ false ]]>
   shifted complex, <Math>d_{new}</Math> is defined to
   be <Math>(-1)^i d_{old}</Math>.
   </Description>
+  <Returns>( second version) A new infinite list which is <A>list</A> with all values
+  shifted <A>shift</A> positions to the right if <A>shift</A> is
+  positive, and to the left if <A>shift</A> is negative.
+  </Returns>
 </ManSection>
+
 
 <Example><![CDATA[
 gap> C;
@@ -1370,7 +1344,7 @@ gap> MatricesOfPathAlgebraMatModuleHomomorphism(dd);
   </Description>
   <Returns>A new complex, which is a shift of <Arg>C</Arg>.
   </Returns>
-  <Description>Does the same as <C>Shift</C>, except it does not
+  <Description>Does the same as <C>Shift</C>
   change the sign of the differential. Although this is a
   non-mathematical definition of shift, it is still useful for
   technical purposes, when manipulating and creating complexes.

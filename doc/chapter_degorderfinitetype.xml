@@ -65,10 +65,8 @@ if  <Math>M &lt; N</Math>  and there is no M' such that <Math>M &lt; M' &lt; N</
 <Heading>Defining Auslander-Reiten quiver in finite type</Heading>
 
   <ManSection>
-   <Func Name="ARQuiverNumerical" Arg="ind , proj, list" />
-   <Func Name="ARQuiverNumerical" Arg="name" />
-   <Func Name="ARQuiverNumerical" Arg="name, param1" />
-   <Func Name="ARQuiverNumerical" Arg="name, param1, param2" />
+   <Func Name="ARQuiverNumerical" Arg="ind , proj, list or name or
+				       name, parm1 or name, param1, param2" />
    <Description>
    Arguments: <Arg>ind</Arg> - number of indecomposable modules in our category;<Br />
             <Arg>proj</Arg> - number of indecomposable projective modules in our category;<Br />

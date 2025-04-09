@@ -420,25 +420,21 @@ supported in the future.
  </ManSection>
 
   <ManSection>
-   <Oper Name="BiggestHomogeneousPartInvLenInvLex" Arg="e" Comm=""/>
+   <Oper Name="BiggestHomogeneousPartInvLenInvLex" Arg="e or elems" Comm=""/>
    <Description>
-     Arguments: <Arg>e</Arg> -- an IsElementOfMagmaRingModuloRelations.<Br />
+     Arguments: (first version) <Arg>e</Arg> -- an
+     IsElementOfMagmaRingModuloRelations.<Br />
+     (second version) <Arg>elems</Arg> -- a list of elements in a path
+     algebra.<Br />
    </Description>
-   <Returns>the biggest homogeneous part of the element <Arg>e</Arg>
+   <Returns>(first version) the biggest homogeneous part of the element <Arg>e</Arg>
    under the inverse length inverse lexicographic ordering.
    </Returns>
- </ManSection>
-
-  <ManSection>
-   <Oper Name="BiggestHomogeneousPartInvLenInvLex" Arg="elems" Comm=""/>
-   <Description>
-     Arguments: <Arg>elems</Arg> -- a list of elements in a path algebra.<Br />
-   </Description>
-   <Returns>the list of the biggest homogeneous part of each element
+   <Returns>(second version) the list of the biggest homogeneous part of each element
    in the list <Arg>elems</Arg> under the inverse length inverse
    lexicographic ordering. 
    </Returns>
-  </ManSection>
+ </ManSection>
 
   <ManSection>
    <Oper Name="TruncateElement" Arg="elem, s" Comm=""/>

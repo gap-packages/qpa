@@ -7,11 +7,10 @@ Auslander-Reiten theory in QPA.<P/>
 <Section><Heading>Almost split sequences and AR-quivers</Heading>
 
 <ManSection>
-  <Attr Name="AlmostSplitSequence" Arg="M" Comm=""/>
-  <Attr Name="AlmostSplitSequence" Arg="M, e" Comm=""/>
+  <Attr Name="AlmostSplitSequence" Arg="M or M, e" Comm=""/>
   <Description>
-    Arguments: <Arg>M</Arg> - an indecomposable non-projective
-    module, <Arg>e</Arg> - either l = left or r = right<Br />
+    Arguments: (first version, only the first argument) <Arg>M</Arg> - an indecomposable non-projective
+    module, (second version, this additional argument) <Arg>e</Arg> - either l = left or r = right<Br />
   </Description>
   <Returns>the almost split sequence ending in the
   module <Arg>M</Arg> if it is indecomposable and not projective, for

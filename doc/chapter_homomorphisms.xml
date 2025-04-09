@@ -378,7 +378,7 @@ true]]>
 </ManSection>
 
 <ManSection>
-   <Prop Name="IsZero" Arg="f" Comm=""/>
+   <Prop Name="IsZero(homomorphism)" Arg="f" Comm=""/>
    <Description>
      Arguments: <Arg>f</Arg> - a homomorphism between two
      modules.<Br />
