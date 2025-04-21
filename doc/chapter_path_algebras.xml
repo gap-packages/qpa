@@ -656,6 +656,21 @@ true]]>
 </ManSection> 
 
 <ManSection>
+  <Oper Name="IsHomogeneousListOfElements" Arg="gens, n" Comm="for a
+	 list of elements in a path algebra and a positive integer"/> 
+  <Description>
+    Arguments: <Arg>gens</Arg>, <Arg>n</Arg> -- a list of elements in
+    a path algebra and a non-negative integer.<Br />
+  </Description>
+  <Returns>true whenever <Arg>gens</Arg> is a list of elements in the
+  linear span of degree <Arg>n</Arg> elements or zero of a path algebra. It returns
+  false whenever <Arg>gens</Arg> is a list of elements in a path
+  algebra, but not in the linear span of degree <Arg>n</Arg> of a path
+  algebra and zero. Otherwise it returns fail.
+  </Returns>
+</ManSection>
+
+<ManSection>
   <Prop Name="IsMonomialIdeal" Arg="I" Comm="checks if I is a monomial ideal in a path algebra"/>
   <Description>
     Arguments: <Arg>I</Arg> -- an IsIdealInPathAlgebra object. <Br />
