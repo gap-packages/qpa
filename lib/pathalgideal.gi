@@ -407,3 +407,46 @@ InstallMethod( IsGentleAlgebra,
     return true;
 end
   );
+
+#############################################################################
+##  
+#O  IsHomogeneousListOfElements ( < gens, n > ) 
+##  
+##  This function returns true, if all elements in the list <gens> consists of
+##  homogeneous elements of degree <n> or zero, and false otherwise. 
+##  Checks whether the non-zero generators passed in have the form
+##
+##              k1*p1 + k2*p2 + ...
+##
+##  where each ki is in k and each pi is a path of length <n>.  
+##
+InstallMethod( IsHomogeneousListOfElements, 
+    "for a list of elements in a path algebra",
+    [ IsHomogeneousList, IsPosInt ], 0,
+    function( gens, n ) 
+ 
+    local pa, L, terms_occurring, g;
+
+    if Length( gens ) = 0 then 
+        Print( "IsHomogeneousListOfElements: The entered list of elements is empty, so homogeneous.\n");
+        return true; 
+    else 
+        pa := PathAlgebraContainingElement( gens[ 1 ] );
+        if not IsPathAlgebra( pa ) then 
+            Print( "IsHomogeneousListOfElements: The entered list of elements is not a list of elements in a path algebra.\n");
+            return fail;
+        fi;
+        # for each generator g of I
+        for g in gens do
+          if not IsZero( g ) then 
+            L := CoefficientsAndMagmaElements( g );
+            terms_occurring:= L{[ 1, 3..Length( L ) - 1 ]};
+            if not ForAll( terms_occurring, x -> LengthOfPath( x ) = n ) then
+                return false;
+            fi;
+          fi;
+        od;   #end: for g in gens
+    fi;
+    return true;
+end
+);
