@@ -1032,3 +1032,55 @@ InstallMethod( FiniteGlobalDimGreen,
   
   return KQ / relations;
 end );
+
+##########################################################################
+##
+#O DeclearOperation( "FiniteGlobalDimKirkKuz", [ IsField, IsPosInt ] )
+##
+## Returns the finite dimensional algebra with two simple modules defined
+## by Ellen Kirkman and James Kuzmanovich in the paper "Algebras with 
+## large homological dimension", Proc. Amer. Math. Soc. 109, no. 4,
+## 903-906 (1990), of finite global dimension <2> for n = 1 and <2n + 1>
+## for n >= 2 and rad^4 = 0 (for n >= 2, and rad^3 = 0 for n = 1).
+##
+InstallMethod( FiniteGlobalDimKirkKuz,
+    "for a positive integer",
+    [ IsField, IsPosInt ], 0,
+    function( K, n )
+    
+  local arrows, i, Q, KQ, Arrows, relations, j, k, l;
+    
+  arrows := [ ];
+  for i in [ 1..n ] do
+    Add( arrows, [ 1, 2, Concatenation( "a", String( i ) ) ] );
+  od;
+  for i in [ 1..n ] do
+    Add( arrows, [ 2, 1, Concatenation( "b", String( i ) ) ] );
+  od;
+  Q := Quiver( 2, arrows );
+  KQ := PathAlgebra( K, Q );
+  Arrows := List( ArrowsOfQuiver( Q ), a -> One( KQ ) * a );
+  relations := [];
+  for i in [ 1..n ] do
+    for j in [ 1..n ] do
+      for k in [ 1..n ] do
+        Add( relations, Arrows[ n + i ] * Arrows[ j ] * Arrows[ n + k ] );
+      od;
+    od;
+  od;
+  for i in [ 1..n - 1 ] do
+    for l in [ 1..n - i ] do
+      Add( relations, Arrows[ i ] * Arrows[ n + i + l ] - Arrows[ i + l ] * Arrows[ n + i + l ] );
+    od;
+  od;
+  for j in [ 1..n - 1 ] do
+    for i in [ j + 1..n ] do
+      Add( relations, Arrows[ i ] * Arrows[ n + j ] );
+    od;
+  od;
+  for i in [ 1..n ] do
+    Add( relations, Arrows[ n + i ] * Arrows[ i ] );
+  od;
+  
+  return KQ / relations;
+end );
