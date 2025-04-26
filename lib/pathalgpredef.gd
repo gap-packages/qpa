@@ -21,3 +21,4 @@ DeclareAttribute( "PosetOfPosetAlgebra", IsPosetAlgebra );
 DeclareOperation( "BrauerConfigurationAlgebra", [IsField, IsList] );
 DeclareOperation( "PreprojectiveAlgebra", [ IsPathAlgebraMatModule, IsInt ] );
 DeclareOperation( "AdmissibleSequenceGenerator", [ IsPosInt, IsPosInt ] );
+DeclareOperation( "FiniteGlobalDimGreen", [ IsField, IsPosInt ] );

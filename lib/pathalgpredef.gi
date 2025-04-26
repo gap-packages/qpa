@@ -989,3 +989,46 @@ InstallMethod( AdmissibleSequenceGenerator,
     return admiss_sequences;
 end
   );
+
+##########################################################################
+##
+#O DeclearOperation( "FiniteGlobalDimGreen", [ IsField, IsPosInt ] )
+##
+## Returns the finite dimensional algebra with two simple modules defined
+## by Edward L. Green in the paper "Remarks on projective resolutions"
+## Representation theory, II (Proc. Second Internat. Conf., Carleton Univ.,
+## Ottawa, Ont., 1979), pp. 259-279, Lecture Notes in Math. 832, Springer
+## Berlin (1980), of finite global dimension <2n> for n >= 2 and
+## rad^{2n} <> 0.
+##
+InstallMethod( FiniteGlobalDimGreen,
+    "for a positive integer",
+    [ IsField, IsPosInt ], 0,
+    function( K, n )
+    
+  local arrows, i, Q, KQ, Arrows, relations, j;
+    
+  arrows := [ ];
+  for i in [ 1..n ] do
+    Add( arrows, [ 1, 2, Concatenation( "a", String( i ) ) ] );
+  od;
+  for i in [ 1..n ] do
+    Add( arrows, [ 2, 1, Concatenation( "b", String( i ) ) ] );
+  od;
+  Q := Quiver( 2, arrows );
+  KQ := PathAlgebra( K, Q );
+  Arrows := List( ArrowsOfQuiver( Q ), a -> One( KQ ) * a );
+  relations := [];
+  for i in [ 1..n ] do
+    for j in [ 1..i ] do 
+      Add( relations, Arrows[ n + i ] * Arrows[ j ] );
+    od;
+  od;
+  for j in [ 2..n ] do
+    for i in [ 1..j - 1 ] do
+      Add( relations, Arrows[ j ] * Arrows[ n + i ] );
+    od;
+  od;
+  
+  return KQ / relations;
+end );

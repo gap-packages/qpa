@@ -1763,7 +1763,24 @@ gap> alg := BrauerConfigurationAlgebra(Rationals, [ [ [ "v1", 1 ], [ "v2", 1 ], 
   </Description>
 </ManSection>
 
-
+<ManSection>
+  <Oper Name="FinteGlobalDimGreen" Arg="field, n" 
+	Comm="constructs a finite dimensional algebra of finite global
+	      dimension"/>
+  <Description>
+    Arguments: <Arg>field</Arg> -- a field, <Arg>n</Arg> -- a
+    positive integer.<Br />
+  </Description>
+  <Returns>a finite dimensional algebra over the field
+  <Arg>field</Arg> with two simple modules of finite global dimension
+  <M>2n</M> for<M>n\geq 2</M> and <M>rad^{2n}\neq 0</M>. 
+  </Returns>
+  <Description>The algebras were defined by Edward L. Green in the
+  paper "Remarks on projective resolutions" Representation theory, II
+  (Proc. Second Internat. Conf., Carleton Univ., Ottawa, Ont., 1979),
+  pp. 259-279, Lecture Notes in Math. 832, Springer Berlin (1980),
+  </Description>
+</ManSection>
 
 <ManSection>
   <Oper Name="KroneckerAlgebra" Arg="field, n" 
