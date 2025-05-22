@@ -433,13 +433,11 @@ end );
 ##
 ##  For a complex <C> and an integer <i>. Returns the ith homology of 
 ##  the complex.
-##
-##  TODO: Does not currently work (see the documentation).
 ##  
-InstallMethod( HomologyOfComplex, # TODO: this does not work
+InstallMethod( HomologyOfComplex,
 [ IsQPAComplex, IsInt ],
 function( C, i )
-    return CyclesOfComplex( C, i ) / BoundariesOfComplex( C, i );
+    return CoKernel( LiftingInclusionMorphisms( KernelInclusion( DifferentialOfComplex( C, i ) ), ImageInclusion( DifferentialOfComplex( C, i+1 ) ) ) );
 end );
 
 #######################################################################
@@ -833,7 +831,7 @@ end );
 ##
 #M  GoodTruncationBelow( <C>, <i> ) 
 ##
-##  Not working at the moment.  Suppose that C is a complex
+##  Suppose that C is a complex
 ##    ... --> C_{i+1} --> C_i --> C_{i-1} --> ...
 ##
 ##  then the function should return the complex
@@ -844,14 +842,16 @@ end );
 InstallMethod( GoodTruncationBelow,
 [ IsQPAComplex, IsInt ],
 function( C, i )
-    local cat, difflist, truncpart, newpart, zeropart, newdifflist, kerinc;
+    local cat, difflist, truncpart, newpart, zeropart, newdifflist, kerinc, imageproj, imageinc;
 
     cat := CatOfComplex( C );
     difflist := DifferentialsOfComplex( C );
     truncpart := PositivePartFrom( difflist, i+2 );
     kerinc := KernelInclusion( DifferentialOfComplex( C, i ) );
+    imageproj := ImageProjection( DifferentialOfComplex( C, i+1 ) );
+    imageinc := ImageInclusion( DifferentialOfComplex( C, i+1 ) );
     newpart := FiniteInfList( i, [ cat.zeroMap( Source(kerinc), cat.zeroObj ),
-                                   LiftingInclusionMorphisms( kerinc, DifferentialOfComplex( C, i+1 ) ) ] );
+                                   imageproj * LiftingInclusionMorphisms( kerinc, imageinc ) ] );
     zeropart := NegativePartFrom( DifferentialsOfComplex( ZeroComplex( cat ) ),
                                   i-1 );
     newdifflist := InfConcatenation( truncpart, newpart, zeropart );
@@ -875,19 +875,16 @@ end );
 InstallMethod( GoodTruncationAbove,
  [ IsQPAComplex, IsInt ],
 function( C, i )
-    local cat, difflist, truncpart, newpart, zeropart, newdifflist, factor, factorinclusion,
-          kerinc, factorproj;
+    local cat, difflist, truncpart, newpart, zeropart, newdifflist, factor, factorinclusion;
 
     cat := CatOfComplex( C );
     difflist := DifferentialsOfComplex( C );
     truncpart := NegativePartFrom( difflist, i-1 );
-    kerinc := KernelInclusion( DifferentialOfComplex( C, i ) );
-    factorproj := CoKernelProjection( kerinc );
-    factor := Range( factorproj );
-    factorinclusion := cat.zeroMap( factor, ObjectOfComplex( C, i-1 ) ); #TODO
+    factorinclusion := ImageInclusion( DifferentialOfComplex( C, i ) );
+    factor := Range( factorinclusion );
     newpart := FiniteInfList( i, [ factorinclusion, cat.zeroMap( cat.zeroObj, factor ) ] );
 
-    zeropart := NegativePartFrom( DifferentialsOfComplex( ZeroComplex( cat ) ),
+    zeropart := PositivePartFrom( DifferentialsOfComplex( ZeroComplex( cat ) ),
                                   i+2 );
     newdifflist := InfConcatenation( zeropart, newpart, truncpart );
     
@@ -895,8 +892,30 @@ function( C, i )
 
 end );
 
-# TODO!
-# InstallMethod( GoodTruncation, [ IsQPAComplex, IsInt, IsInt ] );
+#######################################################################
+##
+#M  BrutalTruncation( <C>, <i>, <j> ) 
+##
+##  Suppose that C is a complex
+##    ... --> C_{i+1} --> C_i --> C_{i-1} --> ...
+##
+##  then the function returns the complex
+##    ... --> 0 --> C_i/Z_i --> C_{i-1} --> ... --> C_{j+1} --> Z_j --> 0 --> ...
+##
+##  where Z_i is the i-cycle of C.
+##
+InstallMethod( GoodTruncation,
+[ IsQPAComplex, IsInt, IsInt ],
+function( C, i, j )
+    local cat, difflist, middlediffs, truncpart, newpart1, zeropart1, 
+          newpart2, zeropart2, newdifflist;
+    
+    if( j > i ) then
+        Error( "First input integer must be greater than or equal to the second" );
+    fi;
+    
+    return GoodTruncationAbove( GoodTruncationBelow( C, j ), i );
+end );
 
 #######################################################################
 ##
