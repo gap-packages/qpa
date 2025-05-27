@@ -5,7 +5,11 @@ Changes from version 1.35 to 1.36:
 Added functions in this release:
 ----------------------------------------------------------------------
 AssociatedGradedAlgebra
+FiniteGlobalDimGreen
+FiniteGlobalDimKirkKuz
 Functions for test for derived equivalence of gentle algebras
+GoodTruncation
+IsHomogenenousListOfElements
 RandomModule
 UnderlyingLinearMap
 
@@ -21,6 +25,10 @@ TraceOfModule
 Fixed bugs in:
 ----------------------------------------------------------------------
 AreDerivedEquivalent
+GoodTruncationAbeove
+GoodTruncationBelow
+HomologyOfComplex
+IsDynkinQuiver
 MatrixOfHomomorphismBetweenProjectives
 RandomModule
 TopOfModuleProjection
