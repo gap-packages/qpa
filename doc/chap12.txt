@@ -132,7 +132,13 @@
   
   [1X12.3 [33X[0;0YCombinatorial Maps[133X[101X
   
-  [1X12.3-1 CombinatorialMap[101X
+  [1X12.3-1 IsCombinatorialMap[101X
+  
+  [33X[1;0Y[29X[2XIsCombinatorialMap[102X(  ) [32X filter[133X
+  
+  [33X[0;0YThis defines the category [2XIsCombinatorialMap[102X.[133X
+  
+  [1X12.3-2 CombinatorialMap[101X
   
   [33X[1;0Y[29X[2XCombinatorialMap[102X( [3Xn[103X, [3Xsigma[103X, [3Xiota[103X, [3Xm[103X ) [32X operation[133X
   
@@ -141,14 +147,14 @@
   half-edges, [3Xm[103X -- a list of marked half-edges[133X
   
   [6XReturns:[106X  [33X[0;10Ya  combinatorial  map,  which  is  an  object  from  the  category
-            [2XIsCombinatorialMap[102X ([14X???IsCombinatorialMap???[114X).[133X
+            [2XIsCombinatorialMap[102X ([14X12.3-1[114X).[133X
   
   [33X[0;0YThe  size  of  the underlying set given by [3Xsize[103X is given a positive integer,
   the  ordering  and  the  pairing  are given by two permutations [3Xordering[103X and
   [3Xparing[103X  of  a  set  of  [3Xsize[103X  elements  ({1,  2,...,  [3Xsize[103X})  and the marked
   half-edges are given as a list of integers in {1, 2,..., [3Xsize[103X}.[133X
   
-  [1X12.3-2 FacesOfCombinatorialMap[101X
+  [1X12.3-3 FacesOfCombinatorialMap[101X
   
   [33X[1;0Y[29X[2XFacesOfCombinatorialMap[102X( [3Xmap[103X ) [32X attribute[133X
   
@@ -158,7 +164,7 @@
   
   [33X[0;0YThe faces are given by a list of half-edges of [3Xmap[103X.[133X
   
-  [1X12.3-3 GenusOfCombinatorialMap[101X
+  [1X12.3-4 GenusOfCombinatorialMap[101X
   
   [33X[1;0Y[29X[2XGenusOfCombinatorialMap[102X( [3Xmap[103X ) [32X attribute[133X
   
@@ -166,7 +172,7 @@
   
   [6XReturns:[106X  [33X[0;10Ythe genus of the surface represented by the combinatorial map [3Xmap[103X.[133X
   
-  [1X12.3-4 DualOfCombinatorialMap[101X
+  [1X12.3-5 DualOfCombinatorialMap[101X
   
   [33X[1;0Y[29X[2XDualOfCombinatorialMap[102X( [3Xmap[103X ) [32X attribute[133X
   
@@ -174,7 +180,7 @@
   
   [6XReturns:[106X  [33X[0;10Ythe dual combinatorial map of [3Xmap[103X.[133X
   
-  [1X12.3-5 MaximalPathsOfGentleAlgebra[101X
+  [1X12.3-6 MaximalPathsOfGentleAlgebra[101X
   
   [33X[1;0Y[29X[2XMaximalPathsOfGentleAlgebra[102X( [3XA[103X ) [32X attribute[133X
   
@@ -184,7 +190,7 @@
   
   [33X[0;0YOnly returns paths of non-zero length.[133X
   
-  [1X12.3-6 RemoveEdgeOfCombinatorialMap[101X
+  [1X12.3-7 RemoveEdgeOfCombinatorialMap[101X
   
   [33X[1;0Y[29X[2XRemoveEdgeOfCombinatorialMap[102X( [3Xcombmap[103X, [3XE[103X ) [32X operation[133X
   
@@ -199,7 +205,7 @@
   removed  half-edges  are  now  fixed  by  the pairing and ordering so do not
   appear in non-trivial orbits.[133X
   
-  [1X12.3-7 CombinatorialMapOfGentleAlgebra[101X
+  [1X12.3-8 CombinatorialMapOfGentleAlgebra[101X
   
   [33X[1;0Y[29X[2XCombinatorialMapOfGentleAlgebra[102X( [3XA[103X ) [32X attribute[133X
   
@@ -210,7 +216,7 @@
   
   [33X[0;0YThe function assumes that [3Xalgebra[103X is gentle.[133X
   
-  [1X12.3-8 MarkedBoundariesOfCombinatorialMap[101X
+  [1X12.3-9 MarkedBoundariesOfCombinatorialMap[101X
   
   [33X[1;0Y[29X[2XMarkedBoundariesOfCombinatorialMap[102X( [3Xmap[103X ) [32X attribute[133X
   
@@ -221,7 +227,7 @@
             the  number  of  marked  half-edges  on the corresponding boundary
             component.[133X
   
-  [1X12.3-9 WindingNumber[101X
+  [1X12.3-10 WindingNumber[101X
   
   [33X[1;0Y[29X[2XWindingNumber[102X( [3Xmap[103X, [3Xgamma[103X ) [32X operation[133X
   
@@ -231,7 +237,7 @@
   [6XReturns:[106X  [33X[0;10Ythe combinatorial winding number of [3Xgamma[103X on the dissected surface
             given by [3Xmap[103X.[133X
   
-  [1X12.3-10 BoundaryCurvesOfCombinatorialMap[101X
+  [1X12.3-11 BoundaryCurvesOfCombinatorialMap[101X
   
   [33X[1;0Y[29X[2XBoundaryCurvesOfCombinatorialMap[102X( [3Xmap[103X ) [32X attribute[133X
   
@@ -249,7 +255,7 @@
   case  of  the  disk,  the  boundary  curve  is trivial and the empty list is
   returned.[133X
   
-  [1X12.3-11 DepthSearchCombinatorialMap[101X
+  [1X12.3-12 DepthSearchCombinatorialMap[101X
   
   [33X[1;0Y[29X[2XDepthSearchCombinatorialMap[102X( [3Xcombmap[103X, [3Xx[103X ) [32X operation[133X
   
@@ -263,7 +269,7 @@
   [33X[0;0YThe paired half-edges of the cover tree are oriented towards the root of the
   cover tree.[133X
   
-  [1X12.3-12 WidthSearchCombinatorialMap[101X
+  [1X12.3-13 WidthSearchCombinatorialMap[101X
   
   [33X[1;0Y[29X[2XWidthSearchCombinatorialMap[102X( [3Xcombmap[103X, [3Xx[103X ) [32X operation[133X
   
@@ -277,7 +283,7 @@
   [33X[0;0YThe paired half-edges of the cover tree are oriented towards the root of the
   cover tree.[133X
   
-  [1X12.3-13 NonSeperatingCurve[101X
+  [1X12.3-14 NonSeperatingCurve[101X
   
   [33X[1;0Y[29X[2XNonSeperatingCurve[102X( [3Xmap[103X ) [32X attribute[133X
   
@@ -288,7 +294,7 @@
   
   [33X[0;0YThis function must be used on a combinatorial map of genus at least one.[133X
   
-  [1X12.3-14 CutNonSepCombinatorialMap[101X
+  [1X12.3-15 CutNonSepCombinatorialMap[101X
   
   [33X[1;0Y[29X[2XCutNonSepCombinatorialMap[102X( [3Xmap[103X, [3Xalpha[103X, [3Xindex[103X ) [32X operation[133X
   
@@ -305,7 +311,7 @@
   corresponds  in  some original combinatorial map. The result newindex is the
   updated index for newmap where all created half-edges are added.[133X
   
-  [1X12.3-15 JoinCurveCombinatorialMap[101X
+  [1X12.3-16 JoinCurveCombinatorialMap[101X
   
   [33X[1;0Y[29X[2XJoinCurveCombinatorialMap[102X( [3Xmap[103X, [3Xbound1[103X, [3Xbound2[103X, [3Xindex[103X ) [32X operation[133X
   
@@ -319,7 +325,7 @@
   
   [33X[0;0YThe list consists of adjacent half-edges of [3Xmap[103X which form the closed curve.[133X
   
-  [1X12.3-16 CutJoinCurveCombinatorialMap[101X
+  [1X12.3-17 CutJoinCurveCombinatorialMap[101X
   
   [33X[1;0Y[29X[2XCutJoinCurveCombinatorialMap[102X( [3Xmap[103X, [3Xbound1[103X, [3Xbound2[103X, [3Xbeta[103X, [3Xindex[103X ) [32X operation[133X
   
@@ -331,7 +337,7 @@
             obtained  by  cutting  the combinatorial map [3Xmap[103X along [3Xcurve[103X which
             has to be a simple curve joining [3Xboundary1[103X and [3Xboundary2[103X[133X
   
-  [1X12.3-17 HomologyBasisOfCombinatorialMap[101X
+  [1X12.3-18 HomologyBasisOfCombinatorialMap[101X
   
   [33X[1;0Y[29X[2XHomologyBasisOfCombinatorialMap[102X( [3Xmap[103X ) [32X attribute[133X
   
@@ -343,7 +349,7 @@
             homology   group  of  the  surface  represented  by  [3Xmap[103X  for  the
             intersection form.[133X
   
-  [1X12.3-18 AreDerivedEquivalent[101X
+  [1X12.3-19 AreDerivedEquivalent[101X
   
   [33X[1;0Y[29X[2XAreDerivedEquivalent[102X( [3XA[103X, [3XB[103X ) [32X operation[133X
   

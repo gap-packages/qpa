@@ -9,11 +9,11 @@
   
   [1X9.1-1 AlmostSplitSequence[101X
   
-  [33X[1;0Y[29X[2XAlmostSplitSequence[102X( [3XM[103X ) [32X attribute[133X
-  [33X[1;0Y[29X[2XAlmostSplitSequence[102X( [3XM[103X, [3Xe[103X ) [32X attribute[133X
+  [33X[1;0Y[29X[2XAlmostSplitSequence[102X( [3XM[103X, [3Xor[103X, [3XM[103X, [3Xe[103X ) [32X attribute[133X
   
-  [33X[0;0YArguments:  [3XM[103X - an indecomposable non-projective module, [3Xe[103X - either l = left
-  or r = right[133X
+  [33X[0;0YArguments:  (first  version,  only the first argument) [3XM[103X - an indecomposable
+  non-projective module, (second version, this additional argument) [3Xe[103X - either
+  l = left or r = right[133X
   
   [6XReturns:[106X  [33X[0;10Ythe  almost  split  sequence  ending  in  the  module  [3XM[103X  if it is
             indecomposable  and  not  projective,  for  the first variant. The

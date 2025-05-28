@@ -28,9 +28,9 @@
 
 <h2>Quivers and Path Algebras</h2>
 
-<p>Version 1.35</p>
+<p>Version 1.36</p>
 
-<p>January 2024</p>
+<p>April 2025</p>
 
 </div>
 <p>
@@ -41,7 +41,7 @@
            
   </b>
 <br />Email: <span class="URL"><a href="mailto:oyvind.solberg@ntnu.no">oyvind.solberg@ntnu.no</a></span>
-<br />Homepage: <span class="URL"><a href="https://folk.ntnu.no/oyvinso/QPA/">https://folk.ntnu.no/oyvinso/QPA/</a></span>
+<br />Homepage: <span class="URL"><a href="https://gap-packages.github.io/qpa/">https://gap-packages.github.io/qpa/</a></span>
 <br />Address: <br />Department of Mathematical Sciences<br /> NTNU<br /> N-7491 Trondheim<br /> Norway
 </p>
 
@@ -51,13 +51,13 @@
 
 <p><a id="X81488B807F2A1CF1" name="X81488B807F2A1CF1"></a></p>
 <h3>Copyright</h3>
-<p>© 2014-2024 by The QPA-team.</p>
+<p>© 2014-2025 by The QPA-team.</p>
 
 <p><strong class="pkg">QPA</strong> is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version. For details, see the FSF’s own site (<span class="URL"><a href="https://www.gnu.org/licenses/gpl.html">https://www.gnu.org/licenses/gpl.html</a></span>).</p>
 
 <p>If you obtained <strong class="pkg">QPA</strong>, we would be grateful for a short notification sent to one of members of the QPA-team. If you publish a result which was partially obtained with the usage of <strong class="pkg">QPA</strong>, please cite it in the following form:</p>
 
-<p>The QPA-team, <strong class="pkg">QPA</strong> - Quivers, path algebras and representations, Version 1.35; 2024 (<span class="URL"><a href="https://folk.ntnu.no/oyvinso/QPA/">https://folk.ntnu.no/oyvinso/QPA/</a></span>)</p>
+<p>The QPA-team, <strong class="pkg">QPA</strong> - Quivers, path algebras and representations, Version 1.36; 2025 (<span class="URL"><a href="https://folk.ntnu.no/oyvinso/QPA/">https://folk.ntnu.no/oyvinso/QPA/</a></span>)</p>
 
 <p><a id="X82A988D47DFAFCFA" name="X82A988D47DFAFCFA"></a></p>
 <h3>Acknowledgements</h3>
@@ -354,8 +354,9 @@ algebras and quotients of path algebras</span></a>
 <div class="ContSSBlock">
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7F40193B877D76BC">4.8-1 IsAdmissibleIdeal</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X818EE2B9789BB175">4.8-2 IsIdealInPathAlgebra</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7C40D53785D67A9E">4.8-3 IsMonomialIdeal</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X841058F8850FA9D3">4.8-4 IsQuadraticIdeal</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X830F0CFC7F30B49D">4.8-3 IsHomogeneousListOfElements</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7C40D53785D67A9E">4.8-4 IsMonomialIdeal</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X841058F8850FA9D3">4.8-5 IsQuadraticIdeal</a></span>
 </div></div>
 <div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4.html#X7C45A01B7A587D9E">4.9 <span class="Heading">Operations on ideals</span></a>
 </span>
@@ -445,13 +446,15 @@ algebras and quotients of path algebras</span></a>
 <div class="ContSSBlock">
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X820AE0208636B9AA">4.15-1 BrauerConfigurationAlgebra</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7E63A4F37856A075">4.15-2 CanonicalAlgebra</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X83498D3D856CC08A">4.15-3 KroneckerAlgebra</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7C678A08836F77CC">4.15-4 NakayamaAlgebra</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X8369BB398212101C">4.15-5 AdmissibleSequenceGenerator</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X78C675F2836D1B18">4.15-6 PosetAlgebra</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7F877C5F839A3AA9">4.15-7 PosetOfPosetAlgebra</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7EF1AE62790D7486">4.15-8 TruncatedPathAlgebra</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X87E17E137E2B0FC4">4.15-9 IsSpecialBiserialQuiver</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X822FF74F8025DD5F">4.15-3 FinteGlobalDimGreen</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7C1C6ED178D38C31">4.15-4 FinteGlobalDimKirkKuz</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X83498D3D856CC08A">4.15-5 KroneckerAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7C678A08836F77CC">4.15-6 NakayamaAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X8369BB398212101C">4.15-7 AdmissibleSequenceGenerator</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X78C675F2836D1B18">4.15-8 PosetAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7F877C5F839A3AA9">4.15-9 PosetOfPosetAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7EF1AE62790D7486">4.15-10 TruncatedPathAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X87E17E137E2B0FC4">4.15-11 IsSpecialBiserialQuiver</a></span>
 </div></div>
 <div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4.html#X840BAB827C62AA4C">4.16 <span class="Heading">Opposite algebras</span></a>
 </span>
@@ -562,8 +565,7 @@ algebras and quotients of path algebras</span></a>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5.html#X7D96FEDA7F69B266">5.5-8 TipReducedListInvLenInvLex</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5.html#X7A6E562C8414E151">5.5-9 LeftmostOccurrenceInvLenInvLex</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5.html#X84B52C118749406D">5.5-10 BiggestHomogeneousPartInvLenInvLex</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5.html#X84B52C118749406D">5.5-11 BiggestHomogeneousPartInvLenInvLex</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5.html#X7CE1DF847FDA0162">5.5-12 TruncateElement</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5.html#X7CE1DF847FDA0162">5.5-11 TruncateElement</a></span>
 </div></div>
 </div>
 <div class="ContChap"><a href="chap6.html#X87EFC38F7BC77B27">6 <span class="Heading">Right Modules over Path
@@ -619,7 +621,7 @@ Algebras</span></a>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7D2067E57E0244F8">6.4-29 IsSimpleQPAModule</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7B766424838EE6EA">6.4-30 IsTauRigidModule</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X82663AD8832DD57F">6.4-31 LoewyLength</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X82BDA47282F9BBA7">6.4-32 IsZero</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7DC6D98E7F97FFEE">6.4-32 IsZero(module)</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X81BB198380631A9B">6.4-33 MatricesOfPathAlgebraModule</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7B480767836D0764">6.4-34 MaximalCommonDirectSummand</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7CD05FF985A1D1B3">6.4-35 NumberOfNonIsoDirSummands</a></span>
@@ -651,20 +653,18 @@ Algebras</span></a>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X82D7B50A7ACA47BF">6.6-1 DualOfModule</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X847DDC417BFB8515">6.6-2 DualOfModuleHomomorphism</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X82D31F887C14E921">6.6-3 DTr</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X82D31F887C14E921">6.6-4 DTr</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X82ACC83D7EF5B32C">6.6-5 NakayamaFunctorOfModule</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X865C241C86D6168F">6.6-6 NakayamaFunctorOfModuleHomomorphism</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X78E724307D9FE41D">6.6-7 OppositeNakayamaFunctorOfModule</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X82A057C5824917FA">6.6-8 OppositeNakayamaFunctorOfModuleHomomorphism</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X818DD1A67A5C03AB">6.6-9 RestrictionViaAlgebraHomomorphism</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X86267BD982DB2221">6.6-10 RestrictionViaAlgebraHomomorphismMap</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7F07712F786AAEFD">6.6-11 StarOfModule</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X80AF678D795B6C57">6.6-12 StarOfModuleHomomorphism</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X814EE88D8474A99D">6.6-13 TensorProductOfModules</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7939949279208FA3">6.6-14 TrD</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7939949279208FA3">6.6-15 TrD</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X79C0B620842128AF">6.6-16 TransposeOfModule</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X80C4C3BF80B39D66">6.6-17 TransposeOfModuleHomomorphism</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X82ACC83D7EF5B32C">6.6-4 NakayamaFunctorOfModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X865C241C86D6168F">6.6-5 NakayamaFunctorOfModuleHomomorphism</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X78E724307D9FE41D">6.6-6 OppositeNakayamaFunctorOfModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X82A057C5824917FA">6.6-7 OppositeNakayamaFunctorOfModuleHomomorphism</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X818DD1A67A5C03AB">6.6-8 RestrictionViaAlgebraHomomorphism</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X86267BD982DB2221">6.6-9 RestrictionViaAlgebraHomomorphismMap</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7F07712F786AAEFD">6.6-10 StarOfModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X80AF678D795B6C57">6.6-11 StarOfModuleHomomorphism</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X814EE88D8474A99D">6.6-12 TensorProductOfModules</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7939949279208FA3">6.6-13 TrD</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X79C0B620842128AF">6.6-14 TransposeOfModule</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X80C4C3BF80B39D66">6.6-15 TransposeOfModuleHomomorphism</a></span>
 </div></div>
 <div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap6.html#X84F07A1579CBC26A">6.7 <span class="Heading">Vertex projective modules and submodules thereof</span></a>
 </span>
@@ -717,7 +717,7 @@ Algebras</span></a>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X80A66EFA862E56BC">7.2-13 IsSplitEpimorphism</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X7DFACF1F7D7F7EE9">7.2-14 IsSplitMonomorphism</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X784ECE847E005B8F">7.2-15 IsSurjective</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X82BDA47282F9BBA7">7.2-16 IsZero</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X7C910CBD7C225C08">7.2-16 IsZero(homomorphism)</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X7EF520F67BA7F082">7.2-17 KernelOfWhat</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X7A40540E79DBD804">7.2-18 LeftInverseOfHomomorphism</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X7B63FBAF84533D75">7.2-19 MatricesOfPathAlgebraMatModuleHomomorphism</a></span>
@@ -853,31 +853,28 @@ Algebras</span></a>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X8208162D7F3CC139">10.2-16 InitialValue</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7F12274E794510CA">10.2-17 LowestKnownPosition</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7B5E57F0859BEE17">10.2-18 HighestKnownValue</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X81F7B0AB84D6319B">10.2-19 Shift</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7D8067A7842BC4A4">10.2-20 Cut</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X79A67E377B71C540">10.2-21 HalfInfList</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7CE66EBA844DBB57">10.2-22 MakeInfListFromHalfInfLists</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X801DE2517D08C19E">10.2-23 MakeInfList</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7EEB276380E1584F">10.2-24 FunctionInfList</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X78C7FBAE83914790">10.2-25 ConstantInfList</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7D68E0627F556E14">10.2-26 FiniteInfList</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X8134072B7C7309CD">10.2-27 MiddleStart</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7EB933657AF3D723">10.2-28 MiddleEnd</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7AC3ECBB7BC93594">10.2-29 MiddlePart</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7896D6DD788046E7">10.2-30 PositivePart</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X81B768838567F98D">10.2-31 NegativePart</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X8511A0B88003B989">10.2-32 HighestKnownPosition</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7F12274E794510CA">10.2-33 LowestKnownPosition</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7A5CB74485184FEE">10.2-34 UpperBound</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X807CC5AD7FDFA4E3">10.2-35 LowerBound</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7A311EBE79F31AEA">10.2-36 FinitePartAsList</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X8028ED6883CFA39C">10.2-37 PositivePartFrom</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7863903B7E281CF6">10.2-38 NegativePartFrom</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X81F7B0AB84D6319B">10.2-39 Shift</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X80153272857B2EDE">10.2-40 Splice</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X84FC63C183F0A977">10.2-41 InfConcatenation</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7F4CF360858E80A6">10.2-42 InfList</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X791D879483C59410">10.2-43 IntegersList</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7D8067A7842BC4A4">10.2-19 Cut</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X79A67E377B71C540">10.2-20 HalfInfList</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7CE66EBA844DBB57">10.2-21 MakeInfListFromHalfInfLists</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X801DE2517D08C19E">10.2-22 MakeInfList</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7EEB276380E1584F">10.2-23 FunctionInfList</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X78C7FBAE83914790">10.2-24 ConstantInfList</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7D68E0627F556E14">10.2-25 FiniteInfList</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X8134072B7C7309CD">10.2-26 MiddleStart</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7EB933657AF3D723">10.2-27 MiddleEnd</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7AC3ECBB7BC93594">10.2-28 MiddlePart</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7896D6DD788046E7">10.2-29 PositivePart</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X81B768838567F98D">10.2-30 NegativePart</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X8511A0B88003B989">10.2-31 HighestKnownPosition</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X81CD94E284DE7E67">10.2-32 UpperBound(list)</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X8639C48C7E19956A">10.2-33 LowerBound(list)</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7A311EBE79F31AEA">10.2-34 FinitePartAsList</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X8028ED6883CFA39C">10.2-35 PositivePartFrom</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7863903B7E281CF6">10.2-36 NegativePartFrom</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X80153272857B2EDE">10.2-37 Splice</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X84FC63C183F0A977">10.2-38 InfConcatenation</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7F4CF360858E80A6">10.2-39 InfList</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X791D879483C59410">10.2-40 IntegersList</a></span>
 </div></div>
 <div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap10.html#X7CAF603281B94AC8">10.3 <span class="Heading">Representation of categories</span></a>
 </span>
@@ -907,8 +904,8 @@ Algebras</span></a>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X8168D8CC7805FE30">10.5-6 BoundariesOfComplex</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7F8D61447AB57EF3">10.5-7 HomologyOfComplex</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7DCBCF7682DC87FC">10.5-8 IsFiniteComplex</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7A5CB74485184FEE">10.5-9 UpperBound</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X807CC5AD7FDFA4E3">10.5-10 LowerBound</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7D41C1AE7B4FA417">10.5-9 UpperBound(complex)</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X82E960CC81884F1A">10.5-10 LowerBound(complex)</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X7C1F81277A5AC8B4">10.5-11 LengthOfComplex</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X82D615CD796C9C0A">10.5-12 HighestKnownDegree</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap10.html#X868105FF86FA1B6E">10.5-13 LowestKnownDegree</a></span>
@@ -986,24 +983,25 @@ Algebras</span></a>
 <div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap12.html#X8779DC4586048F1F">12.3 <span class="Heading">Combinatorial Maps</span></a>
 </span>
 <div class="ContSSBlock">
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap12.html#X814C0E20858B22D6">12.3-1 CombinatorialMap</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap12.html#X82713DF87D1FA0D0">12.3-2 FacesOfCombinatorialMap</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap12.html#X86E5D64679A503C5">12.3-3 GenusOfCombinatorialMap</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap12.html#X83BC50DC822EB5F8">12.3-4 DualOfCombinatorialMap</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap12.html#X86AFE052783F5542">12.3-5 MaximalPathsOfGentleAlgebra</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap12.html#X84E2EE177F234189">12.3-6 RemoveEdgeOfCombinatorialMap</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap12.html#X7A5333CC814054FF">12.3-7 CombinatorialMapOfGentleAlgebra</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap12.html#X7E23962982506CB4">12.3-8 MarkedBoundariesOfCombinatorialMap</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap12.html#X84D1EB9379681C62">12.3-9 WindingNumber</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap12.html#X8599C842827591B3">12.3-10 BoundaryCurvesOfCombinatorialMap</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap12.html#X7C1850CF83BDBB05">12.3-11 DepthSearchCombinatorialMap</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap12.html#X80952CEC808FFB52">12.3-12 WidthSearchCombinatorialMap</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap12.html#X85C23E5180E0F1BB">12.3-13 NonSeperatingCurve</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap12.html#X8233249683293DCD">12.3-14 CutNonSepCombinatorialMap</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap12.html#X7ECDA130870127F0">12.3-15 JoinCurveCombinatorialMap</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap12.html#X78D7425B7DB40019">12.3-16 CutJoinCurveCombinatorialMap</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap12.html#X874A2B0B84D732B2">12.3-17 HomologyBasisOfCombinatorialMap</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap12.html#X82C2709B7CC86B07">12.3-18 AreDerivedEquivalent</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap12.html#X8413C62083116C92">12.3-1 IsCombinatorialMap</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap12.html#X814C0E20858B22D6">12.3-2 CombinatorialMap</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap12.html#X82713DF87D1FA0D0">12.3-3 FacesOfCombinatorialMap</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap12.html#X86E5D64679A503C5">12.3-4 GenusOfCombinatorialMap</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap12.html#X83BC50DC822EB5F8">12.3-5 DualOfCombinatorialMap</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap12.html#X86AFE052783F5542">12.3-6 MaximalPathsOfGentleAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap12.html#X84E2EE177F234189">12.3-7 RemoveEdgeOfCombinatorialMap</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap12.html#X7A5333CC814054FF">12.3-8 CombinatorialMapOfGentleAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap12.html#X7E23962982506CB4">12.3-9 MarkedBoundariesOfCombinatorialMap</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap12.html#X84D1EB9379681C62">12.3-10 WindingNumber</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap12.html#X8599C842827591B3">12.3-11 BoundaryCurvesOfCombinatorialMap</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap12.html#X7C1850CF83BDBB05">12.3-12 DepthSearchCombinatorialMap</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap12.html#X80952CEC808FFB52">12.3-13 WidthSearchCombinatorialMap</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap12.html#X85C23E5180E0F1BB">12.3-14 NonSeperatingCurve</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap12.html#X8233249683293DCD">12.3-15 CutNonSepCombinatorialMap</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap12.html#X7ECDA130870127F0">12.3-16 JoinCurveCombinatorialMap</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap12.html#X78D7425B7DB40019">12.3-17 CutJoinCurveCombinatorialMap</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap12.html#X874A2B0B84D732B2">12.3-18 HomologyBasisOfCombinatorialMap</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap12.html#X82C2709B7CC86B07">12.3-19 AreDerivedEquivalent</a></span>
 </div></div>
 </div>
 <div class="ContChap"><a href="chap13.html#X82CC1A63854C04F1">13 <span class="Heading">Degeneration order for modules in finite type</span></a>

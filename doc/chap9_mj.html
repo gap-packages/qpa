@@ -48,9 +48,8 @@
 
 <h5>9.1-1 AlmostSplitSequence</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; AlmostSplitSequence</code>( <var class="Arg">M</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; AlmostSplitSequence</code>( <var class="Arg">M</var>, <var class="Arg">e</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
-<p>Arguments: <var class="Arg">M</var> - an indecomposable non-projective module, <var class="Arg">e</var> - either l = left or r = right<br /></p>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; AlmostSplitSequence</code>( <var class="Arg">M</var>, <var class="Arg">or</var>, <var class="Arg">M</var>, <var class="Arg">e</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Arguments: (first version, only the first argument) <var class="Arg">M</var> - an indecomposable non-projective module, (second version, this additional argument) <var class="Arg">e</var> - either l = left or r = right<br /></p>
 
 <p>Returns: the almost split sequence ending in the module <var class="Arg">M</var> if it is indecomposable and not projective, for the first variant. The second variant finds the almost split sequence starting or ending in the module <var class="Arg">M</var> depending on whether the second argument <var class="Arg">e</var> is l or r (l = almost split sequence starting with <var class="Arg">M</var>, or r = almost split sequence ending in <var class="Arg">M</var>), if the module is indecomposable and not injective or not projective, respectively. It returns fail if the module is injective (l) or projective (r).</p>
 

@@ -353,24 +353,19 @@
   
   [1X5.5-10 BiggestHomogeneousPartInvLenInvLex[101X
   
-  [33X[1;0Y[29X[2XBiggestHomogeneousPartInvLenInvLex[102X( [3Xe[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XBiggestHomogeneousPartInvLenInvLex[102X( [3Xe[103X, [3Xor[103X, [3Xelems[103X ) [32X operation[133X
   
-  [33X[0;0YArguments: [3Xe[103X -- an IsElementOfMagmaRingModuloRelations.[133X
+  [33X[0;0YArguments: (first version) [3Xe[103X -- an IsElementOfMagmaRingModuloRelations.[133X
+  [33X[0;0Y(second version) [3Xelems[103X -- a list of elements in a path algebra.[133X
   
-  [6XReturns:[106X  [33X[0;10Ythe  biggest  homogeneous  part of the element [3Xe[103X under the inverse
-            length inverse lexicographic ordering.[133X
+  [6XReturns:[106X  [33X[0;10Y(first  version)  the  biggest  homogeneous  part of the element [3Xe[103X
+            under the inverse length inverse lexicographic ordering.[133X
   
-  [1X5.5-11 BiggestHomogeneousPartInvLenInvLex[101X
+  [6XReturns:[106X  [33X[0;10Y(second  version) the list of the biggest homogeneous part of each
+            element  in  the  list  [3Xelems[103X  under  the  inverse  length inverse
+            lexicographic ordering.[133X
   
-  [33X[1;0Y[29X[2XBiggestHomogeneousPartInvLenInvLex[102X( [3Xelems[103X ) [32X operation[133X
-  
-  [33X[0;0YArguments: [3Xelems[103X -- a list of elements in a path algebra.[133X
-  
-  [6XReturns:[106X  [33X[0;10Ythe  list  of  the biggest homogeneous part of each element in the
-            list   [3Xelems[103X   under  the  inverse  length  inverse  lexicographic
-            ordering.[133X
-  
-  [1X5.5-12 TruncateElement[101X
+  [1X5.5-11 TruncateElement[101X
   
   [33X[1;0Y[29X[2XTruncateElement[102X( [3Xelem[103X, [3Xs[103X ) [32X operation[133X
   

@@ -72,8 +72,7 @@
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5.html#X7D96FEDA7F69B266">5.5-8 TipReducedListInvLenInvLex</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5.html#X7A6E562C8414E151">5.5-9 LeftmostOccurrenceInvLenInvLex</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5.html#X84B52C118749406D">5.5-10 BiggestHomogeneousPartInvLenInvLex</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5.html#X84B52C118749406D">5.5-11 BiggestHomogeneousPartInvLenInvLex</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5.html#X7CE1DF847FDA0162">5.5-12 TruncateElement</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5.html#X7CE1DF847FDA0162">5.5-11 TruncateElement</a></span>
 </div></div>
 </div>
 
@@ -414,23 +413,16 @@ true
 
 <h5>5.5-10 BiggestHomogeneousPartInvLenInvLex</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; BiggestHomogeneousPartInvLenInvLex</code>( <var class="Arg">e</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
-<p>Arguments: <var class="Arg">e</var> -- an IsElementOfMagmaRingModuloRelations.<br /></p>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; BiggestHomogeneousPartInvLenInvLex</code>( <var class="Arg">e</var>, <var class="Arg">or</var>, <var class="Arg">elems</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Arguments: (first version) <var class="Arg">e</var> -- an IsElementOfMagmaRingModuloRelations.<br /> (second version) <var class="Arg">elems</var> -- a list of elements in a path algebra.<br /></p>
 
-<p>Returns: the biggest homogeneous part of the element <var class="Arg">e</var> under the inverse length inverse lexicographic ordering.</p>
+<p>Returns: (first version) the biggest homogeneous part of the element <var class="Arg">e</var> under the inverse length inverse lexicographic ordering.</p>
 
-<p><a id="X84B52C118749406D" name="X84B52C118749406D"></a></p>
-
-<h5>5.5-11 BiggestHomogeneousPartInvLenInvLex</h5>
-
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; BiggestHomogeneousPartInvLenInvLex</code>( <var class="Arg">elems</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
-<p>Arguments: <var class="Arg">elems</var> -- a list of elements in a path algebra.<br /></p>
-
-<p>Returns: the list of the biggest homogeneous part of each element in the list <var class="Arg">elems</var> under the inverse length inverse lexicographic ordering.</p>
+<p>Returns: (second version) the list of the biggest homogeneous part of each element in the list <var class="Arg">elems</var> under the inverse length inverse lexicographic ordering.</p>
 
 <p><a id="X7CE1DF847FDA0162" name="X7CE1DF847FDA0162"></a></p>
 
-<h5>5.5-12 TruncateElement</h5>
+<h5>5.5-11 TruncateElement</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; TruncateElement</code>( <var class="Arg">elem</var>, <var class="Arg">s</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
 <p>Arguments: <var class="Arg">elem</var>, <var class="Arg">s</var> -- an element in a path algebra and a positive integer.<br /></p>

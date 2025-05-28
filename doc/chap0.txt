@@ -6,10 +6,10 @@
                            [1XQuivers and Path Algebras[101X
   
   
-                                  Version 1.35
+                                  Version 1.36
   
   
-                                  January 2024
+                                   April 2025
   
   
                                   The QPA-team
@@ -20,7 +20,7 @@
   
   The QPA-team
       Email:    [7Xmailto:oyvind.solberg@ntnu.no[107X
-      Homepage: [7Xhttps://folk.ntnu.no/oyvinso/QPA/[107X
+      Homepage: [7Xhttps://gap-packages.github.io/qpa/[107X
       Address:  [33X[0;14YDepartment of Mathematical Sciences[133X
                 [33X[0;14YNTNU[133X
                 [33X[0;14YN-7491 Trondheim[133X
@@ -46,7 +46,7 @@
   
   -------------------------------------------------------
   [1XCopyright[101X
-  [33X[0;0Y© 2014-2024 by The QPA-team.[133X
+  [33X[0;0Y© 2014-2025 by The QPA-team.[133X
   
   [33X[0;0Y[5XQPA[105X  is  free  software;  you can redistribute it and/or modify it under the
   terms  of  the  GNU General Public License as published by the Free Software
@@ -59,7 +59,7 @@
   obtained with the usage of [5XQPA[105X, please cite it in the following form:[133X
   
   [33X[0;0YThe  QPA-team,  [5XQPA[105X  -  Quivers,  path algebras and representations, Version
-  1.35; 2024 ([7Xhttps://folk.ntnu.no/oyvinso/QPA/[107X)[133X
+  1.36; 2025 ([7Xhttps://folk.ntnu.no/oyvinso/QPA/[107X)[133X
   
   
   -------------------------------------------------------
@@ -204,8 +204,9 @@
     4.8 [33X[0;0YCategories and properties of ideals[133X
       4.8-1 IsAdmissibleIdeal
       4.8-2 IsIdealInPathAlgebra
-      4.8-3 IsMonomialIdeal
-      4.8-4 IsQuadraticIdeal
+      4.8-3 IsHomogeneousListOfElements
+      4.8-4 IsMonomialIdeal
+      4.8-5 IsQuadraticIdeal
     4.9 [33X[0;0YOperations on ideals[133X
       4.9-1 ProductOfIdeals
       4.9-2 QuadraticPerpOfPathAlgebraIdeal
@@ -271,13 +272,15 @@
     4.15 [33X[0;0YPredefined classes and classes of (quotients of) path algebras[133X
       4.15-1 BrauerConfigurationAlgebra
       4.15-2 CanonicalAlgebra
-      4.15-3 KroneckerAlgebra
-      4.15-4 NakayamaAlgebra
-      4.15-5 AdmissibleSequenceGenerator
-      4.15-6 PosetAlgebra
-      4.15-7 PosetOfPosetAlgebra
-      4.15-8 TruncatedPathAlgebra
-      4.15-9 IsSpecialBiserialQuiver
+      4.15-3 FinteGlobalDimGreen
+      4.15-4 FinteGlobalDimKirkKuz
+      4.15-5 KroneckerAlgebra
+      4.15-6 NakayamaAlgebra
+      4.15-7 AdmissibleSequenceGenerator
+      4.15-8 PosetAlgebra
+      4.15-9 PosetOfPosetAlgebra
+      4.15-10 TruncatedPathAlgebra
+      4.15-11 IsSpecialBiserialQuiver
     4.16 [33X[0;0YOpposite algebras[133X
       4.16-1 OppositePath
       4.16-2 OppositePathAlgebra
@@ -352,8 +355,7 @@
       5.5-8 TipReducedListInvLenInvLex
       5.5-9 LeftmostOccurrenceInvLenInvLex
       5.5-10 BiggestHomogeneousPartInvLenInvLex
-      5.5-11 BiggestHomogeneousPartInvLenInvLex
-      5.5-12 TruncateElement
+      5.5-11 TruncateElement
   6 [33X[0;0YRight Modules over Path Algebras[133X
     6.1 [33X[0;0YModules of matrix type[133X
       6.1-1 RightModuleOverPathAlgebra
@@ -395,7 +397,7 @@
       6.4-29 IsSimpleQPAModule
       6.4-30 IsTauRigidModule
       6.4-31 LoewyLength
-      6.4-32 IsZero
+      6.4-32 IsZero(module)
       6.4-33 MatricesOfPathAlgebraModule
       6.4-34 MaximalCommonDirectSummand
       6.4-35 NumberOfNonIsoDirSummands
@@ -421,20 +423,18 @@
       6.6-1 DualOfModule
       6.6-2 DualOfModuleHomomorphism
       6.6-3 DTr
-      6.6-4 DTr
-      6.6-5 NakayamaFunctorOfModule
-      6.6-6 NakayamaFunctorOfModuleHomomorphism
-      6.6-7 OppositeNakayamaFunctorOfModule
-      6.6-8 OppositeNakayamaFunctorOfModuleHomomorphism
-      6.6-9 RestrictionViaAlgebraHomomorphism
-      6.6-10 RestrictionViaAlgebraHomomorphismMap
-      6.6-11 StarOfModule
-      6.6-12 StarOfModuleHomomorphism
-      6.6-13 TensorProductOfModules
-      6.6-14 TrD
-      6.6-15 TrD
-      6.6-16 TransposeOfModule
-      6.6-17 TransposeOfModuleHomomorphism
+      6.6-4 NakayamaFunctorOfModule
+      6.6-5 NakayamaFunctorOfModuleHomomorphism
+      6.6-6 OppositeNakayamaFunctorOfModule
+      6.6-7 OppositeNakayamaFunctorOfModuleHomomorphism
+      6.6-8 RestrictionViaAlgebraHomomorphism
+      6.6-9 RestrictionViaAlgebraHomomorphismMap
+      6.6-10 StarOfModule
+      6.6-11 StarOfModuleHomomorphism
+      6.6-12 TensorProductOfModules
+      6.6-13 TrD
+      6.6-14 TransposeOfModule
+      6.6-15 TransposeOfModuleHomomorphism
     6.7 [33X[0;0YVertex projective modules and submodules thereof[133X
       6.7-1 RightProjectiveModule
       6.7-2 CompletelyReduceGroebnerBasisForModule
@@ -476,7 +476,7 @@
       7.2-13 IsSplitEpimorphism
       7.2-14 IsSplitMonomorphism
       7.2-15 IsSurjective
-      7.2-16 IsZero
+      7.2-16 IsZero(homomorphism)
       7.2-17 KernelOfWhat
       7.2-18 LeftInverseOfHomomorphism
       7.2-19 MatricesOfPathAlgebraMatModuleHomomorphism
@@ -595,31 +595,28 @@
       10.2-16 InitialValue
       10.2-17 LowestKnownPosition
       10.2-18 HighestKnownValue
-      10.2-19 Shift
-      10.2-20 Cut
-      10.2-21 HalfInfList
-      10.2-22 MakeInfListFromHalfInfLists
-      10.2-23 MakeInfList
-      10.2-24 FunctionInfList
-      10.2-25 ConstantInfList
-      10.2-26 FiniteInfList
-      10.2-27 MiddleStart
-      10.2-28 MiddleEnd
-      10.2-29 MiddlePart
-      10.2-30 PositivePart
-      10.2-31 NegativePart
-      10.2-32 HighestKnownPosition
-      10.2-33 LowestKnownPosition
-      10.2-34 UpperBound
-      10.2-35 LowerBound
-      10.2-36 FinitePartAsList
-      10.2-37 PositivePartFrom
-      10.2-38 NegativePartFrom
-      10.2-39 Shift
-      10.2-40 Splice
-      10.2-41 InfConcatenation
-      10.2-42 InfList
-      10.2-43 IntegersList
+      10.2-19 Cut
+      10.2-20 HalfInfList
+      10.2-21 MakeInfListFromHalfInfLists
+      10.2-22 MakeInfList
+      10.2-23 FunctionInfList
+      10.2-24 ConstantInfList
+      10.2-25 FiniteInfList
+      10.2-26 MiddleStart
+      10.2-27 MiddleEnd
+      10.2-28 MiddlePart
+      10.2-29 PositivePart
+      10.2-30 NegativePart
+      10.2-31 HighestKnownPosition
+      10.2-32 UpperBound(list)
+      10.2-33 LowerBound(list)
+      10.2-34 FinitePartAsList
+      10.2-35 PositivePartFrom
+      10.2-36 NegativePartFrom
+      10.2-37 Splice
+      10.2-38 InfConcatenation
+      10.2-39 InfList
+      10.2-40 IntegersList
     10.3 [33X[0;0YRepresentation of categories[133X
       10.3-1 IsCat
       10.3-2 CatOfRightAlgebraModules
@@ -640,8 +637,8 @@
       10.5-6 BoundariesOfComplex
       10.5-7 HomologyOfComplex
       10.5-8 IsFiniteComplex
-      10.5-9 UpperBound
-      10.5-10 LowerBound
+      10.5-9 UpperBound(complex)
+      10.5-10 LowerBound(complex)
       10.5-11 LengthOfComplex
       10.5-12 HighestKnownDegree
       10.5-13 LowestKnownDegree
@@ -696,24 +693,25 @@
       12.2-9 EulerBilinearFormOfAlgebra
       12.2-10 UnitForm
     12.3 [33X[0;0YCombinatorial Maps[133X
-      12.3-1 CombinatorialMap
-      12.3-2 FacesOfCombinatorialMap
-      12.3-3 GenusOfCombinatorialMap
-      12.3-4 DualOfCombinatorialMap
-      12.3-5 MaximalPathsOfGentleAlgebra
-      12.3-6 RemoveEdgeOfCombinatorialMap
-      12.3-7 CombinatorialMapOfGentleAlgebra
-      12.3-8 MarkedBoundariesOfCombinatorialMap
-      12.3-9 WindingNumber
-      12.3-10 BoundaryCurvesOfCombinatorialMap
-      12.3-11 DepthSearchCombinatorialMap
-      12.3-12 WidthSearchCombinatorialMap
-      12.3-13 NonSeperatingCurve
-      12.3-14 CutNonSepCombinatorialMap
-      12.3-15 JoinCurveCombinatorialMap
-      12.3-16 CutJoinCurveCombinatorialMap
-      12.3-17 HomologyBasisOfCombinatorialMap
-      12.3-18 AreDerivedEquivalent
+      12.3-1 IsCombinatorialMap
+      12.3-2 CombinatorialMap
+      12.3-3 FacesOfCombinatorialMap
+      12.3-4 GenusOfCombinatorialMap
+      12.3-5 DualOfCombinatorialMap
+      12.3-6 MaximalPathsOfGentleAlgebra
+      12.3-7 RemoveEdgeOfCombinatorialMap
+      12.3-8 CombinatorialMapOfGentleAlgebra
+      12.3-9 MarkedBoundariesOfCombinatorialMap
+      12.3-10 WindingNumber
+      12.3-11 BoundaryCurvesOfCombinatorialMap
+      12.3-12 DepthSearchCombinatorialMap
+      12.3-13 WidthSearchCombinatorialMap
+      12.3-14 NonSeperatingCurve
+      12.3-15 CutNonSepCombinatorialMap
+      12.3-16 JoinCurveCombinatorialMap
+      12.3-17 CutJoinCurveCombinatorialMap
+      12.3-18 HomologyBasisOfCombinatorialMap
+      12.3-19 AreDerivedEquivalent
   13 [33X[0;0YDegeneration order for modules in finite type[133X
     13.1 [33X[0;0YIntroduction[133X
     13.2 [33X[0;0YBasic definitions[133X

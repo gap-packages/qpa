@@ -177,10 +177,11 @@
   
   [33X[0;0YThese  matrix  modules  fall  under  the category `IsAlgebraModule' with the
   added  filter  of `IsPathAlgebraMatModule'. Operations available for algebra
-  modules   can   be   applied   to   path  algebra  modules.  See  [14XReference:
-  Representations  of Algebras[114X for more details. These modules are also vector
-  spaces  over  the  field  of the path algebra. So refer to [14XReference: Vector
-  Spaces[114X for descriptions of the basis and elementwise operations available.[133X
+  modules  can  be  applied  to  path algebra modules. See the main GAP-manual
+  under "representations of algebras" for more details. These modules are also
+  vector  spaces  over  the  field  of  the path algebra. So refer to the main
+  GAP-manual   under  "vector  spaces"  for  descriptions  of  the  basis  and
+  elementwise operations available.[133X
   
   
   [1X6.3 [33X[0;0YActing on Module Elements[133X[101X
@@ -627,9 +628,9 @@
   quotient  of  a  path  algebra,  and  returns  fail  otherwise  (This is not
   implemented yet).[133X
   
-  [1X6.4-32 IsZero[101X
+  [1X6.4-32 IsZero(module)[101X
   
-  [33X[1;0Y[29X[2XIsZero[102X( [3XM[103X ) [32X property[133X
+  [33X[1;0Y[29X[2XIsZero(module)[102X( [3XM[103X ) [32X property[133X
   
   [33X[0;0YArguments: [3XM[103X -- a path algebra module ([10XPathAlgebraMatModule[110X).[133X
   
@@ -909,25 +910,24 @@
   
   [1X6.6-3 DTr[101X
   
-  [33X[1;0Y[29X[2XDTr[102X( [3XM[103X[, [3Xn[103X] ) [32X operation[133X
+  [33X[1;0Y[29X[2XDTr[102X( [3XM[103X[, [3Xn[103X], [3Xor[103X, [3Xf[103X[, [3Xn[103X] ) [32X operation[133X
   [33X[1;0Y[29X[2XDualOfTranspose[102X( [3XM[103X[, [3Xn[103X] ) [32X operation[133X
   
-  [33X[0;0YArguments: [3XM[103X -- a path algebra module, (optional) [3Xn[103X -- an integer.[133X
+  [33X[0;0YArguments:  (first  version)  [3XM[103X -- a path algebra module, (optional) [3Xn[103X -- an
+  integer.[133X
+  [33X[0;0Y(second  version) [3Xf[103X -- a path algebra module homomorphism, (optional [3Xn[103X -- an
+  integer.[133X
+  [33X[0;0Y(third version) [3XM[103X -- a path algebra modules, (optional) [3Xn[103X -- an integer.[133X
   
-  [6XReturns:[106X  [33X[0;10Ythe dual of the transpose of [3XM[103X when called with only one argument,
-            while  it  returns  the dual of the transpose applied to [3XM[103X [3Xn[103X times
-            otherwise.  If  [3Xn[103X  is  negative,  then powers of [10XTrD[110X are computed.
-            [2XDualOfTranspose[102X is a synonym for [2XDTr[102X.[133X
+  [6XReturns:[106X  [33X[0;10Y(first  and  third  version)  the  dual of the transpose of [3XM[103X when
+            called  with  only  one argument, while it returns the dual of the
+            transpose  applied  to [3XM[103X [3Xn[103X times otherwise. If [3Xn[103X is negative, then
+            powers of [10XTrD[110X are computed. [2XDualOfTranspose[102X is a synonym for [2XDTr[102X.[133X
   
-  [1X6.6-4 DTr[101X
+  [6XReturns:[106X  [33X[0;10Y(second  version)  the  [3Xn[103X-th power of the dual of the transpose of
+            the homomorphism [3Xf[103X.[133X
   
-  [33X[1;0Y[29X[2XDTr[102X( [3Xf[103X[, [3Xn[103X] ) [32X operation[133X
-  
-  [33X[0;0YArguments: [3Xf[103X -- a path algebra module homomorphism and [3Xn[103X -- an integer.[133X
-  
-  [6XReturns:[106X  [33X[0;10Ythe [3Xn[103X-th power of the dual of the transpose of the homomorphism [3Xf[103X.[133X
-  
-  [1X6.6-5 NakayamaFunctorOfModule[101X
+  [1X6.6-4 NakayamaFunctorOfModule[101X
   
   [33X[1;0Y[29X[2XNakayamaFunctorOfModule[102X( [3XM[103X ) [32X attribute[133X
   
@@ -936,7 +936,7 @@
   [6XReturns:[106X  [33X[0;10Ythe  module [22XHom_K(Hom_A(M,A), K)[122X over [22XA[122X, when [3XM[103X is a module over a
             [22XK[122X-algebra [22XA[122X.[133X
   
-  [1X6.6-6 NakayamaFunctorOfModuleHomomorphism[101X
+  [1X6.6-5 NakayamaFunctorOfModuleHomomorphism[101X
   
   [33X[1;0Y[29X[2XNakayamaFunctorOfModuleHomomorphism[102X( [3Xf[103X ) [32X attribute[133X
   
@@ -946,7 +946,7 @@
             [22XHom_K(Hom_A(M,A),K)[122X  to  [22XHom_K(Hom_A(N,A),  K)[122X, when [3Xf[103X is a module
             homomorphism over a [22XK[122X-algebra [3XA[103X.[133X
   
-  [1X6.6-7 OppositeNakayamaFunctorOfModule[101X
+  [1X6.6-6 OppositeNakayamaFunctorOfModule[101X
   
   [33X[1;0Y[29X[2XOppositeNakayamaFunctorOfModule[102X( [3XM[103X ) [32X attribute[133X
   
@@ -955,7 +955,7 @@
   [6XReturns:[106X  [33X[0;10Ythe  module [22XHom_A(Hom_K(M,K), A)[122X over [22XA[122X, when [3XM[103X is a module over a
             [22XK[122X-algebra [22XA[122X.[133X
   
-  [1X6.6-8 OppositeNakayamaFunctorOfModuleHomomorphism[101X
+  [1X6.6-7 OppositeNakayamaFunctorOfModuleHomomorphism[101X
   
   [33X[1;0Y[29X[2XOppositeNakayamaFunctorOfModuleHomomorphism[102X( [3Xf[103X ) [32X attribute[133X
   
@@ -965,7 +965,7 @@
             [22XHom_A(Hom_K(M,K),A)[122X  to  [22XHom_A(Hom_K(N,K),  A)[122X, when [3Xf[103X is a module
             homomorphism over a [22XK[122X-algebra [3XA[103X.[133X
   
-  [1X6.6-9 RestrictionViaAlgebraHomomorphism[101X
+  [1X6.6-8 RestrictionViaAlgebraHomomorphism[101X
   
   [33X[1;0Y[29X[2XRestrictionViaAlgebraHomomorphism[102X( [3Xf[103X, [3XM[103X ) [32X operation[133X
   
@@ -974,7 +974,7 @@
   [6XReturns:[106X  [33X[0;10YGiven  an  algebra  homomorphism  [22Xf : A ↪ B[122X and a module [3XM[103X over [22XB[122X,
             this function returns [3XM[103X as a module over [22XA[122X.[133X
   
-  [1X6.6-10 RestrictionViaAlgebraHomomorphismMap[101X
+  [1X6.6-9 RestrictionViaAlgebraHomomorphismMap[101X
   
   [33X[1;0Y[29X[2XRestrictionViaAlgebraHomomorphismMap[102X( [3Xf[103X, [3Xh[103X ) [32X operation[133X
   
@@ -985,7 +985,7 @@
             modules  [3Xh[103X  from  [22XM[122X to [22XN[122X over [22XB[122X, this function returns the induced
             homomorphism induced by [3Xh[103X as a homomorphism over [22XA[122X.[133X
   
-  [1X6.6-11 StarOfModule[101X
+  [1X6.6-10 StarOfModule[101X
   
   [33X[1;0Y[29X[2XStarOfModule[102X( [3XM[103X ) [32X attribute[133X
   
@@ -994,7 +994,7 @@
   [6XReturns:[106X  [33X[0;10Ythe  module  [22XHom_A(M,A)[122X over the opposite of [22XA[122X, when [3XM[103X is a module
             over an algebra [22XA[122X.[133X
   
-  [1X6.6-12 StarOfModuleHomomorphism[101X
+  [1X6.6-11 StarOfModuleHomomorphism[101X
   
   [33X[1;0Y[29X[2XStarOfModuleHomomorphism[102X( [3Xf[103X ) [32X attribute[133X
   
@@ -1003,7 +1003,7 @@
   [6XReturns:[106X  [33X[0;10Ythe homomorphism induced by [22Xf: M-> N[122X from the module [22XHom_A(N,A)[122X to
             [22XHom_A(M,A)[122X, when [3Xf[103X is a module homomorphism over an algebra [3XA[103X.[133X
   
-  [1X6.6-13 TensorProductOfModules[101X
+  [1X6.6-12 TensorProductOfModules[101X
   
   [33X[1;0Y[29X[2XTensorProductOfModules[102X( [3XM[103X, [3XN[103X ) [32X operation[133X
   
@@ -1013,27 +1013,24 @@
             M⊗_A  N[122X,  given  two  representations  [3XM[103X and [3XN[103X, where [3XM[103X is a right
             module over [22XA[122X and [3XN[103X is a right module over the opposite of [22XA[122X.[133X
   
-  [1X6.6-14 TrD[101X
+  [1X6.6-13 TrD[101X
   
-  [33X[1;0Y[29X[2XTrD[102X( [3XM[103X[, [3Xn[103X] ) [32X operation[133X
+  [33X[1;0Y[29X[2XTrD[102X( [3XM[103X[, [3Xn[103X], [3Xor[103X, [3Xf[103X[, [3Xn[103X] ) [32X operation[133X
   [33X[1;0Y[29X[2XTransposeOfDual[102X( [3XM[103X[, [3Xn[103X] ) [32X operation[133X
   
-  [33X[0;0YArguments: [3XM[103X -- a path algebra module, (optional) [3Xn[103X -- an integer.[133X
+  [33X[0;0YArguments:  (first  version  and  third version) [3XM[103X -- a path algebra module,
+  (optional) [3Xn[103X -- an integer.[133X
+  [33X[0;0Y(second version) [3Xf[103X -- a path algebra module homomorphism, [3Xn[103X -- an integer.[133X
   
-  [6XReturns:[106X  [33X[0;10Ythe transpose of the dual of [3XM[103X when called with only one argument,
-            while  it  returns  the transpose of the dual applied to [3XM[103X [3Xn[103X times
-            otherwise.  If  [3Xn[103X  is  negative,  then powers of [10XTrD[110X are computed.
-            [2XTransposeOfDual[102X is a synonym for [2XTrD[102X.[133X
+  [6XReturns:[106X  [33X[0;10Y(first  and  third  version)  the  transpose of the dual of [3XM[103X when
+            called  with  only one argument, while it returns the transpose of
+            the  dual  applied  to [3XM[103X [3Xn[103X times otherwise. If [3Xn[103X is negative, then
+            powers of [10XTrD[110X are computed. [2XTransposeOfDual[102X is a synonym for [2XTrD[102X.[133X
   
-  [1X6.6-15 TrD[101X
+  [6XReturns:[106X  [33X[0;10Y(second  version)  the  [3Xn[103X-th power of the transpose of the dual of
+            the homomorphism [3Xf[103X.[133X
   
-  [33X[1;0Y[29X[2XTrD[102X( [3Xf[103X[, [3Xn[103X] ) [32X operation[133X
-  
-  [33X[0;0YArguments: [3Xf[103X -- a path algebra module homomorphism, [3Xn[103X -- an integer.[133X
-  
-  [6XReturns:[106X  [33X[0;10Ythe [3Xn[103X-th power of the transpose of the dual of the homomorphism [3Xf[103X.[133X
-  
-  [1X6.6-16 TransposeOfModule[101X
+  [1X6.6-14 TransposeOfModule[101X
   
   [33X[1;0Y[29X[2XTransposeOfModule[102X( [3XM[103X ) [32X attribute[133X
   
@@ -1041,7 +1038,7 @@
   
   [6XReturns:[106X  [33X[0;10Ythe transpose of the module [3XM[103X.[133X
   
-  [1X6.6-17 TransposeOfModuleHomomorphism[101X
+  [1X6.6-15 TransposeOfModuleHomomorphism[101X
   
   [33X[1;0Y[29X[2XTransposeOfModuleHomomorphism[102X( [3Xf[103X ) [32X attribute[133X
   
@@ -1077,10 +1074,10 @@
   in  that order. Elements of the modules are vectors of algebra elements, and
   in  each component, each path begins with the vertex in that position in the
   list  of  vertices.  Right  projective  modules  are  implemented as algebra
-  modules  (see [14XReference: Representations of Algebras[114X) and all operations for
-  algebra  modules  are applicable to right projective modules. In particular,
-  one    can   construct   submodules   using   [2XSubAlgebraModule[102X   ([14XReference:
-  SubAlgebraModule[114X).[133X
+  modules  (see  the main GAP-manual concerning "representations of algebras")
+  and  all  operations  for algebra modules are applicable to right projective
+  modules.  In  particular,  one  can  construct  submodules using GAP-command
+  "SubAlgebraModule".[133X
   
   [33X[0;0YHere we create the right projective module [23XP = vA \oplus vA \oplus wA[123X.[133X
   

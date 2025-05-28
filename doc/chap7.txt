@@ -320,9 +320,9 @@
   
   [6XReturns:[106X  [33X[0;10Y[10Xtrue[110X if the homomorphism [3Xf[103X is onto.[133X
   
-  [1X7.2-16 IsZero[101X
+  [1X7.2-16 IsZero(homomorphism)[101X
   
-  [33X[1;0Y[29X[2XIsZero[102X( [3Xf[103X ) [32X property[133X
+  [33X[1;0Y[29X[2XIsZero(homomorphism)[102X( [3Xf[103X ) [32X property[133X
   
   [33X[0;0YArguments: [3Xf[103X - a homomorphism between two modules.[133X
   

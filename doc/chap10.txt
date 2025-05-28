@@ -99,19 +99,19 @@
   [14X10.2-5[114X. An infinite list can be constructed in the following ways:[133X
   
   [30X    [33X[0;6YFrom    two    half    infinite    lists    and    a    middle   part,
-        [2XMakeInfListFromHalfInfLists[102X ([14X10.2-22[114X).[133X
+        [2XMakeInfListFromHalfInfLists[102X ([14X10.2-21[114X).[133X
   
   [30X    [33X[0;6YDirectly,  by  giving  the  same input as when constructing the above,
-        [2XMakeInfList[102X ([14X10.2-23[114X).[133X
+        [2XMakeInfList[102X ([14X10.2-22[114X).[133X
   
   [30X    [33X[0;6YIf  all values of the infinite list are the image of the index under a
-        function [22Xf[122X, one can use [2XFunctionInfList[102X ([14X10.2-24[114X).[133X
+        function [22Xf[122X, one can use [2XFunctionInfList[102X ([14X10.2-23[114X).[133X
   
   [30X    [33X[0;6YIf  all  values  of  the  infinite  list  are  the  same,  one can use
-        [2XConstantInfList[102X ([14X10.2-25[114X).[133X
+        [2XConstantInfList[102X ([14X10.2-24[114X).[133X
   
   [30X    [33X[0;6YIf  the  infinite  list  has a finite range, one can use [2XFiniteInfList[102X
-        ([14X10.2-26[114X).[133X
+        ([14X10.2-25[114X).[133X
   
   [33X[0;0YIn  addition,  new  infinite  lists can be constructed from others by shift,
   splice,  concatenation,  extracting  parts  or  applying  a  function to the
@@ -291,7 +291,7 @@
   
   [33X[1;0Y[29X[2XLowestKnownPosition[102X( [3Xlist[103X ) [32X operation[133X
   
-  [33X[0;0Y[3Xlist[103X -- a half infinite list.[133X
+  [33X[0;0Y[3Xlist[103X -- a half infinite list or an infinite list.[133X
   
   [6XReturns:[106X  [33X[0;10YThe  lowest  index  [22Xi[122X  such  that the value at position [22Xi[122X is known
             without computation (that is, it is either stored, or the list has
@@ -317,17 +317,9 @@
     [4X[28X0 [128X[104X
   [4X[32X[104X
   
-  [1X10.2-19 Shift[101X
+  [33X[0;0YFor a description of the command [10XShift[110X of a half infinite list, see [14X10.6-1[114X.[133X
   
-  [33X[1;0Y[29X[2XShift[102X( [3Xlist[103X, [3Xshift[103X ) [32X operation[133X
-  
-  [33X[0;0YArguments: [3Xlist[103X -- a half infinite list, [3Xshift[103X -- an integer.[133X
-  
-  [6XReturns:[106X  [33X[0;10YA  new  half  infinite  list which is [3Xlist[103X with all values shifted
-            [3Xshift[103X positions to the right if [3Xshift[103X is positive, and to the left
-            if [3Xshift[103X is negative.[133X
-  
-  [1X10.2-20 Cut[101X
+  [1X10.2-19 Cut[101X
   
   [33X[1;0Y[29X[2XCut[102X( [3Xlist[103X, [3Xpos[103X ) [32X operation[133X
   
@@ -341,7 +333,7 @@
   [22X-∞[122X  to  [10Xcut[110X.  The  values at position [22Xi[122X of the new half infinite list is the
   same as the value at position [22Xi[122X of [3Xlist[103X.[133X
   
-  [1X10.2-21 HalfInfList[101X
+  [1X10.2-20 HalfInfList[101X
   
   [33X[1;0Y[29X[2XHalfInfList[102X( [3Xlist[103X, [3Xfunc[103X ) [32X operation[133X
   
@@ -352,7 +344,7 @@
             at  position  [22Xi[122X  is  the  image of the value at position [22Xi[122X of [3Xlist[103X
             under [3Xfunc[103X.[133X
   
-  [1X10.2-22 MakeInfListFromHalfInfLists[101X
+  [1X10.2-21 MakeInfListFromHalfInfLists[101X
   
   [33X[1;0Y[29X[2XMakeInfListFromHalfInfLists[102X( [3XbasePosition[103X, [3Xmiddle[103X, [3Xpositive[103X, [3Xnegative[103X ) [32X function[133X
   
@@ -393,7 +385,7 @@
     [4X[28X-1 [128X[104X
   [4X[32X[104X
   
-  [1X10.2-23 MakeInfList[101X
+  [1X10.2-22 MakeInfList[101X
   
   [33X[1;0Y[29X[2XMakeInfList[102X( [3XbasePosition[103X, [3Xmiddle[103X, [3Xpositive[103X, [3Xnegative[103X, [3Xcallback[103X ) [32X function[133X
   
@@ -441,7 +433,7 @@
     [4X[28Xtrue [128X[104X
   [4X[32X[104X
   
-  [1X10.2-24 FunctionInfList[101X
+  [1X10.2-23 FunctionInfList[101X
   
   [33X[1;0Y[29X[2XFunctionInfList[102X( [3Xfunc[103X ) [32X function[133X
   
@@ -450,7 +442,7 @@
   [6XReturns:[106X  [33X[0;10YAn  infinite  list  where  the value at position [22Xi[122X is the function
             [3Xfunc[103X applied to [22Xi[122X.[133X
   
-  [1X10.2-25 ConstantInfList[101X
+  [1X10.2-24 ConstantInfList[101X
   
   [33X[1;0Y[29X[2XConstantInfList[102X( [3Xvalue[103X ) [32X function[133X
   
@@ -458,7 +450,7 @@
   
   [6XReturns:[106X  [33X[0;10YAn infinite list which has the object [3Xvalue[103X in every position.[133X
   
-  [1X10.2-26 FiniteInfList[101X
+  [1X10.2-25 FiniteInfList[101X
   
   [33X[1;0Y[29X[2XFiniteInfList[102X( [3XbasePosition[103X, [3Xlist[103X ) [32X function[133X
   
@@ -469,7 +461,7 @@
   
   [33X[0;0YThe range of this list is [22X[mathttbasePosition, mathttbasePosition + n][122X.[133X
   
-  [1X10.2-27 MiddleStart[101X
+  [1X10.2-26 MiddleStart[101X
   
   [33X[1;0Y[29X[2XMiddleStart[102X( [3Xlist[103X ) [32X operation[133X
   
@@ -477,7 +469,7 @@
   
   [6XReturns:[106X  [33X[0;10YThe starting position of the "middle" part of [3Xlist[103X.[133X
   
-  [1X10.2-28 MiddleEnd[101X
+  [1X10.2-27 MiddleEnd[101X
   
   [33X[1;0Y[29X[2XMiddleEnd[102X( [3Xlist[103X ) [32X operation[133X
   
@@ -485,7 +477,7 @@
   
   [6XReturns:[106X  [33X[0;10YThe ending position of the middle part of [3Xlist[103X.[133X
   
-  [1X10.2-29 MiddlePart[101X
+  [1X10.2-28 MiddlePart[101X
   
   [33X[1;0Y[29X[2XMiddlePart[102X( [3Xlist[103X ) [32X operation[133X
   
@@ -493,7 +485,7 @@
   
   [6XReturns:[106X  [33X[0;10YThe middle part (as a list) of [3Xlist[103X.[133X
   
-  [1X10.2-30 PositivePart[101X
+  [1X10.2-29 PositivePart[101X
   
   [33X[1;0Y[29X[2XPositivePart[102X( [3Xlist[103X ) [32X operation[133X
   
@@ -501,7 +493,7 @@
   
   [6XReturns:[106X  [33X[0;10YThe positive part (as a half infinite list) of [3Xlist[103X.[133X
   
-  [1X10.2-31 NegativePart[101X
+  [1X10.2-30 NegativePart[101X
   
   [33X[1;0Y[29X[2XNegativePart[102X( [3Xlist[103X ) [32X operation[133X
   
@@ -509,7 +501,7 @@
   
   [6XReturns:[106X  [33X[0;10YThe negative part (as a halft infinite list) of [3Xlist[103X.[133X
   
-  [1X10.2-32 HighestKnownPosition[101X
+  [1X10.2-31 HighestKnownPosition[101X
   
   [33X[1;0Y[29X[2XHighestKnownPosition[102X( [3Xlist[103X ) [32X operation[133X
   
@@ -518,32 +510,23 @@
   [6XReturns:[106X  [33X[0;10YThe  highest  index  [22Xi[122X  such that the value at position [22Xi[122X is known
             without computation.[133X
   
-  [1X10.2-33 LowestKnownPosition[101X
+  [1X10.2-32 UpperBound(list)[101X
   
-  [33X[1;0Y[29X[2XLowestKnownPosition[102X( [3Xlist[103X ) [32X operation[133X
-  
-  [33X[0;0YArguments: [3Xlist[103X -- an infinite list.[133X
-  
-  [6XReturns:[106X  [33X[0;10YThe  lowest  index  [22Xi[122X  such  that the value at position [22Xi[122X is known
-            without computation.[133X
-  
-  [1X10.2-34 UpperBound[101X
-  
-  [33X[1;0Y[29X[2XUpperBound[102X( [3Xlist[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XUpperBound(list)[102X( [3Xlist[103X ) [32X operation[133X
   
   [33X[0;0YArguments: [3Xlist[103X -- an infinite list.[133X
   
   [6XReturns:[106X  [33X[0;10YThe highest index in the range of the list.[133X
   
-  [1X10.2-35 LowerBound[101X
+  [1X10.2-33 LowerBound(list)[101X
   
-  [33X[1;0Y[29X[2XLowerBound[102X( [3Xlist[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XLowerBound(list)[102X( [3Xlist[103X ) [32X operation[133X
   
   [33X[0;0YArguments: [3Xlist[103X -- an infinite list.[133X
   
   [6XReturns:[106X  [33X[0;10YThe lowest index in the range of the list.[133X
   
-  [1X10.2-36 FinitePartAsList[101X
+  [1X10.2-34 FinitePartAsList[101X
   
   [33X[1;0Y[29X[2XFinitePartAsList[102X( [3Xlist[103X, [3XstartPos[103X, [3XendPos[103X ) [32X operation[133X
   
@@ -555,7 +538,7 @@
   
   [33X[0;0YNote that both integers in the input must be within the index range of [3Xlist[103X.[133X
   
-  [1X10.2-37 PositivePartFrom[101X
+  [1X10.2-35 PositivePartFrom[101X
   
   [33X[1;0Y[29X[2XPositivePartFrom[102X( [3Xlist[103X, [3Xpos[103X ) [32X operation[133X
   
@@ -567,7 +550,7 @@
   [33X[0;0YThe value at position [22Xi[122X of the new infinite list is the same as the value at
   position [22Xi[122X of [3Xlist[103X.[133X
   
-  [1X10.2-38 NegativePartFrom[101X
+  [1X10.2-36 NegativePartFrom[101X
   
   [33X[1;0Y[29X[2XNegativePartFrom[102X( [3Xlist[103X, [3Xpos[103X ) [32X operation[133X
   
@@ -579,17 +562,7 @@
   [33X[0;0YThe value at position [22Xi[122X of the new infinite list is the same as the value at
   position [22Xi[122X of [3Xlist[103X.[133X
   
-  [1X10.2-39 Shift[101X
-  
-  [33X[1;0Y[29X[2XShift[102X( [3Xlist[103X, [3Xshift[103X ) [32X operation[133X
-  
-  [33X[0;0YArguments: [3Xlist[103X -- an infinite list, [3Xshift[103X -- an integer.[133X
-  
-  [6XReturns:[106X  [33X[0;10YA  new  infinite  list which is [3Xlist[103X with all values shifted [3Xshift[103X
-            positions  to  the  right if [3Xshift[103X is positive, and to the left if
-            [3Xshift[103X is negative.[133X
-  
-  [1X10.2-40 Splice[101X
+  [1X10.2-37 Splice[101X
   
   [33X[1;0Y[29X[2XSplice[102X( [3XpositiveList[103X, [3XnegativeList[103X, [3XjoinPosition[103X ) [32X operation[133X
   
@@ -600,7 +573,7 @@
             greater  than  [3XjoinPosition[103X  and  identical  to  [3XnegativeList[103X  for
             indices smaller than or equal to [3XjoinPosition[103X.[133X
   
-  [1X10.2-41 InfConcatenation[101X
+  [1X10.2-38 InfConcatenation[101X
   
   [33X[1;0Y[29X[2XInfConcatenation[102X( [3Xarg[103X ) [32X function[133X
   
@@ -644,7 +617,7 @@
   
   [124X
   
-  [1X10.2-42 InfList[101X
+  [1X10.2-39 InfList[101X
   
   [33X[1;0Y[29X[2XInfList[102X( [3Xlist[103X, [3Xfunc[103X ) [32X operation[133X
   
@@ -655,7 +628,7 @@
             position  [22Xi[122X  is the image of the value at position [22Xi[122X of [3Xlist[103X under
             [3Xfunc[103X.[133X
   
-  [1X10.2-43 IntegersList[101X
+  [1X10.2-40 IntegersList[101X
   
   [33X[1;0Y[29X[2XIntegersList[102X [32X global variable[133X
   
@@ -1028,9 +1001,9 @@
   
   [6XReturns:[106X  [33X[0;10Ytrue if [3XC[103X is a finite complex, false otherwise.[133X
   
-  [1X10.5-9 UpperBound[101X
+  [1X10.5-9 UpperBound(complex)[101X
   
-  [33X[1;0Y[29X[2XUpperBound[102X( [3XC[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XUpperBound(complex)[102X( [3XC[103X ) [32X operation[133X
   
   [33X[0;0YArguments: [3XC[103X -- a complex.[133X
   
@@ -1041,9 +1014,9 @@
   [33X[0;0YIf  [3XC[103X  is  not a finite complex, the operation will return fail or infinity,
   depending on how [3XC[103X was defined.[133X
   
-  [1X10.5-10 LowerBound[101X
+  [1X10.5-10 LowerBound(complex)[101X
   
-  [33X[1;0Y[29X[2XLowerBound[102X( [3XC[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XLowerBound(complex)[102X( [3XC[103X ) [32X operation[133X
   
   [33X[0;0YArguments: [3XC[103X -- a complex.[133X
   
@@ -1167,15 +1140,20 @@
   
   [1X10.6-1 Shift[101X
   
-  [33X[1;0Y[29X[2XShift[102X( [3XC[103X, [3Xi[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XShift[102X( [3XC[103X, [3Xi[103X, [3Xor[103X, [3Xlist[103X, [3Xshift[103X ) [32X operation[133X
   
-  [33X[0;0YArguments: [3XC[103X -- a complex, [3Xi[103X -- an integer.[133X
+  [33X[0;0YArguments: (first version) [3XC[103X -- a complex, [3Xi[103X -- an integer.[133X
+  [33X[0;0Y(second version) [3Xlist[103X -- an infinite list, [3Xshift[103X -- an integer.[133X
   
-  [6XReturns:[106X  [33X[0;10YA new complex, which is a shift of [3XC[103X.[133X
+  [6XReturns:[106X  [33X[0;10Y(first version) A new complex, which is a shift of [3XC[103X.[133X
   
   [33X[0;0YIf  [3Xi[103X  >  0,  the  complex  is shifted to the left. If [3Xi[103X < 0, the complex is
   shifted  to the right. Note that shifting might change the differentials: In
   the shifted complex, [23Xd_{new}[123X is defined to be [23X(-1)^i d_{old}[123X.[133X
+  
+  [6XReturns:[106X  [33X[0;10Y(  second  version)  A  new  infinite  list which is [3Xlist[103X with all
+            values  shifted [3Xshift[103X positions to the right if [3Xshift[103X is positive,
+            and to the left if [3Xshift[103X is negative.[133X
   
   [4X[32X  Example  [32X[104X
     [4X[25Xgap>[125X [27XC;[127X[104X
@@ -1202,10 +1180,9 @@
   
   [6XReturns:[106X  [33X[0;10YA new complex, which is a shift of [3XC[103X.[133X
   
-  [33X[0;0YDoes  the  same  as  [10XShift[110X,  except  it  does  not  change  the  sign of the
-  differential. Although this is a non-mathematical definition of shift, it is
-  still   useful  for  technical  purposes,  when  manipulating  and  creating
-  complexes.[133X
+  [33X[0;0YDoes the same as [10XShift[110X change the sign of the differential. Although this is
+  a  non-mathematical  definition  of  shift, it is still useful for technical
+  purposes, when manipulating and creating complexes.[133X
   
   [1X10.6-3 YonedaProduct[101X
   

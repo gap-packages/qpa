@@ -55,10 +55,7 @@
   
   [1X13.3-1 ARQuiverNumerical[101X
   
-  [33X[1;0Y[29X[2XARQuiverNumerical[102X( [3Xind[103X, [3Xproj[103X, [3Xlist[103X ) [32X function[133X
-  [33X[1;0Y[29X[2XARQuiverNumerical[102X( [3Xname[103X ) [32X function[133X
-  [33X[1;0Y[29X[2XARQuiverNumerical[102X( [3Xname[103X, [3Xparam1[103X ) [32X function[133X
-  [33X[1;0Y[29X[2XARQuiverNumerical[102X( [3Xname[103X, [3Xparam1[103X, [3Xparam2[103X ) [32X function[133X
+  [33X[1;0Y[29X[2XARQuiverNumerical[102X( [3Xind[103X, [3Xproj[103X, [3Xlist[103X, [3Xor[103X, [3Xname[103X, [3Xor[103X, [3Xname[103X, [3Xparm1[103X, [3Xor[103X, [3Xname[103X, [3Xparam1[103X, [3Xparam2[103X ) [32X function[133X
   
   [33X[0;0YArguments: [3Xind[103X - number of indecomposable modules in our category;[133X
   [33X[0;0Y[3Xproj[103X - number of indecomposable projective modules in our category;[133X
