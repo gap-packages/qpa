@@ -1312,10 +1312,10 @@ in <Math>R</Math>.
      modules are vectors of algebra elements, and in each component,
      each path begins with the vertex in that position in the list of
      vertices.  Right projective modules are implemented as algebra
-     modules (see <Ref BookName="ref" Label="representations of algebras"/>) and all
+     modules (see the main GAP-manual concerning "representations of algebras") and all
      operations for algebra modules are applicable to right
      projective modules.  In particular, one can construct submodules
-     using <Ref BookName="ref" Func="SubAlgebraModule"/>.
+     using GAP-command "SubAlgebraModule".
    </Description>
 </ManSection>
 Here we create the right projective module <Math>P = vA \oplus vA
