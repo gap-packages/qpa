@@ -196,11 +196,11 @@ gap> RightAlgebraModuleToPathAlgebraMatModule(Amod);
      These matrix modules fall under the category `IsAlgebraModule'
      with the added filter of `IsPathAlgebraMatModule'.  Operations
      available for algebra modules can be applied to path algebra
-     modules.  See <Ref BookName="ref" Label="representations of
-     algebras"/> for more details.
+     modules.  See the main GAP-manual under "representations of
+     algebras" for more details. 
 
      These modules are also vector spaces over the field of the path
-     algebra.  So refer to <Ref BookName="ref" Label="vector spaces"/>
+     algebra.  So refer to the main GAP-manual under "vector spaces"
      for descriptions of the basis and elementwise operations
      available.
    </Description>
