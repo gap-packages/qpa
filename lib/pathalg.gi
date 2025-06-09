@@ -3425,3 +3425,144 @@ InstallMethod ( SupportOfQuiverAlgebraElement,
   return [ LeftSupportOfQuiverAlgebraElement( A, m ), RightSupportOfQuiverAlgebraElement( A, m ) ];
 end
   );
+
+#######################################################################
+##
+#O  Inverse( <elm> )
+##
+##  Given an element <elm> in a finite dimensional quiver algebra this
+##  function returns the inverse of <elm> whenever <elm> is invertible.
+##  If <elm> is not invertible, the function returns <fail>. 
+##  
+InstallOtherMethod( Inverse, 
+  "for an element in a quiver algebra",
+  true,
+  [ IsRingElement ], 0,
+    
+  function( elm )
+
+  local fam, A, B, num_vert, idempotents, K, V, coeffs, inverse, diff, temp, n, r, i;
+
+  if not ( IsElementOfPathRing( elm ) or IsElementOfQuotientOfPathAlgebra( elm ) ) then
+    TryNextMethod();
+  fi;
+  fam := FamilyObj( elm );
+  if "pathRing" in NamesOfComponents( fam ) then
+    A := fam!.pathRing;
+  elif "wholeAlgebra" in NamesOfComponents( fam ) then
+    A := fam!.wholeAlgebra;
+  else
+    Error( "The entered algebra is not of of the desired type.\n" );
+  fi;
+  if not IsFiniteDimensional( A ) then
+    Error( "The element is not in a finite dimensional algebra.\n" );
+  fi;
+
+  B := ShallowCopy( BasisVectors( Basis( A ) ) );
+  num_vert := NumberOfVertices( QuiverOfPathAlgebra( OriginalPathAlgebra( A ) ) );
+  idempotents := GeneratorsOfAlgebraWithOne( A ){[ 1..num_vert ]};
+  B{[ 1..num_vert ]} := idempotents;
+  K := LeftActingDomain( A );
+  V := Subspace( A, B, "basis" );
+  B := Basis( V, B );
+  coeffs := Coefficients( B, elm ){[ 1..num_vert ]};
+  if not IsZero( Product( coeffs ) ) then
+    inverse := LinearCombination( B, List( coeffs, c -> c^(-1) ) );
+    diff := One( A ) - elm * inverse;
+    temp := diff;
+    n := 1;
+    while temp <> Zero( temp ) do
+      n := n + 1;
+      temp := temp * diff;
+    od;
+    temp := Zero( A );
+    r := elm * inverse;
+    temp := temp + Binomial( n, n - 1 ) * inverse;
+    for i in [ 2..n ] do
+      temp := temp + ( - 1 )^( i + 1 ) * Binomial( n, n - i ) * inverse * r^( i - 1 );
+    od;
+
+    return temp;
+  else
+    return fail;
+  fi;
+end );
+
+
+InstallMethod( \^, "negative powers of elements in a QuiverAlgebra",
+  [ IsRingElement, IsNegInt ], 
+function( elm, n )
+
+  local inverse;
+
+  if not ( IsElementOfPathRing( elm ) or IsElementOfQuotientOfPathAlgebra( elm ) ) then
+    TryNextMethod();
+  fi;
+  inverse := Inverse( elm );
+  if inverse <> fail then
+    return inverse^( - n );
+  else
+    return fail;
+  fi;
+end );
+
+InstallMethod( \^, "0-th power of elements in a QuiverAlgebra",
+  [ IsRingElement, IsZeroCyc ],
+function( elm, n );
+
+  if not ( IsElementOfPathRing( elm ) or IsElementOfQuotientOfPathAlgebra( elm ) ) then
+    TryNextMethod();
+  fi;
+    
+  return One( elm );
+end );
+
+#######################################################################
+##
+#A  Units( <A> )
+##
+##  For a finite dimensional quiver algebra <A> over a finite field
+##  this function returns a representation of the group of units of
+##  <A>. In addition an attribute ElementsOfUnits of <A> is set, giving
+##  all the units in <A>.
+##  
+InstallOtherMethod( Units, 
+  "for an element in a path algebra",
+  true,
+  [ IsQuiverAlgebra ], 0,
+
+  function( A )
+    
+  local k, num_vert, gensA, idempotents, nonzero, generators, invertibles,
+    v, radA, mult, magma, G;
+
+  if not IsFiniteDimensional( A ) then
+    Error( "The entered algebra is not a finite dimensional algebra.\n" );
+  fi;
+  k := LeftActingDomain( A );
+  if not IsFinite( k ) then
+    Error( "The algebra is not over a finite field.\n" );
+  fi;
+
+  num_vert := NumberOfVertices( QuiverOfPathAlgebra( OriginalPathAlgebra( A ) ) );
+  gensA := GeneratorsOfAlgebraWithOne( A );
+  idempotents := gensA{[ 1..num_vert ]};
+  nonzero := Filtered( Elements( k^num_vert ), x -> Product( x ) <> Zero( k ) );
+  generators := [];
+  invertibles := [];
+  for v in nonzero do
+    Add( invertibles, LinearCombination( idempotents, v ) );
+  od;
+  radA := RadicalOfAlgebra( A );
+  Append( generators, ShallowCopy( invertibles ) );
+  for v in Elements( radA ) do
+    Append( generators, List( invertibles, a -> a + v ) );
+  od;
+  generators := Unique( generators );
+  mult := MultiplicationTable( generators );
+  magma := MagmaByMultiplicationTable( mult );
+  G := AsGroup( magma );
+  SetElementsOfUnits( A, generators );
+
+  return G;
+end );

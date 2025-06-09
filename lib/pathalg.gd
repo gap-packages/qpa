@@ -104,3 +104,4 @@ DeclareOperation( "QuiverAlgebraOfeAe", [ IsQuiverAlgebra, IsObject ] );
 DeclareOperation( "SupportOfQuiverAlgebraElement", [ IsQuiverAlgebra, IsObject ] );
 DeclareOperation( "LeftSupportOfQuiverAlgebraElement", [ IsQuiverAlgebra, IsObject ] );
 DeclareOperation( "RightSupportOfQuiverAlgebraElement", [ IsQuiverAlgebra, IsObject ] );
+DeclareAttribute( "ElementsOfUnits", IsQuiverAlgebra );

@@ -1623,8 +1623,8 @@ computed yet).
 </Section>
 
 
-<Section><Heading>Attributes and Operations on Elements
- of Quotients of Path Algebra</Heading>
+<Section Label="Attributes_and_Operations_on_elts_quotients_path_algs">
+<Heading>Attributes and Operations on Elements of Quotients of Path Algebra</Heading>
 
  <ManSection>
    <Prop Name="IsElementOfQuotientOfPathAlgebra" Arg="object" Comm=""/>
@@ -1702,7 +1702,19 @@ false ]]>
    </Description>
   </ManSection>
 
-  <ManSection>
+<ManSection> 
+    <Attr Name="ElementsOfUnits" Arg="A" Comm=""/> 
+    <Description> 
+      Arguments: <Arg>A</Arg> -- a quiver algebra.<Br /> 
+    </Description> 
+    <Returns> 
+      all the units in the finite dimensional quiver algebra
+      <Arg>A</Arg> over a finite field if it has been computed via the
+      command <C>Units(A)</C>.  (cf. <Ref Attr="Units"/>)
+    </Returns> 
+ </ManSection> 
+
+<ManSection>
    <Attr Name="OriginalPathAlgebra" Arg="algebra" Comm="for a quotient
    of a path algebra"/>
    <Description>
@@ -1715,11 +1727,23 @@ false ]]>
     saying that the algebra entered was not given as a quotient of a path
     algebra.
    </Description>
-  </ManSection>
+</ManSection>
+
+<ManSection> 
+    <Attr Name="Units" Arg="A" Comm=""/> 
+    <Description> 
+      Arguments: <Arg>A</Arg> -- a quiver algebra.<Br /> 
+    </Description> 
+    <Returns>a representation of the group of the units in the finite
+    dimensional quiver algebra <Arg>A</Arg> over a finite field. It
+    also compute all the invertible elements in <Arg>A</Arg>. It can
+    be accessed via the command <C>ElementsOfUnits</C> (<Ref Attr="ElementsOfUnits"/>). 
+    </Returns> 
+</ManSection>
 </Section>
 
-<Section Label="qpa:predefinedalgebras"><Heading>Predefined classes and classes 
-  of (quotients of) path algebras</Heading>
+<Section Label="qpa:predefinedalgebras">
+<Heading>Predefined classes and classes of (quotients of) path algebras</Heading>
 
 <ManSection>
   <Func Name="BrauerConfigurationAlgebra" Arg="field, brauer_configuration" 
