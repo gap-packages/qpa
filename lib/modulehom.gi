@@ -4393,3 +4393,231 @@ InstallMethod( UnderlyingLinearMap,
   return matrix;
 end
 );
+
+#######################################################################
+##
+#O  EndOfBasicModuleAsQuiverAlgebra( <L> )
+##
+##  The argument of this function is a list of PathAlgebraMatModules
+##  over a quiver algebra over a field  K  and optionally a positive
+##  integer. Hence the input should either be (i) a list <LL> of
+##  modules or (ii) a list of two elements where the first entry is a
+##  list of non-isomorphic modules <LL> and the second entry is a
+##  positive integer. It assumes that the direct sum of the modules
+##  in the list <LL> is basic. It checks if the endomorphism ring of
+##  the direct sum of the modules on the list <LL> is K-elementary.
+##  If so, then it finds the path algebra the endomorphism ring of
+##  the direct sum <M> of the modules on the list <LL> is a quotient of,
+##  and quotient out the relations that are found. If the argument is
+##  only a list of modules, then the function returns the quiver
+##  algebra isomorphic to the endomorphism ring of <M>. If the argument
+##  is a list of modules and a positive integer, then not all relations
+##  might not been found and the function returns a warning if that is
+##  the case. 
+##  This function was first constructed mainly by Daniel Owens and with
+##  help from Rene Marczinzik. Later modified by Oeyvind Solberg. 
+## 
+InstallMethod( EndOfBasicModuleAsQuiverAlgebra, 
+    "for a representations of a quiver",
+    [ IsDenseList ], 0,
+    function( L )
+
+  local VectorBasis, Relation, loewyisset, LL, n, homs, endofdiagonal,
+    radofendofdiagonal, i, basisradofendofdiagonal, radhoms,
+    radsquarehoms, j, t, a, b, K, adjacencymatrix, basisofarrows, V,
+    r1vectors, r2vectors, R1, R2, f, B, Q, KQ, mapscorrtoarrows, basis,
+    coeffs, M, inc, proj, primitiveidempotents, endMarrows, endM, radendM,
+    loewy, radpower, zero, path_dict, n_arrows, elts, relations, len,
+    new_elts, x, y_path, y, generators, C;
+
+  if IsEmpty( L ) then 
+    Error( "The entered list <L> must be non-empty" ); 
+  fi;
+  loewyisset := false;
+  if Length( L ) = 2 then
+    if IsPosInt( L[ 2 ] ) then
+      loewyisset := true;
+    else
+      loewyisset := false;
+    fi;
+  fi;
+  if loewyisset then
+    LL := L[ 1 ];
+  else
+    LL := L;
+  fi;
+  if not ForAll( LL, IsPathAlgebraMatModule ) then
+    Error( "The entered modules are not of required type.\n" );
+  fi;
+  if not ForAll( LL, m -> RightActingAlgebra( m ) = RightActingAlgebra( LL[ 1 ] ) ) then 
+    Error(" Not all the entered modules are modules over the same algebra.\n" );
+  fi;
+
+  VectorBasis := function( K, generators );
+    return Basis( VectorSpace( K, generators, "basis" ), generators );
+  end;
+
+  Relation := function( basis, coeffs, path_dict, elt_path, K ) 
+    local relation, i;
+    
+    if coeffs = fail then
+      return fail;
+    else
+      relation := elt_path;
+      for i in [ 1..Length( basis ) ] do
+        if coeffs[ i ] <> Zero( K ) then
+          relation := relation - ( coeffs[ i ] * LookupDictionary( path_dict, basis[ i ] ) );
+        fi;
+      od;
+    fi;
+    
+    return relation;
+  end;
+   
+  n := Length( LL );
+  homs := List( [ 1..n ], i -> List( [ 1..n ], j -> HomOverAlgebra( LL[ i ], LL[ j ] ) ) );
+  endofdiagonal := List( [ 1..n ], i -> EndOverAlgebra( LL[ i ] ) );
+  radofendofdiagonal := List( [ 1..n ], i -> RadicalOfAlgebra( endofdiagonal[ i ] ) );
+  for i in [ 1..n ] do
+    if Dimension( endofdiagonal[ i ] ) - Dimension( radofendofdiagonal[ i ] ) > 1 then 
+      Error( "The endomorphism ring of the entered module is not K-elementary.\n" );
+    fi;
+  od;
+  basisradofendofdiagonal := List( [ 1..n ], i -> [] );
+  for i in [ 1..n ] do
+    if Dimension( radofendofdiagonal[ i ] ) > 0 then
+      basisradofendofdiagonal[ i ] := List( BasisVectors( Basis( radofendofdiagonal[ i ] ) ), r -> FromEndMToHomMM( LL[ i ], r ) );
+    fi;
+  od;   
+  radhoms := ShallowCopy( homs );
+  for i in [ 1..n ] do
+    radhoms[ i ][ i ] := basisradofendofdiagonal[ i ];
+  od;
+  radsquarehoms := List( [ 1..n ], i -> List( [ 1..n ], j -> [ ] ) );
+  for i in [ 1..n ] do
+    for j in [ 1..n ] do
+      if Length( radhoms[ i ][ j ] ) > 0 then
+        for t in [ 1..n ] do
+          for a in radhoms[ i ][ t ] do
+            for b in radhoms[ t ][ j ] do
+              Add( radsquarehoms[ i ][ j ], a * b );
+            od;
+          od;
+        od;
+      fi;
+    od;
+  od;
+  K := LeftActingDomain( LL[ 1 ] );
+  adjacencymatrix := NullMat( n, n );
+  basisofarrows := List( [ 1..n ], i -> List( [ 1..n ], j -> [] ) );
+  for i in [ 1..n ] do
+    for j in [ 1..n ] do
+      if homs[ i ][ j ] <> [] then
+        V := K^( Length( Flat( MatricesOfPathAlgebraMatModuleHomomorphism( homs[ i ][ j ][ 1 ] ) ) ) );
+        r1vectors := Unique( List( radhoms[ i ][ j ], h -> Flat( MatricesOfPathAlgebraMatModuleHomomorphism( h ) ) ) );
+        r2vectors := Unique( List( radsquarehoms[ i ][ j ], h -> Flat( MatricesOfPathAlgebraMatModuleHomomorphism( h ) ) ) );
+        R1 := Subspace( V, r1vectors );
+        R2 := Subspace( V, r2vectors );
+        f := NaturalHomomorphismBySubspace( R1, R2 );
+        B := Basis( Range( f ) );
+        basisofarrows[ i, j ] := List( B, b -> PreImagesRepresentative( f, b ) );
+        adjacencymatrix[ i ][ j ] := Length( B );
+      fi;
+    od;
+  od;
+  Q := Quiver( adjacencymatrix );
+  KQ := PathAlgebra( K, Q );
+
+  mapscorrtoarrows := List( [ 1..n ], i -> List( [ 1..n ], j -> [ ] ) );
+  for i in [ 1..n ] do
+    for j in [ 1..n ] do
+      if basisofarrows[ i, j ] <> [] then
+        basis := List( homs[ i, j ], h -> Flat( MatricesOfPathAlgebraMatModuleHomomorphism( h ) ) ); 
+        coeffs := List( basisofarrows[ i, j ], a -> SolutionMat( basis, a ) );
+        mapscorrtoarrows[ i, j ] := List( coeffs, c -> LinearCombination( homs[ i, j ], c ) );
+      fi;
+    od;
+  od;
+
+  M := DirectSumOfQPAModules( LL );
+  inc := DirectSumInclusions( M );
+  proj := DirectSumProjections( M );
+  primitiveidempotents := List( [ 1..n ], i -> FromHomMMToEndM( proj[ i ] * inc[ i ] ) );
+  endMarrows := List( [ 1..n ], i -> List( [ 1..n ], j -> [ ] ) );
+  for i in [ 1..n ] do
+    for j in [ 1..n ] do
+      if mapscorrtoarrows[ i, j ] <> [] then
+        endMarrows[ i, j ] := List( mapscorrtoarrows[ i, j ], a -> proj[ i ] * a * inc[ j ] );
+      fi;
+    od;
+  od;
+  endMarrows := List( Flat( endMarrows ), a -> FromHomMMToEndM( a ) );
+
+  endM := EndOverAlgebra( M );
+  radendM := [];
+  for i in [ 1..n ] do
+    for j in [ 1..n ] do
+       if radhoms[ i, j ] <> [ ] then
+         Append( radendM, List( radhoms[ i, j ], r -> FromHomMMToEndM( proj[ i ] * r * inc[ j ] ) ) );
+       fi;
+    od;
+  od;
+    
+  if loewyisset then
+    loewy := L[ 2 ];
+  else
+    loewy := 1;
+    radendM := Subalgebra( endM, radendM );
+    radpower := radendM;
+    while Dimension( radpower ) > 0 do
+      loewy := loewy + 1;
+      radpower := ProductSpace( radpower, radendM );
+    od;
+  fi;
+    
+  zero := Immutable( Zero( endM ) );
+  path_dict := NewDictionary( zero, true, endM );
+  for i in [ 1..n ] do
+    AddDictionary( path_dict, primitiveidempotents[ i ], VerticesOfPathAlgebra( KQ )[ i ] );
+  od;
+  n_arrows := NumberOfArrows( Q );
+  for i in [ 1..n_arrows ] do
+    AddDictionary( path_dict, endMarrows[ i ], ElementOfPathAlgebra( KQ, ArrowsOfQuiver( Q )[ i ] ) );
+  od;
+  relations := [];
+  elts := [ primitiveidempotents, endMarrows ];
+  len := 1;
+  while Last( elts ) <> [] and len <= loewy do
+    new_elts := [];
+    for x in Last( elts ) do
+      for i in [ 1..n_arrows] do
+        y_path := LookupDictionary( path_dict, x ) * LookupDictionary( path_dict, endMarrows[ i ] );
+        if not IsZero( y_path ) then
+          y := x * endMarrows[ i ];
+          generators := Concatenation( Concatenation( elts ), new_elts );
+          basis := VectorBasis( K, generators );
+          coeffs := Coefficients( basis, y );
+          if coeffs = fail then
+            Add( new_elts, y );
+            AddDictionary( path_dict, y, y_path );
+          else
+            Add( relations, Relation( basis, coeffs, path_dict, y_path, K ) );
+          fi;
+        fi;
+      od;
+    od;
+    Add( elts, new_elts );
+    len := len + 1;
+  od;
+
+  C := KQ / relations;
+  if loewyisset then 
+    if len > loewy then
+      Info( InfoWarning, 1, "Search exceeded the entered maximum search length; relations may not be complete.\n" );
+      return C;
+    fi;
+  fi;
+
+  return C;
+end
+);
