@@ -77,3 +77,6 @@ DeclareOperation( "MatrixOfHomomorphismBetweenProjectives", [ IsPathAlgebraMatMo
 DeclareOperation( "FromMatrixToHomomorphismOfProjectives", [ IsQuiverAlgebra, IsMatrix, IsHomogeneousList, IsHomogeneousList ] );
 DeclareOperation( "UnderlyingLinearMap",  [ IsPathAlgebraMatModuleHomomorphism ] );
 DeclareOperation( "EndOfBasicModuleAsQuiverAlgebra", [ IsDenseList ] );
+DeclareOperation( "ADRAlgebraOfAlgebra", [ IsQuiverAlgebra ] );
+DeclareOperation( "ADRAlgebraOfBasicModule", [ IsList ] );
+DeclareOperation( "MakeBasicListOfModules", [ IsList ] );

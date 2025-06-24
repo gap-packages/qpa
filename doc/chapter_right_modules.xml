@@ -764,6 +764,22 @@ gap> inc := DirectSumInclusions(N2);
 </ManSection>
 
 <ManSection>
+   <Oper Name="MakeBasicListOfModules" Arg="L" Comm="for a list of   
+         PathAlgebraMatModules"/>
+   <Description> 
+   Arguments: <Arg>L</Arg> --  a list of path algebra modules.
+   <Br /></Description>
+   <Returns> a basic version of the entered list modules <Arg>L</Arg>, that
+   is, if the direct sum <M>M</M> of all the modules in the list
+   <Arg>L</Arg> is: <Math>M \simeq M_1^{n_1} \oplus \cdots \oplus 
+   M_t^{n_t},</Math> where <Math>M_i</Math> is indecomposable, then
+   the list <Math>\{M_1,M_2,\ldots,M_t\}</Math> is returned. At
+   present, this function only work for finite dimensional (quotients
+   of a) path algebra over a finite field. 
+   </Returns>
+</ManSection>
+
+<ManSection>
    <Oper Name="MatricesOfPathAlgebraModule" Arg="M" Comm="for a
    PathAlgebraMatModule"/>
    <Description> 

@@ -542,6 +542,42 @@ true ]]>
 <Section><Heading>Homomorphisms and modules constructed from homomorphisms and modules</Heading>
 
 <ManSection>
+   <Oper Name="ADRAlgebraOfAlgebra" Arg="A" Comm=""/>
+   <Description>
+     Arguments: <Arg>A</Arg> - an quiver algebra over a field.<Br />
+   </Description>
+   <Returns>Auslander-Dlab-Ringel algebra of the algebra
+   <Arg>A</Arg>. 
+   </Returns>
+   <Description>
+     Given a finite dimensional quiver algebra <Arg>A</Arg> this function 
+     constructs the endomorphism algebra of the <Arg>A</Arg>-modules
+     <M>\oplus_{i=1}^n A/\textrm{rad}(A)^i,</M>
+     where <M>n</M> is the Loewy length of <Arg>A</Arg>, which is
+     known to have finite global dimension less or equal to <M>n + 1</M>. 
+   </Description>
+</ManSection>
+
+<ManSection>
+   <Oper Name="ADRAlgebraOfBasicModule" Arg="L" Comm=""/>
+   <Description>
+     Arguments: <Arg>L</Arg> - a list of PathAlgebraMatModules over a
+     quiver algebra over a finite field.<Br />
+   </Description>
+   <Returns>Auslander-Dlab-Ringel algebra of the module given as the
+   direct of the list of non-isomorphic modules <Arg>L</Arg>. 
+   </Returns>
+   <Description>
+     Given a list of non-isomorphic modules <Arg>L</Arg> this function 
+     constructs the endomorphism algebra of the basic module <M>M</M>
+    which generate the same additive subcategory as the module
+     <M>\oplus_{i=1}^n U/\textrm{rad}^i(U),</M>
+     where <M>U</M> is the direct sum of the modules on the list
+     <Arg>L</Arg> and <M>n</M> is the Loewy length of <Arg>U</Arg>. 
+   </Description>
+</ManSection>
+
+<ManSection>
    <Oper Name="AllIndecModulesOfLengthAtMost" Arg="A, n" Comm=""/>
    <Description>
      Arguments: <Arg>A, n</Arg> - an algebra over a finite field, an integer.<Br />
@@ -662,6 +698,37 @@ true ]]>
      message otherwise.
    </Description>
 </ManSection>
+
+<ManSection>
+  <Oper Name="EndOfBasicModuleAsQuiverAlgebra" Arg="L" Comm=""/>
+   <Description>
+     Arguments: <Arg>L</Arg> - a list of PathAlgebraMatModule's.<Br />
+   </Description>
+   <Returns> the endomorphism ring as a quiver algebra.
+   </Returns>
+   <Description>
+   The argument of this function is a list of PathAlgebraMatModules
+   over a quiver algebra over a field  K  and optionally a positive
+   integer. Hence the input should either be (i) a list of
+   non-isomorphic modules or (ii) a list of two elements where the
+   first entry is a list of non-isomorphic modules and the second
+   entry is a positive integer. It assumes that the direct sum of the
+   modules in the list is basic. It checks if the endomorphism ring of
+   the direct sum of the modules on the list is K-elementary. If so,
+   then it finds the path algebra the endomorphism ring of the direct
+   sum <M>M</M> of the modules on the list <Arg>L</Arg> is a quotient
+   of, and quotient out the relations that are found. If the argument is only
+   a list of modules, then the function returns the quiver algebra
+   isomorphic to the endomorphism ring of <M>M</M>. If the argument is
+   a list of modules and a positive integer, then not all relations
+   might not been found and the function returns a warning if that is
+   the case.
+
+   This function was first constructed mainly by Daniel Owens and with
+   help from Rene Marczinzik. Later modified by Oeyvind Solberg.
+   </Description>
+</ManSection>
+
 
 <ManSection>
    <Attr Name="EndOverAlgebra" Arg="M" Comm=""/>
