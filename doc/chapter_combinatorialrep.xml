@@ -181,7 +181,7 @@ matrices with 2 along the diagonal.
 
 <Oper Name="CombinatorialMap" Label="combinatorialmap" Arg="n, sigma, iota, m" />
 
-<Description> Arguments : <Arg>n</Arg> -- number of half-edges, <Arg>sigma</Arg> -- a permutation specifying the ordering of half-edges aroud vertices, <Arg>iota</Arg> -- an involution pairing the half-edges, <Arg>m</Arg> -- a list of marked half-edges
+<Description> Arguments : <Arg>n</Arg> -- number of half-edges, <Arg>sigma</Arg> -- a permutation specifying the ordering of half-edges around vertices, <Arg>iota</Arg> -- an involution pairing the half-edges, <Arg>m</Arg> -- a list of marked half-edges
 </Description>
 
 <Returns> a combinatorial map, which is an object from the category
@@ -315,7 +315,7 @@ dissected surface given by <Arg>map</Arg>. </Returns>
 </Description>
 
 <Returns> a list whose elements are lists of half-edges of the
-combiantorial map <Arg>map</Arg>. Each of these lists corresponds to a closed
+combinatorial map <Arg>map</Arg>. Each of these lists corresponds to a closed
 curve homotopic to a boundary component of the surface represented by
 <Arg>map</Arg>. </Returns>
 

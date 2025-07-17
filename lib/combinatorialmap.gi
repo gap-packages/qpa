@@ -3,7 +3,7 @@
 ## DeclareOperations( "CombinatorialMap", [ size, ordering, pairing, markededge ] )
 ##
 ## Returns the combinatorial map defined by the set consisting of <size>
-## elemenst, the ordering of the half edges given by <ordering>, the
+## elements, the ordering of the half edges given by <ordering>, the
 ## paring of the half edges given by the <paring>, and the marked half-edges given
 ## by <markededge>.  The size of the underlying set given by <size> is given
 ## a positive integer, the ordering and the pairing are given by two
@@ -14,7 +14,7 @@
 
 InstallMethod( CombinatorialMap,
 
-    "for positive integer, two permutaions and a list",
+    "for positive integer, two permutations and a list",
     
     [ IsPosInt, IsPerm, IsPerm, IsList ],
                
@@ -399,7 +399,7 @@ end
 ##
 ## DeclareAttribute( "BoundaryCurvesOfCombinatorialMap", map)
 ##
-## Returns a list whose elements are lists of half-edges of the combiantorial map <map>. Each of these
+## Returns a list whose elements are lists of half-edges of the combinatorial map <map>. Each of these
 ## lists corresponds to a closed curve homotopic to a boundary component of the
 ## surface represented by <map>. The closed curves are represented by a list of adjacent half-edges.
 ## The orientation of these curves is chosen so that the corresponding boundary component
@@ -748,7 +748,7 @@ end
 ##
 
 InstallMethod( JoinCurveCombinatorialMap,
-            "For a CombinatorialMap and two lists detailling the boudaries to join, returns a list corresponding to a simple curve joining the two boundaries, starting and ending at vertices that are identified in the original CombinatorialMap.",
+            "For a CombinatorialMap and two lists detailing the boundaries to join, returns a list corresponding to a simple curve joining the two boundaries, starting and ending at vertices that are identified in the original CombinatorialMap.",
             [IsCombinatorialMap, IsList, IsList, IsList],
     
             function(combmap,bound1,bound2, index)
@@ -803,7 +803,7 @@ end
 
 
 InstallMethod( CutJoinCurveCombinatorialMap,
-    " for a CombinatorialMap, two lists detailling boundaries, a list of arcs joining these boundaries and an index for the half-edges, returns the CombinatorialMap obtained by cutting the surface along the curve joining the two boundaries and the updated index corresponding to the cut.",
+    " for a CombinatorialMap, two lists detailing boundaries, a list of arcs joining these boundaries and an index for the half-edges, returns the CombinatorialMap obtained by cutting the surface along the curve joining the two boundaries and the updated index corresponding to the cut.",
     [IsCombinatorialMap, IsList, IsList,IsList,IsList],
     
     function(combmap,bound1,bound2,curve,index)
