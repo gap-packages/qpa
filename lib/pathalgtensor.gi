@@ -700,7 +700,7 @@ InstallMethod( TrivialExtensionOfQuiverAlgebra,
     AA := KQ_TE/temprel;
     BAA := BasisVectors(Basis(AA));
     
-    te_arrow_rep := List(B, b -> PreImagesRepresentative(TopOfDAProjection, b));
+    te_arrow_rep := List(B, b -> PreImagesRepresentativeNC(TopOfDAProjection, b));
     Qarrows := ArrowsOfQuiver(Q_TE){[1..num_arrows]};
     Qarrows := Flat(List(Qarrows, a -> WalkOfPath(a))); 
     #

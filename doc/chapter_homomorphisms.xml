@@ -215,9 +215,9 @@ gap> B := BasisVectors(Basis(N));
   [ [ 0, 0, 0 ], [ 0, 1 ], [ 0, 0 ] ], 
   [ [ 0, 0, 0 ], [ 0, 0 ], [ 1, 0 ] ], 
   [ [ 0, 0, 0 ], [ 0, 0 ], [ 0, 1 ] ] ]
-gap> PreImagesRepresentative(f,B[4]);     
+gap> PreImagesRepresentativeNC(f,B[4]);     
 [ [ 0 ], [ 1 ], [ 0 ] ]
-gap> PreImagesRepresentative(f,B[5]);
+gap> PreImagesRepresentativeNC(f,B[5]);
 fail
 gap> BL := BasisVectors(Basis(L));
 [ [ [ 0 ], [ 1 ], [ 0 ] ], [ [ 0 ], [ 0 ], [ 1 ] ] ]
@@ -459,7 +459,7 @@ true ]]>
 </ManSection>
 
 <ManSection>
-   <Oper Name="PreImagesRepresentative" Arg="f, elem" Comm=""/>
+   <Oper Name="PreImagesRepresentativeNC" Arg="f, elem" Comm=""/>
    <Description>
      Arguments: <Arg>f</Arg> - a homomorphism between two
      modules, <Arg>elem</Arg> - an element in the range of <Arg>f</Arg>.<Br />

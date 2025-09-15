@@ -68,7 +68,7 @@ InstallMethod(LiftIdempotentsForDecomposition,
 
     local a, e, i, zero;
 
-    ids := List(ids, x -> PreImagesRepresentative(map,x));
+    ids := List(ids, x -> PreImagesRepresentativeNC(map,x));
     a := Source(map);
     zero := Zero(a);
     e := Zero(LeftActingDomain(a))*ids[1];
@@ -318,7 +318,7 @@ InstallMethod( LiftIdempotent,
     local g, x, y, nilindex, t, k;
     
     if v in Range(f) and v^2 = v then 
-        g := PreImagesRepresentative(f, v);
+        g := PreImagesRepresentativeNC(f, v);
         x := g - g*g;
         y := x;
         nilindex := 1;

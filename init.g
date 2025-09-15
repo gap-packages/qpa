@@ -5,6 +5,13 @@
 #W                                                            Oeyvind Solberg
 
 #############################################################################
+
+#I introducing globally the NC version of PreImagesRepresentative
+if not IsBound( PreImagesRepresentativeNC ) then 
+    BindGlobal( "PreImagesRepresentativeNC", PreImagesRepresentative ); 
+fi; 
+
+#############################################################################
 ##
 #R  Read the declaration files.
 ##

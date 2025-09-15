@@ -60,10 +60,10 @@ end
 );
 #############################################################################
 ##
-#M  PreImagesRepresentative( <map>, <elms> ) . . for a 
+#M  PreImagesRepresentativeNC( <map>, <elms> ) . . for a 
 ##                              PathAlgebraMatModuleMap and finite collection
 ##
-InstallMethod( PreImagesRepresentative, 
+InstallMethod( PreImagesRepresentativeNC, 
     "for a map between representations and an element in a representation.",
     [ IsPathAlgebraMatModuleHomomorphism, IsAlgebraModuleElement ], 0, 
     function( map, elem )
@@ -1159,7 +1159,7 @@ InstallMethod ( CoKernelProjection,
             mat := [];
             pos_a := Position(arrows,a);
             for b in basis_coker[source_a] do
-                bb := PreImagesRepresentative(projection[source_a],b);
+                bb := PreImagesRepresentativeNC(projection[source_a],b);
                 bb := bb*mats[pos_a]; # computing bb^a
                 Add(mat,Coefficients(basis_coker[target_a],Image(projection[target_a],bb)));
             od;
@@ -1291,7 +1291,7 @@ function( f )
         matrix := [ ];
         for j in [ 1..dim_vector_TopM[ i ] ] do
           b := BTopM[ dim + j ];
-          btilde := PreImagesRepresentative( pi_M, b );
+          btilde := PreImagesRepresentativeNC( pi_M, b );
           bprime := ImageElm( pi_N, ImageElm( f, btilde ) );
           Add( matrix, ExtRepOfObj( ExtRepOfObj( bprime ) )[ i ] ); 
         od;
@@ -2147,7 +2147,7 @@ InstallMethod ( MorphismOnKernel,
 #
         B := BasisVectors(Basis(Source(kerf)));
         B := List(B, x -> ImageElm(kerf*beta,x));
-        B := List(B, x -> PreImagesRepresentative(kerg,x));
+        B := List(B, x -> PreImagesRepresentativeNC(kerg,x));
 #
 #  Computing dimension vectors so that we can insert zero matrices of 
 #  the right size. 
@@ -2221,7 +2221,7 @@ InstallMethod ( MorphismOnImage,
 #  Computing the information needed for lifting the morphism.
 #
         B := BasisVectors(Basis(Range(imagef)));
-        B := List(B, x -> PreImagesRepresentative(imagef,x));
+        B := List(B, x -> PreImagesRepresentativeNC(imagef,x));
         B := List(B, x -> ImageElm(beta*imageg,x));
 #
 #  Computing dimension vectors so that we can insert zero matrices of 
@@ -2296,7 +2296,7 @@ InstallMethod ( MorphismOnCoKernel,
 #  Computing the information needed for lifting the morphism.
 #
         B := BasisVectors(Basis(Range(cokerf)));
-        B := List(B, x -> PreImagesRepresentative(cokerf,x));
+        B := List(B, x -> PreImagesRepresentativeNC(cokerf,x));
         B := List(B, x -> ImageElm(alpha*cokerg,x));
 #
 #  Computing dimension vectors so that we can insert zero matrices of 
@@ -2391,7 +2391,7 @@ InstallMethod ( LiftingMorphismFromProjective,
             if ImageElm(g,ImageElm(inclusions[i],m)) = Zero(Range(g)) then 
                 Add(hmap,ZeroMapping(Source(inclusions[i]),Source(f)));
             else 
-                m := PreImagesRepresentative(f,ImageElm(g,ImageElm(inclusions[i],m)));
+                m := PreImagesRepresentativeNC(f,ImageElm(g,ImageElm(inclusions[i],m)));
                 Add(hmap,HomFromProjective(m,Source(f)));
             fi;
         od;
@@ -2437,7 +2437,7 @@ InstallMethod ( LiftingInclusionMorphisms,
 #
         K := LeftActingDomain(Source(g));
         B := BasisVectors(Basis(Source(g)));
-        B := List(B, x -> PreImagesRepresentative(f,ImageElm(g,x)));
+        B := List(B, x -> PreImagesRepresentativeNC(f,ImageElm(g,x)));
 #
 #  Computing dimension vectors so that we can insert zero matrices of 
 #  the right size. 
@@ -3602,7 +3602,7 @@ InstallMethod ( IsomorphismOfModules,
     q := f_alpha*maps[1]*maps[3];
     
     B := BasisVectors(Basis(Source(q)));
-    genImages := List(B, x -> PreImagesRepresentative(g_alpha, ImageElm(q,x)));
+    genImages := List(B, x -> PreImagesRepresentativeNC(g_alpha, ImageElm(q,x)));
     
     delta := HomomorphismFromImages(Source(f_alpha), Source(g_alpha), genImages);
     
@@ -4520,7 +4520,7 @@ InstallMethod( EndOfBasicModuleAsQuiverAlgebra,
         R2 := Subspace( V, r2vectors );
         f := NaturalHomomorphismBySubspace( R1, R2 );
         B := Basis( Range( f ) );
-        basisofarrows[ i, j ] := List( B, b -> PreImagesRepresentative( f, b ) );
+        basisofarrows[ i, j ] := List( B, b -> PreImagesRepresentativeNC( f, b ) );
         adjacencymatrix[ i ][ j ] := Length( B );
       fi;
     od;

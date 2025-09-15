@@ -627,7 +627,7 @@ gap> m := ImageElm(f, BasisVectors(Basis(N))[1]);
 gap> ImagesSet(hom[4], BasisVectors(Basis(N)){[1..3]});
 [ [ [ 0, -4/3, 0 ], [ 0, 0 ], [ 0, 0 ] ], [ [ 3, -4, 0 ], [ 0, 0 ], [ 0, 0 ] ]
     , [ [ 3, -16/3, 0 ], [ 0, 0 ], [ 0, 0 ] ] ]
-gap> PreImagesRepresentative(f, m);                        
+gap> PreImagesRepresentativeNC(f, m);                        
 [ [ 1, 0, 0 ], [ 0, 0 ], [ 0, 0 ] ]
 gap> IsInjective(f);
 false

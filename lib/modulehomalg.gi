@@ -224,7 +224,7 @@ InstallMethod ( RightApproximationByAddM,
        f := NaturalHomomorphismBySubspace( V, W );
        VoverW := Range(f);
        B := BasisVectors(Basis(VoverW));
-       gens := List(B, x -> PreImagesRepresentative(f,x)); 
+       gens := List(B, x -> PreImagesRepresentativeNC(f,x)); 
        gens := List(gens, x -> Coefficients(BB,x));
        gens := List(gens, x -> LinearCombination(HomMC,x));         
        approx := List(gens, x -> Source(x));
@@ -309,7 +309,7 @@ InstallMethod ( LeftApproximationByAddM,
        f := NaturalHomomorphismBySubspace( V, W );
        VoverW := Range(f);
        B := BasisVectors(Basis(VoverW));
-       gens := List(B, x -> PreImagesRepresentative(f,x)); 
+       gens := List(B, x -> PreImagesRepresentativeNC(f,x)); 
        gens := List(gens, x -> Coefficients(BB,x));
        gens := List(gens, x -> LinearCombination(HomCM,x));
        approx := List(gens, x -> Range(x));
@@ -504,7 +504,7 @@ InstallMethod( ExtOverAlgebra,
 #
 # Sending elements of ext back to Hom(Syz(M),N)
 #
-            preimages := List(BasisVectors(Basis(ext)), x -> PreImagesRepresentative(pi,x));
+            preimages := List(BasisVectors(Basis(ext)), x -> PreImagesRepresentativeNC(pi,x));
 #
 # need to put the parentheses back in place
 #
@@ -615,7 +615,7 @@ InstallMethod( ExtAlgebraGenerators,
             if dim_ext_groups[i+1] > Dimension(V) then
                 generators[i+1] := Length(extgroups[i+1][2]) - Dimension(V); 
                 p := NaturalHomomorphismBySubspace(W,V);
-                tempgens := List(BasisVectors(Basis(Range(p))), x -> PreImagesRepresentative(p,x));
+                tempgens := List(BasisVectors(Basis(Range(p))), x -> PreImagesRepresentativeNC(p,x));
                 extalggenerators[i+1] := List(tempgens, x -> LinearCombination(extgroups[i+1][2],x));                 
 #                Print(Length(extgroups[i+1][2]) - Dimension(V)," new generator(s) in degree ",i,".\n");
             fi;
@@ -641,7 +641,7 @@ InstallMethod( ExtAlgebraGenerators,
     od;
     I := Ideal(EndM,idealsquare);
     g := NaturalHomomorphismByIdeal(EndM,I);
-    extalggenerators[1] := List(BasisVectors(Basis(Range(g))), x -> FromEndMToHomMM(M,PreImagesRepresentative(g,x)));
+    extalggenerators[1] := List(BasisVectors(Basis(Range(g))), x -> FromEndMToHomMM(M,PreImagesRepresentativeNC(g,x)));
     generators[1] := Length(extalggenerators[1]);
     return [dim_ext_groups,generators,extalggenerators];
 end
