@@ -1493,7 +1493,7 @@ InstallMethod( MinimalGeneratingSetOfModule,
   local f;
 
     f := TopOfModuleProjection(M);
-    return List(BasisVectors(Basis(Range(f))), x -> PreImagesRepresentative(f,x));
+    return List(BasisVectors(Basis(Range(f))), x -> PreImagesRepresentativeNC(f,x));
 end
 );
 

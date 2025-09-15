@@ -213,7 +213,7 @@ else
    VW := CanonicalBasis(Range(f));
    topofsyzygy := [];
    for x in VW do
-      Add(topofsyzygy,PreImagesRepresentative(f,x));
+      Add(topofsyzygy,PreImagesRepresentativeNC(f,x));
    od;
 #
 # Finding the minimal generators of the syzygy as elements of the
@@ -722,7 +722,7 @@ InstallMethod ( TensorProductOfModules,
        elementarytensor := function( m, n ) 
            local  p0, psum, nsum, v;
            
-           p0 := PreImagesRepresentative( pi, m );
+           p0 := PreImagesRepresentativeNC( pi, m );
            psum := List( [ 1..t ], n -> ElementInIndecProjective( A, ImageElm( projectionsP0[ n ], p0 ), projectivesinP0[ n ] ) );
            if IsQuotientOfPathAlgebra( A ) then
                psum := List( psum, x -> ElementOfQuotientOfPathAlgebra( ElementsFamily( FamilyObj( OppositeAlgebra( A ) ) ), OppositePathAlgebraElement( x ), true ) );
@@ -800,7 +800,7 @@ InstallMethod ( TensorProductOfModules,
    elementarytensor := function( m, n ) 
        local  p0, psum, nsum, v;
        
-       p0 := PreImagesRepresentative( pi, m );
+       p0 := PreImagesRepresentativeNC( pi, m );
        psum := List( [ 1..t ], n -> ElementInIndecProjective( A, ImageElm( projectionsP0[ n ], p0 ), projectivesinP0[ n ] ) );
        if IsQuotientOfPathAlgebra( A ) then
            psum := List( psum, x -> ElementOfQuotientOfPathAlgebra( ElementsFamily( FamilyObj( OppositeAlgebra( A ) ) ), OppositePathAlgebraElement( x ), true ) );

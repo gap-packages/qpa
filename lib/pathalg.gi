@@ -3272,7 +3272,7 @@ InstallMethod ( QuiverAlgebraOfeAe,
         for j in [ 1..Length( evertices ) ] do
             earrows[ i ][ j ] := Filtered(ImageElm( h,evertices[ i ] ) * BasisVectors( Basis( erademodsquare) ) * ImageElm( h, evertices[ j ] ), y -> y <> Zero( y ) );
             earrows[ i ][ j ] := BasisVectors( Basis( Subspace( Range( h ), earrows[ i ][ j ] ) ) );
-            earrows[ i ][ j ] := List( earrows[ i ][ j ], x -> evertices[ i ] * PreImagesRepresentative( h, x ) * evertices[ j ] );
+            earrows[ i ][ j ] := List( earrows[ i ][ j ], x -> evertices[ i ] * PreImagesRepresentativeNC( h, x ) * evertices[ j ] );
             adjacencymatrix[ i ][ j ] := Length( earrows[ i ][ j ] );
         od; 
     od;
@@ -3358,7 +3358,7 @@ InstallMethod ( QuiverAlgebraOfeAe,
     #
     #  Constructing the relations in  KQ.
     # 
-    idealgens := List( BasisVectors( Basis( Range( h ) ) ), x -> PreImagesRepresentative( h, x ) );
+    idealgens := List( BasisVectors( Basis( Range( h ) ) ), x -> PreImagesRepresentativeNC( h, x ) );
     #
     #  Lifting the relations back to  KQ  and returning the answer.
     #

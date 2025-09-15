@@ -495,7 +495,7 @@ InstallMethod( LiftingIdempotent,
     if not ( e in Range(f) ) then
         Error("the entered element <e> is not in the range of the entered homomorphism <f>, ");
     fi;
-    elift := PreImagesRepresentative(f, e);
+    elift := PreImagesRepresentativeNC(f, e);
     if elift = fail then
         Error("the enter element <e> has not preimage in the domain of <f>, ");
     fi;
@@ -772,7 +772,7 @@ InstallMethod ( AlgebraAsQuiverAlgebra,
         for j in [1..Length(centralidem)] do
             arrows[i][j] := Filtered(ImageElm(h,vertices[i])*BasisVectors(Basis(radAmodsquare))*ImageElm(h,vertices[j]), y -> y <> Zero(y));
             arrows[i][j] := BasisVectors(Basis(Subspace(Range(h),arrows[i][j])));
-            arrows[i][j] := List(arrows[i][j], x -> vertices[i]*PreImagesRepresentative(h,x)*vertices[j]);
+            arrows[i][j] := List(arrows[i][j], x -> vertices[i]*PreImagesRepresentativeNC(h,x)*vertices[j]);
             adjacencymatrix[i][j] := Length(arrows[i][j]);
         od; 
     od;
