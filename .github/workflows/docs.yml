@@ -1,9 +1,10 @@
-name: CI
+name: Docs
 
 # Trigger the workflow on push or pull request
 on:
   push:
     branches:
+      - main
       - master
   pull_request:
 
@@ -16,32 +17,19 @@ concurrency:
   cancel-in-progress: ${{ startsWith(github.ref, 'refs/pull/') }}
 
 jobs:
-  # The CI test job
-  test:
-    name: ${{ matrix.gap-branch }}
+  manual:
+    name: Build manuals
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        gap-branch:
-          - master
-          - stable-4.15
-          - stable-4.14
-          - stable-4.13
-          - stable-4.12
-          - stable-4.11
 
     steps:
       - uses: actions/checkout@v5
-      - uses: gap-actions/setup-gap@v2
+      - uses: gap-actions/setup-gap@v3
+      - uses: gap-actions/build-pkg-docs@v2
         with:
-          GAPBRANCH: ${{ matrix.gap-branch }}
-      - uses: gap-actions/build-pkg@v1
-      - uses: gap-actions/run-pkg-tests@v3
-      - uses: gap-actions/run-pkg-tests@v3
+          use-latex: 'true'
+      - name: 'Upload documentation'
+        uses: actions/upload-artifact@v4
         with:
-          only-needed: true
-      - uses: gap-actions/process-coverage@v2
-      - uses: codecov/codecov-action@v5
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
+          name: manual
+          path: ./doc/manual.pdf
+          if-no-files-found: error
