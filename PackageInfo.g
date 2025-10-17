@@ -82,7 +82,7 @@ PackageDoc := rec(
 ),
 
 Dependencies := rec(
-  GAP := ">=4.5",
+  GAP := ">=4.11",
   NeededOtherPackages := [["GBNP", ">=0.9.5"]],
   SuggestedOtherPackages := [],
   ExternalConditions := []
