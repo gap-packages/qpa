@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - master
+      - main
   pull_request:
 
 # the `concurrency` settings ensure that not too many CI jobs run in parallel
