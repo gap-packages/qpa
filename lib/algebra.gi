@@ -640,8 +640,8 @@ InstallMethod ( AlgebraAsQuiverAlgebra,
 
   local F, idA, C, id, centralidempotentsinA, radA, g, centralidem, 
         factoralgebradecomp, c, temp, dimcomponents, pi, ppowerr, 
-        gens, D, idD, order, generatorinD, K, i, alghom, vertices, 
-        radAsquare, h, radAmodsquare, arrows, adjacencymatrix, j, t, 
+        gens, D, idD, order, generatorinD, K, i, alghom, KinA, findbasis, 
+        vertices, radAsquare, h, radAmodsquare, arrows, adjacencymatrix, j, t, 
         Q, KQ, Jt, n, images, AA, AAgens, AAvertices, AAarrows, f, B, 
         matrix, fam, b, tempx, walk, length, image, solutions, 
         idealgens, I;
@@ -734,6 +734,7 @@ InstallMethod ( AlgebraAsQuiverAlgebra,
 
         return ord;
     end;
+
     generatorinD := Filtered(Elements(D), d -> order(d) = ppowerr - 1);     
     K := GF(ppowerr);
     D := AsAlgebra(PrimeField(K), D);
@@ -743,6 +744,37 @@ InstallMethod ( AlgebraAsQuiverAlgebra,
       i := i + 1;
     until 
       alghom <> fail or i = Length( generatorinD ) + 1;
+    
+    KinA := List( Elements( K ){[ 2..Size( K ) ]}, a -> ImageElm( alghom, a ) );
+    findbasis := function( V, gens ) 
+      local newgens, spingens, span, basis, n, W, Wnew;
+        
+      if Length( gens ) = 0 then 
+        return [];
+      fi;
+      newgens := Filtered( gens, g -> g <> Zero( g ) );
+      if Length( newgens ) = 0 then 
+        return [];
+      fi;
+      spingens := List( KinA, a -> ImageElm( h, a * PreImagesRepresentative( h, newgens[ 1 ] ) ) );
+      span := spingens;
+      basis := [];
+      Add( basis, newgens[ 1 ] );
+      n := 1;     
+      W := Subspace( V, span );
+      while Dimension( V ) > Dimension( W ) do
+        n := n + 1;
+        spingens := List( KinA, a -> ImageElm( h, a * PreImagesRepresentative( h, newgens[ n ] ) ) );
+        Wnew := Subspace( V, Concatenation( span, spingens ) );
+        if Dimension( W ) < Dimension( Wnew ) then
+          Add( basis, newgens[ n ] );
+          span := Concatenation( span, spingens[ n ] );
+        fi;
+        W := Wnew;
+      od;
+    
+      return basis;
+    end;
     #
     # Finding representatives for the vertices in  A.
     #
@@ -770,10 +802,17 @@ InstallMethod ( AlgebraAsQuiverAlgebra,
     adjacencymatrix := NullMat(Length(centralidem),Length(centralidem));
     for i in [1..Length(centralidem)] do
         for j in [1..Length(centralidem)] do
+          if Size( F ) < Size( K ) then 
+            arrows[i][j] := Filtered(ImageElm(h,vertices[i])*BasisVectors(Basis(radAmodsquare))*ImageElm(h,vertices[j]), y -> y <> Zero(y));
+            arrows[i][j] := Subspace( Range( h ), arrows[ i ][ j ] );
+            arrows[i][j] := findbasis( arrows[i][j], BasisVectors( Basis( arrows[i][j] ) ) );
+            arrows[i][j] := List( arrows[i][j], x -> vertices[i] * PreImagesRepresentative( h, x ) * vertices[ j ] );
+          else
             arrows[i][j] := Filtered(ImageElm(h,vertices[i])*BasisVectors(Basis(radAmodsquare))*ImageElm(h,vertices[j]), y -> y <> Zero(y));
             arrows[i][j] := BasisVectors(Basis(Subspace(Range(h),arrows[i][j])));
-            arrows[i][j] := List(arrows[i][j], x -> vertices[i]*PreImagesRepresentativeNC(h,x)*vertices[j]);
-            adjacencymatrix[i][j] := Length(arrows[i][j]);
+            arrows[i][j] := List(arrows[i][j], x -> vertices[i]*PreImagesRepresentative(h,x)*vertices[j]);
+          fi;
+          adjacencymatrix[i][j] := Length(arrows[i][j]);
         od; 
     od;
     #
