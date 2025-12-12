@@ -1044,20 +1044,21 @@ InstallMethod( CompareWithIndecProjective,
                [ IsPathAlgebraMatModule ],
                function( M )
 
-    local A, projlist, i;
-
-    #first find the algebra of which M is a module
-    A := RightActingAlgebra(M);
-    
-    projlist := IndecProjectiveModules(A);
-
-    for i in [1..Length(projlist)] do
-        if(DimensionVector(M) = DimensionVector(projlist[i])) then
-            return i;
-        fi;
-    od;
-
-    return false;
+    local topM;
+                   
+    if not IsProjectiveModule( M ) then 
+      return false;
+    fi;
+    #
+    # The isomorphism class of an (indecomposable) projective 
+    # module is uniquely determined by the top.
+    #
+    topM := DimensionVector( TopOfModule( M ) );
+    if Sum( topM ) > 1 then 
+      return false;
+    fi;
+      
+    return Position( topM, 1 );
 end);
 
 ######################################################
@@ -1072,21 +1073,21 @@ InstallMethod( CompareWithIndecInjective,
                [ IsPathAlgebraMatModule ],
                function( M )
 
-    local A, injlist, i;
-
-    #first find the algebra of which M is a module
-    A := RightActingAlgebra(M);
-    
-    injlist := IndecInjectiveModules(A);
-
-    for i in [1..Length(injlist)] do
-        if(DimensionVector(M) = DimensionVector(injlist[i])) then
-            return i;
-        fi;
-    od;
-
-    return false;
-
+    local socM;
+                   
+    if not IsInjectiveModule( M ) then 
+      return false;
+    fi;
+    #
+    # Isomorphism class of an (indecomposable) injective module is 
+    # uniquely determined by the socle.
+    #
+    socM := DimensionVector( SocleOfModule( M ) );
+    if Sum( socM ) > 1 then 
+      return false;
+    fi;
+            
+    return Position( socM, 1 );
 end);
 
 # other methods used, not directly connected to the topic
