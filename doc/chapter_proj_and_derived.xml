@@ -115,6 +115,14 @@ AR-translation of a complex <Math>C \in \mathcal{D}^{b}( \modc A
 Then <Math>P</Math> is the AR-translation of <Math>C</Math>, sometimes
 written <Math>\tau(C)</Math>.
 
+A projective complex <Math>P</Math> is displayed/printed such that
+each indecomposable projective module occurring in the complex is
+displayed as <Math>Pi</Math> for the corresponding vertex
+<Math>i</Math> in the quiver of the algebra for the acting path
+algebra. The index <Math>i</Math> is given by the ording of the
+vertices in the quiver. A similar scheme is followed when
+displaying/printing an injective complex. 
+
 The following documents the <Package>QPA</Package> functions for
 working with complexes in the derived category.
 
