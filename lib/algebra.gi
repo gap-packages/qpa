@@ -892,7 +892,7 @@ InstallMethod ( AlgebraAsQuiverAlgebra,
     #
     if not IsPathAlgebra( AA ) then
         idealgens := List( idealgens, x -> x![ 1 ] );
-	Append( idealgens, Jt );
+        Append( idealgens, Jt );
     fi;    
     if Length( idealgens ) = 0 then 
         return [ AA, images ];
