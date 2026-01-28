@@ -61,7 +61,9 @@ end);
 ##
 ## For a projective complex <C>
 ## Prints a projective complex such that the objects
-## are displayed as "Pi" for the correct vertex i
+## are displayed as sums of "nPi" for a vertex i, where
+## "n" is the number of copies of the indecomposable 
+## projective "Pi". If "n = 1", "n" is not printed.
 ##
 ## value 1: ensures that a complex which is both 
 ## projective and injective should be printed as projective.
@@ -71,7 +73,7 @@ InstallMethod( PrintObj,
                1,
                function( C )
 
-    local list, start, stop, l, t, symbol, finitetest, upperlimit, x;
+  local finitetest, start, stop, symbol, list, l, new, t;
     
     # check if C is finite or not
     if (IsInt(UpperBound(C))) then
@@ -87,28 +89,39 @@ InstallMethod( PrintObj,
     symbol := "P";
 
     if finitetest then
-        list := Reversed(DescriptionOfFiniteProjComplex(C));
+        list := Reversed( DescriptionOfFiniteProjComplex( C ) );
     else
-        list := [stop..start];
-        list := Reversed(List( list, x ->
-                               DescriptionOfProjComplexInDegree(C,x) ));
+        list := [ stop..start ];
+        list := Reversed( List( list, x -> DescriptionOfProjComplexInDegree( C, x ) ) );
     fi;
 
     # do the printing
-    if (not finitetest) then
+    if ( not finitetest ) then
         Print("--- ->");
     else
         Print("0 ->");
     fi;
     for l in list do
-        if (not IsEmpty(l)) then
+        if ( not IsEmpty( l ) ) then
             Print(" ",start,": ");
-            for t in [1..Length(l)] do
-                if (t = 1) then
-                    Print(symbol,l[t]);
+            new := true;
+            for t in [ 1..Length( l ) ] do
+              if new = true and l[ t ] > 0 then
+                if l[ t ] = 1 then 
+                  Print( symbol, t );
                 else
-                    Print(" + ",symbol,l[t]);
+                  Print( l[ t ], symbol, t );
                 fi;
+                new := false;
+              else
+                if l[ t ] > 0 then
+                  if l[ t ] = 1 then 
+                    Print(" + ", symbol, t );
+                  else
+                    Print(" + ", l[ t ], symbol, t );
+                  fi;
+                fi;
+              fi;
             od;
             Print(" ->");
             start := start - 1;
@@ -124,7 +137,9 @@ end);
 ##
 ## For an injective complex <C>
 ## Prints an injective complex such that the objects
-## are displayed as "Ii" for the correct vertex i
+## are displayed as sums of "nIi" for a vertex i, where
+## "n" is the number of copies of the indecomposable 
+## injective "Ii". If "n = 1", "n" is not printed.
 ##
 ## value 0: ensures that a complex which is both 
 ## projective and injective should be printed as projective.
@@ -134,8 +149,9 @@ InstallMethod( PrintObj,
                0,
                function( C )
 
-    local list, start, stop, l, t, symbol, finitetest, upperlimit, x;
-    # check if C is finite or not
+  local finitetest, start, stop, symbol, list, l, new, t;
+
+  # check if C is finite or not
     if (IsInt(UpperBound(C))) then
         finitetest := true;
         start := UpperBound(C);
@@ -149,11 +165,10 @@ InstallMethod( PrintObj,
     symbol := "I";
 
     if finitetest then
-        list := Reversed(DescriptionOfFiniteInjComplex(C));
+        list := Reversed( DescriptionOfFiniteInjComplex( C ) );
     else
-        list := [stop..start];
-        list := Reversed(List( list, x ->
-                               DescriptionOfInjComplexInDegree(C,x) ));
+        list := [ stop..start ];
+        list := Reversed( List( list, x -> DescriptionOfInjComplexInDegree( C, x ) ) );
     fi;
 
     # do the printing
@@ -163,21 +178,32 @@ InstallMethod( PrintObj,
         Print("0 ->");
     fi;
     for l in list do
-        if (not IsEmpty(l)) then
-            Print(" ",start,": ");
-            for t in [1..Length(l)] do
-                if (t = 1) then
-                    Print(symbol,l[t]);
-                else
-                    Print(" + ",symbol,l[t]);
-                fi;
-            od;
-            Print(" ->");
-            start := start - 1;
-        fi;
+      if ( not IsEmpty( l ) ) then
+        Print(" ",start,": ");
+        new := true;
+        for t in [ 1..Length( l ) ] do
+          if new = true and l[ t ] > 0 then
+            if l[ t ] = 1 then 
+              Print( symbol, t );
+            else 
+              Print( l[ t ], symbol, t );
+            fi;
+            new := false;
+          else
+            if l[ t ] > 0 then
+              if l[ t ] = 1 then 
+                Print(" + ", symbol, t );
+              else
+                Print(" + ", l[ t ], symbol, t );
+              fi;
+            fi;
+          fi;
+        od;
+        Print(" ->");
+        start := start - 1;
+      fi;
     od;
     Print(" 0");
-
 end);
 
 
@@ -936,28 +962,15 @@ InstallMethod( DescriptionOfProjOrInjComplexInDegree,
                function( C, i, test )
     local obj,comp, list, incls, incl;
     
-    obj := ObjectOfComplex(C, i);
+    obj := ObjectOfComplex( C, i );
 
+    if IsZero( obj ) then 
+      return [];
+    fi;
     if test then
-        return DescriptionOfProjectiveModule(obj);
+      return DimensionVector( TopOfModule( obj ) );
     else    
-        list := [];
-        
-        if IsZero(DimensionVector(obj)) then
-            return list;
-        fi;
-
-        if(not IsDirectSumOfModules(obj)) then
-            comp := CompareWithIndecInjective(obj);
-            Append(list, [comp]);
-        else
-            incls := DirectSumInclusions(obj);
-            for incl in incls do
-                comp := CompareWithIndecInjective(Source(incl));
-                Append(list, [comp]);
-            od;
-        fi;
-        return list;
+      return DimensionVector( SocleOfModule( obj ) );
     fi;
 end);
 
@@ -1016,17 +1029,17 @@ InstallMethod( DescriptionOfFiniteProjOrInjComplex,
 
     local i,obj,comp, incls, incl, list, templist, start, stop;
     
-    start := LowerBound(C);
-    stop := UpperBound(C);
+    start := LowerBound( C );
+    stop := UpperBound( C );
     list := [];
     
-    if(not(IsInt(UpperBound(C)))) then
+    if ( not( IsInt( UpperBound( C ) ) ) ) then
         Error("complex entered is not finite!");
     fi;
 
-    for i in [start..stop] do
-        templist := DescriptionOfProjOrInjComplexInDegree(C, i, test);
-        Append(list, [templist]);
+    for i in [ start..stop ] do
+        templist := DescriptionOfProjOrInjComplexInDegree( C, i, test );
+        Append( list, [ templist ] );
     od;
 
     return list;

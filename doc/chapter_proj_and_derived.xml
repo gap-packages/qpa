@@ -35,12 +35,12 @@ injective).
   </Returns>
   <Description>A complex for which this property is true, will be
   printed in a different manner than ordinary complexes. Instead of
-  writing the dimension vector of the objects in each degree, the
-  indecomposable direct summands are listed (for
-  instance <C>P1</C>, <C>P2</C> … , where <Math>P_i</Math> is the
-  indecomposable projective module corresponding to
-  vertex <Math>i</Math> of the quiver). Note that if a complex is both
-  projective and injective, it is printed as a projective complex.
+  writing the dimension vector of the objects in each degree, they are
+  listed as <C>n1P1 + n2P2 + . . . + ntPt</C>, where <C>ni</C> is the
+  number of copies of each indecomposable projective module
+  <Math>P_i</Math> corresponding to vertex <Math>i</Math> of the
+  quiver). Note that if a complex is both projective and injective, it
+  is printed as a projective complex. 
   </Description>
 </ManSection>
 
@@ -56,12 +56,12 @@ injective).
   </Returns>
   <Description>A complex for which this property is true, will be
   printed in a different manner than ordinary complexes. Instead of
-  writing the dimension vector of the objects in each degree, the
-  indecomposable direct summands are listed (for
-  instance <C>I1</C>, <C>I2</C> … , where <Math>I_i</Math> is the
-  indecomposable injective module corresponding to
-  vertex <Math>i</Math> of the quiver). Note that if a complex is both
-  projective and injective, it is printed as a projective complex.
+  writing the dimension vector of the objects in each degree, they are
+  listed as <C>n1I1 + n2I2 + . . . + ntIt</C>, where <C>ni</C> is the
+  number of copies of each indecomposable projective module
+  <Math>I_i</Math> corresponding to vertex <Math>i</Math> of the
+  quiver). Note that if a complex is both projective and injective, it
+  is printed as a projective complex.
   </Description>
 </ManSection>
 
