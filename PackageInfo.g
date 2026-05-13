@@ -1,8 +1,8 @@
 SetPackageInfo( rec(
 PackageName := "qpa",
 Subtitle := "Quivers and Path Algebras",
-Version := "1.36",
-Date := "07/04/2025", # dd/mm/yyyy format
+Version := "1.37",
+Date := "13/05/2026", # dd/mm/yyyy format
 License := "GPL-2.0-or-later",
 
 ArchiveFormats := ".tar.gz",
