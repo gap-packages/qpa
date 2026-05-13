@@ -9,9 +9,8 @@ InstallMethod( HighLevelGroebnerBasis,
     if not QPA_InArrowIdeal(els, A) then
       Error("elements do not belong to the arrow ideal of the path algebra");
     fi;
-
-    els := ReducedListQPA(MakeUniform(els), A);
-
+    
+    els := MakeUniform( els );
     gb := [];
 
     while Length(els) > 0 do
@@ -19,7 +18,8 @@ InstallMethod( HighLevelGroebnerBasis,
         el_tip := Tip(el);
         Add(gb, el/TipCoefficient(el_tip));
       od;
-
+      gb := ReducedListQPA( gb, A ); 
+      
       n := Length(gb);
       els := [];
 
