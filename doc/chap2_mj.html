@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<script type="text/javascript"
+  src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<title>GAP (QPA) - Chapter 2: Quickstart</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="GAPDoc2HTML" />
+<link rel="stylesheet" type="text/css" href="manual.css" />
+<script src="manual.js" type="text/javascript"></script>
+<script type="text/javascript">overwriteStyle();</script>
+</head>
+<body class="chap2"  onload="jscontent()">
+
+
+<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chap3_mj.html">3</a>  <a href="chap4_mj.html">4</a>  <a href="chap5_mj.html">5</a>  <a href="chap6_mj.html">6</a>  <a href="chap7_mj.html">7</a>  <a href="chap8_mj.html">8</a>  <a href="chap9_mj.html">9</a>  <a href="chap10_mj.html">10</a>  <a href="chap11_mj.html">11</a>  <a href="chap12_mj.html">12</a>  <a href="chap13_mj.html">13</a>  <a href="chapBib_mj.html">Bib</a>  <a href="chapInd_mj.html">Ind</a>  </div>
+
+<div class="chlinkprevnexttop">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap1_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap3_mj.html">[Next Chapter]</a>&nbsp;  </div>
+
+<p id="mathjaxlink" class="pcenter"><a href="chap2.html">[MathJax off]</a></p>
+<p><a id="X7F83DF528480AEA3" name="X7F83DF528480AEA3"></a></p>
+<div class="ChapSects"><a href="chap2_mj.html#X7F83DF528480AEA3">2 <span class="Heading">Quickstart</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap2_mj.html#X7D3488D984288697">2.1 <span class="Heading">Example 1 -- quivers, path
+algebras and quotients of path algebras</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap2_mj.html#X7D0E555F79FFD1EE">2.2 <span class="Heading">Example 2 -- Introducing modules</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap2_mj.html#X790BB3A1815A9B4D">2.3 <span class="Heading">Example 3 -- Constructing modules and module homomorphisms</span></a>
+</span>
+</div>
+</div>
+
+<h3>2 <span class="Heading">Quickstart</span></h3>
+
+<p>This chapter is intended for those who would like to get started with <strong class="pkg">QPA</strong> right away by playing with a few examples. We assume that the user is familiar with <strong class="pkg">GAP</strong> syntax, for instance the different ways to display various <strong class="pkg">GAP</strong> objects: <code class="code">View</code>, <code class="code">Print</code> and <code class="code">Display</code>. These features are all implemented for the objects defined in <strong class="pkg">QPA</strong>, and by using <code class="code">Display</code> on an object, you will get a complete description of it.</p>
+
+<p>The following examples show how to create the most fundamental algebraic structures featured in <strong class="pkg">QPA</strong>, namely quivers, path algebras and quotients of path algebras, modules and module homomorphisms. Sometimes, there is more than one way of constructing such objects. See their respective chapter in the documentation for more on this. The code from the examples can be found in the <code class="code">examples/</code> directory of the distribution of <strong class="pkg">QPA</strong>.</p>
+
+<p><a id="X7D3488D984288697" name="X7D3488D984288697"></a></p>
+
+<h4>2.1 <span class="Heading">Example 1 -- quivers, path
+algebras and quotients of path algebras</span></h4>
+
+<p>We construct a quiver <span class="SimpleMath">\(Q\)</span>, i.e. a finite directed graph, with one vertex and two loops:</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Q := Quiver( 1, [ [1,1,"a"], [1,1,"b"] ] );</span>
+&lt;quiver with 1 vertices and 2 arrows&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Display(Q);</span>
+Quiver( ["v1"], [["v1","v1","a"],["v1","v1","b"]] )
+</pre></div>
+
+<p>When displaying <span class="SimpleMath">\(Q\)</span>, we observe that the vertex has been named <code class="code">v1</code>, and that this name is used when describing the arrows. (The "Display" style of viewing a quiver can also be used in construction, i.e., we could have written <code class="code">Q := Quiver( ["v1"], [["v1","v1","a"],["v1","v1","b"]] )</code> to get the same object.)</p>
+
+<p>If we want to know the number and names of the vertices and arrows, without getting the structure of <span class="SimpleMath">\(Q\)</span>, we can request this information as shown below. We can also access the vertices and arrows directly.</p>
+
+
+<div class="example"><pre> 
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">VerticesOfQuiver(Q);</span>
+[ v1 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ArrowsOfQuiver(Q);</span>
+[ a, b ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Q.a;</span>
+a
+</pre></div>
+
+<p>The next step is to create the path algebra <span class="SimpleMath">\(kQ\)</span> from <span class="SimpleMath">\(Q\)</span>, where <span class="SimpleMath">\(k\)</span> is the rational numbers (in general, one can chose any field implemented in <strong class="pkg">GAP</strong>).</p>
+
+
+<div class="example"><pre> 
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">kQ := PathAlgebra(Rationals, Q);</span>
+&lt;Rationals[&lt;quiver with 1 vertices and 2 arrows&gt;]&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Display(kQ);</span>
+&lt;Path algebra of the quiver &lt;quiver with 1 vertices and 2 arrows&gt; 
+over the field Rationals&gt;
+</pre></div>
+
+<p>We know that this algebra has three generators, with the vertex <code class="code">v_1</code> as the identity. This can be verified by <strong class="pkg">QPA</strong>. For convenience, we introduce new variables <code class="code">v1</code>, <code class="code">a</code> and <code class="code">b</code> to get easier access to the generators.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">AssignGeneratorVariables(kQ);</span>
+#I  Assigned the global variables [ v1, a, b ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">v1; a; b;</span>
+(1)*v1
+(1)*a
+(1)*b
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">id := One(kQ);</span>
+(1)*v1
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">v1 = id;</span>
+true
+</pre></div>
+
+<p>Now, we want to construct a finite dimensional algebra, by dividing out some ideal. The generators of the ideal (the relations) are given in terms of paths, and it is important to know the convention of writing paths used in <strong class="pkg">QPA</strong>. If we first go the arrow <span class="SimpleMath">\(a\)</span> and then the arrow <span class="SimpleMath">\(b\)</span>, the path is written as <span class="SimpleMath">\(a*b\)</span>.</p>
+
+<p>Say that we want our ideal to be generated by the relations <code class="code">\{a^2, a*b - b*a, b^2\}</code>. Then we make a list <code class="code">relations</code> consisting of these relations and to construct the quotient we say: <code class="code">A := kQ/relations;</code> on the command line in <strong class="pkg">GAP</strong>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">relations := [a^2,a*b-b*a, b*b];</span>
+[ (1)*a^2, (1)*a*b+(-1)*b*a, (1)*b^2 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">A := kQ/relations;</span>
+&lt;Rationals[&lt;quiver with 1 vertices and 2 arrows&gt;]/&lt;two-sided ideal in 
+&lt;Rationals[&lt;quiver with 1 vertices and 2 arrows&gt;]&gt;, (3 generators)&gt;&gt;
+</pre></div>
+
+<p>See <a href="chap4_mj.html#X7F0D555379C97A6E"><span class="RefLink">4.6</span></a> for further remarks on constructing quotients of path algebras.</p>
+
+<p><a id="X7D0E555F79FFD1EE" name="X7D0E555F79FFD1EE"></a></p>
+
+<h4>2.2 <span class="Heading">Example 2 -- Introducing modules</span></h4>
+
+<p>In representation theory, there are several conventions for expressing modules of path algebras, and again it is useful to comment on the convention used in <strong class="pkg">QPA</strong>. A module (or representation) of an algebra <span class="SimpleMath">\(A = kQ/I\)</span> is, briefly explained, a picture of <span class="SimpleMath">\(Q\)</span> where the vertices are finite dimensional <span class="SimpleMath">\(k\)</span>-vectorspaces, and the arrows are linear transformations between the vector spaces respecting the relations of <span class="SimpleMath">\(I\)</span>. The modules are <em>right</em> modules, and a linear transformation from <span class="SimpleMath">\(k^n\)</span> to <span class="SimpleMath">\(k^m\)</span> is represented by a <span class="SimpleMath">\(n \times m\)</span>-matrix.</p>
+
+<p>There are several ways of constructing modules in <span class="SimpleMath">\(QPA\)</span>. First, we will explore some modules which <span class="SimpleMath">\(QPA\)</span> gives us for free, namely the indecomposable projectives. We start by constructing a new algebra. The underlying quiver has three vertices and three arrows and looks like an <span class="SimpleMath">\(A_3\)</span> quiver with both arrows pointing to the right, and one additional loop in the final vertex. The only relation is to go this loop twice.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Q := Quiver( 3, [ [1,2,"a"], [2,3,"b"], [3,3,"c"] ]);</span>
+&lt;quiver with 3 vertices and 3 arrows&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">kQ := PathAlgebra(Rationals, Q);</span>
+&lt;Rationals[&lt;quiver with 3 vertices and 3 arrows&gt;]&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">relations := [kQ.c*kQ.c];</span>
+[ (1)*c^2 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">A := kQ/relations;</span>
+&lt;Rationals[&lt;quiver with 3 vertices and 3 arrows&gt;]/
+&lt;two-sided ideal in &lt;Rationals[&lt;quiver with 3 vertices and 3 arrows&gt;]&gt;, 
+  (1 generators)&gt;&gt;
+</pre></div>
+
+<p>The indecomposable projectives are easily created with one command. We use <code class="code">Display</code> to explore the modules.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">projectives := IndecProjectiveModules(A);</span>
+[ &lt;[ 1, 1, 2 ]&gt;, &lt;[ 0, 1, 2 ]&gt;, &lt;[ 0, 0, 2 ]&gt; ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">proj1 := projectives[1];</span>
+&lt;[ 1, 1, 2 ]&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Display(proj1);</span>
+&lt;Module over &lt;Rationals[&lt;quiver with 3 vertices and 3 arrows&gt;]/
+&lt;two-sided ideal in &lt;Rationals[&lt;quiver with 3 vertices and 3 arrows&gt;]&gt;, 
+  (1 generators)&gt;&gt; with dimension vector 
+[ 1, 1, 2 ]&gt; and linear maps given by
+for arrow a:
+[ [  1 ] ]
+for arrow b:
+[ [  1,  0 ] ]
+for arrow c:
+[ [  0,  1 ],
+  [  0,  0 ] ]
+</pre></div>
+
+<p>If we, for some reason, want to use the maps of this module, we can get the matrices directly by using the command <code class="code">MatricesOfPathAlgebraModule(proj1)</code>:</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">M := MatricesOfPathAlgebraModule(proj1);</span>
+[ [ [ 1 ] ], [ [ 1, 0 ] ], [ [ 0, 1 ], [ 0, 0 ] ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">M[1];</span>
+[ [ 1 ] ]
+</pre></div>
+
+<p>Naturally, the indecomposable injective modules are just as easily constructed, and so are the simple modules.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">injectives := IndecInjectiveModules(A);</span>
+[ &lt;[ 1, 0, 0 ]&gt;, &lt;[ 1, 1, 0 ]&gt;, &lt;[ 2, 2, 2 ]&gt; ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">simples := SimpleModules(A);</span>
+[ &lt;[ 1, 0, 0 ]&gt;, &lt;[ 0, 1, 0 ]&gt;, &lt;[ 0, 0, 1 ]&gt; ]
+</pre></div>
+
+<p>We know for a fact that the simple module in vertex 1 and the indecomposable injective module in vertex 1 coincide. Let us look at this relationship in <strong class="pkg">QPA</strong>:</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">s1 := simples[1];</span>
+&lt;[ 1, 0, 0 ]&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">inj1 := injectives[1];</span>
+&lt;[ 1, 0, 0 ]&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsIdenticalObj(s1,inj1);</span>
+false
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">s1 = inj1;</span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsomorphicModules(s1,inj1);</span>
+true
+</pre></div>
+
+<p>We observe that <strong class="pkg">QPA</strong> recognizes the modules as "the same" (that is, isomorphic); however, they are <em>not</em> the same instance and hence the simplest test for equality fails. This is important to bear in mind -- objects which are isomorphic and regarded as the same in the "real world", are not necessarily the same in <strong class="pkg">GAP</strong>.</p>
+
+<p><a id="X790BB3A1815A9B4D" name="X790BB3A1815A9B4D"></a></p>
+
+<h4>2.3 <span class="Heading">Example 3 -- Constructing modules and module homomorphisms</span></h4>
+
+<p>Assume we want to construct the following <span class="SimpleMath">\(A\)</span>-module <span class="SimpleMath">\(M\)</span>, where <span class="SimpleMath">\(A\)</span> is the same algebra as in the previous example <span class="SimpleMath">\( \xymatrix{0\ar[r]^0 &amp; ℚ\ar[r]^1 &amp; ℚ \ar@(ur,dr)^0} \)</span>. This module is neither indecomposable projective or injective, nor simple, so we need to do the dirty work ourselves. Usually, the easiest way to construct a module is to state the dimension vector and the non-zero maps. Here, there is only one non-zero map, and we write</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">M := RightModuleOverPathAlgebra( A, [0,1,1], [ ["b", [[1]] ] ] );</span>
+&lt;[ 0, 1, 1 ]&gt;
+</pre></div>
+
+<p>To make sure we got everything right, we can use <code class="code">Display(M)</code> to view the maps. The most tricky thing is usually to get the correct numbers of brackets. Here is a slightly bigger example: <span class="SimpleMath">\( \xymatrix{ℚ\ar[r]^{\left(\begin{smallmatrix}0 &amp; 0\end{smallmatrix}\right)} &amp; ℚ^2\ar[r]^{\left(\begin{smallmatrix}1 &amp; 0\\ -1 &amp; 0\end{smallmatrix}\right)} &amp; ℚ^2\ar@(ur,dr)^{\left(\begin{smallmatrix}0 &amp; 0\\ 1 &amp; 0\end{smallmatrix}\right)}} \)</span>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">N := RightModuleOverPathAlgebra( A, [1,2,2], [ ["a",[[1,1]] ], </span>
+   ["b", [[1,0], [-1,0]] ], ["c", [[0,0],[1,0]] ] ] );
+&lt;[ 1, 2, 2 ]&gt;
+</pre></div>
+
+<p>Now we want to construct a map between the two modules, say <span class="SimpleMath">\(f: M \rightarrow N\)</span>, which is non-zero only in vertex 2. This is done by</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">f := RightModuleHomOverAlgebra(M,N, [ [[0]], [[1,1]], NullMat(1,2,Rationals)]);</span>
+&lt;&lt;[ 0, 1, 1 ]&gt; ---&gt; &lt;[ 1, 2, 2 ]&gt;&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Display(f);</span>
+&lt;&lt;Module over &lt;Rationals[&lt;quiver with 3 vertices and 3 arrows&gt;]/
+&lt;two-sided ideal in &lt;Rationals[&lt;quiver with 3 vertices and 3 arrows&gt;]&gt;, 
+  (1 generators)&gt;&gt; with dimension vector 
+[ 0, 1, 1 ]&gt; ---&gt; &lt;Module over &lt;Rationals[&lt;quiver with 3 vertices and 3 arrows&gt;]/
+&lt;two-sided ideal in &lt;Rationals[&lt;quiver with 3 vertices and 3 arrows&gt;]&gt;, 
+  (1 generators)&gt;&gt; with dimension vector [ 1, 2, 2 ]&gt;&gt;
+with linear map for vertex number 1:
+[ [  0 ] ]
+linear map for vertex number 2:
+[ [  1,  1 ] ]
+linear map for vertex number 3:
+[ [  0,  0 ] ]
+</pre></div>
+
+<p>Note the two different ways of writing zero maps. Again, we can retrieve the matrices describing <span class="SimpleMath">\(f\)</span>:</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">MatricesOfPathAlgebraMatModuleHomomorphism(f);</span>
+[ [ [ 0 ] ], [ [ 1, 1 ] ], [ [ 0, 0 ] ] ]
+</pre></div>
+
+
+<div class="chlinkprevnextbot">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap1_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap3_mj.html">[Next Chapter]</a>&nbsp;  </div>
+
+
+<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chap3_mj.html">3</a>  <a href="chap4_mj.html">4</a>  <a href="chap5_mj.html">5</a>  <a href="chap6_mj.html">6</a>  <a href="chap7_mj.html">7</a>  <a href="chap8_mj.html">8</a>  <a href="chap9_mj.html">9</a>  <a href="chap10_mj.html">10</a>  <a href="chap11_mj.html">11</a>  <a href="chap12_mj.html">12</a>  <a href="chap13_mj.html">13</a>  <a href="chapBib_mj.html">Bib</a>  <a href="chapInd_mj.html">Ind</a>  </div>
+
+<hr />
+<p class="foot">generated by <a href="https://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc">GAPDoc2HTML</a></p>
+</body>
+</html>
