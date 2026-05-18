@@ -1,9 +1,5 @@
-The QPA package for GAP 4.12
+The QPA package for GAP
 ==================================
-
-Version 1.36; April 7th, 2025
-Copyright (C) 2025 The QPA-team, 	
-             https://folk.ntnu.no/oyvinso/QPA/
 
 Introduction
 ------------
@@ -18,7 +14,7 @@ QPA is designed as a GAP >= 4.5.x share package providing new functions in
 noncommutative algebra. For the current functions provided by QPA read the
 manual for QPA:
 
-              https://folk.ntnu.no/oyvinso/QPA/manual.pdf
+        https://gap-packages.github.io/qpa/doc/chap0_mj.html
 
 Contents
 --------
@@ -90,7 +86,7 @@ https://www.mail-archive.com/forum@mail.gap-system.org/msg02528.html
 See the user manual in the doc directory for more information
 regarding the use of QPA, or follow the URL
 
-     https://folk.ntnu.no/oyvinso/QPA/manual.pdf
+     https://gap-packages.github.io/qpa/doc/chap0_mj.html
 
 to see the current manual/documentation of QPA (still work in
 progress, not brilliant at this point).
