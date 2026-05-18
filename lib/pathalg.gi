@@ -3437,15 +3437,12 @@ end
 InstallOtherMethod( Inverse, 
   "for an element in a quiver algebra",
   true,
-  [ IsRingElement ], 0,
+  [ IsElementOfQuotientOfPathAlgebra ], 0,
     
   function( elm )
 
   local fam, A, B, num_vert, idempotents, K, V, coeffs, inverse, diff, temp, n, r, i;
 
-  if not ( IsElementOfPathRing( elm ) or IsElementOfQuotientOfPathAlgebra( elm ) ) then
-    TryNextMethod();
-  fi;
   fam := FamilyObj( elm );
   if "pathRing" in NamesOfComponents( fam ) then
     A := fam!.pathRing;
@@ -3490,14 +3487,11 @@ end );
 
 
 InstallMethod( \^, "negative powers of elements in a QuiverAlgebra",
-  [ IsRingElement, IsNegInt ], 
+  [ IsElementOfQuotientOfPathAlgebra, IsNegInt ], 
 function( elm, n )
 
   local inverse;
 
-  if not ( IsElementOfPathRing( elm ) or IsElementOfQuotientOfPathAlgebra( elm ) ) then
-    TryNextMethod();
-  fi;
   inverse := Inverse( elm );
   if inverse <> fail then
     return inverse^( - n );
@@ -3507,13 +3501,8 @@ function( elm, n )
 end );
 
 InstallMethod( \^, "0-th power of elements in a QuiverAlgebra",
-  [ IsRingElement, IsZeroCyc ],
+  [ IsElementOfQuotientOfPathAlgebra, IsZeroCyc ],
 function( elm, n );
-
-  if not ( IsElementOfPathRing( elm ) or IsElementOfQuotientOfPathAlgebra( elm ) ) then
-    TryNextMethod();
-  fi;
-    
   return One( elm );
 end );
 
