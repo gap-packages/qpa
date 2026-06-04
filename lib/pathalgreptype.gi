@@ -63,7 +63,7 @@ function( A, bound )
     P := IndecProjectiveModules( A );
     I := IndecInjectiveModules( A );
     n := Length( S );
-    maxdim := Maximum( 2 * Dimension( A ), 30 );
+    maxdim := Maximum( 2 * Dimension( A ), 29 );
     num := 0;
     DTrS := ShallowCopy( S );
     TrDS := ShallowCopy( S );
