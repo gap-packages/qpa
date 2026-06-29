@@ -594,21 +594,27 @@ InstallMethod( DecomposeModuleViaCharPoly,
    [ IsPathAlgebraMatModule ],
    function( M ) 
     
-  local K, homMM, dimM, t, V, num_vert, num_repeats, p, h, matrices, 
-        charpolys, nonzero_vert, m, factorlist, numfactors, 
-        occurringprimes, multiplicities, maxmultiplicities, polys, 
-        mats, f, mat, i, homs;
+       local K, homMM, dimM, t, V, num_vert, num_repeats, max_runs, p, h, 
+             matrices, charpolys, nonzero_vert, m, factorlist, numfactors, 
+             occurringprimes, multiplicities, maxmultiplicities, polys, 
+             mats, f, mat, i, homs;
     
     K := LeftActingDomain( M );
     if not IsFinite( K ) then 
         Error( "The entered module is not over a finite field.\n" );
     fi;
-    homMM := HomOverAlgebra( M, M );
     dimM := DimensionVector( M );
+    num_vert := Length( DimensionVector( M ) );
+    if Sum( dimM ) < num_vert + 1 then 
+      return DecomposeModule( M );
+    fi;
+    
+    homMM := HomOverAlgebra( M, M );    
     t := Length( homMM );
     V := FullRowSpace( K, t );
     num_vert := Length( DimensionVector( M ) );
     num_repeats := 0;
+    max_runs := Int( 40 / Sum( dimM ) ) + 10;
     repeat
       num_repeats := num_repeats + 1;
       p := Random( V );
@@ -651,7 +657,7 @@ InstallMethod( DecomposeModuleViaCharPoly,
         return Flat( List( List( homs, Kernel ), m -> DecomposeModuleViaCharPoly( m ) ) );
       fi;
     until 
-      num_repeats = 2 * Size( K ) * Length( homMM );
+      num_repeats = max_runs;
 
     return [ M ];
 end
