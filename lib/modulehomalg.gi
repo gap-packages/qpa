@@ -1763,8 +1763,8 @@ InstallMethod ( RightApproximationByAddM,
             t,  M,  projections,  f;
 
     A := RightActingAlgebra( C );
-    if Length( L ) = 0 then
-      return ZeroMapping( ZeroModule( A ), C );
+    if Length( L ) = 0 or Dimension( C ) = 0 then
+        return ZeroMapping( ZeroModule( A ), C );
     fi;
     if not ForAll( L, l -> RightActingAlgebra( l ) = A ) then
       Error( "Not all modules in the list of modules entered are modules over the same algebra.\n" );
