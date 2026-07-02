@@ -25,13 +25,9 @@ jobs:
       fail-fast: false
       matrix:
         gap-version:
-          - 'devel'
-          - '4.16'
-          - '4.15'
-          - '4.14'
-          - '4.13'
-          - '4.12'
-          - '4.11'
+          - 'devel'   # current GAP development version from git
+          - 'latest'  # latest GAP release
+          - 'minimal' # oldest GAP release supported by this package
 
     steps:
       - uses: actions/checkout@v6
