@@ -356,7 +356,7 @@ StarOfModule (reported and fixed by Erich Neun)
 Miscellaneous
 ----------------------------------------------------------------------
 Added tests to the test file.
-Added Travis CI and Codecov integration (Alexander Konovalov)
+Added Travis CI and Codecov integration (Olexandr Konovalov)
 Fixed broken link to issues page.
 Fixed files in examples (Erich Neun)
 Improved the efficiency of the operation CommonDirectSummand.
@@ -700,13 +700,13 @@ Discontinued functions:
 Removed two attributes "P0" and "P1" of a 
 "IsProjectiveResolution" as they were not in use in QPA and 
 they are likely to overwrite other variables when QPA is 
-loaded.  Pointed out by A. Konovalov.
+loaded.  Pointed out by O. Konovalov.
 
 Miscellaneous
 ------------------------------------------------------------
 
 Removed the bin directory from the repository (not in use, 
-pointed out by A. Konovalov).  Trimmed the file PackageInfo.g
+pointed out by O. Konovalov).  Trimmed the file PackageInfo.g
 for comments. 
 
 ==========================================================================
