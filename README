@@ -22,7 +22,7 @@ Contents
 The following should be included with this version of QPA.
 
 
-    CHANGES  	  - files containing the history of changes in 
+    CHANGES.md  	  - files containing the history of changes in 
                	    QPA since version 1.05.
     LICENSE  	  - the license governing QPA usage
     PackageInfo.g - contains metainformation about the package
