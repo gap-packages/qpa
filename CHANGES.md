@@ -1,9 +1,6 @@
-==========================================================================
-Changes from version 1.36 to 1.37:
-==========================================================================
+## 1.37 (2026-05-13)
 
 Added functions in this release:
-----------------------------------------------------------------------
 ADRAlgebraOfAlgebra
 ADRAlgebraOfBasicModule
 EndOfBasicModuleAsQuiverAlgebra
@@ -13,31 +10,23 @@ Units
 Zeroth and negative powers of elements
 
 Discontinued/removed functions:
-------------------------------------------------------------
 None
 
 Changed code for:
-----------------------------------------------------------------------
 None
 
 Fixed bugs in:
-----------------------------------------------------------------------
 AlgebraAsQuiverAlgebra
 CompareWithIndecProjective
 CompareWithIndecInjective
 HighLevelGroebnerBasis
 
 Miscellaneous
-----------------------------------------------------------------------
 Fixed typos in documentation
 
-
-==========================================================================
-Changes from version 1.35 to 1.36:
-==========================================================================
+## 1.36 (2025-05-28)
 
 Added functions in this release:
-----------------------------------------------------------------------
 AssociatedGradedAlgebra
 FiniteGlobalDimGreen
 FiniteGlobalDimKirkKuz
@@ -48,16 +37,13 @@ RandomModule
 UnderlyingLinearMap
 
 Discontinued/removed functions:
-------------------------------------------------------------
 None
 
 Changed code for:
-----------------------------------------------------------------------
 IsNthSyzygy
 TraceOfModule
 
 Fixed bugs in:
-----------------------------------------------------------------------
 AreDerivedEquivalent
 GoodTruncationAbeove
 GoodTruncationBelow
@@ -68,33 +54,25 @@ RandomModule
 TopOfModuleProjection
 
 Miscellaneous
-----------------------------------------------------------------------
 Add functions for inverse length inverse lexicographic ordering
 Fix documentation
 
-
-==========================================================================
-Changes from version 1.34 to 1.35:
-==========================================================================
+## 1.35 (2024-01-04)
 
 Added functions in this release:
-----------------------------------------------------------------------
 ElementIn_vA_AsElementInIndecProj
 FromMatrixToHomomorphismOfProjectives
 LeftSupportQuiverAlgebraElement
-RightSupportQuiverAlgebraElement 
-SupportQuiverAlgebraElement 
+RightSupportQuiverAlgebraElement
+SupportQuiverAlgebraElement
 
 Discontinued/removed functions:
-------------------------------------------------------------
 None
 
 Changed code for:
-----------------------------------------------------------------------
 1stSyzygy
 
 Fixed bugs in:
-----------------------------------------------------------------------
 AlgebraAsQuiverAlgebra
 AlmostSplitSequenceInPerpT
 EndOfModuleAsQuiverAlgebra
@@ -113,19 +91,14 @@ Bugs for isolated vertices fixed in:
 
 
 Miscellaneous
-----------------------------------------------------------------------
 Added computation of a basis of a algebra of an acyclic quiver
 Enumerator test added for quivers
 Fixed typos in CHANGES, documentation, headers of functions
-Updated documentation for 
+Updated documentation for
 
-
-==========================================================================
-Changes from version 1.33 to 1.34:
-==========================================================================
+## 1.34 (2022-08-02)
 
 Added functions in this release:
-----------------------------------------------------------------------
 
 DoubleQuiver
 HomOverAlgebraWithBasisFunction
@@ -134,29 +107,21 @@ IrreducibleMorphismsStartingIn
 PreprojectiveAlgebra, added classical implementation
 
 Discontinued/removed functions:
-------------------------------------------------------------
 None
 
 Changed code for:
-----------------------------------------------------------------------
 None
 
 Fixed bugs in:
-----------------------------------------------------------------------
 None
 
 Miscellaneous
-----------------------------------------------------------------------
 
 Updated documentation for OrderOfNakayamaAutomorphism
 
-
-==========================================================================
-Changes from version 1.32 to 1.33:
-==========================================================================
+## 1.33 (2022-03-24)
 
 Added functions in this release:
-----------------------------------------------------------------------
 AdmissibleSequenceGenerator
 EnvelopingAlgebraHomomorphism
 OppositeAlgebraHomomorphism
@@ -164,11 +129,9 @@ TrivialExtensionOfQuiverAlgebraProjection
 Functions for string algebras - see stringalgebra.gd and validity.gd
 
 Discontinued/removed functions:
-------------------------------------------------------------
 None
 
 Changed code for:
-----------------------------------------------------------------------
 AllSubmodulesOfModule
 IsIndecomposableModule
 ProjectivePathAlgebraPresentation
@@ -176,51 +139,37 @@ RightApproximationByAddM
 TensorProductOfPathAlgebras
 
 Fixed bugs in:
-----------------------------------------------------------------------
 DominantDimensionOfAlgebra
 IsSymmetricAlgebra
 RightApproximationByPerpT
 
 Miscellaneous
-----------------------------------------------------------------------
 Added file makedoc.g
 Updated README
 Updated PackageInfo.g
 Updated testall.tst
 Removed AINV
 
-
-==========================================================================
-Changes from version 1.31 to 1.32:
-==========================================================================
+## 1.32 (2021-03-04)
 
 Added functions in this release:
-----------------------------------------------------------------------
 None
 
 Discontinued/removed functions:
-------------------------------------------------------------
 None
 
 Changed code for:
-----------------------------------------------------------------------
 None
 
 Fixed bugs in:
-----------------------------------------------------------------------
 IsSymmetricAlgebra
 
 Miscellaneous
-----------------------------------------------------------------------
 Update create-release.sh
 
-
-==========================================================================
-Changes from version 1.30 to 1.31:
-==========================================================================
+## 1.31 (2020-09-09)
 
 Added functions in this release:
-----------------------------------------------------------------------
 
 DecomposeModuleViaCharPoly (experimental)
 DecomposeModuleViaTop (experimentral)
@@ -238,11 +187,9 @@ TransposeOfModule on homomorphisms
 
 
 Discontinued/removed functions:
-------------------------------------------------------------
 
 
 Changed code for:
-----------------------------------------------------------------------
 BlockSplittingIdempotents
 Center
 DualOfAlgebraAsModuleOverEnvelopingAlgebra
@@ -253,7 +200,6 @@ QuiverAlgebraOfAmodAeA
 
 
 Fixed bugs in:
-----------------------------------------------------------------------
 CotiltingModule
 DualOfModule
 ImageProjectiveInclusion
@@ -268,16 +214,11 @@ StarOfModuleHomomorphism
 
 
 Miscellaneous
-----------------------------------------------------------------------
 Added CONTRIBUTING.md
 
-
-==========================================================================
-Changes from version 1.29 to 1.30:
-==========================================================================
+## 1.30 (2019-09-18)
 
 Added functions in this release:
-----------------------------------------------------------------------
 
 AllIndecModulesOfLengthAtMost
 AllModulesOfLengthAtMost
@@ -291,17 +232,14 @@ RestrictionViaAlgebraHomomorphismMap
 RightApproximationByAddM
 
 Discontinued/removed functions:
-------------------------------------------------------------
 NthSyzygyNC
 
 Changed code for:
-----------------------------------------------------------------------
 Complex
 NthSyzygy (removed output)
 YonedaProduct
 
 Fixed bugs in:
-----------------------------------------------------------------------
 AlgebrasAsQuiverAlgebra
 AllSubmodulesOfModule
 Complex
@@ -312,22 +250,15 @@ LiftTwoOrthogonalIdempotents
 TauOfComplex
 
 Miscellaneous
-----------------------------------------------------------------------
 
-==========================================================================
-Changes from version 1.28 to 1.29:
-==========================================================================
+## 1.29 (2018-10-10)
 
 Updated release script.
 Fixed issue #27.
 
-
-==========================================================================
-Changes from version 1.27 to 1.28:
-==========================================================================
+## 1.28 (2018-10-08)
 
 Added functions in this release:
-----------------------------------------------------------------------
 
 BrauerAlgebra
 DecomposeModuleProbabilistic
@@ -335,26 +266,22 @@ HighLevelGroebnerBasis
 
 
 Discontinued/removed functions:
-------------------------------------------------------------
 
 
 Changed code for:
-----------------------------------------------------------------------
 DecomposeModule
 IsDirectSumOfModules
 PathAlgebra
 
 Fixed bugs in:
-----------------------------------------------------------------------
 
 Isolated vertices bugs (reported by Erich Neun)
 Quiver product decomposition problems (reported by Erich Neun, fixed
-       	       		     	       by Oeystein Skartsaeterhagen)
+                                   by Oeystein Skartsaeterhagen)
 RestrictionViaAlgebraHomomorphism (reported and fixed by Erich Neun)
 StarOfModule (reported and fixed by Erich Neun)
 
 Miscellaneous
-----------------------------------------------------------------------
 Added tests to the test file.
 Added Travis CI and Codecov integration (Olexandr Konovalov)
 Fixed broken link to issues page.
@@ -362,12 +289,9 @@ Fixed files in examples (Erich Neun)
 Improved the efficiency of the operation CommonDirectSummand.
 Removed the obsolete MutableNullMat and replaced it with NullMat.
 
-==========================================================================
-Changes from version 1.26 to 1.27:
-==========================================================================
+## 1.27 (2017-12-16)
 
 Added functions in this release:
-----------------------------------------------------------------------
 
 IsPosetAlgebra
 IsNthSyzygy
@@ -380,29 +304,23 @@ TensorAlgebraInclusion
 TrivialExtensionOfQuiverAlgebraLevel
 
 Discontinued/removed functions:
-------------------------------------------------------------
 
 PositionsProperty (moved from QPA to GAP)
 
 Changed code for:
-----------------------------------------------------------------------
 
 SimpleTensor
 TensorProductOfAlgebras
 TrivialExtensionOfQuiverAlgebra
 
 Fixed bugs in:
-----------------------------------------------------------------------
 
 ReadAlgebra and SaveAlgebra (reported by Klaus Lux)
 RightModuleOverPathAlgebra (reported by Rene Marczinzik)
 
-==========================================================================
-Changes from version 1.25 to 1.26:
-==========================================================================
+## 1.26 (2017-06-02)
 
 Added functions in this release:
-----------------------------------------------------------------------
 
 AlmostSplitSequence - an new version
 AlmostSplitSequenceInPerpT
@@ -411,17 +329,12 @@ IsTriangularReduced
 TensorProductOfModules
 
 Miscellaneous
-----------------------------------------------------------------------
 
 Updated coordinates for people and URL's in PackageInfo.g
 
-
-==========================================================================
-Changes from version 1.24 to 1.25:
-==========================================================================
+## 1.25 (2016-10-21)
 
 Added functions in this release:
-----------------------------------------------------------------------
 
 InjectiveEnvelope
 InjectiveResolution
@@ -432,37 +345,27 @@ RightApproximationByPerpT
 SaveAlgebra
 
 Miscellaneous
-----------------------------------------------------------------------
 
 Added source repository and issue tracker to PackageInfo.g
 
-
-==========================================================================
-Changes from version 1.23 to 1.24:
-==========================================================================
+## 1.24 (2016-02-24)
 
 Delete the file banner.g, as this file now is obsolete.
 
 Updated doc/chapterintroduction.xml to take into account that QPA is now
-a deposited package in GAP. 
+a deposited package in GAP.
 
 Updated the files version, PackageInfo.g and doc/qpadocumentation.xml
 to version 1.24.
 
-
-==========================================================================
-Changes from version 1.22 to 1.23:
-==========================================================================
+## 1.23 (2015-11-05)
 
 Updated the files version, PackageInfo.g and doc/qpadocumentation.xml
 to version 1.23.
 
-==========================================================================
-Changes from version 1.21 to 1.22:
-==========================================================================
+## 1.22 (2015-10-23)
 
 Added structures in this release:
-----------------------------------------------------------------------
 
 Complexes can automatically detect repetition and change to "repeat"
 type.  New type "next/repeat" which can be used when specifying
@@ -473,12 +376,11 @@ differentials are given by a finite list which is repeated
 indefinitely) if it detects repetition.
 
 Added functions in this release:
-----------------------------------------------------------------------
 
 AlgebraAsQuiverAlgebra
 IdealOfQuotient
 Immediate methods for GlobalDimension for semisimple and selfinjective
-	                                         algebras
+                                             algebras
 Immediate method for IsFinitetypeAlgebra for Nakayama algebras
 IsTauPeriodic
 IsZero (for IsPathAlgebraMatModule)
@@ -488,7 +390,6 @@ MakeQPADocumentation (function for building documentation)
 RelationsOfAlgebra
 
 Changed code for:
-----------------------------------------------------------------------
 
 AlgebraAsModuleOverEnvelopingAlgebra
 Center/Centre
@@ -499,7 +400,6 @@ RadicalOfModuleInclusion
 Print for homomorphisms
 
 Fixed bugs in:
-----------------------------------------------------------------------
 
 EndOfModuleAsQuiverAlgebra (reported by Bernhar Boelhmer)
 IdempotentsForDecomposition
@@ -509,28 +409,23 @@ IsomorphismOfModules
 Print for complexes with empty middle part
 
 Documentation:
-----------------------------------------------------------------------
 
-Documentation was updated. 
+Documentation was updated.
 
 Changes in function names:
 Old name -------> New name
-------------------------------------------------------------
 
 None
 
 Synonyms
-------------------------------------------------------------
 
 None
 
 Discontinued functions:
-------------------------------------------------------------
 
 None
 
 Miscellaneous
-------------------------------------------------------------
 
 Removed chap0.html, manual.pdf and manual.six from the git
 repository. Changed create-release.sh.
@@ -541,192 +436,153 @@ Added an introduction to QPA and some exercises.
 
 Improved the script for generating the documentation.
 
-==========================================================================
-Changes from version 1.20 to 1.21:
-==========================================================================
+## 1.21 (2015-06-03)
 
 Added structures in this release:
-----------------------------------------------------------------------
 
 None
 
 Added functions in this release:
-----------------------------------------------------------------------
 
 None
 
 Changed code for:
-----------------------------------------------------------------------
 
 None
 
 Fixed bugs in:
-----------------------------------------------------------------------
 
-IsAdmissibleIdeal 
+IsAdmissibleIdeal
 
 Documentation:
-----------------------------------------------------------------------
 
-Documentation was updated. 
+Documentation was updated.
 
 Changes in function names:
 Old name -------> New name
-------------------------------------------------------------
 
 DirectSumOfModules ----> DirectSumOfQPAModules (conflict with
                                 the happrime package)
 
 Synonyms
-------------------------------------------------------------
 
 None
 
 Discontinued functions:
-------------------------------------------------------------
 
 None
 
 Miscellaneous
-------------------------------------------------------------
 
 Updated PackageInfo.g (removing any reference to SourceForge
-and replacing it with GitHub information), tst/testall.tst, 
+and replacing it with GitHub information), tst/testall.tst,
 
-
-==========================================================================
-Changes from version 1.19 to 1.20:
-==========================================================================
+## 1.20 (2015-05-27)
 
 Added structures in this release:
-----------------------------------------------------------------------
 
 None
 
 Added functions in this release:
-----------------------------------------------------------------------
 
 None
 
 Changed code for:
-----------------------------------------------------------------------
 
 PrimitiveIdempotents  (change from a global function to an attribute)
 
 Fixed bugs in:
-----------------------------------------------------------------------
 
 None
 
 Documentation:
-----------------------------------------------------------------------
 
-Documentation was updated. 
+Documentation was updated.
 
 Changes in function names:
 Old name -------> New name
-------------------------------------------------------------
 
 PrimitiveIdempotentsOfSimpleAlgebra ----> PrimitiveIdempotents
    (went back to name prior to last change)
 
 Synonyms
-------------------------------------------------------------
 
 None
 
 Discontinued functions:
-------------------------------------------------------------
 
 AsLeftModuleModuleGeneralMappingByImages (remove implementation
      of this function as it was conflicting the test  alghom.tst
-     and it was not in use in QPA). 
+     and it was not in use in QPA).
 
 Miscellaneous
-------------------------------------------------------------
 
 None
 
-==========================================================================
-Changes from version 1.18 to 1.19:
-==========================================================================
+## 1.19 (2015-05-26)
 
 Added structures in this release:
-----------------------------------------------------------------------
 
 None
 
 Added functions in this release:
-----------------------------------------------------------------------
 
 IsHereditaryAlgebra
 IsSemisimpleAlgebra (added method)
 
 Changed code for:
-----------------------------------------------------------------------
 
 AlgebraAsModuleOverEnvelopingAlgebra (takes the algebra as an argument
-                                      instead of the enveloping 
+                                      instead of the enveloping
                                       algebra of the algebra)
 FaithfulDimension (changed from operation to attribute)
 
 Fixed bugs in:
-----------------------------------------------------------------------
 
 None
 
 Documentation:
-----------------------------------------------------------------------
 
-Documentation was added and updated. 
+Documentation was added and updated.
 
 Changes in function names:
 Old name -------> New name
-------------------------------------------------------------
 ConnectedComponents ----> ConnectedComponentsOfQuiver
 IsComplex ----> IsQPAComplex
 IsSimpleModule ----> IsSimpleQPAModule
-IsVertex ----> IsQuiverVertex 
+IsVertex ----> IsQuiverVertex
 PrimitiveIdempotents ----> PrimitiveIdempotentsOfSimpleAlgebra
 
 Synonyms
-------------------------------------------------------------
 
 None
 
 Discontinued functions:
-------------------------------------------------------------
 
-Removed two attributes "P0" and "P1" of a 
-"IsProjectiveResolution" as they were not in use in QPA and 
-they are likely to overwrite other variables when QPA is 
+Removed two attributes "P0" and "P1" of a
+"IsProjectiveResolution" as they were not in use in QPA and
+they are likely to overwrite other variables when QPA is
 loaded.  Pointed out by O. Konovalov.
 
 Miscellaneous
-------------------------------------------------------------
 
-Removed the bin directory from the repository (not in use, 
+Removed the bin directory from the repository (not in use,
 pointed out by O. Konovalov).  Trimmed the file PackageInfo.g
-for comments. 
+for comments.
 
-==========================================================================
-Changes from version 1.17 to 1.18:
-==========================================================================
+## 1.18 (2015-04-17)
 
 Added structures in this release:
-----------------------------------------------------------------------
 
 None
 
 Added functions in this release:
-----------------------------------------------------------------------
 
 IsHereditaryAlgebra (added a method).
 LeftInverseOfHomomorphism
 RightInverseOfHomomorphism
 
 Changed code for:
-----------------------------------------------------------------------
 
 ChainMap
 IsIsomorphism
@@ -736,55 +592,45 @@ IsomorphismOfModules
 MoreLeftMinimalVersion
 
 Fixed bugs in:
-----------------------------------------------------------------------
 
 TransposeOfModule (Reported by Florian Eisele).
 TrivialExtensionOfQuiverAlgebra
 
 Documentation:
-----------------------------------------------------------------------
 
-Documentation was added and updated. 
+Documentation was added and updated.
 
 Changes in function names:
 Old name -------> New name
-------------------------------------------------------------
 
 None
 
 Synonyms
-------------------------------------------------------------
 
 None
 
 Discontinued functions:
-------------------------------------------------------------
 
 None
 
 Miscellaneous
-------------------------------------------------------------
 
 Removed a conflicting declaration and definition of the
        command NewBasis.
 Updated PackageInfo.g, README, init.g and read.g.
 Added a test file, tst/testall.tst
 
-==========================================================================
-Changes from version 1.16 to 1.17:
-==========================================================================
+## 1.17 (2015-04-17)
 
 Added structures in this release:
-----------------------------------------------------------------------
 
 None
 
 Added functions in this release:
-----------------------------------------------------------------------
 
 AllComplementsOfAlmostCompleteTiltingModule
 CotiltingModule
-DynkinQuiver 
+DynkinQuiver
 InjDimension
 InjDimensionOfModule
 IsCotiltingModule
@@ -800,32 +646,27 @@ TiltingModule
 
 
 Changed code for:
-----------------------------------------------------------------------
 
 MinimalRightAddMApproximation (return zero if one takes
         the approximation of the zero module. Reported by
-	Rene Marczinzik.)
+    Rene Marczinzik.)
 
 Fixed bugs in:
-----------------------------------------------------------------------
 
 DominantDimensionOfAlgebra (Reported by Rene Marczinzik.)
 GorensteinDimensionOfAlgebra (Reported by Rene Marczinzik.)
 
 
 Documentation:
-----------------------------------------------------------------------
 
-Documentation was added and updated. 
+Documentation was added and updated.
 
 Changes in function names:
 Old name -------> New name
-------------------------------------------------------------
 
 None
 
 Synonyms
-------------------------------------------------------------
 
 AllComplementsOfAlmostCompleteCotiltingModule ==
                  AllComplementsOfAlmostCompleteTiltingModule
@@ -836,25 +677,18 @@ RightMutationOfCotiltingModuleComplement ==
 
 
 Discontinued functions:
-------------------------------------------------------------
 
 None
 
 Miscellaneous
-------------------------------------------------------------
 
-
-==========================================================================
-Changes from version 1.15 to 1.16:
-==========================================================================
+## 1.16 (2014-07-19)
 
 Added structures in this release:
-----------------------------------------------------------------------
 
 None
 
 Added functions in this release:
-----------------------------------------------------------------------
 
 TraceOfModule
 RightFacMApproximation
@@ -867,28 +701,23 @@ LeftSubMApproximation
 MinimalLeftSubMApproximation
 
 Changed code for:
-----------------------------------------------------------------------
 
 None
 
 Fixed bugs in:
-----------------------------------------------------------------------
 
 None
 
 Documentation:
-----------------------------------------------------------------------
 
-Documentation was added and updated. 
+Documentation was added and updated.
 
 Changes in function names:
 Old name -------> New name
-------------------------------------------------------------
 
 None
 
 Synonyms
-------------------------------------------------------------
 
 MinimalRightAddMApproximation == MinimalRightApproximation
 MinimalLeftAddMApproximation == MinimalLeftApproximation
@@ -896,24 +725,18 @@ RightFacMApproximation == TraceOfModule
 RightFacApproximation == TraceOfModule
 
 Discontinued functions:
-------------------------------------------------------------
 
 None
 
 Miscellaneous
-------------------------------------------------------------
 
-==========================================================================
-Changes from version 1.14 to 1.15:
-==========================================================================
+## 1.15 (2014-07-19)
 
 Added structures in this release:
-----------------------------------------------------------------------
 
 None
 
 Added functions in this release:
-----------------------------------------------------------------------
 
 AssignGeneratorVariables
 AssociatedMonoimalAlgebra
@@ -928,103 +751,80 @@ ProjDimension (attribute)
 ProjDimensionOfModule
 
 Changed code for:
-----------------------------------------------------------------------
 
-CartanMatrix, CoxeterMatrix, CoxeterPolynomial 
+CartanMatrix, CoxeterMatrix, CoxeterPolynomial
 
 Fixed bugs in:
-----------------------------------------------------------------------
 
 EndOfModuleAsQuiverAlgebra
 TrivialExtensionOfQuiverAlgebra
 
 Documentation:
-----------------------------------------------------------------------
 
-Documentation was added and updated. 
+Documentation was added and updated.
 
 Changes in function names:
 Old name -------> New name
-------------------------------------------------------------
 None
 
 Synonyms
-------------------------------------------------------------
 
 None
 
 Discontinued functions:
-------------------------------------------------------------
 
 None
 
 Miscellaneous
-------------------------------------------------------------
 
 None
 
-
-==========================================================================
-Changes from version 1.13 to 1.14:
-==========================================================================
+## 1.14 (2014-01-21)
 
 Added structures in this release:
-----------------------------------------------------------------------
 
 None
 
 Added functions in this release:
-----------------------------------------------------------------------
 
 OrbitDim
 
 Changed code for:
-----------------------------------------------------------------------
 
-IsFiniteTypeAlgebra, also extending the function to give a definite 
-		     answer for radical square algebras.
+IsFiniteTypeAlgebra, also extending the function to give a definite
+             answer for radical square algebras.
 
 Fixed bugs in:
-----------------------------------------------------------------------
 
 EndOfModuleAsQuiverAlgebra
 
 Documentation:
-----------------------------------------------------------------------
 
-Documentation was added and updated. 
+Documentation was added and updated.
 
 Changes in function names:
 Old name -------> New name
-------------------------------------------------------------
 None
 
 Synonyms
-------------------------------------------------------------
 
 None
 
 Discontinued functions:
-------------------------------------------------------------
 
 None
 
 Miscellaneous
-------------------------------------------------------------
 
 None
 
-==========================================================================
-Changes from version 1.12 to 1.13:
-==========================================================================
+## 1.13 (2013-10-22)
 
 Added structures in this release:
-----------------------------------------------------------------------
 
 None
 
 Added functions in this release:
-----------------------------------------------------------------------
 
 \= (for path algebra matrix modules)
 ComplexityOfAlgebra
@@ -1039,55 +839,44 @@ New way of introducing AR-quivers in degorderfinitetype
 TrivialExtensionOfQuiverAlgebra
 
 Changed code for:
-----------------------------------------------------------------------
 
-RightModuleOverPathAlgebra (now check if the entered matrices are over 
+RightModuleOverPathAlgebra (now check if the entered matrices are over
                             the correct field)
 
 
 Fixed bugs in:
-----------------------------------------------------------------------
 
 CoxeterPolynomial
 EnvelopingAlgebra
 
 Documentation:
-----------------------------------------------------------------------
 
-Documentation was added and updated. 
+Documentation was added and updated.
 
 
 Changes in function names:
 Old name -------> New name
-------------------------------------------------------------
 None
 
 
 Synonyms
-------------------------------------------------------------
 
 None
 
 Discontinued functions:
-------------------------------------------------------------
 
 None
 
 
 Miscellaneous
-------------------------------------------------------------
 
 Have added functions that require GAP >= 4.5.x.
 
 Started to add acknowledgements in the documentation
 
-
-==========================================================================
-Changes from version 1.11 to 1.12:
-==========================================================================
+## 1.12
 
 Added structures in this release:
-----------------------------------------------------------------------
 
 
 IsAdmissibleQuotientOfPathAlgebra
@@ -1105,7 +894,6 @@ IsUnitForm
 
 
 Added functions in this release:
-----------------------------------------------------------------------
 
 ARQuiverNumerical
 BilinearFormOfUnitForm
@@ -1122,7 +910,7 @@ DimHom
 FiniteChainMap
 GlobalDimension (attribute of an algebra)
 HomomorphismFromImages
-IsBasicAlgebra 
+IsBasicAlgebra
 IsElementaryAlgebra
 IsExceptionalModule
 IsFiniteTypeAlgebra (new method)
@@ -1153,15 +941,14 @@ StarOfModuleHomomorphism
 SymmetricMatrixOfUnitForm
 TitsUnitFormOfAlgebra
 true methods for giving the relationship between categories/properties
-     	     	 of algebras
-true methods for giving the relationship between categories/properties 
-     	     	 of modules
+                 of algebras
+true methods for giving the relationship between categories/properties
+                 of modules
 UnitForm
 ZeroChainMap
 
 
 Changed code for:
-----------------------------------------------------------------------
 
 "/" applied to a path algebra and a list of relations therein
 AlgebraAsModuleOverEnvelopingAlgebra
@@ -1173,10 +960,10 @@ CoxeterPolynomial
 DirectSumOfModules
 EnvelopingAlgebra
 FullSubquiver
-IndecProjectiveModules, added properties: IsIndecomposableModule, 
-			IsProjectiveModule
+IndecProjectiveModules, added properties: IsIndecomposableModule,
+            IsProjectiveModule
 IndecInjectiveModules, added properties: IsIndecomposableModule,
-		       IsInjectiveModule
+               IsInjectiveModule
 IsSchurianAlgebra
 IsSymmetricAlgebra
 IsWeaklySymmetricAlgebra
@@ -1189,51 +976,40 @@ TensorProductOfAlgebras
 VerticesOfPathAlgebra
 
 Fixed bugs in:
-----------------------------------------------------------------------
 
 None
 
 Documentation:
-----------------------------------------------------------------------
 
-Documentation was added and updated. 
+Documentation was added and updated.
 
 
 Changes in function names:
 Old name -------> New name
-------------------------------------------------------------
 
 None
 
 Synonyms
-------------------------------------------------------------
 
 None
 
 Discontinued functions:
-------------------------------------------------------------
 
 None
 
 
 Miscellaneous
-------------------------------------------------------------
 None
 
-
-==========================================================================
-Changes from version 1.10 to 1.11:
-==========================================================================
+## 1.11 (2013-08-29)
 
 Added structures in this release:
-----------------------------------------------------------------------
 
 None
 
 Added functions in this release:
-----------------------------------------------------------------------
 
-A new way for constructing a quotient of a path algebra, 
+A new way for constructing a quotient of a path algebra,
 BasicVersionOfModule
 BlockSplittingIdempotents
 BlockDecompositionOfModule
@@ -1247,7 +1023,6 @@ IyamaGenerator
 RightAlgebraModuleToPathAlgebraMatModule
 
 Changed code for:
-----------------------------------------------------------------------
 
 RadicalOfModule, SocleOfModule, RadicalSeries and SocleSeries changed
 from attributes to operations. Merged the two commands ExtOverAlgebra
@@ -1255,60 +1030,54 @@ and ExtOverAlgebraAdd. Changed the order of the arguments in
 NakayamaAlgebra.
 
 Fixed bugs in:
-----------------------------------------------------------------------
 
 IsAdmissibleIdeal
 
 Documentation:
-----------------------------------------------------------------------
 
-Documentation was added and updated. 
+Documentation was added and updated.
 
 The code is better documented with most functions getting a header
-with a short explanation of the code. 
+with a short explanation of the code.
 
 A short introduction was added with general aims and information
 about installation and system requirements, and the old introduction
-is now called Quickstart. 
+is now called Quickstart.
 
-An abstract was added and the frontpage was modified.  
+An abstract was added and the frontpage was modified.
 
 Changes in function names:
 Old name -------> New name
-------------------------------------------------------------
 
 AlgebraAsModuleOfEnvelopingAlgebra --->
                         AlgebraAsModuleOverEnvelopingAlgebra
 
 Synonyms
-------------------------------------------------------------
 
-AlgebraAsModuleOfEnvelopingAlgebra  ~ 
+AlgebraAsModuleOfEnvelopingAlgebra  ~
                         AlgebraAsModuleOverEnvelopingAlgebra
 
 
 Discontinued functions:
-------------------------------------------------------------
 
 None
 
 
 Miscellaneous
-------------------------------------------------------------
 Updated the gi-files in the gap-directory by adding headers and
 comments in the code.
 
 Started to add the examples from the documentation in to separate
-files in the examples/ directory. 
+files in the examples/ directory.
 
 Deleted the old example files, comp-examples.txt and examples.txt.
 
-Renamed the tests directory to "tst". 
+Renamed the tests directory to "tst".
 
 Moved the gap directory to a lib directory. Changed the paths in the
 init.g and read.g files from gap/? to lib/?.
 
-Added a CHANGES file to the root directory. 
+Added a CHANGES file to the root directory.
 
 We have packed the reduced the size of the packed distribution of QPA
 by only including the files in the git repository. That means, for
@@ -1322,34 +1091,27 @@ this is that this opens new possibilities. For instance, it would then
 be easier to add functions like ComplexityOfModule, etc. So we advise
 to install GAP 4.6.
 
-==========================================================================
-Changes from version 1.09 to 1.10:
-==========================================================================
+## 1.10 (2013-01-22)
 
 Added structures in this release:
-----------------------------------------------------------------------
 
 None
 
 Added functions in this release:
-----------------------------------------------------------------------
 
 IsConnectedQuiver
 IsFiniteTypeAlgebra
 IsTreeQuiver
 
 Changed code for:
-----------------------------------------------------------------------
 
-Some simplifications of the code here and there. 
+Some simplifications of the code here and there.
 
 Fixed bugs in:
-----------------------------------------------------------------------
 
 For some functions in the file derivedcat.gi.
 
 Documentation:
-----------------------------------------------------------------------
 
 A new introduction in the documentation has been written.
 Documentation was added and updated. This is the major change in this
@@ -1358,45 +1120,36 @@ Still more work left. Also some of the code is better documented.
 
 Changes in function names:
 Old name -------> New name
-------------------------------------------------------------
 No changes
 
 Synonyms
-------------------------------------------------------------
 No changes
 
 Discontinued functions:
-------------------------------------------------------------
 
-Deleting the function Square as it was in conflict with GAP 4.5.?. 
+Deleting the function Square as it was in conflict with GAP 4.5.?.
 
 Miscellaneous
-------------------------------------------------------------
 Deleted files and changed names on some of files in the repository.
 Updated the gi-files in the gap-directory by adding headers and
 comments in the code.
 
-PackageInfo.g-file has been updated. 
+PackageInfo.g-file has been updated.
 
 The CVS repository is no longer updated. We have switched to a GIT
-repository. Look at the web page 
+repository. Look at the web page
 
-	    www.math.ntnu.no/~oyvinso/QPA/
+        www.math.ntnu.no/~oyvinso/QPA/
 
-for further information how to use this repository. 
+for further information how to use this repository.
 
-
-==========================================================================
-Changes from version 1.08 to 1.09:
-==========================================================================
+## 1.09 (2012-10-19)
 
 Added structures in this release:
-----------------------------------------------------------------------
 
 None
 
 Added functions in this release:
-----------------------------------------------------------------------
 
 AnnihilatorOfModule
 CutComplexAbove
@@ -1412,61 +1165,48 @@ ProjetiveResolutionOfPathAlgebraModule
 SumOfSubmodules
 
 Changed code for:
-----------------------------------------------------------------------
 
-DecomposeModule 
+DecomposeModule
 
 Changed the definition of some functions with respect to being an
 attribute, a property, etc.
 
 Fixed bugs in:
-----------------------------------------------------------------------
 
 LeftDivision
 PredecessorOfModule
 
 Documentation:
-----------------------------------------------------------------------
 
 Documentation was added and updated.
 
-----------------------------------------------------------------------
 
 Changes in function names:
 
 Old name -------> New name
-------------------------------------------------------------
 No changes
 
 Synonyms
-------------------------------------------------------------
 No changes
 
 Discontinued functions:
-------------------------------------------------------------
 
 Deleting one version of DecomposeModule
 
 Miscellaneous
-------------------------------------------------------------
 
 Updated banner.
 This is (probably) the last time we update the cvs repository.
 We will now start using a git repository instead. More on this
-later. 
+later.
 
-
-==========================================================================
-Changes from version 1.07 to 1.08:
-==========================================================================
+## 1.08
 
 Added structures in this release:
-----------------------------------------------------------------------
 
 Ideals in a path algebra, IsIdealInPathAlgebra.
 
 Added functions in this release:
-----------------------------------------------------------------------
 
 AnnihilatorOfModule
 CanonicalAlgebra
@@ -1495,7 +1235,6 @@ SumOfSubmodules
 TauOfComplex
 
 Changed code for:
-----------------------------------------------------------------------
 
 1stSyzygy
 AlgebraAsModuleOfEnvelopingAlgebra
@@ -1524,7 +1263,7 @@ RadicalOfModuleInclusion
 RadicalSeries
 RightMinimalVersion
 SimpleModules
-SocleOfModule           
+SocleOfModule
 SocleOfModuleInclusion
 SocleSeries
 TopOfModule
@@ -1532,12 +1271,11 @@ TopOfModuleProjection
 TransposeOfModule
 ZeroModule               (the above were operations, now attr or prop)
 Display, PrintObj, ViewObj (for quivers, path algebras, quotient of
-	 	   	    path algebras, modules and homomorphisms)   
+                path algebras, modules and homomorphisms)
 \in (for elements in a path algebra)
 MinimalGeneratingSetOfModule
 
 Fixed bugs in:
-----------------------------------------------------------------------
 
 ExtOverAlgebra
 ExtOverAlgebraAdd
@@ -1548,38 +1286,29 @@ SimpleModules
 TopOfModuleProjection
 
 Documentation:
-----------------------------------------------------------------------
 
 Documentation was added and updated.
 
-----------------------------------------------------------------------
 
 Changes in function names:
 
 Old name -------> New name
-------------------------------------------------------------
 SingleObjectComplex ---------> StalkComplex
 
 Synonyms
-------------------------------------------------------------
 No changes
 
 Discontinued functions:
-------------------------------------------------------------
 No discontinued functions.
 
-==========================================================================
-Changes from version 1.06 to 1.07:
-==========================================================================
+## 1.07 (2012-04-19)
 
 Added structures in this release:
-----------------------------------------------------------------------
 
-Representation of chain complexes and chain maps. The code is 
+Representation of chain complexes and chain maps. The code is
 unfinished, not tested much, and almost not documented at all.
 
 Added functions in this release:
-----------------------------------------------------------------------
 
 IsEnvelopingAlgebra
 LiftingMorphismFromProjective
@@ -1591,31 +1320,26 @@ MorphismOnCokernel
 RightModuleOverPathAlgebra - new version of this operation
 
 Changed code for:
-----------------------------------------------------------------------
 
 MatricesOfPathAlgebraModule
-CommonDirectSummand 
-DecomposeModule - however no guarantee that this actually computes a 
-                  decomposition of the module. Have not checked the 
+CommonDirectSummand
+DecomposeModule - however no guarantee that this actually computes a
+                  decomposition of the module. Have not checked the
                   mathematics behind the algorithms.
 
 Fixed bugs:
-----------------------------------------------------------------------
 
 Fixed a bug in SimpleModules
 Fixed a bug in IsomorphicModules
 
 Documentation:
-----------------------------------------------------------------------
 
 Chapter 2, 3, 4 and 7 are updated.
 
-----------------------------------------------------------------------
 
 Changes in function names:
 
 Old name -------> New name
-------------------------------------------------------------
 Coker -------> CoKernel
 CokerProjection -------> CoKernelProjection
 DimensionMatModule -------> Dimension
@@ -1673,55 +1397,49 @@ VertexSimpleRepresentations -------> SimpleModules
 ZeroRepresentation -------> ZeroModule
 
 Synonyms
-------------------------------------------------------------
 DTr -------> DualOfTranspose
 TrD -------> TransposeOfDual
 
 Discontinued functions:
-------------------------------------------------------------
 GeneratorsOfRep -------> MinimalGeneratorsOfModule
 
-==========================================================================
-Changes from version 1.05 to 1.06:
-==========================================================================
+## 1.06 (2012-01-19)
 
 Added functions in this release:
 
-SupportModuleElement - finds the vertices where the module element has 
-		       support.
+SupportModuleElement - finds the vertices where the module element has
+               support.
 
-BasisOfProjectives - finds the basis that is used to compute the 
-		     indecomposable projective modules.
+BasisOfProjectives - finds the basis that is used to compute the
+             indecomposable projective modules.
 
 VertexPosition - finds the position of a vertex in the list of vertices
 
-HomFromProjective - given an element in a module with only support in one 
-		    vertex, this function finds the homomorphism from the 
-		    indecomposable projective corresponding to this vertex 
-		    onto the given element.
+HomFromProjective - given an element in a module with only support in one
+            vertex, this function finds the homomorphism from the
+            indecomposable projective corresponding to this vertex
+            onto the given element.
 
-ProjectiveCover - finds the projective cover of a module, ie. the 
-		  homomorphism P(M) ---> M
+ProjectiveCover - finds the projective cover of a module, ie. the
+          homomorphism P(M) ---> M
 
 ExtOne - computes Ext^1(M,N) for two modules M and N.
 
-AlmostSplitSequence - computes the almost split sequence ending in an 
-		      indecomposable non-projective module.
+AlmostSplitSequence - computes the almost split sequence ending in an
+              indecomposable non-projective module.
 
 In addition:
 1) a number of bug fixes to older functions.
-2) documentation is updated, but still a long way from being called good. 
+2) documentation is updated, but still a long way from being called good.
 
-==========================================================================
-Changes from version 1.04 to 1.05:
-==========================================================================
+## 1.05
 
-1. Fixed bugs in the functions HomOverPathAlgebra, ModuleIsomorphismTest, 
+1. Fixed bugs in the functions HomOverPathAlgebra, ModuleIsomorphismTest,
    DirectSummandTest and IdentityMap.
 
-2. Added the functions CommonDirectSummand, MaximalCommonDirectSummand, 
+2. Added the functions CommonDirectSummand, MaximalCommonDirectSummand,
    InAdditiveClosureTest, IsSplitMono, IsSplitEpi, RightMinimalVersion,
-   LeftMinimalVersion, MinimalRightApproximation, MinimalLeftApproximation, 
+   LeftMinimalVersion, MinimalRightApproximation, MinimalLeftApproximation,
    IsQuadraticIdeal and QuadraticPerpOfPathAlgebraIdeal.
 
 3. Updated the documentation/manual.
