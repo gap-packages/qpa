@@ -30,7 +30,7 @@ jobs:
           - 'minimal' # oldest GAP release supported by this package
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: gap-actions/setup-gap@v3
         with:
           gap-version: ${{ matrix.gap-version }}
