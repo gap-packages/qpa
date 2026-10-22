@@ -1,3 +1,12 @@
+## 1.38 (2026-10-22)
+
+Changed code for:
+DecomposeModuleViaCharPoly
+IsFiniteTypeAlgebra
+
+Fixed bugs in:
+RightApproximationByAddM
+
 ## 1.37 (2026-05-13)
 
 Added functions in this release:
